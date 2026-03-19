@@ -1,7 +1,7 @@
 import type { ConfigWithExtends } from "@eslint/config-helpers";
 
 export const cursorlessVscodeConfig: ConfigWithExtends = {
-  files: ["packages/cursorless-vscode/src/scripts/**/*.ts"],
+  files: ["packages/app-vscode/src/scripts/**/*.ts"],
 
   rules: {
     "no-restricted-imports": [

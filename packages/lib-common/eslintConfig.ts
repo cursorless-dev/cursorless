@@ -2,7 +2,7 @@ import type { ConfigWithExtendsArray } from "@eslint/config-helpers";
 
 export const commonConfig: ConfigWithExtendsArray = [
   {
-    files: ["packages/common/**/*.ts"],
+    files: ["packages/lib-common/**/*.ts"],
 
     ignores: ["**/*.test.ts"],
 
@@ -12,7 +12,7 @@ export const commonConfig: ConfigWithExtendsArray = [
   },
 
   {
-    files: ["packages/common/src/types/command/**/*.ts"],
+    files: ["packages/lib-common/src/types/command/**/*.ts"],
 
     rules: {
       "@typescript-eslint/no-restricted-imports": [

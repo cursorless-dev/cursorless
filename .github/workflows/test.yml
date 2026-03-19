@@ -103,11 +103,11 @@ jobs:
         if: runner.os != 'Linux'
 
       - name: Run QuickJS tests (Linux)
-        run: xvfb-run -a pnpm -F @cursorless/lib-talon-e2e test:quickjs
+        run: xvfb-run -a pnpm -F @cursorless/test-talon-e2e test:quickjs
         if: runner.os == 'Linux' && matrix.app_version == 'stable'
 
       - name: Run QuickJS tests (Win,Mac)
-        run: pnpm -F @cursorless/lib-talon-e2e test:quickjs
+        run: pnpm -F @cursorless/test-talon-e2e test:quickjs
         if: runner.os != 'Linux'
 
       - name: Create VSCode dist that can be installed locally
@@ -119,7 +119,7 @@ jobs:
         uses: HaaLeo/publish-vscode-extension@v2
         with:
           pat: none
-          packagePath: packages/cursorless-vscode/dist
+          packagePath: packages/app-vscode/dist
           dryRun: true
 
       - name: Rename vsix (Linux)

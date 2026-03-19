@@ -9,7 +9,7 @@ import { visit } from "unist-util-visit";
 
 const require = createRequire(import.meta.url);
 
-const docsRelative = "packages/cursorless-org-docs/src/docs/";
+const docsRelative = "packages/app-web-docs/src/docs/";
 const userRelative = docsRelative + "user";
 const contributingRelative = docsRelative + "contributing";
 const repoLink = "https://github.com/cursorless-dev/cursorless/tree/main/";
@@ -147,7 +147,7 @@ const config: Config = {
           // to serve a markdown document on homepage
           routeBasePath: "/",
           editUrl:
-            "https://github.com/cursorless-dev/cursorless/edit/main/packages/cursorless-org-docs/",
+            "https://github.com/cursorless-dev/cursorless/edit/main/packages/app-web-docs/",
           sidebarPath: require.resolve("./sidebar.js"),
           beforeDefaultRemarkPlugins: [
             remarkPluginFixLinksToRepositoryArtifacts,

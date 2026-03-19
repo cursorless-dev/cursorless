@@ -23,7 +23,7 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
     // Passed to `--extensionDevelopmentPath`
     const extensionDevelopmentPath = path.resolve(
       getCursorlessRepoRoot(),
-      "packages/cursorless-vscode/dist",
+      "packages/app-vscode/dist",
     );
 
     const crashDir = getEnvironmentVariableStrict("VSCODE_CRASH_DIR");

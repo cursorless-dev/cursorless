@@ -37,7 +37,7 @@ jobs:
         uses: HaaLeo/publish-vscode-extension@v2
         with:
           pat: ${{ secrets.OPEN_VSX_TOKEN }}
-          packagePath: packages/cursorless-vscode/dist
+          packagePath: packages/app-vscode/dist
           skipDuplicate: true
 
       - name: Publish to Visual Studio Marketplace

@@ -1,5 +1,5 @@
 {
-  "name": "@cursorless/lib-talon-e2e",
+  "name": "@cursorless/test-talon-e2e",
   "version": "1.0.0",
   "description": "Our Talon everywhere/JS end-to-end tests",
   "license": "MIT",

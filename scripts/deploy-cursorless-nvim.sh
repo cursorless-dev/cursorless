@@ -27,8 +27,8 @@ rsync -avhW --no-compress --exclude test --exclude .busted cursorless.nvim/ "$st
 
 # Copy the built .js file
 mkdir -p "$staging_dir/node/cursorless-neovim/out"
-cp packages/cursorless-neovim/package.json "$staging_dir/node/cursorless-neovim/"
-cp packages/cursorless-neovim/out/index.cjs "$staging_dir/node/cursorless-neovim/out/"
+cp packages/app-neovim/package.json "$staging_dir/node/cursorless-neovim/"
+cp packages/app-neovim/out/index.cjs "$staging_dir/node/cursorless-neovim/out/"
 
 # Extract commit message and body
 commit_message="$(git log -1 --pretty=format:"%s" HEAD)"

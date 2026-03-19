@@ -1,7 +1,7 @@
 import type { ConfigWithExtends } from "@eslint/config-helpers";
 
 export const cursorlessEngineConfig: ConfigWithExtends = {
-  files: ["packages/cursorless-engine/**/*.ts"],
+  files: ["packages/lib-engine/**/*.ts"],
 
   ignores: ["**/src/scripts/**", "**/src/testUtil/**", "**/*test.ts"],
 

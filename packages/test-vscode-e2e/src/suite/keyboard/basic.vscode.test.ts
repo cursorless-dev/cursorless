@@ -320,7 +320,7 @@ async function injectFakes(): Promise<void> {
 
   const keyboardConfigPath = path.join(
     getCursorlessRepoRoot(),
-    "packages/cursorless-vscode/src/keyboard/keyboard-config.fixture.json",
+    "packages/app-vscode/src/keyboard/keyboard-config.fixture.json",
   );
 
   const keyboardConfig = JSON.parse(await readFile(keyboardConfigPath, "utf8"));

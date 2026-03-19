@@ -55,7 +55,7 @@ export async function showCheatsheet(
 export async function updateDefaults(spokenFormInfo: CheatsheetInfo) {
   const defaultsPath = path.join(
     getCursorlessRepoRoot(),
-    "packages/cheatsheet/src/lib/sampleSpokenFormInfos/defaults.json",
+    "packages/lib-cheatsheet/src/lib/sampleSpokenFormInfos/defaults.json",
   );
 
   const outputObject = produce(spokenFormInfo, (draft) => {

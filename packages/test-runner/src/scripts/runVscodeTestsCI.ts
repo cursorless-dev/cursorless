@@ -8,7 +8,7 @@ import { launchVscodeAndRunTests } from "../launchVscodeAndRunTests";
 
 const extensionTestsPath = path.resolve(
   getCursorlessRepoRoot(),
-  "packages/test-harness/out/extensionTestsVscode.cjs",
+  "packages/test-runner/out/extensionTestsVscode.cjs",
 );
 
 void launchVscodeAndRunTests(extensionTestsPath);

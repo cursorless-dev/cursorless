@@ -22,7 +22,7 @@ export async function launchNeovimAndRunTests() {
     const cli = getEnvironmentVariableStrict("NEOVIM_PATH");
 
     let nvimFolder = "";
-    const initLuaFile = `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init.lua`;
+    const initLuaFile = `${getCursorlessRepoRoot()}/packages/test-runner/src/config/init.lua`;
     if (process.platform === "win32") {
       nvimFolder = "C:/Users/runneradmin/AppData/Local/nvim/";
     } else if (process.platform === "linux") {
@@ -50,7 +50,7 @@ export async function launchNeovimAndRunTests() {
       console.log(`\t${file}`);
     });
 
-    const logName = `${getCursorlessRepoRoot()}/packages/cursorless-neovim/out/nvim_node.log`;
+    const logName = `${getCursorlessRepoRoot()}/packages/app-neovim/out/nvim_node.log`;
 
     // testing normal nvim startup
     //https://stackoverflow.com/questions/3025615/is-there-a-vim-runtime-log
@@ -97,7 +97,7 @@ export async function launchNeovimAndRunTests() {
 
     console.log("listing cursorless-neovim/out/:");
     readdirSync(
-      `${getCursorlessRepoRoot()}/packages/cursorless-neovim/out/`,
+      `${getCursorlessRepoRoot()}/packages/app-neovim/out/`,
     ).forEach((file) => {
       console.log(`\t${file}`);
     });

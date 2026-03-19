@@ -7,8 +7,8 @@ if [ ! -e "${CURSORLESS_REPO_ROOT-nonexistent}" ]; then
 fi
 echo "CURSORLESS_REPO_ROOT: $CURSORLESS_REPO_ROOT"
 cursorless_nvim_dir="$CURSORLESS_REPO_ROOT/cursorless.nvim"
-cursorless_neovim_node_in_dir="$CURSORLESS_REPO_ROOT/packages/cursorless-neovim"
-test_harness_node_in_dir="$CURSORLESS_REPO_ROOT/packages/test-harness"
+cursorless_neovim_node_in_dir="$CURSORLESS_REPO_ROOT/packages/app-neovim"
+test_harness_node_in_dir="$CURSORLESS_REPO_ROOT/packages/test-runner"
 
 if [[ "${CI:-x}" == "true" ]]; then
   # If running in CI, only copy the necessary files for testing and release

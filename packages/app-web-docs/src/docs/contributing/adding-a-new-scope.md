@@ -16,7 +16,7 @@ For example, `"funk"` (`namedFunction`) has the following facets:
 - `namedfunction.method`, corresponding to a class method declaration, and
 - `namedfunction.constructor`, corresponding to a class constructor declaration.
 
-Have a look in [`scopeSupportFacetInfos`](../../../../../packages/common/src/scopeSupportFacets/scopeSupportFacetInfos.ts) to see which facets the given scope has. The key is the id of the facet, and the value has information about the facet, including a description and a `scopeType` field indicating which scope type the facet corresponds to.
+Have a look in [`scopeSupportFacetInfos`](../../../../../packages/lib-common/src/scopeSupportFacets/scopeSupportFacetInfos.ts) to see which facets the given scope has. The key is the id of the facet, and the value has information about the facet, including a description and a `scopeType` field indicating which scope type the facet corresponds to.
 
 These facet ids will be the keys in your language's scope support table below.
 
@@ -27,7 +27,7 @@ Note that in addition to the straightforward facet IDs that correspond to the sc
 
 ## 3. Add entries to your language's scope support table
 
-Add entries for each of the facet IDs of the given scope to the scope support table for your language in [the `scopeSupportFacets` directory](/../../packages/common/src/scopeSupportFacets).
+Add entries for each of the facet IDs of the given scope to the scope support table for your language in [the `scopeSupportFacets` directory](/../../packages/lib-common/src/scopeSupportFacets).
 
 For example, if you'd like to add support for the `namedFunction` facet of the `funk` scope, you would add entries like the following to your language's scope support table:
 

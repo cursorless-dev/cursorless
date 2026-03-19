@@ -54,7 +54,7 @@ export function runTestSubset() {
 
 /**
  * Determine whether we should log the failed tests to a file. This makes it easier to put them in `testSubsetGrep.properties` for faster iterating.
- * @returns `true` if we should log failed tests to `packages/test-harness/failedTests.properties`
+ * @returns `true` if we should log failed tests to `packages/test-runner/failedTests.properties`
  */
 export function shouldLogFailedTests() {
   return process.env.CURSORLESS_LOG_FAILED === "true";
