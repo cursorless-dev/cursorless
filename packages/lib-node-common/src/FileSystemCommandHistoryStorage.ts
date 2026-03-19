@@ -24,6 +24,8 @@ export class FileSystemCommandHistoryStorage implements CommandHistoryStorage {
       cwd: this.dir,
     });
 
+    files.sort();
+
     const entries: CommandHistoryEntry[] = [];
 
     for (const file of files) {
