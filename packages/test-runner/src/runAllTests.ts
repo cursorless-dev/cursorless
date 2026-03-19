@@ -34,19 +34,28 @@ export function runAllTests(type: TestType): Promise<void> {
   const testRoot = path.join(getCursorlessRepoRoot(), "packages");
 
   let filePattern: string;
-  let ignore: string[] | undefined;
+  let ignore: string[] | undefined = undefined;
 
-  if (type === TestType.unit) {
-    filePattern = "test.ts";
-    ignore = [
-      TestType.vscode,
-      TestType.talon,
-      TestType.talonJs,
-      TestType.neovim,
-    ].map((t) => `**/*.${t}.ts`);
-  } else {
-    filePattern = `${type}.cjs`;
-    ignore = undefined;
+  switch (type) {
+    case TestType.unit:
+      filePattern = "test.ts";
+      ignore = [
+        TestType.vscode,
+        TestType.talon,
+        TestType.talonJs,
+        TestType.neovim,
+      ].map((t) => `**/*.${t}.ts`);
+      break;
+
+    case TestType.talon:
+    case TestType.talonJs:
+      filePattern = `${type}.ts`;
+      break;
+
+    // These tests have to be .cjs files because they import vscode and neovim modules which don't work with ts files
+    case TestType.vscode:
+    case TestType.neovim:
+      filePattern = `${type}.cjs`;
   }
 
   return runTestsInDir(testRoot, filePattern, ignore);

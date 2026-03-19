@@ -17,18 +17,10 @@ const snippetAfterAction: ActionDescriptor = {
   },
   snippetDescription: {
     type: "list",
-    // This will be the current active language
-    fallbackLanguage: "typescript",
     snippets: [
       {
         type: "custom",
-        languages: [
-          "javascript",
-          "typescript",
-          "javascriptreact",
-          "typescriptreact",
-        ],
-        body: 'import * as $0 from "$0";',
+        body: "```$0\n$1\n```",
       },
     ],
   },
@@ -40,5 +32,5 @@ const snippetAfterAction: ActionDescriptor = {
  * Talon tests by relying on our recorded test fixtures alone.
  */
 export const communitySnippetsSpokenFormsFixture = [
-  spokenFormTest("snip import star after air", snippetAfterAction, undefined),
+  spokenFormTest("snip code after air", snippetAfterAction, undefined),
 ];
