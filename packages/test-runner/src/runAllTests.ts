@@ -32,28 +32,28 @@ export enum TestType {
 export function runAllTests(type: TestType): Promise<void> {
   parseArgumentsAndUpdateEnv();
 
-  return runTestsInDir(
-    path.join(getCursorlessRepoRoot(), "packages"),
-    (files) =>
-      files.filter((f) => {
-        if (f.endsWith("neovim.test.cjs")) {
-          return type === TestType.neovim;
-        }
+  const testRoot = path.join(getCursorlessRepoRoot(), "packages");
 
-        if (f.endsWith("vscode.test.cjs")) {
-          return type === TestType.vscode;
-        }
+  return runTestsInDir(testRoot, (files) =>
+    files.filter((f) => {
+      if (f.endsWith("neovim.test.cjs")) {
+        return type === TestType.neovim;
+      }
 
-        if (f.endsWith("talon.test.cjs")) {
-          return type === TestType.talon;
-        }
+      if (f.endsWith("vscode.test.cjs")) {
+        return type === TestType.vscode;
+      }
 
-        if (f.endsWith("talonjs.test.cjs")) {
-          return type === TestType.talonJs;
-        }
+      if (f.endsWith("talon.test.cjs")) {
+        return type === TestType.talon;
+      }
 
-        return type === TestType.unit;
-      }),
+      if (f.endsWith("talonjs.test.cjs")) {
+        return type === TestType.talonJs;
+      }
+
+      return type === TestType.unit;
+    }),
   );
 }
 

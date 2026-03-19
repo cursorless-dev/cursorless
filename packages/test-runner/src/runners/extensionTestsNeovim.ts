@@ -37,7 +37,7 @@ export async function run(plugin: NvimPlugin): Promise<void> {
  *   Note that these function need to start with a capital letter to be callable from Neovim.
  */
 export default function entry(plugin: NvimPlugin) {
-  plugin.registerFunction("TestHarnessRun", () => run(plugin), {
+  plugin.registerFunction("TestRunnerRun", () => run(plugin), {
     sync: false,
   });
 }

@@ -11,7 +11,7 @@ launch.json -> .vscode/tasks.json -> nvim -u init.lua
 
 init.lua
   -> CursorlessLoadExtension()
-  -> TestHarnessRun() -> run() -> runAllTests() -> Mocha -> packages/test-neovim-e2e/src/suite/recorded.neovim.test.ts
+  -> TestRunnerRun() -> run() -> runAllTests() -> Mocha -> packages/test-neovim-e2e/src/suite/recorded.neovim.test.ts
 ```
 
 And here is the call path when running Neovim tests on CI:
@@ -26,7 +26,7 @@ launchNeovimAndRunTests.ts
 
 packages/test-runner/src/config/init.lua
   -> CursorlessLoadExtension()
-  -> TestHarnessRun() -> run() -> runAllTests() -> Mocha + packages/test-neovim-e2e/src/suite/recorded.neovim.test.ts
+  -> TestRunnerRun() -> run() -> runAllTests() -> Mocha + packages/test-neovim-e2e/src/suite/recorded.neovim.test.ts
 ```
 
 ### Running Neovim tests locally
@@ -56,7 +56,7 @@ This effectively runs a series of dependency tasks from `.vscode/tasks.json`:
         "Neovim: ESBuild",
         "Neovim: Populate dist",
         "TSBuild",
-        "Build test harness",
+        "Build test runner",
         "Neovim: Show logs"
       ],
       "group": "build"
@@ -118,7 +118,7 @@ local function setup(user_config)
   load_extensions()
 ```
 
-First, it calls `register_functions()` to expose the node functions `CursorlessLoadExtension()` and `TestHarnessRun()` into the vim namespace. A side effect is that the `nvim` process loads the `node` process:
+First, it calls `register_functions()` to expose the node functions `CursorlessLoadExtension()` and `TestRunnerRun()` into the vim namespace. A side effect is that the `nvim` process loads the `node` process:
 
 ```lua
 local function register_functions()
@@ -138,14 +138,14 @@ local function register_functions()
   vim.fn["remote#host#RegisterPlugin"]("node", path .. "/node/test-runner/", {
     {
       type = "function",
-      name = "TestHarnessRun",
+      name = "TestRunnerRun",
       sync = false,
       opts = vim.empty_dict(),
     },
   })
 ```
 
-Then, it calls `load_extensions()`. This calls the vim functions in order to load the Cursorless neovim plugin (`CursorlessLoadExtension()`) and start the tests (`TestHarnessRun()`) which ends up calling the previously registered node functions.
+Then, it calls `load_extensions()`. This calls the vim functions in order to load the Cursorless neovim plugin (`CursorlessLoadExtension()`) and start the tests (`TestRunnerRun()`) which ends up calling the previously registered node functions.
 
 ```lua
 local function load_extensions()
@@ -154,20 +154,20 @@ local function load_extensions()
   if os.getenv("CURSORLESS_MODE") == "test" then
     -- make sure cursorless is loaded before starting the tests
     vim.uv.sleep(1000)
-    vim.fn.TestHarnessRun()
+    vim.fn.TestRunnerRun()
 ```
 
 However, because `nvim` was started with `"NVIM_NODE_HOST_DEBUG": "1"`, when `node` is spawned, `node` will hang and wait for a debugger to attach (`--inspect-brk`). Consequently, `nvim` won't finish loading yet (i.e. it won't finish loading `init.lua`).
 
 This is handy because it allows VSCode to finish all the tasks required for building the Cursorless neovim package (`app-neovim`, exposed to Neovim under `node/cursorless-neovim`) and the test runner package (`test-runner`, exposed under `node/test-runner`), which will finally trigger VSCode to attach to the `node` process.
 
-When VSCode attaches to the `node` process, `CursorlessLoadExtension()` is called to load the Cursorless neovim plugin and `TestHarnessRun()` is called to start the tests.
+When VSCode attaches to the `node` process, `CursorlessLoadExtension()` is called to load the Cursorless neovim plugin and `TestRunnerRun()` is called to start the tests.
 
-This ends up calling `TestHarnessRun()` from `packages/test-runner/src/index.ts` which calls `run()`:
+This ends up calling `TestRunnerRun()` from `packages/test-runner/src/index.ts` which calls `run()`:
 
 ```ts
 export default function entry(plugin: NvimPlugin) {
-  plugin.registerFunction("TestHarnessRun", () => run(plugin), {
+  plugin.registerFunction("TestRunnerRun", () => run(plugin), {
     sync: false,
   });
 }
@@ -267,7 +267,7 @@ vim.opt.runtimepath:append(repo_root .. "/dist/cursorless.nvim")
 require("cursorless").setup()
 ```
 
-This ends up calling `setup()` from `dist/cursorless.nvim/lua/cursorless/init.lua`, which ends up triggering `TestHarnessRun()` and finally the recorded tests from `recorded.neovim.test.ts` using the Mocha API.
+This ends up calling `setup()` from `dist/cursorless.nvim/lua/cursorless/init.lua`, which ends up triggering `TestRunnerRun()` and finally the recorded tests from `recorded.neovim.test.ts` using the Mocha API.
 
 NOTE: Because `NVIM_NODE_HOST_DEBUG` is not set on CI, `nvim` loads entirely right away and tests are executed.
 

@@ -23,7 +23,7 @@ export async function createVscodeIde(context: ExtensionContext) {
 
   await hats.init();
 
-  // FIXME: Inject this from test harness. Would need to arrange to delay
+  // FIXME: Inject this from test runner. Would need to arrange to delay
   // extension initialization, probably by returning a function from extension
   // init that has parameters consisting of test configuration, and have that
   // function do the actual initialization.

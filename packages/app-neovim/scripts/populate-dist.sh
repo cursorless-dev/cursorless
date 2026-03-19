@@ -8,7 +8,7 @@ fi
 echo "CURSORLESS_REPO_ROOT: $CURSORLESS_REPO_ROOT"
 cursorless_nvim_dir="$CURSORLESS_REPO_ROOT/cursorless.nvim"
 cursorless_neovim_node_in_dir="$CURSORLESS_REPO_ROOT/packages/app-neovim"
-test_harness_node_in_dir="$CURSORLESS_REPO_ROOT/packages/test-runner"
+test_runner_node_in_dir="$CURSORLESS_REPO_ROOT/packages/test-runner"
 
 if [[ "${CI:-x}" == "true" ]]; then
   # If running in CI, only copy the necessary files for testing and release
@@ -25,10 +25,10 @@ if [[ "${CI:-x}" == "true" ]]; then
   cp "$cursorless_neovim_node_in_dir/out/index.cjs" "$cursorless_neovim_node_out_dir/out"
 
   # Populate test-runner
-  test_harness_node_out_dir="$cursorless_nvim_dist_dir/node/test-runner"
-  mkdir -p "$test_harness_node_out_dir/out"
-  cp "$test_harness_node_in_dir/package.json" "$test_harness_node_out_dir"
-  cp "$test_harness_node_in_dir/out/extensionTestsNeovim.cjs" "$test_harness_node_out_dir/out"
+  test_runner_node_out_dir="$cursorless_nvim_dist_dir/node/test-runner"
+  mkdir -p "$test_runner_node_out_dir/out"
+  cp "$test_runner_node_in_dir/package.json" "$test_runner_node_out_dir"
+  cp "$test_runner_node_in_dir/out/extensionTestsNeovim.cjs" "$test_runner_node_out_dir/out"
 else
   # Symlink so we inherit the .map files as well, but only if uname doesn't
   # start with "MINGW" (Windows Git Bash)
@@ -43,8 +43,8 @@ else
     rm -rf "$cursorless_neovim_node_out_dir"
     ln -s "$cursorless_neovim_node_in_dir" "$cursorless_neovim_node_out_dir"
 
-    test_harness_node_out_dir="$cursorless_nvim_dir/node/test-runner"
-    rm -rf "$test_harness_node_out_dir"
-    ln -s "$test_harness_node_in_dir" "$test_harness_node_out_dir"
+    test_runner_node_out_dir="$cursorless_nvim_dir/node/test-runner"
+    rm -rf "$test_runner_node_out_dir"
+    ln -s "$test_runner_node_in_dir" "$test_runner_node_out_dir"
   fi
 fi
