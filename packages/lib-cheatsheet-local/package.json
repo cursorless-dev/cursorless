@@ -1,5 +1,5 @@
 {
-  "name": "@cursorless/cheatsheet-local",
+  "name": "@cursorless/lib-cheatsheet-local",
   "version": "0.1.0",
   "description": "Thin wrapper around the cheatsheet for showing local cheatsheet",
   "license": "MIT",
@@ -15,7 +15,7 @@
     "bundle:watch": "env NODE_OPTIONS=--import=tsx vite build --mode development --watch"
   },
   "dependencies": {
-    "@cursorless/cheatsheet": "workspace:*",
+    "@cursorless/lib-cheatsheet": "workspace:*",
     "@cursorless/common": "workspace:*",
     "bootstrap": "^5.3.8",
     "preact": "^10.29.0"

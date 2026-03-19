@@ -1,5 +1,5 @@
-import { Cheatsheet as OriginalCheatsheet } from "@cursorless/cheatsheet";
-import defaultCheatsheetInfo from "@cursorless/cheatsheet/defaultSpokenForms";
+import { Cheatsheet as OriginalCheatsheet } from "@cursorless/lib-cheatsheet";
+import defaultCheatsheetInfo from "@cursorless/lib-cheatsheet/defaultSpokenForms";
 
 export function Cheatsheet() {
   return (

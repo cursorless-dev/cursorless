@@ -12,7 +12,7 @@
     "build": "env NODE_OPTIONS=--import=tsx vite build"
   },
   "dependencies": {
-    "@cursorless/cheatsheet": "workspace:*",
+    "@cursorless/lib-cheatsheet": "workspace:*",
     "@cursorless/common": "workspace:*",
     "bootstrap": "^5.3.8",
     "preact": "^10.29.0",

@@ -1,5 +1,5 @@
 {
-  "name": "@cursorless/cheatsheet",
+  "name": "@cursorless/lib-cheatsheet",
   "version": "0.1.0",
   "description": "Core cheatsheet Preact component",
   "license": "MIT",

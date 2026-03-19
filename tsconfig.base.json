@@ -12,19 +12,19 @@
     "isolatedModules": true,
     "strict": true,
     "paths": {
-      "@cursorless/cheatsheet": ["./packages/cheatsheet"],
-      "@cursorless/common": ["./packages/common"],
-      "@cursorless/cursorless-engine": ["./packages/cursorless-engine"],
-      "@cursorless/cursorless-everywhere-talon-core": [
-        "./packages/cursorless-everywhere-talon-core"
+      "@cursorless/lib-cheatsheet": ["./packages/lib-cheatsheet"],
+      "@cursorless/lib-common": ["./packages/lib-common"],
+      "@cursorless/lib-engine": ["./packages/lib-engine"],
+      "@cursorless/lib-neovim-common": ["./packages/lib-neovim-common"],
+      "@cursorless/lib-neovim-registry": ["./packages/lib-neovim-registry"],
+      "@cursorless/lib-node-common": ["./packages/lib-node-common"],
+      "@cursorless/lib-sentence-parser": ["./packages/lib-sentence-parser"],
+      "@cursorless/lib-talon-core": ["./packages/lib-talon-core"],
+      "@cursorless/lib-test-case-recorder": [
+        "./packages/lib-test-case-recorder"
       ],
-      "@cursorless/cursorless-tutorial": ["./packages/cursorless-tutorial"],
-      "@cursorless/neovim-common": ["./packages/neovim-common"],
-      "@cursorless/neovim-registry": ["./packages/neovim-registry"],
-      "@cursorless/node-common": ["./packages/node-common"],
-      "@cursorless/sentence-parser": ["./packages/sentence-parser"],
-      "@cursorless/test-case-recorder": ["./packages/test-case-recorder"],
-      "@cursorless/vscode-common": ["./packages/vscode-common"]
+      "@cursorless/lib-tutorial": ["./packages/lib-tutorial"],
+      "@cursorless/lib-vscode-common": ["./packages/lib-vscode-common"]
     }
   }
 }
