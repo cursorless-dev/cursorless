@@ -12,10 +12,6 @@
     "build": "pnpm -r build",
     "clean": "pnpm -r clean",
     "typecheck": "pnpm -r typecheck",
-    "fix:meta": "pnpm run meta-updater && pnpm -r exec prettier --write tsconfig.json package.json",
-    "fix:syncpack": "syncpack fix",
-    "fix:eslint": "pnpm lint:ts --fix",
-    "fix:style": "stylelint '**/*.{css,scss}' --ignore-path .gitignore --fix",
     "fix:prettier": "prettier --write --list-different .",
     "lint:meta": "pnpm run meta-updater --test",
     "lint:syncpack": "syncpack lint",
@@ -23,6 +19,10 @@
     "lint:prettier": "prettier --check .",
     "lint:style": "stylelint '**/*.{css,scss}' --ignore-path .gitignore",
     "lint": "pnpm run typecheck && pnpm run lint:meta && pnpm run lint:syncpack && pnpm run lint:ts && pnpm run lint:style",
+    "fix:meta": "pnpm run meta-updater && pnpm -r exec prettier --write tsconfig.json package.json",
+    "fix:syncpack": "syncpack fix",
+    "fix:eslint": "pnpm lint:ts --fix",
+    "fix:style": "stylelint '**/*.{css,scss}' --ignore-path .gitignore --fix",
     "init-vscode-sandbox": "pnpm -F @cursorless/app-vscode init-launch-sandbox",
     "meta-updater": "env NODE_OPTIONS=--import=tsx meta-updater",
     "preinstall": "npx only-allow pnpm",
@@ -31,7 +31,7 @@
     "test:update": "pnpm -r test:update",
     "test:update:subset": "pnpm -r test:update:subset",
     "generate-grammar": "pnpm -r generate-grammar",
-    "transform-recorded-tests": "pnpm exec ./packages/common/scripts/c-tsx.js ./packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts"
+    "transform-recorded-tests": "pnpm exec ./packages/common/scripts/c-tsx.js ./packages/lib-engine/src/scripts/transformRecordedTests/index.ts"
   },
   "devDependencies": {
     "@eslint/config-helpers": "^0.5.3",
