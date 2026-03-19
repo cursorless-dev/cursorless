@@ -1,5 +1,5 @@
 {
-  "name": "@cursorless/test-harness",
+  "name": "@cursorless/test-runner",
   "version": "0.1.0",
   "description": "Contains scripts and runners for testing Cursorless",
   "license": "MIT",

@@ -208,7 +208,7 @@ This is supported on Linux only.
 It starts from `.github/workflows/test.yml` which currently only tests the latest stable neovim version on Linux:
 
 ```yml
-run: xvfb-run -a pnpm -F @cursorless/test-harness test:neovim
+run: xvfb-run -a pnpm -F @cursorless/test-runner test:neovim
 if: runner.os == 'Linux' && matrix.app_version == 'stable'
 ```
 

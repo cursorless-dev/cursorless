@@ -33,7 +33,7 @@ export async function updatePackageJson(
   const isCursorlessVscode = input.name === "@cursorless/app-vscode";
   const isCursorlessNeovim = input.name === "@cursorless/app-neovim";
   const isCursorlessOrgDocs = input.name === "@cursorless/app-web-docs";
-  const isCursorlessTestHarness = input.name === "@cursorless/test-harness";
+  const isCursorlessTestHarness = input.name === "@cursorless/test-runner";
 
   if (input.description == null || input.description === "") {
     throw new Error(`No description found in ${packageDir}/package.json`);
