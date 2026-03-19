@@ -34,7 +34,7 @@ export function runAllTests(type: TestType): Promise<void> {
   const testRoot = path.join(getCursorlessRepoRoot(), "packages");
 
   let filePattern: string;
-  let ignore: string[] | undefined = undefined;
+  let ignore: string[] = [];
 
   switch (type) {
     case TestType.unit:
@@ -64,7 +64,7 @@ export function runAllTests(type: TestType): Promise<void> {
 async function runTestsInDir(
   testRoot: string,
   filePattern: string,
-  ignore: string[] | undefined,
+  ignore: string[],
 ): Promise<void> {
   // Create the mocha test
   const mocha = new Mocha({
@@ -75,7 +75,8 @@ async function runTestsInDir(
 
   const files = await glob(`**/*.${filePattern}`, {
     cwd: testRoot,
-    ignore,
+    followSymbolicLinks: false,
+    ignore: ["**/node_modules", ...ignore],
   });
 
   if (files.length === 0) {
