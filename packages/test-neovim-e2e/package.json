@@ -1,0 +1,28 @@
+{
+  "name": "@cursorless/test-neovim-e2e",
+  "version": "1.0.0",
+  "description": "Our neovim end-to-end tests",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
+  },
+  "dependencies": {
+    "@cursorless/lib-common": "workspace:*",
+    "@cursorless/lib-neovim-common": "workspace:*",
+    "@cursorless/lib-neovim-registry": "workspace:*",
+    "@cursorless/lib-node-common": "workspace:*",
+    "@cursorless/lib-test-case-recorder": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/chai": "^5.2.3",
+    "@types/js-yaml": "^4.0.9",
+    "@types/lodash": "^4.17.24",
+    "@types/sinon": "^21.0.0",
+    "js-yaml": "^4.1.1",
+    "neovim": "^5.4.0",
+    "sinon": "^21.0.3"
+  }
+}

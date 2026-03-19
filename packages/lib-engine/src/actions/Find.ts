@@ -1,0 +1,53 @@
+import type { IDE } from "@cursorless/lib-common";
+import { showWarning } from "@cursorless/lib-common";
+import type { Target } from "../typings/target.types";
+import { ensureSingleTarget } from "../util/targetUtils";
+import type { Actions } from "./Actions";
+import type { ActionReturnValue, SimpleAction } from "./actions.types";
+
+abstract class Find implements SimpleAction {
+  constructor(
+    protected ide: IDE,
+    private actions: Actions,
+  ) {
+    this.run = this.run.bind(this);
+  }
+
+  async run(targets: Target[]): Promise<ActionReturnValue> {
+    ensureSingleTarget(targets);
+
+    const { returnValue, thatTargets } =
+      await this.actions.getText.run(targets);
+    const [text] = returnValue as [string];
+
+    let query: string;
+    if (text.length > 200) {
+      query = text.substring(0, 200);
+      void showWarning(
+        this.ide.messages,
+        "truncatedSearchText",
+        "Search text is longer than 200 characters; truncating",
+      );
+    } else {
+      query = text;
+    }
+
+    await this.find(query);
+
+    return { thatTargets };
+  }
+
+  protected abstract find(query: string): Promise<void>;
+}
+
+export class FindInDocument extends Find {
+  protected find(query: string): Promise<void> {
+    return this.ide.findInDocument(query);
+  }
+}
+
+export class FindInWorkspace extends Find {
+  protected find(query: string): Promise<void> {
+    return this.ide.findInWorkspace(query);
+  }
+}

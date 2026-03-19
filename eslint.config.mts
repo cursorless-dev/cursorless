@@ -9,10 +9,10 @@ import unicornPlugin from "eslint-plugin-unicorn";
 import unusedImportsPlugin from "eslint-plugin-unused-imports";
 import { defineConfig } from "eslint/config";
 import tsEslint from "typescript-eslint";
-import { commonConfig } from "./packages/common/eslintConfig";
-import { cursorlessEngineConfig } from "./packages/cursorless-engine/eslintConfig";
-import { cursorlessOrgConfig } from "./packages/cursorless-org/eslintConfig";
-import { cursorlessVscodeConfig } from "./packages/cursorless-vscode/eslintConfig";
+import { commonConfig } from "./packages/lib-common/eslintConfig";
+import { cursorlessEngineConfig } from "./packages/lib-engine/eslintConfig";
+import { cursorlessOrgConfig } from "./packages/app-web/eslintConfig";
+import { cursorlessVscodeConfig } from "./packages/app-vscode/eslintConfig";
 
 const ignoresConfig: ConfigWithExtends = {
   ignores: [
@@ -24,7 +24,7 @@ const ignoresConfig: ConfigWithExtends = {
     "**/.next/**/*",
     "**/.docusaurus/**/*",
     "data/playground/**/*",
-    "packages/cursorless-org/next-env.d.ts",
+    "packages/app-web/next-env.d.ts",
   ],
 };
 

@@ -1,0 +1,25 @@
+{
+  "name": "@cursorless/lib-test-case-recorder",
+  "version": "1.0.0",
+  "description": "Package containing the test case recorder",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
+  },
+  "dependencies": {
+    "@cursorless/lib-common": "workspace:*",
+    "@cursorless/lib-engine": "workspace:*",
+    "@cursorless/lib-node-common": "workspace:*",
+    "glob": "^13.0.6",
+    "immutability-helper": "^3.1.1",
+    "lodash-es": "^4.17.23"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.12"
+  }
+}

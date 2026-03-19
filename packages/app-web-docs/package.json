@@ -1,0 +1,57 @@
+{
+  "name": "@cursorless/app-web-docs",
+  "version": "0.0.0",
+  "description": "Cursorless documentation website",
+  "license": "MIT",
+  "private": true,
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "scripts": {
+    "typecheck": "tsc",
+    "clean": "docusaurus clear && rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
+    "dev": "docusaurus start",
+    "build": "docusaurus build"
+  },
+  "dependencies": {
+    "@algolia/client-search": "^5.49.2",
+    "@cursorless/lib-common": "workspace:*",
+    "@docsearch/react": "^4.6.0",
+    "@docusaurus/core": "^3.9.2",
+    "@docusaurus/faster": "^3.9.2",
+    "@docusaurus/preset-classic": "^3.9.2",
+    "@docusaurus/theme-classic": "^3.9.2",
+    "@docusaurus/theme-common": "^3.9.2",
+    "@docusaurus/theme-search-algolia": "^3.9.2",
+    "@mdx-js/react": "^3.1.1",
+    "bootstrap": "^5.3.8",
+    "clsx": "^2.1.1",
+    "docusaurus-plugin-sass": "^0.2.6",
+    "mdast-util-find-and-replace": "^3.0.2",
+    "prism-react-renderer": "^2.4.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "shiki": "^4.0.2",
+    "unist-util-visit": "^5.1.0"
+  },
+  "devDependencies": {
+    "@cursorless/lib-node-common": "workspace:*",
+    "@docusaurus/module-type-aliases": "^3.9.2",
+    "@docusaurus/types": "^3.9.2",
+    "@tsconfig/docusaurus": "^2.0.9",
+    "@types/mdast": "^4.0.4",
+    "@types/react": "^19.2.14",
+    "sass": "^1.98.0",
+    "typescript": "^5.9.3",
+    "unified": "^11.0.5"
+  }
+}

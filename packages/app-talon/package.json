@@ -1,0 +1,23 @@
+{
+  "name": "@cursorless/app-talon",
+  "version": "1.0.0",
+  "description": "cursorless in talon js",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
+    "dev": "pnpm run compile:watch",
+    "build": "pnpm run compile:prod",
+    "compile:prod": "pnpm run compile:base --minify src/mainProduction.ts",
+    "compile:dev": "pnpm run compile:base src/mainDevelopment.ts",
+    "compile:watch": "pnpm run compile:base --watch src/mainDevelopment.ts",
+    "compile:profile": "pnpm run compile:base --metafile=meta.json src/mainDevelopment.ts",
+    "compile:base": "bash scripts/esbuild.sh"
+  },
+  "dependencies": {
+    "@cursorless/lib-common": "workspace:*",
+    "@cursorless/lib-talon-core": "workspace:*"
+  }
+}

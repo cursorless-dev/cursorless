@@ -6,7 +6,7 @@
       "label": "Build extension",
       "type": "npm",
       "script": "dev",
-      "path": "packages/cursorless-vscode",
+      "path": "packages/app-vscode",
       "group": "build",
       "presentation": {
         "reveal": "silent"
@@ -32,7 +32,7 @@
       "label": "Build test harness",
       "type": "npm",
       "script": "build",
-      "path": "packages/test-harness",
+      "path": "packages/test-runner",
       "presentation": {
         "reveal": "silent"
       },
@@ -42,7 +42,7 @@
       "label": "Ensure test subset file exists",
       "type": "npm",
       "script": "generate-test-subset-file-strict",
-      "path": "packages/test-harness",
+      "path": "packages/test-runner",
       "group": "test",
       "presentation": {
         "reveal": "silent"
@@ -52,7 +52,7 @@
       "label": "Generate test subset file",
       "type": "npm",
       "script": "generate-test-subset-file",
-      "path": "packages/test-harness",
+      "path": "packages/test-runner",
       "group": "none",
       "presentation": {
         "reveal": "silent"

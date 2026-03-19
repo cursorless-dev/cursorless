@@ -36,7 +36,7 @@ local function register_functions()
       },
     }
   )
-  vim.fn["remote#host#RegisterPlugin"]("node", path .. "/node/test-harness/", {
+  vim.fn["remote#host#RegisterPlugin"]("node", path .. "/node/test-runner/", {
     {
       type = "function",
       name = "TestHarnessRun",
@@ -47,7 +47,7 @@ local function register_functions()
 end
 
 -- this triggers loading the node process as well as calling one function
--- in the cursorless-neovim, command-server and neovim-registry extensions
+-- in the cursorless-neovim, command-server and lib-neovim-registry extensions
 -- in order to initialize them
 local function load_extensions()
   vim.fn.CursorlessLoadExtension()

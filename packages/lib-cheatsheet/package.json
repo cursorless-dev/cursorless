@@ -1,0 +1,31 @@
+{
+  "name": "@cursorless/lib-cheatsheet",
+  "version": "0.1.0",
+  "description": "Core cheatsheet Preact component",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./defaultSpokenForms": "./src/lib/sampleSpokenFormInfos/defaults.json"
+  },
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "typecheck": "tsc",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@cursorless/lib-common": "workspace:*",
+    "preact": "^10.29.0",
+    "react-bootstrap-icons": "^1.11.6"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "jest": "^30.3.0",
+    "jest-environment-jsdom": "^30.3.0",
+    "ts-jest": "^29.4.6",
+    "typescript": "^5.9.3"
+  }
+}

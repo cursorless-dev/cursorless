@@ -1,0 +1,44 @@
+import type { ActionDescriptor } from "@cursorless/lib-common";
+import { spokenFormTest } from "./spokenFormTest";
+
+const snippetAfterAction: ActionDescriptor = {
+  name: "insertSnippet",
+  destination: {
+    type: "primitive",
+    insertionMode: "after",
+    target: {
+      type: "primitive",
+      mark: {
+        character: "a",
+        symbolColor: "default",
+        type: "decoratedSymbol",
+      },
+    },
+  },
+  snippetDescription: {
+    type: "list",
+    // This will be the current active language
+    fallbackLanguage: "typescript",
+    snippets: [
+      {
+        type: "custom",
+        languages: [
+          "javascript",
+          "typescript",
+          "javascriptreact",
+          "typescriptreact",
+        ],
+        body: 'import * as $0 from "$0";',
+      },
+    ],
+  },
+};
+
+/**
+ * These are spoken forms that have more than one way to say them, so we have to
+ * pick one in our spoken form generator, meaning we can't test the other in our
+ * Talon tests by relying on our recorded test fixtures alone.
+ */
+export const communitySnippetsSpokenFormsFixture = [
+  spokenFormTest("snip import star after air", snippetAfterAction, undefined),
+];

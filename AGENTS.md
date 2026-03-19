@@ -2,14 +2,14 @@
 
 ## Documentation Structure
 
-- Main documentation is in `/packages/cursorless-org-docs/src/docs/user/README.md`
+- Main documentation is in `/packages/app-web-docs/src/docs/user/README.md`
 - Spoken forms are defined in `/cursorless-talon/src/spoken_forms.json`
-- Contributing documentation is in `/packages/cursorless-org-docs/src/docs/contributing/`
+- Contributing documentation is in `/packages/app-web-docs/src/docs/contributing/`
 
 ## Project Organization
 
-- Main extension code is in `/packages/cursorless-vscode/`
-- Engine code is in `/packages/cursorless-engine/`
+- Main extension code is in `/packages/app-vscode/`
+- Engine code is in `/packages/lib-engine/`
 - Tests are in `data/fixtures/recorded/`
 - Language-specific parsing is defined in the `queries/*.scm` files
 
@@ -34,12 +34,12 @@ When documenting actions or modifiers:
 
 - Many actions (`drop`, `float`, `puff`) work with both line and non-line targets
 - Always check test fixtures in `/data/fixtures/recorded/` to understand behavior
-- Implementation for many actions is in `/packages/cursorless-engine/src/actions/`
+- Implementation for many actions is in `/packages/lib-engine/src/actions/`
 - After running Python scripts or tests, delete any `__pycache__` directories and `.pyc` files created under the repository root.
 
 ## Scope test format
 
-When writing or updating `.scope` files please follow the guidelines in [scope-test-format.md](./packages/cursorless-org-docs/src/docs/contributing/scope-test-format.md)
+When writing or updating `.scope` files please follow the guidelines in [scope-test-format.md](./packages/app-web-docs/src/docs/contributing/scope-test-format.md)
 
 ## Pull Request Guidelines
 

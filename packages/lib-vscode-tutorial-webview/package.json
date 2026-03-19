@@ -1,0 +1,26 @@
+{
+  "name": "@cursorless/lib-vscode-tutorial-webview",
+  "version": "1.0.0",
+  "description": "Contains the VSCode webview frontend for the Cursorless tutorial",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
+    "dev": "env NODE_OPTIONS=--import=tsx vite serve",
+    "bundle:prod": "env NODE_OPTIONS=--import=tsx vite build",
+    "bundle:dev": "env NODE_OPTIONS=--import=tsx vite build --mode development",
+    "bundle:watch": "env NODE_OPTIONS=--import=tsx vite build --mode development --watch"
+  },
+  "dependencies": {
+    "@cursorless/lib-common": "workspace:*",
+    "bootstrap": "^5.3.8",
+    "preact": "^10.29.0"
+  },
+  "devDependencies": {
+    "@types/vscode-webview": "^1.57.5",
+    "vite": "^8.0.0",
+    "vite-plugin-purgecss": "^0.2.13"
+  }
+}

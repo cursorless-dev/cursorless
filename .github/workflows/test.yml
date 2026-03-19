@@ -76,7 +76,7 @@ jobs:
         shell: bash
 
       - name: Build
-        run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
+        run: pnpm --color -F '!@cursorless/app-web' -F '!@cursorless/app-web-docs' build
 
       - name: Run unit tests (Linux)
         run: xvfb-run -a pnpm --color test
@@ -87,31 +87,31 @@ jobs:
         if: runner.os != 'Linux'
 
       - name: Run VSCode tests (Linux)
-        run: xvfb-run -a pnpm -F @cursorless/test-harness test:vscode
+        run: xvfb-run -a pnpm -F @cursorless/test-runner test:vscode
         if: runner.os == 'Linux'
 
       - name: Run VSCode tests (Win,Mac)
-        run: pnpm -F @cursorless/test-harness test:vscode
+        run: pnpm -F @cursorless/test-runner test:vscode
         if: runner.os != 'Linux'
 
       - name: Run Talon-JS tests (Linux)
-        run: xvfb-run -a pnpm -F @cursorless/test-harness test:talonJs
+        run: xvfb-run -a pnpm -F @cursorless/test-runner test:talonJs
         if: runner.os == 'Linux' && matrix.app_version == 'stable'
 
       - name: Run Talon-JS tests (Win,Mac)
-        run: pnpm -F @cursorless/test-harness test:talonJs
+        run: pnpm -F @cursorless/test-runner test:talonJs
         if: runner.os != 'Linux'
 
       - name: Run QuickJS tests (Linux)
-        run: xvfb-run -a pnpm -F @cursorless/cursorless-everywhere-talon-e2e test:quickjs
+        run: xvfb-run -a pnpm -F @cursorless/test-talon-e2e test:quickjs
         if: runner.os == 'Linux' && matrix.app_version == 'stable'
 
       - name: Run QuickJS tests (Win,Mac)
-        run: pnpm -F @cursorless/cursorless-everywhere-talon-e2e test:quickjs
+        run: pnpm -F @cursorless/test-talon-e2e test:quickjs
         if: runner.os != 'Linux'
 
       - name: Create VSCode dist that can be installed locally
-        run: pnpm -F @cursorless/cursorless-vscode populate-dist --local-install
+        run: pnpm -F @cursorless/app-vscode populate-dist --local-install
         if: runner.os == 'Linux' && matrix.app_version == 'stable'
 
       - name: Test create vsix
@@ -119,7 +119,7 @@ jobs:
         uses: HaaLeo/publish-vscode-extension@v2
         with:
           pat: none
-          packagePath: packages/cursorless-vscode/dist
+          packagePath: packages/app-vscode/dist
           dryRun: true
 
       - name: Rename vsix (Linux)
@@ -161,7 +161,7 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - name: Build
-        run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
+        run: pnpm --color -F '!@cursorless/app-web' -F '!@cursorless/app-web-docs' build
 
       - name: Install neovim dependencies
         run: bash -x scripts/install-neovim-dependencies.sh
@@ -173,7 +173,7 @@ jobs:
           neovim: true
 
       - name: Run neovim tests
-        run: xvfb-run -a pnpm -F @cursorless/test-harness test:neovim
+        run: xvfb-run -a pnpm -F @cursorless/test-runner test:neovim
         env:
           NEOVIM_PATH: ${{ steps.vim.outputs.executable }}
 

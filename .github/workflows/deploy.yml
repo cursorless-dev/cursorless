@@ -28,7 +28,7 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - name: Build
-        run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
+        run: pnpm --color -F '!@cursorless/app-web' -F '!@cursorless/app-web-docs' build
         env:
           CURSORLESS_DEPLOY: true
 
@@ -37,7 +37,7 @@ jobs:
         uses: HaaLeo/publish-vscode-extension@v2
         with:
           pat: ${{ secrets.OPEN_VSX_TOKEN }}
-          packagePath: packages/cursorless-vscode/dist
+          packagePath: packages/app-vscode/dist
           skipDuplicate: true
 
       - name: Publish to Visual Studio Marketplace
@@ -67,7 +67,7 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - name: Build
-        run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
+        run: pnpm --color -F '!@cursorless/app-web' -F '!@cursorless/app-web-docs' build
         env:
           CURSORLESS_DEPLOY: true
 

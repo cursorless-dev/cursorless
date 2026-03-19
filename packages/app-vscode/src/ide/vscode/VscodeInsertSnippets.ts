@@ -1,0 +1,24 @@
+import * as vscode from "vscode";
+import type { Range } from "@cursorless/lib-common";
+import { Selection } from "@cursorless/lib-common";
+import type { VscodeTextEditor } from "./VscodeTextEditor";
+
+export async function vscodeInsertSnippet(
+  editor: VscodeTextEditor,
+  snippet: string,
+  ranges: Range[] | undefined,
+): Promise<void> {
+  if (ranges != null) {
+    await editor.setSelections(
+      ranges.map((range) => Selection.fromRange(range)),
+    );
+  }
+
+  await editor.focus();
+
+  // NB: We use the command "editor.action.insertSnippet" instead of calling editor.insertSnippet
+  // because the latter doesn't support special variables like CLIPBOARD
+  await vscode.commands.executeCommand("editor.action.insertSnippet", {
+    snippet,
+  });
+}

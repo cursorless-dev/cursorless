@@ -1,0 +1,35 @@
+{
+  "name": "@cursorless/app-neovim",
+  "version": "1.0.0",
+  "description": "cursorless in neovim",
+  "license": "MIT",
+  "private": true,
+  "main": "./out/index.cjs",
+  "scripts": {
+    "typecheck": "tsc",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
+    "dev": "pnpm run compile:dev && pnpm run populate-dist",
+    "build": "pnpm run compile:prod && pnpm run populate-dist",
+    "compile:prod": "pnpm run compile:base --minify",
+    "compile:dev": "pnpm run compile:base --sourcemap",
+    "compile:watch": "pnpm run compile:base --sourcemap --watch",
+    "compile:base": "bash ./scripts/compile-esbuild.sh",
+    "populate-dist": "bash ./scripts/populate-dist.sh"
+  },
+  "dependencies": {
+    "@cursorless/lib-common": "workspace:*",
+    "@cursorless/lib-engine": "workspace:*",
+    "@cursorless/lib-neovim-common": "workspace:*",
+    "@cursorless/lib-neovim-registry": "workspace:*",
+    "@cursorless/lib-node-common": "workspace:*",
+    "@cursorless/lib-test-case-recorder": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/chai": "^5.2.3",
+    "@types/js-yaml": "^4.0.9",
+    "@types/lodash": "^4.17.24",
+    "lodash": "^4.17.23",
+    "neovim": "^5.4.0",
+    "vscode-uri": "^3.1.0"
+  }
+}

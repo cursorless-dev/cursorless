@@ -1,0 +1,51 @@
+import type {
+  InsertionMode,
+  Range,
+  Selection,
+  TextEditor,
+} from "@cursorless/lib-common";
+import type { EditWithRangeUpdater } from "../../typings/Types";
+import type {
+  Destination,
+  EditNewActionType,
+} from "../../typings/target.types";
+import type { NotebookCellTarget } from "./NotebookCellTarget";
+
+export class NotebookCellDestination implements Destination {
+  constructor(
+    public target: NotebookCellTarget,
+    public insertionMode: InsertionMode,
+  ) {}
+
+  get editor(): TextEditor {
+    return this.target.editor;
+  }
+
+  get contentRange(): Range {
+    return this.target.contentRange;
+  }
+
+  get contentSelection(): Selection {
+    return this.target.contentSelection;
+  }
+
+  get insertionDelimiter(): string {
+    return this.target.insertionDelimiter;
+  }
+
+  get isRaw(): boolean {
+    return this.target.isRaw;
+  }
+
+  withTarget(target: NotebookCellTarget): NotebookCellDestination {
+    return new NotebookCellDestination(target, this.insertionMode);
+  }
+
+  getEditNewActionType(): EditNewActionType {
+    throw new Error("getEditNewActionType: not implemented");
+  }
+
+  constructChangeEdit(_text: string): EditWithRangeUpdater {
+    throw new Error("constructChangeEdit: not implemented");
+  }
+}

@@ -1,0 +1,17 @@
+import type { FlashDescriptor, RangeOffsets } from "@cursorless/lib-common";
+import type { Talon } from "../types/talon";
+import { toCharacterRangeOffsets } from "./toCharacterRangeOffsets";
+
+export function flashRanges(
+  talon: Talon,
+  flashDescriptors: FlashDescriptor[],
+): Promise<void> {
+  const ranges = flashDescriptors.map(
+    (descriptor): RangeOffsets =>
+      toCharacterRangeOffsets(descriptor.editor, descriptor.range),
+  );
+
+  talon.actions.user.cursorless_everywhere_flash_ranges(ranges);
+
+  return Promise.resolve();
+}

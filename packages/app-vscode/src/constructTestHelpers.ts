@@ -1,0 +1,99 @@
+import type {
+  ExcludableSnapshotField,
+  ExtraSnapshotField,
+  FakeCommandServerApi,
+  HatTokenMap,
+  IDE,
+  NormalizedIDE,
+  ScopeProvider,
+  SerializedMarks,
+  StoredTargetKey,
+  TargetPlainObject,
+  TestCaseSnapshot,
+  TextEditor,
+} from "@cursorless/lib-common";
+import type { StoredTargetMap } from "@cursorless/lib-engine";
+import {
+  plainObjectToTarget,
+  scopeHandlerCache,
+  treeSitterQueryCache,
+} from "@cursorless/lib-engine";
+import { takeSnapshot } from "@cursorless/lib-test-case-recorder";
+import type { VscodeTestHelpers } from "@cursorless/lib-vscode-common";
+import type * as vscode from "vscode";
+import { toVscodeEditor } from "./ide/vscode/toVscodeEditor";
+import type { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
+import type { VscodeIDE } from "./ide/vscode/VscodeIDE";
+import { vscodeApi } from "./vscodeApi";
+import type { VscodeTutorial } from "./VscodeTutorial";
+
+export function constructTestHelpers(
+  commandServerApi: FakeCommandServerApi,
+  storedTargets: StoredTargetMap,
+  hatTokenMap: HatTokenMap,
+  vscodeIDE: VscodeIDE,
+  normalizedIde: NormalizedIDE,
+  fileSystem: VscodeFileSystem,
+  scopeProvider: ScopeProvider,
+  vscodeTutorial: VscodeTutorial,
+  injectIde: (ide: IDE) => void,
+  loadLanguage: (languageId: string) => Promise<void>,
+): VscodeTestHelpers | undefined {
+  return {
+    commandServerApi: commandServerApi!,
+    ide: normalizedIde,
+    injectIde,
+    loadLanguage,
+    scopeProvider,
+
+    toVscodeEditor,
+    fromVscodeEditor(editor: vscode.TextEditor): TextEditor {
+      return vscodeIDE.fromVscodeEditor(editor);
+    },
+
+    clearCache() {
+      scopeHandlerCache.clear();
+      treeSitterQueryCache.clear();
+    },
+
+    // FIXME: Remove this once we have a better way to get this function
+    // accessible from our tests
+    takeSnapshot(
+      excludeFields: ExcludableSnapshotField[],
+      extraFields: ExtraSnapshotField[],
+      editor: TextEditor,
+      ide: IDE,
+      marks: SerializedMarks | undefined,
+    ): Promise<TestCaseSnapshot> {
+      return takeSnapshot(
+        storedTargets,
+        excludeFields,
+        extraFields,
+        editor,
+        ide,
+        marks,
+        undefined,
+        undefined,
+      );
+    },
+
+    cursorlessTalonStateJsonPath: fileSystem.cursorlessTalonStateJsonPath,
+    cursorlessCommandHistoryDirPath: fileSystem.cursorlessCommandHistoryDirPath,
+
+    setStoredTarget(
+      editor: TextEditor,
+      key: StoredTargetKey,
+      targets: TargetPlainObject[] | undefined,
+    ): void {
+      storedTargets.set(
+        key,
+        targets?.map((target) => plainObjectToTarget(editor, target)),
+      );
+    },
+    hatTokenMap,
+    vscodeApi,
+    getTutorialWebviewEventLog() {
+      return vscodeTutorial.getEventLog();
+    },
+  };
+}

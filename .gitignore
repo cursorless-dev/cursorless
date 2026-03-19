@@ -11,9 +11,9 @@ tsconfig.tsbuildinfo
 .luacheckcache
 
 # test subset config
-packages/test-harness/testSubsetGrep.properties
-packages/test-harness/failedTests.properties
+packages/test-runner/testSubsetGrep.properties
+packages/test-runner/failedTests.properties
 
 # cursorless-neovim
 cursorless.nvim/node/cursorless-neovim
-cursorless.nvim/node/test-harness
+cursorless.nvim/node/test-runner

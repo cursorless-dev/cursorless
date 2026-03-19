@@ -164,7 +164,7 @@ var NativeIo = class {
   }
 };
 
-// ../cursorless_fork/packages/neovim-registry/src/NeovimRegistry.ts
+// ../cursorless_fork/packages/lib-neovim-registry/src/NeovimRegistry.ts
 var import_node_events = require("node:events");
 var NeovimRegistry = class {
   constructor() {
@@ -192,7 +192,7 @@ var NeovimRegistry = class {
   }
 };
 
-// ../cursorless_fork/packages/neovim-registry/src/index.ts
+// ../cursorless_fork/packages/lib-neovim-registry/src/index.ts
 function getNeovimRegistry() {
   if (global._neovimRegistry == null) {
     global._neovimRegistry = new NeovimRegistry();

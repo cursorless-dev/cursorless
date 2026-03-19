@@ -3,73 +3,73 @@
   "include": [],
   "references": [
     {
-      "path": "./packages/cheatsheet"
+      "path": "./packages/app-neovim"
     },
     {
-      "path": "./packages/cheatsheet-local"
+      "path": "./packages/app-talon"
     },
     {
-      "path": "./packages/common"
+      "path": "./packages/app-vscode"
     },
     {
-      "path": "./packages/cursorless-engine"
+      "path": "./packages/app-web"
     },
     {
-      "path": "./packages/cursorless-everywhere-talon"
+      "path": "./packages/app-web-docs"
     },
     {
-      "path": "./packages/cursorless-everywhere-talon-core"
+      "path": "./packages/lib-cheatsheet"
     },
     {
-      "path": "./packages/cursorless-everywhere-talon-e2e"
+      "path": "./packages/lib-cheatsheet-local"
     },
     {
-      "path": "./packages/cursorless-neovim"
+      "path": "./packages/lib-common"
     },
     {
-      "path": "./packages/cursorless-neovim-e2e"
+      "path": "./packages/lib-engine"
     },
     {
-      "path": "./packages/cursorless-org"
+      "path": "./packages/lib-neovim-common"
     },
     {
-      "path": "./packages/cursorless-org-docs"
+      "path": "./packages/lib-neovim-registry"
     },
     {
-      "path": "./packages/cursorless-tutorial"
+      "path": "./packages/lib-node-common"
     },
     {
-      "path": "./packages/cursorless-vscode"
+      "path": "./packages/lib-sentence-parser"
     },
     {
-      "path": "./packages/cursorless-vscode-e2e"
+      "path": "./packages/lib-talon-core"
     },
     {
-      "path": "./packages/cursorless-vscode-tutorial-webview"
+      "path": "./packages/lib-test-case-recorder"
     },
     {
-      "path": "./packages/meta-updater"
+      "path": "./packages/lib-tutorial"
     },
     {
-      "path": "./packages/neovim-common"
+      "path": "./packages/lib-vscode-common"
     },
     {
-      "path": "./packages/neovim-registry"
+      "path": "./packages/lib-vscode-tutorial-webview"
     },
     {
-      "path": "./packages/node-common"
+      "path": "./packages/test-neovim-e2e"
     },
     {
-      "path": "./packages/sentence-parser"
+      "path": "./packages/test-runner"
     },
     {
-      "path": "./packages/test-case-recorder"
+      "path": "./packages/test-talon-e2e"
     },
     {
-      "path": "./packages/test-harness"
+      "path": "./packages/test-vscode-e2e"
     },
     {
-      "path": "./packages/vscode-common"
+      "path": "./packages/tool-meta-updater"
     }
   ]
 }

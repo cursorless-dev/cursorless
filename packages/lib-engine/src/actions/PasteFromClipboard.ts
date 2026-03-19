@@ -1,0 +1,28 @@
+import type { IDE } from "@cursorless/lib-common";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import type { Destination } from "../typings/target.types";
+import type { Actions } from "./Actions";
+import type { ActionReturnValue } from "./actions.types";
+import { PasteFromClipboardDirectly } from "./PasteFromClipboardDirectly";
+import { PasteFromClipboardUsingCommand } from "./PasteFromClipboardUsingCommand";
+
+export interface DestinationWithText {
+  destination: Destination;
+  text: string;
+}
+
+export class PasteFromClipboard {
+  private runner: PasteFromClipboardDirectly | PasteFromClipboardUsingCommand;
+
+  constructor(ide: IDE, rangeUpdater: RangeUpdater, actions: Actions) {
+    this.run = this.run.bind(this);
+    this.runner =
+      ide.capabilities.commands.clipboardPaste != null
+        ? new PasteFromClipboardUsingCommand(ide, rangeUpdater, actions)
+        : new PasteFromClipboardDirectly(ide, rangeUpdater);
+  }
+
+  run(destinations: Destination[]): Promise<ActionReturnValue> {
+    return this.runner.run(destinations);
+  }
+}
