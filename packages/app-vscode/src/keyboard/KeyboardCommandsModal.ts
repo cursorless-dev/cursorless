@@ -1,7 +1,7 @@
 import { CompositeKeyMap } from "@cursorless/lib-common";
 import type { VscodeApi } from "@cursorless/lib-vscode-common";
 import { pick, sortedUniq, toPairs } from "lodash-es";
-import { Grammar, Parser } from "nearley";
+import nearley from "nearley";
 import * as vscode from "vscode";
 import { KeyboardCommandHandler } from "./KeyboardCommandHandler";
 import { KeyboardCommandsModalLayer } from "./KeyboardCommandsModalLayer";
@@ -33,10 +33,10 @@ export default class KeyboardCommandsModal {
     string[],
     KeyboardCommandsModalLayer<KeyDescriptor>
   >((keys) => keys);
-  private parser!: Parser;
+  private parser!: nearley.Parser;
   private sections!: TokenTypeKeyMapMap;
   private keyboardCommandHandler: KeyboardCommandHandler;
-  private compiledGrammar = Grammar.fromCompiled(grammar);
+  private compiledGrammar = nearley.Grammar.fromCompiled(grammar);
   private keyboardConfig: KeyboardConfig;
 
   constructor(
@@ -78,7 +78,7 @@ export default class KeyboardCommandsModal {
   }
 
   private resetParser() {
-    this.parser = new Parser(this.compiledGrammar);
+    this.parser = new nearley.Parser(this.compiledGrammar);
     this.computeLayer();
   }
 

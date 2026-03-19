@@ -1,4 +1,3 @@
-import type { State } from "nearley";
 import type nearley from "nearley";
 import { isEqual, times } from "lodash-es";
 import type { CommandRulePostProcessor } from "./CommandRulePostProcessor";
@@ -95,8 +94,8 @@ export const NEXT = Symbol("next");
 function computeRootStatePartialArgs(
   state: nearley.State,
   lastSymbol: any = NEXT,
-  visitCounts = new DefaultMap<State, number>(() => 0),
-  roots: { state: State; partialArg: any }[] = [],
+  visitCounts = new DefaultMap<nearley.State, number>(() => 0),
+  roots: { state: nearley.State; partialArg: any }[] = [],
 ) {
   const visitCount = visitCounts.get(state);
   if (visitCount > MAX_VISITS) {

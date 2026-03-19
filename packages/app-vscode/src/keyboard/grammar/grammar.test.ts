@@ -1,4 +1,4 @@
-import { Parser, Grammar } from "nearley";
+import nearley from "nearley";
 import grammar from "./generated/grammar";
 import assert from "assert";
 import type { KeyDescriptor } from "../TokenTypeHelpers";
@@ -179,9 +179,9 @@ const testCases: TestCase[] = [
 ];
 
 suite("keyboard grammar", () => {
-  let parser: Parser;
+  let parser: nearley.Parser;
   setup(() => {
-    parser = new Parser(Grammar.fromCompiled(grammar));
+    parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));
   });
 
   testCases.forEach(({ tokens, expected }) => {

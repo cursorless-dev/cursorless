@@ -1,5 +1,5 @@
 import assert from "assert";
-import { Grammar, Parser } from "nearley";
+import nearley from "nearley";
 import type { KeyDescriptor } from "../TokenTypeHelpers";
 import grammar from "./generated/grammar";
 import type { AcceptableTokenType } from "./getAcceptableTokenTypes";
@@ -132,9 +132,9 @@ const testCases: TestCase[] = [
 ];
 
 suite("keyboard.getAcceptableTokenTypes", () => {
-  let parser: Parser;
+  let parser: nearley.Parser;
   setup(() => {
-    parser = new Parser(Grammar.fromCompiled(grammar));
+    parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));
   });
 
   testCases.forEach(({ tokens, expected }) => {
