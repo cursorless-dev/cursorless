@@ -16,4 +16,4 @@ packages/test-runner/failedTests.properties
 
 # cursorless-neovim
 cursorless.nvim/node/cursorless-neovim
-cursorless.nvim/node/test-harness
+cursorless.nvim/node/test-runner

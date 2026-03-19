@@ -24,7 +24,7 @@ export function testSubsetFilePath() {
   return path.join(
     getCursorlessRepoRoot(),
     "packages",
-    "test-harness",
+    "test-runner",
     "testSubsetGrep.properties",
   );
 }
@@ -33,7 +33,7 @@ function testFailedFilePath() {
   return path.join(
     getCursorlessRepoRoot(),
     "packages",
-    "test-harness",
+    "test-runner",
     "failedTests.properties",
   );
 }

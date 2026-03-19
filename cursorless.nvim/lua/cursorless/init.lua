@@ -36,7 +36,7 @@ local function register_functions()
       },
     }
   )
-  vim.fn["remote#host#RegisterPlugin"]("node", path .. "/node/test-harness/", {
+  vim.fn["remote#host#RegisterPlugin"]("node", path .. "/node/test-runner/", {
     {
       type = "function",
       name = "TestHarnessRun",

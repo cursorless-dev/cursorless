@@ -24,8 +24,8 @@ if [[ "${CI:-x}" == "true" ]]; then
   cp "$cursorless_neovim_node_in_dir/package.json" "$cursorless_neovim_node_out_dir"
   cp "$cursorless_neovim_node_in_dir/out/index.cjs" "$cursorless_neovim_node_out_dir/out"
 
-  # Populate test-harness
-  test_harness_node_out_dir="$cursorless_nvim_dist_dir/node/test-harness"
+  # Populate test-runner
+  test_harness_node_out_dir="$cursorless_nvim_dist_dir/node/test-runner"
   mkdir -p "$test_harness_node_out_dir/out"
   cp "$test_harness_node_in_dir/package.json" "$test_harness_node_out_dir"
   cp "$test_harness_node_in_dir/out/extensionTestsNeovim.cjs" "$test_harness_node_out_dir/out"
@@ -43,7 +43,7 @@ else
     rm -rf "$cursorless_neovim_node_out_dir"
     ln -s "$cursorless_neovim_node_in_dir" "$cursorless_neovim_node_out_dir"
 
-    test_harness_node_out_dir="$cursorless_nvim_dir/node/test-harness"
+    test_harness_node_out_dir="$cursorless_nvim_dir/node/test-runner"
     rm -rf "$test_harness_node_out_dir"
     ln -s "$test_harness_node_in_dir" "$test_harness_node_out_dir"
   fi

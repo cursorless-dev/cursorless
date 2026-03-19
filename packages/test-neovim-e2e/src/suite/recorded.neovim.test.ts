@@ -31,7 +31,7 @@ suite("recorded test cases", async function () {
       name,
       asyncSafety(async () => {
         /**
-         * The neovim client is set by the test runner in test-harness/src/index.ts into the global object.
+         * The neovim client is set by the test runner in test-runner/src/index.ts into the global object.
          * This allows us to access it in the tests that are executed through mocha.
          */
         const client = (global as any).additionalParameters.client;

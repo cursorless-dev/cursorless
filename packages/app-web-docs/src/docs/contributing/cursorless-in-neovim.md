@@ -30,7 +30,7 @@ Open a `cmd.exe` with Administrator privileges and create the symbolic links bet
 
 ```bat
 mklink /D C:\path\to\cursorless\cursorless.nvim\node\cursorless-neovim C:\path\to\cursorless\packages\cursorless-neovim
-mklink /D C:\path\to\cursorless\cursorless.nvim\node\test-harness C:\path\to\cursorless\packages\test-harness
+mklink /D C:\path\to\cursorless\cursorless.nvim\node\test-runner C:\path\to\cursorless\packages\test-runner
 ```
 
 Note that the `C:\path\to\cursorless` path above should match your cloned cursorless repository.
