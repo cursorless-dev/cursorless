@@ -6,7 +6,7 @@ export function updateLanguageMdx(
   actual: string | null,
   options: FormatPluginFnOptions,
 ): string | null {
-  if (options.manifest.name !== "@cursorless/cursorless-org-docs") {
+  if (options.manifest.name !== "@cursorless/app-web-docs") {
     return null;
   }
 

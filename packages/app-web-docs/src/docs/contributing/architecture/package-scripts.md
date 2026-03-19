@@ -61,8 +61,8 @@ Examples include:
 
 - `@cursorless/cursorless-vscode`
 - `@cursorless/app-neovim`
-- `@cursorless/cursorless-org`
-- `@cursorless/cursorless-org-docs`
+- `@cursorless/app-web`
+- `@cursorless/app-web-docs`
 - `@cursorless/app-talon`
 
 ## Script meanings

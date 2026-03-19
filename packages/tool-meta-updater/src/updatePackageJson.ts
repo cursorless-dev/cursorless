@@ -32,7 +32,7 @@ export async function updatePackageJson(
   const isLib = !isRoot && !input.private;
   const isCursorlessVscode = input.name === "@cursorless/cursorless-vscode";
   const isCursorlessNeovim = input.name === "@cursorless/app-neovim";
-  const isCursorlessOrgDocs = input.name === "@cursorless/cursorless-org-docs";
+  const isCursorlessOrgDocs = input.name === "@cursorless/app-web-docs";
   const isCursorlessTestHarness = input.name === "@cursorless/test-harness";
 
   if (input.description == null || input.description === "") {
@@ -106,9 +106,7 @@ async function getScripts(
   const cleanDirs = ["./out", "tsconfig.tsbuildinfo", "./dist", "./build"];
   const clean = `rm -rf ${cleanDirs.join(" ")}`;
   const cleanScripts =
-    name === "@cursorless/cursorless-org-docs"
-      ? ["docusaurus clear", clean]
-      : [clean];
+    name === "@cursorless/app-web-docs" ? ["docusaurus clear", clean] : [clean];
 
   scripts.clean = cleanScripts.join(" && ");
 
