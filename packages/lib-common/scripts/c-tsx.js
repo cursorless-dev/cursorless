@@ -1,15 +1,12 @@
 #!/usr/bin/env node
 /* global process, console */
 
-// This script runs a TypeScript file using Node.js by first bundling it with
-// esbuild.
+// This script runs a TypeScript file using tsx after setting repo-specific
+// environment variables.
 
 import { spawn } from "cross-spawn";
-import { build } from "esbuild";
-import { existsSync, mkdirSync, rmSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { randomBytes } from "node:crypto";
 
 /**
  * Run a command with arguments and return a child process
@@ -27,33 +24,6 @@ function runCommand(command, args, extraEnv = {}) {
   });
 }
 
-/**
- * Create a temporary directory and return its path
- * @param {string} baseDir
- */
-function createTempDirectory(baseDir) {
-  const tempDir = join(
-    baseDir,
-    "out",
-    "c-tsx-tmp",
-    randomBytes(16).toString("hex"),
-  );
-
-  mkdirSync(tempDir, { recursive: true });
-
-  return tempDir;
-}
-
-/**
- * Clean up the temporary directory
- * @param {import("fs").PathLike} tempDir
- */
-function cleanupTempDirectory(tempDir) {
-  if (existsSync(tempDir)) {
-    rmSync(tempDir, { recursive: true });
-  }
-}
-
 // Main function to execute the script
 async function main() {
   const args = process.argv.slice(2);
@@ -67,35 +37,12 @@ async function main() {
 
   const [fileToRun, ...childArgs] = args;
 
-  // Note that the temporary directory must be in the workspace root, otherwise
-  // VSCode will ignore the source maps, and breakpoints will not work.
-  const tempDir = createTempDirectory(process.cwd());
-  const outFile = join(tempDir, "out.cjs");
-
-  // Set up cleanup for when the script exits
-  process.on("exit", () => cleanupTempDirectory(tempDir));
-  process.on("SIGINT", () => cleanupTempDirectory(tempDir));
-  process.on("SIGTERM", () => cleanupTempDirectory(tempDir));
-
-  // Run esbuild to bundle the TypeScript file
-  await build({
-    entryPoints: [fileToRun],
-    sourcemap: true,
-    conditions: ["cursorless:bundler"],
-    logLevel: "warning",
-    platform: "node",
-    bundle: true,
-    format: "cjs",
-    outfile: outFile,
-    external: ["./reporters/parallel-buffered", "./worker.js"],
-  });
-
   const scriptDirectory = dirname(fileURLToPath(import.meta.url));
   const repoRoot = join(scriptDirectory, "..", "..", "..");
 
   const nodeProcess = runCommand(
-    process.execPath,
-    ["--enable-source-maps", outFile, ...childArgs],
+    "tsx",
+    ["--enable-source-maps", fileToRun, ...childArgs],
     {
       ["CURSORLESS_REPO_ROOT"]: repoRoot,
     },

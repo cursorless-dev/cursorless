@@ -4,7 +4,6 @@ import Mocha from "mocha";
 import * as path from "node:path";
 import {
   logFailedTests,
-  runTestSubset,
   shouldLogFailedTests,
   testSubsetGrepString,
 } from "./testSubset";
@@ -14,19 +13,19 @@ import {
  */
 export enum TestType {
   /** Unit tests can be run without VSCode or Talon or Neovim */
-  unit,
+  unit = "test",
 
   /** VSCode tests must be run from VSCode context */
-  vscode,
+  vscode = "vscode.test",
 
   /** Talon tests require a running Talon instance */
-  talon,
+  talon = "talon.test",
 
-  /** Talon everywhere/JS tests can be run without VSCode or Talon */
-  talonJs,
+  /** Talon-JS tests can be run without VSCode or Talon */
+  talonJs = "talonjs.test",
 
   /** Neovim tests must be run from Neovim context */
-  neovim,
+  neovim = "neovim.test",
 }
 
 export function runAllTests(type: TestType): Promise<void> {
@@ -34,41 +33,41 @@ export function runAllTests(type: TestType): Promise<void> {
 
   const testRoot = path.join(getCursorlessRepoRoot(), "packages");
 
-  return runTestsInDir(testRoot, (files) =>
-    files.filter((f) => {
-      if (f.endsWith("neovim.test.cjs")) {
-        return type === TestType.neovim;
-      }
+  let filePattern: string;
+  let ignore: string[] | undefined;
 
-      if (f.endsWith("vscode.test.cjs")) {
-        return type === TestType.vscode;
-      }
+  if (type === TestType.unit) {
+    filePattern = "test.ts";
+    ignore = [
+      TestType.vscode,
+      TestType.talon,
+      TestType.talonJs,
+      TestType.neovim,
+    ].map((t) => `**/*.${t}.ts`);
+  } else {
+    filePattern = `${type}.cjs`;
+    ignore = undefined;
+  }
 
-      if (f.endsWith("talon.test.cjs")) {
-        return type === TestType.talon;
-      }
-
-      if (f.endsWith("talonjs.test.cjs")) {
-        return type === TestType.talonJs;
-      }
-
-      return type === TestType.unit;
-    }),
-  );
+  return runTestsInDir(testRoot, filePattern, ignore);
 }
 
 async function runTestsInDir(
   testRoot: string,
-  filterFiles: (files: string[]) => string[],
+  filePattern: string,
+  ignore: string[] | undefined,
 ): Promise<void> {
   // Create the mocha test
   const mocha = new Mocha({
     ui: "tdd",
     color: true,
-    grep: runTestSubset() ? testSubsetGrepString() : undefined, // Only run a subset of tests
+    grep: testSubsetGrepString(), // Only run a subset of tests
   });
 
-  const files = filterFiles(await glob("**/**.test.cjs", { cwd: testRoot }));
+  const files = await glob(`**/*.${filePattern}`, {
+    cwd: testRoot,
+    ignore,
+  });
 
   if (files.length === 0) {
     throw new Error(

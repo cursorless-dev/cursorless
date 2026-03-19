@@ -1,6 +1,7 @@
 import type { TextDocument, TreeSitter } from "@cursorless/lib-common";
 import { createRequire } from "node:module";
 import * as path from "node:path";
+import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
 import type {
   Tree,
   Language as TreeSitterLanguage,
@@ -83,11 +84,10 @@ export class TestTreeSitter implements TreeSitter {
 }
 
 function getWasmFilePath(parserName: string) {
-  const fileName = `${parserName}.wasm`;
   return path.join(
-    __dirname,
-    "../../../../node_modules/@cursorless/tree-sitter-wasms/out",
-    fileName,
+    getCursorlessRepoRoot(),
+    "packages/test-runner/node_modules/@cursorless/tree-sitter-wasms/out",
+    `${parserName}.wasm`,
   );
 }
 
