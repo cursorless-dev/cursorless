@@ -14,7 +14,7 @@
     },
     {
       "label": "Build extension and tests",
-      "dependsOn": ["Build extension", "Build test harness"],
+      "dependsOn": ["Build extension", "Build test runner"],
       "group": "build"
     },
     {
@@ -29,7 +29,7 @@
 
     // Helper tasks
     {
-      "label": "Build test harness",
+      "label": "Build test runner",
       "type": "npm",
       "script": "build",
       "path": "packages/test-runner",

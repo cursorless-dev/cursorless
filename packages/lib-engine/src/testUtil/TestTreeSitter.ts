@@ -1,34 +1,15 @@
 import type { TextDocument, TreeSitter } from "@cursorless/lib-common";
-import { createRequire } from "node:module";
 import * as path from "node:path";
-import type {
-  Tree,
-  Language as TreeSitterLanguage,
-  Parser as TreeSitterParser,
-  Query as TreeSitterQuery,
-} from "web-tree-sitter";
+import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
+import type { Tree } from "web-tree-sitter";
+import { Parser, Query, Language } from "web-tree-sitter";
 
-// Force the CommonJS entrypoint because the ESM one crashes in this test
-// runtime before we get a chance to initialize tree-sitter.
-const moduleRequire = createRequire(__filename);
-
-const {
-  Language,
-  Parser,
-  Query,
-}: {
-  // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-  Parser: typeof import("web-tree-sitter").Parser;
-  Language: typeof TreeSitterLanguage;
-  Query: typeof TreeSitterQuery;
-} = moduleRequire("web-tree-sitter");
-
-interface Language {
-  language: TreeSitterLanguage;
-  parser: TreeSitterParser;
+interface LanguageConf {
+  language: Language;
+  parser: Parser;
 }
 
-const languageCache = new Map<string, Language>();
+const languageCache = new Map<string, LanguageConf>();
 let initPromise: Promise<void> | undefined;
 
 function initTreeSitter() {
@@ -73,7 +54,7 @@ export class TestTreeSitter implements TreeSitter {
     return true;
   }
 
-  createQuery(languageId: string, source: string): TreeSitterQuery | undefined {
+  createQuery(languageId: string, source: string): Query | undefined {
     const language = languageCache.get(languageId);
     if (language == null) {
       return undefined;
@@ -83,11 +64,10 @@ export class TestTreeSitter implements TreeSitter {
 }
 
 function getWasmFilePath(parserName: string) {
-  const fileName = `${parserName}.wasm`;
   return path.join(
-    __dirname,
-    "../../../../node_modules/@cursorless/tree-sitter-wasms/out",
-    fileName,
+    getCursorlessRepoRoot(),
+    "packages/test-runner/node_modules/@cursorless/tree-sitter-wasms/out",
+    `${parserName}.wasm`,
   );
 }
 

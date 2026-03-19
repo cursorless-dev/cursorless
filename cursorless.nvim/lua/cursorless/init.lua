@@ -39,7 +39,7 @@ local function register_functions()
   vim.fn["remote#host#RegisterPlugin"]("node", path .. "/node/test-runner/", {
     {
       type = "function",
-      name = "TestHarnessRun",
+      name = "TestRunnerRun",
       sync = false,
       opts = vim.empty_dict(),
     },
@@ -55,7 +55,7 @@ local function load_extensions()
   if os.getenv("CURSORLESS_MODE") == "test" then
     -- make sure cursorless is loaded before starting the tests
     vim.uv.sleep(1000)
-    vim.fn.TestHarnessRun()
+    vim.fn.TestRunnerRun()
   else
     vim.fn.CommandServerLoadExtension()
   end

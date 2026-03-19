@@ -124,14 +124,14 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0
 
-  packages/app-talon:
+  packages/app-talonjs:
     dependencies:
       '@cursorless/lib-common':
         specifier: workspace:*
         version: link:../lib-common
-      '@cursorless/lib-talon-core':
+      '@cursorless/lib-talonjs-core':
         specifier: workspace:*
-        version: link:../lib-talon-core
+        version: link:../lib-talonjs-core
 
   packages/app-vscode:
     dependencies:
@@ -616,7 +616,7 @@ importers:
         specifier: ^11.7.5
         version: 11.7.5
 
-  packages/lib-talon-core:
+  packages/lib-talonjs-core:
     dependencies:
       '@cursorless/lib-common':
         specifier: workspace:*
@@ -811,9 +811,9 @@ importers:
       '@cursorless/lib-node-common':
         specifier: workspace:*
         version: link:../lib-node-common
-      '@cursorless/lib-talon-core':
+      '@cursorless/lib-talonjs-core':
         specifier: workspace:*
-        version: link:../lib-talon-core
+        version: link:../lib-talonjs-core
       '@cursorless/lib-test-case-recorder':
         specifier: workspace:*
         version: link:../lib-test-case-recorder

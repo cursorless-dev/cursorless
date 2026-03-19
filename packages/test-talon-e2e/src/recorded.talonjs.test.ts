@@ -7,7 +7,7 @@ import {
   activate,
   type EditorState,
   type TalonJsIDE,
-} from "@cursorless/lib-talon-core";
+} from "@cursorless/lib-talonjs-core";
 import {
   getRecordedTestPaths,
   loadFixture,

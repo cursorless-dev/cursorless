@@ -12,5 +12,5 @@ set -euo pipefail
     --outfile=out/extensionTestsNeovim.cjs
 
 # Compile test cases
-find .. -name '*.test.ts' -print0 |
+find .. \( -name '*.vscode.test.ts' -o -name '*.neovim.test.ts' \) -print0 |
     xargs -0 -n 50 ./scripts/run-esbuild.sh --outdir=out --out-extension:.js=.cjs

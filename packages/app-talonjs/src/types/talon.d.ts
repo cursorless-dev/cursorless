@@ -3,7 +3,7 @@ declare module "talon" {
     TalonActions,
     TalonContextConstructor,
     TalonSettings,
-  } from "@cursorless/lib-talon-core";
+  } from "@cursorless/lib-talonjs-core";
 
   export const actions: TalonActions;
   export const settings: TalonSettings;

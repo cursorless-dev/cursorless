@@ -6,7 +6,7 @@
       "path": "./packages/app-neovim"
     },
     {
-      "path": "./packages/app-talon"
+      "path": "./packages/app-talonjs"
     },
     {
       "path": "./packages/app-vscode"
@@ -42,7 +42,7 @@
       "path": "./packages/lib-sentence-parser"
     },
     {
-      "path": "./packages/lib-talon-core"
+      "path": "./packages/lib-talonjs-core"
     },
     {
       "path": "./packages/lib-test-case-recorder"

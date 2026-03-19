@@ -1,4 +1,4 @@
-import type { Lexer } from "nearley";
+import type nearley from "nearley";
 import type { TokenTypeKeyMapMap } from "../TokenTypeHelpers";
 
 interface LexerState {
@@ -17,7 +17,7 @@ interface Token {
  * method that the parser will then use to transform the token into the actual
  * value that will be used when constructing rule outputs.
  */
-class KeyboardLexer implements Lexer {
+class KeyboardLexer implements nearley.Lexer {
   buffer: any[] = [];
   bufferIndex = 0;
   index = 0;

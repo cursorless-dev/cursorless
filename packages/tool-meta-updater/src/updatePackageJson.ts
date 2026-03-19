@@ -33,7 +33,7 @@ export async function updatePackageJson(
   const isCursorlessVscode = input.name === "@cursorless/app-vscode";
   const isCursorlessNeovim = input.name === "@cursorless/app-neovim";
   const isCursorlessOrgDocs = input.name === "@cursorless/app-web-docs";
-  const isCursorlessTestHarness = input.name === "@cursorless/test-runner";
+  const isCursorlessTestRunner = input.name === "@cursorless/test-runner";
 
   if (input.description == null || input.description === "") {
     throw new Error(`No description found in ${packageDir}/package.json`);
@@ -57,13 +57,9 @@ export async function updatePackageJson(
     delete input.types;
     delete input.exports;
     // Extensions need a main field, but other non-lib packages shouldn't have
-    // one. The test harness is a special case since it's technically not a
+    // one. The test runner is a special case since it's technically not a
     // library but still requires main for the neovim tests.
-    if (
-      !isCursorlessVscode &&
-      !isCursorlessNeovim &&
-      !isCursorlessTestHarness
-    ) {
+    if (!isCursorlessVscode && !isCursorlessNeovim && !isCursorlessTestRunner) {
       delete input.main;
     }
   }

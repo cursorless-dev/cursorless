@@ -63,7 +63,7 @@ Examples include:
 - `@cursorless/app-neovim`
 - `@cursorless/app-web`
 - `@cursorless/app-web-docs`
-- `@cursorless/app-talon`
+- `@cursorless/app-talonjs`
 
 ## Script meanings
 

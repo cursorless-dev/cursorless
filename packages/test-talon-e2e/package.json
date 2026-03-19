@@ -13,7 +13,7 @@
   "dependencies": {
     "@cursorless/lib-common": "workspace:*",
     "@cursorless/lib-node-common": "workspace:*",
-    "@cursorless/lib-talon-core": "workspace:*",
+    "@cursorless/lib-talonjs-core": "workspace:*",
     "@cursorless/lib-test-case-recorder": "workspace:*"
   },
   "devDependencies": {

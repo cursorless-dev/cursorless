@@ -4,7 +4,6 @@ import Mocha from "mocha";
 import * as path from "node:path";
 import {
   logFailedTests,
-  runTestSubset,
   shouldLogFailedTests,
   testSubsetGrepString,
 } from "./testSubset";
@@ -14,61 +13,70 @@ import {
  */
 export enum TestType {
   /** Unit tests can be run without VSCode or Talon or Neovim */
-  unit,
+  unit = "test",
 
   /** VSCode tests must be run from VSCode context */
-  vscode,
+  vscode = "vscode.test",
 
   /** Talon tests require a running Talon instance */
-  talon,
+  talon = "talon.test",
 
-  /** Talon everywhere/JS tests can be run without VSCode or Talon */
-  talonJs,
+  /** Talon-JS tests can be run without VSCode or Talon */
+  talonJs = "talonjs.test",
 
   /** Neovim tests must be run from Neovim context */
-  neovim,
+  neovim = "neovim.test",
 }
 
 export function runAllTests(type: TestType): Promise<void> {
   parseArgumentsAndUpdateEnv();
 
-  return runTestsInDir(
-    path.join(getCursorlessRepoRoot(), "packages"),
-    (files) =>
-      files.filter((f) => {
-        if (f.endsWith("neovim.test.cjs")) {
-          return type === TestType.neovim;
-        }
+  const testRoot = path.join(getCursorlessRepoRoot(), "packages");
 
-        if (f.endsWith("vscode.test.cjs")) {
-          return type === TestType.vscode;
-        }
+  let filePattern: string;
+  let ignore: string[] | undefined = undefined;
 
-        if (f.endsWith("talon.test.cjs")) {
-          return type === TestType.talon;
-        }
+  switch (type) {
+    case TestType.unit:
+      filePattern = "test.ts";
+      ignore = [
+        TestType.vscode,
+        TestType.talon,
+        TestType.talonJs,
+        TestType.neovim,
+      ].map((t) => `**/*.${t}.ts`);
+      break;
 
-        if (f.endsWith("talonjs.test.cjs")) {
-          return type === TestType.talonJs;
-        }
+    case TestType.talon:
+    case TestType.talonJs:
+      filePattern = `${type}.ts`;
+      break;
 
-        return type === TestType.unit;
-      }),
-  );
+    // These tests have to be .cjs files because they import vscode and neovim modules which don't work with ts files
+    case TestType.vscode:
+    case TestType.neovim:
+      filePattern = `${type}.cjs`;
+  }
+
+  return runTestsInDir(testRoot, filePattern, ignore);
 }
 
 async function runTestsInDir(
   testRoot: string,
-  filterFiles: (files: string[]) => string[],
+  filePattern: string,
+  ignore: string[] | undefined,
 ): Promise<void> {
   // Create the mocha test
   const mocha = new Mocha({
     ui: "tdd",
     color: true,
-    grep: runTestSubset() ? testSubsetGrepString() : undefined, // Only run a subset of tests
+    grep: testSubsetGrepString(), // Only run a subset of tests
   });
 
-  const files = filterFiles(await glob("**/**.test.cjs", { cwd: testRoot }));
+  const files = await glob(`**/*.${filePattern}`, {
+    cwd: testRoot,
+    ignore,
+  });
 
   if (files.length === 0) {
     throw new Error(
