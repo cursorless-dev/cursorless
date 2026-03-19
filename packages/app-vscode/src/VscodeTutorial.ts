@@ -16,7 +16,7 @@ import type {
 import { ExtensionMode, Uri } from "vscode";
 import type { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
 import { SpyWebviewView } from "./SpyWebviewView";
-import type { Tutorial } from "@cursorless/cursorless-tutorial";
+import type { Tutorial } from "@cursorless/lib-tutorial";
 
 const VSCODE_TUTORIAL_WEBVIEW_ID = "cursorless.tutorial";
 

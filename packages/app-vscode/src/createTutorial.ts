@@ -3,7 +3,7 @@ import type {
   CommandRunnerDecorator,
   CustomSpokenFormGenerator,
 } from "@cursorless/lib-engine";
-import { TutorialImpl } from "@cursorless/cursorless-tutorial";
+import { TutorialImpl } from "@cursorless/lib-tutorial";
 import { FileSystemTutorialContentProvider } from "@cursorless/node-common";
 import type * as vscode from "vscode";
 import type { ScopeVisualizer } from "./ScopeVisualizerCommandApi";

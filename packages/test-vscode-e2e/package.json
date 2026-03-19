@@ -1,5 +1,5 @@
 {
-  "name": "@cursorless/cursorless-vscode-e2e",
+  "name": "@cursorless/test-vscode-e2e",
   "version": "0.1.0",
   "description": "Our VSCode end-to-end tests",
   "license": "MIT",

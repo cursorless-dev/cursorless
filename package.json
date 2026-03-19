@@ -23,7 +23,7 @@
     "lint:prettier": "prettier --check .",
     "lint:style": "stylelint '**/*.{css,scss}' --ignore-path .gitignore",
     "lint": "pnpm run typecheck && pnpm run lint:meta && pnpm run lint:syncpack && pnpm run lint:ts && pnpm run lint:style",
-    "init-vscode-sandbox": "pnpm -F @cursorless/cursorless-vscode init-launch-sandbox",
+    "init-vscode-sandbox": "pnpm -F @cursorless/app-vscode init-launch-sandbox",
     "meta-updater": "env NODE_OPTIONS=--import=tsx meta-updater",
     "preinstall": "npx only-allow pnpm",
     "test": "pnpm -r test",

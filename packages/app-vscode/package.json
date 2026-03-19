@@ -1,5 +1,5 @@
 {
-  "name": "@cursorless/cursorless-vscode",
+  "name": "@cursorless/app-vscode",
   "displayName": "Cursorless",
   "version": "1.1.0",
   "description": "Structural voice coding at the speed of thought",
@@ -1286,8 +1286,8 @@
     "test": "pnpm ensure-grammar-up-to-date",
     "dev": "pnpm generate-grammar && pnpm run compile:dev && pnpm run bundle:dev && pnpm run populate-dist",
     "build": "pnpm generate-grammar && pnpm run compile:prod && pnpm run bundle:prod && pnpm run populate-dist",
-    "bundle:dev": "pnpm -F @cursorless/cursorless-vscode-tutorial-webview -F @cursorless/lib-cheatsheet-local run bundle:dev",
-    "bundle:prod": "pnpm -F @cursorless/cursorless-vscode-tutorial-webview -F @cursorless/lib-cheatsheet-local run bundle:prod",
+    "bundle:dev": "pnpm -F @cursorless/app-vscode-tutorial-webview -F @cursorless/lib-cheatsheet-local run bundle:dev",
+    "bundle:prod": "pnpm -F @cursorless/app-vscode-tutorial-webview -F @cursorless/lib-cheatsheet-local run bundle:prod",
     "compile:prod": "pnpm run compile:base --minify",
     "compile:dev": "pnpm run compile:base --sourcemap",
     "compile:watch": "pnpm run compile:base --sourcemap --watch",
@@ -1311,7 +1311,7 @@
   "dependencies": {
     "@cursorless/lib-common": "workspace:*",
     "@cursorless/lib-engine": "workspace:*",
-    "@cursorless/cursorless-tutorial": "workspace:*",
+    "@cursorless/lib-tutorial": "workspace:*",
     "@cursorless/node-common": "workspace:*",
     "@cursorless/test-case-recorder": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",

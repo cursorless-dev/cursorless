@@ -30,7 +30,7 @@ export async function updatePackageJson(
   const isRoot = packageDir === workspaceDir;
 
   const isLib = !isRoot && !input.private;
-  const isCursorlessVscode = input.name === "@cursorless/cursorless-vscode";
+  const isCursorlessVscode = input.name === "@cursorless/app-vscode";
   const isCursorlessNeovim = input.name === "@cursorless/app-neovim";
   const isCursorlessOrgDocs = input.name === "@cursorless/app-web-docs";
   const isCursorlessTestHarness = input.name === "@cursorless/test-harness";

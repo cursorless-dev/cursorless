@@ -232,7 +232,7 @@ This should be done every time we do something that will change the custom cheat
 You'll probably want to run the following to make sure the SVGs have everything they need:
 
 ```sh
-pnpm -F @cursorless/cursorless-vscode preprocess-svg-hats
+pnpm -F @cursorless/app-vscode preprocess-svg-hats
 ```
 
 This script will add dummy width, height and fill attributes as necessary to appease the regex in `Decorations.ts`
@@ -246,11 +246,11 @@ can paste the settings into `packages/cursorless-vscode/src/scripts/hatAdjustmen
 your updates:
 
 ```sh
-pnpm -F @cursorless/cursorless-vscode hat-adjustments-add
+pnpm -F @cursorless/app-vscode hat-adjustments-add
 ```
 
 If instead, you want to average your adjustments with those in main and see the differences to get to yours and main, you can paste the settings into `packages/cursorless-vscode/src/scripts/hatAdjustments/average.ts` and run:
 
 ```sh
-pnpm -F @cursorless/cursorless-vscode hat-adjustments-average
+pnpm -F @cursorless/app-vscode hat-adjustments-average
 ```

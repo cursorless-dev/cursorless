@@ -1,5 +1,5 @@
 {
-  "name": "@cursorless/cursorless-vscode-tutorial-webview",
+  "name": "@cursorless/app-vscode-tutorial-webview",
   "version": "1.0.0",
   "description": "Contains the VSCode webview frontend for the Cursorless tutorial",
   "license": "MIT",

@@ -59,7 +59,7 @@ These packages generally expose:
 
 Examples include:
 
-- `@cursorless/cursorless-vscode`
+- `@cursorless/app-vscode`
 - `@cursorless/app-neovim`
 - `@cursorless/app-web`
 - `@cursorless/app-web-docs`
