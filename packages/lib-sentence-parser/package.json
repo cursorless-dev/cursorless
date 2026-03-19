@@ -1,5 +1,5 @@
 {
-  "name": "@cursorless/sentence-parser",
+  "name": "@cursorless/lib-sentence-parser",
   "version": "1.0.0",
   "description": "Parse text for sentence boundary detection",
   "license": "MIT",

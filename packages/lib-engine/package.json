@@ -19,7 +19,7 @@
   "dependencies": {
     "@cursorless/lib-common": "workspace:*",
     "@cursorless/lib-node-common": "workspace:*",
-    "@cursorless/sentence-parser": "workspace:*",
+    "@cursorless/lib-sentence-parser": "workspace:*",
     "@cursorless/talon-tools": "^0.8.0",
     "immer": "^11.1.4",
     "immutability-helper": "^3.1.1",
