@@ -15,7 +15,7 @@ import {
   modeSwitchNormalTerminal,
   modeSwitchTerminal,
 } from "@cursorless/lib-neovim-common";
-import { getNeovimRegistry } from "@cursorless/neovim-registry";
+import { getNeovimRegistry } from "@cursorless/lib-neovim-registry";
 import type { NeovimClient } from "neovim";
 
 export async function registerCommands(

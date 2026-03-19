@@ -31,7 +31,7 @@ import NeovimKeyValueStore from "./NeovimKeyValueStore";
 import NeovimMessages from "./NeovimMessages";
 import { NeovimTextEditor } from "./NeovimTextEditor";
 
-import { getNeovimRegistry } from "@cursorless/neovim-registry";
+import { getNeovimRegistry } from "@cursorless/lib-neovim-registry";
 import {
   bufferGetSelections,
   getCursorlessNvimPath,

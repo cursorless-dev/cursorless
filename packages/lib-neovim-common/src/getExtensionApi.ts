@@ -1,4 +1,4 @@
-import { getNeovimRegistry } from "@cursorless/neovim-registry";
+import { getNeovimRegistry } from "@cursorless/lib-neovim-registry";
 import type { NeovimTestHelpers } from "./TestHelpers";
 
 export interface CursorlessApi {

@@ -1,5 +1,5 @@
 {
-  "name": "@cursorless/neovim-registry",
+  "name": "@cursorless/lib-neovim-registry",
   "version": "1.0.0",
   "description": "Registry to share apis and commands between packages for neovim",
   "license": "MIT",

@@ -7,7 +7,7 @@ import type {
 } from "@cursorless/lib-common";
 import type { NeovimClient, Window } from "neovim";
 import type { NeovimIDE } from "./NeovimIDE";
-import { getNeovimRegistry } from "@cursorless/neovim-registry";
+import { getNeovimRegistry } from "@cursorless/lib-neovim-registry";
 
 export default async function neovimEdit(
   client: NeovimClient,

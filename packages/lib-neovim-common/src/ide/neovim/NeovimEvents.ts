@@ -5,7 +5,7 @@ import type {
   TextDocumentContentChangeEvent,
 } from "@cursorless/lib-common";
 import { Position, Range } from "@cursorless/lib-common";
-import { getNeovimRegistry } from "@cursorless/neovim-registry";
+import { getNeovimRegistry } from "@cursorless/lib-neovim-registry";
 
 import type { Buffer } from "neovim";
 

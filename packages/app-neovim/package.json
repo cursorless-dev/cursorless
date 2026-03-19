@@ -20,7 +20,7 @@
     "@cursorless/lib-common": "workspace:*",
     "@cursorless/lib-engine": "workspace:*",
     "@cursorless/lib-neovim-common": "workspace:*",
-    "@cursorless/neovim-registry": "workspace:*",
+    "@cursorless/lib-neovim-registry": "workspace:*",
     "@cursorless/node-common": "workspace:*",
     "@cursorless/test-case-recorder": "workspace:*"
   },
