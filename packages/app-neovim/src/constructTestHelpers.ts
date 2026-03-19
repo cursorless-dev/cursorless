@@ -18,7 +18,7 @@ import type {
   NeovimIDE,
   NeovimTestHelpers,
 } from "@cursorless/lib-neovim-common";
-import { takeSnapshot } from "@cursorless/test-case-recorder";
+import { takeSnapshot } from "@cursorless/lib-test-case-recorder";
 
 export function constructTestHelpers(
   commandServerApi: FakeCommandServerApi,

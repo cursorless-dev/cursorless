@@ -14,7 +14,7 @@ import {
 import {
   ScopeTestRecorder,
   TestCaseRecorder,
-} from "@cursorless/test-case-recorder";
+} from "@cursorless/lib-test-case-recorder";
 import type { CursorlessApi } from "@cursorless/vscode-common";
 import {
   getCommandServerApi,

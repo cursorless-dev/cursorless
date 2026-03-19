@@ -10,7 +10,7 @@ import { showCheatsheet, updateDefaults } from "@cursorless/lib-node-common";
 import type {
   ScopeTestRecorder,
   TestCaseRecorder,
-} from "@cursorless/test-case-recorder";
+} from "@cursorless/lib-test-case-recorder";
 import * as vscode from "vscode";
 import type { InstallationDependencies } from "./InstallationDependencies";
 import type {

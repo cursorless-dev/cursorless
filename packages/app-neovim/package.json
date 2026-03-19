@@ -22,7 +22,7 @@
     "@cursorless/lib-neovim-common": "workspace:*",
     "@cursorless/lib-neovim-registry": "workspace:*",
     "@cursorless/lib-node-common": "workspace:*",
-    "@cursorless/test-case-recorder": "workspace:*"
+    "@cursorless/lib-test-case-recorder": "workspace:*"
   },
   "devDependencies": {
     "@types/chai": "^5.2.3",

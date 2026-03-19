@@ -8,7 +8,7 @@ import type {
   TextEditor,
 } from "@cursorless/lib-common";
 import type { TalonJsTestHelpers } from "@cursorless/lib-talon-core";
-import { takeSnapshot } from "@cursorless/test-case-recorder";
+import { takeSnapshot } from "@cursorless/lib-test-case-recorder";
 
 export function constructTestHelpers(
   testHelpers: TalonJsTestHelpers,

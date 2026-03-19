@@ -18,7 +18,7 @@ import {
   scopeHandlerCache,
   treeSitterQueryCache,
 } from "@cursorless/lib-engine";
-import { takeSnapshot } from "@cursorless/test-case-recorder";
+import { takeSnapshot } from "@cursorless/lib-test-case-recorder";
 import type { VscodeTestHelpers } from "@cursorless/vscode-common";
 import type * as vscode from "vscode";
 import { toVscodeEditor } from "./ide/vscode/toVscodeEditor";

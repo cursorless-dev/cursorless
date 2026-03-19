@@ -1,5 +1,5 @@
 {
-  "name": "@cursorless/test-case-recorder",
+  "name": "@cursorless/lib-test-case-recorder",
   "version": "1.0.0",
   "description": "Package containing the test case recorder",
   "license": "MIT",
