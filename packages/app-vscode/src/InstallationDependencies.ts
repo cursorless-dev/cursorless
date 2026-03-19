@@ -1,4 +1,4 @@
-import { isWindows } from "@cursorless/node-common";
+import { isWindows } from "@cursorless/lib-node-common";
 import { COMMAND_SERVER_EXTENSION_ID } from "@cursorless/vscode-common";
 import { globSync } from "glob";
 import * as fs from "node:fs";

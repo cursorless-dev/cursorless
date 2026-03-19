@@ -4,7 +4,7 @@ import type {
   PathChangeListener,
 } from "@cursorless/lib-common";
 import { Notifier } from "@cursorless/lib-common";
-import { walkFiles } from "@cursorless/node-common";
+import { walkFiles } from "@cursorless/lib-node-common";
 import type { VscodeApi } from "@cursorless/vscode-common";
 import * as fs from "node:fs/promises";
 import { cloneDeep, isEqual } from "lodash-es";

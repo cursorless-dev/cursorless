@@ -3,7 +3,7 @@ import { LATEST_VERSION } from "@cursorless/lib-common";
 import {
   getFixturePath,
   getRecordedTestsDirPath,
-} from "@cursorless/node-common";
+} from "@cursorless/lib-node-common";
 import {
   getCursorlessApi,
   getReusableEditor,

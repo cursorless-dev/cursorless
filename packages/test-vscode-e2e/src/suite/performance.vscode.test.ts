@@ -13,7 +13,7 @@ import assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 import { isCI } from "../isCI";
-import { isMac } from "@cursorless/node-common";
+import { isMac } from "@cursorless/lib-node-common";
 
 const testData = generateTestData(100);
 const multiplier = calculateMultiplier();

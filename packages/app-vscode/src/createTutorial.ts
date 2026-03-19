@@ -4,7 +4,7 @@ import type {
   CustomSpokenFormGenerator,
 } from "@cursorless/lib-engine";
 import { TutorialImpl } from "@cursorless/lib-tutorial";
-import { FileSystemTutorialContentProvider } from "@cursorless/node-common";
+import { FileSystemTutorialContentProvider } from "@cursorless/lib-node-common";
 import type * as vscode from "vscode";
 import type { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
 import { VscodeTutorial } from "./VscodeTutorial";

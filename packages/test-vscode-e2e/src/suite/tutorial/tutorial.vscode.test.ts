@@ -4,7 +4,10 @@ import {
   asyncSafety,
   getSnapshotForComparison,
 } from "@cursorless/lib-common";
-import { getRecordedTestsDirPath, loadFixture } from "@cursorless/node-common";
+import {
+  getRecordedTestsDirPath,
+  loadFixture,
+} from "@cursorless/lib-node-common";
 import {
   getCursorlessApi,
   runCursorlessCommand,

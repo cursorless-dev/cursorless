@@ -14,7 +14,7 @@
   "dependencies": {
     "@cursorless/lib-common": "workspace:*",
     "@cursorless/lib-engine": "workspace:*",
-    "@cursorless/node-common": "workspace:*",
+    "@cursorless/lib-node-common": "workspace:*",
     "glob": "^13.0.6",
     "immutability-helper": "^3.1.1",
     "lodash-es": "^4.17.23"

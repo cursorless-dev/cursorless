@@ -1,5 +1,5 @@
 import { asyncSafety } from "@cursorless/lib-common";
-import { isLinux } from "@cursorless/node-common";
+import { isLinux } from "@cursorless/lib-node-common";
 import { endToEndTestSetup } from "../../endToEndTestSetup";
 import { isCI } from "../../isCI";
 import { runBasicScopeInfoTest } from "./runBasicScopeInfoTest";

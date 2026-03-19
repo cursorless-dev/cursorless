@@ -1,4 +1,4 @@
-import { isWindows } from "@cursorless/node-common";
+import { isWindows } from "@cursorless/lib-node-common";
 import * as childProcess from "node:child_process";
 import * as os from "node:os";
 

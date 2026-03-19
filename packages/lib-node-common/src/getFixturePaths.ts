@@ -2,7 +2,7 @@ import type {
   PlaintextScopeSupportFacet,
   ScopeSupportFacet,
 } from "@cursorless/lib-common";
-import { getCursorlessRepoRoot } from "@cursorless/node-common";
+import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
 import * as path from "path";
 import { walkFilesSync } from "./walkSync";
 

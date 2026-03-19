@@ -10,7 +10,7 @@ import {
   FileSystemCommandHistoryStorage,
   FileSystemRawTreeSitterQueryProvider,
   FileSystemTalonSpokenForms,
-} from "@cursorless/node-common";
+} from "@cursorless/lib-node-common";
 import {
   ScopeTestRecorder,
   TestCaseRecorder,

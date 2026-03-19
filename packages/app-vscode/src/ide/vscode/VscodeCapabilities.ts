@@ -2,7 +2,7 @@ import type {
   Capabilities,
   CommandCapabilityMap,
 } from "@cursorless/lib-common";
-import { nodeGetRunMode } from "@cursorless/node-common";
+import { nodeGetRunMode } from "@cursorless/lib-node-common";
 import * as semver from "semver";
 import * as vscode from "vscode";
 

@@ -12,7 +12,7 @@ import {
   ScopeSupportFacetLevel,
   shouldUpdateFixtures,
 } from "@cursorless/lib-common";
-import { getScopeTestPathsRecursively } from "@cursorless/node-common";
+import { getScopeTestPathsRecursively } from "@cursorless/lib-node-common";
 import { assert } from "chai";
 import { groupBy, uniq } from "lodash-es";
 import { promises as fsp } from "node:fs";

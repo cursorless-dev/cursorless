@@ -1,4 +1,4 @@
-import { getCursorlessRepoRoot } from "@cursorless/node-common";
+import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
 import { glob } from "glob";
 import Mocha from "mocha";
 import * as path from "node:path";

@@ -12,7 +12,7 @@ import {
   getRecordedTestPaths,
   loadFixture,
   runRecordedTest,
-} from "@cursorless/node-common";
+} from "@cursorless/lib-node-common";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { endToEndTestSetup } from "./endToEndTestSetUp";
 import { talonMock } from "./talonMock";

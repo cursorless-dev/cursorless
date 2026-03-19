@@ -4,7 +4,7 @@ import type {
   TestCaseFixtureLegacy,
 } from "@cursorless/lib-common";
 import { asyncSafety } from "@cursorless/lib-common";
-import { getRecordedTestPaths } from "@cursorless/node-common";
+import { getRecordedTestPaths } from "@cursorless/lib-node-common";
 import assert from "assert";
 import * as yaml from "js-yaml";
 import { promises as fsp } from "node:fs";

@@ -3,7 +3,7 @@ import {
   serializeTestFixture,
   shouldUpdateFixtures,
 } from "@cursorless/lib-common";
-import { getRecordedTestPaths } from "@cursorless/node-common";
+import { getRecordedTestPaths } from "@cursorless/lib-node-common";
 import * as yaml from "js-yaml";
 import assert from "node:assert";
 import { promises as fsp } from "node:fs";

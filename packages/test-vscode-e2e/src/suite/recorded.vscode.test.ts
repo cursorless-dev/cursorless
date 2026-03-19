@@ -4,7 +4,10 @@ import {
   HatStability,
   asyncSafety,
 } from "@cursorless/lib-common";
-import { getRecordedTestPaths, runRecordedTest } from "@cursorless/node-common";
+import {
+  getRecordedTestPaths,
+  runRecordedTest,
+} from "@cursorless/lib-node-common";
 import {
   getCursorlessApi,
   getReusableEditor,

@@ -1312,7 +1312,7 @@
     "@cursorless/lib-common": "workspace:*",
     "@cursorless/lib-engine": "workspace:*",
     "@cursorless/lib-tutorial": "workspace:*",
-    "@cursorless/node-common": "workspace:*",
+    "@cursorless/lib-node-common": "workspace:*",
     "@cursorless/test-case-recorder": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",
     "glob": "^13.0.6",

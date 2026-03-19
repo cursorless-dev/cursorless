@@ -44,7 +44,7 @@
     "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
-    "@cursorless/node-common": "workspace:*",
+    "@cursorless/lib-node-common": "workspace:*",
     "@docusaurus/module-type-aliases": "^3.9.2",
     "@docusaurus/types": "^3.9.2",
     "@tsconfig/docusaurus": "^2.0.9",

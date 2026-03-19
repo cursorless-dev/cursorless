@@ -14,7 +14,7 @@
   "dependencies": {
     "@cursorless/lib-common": "workspace:*",
     "@cursorless/lib-neovim-registry": "workspace:*",
-    "@cursorless/node-common": "workspace:*",
+    "@cursorless/lib-node-common": "workspace:*",
     "lodash": "^4.17.23",
     "neovim": "^5.4.0",
     "uuid": "^13.0.0",

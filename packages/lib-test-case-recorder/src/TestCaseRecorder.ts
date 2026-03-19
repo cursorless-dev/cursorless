@@ -29,7 +29,10 @@ import {
   defaultSpokenFormMap,
   SpokenFormGenerator,
 } from "@cursorless/lib-engine";
-import { getRecordedTestsDirPath, walkDirsSync } from "@cursorless/node-common";
+import {
+  getRecordedTestsDirPath,
+  walkDirsSync,
+} from "@cursorless/lib-node-common";
 import { invariant } from "immutability-helper";
 import { merge } from "lodash-es";
 import * as fs from "node:fs";

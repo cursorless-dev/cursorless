@@ -3,7 +3,7 @@ import type {
   TutorialId,
   TutorialState,
 } from "@cursorless/lib-common";
-import { getCursorlessRepoRoot } from "@cursorless/node-common";
+import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
 import type { SpyWebViewEvent, VscodeApi } from "@cursorless/vscode-common";
 import path from "node:path";
 import type {

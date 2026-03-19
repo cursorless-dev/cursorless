@@ -6,7 +6,7 @@ import type {
   ScopeProvider,
 } from "@cursorless/lib-common";
 import { FakeIDE, InMemoryTextEditor } from "@cursorless/lib-common";
-import { FileSystemRawTreeSitterQueryProvider } from "@cursorless/node-common";
+import { FileSystemRawTreeSitterQueryProvider } from "@cursorless/lib-node-common";
 import { createCursorlessEngine } from "..";
 import { TestFileSystem } from "./TestFileSystem";
 import { TestTreeSitter } from "./TestTreeSitter";

@@ -4,7 +4,7 @@ import type {
   PathChangeListener,
   RunMode,
 } from "@cursorless/lib-common";
-import { getCursorlessRepoRoot } from "@cursorless/node-common";
+import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
 import { join } from "node:path";
 import fs from "node:fs/promises";
 

@@ -1,5 +1,5 @@
 import { LATEST_VERSION } from "@cursorless/lib-common";
-import { getFixturePath, isWindows } from "@cursorless/node-common";
+import { getFixturePath, isWindows } from "@cursorless/lib-node-common";
 import {
   getReusableEditor,
   runCursorlessCommand,

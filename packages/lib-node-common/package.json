@@ -1,5 +1,5 @@
 {
-  "name": "@cursorless/node-common",
+  "name": "@cursorless/lib-node-common",
   "version": "1.0.0",
   "description": "Package containing node utilities",
   "license": "MIT",

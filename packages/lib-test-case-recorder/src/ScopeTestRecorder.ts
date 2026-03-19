@@ -10,7 +10,7 @@ import {
 import {
   getScopeTestPathsRecursively,
   getScopeTestsDirPath,
-} from "@cursorless/node-common";
+} from "@cursorless/lib-node-common";
 import * as fs from "node:fs";
 import * as fsPromises from "node:fs/promises";
 import * as path from "node:path";

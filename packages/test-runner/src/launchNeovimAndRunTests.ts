@@ -1,5 +1,5 @@
 import { getEnvironmentVariableStrict } from "@cursorless/lib-common";
-import { getCursorlessRepoRoot, isWindows } from "@cursorless/node-common";
+import { getCursorlessRepoRoot, isWindows } from "@cursorless/lib-node-common";
 import * as cp from "child_process";
 import { copyFile, mkdirSync, readdirSync } from "fs";
 import process from "node:process";

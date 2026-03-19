@@ -8,7 +8,7 @@ import * as vscode from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../../endToEndTestSetup";
 import sinon from "sinon";
 import * as path from "node:path";
-import { getCursorlessRepoRoot } from "@cursorless/node-common";
+import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
 import { readFile } from "node:fs/promises";
 
 interface TestCase {

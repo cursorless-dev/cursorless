@@ -1,8 +1,8 @@
-import type { ScopeTestPath } from "@cursorless/node-common";
+import type { ScopeTestPath } from "@cursorless/lib-node-common";
 import {
   getScopeTestLanguagesRecursively,
   getScopeTestPaths,
-} from "@cursorless/node-common";
+} from "@cursorless/lib-node-common";
 import type { LoadContext, Plugin, PluginOptions } from "@docusaurus/types";
 import * as fs from "node:fs";
 import * as path from "node:path";
