@@ -29,7 +29,7 @@ This step is only required on Windows if you don't run VSCode with Administrator
 Open a `cmd.exe` with Administrator privileges and create the symbolic links between the source folders and the `cursorless.nvim` destination folder:
 
 ```bat
-mklink /D C:\path\to\cursorless\cursorless.nvim\node\cursorless-neovim C:\path\to\cursorless\packages\cursorless-neovim
+mklink /D C:\path\to\cursorless\cursorless.nvim\node\cursorless-neovim C:\path\to\cursorless\packages\app-neovim
 mklink /D C:\path\to\cursorless\cursorless.nvim\node\test-runner C:\path\to\cursorless\packages\test-runner
 ```
 

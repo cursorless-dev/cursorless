@@ -159,9 +159,9 @@ local function load_extensions()
 
 However, because `nvim` was started with `"NVIM_NODE_HOST_DEBUG": "1"`, when `node` is spawned, `node` will hang and wait for a debugger to attach (`--inspect-brk`). Consequently, `nvim` won't finish loading yet (i.e. it won't finish loading `init.lua`).
 
-This is handy because it allows VSCode to finish all the tasks required for building the Cursorless neovim plugin (`cursorless-neovim`) and the Tests neovim plugin (`test-runner`), which will finally trigger VSCode to attach to the `node` process.
+This is handy because it allows VSCode to finish all the tasks required for building the Cursorless neovim package (`app-neovim`, exposed to Neovim under `node/cursorless-neovim`) and the test runner package (`test-runner`, exposed under `node/test-runner`), which will finally trigger VSCode to attach to the `node` process.
 
-When VSCode attaches to the `node` process, `CursorlessLoadExtension()` is called to load the Cursorles neovim plugin and `TestHarnessRun()` is called to start the tests.
+When VSCode attaches to the `node` process, `CursorlessLoadExtension()` is called to load the Cursorless neovim plugin and `TestHarnessRun()` is called to start the tests.
 
 This ends up calling `TestHarnessRun()` from `packages/test-runner/src/index.ts` which calls `run()`:
 
@@ -218,7 +218,7 @@ This triggers the script in `packages/test-runner/package.json`:
 "test:neovim": "c-tsx src/scripts/runNeovimTestsCI.ts",
 ```
 
-This ends up calling the default function from `package/test-runner/src/scripts/runNeovimTestsCI.ts` which calls `launchNeovimAndRunTests()` from `packages/test-runner/src/launchNeovimAndRunTests.ts`:
+This ends up calling the default function from `packages/test-runner/src/scripts/runNeovimTestsCI.ts` which calls `launchNeovimAndRunTests()` from `packages/test-runner/src/launchNeovimAndRunTests.ts`:
 
 ```ts
 (async () => {

@@ -21,7 +21,7 @@ within this repository.
 There are two important kinds of internal packages:
 
 - Source-only shared code packages, such as `lib-common` or `lib-engine`
-- Internal asset packages, such as `cheatsheet-local` or
+- Internal asset packages, such as `lib-cheatsheet-local` or
   `lib-vscode-tutorial-webview`
 
 ### Source-only shared code packages
@@ -85,7 +85,7 @@ Examples:
 
 - the local cheatsheet single-file bundle
 - the VS Code tutorial webview bundle
-- test harness runner bundles
+- test runner bundles
 
 ### `build`
 
