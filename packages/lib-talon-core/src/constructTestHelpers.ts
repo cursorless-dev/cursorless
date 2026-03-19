@@ -9,11 +9,8 @@ import type {
   TargetPlainObject,
   TextEditor,
 } from "@cursorless/lib-common";
-import type {
-  CommandApi,
-  StoredTargetMap,
-} from "@cursorless/cursorless-engine";
-import { plainObjectToTarget } from "@cursorless/cursorless-engine";
+import type { CommandApi, StoredTargetMap } from "@cursorless/lib-engine";
+import { plainObjectToTarget } from "@cursorless/lib-engine";
 import type { TalonJsIDE } from "./ide/TalonJsIDE";
 import type { TalonJsTestHelpers } from "./types/types";
 

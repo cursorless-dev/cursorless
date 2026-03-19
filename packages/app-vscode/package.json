@@ -1310,7 +1310,7 @@
   ],
   "dependencies": {
     "@cursorless/lib-common": "workspace:*",
-    "@cursorless/cursorless-engine": "workspace:*",
+    "@cursorless/lib-engine": "workspace:*",
     "@cursorless/cursorless-tutorial": "workspace:*",
     "@cursorless/node-common": "workspace:*",
     "@cursorless/test-case-recorder": "workspace:*",

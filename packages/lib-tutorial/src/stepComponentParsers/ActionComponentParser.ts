@@ -1,7 +1,7 @@
 import type { ActionType } from "@cursorless/lib-common";
 import { actionNames } from "@cursorless/lib-common";
-import type { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
-import { defaultSpokenFormMap } from "@cursorless/cursorless-engine";
+import type { CustomSpokenFormGenerator } from "@cursorless/lib-engine";
+import { defaultSpokenFormMap } from "@cursorless/lib-engine";
 import { getSpokenFormStrict } from "../getSpokenFormStrict";
 import type {
   StepComponent,

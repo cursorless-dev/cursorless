@@ -1,5 +1,5 @@
 {
-  "name": "@cursorless/cursorless-engine",
+  "name": "@cursorless/lib-engine",
   "version": "0.1.0",
   "description": "The core Cursorless engine, which is responsible for parsing and executing commands, allocating hats, etc",
   "license": "MIT",

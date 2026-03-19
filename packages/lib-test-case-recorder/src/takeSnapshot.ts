@@ -12,7 +12,7 @@ import {
   selectionToPlainObject,
   storedTargetKeys,
 } from "@cursorless/lib-common";
-import type { StoredTargetMap } from "@cursorless/cursorless-engine";
+import type { StoredTargetMap } from "@cursorless/lib-engine";
 import { hrtimeBigintToSeconds } from "./timeUtils";
 
 export async function takeSnapshot(

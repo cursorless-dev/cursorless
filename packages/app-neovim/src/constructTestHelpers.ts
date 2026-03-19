@@ -12,8 +12,8 @@ import type {
   TestCaseSnapshot,
   TextEditor,
 } from "@cursorless/lib-common";
-import type { StoredTargetMap } from "@cursorless/cursorless-engine";
-import { plainObjectToTarget } from "@cursorless/cursorless-engine";
+import type { StoredTargetMap } from "@cursorless/lib-engine";
+import { plainObjectToTarget } from "@cursorless/lib-engine";
 import type { NeovimIDE, NeovimTestHelpers } from "@cursorless/neovim-common";
 import { takeSnapshot } from "@cursorless/test-case-recorder";
 

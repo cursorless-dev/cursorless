@@ -2,7 +2,7 @@ import type { Hats, HatTokenMap, IDE } from "@cursorless/lib-common";
 import type {
   CommandRunnerDecorator,
   CustomSpokenFormGenerator,
-} from "@cursorless/cursorless-engine";
+} from "@cursorless/lib-engine";
 import { TutorialImpl } from "@cursorless/cursorless-tutorial";
 import { FileSystemTutorialContentProvider } from "@cursorless/node-common";
 import type * as vscode from "vscode";

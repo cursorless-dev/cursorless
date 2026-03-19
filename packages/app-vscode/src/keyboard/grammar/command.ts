@@ -1,10 +1,7 @@
 import type { KeyboardCommandArgTypes } from "../KeyboardCommandTypeHelpers";
 import type { CommandRulePostProcessor } from "./CommandRulePostProcessor";
-import type { ArgExtractor, Unused } from "@cursorless/cursorless-engine";
-import {
-  getArgExtractors,
-  constructPayload,
-} from "@cursorless/cursorless-engine";
+import type { ArgExtractor, Unused } from "@cursorless/lib-engine";
+import { getArgExtractors, constructPayload } from "@cursorless/lib-engine";
 
 /**
  * Creates a postprocess function for a top-level rule of our grammar. This is a

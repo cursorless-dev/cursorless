@@ -1,5 +1,5 @@
 import type { IDE, TextEditor } from "@cursorless/lib-common";
-import { type Snippets } from "@cursorless/cursorless-engine";
+import { type Snippets } from "@cursorless/lib-engine";
 import { open } from "node:fs/promises";
 import { join } from "node:path";
 

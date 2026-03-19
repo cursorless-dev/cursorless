@@ -24,14 +24,11 @@ import {
   SpyIDE,
   toLineRange,
 } from "@cursorless/lib-common";
-import type {
-  CommandRunner,
-  StoredTargetMap,
-} from "@cursorless/cursorless-engine";
+import type { CommandRunner, StoredTargetMap } from "@cursorless/lib-engine";
 import {
   defaultSpokenFormMap,
   SpokenFormGenerator,
-} from "@cursorless/cursorless-engine";
+} from "@cursorless/lib-engine";
 import { getRecordedTestsDirPath, walkDirsSync } from "@cursorless/node-common";
 import { invariant } from "immutability-helper";
 import { merge } from "lodash-es";

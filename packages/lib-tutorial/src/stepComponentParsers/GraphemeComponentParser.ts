@@ -1,4 +1,4 @@
-import type { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
+import type { CustomSpokenFormGenerator } from "@cursorless/lib-engine";
 import { getSpokenFormStrict } from "../getSpokenFormStrict";
 import type {
   StepComponent,

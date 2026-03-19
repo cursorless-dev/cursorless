@@ -6,7 +6,7 @@ import type {
   SelectionOffsets,
   TestHelpers,
 } from "@cursorless/lib-common";
-import type { StoredTargetMap } from "@cursorless/cursorless-engine";
+import type { StoredTargetMap } from "@cursorless/lib-engine";
 import type { TalonJsIDE } from "../ide/TalonJsIDE";
 
 export interface EditorState {

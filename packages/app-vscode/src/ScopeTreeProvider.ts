@@ -16,7 +16,7 @@ import {
   serializeScopeType,
   uriEncodeHashId,
 } from "@cursorless/lib-common";
-import { type CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
+import { type CustomSpokenFormGenerator } from "@cursorless/lib-engine";
 import { type VscodeApi } from "@cursorless/vscode-common";
 import { isEqual } from "lodash-es";
 import type {

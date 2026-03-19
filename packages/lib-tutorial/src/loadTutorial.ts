@@ -6,7 +6,7 @@ import type {
   TutorialId,
   TutorialState,
 } from "@cursorless/lib-common";
-import type { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
+import type { CustomSpokenFormGenerator } from "@cursorless/lib-engine";
 import { TutorialError } from "./TutorialError";
 import { TutorialStepParser } from "./TutorialStepParser";
 import type { TutorialContent } from "./types/tutorial.types";

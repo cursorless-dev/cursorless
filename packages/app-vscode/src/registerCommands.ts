@@ -4,11 +4,8 @@ import type {
   ScopeType,
 } from "@cursorless/lib-common";
 import { CURSORLESS_COMMAND_ID } from "@cursorless/lib-common";
-import type {
-  CommandApi,
-  StoredTargetMap,
-} from "@cursorless/cursorless-engine";
-import { analyzeCommandHistory } from "@cursorless/cursorless-engine";
+import type { CommandApi, StoredTargetMap } from "@cursorless/lib-engine";
+import { analyzeCommandHistory } from "@cursorless/lib-engine";
 import { showCheatsheet, updateDefaults } from "@cursorless/node-common";
 import type {
   ScopeTestRecorder,

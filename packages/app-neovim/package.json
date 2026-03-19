@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@cursorless/lib-common": "workspace:*",
-    "@cursorless/cursorless-engine": "workspace:*",
+    "@cursorless/lib-engine": "workspace:*",
     "@cursorless/neovim-common": "workspace:*",
     "@cursorless/neovim-registry": "workspace:*",
     "@cursorless/node-common": "workspace:*",

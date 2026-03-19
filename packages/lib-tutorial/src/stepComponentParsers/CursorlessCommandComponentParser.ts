@@ -8,12 +8,12 @@ import type {
   TutorialId,
 } from "@cursorless/lib-common";
 import { getKey, splitKey } from "@cursorless/lib-common";
-import type { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
+import type { CustomSpokenFormGenerator } from "@cursorless/lib-engine";
 import {
   canonicalizeAndValidateCommand,
   getPartialTargetDescriptors,
   transformPartialPrimitiveTargets,
-} from "@cursorless/cursorless-engine";
+} from "@cursorless/lib-engine";
 import { TutorialError } from "../TutorialError";
 import type {
   StepComponent,

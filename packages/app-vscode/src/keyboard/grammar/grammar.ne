@@ -1,6 +1,6 @@
 @preprocessor typescript
 @{%
-import { capture, UNUSED as _, argPositions } from "@cursorless/cursorless-engine"
+import { capture, UNUSED as _, argPositions } from "@cursorless/lib-engine"
 import { command } from "../command"
 import { keyboardLexer } from "../keyboardLexer";
 import { RelativeScopeModifier } from "@cursorless/lib-common";

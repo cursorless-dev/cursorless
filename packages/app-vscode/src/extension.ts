@@ -4,11 +4,8 @@ import {
   FakeIDE,
   NormalizedIDE,
 } from "@cursorless/lib-common";
-import type { EngineProps } from "@cursorless/cursorless-engine";
-import {
-  CommandHistory,
-  createCursorlessEngine,
-} from "@cursorless/cursorless-engine";
+import type { EngineProps } from "@cursorless/lib-engine";
+import { CommandHistory, createCursorlessEngine } from "@cursorless/lib-engine";
 import {
   FileSystemCommandHistoryStorage,
   FileSystemRawTreeSitterQueryProvider,

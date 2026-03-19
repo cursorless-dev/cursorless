@@ -27,7 +27,7 @@ import {
   extractTargetKeys,
   getPartialTargetDescriptors,
   type StoredTargetMap,
-} from "@cursorless/cursorless-engine";
+} from "@cursorless/lib-engine";
 import { pick } from "lodash-es";
 import { takeSnapshot } from "./takeSnapshot";
 

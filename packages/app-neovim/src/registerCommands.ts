@@ -9,7 +9,7 @@ import {
   ensureCommandShape,
 } from "@cursorless/lib-common";
 
-import type { CommandApi } from "@cursorless/cursorless-engine";
+import type { CommandApi } from "@cursorless/lib-engine";
 import type { NeovimIDE } from "@cursorless/neovim-common";
 import {
   modeSwitchNormalTerminal,

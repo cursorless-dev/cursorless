@@ -17,7 +17,7 @@ import type {
   CommandRunner,
   CommandRunnerDecorator,
   CustomSpokenFormGenerator,
-} from "@cursorless/cursorless-engine";
+} from "@cursorless/lib-engine";
 import { produce } from "immer";
 import { isEqual } from "lodash-es";
 import { arePreconditionsMet } from "./arePreconditionsMet";

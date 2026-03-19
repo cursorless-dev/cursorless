@@ -6,7 +6,7 @@ import {
   FakeIDE,
   NormalizedIDE,
 } from "@cursorless/lib-common";
-import { createCursorlessEngine } from "@cursorless/cursorless-engine";
+import { createCursorlessEngine } from "@cursorless/lib-engine";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { TalonJsIDE } from "./ide/TalonJsIDE";
 import { TalonJsTestHats } from "./ide/TalonJsTestHats";

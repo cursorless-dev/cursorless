@@ -1,5 +1,5 @@
 import type { CommandComplete } from "@cursorless/lib-common";
-import type { CommandRunner } from "@cursorless/cursorless-engine";
+import type { CommandRunner } from "@cursorless/lib-engine";
 import { isEqual } from "lodash-es";
 import type { TutorialContent } from "./types/tutorial.types";
 import type { Tutorial } from "./Tutorial";
