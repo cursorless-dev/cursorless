@@ -1,6 +1,6 @@
 import type { ActionDescriptor, ScopeType } from "@cursorless/lib-common";
 import type { Parser } from "nearley";
-import * as nearley from "nearley";
+import nearley from "nearley";
 import type { WithPlaceholders } from "./WithPlaceholders";
 import grammar from "./generated/grammar";
 
