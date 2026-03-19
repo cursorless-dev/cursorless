@@ -76,7 +76,7 @@ async function runTestsInDir(
   const files = await glob(`**/*.${filePattern}`, {
     cwd: testRoot,
     followSymbolicLinks: false,
-    ignore: ["**/node_modules", ...ignore],
+    ignore: ["**/node_modules/**", ...ignore],
   });
 
   if (files.length === 0) {
