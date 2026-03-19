@@ -1,7 +1,7 @@
 import type {
   EditorState,
   TalonContextActions,
-} from "@cursorless/cursorless-everywhere-talon-core";
+} from "@cursorless/lib-talon-core";
 
 export interface TalonTestHelpers {
   contextActions: TalonContextActions;

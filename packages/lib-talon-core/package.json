@@ -1,5 +1,5 @@
 {
-  "name": "@cursorless/cursorless-everywhere-talon-core",
+  "name": "@cursorless/lib-talon-core",
   "version": "1.0.0",
   "description": "cursorless in talon js core packagee",
   "license": "MIT",

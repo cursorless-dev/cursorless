@@ -1,5 +1,5 @@
 {
-  "name": "@cursorless/cursorless-everywhere-talon",
+  "name": "@cursorless/app-talon",
   "version": "1.0.0",
   "description": "cursorless in talon js",
   "license": "MIT",
@@ -18,6 +18,6 @@
   },
   "dependencies": {
     "@cursorless/lib-common": "workspace:*",
-    "@cursorless/cursorless-everywhere-talon-core": "workspace:*"
+    "@cursorless/lib-talon-core": "workspace:*"
   }
 }

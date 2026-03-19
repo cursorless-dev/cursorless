@@ -1,5 +1,5 @@
 {
-  "name": "@cursorless/cursorless-everywhere-talon-e2e",
+  "name": "@cursorless/lib-talon-e2e",
   "version": "1.0.0",
   "description": "Our Talon everywhere/JS end-to-end tests",
   "license": "MIT",
@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@cursorless/lib-common": "workspace:*",
-    "@cursorless/cursorless-everywhere-talon-core": "workspace:*",
+    "@cursorless/lib-talon-core": "workspace:*",
     "@cursorless/node-common": "workspace:*",
     "@cursorless/test-case-recorder": "workspace:*"
   },

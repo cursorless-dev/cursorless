@@ -7,7 +7,7 @@ import type {
   TalonContext,
   TalonContextActions,
   TalonSettings,
-} from "@cursorless/cursorless-everywhere-talon-core";
+} from "@cursorless/lib-talon-core";
 import type { TalonTestHelpers } from "./types/talon";
 
 let _contextActions: TalonContextActions | undefined;
