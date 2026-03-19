@@ -1,17 +1,20 @@
 import type { ActionDescriptor, ScopeType } from "@cursorless/lib-common";
-import { Grammar, Parser } from "nearley";
+import nearley from "nearley";
+import type { Parser } from "nearley";
 import type { WithPlaceholders } from "./WithPlaceholders";
 import grammar from "./generated/grammar";
 
+const { Grammar, Parser: NearleyParser } = nearley;
+
 function getScopeTypeParser(): Parser {
-  return new Parser(
+  return new NearleyParser(
     // eslint-disable-next-line @typescript-eslint/naming-convention
     Grammar.fromCompiled({ ...grammar, ParserStart: "scopeType" }),
   );
 }
 
 function getActionParser(): Parser {
-  return new Parser(Grammar.fromCompiled(grammar));
+  return new NearleyParser(Grammar.fromCompiled(grammar));
 }
 
 /**
