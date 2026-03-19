@@ -7,7 +7,7 @@ import type {
   TestHelpers,
   TextEditor,
 } from "@cursorless/lib-common";
-import type { TalonJsTestHelpers } from "@cursorless/lib-talon-core";
+import type { TalonJsTestHelpers } from "@cursorless/lib-talonjs-core";
 import { takeSnapshot } from "@cursorless/lib-test-case-recorder";
 
 export function constructTestHelpers(

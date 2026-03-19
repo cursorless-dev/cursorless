@@ -19,7 +19,7 @@
       "@cursorless/lib-neovim-registry": ["./packages/lib-neovim-registry"],
       "@cursorless/lib-node-common": ["./packages/lib-node-common"],
       "@cursorless/lib-sentence-parser": ["./packages/lib-sentence-parser"],
-      "@cursorless/lib-talon-core": ["./packages/lib-talon-core"],
+      "@cursorless/lib-talonjs-core": ["./packages/lib-talonjs-core"],
       "@cursorless/lib-test-case-recorder": [
         "./packages/lib-test-case-recorder"
       ],
