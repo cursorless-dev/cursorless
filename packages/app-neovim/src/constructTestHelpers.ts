@@ -14,7 +14,10 @@ import type {
 } from "@cursorless/lib-common";
 import type { StoredTargetMap } from "@cursorless/lib-engine";
 import { plainObjectToTarget } from "@cursorless/lib-engine";
-import type { NeovimIDE, NeovimTestHelpers } from "@cursorless/neovim-common";
+import type {
+  NeovimIDE,
+  NeovimTestHelpers,
+} from "@cursorless/lib-neovim-common";
 import { takeSnapshot } from "@cursorless/test-case-recorder";
 
 export function constructTestHelpers(

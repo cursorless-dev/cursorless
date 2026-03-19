@@ -1,5 +1,5 @@
 {
-  "name": "@cursorless/meta-updater",
+  "name": "@cursorless/tool-meta-updater",
   "version": "0.1.0",
   "description": "Cursorless configuration for meta-updater",
   "license": "MIT",

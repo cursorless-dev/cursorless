@@ -4,7 +4,7 @@ import {
   NormalizedIDE,
 } from "@cursorless/lib-common";
 import { createCursorlessEngine } from "@cursorless/lib-engine";
-import { EXTENSION_ID, NeovimIDE } from "@cursorless/neovim-common";
+import { EXTENSION_ID, NeovimIDE } from "@cursorless/lib-neovim-common";
 import { getNeovimRegistry } from "@cursorless/neovim-registry";
 import type { NeovimClient } from "neovim/lib/api/client";
 import type { NvimPlugin } from "neovim/lib/host/NvimPlugin";

@@ -4,7 +4,7 @@ import {
   bufferGetSelections,
   pasteFromClipboard,
   setClipboard,
-} from "@cursorless/neovim-common";
+} from "@cursorless/lib-neovim-common";
 import type { NeovimTextEditor } from "./ide/neovim/NeovimTextEditor";
 import type { NeovimClient } from "neovim";
 import type { IDE } from "@cursorless/lib-common";

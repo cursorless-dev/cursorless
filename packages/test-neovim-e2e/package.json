@@ -1,5 +1,5 @@
 {
-  "name": "@cursorless/lib-neovim-e2e",
+  "name": "@cursorless/test-neovim-e2e",
   "version": "1.0.0",
   "description": "Our neovim end-to-end tests",
   "license": "MIT",
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@cursorless/lib-common": "workspace:*",
-    "@cursorless/neovim-common": "workspace:*",
+    "@cursorless/lib-neovim-common": "workspace:*",
     "@cursorless/neovim-registry": "workspace:*",
     "@cursorless/node-common": "workspace:*",
     "@cursorless/test-case-recorder": "workspace:*"

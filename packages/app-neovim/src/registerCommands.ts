@@ -10,11 +10,11 @@ import {
 } from "@cursorless/lib-common";
 
 import type { CommandApi } from "@cursorless/lib-engine";
-import type { NeovimIDE } from "@cursorless/neovim-common";
+import type { NeovimIDE } from "@cursorless/lib-neovim-common";
 import {
   modeSwitchNormalTerminal,
   modeSwitchTerminal,
-} from "@cursorless/neovim-common";
+} from "@cursorless/lib-neovim-common";
 import { getNeovimRegistry } from "@cursorless/neovim-registry";
 import type { NeovimClient } from "neovim";
 

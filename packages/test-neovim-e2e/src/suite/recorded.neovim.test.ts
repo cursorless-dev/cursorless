@@ -5,11 +5,11 @@ import type {
   NeovimIDE,
   NeovimTextEditor,
   NewEditorOptions,
-} from "@cursorless/neovim-common";
+} from "@cursorless/lib-neovim-common";
 import {
   getCursorlessApi,
   runCursorlessCommand,
-} from "@cursorless/neovim-common";
+} from "@cursorless/lib-neovim-common";
 import * as yaml from "js-yaml";
 import type { NeovimClient } from "neovim";
 import { promises as fsp } from "node:fs";

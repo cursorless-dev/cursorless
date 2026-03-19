@@ -1,5 +1,5 @@
 {
-  "name": "@cursorless/neovim-common",
+  "name": "@cursorless/lib-neovim-common",
   "version": "1.0.0",
   "description": "Common utility functions usable anywhere that neovim api is available",
   "license": "MIT",
