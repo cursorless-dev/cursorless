@@ -7,7 +7,7 @@ import type {
   PartialTargetMark,
   RangeMarkFor,
   ScopeType,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 
 export type Mark =
   | Exclude<PartialMark, PartialTargetMark | PartialRangeMark>

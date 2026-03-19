@@ -1,5 +1,5 @@
-import type { IDE, TextEditor, Token } from "@cursorless/common";
-import { Range } from "@cursorless/common";
+import type { IDE, TextEditor, Token } from "@cursorless/lib-common";
+import { Range } from "@cursorless/lib-common";
 import { tokenize } from "../../tokenizer";
 
 export function getTokensInRange(

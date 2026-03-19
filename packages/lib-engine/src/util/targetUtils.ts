@@ -4,13 +4,13 @@ import type {
   IDE,
   Range,
   TextEditor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import {
   groupBy,
   Selection,
   toCharacterRange,
   toLineRange,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { zip } from "lodash-es";
 import type { Destination, Target } from "../typings/target.types";
 import type { SelectionWithEditor } from "../typings/Types";

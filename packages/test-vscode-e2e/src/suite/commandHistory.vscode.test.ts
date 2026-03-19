@@ -2,8 +2,8 @@ import type {
   CommandComplete,
   CommandHistoryEntry,
   ReplaceActionDescriptor,
-} from "@cursorless/common";
-import { LATEST_VERSION } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { LATEST_VERSION } from "@cursorless/lib-common";
 import {
   getCursorlessApi,
   openNewEditor,

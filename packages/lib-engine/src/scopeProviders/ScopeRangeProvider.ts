@@ -5,8 +5,8 @@ import type {
   ScopeRanges,
   ScopeType,
   TextEditor,
-} from "@cursorless/common";
-import { Range } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { Range } from "@cursorless/lib-common";
 import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import type { ScopeHandlerFactory } from "../processTargets/modifiers/scopeHandlers/ScopeHandlerFactory";
 import { getIterationRange } from "./getIterationRange";

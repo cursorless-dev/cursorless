@@ -3,7 +3,7 @@ import type {
   ScopeRangeConfig,
   ScopeSupportFacet,
   ScopeType,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import {
   asyncSafety,
   languageScopeSupport,
@@ -11,7 +11,7 @@ import {
   scopeSupportFacetInfos,
   ScopeSupportFacetLevel,
   shouldUpdateFixtures,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { getScopeTestPathsRecursively } from "@cursorless/node-common";
 import { assert } from "chai";
 import { groupBy, uniq } from "lodash-es";

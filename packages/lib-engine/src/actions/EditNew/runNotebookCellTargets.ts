@@ -1,4 +1,4 @@
-import type { IDE } from "@cursorless/common";
+import type { IDE } from "@cursorless/lib-common";
 import type { Destination } from "../../typings/target.types";
 import { createThatMark, ensureSingleTarget } from "../../util/targetUtils";
 import type { Actions } from "../Actions";

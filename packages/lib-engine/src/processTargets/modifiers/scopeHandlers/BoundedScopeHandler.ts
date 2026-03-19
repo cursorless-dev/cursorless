@@ -3,7 +3,7 @@ import type {
   Position,
   ScopeType,
   TextEditor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { Target } from "../../../typings/target.types";
 import type { InteriorTarget } from "../../targets";
 import {

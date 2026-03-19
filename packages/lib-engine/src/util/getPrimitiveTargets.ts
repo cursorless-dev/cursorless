@@ -3,7 +3,7 @@ import type {
   PartialPrimitiveTargetDescriptor,
   PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 
 /**
  * Given a list of targets, recursively descends all targets and returns every

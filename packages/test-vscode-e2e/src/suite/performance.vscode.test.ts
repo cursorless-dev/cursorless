@@ -3,8 +3,8 @@ import type {
   Modifier,
   ScopeType,
   SimpleScopeTypeType,
-} from "@cursorless/common";
-import { asyncSafety } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { asyncSafety } from "@cursorless/lib-common";
 import {
   getReusableEditor,
   runCursorlessAction,

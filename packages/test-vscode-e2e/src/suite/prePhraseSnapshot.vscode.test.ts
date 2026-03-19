@@ -2,7 +2,7 @@ import {
   HatStability,
   LATEST_VERSION,
   selectionToPlainObject,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import {
   fromVscodeSelection,
   getCursorlessApi,

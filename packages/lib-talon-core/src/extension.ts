@@ -1,11 +1,11 @@
 import "./polyfill";
 
-import type { RunMode } from "@cursorless/common";
+import type { RunMode } from "@cursorless/lib-common";
 import {
   FakeCommandServerApi,
   FakeIDE,
   NormalizedIDE,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { createCursorlessEngine } from "@cursorless/cursorless-engine";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { TalonJsIDE } from "./ide/TalonJsIDE";

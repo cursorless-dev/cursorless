@@ -1,5 +1,5 @@
-import type { Position, PreferredScopeModifier } from "@cursorless/common";
-import { NoContainingScopeError } from "@cursorless/common";
+import type { Position, PreferredScopeModifier } from "@cursorless/lib-common";
+import { NoContainingScopeError } from "@cursorless/lib-common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";

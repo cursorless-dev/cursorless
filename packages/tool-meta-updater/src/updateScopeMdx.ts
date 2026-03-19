@@ -1,10 +1,10 @@
-import type { ScopeTypeType } from "@cursorless/common";
+import type { ScopeTypeType } from "@cursorless/lib-common";
 import {
   plaintextScopeSupportFacetInfos,
   prettifyScopeType,
   scopeSupportFacetInfos,
   serializeScopeType,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 
 export function updateScopeMdx(

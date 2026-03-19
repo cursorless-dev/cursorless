@@ -3,7 +3,7 @@ import type {
   Position,
   ScopeType,
   TextEditor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { TargetScope } from "./scope.types";
 import type {
   ComplexScopeType,

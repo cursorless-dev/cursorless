@@ -21,7 +21,7 @@ import type {
   SimpleScopeTypeType,
   SurroundingPairName,
   SurroundingPairScopeType,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { WithPlaceholders } from "./WithPlaceholders";
 
 export function simpleActionDescriptor(

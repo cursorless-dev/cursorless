@@ -1,7 +1,7 @@
 import type {
   CommandHistoryEntry,
   CommandHistoryStorage,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { glob } from "glob";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";

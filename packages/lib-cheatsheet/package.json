@@ -17,7 +17,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@cursorless/common": "workspace:*",
+    "@cursorless/lib-common": "workspace:*",
     "preact": "^10.29.0",
     "react-bootstrap-icons": "^1.11.6"
   },

@@ -1,4 +1,4 @@
-import { showWarning, type IDE } from "@cursorless/common";
+import { showWarning, type IDE } from "@cursorless/lib-common";
 import { shuffle } from "lodash-es";
 import type { Target } from "../typings/target.types";
 import type { Actions } from "./Actions";

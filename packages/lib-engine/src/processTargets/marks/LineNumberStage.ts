@@ -3,7 +3,7 @@ import type {
   LineNumberMark,
   LineNumberType,
   TextEditor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { MarkStage } from "../PipelineStages.types";
 import type { LineTarget } from "../targets";
 import { createLineTarget } from "../targets";

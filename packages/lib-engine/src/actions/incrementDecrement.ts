@@ -1,5 +1,5 @@
-import type { MatchedText, TextEditor } from "@cursorless/common";
-import { Range, matchText } from "@cursorless/common";
+import type { MatchedText, TextEditor } from "@cursorless/lib-common";
+import { Range, matchText } from "@cursorless/lib-common";
 import { PlainTarget } from "../processTargets/targets";
 import type { SelectionWithEditor } from "../typings/Types";
 import type { Destination, Target } from "../typings/target.types";

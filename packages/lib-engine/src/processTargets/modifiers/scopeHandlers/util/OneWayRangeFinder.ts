@@ -1,4 +1,4 @@
-import type { Range } from "@cursorless/common";
+import type { Range } from "@cursorless/lib-common";
 
 /**
  * Given a list of ranges (the haystack), allows the client to search for a sequence of ranges (the needles).

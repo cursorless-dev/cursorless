@@ -1,4 +1,4 @@
-import type { HatStability, TokenHat } from "@cursorless/common";
+import type { HatStability, TokenHat } from "@cursorless/lib-common";
 import type { HatCandidate } from "./allocateHats";
 import type { RankingContext } from "./getHatRankingContext";
 import {

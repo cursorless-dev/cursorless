@@ -4,7 +4,7 @@ import type {
   ScopeProvider,
   TestHelpers,
   TextEditor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type * as vscode from "vscode";
 import type { VscodeApi } from "./VscodeApi";
 import type { SpyWebViewEvent } from "./SpyWebViewEvent";

@@ -1,4 +1,4 @@
-import { CURSORLESS_COMMAND_ID } from "@cursorless/common";
+import { CURSORLESS_COMMAND_ID } from "@cursorless/lib-common";
 import type { CommandApi } from "@cursorless/cursorless-engine";
 import type { TalonJsIDE } from "./ide/TalonJsIDE";
 import type { Talon } from "./types/talon";

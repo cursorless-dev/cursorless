@@ -1,5 +1,5 @@
-import type { TestCaseFixtureLegacy } from "@cursorless/common";
-import { asyncSafety } from "@cursorless/common";
+import type { TestCaseFixtureLegacy } from "@cursorless/lib-common";
+import { asyncSafety } from "@cursorless/lib-common";
 import { getRecordedTestPaths, runRecordedTest } from "@cursorless/node-common";
 import type {
   NeovimIDE,

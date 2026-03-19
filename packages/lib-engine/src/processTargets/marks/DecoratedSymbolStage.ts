@@ -1,4 +1,7 @@
-import type { DecoratedSymbolMark, ReadOnlyHatMap } from "@cursorless/common";
+import type {
+  DecoratedSymbolMark,
+  ReadOnlyHatMap,
+} from "@cursorless/lib-common";
 import type { Target } from "../../typings/target.types";
 import type { MarkStage } from "../PipelineStages.types";
 import { UntypedTarget } from "../targets";

@@ -1,4 +1,4 @@
-import type { ScopeType } from "@cursorless/common";
+import type { ScopeType } from "@cursorless/lib-common";
 import type { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
 import { getSpokenFormStrict } from "./getSpokenFormStrict";
 

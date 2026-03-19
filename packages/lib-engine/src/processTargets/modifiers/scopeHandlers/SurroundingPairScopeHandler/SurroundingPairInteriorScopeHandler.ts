@@ -3,7 +3,7 @@ import type {
   Position,
   SurroundingPairInteriorScopeType,
   TextEditor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { BaseScopeHandler } from "../BaseScopeHandler";
 import type { TargetScope } from "../scope.types";
 import type {

@@ -10,7 +10,7 @@ import type {
   PartialPrimitiveTargetDescriptorV5,
   PartialTargetDescriptorV4,
   PartialTargetDescriptorV5,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 
 export function upgradeV4ToV5(command: CommandV4): CommandV5 {
   return {

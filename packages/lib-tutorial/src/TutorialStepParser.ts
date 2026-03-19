@@ -3,7 +3,7 @@ import type {
   TutorialContentProvider,
   TutorialId,
   TutorialStepFragment,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
 import { parseScopeType } from "@cursorless/cursorless-engine";
 import { getScopeTypeSpokenFormStrict } from "./getScopeTypeSpokenFormStrict";

@@ -1,4 +1,4 @@
-import type { Range } from "@cursorless/common";
+import type { Range } from "@cursorless/lib-common";
 
 interface SerializeHeaderArg {
   prefix?: string;

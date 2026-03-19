@@ -1,7 +1,7 @@
 import type {
   PartialPrimitiveTargetDescriptor,
   TestCaseFixture,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { transformPartialPrimitiveTargets } from "../../../util/getPrimitiveTargets";
 
 export function upgradeFromVersion0(fixture: TestCaseFixture) {

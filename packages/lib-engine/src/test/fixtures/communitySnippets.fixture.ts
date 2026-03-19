@@ -1,4 +1,4 @@
-import type { ActionDescriptor } from "@cursorless/common";
+import type { ActionDescriptor } from "@cursorless/lib-common";
 import { spokenFormTest } from "./spokenFormTest";
 
 const snippetAfterAction: ActionDescriptor = {

@@ -1,5 +1,5 @@
-import { CompositeKeyMap } from "@cursorless/common";
-import type { SpeakableSurroundingPairName } from "@cursorless/common";
+import { CompositeKeyMap } from "@cursorless/lib-common";
+import type { SpeakableSurroundingPairName } from "@cursorless/lib-common";
 import type { SpokenFormComponentMap } from "../getSpokenFormComponentMap";
 import type { CustomizableSpokenFormComponentForType } from "../SpokenFormComponent";
 import { surroundingPairsDelimiters } from "./surroundingPairsDelimiters";

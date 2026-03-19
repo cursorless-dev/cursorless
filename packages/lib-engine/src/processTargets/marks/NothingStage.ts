@@ -1,5 +1,5 @@
 import type { Target } from "../../typings/target.types";
-import type { NothingMark } from "@cursorless/common";
+import type { NothingMark } from "@cursorless/lib-common";
 import type { MarkStage } from "../PipelineStages.types";
 
 export class NothingStage implements MarkStage {

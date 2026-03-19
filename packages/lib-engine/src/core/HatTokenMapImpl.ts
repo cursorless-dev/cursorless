@@ -5,7 +5,7 @@ import type {
   IDE,
   ReadOnlyHatMap,
   TokenHat,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { TokenGraphemeSplitter } from "../tokenGraphemeSplitter";
 import type { Debug } from "./Debug";
 import { HatAllocator } from "./HatAllocator";

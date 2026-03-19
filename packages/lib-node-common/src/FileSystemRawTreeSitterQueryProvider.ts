@@ -4,7 +4,7 @@ import {
   type FileSystem,
   type IDE,
   type RawTreeSitterQueryProvider,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import * as path from "node:path";
 import { getCursorlessRepoRoot } from "./getCursorlessRepoRoot";
 

@@ -1,4 +1,4 @@
-import { pseudoScopes, simpleScopeTypeTypes } from "@cursorless/common";
+import { pseudoScopes, simpleScopeTypeTypes } from "@cursorless/lib-common";
 
 const scopeCaptureNames = [
   ...simpleScopeTypeTypes.filter((s) => !pseudoScopes.has(s)),

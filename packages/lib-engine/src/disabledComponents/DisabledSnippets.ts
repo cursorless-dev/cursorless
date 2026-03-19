@@ -1,4 +1,4 @@
-import type { TextEditor } from "@cursorless/common";
+import type { TextEditor } from "@cursorless/lib-common";
 import type { Snippets } from "../core/Snippets";
 
 export class DisabledSnippets implements Snippets {

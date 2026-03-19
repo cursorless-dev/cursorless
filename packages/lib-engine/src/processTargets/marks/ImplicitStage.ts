@@ -1,4 +1,4 @@
-import type { IDE } from "@cursorless/common";
+import type { IDE } from "@cursorless/lib-common";
 import type { Target } from "../../typings/target.types";
 import type { MarkStage } from "../PipelineStages.types";
 import { ImplicitTarget } from "../targets";

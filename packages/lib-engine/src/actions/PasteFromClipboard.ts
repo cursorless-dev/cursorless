@@ -1,4 +1,4 @@
-import type { IDE } from "@cursorless/common";
+import type { IDE } from "@cursorless/lib-common";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import type { Destination } from "../typings/target.types";
 import type { Actions } from "./Actions";

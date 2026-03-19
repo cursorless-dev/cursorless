@@ -1,7 +1,7 @@
 import type {
   SimpleScopeTypeType,
   SurroundingPairName,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import type {
   PolymorphicKeyboardActionDescriptor,

@@ -6,8 +6,8 @@ import type {
   TextEditor,
   Token,
   TokenHat,
-} from "@cursorless/common";
-import { CompositeKeyMap, DefaultMap, Range } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { CompositeKeyMap, DefaultMap, Range } from "@cursorless/lib-common";
 import { WordTokenizer } from "../../processTargets/modifiers/scopeHandlers/WordScopeHandler/WordTokenizer";
 import type {
   Grapheme,

@@ -1,10 +1,10 @@
-import { NamedSnippetsDeprecationError } from "@cursorless/common";
+import { NamedSnippetsDeprecationError } from "@cursorless/lib-common";
 import type {
   CustomInsertSnippetArg,
   CustomWrapWithSnippetArg,
   InsertSnippetArg,
   WrapWithSnippetArg,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 
 export function getPreferredSnippet(
   snippetDescription: InsertSnippetArg,

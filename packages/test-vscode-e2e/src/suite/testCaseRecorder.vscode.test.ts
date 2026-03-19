@@ -1,5 +1,5 @@
-import type { HatTokenMap, SimpleActionName } from "@cursorless/common";
-import { LATEST_VERSION } from "@cursorless/common";
+import type { HatTokenMap, SimpleActionName } from "@cursorless/lib-common";
+import { LATEST_VERSION } from "@cursorless/lib-common";
 import {
   getFixturePath,
   getRecordedTestsDirPath,

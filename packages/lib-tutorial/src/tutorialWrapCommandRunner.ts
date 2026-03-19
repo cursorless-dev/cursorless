@@ -1,4 +1,4 @@
-import type { CommandComplete } from "@cursorless/common";
+import type { CommandComplete } from "@cursorless/lib-common";
 import type { CommandRunner } from "@cursorless/cursorless-engine";
 import { isEqual } from "lodash-es";
 import type { TutorialContent } from "./types/tutorial.types";

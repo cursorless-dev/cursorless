@@ -1,5 +1,5 @@
-import type { ScopeSupportInfo } from "@cursorless/common";
-import { ScopeSupport } from "@cursorless/common";
+import type { ScopeSupportInfo } from "@cursorless/lib-common";
+import { ScopeSupport } from "@cursorless/lib-common";
 import { getCursorlessApi, getReusableEditor } from "@cursorless/vscode-common";
 import * as sinon from "sinon";
 import type { TextDocument } from "vscode";

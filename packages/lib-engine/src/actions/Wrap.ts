@@ -1,10 +1,10 @@
-import type { Edit, IDE } from "@cursorless/common";
+import type { Edit, IDE } from "@cursorless/lib-common";
 import {
   FlashStyle,
   RangeExpansionBehavior,
   Selection,
   toCharacterRange,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import type { Target } from "../typings/target.types";

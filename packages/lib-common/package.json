@@ -1,5 +1,5 @@
 {
-  "name": "@cursorless/common",
+  "name": "@cursorless/lib-common",
   "version": "0.1.0",
   "description": "Common utilities for use anywhere in our codebase",
   "license": "MIT",

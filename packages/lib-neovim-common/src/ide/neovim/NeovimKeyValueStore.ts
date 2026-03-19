@@ -2,8 +2,8 @@ import type {
   KeyValueStore,
   KeyValueStoreData,
   KeyValueStoreKey,
-} from "@cursorless/common";
-import { KEY_VALUE_STORE_DEFAULTS } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { KEY_VALUE_STORE_DEFAULTS } from "@cursorless/lib-common";
 
 export default class NeovimKeyValueStore implements KeyValueStore {
   private readonly data: KeyValueStoreData = { ...KEY_VALUE_STORE_DEFAULTS };

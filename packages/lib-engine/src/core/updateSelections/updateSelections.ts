@@ -3,12 +3,12 @@ import type {
   EditableTextEditor,
   Range,
   TextDocument,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import {
   RangeExpansionBehavior,
   Selection,
   unsafeKeys,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { flatten } from "lodash-es";
 import type {
   FullSelectionInfo,

@@ -1,5 +1,9 @@
-import type { CharacterRange, FlashDescriptor, IDE } from "@cursorless/common";
-import { FlashStyle, Range, toCharacterRange } from "@cursorless/common";
+import type {
+  CharacterRange,
+  FlashDescriptor,
+  IDE,
+} from "@cursorless/lib-common";
+import { FlashStyle, Range, toCharacterRange } from "@cursorless/lib-common";
 import type { Target } from "../typings/target.types";
 import type { Actions } from "./Actions";
 import type { ActionReturnValue, SimpleAction } from "./actions.types";

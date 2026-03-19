@@ -1,8 +1,8 @@
-import type { InteriorOnlyModifier, ScopeType } from "@cursorless/common";
+import type { InteriorOnlyModifier, ScopeType } from "@cursorless/lib-common";
 import {
   NoContainingScopeError,
   UnsupportedScopeError,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type {

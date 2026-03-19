@@ -2,8 +2,8 @@ import type {
   ActionDescriptor,
   Command,
   CommandResponse,
-} from "@cursorless/common";
-import { CURSORLESS_COMMAND_ID, LATEST_VERSION } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { CURSORLESS_COMMAND_ID, LATEST_VERSION } from "@cursorless/lib-common";
 import * as vscode from "vscode";
 
 export async function runCursorlessCommand(

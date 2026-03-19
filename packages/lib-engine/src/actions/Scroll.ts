@@ -1,10 +1,10 @@
-import type { IDE } from "@cursorless/common";
+import type { IDE } from "@cursorless/lib-common";
 import {
   FlashStyle,
   groupBy,
   RevealLineAt,
   toLineRange,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { Target } from "../typings/target.types";
 import type { SimpleAction, ActionReturnValue } from "./actions.types";
 

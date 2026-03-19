@@ -1,4 +1,4 @@
-import type { Range, TextEditor } from "@cursorless/common";
+import type { Range, TextEditor } from "@cursorless/lib-common";
 import type { CommonTargetParameters } from "../processTargets/targets";
 import type { Target } from "../typings/target.types";
 

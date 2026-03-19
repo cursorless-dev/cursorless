@@ -17,7 +17,7 @@
     "generate-railroad": "mkdir out && nearley-railroad src/customCommandGrammar/grammar.ne -o out/railroad.html"
   },
   "dependencies": {
-    "@cursorless/common": "workspace:*",
+    "@cursorless/lib-common": "workspace:*",
     "@cursorless/node-common": "workspace:*",
     "@cursorless/sentence-parser": "workspace:*",
     "@cursorless/talon-tools": "^0.8.0",

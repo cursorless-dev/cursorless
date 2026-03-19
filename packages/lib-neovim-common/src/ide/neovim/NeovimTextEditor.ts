@@ -8,7 +8,7 @@ import type {
   Selection,
   TextEditor,
   TextEditorOptions,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { NeovimClient, Window } from "neovim";
 import { bufferSetSelections } from "../../neovimApi";
 import { neovimClipboardCopy, neovimClipboardPaste } from "../../neovimHelpers";

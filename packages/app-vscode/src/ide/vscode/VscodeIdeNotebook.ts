@@ -3,7 +3,7 @@ import type {
   NotebookCellKind,
   NotebookEditor,
   TextDocument,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type * as vscode from "vscode";
 import type { URI } from "vscode-uri";
 import { VscodeTextDocument } from "./VscodeTextDocument";

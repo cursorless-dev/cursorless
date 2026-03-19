@@ -1,4 +1,4 @@
-import type { Range } from "@cursorless/common";
+import type { Range } from "@cursorless/lib-common";
 import { shrinkRangeToFitContent } from "../../util/selectionUtils";
 import type { MinimumTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";

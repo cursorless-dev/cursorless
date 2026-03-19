@@ -5,8 +5,8 @@ import type {
   SimpleScopeType,
   TextDocument,
   TreeSitter,
-} from "@cursorless/common";
-import { matchAll, showError } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { matchAll, showError } from "@cursorless/lib-common";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
 import { TreeSitterQuery } from "./TreeSitterQuery";
 import type { ScopeCaptureName } from "./TreeSitterQuery/captureNames";

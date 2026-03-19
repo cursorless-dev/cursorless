@@ -5,8 +5,8 @@ import type {
   RelativeScopeModifier,
   ScopeType,
   TextEditor,
-} from "@cursorless/common";
-import { Range } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { Range } from "@cursorless/lib-common";
 import { flatmap, ifilter, imap, itake } from "itertools";
 import { escapeRegExp } from "lodash-es";
 import type { StoredTargetMap } from "../..";

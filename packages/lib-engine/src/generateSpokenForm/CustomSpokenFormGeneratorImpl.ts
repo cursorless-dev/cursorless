@@ -6,7 +6,7 @@ import type {
   Listener,
   ScopeType,
   TalonSpokenForms,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { CustomSpokenFormGenerator } from "../api/CursorlessEngineApi";
 import { CustomSpokenForms } from "../spokenForms/CustomSpokenForms";
 import { SpokenFormGenerator } from "./generateSpokenForm";

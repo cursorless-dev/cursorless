@@ -1,4 +1,4 @@
-import type { ScopeTypeType } from "@cursorless/common";
+import type { ScopeTypeType } from "@cursorless/lib-common";
 import React from "react";
 import { DynamicTOC } from "../../../components/DynamicTOC";
 import { ScopeVisualizer } from "../../../components/ScopeVisualizer";

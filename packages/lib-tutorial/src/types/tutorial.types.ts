@@ -1,7 +1,7 @@
 import type {
   TestCaseSnapshot,
   TutorialStepFragment,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { TutorialStepTrigger } from "./TutorialStepTrigger";
 
 /**

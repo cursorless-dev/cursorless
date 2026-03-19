@@ -1,4 +1,4 @@
-import type { VisibleModifier } from "@cursorless/common";
+import type { VisibleModifier } from "@cursorless/lib-common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStage } from "../PipelineStages.types";
 import { PlainTarget } from "../targets";

@@ -1,9 +1,9 @@
-import type { SpyIDE, TestCaseFixtureLegacy } from "@cursorless/common";
+import type { SpyIDE, TestCaseFixtureLegacy } from "@cursorless/lib-common";
 import {
   LATEST_VERSION,
   asyncSafety,
   getSnapshotForComparison,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { getRecordedTestsDirPath, loadFixture } from "@cursorless/node-common";
 import {
   getCursorlessApi,

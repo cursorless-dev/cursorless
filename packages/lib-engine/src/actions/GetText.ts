@@ -1,5 +1,5 @@
-import type { GetTextActionOptions, IDE } from "@cursorless/common";
-import { FlashStyle } from "@cursorless/common";
+import type { GetTextActionOptions, IDE } from "@cursorless/lib-common";
+import { FlashStyle } from "@cursorless/lib-common";
 import type { Target } from "../typings/target.types";
 import { ensureSingleTarget, flashTargets } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";

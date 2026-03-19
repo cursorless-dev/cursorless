@@ -1,5 +1,5 @@
-import type { TextLine } from "@cursorless/common";
-import { Position, Range } from "@cursorless/common";
+import type { TextLine } from "@cursorless/lib-common";
+import { Position, Range } from "@cursorless/lib-common";
 import { fromVscodeRange } from "@cursorless/vscode-common";
 import type * as vscode from "vscode";
 

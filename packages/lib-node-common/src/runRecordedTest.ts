@@ -10,7 +10,7 @@ import type {
   TestCaseFixtureLegacy,
   TestHelpers,
   TextEditor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import {
   clientSupportsFallback,
   getSnapshotForComparison,
@@ -24,7 +24,7 @@ import {
   splitKey,
   spyIDERecordedValuesToPlainObject,
   storedTargetKeys,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { assert } from "chai";
 import { isUndefined } from "lodash-es";
 import { promises as fsp } from "node:fs";

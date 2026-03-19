@@ -1,5 +1,5 @@
-import type { Messages } from "@cursorless/common";
-import { Range } from "@cursorless/common";
+import type { Messages } from "@cursorless/lib-common";
+import { Range } from "@cursorless/lib-common";
 import type { QueryCapture } from "./QueryCapture";
 import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
 import assert from "assert";

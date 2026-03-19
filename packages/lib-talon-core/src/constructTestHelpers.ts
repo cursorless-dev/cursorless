@@ -8,7 +8,7 @@ import type {
   StoredTargetKey,
   TargetPlainObject,
   TextEditor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type {
   CommandApi,
   StoredTargetMap,

@@ -1,4 +1,4 @@
-import type { Direction, IDE, ScopeType } from "@cursorless/common";
+import type { Direction, IDE, ScopeType } from "@cursorless/lib-common";
 import { imap } from "itertools";
 import { getMatcher } from "../../../tokenizer";
 import { generateMatchesInRange } from "../../../util/getMatchesInRange";

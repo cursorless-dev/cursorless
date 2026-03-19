@@ -2,7 +2,7 @@ import {
   FakeCommandServerApi,
   FakeIDE,
   NormalizedIDE,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { createCursorlessEngine } from "@cursorless/cursorless-engine";
 import { EXTENSION_ID, NeovimIDE } from "@cursorless/neovim-common";
 import { getNeovimRegistry } from "@cursorless/neovim-registry";

@@ -1,4 +1,4 @@
-import type { IDE } from "@cursorless/common";
+import type { IDE } from "@cursorless/lib-common";
 
 export function getActiveSelections(ide: IDE) {
   return (

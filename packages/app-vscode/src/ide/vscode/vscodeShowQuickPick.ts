@@ -1,4 +1,4 @@
-import type { QuickPickOptions } from "@cursorless/common";
+import type { QuickPickOptions } from "@cursorless/lib-common";
 import * as vscode from "vscode";
 
 /**

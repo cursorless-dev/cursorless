@@ -1,5 +1,5 @@
-import type { StoredTargetKey } from "@cursorless/common";
-import { groupBy, toCharacterRange } from "@cursorless/common";
+import type { StoredTargetKey } from "@cursorless/lib-common";
+import { groupBy, toCharacterRange } from "@cursorless/lib-common";
 import type { StoredTargetMap } from "@cursorless/cursorless-engine";
 import type {
   ScopeRangeType,

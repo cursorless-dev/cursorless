@@ -12,8 +12,8 @@ import type {
   RunMode,
   TextDocumentChangeEvent,
   TextEditor,
-} from "@cursorless/common";
-import { OutdatedExtensionError } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { OutdatedExtensionError } from "@cursorless/lib-common";
 import {
   fromVscodeRange,
   fromVscodeSelection,

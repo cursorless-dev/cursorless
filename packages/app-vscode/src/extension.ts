@@ -1,9 +1,9 @@
-import type { EnforceUndefined } from "@cursorless/common";
+import type { EnforceUndefined } from "@cursorless/lib-common";
 import {
   FakeCommandServerApi,
   FakeIDE,
   NormalizedIDE,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { EngineProps } from "@cursorless/cursorless-engine";
 import {
   CommandHistory,

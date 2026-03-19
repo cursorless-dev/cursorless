@@ -6,8 +6,8 @@ import type {
   Listener,
   Range,
   TextEditor,
-} from "@cursorless/common";
-import { Notifier } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { Notifier } from "@cursorless/lib-common";
 import type { VscodeApi } from "@cursorless/vscode-common";
 import { toVscodeRange } from "@cursorless/vscode-common";
 import * as vscode from "vscode";

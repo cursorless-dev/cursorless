@@ -1,5 +1,9 @@
-import type { EveryScopeModifier, Range, TextEditor } from "@cursorless/common";
-import { NoContainingScopeError } from "@cursorless/common";
+import type {
+  EveryScopeModifier,
+  Range,
+  TextEditor,
+} from "@cursorless/lib-common";
+import { NoContainingScopeError } from "@cursorless/lib-common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type {

@@ -11,7 +11,7 @@ import type {
   TargetPlainObject,
   TestCaseSnapshot,
   TextEditor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { StoredTargetMap } from "@cursorless/cursorless-engine";
 import {
   plainObjectToTarget,

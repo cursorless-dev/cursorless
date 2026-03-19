@@ -3,8 +3,8 @@ import type {
   Position,
   ScopeType,
   TextEditor,
-} from "@cursorless/common";
-import { Range } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { Range } from "@cursorless/lib-common";
 import { shrinkRangeToFitContent } from "../../../../util/selectionUtils";
 import { BaseScopeHandler } from "../BaseScopeHandler";
 import { compareTargetScopes } from "../compareTargetScopes";

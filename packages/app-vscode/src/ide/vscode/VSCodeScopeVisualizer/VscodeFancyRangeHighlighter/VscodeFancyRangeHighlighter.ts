@@ -1,9 +1,9 @@
-import type { GeneralizedRange, TextEditor } from "@cursorless/common";
+import type { GeneralizedRange, TextEditor } from "@cursorless/lib-common";
 import {
   generateDecorationsForCharacterRange,
   generateDecorationsForLineRange,
   Range,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { flatmap } from "itertools";
 import { range as lodashRange } from "lodash-es";
 import type { VscodeTextEditor } from "../../VscodeTextEditor";

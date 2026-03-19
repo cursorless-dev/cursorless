@@ -1,4 +1,4 @@
-import type { Position, TextDocument } from "@cursorless/common";
+import type { Position, TextDocument } from "@cursorless/lib-common";
 import type { QueryMatch } from "./QueryCapture";
 import { setIsEqual } from "../../util/setIsEqual";
 

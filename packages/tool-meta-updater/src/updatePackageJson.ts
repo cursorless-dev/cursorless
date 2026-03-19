@@ -1,4 +1,4 @@
-import { omitByDeep } from "@cursorless/common";
+import { omitByDeep } from "@cursorless/lib-common";
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import { isUndefined } from "lodash-es";
 import type { PackageJson } from "type-fest";

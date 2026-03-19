@@ -1,4 +1,4 @@
-import { Range } from "@cursorless/common";
+import { Range } from "@cursorless/lib-common";
 import { OneWayNestedRangeFinder } from "./OneWayNestedRangeFinder";
 import assert from "assert";
 

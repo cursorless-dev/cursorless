@@ -1,5 +1,5 @@
-import type { Command, CommandResponse } from "@cursorless/common";
-import { CURSORLESS_COMMAND_ID } from "@cursorless/common";
+import type { Command, CommandResponse } from "@cursorless/lib-common";
+import { CURSORLESS_COMMAND_ID } from "@cursorless/lib-common";
 import { getNeovimRegistry } from "@cursorless/neovim-registry";
 
 export async function runCursorlessCommand(

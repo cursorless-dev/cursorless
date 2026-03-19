@@ -3,7 +3,7 @@ import type {
   EditableTextEditor,
   IDE,
   Range,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import type { Target } from "../typings/target.types";
 import { CallbackAction } from "./CallbackAction";

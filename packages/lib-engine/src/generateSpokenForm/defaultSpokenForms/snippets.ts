@@ -1,4 +1,7 @@
-import type { InsertSnippetArg, WrapWithSnippetArg } from "@cursorless/common";
+import type {
+  InsertSnippetArg,
+  WrapWithSnippetArg,
+} from "@cursorless/lib-common";
 import { NoSpokenFormError } from "../NoSpokenFormError";
 
 export function insertionSnippetToSpokenForm(

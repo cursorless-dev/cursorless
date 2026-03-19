@@ -2,8 +2,8 @@ import type {
   Disposable,
   IDE,
   TokenHatSplittingMode,
-} from "@cursorless/common";
-import { Notifier, matchAll } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { Notifier, matchAll } from "@cursorless/lib-common";
 import { deburr, escapeRegExp } from "lodash-es";
 
 /**

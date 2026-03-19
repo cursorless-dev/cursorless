@@ -17,7 +17,7 @@ import type {
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,
   WorkspaceFolder,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { nodeGetRunMode } from "@cursorless/node-common";
 import { pull } from "lodash";
 import type { Buffer, NeovimClient, Window } from "neovim";

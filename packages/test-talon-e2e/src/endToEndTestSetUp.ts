@@ -1,4 +1,4 @@
-import { type IDE, SpyIDE } from "@cursorless/common";
+import { type IDE, SpyIDE } from "@cursorless/lib-common";
 import type { TalonJsTestHelpers } from "@cursorless/cursorless-everywhere-talon-core";
 import type { Context } from "mocha";
 

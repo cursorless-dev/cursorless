@@ -4,7 +4,7 @@ import type {
   Hats,
   HatStyleMap,
   Listener,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 
 const HAT_COLORS = [
   "default",

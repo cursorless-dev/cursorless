@@ -1,11 +1,11 @@
-import type { ScopeSupportFacet } from "@cursorless/common";
+import type { ScopeSupportFacet } from "@cursorless/lib-common";
 import {
   languageScopeSupport,
   scopeSupportFacetInfos,
   ScopeSupportFacetLevel,
   scopeSupportFacets,
   serializeScopeType,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import React, { useState } from "react";
 
 export function MissingLanguageScopes(): React.JSX.Element {

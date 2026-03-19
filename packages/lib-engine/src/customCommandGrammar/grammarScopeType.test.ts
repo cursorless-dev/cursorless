@@ -1,5 +1,5 @@
 import assert from "assert";
-import type { ScopeType } from "@cursorless/common";
+import type { ScopeType } from "@cursorless/lib-common";
 import { parseScopeType } from "./parseCommand";
 
 interface TestCase {

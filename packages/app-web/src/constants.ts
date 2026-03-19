@@ -1,4 +1,4 @@
-import { CURSORLESS_ORG_URL } from "@cursorless/common";
+import { CURSORLESS_ORG_URL } from "@cursorless/lib-common";
 
 export const NAME = "Cursorless";
 export const DESCRIPTION = "Voice coding at the speed of thought";

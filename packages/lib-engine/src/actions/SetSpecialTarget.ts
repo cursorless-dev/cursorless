@@ -1,4 +1,4 @@
-import type { StoredTargetKey } from "@cursorless/common";
+import type { StoredTargetKey } from "@cursorless/lib-common";
 import type { Target } from "../typings/target.types";
 import type { SimpleAction, ActionReturnValue } from "./actions.types";
 

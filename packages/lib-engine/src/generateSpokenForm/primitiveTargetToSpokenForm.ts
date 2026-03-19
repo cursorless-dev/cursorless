@@ -5,7 +5,7 @@ import type {
   PartialPrimitiveTargetDescriptor,
   RelativeScopeModifier,
   ScopeType,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { NoSpokenFormError } from "./NoSpokenFormError";
 import { connectives } from "./defaultSpokenForms/connectives";
 import {

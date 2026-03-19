@@ -2,7 +2,7 @@ import type {
   ChangeEventInfo,
   FullRangeInfo,
 } from "../../typings/updateSelections";
-import type { RangeOffsets } from "@cursorless/common";
+import type { RangeOffsets } from "@cursorless/lib-common";
 
 /**
  * Updates the text of the given rangeInfo to take into account the given change.

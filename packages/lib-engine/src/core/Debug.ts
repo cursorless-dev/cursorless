@@ -1,4 +1,4 @@
-import type { Disposable, IDE } from "@cursorless/common";
+import type { Disposable, IDE } from "@cursorless/lib-common";
 
 /**
  * Debug logger

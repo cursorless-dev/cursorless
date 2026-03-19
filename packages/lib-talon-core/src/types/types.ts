@@ -5,7 +5,7 @@ import type {
   NormalizedIDE,
   SelectionOffsets,
   TestHelpers,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { StoredTargetMap } from "@cursorless/cursorless-engine";
 import type { TalonJsIDE } from "../ide/TalonJsIDE";
 

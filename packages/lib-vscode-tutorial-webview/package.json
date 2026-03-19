@@ -14,7 +14,7 @@
     "bundle:watch": "env NODE_OPTIONS=--import=tsx vite build --mode development --watch"
   },
   "dependencies": {
-    "@cursorless/common": "workspace:*",
+    "@cursorless/lib-common": "workspace:*",
     "bootstrap": "^5.3.8",
     "preact": "^10.29.0"
   },

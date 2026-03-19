@@ -1,5 +1,5 @@
-import type { MatchedText } from "@cursorless/common";
-import { matchRegex, testRegex } from "@cursorless/common";
+import type { MatchedText } from "@cursorless/lib-common";
+import { matchRegex, testRegex } from "@cursorless/lib-common";
 import type { SentenceParserOptions } from "@cursorless/sentence-parser";
 import { getSentences } from "@cursorless/sentence-parser";
 

@@ -16,7 +16,7 @@ import type {
   CustomWrapWithSnippetArg,
   TargetPlainObject,
   TextEditor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ScopeTypeTarget,

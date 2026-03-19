@@ -3,8 +3,8 @@ import type {
   TextDocument,
   TextEditor,
   TextLine,
-} from "@cursorless/common";
-import { Position, Range, toLineRange } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { Position, Range, toLineRange } from "@cursorless/lib-common";
 import type { TextualType } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
 import type { CommonTargetParameters } from "./BaseTarget";

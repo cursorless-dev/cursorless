@@ -1,4 +1,4 @@
-import { Position, Range } from "@cursorless/common";
+import { Position, Range } from "@cursorless/lib-common";
 import type { Target } from "../../../typings/target.types";
 
 export function createContinuousRange(

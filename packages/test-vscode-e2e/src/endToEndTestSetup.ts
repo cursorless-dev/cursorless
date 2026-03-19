@@ -1,5 +1,5 @@
-import type { IDE, NormalizedIDE } from "@cursorless/common";
-import { shouldUpdateFixtures, sleep, SpyIDE } from "@cursorless/common";
+import type { IDE, NormalizedIDE } from "@cursorless/lib-common";
+import { shouldUpdateFixtures, sleep, SpyIDE } from "@cursorless/lib-common";
 import {
   getCursorlessApi,
   resetReusableEditor,

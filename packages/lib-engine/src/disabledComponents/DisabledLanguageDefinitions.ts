@@ -1,4 +1,4 @@
-import type { Listener } from "@cursorless/common";
+import type { Listener } from "@cursorless/lib-common";
 import type { LanguageDefinition } from "../languages/LanguageDefinition";
 import type { LanguageDefinitions } from "../languages/LanguageDefinitions";
 

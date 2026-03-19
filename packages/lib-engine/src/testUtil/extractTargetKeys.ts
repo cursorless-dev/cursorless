@@ -2,8 +2,8 @@ import type {
   PartialMark,
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
-} from "@cursorless/common";
-import { getKey } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { getKey } from "@cursorless/lib-common";
 import type {
   Mark,
   PrimitiveTargetDescriptor,

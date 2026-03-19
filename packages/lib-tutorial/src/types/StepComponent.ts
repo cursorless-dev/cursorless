@@ -1,4 +1,4 @@
-import type { TutorialStepFragment } from "@cursorless/common";
+import type { TutorialStepFragment } from "@cursorless/lib-common";
 import type { TutorialStep } from "./tutorial.types";
 
 /**

@@ -1,4 +1,4 @@
-import type { Edit } from "@cursorless/common";
+import type { Edit } from "@cursorless/lib-common";
 import { toVscodePosition, toVscodeRange } from "@cursorless/vscode-common";
 import type * as vscode from "vscode";
 

@@ -7,8 +7,8 @@ import type {
   ScopeProvider,
   TalonSpokenForms,
   TreeSitter,
-} from "@cursorless/common";
-import { ensureCommandShape, PassthroughIDE } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { ensureCommandShape, PassthroughIDE } from "@cursorless/lib-common";
 import { KeyboardTargetUpdater } from "./KeyboardTargetUpdater";
 import type {
   CommandRunnerDecorator,

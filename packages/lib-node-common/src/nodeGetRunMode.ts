@@ -1,4 +1,4 @@
-import type { RunMode } from "@cursorless/common";
+import type { RunMode } from "@cursorless/lib-common";
 
 /**
  * Get the current run mode of the application as defined by the CURSORLESS_MODE

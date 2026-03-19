@@ -4,8 +4,8 @@ import type {
   Listener,
   SpokenFormEntry,
   TalonSpokenForms,
-} from "@cursorless/common";
-import { NeedsInitialTalonUpdateError, Notifier } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { NeedsInitialTalonUpdateError, Notifier } from "@cursorless/lib-common";
 import { readFile } from "node:fs/promises";
 import * as path from "node:path";
 

@@ -4,7 +4,7 @@ import type {
   TextEditor,
   Token,
   TokenHat,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { flatten } from "lodash-es";
 import { getDisplayLineMap } from "./getDisplayLineMap";
 import { getTokenComparator } from "./getTokenComparator";

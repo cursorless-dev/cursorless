@@ -3,7 +3,7 @@ import type {
   Range,
   ScopeRanges,
   TargetRanges,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { serializeHeader } from "./serializeHeader";
 import { serializeTargetRange } from "./serializeTargetRange";
 

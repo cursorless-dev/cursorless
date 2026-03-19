@@ -1,5 +1,5 @@
-import type { EndOfLine } from "@cursorless/common";
-import { Position, Range, Selection } from "@cursorless/common";
+import type { EndOfLine } from "@cursorless/lib-common";
+import { Position, Range, Selection } from "@cursorless/lib-common";
 import * as vscode from "vscode";
 
 export function toVscodeRange(range: Range): vscode.Range {

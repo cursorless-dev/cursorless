@@ -3,8 +3,8 @@ import type {
   Position,
   ScopeType,
   TextEditor,
-} from "@cursorless/common";
-import { NoContainingScopeError } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { NoContainingScopeError } from "@cursorless/lib-common";
 import type { LanguageDefinitions } from "../../../../languages/LanguageDefinitions";
 import type { Target } from "../../../../typings/target.types";
 import { InteriorTarget } from "../../../targets";

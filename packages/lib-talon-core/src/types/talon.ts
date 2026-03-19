@@ -1,4 +1,4 @@
-import type { RangeOffsets, SelectionOffsets } from "@cursorless/common";
+import type { RangeOffsets, SelectionOffsets } from "@cursorless/lib-common";
 import type { EditorEdit, EditorState } from "./types";
 
 export type TalonNamespace = "user";

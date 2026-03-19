@@ -1,4 +1,4 @@
-import type { IDE } from "@cursorless/common";
+import type { IDE } from "@cursorless/lib-common";
 import type { Target } from "../typings/target.types";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import type { SimpleAction, ActionReturnValue } from "./actions.types";

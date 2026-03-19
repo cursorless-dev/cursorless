@@ -1,5 +1,5 @@
 import { isEqual } from "lodash-es";
-import type { PartialPrimitiveTargetDescriptorV2 } from "@cursorless/common";
+import type { PartialPrimitiveTargetDescriptorV2 } from "@cursorless/lib-common";
 
 const STRICT_HERE = {
   type: "primitive",

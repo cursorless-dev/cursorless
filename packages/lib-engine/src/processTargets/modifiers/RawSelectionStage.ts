@@ -1,5 +1,5 @@
 import type { Target } from "../../typings/target.types";
-import type { RawSelectionModifier } from "@cursorless/common";
+import type { RawSelectionModifier } from "@cursorless/lib-common";
 import type { ModifierStage } from "../PipelineStages.types";
 import { RawSelectionTarget } from "../targets";
 

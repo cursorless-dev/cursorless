@@ -1,4 +1,4 @@
-import { blendColors } from "@cursorless/common";
+import { blendColors } from "@cursorless/lib-common";
 import type { RangeTypeColors } from "./RangeTypeColors";
 
 /**

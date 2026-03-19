@@ -7,8 +7,8 @@ import type {
   GetFieldType,
   Listener,
   Paths,
-} from "@cursorless/common";
-import { HatStability } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { HatStability } from "@cursorless/lib-common";
 
 const CONFIGURATION_DEFAULTS: CursorlessConfiguration = {
   tokenHatSplittingMode: {

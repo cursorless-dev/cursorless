@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@cursorless/lib-cheatsheet": "workspace:*",
-    "@cursorless/common": "workspace:*",
+    "@cursorless/lib-common": "workspace:*",
     "bootstrap": "^5.3.8",
     "preact": "^10.29.0"
   },

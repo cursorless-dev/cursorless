@@ -1,4 +1,4 @@
-import { CURSORLESS_COMMAND_ID } from "@cursorless/common";
+import { CURSORLESS_COMMAND_ID } from "@cursorless/lib-common";
 import { getCursorlessApi, getReusableEditor } from "@cursorless/vscode-common";
 import * as assert from "assert";
 import * as vscode from "vscode";

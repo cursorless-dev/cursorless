@@ -1,5 +1,5 @@
-import type { IDE } from "@cursorless/common";
-import { showError } from "@cursorless/common";
+import type { IDE } from "@cursorless/lib-common";
+import { showError } from "@cursorless/lib-common";
 import type { Query } from "web-tree-sitter";
 import { parsePredicates } from "./parsePredicates";
 import { predicateToString } from "./predicateToString";

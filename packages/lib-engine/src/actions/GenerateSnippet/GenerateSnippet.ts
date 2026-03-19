@@ -1,5 +1,9 @@
-import type { EditableTextEditor, IDE, TextEditor } from "@cursorless/common";
-import { FlashStyle, Range, matchAll, Selection } from "@cursorless/common";
+import type {
+  EditableTextEditor,
+  IDE,
+  TextEditor,
+} from "@cursorless/lib-common";
+import { FlashStyle, Range, matchAll, Selection } from "@cursorless/lib-common";
 import type {
   Snippet,
   SnippetFile,

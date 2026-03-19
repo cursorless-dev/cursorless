@@ -1,4 +1,4 @@
-import type { Position } from "@cursorless/common";
+import type { Position } from "@cursorless/lib-common";
 import type { Point } from "web-tree-sitter";
 
 export function positionToPoint(start: Position): Point {

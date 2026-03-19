@@ -3,7 +3,7 @@ import type {
   ScopeType,
   SimpleScopeType,
   TextEditor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
 import type { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import { PlainTarget } from "../../../targets";

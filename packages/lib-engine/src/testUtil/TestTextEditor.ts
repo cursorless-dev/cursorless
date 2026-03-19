@@ -10,7 +10,7 @@ import type {
   SetSelectionsOpts,
   TextEditor,
   TextEditorOptions,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 
 export class TestTextEditor implements EditableTextEditor {
   options: TextEditorOptions = {

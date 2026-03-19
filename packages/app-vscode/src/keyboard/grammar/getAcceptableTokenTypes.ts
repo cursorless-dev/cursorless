@@ -2,7 +2,7 @@ import type { State } from "nearley";
 import type nearley from "nearley";
 import { isEqual, times } from "lodash-es";
 import type { CommandRulePostProcessor } from "./CommandRulePostProcessor";
-import { DefaultMap, uniqWithHash } from "@cursorless/common";
+import { DefaultMap, uniqWithHash } from "@cursorless/lib-common";
 import type { KeyboardCommandHandler } from "../KeyboardCommandHandler";
 import type { TokenType } from "../TokenTypeHelpers";
 

@@ -17,7 +17,7 @@
     "populate-dist": "bash ./scripts/populate-dist.sh"
   },
   "dependencies": {
-    "@cursorless/common": "workspace:*",
+    "@cursorless/lib-common": "workspace:*",
     "@cursorless/cursorless-engine": "workspace:*",
     "@cursorless/neovim-common": "workspace:*",
     "@cursorless/neovim-registry": "workspace:*",

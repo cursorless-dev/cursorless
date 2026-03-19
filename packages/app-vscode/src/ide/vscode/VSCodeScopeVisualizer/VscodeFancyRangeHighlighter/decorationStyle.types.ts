@@ -2,7 +2,7 @@ import type {
   DecorationStyle,
   GeneralizedRange,
   Range,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 
 /**
  * A decoration style that is differentiated from other styles by a number. We

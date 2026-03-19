@@ -1,5 +1,5 @@
 import type { Config } from "jest";
-import { preactModuleNameMapper } from "@cursorless/common/jest";
+import { preactModuleNameMapper } from "@cursorless/lib-common/jest";
 
 const config: Config = {
   preset: "ts-jest",

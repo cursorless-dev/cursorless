@@ -1,5 +1,5 @@
-import type { Disposable, GeneralizedRange } from "@cursorless/common";
-import { isGeneralizedRangeEqual } from "@cursorless/common";
+import type { Disposable, GeneralizedRange } from "@cursorless/lib-common";
+import { isGeneralizedRangeEqual } from "@cursorless/lib-common";
 import type { VscodeTextEditor } from "../VscodeTextEditor";
 import type { RangeTypeColors } from "./RangeTypeColors";
 import { VscodeFancyRangeHighlighter } from "./VscodeFancyRangeHighlighter";

@@ -6,7 +6,7 @@ import type {
   Fallback,
   FallbackCommandModifier,
   PartialTargetDescriptor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { ActionReturnValue } from "../actions/actions.types";
 
 export async function getCommandFallback(

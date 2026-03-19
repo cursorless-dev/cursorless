@@ -5,8 +5,8 @@ import type {
   TextDocument,
   TextEditor,
   TextLine,
-} from "@cursorless/common";
-import { Range } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { Range } from "@cursorless/lib-common";
 import { ParagraphTarget } from "../../targets";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import type { TargetScope } from "./scope.types";

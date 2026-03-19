@@ -2,7 +2,7 @@ import type {
   GeneralizedRange,
   Range,
   SimpleScopeTypeType,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { Target } from "../../typings/target.types";
 import { toGeneralizedRange } from "../../util/targetUtils";
 import type { CommonTargetParameters } from "./BaseTarget";

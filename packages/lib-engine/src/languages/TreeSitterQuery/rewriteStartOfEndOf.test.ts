@@ -1,4 +1,4 @@
-import { Range } from "@cursorless/common";
+import { Range } from "@cursorless/lib-common";
 import assert from "assert";
 import type { MutableQueryCapture, QueryCapture } from "./QueryCapture";
 import {

@@ -1,4 +1,4 @@
-import { Range } from "@cursorless/common";
+import { Range } from "@cursorless/lib-common";
 import type { MinimumTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
 import type { Target } from "../../typings/target.types";

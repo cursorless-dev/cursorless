@@ -4,8 +4,8 @@ import type {
   NotebookCell,
   Position,
   TextEditor,
-} from "@cursorless/common";
-import { Range } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { Range } from "@cursorless/lib-common";
 import { NotebookCellTarget } from "../../targets";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import type { TargetScope } from "./scope.types";

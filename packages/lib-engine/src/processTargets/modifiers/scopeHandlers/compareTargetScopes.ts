@@ -1,4 +1,4 @@
-import type { Direction, Position, Range } from "@cursorless/common";
+import type { Direction, Position, Range } from "@cursorless/lib-common";
 import type { TargetScope } from "./scope.types";
 
 /**

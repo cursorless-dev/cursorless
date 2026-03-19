@@ -1,4 +1,4 @@
-import { CompositeKeyMap } from "@cursorless/common";
+import { CompositeKeyMap } from "@cursorless/lib-common";
 import type { VscodeApi } from "@cursorless/vscode-common";
 import { pick, sortedUniq, toPairs } from "lodash-es";
 import { Grammar, Parser } from "nearley";

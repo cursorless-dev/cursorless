@@ -2,7 +2,7 @@ import type {
   Modifier,
   PartialMark,
   SurroundingPairName,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { surroundingPairsDelimiters } from "@cursorless/cursorless-engine";
 import { isString } from "lodash-es";
 import * as vscode from "vscode";

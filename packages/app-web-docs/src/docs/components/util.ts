@@ -3,13 +3,13 @@ import type {
   ScopeSupportFacet,
   ScopeSupportFacetInfo,
   ScopeTypeType,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import {
   camelCaseToAllDown,
   capitalize,
   plaintextScopeSupportFacetInfos,
   scopeSupportFacetInfos,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 
 export function prettifyFacet(
   facet: ScopeSupportFacet | PlaintextScopeSupportFacet,

@@ -11,8 +11,8 @@ import type {
   TutorialContentProvider,
   TutorialId,
   TutorialState,
-} from "@cursorless/common";
-import { Debouncer, Notifier } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { Debouncer, Notifier } from "@cursorless/lib-common";
 import type {
   CommandRunner,
   CommandRunnerDecorator,

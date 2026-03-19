@@ -1,4 +1,4 @@
-import { getEnvironmentVariableStrict } from "@cursorless/common";
+import { getEnvironmentVariableStrict } from "@cursorless/lib-common";
 import { runCommand } from "./runCommand";
 import type { Context } from "./context";
 

@@ -4,7 +4,7 @@ import {
   type Position,
   type ScopeType,
   type TextEditor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import { NotebookCellApiScopeHandler } from "./NotebookCellApiScopeHandler";

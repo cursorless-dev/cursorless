@@ -1,5 +1,5 @@
-import type { InsertionMode, TextEditor } from "@cursorless/common";
-import { Range, Selection } from "@cursorless/common";
+import type { InsertionMode, TextEditor } from "@cursorless/lib-common";
+import { Range, Selection } from "@cursorless/lib-common";
 import type { EditWithRangeUpdater } from "../../typings/Types";
 import type {
   Destination,

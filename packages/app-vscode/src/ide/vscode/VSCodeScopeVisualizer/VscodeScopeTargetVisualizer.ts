@@ -4,8 +4,8 @@ import type {
   ScopeSupport,
   TargetRanges,
   TextEditor,
-} from "@cursorless/common";
-import { toCharacterRange } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { toCharacterRange } from "@cursorless/lib-common";
 import { VscodeScopeVisualizer } from "./VscodeScopeVisualizer";
 import type { VscodeTextEditor } from "../VscodeTextEditor";
 

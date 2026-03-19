@@ -5,7 +5,7 @@ import type {
   PreferredScopeModifier,
   RelativeScopeModifier,
   ScopeType,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type {

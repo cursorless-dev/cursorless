@@ -4,8 +4,8 @@ import type {
   ImplicitTargetDescriptor,
   Modifier,
   ScopeType,
-} from "@cursorless/common";
-import { Range, uniqWithHash } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { Range, uniqWithHash } from "@cursorless/lib-common";
 import { zip } from "lodash-es";
 import type {
   PrimitiveTargetDescriptor,

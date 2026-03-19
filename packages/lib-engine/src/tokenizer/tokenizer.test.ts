@@ -1,7 +1,7 @@
 import * as assert from "assert";
 import { flatten, range } from "lodash-es";
 import { tokenize } from ".";
-import { FakeIDE } from "@cursorless/common";
+import { FakeIDE } from "@cursorless/lib-common";
 
 type TestCase = [string, string[]];
 /**

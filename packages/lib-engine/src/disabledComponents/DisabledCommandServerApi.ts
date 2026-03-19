@@ -1,4 +1,4 @@
-import type { CommandServerApi } from "@cursorless/common";
+import type { CommandServerApi } from "@cursorless/lib-common";
 
 export class DisabledCommandServerApi implements CommandServerApi {
   getFocusedElementType() {

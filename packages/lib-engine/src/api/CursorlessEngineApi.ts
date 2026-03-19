@@ -10,7 +10,7 @@ import type {
   ScopeProvider,
   ScopeType,
   SpokenForm,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { CommandRunner } from "../CommandRunner";
 import type { StoredTargetMap } from "../core/StoredTargets";
 import type { LanguageDefinitions } from "../languages/LanguageDefinitions";

@@ -1,4 +1,4 @@
-import { asyncSafety } from "@cursorless/common";
+import { asyncSafety } from "@cursorless/lib-common";
 import { getCursorlessApi } from "@cursorless/vscode-common";
 import { commands } from "vscode";
 import { endToEndTestSetup } from "../../endToEndTestSetup";

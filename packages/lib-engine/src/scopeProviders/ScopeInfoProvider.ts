@@ -4,12 +4,12 @@ import type {
   ScopeTypeInfo,
   ScopeTypeInfoEventCallback,
   SurroundingPairScopeType,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import {
   pseudoScopes,
   simpleScopeTypeTypes,
   surroundingPairNames,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { pull } from "lodash-es";
 
 import type { CustomSpokenFormGeneratorImpl } from "../generateSpokenForm/CustomSpokenFormGeneratorImpl";

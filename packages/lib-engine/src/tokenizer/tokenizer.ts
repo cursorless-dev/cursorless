@@ -1,4 +1,4 @@
-import { matchAll, type IDE } from "@cursorless/common";
+import { matchAll, type IDE } from "@cursorless/lib-common";
 import { escapeRegExp } from "lodash-es";
 import type { LanguageTokenizerComponents } from "./tokenizer.types";
 

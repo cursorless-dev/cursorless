@@ -1,4 +1,4 @@
-import type { Disposable, IDE } from "@cursorless/common";
+import type { Disposable, IDE } from "@cursorless/lib-common";
 import type { StoredTargetMap } from "./core/StoredTargets";
 import { CursorStage } from "./processTargets/marks/CursorStage";
 import { DecorationDebouncer } from "./util/DecorationDebouncer";

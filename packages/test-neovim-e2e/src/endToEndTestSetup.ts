@@ -1,5 +1,5 @@
-import type { IDE } from "@cursorless/common";
-import { shouldUpdateFixtures, sleep, SpyIDE } from "@cursorless/common";
+import type { IDE } from "@cursorless/lib-common";
+import { shouldUpdateFixtures, sleep, SpyIDE } from "@cursorless/lib-common";
 import type { NeovimIDE } from "@cursorless/neovim-common";
 import { getCursorlessApi } from "@cursorless/neovim-common";
 import type { Context } from "mocha";

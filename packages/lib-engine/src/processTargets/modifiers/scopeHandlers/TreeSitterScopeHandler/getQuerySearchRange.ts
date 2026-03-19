@@ -1,4 +1,4 @@
-import type { Direction, Position, TextDocument } from "@cursorless/common";
+import type { Direction, Position, TextDocument } from "@cursorless/lib-common";
 import type {
   ContainmentPolicy,
   ScopeIteratorRequirements,

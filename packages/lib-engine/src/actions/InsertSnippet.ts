@@ -1,8 +1,8 @@
-import type { IDE, InsertSnippetArg } from "@cursorless/common";
+import type { IDE, InsertSnippetArg } from "@cursorless/lib-common";
 import {
   NamedSnippetsDeprecationError,
   RangeExpansionBehavior,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { getPreferredSnippet } from "../core/getPreferredSnippet";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";

@@ -4,7 +4,7 @@ import type {
   Position,
   TextDocument,
   TreeSitter,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type * as treeSitter from "web-tree-sitter";
 import type { ScopeCaptureName } from "./captureNames";
 import {

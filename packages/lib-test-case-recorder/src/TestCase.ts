@@ -15,14 +15,14 @@ import type {
   TestCaseSnapshot,
   ThrownError,
   Token,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import {
   extractTargetedMarks,
   marksToPlainObject,
   serializeTestFixture,
   spyIDERecordedValuesToPlainObject,
   unsafeKeys,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import {
   extractTargetKeys,
   getPartialTargetDescriptors,

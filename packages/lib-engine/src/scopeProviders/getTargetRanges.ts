@@ -1,4 +1,4 @@
-import type { TargetRanges } from "@cursorless/common";
+import type { TargetRanges } from "@cursorless/lib-common";
 import type { Target } from "../typings/target.types";
 
 export function getTargetRanges(target: Target): TargetRanges {

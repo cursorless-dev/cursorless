@@ -10,8 +10,8 @@ import type {
   TextDocument,
   TextEditor,
   TextEditorOptions,
-} from "@cursorless/common";
-import { sleep, uniqWithHash } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { sleep, uniqWithHash } from "@cursorless/lib-common";
 import {
   fromVscodeRange,
   fromVscodeSelection,

@@ -1,4 +1,9 @@
-import type { Edit, Range, Selection, TextEditor } from "@cursorless/common";
+import type {
+  Edit,
+  Range,
+  Selection,
+  TextEditor,
+} from "@cursorless/lib-common";
 import type { Node } from "web-tree-sitter";
 
 export interface SelectionWithEditor {

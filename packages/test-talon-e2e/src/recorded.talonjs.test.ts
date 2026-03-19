@@ -2,7 +2,7 @@ import {
   asyncSafety,
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   type TextEditor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import {
   activate,
   type EditorState,

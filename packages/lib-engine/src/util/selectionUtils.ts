@@ -1,5 +1,5 @@
-import type { Position, TextEditor } from "@cursorless/common";
-import { Range, Selection } from "@cursorless/common";
+import type { Position, TextEditor } from "@cursorless/lib-common";
+import { Range, Selection } from "@cursorless/lib-common";
 import type { SelectionWithEditor } from "../typings/Types";
 
 export function selectionWithEditorFromRange(

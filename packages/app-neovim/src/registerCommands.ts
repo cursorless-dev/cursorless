@@ -2,12 +2,12 @@ import type {
   CommandResponse,
   CommandServerApi,
   CursorlessCommandId,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import {
   CURSORLESS_COMMAND_ID,
   clientSupportsFallback,
   ensureCommandShape,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 
 import type { CommandApi } from "@cursorless/cursorless-engine";
 import type { NeovimIDE } from "@cursorless/neovim-common";

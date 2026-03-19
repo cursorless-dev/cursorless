@@ -7,7 +7,7 @@ import {
 } from "@cursorless/neovim-common";
 import type { NeovimTextEditor } from "./ide/neovim/NeovimTextEditor";
 import type { NeovimClient } from "neovim";
-import type { IDE } from "@cursorless/common";
+import type { IDE } from "@cursorless/lib-common";
 
 export async function neovimClipboardCopy(
   client: NeovimClient,

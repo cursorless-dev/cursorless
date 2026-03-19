@@ -2,7 +2,7 @@ import type {
   ActionDescriptor,
   DestinationDescriptor,
   PartialTargetDescriptor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { parseAndFillOutAction } from "../customCommandGrammar/parseAndFillOutAction";
 
 export function getPartialTargetDescriptors(

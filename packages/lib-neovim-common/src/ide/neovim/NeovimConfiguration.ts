@@ -5,8 +5,8 @@ import type {
   CursorlessConfiguration,
   GetFieldType,
   Paths,
-} from "@cursorless/common";
-import { CONFIGURATION_DEFAULTS, Notifier } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { CONFIGURATION_DEFAULTS, Notifier } from "@cursorless/lib-common";
 import { get } from "lodash";
 
 interface ConfigurationScopeValues {

@@ -3,7 +3,7 @@ import type {
   PartialSpokenFormTypes,
   SpokenFormMapKeyTypes,
   SpokenFormType,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { CustomizableSpokenFormComponentForType } from "./SpokenFormComponent";
 
 /**

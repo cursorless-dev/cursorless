@@ -1,4 +1,4 @@
-import { LATEST_VERSION } from "@cursorless/common";
+import { LATEST_VERSION } from "@cursorless/lib-common";
 import {
   getCursorlessApi,
   getReusableEditor,

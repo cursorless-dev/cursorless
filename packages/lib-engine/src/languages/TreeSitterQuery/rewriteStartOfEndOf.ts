@@ -1,4 +1,4 @@
-import type { Range } from "@cursorless/common";
+import type { Range } from "@cursorless/lib-common";
 import type { Node } from "web-tree-sitter";
 import type { QueryCapture } from "./QueryCapture";
 import {

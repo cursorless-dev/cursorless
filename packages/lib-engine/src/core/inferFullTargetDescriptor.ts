@@ -5,7 +5,7 @@ import type {
   PartialPrimitiveTargetDescriptor,
   PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type {
   ListTargetDescriptor,
   Mark,

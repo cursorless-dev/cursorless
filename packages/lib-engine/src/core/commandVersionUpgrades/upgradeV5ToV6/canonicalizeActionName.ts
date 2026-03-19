@@ -1,5 +1,5 @@
-import type { ActionType } from "@cursorless/common";
-import { actionNames } from "@cursorless/common";
+import type { ActionType } from "@cursorless/lib-common";
+import { actionNames } from "@cursorless/lib-common";
 
 const actionAliasToCanonicalName: Record<string, ActionType> = {
   bring: "replaceWithTarget",

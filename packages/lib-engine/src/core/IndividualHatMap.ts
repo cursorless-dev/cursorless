@@ -5,8 +5,8 @@ import type {
   TextDocument,
   Token,
   TokenHat,
-} from "@cursorless/common";
-import { getKey } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { getKey } from "@cursorless/lib-common";
 import type { TokenGraphemeSplitter } from "../tokenGraphemeSplitter";
 import { getMatcher } from "../tokenizer";
 import type { FullRangeInfo } from "../typings/updateSelections";

@@ -2,7 +2,7 @@ import type {
   SpokenFormType,
   PartialSpokenFormTypes,
   SpokenFormMapKeyTypes,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 
 export interface SpokenFormMapEntry {
   /**

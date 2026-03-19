@@ -1,6 +1,6 @@
 import assert from "node:assert";
 import { CustomSpokenFormGeneratorImpl } from "./CustomSpokenFormGeneratorImpl";
-import { FakeIDE, LATEST_VERSION, asyncSafety } from "@cursorless/common";
+import { FakeIDE, LATEST_VERSION, asyncSafety } from "@cursorless/lib-common";
 
 suite("CustomSpokenFormGeneratorImpl", async function () {
   test(

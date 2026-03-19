@@ -2,7 +2,7 @@ import type {
   IterationScopeRanges,
   Range,
   TextEditor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { map } from "itertools";
 import type {
   ModifierStage,

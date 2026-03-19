@@ -4,8 +4,8 @@ import type {
   Messages,
   MessageType,
   ScopeProvider,
-} from "@cursorless/common";
-import { FakeIDE, InMemoryTextEditor } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { FakeIDE, InMemoryTextEditor } from "@cursorless/lib-common";
 import { FileSystemRawTreeSitterQueryProvider } from "@cursorless/node-common";
 import { createCursorlessEngine } from "..";
 import { TestFileSystem } from "./TestFileSystem";

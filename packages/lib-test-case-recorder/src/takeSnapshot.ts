@@ -6,12 +6,12 @@ import type {
   SerializedMarks,
   TestCaseSnapshot,
   TextEditor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import {
   rangeToPlainObject,
   selectionToPlainObject,
   storedTargetKeys,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { StoredTargetMap } from "@cursorless/cursorless-engine";
 import { hrtimeBigintToSeconds } from "./timeUtils";
 

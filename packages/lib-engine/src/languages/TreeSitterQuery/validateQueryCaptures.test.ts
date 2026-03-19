@@ -1,4 +1,4 @@
-import { FakeIDE } from "@cursorless/common";
+import { FakeIDE } from "@cursorless/lib-common";
 import assert from "assert";
 import { validateQueryCaptures } from "./validateQueryCaptures";
 

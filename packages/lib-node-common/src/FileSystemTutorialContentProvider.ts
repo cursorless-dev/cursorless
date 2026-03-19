@@ -2,7 +2,7 @@ import type {
   RawTutorialContent,
   TutorialContentProvider,
   TutorialId,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { readFile, readdir } from "node:fs/promises";
 import path from "path";
 import { loadFixture } from "./loadFixture";

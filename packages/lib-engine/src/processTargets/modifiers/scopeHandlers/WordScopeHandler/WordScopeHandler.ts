@@ -1,5 +1,10 @@
-import type { Direction, IDE, ScopeType, TextEditor } from "@cursorless/common";
-import { Range } from "@cursorless/common";
+import type {
+  Direction,
+  IDE,
+  ScopeType,
+  TextEditor,
+} from "@cursorless/lib-common";
+import { Range } from "@cursorless/lib-common";
 import { SubTokenWordTarget } from "../../../targets";
 import { NestedScopeHandler } from "../NestedScopeHandler";
 import type { TargetScope } from "../scope.types";

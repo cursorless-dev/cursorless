@@ -1,7 +1,7 @@
 import type {
   TestCaseFixture,
   TestCaseFixtureLegacy,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { canonicalizeAndValidateCommand } from "../../../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 
 export function canonicalize(fixture: TestCaseFixtureLegacy): TestCaseFixture {

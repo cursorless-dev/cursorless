@@ -5,8 +5,8 @@ import type {
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
   ScopeType,
-} from "@cursorless/common";
-import { LATEST_VERSION } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { LATEST_VERSION } from "@cursorless/lib-common";
 import { runCursorlessCommand } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 import type { HatColor, HatShape } from "../ide/vscode/hatStyles.types";

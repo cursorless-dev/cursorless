@@ -22,7 +22,7 @@
     "generate-test-subset-file-strict": "c-tsx ./src/scripts/generateTestSubsetFile.ts --fail-if-not-exists"
   },
   "dependencies": {
-    "@cursorless/common": "workspace:*",
+    "@cursorless/lib-common": "workspace:*",
     "@cursorless/neovim-common": "workspace:*",
     "@cursorless/neovim-registry": "workspace:*",
     "@cursorless/node-common": "workspace:*",

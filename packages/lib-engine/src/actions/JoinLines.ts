@@ -1,5 +1,10 @@
-import type { Edit, IDE, TextEditor } from "@cursorless/common";
-import { FlashStyle, Range, Selection, zipStrict } from "@cursorless/common";
+import type { Edit, IDE, TextEditor } from "@cursorless/lib-common";
+import {
+  FlashStyle,
+  Range,
+  Selection,
+  zipStrict,
+} from "@cursorless/lib-common";
 import { range as iterRange, map, pairwise } from "itertools";
 import { flatten } from "lodash-es";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";

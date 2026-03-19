@@ -3,7 +3,7 @@ import type {
   Position,
   ScopeType,
   TextEditor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { flatmap } from "itertools";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";

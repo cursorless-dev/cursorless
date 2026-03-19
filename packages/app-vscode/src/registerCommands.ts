@@ -2,8 +2,8 @@ import type {
   CommandHistoryStorage,
   CursorlessCommandId,
   ScopeType,
-} from "@cursorless/common";
-import { CURSORLESS_COMMAND_ID } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { CURSORLESS_COMMAND_ID } from "@cursorless/lib-common";
 import type {
   CommandApi,
   StoredTargetMap,

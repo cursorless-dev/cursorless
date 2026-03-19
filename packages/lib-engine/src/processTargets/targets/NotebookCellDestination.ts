@@ -3,7 +3,7 @@ import type {
   Range,
   Selection,
   TextEditor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { EditWithRangeUpdater } from "../../typings/Types";
 import type {
   Destination,

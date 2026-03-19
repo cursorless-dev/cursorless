@@ -8,8 +8,8 @@ import type {
   SpokenForm,
   SpokenFormMapKeyTypes,
   SpokenFormType,
-} from "@cursorless/common";
-import { camelCaseToAllDown, DOCS_URL } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { camelCaseToAllDown, DOCS_URL } from "@cursorless/lib-common";
 import type { SpokenFormMap } from "../spokenForms/SpokenFormMap";
 import { NoSpokenFormError } from "./NoSpokenFormError";
 import type { SpokenFormComponent } from "./SpokenFormComponent";

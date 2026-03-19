@@ -1,4 +1,4 @@
-import type { FlashDescriptor, RangeOffsets } from "@cursorless/common";
+import type { FlashDescriptor, RangeOffsets } from "@cursorless/lib-common";
 import type { Talon } from "../types/talon";
 import { toCharacterRangeOffsets } from "./toCharacterRangeOffsets";
 

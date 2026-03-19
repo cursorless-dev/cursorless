@@ -1,4 +1,4 @@
-import type { HighlightId, IDE } from "@cursorless/common";
+import type { HighlightId, IDE } from "@cursorless/lib-common";
 import type { Target } from "../typings/target.types";
 import {
   runOnTargetsForEachEditor,

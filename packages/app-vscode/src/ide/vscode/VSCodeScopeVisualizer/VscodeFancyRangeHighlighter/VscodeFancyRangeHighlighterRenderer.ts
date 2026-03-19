@@ -1,11 +1,11 @@
-import type { DecorationStyle } from "@cursorless/common";
+import type { DecorationStyle } from "@cursorless/lib-common";
 import {
   BORDER_WIDTH,
   CompositeKeyDefaultMap,
   getBorderColor,
   getBorderRadius,
   getBorderStyle,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { toVscodeRange } from "@cursorless/vscode-common";
 import type { DecorationRenderOptions, TextEditorDecorationType } from "vscode";
 import { DecorationRangeBehavior } from "vscode";

@@ -1,4 +1,4 @@
-import type { Modifier, ModifyIfUntypedModifier } from "@cursorless/common";
+import type { Modifier, ModifyIfUntypedModifier } from "@cursorless/lib-common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type {

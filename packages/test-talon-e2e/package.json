@@ -11,7 +11,7 @@
     "test:quickjs": "bash ./scripts/test-quickjs.sh"
   },
   "dependencies": {
-    "@cursorless/common": "workspace:*",
+    "@cursorless/lib-common": "workspace:*",
     "@cursorless/cursorless-everywhere-talon-core": "workspace:*",
     "@cursorless/node-common": "workspace:*",
     "@cursorless/test-case-recorder": "workspace:*"

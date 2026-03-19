@@ -1,4 +1,4 @@
-import { testRegex } from "@cursorless/common";
+import { testRegex } from "@cursorless/lib-common";
 import type { ComplexScopeType } from "../scopeHandler.types";
 import { separatorRegex } from "./getSeparatorOccurrences";
 

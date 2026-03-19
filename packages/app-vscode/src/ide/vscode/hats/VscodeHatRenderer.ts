@@ -2,8 +2,8 @@ import type {
   Listener,
   Messages,
   PathChangeListener,
-} from "@cursorless/common";
-import { Notifier } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { Notifier } from "@cursorless/lib-common";
 import { walkFiles } from "@cursorless/node-common";
 import type { VscodeApi } from "@cursorless/vscode-common";
 import * as fs from "node:fs/promises";

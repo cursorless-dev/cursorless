@@ -5,8 +5,8 @@ import type {
   CommandServerApi,
   DestinationDescriptor,
   PartialTargetDescriptor,
-} from "@cursorless/common";
-import { clientSupportsFallback } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { clientSupportsFallback } from "@cursorless/lib-common";
 import type { CommandRunner } from "../../CommandRunner";
 import type {
   ActionRecord,

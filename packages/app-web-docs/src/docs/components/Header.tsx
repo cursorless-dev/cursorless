@@ -1,4 +1,4 @@
-import { uriEncodeHashId } from "@cursorless/common";
+import { uriEncodeHashId } from "@cursorless/lib-common";
 import React from "react";
 import "./Header.css";
 

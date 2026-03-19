@@ -1,5 +1,5 @@
-import type { EndOfLine, TextDocument, TextLine } from "@cursorless/common";
-import { Position, Range } from "@cursorless/common";
+import type { EndOfLine, TextDocument, TextLine } from "@cursorless/lib-common";
+import { Position, Range } from "@cursorless/lib-common";
 import type { URI } from "vscode-uri";
 import NeovimTextLine from "./NeovimTextLine";
 import path from "node:path";

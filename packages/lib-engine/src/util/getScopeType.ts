@@ -1,4 +1,4 @@
-import type { Modifier, ScopeType } from "@cursorless/common";
+import type { Modifier, ScopeType } from "@cursorless/lib-common";
 
 export function getScopeType(modifier: Modifier): ScopeType | undefined {
   switch (modifier.type) {

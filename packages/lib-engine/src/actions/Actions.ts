@@ -1,4 +1,4 @@
-import type { IDE, TreeSitter } from "@cursorless/common";
+import type { IDE, TreeSitter } from "@cursorless/lib-common";
 import type { Snippets } from "../core/Snippets";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";

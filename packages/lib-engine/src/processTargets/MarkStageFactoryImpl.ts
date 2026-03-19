@@ -1,4 +1,4 @@
-import type { IDE, ReadOnlyHatMap } from "@cursorless/common";
+import type { IDE, ReadOnlyHatMap } from "@cursorless/lib-common";
 import type { TargetPipelineRunner } from ".";
 import type { StoredTargetMap } from "..";
 import type { Mark } from "../typings/TargetDescriptor";

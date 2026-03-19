@@ -3,8 +3,8 @@ import type {
   TextDocument,
   TextDocumentChangeEvent,
   TextDocumentContentChangeEvent,
-} from "@cursorless/common";
-import { Position, Range } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { Position, Range } from "@cursorless/lib-common";
 import { getNeovimRegistry } from "@cursorless/neovim-registry";
 
 import type { Buffer } from "neovim";

@@ -3,8 +3,8 @@ import type {
   Position,
   TextDocument,
   TextLine,
-} from "@cursorless/common";
-import { Range } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { Range } from "@cursorless/lib-common";
 import {
   fromVscodeEndOfLine,
   fromVscodePosition,

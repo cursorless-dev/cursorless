@@ -4,8 +4,8 @@ import type {
   ScopeProvider,
   ScopeType,
   TextEditor,
-} from "@cursorless/common";
-import { DOCS_URL, ScopeSupport, showError } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { DOCS_URL, ScopeSupport, showError } from "@cursorless/lib-common";
 import type {
   ScopeRangeType,
   ScopeVisualizerColorConfig,

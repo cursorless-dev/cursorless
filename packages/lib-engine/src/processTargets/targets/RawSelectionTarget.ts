@@ -1,4 +1,4 @@
-import type { EnforceUndefined } from "@cursorless/common";
+import type { EnforceUndefined } from "@cursorless/lib-common";
 import type { TextualType } from "../../typings/target.types";
 import type { CommonTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";

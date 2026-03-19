@@ -1,4 +1,4 @@
-import type { Range, TextDocument } from "@cursorless/common";
+import type { Range, TextDocument } from "@cursorless/lib-common";
 import type { Node } from "web-tree-sitter";
 
 /**

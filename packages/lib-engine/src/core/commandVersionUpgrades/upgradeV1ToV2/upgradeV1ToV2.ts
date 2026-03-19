@@ -11,7 +11,7 @@ import type {
   PartialTargetDescriptorV2,
   PartialTargetV0V1,
   SimpleScopeTypeTypeV2,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { upgradeStrictHere } from "./upgradeStrictHere";
 
 export function upgradeV1ToV2(command: CommandV1): CommandV2 {

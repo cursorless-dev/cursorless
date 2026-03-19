@@ -2,7 +2,7 @@ import type {
   ActionDescriptor,
   GetTextActionOptions,
   PartialPrimitiveTargetDescriptor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { spokenFormTest } from "./spokenFormTest";
 
 // See cursorless-talon-dev/src/cursorless_test.talon

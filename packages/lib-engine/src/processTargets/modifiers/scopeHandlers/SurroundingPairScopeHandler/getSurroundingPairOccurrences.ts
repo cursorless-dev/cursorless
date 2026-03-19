@@ -1,4 +1,4 @@
-import type { Range } from "@cursorless/common";
+import type { Range } from "@cursorless/lib-common";
 import findLastIndex from "lodash-es/findLastIndex";
 import { DelimiterSide } from "./types";
 import type {

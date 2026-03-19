@@ -1,4 +1,4 @@
-import { asyncSafety } from "@cursorless/common";
+import { asyncSafety } from "@cursorless/lib-common";
 import { isLinux } from "@cursorless/node-common";
 import { endToEndTestSetup } from "../../endToEndTestSetup";
 import { isCI } from "../../isCI";

@@ -1,4 +1,4 @@
-import type { HatTokenMap } from "@cursorless/common";
+import type { HatTokenMap } from "@cursorless/lib-common";
 
 export class DisabledHatTokenMap implements HatTokenMap {
   async allocateHats() {

@@ -3,7 +3,7 @@ import {
   type SurroundingPairName,
   type TextEditor,
   Position,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
 
 export function getInteriorRanges(

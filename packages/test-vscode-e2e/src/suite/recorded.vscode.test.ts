@@ -1,9 +1,9 @@
-import type { TextEditor } from "@cursorless/common";
+import type { TextEditor } from "@cursorless/lib-common";
 import {
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   HatStability,
   asyncSafety,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { getRecordedTestPaths, runRecordedTest } from "@cursorless/node-common";
 import {
   getCursorlessApi,

@@ -4,7 +4,7 @@ import type {
   DeprecatedNamedSnippetArg,
   ListInsertSnippetArg,
   ListWrapWithSnippetArg,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import assert from "node:assert";
 import { getPreferredSnippet } from "./getPreferredSnippet";
 

@@ -3,7 +3,7 @@ import {
   BORDER_WIDTH,
   getBorderColor,
   getBorderStyle,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { DecorationItem } from "shiki";
 import type { BorderRadius, Highlight, Style } from "./types";
 

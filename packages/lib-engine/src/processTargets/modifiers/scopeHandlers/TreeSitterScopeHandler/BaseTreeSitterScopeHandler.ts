@@ -1,5 +1,10 @@
-import type { Direction, IDE, Position, TextEditor } from "@cursorless/common";
-import { showError } from "@cursorless/common";
+import type {
+  Direction,
+  IDE,
+  Position,
+  TextEditor,
+} from "@cursorless/lib-common";
+import { showError } from "@cursorless/lib-common";
 import { uniqWith } from "lodash-es";
 import type { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
 import type { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";

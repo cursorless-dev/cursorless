@@ -1,4 +1,4 @@
-import type { Range, TextEditor } from "@cursorless/common";
+import type { Range, TextEditor } from "@cursorless/lib-common";
 import { last } from "lodash-es";
 import type { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
 

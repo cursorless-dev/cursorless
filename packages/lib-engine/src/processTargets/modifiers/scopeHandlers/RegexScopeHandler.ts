@@ -3,7 +3,7 @@ import type {
   Direction,
   GlyphScopeType,
   ScopeType,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { imap } from "itertools";
 import { escapeRegExp } from "lodash-es";
 import { NestedScopeHandler } from "./NestedScopeHandler";

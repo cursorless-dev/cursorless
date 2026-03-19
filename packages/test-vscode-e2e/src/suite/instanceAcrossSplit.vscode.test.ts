@@ -1,10 +1,10 @@
-import type { Modifier, SpyIDE } from "@cursorless/common";
+import type { Modifier, SpyIDE } from "@cursorless/lib-common";
 import {
   HatStability,
   LATEST_VERSION,
   Range,
   asyncSafety,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import {
   getCursorlessApi,
   openNewEditor,

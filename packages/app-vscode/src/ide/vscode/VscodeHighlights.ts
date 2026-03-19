@@ -2,8 +2,8 @@ import type {
   CharacterRange,
   GeneralizedRange,
   LineRange,
-} from "@cursorless/common";
-import { FlashStyle, isLineRange, partition } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { FlashStyle, isLineRange, partition } from "@cursorless/lib-common";
 import type { ExtensionContext } from "vscode";
 import * as vscode from "vscode";
 import { VscodeHighlightDecorationTypes } from "./VscodeHighlightDecorationTypes";

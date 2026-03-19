@@ -7,7 +7,7 @@ import type {
   PartialRangeTargetDescriptorV4,
   PartialTargetDescriptorV3,
   PartialTargetDescriptorV4,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 
 export function upgradeV3ToV4(command: CommandV3): CommandV4 {
   return {

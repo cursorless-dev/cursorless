@@ -3,7 +3,7 @@
 import { capture, UNUSED as _, argPositions } from "@cursorless/cursorless-engine"
 import { command } from "../command"
 import { keyboardLexer } from "../keyboardLexer";
-import { RelativeScopeModifier } from "@cursorless/common";
+import { RelativeScopeModifier } from "@cursorless/lib-common";
 
 const { $0, $1, $2 } = argPositions;
 %}

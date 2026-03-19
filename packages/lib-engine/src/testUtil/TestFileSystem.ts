@@ -3,7 +3,7 @@ import type {
   FileSystem,
   PathChangeListener,
   RunMode,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { getCursorlessRepoRoot } from "@cursorless/node-common";
 import { join } from "node:path";
 import fs from "node:fs/promises";

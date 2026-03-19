@@ -5,13 +5,13 @@ import type {
   TestCaseSnapshot,
   TextEditor,
   TutorialState,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import {
   plainObjectToRange,
   plainObjectToSelection,
   serializedMarksToTokenHats,
   toCharacterRange,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { TutorialContent } from "./types/tutorial.types";
 
 interface HighlightedEditor {

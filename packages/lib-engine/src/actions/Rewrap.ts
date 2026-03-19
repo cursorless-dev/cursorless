@@ -1,5 +1,5 @@
-import type { IDE } from "@cursorless/common";
-import { FlashStyle } from "@cursorless/common";
+import type { IDE } from "@cursorless/lib-common";
+import { FlashStyle } from "@cursorless/lib-common";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { getContainingSurroundingPairIfNoBoundaryStage } from "../processTargets/modifiers/BoundaryStage";

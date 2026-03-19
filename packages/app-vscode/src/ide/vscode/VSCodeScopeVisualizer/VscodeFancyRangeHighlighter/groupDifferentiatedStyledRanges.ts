@@ -1,4 +1,4 @@
-import { CompositeKeyDefaultMap } from "@cursorless/common";
+import { CompositeKeyDefaultMap } from "@cursorless/lib-common";
 import type {
   DifferentiatedStyle,
   DifferentiatedStyledRange,

@@ -3,7 +3,7 @@ import type {
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 
 const SCOPE_TYPE_CANONICALIZATION_MAPPING: Record<string, SimpleScopeTypeType> =

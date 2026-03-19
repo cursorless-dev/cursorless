@@ -6,8 +6,8 @@ import type {
   ScopeChangeEventCallback,
   ScopeRangeConfig,
   ScopeRanges,
-} from "@cursorless/common";
-import { showError } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { showError } from "@cursorless/lib-common";
 import { pull } from "lodash-es";
 
 import type { LanguageDefinitions } from "../languages/LanguageDefinitions";

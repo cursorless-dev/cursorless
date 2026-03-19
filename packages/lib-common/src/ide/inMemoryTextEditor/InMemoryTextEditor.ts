@@ -11,8 +11,8 @@ import type {
   TextDocument,
   TextEditor,
   TextEditorOptions,
-} from "@cursorless/common";
-import { Selection, selectionsEqual } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { Selection, selectionsEqual } from "@cursorless/lib-common";
 import { URI } from "vscode-uri";
 import { InMemoryTextDocument } from "./InMemoryTextDocument";
 

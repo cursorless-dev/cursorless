@@ -1,5 +1,5 @@
-import type { IDE } from "@cursorless/common";
-import { Selection } from "@cursorless/common";
+import type { IDE } from "@cursorless/lib-common";
+import { Selection } from "@cursorless/lib-common";
 import type { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
 import type { Destination } from "../../typings/target.types";
 import { createThatMark, ensureSingleEditor } from "../../util/targetUtils";

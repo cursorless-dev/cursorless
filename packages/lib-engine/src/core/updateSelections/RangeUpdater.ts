@@ -5,7 +5,7 @@ import type {
   TextDocument,
   TextDocumentChangeEvent,
   TextDocumentContentChangeEvent,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { pull } from "lodash-es";
 import type {
   ExtendedTextDocumentChangeEvent,

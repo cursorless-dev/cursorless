@@ -1,9 +1,9 @@
-import type { ActionType } from "@cursorless/common";
-import { actionNames } from "@cursorless/common";
+import type { ActionType } from "@cursorless/lib-common";
+import { actionNames } from "@cursorless/lib-common";
 
 // This file contains types defining the allowable identifiers for actions in
 // user keyboard config settings. It is a modified version of the default action
-// identifiers from @cursorless/common, with the addition of the "wrap" action
+// identifiers from @cursorless/lib-common, with the addition of the "wrap" action
 // that is designed to function like the "wrap" spoken form (ie use the same spoken
 // form for both snippet and delimiter wrapping).
 

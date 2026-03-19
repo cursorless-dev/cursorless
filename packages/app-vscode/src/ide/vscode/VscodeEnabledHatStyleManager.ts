@@ -1,5 +1,9 @@
-import type { HatStyleInfo, HatStyleMap, Listener } from "@cursorless/common";
-import { Notifier } from "@cursorless/common";
+import type {
+  HatStyleInfo,
+  HatStyleMap,
+  Listener,
+} from "@cursorless/lib-common";
+import { Notifier } from "@cursorless/lib-common";
 import { pickBy } from "lodash-es";
 import * as vscode from "vscode";
 import type { HatColor, HatShape, VscodeHatStyleName } from "./hatStyles.types";

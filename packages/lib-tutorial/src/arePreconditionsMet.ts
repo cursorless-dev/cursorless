@@ -1,8 +1,8 @@
-import type { HatTokenMap, TextEditor } from "@cursorless/common";
+import type { HatTokenMap, TextEditor } from "@cursorless/lib-common";
 import {
   plainObjectToSelection,
   serializedMarksToTokenHats,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { isEqual } from "lodash-es";
 import type { TutorialStep } from "./types/tutorial.types";
 

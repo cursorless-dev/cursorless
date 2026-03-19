@@ -1,4 +1,4 @@
-import type { ExecuteCommandOptions, IDE } from "@cursorless/common";
+import type { ExecuteCommandOptions, IDE } from "@cursorless/lib-common";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import type { Target } from "../typings/target.types";
 import { CallbackAction } from "./CallbackAction";

@@ -1,4 +1,4 @@
-import { rangeToPlainObject } from "@cursorless/common";
+import { rangeToPlainObject } from "@cursorless/lib-common";
 import type { DecorationRenderOptions } from "vscode";
 import type {
   SetDecorationsParameters,

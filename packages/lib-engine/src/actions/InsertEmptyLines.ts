@@ -1,11 +1,11 @@
-import type { IDE, InsertionMode } from "@cursorless/common";
+import type { IDE, InsertionMode } from "@cursorless/lib-common";
 import {
   FlashStyle,
   RangeExpansionBehavior,
   toCharacterRange,
   toLineRange,
   zipStrict,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { containingLineIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";

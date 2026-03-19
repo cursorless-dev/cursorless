@@ -6,14 +6,14 @@ import type {
   SpokenFormMapKeyTypes,
   SpokenFormType,
   TalonSpokenForms,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import {
   DisabledCustomSpokenFormsError,
   NeedsInitialTalonUpdateError,
   Notifier,
   SUPPORTED_ENTRY_TYPES,
   showError,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { isEqual } from "lodash-es";
 import type { SpokenFormMap, SpokenFormMapEntry } from "./SpokenFormMap";
 import {

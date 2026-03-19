@@ -3,7 +3,7 @@ import type {
   FileSystem,
   PathChangeListener,
   RunMode,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { isAbsolute, join } from "node:path";
 import * as vscode from "vscode";
 

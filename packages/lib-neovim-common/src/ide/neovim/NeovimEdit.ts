@@ -4,7 +4,7 @@ import type {
   Range,
   TextDocument,
   TextDocumentContentChangeEvent,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { NeovimClient, Window } from "neovim";
 import type { NeovimIDE } from "./NeovimIDE";
 import { getNeovimRegistry } from "@cursorless/neovim-registry";

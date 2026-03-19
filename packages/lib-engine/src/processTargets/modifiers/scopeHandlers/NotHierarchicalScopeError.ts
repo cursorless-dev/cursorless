@@ -1,4 +1,4 @@
-import type { ScopeType } from "@cursorless/common";
+import type { ScopeType } from "@cursorless/lib-common";
 import { scopeTypeToString } from "./scopeTypeUtil";
 
 /**

@@ -28,7 +28,7 @@ import type {
   PrimitiveDestinationDescriptor,
   ReplaceWith,
   WrapWithSnippetArg,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import canonicalizeActionName from "./canonicalizeActionName";
 
 export function upgradeV5ToV6(command: CommandV5): EnforceUndefined<CommandV6> {

@@ -1,4 +1,4 @@
-import type { TextEditor } from "@cursorless/common";
+import type { TextEditor } from "@cursorless/lib-common";
 import { range, uniq } from "lodash-es";
 
 /**

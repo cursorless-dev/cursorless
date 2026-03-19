@@ -2,7 +2,7 @@ import { promises as fsp } from "node:fs";
 import * as path from "node:path";
 import * as yaml from "js-yaml";
 import { mkdir, rename } from "node:fs/promises";
-import type { TestCaseFixture } from "@cursorless/common";
+import type { TestCaseFixture } from "@cursorless/lib-common";
 
 /**
  * Can be used to organize files into directories based on eg language id

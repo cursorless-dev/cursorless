@@ -1,4 +1,4 @@
-import type { IDE, SimpleScopeType, TextEditor } from "@cursorless/common";
+import type { IDE, SimpleScopeType, TextEditor } from "@cursorless/lib-common";
 import type { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
 import type { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import { ScopeTypeTarget } from "../../../targets/ScopeTypeTarget";

@@ -2,7 +2,7 @@ import type { Target } from "../../typings/target.types";
 import type {
   KeepContentFilterModifier,
   KeepEmptyFilterModifier,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { ModifierStage } from "../PipelineStages.types";
 
 export class KeepContentFilterStage implements ModifierStage {

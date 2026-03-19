@@ -4,8 +4,8 @@ import type {
   CursorlessConfiguration,
   GetFieldType,
   Paths,
-} from "@cursorless/common";
-import { HatStability, Notifier } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { HatStability, Notifier } from "@cursorless/lib-common";
 import * as os from "node:os";
 import * as vscode from "vscode";
 import type { VscodeIDE } from "./VscodeIDE";

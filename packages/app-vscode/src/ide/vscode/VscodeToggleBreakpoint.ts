@@ -1,4 +1,4 @@
-import type { GeneralizedRange, Position } from "@cursorless/common";
+import type { GeneralizedRange, Position } from "@cursorless/lib-common";
 import { toVscodePosition } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 import type { VscodeTextEditor } from "./VscodeTextEditor";

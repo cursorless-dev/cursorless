@@ -1,4 +1,4 @@
-import { LATEST_VERSION, splitKey } from "@cursorless/common";
+import { LATEST_VERSION, splitKey } from "@cursorless/lib-common";
 import {
   getCellIndex,
   getCursorlessApi,

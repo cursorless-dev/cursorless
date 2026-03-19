@@ -1,4 +1,4 @@
-import type { RangeModifier } from "@cursorless/common";
+import type { RangeModifier } from "@cursorless/lib-common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type {

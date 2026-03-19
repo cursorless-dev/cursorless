@@ -3,7 +3,7 @@ import type {
   PlaintextScopeSupportFacet,
   ScopeSupportFacet,
   Range,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 
 export type RangeType = "content" | "removal" | "blend";
 export type FacetValue = ScopeSupportFacet | PlaintextScopeSupportFacet;

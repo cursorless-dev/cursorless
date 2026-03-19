@@ -1309,7 +1309,7 @@
     "pokey.parse-tree"
   ],
   "dependencies": {
-    "@cursorless/common": "workspace:*",
+    "@cursorless/lib-common": "workspace:*",
     "@cursorless/cursorless-engine": "workspace:*",
     "@cursorless/cursorless-tutorial": "workspace:*",
     "@cursorless/node-common": "workspace:*",

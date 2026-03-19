@@ -10,7 +10,7 @@
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
-    "@cursorless/common": "workspace:*",
+    "@cursorless/lib-common": "workspace:*",
     "@cursorless/node-common": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",
     "immer": "^11.1.4",

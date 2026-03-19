@@ -4,8 +4,8 @@ import type {
   ScopeSupportEventCallback,
   ScopeSupportInfo,
   ScopeType,
-} from "@cursorless/common";
-import { ScopeSupport, disposableFrom } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { ScopeSupport, disposableFrom } from "@cursorless/lib-common";
 import { pull } from "lodash-es";
 import type { LanguageDefinitions } from "../languages/LanguageDefinitions";
 import { DecorationDebouncer } from "../util/DecorationDebouncer";

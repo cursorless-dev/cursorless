@@ -1,4 +1,4 @@
-import type { ExtraSnapshotField } from "@cursorless/common";
+import type { ExtraSnapshotField } from "@cursorless/lib-common";
 
 /**
  * This is the type of the `recordTestCase` command's argument. It is used to

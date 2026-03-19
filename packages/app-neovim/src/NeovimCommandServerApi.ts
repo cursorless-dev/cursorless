@@ -2,7 +2,7 @@ import type {
   CommandServerApi,
   FocusedElementType,
   InboundSignal,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { NeovimClient } from "neovim/lib/api/client";
 
 export class NeovimCommandServerApi implements CommandServerApi {

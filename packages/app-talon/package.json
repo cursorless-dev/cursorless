@@ -17,7 +17,7 @@
     "compile:base": "bash scripts/esbuild.sh"
   },
   "dependencies": {
-    "@cursorless/common": "workspace:*",
+    "@cursorless/lib-common": "workspace:*",
     "@cursorless/cursorless-everywhere-talon-core": "workspace:*"
   }
 }

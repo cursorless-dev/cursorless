@@ -1,4 +1,4 @@
-import type { Hats, HatTokenMap, IDE } from "@cursorless/common";
+import type { Hats, HatTokenMap, IDE } from "@cursorless/lib-common";
 import type {
   CommandRunnerDecorator,
   CustomSpokenFormGenerator,

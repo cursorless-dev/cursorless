@@ -2,8 +2,8 @@ import type {
   ComplexSurroundingPairName,
   SimpleSurroundingPairName,
   SurroundingPairName,
-} from "@cursorless/common";
-import { isString } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { isString } from "@cursorless/lib-common";
 import { concat, uniq } from "lodash-es";
 import { complexDelimiterMap, getSimpleDelimiterMap } from "./delimiterMaps";
 import type { IndividualDelimiter } from "./types";

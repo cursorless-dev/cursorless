@@ -1,4 +1,4 @@
-import { CURSORLESS_ORG_URL, DOCS_URL } from "@cursorless/common";
+import { CURSORLESS_ORG_URL, DOCS_URL } from "@cursorless/lib-common";
 import * as vscode from "vscode";
 
 export const showDocumentation = () => {

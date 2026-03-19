@@ -1,4 +1,4 @@
-import type { Range, SimpleSurroundingPairName } from "@cursorless/common";
+import type { Range, SimpleSurroundingPairName } from "@cursorless/lib-common";
 
 /**
  * Used to indicate whether a particular side of the delimiter is left or right

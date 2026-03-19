@@ -1,6 +1,6 @@
 import * as yaml from "js-yaml";
 import { readFile } from "node:fs/promises";
-import type { TestCaseFixtureLegacy } from "@cursorless/common";
+import type { TestCaseFixtureLegacy } from "@cursorless/lib-common";
 
 export async function loadFixture(
   path: string,

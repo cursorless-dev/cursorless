@@ -1,5 +1,5 @@
-import type { Configuration } from "@cursorless/common";
-import { Debouncer } from "@cursorless/common";
+import type { Configuration } from "@cursorless/lib-common";
+import { Debouncer } from "@cursorless/lib-common";
 
 export class DecorationDebouncer {
   private debouncer: Debouncer;

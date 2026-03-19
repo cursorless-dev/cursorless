@@ -1,4 +1,4 @@
-import type { Disposable, Hats, IDE, TokenHat } from "@cursorless/common";
+import type { Disposable, Hats, IDE, TokenHat } from "@cursorless/lib-common";
 import type { TokenGraphemeSplitter } from "../tokenGraphemeSplitter";
 import { allocateHats } from "../util/allocateHats";
 import type { IndividualHatMap } from "./IndividualHatMap";

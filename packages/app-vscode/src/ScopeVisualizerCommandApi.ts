@@ -1,4 +1,4 @@
-import type { Disposable, ScopeType } from "@cursorless/common";
+import type { Disposable, ScopeType } from "@cursorless/lib-common";
 
 export type ScopeVisualizerListener = (
   scopeType: ScopeType | undefined,

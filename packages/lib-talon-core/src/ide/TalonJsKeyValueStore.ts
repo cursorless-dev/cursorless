@@ -2,7 +2,7 @@ import type {
   KeyValueStore,
   KeyValueStoreData,
   KeyValueStoreKey,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 
 export class TalonJsKeyValueStore implements KeyValueStore {
   get<K extends KeyValueStoreKey>(_key: K): KeyValueStoreData[K] {

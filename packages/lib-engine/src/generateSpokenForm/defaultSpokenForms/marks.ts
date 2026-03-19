@@ -1,4 +1,4 @@
-import type { PartialMark } from "@cursorless/common";
+import type { PartialMark } from "@cursorless/lib-common";
 
 const hatColors: Record<string, string | null> = {
   blue: "blue",

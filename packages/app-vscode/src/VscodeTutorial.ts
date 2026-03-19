@@ -1,4 +1,8 @@
-import type { FileSystem, TutorialId, TutorialState } from "@cursorless/common";
+import type {
+  FileSystem,
+  TutorialId,
+  TutorialState,
+} from "@cursorless/lib-common";
 import { getCursorlessRepoRoot } from "@cursorless/node-common";
 import type { SpyWebViewEvent, VscodeApi } from "@cursorless/vscode-common";
 import path from "node:path";

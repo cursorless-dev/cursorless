@@ -1,4 +1,4 @@
-import { Position, Range, adjustPosition } from "@cursorless/common";
+import { Position, Range, adjustPosition } from "@cursorless/lib-common";
 import type { Point } from "web-tree-sitter";
 import { z } from "zod";
 import { getNode } from "./getNode";

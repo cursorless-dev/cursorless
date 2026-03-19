@@ -1,4 +1,4 @@
-import { type ActionDescriptor } from "@cursorless/common";
+import { type ActionDescriptor } from "@cursorless/lib-common";
 import assert from "assert";
 import { parseAction } from "./parseCommand";
 import type { WithPlaceholders } from "./WithPlaceholders";

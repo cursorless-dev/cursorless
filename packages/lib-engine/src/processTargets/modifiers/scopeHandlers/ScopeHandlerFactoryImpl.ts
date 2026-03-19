@@ -3,7 +3,7 @@ import {
   UnsupportedScopeError,
   type IDE,
   type ScopeType,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import {
   BoundedNonWhitespaceSequenceScopeHandler,

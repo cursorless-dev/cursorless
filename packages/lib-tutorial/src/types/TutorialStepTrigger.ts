@@ -1,4 +1,4 @@
-import type { CommandComplete, ScopeType } from "@cursorless/common";
+import type { CommandComplete, ScopeType } from "@cursorless/lib-common";
 
 /**
  * Advance to the next step when the user completes a command

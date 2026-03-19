@@ -3,7 +3,7 @@ import type {
   RangeOffsets,
   TextDocumentChangeEvent,
   TextDocumentContentChangeEvent,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 
 type SingleEdgeExpansionBehavior =
   | SimpleExpansionBehavior

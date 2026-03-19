@@ -1,4 +1,4 @@
-import type { SpeakableSurroundingPairName } from "@cursorless/common";
+import type { SpeakableSurroundingPairName } from "@cursorless/lib-common";
 
 export const surroundingPairsDelimiters: Record<
   SpeakableSurroundingPairName,

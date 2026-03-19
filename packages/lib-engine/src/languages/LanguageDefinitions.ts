@@ -4,8 +4,8 @@ import type {
   Listener,
   RawTreeSitterQueryProvider,
   TreeSitter,
-} from "@cursorless/common";
-import { getErrorMessage, Notifier, showError } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { getErrorMessage, Notifier, showError } from "@cursorless/lib-common";
 import { LanguageDefinition } from "./LanguageDefinition";
 import { treeSitterQueryCache } from "./TreeSitterQuery/TreeSitterQueryCache";
 

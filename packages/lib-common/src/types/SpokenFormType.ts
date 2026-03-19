@@ -3,7 +3,7 @@ import type {
   ModifierType,
   SimpleScopeTypeType,
   SurroundingPairName,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 
 /**
  * This interface is the source of truth for the types used in our spoken form

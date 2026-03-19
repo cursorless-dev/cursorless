@@ -1,4 +1,4 @@
-import type { Clipboard } from "@cursorless/common";
+import type { Clipboard } from "@cursorless/lib-common";
 import type { Talon } from "../types/talon";
 
 export class TalonJsClipboard implements Clipboard {

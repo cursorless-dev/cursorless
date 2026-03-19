@@ -1,4 +1,4 @@
-import type { RunMode } from "@cursorless/common";
+import type { RunMode } from "@cursorless/lib-common";
 import { activate as activateCore } from "@cursorless/cursorless-everywhere-talon-core";
 import * as talon from "talon";
 

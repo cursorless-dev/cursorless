@@ -1,4 +1,4 @@
-import type { TextDocument, TreeSitter } from "@cursorless/common";
+import type { TextDocument, TreeSitter } from "@cursorless/lib-common";
 import { createRequire } from "node:module";
 import * as path from "node:path";
 import type {

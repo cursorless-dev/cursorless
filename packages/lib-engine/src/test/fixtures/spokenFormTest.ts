@@ -3,7 +3,7 @@ import {
   type ActionDescriptor,
   type CommandLatest,
   type CommandResponse,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 
 export interface SpokenFormTest {
   /**

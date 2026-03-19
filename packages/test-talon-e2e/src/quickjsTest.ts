@@ -2,7 +2,7 @@ import {
   LATEST_VERSION,
   type ActionDescriptor,
   type CommandLatest,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { activate } from "@cursorless/cursorless-everywhere-talon-core";
 import * as std from "std";
 import { talonMock } from "./talonMock";

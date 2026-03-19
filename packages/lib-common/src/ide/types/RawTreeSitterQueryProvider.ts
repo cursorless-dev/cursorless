@@ -1,4 +1,4 @@
-import type { Disposable } from "@cursorless/common";
+import type { Disposable } from "@cursorless/lib-common";
 
 /**
  * Provides raw tree-sitter queries. These are usually read from `.scm` files

@@ -5,8 +5,8 @@ import type {
   Range,
   TargetPlainObject,
   TextEditor,
-} from "@cursorless/common";
-import { rangeToPlainObject, Selection } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { rangeToPlainObject, Selection } from "@cursorless/lib-common";
 import { isEqual } from "lodash-es";
 import type { EditWithRangeUpdater } from "../../typings/Types";
 import type {

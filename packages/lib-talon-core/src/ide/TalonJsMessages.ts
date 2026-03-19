@@ -1,5 +1,5 @@
-import type { Messages } from "@cursorless/common";
-import { MessageType } from "@cursorless/common";
+import type { Messages } from "@cursorless/lib-common";
+import { MessageType } from "@cursorless/lib-common";
 import type { Talon } from "../types/talon";
 
 export class TalonJsMessages implements Messages {

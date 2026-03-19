@@ -4,7 +4,7 @@ import {
   type Position,
   type ScopeType,
   type TextEditor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 import type { TargetScope } from "./scope.types";

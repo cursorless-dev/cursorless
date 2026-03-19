@@ -1,12 +1,12 @@
 import type {
   BringMoveActionDescriptor,
   InsertionMode,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import {
   simpleActionNames,
   simpleScopeTypeTypes,
   surroundingPairNames,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { marks } from "../generateSpokenForm/defaultSpokenForms/marks";
 import { defaultSpokenFormMap } from "../spokenForms/defaultSpokenFormMap";
 import { connectives } from "../generateSpokenForm/defaultSpokenForms/connectives";

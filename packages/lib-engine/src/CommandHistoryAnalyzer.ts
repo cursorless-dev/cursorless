@@ -5,8 +5,8 @@ import type {
   Modifier,
   PartialPrimitiveTargetDescriptor,
   ScopeType,
-} from "@cursorless/common";
-import { showWarning } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { showWarning } from "@cursorless/lib-common";
 import { groupBy, map, sum } from "lodash-es";
 import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { getPartialTargetDescriptors } from "./util/getPartialTargetDescriptors";

@@ -18,7 +18,7 @@ import type {
   RangeMarkV3,
   RangeModifierV3,
   ScopeTypeV2,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { isEqual } from "lodash-es";
 
 export function upgradeV2ToV3(command: CommandV2): CommandV3 {

@@ -1,7 +1,7 @@
 import {
   extensionDependencies,
   getEnvironmentVariableStrict,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { getCursorlessRepoRoot, isWindows } from "@cursorless/node-common";
 import {
   downloadAndUnzipVSCode,

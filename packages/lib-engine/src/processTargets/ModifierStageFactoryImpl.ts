@@ -1,4 +1,4 @@
-import type { Modifier } from "@cursorless/common";
+import type { Modifier } from "@cursorless/lib-common";
 import type { StoredTargetMap } from "../core/StoredTargets";
 import type { LanguageDefinitions } from "../languages/LanguageDefinitions";
 import type { ModifierStageFactory } from "./ModifierStageFactory";

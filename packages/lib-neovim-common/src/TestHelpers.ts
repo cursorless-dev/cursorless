@@ -3,7 +3,7 @@ import type {
   NormalizedIDE,
   ScopeProvider,
   TestHelpers,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type { NeovimIDE } from "./ide/neovim/NeovimIDE";
 
 export interface NeovimTestHelpers extends TestHelpers {

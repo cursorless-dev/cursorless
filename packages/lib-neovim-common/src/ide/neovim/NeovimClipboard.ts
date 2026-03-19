@@ -1,4 +1,4 @@
-import type { Clipboard } from "@cursorless/common";
+import type { Clipboard } from "@cursorless/lib-common";
 import { getClipboard, setClipboard } from "../../neovimApi";
 import type { NeovimClient } from "neovim";
 

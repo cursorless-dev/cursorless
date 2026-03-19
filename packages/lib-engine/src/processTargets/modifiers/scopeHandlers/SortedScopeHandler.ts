@@ -3,7 +3,7 @@ import type {
   OneOfScopeType,
   Position,
   TextEditor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import { advanceIteratorsUntil, getInitialIteratorInfos } from "./IteratorInfo";
 import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";

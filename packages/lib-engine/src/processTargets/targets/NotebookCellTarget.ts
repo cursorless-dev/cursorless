@@ -1,4 +1,4 @@
-import type { InsertionMode } from "@cursorless/common";
+import type { InsertionMode } from "@cursorless/lib-common";
 import type { CommonTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
 import type { Destination } from "../../typings/target.types";

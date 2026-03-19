@@ -1,6 +1,6 @@
 import * as sinon from "sinon";
-import type { MessageType, Messages } from "@cursorless/common";
-import { asyncSafety } from "@cursorless/common";
+import type { MessageType, Messages } from "@cursorless/lib-common";
+import { asyncSafety } from "@cursorless/lib-common";
 import type { ExtensionContext, Uri } from "vscode";
 import { ReleaseNotes, VERSION_KEY, WHATS_NEW } from "./ReleaseNotes";
 import type { VscodeApi } from "@cursorless/vscode-common";

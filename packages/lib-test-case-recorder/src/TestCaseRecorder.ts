@@ -10,7 +10,7 @@ import type {
   ReadOnlyHatMap,
   SerializedMarks,
   TextEditorOptions,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import {
   capitalize,
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
@@ -23,7 +23,7 @@ import {
   sleep,
   SpyIDE,
   toLineRange,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import type {
   CommandRunner,
   StoredTargetMap,

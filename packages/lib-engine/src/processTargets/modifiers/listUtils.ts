@@ -1,4 +1,4 @@
-import type { ScopeType } from "@cursorless/common";
+import type { ScopeType } from "@cursorless/lib-common";
 
 export class OutOfRangeError extends Error {
   constructor(scopeType: ScopeType, index?: number) {

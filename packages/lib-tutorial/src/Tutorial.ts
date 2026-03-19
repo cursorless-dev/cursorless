@@ -3,7 +3,7 @@ import type {
   ScopeType,
   TutorialId,
   TutorialState,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 
 /**
  * Interface for controlling the Cursorless tutorial

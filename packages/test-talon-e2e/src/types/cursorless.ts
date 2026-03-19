@@ -1,4 +1,4 @@
-import type { RunMode } from "@cursorless/common";
+import type { RunMode } from "@cursorless/lib-common";
 import type {
   ActivateReturnValue,
   Talon,

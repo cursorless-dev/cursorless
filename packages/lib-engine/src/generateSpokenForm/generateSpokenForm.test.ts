@@ -1,5 +1,8 @@
-import type { TestCaseFixtureLegacy } from "@cursorless/common";
-import { serializeTestFixture, shouldUpdateFixtures } from "@cursorless/common";
+import type { TestCaseFixtureLegacy } from "@cursorless/lib-common";
+import {
+  serializeTestFixture,
+  shouldUpdateFixtures,
+} from "@cursorless/lib-common";
 import { getRecordedTestPaths } from "@cursorless/node-common";
 import * as yaml from "js-yaml";
 import assert from "node:assert";

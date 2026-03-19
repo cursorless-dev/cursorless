@@ -1,5 +1,5 @@
-import type { TextEditor } from "@cursorless/common";
-import { Position, Range } from "@cursorless/common";
+import type { TextEditor } from "@cursorless/lib-common";
+import { Position, Range } from "@cursorless/lib-common";
 
 export function isAtEndOfLine(editor: TextEditor, position: Position) {
   const endLine = editor.document.lineAt(position);

@@ -1,4 +1,4 @@
-import type { Range } from "@cursorless/common";
+import type { Range } from "@cursorless/lib-common";
 import type { MutableQueryCapture } from "./QueryCapture";
 
 export function setRange(capture: MutableQueryCapture, range: Range) {

@@ -2,7 +2,7 @@ import type {
   GeneralizedRange,
   RangeOffsets,
   TextEditor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 
 export function toCharacterRangeOffsets(
   editor: TextEditor,

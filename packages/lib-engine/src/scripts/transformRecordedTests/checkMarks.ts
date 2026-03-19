@@ -1,5 +1,5 @@
-import type { TestCaseFixtureLegacy } from "@cursorless/common";
-import { FakeIDE } from "@cursorless/common";
+import type { TestCaseFixtureLegacy } from "@cursorless/lib-common";
+import { FakeIDE } from "@cursorless/lib-common";
 import assert from "assert";
 import { uniq } from "lodash-es";
 import { extractTargetKeys } from "../../testUtil/extractTargetKeys";

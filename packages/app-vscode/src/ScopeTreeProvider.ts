@@ -7,7 +7,7 @@ import type {
   ScopeTypeInfo,
   Selection,
   TextEditor,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import {
   CURSORLESS_SCOPE_TREE_VIEW_ID,
   DOCS_URL,
@@ -15,7 +15,7 @@ import {
   disposableFrom,
   serializeScopeType,
   uriEncodeHashId,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { type CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
 import { type VscodeApi } from "@cursorless/vscode-common";
 import { isEqual } from "lodash-es";

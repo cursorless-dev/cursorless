@@ -1,4 +1,4 @@
-import { BorderStyle, Range } from "@cursorless/common";
+import { BorderStyle, Range } from "@cursorless/lib-common";
 import * as assert from "assert";
 import { flattenHighlights } from "./flattenHighlights";
 import type { Highlight, Scope } from "./types";

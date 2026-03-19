@@ -1,4 +1,4 @@
-import { HatStability, LATEST_VERSION } from "@cursorless/common";
+import { HatStability, LATEST_VERSION } from "@cursorless/lib-common";
 import {
   getCursorlessApi,
   openNewEditor,

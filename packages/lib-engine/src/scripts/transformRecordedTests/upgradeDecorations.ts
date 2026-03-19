@@ -3,7 +3,7 @@ import type {
   GeneralizedRangePlainObject,
   PositionPlainObject,
   TestCaseFixtureLegacy,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import { groupBy, partition } from "lodash-es";
 import type { FixtureTransformation } from "./types";
 

@@ -6,8 +6,8 @@ import type {
   TestCaseSnapshot,
   TutorialContentProvider,
   TutorialId,
-} from "@cursorless/common";
-import { getKey, splitKey } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { getKey, splitKey } from "@cursorless/lib-common";
 import type { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
 import {
   canonicalizeAndValidateCommand,

@@ -1,4 +1,4 @@
-import type { BorderStyle } from "@cursorless/common";
+import type { BorderStyle } from "@cursorless/lib-common";
 import type { DifferentiatedStyle } from "./decorationStyle.types";
 
 /**

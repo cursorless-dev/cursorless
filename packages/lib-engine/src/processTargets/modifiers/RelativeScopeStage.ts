@@ -4,8 +4,8 @@ import type {
   Range,
   RelativeScopeModifier,
   TextEditor,
-} from "@cursorless/common";
-import { NoContainingScopeError } from "@cursorless/common";
+} from "@cursorless/lib-common";
+import { NoContainingScopeError } from "@cursorless/lib-common";
 import { find, ifilter, islice, itake } from "itertools";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStage } from "../PipelineStages.types";

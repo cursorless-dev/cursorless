@@ -1,5 +1,5 @@
-import type { RangeOffsets } from "@cursorless/common";
-import { leftAnchored, rightAnchored } from "@cursorless/common";
+import type { RangeOffsets } from "@cursorless/lib-common";
+import { leftAnchored, rightAnchored } from "@cursorless/lib-common";
 import { invariant } from "immutability-helper";
 import type {
   ChangeEventInfo,

@@ -7,7 +7,7 @@ import type {
   FullRangeInfo,
   ChangeEventInfo,
 } from "../../typings/updateSelections";
-import type { RangeOffsets } from "@cursorless/common";
+import type { RangeOffsets } from "@cursorless/lib-common";
 import { getUpdatedText } from "./getUpdatedText";
 
 /**

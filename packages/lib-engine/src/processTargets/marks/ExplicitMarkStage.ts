@@ -1,5 +1,5 @@
-import type { ExplicitMark, IDE } from "@cursorless/common";
-import { Range } from "@cursorless/common";
+import type { ExplicitMark, IDE } from "@cursorless/lib-common";
+import { Range } from "@cursorless/lib-common";
 import type { Target } from "../../typings/target.types";
 import type { MarkStage } from "../PipelineStages.types";
 import { UntypedTarget } from "../targets";

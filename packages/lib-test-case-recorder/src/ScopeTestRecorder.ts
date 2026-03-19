@@ -6,7 +6,7 @@ import {
   showInfo,
   type IDE,
   type ScopeSupportFacet,
-} from "@cursorless/common";
+} from "@cursorless/lib-common";
 import {
   getScopeTestPathsRecursively,
   getScopeTestsDirPath,
