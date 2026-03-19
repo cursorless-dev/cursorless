@@ -1,5 +1,5 @@
 {
-  "name": "@cursorless/cursorless-neovim",
+  "name": "@cursorless/app-neovim",
   "version": "1.0.0",
   "description": "cursorless in neovim",
   "license": "MIT",

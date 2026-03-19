@@ -60,7 +60,7 @@ These packages generally expose:
 Examples include:
 
 - `@cursorless/cursorless-vscode`
-- `@cursorless/cursorless-neovim`
+- `@cursorless/app-neovim`
 - `@cursorless/cursorless-org`
 - `@cursorless/cursorless-org-docs`
 - `@cursorless/app-talon`

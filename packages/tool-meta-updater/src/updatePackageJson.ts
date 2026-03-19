@@ -31,7 +31,7 @@ export async function updatePackageJson(
 
   const isLib = !isRoot && !input.private;
   const isCursorlessVscode = input.name === "@cursorless/cursorless-vscode";
-  const isCursorlessNeovim = input.name === "@cursorless/cursorless-neovim";
+  const isCursorlessNeovim = input.name === "@cursorless/app-neovim";
   const isCursorlessOrgDocs = input.name === "@cursorless/cursorless-org-docs";
   const isCursorlessTestHarness = input.name === "@cursorless/test-harness";
 
