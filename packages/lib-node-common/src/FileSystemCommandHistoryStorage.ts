@@ -2,7 +2,7 @@ import type {
   CommandHistoryEntry,
   CommandHistoryStorage,
 } from "@cursorless/lib-common";
-import { glob } from "glob";
+import glob from "fast-glob";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
 

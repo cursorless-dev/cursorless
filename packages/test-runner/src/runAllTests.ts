@@ -1,5 +1,5 @@
 import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
-import { glob } from "glob";
+import glob from "fast-glob";
 import Mocha from "mocha";
 import * as path from "node:path";
 import {
