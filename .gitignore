@@ -1,19 +1,22 @@
-node_modules
-.vscode-test
-packages/*/out
-packages/*/dist
-packages/*/build
-packages/*/.docusaurus
+# Workspace
+/.vscode-test/
 
+# Packages 
+/packages/*/out/
+/packages/*/dist/
+/packages/*/build/
+/packages/app-web-docs/.docusaurus/
+/packages/*/tsconfig.tsbuildinfo
+
+# Test runner subset config
+/packages/test-runner/testSubsetGrep.properties
+/packages/test-runner/failedTests.properties
+
+# Cursorless-neovim
+/cursorless.nvim/node/cursorless-neovim/
+/cursorless.nvim/node/test-runner/
+
+# Anywhere
+node_modules/
 .DS_Store
-tsconfig.tsbuildinfo
-*.vsix
 .luacheckcache
-
-# test subset config
-packages/test-runner/testSubsetGrep.properties
-packages/test-runner/failedTests.properties
-
-# cursorless-neovim
-cursorless.nvim/node/cursorless-neovim
-cursorless.nvim/node/test-runner
