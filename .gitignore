@@ -1,7 +1,7 @@
 # Workspace
 /.vscode-test/
 
-# Packages 
+# Packages
 /packages/*/out/
 /packages/*/dist/
 /packages/*/build/
@@ -12,7 +12,7 @@
 /packages/test-runner/testSubsetGrep.properties
 /packages/test-runner/failedTests.properties
 
-# Cursorless-neovim
+# Cursorless Neovim
 /cursorless.nvim/node/cursorless-neovim/
 /cursorless.nvim/node/test-runner/
 
