@@ -1,17 +1,19 @@
-.git
-node_modules
-.vscode-test
-packages/*/out
-packages/*/dist
-packages/*/build
-packages/*/.docusaurus
-packages/app-vscode/src/keyboard/grammar/generated
-packages/lib-engine/src/customCommandGrammar/generated
-packages/lib-engine/src/snippets/vendor
+# Workspace
+/.git/
+/.vscode-test/
+/pnpm-lock.yaml
+
+# Packages
+/packages/*/out/
+/packages/*/dist/
+/packages/*/build/
+/packages/app-web-docs/.docusaurus/
+/packages/app-vscode/src/keyboard/grammar/generated/
+/packages/lib-engine/src/customCommandGrammar/generated/
+/packages/lib-engine/src/snippets/vendor/
 
 # We use our own format for our recorded yaml tests to keep them compact
 /data/fixtures/recorded/**/*.yml
 
-pnpm-lock.yaml
-
-.github/PULL_REQUEST_TEMPLATE.md
+# Anywhere
+node_modules/

@@ -16,15 +16,19 @@ import { cursorlessVscodeConfig } from "./packages/app-vscode/eslintConfig";
 
 const ignoresConfig: ConfigWithExtends = {
   ignores: [
-    "**/generated/**/*",
-    "**/out/**/*",
-    "**/dist/**/*",
-    "**/build/**/*",
-    "**/vendor/**/*",
-    "**/.next/**/*",
-    "**/.docusaurus/**/*",
-    "data/playground/**/*",
-    "packages/app-web/next-env.d.ts",
+    // Workspace
+    ".git/**",
+    "data/playground/**",
+    // Packages
+    "packages/*/out/**",
+    "packages/*/dist/**",
+    "packages/*/build/**",
+    "packages/app-web-docs/.docusaurus/**",
+    "packages/app-vscode/src/keyboard/grammar/generated/**",
+    "packages/lib-engine/src/customCommandGrammar/generated/**",
+    "packages/lib-engine/src/snippets/vendor/**",
+    // Anywhere
+    "**/node_modules/**",
   ],
 };
 
