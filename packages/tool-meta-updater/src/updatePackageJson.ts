@@ -99,7 +99,7 @@ async function getScripts(
 
   scripts.typecheck = "tsc";
 
-  const cleanDirs = ["./out", "./tsconfig.tsbuildinfo", "./dist", "./build"];
+  const cleanDirs = ["./out", "./dist", "./tsconfig.tsbuildinfo"];
   const clean = `rm -rf ${cleanDirs.join(" ")}`;
   const cleanScripts =
     name === "@cursorless/app-web-docs" ? ["docusaurus clear", clean] : [clean];

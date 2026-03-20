@@ -4,7 +4,6 @@
 # Packages
 /packages/*/out/
 /packages/*/dist/
-/packages/*/build/
 /packages/app-web-docs/.docusaurus/
 /packages/*/tsconfig.tsbuildinfo
 /packages/test-runner/testSubsetGrep.properties

@@ -22,7 +22,6 @@ const ignoresConfig: ConfigWithExtends = {
     // Packages
     "packages/*/out/**",
     "packages/*/dist/**",
-    "packages/*/build/**",
     "packages/app-web-docs/.docusaurus/**",
     "packages/app-vscode/src/keyboard/grammar/generated/**",
     "packages/lib-engine/src/customCommandGrammar/generated/**",
