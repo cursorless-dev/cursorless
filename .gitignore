@@ -18,5 +18,6 @@
 
 # Anywhere
 node_modules/
+*.vsix
 .DS_Store
 .luacheckcache
