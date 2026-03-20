@@ -7,8 +7,6 @@
 /packages/*/build/
 /packages/app-web-docs/.docusaurus/
 /packages/*/tsconfig.tsbuildinfo
-
-# Test runner subset config
 /packages/test-runner/testSubsetGrep.properties
 /packages/test-runner/failedTests.properties
 
