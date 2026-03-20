@@ -7,7 +7,7 @@
   "main": "./out/index.cjs",
   "scripts": {
     "typecheck": "tsc",
-    "clean": "rm -rf ./out ./tsconfig.tsbuildinfo ./dist ./build",
+    "clean": "rm -rf ./out ./tsconfig.tsbuildinfo ./dist",
     "dev": "pnpm run compile:dev && pnpm run populate-dist",
     "build": "pnpm run compile:prod && pnpm run populate-dist",
     "compile:prod": "pnpm run compile:base --minify",

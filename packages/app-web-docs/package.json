@@ -18,9 +18,9 @@
   },
   "scripts": {
     "typecheck": "tsc",
-    "clean": "docusaurus clear && rm -rf ./out ./tsconfig.tsbuildinfo ./dist ./build",
+    "clean": "docusaurus clear && rm -rf ./out ./tsconfig.tsbuildinfo ./dist",
     "dev": "docusaurus start",
-    "build": "docusaurus build"
+    "build": "docusaurus build --out-dir out"
   },
   "dependencies": {
     "@algolia/client-search": "^5.49.2",

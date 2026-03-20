@@ -23,6 +23,6 @@ mkdir -p "$root_dir"
 mkdir -p "$docs_dir"
 
 cp -r packages/app-web/out/* "$root_dir"
-cp -r packages/app-web-docs/build/* "$docs_dir"
+cp -r packages/app-web-docs/out/* "$docs_dir"
 cp packages/app-vscode/out/railroad.html "$root_dir/keyboard-modal-railroad.html"
 cp packages/lib-engine/out/railroad.html "$root_dir/custom-command-railroad.html"

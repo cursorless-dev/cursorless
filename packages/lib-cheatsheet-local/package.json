@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "typecheck": "tsc",
-    "clean": "rm -rf ./out ./tsconfig.tsbuildinfo ./dist ./build",
+    "clean": "rm -rf ./out ./tsconfig.tsbuildinfo ./dist",
     "test": "jest",
     "dev": "env NODE_OPTIONS=--import=tsx vite serve",
     "bundle:prod": "env NODE_OPTIONS=--import=tsx vite build",
