@@ -1,7 +1,5 @@
 import { asyncSafety } from "@cursorless/lib-common";
-import { isLinux } from "@cursorless/lib-node-common";
 import { endToEndTestSetup } from "../../endToEndTestSetup";
-import { isCI } from "../../isCI";
 import { runBasicScopeInfoTest } from "./runBasicScopeInfoTest";
 import { runCustomRegexScopeInfoTest } from "./runCustomRegexScopeInfoTest";
 import { runCustomSpokenFormScopeInfoTest } from "./runCustomSpokenFormScopeInfoTest";
@@ -20,24 +18,10 @@ suite("scope provider", async function () {
   );
   test(
     "custom spoken form",
-    asyncSafety(() => {
-      // FIXME: This test is flaky on Linux CI, so we skip it there for now
-      if (isCI() && isLinux()) {
-        this.ctx.skip();
-      }
-
-      return runCustomSpokenFormScopeInfoTest();
-    }),
+    asyncSafety(() => runCustomSpokenFormScopeInfoTest()),
   );
   test(
     "custom regex",
-    asyncSafety(() => {
-      // FIXME: This test is flaky on Linux CI, so we skip it there for now
-      if (isCI() && isLinux()) {
-        this.ctx.skip();
-      }
-
-      return runCustomRegexScopeInfoTest();
-    }),
+    asyncSafety(() => runCustomRegexScopeInfoTest()),
   );
 });
