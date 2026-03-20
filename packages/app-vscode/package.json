@@ -1334,7 +1334,7 @@
     "@types/sinon": "^21.0.0",
     "@types/vscode": "1.98.0",
     "esbuild": "^0.27.4",
-    "fast-xml-parser": "^5.5.6",
+    "fast-xml-parser": "^5.5.7",
     "fs-extra": "^11.3.4",
     "sinon": "^21.0.3",
     "tsx": "^4.21.0"
