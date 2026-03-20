@@ -15,5 +15,5 @@ runs:
         luarocks install luafilesystem
     - shell: bash
       run: |
-        cd cursorless.nvim
+        cd packages/app-neovim/cursorless.nvim
         busted --run unit
