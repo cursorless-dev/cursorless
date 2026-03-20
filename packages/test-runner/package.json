@@ -8,7 +8,7 @@
   "main": "./out/extensionTestsNeovim.cjs",
   "scripts": {
     "typecheck": "tsc",
-    "clean": "rm -rf ./out ./tsconfig.tsbuildinfo ./dist",
+    "clean": "rm -rf ./out ./dist ./tsconfig.tsbuildinfo",
     "test": "c-tsx ./src/scripts/runUnitTests.ts",
     "test:subset": "c-tsx ./src/scripts/runUnitTests.ts --subset",
     "test:update": "c-tsx ./src/scripts/runUnitTests.ts --update",

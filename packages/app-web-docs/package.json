@@ -18,7 +18,7 @@
   },
   "scripts": {
     "typecheck": "tsc",
-    "clean": "docusaurus clear && rm -rf ./out ./tsconfig.tsbuildinfo ./dist",
+    "clean": "docusaurus clear && rm -rf ./out ./dist ./tsconfig.tsbuildinfo",
     "dev": "docusaurus start",
     "build": "docusaurus build --out-dir out"
   },

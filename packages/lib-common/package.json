@@ -14,7 +14,7 @@
   },
   "scripts": {
     "typecheck": "tsc",
-    "clean": "rm -rf ./out ./tsconfig.tsbuildinfo ./dist"
+    "clean": "rm -rf ./out ./dist ./tsconfig.tsbuildinfo"
   },
   "dependencies": {
     "itertools": "^2.6.0",

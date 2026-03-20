@@ -9,7 +9,7 @@
   },
   "scripts": {
     "typecheck": "tsc",
-    "clean": "rm -rf ./out ./tsconfig.tsbuildinfo ./dist"
+    "clean": "rm -rf ./out ./dist ./tsconfig.tsbuildinfo"
   },
   "devDependencies": {
     "neovim": "^5.4.0"
