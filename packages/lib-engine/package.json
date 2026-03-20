@@ -9,7 +9,7 @@
   },
   "scripts": {
     "typecheck": "tsc",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
+    "clean": "rm -rf ./out ./tsconfig.tsbuildinfo ./dist ./build",
     "test": "pnpm ensure-grammar-up-to-date",
     "generate-grammar:base": "nearleyc src/customCommandGrammar/grammar.ne",
     "ensure-grammar-up-to-date": "pnpm -s generate-grammar:base | diff -u src/customCommandGrammar/generated/grammar.ts -",

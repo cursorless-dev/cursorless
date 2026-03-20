@@ -2,7 +2,7 @@ import type {
   CommandHistoryEntry,
   CommandHistoryStorage,
 } from "@cursorless/lib-common";
-import { glob } from "glob";
+import glob from "fast-glob";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
 
@@ -23,6 +23,8 @@ export class FileSystemCommandHistoryStorage implements CommandHistoryStorage {
     const files = await glob("*.jsonl", {
       cwd: this.dir,
     });
+
+    files.sort();
 
     const entries: CommandHistoryEntry[] = [];
 

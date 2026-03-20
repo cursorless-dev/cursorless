@@ -1,6 +1,6 @@
-import { LATEST_VERSION } from "@cursorless/lib-common";
-import { isLinux } from "@cursorless/lib-node-common";
+import { LATEST_VERSION, splitKey } from "@cursorless/lib-common";
 import {
+  getCellIndex,
   getCursorlessApi,
   openNewNotebookEditor,
   runCursorlessCommand,
@@ -8,26 +8,31 @@ import {
 import assert from "assert";
 import { window } from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { isCI } from "../isCI";
 
 // Check that setSelection is able to focus the correct cell
 suite("Cross-cell set selection", async function () {
-  // FIXME: This test is flaky on Linux CI, so we skip it there for now
-  if (isCI() && isLinux()) {
-    this.ctx.skip();
-  }
-
   endToEndTestSetup(this);
 
   test("Cross-cell set selection", runTest);
 });
 
 async function runTest() {
-  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap, toVscodeEditor } = (await getCursorlessApi())
+    .testHelpers!;
 
-  await openNewNotebookEditor(['"hello"', '"world"']);
+  const notebook = await openNewNotebookEditor(['"hello"', '"world"']);
 
   await hatTokenMap.allocateHats();
+  const hatMap = await hatTokenMap.getReadableMap(false);
+  const targetHat = hatMap.getEntries().find(([, token]) => {
+    const editor = toVscodeEditor(token.editor);
+    return (
+      getCellIndex(notebook, editor.document) === 1 && token.text === "world"
+    );
+  });
+
+  assert(targetHat != null, 'Expected a hat for "world" in the second cell');
+  const { hatStyle, character } = splitKey(targetHat[0]);
 
   await runCursorlessCommand({
     version: LATEST_VERSION,
@@ -38,8 +43,8 @@ async function runTest() {
         type: "primitive",
         mark: {
           type: "decoratedSymbol",
-          symbolColor: "default",
-          character: "o",
+          symbolColor: hatStyle,
+          character,
         },
       },
     },

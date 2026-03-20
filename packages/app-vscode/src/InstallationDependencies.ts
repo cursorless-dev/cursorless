@@ -1,6 +1,6 @@
 import { isWindows } from "@cursorless/lib-node-common";
 import { COMMAND_SERVER_EXTENSION_ID } from "@cursorless/lib-vscode-common";
-import { globSync } from "glob";
+import glob from "fast-glob";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
@@ -130,9 +130,14 @@ function talonHomeExists() {
 
 function cursorlessTalonExists() {
   const talonUserPath = path.join(getTalonHomePath(), "user");
-  const files = globSync("**/*/src/cursorless.talon", {
+
+  if (!fs.existsSync(talonUserPath)) {
+    return false;
+  }
+
+  const files = glob.sync("**/*/src/cursorless.talon", {
     cwd: talonUserPath,
-    maxDepth: 3,
+    deep: 3,
   });
   return files.length > 0;
 }

@@ -8,7 +8,7 @@
   "main": "./out/extensionTestsNeovim.cjs",
   "scripts": {
     "typecheck": "tsc",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
+    "clean": "rm -rf ./out ./tsconfig.tsbuildinfo ./dist ./build",
     "test": "c-tsx ./src/scripts/runUnitTests.ts",
     "test:subset": "c-tsx ./src/scripts/runUnitTests.ts --subset",
     "test:update": "c-tsx ./src/scripts/runUnitTests.ts --update",
@@ -26,7 +26,7 @@
     "@cursorless/lib-neovim-common": "workspace:*",
     "@cursorless/lib-neovim-registry": "workspace:*",
     "@cursorless/lib-node-common": "workspace:*",
-    "glob": "^13.0.6",
+    "fast-glob": "^3.3.3",
     "neovim": "^5.4.0",
     "tail": "^2.2.6"
   },
