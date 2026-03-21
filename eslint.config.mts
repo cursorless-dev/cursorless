@@ -138,16 +138,15 @@ const tsxConfig: ConfigWithExtends = {
 
 const disabledTypeCheckConfig: ConfigWithExtends = {
   files: [
-    "**/jest.config.ts",
-    "**/docusaurus.config.mts",
-    "**/mdx-components.tsx",
-    "**/eslintConfig.ts",
-    "**/vite.config.ts",
+    // Workspace
     "eslint.config.mts",
-    "prettier.config.cjs",
-    "resources/typings/**",
+    // Packages
+    "packages/*/vite.config.ts",
+    "packages/*/eslintConfig.ts",
+    "packages/*/jest.config.ts",
+    "packages/app-web-docs/docusaurus.config.mts",
+    // Anywhere
     "**/*.js",
-    "**/*.mjs",
   ],
   extends: [tsEslint.configs.disableTypeChecked],
 };

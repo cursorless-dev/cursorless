@@ -27,7 +27,8 @@ jobs:
         with:
           python-version-file: "pyproject.toml"
 
-      - uses: ./.github/actions/setup-node
+      - name: Set up Node.js
+        uses: ./.github/actions/setup-node
 
       - name: Install lua
         uses: leafo/gh-actions-lua@v12
