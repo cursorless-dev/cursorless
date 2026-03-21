@@ -23,7 +23,7 @@ git rm -r '*'
 cd -
 
 # Copy static files
-rsync -avhW --no-compress --exclude test --exclude .busted cursorless.nvim/ "$staging_dir/"
+rsync -avhW --no-compress --exclude test --exclude .busted packages/app-neovim/cursorless.nvim/ "$staging_dir/"
 
 # Copy the built .js file
 mkdir -p "$staging_dir/node/cursorless-neovim/out"

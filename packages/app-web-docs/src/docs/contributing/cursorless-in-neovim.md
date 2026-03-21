@@ -26,11 +26,11 @@ On Windows, open the Control Panel, navigate to `User Accounts > User Accounts`.
 
 This step is only required on Windows if you don't run VSCode with Administrator privileges.
 
-Open a `cmd.exe` with Administrator privileges and create the symbolic links between the source folders and the `cursorless.nvim` destination folder:
+Open a `cmd.exe` with Administrator privileges and create the symbolic links between the source folders and the `packages/app-neovim/cursorless.nvim` destination folder:
 
 ```bat
-mklink /D C:\path\to\cursorless\cursorless.nvim\node\cursorless-neovim C:\path\to\cursorless\packages\app-neovim
-mklink /D C:\path\to\cursorless\cursorless.nvim\node\test-runner C:\path\to\cursorless\packages\test-runner
+mklink /D C:\path\to\cursorless\packages\app-neovim\cursorless.nvim\node\cursorless-neovim C:\path\to\cursorless\packages\app-neovim
+mklink /D C:\path\to\cursorless\packages\app-neovim\cursorless.nvim\node\test-runner C:\path\to\cursorless\packages\test-runner
 ```
 
 Note that the `C:\path\to\cursorless` path above should match your cloned cursorless repository.
@@ -49,7 +49,7 @@ If you don't have the `cursorless-talon-dev` files in your Talon user directory 
 
 ### Running lua tests
 
-Their are separate cursorless and lua tests. You can run the lua tests by entering the `cursorless.nvim` folder and
+Their are separate cursorless and lua tests. You can run the lua tests by entering the `packages/app-neovim/cursorless.nvim` folder and
 running: `busted --run unit`. These tests currently only work on Linux.
 
 ## Sending pull requests

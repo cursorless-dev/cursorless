@@ -5,13 +5,11 @@
 /packages/*/out/
 /packages/*/dist/
 /packages/app-web-docs/.docusaurus/
+/packages/app-neovim/cursorless.nvim/node/cursorless-neovim/
+/packages/app-neovim/cursorless.nvim/node/test-runner/
 /packages/*/tsconfig.tsbuildinfo
 /packages/test-runner/testSubsetGrep.properties
 /packages/test-runner/failedTests.properties
-
-# Cursorless Neovim
-/cursorless.nvim/node/cursorless-neovim/
-/cursorless.nvim/node/test-runner/
 
 # Anywhere
 node_modules/
