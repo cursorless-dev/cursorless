@@ -7,7 +7,7 @@ import * as path from "path";
 import { walkFilesSync } from "./walkSync";
 
 export function getFixturesPath() {
-  return path.join(getCursorlessRepoRoot(), "data", "fixtures");
+  return path.join(getCursorlessRepoRoot(), "resources", "fixtures");
 }
 
 export function getPackagePath(name: string) {

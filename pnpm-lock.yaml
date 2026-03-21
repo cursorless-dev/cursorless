@@ -11,10 +11,10 @@ overrides:
 patchedDependencies:
   '@types/nearley@2.11.5':
     hash: 72ccc6b9fd704c6d457027e12d6e1d005695ab3508558a08c6aaf73fb608ef69
-    path: patches/@types__nearley@2.11.5.patch
+    path: resources/patches/@types__nearley@2.11.5.patch
   nearley@2.20.1:
     hash: 0db19a2c501b16f37fbd86a94190d4a790184cea1061bf2e07f24eb076d4f2cf
-    path: patches/nearley@2.20.1.patch
+    path: resources/patches/nearley@2.20.1.patch
 
 importers:
 

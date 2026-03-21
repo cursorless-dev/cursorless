@@ -42,7 +42,7 @@ repos:
         # with a line that has trailing white space. Many of our recorded
         # tests use strings with trailing white space to represent the final
         # document contents. For example
-        # data/fixtures/recorded/languages/ruby/changeCondition.yml
+        # resources/fixtures/recorded/languages/ruby/changeCondition.yml
         exclude: ^resources/fixtures/recorded/.*/[^/]*\.yml$|\.scope$|/generated/|^resources/patches/
 
   - repo: local
