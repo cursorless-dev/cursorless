@@ -150,6 +150,10 @@ class Foo {}
 class Foo {}
 
 // interior.class
+// statement.iteration.class
+// name.iteration.class
+// value.iteration.class
+// type.iteration.class
 class Foo { }
 
 // functionCall
@@ -157,13 +161,18 @@ class Foo { }
 // statement.functionCall
 foo();
 
-// argumentList.actual.singleLine
 // argument.actual.singleLine
 // argument.actual.iteration
+// argumentList.actual.singleLine
 foo(aaa, bbb);
 
+// argument.formal.singleLine
+// argument.formal.iteration
+// argumentList.formal.singleLine
 // name.argument.formal
+// name.argument.formal.iteration
 // type.argument.formal
+// type.argument.formal.iteration
 void bar(int aaa, int bbb) {}
 
 // argumentList.formal.multiLine
