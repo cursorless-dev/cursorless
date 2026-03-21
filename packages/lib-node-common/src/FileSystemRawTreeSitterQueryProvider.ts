@@ -22,7 +22,7 @@ export class FileSystemRawTreeSitterQueryProvider implements RawTreeSitterQueryP
     this.queryDir =
       ide.runMode === "development"
         ? path.join(getCursorlessRepoRoot(), "resources/queries")
-        : "queries";
+        : "resources/queries";
 
     if (ide.runMode === "development") {
       this.disposables.push(
