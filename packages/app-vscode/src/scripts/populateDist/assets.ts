@@ -14,14 +14,17 @@ export const assets: Asset[] = [
     optionalInDev: true,
   },
   {
-    source: "../../assets/fonts/cursorless-glyph.svg",
+    source: "../../resources/fonts/cursorless-glyph.svg",
     destination: "fonts/cursorless-glyph.svg",
   },
   {
-    source: "../../assets/fonts/cursorless.woff",
+    source: "../../resources/fonts/cursorless.woff",
     destination: "fonts/cursorless.woff",
   },
-  { source: "../../assets/images/hats", destination: "images/hats" },
+  {
+    source: "../../resources/images/hats",
+    destination: "images/hats",
+  },
   {
     source: "../../data/fixtures/recorded/tutorial",
     destination: "tutorial",
@@ -35,7 +38,10 @@ export const assets: Asset[] = [
     destination: "media/tutorialWebview.css",
   },
   { source: "./images/logo.png", destination: "images/logo.png" },
-  { source: "../../assets/images/logo.svg", destination: "images/logo.svg" },
+  {
+    source: "../../resources/images/logo.svg",
+    destination: "images/logo.svg",
+  },
   {
     source: "resources/font_measurements.js",
     destination: "resources/font_measurements.js",
@@ -49,7 +55,7 @@ export const assets: Asset[] = [
     destination: "resources/installationDependencies.js",
   },
   {
-    source: "../../queries",
+    source: "../../resources/queries",
     destination: "queries",
   },
   {

@@ -21,7 +21,7 @@ export class FileSystemRawTreeSitterQueryProvider implements RawTreeSitterQueryP
     // hot-reloading work for the queries
     this.queryDir =
       ide.runMode === "development"
-        ? path.join(getCursorlessRepoRoot(), "queries")
+        ? path.join(getCursorlessRepoRoot(), "resources/queries")
         : "queries";
 
     if (ide.runMode === "development") {

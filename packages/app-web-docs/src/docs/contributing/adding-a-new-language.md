@@ -31,7 +31,7 @@ If you are adding support for a new language that isn't natively detected by VSC
 
 2. Add an entry pointing to your support table to [the global scope support table](../../../../../packages/lib-common/src/scopeSupportFacets/languageScopeSupport.ts)
 
-3. Create an empty `.scm` file in [`queries/`](../../../../../queries) to hold your parse tree patterns. It should be named after your language, eg `java.scm`.
+3. Create an empty `.scm` file in [`resources/queries/`](../../../../../resources/queries) to hold your parse tree patterns. It should be named after your language, eg `java.scm`.
 
 You can file a PR with just these changes to get the ball rolling.
 

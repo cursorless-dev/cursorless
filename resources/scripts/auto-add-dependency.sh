@@ -3,7 +3,7 @@ set -euo pipefail
 
 if [[ "$1" == "--help" ]]; then
   cat <<EOF
-Usage: ./scripts/auto-add-dependency.sh [options] <package-name> [import-name]
+Usage: ./resources/scripts/auto-add-dependency.sh [options] <package-name> [import-name]
 
 This script searches for references to <package-name> in all our monorepo packages,
 and runs pnpm install for each package that references <package-name>.
@@ -14,8 +14,8 @@ pnpm install.
 
 For example:
 
-    ./scripts/auto-add-dependency.sh lodash
-    ./scripts/auto-add-dependency.sh lodash -D @types/lodash
+    ./resources/scripts/auto-add-dependency.sh lodash
+    ./resources/scripts/auto-add-dependency.sh lodash -D @types/lodash
 EOF
   exit 0
 fi

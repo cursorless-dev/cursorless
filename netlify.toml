@@ -3,5 +3,5 @@
 # https://app.netlify.com/projects/cursorless/deploys
 
 [build]
-  command = "./scripts/build-and-assemble-website.sh"
+  command = "./resources/scripts/build-and-assemble-website.sh"
   publish = "dist/app-web"

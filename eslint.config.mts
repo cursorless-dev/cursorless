@@ -145,7 +145,7 @@ const disabledTypeCheckConfig: ConfigWithExtends = {
     "**/vite.config.ts",
     "eslint.config.mts",
     "prettier.config.cjs",
-    "typings/**",
+    "resources/typings/**",
     "**/*.js",
     "**/*.mjs",
   ],

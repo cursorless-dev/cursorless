@@ -11,7 +11,7 @@
 - Main extension code is in `/packages/app-vscode/`
 - Engine code is in `/packages/lib-engine/`
 - Tests are in `data/fixtures/recorded/`
-- Language-specific parsing is defined in the `queries/*.scm` files
+- Language-specific parsing is defined in the `resources/queries/*.scm` files
 
 ## Build and Test
 

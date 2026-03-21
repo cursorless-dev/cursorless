@@ -58,8 +58,8 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "@types/nearley@2.11.5": "patches/@types__nearley@2.11.5.patch",
-      "nearley@2.20.1": "patches/nearley@2.20.1.patch"
+      "@types/nearley@2.11.5": "resources/patches/@types__nearley@2.11.5.patch",
+      "nearley@2.20.1": "resources/patches/nearley@2.20.1.patch"
     },
     "overrides": {
       "@swc/helpers": "^0.5.17",

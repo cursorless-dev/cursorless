@@ -4,6 +4,6 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.json",
-    "../../typings/**/*.d.ts"
+    "../../resources/typings/**/*.d.ts"
   ]
 }

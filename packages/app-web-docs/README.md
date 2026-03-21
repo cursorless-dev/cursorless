@@ -28,4 +28,4 @@ This command generates static content into the `out` directory and can be served
 
 ### Deploy
 
-After building this site, we copy the output to the `docs` subdir of the staging directory for our website, which is then deployed by Netlify. See the [deploy script](../../scripts/build-and-assemble-website.sh) for more details.
+After building this site, we copy the output to the `docs` subdir of the staging directory for our website, which is then deployed by Netlify. See the [deploy script](../../resources/scripts/build-and-assemble-website.sh) for more details.

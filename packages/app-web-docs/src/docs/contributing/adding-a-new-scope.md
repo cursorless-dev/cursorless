@@ -53,12 +53,12 @@ This step will create partial tests for each of the facets of the given scope. O
 
 Launch your extension in debug mode and open a file in your language. You can create one or more files in [`playground/`](../../../../../data/playground) and feel free to include those in your PR.
 
-Then add parse tree patterns for the given scope to your language's `.scm` file in the [`queries` directory](../../../../../queries). The parse tree patterns should match the syntactic constructs that should be considered to be the given scope. Tag the nodes in the parse tree that correspond to the given scope with the internal identifier you found in step 1 above, eg `@namedFunction`. Note that you use the scope identifier (`@namedFunction`), _**not**_ the facet identifier (`@namedFunction.class`).
+Then add parse tree patterns for the given scope to your language's `.scm` file in the [`resources/queries` directory](../../../../../resources/queries). The parse tree patterns should match the syntactic constructs that should be considered to be the given scope. Tag the nodes in the parse tree that correspond to the given scope with the internal identifier you found in step 1 above, eg `@namedFunction`. Note that you use the scope identifier (`@namedFunction`), _**not**_ the facet identifier (`@namedFunction.class`).
 
 ### Notes / tips
 
 - See our [Tree-sitter query syntax](tree-sitter-query-syntax.md) guide for more information on the syntax we support.
-- Look at the existing language definitions in the [`queries` directory](../../../../../queries) for examples.
+- Look at the existing language definitions in the [`resources/queries` directory](../../../../../resources/queries) for examples.
 - Use the [scope visualizer](../user/scope-visualizer.md) to see your scope highlighted in real time every time you save the `.scm` file.
 - Use the command `"parse tree <target>"` to see the parse tree for a given target. For example `"parse tree line"` will show you the parse tree for the current line, as well as all of its ancestors. This will generate a markdown file with parse tree info, which you can then use to write your patterns. You might find it helpful to open a markdown preview of the file.
 - You will likely want to look at `node-types.json` for your language, (eg [java](https://github.com/tree-sitter/tree-sitter-java/blob/master/src/node-types.json)). This file is generated from the language's `grammar.js`, which might also be helpful to look at (eg [java](https://github.com/tree-sitter/tree-sitter-java/blob/master/grammar.js)).
