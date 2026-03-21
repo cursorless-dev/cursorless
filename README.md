@@ -59,7 +59,3 @@ See [contributing](https://www.cursorless.org/docs/contributing/).
 ## Change Log
 
 See [CHANGELOG.md](CHANGELOG.md).
-
-## Attributions
-
-See [NOTICE.md](NOTICE.md).

@@ -5,7 +5,6 @@ import type { Asset } from "./Asset";
 export const assets: Asset[] = [
   { source: "../../CHANGELOG.md", destination: "CHANGELOG.md" },
   { source: "../../LICENSE", destination: "LICENSE" },
-  { source: "../../NOTICE.md", destination: "NOTICE.md" },
   { source: "../../README.md", destination: "README.md" },
   {
     source: "../lib-cheatsheet-local/out/index.html",
@@ -48,10 +47,6 @@ export const assets: Asset[] = [
   {
     source: "resources/installationDependencies.js",
     destination: "resources/installationDependencies.js",
-  },
-  {
-    source: "../../third-party-licenses.csv",
-    destination: "third-party-licenses.csv",
   },
   {
     source: "../../queries",
