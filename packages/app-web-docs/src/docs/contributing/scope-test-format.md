@@ -139,12 +139,12 @@ These are examples of scope facets and appropriate source code.
 int foo = 0;
 
 // class
-// class.name
+// name.class
 // statement.class
 class Foo {}
 
 // class
-// class.name
+// name.class
 // statement.class
 @bar
 class Foo {}
