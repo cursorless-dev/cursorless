@@ -3,7 +3,7 @@
   "diagnostics.ignoredFiles": "Disable",
   "diagnostics.globals": ["vim", "talon", "it", "describe"],
   "workspace.ignoreDir": [
-    "resources/playground/lua/",
+    "resources/playground/lua",
     ".luarocks",
     ".lua",
     "dist"
