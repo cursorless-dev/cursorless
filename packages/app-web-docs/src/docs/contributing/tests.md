@@ -24,4 +24,4 @@ You can get an overview of the various test contexts that exist locally by looki
 - `pnpm test:update:subset` runs fixture updates only for the tests selected in `packages/test-runner/testSubsetGrep.properties`.
 - `pnpm -F @cursorless/test-runner test:vscode` runs the VSCode test runner.
 - `pnpm -F @cursorless/test-runner test:neovim` runs the Neovim test runner.
-- `pnpm -F @cursorless/test-runner test:talonJs` runs the Talon-JS test runner.
+- `pnpm -F @cursorless/test-runner test:talonjs` runs the Talon-JS test runner.
