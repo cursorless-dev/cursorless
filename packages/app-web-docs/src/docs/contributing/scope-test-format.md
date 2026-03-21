@@ -134,7 +134,9 @@ int foo;
 These are examples of scope facets and appropriate source code.
 
 ```java
+// statement.variable.initialized
 // name.variable.initialized
+// type.variable.initialized
 // value.variable
 int foo = 0;
 
@@ -159,6 +161,7 @@ class Foo { }
 // functionCall
 // functionCallee
 // statement.functionCall
+// argumentList.actual.empty
 foo();
 
 // argument.actual.singleLine
