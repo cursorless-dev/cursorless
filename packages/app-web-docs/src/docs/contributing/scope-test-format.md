@@ -85,13 +85,13 @@ For ease of readability we want all scope test to follow the recommended style g
 ### Naming convention and values
 
 - For classes, functions and variables we use the classic: `foo`, `bar`, `baz`, `bongo`. Language specific formatting still applies. eg `Foo` for a class in Java, `IFoo` for an interface in C# etc.
-- For arguments and parameters we usually use: `aaa`, `bbb`, `ccc` and so on.
-- For data type we usually use `int` or `number`.
-- For value we usually use `0`, `1`, `2` and so on.
+- For arguments and parameters we use: `aaa`, `bbb`, `ccc` and so on.
+- For data type we use `int` or `number`.
+- For value we use `0`, `1`, `2` and so on.
 
 Examples:
 
-```
+```java
 class Foo {}
 int foo = 0;
 foo(aaa, bbb);
@@ -101,35 +101,96 @@ foo(aaa, bbb);
 
 Don't add more lines than the example actually needs. For example if the test is about the class name, the facet `name.class`: there is no point having a lot of code in the class body or having it span multiple lines. Keep the code single line and with an empty body if possible.
 
-```
-        >---<
-0| class Foo {}
+```ts
+class Foo {}
 ```
 
 There are exceptions to this rule:
 
 1. Sometimes we actually need a body, but that doesn't mean that we need it to be multiple lines. The facet `interior.class` can look like this:
 
-```
-             >-<
-0| class Foo { }
+```py
+class Foo { }
 ```
 
 2. When testing a facet inside a code block. eg a method in a class or a field in a interface multiple lines are prefered.
 
-```
-0| class Foo {
-      >--------<
-1|     bar() {}
-2| }
+```ts
+class Foo {
+  bar() {}
+}
 ```
 
 3. If you're doing a `*.iteration.document` test we want to include a leading and trailing new line. eg:
 
+```java
+
+int foo;
+
 ```
-  >
-0|
-1| int foo;
-2|
-   <
+
+## Examples of good fixtures
+
+These are examples of scope facets and appropriate source code.
+
+```java
+// name.variable.initialized
+// value.variable
+int foo = 0;
+
+// class
+// class.name
+// statement.class
+class Foo {}
+
+// class
+// class.name
+// statement.class
+@bar
+class Foo {}
+
+// interior.class
+class Foo { }
+
+// functionCall
+// functionCallee
+// statement.functionCall
+foo();
+
+// argumentList.actual.singleLine
+// argument.actual.singleLine
+// argument.actual.iteration
+foo(aaa, bbb);
+
+// argumentList.formal.multiLine
+// argument.formal.multiLine
+// argument.formal.iteration
+// name.formal.multiLine
+// type.formal.multiLine
+void bar(
+    int aaa,
+    int bbb
+) {}
+
+// statement.field.class
+// name.field.class
+class Foo {
+    int bar;
+    int baz = 0;
+    @An int bongo = 0;
+}
+
+// interior.while
+while (true) { }
+
+// statement.if
+// branch.if.elif.else
+if (true) {}
+else if (false) {}
+else {}
+
+// interior.if
+if (true) { }
+else if (false) { }
+else { }
 ```

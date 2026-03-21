@@ -1,26 +1,26 @@
 # AGENTS.md
 
-## Documentation Structure
+## Documentation structure
 
 - Main documentation is in `/packages/app-web-docs/src/docs/user/README.md`
 - Spoken forms are defined in `/cursorless-talon/src/spoken_forms.json`
 - Contributing documentation is in `/packages/app-web-docs/src/docs/contributing/`
 
-## Project Organization
+## Project organization
 
 - Main extension code is in `/packages/app-vscode/`
 - Engine code is in `/packages/lib-engine/`
 - Tests are in `resources/fixtures/recorded` and `resources/fixtures/scopes`
 - Language-specific parsing is defined in the `resources/queries/*.scm` files
 
-## Build and Test
+## Build and test
 
 - Always run lint when making changes:
   - `pnpm run lint`
 - Tests can be run with:
   - `pnpm test`
 
-## Documentation Conventions
+## Documentation conventions
 
 When documenting actions or modifiers:
 
@@ -30,7 +30,7 @@ When documenting actions or modifiers:
 - For versatile actions like `drink`, `pour`, `drop`, `float`, and `puff`, explain their behavior with different scope types
 - Always document special behaviors with different scope types
 
-## Implementation Notes
+## Implementation notes
 
 - Many actions (`drop`, `float`, `puff`) work with both line and non-line targets
 - Always check test fixtures in `/resources/fixtures/recorded` to understand behavior
@@ -41,7 +41,7 @@ When documenting actions or modifiers:
 
 When writing or updating `.scope` files please follow the guidelines in [scope-test-format.md](./packages/app-web-docs/src/docs/contributing/scope-test-format.md)
 
-## Pull Request Guidelines
+## Pull Request guidelines
 
 - Any feedback should be addressed in code or replied to
 - Tests should be included for new functionality
