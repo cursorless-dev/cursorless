@@ -7,9 +7,9 @@ We'll start with a high-level overview of the architecture of the Cursorless tes
 Here is the call path when running Neovim tests locally. Note that `->` indicates one file calling another file:
 
 ```
-launch.json -> .vscode/tasks.json -> nvim -u init.lua
+launch.json -> .vscode/tasks.json -> nvim -u packages/app-neovim/init.lua
 
-init.lua
+packages/app-neovim/init.lua
   -> CursorlessLoadExtension()
   -> TestRunnerRun() -> run() -> runAllTests() -> Mocha -> packages/test-neovim-e2e/src/suite/recorded.neovim.test.ts
 ```
@@ -89,13 +89,13 @@ The `Neovim: Launch neovim (test)` task effectively starts `nvim` as a detached 
       }
 ```
 
-This ends up passing the `init.lua` script as the default config file (`-u`):
+This ends up passing the `packages/app-neovim/init.lua` script as the default config file (`-u`):
 
 ```bat
-nvim -u %CURSORLESS_REPO_ROOT%/init.lua
+nvim -u %CURSORLESS_REPO_ROOT%/packages/app-neovim/init.lua
 ```
 
-This `init.lua` adds the local `packages/app-neovim/cursorless.nvim` relative path to the runtime path and initializes Cursorless:
+This `packages/app-neovim/init.lua` file adds the local `packages/app-neovim/cursorless.nvim` relative path to the runtime path and initializes Cursorless:
 
 ```lua
 local repo_root = os.getenv("CURSORLESS_REPO_ROOT")
