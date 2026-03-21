@@ -162,11 +162,13 @@ foo();
 // argument.actual.iteration
 foo(aaa, bbb);
 
+// name.argument.formal
+// type.argument.formal
+void bar(int aaa, int bbb) {}
+
 // argumentList.formal.multiLine
 // argument.formal.multiLine
 // argument.formal.iteration
-// name.formal.multiLine
-// type.formal.multiLine
 void bar(
     int aaa,
     int bbb
