@@ -88,31 +88,26 @@ async function runTestsInDir(
   // Add files to the test suite
   files.forEach((f) => mocha.addFile(path.resolve(testRoot, f)));
 
-  try {
-    // Run the mocha test
-    await new Promise<void>((resolve, reject) => {
-      const failedTests: string[] = [];
+  // Run the mocha test
+  await new Promise<void>((resolve, reject) => {
+    const failedTests: string[] = [];
 
-      const runner = mocha.run((failures) => {
-        if (shouldLogFailedTests()) {
-          logFailedTests(failedTests);
-        }
-
-        if (failures > 0) {
-          reject(`${failures} tests failed.`);
-        } else {
-          resolve();
-        }
-      });
-
+    const runner = mocha.run((failures) => {
       if (shouldLogFailedTests()) {
-        runner.on("fail", (test) => failedTests.push(test.fullTitle()));
+        logFailedTests(failedTests);
+      }
+
+      if (failures > 0) {
+        reject(`${failures} tests failed.`);
+      } else {
+        resolve();
       }
     });
-  } catch (err) {
-    console.error(err);
-    throw err;
-  }
+
+    if (shouldLogFailedTests()) {
+      runner.on("fail", (test) => failedTests.push(test.fullTitle()));
+    }
+  });
 }
 
 function parseArgumentsAndUpdateEnv() {
