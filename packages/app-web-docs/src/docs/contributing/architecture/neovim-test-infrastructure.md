@@ -199,7 +199,7 @@ async function runTestsInDir(
   ...
 ```
 
-Consequently, the recorded tests from `data/fixtures/recorded/` are executed when `packages/test-neovim-e2e/src/suite/recorded.neovim.test.ts` is invoked.
+Consequently, the recorded tests from `resources/fixtures/recorded/` are executed when `packages/test-neovim-e2e/src/suite/recorded.neovim.test.ts` is invoked.
 
 ### Running Neovim tests on CI
 

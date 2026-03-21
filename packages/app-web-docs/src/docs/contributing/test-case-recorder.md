@@ -6,7 +6,7 @@ like `hello world`), positioning your cursor where you want, tell cursorless to
 start recording, and then issue one or more cursorless commands. It works by
 recording the initial state of the file including cursor position(s), the
 command run, and the final state, all in the form of a yaml document. See
-[existing test cases](../../../../../data/fixtures/recorded) for example outputs.
+[existing test cases](../../../../../resources/fixtures/recorded) for example outputs.
 
 ## Recording new tests
 
@@ -58,7 +58,7 @@ Then each time you record a test, you need to issue two commands. The second com
 
 ### Default config per test case directory
 
-Any test case directory that contains a `config.json` will set default configuration for all tests recorded in any descendant directory. For example, the file [`actions/config.json`](../../../../../data/fixtures/recorded/actions/config.json) makes it so that all our action tests will capture the final `that` mark. For a full list of keys supported in this json, see [`RecordTestCaseCommandOptions`](../../../../../packages/lib-engine/src/testCaseRecorder/RecordTestCaseCommandOptions.ts).
+Any test case directory that contains a `config.json` will set default configuration for all tests recorded in any descendant directory. For example, the file [`actions/config.json`](../../../../../resources/fixtures/recorded/actions/config.json) makes it so that all our action tests will capture the final `that` mark. For a full list of keys supported in this json, see [`RecordTestCaseCommandOptions`](../../../../../packages/lib-engine/src/testCaseRecorder/RecordTestCaseCommandOptions.ts).
 
 ### Navigation map tests
 

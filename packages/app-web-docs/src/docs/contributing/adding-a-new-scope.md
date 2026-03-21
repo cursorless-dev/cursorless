@@ -45,13 +45,13 @@ If one of the above facets doesn't apply to your language, you can mark it as `n
 
 We have a bulk test recorder for scope tests. You can use it by running Cursorless in debug mode, and then saying `"cursorless record scope"`, and selecting your language. This will create a temporary file containing slots for every scope facet in your language which you've marked `supported` but that doesn't yet have any tests. You can then fill in the tests for each facet by providing a small snippet of code exemplifying the given facet.
 
-When you're done, say `"cursorless save scope"` to save the tests to the appropriate files in the `data/fixtures/recorded/scopes` directory.
+When you're done, say `"cursorless save scope"` to save the tests to the appropriate files in the `resources/fixtures/recorded/scopes` directory.
 
 This step will create partial tests for each of the facets of the given scope. Once you've implemented the scopes in step 5 below, you can automatically update these tests to include the scope ranges, as described in step 6.
 
 ## 5. Add parse tree patterns for the given scope
 
-Launch your extension in debug mode and open a file in your language. You can create one or more files in [`playground/`](../../../../../data/playground) and feel free to include those in your PR.
+Launch your extension in debug mode and open a file in your language. You can create one or more files in [`playground/`](../../../../../resources/playground) and feel free to include those in your PR.
 
 Then add parse tree patterns for the given scope to your language's `.scm` file in the [`resources/queries` directory](../../../../../resources/queries). The parse tree patterns should match the syntactic constructs that should be considered to be the given scope. Tag the nodes in the parse tree that correspond to the given scope with the internal identifier you found in step 1 above, eg `@namedFunction`. Note that you use the scope identifier (`@namedFunction`), _**not**_ the facet identifier (`@namedFunction.class`).
 

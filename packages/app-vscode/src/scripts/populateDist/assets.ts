@@ -26,7 +26,7 @@ export const assets: Asset[] = [
     destination: "images/hats",
   },
   {
-    source: "../../data/fixtures/recorded/tutorial",
+    source: "../../resources/fixtures/recorded/tutorial",
     destination: "tutorial",
   },
   {

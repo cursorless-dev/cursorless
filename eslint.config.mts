@@ -18,7 +18,7 @@ const ignoresConfig: ConfigWithExtends = {
   ignores: [
     // Workspace
     ".git/**",
-    "data/playground/**",
+    "resources/playground/**",
     // Packages
     "packages/*/out/**",
     "packages/*/dist/**",
