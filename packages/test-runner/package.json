@@ -16,7 +16,7 @@
     "test:vscode": "c-tsx ./src/scripts/runVscodeTestsCI.ts",
     "test:neovim": "c-tsx ./src/scripts/runNeovimTestsCI.ts",
     "test:talon": "c-tsx ./src/scripts/runTalonTests.ts",
-    "test:talonJs": "c-tsx ./src/scripts/runTalonJsTests.ts",
+    "test:talonjs": "c-tsx ./src/scripts/runTalonJsTests.ts",
     "build": "bash ./scripts/compile-esbuild.sh",
     "generate-test-subset-file": "c-tsx ./src/scripts/generateTestSubsetFile.ts --always-open",
     "generate-test-subset-file-strict": "c-tsx ./src/scripts/generateTestSubsetFile.ts --fail-if-not-exists"
