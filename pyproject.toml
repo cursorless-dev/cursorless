@@ -18,4 +18,10 @@ pythonVersion = "3.11"
 reportSelfClsParameterName = false
 reportMissingModuleSource = false
 reportMissingImports = false
-exclude = ["**/node_modules", "**/__pycache__", "**/.*", "resources/playground"]
+exclude = [
+    "**/node_modules",
+    "**/__pycache__",
+    "**/.*",
+    "cursorless-talon/src/vendor",
+    "resources/playground"
+]

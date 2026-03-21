@@ -33,7 +33,8 @@ export const updater = async (workspaceDir: string) => {
       ["package.json"]: updatePackageJson.bind(null, context),
       ["tsconfig.json"]: updateTSConfig.bind(null, context),
       ["tsconfig.base.json"]: updateTSConfigBase.bind(null, context),
-      ["data/scopeSupportFacetInfos.md"]: updatesScopeSupportFacetInfos,
+      ["resources/fixtures/scopeSupportFacetInfos.md"]:
+        updatesScopeSupportFacetInfos,
       ...Object.fromEntries(
         Object.keys(languageScopeSupport).map((languageId) => [
           `src/docs/user/languages/${languageId}.mdx`,

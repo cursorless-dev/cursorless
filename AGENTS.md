@@ -10,7 +10,7 @@
 
 - Main extension code is in `/packages/app-vscode/`
 - Engine code is in `/packages/lib-engine/`
-- Tests are in `resources/fixtures/`
+- Tests are in `resources/fixtures/recorded` and `resources/fixtures/scopes`
 - Language-specific parsing is defined in the `resources/queries/*.scm` files
 
 ## Build and Test
@@ -33,7 +33,7 @@ When documenting actions or modifiers:
 ## Implementation Notes
 
 - Many actions (`drop`, `float`, `puff`) work with both line and non-line targets
-- Always check test fixtures in `/resources/fixtures/` to understand behavior
+- Always check test fixtures in `/resources/fixtures/recorded` to understand behavior
 - Implementation for many actions is in `/packages/lib-engine/src/actions/`
 - After running Python scripts or tests, delete any `__pycache__` directories and `.pyc` files created under the repository root.
 
