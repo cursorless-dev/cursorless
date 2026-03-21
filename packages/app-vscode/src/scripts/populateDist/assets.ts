@@ -5,7 +5,6 @@ import type { Asset } from "./Asset";
 export const assets: Asset[] = [
   { source: "../../CHANGELOG.md", destination: "CHANGELOG.md" },
   { source: "../../LICENSE", destination: "LICENSE" },
-  { source: "../../NOTICE.md", destination: "NOTICE.md" },
   { source: "../../README.md", destination: "README.md" },
   {
     source: "../lib-cheatsheet-local/out/index.html",
@@ -15,16 +14,19 @@ export const assets: Asset[] = [
     optionalInDev: true,
   },
   {
-    source: "../../fonts/cursorless-glyph.svg",
+    source: "../../resources/fonts/cursorless-glyph.svg",
     destination: "fonts/cursorless-glyph.svg",
   },
   {
-    source: "../../fonts/cursorless.woff",
+    source: "../../resources/fonts/cursorless.woff",
     destination: "fonts/cursorless.woff",
   },
-  { source: "../../images/hats", destination: "images/hats" },
   {
-    source: "../../data/fixtures/recorded/tutorial",
+    source: "../../resources/images/hats",
+    destination: "images/hats",
+  },
+  {
+    source: "../../resources/fixtures/recorded/tutorial",
     destination: "tutorial",
   },
   {
@@ -36,7 +38,10 @@ export const assets: Asset[] = [
     destination: "media/tutorialWebview.css",
   },
   { source: "./images/logo.png", destination: "images/logo.png" },
-  { source: "../../images/logo.svg", destination: "images/logo.svg" },
+  {
+    source: "../../resources/images/logo.svg",
+    destination: "images/logo.svg",
+  },
   {
     source: "resources/font_measurements.js",
     destination: "resources/font_measurements.js",
@@ -50,12 +55,8 @@ export const assets: Asset[] = [
     destination: "resources/installationDependencies.js",
   },
   {
-    source: "../../third-party-licenses.csv",
-    destination: "third-party-licenses.csv",
-  },
-  {
-    source: "../../queries",
-    destination: "queries",
+    source: "../../resources/queries",
+    destination: "resources/queries",
   },
   {
     generateContent: generateBuildInfo,

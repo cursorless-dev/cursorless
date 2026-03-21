@@ -78,7 +78,9 @@ export async function updateTSConfig(
       "src/**/*.ts",
       ...(isWeb ? ["src/**/*.tsx"] : []),
       "src/**/*.json",
-      toPosixPath(path.join(pathFromPackageToRoot, "typings", "**/*.d.ts")),
+      toPosixPath(
+        path.join(pathFromPackageToRoot, "resources", "typings", "**/*.d.ts"),
+      ),
     ],
   };
 }

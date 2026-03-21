@@ -9,5 +9,5 @@ runs:
     - uses: DeterminateSystems/magic-nix-cache-action@v2
     - run: nix profile add --accept-flake-config .#lua-language-server
       shell: bash
-    - run: scripts/lint-lua-ls.sh
+    - run: resources/scripts/lint-lua-ls.sh
       shell: bash

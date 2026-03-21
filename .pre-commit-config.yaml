@@ -1,7 +1,7 @@
 minimum_pre_commit_version: "3.2.0"
 ci:
   autoupdate_schedule: monthly
-exclude: /vendor/|^data/playground/
+exclude: /vendor/|^resources/playground/
 repos:
   - repo: meta
     hooks:
@@ -33,7 +33,7 @@ repos:
       - id: detect-private-key
       - id: end-of-file-fixer
         exclude_types: [svg]
-        exclude: ^patches/.*\.patch$|\.scope$
+        exclude: ^resources/patches/.*\.patch$|\.scope$
       - id: fix-byte-order-marker
       - id: forbid-submodules
       - id: mixed-line-ending
@@ -42,8 +42,8 @@ repos:
         # with a line that has trailing white space. Many of our recorded
         # tests use strings with trailing white space to represent the final
         # document contents. For example
-        # data/fixtures/recorded/languages/ruby/changeCondition.yml
-        exclude: ^data/fixtures/recorded/.*/[^/]*\.yml$|\.scope$|/generated/|^patches/
+        # resources/fixtures/recorded/languages/ruby/changeCondition.yml
+        exclude: ^resources/fixtures/recorded/.*/[^/]*\.yml$|\.scope$|/generated/|^resources/patches/
 
   - repo: local
     hooks:
@@ -67,7 +67,7 @@ repos:
     hooks:
       - id: format-recorded-tests
         name: format-recorded-tests
-        files: ^data/fixtures/recorded/.*/[^/]*\.yml$
+        files: ^resources/fixtures/recorded/.*/[^/]*\.yml$
         language: system
         entry: pnpm transform-recorded-tests
 
@@ -75,7 +75,7 @@ repos:
     hooks:
       - id: check-recorded-test-marks
         name: check-recorded-test-marks
-        files: ^data/fixtures/recorded/.*/[^/]*\.yml$
+        files: ^resources/fixtures/recorded/.*/[^/]*\.yml$
         language: system
         entry: pnpm transform-recorded-tests --check-marks
 

@@ -18,7 +18,7 @@ const ignoresConfig: ConfigWithExtends = {
   ignores: [
     // Workspace
     ".git/**",
-    "data/playground/**",
+    "resources/playground/**",
     // Packages
     "packages/*/out/**",
     "packages/*/dist/**",
@@ -145,7 +145,7 @@ const disabledTypeCheckConfig: ConfigWithExtends = {
     "**/vite.config.ts",
     "eslint.config.mts",
     "prettier.config.cjs",
-    "typings/**",
+    "resources/typings/**",
     "**/*.js",
     "**/*.mjs",
   ],

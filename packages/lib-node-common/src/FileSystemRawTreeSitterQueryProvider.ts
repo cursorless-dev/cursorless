@@ -17,12 +17,13 @@ export class FileSystemRawTreeSitterQueryProvider implements RawTreeSitterQueryP
     ide: IDE,
     private fileSystem: FileSystem,
   ) {
+    const queriesPath = "resources/queries";
     // Use the repo root as the root for development mode, so that we can make
     // hot-reloading work for the queries
     this.queryDir =
       ide.runMode === "development"
-        ? path.join(getCursorlessRepoRoot(), "queries")
-        : "queries";
+        ? path.join(getCursorlessRepoRoot(), queriesPath)
+        : queriesPath;
 
     if (ide.runMode === "development") {
       this.disposables.push(

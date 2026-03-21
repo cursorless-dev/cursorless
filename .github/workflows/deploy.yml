@@ -94,7 +94,7 @@ jobs:
           git config commit.gpgsign true
 
       - name: Push compiled files to cursorless.nvim plugin repo
-        run: bash -x scripts/deploy-cursorless-nvim.sh ${{ env.STAGING_DIRECTORY }}
+        run: bash -x resources/scripts/deploy-cursorless-nvim.sh ${{ env.STAGING_DIRECTORY }}
 
   push-cursorless-talon:
     name: Push cursorless-talon subrepo
@@ -127,4 +127,4 @@ jobs:
           git config commit.gpgsign true
 
       - name: Push cursorless-talon subrepo
-        run: bash -x scripts/deploy-cursorless-talon.sh
+        run: bash -x resources/scripts/deploy-cursorless-talon.sh

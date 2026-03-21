@@ -232,7 +232,7 @@ function renderFacet(
           <Code
             link={{
               name: "GitHub",
-              url: `https://github.com/cursorless-dev/cursorless/blob/main/data/fixtures/${fixture.name}.scope`,
+              url: `https://github.com/cursorless-dev/cursorless/blob/main/resources/fixtures/${fixture.name}.scope`,
             }}
             languageId={languageId ?? fixture.languageId}
             renderWhitespace={renderWhitespace}

@@ -7,7 +7,7 @@ requires-python = "==3.11.*"
 
 [tool.ruff]
 target-version = "py311"
-extend-exclude = ["vendor", "data/playground/**/*.py"]
+extend-exclude = ["vendor", "resources/playground"]
 
 [tool.ruff.lint]
 select = ["E", "F", "C4", "I001", "UP", "SIM", "FLY"]
@@ -18,4 +18,10 @@ pythonVersion = "3.11"
 reportSelfClsParameterName = false
 reportMissingModuleSource = false
 reportMissingImports = false
-exclude = ["**/node_modules", "**/__pycache__", "**/.*", "**/vendor", "data/playground"]
+exclude = [
+    "**/node_modules",
+    "**/__pycache__",
+    "**/.*",
+    "cursorless-talon/src/vendor",
+    "resources/playground"
+]

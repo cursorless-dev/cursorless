@@ -31,7 +31,7 @@ jobs:
         run: pnpm --color lint
 
       - name: Forbid TODO
-        run: ./scripts/forbid-todo.sh
+        run: ./resources/scripts/forbid-todo.sh
 
   build-website:
     name: Build Website
@@ -44,7 +44,7 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - name: Build website
-        run: bash -x scripts/build-and-assemble-website.sh
+        run: bash -x resources/scripts/build-and-assemble-website.sh
 
   test-main:
     name: Test
@@ -164,7 +164,7 @@ jobs:
         run: pnpm --color -F '!@cursorless/app-web' -F '!@cursorless/app-web-docs' build
 
       - name: Install neovim dependencies
-        run: bash -x scripts/install-neovim-dependencies.sh
+        run: bash -x resources/scripts/install-neovim-dependencies.sh
 
       - name: Setup neovim
         uses: rhysd/action-setup-vim@v1

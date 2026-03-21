@@ -4,4 +4,7 @@
 
 import { TestType, runAllTests } from "../runAllTests";
 
-void runAllTests(TestType.talonJs);
+runAllTests(TestType.talonJs).catch((error) => {
+  console.error(error);
+  process.exit(1);
+});
