@@ -56,7 +56,7 @@ export const assets: Asset[] = [
   },
   {
     source: "../../resources/queries",
-    destination: "queries",
+    destination: "resources/queries",
   },
   {
     generateContent: generateBuildInfo,
