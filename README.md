@@ -24,9 +24,9 @@ Checkout the [docs](https://www.cursorless.org/docs/) and [videos](https://www.y
 
 And I heard you like GIFs?
 
-![Curly repack ox](images/curlyRepackOx.gif)
-![Move arg air and each to after drum](images/moveArgAirAndEachToAfterDrum.gif)
-![Chuck tail red pipe slice past end of file](images/chuckTailRedPipeSlicePastEndOfFile.gif)
+![Curly repack ox](assets/images/curlyRepackOx.gif)
+![Move arg air and each to after drum](assets/images/moveArgAirAndEachToAfterDrum.gif)
+![Chuck tail red pipe slice past end of file](assets/images/chuckTailRedPipeSlicePastEndOfFile.gif)
 
 ## Installation
 

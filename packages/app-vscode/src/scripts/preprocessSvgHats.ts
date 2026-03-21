@@ -4,7 +4,7 @@ import { promises as fsp, readdirSync } from "node:fs";
 import * as path from "node:path";
 
 async function main() {
-  const directory = path.join(getCursorlessRepoRoot(), "images/hats");
+  const directory = path.join(getCursorlessRepoRoot(), "assets/images/hats");
 
   const dumper = new parser.XMLBuilder({
     ignoreAttributes: false,

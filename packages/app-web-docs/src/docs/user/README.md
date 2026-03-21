@@ -83,17 +83,17 @@ The following shapes are supported. Note that to target the default (dot) shape 
 
 | Spoken form | Shape                                                    | Internal ID  | Enabled by default? |
 | ----------- | -------------------------------------------------------- | ------------ | ------------------- |
-| N/A         | ![Default](../../../../../images/hats/default.svg)       | `default`    | ✅                  |
-| `"bolt"`    | ![Bolt](../../../../../images/hats/bolt.svg)             | `bolt`       | ❌                  |
-| `"curve"`   | ![Curve](../../../../../images/hats/curve.svg)           | `curve`      | ❌                  |
-| `"fox"`     | ![Fox](../../../../../images/hats/fox.svg)               | `fox`        | ❌                  |
-| `"frame"`   | ![Frame](../../../../../images/hats/frame.svg)           | `frame`      | ❌                  |
-| `"play"`    | ![Play](../../../../../images/hats/play.svg)             | `play`       | ❌                  |
-| `"wing"`    | ![Wing](../../../../../images/hats/wing.svg)             | `wing`       | ❌                  |
-| `"hole"`    | ![Hole](../../../../../images/hats/hole.svg)             | `hole`       | ❌                  |
-| `"ex"`      | ![Ex](../../../../../images/hats/ex.svg)                 | `ex`         | ❌                  |
-| `"cross"`   | ![Crosshairs](../../../../../images/hats/crosshairs.svg) | `crosshairs` | ❌                  |
-| `"eye"`     | ![Eye](../../../../../images/hats/eye.svg)               | `eye`        | ❌                  |
+| N/A         | ![Default](../../../../../assets/images/hats/default.svg)       | `default`    | ✅                  |
+| `"bolt"`    | ![Bolt](../../../../../assets/images/hats/bolt.svg)             | `bolt`       | ❌                  |
+| `"curve"`   | ![Curve](../../../../../assets/images/hats/curve.svg)           | `curve`      | ❌                  |
+| `"fox"`     | ![Fox](../../../../../assets/images/hats/fox.svg)               | `fox`        | ❌                  |
+| `"frame"`   | ![Frame](../../../../../assets/images/hats/frame.svg)           | `frame`      | ❌                  |
+| `"play"`    | ![Play](../../../../../assets/images/hats/play.svg)             | `play`       | ❌                  |
+| `"wing"`    | ![Wing](../../../../../assets/images/hats/wing.svg)             | `wing`       | ❌                  |
+| `"hole"`    | ![Hole](../../../../../assets/images/hats/hole.svg)             | `hole`       | ❌                  |
+| `"ex"`      | ![Ex](../../../../../assets/images/hats/ex.svg)                 | `ex`         | ❌                  |
+| `"cross"`   | ![Crosshairs](../../../../../assets/images/hats/crosshairs.svg) | `crosshairs` | ❌                  |
+| `"eye"`     | ![Eye](../../../../../assets/images/hats/eye.svg)               | `eye`        | ❌                  |
 
 You can enable or disable shapes in your VSCode settings, by searching for [`cursorless.hatEnablement.shapes`](vscode://settings/cursorless.hatEnablement.shapes) and checking the box next to the internal ID for the given shape as listed above. To navigate to your VSCode settings, either say "show settings", or go to File --> Preferences --> Settings.
 
