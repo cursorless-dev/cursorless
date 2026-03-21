@@ -4,4 +4,6 @@
 
 import { TestType, runAllTests } from "../runAllTests";
 
-void runAllTests(TestType.unit);
+runAllTests(TestType.unit).catch(() => {
+  process.exit(1);
+});
