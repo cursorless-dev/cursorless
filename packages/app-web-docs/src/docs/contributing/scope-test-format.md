@@ -143,19 +143,23 @@ int foo = 0;
 // class
 // name.class
 // statement.class
+// type.class
 class Foo {}
 
 // class
 // name.class
 // statement.class
+// type.class
 @bar
 class Foo {}
 
 // interior.class
 // statement.iteration.class
+// namedFunction.iteration.class
 // name.iteration.class
 // value.iteration.class
 // type.iteration.class
+// class.iteration.class
 class Foo { }
 
 // functionCall
@@ -169,6 +173,15 @@ foo();
 // argumentList.actual.singleLine
 foo(aaa, bbb);
 
+// namedFunction
+// name.function
+// statement.function
+// argumentList.formal.empty
+void bar() {}
+
+// type.return
+int bar() {}
+
 // argument.formal.singleLine
 // argument.formal.iteration
 // argumentList.formal.singleLine
@@ -178,27 +191,79 @@ foo(aaa, bbb);
 // type.argument.formal.iteration
 void bar(int aaa, int bbb) {}
 
-// argumentList.formal.multiLine
+// argument.actual.multiLine
+// argumentList.actual.multiLine
+foo(
+    aaa,
+    bbb
+);
+
 // argument.formal.multiLine
 // argument.formal.iteration
+// argumentList.formal.multiLine
 void bar(
     int aaa,
     int bbb
 ) {}
 
+// namedFunction.method
+// statement.method
+// name.method
+// argumentList.formal.method.empty
+class Foo {
+    void bar() {}
+}
+
+// namedFunction.constructor
+// statement.constructor
+// name.constructor
+// argumentList.formal.constructor.empty
+class Foo {
+    Foo() {}
+}
+
 // statement.field.class
 // name.field.class
+// value.field.class
+// type.field.class
 class Foo {
     int bar;
     int baz = 0;
     @An int bongo = 0;
 }
 
+// string.singleLine
+// textFragment.string.singleLine
+"Hello world"
+
+// string.multiLine
+// textFragment.string.multiLine
+"""
+Hello
+world
+"""
+
+// statement.while
+// condition.while
+while (true) {}
+
 // interior.while
 while (true) { }
 
+// condition.ternary
+// branch.ternary
+// branch.ternary.iteration
+true ? 0 : 1;
+
+// branch.if.else
+if (true) {}
+else {}
+
+// ifStatement
 // statement.if
+// condition.if
 // branch.if.elif.else
+// branch.if.iteration
 if (true) {}
 else if (false) {}
 else {}
