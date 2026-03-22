@@ -46,7 +46,7 @@ export class CollectionItemScopeHandler extends BaseScopeHandler {
         return textualScopeHandler;
       }
 
-      return SortedScopeHandler.createFromScopeHandlers([
+      return new SortedScopeHandler(scopeHandlerFactory, languageId, [
         languageScopeHandler,
         textualScopeHandler,
       ]);

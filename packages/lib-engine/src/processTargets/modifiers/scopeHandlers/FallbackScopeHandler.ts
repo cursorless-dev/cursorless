@@ -16,11 +16,11 @@ export class FallbackScopeHandler extends BaseScopeHandler {
   public scopeType = undefined;
   protected isHierarchical = true;
 
-  static create(
+  static maybeCreate(
     scopeHandlerFactory: ScopeHandlerFactory,
     scopeType: FallbackScopeType,
     languageId: string,
-  ): ScopeHandler {
+  ): ScopeHandler | undefined {
     const scopeHandlers = scopeType.scopeTypes
       .map((scopeType) =>
         scopeHandlerFactory.maybeCreate(scopeType, languageId),
@@ -29,18 +29,18 @@ export class FallbackScopeHandler extends BaseScopeHandler {
         (scopeHandler): scopeHandler is ScopeHandler => scopeHandler != null,
       );
 
+    if (scopeHandlers.length === 0) {
+      return undefined;
+    }
+
     if (scopeHandlers.length === 1) {
       return scopeHandlers[0];
     }
 
-    return this.createFromScopeHandlers(scopeHandlers);
-  }
-
-  static createFromScopeHandlers(scopeHandlers: ScopeHandler[]): ScopeHandler {
     return new FallbackScopeHandler(scopeHandlers);
   }
 
-  private constructor(private scopeHandlers: ScopeHandler[]) {
+  constructor(private scopeHandlers: ScopeHandler[]) {
     super();
   }
 
