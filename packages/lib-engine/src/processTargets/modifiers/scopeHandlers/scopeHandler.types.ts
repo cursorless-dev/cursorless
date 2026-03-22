@@ -26,6 +26,14 @@ export interface FallbackScopeType {
 }
 
 /**
+ * Used to handle sorted scope types. The scope types are yielded in sorted order.
+ */
+export interface SortedScopeType {
+  type: "sorted";
+  scopeTypes: (ScopeType | ComplexScopeType)[];
+}
+
+/**
  * Used to handle conditional scope types. The predicate determines if the
  * scope should be yielded or not.
  */
@@ -38,6 +46,7 @@ export interface ConditionalScopeType {
 export type ComplexScopeType =
   | CustomScopeType
   | FallbackScopeType
+  | SortedScopeType
   | ConditionalScopeType;
 
 /**

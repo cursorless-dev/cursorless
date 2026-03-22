@@ -1,18 +1,13 @@
-import type {
-  Direction,
-  OneOfScopeType,
-  Position,
-  TextEditor,
-} from "@cursorless/lib-common";
+import type { Direction, Position, TextEditor } from "@cursorless/lib-common";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import { advanceIteratorsUntil, getInitialIteratorInfos } from "./IteratorInfo";
 import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 import { compareTargetScopes } from "./compareTargetScopes";
 import type { TargetScope } from "./scope.types";
 import type {
-  CustomScopeType,
   ScopeHandler,
   ScopeIteratorRequirements,
+  SortedScopeType,
 } from "./scopeHandler.types";
 
 export class SortedScopeHandler extends BaseScopeHandler {
@@ -23,7 +18,7 @@ export class SortedScopeHandler extends BaseScopeHandler {
 
   static create(
     scopeHandlerFactory: ScopeHandlerFactory,
-    scopeType: OneOfScopeType,
+    scopeType: SortedScopeType,
     languageId: string,
   ): ScopeHandler {
     const scopeHandlers = scopeType.scopeTypes
@@ -38,50 +33,21 @@ export class SortedScopeHandler extends BaseScopeHandler {
       return scopeHandlers[0];
     }
 
-    return this.createFromScopeHandlers(
-      scopeHandlerFactory,
-      languageId,
-      scopeHandlers,
-    );
+    return this.createFromScopeHandlers(scopeHandlers);
   }
 
-  static createFromScopeHandlers(
-    scopeHandlerFactory: ScopeHandlerFactory,
-    languageId: string,
-    scopeHandlers: ScopeHandler[],
-  ): ScopeHandler {
-    const getIterationScopeHandler = () =>
-      new SortedScopeHandler(
-        scopeHandlers.map((scopeHandler) =>
-          scopeHandlerFactory.create(
-            scopeHandler.iterationScopeType,
-            languageId,
-          ),
-        ),
-        () => {
-          throw new Error(
-            "SortedScopeHandler: Iteration scope is not implemented",
-          );
-        },
-      );
-
-    return new SortedScopeHandler(scopeHandlers, getIterationScopeHandler);
+  static createFromScopeHandlers(scopeHandlers: ScopeHandler[]): ScopeHandler {
+    return new SortedScopeHandler(scopeHandlers);
   }
 
-  private constructor(
-    private scopeHandlers: ScopeHandler[],
-    private getIterationScopeHandler: () => SortedScopeHandler,
-  ) {
+  private constructor(private scopeHandlers: ScopeHandler[]) {
     super();
   }
 
-  get iterationScopeType(): CustomScopeType {
-    if (this.iterationScopeHandler == null) {
-      this.iterationScopeHandler = this.getIterationScopeHandler();
-    }
+  get iterationScopeType(): SortedScopeType {
     return {
-      type: "custom",
-      scopeHandler: this.iterationScopeHandler,
+      type: "sorted",
+      scopeTypes: this.scopeHandlers.map((s) => s.iterationScopeType),
     };
   }
 
