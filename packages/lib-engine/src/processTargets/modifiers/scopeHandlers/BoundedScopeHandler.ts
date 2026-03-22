@@ -15,9 +15,9 @@ import { BaseScopeHandler } from "./BaseScopeHandler";
 import { compareTargetScopes } from "./compareTargetScopes";
 import type { TargetScope } from "./scope.types";
 import type {
-  ComplexScopeType,
   ScopeHandler,
   ScopeIteratorRequirements,
+  SortedScopeType,
 } from "./scopeHandler.types";
 import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 import { isEveryScopeModifier } from "./util/isHintsEveryScope";
@@ -47,7 +47,7 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
     );
   }
 
-  get iterationScopeType(): ComplexScopeType {
+  get iterationScopeType(): SortedScopeType {
     return {
       type: "sorted",
       scopeTypes: [
