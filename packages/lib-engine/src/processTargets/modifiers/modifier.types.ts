@@ -1,4 +1,4 @@
-import type { ScopeType } from "packages/lib-common/src";
+import type { ScopeType } from "@cursorless/lib-common";
 import type { ComplexScopeType } from "./scopeHandlers/scopeHandler.types";
 
 export interface ComplexContainingScopeModifier {
