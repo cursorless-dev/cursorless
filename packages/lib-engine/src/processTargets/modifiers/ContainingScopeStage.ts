@@ -1,9 +1,9 @@
 import type { ContainingScopeModifier } from "@cursorless/lib-common";
 import { NoContainingScopeError } from "@cursorless/lib-common";
 import type { Target } from "../../typings/target.types";
-import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
 import { getContainingScopeTarget } from "./getContainingScopeTarget";
+import type { ComplexContainingScopeModifier } from "./modifier.types";
 import type { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 
 /**
@@ -26,9 +26,8 @@ import type { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
  */
 export class ContainingScopeStage implements ModifierStage {
   constructor(
-    private modifierStageFactory: ModifierStageFactory,
     private scopeHandlerFactory: ScopeHandlerFactory,
-    private modifier: ContainingScopeModifier,
+    private modifier: ContainingScopeModifier | ComplexContainingScopeModifier,
   ) {}
 
   run(target: Target): Target[] {

@@ -185,14 +185,5 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "customRegex":
     case "glyph":
       return false;
-
-    case "oneOf":
-      throw Error(
-        `Can't decide whether scope type ${JSON.stringify(
-          scopeType,
-          undefined,
-          3,
-        )} is language-specific`,
-      );
   }
 }

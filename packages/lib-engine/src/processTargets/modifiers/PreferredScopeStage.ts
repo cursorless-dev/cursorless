@@ -24,7 +24,6 @@ export class PreferredScopeStage implements ModifierStage {
     const { scopeType } = this.modifier;
 
     const containingScopeStage = new ContainingScopeStage(
-      this.modifierStageFactory,
       this.scopeHandlerFactory,
       { type: "containingScope", scopeType },
     );

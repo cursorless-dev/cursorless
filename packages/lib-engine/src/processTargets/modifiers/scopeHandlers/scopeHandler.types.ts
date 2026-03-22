@@ -26,7 +26,8 @@ export interface FallbackScopeType {
 }
 
 /**
- * Used to handle sorted scope types. The scope types are yielded in sorted order.
+ * Used to handle sorted scope types. The scope types are yielded in sorted
+ * order.
  */
 export interface SortedScopeType {
   type: "sorted";

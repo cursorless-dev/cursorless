@@ -15,6 +15,7 @@ import { BaseScopeHandler } from "./BaseScopeHandler";
 import { compareTargetScopes } from "./compareTargetScopes";
 import type { TargetScope } from "./scope.types";
 import type {
+  ComplexScopeType,
   ScopeHandler,
   ScopeIteratorRequirements,
 } from "./scopeHandler.types";
@@ -46,17 +47,9 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
     );
   }
 
-  get iterationScopeType(): ScopeType {
-    switch (this.targetScopeHandler.iterationScopeType.type) {
-      case "custom":
-      case "fallback":
-      case "conditional":
-        throw Error(
-          `Iteration scope type can't be '${this.targetScopeHandler.iterationScopeType.type}' for BoundedBaseScopeHandler`,
-        );
-    }
+  get iterationScopeType(): ComplexScopeType {
     return {
-      type: "oneOf",
+      type: "sorted",
       scopeTypes: [
         this.targetScopeHandler.iterationScopeType,
         {

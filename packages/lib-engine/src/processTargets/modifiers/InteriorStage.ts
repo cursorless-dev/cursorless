@@ -1,4 +1,4 @@
-import type { InteriorOnlyModifier, ScopeType } from "@cursorless/lib-common";
+import type { InteriorOnlyModifier } from "@cursorless/lib-common";
 import {
   NoContainingScopeError,
   UnsupportedScopeError,
@@ -9,6 +9,7 @@ import type {
   ModifierStage,
   ModifierStateOptions,
 } from "../PipelineStages.types";
+import type { SortedScopeType } from "./scopeHandlers/scopeHandler.types";
 
 export class InteriorOnlyStage implements ModifierStage {
   constructor(
@@ -56,7 +57,7 @@ export class InteriorOnlyStage implements ModifierStage {
     try {
       return this.modifierStageFactory
         .create({
-          type: "containingScope",
+          type: "complexContainingScope",
           scopeType: compoundInteriorScopeType,
         })
         .run(target, options);
@@ -69,8 +70,8 @@ export class InteriorOnlyStage implements ModifierStage {
   }
 }
 
-export const compoundInteriorScopeType: ScopeType = {
-  type: "oneOf",
+export const compoundInteriorScopeType: SortedScopeType = {
+  type: "sorted",
   scopeTypes: [
     {
       type: "interior",

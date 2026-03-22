@@ -101,7 +101,7 @@ class BoundedLineStage implements ModifierStage {
     try {
       return this.modifierStageFactory
         .create({
-          type: "containingScope",
+          type: "complexContainingScope",
           scopeType: compoundInteriorScopeType,
         })
         .run(target, options)[0];

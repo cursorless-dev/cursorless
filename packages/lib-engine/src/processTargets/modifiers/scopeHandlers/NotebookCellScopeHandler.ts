@@ -46,11 +46,10 @@ export class NotebookCellScopeHandler extends BaseScopeHandler {
         return apiScopeHandler;
       }
 
-      return SortedScopeHandler.createFromScopeHandlers(
-        scopeHandlerFactory,
-        languageId,
-        [languageScopeHandler, apiScopeHandler],
-      );
+      return SortedScopeHandler.createFromScopeHandlers([
+        languageScopeHandler,
+        apiScopeHandler,
+      ]);
     })();
   }
 

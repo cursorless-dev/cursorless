@@ -226,7 +226,6 @@ export class PrimitiveTargetSpokenFormGenerator {
 
   handleScopeType(scopeType: ScopeType): SpokenFormComponent {
     switch (scopeType.type) {
-      case "oneOf":
       case "surroundingPairInterior":
         throw new NoSpokenFormError(`Scope type '${scopeType.type}'`);
       case "glyph":

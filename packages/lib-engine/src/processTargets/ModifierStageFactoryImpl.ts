@@ -24,6 +24,7 @@ import { RangeModifierStage } from "./modifiers/RangeModifierStage";
 import { RawSelectionStage } from "./modifiers/RawSelectionStage";
 import { RelativeScopeStage } from "./modifiers/RelativeScopeStage";
 import { VisibleStage } from "./modifiers/VisibleStage";
+import type { ComplexModifier } from "./modifiers/modifier.types";
 import type { ScopeHandlerFactory } from "./modifiers/scopeHandlers/ScopeHandlerFactory";
 
 export class ModifierStageFactoryImpl implements ModifierStageFactory {
@@ -35,7 +36,7 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
     this.create = this.create.bind(this);
   }
 
-  create(modifier: Modifier): ModifierStage {
+  create(modifier: Modifier | ComplexModifier): ModifierStage {
     switch (modifier.type) {
       case "startOf":
         return new StartOfStage();
@@ -62,11 +63,10 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
         if (ClassFunctionNameStage.use(modifier.scopeType)) {
           return new ClassFunctionNameStage(this, modifier);
         }
-        return new ContainingScopeStage(
-          this,
-          this.scopeHandlerFactory,
-          modifier,
-        );
+        return new ContainingScopeStage(this.scopeHandlerFactory, modifier);
+
+      case "complexContainingScope":
+        return new ContainingScopeStage(this.scopeHandlerFactory, modifier);
 
       case "preferredScope":
         if (ClassFunctionNameStage.use(modifier.scopeType)) {

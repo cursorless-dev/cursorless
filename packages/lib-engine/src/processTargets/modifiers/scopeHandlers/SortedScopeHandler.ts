@@ -1,4 +1,9 @@
-import type { Direction, Position, TextEditor } from "@cursorless/lib-common";
+import type {
+  Direction,
+  Position,
+  ScopeType,
+  TextEditor,
+} from "@cursorless/lib-common";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import { advanceIteratorsUntil, getInitialIteratorInfos } from "./IteratorInfo";
 import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";

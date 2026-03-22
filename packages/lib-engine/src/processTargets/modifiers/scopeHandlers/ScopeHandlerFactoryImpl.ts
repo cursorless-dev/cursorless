@@ -135,7 +135,7 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         );
       case "custom":
         return scopeType.scopeHandler;
-      case "oneOf":
+      case "sorted":
         return SortedScopeHandler.create(this, scopeType, languageId);
       case "fallback":
         return FallbackScopeHandler.create(this, scopeType, languageId);
