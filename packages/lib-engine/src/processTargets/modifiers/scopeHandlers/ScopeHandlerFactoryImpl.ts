@@ -135,12 +135,12 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         );
       case "custom":
         return scopeType.scopeHandler;
-      case "oneOf":
-        return SortedScopeHandler.create(this, scopeType, languageId);
+      case "sorted":
+        return SortedScopeHandler.maybeCreate(this, scopeType, languageId);
       case "fallback":
-        return FallbackScopeHandler.create(this, scopeType, languageId);
+        return FallbackScopeHandler.maybeCreate(this, scopeType, languageId);
       case "conditional":
-        return new ConditionalScopeHandler(this, scopeType, languageId);
+        return ConditionalScopeHandler.maybeCreate(this, scopeType, languageId);
       default:
         // Pseudoscopes are handled separately in their own modifiers.
         if (pseudoScopes.has(scopeType.type)) {

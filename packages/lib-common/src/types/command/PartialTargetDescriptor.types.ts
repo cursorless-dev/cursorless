@@ -260,11 +260,6 @@ export interface SurroundingPairInteriorScopeType {
   delimiter: SurroundingPairName;
 }
 
-export interface OneOfScopeType {
-  type: "oneOf";
-  scopeTypes: ScopeType[];
-}
-
 export interface GlyphScopeType {
   type: "glyph";
   character: string;
@@ -275,7 +270,6 @@ export type ScopeType =
   | SurroundingPairScopeType
   | SurroundingPairInteriorScopeType
   | CustomRegexScopeType
-  | OneOfScopeType
   | GlyphScopeType;
 
 export interface ContainingSurroundingPairModifier extends ContainingScopeModifier {

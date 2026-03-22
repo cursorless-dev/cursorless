@@ -1,8 +1,6 @@
 import {
-  NoContainingScopeError,
   type Direction,
   type Position,
-  type ScopeType,
   type TextEditor,
 } from "@cursorless/lib-common";
 import { BaseScopeHandler } from "./BaseScopeHandler";
@@ -18,30 +16,39 @@ export class FallbackScopeHandler extends BaseScopeHandler {
   public scopeType = undefined;
   protected isHierarchical = true;
 
-  static create(
+  static maybeCreate(
     scopeHandlerFactory: ScopeHandlerFactory,
     scopeType: FallbackScopeType,
     languageId: string,
-  ): ScopeHandler {
-    const scopeHandlers = scopeType.scopeTypes.map((scopeType) =>
-      scopeHandlerFactory.create(scopeType, languageId),
-    );
+  ): ScopeHandler | undefined {
+    const scopeHandlers = scopeType.scopeTypes
+      .map((scopeType) =>
+        scopeHandlerFactory.maybeCreate(scopeType, languageId),
+      )
+      .filter(
+        (scopeHandler): scopeHandler is ScopeHandler => scopeHandler != null,
+      );
 
-    return this.createFromScopeHandlers(scopeHandlers);
-  }
+    if (scopeHandlers.length === 0) {
+      return undefined;
+    }
 
-  static createFromScopeHandlers(scopeHandlers: ScopeHandler[]): ScopeHandler {
+    if (scopeHandlers.length === 1) {
+      return scopeHandlers[0];
+    }
+
     return new FallbackScopeHandler(scopeHandlers);
   }
 
-  private constructor(private scopeHandlers: ScopeHandler[]) {
+  constructor(private scopeHandlers: ScopeHandler[]) {
     super();
   }
 
-  get iterationScopeType(): ScopeType {
-    throw new NoContainingScopeError(
-      "Iteration scope for FallbackScopeHandler",
-    );
+  get iterationScopeType(): FallbackScopeType {
+    return {
+      type: "fallback",
+      scopeTypes: this.scopeHandlers.map((s) => s.iterationScopeType),
+    };
   }
 
   *generateScopeCandidates(

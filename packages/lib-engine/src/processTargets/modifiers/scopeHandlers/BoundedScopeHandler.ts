@@ -17,6 +17,7 @@ import type { TargetScope } from "./scope.types";
 import type {
   ScopeHandler,
   ScopeIteratorRequirements,
+  SortedScopeType,
 } from "./scopeHandler.types";
 import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 import { isEveryScopeModifier } from "./util/isHintsEveryScope";
@@ -46,17 +47,9 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
     );
   }
 
-  get iterationScopeType(): ScopeType {
-    switch (this.targetScopeHandler.iterationScopeType.type) {
-      case "custom":
-      case "fallback":
-      case "conditional":
-        throw Error(
-          `Iteration scope type can't be '${this.targetScopeHandler.iterationScopeType.type}' for BoundedBaseScopeHandler`,
-        );
-    }
+  get iterationScopeType(): SortedScopeType {
     return {
-      type: "oneOf",
+      type: "sorted",
       scopeTypes: [
         this.targetScopeHandler.iterationScopeType,
         {
