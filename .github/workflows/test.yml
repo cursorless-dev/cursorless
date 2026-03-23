@@ -30,6 +30,9 @@ jobs:
       - name: Lint
         run: pnpm --color lint
 
+      - name: Type check
+        run: pnpm --color typecheck
+
       - name: Forbid TODO
         run: ./resources/scripts/forbid-todo.sh
 

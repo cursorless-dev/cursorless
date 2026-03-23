@@ -12,17 +12,17 @@
     "build": "pnpm -r build",
     "clean": "pnpm -r clean",
     "typecheck": "pnpm -r typecheck",
-    "lint:meta": "pnpm run meta-updater --test",
+    "lint:meta": "pnpm meta-updater --test",
     "lint:syncpack": "syncpack lint",
-    "lint:ts": "eslint packages",
+    "lint:ts": "oxlint --deny-warnings .",
     "lint:style": "stylelint '**/*.{css,scss}' --ignore-path .gitignore",
-    "lint:fmt": "prettier --check .",
-    "lint": "pnpm run typecheck && pnpm run lint:meta && pnpm run lint:syncpack && pnpm run lint:ts && pnpm run lint:style",
-    "fix:meta": "pnpm run meta-updater && pnpm -r exec prettier --write tsconfig.json package.json",
+    "lint:fmt": "oxfmt --check .",
+    "lint": "pnpm lint:meta && pnpm lint:syncpack && pnpm lint:ts && pnpm lint:style && pnpm lint:fmt",
+    "fix:meta": "pnpm meta-updater && pnpm -r exec oxfmt tsconfig.json package.json",
     "fix:syncpack": "syncpack fix",
-    "fix:eslint": "pnpm lint:ts --fix",
+    "fix:ts": "oxlint --fix .",
     "fix:style": "stylelint '**/*.{css,scss}' --ignore-path .gitignore --fix",
-    "fix:fmt": "prettier --write --list-different .",
+    "fix:fmt": "oxfmt .",
     "init-vscode-sandbox": "pnpm -F @cursorless/app-vscode init-launch-sandbox",
     "meta-updater": "env NODE_OPTIONS=--import=tsx meta-updater",
     "preinstall": "npx only-allow pnpm",
@@ -34,26 +34,17 @@
     "transform-recorded-tests": "pnpm exec ./packages/lib-common/scripts/c-tsx.js ./packages/lib-engine/src/scripts/transformRecordedTests/index.ts"
   },
   "devDependencies": {
-    "@eslint/config-helpers": "^0.5.3",
-    "@eslint/js": "^10.0.1",
     "@pnpm/meta-updater": "^2.0.6",
     "@types/node": "^24.12.0",
     "esbuild": "^0.27.4",
-    "eslint": "^10.1.0",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-import-resolver-typescript": "^4.4.4",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-mocha": "^11.2.0",
-    "eslint-plugin-unicorn": "^63.0.0",
-    "eslint-plugin-unused-imports": "^4.4.1",
-    "prettier": "^3.8.1",
+    "oxfmt": "^0.16.0",
+    "oxlint": "^1.15.0",
     "stylelint": "^17.5.0",
     "stylelint-config-standard": "^40.0.0",
     "stylelint-config-standard-scss": "^17.0.0",
     "syncpack": "^14.2.1",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.57.1"
+    "typescript": "^5.9.3"
   },
   "pnpm": {
     "patchedDependencies": {
@@ -66,7 +57,6 @@
     },
     "peerDependencyRules": {
       "allowedVersions": {
-        "eslint-plugin-import>eslint": "^10.0.0",
         "@pnpm/lockfile-file>@pnpm/logger": "^1001.0.1",
         "@pnpm/fetch>@pnpm/logger": "^1001.0.1",
         "@pnpm/core-loggers>@pnpm/logger": "^1001.0.1"

@@ -58,11 +58,11 @@ repos:
 
   - repo: local
     hooks:
-      - id: eslint
-        name: eslint
+      - id: oxlint
+        name: oxlint
         files: \.(ts|tsx)$
         language: system
-        entry: pnpm exec eslint
+        entry: pnpm exec oxlint
         args: [--fix]
 
   - repo: local
@@ -71,8 +71,8 @@ repos:
         name: prettier
         types: [text]
         language: system
-        entry: pnpm exec prettier
-        args: [--write, --list-different, --ignore-unknown]
+        entry: pnpm exec oxfmt
+        args: [--write, --list-different, --no-error-on-unmatched-pattern]
 
   - repo: local
     hooks:

@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["eslint","typescript", "unicorn", "import"],
+  "ignorePatterns": [
+    ".git/**",
+    "resources/playground/**",
+    "packages/*/out/**",
+    "packages/*/dist/**",
+    "packages/app-web-docs/.docusaurus/**",
+    "packages/app-neovim/cursorless.nvim/**",
+    "packages/app-vscode/src/keyboard/grammar/generated/**",
+    "packages/lib-engine/src/customCommandGrammar/generated/**",
+    "packages/lib-engine/src/snippets/vendor/**",
+    "**/node_modules/**"
+  ],
+  "rules": {
+
+  },
+  "overrides": [
+
+  ]
+}
