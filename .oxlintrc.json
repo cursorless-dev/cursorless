@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["eslint","typescript", "unicorn", "import"],
+  "plugins": ["eslint", "typescript", "unicorn", "oxc", "import"],
   "ignorePatterns": [
     ".git/**",
     "resources/playground/**",
@@ -14,9 +14,63 @@
     "**/node_modules/**"
   ],
   "rules": {
-
+    "import/no-relative-packages": "error",
+    "import/no-duplicates": "error",
+    "unused-imports/no-unused-imports": "error",
+    "@typescript-eslint/consistent-type-imports": "error",
+    "@typescript-eslint/consistent-type-assertions": [
+      "error",
+      {
+        "assertionStyle": "as"
+      }
+    ],
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": ["objectLiteralProperty"],
+        "format": ["camelCase"],
+        "filter": {
+          "regex": "[.]",
+          "match": false
+        }
+      }
+    ],
+    "@typescript-eslint/no-floating-promises": "error",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-inferrable-types": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_",
+        "ignoreRestSiblings": true
+      }
+    ],
+    "curly": "error",
+    "eqeqeq": [
+      "error",
+      "always",
+      {
+        "null": "never"
+      }
+    ],
+    "no-constant-condition": [
+      "error",
+      {
+        "checkLoops": false
+      }
+    ],
+    "no-restricted-syntax": [
+      "error",
+      "MemberExpression[object.property.name='constructor'][property.name='name']"
+    ],
+    "no-throw-literal": "error",
+    "semi": "off",
+    "unicorn/prefer-module": "error",
+    "mocha/no-pending-tests": "error",
+    "mocha/no-exclusive-tests": "error"
   },
-  "overrides": [
-
-  ]
+  "overrides": []
 }

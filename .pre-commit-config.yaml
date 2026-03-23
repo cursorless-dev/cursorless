@@ -67,8 +67,8 @@ repos:
 
   - repo: local
     hooks:
-      - id: prettier
-        name: prettier
+      - id: oxfmt
+        name: oxfmt
         types: [text]
         language: system
         entry: pnpm exec oxfmt
