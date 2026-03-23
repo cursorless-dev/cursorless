@@ -35,7 +35,6 @@
   },
   "devDependencies": {
     "@eslint/config-helpers": "^0.5.3",
-    "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^10.0.1",
     "@pnpm/meta-updater": "^2.0.6",
     "@types/node": "^24.12.0",

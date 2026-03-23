@@ -14,8 +14,7 @@
   "dependencies": {
     "@cursorless/lib-common": "workspace:*",
     "@cursorless/lib-engine": "workspace:*",
-    "lodash-es": "^4.17.23",
-    "vscode-uri": "^3.1.0"
+    "lodash-es": "^4.17.23"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.12"
