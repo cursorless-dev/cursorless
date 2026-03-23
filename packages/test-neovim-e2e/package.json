@@ -12,14 +12,10 @@
   "dependencies": {
     "@cursorless/lib-common": "workspace:*",
     "@cursorless/lib-neovim-common": "workspace:*",
-    "@cursorless/lib-neovim-registry": "workspace:*",
-    "@cursorless/lib-node-common": "workspace:*",
-    "@cursorless/lib-test-case-recorder": "workspace:*"
+    "@cursorless/lib-node-common": "workspace:*"
   },
   "devDependencies": {
-    "@types/chai": "^5.2.3",
     "@types/js-yaml": "^4.0.9",
-    "@types/lodash": "^4.17.24",
     "@types/sinon": "^21.0.0",
     "js-yaml": "^4.1.1",
     "neovim": "^5.4.0",
