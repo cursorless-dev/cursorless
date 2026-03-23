@@ -16,6 +16,6 @@
     "@types/normalize-path": "^3.0.2",
     "lodash-es": "^4.17.23",
     "normalize-path": "^3.0.0",
-    "type-fest": "^5.4.4"
+    "type-fest": "^5.5.0"
   }
 }
