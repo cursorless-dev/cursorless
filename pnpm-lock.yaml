@@ -266,15 +266,9 @@ importers:
       bootstrap:
         specifier: ^5.3.8
         version: 5.3.8(@popperjs/core@2.11.8)
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
       docusaurus-plugin-sass:
         specifier: ^0.2.6
         version: 0.2.6(@docusaurus/core@3.9.2(@docusaurus/faster@3.9.2(@docusaurus/types@3.9.2(@swc/core@1.15.21)(esbuild@0.27.4)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(esbuild@0.27.4))(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(@rspack/core@1.7.9)(@swc/core@1.15.21)(esbuild@0.27.4)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3))(@rspack/core@1.7.9)(sass@1.98.0)(webpack@5.105.4(@swc/core@1.15.21)(esbuild@0.27.4))
-      mdast-util-find-and-replace:
-        specifier: ^3.0.2
-        version: 3.0.2
       prism-react-renderer:
         specifier: ^2.4.1
         version: 2.4.1(react@19.2.4)
@@ -484,9 +478,6 @@ importers:
       '@types/nearley':
         specifier: ^2.11.5
         version: 2.11.5(patch_hash=72ccc6b9fd704c6d457027e12d6e1d005695ab3508558a08c6aaf73fb608ef69)
-      '@types/sinon':
-        specifier: ^21.0.0
-        version: 21.0.0
       chai:
         specifier: ^6.2.2
         version: 6.2.2
@@ -496,9 +487,6 @@ importers:
       mocha:
         specifier: ^11.7.5
         version: 11.7.5
-      sinon:
-        specifier: ^21.0.3
-        version: 21.0.3
       web-tree-sitter:
         specifier: ^0.26.7
         version: 0.26.7
