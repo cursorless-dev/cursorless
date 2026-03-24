@@ -1,5 +1,8 @@
 {
   "extends": "../../tsconfig.web.json",
+  "compilerOptions": {
+    "types": ["jest"]
+  },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
