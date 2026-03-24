@@ -10,7 +10,10 @@
 
   "ignorePatterns": [
     "resources/playground/**",
-    "packages/app-neovim/cursorless.nvim/**"
+    "packages/app-neovim/cursorless.nvim/**",
+    "packages/app-vscode/src/keyboard/grammar/generated/**",
+    "packages/lib-engine/src/customCommandGrammar/generated/**",
+    "packages/lib-engine/src/snippets/vendor/**"
   ],
 
   "options": {
@@ -19,20 +22,32 @@
   },
 
   "rules": {
-    "import/no-relative-packages": "warn",
-    "import/no-duplicates": "warn",
-    "typescript/consistent-type-imports": "warn",
-    "typescript/consistent-type-assertions": [
+    "curly": "warn",
+    "eqeqeq": [
       "warn",
+      "always",
       {
-        "assertionStyle": "as"
+        "null": "never"
       }
     ],
-    "typescript/no-explicit-any": "off",
-    "typescript/no-inferrable-types": "off",
-    "typescript/restrict-template-expressions": "off",
-    "typescript/no-base-to-string": "off",
-    "typescript/unbound-method": "off",
+    "eslint/no-constant-condition": [
+      "warn",
+      {
+        "checkLoops": false
+      }
+    ],
+    "eslint/no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": ["../*/src", "../*/src/*", "../../*/src", "../../*/src/*"],
+            "message": "Relative package imports are not allowed"
+          }
+        ]
+      }
+    ],
+    "eslint/no-throw-literal": "warn",
     "eslint/no-unused-vars": [
       "warn",
       {
@@ -42,29 +57,85 @@
         "ignoreRestSiblings": true
       }
     ],
-    "curly": "warn",
-    "eqeqeq": [
-      "warn",
-      "always",
-      {
-        "null": "never"
-      }
-    ],
+    "import/no-duplicates": "warn",
+    "mocha/no-exclusive-tests": "warn",
+    "mocha/no-pending-tests": "warn",
     "no-warning-comments": [
       "warn",
       {
         "terms": ["todo"]
       }
     ],
-    "eslint/no-constant-condition": [
+    "typescript/consistent-type-assertions": [
       "warn",
       {
-        "checkLoops": false
+        "assertionStyle": "as"
       }
     ],
-    "eslint/no-throw-literal": "warn",
-    "unicorn/prefer-module": "warn",
-    "mocha/no-pending-tests": "warn",
-    "mocha/no-exclusive-tests": "warn"
-  }
+    "typescript/consistent-type-imports": "warn",
+    "typescript/no-base-to-string": "off",
+    "typescript/restrict-template-expressions": "off",
+    "typescript/unbound-method": "off",
+    "unicorn/prefer-module": "warn"
+  },
+  "overrides": [
+    {
+      "files": ["packages/app-vscode/src/scripts/**/*.ts"],
+      "rules": {
+        "no-restricted-imports": [
+          "warn",
+          {
+            "paths": [
+              {
+                "name": "vscode",
+                "message": "Scripts shouldn't depend on vscode"
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "files": ["packages/lib-common/**/*.ts", "packages/lib-engine/**/*.ts"],
+      "rules": {
+        "import/no-nodejs-modules": "warn"
+      }
+    },
+
+    {
+      "files": [
+        "packages/lib-common/**/*.test.ts",
+        "packages/lib-engine/**/*.test.ts",
+        "packages/lib-engine/src/scripts/**/*.ts",
+        "packages/lib-engine/src/testUtil/**/*.ts"
+      ],
+      "rules": {
+        "import/no-nodejs-modules": "off"
+      }
+    },
+
+    {
+      "files": ["packages/lib-common/src/types/command/**/*.ts"],
+      "rules": {
+        "eslint/no-restricted-imports": [
+          "warn",
+          {
+            "patterns": [
+              {
+                "group": ["@cursorless/*", "../*"],
+                "message": "API types shouldn't have any dependencies"
+              }
+            ],
+            "paths": [
+              {
+                "name": "@*",
+                "message": "API types shouldn't have any dependencies"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
 }
