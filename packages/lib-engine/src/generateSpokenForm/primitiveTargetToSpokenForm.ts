@@ -149,7 +149,7 @@ export class PrimitiveTargetSpokenFormGenerator {
 
         // Throw actual Error here because we're not sure we ever want to support
         // a spoken form for these; we may deprecate this construct entirely
-        throw Error(`Modifier '${modifier.type}' is not fully implemented`);
+        throw new Error(`Modifier '${modifier.type}' is not fully implemented`);
       }
 
       default:
@@ -313,7 +313,7 @@ export class PrimitiveTargetSpokenFormGenerator {
         }
         // Throw actual Error here because we're not sure we ever want to support
         // a spoken form for these; we may deprecate this construct entirely
-        throw Error(`Mark '${mark.type}' is not fully implemented`);
+        throw new Error(`Mark '${mark.type}' is not fully implemented`);
       }
       case "explicit":
       case "keyboard":

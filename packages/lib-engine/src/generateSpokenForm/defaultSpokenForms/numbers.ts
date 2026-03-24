@@ -128,7 +128,7 @@ const ordinals = [
 export function numberToSpokenForm(number: number): string {
   const result = numbers[number];
   if (result == null) {
-    throw Error(`Unknown number '${number}'`);
+    throw new Error(`Unknown number '${number}'`);
   }
   return result;
 }
@@ -136,7 +136,7 @@ export function numberToSpokenForm(number: number): string {
 export function ordinalToSpokenForm(ordinal: number): string {
   const result = ordinals[ordinal];
   if (result == null) {
-    throw Error(`Unknown ordinal '${ordinal}'`);
+    throw new Error(`Unknown ordinal '${ordinal}'`);
   }
   return result;
 }

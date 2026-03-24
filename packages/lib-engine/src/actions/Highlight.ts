@@ -16,7 +16,7 @@ export default class Highlight {
     highlightId?: HighlightId,
   ): Promise<ActionReturnValue> {
     if (this.ide.capabilities.commands["highlight"] == null) {
-      throw Error(`The highlight action is not supported by your ide`);
+      throw new Error(`The highlight action is not supported by your ide`);
     }
 
     if (targets.length === 0) {

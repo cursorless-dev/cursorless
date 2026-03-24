@@ -44,7 +44,7 @@ abstract class SimpleIdeCommandAction {
     const capabilities = this.ide.capabilities.commands[this.command];
 
     if (capabilities == null) {
-      throw Error(`Action ${this.command} is not supported by your ide`);
+      throw new Error(`Action ${this.command} is not supported by your ide`);
     }
 
     const { acceptsLocation } = capabilities;
@@ -213,7 +213,7 @@ function callback(
 
     // Unsupported as simple action
     case "highlight":
-      throw Error("Highlight command not supported as simple action");
+      throw new Error("Highlight command not supported as simple action");
   }
 }
 

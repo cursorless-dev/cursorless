@@ -208,7 +208,7 @@ function getFacetInfo(
       : scopeSupportFacetInfos[facetId as ScopeSupportFacet];
 
   if (facetInfo == null) {
-    throw Error(`Missing scope support facet info for: ${facetId}`);
+    throw new Error(`Missing scope support facet info for: ${facetId}`);
   }
 
   const { scopeType, isIteration } = facetInfo;

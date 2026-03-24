@@ -56,7 +56,7 @@ export class ScopeTestRecorder {
     const matchLanguageId = text.match(/^\[\[([\w-]+)\]\]\n/);
 
     if (matchLanguageId == null) {
-      throw Error(`Can't match language id`);
+      throw new Error(`Can't match language id`);
     }
 
     const languageId = matchLanguageId[1];
@@ -75,7 +75,7 @@ export class ScopeTestRecorder {
       const content = match?.[2] ?? "";
 
       if (facet == null) {
-        throw Error(`Invalid pattern '${part}'`);
+        throw new Error(`Invalid pattern '${part}'`);
       }
 
       if (!content.trim()) {
@@ -127,7 +127,7 @@ function getSupportedScopeFacets(languageId: string): ScopeSupportFacet[] {
   const scopeSupport = languageScopeSupport[languageId];
 
   if (scopeSupport == null) {
-    throw Error(`Missing scope support for language '${languageId}'`);
+    throw new Error(`Missing scope support for language '${languageId}'`);
   }
 
   const scopeFacets = Object.keys(scopeSupport) as ScopeSupportFacet[];

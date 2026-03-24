@@ -139,7 +139,7 @@ export class TestCase {
       this.initialState == null ||
       (this.finalState == null && this.thrownError == null)
     ) {
-      throw Error("Two snapshots must be taken before serializing");
+      throw new Error("Two snapshots must be taken before serializing");
     }
     const fixture: EnforceUndefined<TestCaseFixture> = {
       languageId: this.languageId,

@@ -113,7 +113,7 @@ export class TestCaseRecorder {
 
   async pause() {
     if (!this.active) {
-      throw Error("Asked to pause recording, but no recording active");
+      throw new Error("Asked to pause recording, but no recording active");
     }
 
     this.paused = true;
@@ -121,7 +121,7 @@ export class TestCaseRecorder {
 
   async resume() {
     if (!this.active) {
-      throw Error("Asked to resume recording, but no recording active");
+      throw new Error("Asked to resume recording, but no recording active");
     }
 
     this.paused = false;
@@ -327,7 +327,7 @@ export class TestCaseRecorder {
       const editor = this.ide.activeTextEditor!;
 
       if (editor.document.getText().includes("\r\n")) {
-        throw Error(
+        throw new Error(
           "Refusing to record a test when the document contains CRLF line endings.  Please convert line endings to LF.",
         );
       }
@@ -408,7 +408,7 @@ export class TestCaseRecorder {
   private async promptSubdirectory(): Promise<string | undefined> {
     try {
       if (this.fixtureRoot == null) {
-        throw Error();
+        throw new Error();
       }
       await access(this.fixtureRoot);
     } catch (e) {

@@ -34,7 +34,7 @@ export default class Rewrap {
       const boundary = target.getBoundary()!;
 
       if (boundary.length !== 2) {
-        throw Error("Target must have an opening and closing delimiter");
+        throw new Error("Target must have an opening and closing delimiter");
       }
 
       return boundary;

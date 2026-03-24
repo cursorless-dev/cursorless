@@ -42,7 +42,7 @@ export function registerCommands(
   ): Promise<unknown> {
     try {
       if (commandId !== CURSORLESS_COMMAND_ID) {
-        throw Error(`Unknown command ID: ${commandId}`);
+        throw new Error(`Unknown command ID: ${commandId}`);
       }
 
       // We don't have all the document on change events, so we need to make

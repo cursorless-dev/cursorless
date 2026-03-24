@@ -31,7 +31,7 @@ export async function run() {
           (source == null && generateContent == null) ||
           (source != null && generateContent != null)
         ) {
-          throw Error(
+          throw new Error(
             "Must specify either `source` or `generateContent`, but not both",
           );
         }
@@ -56,7 +56,7 @@ export async function run() {
 
         if (!(await exists(fullSource))) {
           if (context.isCi || !optionalInDev) {
-            throw Error(`Missing asset: ${fullSource}`);
+            throw new Error(`Missing asset: ${fullSource}`);
           }
           console.warn(`Missing asset: ${fullSource}`);
           return;

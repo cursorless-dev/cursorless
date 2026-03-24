@@ -93,7 +93,7 @@ function findSnippetWithFewestLanguages<
   // Find the snippet with the fewest languages
   return snippets.reduce((prev, curr) => {
     if (prev.languages == null || curr.languages == null) {
-      throw Error(
+      throw new Error(
         "Snippet must have languages defined to find the one with the fewest languages",
       );
     }

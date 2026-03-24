@@ -61,7 +61,7 @@ const actions: TalonActions = {
 
 const settings: TalonSettings = {
   get(_name, _defaultValue) {
-    throw Error("settings.get: not implemented");
+    throw new Error("settings.get: not implemented");
   },
 };
 

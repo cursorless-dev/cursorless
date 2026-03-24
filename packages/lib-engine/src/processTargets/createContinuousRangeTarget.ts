@@ -34,7 +34,7 @@ export function createContinuousRangeTarget(
   includeEnd: boolean,
 ): Target {
   if (startTarget.editor !== endTarget.editor) {
-    throw Error("Continuous targets must be in the same editor");
+    throw new Error("Continuous targets must be in the same editor");
   }
 
   if (includeStart && includeEnd && isSameType(startTarget, endTarget)) {

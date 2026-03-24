@@ -111,7 +111,7 @@ async function runTest(
     try {
       return JSON.parse(result);
     } catch (e) {
-      throw Error(result, { cause: e });
+      throw new Error(result, { cause: e });
     }
   })();
 

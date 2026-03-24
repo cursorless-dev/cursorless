@@ -205,7 +205,7 @@ class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
     const match = text.match(new RegExp(pattern, "ds"));
 
     if (match?.index == null) {
-      throw Error(`No match for pattern '${pattern}'`);
+      throw new Error(`No match for pattern '${pattern}'`);
     }
 
     const [startOffset, endOffset] =
@@ -242,7 +242,7 @@ class GrowToNamedSiblings extends QueryPredicateOperator<GrowToNamedSiblings> {
     const node = getNode(capture);
 
     if (node.parent == null) {
-      throw Error("Node has no parent");
+      throw new Error("Node has no parent");
     }
 
     const { children } = node.parent;
@@ -250,7 +250,7 @@ class GrowToNamedSiblings extends QueryPredicateOperator<GrowToNamedSiblings> {
     let endPosition: Point | undefined;
 
     if (nodeIndex === -1) {
-      throw Error("Node not found in parent");
+      throw new Error("Node not found in parent");
     }
 
     for (let i = nodeIndex + 1; i < children.length; ++i) {

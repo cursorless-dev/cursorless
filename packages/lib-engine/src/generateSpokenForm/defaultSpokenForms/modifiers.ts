@@ -33,7 +33,7 @@ export function surroundingPairDelimitersToSpokenForm(
 ): CustomizableSpokenFormComponentForType<"pairedDelimiter"> {
   const pairName = surroundingPairDelimiterToName.get([left, right]);
   if (pairName == null) {
-    throw Error(`Unknown surrounding pair delimiters '${left} ${right}'`);
+    throw new Error(`Unknown surrounding pair delimiters '${left} ${right}'`);
   }
   return spokenFormMap.pairedDelimiter[pairName];
 }

@@ -270,7 +270,7 @@ function getScopeTypeAndTitle(
     case "surroundingPair":
       return [scope, `${scope.type}.${scope.delimiter}`];
   }
-  throw Error(`Unexpected scope type: ${scope.type}`);
+  throw new Error(`Unexpected scope type: ${scope.type}`);
 }
 
 /**

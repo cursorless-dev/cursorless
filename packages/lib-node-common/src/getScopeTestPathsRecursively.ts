@@ -92,7 +92,7 @@ function addTestPathsForLanguageRecursively(
   }
 
   if (!languages[languageId]) {
-    throw Error(`No test paths found for language ${languageId}`);
+    throw new Error(`No test paths found for language ${languageId}`);
   }
 
   result.push(...languages[languageId]);

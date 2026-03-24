@@ -56,7 +56,7 @@ export class KeyboardCommandsModalLayer<Param extends { type: any }> {
         // character was a false start so we should cancel the whole thing.
         const errorMessage = `Invalid key '${text}'`;
         void vscode.window.showErrorMessage(errorMessage);
-        throw Error(errorMessage);
+        throw new Error(errorMessage);
       }
     }
 

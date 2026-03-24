@@ -76,7 +76,8 @@
     "typescript/no-base-to-string": "off",
     "typescript/restrict-template-expressions": "off",
     "typescript/unbound-method": "off",
-    "unicorn/prefer-module": "warn"
+    "unicorn/prefer-module": "warn",
+    "unicorn/throw-new-error": "warn"
   },
   "overrides": [
     {

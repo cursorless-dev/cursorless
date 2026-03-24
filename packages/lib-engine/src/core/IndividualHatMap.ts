@@ -130,7 +130,7 @@ export class IndividualHatMap implements ReadOnlyHatMap {
 
   private checkExpired() {
     if (this.isExpired) {
-      throw Error("Map snapshot has expired");
+      throw new Error("Map snapshot has expired");
     }
   }
 

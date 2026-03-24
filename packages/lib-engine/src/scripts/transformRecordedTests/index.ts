@@ -54,7 +54,7 @@ async function main(args: string[]) {
   }
 
   if (failureCount > 0) {
-    throw Error(`${failureCount} failed files`);
+    throw new Error(`${failureCount} failed files`);
   }
 }
 

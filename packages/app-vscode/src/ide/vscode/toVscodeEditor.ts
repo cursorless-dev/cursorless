@@ -6,5 +6,5 @@ export function toVscodeEditor(editor: TextEditor): vscode.TextEditor {
   if ("vscodeEditor" in editor) {
     return (editor as VscodeTextEditor).vscodeEditor;
   }
-  throw Error("Can't get vscode editor from non vscode implementation");
+  throw new Error("Can't get vscode editor from non vscode implementation");
 }

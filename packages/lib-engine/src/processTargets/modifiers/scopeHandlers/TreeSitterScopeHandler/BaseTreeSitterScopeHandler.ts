@@ -83,7 +83,7 @@ export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
               );
 
               if (ide.runMode === "test") {
-                throw Error(message);
+                throw new Error(message);
               }
             }
 

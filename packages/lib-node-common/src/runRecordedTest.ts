@@ -217,7 +217,7 @@ export async function runRecordedTest({
     await fsp.writeFile(path, serializeTestFixture(outputFixture));
   } else {
     if (fixture.thrownError != null) {
-      throw Error(
+      throw new Error(
         `Expected error ${fixture.thrownError.name} but none was thrown`,
       );
     }

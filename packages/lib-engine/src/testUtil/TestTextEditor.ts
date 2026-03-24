@@ -35,31 +35,31 @@ export class TestTextEditor implements EditableTextEditor {
     _selections: Selection[],
     _opts?: SetSelectionsOpts,
   ): Promise<void> {
-    throw Error("setSelections: not implemented");
+    throw new Error("setSelections: not implemented");
   }
 
   edit(_edits: Edit[]): Promise<boolean> {
-    throw Error("edit: not implemented");
+    throw new Error("edit: not implemented");
   }
 
   async clipboardCopy(_ranges: Range[]): Promise<void> {
-    throw Error("clipboardCopy: not implemented");
+    throw new Error("clipboardCopy: not implemented");
   }
 
   async clipboardPaste(): Promise<void> {
-    throw Error("clipboardPaste: not implemented");
+    throw new Error("clipboardPaste: not implemented");
   }
 
   indentLine(_ranges: Range[]): Promise<void> {
-    throw Error("indentLine: not implemented");
+    throw new Error("indentLine: not implemented");
   }
 
   outdentLine(_ranges: Range[]): Promise<void> {
-    throw Error("outdentLine: not implemented");
+    throw new Error("outdentLine: not implemented");
   }
 
   insertLineAfter(_ranges?: Range[]): Promise<void> {
-    throw Error("insertLineAfter: not implemented");
+    throw new Error("insertLineAfter: not implemented");
   }
 
   focus(): Promise<void> {
@@ -139,26 +139,26 @@ export class TestTextEditor implements EditableTextEditor {
   }
 
   public async gitAccept(_range?: Range): Promise<void> {
-    throw Error("gitAccept: not implemented");
+    throw new Error("gitAccept: not implemented");
   }
 
   public async gitRevert(_range?: Range): Promise<void> {
-    throw Error("gitRevert: not implemented");
+    throw new Error("gitRevert: not implemented");
   }
 
   public async gitStageFile(): Promise<void> {
-    throw Error("gitStageFile: not implemented");
+    throw new Error("gitStageFile: not implemented");
   }
 
   public async gitUnstageFile(): Promise<void> {
-    throw Error("gitUnstageFile: not implemented");
+    throw new Error("gitUnstageFile: not implemented");
   }
 
   public async gitStageRange(_range?: Range): Promise<void> {
-    throw Error("gitStageRange: not implemented");
+    throw new Error("gitStageRange: not implemented");
   }
 
   public async gitUnstageRange(_range?: Range): Promise<void> {
-    throw Error("gitUnstageRange: not implemented");
+    throw new Error("gitUnstageRange: not implemented");
   }
 }

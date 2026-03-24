@@ -48,7 +48,7 @@ export class InstanceStage implements ModifierStage {
       case "relativeScope":
         return this.handleRelativeScope(target, options, this.modifier);
       default:
-        throw Error(`${this.modifier.type} instance scope not supported`);
+        throw new Error(`${this.modifier.type} instance scope not supported`);
     }
   }
 

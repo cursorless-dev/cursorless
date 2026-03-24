@@ -272,7 +272,7 @@ function injectCommandRunner(cmdRunner) {
 }
 function commandRunner() {
   if (cmdRunner_ == null) {
-    throw Error("Tried to access CommandRunner before it was injected");
+    throw new Error("Tried to access CommandRunner before it was injected");
   }
   return cmdRunner_;
 }

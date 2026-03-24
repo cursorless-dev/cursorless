@@ -71,7 +71,7 @@ function evaluateStringVariables(value: string): string {
       case "userHome":
         return os.homedir();
       default:
-        throw Error(`Unknown vscode configuration variable '${variable}'`);
+        throw new Error(`Unknown vscode configuration variable '${variable}'`);
     }
   });
 }

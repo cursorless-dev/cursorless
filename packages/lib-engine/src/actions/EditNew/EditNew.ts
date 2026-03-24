@@ -74,7 +74,7 @@ export class EditNew {
     const newSelections = state.destinations.map((destination, index) => {
       const cursorRange = state.cursorRanges[index];
       if (cursorRange == null) {
-        throw Error("Cursor range is undefined for destination");
+        throw new Error("Cursor range is undefined for destination");
       }
       return Selection.fromRange(cursorRange, destination.target.isReversed);
     });

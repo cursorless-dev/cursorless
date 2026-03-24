@@ -76,18 +76,18 @@ export class FakeIDE implements EmittableIDE {
 
   get assetsRoot(): string {
     if (this.assetsRoot_ == null) {
-      throw Error("Field `assetsRoot` has not yet been mocked");
+      throw new Error("Field `assetsRoot` has not yet been mocked");
     }
 
     return this.assetsRoot_;
   }
 
   get activeTextEditor(): TextEditor | undefined {
-    throw Error("activeTextEditor: not implemented");
+    throw new Error("activeTextEditor: not implemented");
   }
 
   get activeEditableTextEditor(): EditableTextEditor | undefined {
-    throw Error("activeEditableTextEditor: not implemented");
+    throw new Error("activeEditableTextEditor: not implemented");
   }
 
   get visibleTextEditors(): TextEditor[] {
@@ -99,25 +99,25 @@ export class FakeIDE implements EmittableIDE {
   }
 
   public getEditableTextEditor(_editor: TextEditor): EditableTextEditor {
-    throw Error("getEditableTextEditor: not implemented");
+    throw new Error("getEditableTextEditor: not implemented");
   }
 
   public findInDocument(_query: string, _editor: TextEditor): Promise<void> {
-    throw Error("findInDocument: not implemented");
+    throw new Error("findInDocument: not implemented");
   }
 
   public findInWorkspace(_query: string): Promise<void> {
-    throw Error("findInWorkspace: not implemented");
+    throw new Error("findInWorkspace: not implemented");
   }
 
   public openTextDocument(_path: string): Promise<TextEditor> {
-    throw Error("openTextDocument: not implemented");
+    throw new Error("openTextDocument: not implemented");
   }
 
   public openUntitledTextDocument(
     _options: OpenUntitledTextDocumentOptions,
   ): Promise<TextEditor> {
-    throw Error("openUntitledTextDocument: not implemented");
+    throw new Error("openUntitledTextDocument: not implemented");
   }
 
   public setQuickPickReturnValue(value: string | undefined) {
@@ -132,7 +132,7 @@ export class FakeIDE implements EmittableIDE {
   }
 
   public showInputBox(_options?: any): Promise<string | undefined> {
-    throw Error("showInputBox: not implemented");
+    throw new Error("showInputBox: not implemented");
   }
 
   executeCommand<T>(_command: string, ..._args: any[]): Promise<T | undefined> {

@@ -116,7 +116,7 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
       case "range":
         return new RangeModifierStage(this, modifier);
       case "inferPreviousMark":
-        throw Error(
+        throw new Error(
           `Unexpected modifier '${modifier.type}'; it should have been removed during inference`,
         );
 

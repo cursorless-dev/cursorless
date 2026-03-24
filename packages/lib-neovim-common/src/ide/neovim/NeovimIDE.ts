@@ -89,7 +89,7 @@ export class NeovimIDE implements IDE {
     _items: readonly string[],
     _options?: QuickPickOptions,
   ): Promise<string | undefined> {
-    throw Error("showQuickPick: not implemented");
+    throw new Error("showQuickPick: not implemented");
   }
 
   async setHighlightRanges(
@@ -97,7 +97,7 @@ export class NeovimIDE implements IDE {
     _editor: TextEditor,
     _ranges: GeneralizedRange[],
   ): Promise<void> {
-    throw Error("setHighlightRanges: not implemented");
+    throw new Error("setHighlightRanges: not implemented");
   }
 
   async flashRanges(_flashDescriptors: FlashDescriptor[]): Promise<void> {
@@ -106,7 +106,7 @@ export class NeovimIDE implements IDE {
 
   get assetsRoot(): string {
     if (this.assetsRoot_ == null) {
-      throw Error("Field `assetsRoot` has not yet been mocked");
+      throw new Error("Field `assetsRoot` has not yet been mocked");
     }
 
     return this.assetsRoot_;
@@ -169,25 +169,25 @@ export class NeovimIDE implements IDE {
     _query: string,
     _editor: TextEditor,
   ): Promise<void> {
-    throw Error("findInDocument: not implemented");
+    throw new Error("findInDocument: not implemented");
   }
 
   public async findInWorkspace(_query: string): Promise<void> {
-    throw Error("findInWorkspace: not implemented");
+    throw new Error("findInWorkspace: not implemented");
   }
 
   public async openTextDocument(_path: string): Promise<TextEditor> {
-    throw Error("openTextDocument: not implemented");
+    throw new Error("openTextDocument: not implemented");
   }
 
   public async openUntitledTextDocument(
     _options: OpenUntitledTextDocumentOptions,
   ): Promise<TextEditor> {
-    throw Error("openUntitledTextDocument: not implemented");
+    throw new Error("openUntitledTextDocument: not implemented");
   }
 
   public async showInputBox(_options?: any): Promise<string | undefined> {
-    throw Error("showInputBox: not implemented");
+    throw new Error("showInputBox: not implemented");
   }
 
   public async executeCommand<T>(

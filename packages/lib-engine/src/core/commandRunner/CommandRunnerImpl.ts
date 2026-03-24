@@ -299,7 +299,7 @@ function constructStoredTarget(
   selections: SelectionWithEditor[] | undefined,
 ) {
   if (targets != null && selections != null) {
-    throw Error(
+    throw new Error(
       "Actions may only return full targets or selections for that mark",
     );
   }

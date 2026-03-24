@@ -144,7 +144,7 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
       default:
         // Pseudoscopes are handled separately in their own modifiers.
         if (pseudoScopes.has(scopeType.type)) {
-          throw Error(`Unexpected scope type '${scopeType.type}'`);
+          throw new Error(`Unexpected scope type '${scopeType.type}'`);
         }
         return this.languageDefinitions
           .get(languageId)
