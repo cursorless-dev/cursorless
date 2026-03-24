@@ -20,10 +20,10 @@
       "@cursorless/lib-sentence-parser": ["./packages/lib-sentence-parser"],
       "@cursorless/lib-talonjs-core": ["./packages/lib-talonjs-core"],
       "@cursorless/lib-test-case-recorder": [
-        "./packages/lib-test-case-recorder",
+        "./packages/lib-test-case-recorder"
       ],
       "@cursorless/lib-tutorial": ["./packages/lib-tutorial"],
-      "@cursorless/lib-vscode-common": ["./packages/lib-vscode-common"],
-    },
-  },
+      "@cursorless/lib-vscode-common": ["./packages/lib-vscode-common"]
+    }
+  }
 }

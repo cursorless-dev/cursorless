@@ -3,6 +3,6 @@
   "compilerOptions": {
     "lib": ["es2022", "dom"],
     "jsx": "react-jsx",
-    "jsxImportSource": "preact",
-  },
+    "jsxImportSource": "preact"
+  }
 }
