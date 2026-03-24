@@ -39,6 +39,12 @@
     "eslint/no-restricted-imports": [
       "warn",
       {
+        "paths": [
+          {
+            "name": "node:assert",
+            "message": "Use node:assert/strict instead"
+          }
+        ],
         "patterns": [
           {
             "group": ["../*/src", "../*/src/*", "../../*/src", "../../*/src/*"],
@@ -77,6 +83,7 @@
     "typescript/restrict-template-expressions": "off",
     "typescript/unbound-method": "off",
     "unicorn/prefer-module": "warn",
+    "unicorn/prefer-node-protocol": "warn",
     "unicorn/throw-new-error": "warn"
   },
   "overrides": [

@@ -5,7 +5,7 @@ import type {
   ListInsertSnippetArg,
   ListWrapWithSnippetArg,
 } from "@cursorless/lib-common";
-import assert from "node:assert";
+import * as assert from "node:assert/strict";
 import { getPreferredSnippet } from "./getPreferredSnippet";
 
 const deprecatedNamed: DeprecatedNamedSnippetArg = {

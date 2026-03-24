@@ -3,13 +3,13 @@ import {
   getReusableEditor,
   openNewEditor,
 } from "@cursorless/lib-vscode-common";
-import { assert } from "chai";
 import * as vscode from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../../endToEndTestSetup";
 import sinon from "sinon";
 import * as path from "node:path";
 import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
 import { readFile } from "node:fs/promises";
+import * as assert from "node:assert/strict";
 
 interface TestCase {
   name: string;
@@ -222,7 +222,7 @@ async function basic() {
   // Select target
   await typeText("at");
 
-  assert.isTrue(editor.selection.isEqual(new vscode.Selection(0, 0, 0, 17)));
+  assert.ok(editor.selection.isEqual(new vscode.Selection(0, 0, 0, 17)));
 
   // Turn off modal mode and try typing something
   await vscode.commands.executeCommand("cursorless.keyboard.modal.modeOff");
@@ -244,7 +244,7 @@ async function noAutomaticTokenExpansion() {
   // "pour"
   await typeText("ao");
 
-  assert.isTrue(editor.selection.isEqual(new vscode.Selection(1, 0, 1, 0)));
+  assert.ok(editor.selection.isEqual(new vscode.Selection(1, 0, 1, 0)));
 }
 
 /**
@@ -299,11 +299,11 @@ async function enterAndLeaveIsNoOp() {
 
   await vscode.commands.executeCommand("cursorless.keyboard.modal.modeOn");
 
-  assert.isTrue(editor.selection.isEqual(originalSelection));
+  assert.ok(editor.selection.isEqual(originalSelection));
 
   await vscode.commands.executeCommand("cursorless.keyboard.modal.modeOff");
 
-  assert.isTrue(editor.selection.isEqual(originalSelection));
+  assert.ok(editor.selection.isEqual(originalSelection));
 }
 
 async function typeText(text: string) {

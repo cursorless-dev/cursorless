@@ -4,7 +4,7 @@ import {
   openNewEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
-import * as assert from "node:assert";
+import * as assert from "node:assert/strict";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
 suite("Pour across split", async function () {
@@ -37,6 +37,6 @@ async function runTest() {
     },
   });
 
-  assert.deepStrictEqual(document1.getText(), "hello world\n");
-  assert.deepStrictEqual(document2.getText(), "");
+  assert.equal(document1.getText(), "hello world\n");
+  assert.equal(document2.getText(), "");
 }

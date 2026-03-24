@@ -1,6 +1,6 @@
 import { type ScopeType, type ScopeTypeInfo } from "@cursorless/lib-common";
-import { assert } from "chai";
 import { isEqual } from "lodash-es";
+import * as assert from "node:assert/strict";
 import type { SinonSpy } from "sinon";
 import { waitFor } from "../waitFor";
 
@@ -24,7 +24,7 @@ export async function assertCalledWithScopeInfo<T extends ScopeTypeInfo>(
     const actualScopeInfo = scopeInfos.find((scopeInfo) =>
       isEqual(scopeInfo.scopeType, expectedScopeInfo.scopeType),
     );
-    assert.isDefined(actualScopeInfo);
+    assert.ok(actualScopeInfo != null);
     assert.deepEqual(actualScopeInfo, expectedScopeInfo);
   }
 
@@ -45,8 +45,9 @@ export async function assertCalledWithoutScopeInfo<T extends ScopeTypeInfo>(
   );
 
   for (const scopeType of scopeTypes) {
-    assert.isUndefined(
+    assert.equal(
       scopeInfos.find((scopeInfo) => isEqual(scopeInfo.scopeType, scopeType)),
+      undefined,
     );
   }
 

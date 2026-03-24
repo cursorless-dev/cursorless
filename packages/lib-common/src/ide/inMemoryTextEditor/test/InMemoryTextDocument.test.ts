@@ -1,4 +1,4 @@
-import * as assert from "node:assert";
+import * as assert from "node:assert/strict";
 import { URI } from "vscode-uri";
 import { Position } from "../../../types/Position";
 import { Range } from "../../../types/Range";

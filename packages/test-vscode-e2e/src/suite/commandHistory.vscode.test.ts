@@ -9,9 +9,9 @@ import {
   openNewEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
-import { assert } from "chai";
 import { existsSync } from "node:fs";
 import { readFile, readdir, rm } from "node:fs/promises";
+import * as assert from "node:assert/strict";
 import * as path from "node:path";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
@@ -73,7 +73,7 @@ async function testInactive(tmpdir: string) {
   await initalizeEditor();
   await runCursorlessCommand(takeCommand("e"));
 
-  assert.notOk(existsSync(tmpdir));
+  assert.ok(!existsSync(tmpdir));
 }
 
 async function testError(tmpdir: string) {
@@ -88,7 +88,7 @@ async function testError(tmpdir: string) {
   }
 
   const content = await getLogEntry(tmpdir);
-  assert.containsAllKeys(content, ["error"]);
+  assert.ok("error" in content);
   delete command.spokenForm;
   assert.deepEqual(content.command, command);
 }
@@ -96,7 +96,7 @@ async function testError(tmpdir: string) {
 async function getLogEntry(tmpdir: string) {
   assert.ok(existsSync(tmpdir));
   const paths = await readdir(tmpdir);
-  assert.lengthOf(paths, 1);
+  assert.equal(paths.length, 1);
   assert.ok(/cursorlessCommandHistory_.*\.jsonl/.test(paths[0]));
 
   return JSON.parse(

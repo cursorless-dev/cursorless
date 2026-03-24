@@ -1,4 +1,4 @@
-import { assert } from "chai";
+import * as assert from "node:assert/strict";
 import type * as sinon from "sinon";
 import {
   createDecorationTypeCallToPlainObject,
@@ -8,7 +8,7 @@ import type { Fakes, ExpectedArgs } from "./scopeVisualizerTest.types";
 
 export function checkAndResetFakes(fakes: Fakes, expected: ExpectedArgs) {
   const actual = getSpyCallsAndResetFakes(fakes);
-  assert.deepStrictEqual(actual, expected, JSON.stringify(actual));
+  assert.deepEqual(actual, expected, JSON.stringify(actual));
 }
 
 function getSpyCallsAndResetFakes({

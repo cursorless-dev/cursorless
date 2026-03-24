@@ -58,7 +58,7 @@ async function runBasicTutorialTest(spyIde: SpyIDE) {
   );
 
   const checkStepSetup = async (fixture: TestCaseFixtureLegacy) => {
-    assert.deepStrictEqual(
+    assert.deepEqual(
       await getSnapshotForComparison(
         fixture.initialState,
         await hatTokenMap.getReadableMap(false),
@@ -171,7 +171,7 @@ async function runBasicTutorialTest(spyIde: SpyIDE) {
 
   // Test listing tutorials
   await commands.executeCommand("cursorless.tutorial.list");
-  assert.deepStrictEqual(getTutorialWebviewEventLog().slice(-2), [
+  assert.deepEqual(getTutorialWebviewEventLog().slice(-2), [
     {
       type: "messageSent",
       data: {

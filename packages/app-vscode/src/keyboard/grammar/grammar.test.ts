@@ -1,6 +1,6 @@
 import nearley from "nearley";
 import grammar from "./generated/grammar";
-import assert from "assert";
+import * as assert from "node:assert/strict";
 import type { KeyDescriptor } from "../TokenTypeHelpers";
 import type { KeyboardCommandHandler } from "../KeyboardCommandHandler";
 import type { KeyboardCommand } from "../KeyboardCommandTypeHelpers";
@@ -189,7 +189,7 @@ suite("keyboard grammar", () => {
       parser.feed(tokens);
 
       assert.equal(parser.results.length, 1);
-      assert.deepStrictEqual(parser.results[0], expected);
+      assert.deepEqual(parser.results[0], expected);
     });
   });
 });

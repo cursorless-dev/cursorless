@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import * as assert from "node:assert/strict";
 import { CustomSpokenFormGeneratorImpl } from "./CustomSpokenFormGeneratorImpl";
 import { FakeIDE, LATEST_VERSION, asyncSafety } from "@cursorless/lib-common";
 
@@ -31,7 +31,7 @@ suite("CustomSpokenFormGeneratorImpl", async function () {
 
       await generator.customSpokenFormsInitialized;
 
-      assert.deepStrictEqual(
+      assert.deepEqual(
         generator.scopeTypeToSpokenForm({
           type: "glyph",
           character: "a",
@@ -41,7 +41,7 @@ suite("CustomSpokenFormGeneratorImpl", async function () {
           spokenForms: ["foo alabaster"],
         },
       );
-      assert.deepStrictEqual(
+      assert.deepEqual(
         generator.commandToSpokenForm({
           version: LATEST_VERSION,
           action: {

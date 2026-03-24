@@ -1,4 +1,4 @@
-import assert from "assert";
+import * as assert from "node:assert/strict";
 import { map } from "itertools";
 import { Range } from "../../types/Range";
 import { BorderStyle } from "../decorationStyle.types";
@@ -136,7 +136,7 @@ suite("handleMultipleLines", () => {
         ],
       );
 
-      assert.deepStrictEqual(actual, testCase.expected);
+      assert.deepEqual(actual, testCase.expected);
     });
   }
 });

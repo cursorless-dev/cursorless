@@ -25,8 +25,8 @@ import {
   spyIDERecordedValuesToPlainObject,
   storedTargetKeys,
 } from "@cursorless/lib-common";
-import { assert } from "chai";
 import { isUndefined } from "lodash-es";
+import * as assert from "node:assert/strict";
 import { promises as fsp } from "node:fs";
 import { loadFixture } from "./loadFixture";
 
@@ -175,7 +175,7 @@ export async function runRecordedTest({
 
       await fsp.writeFile(path, serializeTestFixture(outputFixture));
     } else if (fixture.thrownError != null) {
-      assert.strictEqual(
+      assert.equal(
         error.name,
         fixture.thrownError.name,
         "Unexpected thrown error",
@@ -222,25 +222,17 @@ export async function runRecordedTest({
       );
     }
 
-    assert.deepStrictEqual(
-      resultState,
-      fixture.finalState,
-      "Unexpected final state",
-    );
+    assert.deepEqual(resultState, fixture.finalState, "Unexpected final state");
 
-    assert.deepStrictEqual(
+    assert.deepEqual(
       returnValue,
       fixture.returnValue,
       "Unexpected return value",
     );
 
-    assert.deepStrictEqual(
-      fallback,
-      fixture.fallback,
-      "Unexpected fallback value",
-    );
+    assert.deepEqual(fallback, fixture.fallback, "Unexpected fallback value");
 
-    assert.deepStrictEqual(
+    assert.deepEqual(
       omitByDeep(actualSpyIdeValues, isUndefined),
       fixture.ide,
       "Unexpected ide captured values",
@@ -259,7 +251,10 @@ function checkMarks(
   Object.entries(marks).forEach(([key, token]) => {
     const { hatStyle, character } = splitKey(key);
     const currentToken = hatTokenMap.getToken(hatStyle, character);
-    assert(currentToken != null, `Mark "${hatStyle} ${character}" not found`);
-    assert.deepStrictEqual(rangeToPlainObject(currentToken.range), token);
+    assert.ok(
+      currentToken != null,
+      `Mark "${hatStyle} ${character}" not found`,
+    );
+    assert.deepEqual(rangeToPlainObject(currentToken.range), token);
   });
 }

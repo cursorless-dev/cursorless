@@ -4,7 +4,7 @@ import {
   openNewEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
-import * as assert from "node:assert";
+import * as assert from "node:assert/strict";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 import { setupFake } from "./setupFake";
 
@@ -48,9 +48,9 @@ async function runTest() {
     },
   });
 
-  assert.deepStrictEqual(
+  assert.equal(
     document1.getText(),
     "My friend hello likes to eat spaghetti! world",
   );
-  assert.deepStrictEqual(document2.getText(), "");
+  assert.equal(document2.getText(), "");
 }

@@ -1,5 +1,5 @@
 import { type ActionDescriptor } from "@cursorless/lib-common";
-import assert from "assert";
+import * as assert from "node:assert/strict";
 import { parseAction } from "./parseCommand";
 import type { WithPlaceholders } from "./WithPlaceholders";
 
@@ -133,7 +133,7 @@ const testCases: TestCase[] = [
 suite("custom grammar: actions", () => {
   testCases.forEach(({ input, expectedOutput }) => {
     test(input, () => {
-      assert.deepStrictEqual(
+      assert.deepEqual(
         parseAction(input),
         expectedOutput,
         JSON.stringify(parseAction(input), null, 4),

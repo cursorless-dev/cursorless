@@ -1,6 +1,6 @@
 import type { TokenHatSplittingMode } from "@cursorless/lib-common";
 import { FakeIDE } from "@cursorless/lib-common";
-import * as assert from "assert";
+import * as assert from "node:assert/strict";
 import { TokenGraphemeSplitter, UNKNOWN } from "./tokenGraphemeSplitter";
 
 /**
@@ -305,7 +305,7 @@ tests.forEach(({ tokenHatSplittingMode, extraTestCases }) => {
         const actualOutput = new TokenGraphemeSplitter(ide).getTokenGraphemes(
           input,
         );
-        assert.deepStrictEqual(actualOutput, expectedOutput);
+        assert.deepEqual(actualOutput, expectedOutput);
       });
     });
   });

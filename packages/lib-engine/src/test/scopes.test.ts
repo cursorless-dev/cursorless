@@ -13,9 +13,9 @@ import {
   shouldUpdateFixtures,
 } from "@cursorless/lib-common";
 import { getScopeTestPathsRecursively } from "@cursorless/lib-node-common";
-import { assert } from "chai";
 import { groupBy, uniq } from "lodash-es";
 import { promises as fsp } from "node:fs";
+import * as assert from "node:assert/strict";
 import type { TestEnvironment } from "../testUtil/createTestEnvironment";
 import { createTestEnvironment } from "../testUtil/createTestEnvironment";
 import {
@@ -125,8 +125,8 @@ async function runTest(
     .replaceAll("\r\n", "\n");
   const delimiterIndex = fixture.match(/^---$/m)?.index;
 
-  assert.isDefined(
-    delimiterIndex,
+  assert.ok(
+    delimiterIndex != null,
     "Can't find delimiter '---' in scope fixture",
   );
 
@@ -150,8 +150,8 @@ async function runTest(
         });
 
       if (!updateFixture) {
-        assert.isFalse(
-          iterationScopes.some((s) =>
+        assert.ok(
+          !iterationScopes.some((s) =>
             s.ranges.some((r) => !s.domain.contains(r.range)),
           ),
           "Iteration range should not contain the domain",
@@ -170,14 +170,14 @@ async function runTest(
     );
 
     if (!updateFixture) {
-      assert.isFalse(
-        scopes.some((s) =>
+      assert.ok(
+        !scopes.some((s) =>
           s.targets.some((t) => !s.domain.contains(t.contentRange)),
         ),
         "Content range should not contain the domain",
       );
-      assert.isFalse(
-        scopes.some((s) =>
+      assert.ok(
+        !scopes.some((s) =>
           s.targets.some((t) => !s.domain.contains(t.contentRange)),
         ),
         "Content range should not contain the removal range",
@@ -190,7 +190,7 @@ async function runTest(
   if (updateFixture) {
     await fsp.writeFile(file, outputFixture);
   } else {
-    assert.isAbove(numScopes, 0, "No scopes found");
+    assert.ok(numScopes > 0, "No scopes found");
     assert.equal(outputFixture, fixture);
   }
 }

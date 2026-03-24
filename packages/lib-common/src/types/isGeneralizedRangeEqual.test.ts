@@ -1,10 +1,10 @@
-import assert from "assert";
+import * as assert from "node:assert/strict";
 import { isGeneralizedRangeEqual } from "./GeneralizedRange";
 import { Position } from "./Position";
 
 suite("isGeneralizedRangeEqual", () => {
   test("character", () => {
-    assert.strictEqual(
+    assert.equal(
       isGeneralizedRangeEqual(
         {
           type: "character",
@@ -19,7 +19,7 @@ suite("isGeneralizedRangeEqual", () => {
       ),
       true,
     );
-    assert.strictEqual(
+    assert.equal(
       isGeneralizedRangeEqual(
         {
           type: "character",
@@ -34,7 +34,7 @@ suite("isGeneralizedRangeEqual", () => {
       ),
       false,
     );
-    assert.strictEqual(
+    assert.equal(
       isGeneralizedRangeEqual(
         {
           type: "character",
@@ -49,7 +49,7 @@ suite("isGeneralizedRangeEqual", () => {
       ),
       false,
     );
-    assert.strictEqual(
+    assert.equal(
       isGeneralizedRangeEqual(
         {
           type: "character",
@@ -67,21 +67,21 @@ suite("isGeneralizedRangeEqual", () => {
   });
 
   test("line", () => {
-    assert.strictEqual(
+    assert.equal(
       isGeneralizedRangeEqual(
         { type: "line", start: 0, end: 0 },
         { type: "line", start: 0, end: 0 },
       ),
       true,
     );
-    assert.strictEqual(
+    assert.equal(
       isGeneralizedRangeEqual(
         { type: "line", start: 0, end: 0 },
         { type: "line", start: 0, end: 1 },
       ),
       false,
     );
-    assert.strictEqual(
+    assert.equal(
       isGeneralizedRangeEqual(
         { type: "line", start: 0, end: 0 },
         { type: "line", start: 1, end: 0 },
@@ -91,7 +91,7 @@ suite("isGeneralizedRangeEqual", () => {
   });
 
   test("mixed", () => {
-    assert.strictEqual(
+    assert.equal(
       isGeneralizedRangeEqual(
         {
           type: "character",
@@ -102,7 +102,7 @@ suite("isGeneralizedRangeEqual", () => {
       ),
       false,
     );
-    assert.strictEqual(
+    assert.equal(
       isGeneralizedRangeEqual(
         { type: "line", start: 0, end: 0 },
         {

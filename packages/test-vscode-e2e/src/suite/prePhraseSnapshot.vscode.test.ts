@@ -106,7 +106,7 @@ async function runTest(
     },
   });
 
-  assert.deepStrictEqual(
+  assert.deepEqual(
     editor.selections.map(fromVscodeSelection).map(selectionToPlainObject),
     expectedSelections.map(fromVscodeSelection).map(selectionToPlainObject),
   );

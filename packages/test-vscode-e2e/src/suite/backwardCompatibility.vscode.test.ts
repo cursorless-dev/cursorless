@@ -31,5 +31,5 @@ async function runTest() {
     ")",
   );
 
-  assert.deepStrictEqual(editor.document.getText(), "()");
+  assert.equal(editor.document.getText(), "()");
 }

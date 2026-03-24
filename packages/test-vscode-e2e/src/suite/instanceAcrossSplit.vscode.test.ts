@@ -10,7 +10,7 @@ import {
   openNewEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
-import * as assert from "assert";
+import * as assert from "node:assert/strict";
 import { Selection } from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 import { setupFake } from "./setupFake";
@@ -158,6 +158,6 @@ async function runTest(
     },
   });
 
-  assert.deepStrictEqual(instanceDocument.getText(), "aaa");
-  assert.deepStrictEqual(fromDocument.getText(), expectedContents);
+  assert.equal(instanceDocument.getText(), "aaa");
+  assert.equal(fromDocument.getText(), expectedContents);
 }

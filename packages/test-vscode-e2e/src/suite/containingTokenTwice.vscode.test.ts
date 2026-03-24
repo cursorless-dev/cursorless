@@ -4,7 +4,7 @@ import {
   getReusableEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
-import { assert } from "chai";
+import * as assert from "node:assert/strict";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
@@ -40,6 +40,6 @@ async function runTest() {
       },
     });
 
-    assert.isTrue(editor.selection.isEqual(new vscode.Selection(0, 0, 0, 1)));
+    assert.ok(editor.selection.isEqual(new vscode.Selection(0, 0, 0, 1)));
   }
 }

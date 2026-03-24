@@ -1,4 +1,4 @@
-import assert from "assert";
+import * as assert from "node:assert/strict";
 import nearley from "nearley";
 import type { KeyDescriptor } from "../TokenTypeHelpers";
 import grammar from "./generated/grammar";
