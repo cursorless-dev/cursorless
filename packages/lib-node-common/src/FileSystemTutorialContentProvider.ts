@@ -4,7 +4,7 @@ import type {
   TutorialId,
 } from "@cursorless/lib-common";
 import { readFile, readdir } from "node:fs/promises";
-import path from "path";
+import * as path from "node:path";
 import { loadFixture } from "./loadFixture";
 
 export class FileSystemTutorialContentProvider implements TutorialContentProvider {

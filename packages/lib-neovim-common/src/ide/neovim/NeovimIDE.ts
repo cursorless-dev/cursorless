@@ -21,7 +21,7 @@ import type {
 import { nodeGetRunMode } from "@cursorless/lib-node-common";
 import { pull } from "lodash";
 import type { Buffer, NeovimClient, Window } from "neovim";
-import path from "path";
+import * as path from "node:path";
 import { v4 as uuid } from "uuid";
 import { URI } from "vscode-uri";
 import { NeovimCapabilities } from "./NeovimCapabilities";

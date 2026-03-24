@@ -14,8 +14,8 @@ import {
   type SpyWebViewEvent,
 } from "@cursorless/lib-vscode-common";
 import { isEqual } from "lodash-es";
-import assert from "node:assert";
-import path from "path";
+import assert from "node:assert/strict";
+import path from "node:path";
 import sinon from "sinon";
 import { commands } from "vscode";
 import { endToEndTestSetup } from "../../endToEndTestSetup";

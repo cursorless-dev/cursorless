@@ -3,7 +3,7 @@ import type {
   ScopeSupportFacet,
 } from "@cursorless/lib-common";
 import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
-import * as path from "path";
+import * as path from "node:path";
 import { walkFilesSync } from "./walkSync";
 
 export function getFixturesPath() {

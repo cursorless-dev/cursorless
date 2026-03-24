@@ -9,7 +9,7 @@ import {
   getReusableEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
-import * as crypto from "crypto";
+import * as crypto from "node:crypto";
 import { mkdir, readFile, readdir, rm } from "node:fs/promises";
 import * as assert from "node:assert/strict";
 import * as os from "node:os";

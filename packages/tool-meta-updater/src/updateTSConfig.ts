@@ -2,7 +2,7 @@ import { getLockfileImporterId } from "@pnpm/lockfile-file";
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import { cloneDeep, isEqual } from "lodash-es";
 import normalizePath from "normalize-path";
-import * as path from "path";
+import * as path from "node:path";
 import type { TsConfigJson } from "type-fest";
 import type { Context } from "./Context";
 import { toPosixPath } from "./toPosixPath";

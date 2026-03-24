@@ -3,7 +3,7 @@ import {
   getReusableEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
-import * as assert from "node:assert";
+import * as assert from "node:assert/strict";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 

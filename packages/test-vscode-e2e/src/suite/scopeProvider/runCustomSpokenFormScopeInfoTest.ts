@@ -1,7 +1,7 @@
 import type { ScopeTypeInfo } from "@cursorless/lib-common";
 import { DOCS_URL, sleep } from "@cursorless/lib-common";
 import { getCursorlessApi } from "@cursorless/lib-vscode-common";
-import { stat, unlink, writeFile } from "fs/promises";
+import { stat, unlink, writeFile } from "node:fs/promises";
 import * as sinon from "sinon";
 import { assertCalledWithScopeInfo } from "./assertCalledWithScopeInfo";
 
