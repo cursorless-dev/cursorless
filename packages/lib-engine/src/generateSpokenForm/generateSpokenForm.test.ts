@@ -54,7 +54,7 @@ suite("Generate spoken forms", () => {
     });
 
     assert.ok(spokenForm.type === "success");
-    assert.equal(spokenForm.spokenForms, "bar");
+    assert.deepEqual(spokenForm.spokenForms, ["bar"]);
   });
 });
 
