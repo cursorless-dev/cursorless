@@ -4,7 +4,12 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "skipLibCheck": true,
-    "types": ["@docusaurus/theme-classic", "@docusaurus/module-type-aliases"]
+    "types": [
+      "node",
+      "mocha",
+      "@docusaurus/theme-classic",
+      "@docusaurus/module-type-aliases"
+    ]
   },
   "include": [
     "src/**/*.ts",

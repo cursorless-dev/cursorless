@@ -208,8 +208,13 @@ class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
       throw new Error(`No match for pattern '${pattern}'`);
     }
 
-    const [startOffset, endOffset] =
-      match.indices?.groups?.keep ?? match.indices![0];
+    const offsets = match.indices?.groups?.keep ?? match.indices?.[0];
+
+    if (offsets == null) {
+      throw new Error(`No match indices for pattern '${pattern}'`);
+    }
+
+    const [startOffset, endOffset] = offsets;
 
     const baseOffset = document.offsetAt(range.start);
 
