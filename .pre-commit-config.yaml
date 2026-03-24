@@ -72,7 +72,7 @@ repos:
         types: [text]
         language: system
         entry: pnpm exec oxfmt
-        args: [--write, --list-different, --no-error-on-unmatched-pattern]
+        args: [--write, --no-error-on-unmatched-pattern]
 
   - repo: local
     hooks:
