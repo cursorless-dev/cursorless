@@ -45,9 +45,10 @@ export class EditNew {
       thatRanges: destinations.map(
         ({ target }) => target.thatTarget.contentRange,
       ),
-      cursorRanges: new Array(destinations.length).fill(
-        undefined,
-      ) as undefined[],
+      cursorRanges: Array.from(
+        { length: destinations.length },
+        () => undefined,
+      ),
     };
 
     const insertLineAfterCapability =

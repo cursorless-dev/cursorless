@@ -84,6 +84,7 @@ interface RunRecordedTestOpts {
    */
   runCursorlessCommand: (
     command: Command,
+    // oxlint-disable-next-line typescript/no-redundant-type-constituents
   ) => Promise<CommandResponse | unknown>;
 }
 

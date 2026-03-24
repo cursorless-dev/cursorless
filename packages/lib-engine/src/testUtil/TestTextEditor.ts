@@ -74,18 +74,15 @@ export class TestTextEditor implements EditableTextEditor {
     throw new Error("revealLine: not implemented");
   }
 
-  openLink(
-    _range: Range,
-    _options?: OpenLinkOptions | undefined,
-  ): Promise<void> {
+  openLink(_range: Range, _options?: OpenLinkOptions): Promise<void> {
     throw new Error("openLink: not implemented");
   }
 
-  fold(_ranges?: Range[] | undefined): Promise<void> {
+  fold(_ranges?: Range[]): Promise<void> {
     throw new Error("fold: not implemented");
   }
 
-  unfold(_ranges?: Range[] | undefined): Promise<void> {
+  unfold(_ranges?: Range[]): Promise<void> {
     throw new Error("unfold: not implemented");
   }
 
@@ -93,46 +90,43 @@ export class TestTextEditor implements EditableTextEditor {
     throw new Error("toggleBreakpoint: not implemented");
   }
 
-  toggleLineComment(_ranges?: Range[] | undefined): Promise<void> {
+  toggleLineComment(_ranges?: Range[]): Promise<void> {
     throw new Error("toggleLineComment: not implemented");
   }
 
-  insertSnippet(
-    _snippet: string,
-    _ranges?: Range[] | undefined,
-  ): Promise<void> {
+  insertSnippet(_snippet: string, _ranges?: Range[]): Promise<void> {
     throw new Error("insertSnippet: not implemented");
   }
 
-  rename(_range?: Range | undefined): Promise<void> {
+  rename(_range?: Range): Promise<void> {
     throw new Error("rename: not implemented");
   }
 
-  showReferences(_range?: Range | undefined): Promise<void> {
+  showReferences(_range?: Range): Promise<void> {
     throw new Error("showReferences: not implemented");
   }
 
-  quickFix(_range?: Range | undefined): Promise<void> {
+  quickFix(_range?: Range): Promise<void> {
     throw new Error("quickFix: not implemented");
   }
 
-  revealDefinition(_range?: Range | undefined): Promise<void> {
+  revealDefinition(_range?: Range): Promise<void> {
     throw new Error("revealDefinition: not implemented");
   }
 
-  revealTypeDefinition(_range?: Range | undefined): Promise<void> {
+  revealTypeDefinition(_range?: Range): Promise<void> {
     throw new Error("revealTypeDefinition: not implemented");
   }
 
-  showHover(_range?: Range | undefined): Promise<void> {
+  showHover(_range?: Range): Promise<void> {
     throw new Error("showHover: not implemented");
   }
 
-  showDebugHover(_range?: Range | undefined): Promise<void> {
+  showDebugHover(_range?: Range): Promise<void> {
     throw new Error("showDebugHover: not implemented");
   }
 
-  extractVariable(_range?: Range | undefined): Promise<void> {
+  extractVariable(_range?: Range): Promise<void> {
     throw new Error("extractVariable: not implemented");
   }
 

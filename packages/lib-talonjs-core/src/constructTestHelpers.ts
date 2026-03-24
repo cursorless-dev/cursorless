@@ -41,6 +41,7 @@ export function constructTestHelpers({
     storedTargets,
     injectIde,
 
+    // oxlint-disable-next-line typescript/no-redundant-type-constituents
     runCommand(command: Command): Promise<CommandResponse | unknown> {
       return commandApi.runCommand(command);
     },

@@ -19,7 +19,7 @@ export function neovimOnDidChangeTextDocument(
 export function neovimOnDidOpenTextDocument(
   listener: (event: TextDocument) => any,
   _thisArgs?: any,
-  _disposables?: Disposable[] | undefined,
+  _disposables?: Disposable[],
 ): Disposable {
   getNeovimRegistry().onEvent("onDidOpenTextDocument", listener);
   return dummyEvent();

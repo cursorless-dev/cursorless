@@ -336,8 +336,5 @@ export class PrefixSumIndexOfResult {
   constructor(
     public readonly index: number,
     public readonly remainder: number,
-  ) {
-    this.index = index;
-    this.remainder = remainder;
-  }
+  ) {}
 }

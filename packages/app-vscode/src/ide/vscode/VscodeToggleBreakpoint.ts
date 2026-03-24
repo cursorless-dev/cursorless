@@ -5,7 +5,7 @@ import type { VscodeTextEditor } from "./VscodeTextEditor";
 
 export async function vscodeToggleBreakpoint(
   editor: VscodeTextEditor,
-  ranges?: GeneralizedRange[] | undefined,
+  ranges?: GeneralizedRange[],
 ): Promise<void> {
   if (ranges == null) {
     return await vscode.commands.executeCommand(

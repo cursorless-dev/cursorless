@@ -45,7 +45,6 @@
     "@cursorless/lib-node-common": "workspace:*",
     "@docusaurus/module-type-aliases": "^3.9.2",
     "@docusaurus/types": "^3.9.2",
-    "@tsconfig/docusaurus": "^2.0.9",
     "@types/mdast": "^4.0.4",
     "@types/react": "^19.2.14",
     "sass": "^1.98.0",

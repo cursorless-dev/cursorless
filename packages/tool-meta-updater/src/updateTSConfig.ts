@@ -58,7 +58,7 @@ export async function updateTSConfig(
   }
 
   const compilerOptions = {
-    ...(cloneDeep(input.compilerOptions) ?? {}),
+    ...cloneDeep(input.compilerOptions),
   };
   delete compilerOptions.outDir;
   delete compilerOptions.rootDir;

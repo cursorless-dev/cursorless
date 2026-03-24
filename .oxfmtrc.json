@@ -6,5 +6,5 @@
     "/packages/lib-engine/src/customCommandGrammar/generated/",
     "/packages/lib-engine/src/snippets/vendor/",
     "/resources/fixtures/recorded/**/*.yml"
-  ]
+  ],
 }

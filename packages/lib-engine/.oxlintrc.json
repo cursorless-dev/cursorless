@@ -1,0 +1,22 @@
+{
+  "extends": ["../../.oxlintrc.json"],
+  "ignorePatterns": [
+    "src/customCommandGrammar/generated/**",
+    "src/snippets/vendor/**"
+  ],
+  "overrides": [
+    {
+      "files": ["**/*.ts"],
+      "rules": {
+        "import/no-nodejs-modules": "warn"
+      }
+    },
+
+    {
+      "files": ["src/scripts/**/*.ts", "src/testUtil/**/*.ts", "**/*.test.ts"],
+      "rules": {
+        "import/no-nodejs-modules": "off"
+      }
+    }
+  ]
+}

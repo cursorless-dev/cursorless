@@ -70,9 +70,8 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
     private contentProvider: TutorialContentProvider,
     private hats: Hats,
   ) {
-    this.setupStep = this.setupStep.bind(this);
-    this.reparseCurrentTutorial = this.reparseCurrentTutorial.bind(this);
     const debouncer = new Debouncer(() => this.checkPreconditions(), 100);
+    const runDebouncer = () => debouncer.run();
 
     void this.loadTutorials().then(async () => {
       if (this.state_.type === "loading") {
@@ -81,15 +80,15 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
     });
 
     this.disposables.push(
-      this.ide.onDidChangeActiveTextEditor(debouncer.run),
-      this.ide.onDidChangeTextDocument(debouncer.run),
-      this.ide.onDidChangeVisibleTextEditors(debouncer.run),
-      this.ide.onDidChangeTextEditorSelection(debouncer.run),
-      this.ide.onDidOpenTextDocument(debouncer.run),
-      this.ide.onDidCloseTextDocument(debouncer.run),
-      this.ide.onDidChangeTextEditorVisibleRanges(debouncer.run),
-      customSpokenFormGenerator.onDidChangeCustomSpokenForms(
-        this.reparseCurrentTutorial,
+      this.ide.onDidChangeActiveTextEditor(runDebouncer),
+      this.ide.onDidChangeTextDocument(runDebouncer),
+      this.ide.onDidChangeVisibleTextEditors(runDebouncer),
+      this.ide.onDidChangeTextEditorSelection(runDebouncer),
+      this.ide.onDidOpenTextDocument(runDebouncer),
+      this.ide.onDidCloseTextDocument(runDebouncer),
+      this.ide.onDidChangeTextEditorVisibleRanges(runDebouncer),
+      customSpokenFormGenerator.onDidChangeCustomSpokenForms(() =>
+        this.reparseCurrentTutorial(),
       ),
       debouncer,
     );

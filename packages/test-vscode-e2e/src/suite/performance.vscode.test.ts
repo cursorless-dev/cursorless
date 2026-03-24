@@ -283,10 +283,10 @@ function getScopeTypeAndTitle(
  */
 function generateTestData(n: number): string {
   const value = Object.fromEntries(
-    new Array(n).fill("").map((_, i) => [i.toString(), "value"]),
+    Array.from({ length: n }, (_, i) => [i.toString(), "value"]),
   );
   const obj = Object.fromEntries(
-    new Array(n).fill("").map((_, i) => [i.toString(), value]),
+    Array.from({ length: n }, (_, i) => [i.toString(), value]),
   );
   return JSON.stringify(obj, null, 2);
 }

@@ -206,7 +206,7 @@ export class NeovimIDE implements IDE {
   public onDidOpenTextDocument(
     listener: (event: TextDocument) => any,
     thisArgs?: any,
-    disposables?: Disposable[] | undefined,
+    disposables?: Disposable[],
   ): Disposable {
     return neovimOnDidOpenTextDocument(listener, thisArgs, disposables);
   }

@@ -53,8 +53,9 @@ export class PrimitiveTargetSpokenFormGenerator {
           return this.handleScopeType(modifier.scopeType);
         }
         return [
-          new Array(modifier.ancestorIndex).fill(
-            this.spokenFormMap.modifierExtra.ancestor,
+          Array.from(
+            { length: modifier.ancestorIndex },
+            () => this.spokenFormMap.modifierExtra.ancestor,
           ),
           this.handleScopeType(modifier.scopeType),
         ];

@@ -49,17 +49,20 @@ export interface CommandApi {
    * Runs a command.  This is the core of the Cursorless engine.
    * @param command The command to run
    */
+  // oxlint-disable-next-line typescript/no-redundant-type-constituents
   runCommand(command: Command): Promise<CommandResponse | unknown>;
 
   /**
    * Designed to run commands that come directly from the user.  Ensures that
    * the command args are of the correct shape.
    */
+  // oxlint-disable-next-line typescript/no-redundant-type-constituents
   runCommandSafe(...args: unknown[]): Promise<CommandResponse | unknown>;
 
   /**
    * Repeats the previous command.
    */
+  // oxlint-disable-next-line typescript/no-redundant-type-constituents
   repeatPreviousCommand(): Promise<CommandResponse | unknown>;
 }
 

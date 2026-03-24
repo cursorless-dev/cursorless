@@ -6,12 +6,15 @@ import {
 import type { LoadContext, Plugin, PluginOptions } from "@docusaurus/types";
 import * as fs from "node:fs";
 import * as path from "node:path";
+import { fileURLToPath } from "node:url";
 import type {
   Fixture,
   Scope,
   ScopeTests,
   Target,
 } from "../docs/components/types";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default function prepareAssetsPlugin(
   _context: LoadContext,

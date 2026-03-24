@@ -1,14 +1,16 @@
 {
-  "extends": ["@tsconfig/docusaurus/tsconfig.json", "../../tsconfig.web.json"],
+  "extends": ["../../tsconfig.web.json"],
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "react"
+    "jsxImportSource": "react",
+    "skipLibCheck": true,
+    "types": ["@docusaurus/theme-classic"],
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.json",
-    "../../resources/typings/**/*.d.ts"
+    "../../resources/typings/**/*.d.ts",
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }

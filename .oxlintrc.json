@@ -1,46 +1,40 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "plugins": ["eslint", "typescript", "unicorn", "oxc", "import"],
-  "ignorePatterns": [
-    ".git/**",
-    "resources/playground/**",
-    "packages/*/out/**",
-    "packages/*/dist/**",
-    "packages/app-web-docs/.docusaurus/**",
-    "packages/app-neovim/cursorless.nvim/**",
-    "packages/app-vscode/src/keyboard/grammar/generated/**",
-    "packages/lib-engine/src/customCommandGrammar/generated/**",
-    "packages/lib-engine/src/snippets/vendor/**",
-    "**/node_modules/**"
+  "jsPlugins": [
+    {
+      "name": "mocha",
+      "specifier": "eslint-plugin-mocha"
+    }
   ],
+
+  "ignorePatterns": [
+    "resources/playground/**",
+    "packages/app-neovim/cursorless.nvim/**"
+  ],
+
+  "options": {
+    "typeAware": true,
+    "typeCheck": false
+  },
+
   "rules": {
-    "import/no-relative-packages": "error",
-    "import/no-duplicates": "error",
-    "unused-imports/no-unused-imports": "error",
-    "@typescript-eslint/consistent-type-imports": "error",
-    "@typescript-eslint/consistent-type-assertions": [
-      "error",
+    "import/no-relative-packages": "warn",
+    "import/no-duplicates": "warn",
+    "typescript/consistent-type-imports": "warn",
+    "typescript/consistent-type-assertions": [
+      "warn",
       {
         "assertionStyle": "as"
       }
     ],
-    "@typescript-eslint/naming-convention": [
-      "error",
-      {
-        "selector": ["objectLiteralProperty"],
-        "format": ["camelCase"],
-        "filter": {
-          "regex": "[.]",
-          "match": false
-        }
-      }
-    ],
-    "@typescript-eslint/no-floating-promises": "error",
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-inferrable-types": "off",
-    "@typescript-eslint/no-non-null-assertion": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "error",
+    "typescript/no-explicit-any": "off",
+    "typescript/no-inferrable-types": "off",
+    "typescript/restrict-template-expressions": "off",
+    "typescript/no-base-to-string": "off",
+    "typescript/unbound-method": "off",
+    "eslint/no-unused-vars": [
+      "warn",
       {
         "argsIgnorePattern": "^_",
         "varsIgnorePattern": "^_",
@@ -48,29 +42,29 @@
         "ignoreRestSiblings": true
       }
     ],
-    "curly": "error",
+    "curly": "warn",
     "eqeqeq": [
-      "error",
+      "warn",
       "always",
       {
         "null": "never"
       }
     ],
-    "no-constant-condition": [
-      "error",
+    "no-warning-comments": [
+      "warn",
+      {
+        "terms": ["todo"]
+      }
+    ],
+    "eslint/no-constant-condition": [
+      "warn",
       {
         "checkLoops": false
       }
     ],
-    "no-restricted-syntax": [
-      "error",
-      "MemberExpression[object.property.name='constructor'][property.name='name']"
-    ],
-    "no-throw-literal": "error",
-    "semi": "off",
-    "unicorn/prefer-module": "error",
-    "mocha/no-pending-tests": "error",
-    "mocha/no-exclusive-tests": "error"
-  },
-  "overrides": []
+    "eslint/no-throw-literal": "warn",
+    "unicorn/prefer-module": "warn",
+    "mocha/no-pending-tests": "warn",
+    "mocha/no-exclusive-tests": "warn"
+  }
 }

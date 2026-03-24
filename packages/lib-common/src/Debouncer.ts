@@ -2,7 +2,7 @@
  * Debounces a callback.
  */
 export class Debouncer {
-  private timeoutHandle: ReturnType<typeof setTimeout> | null = null;
+  private timeoutHandle?: ReturnType<typeof setTimeout>;
 
   constructor(
     /** The callback to debounce */
@@ -19,13 +19,14 @@ export class Debouncer {
 
     this.timeoutHandle = setTimeout(() => {
       this.callback();
-      this.timeoutHandle = null;
+      this.timeoutHandle = undefined;
     }, this.debounceDelayMs);
   }
 
   dispose() {
     if (this.timeoutHandle != null) {
       clearTimeout(this.timeoutHandle);
+      this.timeoutHandle = undefined;
     }
   }
 }

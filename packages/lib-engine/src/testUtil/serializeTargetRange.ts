@@ -38,12 +38,12 @@ export function serializeTargetRange(
   // Number of characters in the line number + `|`
   const startIndent = start.line.toString().length + 1;
   // Add start of range marker above the first code line
-  const prefix = fill(" ", startIndent + start.character) + ">";
+  const prefix = " ".repeat(startIndent + start.character) + ">";
   if (range.isSingleLine) {
-    lines.push(prefix + fill("-", end.character - start.character) + "<");
+    lines.push(prefix + "-".repeat(end.character - start.character) + "<");
   } else {
     lines.push(
-      prefix + fill("-", codeLines[start.line].length - start.character),
+      prefix + "-".repeat(codeLines[start.line].length - start.character),
     );
   }
 
@@ -62,12 +62,8 @@ export function serializeTargetRange(
   if (!range.isSingleLine) {
     // Number of characters in the line number + `|` + whitespace
     const endIndent = end.line.toString().length + 2;
-    lines.push(fill(" ", endIndent) + fill("-", end.character) + "<");
+    lines.push(" ".repeat(endIndent) + "-".repeat(end.character) + "<");
   }
 
   return lines.join("\n");
-}
-
-function fill(character: string, count: number): string {
-  return new Array(count + 1).join(character);
 }

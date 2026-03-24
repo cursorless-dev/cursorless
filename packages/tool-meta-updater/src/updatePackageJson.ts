@@ -89,9 +89,7 @@ async function getScripts(
   isRoot: boolean,
   _isLib: boolean,
 ) {
-  const scripts: PackageJson.Scripts = {
-    ...(inputScripts ?? {}),
-  };
+  const scripts: PackageJson.Scripts = { ...inputScripts };
 
   if (isRoot) {
     return scripts;
@@ -186,12 +184,16 @@ function sortFields(obj: Record<string, any>): Record<string, any> {
 
   if (sorted.dependencies != null) {
     sorted.dependencies = Object.fromEntries(
-      Object.entries(sorted.dependencies).sort(),
+      Object.entries(sorted.dependencies).sort(([keyA], [keyB]) =>
+        keyA.localeCompare(keyB),
+      ),
     );
   }
   if (sorted.devDependencies != null) {
     sorted.devDependencies = Object.fromEntries(
-      Object.entries(sorted.devDependencies).sort(),
+      Object.entries(sorted.devDependencies).sort(([keyA], [keyB]) =>
+        keyA.localeCompare(keyB),
+      ),
     );
   }
 

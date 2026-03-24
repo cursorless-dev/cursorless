@@ -35,6 +35,7 @@ export interface TalonJsTestHelpers extends Omit<TestHelpers, "takeSnapshot"> {
   ide: NormalizedIDE;
   storedTargets: StoredTargetMap;
   injectIde: (ide: IDE) => void;
+  // oxlint-disable-next-line typescript/no-redundant-type-constituents
   runCommand(command: Command): Promise<CommandResponse | unknown>;
 }
 
