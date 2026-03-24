@@ -40,6 +40,13 @@ function createSelection(selection: SelectionPlainObject): Selection {
   return new Selection(anchor, active);
 }
 
+function normalizeRecordedReturnValue(returnValue: unknown) {
+  // Recorded fixtures store plain serialized data rather than runtime instances.
+  return returnValue != null && typeof returnValue === "object"
+    ? JSON.parse(JSON.stringify(returnValue))
+    : returnValue;
+}
+
 interface RunRecordedTestOpts {
   /**
    * The path to the test fixture
@@ -218,14 +225,14 @@ export async function runRecordedTest({
   } else {
     if (fixture.thrownError != null) {
       throw new Error(
-        `Expected error ${fixture.thrownError.name} but none was thrown`,
+        `Expected error ${fixture.thrownError.name}, but none was thrown`,
       );
     }
 
     assert.deepEqual(resultState, fixture.finalState, "Unexpected final state");
 
     assert.deepEqual(
-      returnValue,
+      normalizeRecordedReturnValue(returnValue),
       fixture.returnValue,
       "Unexpected return value",
     );

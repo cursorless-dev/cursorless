@@ -10,7 +10,7 @@ class CustomDump {
     private readonly opts: yaml.DumpOptions,
   ) {}
 
-  represent() {
+  represent(): string {
     let result = yaml.dump(
       this.data,
       Object.assign({ replacer, schema }, this.opts),
@@ -35,7 +35,7 @@ const schema = yaml.DEFAULT_SCHEMA.extend({ implicit: [customDumpType] });
 const isObject = (value: unknown): value is object =>
   typeof value === "object" && value != null;
 
-function hasSimpleChildren(value: unknown) {
+function hasSimpleChildren(value: unknown): boolean {
   if (isObject(value)) {
     return Object.values(value).every(
       (value) => !isObject(value) && !Array.isArray(value),
@@ -44,9 +44,10 @@ function hasSimpleChildren(value: unknown) {
   if (Array.isArray(value)) {
     return value.every((value) => !isObject(value) && !Array.isArray(value));
   }
+  return false;
 }
 
-function replacer(key: string, value: unknown) {
+function replacer(key: string, value: unknown): unknown {
   if (key === "") {
     return value;
   } // top-level, don't change this
@@ -58,6 +59,9 @@ function replacer(key: string, value: unknown) {
   return value; // default
 }
 
-export const serialize = (obj: unknown) =>
-  new CustomDump(obj, { noRefs: true, quotingType: '"' }).represent().trim() +
-  "\n";
+export function serialize(obj: unknown): string {
+  return (
+    new CustomDump(obj, { noRefs: true, quotingType: '"' }).represent().trim() +
+    "\n"
+  );
+}
