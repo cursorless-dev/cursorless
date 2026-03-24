@@ -1,10 +1,10 @@
-import assert from "assert";
+import * as assert from "node:assert/strict";
 import { generalizedRangeContains } from "./GeneralizedRange";
 import { Position } from "./Position";
 
 suite("generalizedRangeContains", () => {
   test("character", () => {
-    assert.strictEqual(
+    assert.equal(
       generalizedRangeContains(
         {
           type: "character",
@@ -19,7 +19,7 @@ suite("generalizedRangeContains", () => {
       ),
       true,
     );
-    assert.strictEqual(
+    assert.equal(
       generalizedRangeContains(
         {
           type: "character",
@@ -34,7 +34,7 @@ suite("generalizedRangeContains", () => {
       ),
       true,
     );
-    assert.strictEqual(
+    assert.equal(
       generalizedRangeContains(
         {
           type: "character",
@@ -52,7 +52,7 @@ suite("generalizedRangeContains", () => {
   });
 
   test("line", () => {
-    assert.strictEqual(
+    assert.equal(
       generalizedRangeContains(
         {
           type: "line",
@@ -67,7 +67,7 @@ suite("generalizedRangeContains", () => {
       ),
       true,
     );
-    assert.strictEqual(
+    assert.equal(
       generalizedRangeContains(
         {
           type: "line",
@@ -82,7 +82,7 @@ suite("generalizedRangeContains", () => {
       ),
       true,
     );
-    assert.strictEqual(
+    assert.equal(
       generalizedRangeContains(
         {
           type: "line",
@@ -100,7 +100,7 @@ suite("generalizedRangeContains", () => {
   });
 
   test("mixed", () => {
-    assert.strictEqual(
+    assert.equal(
       generalizedRangeContains(
         {
           type: "line",
@@ -115,7 +115,7 @@ suite("generalizedRangeContains", () => {
       ),
       true,
     );
-    assert.strictEqual(
+    assert.equal(
       generalizedRangeContains(
         {
           type: "line",
@@ -130,7 +130,7 @@ suite("generalizedRangeContains", () => {
       ),
       false,
     );
-    assert.strictEqual(
+    assert.equal(
       generalizedRangeContains(
         {
           type: "character",
@@ -145,7 +145,7 @@ suite("generalizedRangeContains", () => {
       ),
       true,
     );
-    assert.strictEqual(
+    assert.equal(
       generalizedRangeContains(
         {
           type: "character",

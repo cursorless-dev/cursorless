@@ -1,4 +1,4 @@
-import * as assert from "assert";
+import * as assert from "node:assert/strict";
 import type { NearleyLexer, NearleyToken } from "./CommandLexer";
 import { lexer } from "./lexer";
 
@@ -88,7 +88,7 @@ const fixtures: Fixture[] = [
 suite("custom grammar: lexer", () => {
   fixtures.forEach(({ input, expectedOutput }) => {
     test(input, () => {
-      assert.deepStrictEqual(
+      assert.deepEqual(
         Array.from(iterateTokens(lexer, input)).map(({ type, value }) => ({
           type,
           value,

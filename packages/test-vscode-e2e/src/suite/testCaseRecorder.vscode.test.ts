@@ -9,9 +9,9 @@ import {
   getReusableEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
-import { assert } from "chai";
-import * as crypto from "crypto";
+import * as crypto from "node:crypto";
 import { mkdir, readFile, readdir, rm } from "node:fs/promises";
+import * as assert from "node:assert/strict";
 import * as os from "node:os";
 import * as path from "node:path";
 import * as vscode from "vscode";
@@ -153,7 +153,7 @@ async function takeEach() {
 
 async function checkRecordedTest(tmpdir: string) {
   const paths = await readdir(tmpdir);
-  assert.lengthOf(paths, 1);
+  assert.equal(paths.length, 1);
 
   const actualRecordedTestPath = paths[0];
   assert.equal(path.basename(actualRecordedTestPath), "takeEach.yml");

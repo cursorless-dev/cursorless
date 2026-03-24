@@ -1,7 +1,7 @@
 import { getEnvironmentVariableStrict } from "@cursorless/lib-common";
 import { getCursorlessRepoRoot, isWindows } from "@cursorless/lib-node-common";
-import * as cp from "child_process";
-import { copyFile, mkdirSync, readdirSync } from "fs";
+import * as cp from "node:child_process";
+import { copyFile, mkdirSync, readdirSync } from "node:fs";
 import process from "node:process";
 import { Tail } from "tail";
 

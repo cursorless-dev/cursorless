@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import * as assert from "node:assert/strict";
 import { UndoStack } from "./UndoStack";
 
 suite("UndoStack", () => {
@@ -7,12 +7,12 @@ suite("UndoStack", () => {
     undoStack.push("a");
     undoStack.push("b");
     undoStack.push("c");
-    assert.strictEqual(undoStack.undo(), "b");
-    assert.strictEqual(undoStack.undo(), "a");
-    assert.strictEqual(undoStack.undo(), undefined);
-    assert.strictEqual(undoStack.redo(), "b");
-    assert.strictEqual(undoStack.redo(), "c");
-    assert.strictEqual(undoStack.redo(), undefined);
+    assert.equal(undoStack.undo(), "b");
+    assert.equal(undoStack.undo(), "a");
+    assert.equal(undoStack.undo(), undefined);
+    assert.equal(undoStack.redo(), "b");
+    assert.equal(undoStack.redo(), "c");
+    assert.equal(undoStack.redo(), undefined);
   });
 
   test("should clobber stack if push after undo", () => {
@@ -20,11 +20,11 @@ suite("UndoStack", () => {
     undoStack.push("a");
     undoStack.push("b");
     undoStack.push("c");
-    assert.strictEqual(undoStack.undo(), "b");
+    assert.equal(undoStack.undo(), "b");
     undoStack.push("d");
-    assert.strictEqual(undoStack.undo(), "b");
-    assert.strictEqual(undoStack.redo(), "d");
-    assert.strictEqual(undoStack.redo(), undefined);
+    assert.equal(undoStack.undo(), "b");
+    assert.equal(undoStack.redo(), "d");
+    assert.equal(undoStack.redo(), undefined);
   });
 
   test("should truncate history if max length exceeded", () => {
@@ -33,20 +33,20 @@ suite("UndoStack", () => {
     undoStack.push("b");
     undoStack.push("c");
     undoStack.push("d");
-    assert.strictEqual(undoStack.undo(), "c");
-    assert.strictEqual(undoStack.undo(), "b");
-    assert.strictEqual(undoStack.undo(), undefined);
+    assert.equal(undoStack.undo(), "c");
+    assert.equal(undoStack.undo(), "b");
+    assert.equal(undoStack.undo(), undefined);
   });
 
   test("should handle empty undo and redo", () => {
     const undoStack = new UndoStack<string>(3);
-    assert.strictEqual(undoStack.undo(), undefined);
-    assert.strictEqual(undoStack.redo(), undefined);
+    assert.equal(undoStack.undo(), undefined);
+    assert.equal(undoStack.redo(), undefined);
   });
 
   test("should handle redo at end of stack", () => {
     const undoStack = new UndoStack<string>(3);
     undoStack.push("a");
-    assert.strictEqual(undoStack.redo(), undefined);
+    assert.equal(undoStack.redo(), undefined);
   });
 });

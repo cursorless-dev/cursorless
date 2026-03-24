@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import * as assert from "node:assert/strict";
 import type { KeyValuePair } from "./buildSuffixTrie";
 import { buildSuffixTrie } from "./buildSuffixTrie";
 import { isEqual, sortBy, uniq, uniqWith } from "lodash-es";
@@ -130,8 +130,8 @@ suite("buildSuffixTrie", () => {
         sortEntries(chars.flatMap((char) => trie.search(char))),
         isEqual,
       ).map(({ key, value }) => ({ key, value }));
-      assert.deepStrictEqual(actual, sortEntries(expected));
-      assert.deepStrictEqual(
+      assert.deepEqual(actual, sortEntries(expected));
+      assert.deepEqual(
         sortBy(conflicts.map(sortEntries), (conflict) =>
           JSON.stringify(conflict),
         ),

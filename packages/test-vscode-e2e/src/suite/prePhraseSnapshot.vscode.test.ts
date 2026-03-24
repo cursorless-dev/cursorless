@@ -9,7 +9,7 @@ import {
   getReusableEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
-import * as assert from "assert";
+import * as assert from "node:assert/strict";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 import { mockPrePhraseGetVersion } from "../mockPrePhraseGetVersion";
@@ -106,7 +106,7 @@ async function runTest(
     },
   });
 
-  assert.deepStrictEqual(
+  assert.deepEqual(
     editor.selections.map(fromVscodeSelection).map(selectionToPlainObject),
     expectedSelections.map(fromVscodeSelection).map(selectionToPlainObject),
   );

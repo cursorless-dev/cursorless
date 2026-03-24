@@ -17,13 +17,11 @@
     "lodash-es": "^4.17.23"
   },
   "devDependencies": {
-    "@types/chai": "^5.2.3",
     "@types/lodash-es": "^4.17.12",
     "@types/mocha": "^10.0.10",
     "@types/semver": "^7.7.1",
     "@types/sinon": "^21.0.0",
     "@types/vscode": "1.98.0",
-    "chai": "^6.2.2",
     "semver": "^7.7.4",
     "sinon": "^21.0.3"
   }

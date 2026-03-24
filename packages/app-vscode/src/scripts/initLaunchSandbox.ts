@@ -4,7 +4,7 @@
  * developing the Cursorless VSCode extension locally.
  */
 import { extensionDependencies } from "@cursorless/lib-common";
-import * as cp from "child_process";
+import * as cp from "node:child_process";
 
 const vsCodeToolName: string = "code";
 const validCliToolParams: Array<string> = ["--code", "--codium"];

@@ -1,4 +1,4 @@
-import * as assert from "node:assert";
+import * as assert from "node:assert/strict";
 import { URI } from "vscode-uri";
 import { Position } from "../../../types/Position";
 import { Range } from "../../../types/Range";
@@ -73,7 +73,7 @@ suite("InMemoryTextDocument", () => {
   test("positionAt", () => {
     const document = createTestDocument("hello  \n  world\r\n");
 
-    assert.equal(document.positionAt(-1), "0:0");
+    assert.equal(document.positionAt(-1).toString(), "0:0");
     assert.equal(document.positionAt(0).toString(), "0:0");
     assert.equal(document.positionAt(6).toString(), "0:6");
     assert.equal(document.positionAt(7).toString(), "0:7");

@@ -3,7 +3,7 @@ import {
   getCursorlessApi,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
-import * as assert from "node:assert";
+import * as assert from "node:assert/strict";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
@@ -73,5 +73,5 @@ async function runTest() {
     },
   });
 
-  assert.deepStrictEqual(document.getText(), "world hello");
+  assert.equal(document.getText(), "world hello");
 }

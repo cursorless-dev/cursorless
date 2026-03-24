@@ -1,11 +1,11 @@
-import * as assert from "assert";
+import * as assert from "node:assert/strict";
 import { SentenceSegmenter } from "../processTargets/modifiers/scopeHandlers/SentenceScopeHandler/SentenceSegmenter";
 import { sentenceSegmenterFixture } from "./fixtures/sentenceSegmeter.fixture";
 
 suite("Sentence segmenter", () => {
   sentenceSegmenterFixture.forEach(({ input, expectedOutput }) => {
     test(input, () => {
-      assert.deepStrictEqual(
+      assert.deepEqual(
         Array.from(new SentenceSegmenter().segment(input)).map(
           ({ text }) => text,
         ),

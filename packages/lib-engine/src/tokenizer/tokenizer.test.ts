@@ -1,4 +1,4 @@
-import * as assert from "assert";
+import * as assert from "node:assert/strict";
 import { flatten, range } from "lodash-es";
 import { tokenize } from ".";
 import { FakeIDE } from "@cursorless/lib-common";
@@ -134,7 +134,7 @@ suite("tokenizer", () => {
   globalTests.forEach(([input, expectedOutput]) => {
     test(`tokenizer test, input: "${input}"`, () => {
       const output = tokenize(ide, input, "anyLang", (match) => match[0]);
-      assert.deepStrictEqual(output, expectedOutput);
+      assert.deepEqual(output, expectedOutput);
     });
   });
 
@@ -156,7 +156,7 @@ suite("tokenizer", () => {
       tests.forEach(([input, expectedOutput]) => {
         test(`${language} custom tokenizer, input: "${input}"`, () => {
           const output = tokenize(ide, input, language, (match) => match[0]);
-          assert.deepStrictEqual(output, expectedOutput);
+          assert.deepEqual(output, expectedOutput);
         });
       });
     },

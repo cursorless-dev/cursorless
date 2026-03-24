@@ -1,5 +1,5 @@
 import { Range } from "@cursorless/lib-common";
-import assert from "assert";
+import * as assert from "node:assert/strict";
 import type { MutableQueryCapture, QueryCapture } from "./QueryCapture";
 import {
   createTestQueryCapture,
@@ -60,7 +60,7 @@ suite("rewriteStartOfEndOf", () => {
   for (const testCase of testCases) {
     test(testCase.name, () => {
       const actual = rewriteStartOfEndOf(testCase.captures.map(fillOutCapture));
-      assert.deepStrictEqual(actual, testCase.expected.map(fillOutCapture));
+      assert.deepEqual(actual, testCase.expected.map(fillOutCapture));
     });
   }
 });

@@ -1,4 +1,4 @@
-import assert from "assert";
+import * as assert from "node:assert/strict";
 import type { GeneralizedRange } from "./GeneralizedRange";
 import { generalizedRangeTouches } from "./GeneralizedRange";
 import { Position } from "./Position";
@@ -136,6 +136,6 @@ function testRangePair(
   b: GeneralizedRange,
   expected: boolean,
 ) {
-  assert.strictEqual(generalizedRangeTouches(a, b), expected);
-  assert.strictEqual(generalizedRangeTouches(b, a), expected);
+  assert.equal(generalizedRangeTouches(a, b), expected);
+  assert.equal(generalizedRangeTouches(b, a), expected);
 }

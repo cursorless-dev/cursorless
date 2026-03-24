@@ -5,7 +5,7 @@ import {
 } from "@cursorless/lib-common";
 import { getRecordedTestPaths } from "@cursorless/lib-node-common";
 import * as yaml from "js-yaml";
-import assert from "node:assert";
+import * as assert from "node:assert/strict";
 import { promises as fsp } from "node:fs";
 import { SpokenFormGenerator } from ".";
 import { canonicalizeAndValidateCommand } from "../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
@@ -53,8 +53,8 @@ suite("Generate spoken forms", () => {
       regex: "foo",
     });
 
-    assert(spokenForm.type === "success");
-    assert.equal(spokenForm.spokenForms, "bar");
+    assert.ok(spokenForm.type === "success");
+    assert.deepEqual(spokenForm.spokenForms, ["bar"]);
   });
 });
 
@@ -69,7 +69,7 @@ async function runTest(file: string) {
   );
 
   if (generatedSpokenForm.type === "success") {
-    assert(generatedSpokenForm.spokenForms.length === 1);
+    assert.ok(generatedSpokenForm.spokenForms.length === 1);
   }
 
   if (fixture.marksToCheck != null && generatedSpokenForm.type === "success") {
@@ -78,8 +78,8 @@ async function runTest(file: string) {
     const hatMapSpokenForm = generator.processCommand(
       getHatMapCommand(fixture.marksToCheck),
     );
-    assert(hatMapSpokenForm.type === "success");
-    assert(hatMapSpokenForm.spokenForms.length === 1);
+    assert.ok(hatMapSpokenForm.type === "success");
+    assert.ok(hatMapSpokenForm.spokenForms.length === 1);
     generatedSpokenForm.spokenForms[0] += " " + hatMapSpokenForm.spokenForms[0];
   }
 

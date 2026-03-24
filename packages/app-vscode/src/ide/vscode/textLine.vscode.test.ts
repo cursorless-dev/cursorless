@@ -1,4 +1,4 @@
-import * as assert from "assert";
+import * as assert from "node:assert/strict";
 import { getReusableEditor } from "@cursorless/lib-vscode-common";
 import VscodeTextLine from "./VscodeTextLine";
 

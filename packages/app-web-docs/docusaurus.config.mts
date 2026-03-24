@@ -2,7 +2,7 @@ import type { Config } from "@docusaurus/types";
 import type { Root } from "mdast";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
-import { dirname, extname, relative, resolve } from "path";
+import { dirname, extname, relative, resolve } from "node:path";
 import { themes } from "prism-react-renderer";
 import type { Transformer } from "unified";
 import { visit } from "unist-util-visit";

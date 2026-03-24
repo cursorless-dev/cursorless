@@ -1,5 +1,5 @@
-import * as child from "child_process";
-import * as fs from "fs";
+import * as child from "node:child_process";
+import * as fs from "node:fs";
 import { testSubsetFilePath } from "../testSubset";
 
 const TEMPLATE = `# This file contains the grep strings to pass to Mocha when running a subset of tests.

@@ -4,7 +4,7 @@ import {
   openNewNotebookEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
-import * as assert from "assert";
+import * as assert from "node:assert/strict";
 import { window } from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { getPlainNotebookContents } from "../notebook";
@@ -61,7 +61,7 @@ async function runTest(
 
   assert.equal(activeCelIndex, expectedActiveCellIndex);
 
-  assert.deepStrictEqual(
+  assert.deepEqual(
     getPlainNotebookContents(notebook),
     expectedNotebookContents,
   );

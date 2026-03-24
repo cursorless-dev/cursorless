@@ -1,4 +1,4 @@
-import assert from "assert";
+import * as assert from "node:assert/strict";
 import type { ScopeType } from "@cursorless/lib-common";
 import { parseScopeType } from "./parseCommand";
 
@@ -33,7 +33,7 @@ const testCases: TestCase[] = [
 suite("custom grammar: scope types", () => {
   testCases.forEach(({ input, expectedOutput }) => {
     test(input, () => {
-      assert.deepStrictEqual(parseScopeType(input), expectedOutput);
+      assert.deepEqual(parseScopeType(input), expectedOutput);
     });
   });
 });

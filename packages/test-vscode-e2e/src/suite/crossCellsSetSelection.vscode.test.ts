@@ -5,7 +5,7 @@ import {
   openNewNotebookEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
-import assert from "assert";
+import * as assert from "node:assert/strict";
 import { window } from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
@@ -31,7 +31,7 @@ async function runTest() {
     );
   });
 
-  assert(targetHat != null, 'Expected a hat for "world" in the second cell');
+  assert.ok(targetHat != null, 'Expected a hat for "world" in the second cell');
   const { hatStyle, character } = splitKey(targetHat[0]);
 
   await runCursorlessCommand({
@@ -53,5 +53,5 @@ async function runTest() {
   const editor = window.activeTextEditor;
 
   assert.ok(editor != null, "No editor was focused");
-  assert.deepStrictEqual(editor.document.getText(editor.selection), "world");
+  assert.equal(editor.document.getText(editor.selection), "world");
 }

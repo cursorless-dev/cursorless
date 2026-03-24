@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import * as assert from "node:assert/strict";
 import * as parser from "..";
 
 suite("sentence-parser: Single sentences", function () {

@@ -4,7 +4,7 @@ import {
   openNewEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
-import * as assert from "assert";
+import * as assert from "node:assert/strict";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
@@ -33,7 +33,7 @@ async function breakpointAdd() {
   await toggleBreakpoint();
 
   const breakpoints = vscode.debug.breakpoints;
-  assert.deepStrictEqual(breakpoints.length, 1);
+  assert.equal(breakpoints.length, 1);
   assert.ok(breakpoints[0] instanceof vscode.SourceBreakpoint);
   const breakpoint = breakpoints[0];
   assert.ok(breakpoint.location.range.isEqual(new vscode.Range(0, 0, 0, 0)));
@@ -46,7 +46,7 @@ async function breakpointTokenAdd() {
   await toggleTokenBreakpoint();
 
   const breakpoints = vscode.debug.breakpoints;
-  assert.deepStrictEqual(breakpoints.length, 1);
+  assert.equal(breakpoints.length, 1);
   assert.ok(breakpoints[0] instanceof vscode.SourceBreakpoint);
   const breakpoint = breakpoints[0];
   assert.ok(breakpoint.location.range.isEqual(new vscode.Range(0, 2, 0, 7)));
@@ -63,11 +63,11 @@ async function breakpointRemove() {
     ),
   ]);
 
-  assert.deepStrictEqual(vscode.debug.breakpoints.length, 1);
+  assert.equal(vscode.debug.breakpoints.length, 1);
 
   await toggleBreakpoint();
 
-  assert.deepStrictEqual(vscode.debug.breakpoints.length, 0);
+  assert.equal(vscode.debug.breakpoints.length, 0);
 }
 
 async function breakpointTokenRemove() {
@@ -84,12 +84,12 @@ async function breakpointTokenRemove() {
     ),
   ]);
 
-  assert.deepStrictEqual(vscode.debug.breakpoints.length, 2);
+  assert.equal(vscode.debug.breakpoints.length, 2);
 
   await toggleTokenBreakpoint();
 
   const breakpoints = vscode.debug.breakpoints;
-  assert.deepStrictEqual(breakpoints.length, 1);
+  assert.equal(breakpoints.length, 1);
   assert.ok(breakpoints[0] instanceof vscode.SourceBreakpoint);
   const breakpoint = breakpoints[0];
   assert.ok(breakpoint.location.range.isEqual(new vscode.Range(0, 0, 0, 0)));

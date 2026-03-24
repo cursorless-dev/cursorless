@@ -1,4 +1,4 @@
-import assert from "assert";
+import * as assert from "node:assert/strict";
 import nearley from "nearley";
 import type { KeyDescriptor } from "../TokenTypeHelpers";
 import grammar from "./generated/grammar";
@@ -153,7 +153,7 @@ suite("keyboard.getAcceptableTokenTypes", () => {
             arg: value.partialArg,
           },
         };
-        assert(
+        assert.ok(
           candidates.some((result) => isEqual(result, fullValue)),
           "Relevant candidates (note that symbols will be missing):\n" +
             JSON.stringify(candidates, null, 2),

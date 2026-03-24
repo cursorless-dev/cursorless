@@ -7,7 +7,7 @@ import type {
   ScopeIteratorRequirements,
 } from "./scopeHandler.types";
 import { compareTargetScopes } from "./compareTargetScopes";
-import assert from "assert";
+import * as assert from "node:assert/strict";
 
 class TestScopeHandler extends BaseScopeHandler {
   public scopeType = undefined;
@@ -132,7 +132,7 @@ suite("BaseScopeHandler", () => {
         getTargets: () => undefined as any,
       }));
 
-      assert.deepStrictEqual(
+      assert.deepEqual(
         [...inputScopes]
           .sort((a, b) =>
             compareTargetScopes(testCase.direction, position, a, b),
@@ -163,7 +163,7 @@ suite("BaseScopeHandler", () => {
         .filter((scope) => scope.shouldYield)
         .map(({ start, end }) => ({ start, end }));
 
-      assert.deepStrictEqual(actualScopes, expectedScopes);
+      assert.deepEqual(actualScopes, expectedScopes);
     });
   });
 });

@@ -5,7 +5,7 @@ import type {
 } from "@cursorless/lib-common";
 import { asyncSafety } from "@cursorless/lib-common";
 import { getRecordedTestPaths } from "@cursorless/lib-node-common";
-import assert from "assert";
+import * as assert from "node:assert/strict";
 import * as yaml from "js-yaml";
 import { promises as fsp } from "node:fs";
 import { canonicalizeAndValidateCommand } from "../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
@@ -63,7 +63,7 @@ async function runRecordedFixture(repl: TalonRepl, file: string) {
     commands.push(getHatMapCommand(fixture.marksToCheck));
   }
 
-  assert(fixture.command.spokenForm != null);
+  assert.ok(fixture.command.spokenForm != null);
 
   await runTest(repl, fixture.command.spokenForm, commands);
 }
@@ -89,7 +89,7 @@ async function runTest(
 
   // If we've already run this test, we don't need to run it again
   if (alreadyRan[spokenForm] != null) {
-    assert.deepStrictEqual(alreadyRan[spokenForm], valueForCache);
+    assert.deepEqual(alreadyRan[spokenForm], valueForCache);
     return;
   }
 
@@ -115,7 +115,7 @@ async function runTest(
     }
   })();
 
-  assert.deepStrictEqual(commandsActual, commandsExpected);
+  assert.deepEqual(commandsActual, commandsExpected);
 }
 
 async function setTestMode(repl: TalonRepl, enabled: boolean) {

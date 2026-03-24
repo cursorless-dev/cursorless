@@ -1,7 +1,7 @@
 import type { ScopeSupportInfo, ScopeType } from "@cursorless/lib-common";
 import { ScopeSupport, sleep } from "@cursorless/lib-common";
 import { getCursorlessApi, openNewEditor } from "@cursorless/lib-vscode-common";
-import { stat, unlink, writeFile } from "fs/promises";
+import { stat, unlink, writeFile } from "node:fs/promises";
 import * as sinon from "sinon";
 import { commands } from "vscode";
 import {

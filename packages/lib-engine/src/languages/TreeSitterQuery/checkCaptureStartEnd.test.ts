@@ -2,7 +2,7 @@ import type { Messages } from "@cursorless/lib-common";
 import { Range } from "@cursorless/lib-common";
 import type { QueryCapture } from "./QueryCapture";
 import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
-import assert from "assert";
+import * as assert from "node:assert/strict";
 
 interface TestCase {
   name: string;
@@ -201,8 +201,8 @@ suite("checkCaptureStartEnd", () => {
         })),
         messages,
       );
-      assert(result === testCase.isValid);
-      assert.deepStrictEqual(actualErrorIds, testCase.expectedErrorMessageIds);
+      assert.ok(result === testCase.isValid);
+      assert.deepEqual(actualErrorIds, testCase.expectedErrorMessageIds);
     });
   }
 });

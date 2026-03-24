@@ -14,8 +14,8 @@ import {
   type SpyWebViewEvent,
 } from "@cursorless/lib-vscode-common";
 import { isEqual } from "lodash-es";
-import assert from "node:assert";
-import path from "path";
+import assert from "node:assert/strict";
+import path from "node:path";
 import sinon from "sinon";
 import { commands } from "vscode";
 import { endToEndTestSetup } from "../../endToEndTestSetup";
@@ -58,7 +58,7 @@ async function runBasicTutorialTest(spyIde: SpyIDE) {
   );
 
   const checkStepSetup = async (fixture: TestCaseFixtureLegacy) => {
-    assert.deepStrictEqual(
+    assert.deepEqual(
       await getSnapshotForComparison(
         fixture.initialState,
         await hatTokenMap.getReadableMap(false),
@@ -171,7 +171,7 @@ async function runBasicTutorialTest(spyIde: SpyIDE) {
 
   // Test listing tutorials
   await commands.executeCommand("cursorless.tutorial.list");
-  assert.deepStrictEqual(getTutorialWebviewEventLog().slice(-2), [
+  assert.deepEqual(getTutorialWebviewEventLog().slice(-2), [
     {
       type: "messageSent",
       data: {

@@ -1,6 +1,6 @@
 import type { TestCaseFixtureLegacy } from "@cursorless/lib-common";
 import { FakeIDE } from "@cursorless/lib-common";
-import assert from "assert";
+import * as assert from "node:assert/strict";
 import { uniq } from "lodash-es";
 import { extractTargetKeys } from "../../testUtil/extractTargetKeys";
 import { TokenGraphemeSplitter } from "../../tokenGraphemeSplitter/tokenGraphemeSplitter";
@@ -28,7 +28,7 @@ export function checkMarks(originalFixture: TestCaseFixtureLegacy): undefined {
 
   const actualMarks = Object.keys(originalFixture.initialState.marks ?? {});
 
-  assert.deepStrictEqual(
+  assert.deepEqual(
     uniq(actualMarks.map(normalizeGraphemes)).sort(),
     uniq(expectedMarks.map(normalizeGraphemes)).sort(),
   );

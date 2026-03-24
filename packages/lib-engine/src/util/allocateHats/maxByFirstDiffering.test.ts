@@ -1,4 +1,4 @@
-import * as assert from "assert";
+import * as assert from "node:assert/strict";
 import { maxByAllowingTies } from "./maxByFirstDiffering";
 
 // known good but slow
@@ -34,7 +34,7 @@ suite("maxByFirstDiffering", () => {
     testCases.forEach((testCase) => {
       const actual = maxByAllowingTies(testCase, (x) => x);
       const expected = goldenMaxByAllowingTies(testCase, (x) => x);
-      assert.deepStrictEqual(actual, expected);
+      assert.deepEqual(actual, expected);
     });
   });
 });
