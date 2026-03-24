@@ -1,12 +1,13 @@
 import { Button } from "./Button";
 import { EmbeddedVideo } from "./EmbeddedVideo";
+import { Title } from "./Title";
 import { DESCRIPTION, NAME, TITLE, YOUTUBE_SLUG } from "./constants";
 import Logo from "./logo.svg?react";
 
 export function LandingPage() {
   return (
     <>
-      <title>{TITLE}</title>
+      <Title>{TITLE}</Title>
 
       <main className="landing-page">
         <div className="container">
