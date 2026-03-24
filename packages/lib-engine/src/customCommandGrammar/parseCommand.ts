@@ -5,7 +5,6 @@ import grammar from "./generated/grammar";
 
 function getScopeTypeParser(): nearley.Parser {
   return new nearley.Parser(
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     nearley.Grammar.fromCompiled({ ...grammar, ParserStart: "scopeType" }),
   );
 }

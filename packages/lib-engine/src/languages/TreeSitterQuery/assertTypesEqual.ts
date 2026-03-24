@@ -11,7 +11,7 @@
  * helpful error messages.
  * @see https://stackoverflow.com/a/69413184
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// oxlint-disable-next-line @typescript-eslint/no-unused-vars
 export function assertTypesEqual<A, B extends A, C extends B>() {
   // empty
 }

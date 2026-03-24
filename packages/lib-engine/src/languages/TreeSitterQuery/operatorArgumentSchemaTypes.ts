@@ -66,7 +66,7 @@ export type SchemaTypes = (typeof q)[keyof typeof q];
  * `PredicateStep`, as that is what we always get from tree-sitter
  */
 export type SchemaInputType = PredicateStep;
-// eslint-disable-next-line @typescript-eslint/no-unused-expressions
+// oxlint-disable-next-line @typescript-eslint/no-unused-expressions
 assertTypesEqual<SchemaInputType, z.input<SchemaTypes>, SchemaInputType>;
 
 /**

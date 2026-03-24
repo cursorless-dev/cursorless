@@ -3,26 +3,26 @@
 // switch to `{import("foo")}` syntax in the `{@link}` tag.
 // - https://github.com/microsoft/TypeScript/issues/43869
 // - https://github.com/microsoft/TypeScript/issues/43950
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// oxlint-disable-next-line no-unused-vars
 import type { ModifyIfUntypedStage } from "../processTargets/modifiers/ConditionalModifierStages";
 import type {
   GeneralizedRange,
   InsertionMode,
   Range,
   Selection,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // oxlint-disable-next-line @typescript-eslint/no-unused-vars
   CustomInsertSnippetArg,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // oxlint-disable-next-line @typescript-eslint/no-unused-vars
   CustomWrapWithSnippetArg,
   TargetPlainObject,
   TextEditor,
 } from "@cursorless/lib-common";
 import type {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // oxlint-disable-next-line @typescript-eslint/no-unused-vars
   ScopeTypeTarget,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // oxlint-disable-next-line @typescript-eslint/no-unused-vars
   TokenTarget,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // oxlint-disable-next-line @typescript-eslint/no-unused-vars
   UntypedTarget,
 } from "../processTargets/targets";
 import type { EditWithRangeUpdater } from "./Types";
