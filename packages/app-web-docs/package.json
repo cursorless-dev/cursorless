@@ -46,9 +46,11 @@
     "@docusaurus/module-type-aliases": "^3.9.2",
     "@docusaurus/types": "^3.9.2",
     "@types/mdast": "^4.0.4",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^24.12.0",
     "@types/react": "^19.2.14",
     "sass": "^1.98.0",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.2",
     "unified": "^11.0.5"
   }
 }

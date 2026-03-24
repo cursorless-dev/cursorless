@@ -1,6 +1,7 @@
 app: vscode
 win.title: /cursorless/
 -
+
 ^install local$:
     user.run_rpc_command("workbench.action.tasks.runTask", "Install local")
 ^uninstall local$:

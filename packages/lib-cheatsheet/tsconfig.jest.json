@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "ignoreDeprecations": "6.0",
+    "module": "commonjs",
+    "moduleResolution": "bundler"
+  }
+}
