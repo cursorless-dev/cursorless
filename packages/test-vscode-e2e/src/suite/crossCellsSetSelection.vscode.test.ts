@@ -31,7 +31,7 @@ async function runTest() {
     );
   });
 
-  assert(targetHat != null, 'Expected a hat for "world" in the second cell');
+  assert.ok(targetHat != null, 'Expected a hat for "world" in the second cell');
   const { hatStyle, character } = splitKey(targetHat[0]);
 
   await runCursorlessCommand({
