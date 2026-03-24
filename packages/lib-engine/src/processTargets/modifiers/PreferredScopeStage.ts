@@ -45,7 +45,7 @@ export class PreferredScopeStage implements ModifierStage {
     const closestTargets = getClosestScopeTargets(target, scopeHandler);
 
     if (closestTargets == null) {
-      throw Error(`No scopes found for scope type: ${scopeType.type}`);
+      throw new Error(`No scopes found for scope type: ${scopeType.type}`);
     }
 
     return closestTargets;

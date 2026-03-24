@@ -92,7 +92,7 @@ export class TalonJsIDE implements EmittableIDE {
     if (editor instanceof InMemoryTextEditor) {
       return editor;
     }
-    throw Error(`Unsupported text editor type: ${editor}`);
+    throw new Error(`Unsupported text editor type: ${editor}`);
   }
 
   updateTextEditors(editorState: EditorState) {
@@ -105,10 +105,7 @@ export class TalonJsIDE implements EmittableIDE {
     this.editors = [editor];
   }
 
-  async findInDocument(
-    query: string,
-    editor?: TextEditor | undefined,
-  ): Promise<void> {
+  async findInDocument(query: string, editor?: TextEditor): Promise<void> {
     if (editor != null) {
       throw new Error(
         "findInDocument not implemented for other than active editor.",
@@ -126,20 +123,18 @@ export class TalonJsIDE implements EmittableIDE {
   }
 
   openUntitledTextDocument(
-    _options?: OpenUntitledTextDocumentOptions | undefined,
+    _options?: OpenUntitledTextDocumentOptions,
   ): Promise<TextEditor> {
     throw new Error("openUntitledTextDocument: not implemented");
   }
 
-  showInputBox(
-    _options?: InputBoxOptions | undefined,
-  ): Promise<string | undefined> {
+  showInputBox(_options?: InputBoxOptions): Promise<string | undefined> {
     throw new Error("showInputBox: not implemented");
   }
 
   showQuickPick(
     _items: readonly string[],
-    _options?: QuickPickOptions | undefined,
+    _options?: QuickPickOptions,
   ): Promise<string | undefined> {
     throw new Error("showQuickPick: not implemented");
   }

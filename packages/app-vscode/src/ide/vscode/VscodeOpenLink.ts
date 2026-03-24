@@ -17,7 +17,7 @@ export default async function vscodeOpenLink(
   );
 
   if (filteredLinks.length > 1) {
-    throw Error("Multiple links found at location");
+    throw new Error("Multiple links found at location");
   }
 
   if (filteredLinks.length === 0) {
@@ -61,7 +61,7 @@ async function getLinksForEditor(
 
 function openLink(link: vscode.DocumentLink, openAside: boolean) {
   if (link.target == null) {
-    throw Error("Document link is missing uri");
+    throw new Error("Document link is missing uri");
   }
   return openUri(link.target, openAside);
 }
@@ -83,6 +83,6 @@ async function openUri(uri: vscode.Uri, openAside: boolean) {
       );
       break;
     default:
-      throw Error(`Unknown uri scheme '${uri.scheme}'`);
+      throw new Error(`Unknown uri scheme '${uri.scheme}'`);
   }
 }

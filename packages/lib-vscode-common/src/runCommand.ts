@@ -8,6 +8,7 @@ import * as vscode from "vscode";
 
 export async function runCursorlessCommand(
   command: Command,
+  // oxlint-disable-next-line typescript/no-redundant-type-constituents
 ): Promise<CommandResponse | unknown> {
   return await vscode.commands.executeCommand(CURSORLESS_COMMAND_ID, command);
 }

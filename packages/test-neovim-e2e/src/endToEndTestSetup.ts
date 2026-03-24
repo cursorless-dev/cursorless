@@ -45,10 +45,10 @@ export function endToEndTestSetup(suite: Mocha.Suite) {
   });
 
   return {
-    getSpy() {
+    getSpy(this: void) {
       return spy;
     },
-    getNeovimIDE() {
+    getNeovimIDE(this: void) {
       return neovimIDE;
     },
   };

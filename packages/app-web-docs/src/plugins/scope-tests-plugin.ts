@@ -6,12 +6,15 @@ import {
 import type { LoadContext, Plugin, PluginOptions } from "@docusaurus/types";
 import * as fs from "node:fs";
 import * as path from "node:path";
+import { fileURLToPath } from "node:url";
 import type {
   Fixture,
   Scope,
   ScopeTests,
   Target,
 } from "../docs/components/types";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default function prepareAssetsPlugin(
   _context: LoadContext,
@@ -59,7 +62,7 @@ function parseTest(test: ScopeTestPath) {
   const delimiterIndex = fixture.match(/^---$/m)?.index;
 
   if (delimiterIndex === undefined) {
-    throw Error(`Can't find delimiter '---' in scope fixture ${test.path}`);
+    throw new Error(`Can't find delimiter '---' in scope fixture ${test.path}`);
   }
 
   const code = fixture.slice(0, delimiterIndex - 1);
@@ -101,7 +104,7 @@ function parseTest(test: ScopeTestPath) {
         // Do nothing
         break;
       default:
-        throw Error(`Unknown type '${type}' in scope fixture ${test.path}`);
+        throw new Error(`Unknown type '${type}' in scope fixture ${test.path}`);
     }
   }
 
@@ -144,10 +147,12 @@ function parseTest(test: ScopeTestPath) {
   scopes.push(currentScope);
 
   if (scopes.some((s) => s.targets.some((t) => !t.content))) {
-    throw Error(`Scope fixture ${test.path} contains targets without content.`);
+    throw new Error(
+      `Scope fixture ${test.path} contains targets without content.`,
+    );
   }
   if (scopes.some((s) => s.targets.length === 0)) {
-    throw Error(`Scope fixture ${test.path} contains empty scopes.`);
+    throw new Error(`Scope fixture ${test.path} contains empty scopes.`);
   }
 
   const result: Fixture = {

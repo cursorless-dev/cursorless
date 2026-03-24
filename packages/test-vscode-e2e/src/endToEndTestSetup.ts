@@ -60,7 +60,7 @@ export function endToEndTestSetup(
   return {
     getSpy() {
       if (spyIde == null) {
-        throw Error("Spy is undefined");
+        throw new Error("Spy is undefined");
       }
       return spyIde;
     },

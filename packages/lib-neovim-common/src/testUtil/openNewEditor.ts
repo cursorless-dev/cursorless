@@ -7,15 +7,15 @@ export interface NewEditorOptions {
 }
 
 export async function openNewEditor(
-  content: string,
+  _content: string,
   _NewEditorOptions = {},
 ): Promise<NeovimTextEditor> {
   throw new Error("openNewEditor() Not implemented");
 }
 
 export async function reuseEditor(
-  editor: NeovimTextDocument, // vscode.TextEditor,
-  content: string,
+  _editor: NeovimTextDocument, // vscode.TextEditor,
+  _content: string,
   _language: string = "plaintext",
 ) {
   throw new Error("reuseEditor() Not implemented");
@@ -29,7 +29,7 @@ export async function reuseEditor(
  * @returns notebook
  */
 export async function openNewNotebookEditor(
-  cellContents: string[],
+  _cellContents: string[],
   _language: string = "plaintext",
 ) {
   throw new Error("openNewNotebookEditor() Not implemented");

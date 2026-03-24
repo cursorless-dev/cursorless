@@ -133,7 +133,7 @@ function upgradeAction(
         target: upgradeTarget(targets[0]),
       };
     case "parsed":
-      throw Error("Parsed action should not be present in V5");
+      throw new Error("Parsed action should not be present in V5");
     default:
       return {
         name,
@@ -347,7 +347,7 @@ function getInsertionModeFromPrimitive(
   );
   if (positionModifier != null) {
     if (target.modifiers!.indexOf(positionModifier) !== 0) {
-      throw Error("Position modifier has to be at first index");
+      throw new Error("Position modifier has to be at first index");
     }
     if (
       positionModifier?.position === "before" ||

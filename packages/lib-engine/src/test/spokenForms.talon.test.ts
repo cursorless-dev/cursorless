@@ -70,7 +70,7 @@ async function runRecordedFixture(repl: TalonRepl, file: string) {
 
 const alreadyRan: Record<
   string,
-  { commands: CommandLatest[]; mockedGetValue: unknown | undefined }
+  { commands: CommandLatest[]; mockedGetValue: unknown }
 > = {};
 
 async function runTest(
@@ -111,7 +111,7 @@ async function runTest(
     try {
       return JSON.parse(result);
     } catch (e) {
-      throw Error(result, { cause: e });
+      throw new Error(result, { cause: e });
     }
   })();
 

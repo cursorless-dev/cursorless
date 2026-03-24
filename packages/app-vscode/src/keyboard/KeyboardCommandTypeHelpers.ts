@@ -28,14 +28,14 @@ export type KeyboardCommand<T extends keyof KeyboardCommandHandler> = {
 // first argument, and return void or Promise<void>. Note that the first check
 // may look backwards, because the arg type is contravariant, so the 'extends'
 // needs to be flipped.
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// oxlint-disable-next-line @typescript-eslint/no-unused-vars
 function assertExtends<A extends B, B>() {}
-// eslint-disable-next-line @typescript-eslint/no-unused-expressions
+// oxlint-disable-next-line @typescript-eslint/no-unused-expressions
 assertExtends<
   Record<keyof KeyboardCommandArgTypes, (arg?: object) => never>,
   Pick<KeyboardCommandHandler, keyof KeyboardCommandArgTypes>
 >;
-// eslint-disable-next-line @typescript-eslint/no-unused-expressions
+// oxlint-disable-next-line @typescript-eslint/no-unused-expressions
 assertExtends<
   Pick<KeyboardCommandHandler, keyof KeyboardCommandArgTypes>,
   Record<keyof KeyboardCommandArgTypes, (arg: never) => void | Promise<void>>

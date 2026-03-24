@@ -54,7 +54,7 @@ export const lineDirections = {
 export function hatColorToSpokenForm(color: string): string {
   const result = hatColors[color];
   if (result == null) {
-    throw Error(`Unknown hat color '${color}'`);
+    throw new Error(`Unknown hat color '${color}'`);
   }
   return result;
 }
@@ -62,7 +62,7 @@ export function hatColorToSpokenForm(color: string): string {
 export function hatShapeToSpokenForm(shape: string): string {
   const result = hatShapes[shape];
   if (result == null) {
-    throw Error(`Unknown hat shape '${shape}'`);
+    throw new Error(`Unknown hat shape '${shape}'`);
   }
   return result;
 }

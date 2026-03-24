@@ -14,7 +14,7 @@ suite("revealRange", async function () {
   test("post file", postFile);
 });
 
-const content = new Array(100).fill("line").join("\n");
+const content = Array.from({ length: 100 }, () => "line").join("\n");
 
 async function preFile() {
   const editor = await getReusableEditor(content);

@@ -161,7 +161,7 @@ function ensureSingleTarget(scope: TargetScope, isReversed: boolean): Target {
   const targets = scope.getTargets(isReversed);
 
   if (targets.length !== 1) {
-    throw Error(`Expected one target but got ${targets.length}`);
+    throw new Error(`Expected one target but got ${targets.length}`);
   }
 
   return targets[0];
@@ -184,7 +184,7 @@ export class BoundedNonWhitespaceSequenceScopeHandler extends BoundedBaseScopeHa
     );
 
     if (contentRange == null || contentRange.isEmpty) {
-      throw Error("Expected non-empty intersection");
+      throw new Error("Expected non-empty intersection");
     }
 
     return new TokenTarget({
@@ -208,7 +208,7 @@ export class BoundedParagraphScopeHandler extends BoundedBaseScopeHandler {
 
   protected createTarget(target: Target, interior: InteriorTarget): Target {
     if (!(target instanceof ParagraphTarget)) {
-      throw Error("Expected ParagraphTarget");
+      throw new Error("Expected ParagraphTarget");
     }
 
     return new BoundedParagraphTarget({

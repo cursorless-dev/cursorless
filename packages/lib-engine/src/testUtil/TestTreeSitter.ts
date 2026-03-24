@@ -72,9 +72,7 @@ function getWasmFilePath(parserName: string) {
 }
 
 const idToParser: Record<string, string> = {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   "java-properties": "tree-sitter-properties",
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   "talon-list": "tree-sitter-talon",
   agda: "tree-sitter-agda",
   c: "tree-sitter-c",

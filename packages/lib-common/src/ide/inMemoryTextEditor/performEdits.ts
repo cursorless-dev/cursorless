@@ -69,7 +69,7 @@ function createChangeEvents(
       }
 
       // Overlapping non-removal ranges are not allowed.
-      throw Error("Overlapping ranges are not allowed!");
+      throw new Error("Overlapping ranges are not allowed!");
     }
 
     const text = edit.text.replace(/\r?\n/g, eol);

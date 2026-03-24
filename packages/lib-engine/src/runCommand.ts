@@ -47,6 +47,7 @@ export async function runCommand(
   rangeUpdater: RangeUpdater,
   commandRunnerDecorators: CommandRunnerDecorator[],
   command: Command,
+  // oxlint-disable-next-line typescript/no-redundant-type-constituents
 ): Promise<CommandResponse | unknown> {
   if (debug.active) {
     debug.log(`command:`);
@@ -83,6 +84,7 @@ export async function runCommand(
 async function unwrapLegacyCommandResponse(
   command: Command,
   response: CommandResponse,
+  // oxlint-disable-next-line typescript/no-redundant-type-constituents
 ): Promise<CommandResponse | unknown> {
   if (clientSupportsFallback(command)) {
     return response;

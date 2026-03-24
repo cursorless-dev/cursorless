@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 export const vitePreactAlias = {
   "react-dom/test-utils": "preact/test-utils",
   "react-dom": "preact/compat",

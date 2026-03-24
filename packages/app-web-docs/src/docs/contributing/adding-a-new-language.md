@@ -23,7 +23,6 @@ If you are adding support for a new language that isn't natively detected by VSC
      ScopeSupportFacetLevel,
    } from "./scopeSupportFacets.types";
 
-   // eslint-disable-next-line @typescript-eslint/no-unused-vars
    const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
    export const markdownScopeSupport: LanguageScopeSupportFacetMap = {};

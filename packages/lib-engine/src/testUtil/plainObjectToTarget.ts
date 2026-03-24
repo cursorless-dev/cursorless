@@ -35,6 +35,6 @@ export function plainObjectToTarget(
         contentRange: plainObjectToRange(plainObject.contentRange),
       });
     default:
-      throw Error(`Unsupported target type ${plainObject.type}`);
+      throw new Error(`Unsupported target type ${plainObject.type}`);
   }
 }

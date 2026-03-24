@@ -202,11 +202,6 @@ async function neovimReplace(client: NeovimClient, range: Range, text: string) {
   await neovimInsert(client, range.start, text);
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function isDelete(edit: Edit): boolean {
-  return edit.text === "";
-}
-
 function isInsert(edit: Edit): boolean {
   return edit.range.isEmpty && !edit.isReplace;
 }

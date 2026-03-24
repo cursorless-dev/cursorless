@@ -4,8 +4,7 @@
   "recommendations": [
     "AndreasArvidsson.andreas-talon",
     "charliermarsh.ruff",
-    "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
+    "oxc.oxc-vscode",
     "jrieken.vscode-tree-sitter-query",
     "wenkokke.talonfmt-vscode",
     "usernamehw.commands",

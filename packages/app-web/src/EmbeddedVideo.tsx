@@ -28,7 +28,7 @@ export function EmbeddedVideo({ youtubeSlug }: Props) {
             height="100%"
             controls={true}
             onError={(error) => {
-              console.log(`Error loading YouTube video: ${error}`);
+              console.warn(`Error loading YouTube video: ${error}`);
               setIsError(true);
             }}
           />

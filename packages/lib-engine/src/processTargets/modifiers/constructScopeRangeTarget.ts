@@ -27,7 +27,7 @@ export function constructScopeRangeTarget(
   const targets2 = scope2.getTargets(isReversed);
 
   if (targets1.length !== 1 || targets2.length !== 1) {
-    throw Error("Scope range targets must be single-target");
+    throw new Error("Scope range targets must be single-target");
   }
 
   const [target1] = targets1;

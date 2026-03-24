@@ -80,7 +80,7 @@ export class TalonRepl {
       console.log(output);
 
       if (tryCount++ > MAX_OUTPUT_TO_EAT) {
-        throw Error("Too much output to eat");
+        throw new Error("Too much output to eat");
       }
     }
   }

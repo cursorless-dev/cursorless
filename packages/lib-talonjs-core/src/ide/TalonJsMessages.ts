@@ -12,7 +12,7 @@ export class TalonJsMessages implements Messages {
     ...options: string[]
   ): Promise<string | undefined> {
     if (options.length > 0) {
-      throw Error(`Message options are not supported in TalonJsMessages.`);
+      throw new Error(`Message options are not supported in TalonJsMessages.`);
     }
     switch (type) {
       case MessageType.info:

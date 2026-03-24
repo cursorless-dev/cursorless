@@ -29,7 +29,7 @@ const CONFIGURATION_DEFAULTS: CursorlessConfiguration = {
 export class TalonJsConfiguration implements Configuration {
   getOwnConfiguration<Path extends Paths<CursorlessConfiguration>>(
     path: Path,
-    _scope?: ConfigurationScope | undefined,
+    _scope?: ConfigurationScope,
   ): GetFieldType<CursorlessConfiguration, Path> {
     return get(CONFIGURATION_DEFAULTS, path) as GetFieldType<
       CursorlessConfiguration,

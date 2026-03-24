@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 export const preactModuleNameMapper = {
   "^react$": "<rootDir>/node_modules/preact/compat/dist/compat.js",
   "^react-dom$": "<rootDir>/node_modules/preact/compat/dist/compat.js",

@@ -35,31 +35,31 @@ export class TestTextEditor implements EditableTextEditor {
     _selections: Selection[],
     _opts?: SetSelectionsOpts,
   ): Promise<void> {
-    throw Error("setSelections: not implemented");
+    throw new Error("setSelections: not implemented");
   }
 
   edit(_edits: Edit[]): Promise<boolean> {
-    throw Error("edit: not implemented");
+    throw new Error("edit: not implemented");
   }
 
   async clipboardCopy(_ranges: Range[]): Promise<void> {
-    throw Error("clipboardCopy: not implemented");
+    throw new Error("clipboardCopy: not implemented");
   }
 
   async clipboardPaste(): Promise<void> {
-    throw Error("clipboardPaste: not implemented");
+    throw new Error("clipboardPaste: not implemented");
   }
 
   indentLine(_ranges: Range[]): Promise<void> {
-    throw Error("indentLine: not implemented");
+    throw new Error("indentLine: not implemented");
   }
 
   outdentLine(_ranges: Range[]): Promise<void> {
-    throw Error("outdentLine: not implemented");
+    throw new Error("outdentLine: not implemented");
   }
 
   insertLineAfter(_ranges?: Range[]): Promise<void> {
-    throw Error("insertLineAfter: not implemented");
+    throw new Error("insertLineAfter: not implemented");
   }
 
   focus(): Promise<void> {
@@ -74,18 +74,15 @@ export class TestTextEditor implements EditableTextEditor {
     throw new Error("revealLine: not implemented");
   }
 
-  openLink(
-    _range: Range,
-    _options?: OpenLinkOptions | undefined,
-  ): Promise<void> {
+  openLink(_range: Range, _options?: OpenLinkOptions): Promise<void> {
     throw new Error("openLink: not implemented");
   }
 
-  fold(_ranges?: Range[] | undefined): Promise<void> {
+  fold(_ranges?: Range[]): Promise<void> {
     throw new Error("fold: not implemented");
   }
 
-  unfold(_ranges?: Range[] | undefined): Promise<void> {
+  unfold(_ranges?: Range[]): Promise<void> {
     throw new Error("unfold: not implemented");
   }
 
@@ -93,46 +90,43 @@ export class TestTextEditor implements EditableTextEditor {
     throw new Error("toggleBreakpoint: not implemented");
   }
 
-  toggleLineComment(_ranges?: Range[] | undefined): Promise<void> {
+  toggleLineComment(_ranges?: Range[]): Promise<void> {
     throw new Error("toggleLineComment: not implemented");
   }
 
-  insertSnippet(
-    _snippet: string,
-    _ranges?: Range[] | undefined,
-  ): Promise<void> {
+  insertSnippet(_snippet: string, _ranges?: Range[]): Promise<void> {
     throw new Error("insertSnippet: not implemented");
   }
 
-  rename(_range?: Range | undefined): Promise<void> {
+  rename(_range?: Range): Promise<void> {
     throw new Error("rename: not implemented");
   }
 
-  showReferences(_range?: Range | undefined): Promise<void> {
+  showReferences(_range?: Range): Promise<void> {
     throw new Error("showReferences: not implemented");
   }
 
-  quickFix(_range?: Range | undefined): Promise<void> {
+  quickFix(_range?: Range): Promise<void> {
     throw new Error("quickFix: not implemented");
   }
 
-  revealDefinition(_range?: Range | undefined): Promise<void> {
+  revealDefinition(_range?: Range): Promise<void> {
     throw new Error("revealDefinition: not implemented");
   }
 
-  revealTypeDefinition(_range?: Range | undefined): Promise<void> {
+  revealTypeDefinition(_range?: Range): Promise<void> {
     throw new Error("revealTypeDefinition: not implemented");
   }
 
-  showHover(_range?: Range | undefined): Promise<void> {
+  showHover(_range?: Range): Promise<void> {
     throw new Error("showHover: not implemented");
   }
 
-  showDebugHover(_range?: Range | undefined): Promise<void> {
+  showDebugHover(_range?: Range): Promise<void> {
     throw new Error("showDebugHover: not implemented");
   }
 
-  extractVariable(_range?: Range | undefined): Promise<void> {
+  extractVariable(_range?: Range): Promise<void> {
     throw new Error("extractVariable: not implemented");
   }
 
@@ -145,26 +139,26 @@ export class TestTextEditor implements EditableTextEditor {
   }
 
   public async gitAccept(_range?: Range): Promise<void> {
-    throw Error("gitAccept: not implemented");
+    throw new Error("gitAccept: not implemented");
   }
 
   public async gitRevert(_range?: Range): Promise<void> {
-    throw Error("gitRevert: not implemented");
+    throw new Error("gitRevert: not implemented");
   }
 
   public async gitStageFile(): Promise<void> {
-    throw Error("gitStageFile: not implemented");
+    throw new Error("gitStageFile: not implemented");
   }
 
   public async gitUnstageFile(): Promise<void> {
-    throw Error("gitUnstageFile: not implemented");
+    throw new Error("gitUnstageFile: not implemented");
   }
 
   public async gitStageRange(_range?: Range): Promise<void> {
-    throw Error("gitStageRange: not implemented");
+    throw new Error("gitStageRange: not implemented");
   }
 
   public async gitUnstageRange(_range?: Range): Promise<void> {
-    throw Error("gitUnstageRange: not implemented");
+    throw new Error("gitUnstageRange: not implemented");
   }
 }

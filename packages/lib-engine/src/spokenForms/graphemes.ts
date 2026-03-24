@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 // https://github.com/talonhub/community/blob/9acb6c9659bb0c9b794a7b7126d025603b4ed726/core/keys/keys.py
 
 const alphabet = Object.fromEntries(

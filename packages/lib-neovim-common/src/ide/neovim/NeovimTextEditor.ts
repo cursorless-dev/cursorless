@@ -50,7 +50,7 @@ export class NeovimTextEditor implements EditableTextEditor {
     } else if (lines) {
       this._document.update(lines);
     } else {
-      throw Error("updateDocument(): invalid arguments");
+      throw new Error("updateDocument(): invalid arguments");
     }
     this._selections = selections;
     this._visibleRanges = visibleRanges;
@@ -73,11 +73,11 @@ export class NeovimTextEditor implements EditableTextEditor {
   }
 
   get options(): TextEditorOptions {
-    throw Error("options.get: not implemented");
+    throw new Error("options.get: not implemented");
   }
 
   set options(options: TextEditorOptions) {
-    throw Error("options.set: not implemented");
+    throw new Error("options.set: not implemented");
   }
 
   get isActive(): boolean {
@@ -93,7 +93,7 @@ export class NeovimTextEditor implements EditableTextEditor {
   }
 
   public revealLine(_lineNumber: number, _at: RevealLineAt): Promise<void> {
-    throw Error("revealLine: not implemented");
+    throw new Error("revealLine: not implemented");
   }
 
   public async edit(edits: Edit[]): Promise<boolean> {
@@ -105,31 +105,31 @@ export class NeovimTextEditor implements EditableTextEditor {
   }
 
   public editNewNotebookCellAbove(): Promise<void> {
-    throw Error("editNewNotebookCellAbove: not implemented");
+    throw new Error("editNewNotebookCellAbove: not implemented");
   }
 
   public editNewNotebookCellBelow(): Promise<void> {
-    throw Error("editNewNotebookCellBelow: not implemented");
+    throw new Error("editNewNotebookCellBelow: not implemented");
   }
 
   public openLink(_range: Range, _options?: OpenLinkOptions): Promise<void> {
-    throw Error("openLink: not implemented");
+    throw new Error("openLink: not implemented");
   }
 
   public fold(_ranges?: Range[]): Promise<void> {
-    throw Error("fold: not implemented");
+    throw new Error("fold: not implemented");
   }
 
   public unfold(_ranges?: Range[]): Promise<void> {
-    throw Error("unfold: not implemented");
+    throw new Error("unfold: not implemented");
   }
 
   public toggleBreakpoint(_ranges?: GeneralizedRange[]): Promise<void> {
-    throw Error("toggleBreakpoint: not implemented");
+    throw new Error("toggleBreakpoint: not implemented");
   }
 
   public async toggleLineComment(_ranges?: Range[]): Promise<void> {
-    throw Error("toggleLineComment: not implemented");
+    throw new Error("toggleLineComment: not implemented");
   }
 
   public async clipboardCopy(_ranges?: Range[]): Promise<void> {
@@ -141,74 +141,74 @@ export class NeovimTextEditor implements EditableTextEditor {
   }
 
   public async indentLine(_ranges?: Range[]): Promise<void> {
-    throw Error("indentLine: not implemented");
+    throw new Error("indentLine: not implemented");
   }
 
   public async outdentLine(_ranges?: Range[]): Promise<void> {
-    throw Error("outdentLine: not implemented");
+    throw new Error("outdentLine: not implemented");
   }
 
   public async insertLineAfter(_ranges?: Range[]): Promise<void> {
-    throw Error("insertLineAfter: not implemented");
+    throw new Error("insertLineAfter: not implemented");
   }
 
   public insertSnippet(_snippet: string, _ranges?: Range[]): Promise<void> {
-    throw Error("insertSnippet: not implemented");
+    throw new Error("insertSnippet: not implemented");
   }
 
   public async rename(_range?: Range): Promise<void> {
-    throw Error("rename: not implemented");
+    throw new Error("rename: not implemented");
   }
 
   public async showReferences(_range?: Range): Promise<void> {
-    throw Error("showReferences: not implemented");
+    throw new Error("showReferences: not implemented");
   }
 
   public async quickFix(_range?: Range): Promise<void> {
-    throw Error("quickFix: not implemented");
+    throw new Error("quickFix: not implemented");
   }
 
   public async revealDefinition(_range?: Range): Promise<void> {
-    throw Error("revealDefinition: not implemented");
+    throw new Error("revealDefinition: not implemented");
   }
 
   public async revealTypeDefinition(_range?: Range): Promise<void> {
-    throw Error("revealTypeDefinition: not implemented");
+    throw new Error("revealTypeDefinition: not implemented");
   }
 
   public async showHover(_range?: Range): Promise<void> {
-    throw Error("showHover: not implemented");
+    throw new Error("showHover: not implemented");
   }
 
   public async showDebugHover(_range?: Range): Promise<void> {
-    throw Error("showDebugHover: not implemented");
+    throw new Error("showDebugHover: not implemented");
   }
 
   public async extractVariable(_range?: Range): Promise<void> {
-    throw Error("extractVariable: not implemented");
+    throw new Error("extractVariable: not implemented");
   }
 
   public async gitAccept(_range?: Range): Promise<void> {
-    throw Error("gitAccept: not implemented");
+    throw new Error("gitAccept: not implemented");
   }
 
   public async gitRevert(_range?: Range): Promise<void> {
-    throw Error("gitRevert: not implemented");
+    throw new Error("gitRevert: not implemented");
   }
 
   public async gitStageFile(): Promise<void> {
-    throw Error("gitStageFile: not implemented");
+    throw new Error("gitStageFile: not implemented");
   }
 
   public async gitUnstageFile(): Promise<void> {
-    throw Error("gitUnstageFile: not implemented");
+    throw new Error("gitUnstageFile: not implemented");
   }
 
   public async gitStageRange(_range?: Range): Promise<void> {
-    throw Error("gitStageRange: not implemented");
+    throw new Error("gitStageRange: not implemented");
   }
 
   public async gitUnstageRange(_range?: Range): Promise<void> {
-    throw Error("gitUnstageRange: not implemented");
+    throw new Error("gitUnstageRange: not implemented");
   }
 }

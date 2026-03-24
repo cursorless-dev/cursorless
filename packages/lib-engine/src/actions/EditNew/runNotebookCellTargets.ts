@@ -16,7 +16,7 @@ export async function runEditNewNotebookCellTargets(
   const isAbove = destination.insertionMode === "before";
 
   if (destination.insertionMode === "to") {
-    throw Error(
+    throw new Error(
       `Unsupported insertion mode '${destination.insertionMode}' for notebook cell`,
     );
   }

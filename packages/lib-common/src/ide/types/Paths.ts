@@ -15,10 +15,7 @@ type Join<
     ? R
     : undefined;
 
-type Union<
-  L extends unknown | undefined,
-  R extends unknown | undefined,
-> = L extends undefined
+type Union<L extends unknown, R extends unknown> = L extends undefined
   ? R extends undefined
     ? undefined
     : R

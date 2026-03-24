@@ -13,7 +13,7 @@ export class StoredTargetStage implements MarkStage {
     const targets = this.storedTargets.get(this.key);
 
     if (targets == null || targets.length === 0) {
-      throw Error(`No available ${this.key} marks`);
+      throw new Error(`No available ${this.key} marks`);
     }
 
     return targets;

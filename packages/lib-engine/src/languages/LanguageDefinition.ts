@@ -61,7 +61,7 @@ export class LanguageDefinition {
     const rawQuery = treeSitter.createQuery(languageId, rawLanguageQueryString);
 
     if (rawQuery == null) {
-      throw Error(
+      throw new Error(
         `Could not create Tree sitter query for language ${languageId}`,
       );
     }

@@ -9,7 +9,7 @@ import type { Node } from "web-tree-sitter";
  */
 export function isEven(node: Node, fieldName: string): boolean {
   if (node.parent == null) {
-    throw Error("Node has no parent");
+    throw new Error("Node has no parent");
   }
 
   const treeCursor = node.parent.walk();
@@ -26,5 +26,5 @@ export function isEven(node: Node, fieldName: string): boolean {
     hasNext = treeCursor.gotoNextSibling();
   }
 
-  throw Error(`Node not found in parent for field: ${fieldName}`);
+  throw new Error(`Node not found in parent for field: ${fieldName}`);
 }

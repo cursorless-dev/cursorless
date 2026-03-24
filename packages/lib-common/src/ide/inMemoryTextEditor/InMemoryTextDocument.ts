@@ -89,7 +89,7 @@ export class InMemoryTextDocument implements TextDocument {
     );
 
     if (line == null) {
-      throw Error(`Couldn't find line for offset ${offset}`);
+      throw new Error(`Couldn't find line for offset ${offset}`);
     }
 
     return new Position(

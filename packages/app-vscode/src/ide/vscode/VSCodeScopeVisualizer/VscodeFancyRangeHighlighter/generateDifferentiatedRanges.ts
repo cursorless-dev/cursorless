@@ -27,11 +27,9 @@ export function* generateDifferentiatedRanges(
 
   for (const range of ranges) {
     // Remove any ranges that have ended before the start of the current range.
-    currentRanges = [
-      ...currentRanges.filter(({ range: previousRange }) =>
-        generalizedRangeTouches(previousRange, range),
-      ),
-    ];
+    currentRanges = currentRanges.filter(({ range: previousRange }) =>
+      generalizedRangeTouches(previousRange, range),
+    );
 
     const differentiatedRange = {
       range,

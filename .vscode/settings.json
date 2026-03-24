@@ -18,8 +18,7 @@
     "pojo",
     "subword"
   ],
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "eslint.workingDirectories": [{ "pattern": "packages/*/" }],
+  "editor.defaultFormatter": "oxc.oxc-vscode",
   "files.associations": {
     ".busted": "lua"
   },
