@@ -19,9 +19,9 @@ reportSelfClsParameterName = false
 reportMissingModuleSource = false
 reportMissingImports = false
 exclude = [
-    "**/node_modules",
-    "**/__pycache__",
-    "**/.*",
-    "cursorless-talon/src/vendor",
-    "resources/playground"
+  "**/node_modules",
+  "**/__pycache__",
+  "**/.*",
+  "cursorless-talon/src/vendor",
+  "resources/playground",
 ]
