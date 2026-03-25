@@ -29,7 +29,7 @@ const useHash = () => {
     return () => {
       window.removeEventListener("hashchange", onHashChange);
     };
-  }, []);
+  }, [onHashChange]);
 
   return hash;
 };

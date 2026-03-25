@@ -33,7 +33,7 @@ export function ScrollToHashId() {
 
       setTimeout(scrollToId, delay);
     }
-  }, []);
+  }, [location.hash]);
 
   return null;
 }
