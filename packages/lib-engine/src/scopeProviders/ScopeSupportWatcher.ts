@@ -1,3 +1,4 @@
+import { pull } from "lodash-es";
 import type {
   Disposable,
   IDE,
@@ -6,7 +7,6 @@ import type {
   ScopeType,
 } from "@cursorless/lib-common";
 import { ScopeSupport, disposableFrom } from "@cursorless/lib-common";
-import { pull } from "lodash-es";
 import type { LanguageDefinitions } from "../languages/LanguageDefinitions";
 import { DecorationDebouncer } from "../util/DecorationDebouncer";
 import type { ScopeInfoProvider } from "./ScopeInfoProvider";

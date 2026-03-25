@@ -1,6 +1,6 @@
-import type { TutorialState } from "@cursorless/lib-common";
 import { useEffect, useState } from "preact/hooks";
 import type { WebviewApi } from "vscode-webview";
+import type { TutorialState } from "@cursorless/lib-common";
 import { Command } from "./Command";
 import { TutorialStep } from "./TutorialStep";
 

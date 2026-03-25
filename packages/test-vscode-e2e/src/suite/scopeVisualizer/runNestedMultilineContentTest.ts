@@ -1,7 +1,7 @@
-import { openNewEditor } from "@cursorless/lib-vscode-common";
 import * as vscode from "vscode";
-import { injectFakes } from "./injectFakes";
+import { openNewEditor } from "@cursorless/lib-vscode-common";
 import { checkAndResetFakes } from "./checkAndResetFakes";
+import { injectFakes } from "./injectFakes";
 import type { ExpectedArgs } from "./scopeVisualizerTest.types";
 
 /**

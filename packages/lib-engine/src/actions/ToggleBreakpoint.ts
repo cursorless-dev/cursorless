@@ -1,6 +1,6 @@
 import { FlashStyle, type IDE } from "@cursorless/lib-common";
-import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { containingLineIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
+import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import type { Target } from "../typings/target.types";
 import {
   flashTargets,

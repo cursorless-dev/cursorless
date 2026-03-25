@@ -8,20 +8,20 @@ import type {
   TreeSitter,
 } from "@cursorless/lib-common";
 import { clientSupportsFallback } from "@cursorless/lib-common";
-import type { CommandRunner } from "./CommandRunner";
 import { Actions } from "./actions/Actions";
 import type { CommandRunnerDecorator } from "./api/CursorlessEngineApi";
+import type { CommandRunner } from "./CommandRunner";
+import { CommandRunnerImpl } from "./core/commandRunner/CommandRunnerImpl";
+import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import type { Debug } from "./core/Debug";
 import type { Snippets } from "./core/Snippets";
 import type { StoredTargetMap } from "./core/StoredTargets";
-import { CommandRunnerImpl } from "./core/commandRunner/CommandRunnerImpl";
-import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import type { RangeUpdater } from "./core/updateSelections/RangeUpdater";
 import type { LanguageDefinitions } from "./languages/LanguageDefinitions";
 import { TargetPipelineRunner } from "./processTargets";
 import { MarkStageFactoryImpl } from "./processTargets/MarkStageFactoryImpl";
-import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
+import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 
 /**
  * Entry point for Cursorless commands. We proceed as follows:

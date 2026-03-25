@@ -4,13 +4,13 @@ import {
   type TextEditor,
 } from "@cursorless/lib-common";
 import { BaseScopeHandler } from "./BaseScopeHandler";
-import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 import type { TargetScope } from "./scope.types";
 import type {
   FallbackScopeType,
   ScopeHandler,
   ScopeIteratorRequirements,
 } from "./scopeHandler.types";
+import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 
 export class FallbackScopeHandler extends BaseScopeHandler {
   public scopeType = undefined;

@@ -1,8 +1,8 @@
 import { mapValues, pickBy } from "lodash-es";
+import { TextEditorCursorStyle } from "vscode";
+import type { VscodeApi } from "@cursorless/lib-vscode-common";
 import type { KeyMap, SectionName, TokenType } from "./TokenTypeHelpers";
 import type { SectionTypes, TokenTypeValueMap } from "./TokenTypes";
-import type { VscodeApi } from "@cursorless/lib-vscode-common";
-import { TextEditorCursorStyle } from "vscode";
 
 const LEGACY_PLURAL_SECTION_NAMES: Record<string, string> = {
   action: "actions",

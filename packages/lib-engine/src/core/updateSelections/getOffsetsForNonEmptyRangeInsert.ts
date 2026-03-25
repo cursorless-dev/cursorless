@@ -1,6 +1,6 @@
+import { invariant } from "immutability-helper";
 import type { RangeOffsets } from "@cursorless/lib-common";
 import { leftAnchored, rightAnchored } from "@cursorless/lib-common";
-import { invariant } from "immutability-helper";
 import type {
   ChangeEventInfo,
   FullRangeInfo,

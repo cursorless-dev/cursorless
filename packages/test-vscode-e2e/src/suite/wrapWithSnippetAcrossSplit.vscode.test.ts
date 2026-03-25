@@ -1,10 +1,10 @@
+import * as assert from "node:assert/strict";
 import { HatStability, LATEST_VERSION } from "@cursorless/lib-common";
 import {
   getCursorlessApi,
   openNewEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
-import * as assert from "node:assert/strict";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 import { setupFake } from "./setupFake";
 

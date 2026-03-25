@@ -1,11 +1,11 @@
+import type { ExtensionContext } from "vscode";
+import * as vscode from "vscode";
 import type {
   CharacterRange,
   GeneralizedRange,
   LineRange,
 } from "@cursorless/lib-common";
 import { FlashStyle, isLineRange, partition } from "@cursorless/lib-common";
-import type { ExtensionContext } from "vscode";
-import * as vscode from "vscode";
 import { VscodeHighlightDecorationTypes } from "./VscodeHighlightDecorationTypes";
 import type { VscodeTextEditor } from "./VscodeTextEditor";
 

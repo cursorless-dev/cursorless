@@ -1,8 +1,8 @@
+import * as assert from "node:assert/strict";
 import type { Messages } from "@cursorless/lib-common";
 import { Range } from "@cursorless/lib-common";
-import type { QueryCapture } from "./QueryCapture";
 import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
-import * as assert from "node:assert/strict";
+import type { QueryCapture } from "./QueryCapture";
 
 interface TestCase {
   name: string;

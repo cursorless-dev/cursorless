@@ -1,5 +1,5 @@
-import { range } from "lodash-es";
 import * as assert from "node:assert/strict";
+import { range } from "lodash-es";
 import { createTestDocument } from "./createTestDocument";
 
 interface TestCaseFixture {

@@ -1,5 +1,5 @@
-import { cursorlessCommandDescriptions } from "@cursorless/lib-common";
 import type { PackageJson } from "type-fest";
+import { cursorlessCommandDescriptions } from "@cursorless/lib-common";
 
 export function getCursorlessVscodeFields(input: PackageJson) {
   return {

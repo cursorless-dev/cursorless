@@ -1,8 +1,8 @@
 import { Button } from "./Button";
-import { EmbeddedVideo } from "./EmbeddedVideo";
-import { Title } from "./Title";
 import { DESCRIPTION, NAME, TITLE, YOUTUBE_SLUG } from "./constants";
+import { EmbeddedVideo } from "./EmbeddedVideo";
 import Logo from "./logo.svg?react";
+import { Title } from "./Title";
 
 export function LandingPage() {
   return (

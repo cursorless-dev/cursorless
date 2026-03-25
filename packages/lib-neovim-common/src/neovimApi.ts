@@ -1,7 +1,7 @@
 // Helper directly calling into Neovim apis, generally lua, exported by cursorless.nvim
-import { Position, Range, Selection } from "@cursorless/lib-common";
 import type { NeovimClient } from "neovim/lib/api/client";
 import type { Window } from "neovim/lib/api/Window";
+import { Position, Range, Selection } from "@cursorless/lib-common";
 
 /**
  * Get the current "selections" in the window(editor)

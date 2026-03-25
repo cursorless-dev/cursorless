@@ -1,3 +1,5 @@
+import { readFile } from "node:fs/promises";
+import * as path from "node:path";
 import type {
   Disposable,
   FileSystem,
@@ -6,8 +8,6 @@ import type {
   TalonSpokenForms,
 } from "@cursorless/lib-common";
 import { NeedsInitialTalonUpdateError, Notifier } from "@cursorless/lib-common";
-import { readFile } from "node:fs/promises";
-import * as path from "node:path";
 
 interface TalonSpokenFormsPayload {
   version: number;

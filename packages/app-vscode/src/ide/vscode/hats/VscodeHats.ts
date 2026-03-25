@@ -1,3 +1,5 @@
+import * as vscode from "vscode";
+import type { Disposable } from "vscode";
 import type {
   HatRange,
   Hats,
@@ -10,8 +12,6 @@ import type {
 import { Notifier } from "@cursorless/lib-common";
 import type { VscodeApi } from "@cursorless/lib-vscode-common";
 import { toVscodeRange } from "@cursorless/lib-vscode-common";
-import * as vscode from "vscode";
-import type { Disposable } from "vscode";
 import type { VscodeHatStyleName } from "../hatStyles.types";
 import VscodeEnabledHatStyleManager from "../VscodeEnabledHatStyleManager";
 import type { VscodeIDE } from "../VscodeIDE";

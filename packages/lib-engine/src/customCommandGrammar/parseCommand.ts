@@ -1,7 +1,7 @@
-import type { ActionDescriptor, ScopeType } from "@cursorless/lib-common";
 import nearley from "nearley";
-import type { WithPlaceholders } from "./WithPlaceholders";
+import type { ActionDescriptor, ScopeType } from "@cursorless/lib-common";
 import grammar from "./generated/grammar";
+import type { WithPlaceholders } from "./WithPlaceholders";
 
 function getScopeTypeParser(): nearley.Parser {
   return new nearley.Parser(

@@ -1,9 +1,9 @@
-import type { SpokenFormMap } from "../spokenForms/SpokenFormMap";
 import type {
   PartialSpokenFormTypes,
   SpokenFormMapKeyTypes,
   SpokenFormType,
 } from "@cursorless/lib-common";
+import type { SpokenFormMap } from "../spokenForms/SpokenFormMap";
 import type { CustomizableSpokenFormComponentForType } from "./SpokenFormComponent";
 
 /**

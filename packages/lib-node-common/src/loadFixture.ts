@@ -1,5 +1,5 @@
-import * as yaml from "js-yaml";
 import { readFile } from "node:fs/promises";
+import * as yaml from "js-yaml";
 import type { TestCaseFixtureLegacy } from "@cursorless/lib-common";
 
 export async function loadFixture(

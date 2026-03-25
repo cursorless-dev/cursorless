@@ -1,9 +1,9 @@
+import * as semver from "semver";
 import type { ExtensionContext } from "vscode";
+import { URI } from "vscode-uri";
 import type { Messages } from "@cursorless/lib-common";
 import { showInfo } from "@cursorless/lib-common";
-import * as semver from "semver";
 import type { VscodeApi } from "@cursorless/lib-vscode-common";
-import { URI } from "vscode-uri";
 
 /**
  * The key to use in global storage to detect when Cursorless version number has

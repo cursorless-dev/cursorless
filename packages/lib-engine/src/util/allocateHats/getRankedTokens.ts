@@ -1,3 +1,4 @@
+import { flatten } from "lodash-es";
 import type {
   CompositeKeyMap,
   IDE,
@@ -5,7 +6,6 @@ import type {
   Token,
   TokenHat,
 } from "@cursorless/lib-common";
-import { flatten } from "lodash-es";
 import { getDisplayLineMap } from "./getDisplayLineMap";
 import { getTokenComparator } from "./getTokenComparator";
 import { getTokensInRange } from "./getTokensInRange";

@@ -12,12 +12,12 @@ import type {
   ConditionalScopeType,
   ScopeIteratorRequirements,
 } from "../scopeHandler.types";
+import { scopeHandlerCache } from "../ScopeHandlerCache";
 import { createTargetScope } from "./createTargetScope";
 import { getDelimiterOccurrences } from "./getDelimiterOccurrences";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
 import { getSurroundingPairOccurrences } from "./getSurroundingPairOccurrences";
 import type { SurroundingPairOccurrence } from "./types";
-import { scopeHandlerCache } from "../ScopeHandlerCache";
 
 export class SurroundingPairScopeHandler extends BaseScopeHandler {
   public readonly iterationScopeType: ConditionalScopeType = {

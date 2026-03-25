@@ -6,8 +6,8 @@ import type {
 } from "@cursorless/lib-common";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import type { Target } from "../typings/target.types";
-import { CallbackAction } from "./CallbackAction";
 import type { ActionReturnValue } from "./actions.types";
+import { CallbackAction } from "./CallbackAction";
 
 interface Options {
   showDecorations?: boolean;

@@ -1,3 +1,6 @@
+import * as assert from "node:assert/strict";
+import { promises as fsp } from "node:fs";
+import { groupBy, uniq } from "lodash-es";
 import type {
   PlaintextScopeSupportFacet,
   ScopeRangeConfig,
@@ -13,9 +16,6 @@ import {
   shouldUpdateFixtures,
 } from "@cursorless/lib-common";
 import { getScopeTestPathsRecursively } from "@cursorless/lib-node-common";
-import { groupBy, uniq } from "lodash-es";
-import { promises as fsp } from "node:fs";
-import * as assert from "node:assert/strict";
 import type { TestEnvironment } from "../testUtil/createTestEnvironment";
 import { createTestEnvironment } from "../testUtil/createTestEnvironment";
 import {

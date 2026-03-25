@@ -1,3 +1,4 @@
+import { mapValues } from "lodash-es";
 import type { StoredTargetKey } from "@cursorless/lib-common";
 import { groupBy, toCharacterRange } from "@cursorless/lib-common";
 import type { StoredTargetMap } from "@cursorless/lib-engine";
@@ -6,9 +7,8 @@ import type {
   ScopeVisualizerColorConfig,
 } from "@cursorless/lib-vscode-common";
 import type { VscodeIDE } from "./ide/vscode/VscodeIDE";
-import { VscodeFancyRangeHighlighter } from "./ide/vscode/VSCodeScopeVisualizer/VscodeFancyRangeHighlighter";
 import { getColorsFromConfig } from "./ide/vscode/VSCodeScopeVisualizer/getColorsFromConfig";
-import { mapValues } from "lodash-es";
+import { VscodeFancyRangeHighlighter } from "./ide/vscode/VSCodeScopeVisualizer/VscodeFancyRangeHighlighter";
 import { usingSetting } from "./usingSetting";
 
 const targetColorMap: Partial<Record<StoredTargetKey, ScopeRangeType>> = {

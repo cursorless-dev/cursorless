@@ -1,3 +1,4 @@
+import { isEqual } from "lodash-es";
 import type {
   EnforceUndefined,
   GeneralizedRange,
@@ -7,13 +8,12 @@ import type {
   TextEditor,
 } from "@cursorless/lib-common";
 import { rangeToPlainObject, Selection } from "@cursorless/lib-common";
-import { isEqual } from "lodash-es";
-import type { EditWithRangeUpdater } from "../../typings/Types";
 import type {
   Destination,
   Target,
   TextualType,
 } from "../../typings/target.types";
+import type { EditWithRangeUpdater } from "../../typings/Types";
 import { toGeneralizedRange } from "../../util/targetUtils";
 import { DestinationImpl } from "./DestinationImpl";
 import { createContinuousRange } from "./util/createContinuousRange";

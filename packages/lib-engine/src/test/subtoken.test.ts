@@ -1,5 +1,5 @@
-import { FakeIDE } from "@cursorless/lib-common";
 import * as assert from "node:assert/strict";
+import { FakeIDE } from "@cursorless/lib-common";
 import { WordTokenizer } from "../processTargets/modifiers/scopeHandlers/WordScopeHandler/WordTokenizer";
 import { subtokenFixture } from "./fixtures/subtoken.fixture";
 

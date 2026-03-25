@@ -1,3 +1,8 @@
+import * as fs from "node:fs";
+import { access, readFile, unlink } from "node:fs/promises";
+import * as path from "node:path";
+import { invariant } from "immutability-helper";
+import { merge } from "lodash-es";
 import type {
   CommandComplete,
   CommandLatest,
@@ -33,11 +38,6 @@ import {
   getRecordedTestsDirPath,
   walkDirsSync,
 } from "@cursorless/lib-node-common";
-import { invariant } from "immutability-helper";
-import { merge } from "lodash-es";
-import * as fs from "node:fs";
-import { access, readFile, unlink } from "node:fs/promises";
-import * as path from "node:path";
 import type { RecordTestCaseCommandOptions } from "./RecordTestCaseCommandOptions";
 import { takeSnapshot } from "./takeSnapshot";
 import { TestCase } from "./TestCase";

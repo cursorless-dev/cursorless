@@ -1,6 +1,6 @@
-import { Position, Range, adjustPosition } from "@cursorless/lib-common";
 import type { Point } from "web-tree-sitter";
 import { z } from "zod";
+import { Position, Range, adjustPosition } from "@cursorless/lib-common";
 import { getNode } from "./getNode";
 import { isEven } from "./isEven";
 import { makeRangeFromPositions } from "./makeRangeFromPositions";

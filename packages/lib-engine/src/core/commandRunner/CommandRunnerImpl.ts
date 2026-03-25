@@ -7,17 +7,17 @@ import type {
   PartialTargetDescriptor,
 } from "@cursorless/lib-common";
 import { clientSupportsFallback } from "@cursorless/lib-common";
-import type { CommandRunner } from "../../CommandRunner";
 import type {
   ActionRecord,
   ActionReturnValue,
 } from "../../actions/actions.types";
+import type { CommandRunner } from "../../CommandRunner";
 import { parseAndFillOutAction } from "../../customCommandGrammar/parseAndFillOutAction";
 import type { StoredTargetMap } from "../../index";
 import type { TargetPipelineRunner } from "../../processTargets";
 import type { ModifierStage } from "../../processTargets/PipelineStages.types";
-import type { SelectionWithEditor } from "../../typings/Types";
 import type { Destination, Target } from "../../typings/target.types";
+import type { SelectionWithEditor } from "../../typings/Types";
 import type { Debug } from "../Debug";
 import { getCommandFallback } from "../getCommandFallback";
 import { inferFullTargetDescriptor } from "../inferFullTargetDescriptor";

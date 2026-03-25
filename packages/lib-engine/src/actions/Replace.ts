@@ -1,14 +1,14 @@
+import { zip } from "lodash-es";
 import type { IDE, ReplaceWith } from "@cursorless/lib-common";
 import {
   FlashStyle,
   RangeExpansionBehavior,
   Selection,
 } from "@cursorless/lib-common";
-import { zip } from "lodash-es";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import type { SelectionWithEditor } from "../typings/Types";
 import type { Destination, Target } from "../typings/target.types";
+import type { SelectionWithEditor } from "../typings/Types";
 import { flashTargets, runForEachEditor } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
 

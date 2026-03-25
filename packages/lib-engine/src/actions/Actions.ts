@@ -2,6 +2,7 @@ import type { IDE, TreeSitter } from "@cursorless/lib-common";
 import type { Snippets } from "../core/Snippets";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import type { ActionRecord } from "./actions.types";
 import { BreakLine } from "./BreakLine";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import Call from "./Call";
@@ -19,6 +20,7 @@ import GenerateSnippet from "./GenerateSnippet";
 import GetTargets from "./GetTargets";
 import GetText from "./GetText";
 import Highlight from "./Highlight";
+import { Decrement, Increment } from "./incrementDecrement";
 import { IndentLine, OutdentLine } from "./IndentLine";
 import {
   CopyContentAfter as InsertCopyAfter,
@@ -67,8 +69,6 @@ import { Random, Reverse, Sort } from "./Sort";
 import ToggleBreakpoint from "./ToggleBreakpoint";
 import Wrap from "./Wrap";
 import WrapWithSnippet from "./WrapWithSnippet";
-import type { ActionRecord } from "./actions.types";
-import { Decrement, Increment } from "./incrementDecrement";
 
 /**
  * Keeps a map from action names to objects that implement the given action

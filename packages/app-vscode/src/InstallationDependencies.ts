@@ -1,10 +1,10 @@
-import { isWindows } from "@cursorless/lib-node-common";
-import { COMMAND_SERVER_EXTENSION_ID } from "@cursorless/lib-vscode-common";
-import glob from "fast-glob";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
+import glob from "fast-glob";
 import * as vscode from "vscode";
+import { isWindows } from "@cursorless/lib-node-common";
+import { COMMAND_SERVER_EXTENSION_ID } from "@cursorless/lib-vscode-common";
 
 const STATE_KEY = "dontShowInstallationDependencies";
 

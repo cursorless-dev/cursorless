@@ -1,5 +1,5 @@
-import * as stringHelper from "./stringHelper";
 import * as Match from "./Match";
+import * as stringHelper from "./stringHelper";
 
 const newline_placeholder = " @~@ ";
 const newline_placeholder_t = newline_placeholder.trim();

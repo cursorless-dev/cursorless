@@ -1,10 +1,10 @@
+import { deburr, escapeRegExp } from "lodash-es";
 import type {
   Disposable,
   IDE,
   TokenHatSplittingMode,
 } from "@cursorless/lib-common";
 import { Notifier, matchAll } from "@cursorless/lib-common";
-import { deburr, escapeRegExp } from "lodash-es";
 
 /**
  * A list of all symbols that are speakable by default in community.

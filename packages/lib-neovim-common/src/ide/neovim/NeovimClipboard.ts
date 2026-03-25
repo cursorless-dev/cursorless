@@ -1,6 +1,6 @@
+import type { NeovimClient } from "neovim";
 import type { Clipboard } from "@cursorless/lib-common";
 import { getClipboard, setClipboard } from "../../neovimApi";
-import type { NeovimClient } from "neovim";
 
 export default class NeovimClipboard implements Clipboard {
   constructor(private client: NeovimClient) {}

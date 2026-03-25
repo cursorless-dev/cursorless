@@ -1,6 +1,6 @@
-import { vitePreactAlias } from "@cursorless/lib-common/vite";
 import { defineConfig, type UserConfig } from "vite";
 import purgeCss from "vite-plugin-purgecss";
+import { vitePreactAlias } from "@cursorless/lib-common/vite";
 
 export default defineConfig((): UserConfig => {
   return {

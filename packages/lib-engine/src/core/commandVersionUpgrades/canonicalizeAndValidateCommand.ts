@@ -1,3 +1,4 @@
+import { produce } from "immer";
 import type {
   ActionType,
   Command,
@@ -7,7 +8,6 @@ import type {
   PartialTargetDescriptor,
 } from "@cursorless/lib-common";
 import { LATEST_VERSION, OutdatedExtensionError } from "@cursorless/lib-common";
-import { produce } from "immer";
 import { getPartialTargetDescriptors } from "../../util/getPartialTargetDescriptors";
 import canonicalizeTargetsInPlace from "./canonicalizeTargetsInPlace";
 import { upgradeV0ToV1 } from "./upgradeV0ToV1";

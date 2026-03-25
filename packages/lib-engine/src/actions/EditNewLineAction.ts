@@ -1,6 +1,6 @@
+import { containingLineIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
 import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import type { ModifierStage } from "../processTargets/PipelineStages.types";
-import { containingLineIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
 import type { Target } from "../typings/target.types";
 import type {
   ActionRecord,

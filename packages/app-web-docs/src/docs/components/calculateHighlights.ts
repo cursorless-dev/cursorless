@@ -1,10 +1,10 @@
+import type { DecorationItem } from "shiki";
 import type { DecorationStyle } from "@cursorless/lib-common";
 import {
   generateDecorationsForCharacterRange,
   Range,
   useSingleCornerBorderRadius,
 } from "@cursorless/lib-common";
-import type { DecorationItem } from "shiki";
 import { flattenHighlights } from "./flattenHighlights";
 import { highlightColors } from "./highlightColors";
 import { highlightsToDecorations } from "./highlightsToDecorations";

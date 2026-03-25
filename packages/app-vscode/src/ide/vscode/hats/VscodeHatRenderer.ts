@@ -1,3 +1,7 @@
+import * as fs from "node:fs/promises";
+import * as path from "node:path";
+import { cloneDeep, isEqual } from "lodash-es";
+import * as vscode from "vscode";
 import type {
   Listener,
   Messages,
@@ -6,15 +10,11 @@ import type {
 import { Notifier } from "@cursorless/lib-common";
 import { walkFiles } from "@cursorless/lib-node-common";
 import type { VscodeApi } from "@cursorless/lib-vscode-common";
-import * as fs from "node:fs/promises";
-import { cloneDeep, isEqual } from "lodash-es";
-import * as path from "node:path";
-import * as vscode from "vscode";
+import type { HatShape, VscodeHatStyleName } from "../hatStyles.types";
+import { HAT_SHAPES } from "../hatStyles.types";
 import { vscodeGetConfigurationString } from "../VscodeConfiguration";
 import type { ExtendedHatStyleMap } from "../VscodeEnabledHatStyleManager";
 import type VscodeEnabledHatStyleManager from "../VscodeEnabledHatStyleManager";
-import type { HatShape, VscodeHatStyleName } from "../hatStyles.types";
-import { HAT_SHAPES } from "../hatStyles.types";
 import type { FontMeasurements } from "./FontMeasurements";
 import getHatThemeColors from "./getHatThemeColors";
 import { performPr1868ShapeUpdateInit } from "./performPr1868ShapeUpdateInit";

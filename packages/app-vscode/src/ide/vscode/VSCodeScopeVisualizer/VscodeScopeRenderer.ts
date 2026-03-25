@@ -1,9 +1,9 @@
 import type { Disposable, GeneralizedRange } from "@cursorless/lib-common";
 import { isGeneralizedRangeEqual } from "@cursorless/lib-common";
 import type { VscodeTextEditor } from "../VscodeTextEditor";
+import { blendRangeTypeColors } from "./blendRangeTypeColors";
 import type { RangeTypeColors } from "./RangeTypeColors";
 import { VscodeFancyRangeHighlighter } from "./VscodeFancyRangeHighlighter";
-import { blendRangeTypeColors } from "./blendRangeTypeColors";
 
 export interface RendererScope {
   domain: GeneralizedRange;

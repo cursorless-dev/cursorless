@@ -1,3 +1,4 @@
+import * as path from "node:path";
 import {
   Notifier,
   type Disposable,
@@ -5,7 +6,6 @@ import {
   type IDE,
   type RawTreeSitterQueryProvider,
 } from "@cursorless/lib-common";
-import * as path from "node:path";
 import { getCursorlessRepoRoot } from "./getCursorlessRepoRoot";
 
 export class FileSystemRawTreeSitterQueryProvider implements RawTreeSitterQueryProvider {

@@ -1,3 +1,5 @@
+import type { NeovimClient } from "neovim/lib/api/client";
+import type { NvimPlugin } from "neovim/lib/host/NvimPlugin";
 import {
   FakeCommandServerApi,
   FakeIDE,
@@ -6,10 +8,8 @@ import {
 import { createCursorlessEngine } from "@cursorless/lib-engine";
 import { EXTENSION_ID, NeovimIDE } from "@cursorless/lib-neovim-common";
 import { getNeovimRegistry } from "@cursorless/lib-neovim-registry";
-import type { NeovimClient } from "neovim/lib/api/client";
-import type { NvimPlugin } from "neovim/lib/host/NvimPlugin";
-import { NeovimCommandServerApi } from "./NeovimCommandServerApi";
 import { constructTestHelpers } from "./constructTestHelpers";
+import { NeovimCommandServerApi } from "./NeovimCommandServerApi";
 import { registerCommands } from "./registerCommands";
 
 /**

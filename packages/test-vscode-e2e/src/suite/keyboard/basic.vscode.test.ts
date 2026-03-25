@@ -1,15 +1,15 @@
+import * as assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import * as path from "node:path";
+import sinon from "sinon";
+import * as vscode from "vscode";
+import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
 import {
   getCursorlessApi,
   getReusableEditor,
   openNewEditor,
 } from "@cursorless/lib-vscode-common";
-import * as vscode from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../../endToEndTestSetup";
-import sinon from "sinon";
-import * as path from "node:path";
-import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
-import { readFile } from "node:fs/promises";
-import * as assert from "node:assert/strict";
 
 interface TestCase {
   name: string;

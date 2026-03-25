@@ -1,9 +1,9 @@
+import assert from "node:assert/strict";
+import * as vscode from "vscode";
 import {
   getCursorlessApi,
   getReusableEditor,
 } from "@cursorless/lib-vscode-common";
-import assert from "node:assert/strict";
-import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
 suite("toggle decorations", async function () {

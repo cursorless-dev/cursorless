@@ -1,13 +1,13 @@
+import * as assert from "node:assert/strict";
 import type { TextEditor, Direction } from "@cursorless/lib-common";
 import { Position, Range } from "@cursorless/lib-common";
 import { BaseScopeHandler } from "./BaseScopeHandler";
+import { compareTargetScopes } from "./compareTargetScopes";
 import type { TargetScope } from "./scope.types";
 import type {
   CustomScopeType,
   ScopeIteratorRequirements,
 } from "./scopeHandler.types";
-import { compareTargetScopes } from "./compareTargetScopes";
-import * as assert from "node:assert/strict";
 
 class TestScopeHandler extends BaseScopeHandler {
   public scopeType = undefined;

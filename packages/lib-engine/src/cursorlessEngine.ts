@@ -9,7 +9,6 @@ import type {
   TreeSitter,
 } from "@cursorless/lib-common";
 import { ensureCommandShape, PassthroughIDE } from "@cursorless/lib-common";
-import { KeyboardTargetUpdater } from "./KeyboardTargetUpdater";
 import type {
   CommandRunnerDecorator,
   CursorlessEngine,
@@ -26,10 +25,11 @@ import { DisabledSnippets } from "./disabledComponents/DisabledSnippets";
 import { DisabledTalonSpokenForms } from "./disabledComponents/DisabledTalonSpokenForms";
 import { DisabledTreeSitter } from "./disabledComponents/DisabledTreeSitter";
 import { CustomSpokenFormGeneratorImpl } from "./generateSpokenForm/CustomSpokenFormGeneratorImpl";
+import { KeyboardTargetUpdater } from "./KeyboardTargetUpdater";
 import type { LanguageDefinitions } from "./languages/LanguageDefinitions";
 import { LanguageDefinitionsImpl } from "./languages/LanguageDefinitions";
-import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
+import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { runCommand } from "./runCommand";
 import { ScopeInfoProvider } from "./scopeProviders/ScopeInfoProvider";
 import { ScopeRangeProvider } from "./scopeProviders/ScopeRangeProvider";

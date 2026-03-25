@@ -1,9 +1,9 @@
+import type { Context } from "mocha";
+import * as sinon from "sinon";
 import type { IDE } from "@cursorless/lib-common";
 import { shouldUpdateFixtures, sleep, SpyIDE } from "@cursorless/lib-common";
 import type { NeovimIDE } from "@cursorless/lib-neovim-common";
 import { getCursorlessApi } from "@cursorless/lib-neovim-common";
-import type { Context } from "mocha";
-import * as sinon from "sinon";
 
 /**
  * The number of times the current test has been retried. Will be 0 the first

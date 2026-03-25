@@ -1,3 +1,6 @@
+import * as path from "node:path";
+import type * as vscode from "vscode";
+import type { URI } from "vscode-uri";
 import type {
   EndOfLine,
   Position,
@@ -11,9 +14,6 @@ import {
   toVscodePosition,
   toVscodeRange,
 } from "@cursorless/lib-vscode-common";
-import * as path from "node:path";
-import type * as vscode from "vscode";
-import type { URI } from "vscode-uri";
 import VscodeTextLine from "./VscodeTextLine";
 
 export class VscodeTextDocument implements TextDocument {

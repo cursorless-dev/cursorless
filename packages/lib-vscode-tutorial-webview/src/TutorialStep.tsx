@@ -1,5 +1,5 @@
-import type { ActiveTutorialNoErrorsState } from "@cursorless/lib-common";
 import type { WebviewApi } from "vscode-webview";
+import type { ActiveTutorialNoErrorsState } from "@cursorless/lib-common";
 import { ArrowLeftIcon } from "./ArrowLeftIcon";
 import { ArrowRightIcon } from "./ArrowRightIcon";
 import { CloseIcon } from "./CloseIcon";

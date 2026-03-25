@@ -1,8 +1,8 @@
-import { getReusableEditor } from "@cursorless/lib-vscode-common";
 import * as vscode from "vscode";
+import { getReusableEditor } from "@cursorless/lib-vscode-common";
 import { sleepWithBackoff } from "../../endToEndTestSetup";
-import { injectFakes } from "./injectFakes";
 import { checkAndResetFakes } from "./checkAndResetFakes";
+import { injectFakes } from "./injectFakes";
 import type { ExpectedArgs } from "./scopeVisualizerTest.types";
 
 /**

@@ -1,10 +1,10 @@
+import { isEqual } from "lodash-es";
 import type {
   Disposable,
   ScopeProvider,
   ScopeTypeInfo,
 } from "@cursorless/lib-common";
 import { disposableFrom } from "@cursorless/lib-common";
-import { isEqual } from "lodash-es";
 import type {
   ScopeVisualizer,
   VisualizationType,

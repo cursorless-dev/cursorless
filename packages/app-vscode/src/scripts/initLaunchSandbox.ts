@@ -1,10 +1,10 @@
+import * as cp from "node:child_process";
 /**
  * This script creates a VSCode settings profile for Cursorless development,
  * allowing you to have a separate set of extensions and settings for use when
  * developing the Cursorless VSCode extension locally.
  */
 import { extensionDependencies } from "@cursorless/lib-common";
-import * as cp from "node:child_process";
 
 const vsCodeToolName: string = "code";
 const validCliToolParams: Array<string> = ["--code", "--codium"];

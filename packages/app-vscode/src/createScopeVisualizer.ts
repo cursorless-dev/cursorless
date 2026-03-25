@@ -1,10 +1,10 @@
+import { pull } from "lodash-es";
 import type {
   Disposable,
   IDE,
   ScopeProvider,
   ScopeType,
 } from "@cursorless/lib-common";
-import { pull } from "lodash-es";
 import {
   type VscodeScopeVisualizer,
   createVscodeScopeVisualizer,

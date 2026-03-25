@@ -1,7 +1,7 @@
-import type { IDE, TextEditor } from "@cursorless/lib-common";
-import { type Snippets } from "@cursorless/lib-engine";
 import { open } from "node:fs/promises";
 import { join } from "node:path";
+import type { IDE, TextEditor } from "@cursorless/lib-common";
+import { type Snippets } from "@cursorless/lib-engine";
 
 export class VscodeSnippets implements Snippets {
   constructor(private ide: IDE) {}

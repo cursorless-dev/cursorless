@@ -1,3 +1,4 @@
+import type { NeovimClient } from "neovim";
 import type {
   CommandResponse,
   CommandServerApi,
@@ -8,7 +9,6 @@ import {
   clientSupportsFallback,
   ensureCommandShape,
 } from "@cursorless/lib-common";
-
 import type { CommandApi } from "@cursorless/lib-engine";
 import type { NeovimIDE } from "@cursorless/lib-neovim-common";
 import {
@@ -16,7 +16,6 @@ import {
   modeSwitchTerminal,
 } from "@cursorless/lib-neovim-common";
 import { getNeovimRegistry } from "@cursorless/lib-neovim-registry";
-import type { NeovimClient } from "neovim";
 
 export async function registerCommands(
   client: NeovimClient,

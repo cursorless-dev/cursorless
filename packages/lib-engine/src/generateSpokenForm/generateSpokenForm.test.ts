@@ -1,17 +1,17 @@
+import * as assert from "node:assert/strict";
+import { promises as fsp } from "node:fs";
+import * as yaml from "js-yaml";
 import type { TestCaseFixtureLegacy } from "@cursorless/lib-common";
 import {
   serializeTestFixture,
   shouldUpdateFixtures,
 } from "@cursorless/lib-common";
 import { getRecordedTestPaths } from "@cursorless/lib-node-common";
-import * as yaml from "js-yaml";
-import * as assert from "node:assert/strict";
-import { promises as fsp } from "node:fs";
 import { SpokenFormGenerator } from ".";
 import { canonicalizeAndValidateCommand } from "../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
+import { defaultSpokenFormInfoMap } from "../spokenForms/defaultSpokenFormMap";
 import type { SpokenFormMap } from "../spokenForms/SpokenFormMap";
 import { mapSpokenForms } from "../spokenForms/SpokenFormMap";
-import { defaultSpokenFormInfoMap } from "../spokenForms/defaultSpokenFormMap";
 import { getHatMapCommand } from "./getHatMapCommand";
 
 /**

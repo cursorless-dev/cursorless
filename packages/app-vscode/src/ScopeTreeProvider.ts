@@ -1,23 +1,3 @@
-import type {
-  CursorlessCommandId,
-  IDE,
-  ScopeProvider,
-  ScopeSupportInfo,
-  ScopeType,
-  ScopeTypeInfo,
-  Selection,
-  TextEditor,
-} from "@cursorless/lib-common";
-import {
-  CURSORLESS_SCOPE_TREE_VIEW_ID,
-  DOCS_URL,
-  ScopeSupport,
-  disposableFrom,
-  serializeScopeType,
-  uriEncodeHashId,
-} from "@cursorless/lib-common";
-import { type CustomSpokenFormGenerator } from "@cursorless/lib-engine";
-import { type VscodeApi } from "@cursorless/lib-vscode-common";
 import { isEqual } from "lodash-es";
 import type {
   Disposable,
@@ -38,6 +18,26 @@ import {
   window,
 } from "vscode";
 import { URI } from "vscode-uri";
+import type {
+  CursorlessCommandId,
+  IDE,
+  ScopeProvider,
+  ScopeSupportInfo,
+  ScopeType,
+  ScopeTypeInfo,
+  Selection,
+  TextEditor,
+} from "@cursorless/lib-common";
+import {
+  CURSORLESS_SCOPE_TREE_VIEW_ID,
+  DOCS_URL,
+  ScopeSupport,
+  disposableFrom,
+  serializeScopeType,
+  uriEncodeHashId,
+} from "@cursorless/lib-common";
+import { type CustomSpokenFormGenerator } from "@cursorless/lib-engine";
+import { type VscodeApi } from "@cursorless/lib-vscode-common";
 import type {
   ScopeVisualizer,
   VisualizationType,

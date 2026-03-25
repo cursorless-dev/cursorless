@@ -6,8 +6,8 @@ import type { CustomScopeType } from "../scopeHandler.types";
 import { getCollectionItemRemovalRange } from "../util/getCollectionItemRemovalRange";
 import type { ExtendedTargetScope } from "./BaseTreeSitterScopeHandler";
 import { BaseTreeSitterScopeHandler } from "./BaseTreeSitterScopeHandler";
-import { TreeSitterIterationScopeHandler } from "./TreeSitterIterationScopeHandler";
 import { findCaptureByName, getRelatedRange } from "./captureUtils";
+import { TreeSitterIterationScopeHandler } from "./TreeSitterIterationScopeHandler";
 
 /**
  * Handles scopes that are implemented using tree-sitter.

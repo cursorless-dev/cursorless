@@ -1,9 +1,9 @@
 import type { ScopeType } from "@cursorless/lib-common";
 import type { Target } from "../../typings/target.types";
-import type { ModifierStageFactory } from "../ModifierStageFactory";
 import { createContinuousRangeTarget } from "../createContinuousRangeTarget";
-import { assertIndices } from "./listUtils";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStateOptions } from "../PipelineStages.types";
+import { assertIndices } from "./listUtils";
 
 /**
  * Construct a single range target between two targets in a list of targets,

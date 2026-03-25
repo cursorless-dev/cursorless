@@ -1,15 +1,15 @@
+import type * as vscode from "vscode";
 import type { Hats, HatTokenMap, IDE } from "@cursorless/lib-common";
 import type {
   CommandRunnerDecorator,
   CustomSpokenFormGenerator,
 } from "@cursorless/lib-engine";
-import { TutorialImpl } from "@cursorless/lib-tutorial";
 import { FileSystemTutorialContentProvider } from "@cursorless/lib-node-common";
-import type * as vscode from "vscode";
-import type { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
-import { VscodeTutorial } from "./VscodeTutorial";
+import { TutorialImpl } from "@cursorless/lib-tutorial";
 import type { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
+import type { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
 import { vscodeApi } from "./vscodeApi";
+import { VscodeTutorial } from "./VscodeTutorial";
 
 export function createTutorial(
   context: vscode.ExtensionContext,

@@ -4,11 +4,11 @@ import type {
   Selection,
   TextEditor,
 } from "@cursorless/lib-common";
-import type { EditWithRangeUpdater } from "../../typings/Types";
 import type {
   Destination,
   EditNewActionType,
 } from "../../typings/target.types";
+import type { EditWithRangeUpdater } from "../../typings/Types";
 import type { NotebookCellTarget } from "./NotebookCellTarget";
 
 export class NotebookCellDestination implements Destination {

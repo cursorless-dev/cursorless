@@ -1,12 +1,12 @@
+import type { FlashStyle } from "../ide/types/FlashDescriptor";
 import type {
   CharacterRange,
   GeneralizedRange,
   LineRange,
 } from "../types/GeneralizedRange";
 import { isLineRange } from "../types/GeneralizedRange";
-import type { FlashStyle } from "../ide/types/FlashDescriptor";
-import type { Token } from "../types/Token";
 import type { Selection } from "../types/Selection";
+import type { Token } from "../types/Token";
 
 export type PositionPlainObject = {
   line: number;

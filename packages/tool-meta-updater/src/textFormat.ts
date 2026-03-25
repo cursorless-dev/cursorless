@@ -1,5 +1,5 @@
-import { createFormat } from "@pnpm/meta-updater";
 import * as fs from "node:fs/promises";
+import { createFormat } from "@pnpm/meta-updater";
 
 export const textFormat = createFormat({
   read: ({ resolvedPath }) => fs.readFile(resolvedPath, "utf8"),

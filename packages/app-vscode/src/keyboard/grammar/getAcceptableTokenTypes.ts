@@ -1,9 +1,9 @@
-import type nearley from "nearley";
 import { isEqual, times } from "lodash-es";
-import type { CommandRulePostProcessor } from "./CommandRulePostProcessor";
+import type nearley from "nearley";
 import { DefaultMap, uniqWithHash } from "@cursorless/lib-common";
 import type { KeyboardCommandHandler } from "../KeyboardCommandHandler";
 import type { TokenType } from "../TokenTypeHelpers";
+import type { CommandRulePostProcessor } from "./CommandRulePostProcessor";
 
 export interface AcceptableTokenType {
   /**

@@ -1,10 +1,10 @@
+import { concat, uniq } from "lodash-es";
 import type {
   ComplexSurroundingPairName,
   SimpleSurroundingPairName,
   SurroundingPairName,
 } from "@cursorless/lib-common";
 import { isString } from "@cursorless/lib-common";
-import { concat, uniq } from "lodash-es";
 import { complexDelimiterMap, getSimpleDelimiterMap } from "./delimiterMaps";
 import type { IndividualDelimiter } from "./types";
 import { DelimiterSide } from "./types";

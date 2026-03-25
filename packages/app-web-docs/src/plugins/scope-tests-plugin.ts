@@ -1,12 +1,12 @@
+import * as fs from "node:fs";
+import * as path from "node:path";
+import { fileURLToPath } from "node:url";
+import type { LoadContext, Plugin, PluginOptions } from "@docusaurus/types";
 import type { ScopeTestPath } from "@cursorless/lib-node-common";
 import {
   getScopeTestLanguagesRecursively,
   getScopeTestPaths,
 } from "@cursorless/lib-node-common";
-import type { LoadContext, Plugin, PluginOptions } from "@docusaurus/types";
-import * as fs from "node:fs";
-import * as path from "node:path";
-import { fileURLToPath } from "node:url";
 import type {
   Fixture,
   Scope,

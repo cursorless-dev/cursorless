@@ -1,6 +1,6 @@
+import { imap } from "itertools";
 import type { Direction, MatchedText } from "@cursorless/lib-common";
 import { Range } from "@cursorless/lib-common";
-import { imap } from "itertools";
 import { TokenTarget } from "../../../targets";
 import { NestedScopeHandler } from "../NestedScopeHandler";
 import type { TargetScope } from "../scope.types";

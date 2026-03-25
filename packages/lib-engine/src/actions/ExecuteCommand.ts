@@ -1,8 +1,8 @@
 import type { ExecuteCommandOptions, IDE } from "@cursorless/lib-common";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import type { Target } from "../typings/target.types";
-import { CallbackAction } from "./CallbackAction";
 import type { ActionReturnValue } from "./actions.types";
+import { CallbackAction } from "./CallbackAction";
 
 /**
  * This action can be used to execute a built-in ide command on one or more

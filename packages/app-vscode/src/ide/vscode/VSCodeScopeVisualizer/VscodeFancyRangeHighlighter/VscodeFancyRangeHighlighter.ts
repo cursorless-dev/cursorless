@@ -1,17 +1,17 @@
+import { flatmap } from "itertools";
+import { range as lodashRange } from "lodash-es";
 import type { GeneralizedRange, TextEditor } from "@cursorless/lib-common";
 import {
   generateDecorationsForCharacterRange,
   generateDecorationsForLineRange,
   Range,
 } from "@cursorless/lib-common";
-import { flatmap } from "itertools";
-import { range as lodashRange } from "lodash-es";
 import type { VscodeTextEditor } from "../../VscodeTextEditor";
 import type { RangeTypeColors } from "../RangeTypeColors";
-import { VscodeFancyRangeHighlighterRenderer } from "./VscodeFancyRangeHighlighterRenderer";
 import type { DifferentiatedStyledRange } from "./decorationStyle.types";
 import { generateDifferentiatedRanges } from "./generateDifferentiatedRanges";
 import { groupDifferentiatedStyledRanges } from "./groupDifferentiatedStyledRanges";
+import { VscodeFancyRangeHighlighterRenderer } from "./VscodeFancyRangeHighlighterRenderer";
 
 /**
  * A class for highlighting ranges in a VSCode editor, which does the following:

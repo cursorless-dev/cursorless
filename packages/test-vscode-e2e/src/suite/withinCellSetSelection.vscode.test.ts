@@ -1,3 +1,5 @@
+import * as assert from "node:assert/strict";
+import { window } from "vscode";
 import { LATEST_VERSION, splitKey } from "@cursorless/lib-common";
 import {
   getCellIndex,
@@ -5,8 +7,6 @@ import {
   openNewNotebookEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
-import * as assert from "node:assert/strict";
-import { window } from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
 // Check that setSelection is able to focus the correct cell

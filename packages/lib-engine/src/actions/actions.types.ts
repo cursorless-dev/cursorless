@@ -8,8 +8,8 @@ import type {
   WrapWithSnippetArg,
 } from "@cursorless/lib-common";
 import type { ModifierStage } from "../processTargets/PipelineStages.types";
-import type { SelectionWithEditor } from "../typings/Types";
 import type { Destination, Target } from "../typings/target.types";
+import type { SelectionWithEditor } from "../typings/Types";
 
 /**
  * To be returned by {@link SimpleAction.run}

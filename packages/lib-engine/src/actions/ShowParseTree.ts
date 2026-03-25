@@ -1,6 +1,6 @@
+import type { Tree, TreeCursor } from "web-tree-sitter";
 import type { IDE, TextDocument, TreeSitter } from "@cursorless/lib-common";
 import { FlashStyle, Range } from "@cursorless/lib-common";
-import type { Tree, TreeCursor } from "web-tree-sitter";
 import type { Target } from "../typings/target.types";
 import { flashTargets } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";

@@ -1,7 +1,7 @@
-import type { TestCaseFixtureLegacy } from "../types/TestCaseFixture";
 import type { ActionDescriptor } from "../types/command/ActionDescriptor";
-import type { CommandV7 } from "../types/command/CommandV7.types";
 import type { Command } from "../types/command/command.types";
+import type { CommandV7 } from "../types/command/CommandV7.types";
+import type { TestCaseFixtureLegacy } from "../types/TestCaseFixture";
 import type { EnforceUndefined } from "../util/typeUtils";
 import { serialize } from "./serialize";
 

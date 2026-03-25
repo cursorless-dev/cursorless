@@ -1,13 +1,13 @@
 import { Range } from "@cursorless/lib-common";
+import type { Target } from "../../typings/target.types";
 import type { MinimumTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
-import type { Target } from "../../typings/target.types";
+import { PlainTarget } from "./PlainTarget";
 import {
   getTokenLeadingDelimiterTarget,
   getTokenRemovalRange,
   getTokenTrailingDelimiterTarget,
 } from "./util/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
-import { PlainTarget } from "./PlainTarget";
 
 export interface HeadTailTargetParameters extends MinimumTargetParameters {
   inputTarget: Target;

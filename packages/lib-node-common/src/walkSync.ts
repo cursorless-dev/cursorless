@@ -1,5 +1,5 @@
-import * as path from "node:path";
 import { readdirSync } from "node:fs";
+import * as path from "node:path";
 
 /**
  * Note: Returns full paths

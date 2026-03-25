@@ -1,10 +1,10 @@
+import * as std from "std";
 import {
   LATEST_VERSION,
   type ActionDescriptor,
   type CommandLatest,
 } from "@cursorless/lib-common";
 import { activate } from "@cursorless/lib-talonjs-core";
-import * as std from "std";
 import { talonMock } from "./talonMock";
 
 let hasFailed = false;

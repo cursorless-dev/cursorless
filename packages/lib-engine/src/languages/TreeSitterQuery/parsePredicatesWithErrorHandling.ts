@@ -1,6 +1,6 @@
+import type { Query } from "web-tree-sitter";
 import type { IDE } from "@cursorless/lib-common";
 import { showError } from "@cursorless/lib-common";
-import type { Query } from "web-tree-sitter";
 import { parsePredicates } from "./parsePredicates";
 import { predicateToString } from "./predicateToString";
 import type { PatternPredicate } from "./QueryCapture";

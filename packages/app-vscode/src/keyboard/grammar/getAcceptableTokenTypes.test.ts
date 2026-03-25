@@ -1,4 +1,5 @@
 import * as assert from "node:assert/strict";
+import { isEqual } from "lodash-es";
 import nearley from "nearley";
 import type { KeyDescriptor } from "../TokenTypeHelpers";
 import grammar from "./generated/grammar";
@@ -8,7 +9,6 @@ import {
   NEXT,
   getAcceptableTokenTypes,
 } from "./getAcceptableTokenTypes";
-import { isEqual } from "lodash-es";
 import { stringifyTokens } from "./stringifyTokens";
 
 interface TestCase {

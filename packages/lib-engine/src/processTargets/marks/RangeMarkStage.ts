@@ -1,5 +1,5 @@
-import type { RangeMark } from "../../typings/TargetDescriptor";
 import type { Target } from "../../typings/target.types";
+import type { RangeMark } from "../../typings/TargetDescriptor";
 import type { MarkStageFactory } from "../MarkStageFactory";
 import type { MarkStage } from "../PipelineStages.types";
 import { targetsToContinuousTarget } from "../TargetPipelineRunner";

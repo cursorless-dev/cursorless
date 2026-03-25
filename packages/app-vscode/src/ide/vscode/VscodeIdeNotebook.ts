@@ -1,11 +1,11 @@
+import type * as vscode from "vscode";
+import type { URI } from "vscode-uri";
 import type {
   NotebookCell,
   NotebookCellKind,
   NotebookEditor,
   TextDocument,
 } from "@cursorless/lib-common";
-import type * as vscode from "vscode";
-import type { URI } from "vscode-uri";
 import { VscodeTextDocument } from "./VscodeTextDocument";
 
 export class VscodeNotebookEditorImpl implements NotebookEditor {

@@ -1,3 +1,5 @@
+import * as os from "node:os";
+import * as vscode from "vscode";
 import type {
   Configuration,
   ConfigurationScope,
@@ -6,8 +8,6 @@ import type {
   Paths,
 } from "@cursorless/lib-common";
 import { HatStability, Notifier } from "@cursorless/lib-common";
-import * as os from "node:os";
-import * as vscode from "vscode";
 import type { VscodeIDE } from "./VscodeIDE";
 
 type TranslatorMap = {

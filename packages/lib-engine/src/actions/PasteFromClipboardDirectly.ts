@@ -1,3 +1,4 @@
+import { flatten } from "lodash-es";
 import type { IDE, TextEditor } from "@cursorless/lib-common";
 import {
   FlashStyle,
@@ -6,7 +7,6 @@ import {
   toCharacterRange,
   zipStrict,
 } from "@cursorless/lib-common";
-import { flatten } from "lodash-es";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import type { Destination } from "../typings/target.types";

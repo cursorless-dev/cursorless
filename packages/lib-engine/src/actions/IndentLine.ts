@@ -1,16 +1,16 @@
+import { flatten, zip } from "lodash-es";
 import type { IDE, TextEditor } from "@cursorless/lib-common";
 import { FlashStyle, Range, Selection } from "@cursorless/lib-common";
-import { flatten, zip } from "lodash-es";
 import { selectionToStoredTarget } from "../core/commandRunner/selectionToStoredTarget";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import type { Target } from "../typings/target.types";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
+import type { ActionReturnValue } from "./actions.types";
 import {
   IndentLineSimpleAction,
   OutdentLineSimpleAction,
 } from "./SimpleIdeCommandActions";
-import type { ActionReturnValue } from "./actions.types";
-import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 
 abstract class IndentLineBase {
   constructor(

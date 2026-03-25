@@ -1,11 +1,11 @@
 import type { IDE } from "@cursorless/lib-common";
 import { FlashStyle } from "@cursorless/lib-common";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { CopyToClipboardSimple } from "./SimpleIdeCommandActions";
 import type { Target } from "../typings/target.types";
 import { flashTargets } from "../util/targetUtils";
 import type { Actions } from "./Actions";
 import type { ActionReturnValue, SimpleAction } from "./actions.types";
+import { CopyToClipboardSimple } from "./SimpleIdeCommandActions";
 
 interface Options {
   showDecorations?: boolean;

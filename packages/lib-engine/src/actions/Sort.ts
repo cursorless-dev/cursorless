@@ -1,5 +1,5 @@
-import { showWarning, type IDE } from "@cursorless/lib-common";
 import { shuffle } from "lodash-es";
+import { showWarning, type IDE } from "@cursorless/lib-common";
 import type { Target } from "../typings/target.types";
 import type { Actions } from "./Actions";
 import type { ActionReturnValue, SimpleAction } from "./actions.types";

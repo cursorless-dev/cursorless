@@ -1,10 +1,10 @@
+import { flatten } from "lodash-es";
 import type {
   EditableTextEditor,
   IDE,
   TextEditor,
 } from "@cursorless/lib-common";
 import { FlashStyle } from "@cursorless/lib-common";
-import { flatten } from "lodash-es";
 import { selectionToStoredTarget } from "../core/commandRunner/selectionToStoredTarget";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";

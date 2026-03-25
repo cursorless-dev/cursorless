@@ -1,14 +1,14 @@
+import { map } from "itertools";
 import type {
   IterationScopeRanges,
   Range,
   TextEditor,
 } from "@cursorless/lib-common";
-import { map } from "itertools";
+import type { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
 import type {
   ModifierStage,
   ModifierStateOptions,
 } from "../processTargets/PipelineStages.types";
-import type { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
 import type { Target } from "../typings/target.types";
 import { getTargetRanges } from "./getTargetRanges";
 

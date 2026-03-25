@@ -1,3 +1,4 @@
+import { flatten } from "lodash-es";
 import type {
   GeneralizedRange,
   IDE,
@@ -9,11 +10,10 @@ import {
   RangeExpansionBehavior,
   Selection,
 } from "@cursorless/lib-common";
-import { flatten } from "lodash-es";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import type { EditWithRangeUpdater } from "../typings/Types";
 import type { Destination, Target } from "../typings/target.types";
+import type { EditWithRangeUpdater } from "../typings/Types";
 import {
   flashTargets,
   runForEachEditor,

@@ -1,9 +1,8 @@
+import { promises as fsp } from "node:fs";
+import * as yaml from "js-yaml";
+import type { NeovimClient } from "neovim";
 import type { TestCaseFixtureLegacy } from "@cursorless/lib-common";
 import { asyncSafety } from "@cursorless/lib-common";
-import {
-  getRecordedTestPaths,
-  runRecordedTest,
-} from "@cursorless/lib-node-common";
 import type {
   NeovimIDE,
   NeovimTextEditor,
@@ -13,9 +12,10 @@ import {
   getCursorlessApi,
   runCursorlessCommand,
 } from "@cursorless/lib-neovim-common";
-import * as yaml from "js-yaml";
-import type { NeovimClient } from "neovim";
-import { promises as fsp } from "node:fs";
+import {
+  getRecordedTestPaths,
+  runRecordedTest,
+} from "@cursorless/lib-node-common";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { shouldRunTest } from "../shouldRunTest";
 

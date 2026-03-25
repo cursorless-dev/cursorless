@@ -1,6 +1,5 @@
-import { TestType, runAllTests } from "../runAllTests";
-
 import type { NeovimClient, NvimPlugin } from "neovim";
+import { TestType, runAllTests } from "../runAllTests";
 
 /**
  * Runs all extension tests.  This function should only be called after attaching to the

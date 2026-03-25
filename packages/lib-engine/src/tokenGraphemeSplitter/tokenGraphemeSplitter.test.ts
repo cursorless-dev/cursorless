@@ -1,6 +1,6 @@
+import * as assert from "node:assert/strict";
 import type { TokenHatSplittingMode } from "@cursorless/lib-common";
 import { FakeIDE } from "@cursorless/lib-common";
-import * as assert from "node:assert/strict";
 import { TokenGraphemeSplitter, UNKNOWN } from "./tokenGraphemeSplitter";
 
 /**

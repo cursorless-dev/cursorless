@@ -11,8 +11,6 @@ import type {
 } from "@cursorless/lib-common";
 import { camelCaseToAllDown, DOCS_URL } from "@cursorless/lib-common";
 import type { SpokenFormMap } from "../spokenForms/SpokenFormMap";
-import { NoSpokenFormError } from "./NoSpokenFormError";
-import type { SpokenFormComponent } from "./SpokenFormComponent";
 import { connectives } from "./defaultSpokenForms/connectives";
 import { surroundingPairDelimitersToSpokenForm } from "./defaultSpokenForms/modifiers";
 import {
@@ -22,7 +20,9 @@ import {
 import { getRangeConnective } from "./getRangeConnective";
 import type { SpokenFormComponentMap } from "./getSpokenFormComponentMap";
 import { getSpokenFormComponentMap } from "./getSpokenFormComponentMap";
+import { NoSpokenFormError } from "./NoSpokenFormError";
 import { PrimitiveTargetSpokenFormGenerator } from "./primitiveTargetToSpokenForm";
+import type { SpokenFormComponent } from "./SpokenFormComponent";
 
 export class SpokenFormGenerator {
   private primitiveGenerator: PrimitiveTargetSpokenFormGenerator;

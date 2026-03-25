@@ -1,8 +1,7 @@
 import type { Direction, Position, TextEditor } from "@cursorless/lib-common";
 import { BaseScopeHandler } from "./BaseScopeHandler";
-import { advanceIteratorsUntil, getInitialIteratorInfos } from "./IteratorInfo";
-import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 import { compareTargetScopes } from "./compareTargetScopes";
+import { advanceIteratorsUntil, getInitialIteratorInfos } from "./IteratorInfo";
 import type { TargetScope } from "./scope.types";
 import type {
   CustomScopeType,
@@ -10,6 +9,7 @@ import type {
   ScopeIteratorRequirements,
   SortedScopeType,
 } from "./scopeHandler.types";
+import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 
 export class SortedScopeHandler extends BaseScopeHandler {
   protected isHierarchical = true;

@@ -9,11 +9,11 @@ import type { CommonTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
 import { PlainTarget } from "./PlainTarget";
 import { getDelimitedSequenceRemovalRange } from "./util/insertionRemovalBehaviors/DelimitedSequenceInsertionRemovalBehavior";
+import { getSmartRemovalTarget } from "./util/insertionRemovalBehaviors/getSmartRemovalTarget";
 import {
   getTokenLeadingDelimiterTarget,
   getTokenTrailingDelimiterTarget,
 } from "./util/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
-import { getSmartRemovalTarget } from "./util/insertionRemovalBehaviors/getSmartRemovalTarget";
 
 export interface ScopeTypeTargetParameters extends CommonTargetParameters {
   readonly scopeTypeType: SimpleScopeTypeType;

@@ -1,7 +1,7 @@
-import type { VscodeApi } from "@cursorless/lib-vscode-common";
-import { getCursorlessApi } from "@cursorless/lib-vscode-common";
 import * as sinon from "sinon";
 import type { DecorationRenderOptions, WorkspaceConfiguration } from "vscode";
+import type { VscodeApi } from "@cursorless/lib-vscode-common";
+import { getCursorlessApi } from "@cursorless/lib-vscode-common";
 import { COLOR_CONFIG } from "./colorConfig";
 import type {
   Fakes,

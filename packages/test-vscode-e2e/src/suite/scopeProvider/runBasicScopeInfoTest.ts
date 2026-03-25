@@ -1,12 +1,12 @@
+import * as sinon from "sinon";
+import type { TextDocument } from "vscode";
+import { Position, Range, commands } from "vscode";
 import type { ScopeSupportInfo } from "@cursorless/lib-common";
 import { ScopeSupport } from "@cursorless/lib-common";
 import {
   getCursorlessApi,
   getReusableEditor,
 } from "@cursorless/lib-vscode-common";
-import * as sinon from "sinon";
-import type { TextDocument } from "vscode";
-import { Position, Range, commands } from "vscode";
 import { assertCalledWithScopeInfo } from "./assertCalledWithScopeInfo";
 
 /**

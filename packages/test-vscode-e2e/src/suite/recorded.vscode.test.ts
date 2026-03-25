@@ -1,3 +1,4 @@
+import * as vscode from "vscode";
 import type { TextEditor } from "@cursorless/lib-common";
 import {
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
@@ -13,7 +14,6 @@ import {
   getReusableEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
-import * as vscode from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { setupFake } from "./setupFake";
 import { shouldSkipRecordedTest } from "./shouldSkipTest";

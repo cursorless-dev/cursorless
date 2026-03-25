@@ -1,3 +1,4 @@
+import { zip } from "lodash-es";
 import type {
   Direction,
   IDE,
@@ -6,23 +7,22 @@ import type {
   ScopeType,
 } from "@cursorless/lib-common";
 import { Range, uniqWithHash } from "@cursorless/lib-common";
-import { zip } from "lodash-es";
+import type { Target } from "../typings/target.types";
 import type {
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
 } from "../typings/TargetDescriptor";
-import type { Target } from "../typings/target.types";
+import { createContinuousRangeTarget } from "./createContinuousRangeTarget";
+import { ImplicitStage } from "./marks/ImplicitStage";
 import type { MarkStageFactory } from "./MarkStageFactory";
+import { ContainingTokenIfUntypedEmptyStage } from "./modifiers/ConditionalModifierStages";
 import type { ModifierStageFactory } from "./ModifierStageFactory";
 import type {
   MarkStage,
   ModifierStage,
   ModifierStateOptions,
 } from "./PipelineStages.types";
-import { createContinuousRangeTarget } from "./createContinuousRangeTarget";
-import { ImplicitStage } from "./marks/ImplicitStage";
-import { ContainingTokenIfUntypedEmptyStage } from "./modifiers/ConditionalModifierStages";
 import { PlainTarget } from "./targets";
 
 interface TargetPipelineRunnerOpts {

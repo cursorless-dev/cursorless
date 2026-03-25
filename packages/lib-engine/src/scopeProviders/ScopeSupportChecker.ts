@@ -4,8 +4,8 @@ import {
   ScopeSupport,
   isEmptyIterable,
 } from "@cursorless/lib-common";
-import type { ScopeHandlerFactory } from "../processTargets/modifiers/scopeHandlers/ScopeHandlerFactory";
 import type { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
+import type { ScopeHandlerFactory } from "../processTargets/modifiers/scopeHandlers/ScopeHandlerFactory";
 
 /**
  * Determines the level of support for a given scope type in a given editor.

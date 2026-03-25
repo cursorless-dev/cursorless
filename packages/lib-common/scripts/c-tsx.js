@@ -4,9 +4,9 @@
 // This script runs a TypeScript file using tsx after setting repo-specific
 // environment variables.
 
-import { spawn } from "cross-spawn";
-import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { spawn } from "cross-spawn";
 
 /**
  * Run a command with arguments and return a child process

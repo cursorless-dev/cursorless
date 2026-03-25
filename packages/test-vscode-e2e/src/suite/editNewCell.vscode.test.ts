@@ -1,14 +1,14 @@
+import * as assert from "node:assert/strict";
+import { window } from "vscode";
+import { LATEST_VERSION } from "@cursorless/lib-common";
 import {
   getCellIndex,
   getCursorlessApi,
   openNewNotebookEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
-import * as assert from "node:assert/strict";
-import { window } from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { getPlainNotebookContents } from "../notebook";
-import { LATEST_VERSION } from "@cursorless/lib-common";
 
 // Check that setSelection is able to focus the correct cell
 suite("Edit new cell", async function () {

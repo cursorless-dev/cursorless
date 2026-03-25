@@ -5,10 +5,10 @@ import type {
 import { LATEST_VERSION } from "@cursorless/lib-common";
 import { getRecordedTestPaths } from "@cursorless/lib-node-common";
 import { checkMarks } from "./checkMarks";
-import { transformFile } from "./transformFile";
 import { canonicalize } from "./transformations/canonicalize";
 import { identity } from "./transformations/identity";
 import { upgrade } from "./transformations/upgrade";
+import { transformFile } from "./transformFile";
 import type { FixtureTransformation } from "./types";
 import { upgradeDecorations } from "./upgradeDecorations";
 

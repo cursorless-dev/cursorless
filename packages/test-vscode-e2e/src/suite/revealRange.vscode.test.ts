@@ -1,10 +1,10 @@
+import assert from "node:assert/strict";
+import * as vscode from "vscode";
 import { LATEST_VERSION } from "@cursorless/lib-common";
 import {
   getReusableEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
-import assert from "node:assert/strict";
-import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
 suite("revealRange", async function () {

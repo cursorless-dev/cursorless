@@ -1,17 +1,17 @@
+import { flatmap } from "itertools";
 import type {
   Direction,
   Position,
   ScopeType,
   TextEditor,
 } from "@cursorless/lib-common";
-import { flatmap } from "itertools";
 import { BaseScopeHandler } from "./BaseScopeHandler";
-import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 import type { TargetScope } from "./scope.types";
 import type {
   ScopeHandler,
   ScopeIteratorRequirements,
 } from "./scopeHandler.types";
+import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 
 /**
  * This class can be used to define scope types that are most easily defined by

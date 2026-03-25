@@ -1,3 +1,4 @@
+import { URI } from "vscode-uri";
 import type {
   Edit,
   EditableTextEditor,
@@ -13,7 +14,6 @@ import type {
   TextEditorOptions,
 } from "@cursorless/lib-common";
 import { Selection, selectionsEqual } from "@cursorless/lib-common";
-import { URI } from "vscode-uri";
 import { InMemoryTextDocument } from "./InMemoryTextDocument";
 
 interface Params {

@@ -1,8 +1,8 @@
 import type { GeneralizedRange } from "../../types/GeneralizedRange";
 import type { TextEditor } from "../../types/TextEditor";
 import type FakeConfiguration from "../fake/FakeConfiguration";
-import type FakeKeyValueStore from "../fake/FakeKeyValueStore";
 import type { FakeIDE } from "../fake/FakeIDE";
+import type FakeKeyValueStore from "../fake/FakeKeyValueStore";
 import { PassthroughIDE } from "../PassthroughIDE";
 import type { FlashDescriptor } from "../types/FlashDescriptor";
 import type { IDE } from "../types/ide.types";

@@ -1,10 +1,10 @@
+import type { DecorationItem } from "shiki";
 import {
   BORDER_RADIUS,
   BORDER_WIDTH,
   getBorderColor,
   getBorderStyle,
 } from "@cursorless/lib-common";
-import type { DecorationItem } from "shiki";
 import type { BorderRadius, Highlight, Style } from "./types";
 
 export function highlightsToDecorations(
