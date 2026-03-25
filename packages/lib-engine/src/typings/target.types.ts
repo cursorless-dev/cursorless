@@ -3,7 +3,6 @@
 // switch to `{import("foo")}` syntax in the `{@link}` tag.
 // - https://github.com/microsoft/TypeScript/issues/43869
 // - https://github.com/microsoft/TypeScript/issues/43950
-// oxlint-disable-next-line no-unused-vars
 import type {
   GeneralizedRange,
   InsertionMode,
@@ -16,6 +15,7 @@ import type {
   TargetPlainObject,
   TextEditor,
 } from "@cursorless/lib-common";
+// oxlint-disable-next-line no-unused-vars
 import type { ModifyIfUntypedStage } from "../processTargets/modifiers/ConditionalModifierStages";
 import type {
   // oxlint-disable-next-line @typescript-eslint/no-unused-vars

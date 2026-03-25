@@ -3,7 +3,7 @@
   "sortPackageJson": false,
   "sortImports": {
     "newlinesBetween": false,
-    "partitionByComment": true,
+    "partitionByNewline": true,
     "internalPattern": ["@cursorless/"]
   },
 
