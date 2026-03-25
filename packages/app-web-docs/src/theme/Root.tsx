@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
 import type { Props } from "@theme/Root";
+import React, { useEffect } from "react";
 
 function syncBootstrapTheme() {
   const root = document.documentElement;

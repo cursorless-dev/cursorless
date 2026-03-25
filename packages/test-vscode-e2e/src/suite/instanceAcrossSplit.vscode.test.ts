@@ -1,3 +1,5 @@
+import * as assert from "node:assert/strict";
+import { Selection } from "vscode";
 import type { Modifier, SpyIDE } from "@cursorless/lib-common";
 import {
   HatStability,
@@ -10,8 +12,6 @@ import {
   openNewEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
-import * as assert from "node:assert/strict";
-import { Selection } from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 import { setupFake } from "./setupFake";
 

@@ -1,5 +1,5 @@
-import type { TextEditor } from "@cursorless/lib-common";
 import { range, uniq } from "lodash-es";
+import type { TextEditor } from "@cursorless/lib-common";
 
 /**
  * Returns a map from line numbers in the file to display lines, which skip

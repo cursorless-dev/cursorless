@@ -1,3 +1,4 @@
+import type { NeovimClient, Window } from "neovim";
 import type {
   Edit,
   EditableTextEditor,
@@ -9,7 +10,6 @@ import type {
   TextEditor,
   TextEditorOptions,
 } from "@cursorless/lib-common";
-import type { NeovimClient, Window } from "neovim";
 import { bufferSetSelections } from "../../neovimApi";
 import { neovimClipboardCopy, neovimClipboardPaste } from "../../neovimHelpers";
 import neovimEdit from "./NeovimEdit";

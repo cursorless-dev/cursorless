@@ -1,3 +1,6 @@
+import * as assert from "node:assert/strict";
+import { promises as fsp } from "node:fs";
+import { isUndefined } from "lodash-es";
 import type {
   Command,
   CommandResponse,
@@ -25,9 +28,6 @@ import {
   spyIDERecordedValuesToPlainObject,
   storedTargetKeys,
 } from "@cursorless/lib-common";
-import { isUndefined } from "lodash-es";
-import * as assert from "node:assert/strict";
-import { promises as fsp } from "node:fs";
 import { loadFixture } from "./loadFixture";
 
 function createPosition(position: PositionPlainObject) {

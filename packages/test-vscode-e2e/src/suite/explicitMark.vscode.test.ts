@@ -1,11 +1,11 @@
+import * as assert from "node:assert/strict";
+import { Selection } from "vscode";
 import { LATEST_VERSION } from "@cursorless/lib-common";
 import {
   getCursorlessApi,
   getReusableEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
-import * as assert from "node:assert/strict";
-import { Selection } from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
 suite("Explicit mark", async function () {

@@ -1,6 +1,6 @@
+import type { Context } from "mocha";
 import { type IDE, SpyIDE } from "@cursorless/lib-common";
 import type { TalonJsTestHelpers } from "@cursorless/lib-talonjs-core";
-import type { Context } from "mocha";
 
 interface EndToEndTestSetupOpts {
   retries?: number;

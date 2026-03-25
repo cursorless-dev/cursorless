@@ -1,3 +1,5 @@
+import { usePluginData } from "@docusaurus/useGlobalData";
+import React, { useState } from "react";
 import type {
   ScopeSupportFacetInfo,
   ScopeTypeType,
@@ -7,8 +9,6 @@ import {
   prettifyScopeType,
   serializeScopeType,
 } from "@cursorless/lib-common";
-import { usePluginData } from "@docusaurus/useGlobalData";
-import React, { useState } from "react";
 import { generateDecorations } from "./calculateHighlights";
 import { Code } from "./Code";
 import { H2, H3, H4, H5 } from "./Header";

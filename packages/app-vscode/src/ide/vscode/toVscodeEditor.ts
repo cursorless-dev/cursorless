@@ -1,5 +1,5 @@
-import type { TextEditor } from "@cursorless/lib-common";
 import type * as vscode from "vscode";
+import type { TextEditor } from "@cursorless/lib-common";
 import type { VscodeTextEditor } from "./VscodeTextEditor";
 
 export function toVscodeEditor(editor: TextEditor): vscode.TextEditor {

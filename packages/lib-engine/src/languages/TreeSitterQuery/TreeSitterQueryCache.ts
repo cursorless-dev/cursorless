@@ -1,6 +1,6 @@
 import type { Position, TextDocument } from "@cursorless/lib-common";
-import type { QueryMatch } from "./QueryCapture";
 import { setIsEqual } from "../../util/setIsEqual";
+import type { QueryMatch } from "./QueryCapture";
 
 export class TreeSitterQueryCache {
   private documentVersion: number = -1;

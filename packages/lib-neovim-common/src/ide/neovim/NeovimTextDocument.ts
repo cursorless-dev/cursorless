@@ -1,8 +1,8 @@
+import path from "node:path";
+import type { URI } from "vscode-uri";
 import type { EndOfLine, TextDocument, TextLine } from "@cursorless/lib-common";
 import { Position, Range } from "@cursorless/lib-common";
-import type { URI } from "vscode-uri";
 import NeovimTextLine from "./NeovimTextLine";
-import path from "node:path";
 
 export class NeovimTextDocument implements TextDocument {
   private _uri: URI;

@@ -1,8 +1,8 @@
+import { isEqual } from "lodash-es";
 import type { CommandComplete } from "@cursorless/lib-common";
 import type { CommandRunner } from "@cursorless/lib-engine";
-import { isEqual } from "lodash-es";
-import type { TutorialContent } from "./types/tutorial.types";
 import type { Tutorial } from "./Tutorial";
+import type { TutorialContent } from "./types/tutorial.types";
 
 /**
  * If the tutorial is currently active and we are in a step that is waiting

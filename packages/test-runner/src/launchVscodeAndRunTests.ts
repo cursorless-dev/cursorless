@@ -1,15 +1,15 @@
-import {
-  extensionDependencies,
-  getEnvironmentVariableStrict,
-} from "@cursorless/lib-common";
-import { getCursorlessRepoRoot, isWindows } from "@cursorless/lib-node-common";
+import * as path from "node:path";
 import {
   downloadAndUnzipVSCode,
   resolveCliArgsFromVSCodeExecutablePath,
   runTests,
 } from "@vscode/test-electron";
 import { sync } from "cross-spawn";
-import * as path from "node:path";
+import {
+  extensionDependencies,
+  getEnvironmentVariableStrict,
+} from "@cursorless/lib-common";
+import { getCursorlessRepoRoot, isWindows } from "@cursorless/lib-node-common";
 
 /**
  * Downloads and launches VSCode, instructing it to run the test runner

@@ -1,8 +1,8 @@
-import type { TextDocument, TreeSitter } from "@cursorless/lib-common";
 import * as path from "node:path";
-import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
 import type { Tree } from "web-tree-sitter";
 import { Parser, Query, Language } from "web-tree-sitter";
+import type { TextDocument, TreeSitter } from "@cursorless/lib-common";
+import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
 
 interface LanguageConf {
   language: Language;

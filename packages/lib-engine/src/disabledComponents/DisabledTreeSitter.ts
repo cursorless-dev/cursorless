@@ -1,5 +1,5 @@
-import type { TextDocument, TreeSitter } from "@cursorless/lib-common";
 import type { Query, Tree } from "web-tree-sitter";
+import type { TextDocument, TreeSitter } from "@cursorless/lib-common";
 
 export class DisabledTreeSitter implements TreeSitter {
   loadLanguage(_languageId: string): Promise<boolean> {

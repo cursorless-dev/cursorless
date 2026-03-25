@@ -1,3 +1,4 @@
+import * as vscode from "vscode";
 import type {
   CommandHistoryStorage,
   CursorlessCommandId,
@@ -11,22 +12,21 @@ import type {
   ScopeTestRecorder,
   TestCaseRecorder,
 } from "@cursorless/lib-test-case-recorder";
-import * as vscode from "vscode";
-import type { InstallationDependencies } from "./InstallationDependencies";
-import type {
-  ScopeVisualizer,
-  VisualizationType,
-} from "./ScopeVisualizerCommandApi";
-import type { VscodeTutorial } from "./VscodeTutorial";
 import {
   showDocumentation,
   showQuickPick,
   showScopeVisualizerItemDocumentation,
 } from "./commands";
-import type { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import type { VscodeHats } from "./ide/vscode/hats/VscodeHats";
+import type { VscodeIDE } from "./ide/vscode/VscodeIDE";
+import type { InstallationDependencies } from "./InstallationDependencies";
 import type { KeyboardCommands } from "./keyboard/KeyboardCommands";
 import { logQuickActions } from "./logQuickActions";
+import type {
+  ScopeVisualizer,
+  VisualizationType,
+} from "./ScopeVisualizerCommandApi";
+import type { VscodeTutorial } from "./VscodeTutorial";
 
 export function registerCommands(
   extensionContext: vscode.ExtensionContext,

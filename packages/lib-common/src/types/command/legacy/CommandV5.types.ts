@@ -1,5 +1,5 @@
-import type { PartialTargetDescriptorV5 } from "./PartialTargetDescriptorV5.types";
 import type { ActionCommandV5 } from "./ActionCommandV5";
+import type { PartialTargetDescriptorV5 } from "./PartialTargetDescriptorV5.types";
 
 export interface CommandV5 {
   /**

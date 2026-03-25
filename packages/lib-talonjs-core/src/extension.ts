@@ -1,5 +1,4 @@
 import "./polyfill";
-
 import type { RunMode } from "@cursorless/lib-common";
 import {
   FakeCommandServerApi,

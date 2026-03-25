@@ -7,8 +7,8 @@ import type {
   TextEditor,
 } from "@cursorless/lib-common";
 import { Range } from "@cursorless/lib-common";
-import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import type { ScopeHandlerFactory } from "../processTargets/modifiers/scopeHandlers/ScopeHandlerFactory";
+import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { getIterationRange } from "./getIterationRange";
 import { getIterationScopeRanges } from "./getIterationScopeRanges";
 import { getScopeRanges } from "./getScopeRanges";

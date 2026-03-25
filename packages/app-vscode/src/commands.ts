@@ -1,5 +1,5 @@
-import { CURSORLESS_ORG_URL, DOCS_URL } from "@cursorless/lib-common";
 import * as vscode from "vscode";
+import { CURSORLESS_ORG_URL, DOCS_URL } from "@cursorless/lib-common";
 
 export const showDocumentation = () => {
   return vscode.env.openExternal(vscode.Uri.parse(DOCS_URL));

@@ -6,7 +6,6 @@ import type {
 } from "@cursorless/lib-common";
 import type { LanguageDefinitions } from "../../../../languages/LanguageDefinitions";
 import { BaseScopeHandler } from "../BaseScopeHandler";
-import { SortedScopeHandler } from "../SortedScopeHandler";
 import type { TargetScope } from "../scope.types";
 import type {
   ComplexScopeType,
@@ -14,6 +13,7 @@ import type {
   ScopeIteratorRequirements,
 } from "../scopeHandler.types";
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
+import { SortedScopeHandler } from "../SortedScopeHandler";
 import { CollectionItemTextualScopeHandler } from "./CollectionItemTextualScopeHandler";
 
 export class CollectionItemScopeHandler extends BaseScopeHandler {

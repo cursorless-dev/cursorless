@@ -1,7 +1,7 @@
-import type { FocusedElementType } from "./CommandServerApi";
-import type { Command, CommandLatest, Fallback } from "./command/command.types";
-import type { TestCaseSnapshot } from "../testUtil/TestCaseSnapshot";
 import type { PlainSpyIDERecordedValues } from "../testUtil/spyToPlainObject";
+import type { TestCaseSnapshot } from "../testUtil/TestCaseSnapshot";
+import type { Command, CommandLatest, Fallback } from "./command/command.types";
+import type { FocusedElementType } from "./CommandServerApi";
 
 export type ThrownError = {
   name: string;

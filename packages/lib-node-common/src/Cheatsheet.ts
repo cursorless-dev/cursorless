@@ -1,10 +1,10 @@
-import { type IDE } from "@cursorless/lib-common";
-import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
 import { readFile, writeFile } from "node:fs/promises";
+import * as path from "node:path";
 import { produce } from "immer";
 import { sortBy } from "lodash-es";
 import { parse } from "node-html-parser";
-import * as path from "node:path";
+import { type IDE } from "@cursorless/lib-common";
+import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
 
 /**
  * The argument expected by the cheatsheet command.

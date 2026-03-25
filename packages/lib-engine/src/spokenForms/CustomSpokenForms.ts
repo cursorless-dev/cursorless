@@ -1,3 +1,4 @@
+import { isEqual } from "lodash-es";
 import type {
   CustomRegexScopeType,
   Disposable,
@@ -14,13 +15,12 @@ import {
   SUPPORTED_ENTRY_TYPES,
   showError,
 } from "@cursorless/lib-common";
-import { isEqual } from "lodash-es";
-import type { SpokenFormMap, SpokenFormMapEntry } from "./SpokenFormMap";
 import {
   defaultSpokenFormInfoMap,
   defaultSpokenFormMap,
 } from "./defaultSpokenFormMap";
 import type { DefaultSpokenFormMapEntry } from "./defaultSpokenFormMap.types";
+import type { SpokenFormMap, SpokenFormMapEntry } from "./SpokenFormMap";
 
 type Writable<T> = {
   -readonly [K in keyof T]: T[K];

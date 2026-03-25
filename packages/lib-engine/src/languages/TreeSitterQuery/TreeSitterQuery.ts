@@ -1,3 +1,4 @@
+import type * as treeSitter from "web-tree-sitter";
 import type {
   IDE,
   Mutable,
@@ -5,7 +6,6 @@ import type {
   TextDocument,
   TreeSitter,
 } from "@cursorless/lib-common";
-import type * as treeSitter from "web-tree-sitter";
 import type { ScopeCaptureName } from "./captureNames";
 import {
   getNormalizedCaptureIndex,

@@ -1,3 +1,4 @@
+import { pull } from "lodash-es";
 import type {
   Disposable,
   ScopeType,
@@ -10,8 +11,6 @@ import {
   simpleScopeTypeTypes,
   surroundingPairNames,
 } from "@cursorless/lib-common";
-import { pull } from "lodash-es";
-
 import type { CustomSpokenFormGeneratorImpl } from "../generateSpokenForm/CustomSpokenFormGeneratorImpl";
 import { scopeTypeToString } from "./scopeTypeToString";
 

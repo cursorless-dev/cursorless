@@ -1,12 +1,12 @@
 import type { PredicateStep } from "web-tree-sitter";
 import type { z } from "zod";
+import { constructZodErrorMessages } from "./constructZodErrorMessages";
 import type {
   AcceptFunctionArgs,
   HasSchema,
   InferSchemaType,
 } from "./PredicateOperatorSchemaTypes";
 import type { MutableQueryMatch } from "./QueryCapture";
-import { constructZodErrorMessages } from "./constructZodErrorMessages";
 
 /**
  * An operator used in a query predicate, e.g. `not-type?`.  Note that the generic

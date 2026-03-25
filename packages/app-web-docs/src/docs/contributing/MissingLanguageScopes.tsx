@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import type { ScopeSupportFacet } from "@cursorless/lib-common";
 import {
   languageScopeSupport,
@@ -6,7 +7,6 @@ import {
   scopeSupportFacets,
   serializeScopeType,
 } from "@cursorless/lib-common";
-import React, { useState } from "react";
 
 export function MissingLanguageScopes(): React.JSX.Element {
   const [showPrivate, setShowPrivate] = useState(false);

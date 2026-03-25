@@ -1,3 +1,4 @@
+import { get } from "lodash";
 import type {
   Configuration,
   ConfigurationScope,
@@ -7,7 +8,6 @@ import type {
   Paths,
 } from "@cursorless/lib-common";
 import { CONFIGURATION_DEFAULTS, Notifier } from "@cursorless/lib-common";
-import { get } from "lodash";
 
 interface ConfigurationScopeValues {
   scope: ConfigurationScope;

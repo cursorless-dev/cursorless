@@ -1,7 +1,7 @@
-import { z } from "zod";
-import { assertTypesEqual } from "./assertTypesEqual";
 import type { PredicateStep } from "web-tree-sitter";
+import { z } from "zod";
 import { stringToInteger } from "@cursorless/lib-common";
+import { assertTypesEqual } from "./assertTypesEqual";
 
 const string = z.object({ type: z.literal("string"), value: z.string() });
 

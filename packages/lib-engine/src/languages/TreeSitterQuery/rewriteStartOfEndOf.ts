@@ -1,11 +1,11 @@
-import type { Range } from "@cursorless/lib-common";
 import type { Node } from "web-tree-sitter";
-import type { QueryCapture } from "./QueryCapture";
+import type { Range } from "@cursorless/lib-common";
 import {
   getNodeEndRange,
   getNodeRange,
   getNodeStartRange,
 } from "./getNodeRange";
+import type { QueryCapture } from "./QueryCapture";
 
 const START_OF = ".startOf";
 const END_OF = ".endOf";

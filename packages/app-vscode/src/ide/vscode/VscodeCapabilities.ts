@@ -1,10 +1,10 @@
+import * as semver from "semver";
+import * as vscode from "vscode";
 import type {
   Capabilities,
   CommandCapabilityMap,
 } from "@cursorless/lib-common";
 import { nodeGetRunMode } from "@cursorless/lib-node-common";
-import * as semver from "semver";
-import * as vscode from "vscode";
 
 // FIXME: In newer versions of vscode the `editor.action.clipboardCopyAction`
 // command appears to be disabled / sandboxed in test mode.

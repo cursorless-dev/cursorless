@@ -1,3 +1,6 @@
+import * as assert from "node:assert/strict";
+import { promises as fsp } from "node:fs";
+import * as yaml from "js-yaml";
 import type {
   Command,
   CommandLatest,
@@ -5,9 +8,6 @@ import type {
 } from "@cursorless/lib-common";
 import { asyncSafety } from "@cursorless/lib-common";
 import { getRecordedTestPaths } from "@cursorless/lib-node-common";
-import * as assert from "node:assert/strict";
-import * as yaml from "js-yaml";
-import { promises as fsp } from "node:fs";
 import { canonicalizeAndValidateCommand } from "../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { getHatMapCommand } from "../generateSpokenForm/getHatMapCommand";
 import { TalonRepl } from "../testUtil/TalonRepl";

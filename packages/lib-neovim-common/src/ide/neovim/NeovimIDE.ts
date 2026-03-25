@@ -1,3 +1,8 @@
+import * as path from "node:path";
+import { pull } from "lodash";
+import type { Buffer, NeovimClient, Window } from "neovim";
+import { v4 as uuid } from "uuid";
+import { URI } from "vscode-uri";
 import type {
   Disposable,
   EditableTextEditor,
@@ -18,31 +23,25 @@ import type {
   TextEditorVisibleRangesChangeEvent,
   WorkspaceFolder,
 } from "@cursorless/lib-common";
-import { nodeGetRunMode } from "@cursorless/lib-node-common";
-import { pull } from "lodash";
-import type { Buffer, NeovimClient, Window } from "neovim";
-import * as path from "node:path";
-import { v4 as uuid } from "uuid";
-import { URI } from "vscode-uri";
-import { NeovimCapabilities } from "./NeovimCapabilities";
-import NeovimClipboard from "./NeovimClipboard";
-import NeovimConfiguration from "./NeovimConfiguration";
-import NeovimKeyValueStore from "./NeovimKeyValueStore";
-import NeovimMessages from "./NeovimMessages";
-import { NeovimTextEditor } from "./NeovimTextEditor";
-
 import { getNeovimRegistry } from "@cursorless/lib-neovim-registry";
+import { nodeGetRunMode } from "@cursorless/lib-node-common";
 import {
   bufferGetSelections,
   getCursorlessNvimPath,
   showErrorMessage,
   windowGetVisibleRanges,
 } from "../../neovimApi";
+import { NeovimCapabilities } from "./NeovimCapabilities";
+import NeovimClipboard from "./NeovimClipboard";
+import NeovimConfiguration from "./NeovimConfiguration";
 import {
   neovimOnDidChangeTextDocument,
   neovimOnDidOpenTextDocument,
 } from "./NeovimEvents";
+import NeovimKeyValueStore from "./NeovimKeyValueStore";
+import NeovimMessages from "./NeovimMessages";
 import { NeovimTextDocument } from "./NeovimTextDocument";
+import { NeovimTextEditor } from "./NeovimTextEditor";
 
 export class NeovimIDE implements IDE {
   readonly configuration: NeovimConfiguration;

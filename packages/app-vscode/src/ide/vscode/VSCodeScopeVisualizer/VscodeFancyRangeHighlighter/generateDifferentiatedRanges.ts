@@ -1,10 +1,9 @@
+import { max } from "lodash-es";
 import type { GeneralizedRange } from "@cursorless/lib-common";
 import {
   generalizedRangeContains,
   generalizedRangeTouches,
 } from "@cursorless/lib-common";
-
-import { max } from "lodash-es";
 import type { DifferentiatedGeneralizedRange } from "./decorationStyle.types";
 
 /**

@@ -1,9 +1,9 @@
-import nearley from "nearley";
-import grammar from "./generated/grammar";
 import * as assert from "node:assert/strict";
-import type { KeyDescriptor } from "../TokenTypeHelpers";
+import nearley from "nearley";
 import type { KeyboardCommandHandler } from "../KeyboardCommandHandler";
 import type { KeyboardCommand } from "../KeyboardCommandTypeHelpers";
+import type { KeyDescriptor } from "../TokenTypeHelpers";
+import grammar from "./generated/grammar";
 import { stringifyTokens } from "./stringifyTokens";
 
 interface TestCase {

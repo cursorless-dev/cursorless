@@ -1,6 +1,6 @@
+import * as assert from "node:assert/strict";
 import { Range } from "@cursorless/lib-common";
 import { OneWayNestedRangeFinder } from "./OneWayNestedRangeFinder";
-import * as assert from "node:assert/strict";
 
 const items = [
   { range: new Range(0, 0, 0, 5) },

@@ -1,3 +1,4 @@
+import { groupBy, map, sum } from "lodash-es";
 import type {
   CommandHistoryEntry,
   CommandHistoryStorage,
@@ -7,7 +8,6 @@ import type {
   ScopeType,
 } from "@cursorless/lib-common";
 import { showWarning } from "@cursorless/lib-common";
-import { groupBy, map, sum } from "lodash-es";
 import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { getPartialTargetDescriptors } from "./util/getPartialTargetDescriptors";
 import { getPartialPrimitiveTargets } from "./util/getPrimitiveTargets";

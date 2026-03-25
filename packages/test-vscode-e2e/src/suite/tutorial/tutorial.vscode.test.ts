@@ -1,3 +1,8 @@
+import assert from "node:assert/strict";
+import path from "node:path";
+import { isEqual } from "lodash-es";
+import sinon from "sinon";
+import { commands } from "vscode";
 import type { SpyIDE, TestCaseFixtureLegacy } from "@cursorless/lib-common";
 import {
   LATEST_VERSION,
@@ -13,11 +18,6 @@ import {
   runCursorlessCommand,
   type SpyWebViewEvent,
 } from "@cursorless/lib-vscode-common";
-import { isEqual } from "lodash-es";
-import assert from "node:assert/strict";
-import path from "node:path";
-import sinon from "sinon";
-import { commands } from "vscode";
 import { endToEndTestSetup } from "../../endToEndTestSetup";
 import { waitFor } from "../waitFor";
 

@@ -1,6 +1,6 @@
-import { transformPackageJson } from "./transformPackageJson";
-import { generateBuildInfo } from "./generateBuildInfo";
 import type { Asset } from "./Asset";
+import { generateBuildInfo } from "./generateBuildInfo";
+import { transformPackageJson } from "./transformPackageJson";
 
 export const assets: Asset[] = [
   { source: "../../CHANGELOG.md", destination: "CHANGELOG.md" },

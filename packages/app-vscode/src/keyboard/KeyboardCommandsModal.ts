@@ -1,17 +1,17 @@
-import { CompositeKeyMap } from "@cursorless/lib-common";
-import type { VscodeApi } from "@cursorless/lib-vscode-common";
 import { pick, sortedUniq, toPairs } from "lodash-es";
 import nearley from "nearley";
 import * as vscode from "vscode";
+import { CompositeKeyMap } from "@cursorless/lib-common";
+import type { VscodeApi } from "@cursorless/lib-vscode-common";
+import { getTokenTypeKeyMaps } from "./getTokenTypeKeyMaps";
+import grammar from "./grammar/generated/grammar";
+import { getAcceptableTokenTypes } from "./grammar/getAcceptableTokenTypes";
 import { KeyboardCommandHandler } from "./KeyboardCommandHandler";
 import { KeyboardCommandsModalLayer } from "./KeyboardCommandsModalLayer";
 import type KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
 import { KeyboardConfig } from "./KeyboardConfig";
 import type KeyboardHandler from "./KeyboardHandler";
 import type { KeyDescriptor, TokenTypeKeyMapMap } from "./TokenTypeHelpers";
-import { getTokenTypeKeyMaps } from "./getTokenTypeKeyMaps";
-import grammar from "./grammar/generated/grammar";
-import { getAcceptableTokenTypes } from "./grammar/getAcceptableTokenTypes";
 
 /**
  * Defines a mode to use with a modal version of Cursorless keyboard.

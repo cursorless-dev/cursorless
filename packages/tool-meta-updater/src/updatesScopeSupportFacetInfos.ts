@@ -1,3 +1,4 @@
+import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import type {
   ScopeSupportFacet,
   PlaintextScopeSupportFacet,
@@ -7,7 +8,6 @@ import {
   serializeScopeType,
   plaintextScopeSupportFacetInfos,
 } from "@cursorless/lib-common";
-import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 
 export function updatesScopeSupportFacetInfos(
   actual: string | null,

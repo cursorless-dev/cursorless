@@ -1,3 +1,4 @@
+import type { Buffer } from "neovim";
 import type {
   Disposable,
   TextDocument,
@@ -6,8 +7,6 @@ import type {
 } from "@cursorless/lib-common";
 import { Position, Range } from "@cursorless/lib-common";
 import { getNeovimRegistry } from "@cursorless/lib-neovim-registry";
-
-import type { Buffer } from "neovim";
 
 export function neovimOnDidChangeTextDocument(
   listener: (event: TextDocumentChangeEvent) => void,

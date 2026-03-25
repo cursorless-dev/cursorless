@@ -1,3 +1,4 @@
+import { pull } from "lodash-es";
 import type {
   Capabilities,
   Clipboard,
@@ -23,7 +24,6 @@ import type {
   WorkspaceFolder,
 } from "@cursorless/lib-common";
 import { InMemoryTextEditor, Notifier } from "@cursorless/lib-common";
-import { pull } from "lodash-es";
 import type { Talon } from "../types/talon";
 import type { EditorEdit, EditorState } from "../types/types";
 import { flashRanges } from "./flashRanges";

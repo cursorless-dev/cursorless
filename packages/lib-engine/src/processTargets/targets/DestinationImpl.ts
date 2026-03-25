@@ -1,11 +1,11 @@
 import type { InsertionMode, TextEditor } from "@cursorless/lib-common";
 import { Range, Selection } from "@cursorless/lib-common";
-import type { EditWithRangeUpdater } from "../../typings/Types";
 import type {
   Destination,
   EditNewActionType,
   Target,
 } from "../../typings/target.types";
+import type { EditWithRangeUpdater } from "../../typings/Types";
 import { union } from "../../util/rangeUtils";
 
 export class DestinationImpl implements Destination {

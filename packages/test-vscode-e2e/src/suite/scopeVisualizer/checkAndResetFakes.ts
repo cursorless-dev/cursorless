@@ -1,10 +1,10 @@
 import * as assert from "node:assert/strict";
 import type * as sinon from "sinon";
+import type { Fakes, ExpectedArgs } from "./scopeVisualizerTest.types";
 import {
   createDecorationTypeCallToPlainObject,
   setDecorationsCallToPlainObject,
 } from "./spyCallsToPlainObject";
-import type { Fakes, ExpectedArgs } from "./scopeVisualizerTest.types";
 
 export function checkAndResetFakes(fakes: Fakes, expected: ExpectedArgs) {
   const actual = getSpyCallsAndResetFakes(fakes);

@@ -1,14 +1,14 @@
+import { flatten, zip } from "lodash-es";
 import type { IDE, TextEditor } from "@cursorless/lib-common";
 import {
   FlashStyle,
   RangeExpansionBehavior,
   toCharacterRange,
 } from "@cursorless/lib-common";
-import { flatten, zip } from "lodash-es";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { containingLineIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
+import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import type { Target } from "../typings/target.types";
 import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
 import type { ActionReturnValue, SimpleAction } from "./actions.types";

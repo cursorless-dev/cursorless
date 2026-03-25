@@ -1,6 +1,6 @@
-import { splitKey } from "../util/splitKey";
 import type { ReadOnlyHatMap } from "../types/HatTokenMap";
 import type { Token } from "../types/Token";
+import { splitKey } from "../util/splitKey";
 
 export function extractTargetedMarks(
   targetKeys: string[],

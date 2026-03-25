@@ -6,7 +6,6 @@ import type {
   RelativeScopeModifier,
   ScopeType,
 } from "@cursorless/lib-common";
-import { NoSpokenFormError } from "./NoSpokenFormError";
 import { connectives } from "./defaultSpokenForms/connectives";
 import {
   hatColorToSpokenForm,
@@ -14,13 +13,13 @@ import {
   lineDirections,
   marks,
 } from "./defaultSpokenForms/marks";
-
-import { getRangeConnective } from "./getRangeConnective";
 import {
   numberToSpokenForm,
   ordinalToSpokenForm,
 } from "./defaultSpokenForms/numbers";
+import { getRangeConnective } from "./getRangeConnective";
 import type { SpokenFormComponentMap } from "./getSpokenFormComponentMap";
+import { NoSpokenFormError } from "./NoSpokenFormError";
 import type { SpokenFormComponent } from "./SpokenFormComponent";
 
 export class PrimitiveTargetSpokenFormGenerator {

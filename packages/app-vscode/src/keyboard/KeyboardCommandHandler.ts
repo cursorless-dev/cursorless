@@ -1,11 +1,11 @@
+import { isString } from "lodash-es";
+import * as vscode from "vscode";
 import type {
   Modifier,
   PartialMark,
   SurroundingPairName,
 } from "@cursorless/lib-common";
 import { surroundingPairsDelimiters } from "@cursorless/lib-engine";
-import { isString } from "lodash-es";
-import * as vscode from "vscode";
 import type { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import type {
   SimpleKeyboardActionDescriptor,

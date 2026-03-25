@@ -1,3 +1,4 @@
+import * as vscode from "vscode";
 import type {
   ActionDescriptor,
   Modifier,
@@ -8,12 +9,11 @@ import type {
 } from "@cursorless/lib-common";
 import { LATEST_VERSION } from "@cursorless/lib-common";
 import { runCursorlessCommand } from "@cursorless/lib-vscode-common";
-import * as vscode from "vscode";
-import type { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import { getStyleName } from "../ide/vscode/hats/getStyleName";
+import type { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
+import type { SimpleKeyboardActionDescriptor } from "./KeyboardActionType";
 import type KeyboardCommandsModal from "./KeyboardCommandsModal";
 import type KeyboardHandler from "./KeyboardHandler";
-import type { SimpleKeyboardActionDescriptor } from "./KeyboardActionType";
 
 export type TargetingMode =
   | "replace"

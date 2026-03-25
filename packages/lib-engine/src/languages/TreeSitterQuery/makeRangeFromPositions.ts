@@ -1,5 +1,5 @@
-import { Range } from "@cursorless/lib-common";
 import type { Point } from "web-tree-sitter";
+import { Range } from "@cursorless/lib-common";
 
 export function makeRangeFromPositions(
   startPosition: Point,

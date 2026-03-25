@@ -1,10 +1,10 @@
-import type { Modifier } from "@cursorless/lib-common";
+import { produce } from "immer";
 import { findLastIndex } from "lodash-es";
+import type { Modifier } from "@cursorless/lib-common";
 import type {
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
 } from "../typings/TargetDescriptor";
-import { produce } from "immer";
 
 /**
  * This function exists to enable hoisted modifiers, eg for constructs like

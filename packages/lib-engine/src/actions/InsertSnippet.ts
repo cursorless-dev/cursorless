@@ -6,9 +6,9 @@ import {
 import { getPreferredSnippet } from "../core/getPreferredSnippet";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import { ModifyIfUntypedExplicitStage } from "../processTargets/modifiers/ConditionalModifierStages";
 import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import type { ModifierStage } from "../processTargets/PipelineStages.types";
-import { ModifyIfUntypedExplicitStage } from "../processTargets/modifiers/ConditionalModifierStages";
 import { transformSnippetVariables } from "../snippets/transformSnippetVariables";
 import { SnippetParser } from "../snippets/vendor/vscodeSnippet/snippetParser";
 import type { Destination } from "../typings/target.types";

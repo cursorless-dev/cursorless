@@ -6,8 +6,8 @@ import type {
   TextEditor,
 } from "@cursorless/lib-common";
 import { toCharacterRange } from "@cursorless/lib-common";
-import { VscodeScopeVisualizer } from "./VscodeScopeVisualizer";
 import type { VscodeTextEditor } from "../VscodeTextEditor";
+import { VscodeScopeVisualizer } from "./VscodeScopeVisualizer";
 
 abstract class VscodeScopeTargetVisualizer extends VscodeScopeVisualizer {
   protected abstract getTargetRange(

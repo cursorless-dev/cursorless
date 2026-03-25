@@ -1,5 +1,5 @@
-import { useEffect } from "react";
 import { useLocation } from "@docusaurus/router";
+import { useEffect } from "react";
 
 /**
  * Scrolls to the element with the ID matching the current hash in the URL.

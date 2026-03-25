@@ -1,3 +1,4 @@
+import type * as vscode from "vscode";
 import type {
   ExcludableSnapshotField,
   ExtraSnapshotField,
@@ -20,7 +21,6 @@ import {
 } from "@cursorless/lib-engine";
 import { takeSnapshot } from "@cursorless/lib-test-case-recorder";
 import type { VscodeTestHelpers } from "@cursorless/lib-vscode-common";
-import type * as vscode from "vscode";
 import { toVscodeEditor } from "./ide/vscode/toVscodeEditor";
 import type { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
 import type { VscodeIDE } from "./ide/vscode/VscodeIDE";

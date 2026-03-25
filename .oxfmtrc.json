@@ -1,6 +1,12 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
   "sortPackageJson": false,
+  "sortImports": {
+    "newlinesBetween": false,
+    "partitionByNewline": true,
+    "internalPattern": ["@cursorless/"]
+  },
+
   "ignorePatterns": [
     "/packages/app-vscode/src/keyboard/grammar/generated/",
     "/packages/lib-engine/src/customCommandGrammar/generated/",

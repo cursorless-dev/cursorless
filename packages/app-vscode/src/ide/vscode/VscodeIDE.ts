@@ -1,3 +1,8 @@
+import { pull } from "lodash-es";
+import { v4 as uuid } from "uuid";
+import type { ExtensionContext, WorkspaceFolder } from "vscode";
+import * as vscode from "vscode";
+import { window, workspace } from "vscode";
 import type {
   Disposable,
   EditableTextEditor,
@@ -18,11 +23,6 @@ import {
   fromVscodeRange,
   fromVscodeSelection,
 } from "@cursorless/lib-vscode-common";
-import { pull } from "lodash-es";
-import { v4 as uuid } from "uuid";
-import type { ExtensionContext, WorkspaceFolder } from "vscode";
-import * as vscode from "vscode";
-import { window, workspace } from "vscode";
 import { VscodeCapabilities } from "./VscodeCapabilities";
 import VscodeClipboard from "./VscodeClipboard";
 import VscodeConfiguration from "./VscodeConfiguration";
@@ -33,9 +33,9 @@ import { VscodeNotebookEditorImpl } from "./VscodeIdeNotebook";
 import VscodeKeyValueStore from "./VscodeKeyValueStore";
 import VscodeMessages from "./VscodeMessages";
 import { vscodeRunMode } from "./VscodeRunMode";
+import { vscodeShowQuickPick } from "./vscodeShowQuickPick";
 import { VscodeTextDocument } from "./VscodeTextDocument";
 import { VscodeTextEditor } from "./VscodeTextEditor";
-import { vscodeShowQuickPick } from "./vscodeShowQuickPick";
 
 export class VscodeIDE implements IDE {
   readonly configuration: VscodeConfiguration;

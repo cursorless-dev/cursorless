@@ -1,7 +1,7 @@
 import type { JSX } from "preact";
 import type { CheatsheetSection, Variation } from "./cheatsheet.types";
-import useIsHighlighted from "./utils/useIsHighlighted";
 import { formatCaptures } from "./utils/formatCaptures";
+import useIsHighlighted from "./utils/useIsHighlighted";
 
 type Props = {
   section: CheatsheetSection;

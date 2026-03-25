@@ -1,10 +1,10 @@
+import { readFile, readdir } from "node:fs/promises";
+import * as path from "node:path";
 import type {
   RawTutorialContent,
   TutorialContentProvider,
   TutorialId,
 } from "@cursorless/lib-common";
-import { readFile, readdir } from "node:fs/promises";
-import * as path from "node:path";
 import { loadFixture } from "./loadFixture";
 
 export class FileSystemTutorialContentProvider implements TutorialContentProvider {

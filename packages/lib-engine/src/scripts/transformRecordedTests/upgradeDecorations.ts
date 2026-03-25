@@ -1,10 +1,10 @@
+import { groupBy, partition } from "lodash-es";
 import type {
   FlashStyle,
   GeneralizedRangePlainObject,
   PositionPlainObject,
   TestCaseFixtureLegacy,
 } from "@cursorless/lib-common";
-import { groupBy, partition } from "lodash-es";
 import type { FixtureTransformation } from "./types";
 
 interface PlainTestDecoration {

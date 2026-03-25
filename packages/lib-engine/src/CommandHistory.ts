@@ -1,3 +1,5 @@
+import { produce } from "immer";
+import { v4 as uuid } from "uuid";
 import type {
   ActionDescriptor,
   CommandComplete,
@@ -7,10 +9,8 @@ import type {
   IDE,
   ReadOnlyHatMap,
 } from "@cursorless/lib-common";
-import { produce } from "immer";
-import { v4 as uuid } from "uuid";
-import type { CommandRunner } from "./CommandRunner";
 import type { CommandRunnerDecorator } from "./api/CursorlessEngineApi";
+import type { CommandRunner } from "./CommandRunner";
 
 const filePrefix = "cursorlessCommandHistory";
 

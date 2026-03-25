@@ -1,5 +1,5 @@
-import type { TextDocument } from "@cursorless/lib-common";
 import type { Query, Tree } from "web-tree-sitter";
+import type { TextDocument } from "@cursorless/lib-common";
 
 export interface TreeSitter {
   /**

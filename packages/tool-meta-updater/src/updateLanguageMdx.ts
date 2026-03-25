@@ -1,5 +1,5 @@
-import { prettifyLanguageName } from "@cursorless/lib-common";
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
+import { prettifyLanguageName } from "@cursorless/lib-common";
 
 export function updateLanguageMdx(
   languageId: string,

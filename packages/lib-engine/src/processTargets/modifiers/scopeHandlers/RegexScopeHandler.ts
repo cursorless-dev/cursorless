@@ -1,16 +1,16 @@
+import { imap } from "itertools";
+import { escapeRegExp } from "lodash-es";
 import type {
   CustomRegexScopeType,
   Direction,
   GlyphScopeType,
   ScopeType,
 } from "@cursorless/lib-common";
-import { imap } from "itertools";
-import { escapeRegExp } from "lodash-es";
-import { NestedScopeHandler } from "./NestedScopeHandler";
-import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 import { generateMatchesInRange } from "../../../util/getMatchesInRange";
 import { TokenTarget } from "../../targets";
+import { NestedScopeHandler } from "./NestedScopeHandler";
 import type { TargetScope } from "./scope.types";
+import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 
 abstract class RegexStageBase extends NestedScopeHandler {
   public readonly iterationScopeType: ScopeType = { type: "line" };

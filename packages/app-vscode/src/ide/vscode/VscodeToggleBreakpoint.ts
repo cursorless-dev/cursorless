@@ -1,6 +1,6 @@
+import * as vscode from "vscode";
 import type { GeneralizedRange, Position } from "@cursorless/lib-common";
 import { toVscodePosition } from "@cursorless/lib-vscode-common";
-import * as vscode from "vscode";
 import type { VscodeTextEditor } from "./VscodeTextEditor";
 
 export async function vscodeToggleBreakpoint(

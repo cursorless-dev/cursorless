@@ -1,5 +1,5 @@
-import { Range } from "@cursorless/lib-common";
 import type { Node } from "web-tree-sitter";
+import { Range } from "@cursorless/lib-common";
 
 export function getNodeRange(node: Node) {
   return new Range(

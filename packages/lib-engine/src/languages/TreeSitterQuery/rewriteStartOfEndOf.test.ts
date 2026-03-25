@@ -1,5 +1,5 @@
-import { Range } from "@cursorless/lib-common";
 import * as assert from "node:assert/strict";
+import { Range } from "@cursorless/lib-common";
 import type { MutableQueryCapture, QueryCapture } from "./QueryCapture";
 import {
   createTestQueryCapture,

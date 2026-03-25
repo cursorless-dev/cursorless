@@ -1,3 +1,5 @@
+import { produce } from "immer";
+import { isEqual } from "lodash-es";
 import type {
   CharacterRange,
   Disposable,
@@ -18,14 +20,12 @@ import type {
   CommandRunnerDecorator,
   CustomSpokenFormGenerator,
 } from "@cursorless/lib-engine";
-import { produce } from "immer";
-import { isEqual } from "lodash-es";
 import { arePreconditionsMet } from "./arePreconditionsMet";
 import { loadTutorial } from "./loadTutorial";
 import { setupStep } from "./setupStep";
+import type { Tutorial } from "./Tutorial";
 import { tutorialWrapCommandRunner } from "./tutorialWrapCommandRunner";
 import type { TutorialContent } from "./types/tutorial.types";
-import type { Tutorial } from "./Tutorial";
 
 const HIGHLIGHT_COLOR = "highlight0";
 

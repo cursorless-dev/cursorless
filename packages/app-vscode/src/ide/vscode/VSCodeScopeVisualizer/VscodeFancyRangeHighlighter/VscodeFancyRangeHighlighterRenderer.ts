@@ -1,3 +1,5 @@
+import type { DecorationRenderOptions, TextEditorDecorationType } from "vscode";
+import { DecorationRangeBehavior } from "vscode";
 import type { DecorationStyle } from "@cursorless/lib-common";
 import {
   BORDER_WIDTH,
@@ -7,8 +9,6 @@ import {
   getBorderStyle,
 } from "@cursorless/lib-common";
 import { toVscodeRange } from "@cursorless/lib-vscode-common";
-import type { DecorationRenderOptions, TextEditorDecorationType } from "vscode";
-import { DecorationRangeBehavior } from "vscode";
 import { vscodeApi } from "../../../../vscodeApi";
 import type { VscodeTextEditor } from "../../VscodeTextEditor";
 import type { RangeTypeColors } from "../RangeTypeColors";

@@ -4,15 +4,13 @@ import type { NotebookEditor } from "../../types/NotebookEditor";
 import type { TextDocument } from "../../types/TextDocument";
 import type { EditableTextEditor, TextEditor } from "../../types/TextEditor";
 import type { TextDocumentChangeEvent } from "../types/Events";
-import type { FlashDescriptor } from "../types/FlashDescriptor";
-import type { Messages } from "../types/Messages";
-import type { QuickPickOptions } from "../types/QuickPickOptions";
 import type {
   Emit,
   Event,
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,
 } from "../types/events.types";
+import type { FlashDescriptor } from "../types/FlashDescriptor";
 import type {
   Disposable,
   EmittableIDE,
@@ -20,6 +18,8 @@ import type {
   RunMode,
   WorkspaceFolder,
 } from "../types/ide.types";
+import type { Messages } from "../types/Messages";
+import type { QuickPickOptions } from "../types/QuickPickOptions";
 import { FakeCapabilities } from "./FakeCapabilities";
 import FakeClipboard from "./FakeClipboard";
 import FakeConfiguration from "./FakeConfiguration";

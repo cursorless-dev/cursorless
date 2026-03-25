@@ -1,5 +1,5 @@
-import type { TutorialStepTrigger } from "../types/TutorialStepTrigger";
 import type { StepComponent } from "../types/StepComponent";
+import type { TutorialStepTrigger } from "../types/TutorialStepTrigger";
 
 const SPECIAL_COMMANDS = {
   help: "cursorless help",

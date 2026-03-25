@@ -1,3 +1,5 @@
+import { range as iterRange, map, pairwise } from "itertools";
+import { flatten } from "lodash-es";
 import type { Edit, IDE, TextEditor } from "@cursorless/lib-common";
 import {
   FlashStyle,
@@ -5,8 +7,6 @@ import {
   Selection,
   zipStrict,
 } from "@cursorless/lib-common";
-import { range as iterRange, map, pairwise } from "itertools";
-import { flatten } from "lodash-es";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { containingLineIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";

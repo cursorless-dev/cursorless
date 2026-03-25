@@ -2,8 +2,6 @@ import type { IDE, ReadOnlyHatMap } from "@cursorless/lib-common";
 import type { TargetPipelineRunner } from ".";
 import type { StoredTargetMap } from "..";
 import type { Mark } from "../typings/TargetDescriptor";
-import type { MarkStageFactory } from "./MarkStageFactory";
-import type { MarkStage } from "./PipelineStages.types";
 import { CursorStage } from "./marks/CursorStage";
 import { DecoratedSymbolStage } from "./marks/DecoratedSymbolStage";
 import { ExplicitMarkStage } from "./marks/ExplicitMarkStage";
@@ -12,6 +10,8 @@ import { NothingStage } from "./marks/NothingStage";
 import { RangeMarkStage } from "./marks/RangeMarkStage";
 import { StoredTargetStage } from "./marks/StoredTargetStage";
 import { TargetMarkStage } from "./marks/TargetMarkStage";
+import type { MarkStageFactory } from "./MarkStageFactory";
+import type { MarkStage } from "./PipelineStages.types";
 
 export class MarkStageFactoryImpl implements MarkStageFactory {
   private targetPipelineRunner!: TargetPipelineRunner;

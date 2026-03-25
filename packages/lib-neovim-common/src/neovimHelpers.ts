@@ -1,13 +1,13 @@
 // Helper wrappers, generally around neovimApi.ts
 
+import type { NeovimClient } from "neovim";
+import type { IDE } from "@cursorless/lib-common";
 import {
   bufferGetSelections,
   pasteFromClipboard,
   setClipboard,
 } from "@cursorless/lib-neovim-common";
 import type { NeovimTextEditor } from "./ide/neovim/NeovimTextEditor";
-import type { NeovimClient } from "neovim";
-import type { IDE } from "@cursorless/lib-common";
 
 export async function neovimClipboardCopy(
   client: NeovimClient,

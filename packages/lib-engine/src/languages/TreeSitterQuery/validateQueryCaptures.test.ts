@@ -1,5 +1,5 @@
-import { FakeIDE } from "@cursorless/lib-common";
 import * as assert from "node:assert/strict";
+import { FakeIDE } from "@cursorless/lib-common";
 import { validateQueryCaptures } from "./validateQueryCaptures";
 
 const testCases: { name: string; isOk: boolean; content: string }[] = [

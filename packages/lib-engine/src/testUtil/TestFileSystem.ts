@@ -1,3 +1,5 @@
+import fs from "node:fs/promises";
+import { join } from "node:path";
 import type {
   Disposable,
   FileSystem,
@@ -5,8 +7,6 @@ import type {
   RunMode,
 } from "@cursorless/lib-common";
 import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
-import { join } from "node:path";
-import fs from "node:fs/promises";
 
 export class TestFileSystem implements FileSystem {
   public readonly cursorlessTalonStateJsonPath: string;

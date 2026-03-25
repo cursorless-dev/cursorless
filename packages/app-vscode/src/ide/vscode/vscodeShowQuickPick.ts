@@ -1,5 +1,5 @@
-import type { QuickPickOptions } from "@cursorless/lib-common";
 import * as vscode from "vscode";
+import type { QuickPickOptions } from "@cursorless/lib-common";
 
 /**
  * Show a quick pick that allows the user to enter a new value.  We do this by

@@ -1,3 +1,5 @@
+import { flatmap, ifilter, imap, itake } from "itertools";
+import { escapeRegExp } from "lodash-es";
 import type {
   Direction,
   Modifier,
@@ -7,8 +9,6 @@ import type {
   TextEditor,
 } from "@cursorless/lib-common";
 import { Range } from "@cursorless/lib-common";
-import { flatmap, ifilter, imap, itake } from "itertools";
-import { escapeRegExp } from "lodash-es";
 import type { StoredTargetMap } from "../..";
 import type { Target } from "../../typings/target.types";
 import { generateMatchesInRange } from "../../util/getMatchesInRange";

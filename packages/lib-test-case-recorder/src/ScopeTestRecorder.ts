@@ -1,3 +1,6 @@
+import * as fs from "node:fs";
+import * as fsPromises from "node:fs/promises";
+import * as path from "node:path";
 import {
   ScopeSupportFacetLevel,
   groupBy,
@@ -11,9 +14,6 @@ import {
   getScopeTestPathsRecursively,
   getScopeTestsDirPath,
 } from "@cursorless/lib-node-common";
-import * as fs from "node:fs";
-import * as fsPromises from "node:fs/promises";
-import * as path from "node:path";
 
 export class ScopeTestRecorder {
   constructor(private ide: IDE) {

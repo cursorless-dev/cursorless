@@ -1,3 +1,4 @@
+import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import type { ScopeTypeType } from "@cursorless/lib-common";
 import {
   plaintextScopeSupportFacetInfos,
@@ -5,7 +6,6 @@ import {
   scopeSupportFacetInfos,
   serializeScopeType,
 } from "@cursorless/lib-common";
-import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 
 export function updateScopeMdx(
   scopeTypeType: ScopeTypeType,

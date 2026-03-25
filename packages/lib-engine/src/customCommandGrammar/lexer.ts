@@ -7,9 +7,9 @@ import {
   simpleScopeTypeTypes,
   surroundingPairNames,
 } from "@cursorless/lib-common";
+import { connectives } from "../generateSpokenForm/defaultSpokenForms/connectives";
 import { marks } from "../generateSpokenForm/defaultSpokenForms/marks";
 import { defaultSpokenFormMap } from "../spokenForms/defaultSpokenFormMap";
-import { connectives } from "../generateSpokenForm/defaultSpokenForms/connectives";
 import { CommandLexer } from "./CommandLexer";
 
 interface Token {

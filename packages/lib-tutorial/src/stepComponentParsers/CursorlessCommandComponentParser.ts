@@ -1,3 +1,5 @@
+import { produce } from "immer";
+import { cloneDeep, mapKeys } from "lodash-es";
 import type {
   CommandComplete,
   CommandLatest,
@@ -19,8 +21,6 @@ import type {
   StepComponent,
   StepComponentParser,
 } from "../types/StepComponent";
-import { cloneDeep, mapKeys } from "lodash-es";
-import { produce } from "immer";
 
 /**
  * Parses components of the form `{command:takeNear.yml}`. The argument

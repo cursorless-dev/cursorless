@@ -1,9 +1,9 @@
-import type { GeneralizedRange } from "./GeneralizedRange";
-import type { SpokenForm } from "./SpokenForm";
-import type { Range } from "./Range";
-import type { TextEditor } from "./TextEditor";
 import type { Disposable } from "../ide/types/ide.types";
 import type { ScopeType } from "./command/PartialTargetDescriptor.types";
+import type { GeneralizedRange } from "./GeneralizedRange";
+import type { Range } from "./Range";
+import type { SpokenForm } from "./SpokenForm";
+import type { TextEditor } from "./TextEditor";
 
 export interface ScopeProvider {
   /**

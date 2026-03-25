@@ -1,3 +1,4 @@
+import { uniqWith } from "lodash-es";
 import type {
   Direction,
   IDE,
@@ -5,7 +6,6 @@ import type {
   TextEditor,
 } from "@cursorless/lib-common";
 import { showError } from "@cursorless/lib-common";
-import { uniqWith } from "lodash-es";
 import type { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
 import type { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import { BaseScopeHandler } from "../BaseScopeHandler";

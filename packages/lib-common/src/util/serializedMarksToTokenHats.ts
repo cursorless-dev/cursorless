@@ -1,8 +1,8 @@
 import { plainObjectToRange } from "../testUtil/fromPlainObject";
+import type { TokenHat } from "../types/HatTokenMap";
+import type { TextEditor } from "../types/TextEditor";
 import { splitKey } from "./splitKey";
 import type { SerializedMarks } from "./toPlainObject";
-import type { TextEditor } from "../types/TextEditor";
-import type { TokenHat } from "../types/HatTokenMap";
 
 export function serializedMarksToTokenHats(
   marks: SerializedMarks | undefined,

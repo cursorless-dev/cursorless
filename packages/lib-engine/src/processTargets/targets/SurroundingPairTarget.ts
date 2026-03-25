@@ -1,9 +1,9 @@
 import type { Range } from "@cursorless/lib-common";
+import type { Target } from "../../typings/target.types";
 import type { CommonTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
 import { InteriorTarget } from "./InteriorTarget";
 import { TokenTarget } from "./TokenTarget";
-import type { Target } from "../../typings/target.types";
 import {
   getTokenLeadingDelimiterTarget,
   getTokenRemovalRange,

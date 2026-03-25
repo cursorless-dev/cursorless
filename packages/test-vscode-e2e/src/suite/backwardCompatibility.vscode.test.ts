@@ -1,10 +1,10 @@
+import * as assert from "node:assert/strict";
+import * as vscode from "vscode";
 import { CURSORLESS_COMMAND_ID } from "@cursorless/lib-common";
 import {
   getCursorlessApi,
   getReusableEditor,
 } from "@cursorless/lib-vscode-common";
-import * as assert from "node:assert/strict";
-import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
 suite("Backward compatibility", async function () {

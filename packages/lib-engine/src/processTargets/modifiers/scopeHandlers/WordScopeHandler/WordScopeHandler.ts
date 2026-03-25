@@ -8,8 +8,8 @@ import { Range } from "@cursorless/lib-common";
 import { SubTokenWordTarget } from "../../../targets";
 import { NestedScopeHandler } from "../NestedScopeHandler";
 import type { TargetScope } from "../scope.types";
-import { WordTokenizer } from "./WordTokenizer";
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
+import { WordTokenizer } from "./WordTokenizer";
 
 export class WordScopeHandler extends NestedScopeHandler {
   public readonly scopeType = { type: "word" } as const;

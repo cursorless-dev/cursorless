@@ -1,9 +1,9 @@
 import type { Direction, Position, TextEditor } from "@cursorless/lib-common";
 import type { Target } from "../../typings/target.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
+import { getPreferredScopeTouchingPosition } from "./getPreferredScopeTouchingPosition";
 import type { TargetScope } from "./scopeHandlers/scope.types";
 import type { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
-import { getPreferredScopeTouchingPosition } from "./getPreferredScopeTouchingPosition";
 
 /**
  * Finds the containing scope of the target for the given scope handler

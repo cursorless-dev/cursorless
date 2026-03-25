@@ -1,5 +1,5 @@
-import type { VscodeApi } from "@cursorless/lib-vscode-common";
 import { commands, env, window, workspace } from "vscode";
+import type { VscodeApi } from "@cursorless/lib-vscode-common";
 
 /**
  * A very thin wrapper around the VSCode API that allows us to mock it for

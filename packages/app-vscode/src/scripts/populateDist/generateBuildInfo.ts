@@ -1,6 +1,6 @@
 import { getEnvironmentVariableStrict } from "@cursorless/lib-common";
-import { runCommand } from "./runCommand";
 import type { Context } from "./context";
+import { runCommand } from "./runCommand";
 
 export async function generateBuildInfo({ isCi }: Context) {
   // In CI, we generate a file called `build-info.json` that contains

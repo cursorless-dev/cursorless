@@ -1,7 +1,7 @@
-import type { TestCaseFixtureLegacy } from "@cursorless/lib-common";
-import { FakeIDE } from "@cursorless/lib-common";
 import * as assert from "node:assert/strict";
 import { uniq } from "lodash-es";
+import type { TestCaseFixtureLegacy } from "@cursorless/lib-common";
+import { FakeIDE } from "@cursorless/lib-common";
 import { extractTargetKeys } from "../../testUtil/extractTargetKeys";
 import { TokenGraphemeSplitter } from "../../tokenGraphemeSplitter/tokenGraphemeSplitter";
 import { getPartialTargetDescriptors } from "../../util/getPartialTargetDescriptors";

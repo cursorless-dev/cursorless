@@ -1,3 +1,4 @@
+import { pull } from "lodash-es";
 import type {
   Disposable,
   IDE,
@@ -8,8 +9,6 @@ import type {
   ScopeRanges,
 } from "@cursorless/lib-common";
 import { showError } from "@cursorless/lib-common";
-import { pull } from "lodash-es";
-
 import type { LanguageDefinitions } from "../languages/LanguageDefinitions";
 import { DecorationDebouncer } from "../util/DecorationDebouncer";
 import type { ScopeRangeProvider } from "./ScopeRangeProvider";

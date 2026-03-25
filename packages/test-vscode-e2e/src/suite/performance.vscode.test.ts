@@ -1,3 +1,5 @@
+import assert from "node:assert/strict";
+import * as vscode from "vscode";
 import type {
   ActionDescriptor,
   Modifier,
@@ -5,15 +7,13 @@ import type {
   SimpleScopeTypeType,
 } from "@cursorless/lib-common";
 import { asyncSafety } from "@cursorless/lib-common";
+import { isMac } from "@cursorless/lib-node-common";
 import {
   getReusableEditor,
   runCursorlessAction,
 } from "@cursorless/lib-vscode-common";
-import assert from "node:assert/strict";
-import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 import { isCI } from "../isCI";
-import { isMac } from "@cursorless/lib-node-common";
 
 const testData = generateTestData(100);
 const multiplier = calculateMultiplier();

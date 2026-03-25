@@ -1,5 +1,5 @@
-import type { SpokenFormMappingType } from "./SpokenFormMap";
 import type { SpokenFormMapKeyTypes } from "@cursorless/lib-common";
+import type { SpokenFormMappingType } from "./SpokenFormMap";
 
 export type DefaultSpokenFormMapDefinition = {
   readonly [K in keyof SpokenFormMapKeyTypes]: Readonly<

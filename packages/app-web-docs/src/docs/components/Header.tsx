@@ -1,5 +1,5 @@
-import { uriEncodeHashId } from "@cursorless/lib-common";
 import React from "react";
+import { uriEncodeHashId } from "@cursorless/lib-common";
 import "./Header.css";
 
 interface Props {

@@ -1,3 +1,4 @@
+import { find, ifilter, islice, itake } from "itertools";
 import type {
   Direction,
   Position,
@@ -6,19 +7,18 @@ import type {
   TextEditor,
 } from "@cursorless/lib-common";
 import { NoContainingScopeError } from "@cursorless/lib-common";
-import { find, ifilter, islice, itake } from "itertools";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStage } from "../PipelineStages.types";
 import { InteriorTarget } from "../targets";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import { getPreferredScopeTouchingPosition } from "./getPreferredScopeTouchingPosition";
 import { OutOfRangeError } from "./listUtils";
-import type { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 import type { TargetScope } from "./scopeHandlers/scope.types";
 import type {
   ContainmentPolicy,
   ScopeHandler,
 } from "./scopeHandlers/scopeHandler.types";
+import type { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 
 /**
  * Handles relative modifiers input, eg "next funk", "two funks", "previous two

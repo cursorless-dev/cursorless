@@ -1,6 +1,6 @@
+import { commands } from "vscode";
 import { asyncSafety } from "@cursorless/lib-common";
 import { getCursorlessApi } from "@cursorless/lib-vscode-common";
-import { commands } from "vscode";
 import { endToEndTestSetup } from "../../endToEndTestSetup";
 import { runBasicMultilineContentTest } from "./runBasicMultilineContentTest";
 import { runBasicRemovalTest } from "./runBasicRemovalTest";

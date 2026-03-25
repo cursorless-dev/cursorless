@@ -11,8 +11,8 @@ import type {
   ScopeVisualizerColorConfig,
 } from "@cursorless/lib-vscode-common";
 import { vscodeApi } from "../../../vscodeApi";
-import { VscodeScopeRenderer } from "./VscodeScopeRenderer";
 import { getColorsFromConfig } from "./getColorsFromConfig";
+import { VscodeScopeRenderer } from "./VscodeScopeRenderer";
 
 /**
  * Base class for the different kinds of scope visualizer, eg content, removal,

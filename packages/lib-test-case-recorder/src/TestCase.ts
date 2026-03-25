@@ -1,3 +1,4 @@
+import { pick } from "lodash-es";
 import type {
   ActionType,
   CommandLatest,
@@ -28,7 +29,6 @@ import {
   getPartialTargetDescriptors,
   type StoredTargetMap,
 } from "@cursorless/lib-engine";
-import { pick } from "lodash-es";
 import { takeSnapshot } from "./takeSnapshot";
 
 export class TestCase {

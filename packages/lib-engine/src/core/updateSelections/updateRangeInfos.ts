@@ -1,13 +1,13 @@
 import { sumBy } from "lodash-es";
-import getOffsetsForDeleteOrReplace from "./getOffsetsForDeleteOrReplace";
-import getOffsetsForEmptyRangeInsert from "./getOffsetsForEmptyRangeInsert";
-import getOffsetsForNonEmptyRangeInsert from "./getOffsetsForNonEmptyRangeInsert";
+import type { RangeOffsets } from "@cursorless/lib-common";
 import type {
   ExtendedTextDocumentChangeEvent,
   FullRangeInfo,
   ChangeEventInfo,
 } from "../../typings/updateSelections";
-import type { RangeOffsets } from "@cursorless/lib-common";
+import getOffsetsForDeleteOrReplace from "./getOffsetsForDeleteOrReplace";
+import getOffsetsForEmptyRangeInsert from "./getOffsetsForEmptyRangeInsert";
+import getOffsetsForNonEmptyRangeInsert from "./getOffsetsForNonEmptyRangeInsert";
 import { getUpdatedText } from "./getUpdatedText";
 
 /**

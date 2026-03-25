@@ -11,9 +11,9 @@ import type {
   ModifierStateOptions,
 } from "../PipelineStages.types";
 import { getContainingScopeTarget } from "./getContainingScopeTarget";
-import type { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 import type { TargetScope } from "./scopeHandlers/scope.types";
 import type { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
+import type { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 
 /**
  * This modifier returns all scopes intersecting the input target if the target

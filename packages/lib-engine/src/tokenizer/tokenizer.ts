@@ -1,5 +1,5 @@
-import { matchAll, type IDE } from "@cursorless/lib-common";
 import { escapeRegExp } from "lodash-es";
+import { matchAll, type IDE } from "@cursorless/lib-common";
 import type { LanguageTokenizerComponents } from "./tokenizer.types";
 
 const REPEATABLE_SYMBOLS = [

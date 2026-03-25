@@ -1,11 +1,11 @@
+import { isAbsolute, join } from "node:path";
+import * as vscode from "vscode";
 import type {
   Disposable,
   FileSystem,
   PathChangeListener,
   RunMode,
 } from "@cursorless/lib-common";
-import { isAbsolute, join } from "node:path";
-import * as vscode from "vscode";
 
 export class VscodeFileSystem implements FileSystem {
   public readonly cursorlessTalonStateJsonPath: string;

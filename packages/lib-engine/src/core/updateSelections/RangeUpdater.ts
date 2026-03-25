@@ -1,3 +1,4 @@
+import { pull } from "lodash-es";
 import type {
   Disposable,
   Edit,
@@ -6,7 +7,6 @@ import type {
   TextDocumentChangeEvent,
   TextDocumentContentChangeEvent,
 } from "@cursorless/lib-common";
-import { pull } from "lodash-es";
 import type {
   ExtendedTextDocumentChangeEvent,
   FullRangeInfo,

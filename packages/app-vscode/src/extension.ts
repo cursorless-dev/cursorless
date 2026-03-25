@@ -1,3 +1,4 @@
+import type { ExtensionContext } from "vscode";
 import type { EnforceUndefined } from "@cursorless/lib-common";
 import {
   FakeCommandServerApi,
@@ -20,22 +21,21 @@ import {
   getCommandServerApi,
   getParseTreeApi,
 } from "@cursorless/lib-vscode-common";
-import type { ExtensionContext } from "vscode";
-import { InstallationDependencies } from "./InstallationDependencies";
-import { ReleaseNotes } from "./ReleaseNotes";
-import { ScopeTreeProvider } from "./ScopeTreeProvider";
-import { StatusBarItem } from "./StatusBarItem";
-import { VscodeSnippets } from "./VscodeSnippets";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { createScopeVisualizer } from "./createScopeVisualizer";
 import { createTreeSitter } from "./createTreeSitter";
 import { createTutorial } from "./createTutorial";
 import { createVscodeIde } from "./createVscodeIde";
+import { InstallationDependencies } from "./InstallationDependencies";
 import { KeyboardCommands } from "./keyboard/KeyboardCommands";
 import { registerCommands } from "./registerCommands";
+import { ReleaseNotes } from "./ReleaseNotes";
 import { revisualizeOnCustomRegexChange } from "./revisualizeOnCustomRegexChange";
+import { ScopeTreeProvider } from "./ScopeTreeProvider";
+import { StatusBarItem } from "./StatusBarItem";
 import { storedTargetHighlighter } from "./storedTargetHighlighter";
 import { vscodeApi } from "./vscodeApi";
+import { VscodeSnippets } from "./VscodeSnippets";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.

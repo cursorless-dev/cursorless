@@ -1,3 +1,9 @@
+import * as assert from "node:assert/strict";
+import { existsSync } from "node:fs";
+import { readFile, readdir, rm } from "node:fs/promises";
+import * as path from "node:path";
+import { produce } from "immer";
+import * as vscode from "vscode";
 import type {
   CommandComplete,
   CommandHistoryEntry,
@@ -9,13 +15,7 @@ import {
   openNewEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
-import { existsSync } from "node:fs";
-import { readFile, readdir, rm } from "node:fs/promises";
-import * as assert from "node:assert/strict";
-import * as path from "node:path";
-import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { produce } from "immer";
 
 /*
  * All tests in this file are running against the latest version of the command

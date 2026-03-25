@@ -1,5 +1,5 @@
-import type { Range } from "@cursorless/lib-common";
 import * as vscode from "vscode";
+import type { Range } from "@cursorless/lib-common";
 import type { VscodeIDE } from "./VscodeIDE";
 import type { VscodeTextEditor } from "./VscodeTextEditor";
 

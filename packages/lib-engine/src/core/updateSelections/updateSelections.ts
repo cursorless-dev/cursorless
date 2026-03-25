@@ -1,3 +1,4 @@
+import { flatten } from "lodash-es";
 import type {
   Edit,
   EditableTextEditor,
@@ -9,7 +10,6 @@ import {
   Selection,
   unsafeKeys,
 } from "@cursorless/lib-common";
-import { flatten } from "lodash-es";
 import type {
   FullSelectionInfo,
   SelectionInfo,

@@ -1,7 +1,7 @@
+import * as vscode from "vscode";
 import type { Messages } from "@cursorless/lib-common";
 import { showInfo } from "@cursorless/lib-common";
 import type { VscodeApi } from "@cursorless/lib-vscode-common";
-import * as vscode from "vscode";
 import type { ExtendedHatStyleMap } from "../VscodeEnabledHatStyleManager";
 import type { IndividualHatAdjustmentMap } from "./shapeAdjustments";
 

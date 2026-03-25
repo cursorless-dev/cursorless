@@ -1,5 +1,5 @@
-import type { Range, TextDocument } from "@cursorless/lib-common";
 import type { Node } from "web-tree-sitter";
+import type { Range, TextDocument } from "@cursorless/lib-common";
 
 /**
  * A capture of a query pattern against a syntax tree.  Often corresponds to a
