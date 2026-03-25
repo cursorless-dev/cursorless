@@ -33,7 +33,8 @@ export function ScrollToHashId() {
 
       setTimeout(scrollToId, delay);
     }
-  }, [location.hash]);
+    // oxlint-disable-next-line eslint-plugin-react-hooks/exhaustive-deps
+  }, []);
 
   return null;
 }
