@@ -25,7 +25,7 @@ export function DynamicTOC({
     } else {
       row.appendChild(toc);
     }
-  }, []);
+  }, [minHeadingLevel, maxHeadingLevel]);
 
   return null;
 }

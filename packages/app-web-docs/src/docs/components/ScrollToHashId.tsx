@@ -33,6 +33,7 @@ export function ScrollToHashId() {
 
       setTimeout(scrollToId, delay);
     }
+    // oxlint-disable-next-line eslint-plugin-react-hooks/exhaustive-deps
   }, []);
 
   return null;

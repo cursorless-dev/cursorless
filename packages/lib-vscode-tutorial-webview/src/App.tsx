@@ -21,7 +21,7 @@ export function App({ vscode }: Props) {
     );
 
     vscode.postMessage({ type: "getInitialState" });
-  }, []);
+  }, [vscode]);
 
   if (state == null) {
     // Just show nothing while we're waiting for initial state

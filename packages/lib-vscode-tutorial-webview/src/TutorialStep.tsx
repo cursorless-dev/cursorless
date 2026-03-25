@@ -55,9 +55,9 @@ export function TutorialStep({ state, vscode }: Props) {
                 case "string":
                   return <span key={j}>{fragment.value}</span>;
                 case "command":
-                  return <Command spokenForm={fragment.value} />;
+                  return <Command key={j} spokenForm={fragment.value} />;
                 case "term":
-                  return <span>"{fragment.value}"</span>;
+                  return <span key={j}>"{fragment.value}"</span>;
                 default: {
                   // Ensure we handle all cases
                   const _unused: never = fragment;
