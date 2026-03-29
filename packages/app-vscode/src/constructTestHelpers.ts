@@ -40,7 +40,7 @@ export function constructTestHelpers(
   loadLanguage: (languageId: string) => Promise<void>,
 ): VscodeTestHelpers | undefined {
   return {
-    commandServerApi: commandServerApi!,
+    commandServerApi,
     ide: normalizedIde,
     injectIde,
     loadLanguage,

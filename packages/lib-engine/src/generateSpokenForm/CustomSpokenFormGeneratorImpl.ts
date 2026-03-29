@@ -44,7 +44,7 @@ export class CustomSpokenFormGeneratorImpl implements CustomSpokenFormGenerator 
     ];
   }
 
-  onDidChangeCustomSpokenForms(listener: Listener<[]>) {
+  onDidChangeCustomSpokenForms(listener: Listener) {
     return this.customSpokenForms.onDidChangeCustomSpokenForms(listener);
   }
 

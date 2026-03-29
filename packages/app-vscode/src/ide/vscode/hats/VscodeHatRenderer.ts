@@ -63,7 +63,7 @@ interface SvgInfo {
 export default class VscodeHatRenderer {
   private decorationMap!: HatDecorationMap;
   private disposables: vscode.Disposable[] = [];
-  private notifier: Notifier<[]> = new Notifier();
+  private notifier: Notifier = new Notifier();
   private lastSeenEnabledHatStyles: ExtendedHatStyleMap = {};
   private hatsDirWatcherDisposable?: vscode.Disposable;
   private hatShapeOverrides: Record<string, vscode.Uri> = {};
@@ -110,7 +110,7 @@ export default class VscodeHatRenderer {
     await this.recomputeDecorations();
   }
 
-  registerListener(listener: Listener<[]>) {
+  registerListener(listener: Listener) {
     return this.notifier.registerListener(listener);
   }
 

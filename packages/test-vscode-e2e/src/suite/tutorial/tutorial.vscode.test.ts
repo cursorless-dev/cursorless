@@ -26,7 +26,7 @@ suite("tutorial", async function () {
 
   test(
     "basic",
-    asyncSafety(() => runBasicTutorialTest(getSpy()!)),
+    asyncSafety(() => runBasicTutorialTest(getSpy())),
   );
 });
 

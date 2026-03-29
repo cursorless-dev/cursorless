@@ -53,6 +53,8 @@ const disabledRules = [
   "unicorn/filename-case",
   "unicorn/no-array-callback-reference",
   "unicorn/no-array-for-each",
+  "unicorn/no-array-reverse",
+  "unicorn/no-array-sort",
   "unicorn/no-null",
   "unicorn/prefer-at",
   "unicorn/prefer-module",
@@ -91,6 +93,15 @@ export default defineConfig({
       specifier: "eslint-plugin-mocha",
     },
   ],
+  categories: {
+    correctness: "warn",
+    suspicious: "warn",
+    // pedantic: "warn",
+    // perf: "warn",
+    // style: "warn",
+    // restriction: "warn",
+    // nursery: "warn",
+  },
 
   rules: {
     ...Object.fromEntries(disabledRules.map((r) => [r, "off"])),

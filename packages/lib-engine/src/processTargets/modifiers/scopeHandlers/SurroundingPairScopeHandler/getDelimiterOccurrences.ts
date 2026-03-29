@@ -56,7 +56,7 @@ export function getDelimiterOccurrences(
 
   for (const match of regexMatches) {
     const text = match[0];
-    const startPos = document.positionAt(match.index!);
+    const startPos = document.positionAt(match.index);
     const matchRange = new Range(
       startPos,
       startPos.translate(undefined, text.length),

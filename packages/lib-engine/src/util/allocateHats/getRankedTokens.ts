@@ -91,7 +91,7 @@ function getRankedEditors(
     editors = visibleTextEditors;
   } else {
     editors = [
-      activeTextEditor!,
+      activeTextEditor,
       ...visibleTextEditors.filter((editor) => editor !== activeTextEditor),
     ];
   }

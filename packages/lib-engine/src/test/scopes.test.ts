@@ -130,7 +130,7 @@ async function runTest(
     "Can't find delimiter '---' in scope fixture",
   );
 
-  const code = fixture.slice(0, delimiterIndex! - 1);
+  const code = fixture.slice(0, delimiterIndex - 1);
 
   const editor = await testEnvironment.openNewEditor(code, languageId);
 

@@ -4,7 +4,7 @@ import { operandToString } from "./predicateToString";
 
 export function constructZodErrorMessages(
   inputOperands: PredicateStep[],
-  error: z.ZodError<z.core.output<PredicateStep[]>>,
+  error: z.ZodError,
 ): string[] {
   return error.issues
     .filter(

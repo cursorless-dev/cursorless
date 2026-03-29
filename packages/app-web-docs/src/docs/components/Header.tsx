@@ -29,6 +29,7 @@ function renderHeader(
   level: 2 | 3 | 4 | 5,
   { className, id, title, children }: Props,
 ): React.JSX.Element {
+  // oxlint-disable-next-line typescript/no-unnecessary-type-assertion
   const Tag = `h${level}` as "h2" | "h3" | "h4" | "h5";
   const encodedId = uriEncodeHashId(id ?? children);
   return (

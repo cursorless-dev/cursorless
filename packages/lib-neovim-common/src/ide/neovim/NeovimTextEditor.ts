@@ -58,7 +58,7 @@ export class NeovimTextEditor implements EditableTextEditor {
   }
 
   get selections(): Selection[] {
-    return this._selections as Selection[];
+    return this._selections;
   }
 
   async setSelections(selections: Selection[]): Promise<void> {

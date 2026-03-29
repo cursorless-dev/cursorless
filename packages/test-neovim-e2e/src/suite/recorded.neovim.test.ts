@@ -46,7 +46,7 @@ suite("recorded test cases", async function () {
           path,
           spyIde: getSpy()!,
           openNewTestEditor: async (content: string, languageId: string) => {
-            return await openNewTestEditor(client, getNeovimIDE()!, content, {
+            return await openNewTestEditor(client, getNeovimIDE(), content, {
               languageId,
             });
           },
