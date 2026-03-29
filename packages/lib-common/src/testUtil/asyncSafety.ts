@@ -1,5 +1,7 @@
 import type { Context, Done } from "mocha";
 
+// oxlint-disable promise/no-callback-in-promise
+
 /**
  * if an async returns after the method times out,
  * it will cause a "done() called multiple times" error.
