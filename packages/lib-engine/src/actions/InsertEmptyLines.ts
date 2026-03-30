@@ -95,14 +95,6 @@ abstract class InsertEmptyLines implements SimpleAction {
 }
 
 export class InsertEmptyLinesAround extends InsertEmptyLines {
-  constructor(
-    ide: IDE,
-    rangeUpdater: RangeUpdater,
-    modifierStageFactory: ModifierStageFactory,
-  ) {
-    super(ide, rangeUpdater, modifierStageFactory);
-  }
-
   protected getEdits(targets: Target[]) {
     return targets.flatMap((target) => [
       constructChangeEdit(target, "before"),

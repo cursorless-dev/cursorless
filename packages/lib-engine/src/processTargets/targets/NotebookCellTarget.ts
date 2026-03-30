@@ -9,10 +9,6 @@ export class NotebookCellTarget extends BaseTarget<CommonTargetParameters> {
   insertionDelimiter = "\n";
   isNotebookCell = true;
 
-  constructor(parameters: CommonTargetParameters) {
-    super(parameters);
-  }
-
   getLeadingDelimiterTarget = () => undefined;
   getTrailingDelimiterTarget = () => undefined;
   getRemovalRange = () => this.contentRange;

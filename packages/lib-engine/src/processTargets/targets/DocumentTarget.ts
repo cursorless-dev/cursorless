@@ -9,10 +9,6 @@ export class DocumentTarget extends BaseTarget<CommonTargetParameters> {
   textualType: TextualType = "line";
   insertionDelimiter = "\n\n";
 
-  constructor(parameters: CommonTargetParameters) {
-    super(parameters);
-  }
-
   getInterior() {
     return [
       // Use plain target instead of interior target since we want the same content and removal range for a document interior.

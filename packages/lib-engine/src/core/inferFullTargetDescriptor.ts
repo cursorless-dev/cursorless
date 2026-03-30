@@ -174,7 +174,6 @@ function getLineNumberMarkModifiers(
  * @returns True if this target has a line number mark
  */
 function isLineNumberMark(target: PartialPrimitiveTargetDescriptor): boolean {
-  const isLineNumber = (mark?: PartialMark) => mark?.type === "lineNumber";
   if (isLineNumber(target.mark)) {
     return true;
   }
@@ -182,6 +181,10 @@ function isLineNumberMark(target: PartialPrimitiveTargetDescriptor): boolean {
     return isLineNumber(target.mark.anchor) && isLineNumber(target.mark.active);
   }
   return false;
+}
+
+function isLineNumber(mark?: PartialMark) {
+  return mark?.type === "lineNumber";
 }
 
 function getPreviousMark(

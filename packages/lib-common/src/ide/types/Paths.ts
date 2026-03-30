@@ -15,7 +15,7 @@ type Join<
     ? R
     : undefined;
 
-type Union<L extends unknown, R extends unknown> = L extends undefined
+type Union<L, R> = L extends undefined
   ? R extends undefined
     ? undefined
     : R
