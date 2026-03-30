@@ -1,7 +1,7 @@
 import * as assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import * as path from "node:path";
-import sinon from "sinon";
+import * as sinon from "sinon";
 import * as vscode from "vscode";
 import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
 import {

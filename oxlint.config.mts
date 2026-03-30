@@ -1,6 +1,13 @@
 import { defineConfig } from "oxlint";
 
+// These rules should probably be re-enabled eventually
+const temporarilyDisabled = [
+  "typescript/no-unsafe-type-assertion",
+  "eslint/no-shadow",
+];
+
 const disabledRules = [
+  ...temporarilyDisabled,
   "eslint/arrow-body-style",
   "eslint/capitalized-comments",
   "eslint/class-methods-use-this",
@@ -38,6 +45,7 @@ const disabledRules = [
   "oxc/no-async-await",
   "oxc/no-optional-chaining",
   "oxc/no-rest-spread-properties",
+  "promise/always-return",
   "promise/avoid-new",
   "promise/prefer-await-to-callbacks",
   "react-perf/jsx-no-new-function-as-prop",
@@ -60,6 +68,7 @@ const disabledRules = [
   "unicorn/prefer-module",
   "unicorn/prefer-spread",
   "unicorn/prefer-ternary",
+  "unicorn/require-post-message-target-origin",
   "unicorn/switch-case-braces",
 ];
 
@@ -105,14 +114,6 @@ export default defineConfig({
 
   rules: {
     ...Object.fromEntries(disabledRules.map((r) => [r, "off"])),
-    curly: "warn",
-    eqeqeq: [
-      "warn",
-      "always",
-      {
-        null: "never",
-      },
-    ],
     "eslint/no-constant-condition": [
       "warn",
       {
@@ -147,6 +148,12 @@ export default defineConfig({
       },
     ],
     "import/no-duplicates": "warn",
+    "import/no-unassigned-import": [
+      "warn",
+      {
+        allow: ["**/*.css"],
+      },
+    ],
     "mocha/no-exclusive-tests": "warn",
     "mocha/no-pending-tests": "warn",
     "no-warning-comments": [
@@ -168,6 +175,14 @@ export default defineConfig({
     "unicorn/prefer-module": "warn",
     "unicorn/prefer-node-protocol": "warn",
     "unicorn/throw-new-error": "warn",
+    curly: "warn",
+    eqeqeq: [
+      "warn",
+      "always",
+      {
+        null: "never",
+      },
+    ],
   },
 
   overrides: [

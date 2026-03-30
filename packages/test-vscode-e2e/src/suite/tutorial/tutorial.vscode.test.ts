@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import path from "node:path";
 import { isEqual } from "lodash-es";
-import sinon from "sinon";
+import * as sinon from "sinon";
 import { commands } from "vscode";
 import type { SpyIDE, TestCaseFixtureLegacy } from "@cursorless/lib-common";
 import {

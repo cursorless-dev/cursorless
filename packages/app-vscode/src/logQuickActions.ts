@@ -31,7 +31,7 @@ export async function logQuickActions(kind?: string) {
   }));
 
   availableCodeActions.forEach((availableCodeAction) => {
-    console.log(`${JSON.stringify(availableCodeAction, null, 2)}`);
+    console.log(JSON.stringify(availableCodeAction, null, 2));
   });
 
   void window.showInformationMessage(

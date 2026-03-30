@@ -1,5 +1,6 @@
 /* global Crawler */
 
+// oxlint-disable-next-line no-new
 new Crawler({
   rateLimit: 8,
   startUrls: ["https://www.cursorless.org/docs"],

@@ -207,7 +207,5 @@ function isInsert(edit: Edit): boolean {
 }
 
 function isReplace(edit: Edit): boolean {
-  return (
-    edit.text !== "" && (!edit.range.isEmpty || edit.isReplace ? true : false)
-  );
+  return edit.text !== "" && (!edit.range.isEmpty || !!edit.isReplace);
 }

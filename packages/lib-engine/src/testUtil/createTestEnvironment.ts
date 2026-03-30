@@ -2,10 +2,13 @@ import type {
   EditableTextEditor,
   MessageId,
   Messages,
-  MessageType,
   ScopeProvider,
 } from "@cursorless/lib-common";
-import { FakeIDE, InMemoryTextEditor } from "@cursorless/lib-common";
+import {
+  FakeIDE,
+  InMemoryTextEditor,
+  MessageType,
+} from "@cursorless/lib-common";
 import { FileSystemRawTreeSitterQueryProvider } from "@cursorless/lib-node-common";
 import { createCursorlessEngine } from "..";
 import { TestFileSystem } from "./TestFileSystem";
@@ -53,13 +56,13 @@ class TestMessages implements Messages {
     ..._options: string[]
   ): Promise<string | undefined> {
     switch (type) {
-      case "info":
+      case MessageType.info:
         console.log(message);
         break;
-      case "warning":
+      case MessageType.warning:
         console.log(`[warn] ${message}`);
         break;
-      case "error":
+      case MessageType.error:
         console.log(`[error] ${message}`);
         break;
     }

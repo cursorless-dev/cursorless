@@ -117,10 +117,7 @@ export function getSentences(
       // This probably needs to be improved with machine learning
       if (i + 1 < L) {
         // Single character abbr.
-        if (
-          words[i].length === 2 &&
-          isNaN(words[i].charAt(0) as unknown as number)
-        ) {
+        if (words[i].length === 2 && !/^\d/.test(words[i])) {
           continue;
         }
 

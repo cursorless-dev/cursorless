@@ -95,9 +95,7 @@ suite(`Performance ${thresholds.join("/")} ms`, async function () {
 
   for (const [scope, threshold, modifierType] of fixtures) {
     const [scopeType, scopeTitle] = getScopeTypeAndTitle(scope);
-    const title = modifierType
-      ? `${modifierType} ${scopeTitle}`
-      : `${scopeTitle}`;
+    const title = modifierType ? `${modifierType} ${scopeTitle}` : scopeTitle;
     test(
       `Select ${title}`,
       asyncSafety(() => selectScopeType(scopeType, threshold, modifierType)),

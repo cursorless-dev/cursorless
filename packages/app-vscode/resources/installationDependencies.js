@@ -7,10 +7,10 @@ const msgCommandServer = document.getElementById("msg-command-server");
 const msgAllInstalled = document.getElementById("msg-all-installed");
 const inputDontShow = document.getElementById("input-dont-show");
 
-inputDontShow.onchange = (e) => {
+inputDontShow.addEventListener("change", (e) => {
   const command = { type: "dontShow", checked: e.target.checked };
   vscode.postMessage(command);
-};
+});
 
 window.addEventListener("message", (event) => {
   const { dontShow, hasMissingDependencies, dependencies } = event.data;
