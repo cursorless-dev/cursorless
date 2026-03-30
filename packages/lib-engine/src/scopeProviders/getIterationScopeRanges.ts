@@ -66,11 +66,11 @@ function getEveryScopeLenient(
 ) {
   try {
     return everyStage.run(target, options);
-  } catch (err) {
-    if ((err as Error).name === "NoContainingScopeError") {
+  } catch (error) {
+    if (error instanceof Error && error.name === "NoContainingScopeError") {
       return [];
     }
 
-    throw err;
+    throw error;
   }
 }

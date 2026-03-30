@@ -457,9 +457,10 @@ export class TestCaseRecorder {
     return filePath;
   }
 
-  async commandErrorHook(error: Error) {
+  async commandErrorHook(error: unknown) {
     if (this.isErrorTest && this.testCase) {
-      this.testCase.thrownError = { name: error.name };
+      const errorName = error instanceof Error ? error.name : "unknown";
+      this.testCase.thrownError = { name: errorName };
       await this.finishTestCase();
     } else {
       this.testCase = null;
@@ -495,9 +496,9 @@ export class TestCaseRecorder {
           await this.postCommandHook(returnValue);
 
           return returnValue;
-        } catch (e) {
-          await this.commandErrorHook(e as Error);
-          throw e;
+        } catch (error) {
+          await this.commandErrorHook(error);
+          throw error;
         } finally {
           this.finallyHook();
         }

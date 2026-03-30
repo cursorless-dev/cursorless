@@ -7,14 +7,14 @@ import type {
   Messages,
   PathChangeListener,
 } from "@cursorless/lib-common";
-import { Notifier } from "@cursorless/lib-common";
+import { getErrorMessage, Notifier } from "@cursorless/lib-common";
 import { walkFiles } from "@cursorless/lib-node-common";
 import type { VscodeApi } from "@cursorless/lib-vscode-common";
 import type { HatShape, VscodeHatStyleName } from "../hatStyles.types";
 import { HAT_SHAPES } from "../hatStyles.types";
 import { vscodeGetConfigurationString } from "../VscodeConfiguration";
-import type { ExtendedHatStyleMap } from "../VscodeEnabledHatStyleManager";
 import type VscodeEnabledHatStyleManager from "../VscodeEnabledHatStyleManager";
+import type { ExtendedHatStyleMap } from "../VscodeEnabledHatStyleManager";
 import type { FontMeasurements } from "./FontMeasurements";
 import getHatThemeColors from "./getHatThemeColors";
 import { performPr1868ShapeUpdateInit } from "./performPr1868ShapeUpdateInit";
@@ -169,9 +169,9 @@ export default class VscodeHatRenderer {
       return await walkFiles(hatShapesDir, CURSORLESS_HAT_SHAPES_SUFFIX);
     } catch (error) {
       void vscode.window.showErrorMessage(
-        `Error with cursorless hat shapes dir "${hatShapesDir}": ${
-          (error as Error).message
-        }`,
+        `Error with cursorless hat shapes dir "${hatShapesDir}": ${getErrorMessage(
+          error,
+        )}`,
       );
       return [];
     }
@@ -498,11 +498,11 @@ export default class VscodeHatRenderer {
 }
 
 function watchDir(
-  path: string,
+  dirPath: string,
   onDidChange: PathChangeListener,
 ): vscode.Disposable {
   const hatsDirWatcher = vscode.workspace.createFileSystemWatcher(
-    new vscode.RelativePattern(path, `**/*${CURSORLESS_HAT_SHAPES_SUFFIX}`),
+    new vscode.RelativePattern(dirPath, `**/*${CURSORLESS_HAT_SHAPES_SUFFIX}`),
   );
 
   hatsDirWatcher.onDidChange(onDidChange);

@@ -2,7 +2,7 @@ import type {
   CommandVersion,
   TestCaseFixtureLegacy,
 } from "@cursorless/lib-common";
-import { LATEST_VERSION } from "@cursorless/lib-common";
+import { getErrorMessage, LATEST_VERSION } from "@cursorless/lib-common";
 import { getRecordedTestPaths } from "@cursorless/lib-node-common";
 import { checkMarks } from "./checkMarks";
 import { canonicalize } from "./transformations/canonicalize";
@@ -49,7 +49,7 @@ async function main(args: string[]) {
     } catch (err) {
       failureCount++;
       console.log(`Error with file ${path}`);
-      console.log((err as Error).message);
+      console.log(getErrorMessage(err));
     }
   }
 

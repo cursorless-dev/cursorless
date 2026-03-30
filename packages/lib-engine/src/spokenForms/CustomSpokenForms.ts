@@ -13,6 +13,7 @@ import {
   NeedsInitialTalonUpdateError,
   Notifier,
   SUPPORTED_ENTRY_TYPES,
+  getErrorMessage,
   showError,
 } from "@cursorless/lib-common";
 import {
@@ -87,15 +88,15 @@ export class CustomSpokenForms {
       if (allCustomEntries.length === 0) {
         throw new Error("Custom spoken forms list empty");
       }
-    } catch (err) {
-      if (err instanceof NeedsInitialTalonUpdateError) {
+    } catch (error) {
+      if (error instanceof NeedsInitialTalonUpdateError) {
         // Handle case where spokenForms.json doesn't exist yet
         this.needsInitialTalonUpdate_ = true;
-      } else if (err instanceof DisabledCustomSpokenFormsError) {
+      } else if (error instanceof DisabledCustomSpokenFormsError) {
         // Do nothing: this ide doesn't currently support custom spoken forms
       } else {
-        console.error("Error loading custom spoken forms", err);
-        const msg = (err as Error).message.replace(/\.$/, "");
+        console.error("Error loading custom spoken forms", error);
+        const msg = getErrorMessage(error).replace(/\.$/, "");
         void showError(
           this.ide.messages,
           "CustomSpokenForms.updateSpokenFormMaps",

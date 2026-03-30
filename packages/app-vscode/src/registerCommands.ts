@@ -45,13 +45,14 @@ export function registerCommands(
   const runCommandWrapper = async (run: () => Promise<unknown>) => {
     try {
       return await run();
-    } catch (e) {
+    } catch (error) {
       if (vscodeIde.runMode !== "test") {
-        const err = e as Error;
-        console.error(err.stack);
-        vscodeIde.handleCommandError(err);
+        if (error instanceof Error) {
+          console.error(error.stack);
+        }
+        vscodeIde.handleCommandError(error);
       }
-      throw e;
+      throw error;
     }
   };
 

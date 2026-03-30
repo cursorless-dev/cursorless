@@ -34,9 +34,9 @@ export class PasteFromClipboardDirectly {
     // action, as is done in VSCode.
     const destinationsWithText: DestinationWithText[] =
       destinations.length === textLines.length
-        ? zipStrict(destinations, textLines).map(([destination, text]) => ({
+        ? zipStrict(destinations, textLines).map(([destination, lineText]) => ({
             destination,
-            text,
+            text: lineText,
           }))
         : destinations.map((destination) => ({ destination, text }));
 

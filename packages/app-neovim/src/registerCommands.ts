@@ -55,13 +55,14 @@ export async function registerCommands(
         }
 
         return result;
-      } catch (e) {
+      } catch (error) {
         if (neovimIDE.runMode !== "test") {
-          const err = e as Error;
-          console.error(err.stack);
-          neovimIDE.handleCommandError(err);
+          if (error instanceof Error) {
+            console.error(error.stack);
+          }
+          neovimIDE.handleCommandError(error);
         }
-        throw e;
+        throw error;
       }
     },
 

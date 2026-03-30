@@ -3,25 +3,26 @@ import { pull } from "lodash";
 import type { Buffer, NeovimClient, Window } from "neovim";
 import { v4 as uuid } from "uuid";
 import { URI } from "vscode-uri";
-import type {
-  Disposable,
-  EditableTextEditor,
-  Event,
-  FlashDescriptor,
-  GeneralizedRange,
-  IDE,
-  NotebookEditor,
-  OpenUntitledTextDocumentOptions,
-  QuickPickOptions,
-  Range,
-  RunMode,
-  Selection,
-  TextDocument,
-  TextDocumentChangeEvent,
-  TextEditor,
-  TextEditorSelectionChangeEvent,
-  TextEditorVisibleRangesChangeEvent,
-  WorkspaceFolder,
+import {
+  getErrorMessage,
+  type Disposable,
+  type EditableTextEditor,
+  type Event,
+  type FlashDescriptor,
+  type GeneralizedRange,
+  type IDE,
+  type NotebookEditor,
+  type OpenUntitledTextDocumentOptions,
+  type QuickPickOptions,
+  type Range,
+  type RunMode,
+  type Selection,
+  type TextDocument,
+  type TextDocumentChangeEvent,
+  type TextEditor,
+  type TextEditorSelectionChangeEvent,
+  type TextEditorVisibleRangesChangeEvent,
+  type WorkspaceFolder,
 } from "@cursorless/lib-common";
 import { getNeovimRegistry } from "@cursorless/lib-neovim-registry";
 import { nodeGetRunMode } from "@cursorless/lib-node-common";
@@ -308,8 +309,9 @@ export class NeovimIDE implements IDE {
     return this.activeTextEditor as NeovimTextEditor;
   }
 
-  handleCommandError(err: Error) {
-    void showErrorMessage(this.client, err.message);
+  handleCommandError(error: unknown) {
+    const message = getErrorMessage(error);
+    void showErrorMessage(this.client, message);
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {

@@ -1,5 +1,6 @@
 import * as assert from "node:assert/strict";
 import { Range } from "../../../types/Range";
+import { getErrorMessage } from "../../../util/getErrorMessage";
 import { createTestDocument } from "./createTestDocument";
 
 const text = "hello\nworld";
@@ -99,7 +100,7 @@ suite("InMemoryTextDocument.edit", () => {
       assert.fail("Expected an error");
     } catch (error) {
       assert.equal(
-        (error as Error).message,
+        getErrorMessage(error),
         "Overlapping ranges are not allowed!",
       );
     }

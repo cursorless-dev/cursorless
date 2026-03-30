@@ -1,7 +1,7 @@
 import { pick, sortedUniq, toPairs } from "lodash-es";
 import nearley from "nearley";
 import * as vscode from "vscode";
-import { CompositeKeyMap } from "@cursorless/lib-common";
+import { CompositeKeyMap, getErrorMessage } from "@cursorless/lib-common";
 import type { VscodeApi } from "@cursorless/lib-vscode-common";
 import { getTokenTypeKeyMaps } from "./getTokenTypeKeyMaps";
 import grammar from "./grammar/generated/grammar";
@@ -186,10 +186,10 @@ export default class KeyboardCommandsModal {
       void this.keyboardCommandHandler[type as keyof KeyboardCommandHandler](
         arg,
       );
-    } catch (err) {
-      if (!(err instanceof KeySequenceCancelledError)) {
-        void vscode.window.showErrorMessage((err as Error).message);
-        throw err;
+    } catch (error) {
+      if (!(error instanceof KeySequenceCancelledError)) {
+        void vscode.window.showErrorMessage(getErrorMessage(error));
+        throw error;
       }
     } finally {
       // Always reset the parser when we're done
