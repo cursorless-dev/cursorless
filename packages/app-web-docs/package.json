@@ -23,9 +23,9 @@
     "build": "docusaurus build --out-dir out"
   },
   "dependencies": {
-    "@algolia/client-search": "^5.49.2",
+    "@algolia/client-search": "^5.50.0",
     "@cursorless/lib-common": "workspace:*",
-    "@docsearch/react": "^4.6.0",
+    "@docsearch/react": "^4.6.2",
     "@docusaurus/core": "^3.9.2",
     "@docusaurus/faster": "^3.9.2",
     "@docusaurus/preset-classic": "^3.9.2",
