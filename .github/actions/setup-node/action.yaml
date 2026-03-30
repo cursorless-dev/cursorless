@@ -13,5 +13,5 @@ runs:
         cache: pnpm
 
     - name: Install dependencies
+      run: pnpm --color install --frozen-lockfile
       shell: bash
-      run: pnpm --color install
