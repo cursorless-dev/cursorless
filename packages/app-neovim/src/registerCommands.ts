@@ -17,12 +17,12 @@ import {
 } from "@cursorless/lib-neovim-common";
 import { getNeovimRegistry } from "@cursorless/lib-neovim-registry";
 
-export async function registerCommands(
+export function registerCommands(
   client: NeovimClient,
   neovimIDE: NeovimIDE,
   commandApi: CommandApi,
   commandServerApi: CommandServerApi,
-): Promise<void> {
+): void {
   const commands: Record<CursorlessCommandId, (...args: any[]) => any> = {
     // The core Cursorless command
     [CURSORLESS_COMMAND_ID]: async (...args: unknown[]) => {
@@ -129,11 +129,11 @@ export async function registerCommands(
     ["cursorless.documentationOpened"]: dummyCommandHandler,
   };
 
-  Object.entries(commands).forEach(([commandId, callback]) =>
-    getNeovimRegistry().registerCommand(commandId, callback),
-  );
+  Object.entries(commands).forEach(([commandId, callback]) => {
+    getNeovimRegistry().registerCommand(commandId, callback);
+  });
 }
 
-export async function dummyCommandHandler(...args: any[]) {
+export function dummyCommandHandler(...args: any[]) {
   console.debug(`dummyCommandHandler(): args=${args}`);
 }

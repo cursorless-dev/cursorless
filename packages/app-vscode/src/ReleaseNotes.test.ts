@@ -152,7 +152,7 @@ const testCases: TestCase[] = [
   },
 ];
 
-suite("release notes", async function () {
+suite("release notes", function () {
   teardown(() => {
     sinon.restore();
   });
@@ -220,7 +220,7 @@ async function runTest(input: Input, expectedOutput: Output) {
   }
 }
 
-async function getFakes(input: Input) {
+function getFakes(input: Input) {
   const openExternal = sinon.fake.resolves<[Uri], Promise<boolean>>(true);
   const vscodeApi = {
     window: {

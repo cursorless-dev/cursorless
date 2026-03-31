@@ -115,8 +115,7 @@ async function applySnapshot(
         snapshot,
         languageId,
       );
-    } else {
-      throw err;
     }
+    throw err;
   }
 }

@@ -25,7 +25,7 @@ function runCommand(command, args, extraEnv = {}) {
 }
 
 // Main function to execute the script
-async function main() {
+function main() {
   const args = process.argv.slice(2);
 
   // Check if the input file is specified
@@ -54,7 +54,9 @@ async function main() {
   nodeProcess.on("close", (code) => process.exit(code ?? undefined));
 }
 
-main().catch((error) => {
+try {
+  main();
+} catch (error) {
   console.error(error);
   process.exit(1);
-});
+}

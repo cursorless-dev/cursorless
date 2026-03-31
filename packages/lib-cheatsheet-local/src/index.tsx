@@ -10,7 +10,7 @@ render(
 );
 
 function getRoot() {
-  const root = document.getElementById("root");
+  const root = document.querySelector("#root");
   if (root == null) {
     throw new Error("Missing root container");
   }

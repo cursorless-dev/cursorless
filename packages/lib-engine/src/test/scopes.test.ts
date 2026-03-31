@@ -23,7 +23,7 @@ import {
   serializeScopeFixture,
 } from "../testUtil/serializeScopeFixture";
 
-suite("Scope test cases", async function () {
+suite("Scope test cases", function () {
   const testPaths = getScopeTestPathsRecursively();
   let testEnvironment: TestEnvironment;
 
@@ -73,7 +73,7 @@ suite("Scope test cases", async function () {
  * @param languageId The language to test
  * @param testedFacets The facets for {@link languageId} that are tested
  */
-async function testLanguageSupport(languageId: string, testedFacets: string[]) {
+function testLanguageSupport(languageId: string, testedFacets: string[]) {
   const supportedFacets = (() => {
     if (languageId === "plaintext") {
       return Object.keys(plaintextScopeSupportFacetInfos);

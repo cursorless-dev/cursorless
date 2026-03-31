@@ -3,17 +3,17 @@ import React, { useEffect } from "react";
 
 function syncBootstrapTheme() {
   const root = document.documentElement;
-  const theme = root.getAttribute("data-theme");
+  const theme = root.dataset.theme;
 
   if (theme == null) {
-    root.removeAttribute("data-bs-theme");
+    delete root.dataset.bsTheme;
     return;
   }
 
-  root.setAttribute("data-bs-theme", theme);
+  root.dataset.bsTheme = theme;
 }
 
-export default function Root({ children }: Props): React.JSX.Element {
+export default function Root({ children }: Props): React.ReactNode {
   useEffect(() => {
     syncBootstrapTheme();
 
@@ -22,8 +22,10 @@ export default function Root({ children }: Props): React.JSX.Element {
       attributeFilter: ["data-theme"],
     });
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
-  return <>{children}</>;
+  return children;
 }

@@ -1,3 +1,4 @@
+import type { OxlintConfig } from "oxlint";
 import { defineConfig } from "oxlint";
 
 // These rules should probably be re-enabled eventually
@@ -72,6 +73,17 @@ const disabledRules = [
   "unicorn/switch-case-braces",
 ];
 
+const plugins: OxlintConfig["plugins"] = [
+  "eslint",
+  "unicorn",
+  "oxc",
+  "import",
+  "node",
+  "promise",
+  "react",
+  "react-perf",
+];
+
 // oxlint-disable-next-line import/no-default-export
 export default defineConfig({
   ignorePatterns: [
@@ -85,17 +97,7 @@ export default defineConfig({
     typeAware: true,
     typeCheck: false,
   },
-  plugins: [
-    "eslint",
-    "typescript",
-    "unicorn",
-    "oxc",
-    "import",
-    "node",
-    "promise",
-    "react",
-    "react-perf",
-  ],
+  plugins,
   jsPlugins: [
     {
       name: "mocha",
@@ -105,7 +107,7 @@ export default defineConfig({
   categories: {
     correctness: "warn",
     suspicious: "warn",
-    // pedantic: "warn",
+    pedantic: "warn",
     // perf: "warn",
     // style: "warn",
     // restriction: "warn",
@@ -186,6 +188,11 @@ export default defineConfig({
   },
 
   overrides: [
+    {
+      files: ["**/*.{ts,cts,mts,tsx}"],
+      plugins: [...plugins, "typescript"],
+    },
+
     {
       files: ["packages/app-vscode/src/scripts/**/*.ts"],
       rules: {

@@ -5,7 +5,7 @@ interface Props {
   youtubeSlug: string;
 }
 
-const ReactPlayer = lazy(async () => import("react-player"));
+const ReactPlayer = lazy(() => import("react-player"));
 
 export function EmbeddedVideo({ youtubeSlug }: Props) {
   const [isError, setIsError] = useState(false);

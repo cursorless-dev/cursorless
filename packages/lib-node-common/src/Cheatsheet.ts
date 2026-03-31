@@ -9,7 +9,7 @@ import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
 /**
  * The argument expected by the cheatsheet command.
  */
-interface CheatSheetCommandArg {
+export interface CheatSheetCommandArg {
   /**
    * The version of the cheatsheet command.
    */
