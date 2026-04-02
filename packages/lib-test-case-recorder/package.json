@@ -16,7 +16,7 @@
     "@cursorless/lib-engine": "workspace:*",
     "@cursorless/lib-node-common": "workspace:*",
     "immutability-helper": "^3.1.1",
-    "lodash-es": "^4.17.23"
+    "lodash-es": "^4.18.1"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.12"

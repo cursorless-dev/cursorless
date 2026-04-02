@@ -15,7 +15,7 @@
     "@cursorless/lib-common": "workspace:*",
     "@cursorless/lib-engine": "workspace:*",
     "immer": "^11.1.4",
-    "lodash-es": "^4.17.23"
+    "lodash-es": "^4.18.1"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.12"
