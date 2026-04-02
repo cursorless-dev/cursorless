@@ -63,22 +63,24 @@ export class TutorialStepParser {
       action: (arg) => actionParser.parse(arg),
       grapheme: (arg) => graphemeParser.parse(arg),
 
-      term: async (arg) => ({
-        content: {
-          type: "term",
-          value: specialTerms[arg as keyof typeof specialTerms],
-        },
-      }),
+      term: (arg) =>
+        Promise.resolve({
+          content: {
+            type: "term",
+            value: specialTerms[arg as keyof typeof specialTerms],
+          },
+        }),
 
-      scopeType: async (arg) => ({
-        content: {
-          type: "term",
-          value: getScopeTypeSpokenFormStrict(
-            customSpokenFormGenerator,
-            parseScopeType(arg),
-          ),
-        },
-      }),
+      scopeType: (arg) =>
+        Promise.resolve({
+          content: {
+            type: "term",
+            value: getScopeTypeSpokenFormStrict(
+              customSpokenFormGenerator,
+              parseScopeType(arg),
+            ),
+          },
+        }),
 
       visualize: (arg) =>
         parseVisualizeComponent(customSpokenFormGenerator, arg),

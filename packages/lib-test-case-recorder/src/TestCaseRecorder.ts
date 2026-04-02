@@ -111,7 +111,7 @@ export class TestCaseRecorder {
     }
   }
 
-  async pause() {
+  pause() {
     if (!this.active) {
       throw new Error("Asked to pause recording, but no recording active");
     }
@@ -119,7 +119,7 @@ export class TestCaseRecorder {
     this.paused = true;
   }
 
-  async resume() {
+  resume() {
     if (!this.active) {
       throw new Error("Asked to resume recording, but no recording active");
     }
@@ -134,7 +134,7 @@ export class TestCaseRecorder {
     usePrePhraseSnapshot: boolean,
   ) {
     let marks: SerializedMarks | undefined;
-    if (targetedMarks.length !== 0) {
+    if (targetedMarks.length > 0) {
       const keys = targetedMarks.map(({ character, symbolColor }) =>
         getKey(symbolColor, character),
       );
@@ -156,7 +156,7 @@ export class TestCaseRecorder {
       metadata,
     );
 
-    await this.writeToFile(outPath, serialize(snapshot));
+    this.writeToFile(outPath, serialize(snapshot));
   }
 
   isActive() {
@@ -401,7 +401,7 @@ export class TestCaseRecorder {
     }
   }
 
-  private async writeToFile(outPath: string, fixture: string) {
+  private writeToFile(outPath: string, fixture: string) {
     fs.writeFileSync(outPath, fixture);
   }
 

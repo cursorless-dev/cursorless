@@ -21,11 +21,11 @@ const webJsonName = "tsconfig.web.json";
  * of the package whose tsconfig.json we are updating
  * @returns The updated tsconfig.json
  */
-export async function updateTSConfig(
+export function updateTSConfig(
   { workspaceDir, pnpmLockfile }: Context,
   rawInput: object | null,
   options: FormatPluginFnOptions,
-): Promise<TsConfigJson> {
+): TsConfigJson {
   /** The input tsconfig.json that should be checked / updated */
   const input: TsConfigJson = (rawInput ?? {}) as TsConfigJson;
   /** Directory of the package whose tsconfig.json we are updating */

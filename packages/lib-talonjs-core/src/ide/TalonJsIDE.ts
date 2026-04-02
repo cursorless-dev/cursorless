@@ -105,13 +105,14 @@ export class TalonJsIDE implements EmittableIDE {
     this.editors = [editor];
   }
 
-  async findInDocument(query: string, editor?: TextEditor): Promise<void> {
+  findInDocument(query: string, editor?: TextEditor): Promise<void> {
     if (editor != null) {
       throw new Error(
         "findInDocument not implemented for other than active editor.",
       );
     }
     this.talon.actions.edit.find(query);
+    return Promise.resolve();
   }
 
   findInWorkspace(_query: string): Promise<void> {

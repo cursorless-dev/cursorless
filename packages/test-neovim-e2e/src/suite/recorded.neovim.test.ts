@@ -19,7 +19,7 @@ import {
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { shouldRunTest } from "../shouldRunTest";
 
-suite("recorded test cases", async function () {
+suite("recorded test cases", function () {
   const { getSpy, getNeovimIDE } = endToEndTestSetup(this);
 
   suiteSetup(async () => {});
@@ -78,7 +78,7 @@ async function openNewTestEditor(
   }
 
   // standardise newlines so we can easily split the lines
-  const newLines = content.replace(/(?:\r\n|\r|\n)/g, "\n").split("\n");
+  const newLines = content.replaceAll(/(?:\r\n|\r|\n)/g, "\n").split("\n");
 
   // set the buffer contents
   const window = await client.window;

@@ -36,8 +36,8 @@ export function Code({
       .then((html) => {
         if (renderWhitespace) {
           html = html
-            .replace(/␣/g, '<span class="code-ws-symbol">·</span>')
-            .replace(/⭾/g, '<span class="code-ws-symbol"> →  </span>');
+            .replaceAll("␣", '<span class="code-ws-symbol">·</span>')
+            .replaceAll("⭾", '<span class="code-ws-symbol"> →  </span>');
         }
         setHtml(html);
       })

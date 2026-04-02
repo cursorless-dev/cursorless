@@ -121,11 +121,11 @@ export function isCapitalized(str: string) {
 
 // Start with opening quotes or capitalized letter
 export function isSentenceStarter(str: string) {
-  return isCapitalized(str) || /``|"|'/.test(str.substring(0, 2));
+  return isCapitalized(str) || /``|"|'/.test(str.slice(0, 2));
 }
 
 export function isCommonAbbreviation(str: string) {
-  const noSymbols = str.replace(/[-'`~!@#$%^&*()_|+=?;:'",.<>{}[\]\\/]/gi, "");
+  const noSymbols = str.replaceAll(/[-'`~!@#$%^&*()_|+=?;:'",.<>{}[\]\\/]/gi, "");
 
   return ~abbreviations.indexOf(noSymbols);
 }
@@ -133,7 +133,7 @@ export function isCommonAbbreviation(str: string) {
 // This is going towards too much rule based
 export function isTimeAbbreviation(word: string, next: string) {
   if (word === "a.m." || word === "p.m.") {
-    const tmp = next.replace(/\W+/g, "").slice(-3).toLowerCase();
+    const tmp = next.replaceAll(/\W+/g, "").slice(-3).toLowerCase();
 
     if (tmp === "day") {
       return true;
@@ -144,7 +144,7 @@ export function isTimeAbbreviation(word: string, next: string) {
 }
 
 export function isDottedAbbreviation(word: string) {
-  const matches = word.replace(/[()[]{}]/g, "").match(/(.\.)*/);
+  const matches = word.replaceAll(/[()[]{}]/g, "").match(/(.\.)*/);
   return matches && matches[0].length > 0;
 }
 
@@ -213,7 +213,7 @@ export function isConcatenated(word: string) {
     const c = word.charAt(i + 1);
 
     // Check if the next word starts with a letter
-    if (c.match(/[a-zA-Z].*/)) {
+    if (/[a-zA-Z].*/.test(c)) {
       return [word.slice(0, i), word.slice(i + 1)];
     }
   }

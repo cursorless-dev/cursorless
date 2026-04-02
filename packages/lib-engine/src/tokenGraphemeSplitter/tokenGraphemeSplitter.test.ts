@@ -1,3 +1,4 @@
+// oxlint-disable no-inline-comments
 import * as assert from "node:assert/strict";
 import type { TokenHatSplittingMode } from "@cursorless/lib-common";
 import { FakeIDE } from "@cursorless/lib-common";
@@ -95,8 +96,8 @@ const tests: SplittingModeTestCases[] = [
   {
     tokenHatSplittingMode: {
       lettersToPreserve: [
-        "\u00e4", // ä, NFC-normalised
-        "\u00e5", // å, NFC-normalised
+        "\u00E4", // ä, NFC-normalised
+        "\u00E5", // å, NFC-normalised
         "ꝏ",
         "ø",
         "æ",
@@ -120,31 +121,31 @@ const tests: SplittingModeTestCases[] = [
         [["n", 0, 2]],
       ],
       [
-        "\u00e4\u00e5", // äå, NFC-normalised
+        "\u00E4\u00E5", // äå, NFC-normalised
         [
-          ["\u00e4", 0, 1], // ä, NFC-normalised
-          ["\u00e5", 1, 2], // å, NFC-normalised
+          ["\u00E4", 0, 1], // ä, NFC-normalised
+          ["\u00E5", 1, 2], // å, NFC-normalised
         ],
       ],
       [
-        "\u0061\u0308\u0061\u030a", // äå, NFD-normalised
+        "\u0061\u0308\u0061\u030A", // äå, NFD-normalised
         [
-          ["\u00e4", 0, 2], // ä, NFC-normalised
-          ["\u00e5", 2, 4], // å, NFC-normalised
+          ["\u00E4", 0, 2], // ä, NFC-normalised
+          ["\u00E5", 2, 4], // å, NFC-normalised
         ],
       ],
       [
-        "\u00c4\u00c5", // ÄÅ, NFC-normalised
+        "\u00C4\u00C5", // ÄÅ, NFC-normalised
         [
-          ["\u00e4", 0, 1], // ä, NFC-normalised
-          ["\u00e5", 1, 2], // å, NFC-normalised
+          ["\u00E4", 0, 1], // ä, NFC-normalised
+          ["\u00E5", 1, 2], // å, NFC-normalised
         ],
       ],
       [
-        "\u0041\u0308\u0041\u030a", // ÄÅ, NFD-normalised
+        "\u0041\u0308\u0041\u030A", // ÄÅ, NFD-normalised
         [
-          ["\u00e4", 0, 2], // ä, NFC-normalised
-          ["\u00e5", 2, 4], // å, NFC-normalised
+          ["\u00E4", 0, 2], // ä, NFC-normalised
+          ["\u00E5", 2, 4], // å, NFC-normalised
         ],
       ],
       ["ꝏ", [["ꝏ", 0, 1]]],
@@ -159,22 +160,22 @@ const tests: SplittingModeTestCases[] = [
     tokenHatSplittingMode: {
       lettersToPreserve: [
         "\u0061\u0308", // ä, NFD-normalised
-        "\u0061\u030a", // å, NFD-normalised
+        "\u0061\u030A", // å, NFD-normalised
       ],
     },
     extraTestCases: [
       [
-        "\u00e4\u00e5", // äå, NFC-normalised
+        "\u00E4\u00E5", // äå, NFC-normalised
         [
-          ["\u00e4", 0, 1],
-          ["\u00e5", 1, 2],
+          ["\u00E4", 0, 1],
+          ["\u00E5", 1, 2],
         ],
       ],
       [
-        "\u0061\u0308\u0061\u030a", // äå, NFD-normalised
+        "\u0061\u0308\u0061\u030A", // äå, NFD-normalised
         [
-          ["\u00e4", 0, 2],
-          ["\u00e5", 2, 4],
+          ["\u00E4", 0, 2],
+          ["\u00E5", 2, 4],
         ],
       ],
     ],
@@ -183,8 +184,8 @@ const tests: SplittingModeTestCases[] = [
     tokenHatSplittingMode: {
       preserveCase: true,
       lettersToPreserve: [
-        "\u00e4", // ä, NFC-normalised
-        "\u00e5", // å, NFC-normalised
+        "\u00E4", // ä, NFC-normalised
+        "\u00E5", // å, NFC-normalised
         "ꝏ",
         "ø",
         "æ",
@@ -192,17 +193,17 @@ const tests: SplittingModeTestCases[] = [
     },
     extraTestCases: [
       [
-        "\u00e4\u00e5", // äå, NFC-normalised
+        "\u00E4\u00E5", // äå, NFC-normalised
         [
-          ["\u00e4", 0, 1],
-          ["\u00e5", 1, 2],
+          ["\u00E4", 0, 1],
+          ["\u00E5", 1, 2],
         ],
       ],
       [
-        "\u00c4\u00c5", // ÄÅ, NFC-normalised
+        "\u00C4\u00C5", // ÄÅ, NFC-normalised
         [
-          ["\u00c4", 0, 1], // Ä, NFC-normalised
-          ["\u00c5", 1, 2], // Å, NFC-normalised
+          ["\u00C4", 0, 1], // Ä, NFC-normalised
+          ["\u00C5", 1, 2], // Å, NFC-normalised
         ],
       ],
       ["ꝏ", [["ꝏ", 0, 1]]],
@@ -216,8 +217,8 @@ const tests: SplittingModeTestCases[] = [
   {
     tokenHatSplittingMode: {
       lettersToPreserve: [
-        "\u00c4", // Ä, NFC-normalised
-        "\u00c5", // Å, NFC-normalised
+        "\u00C4", // Ä, NFC-normalised
+        "\u00C5", // Å, NFC-normalised
         "Ꝏ",
         "Ø",
         "Æ",
@@ -225,17 +226,17 @@ const tests: SplittingModeTestCases[] = [
     },
     extraTestCases: [
       [
-        "\u00e4\u00e5", // äå, NFC-normalised
+        "\u00E4\u00E5", // äå, NFC-normalised
         [
-          ["\u00e4", 0, 1], // ä, NFC-normalised
-          ["\u00e5", 1, 2], // å, NFC-normalised
+          ["\u00E4", 0, 1], // ä, NFC-normalised
+          ["\u00E5", 1, 2], // å, NFC-normalised
         ],
       ],
       [
-        "\u00c4\u00c5", // ÄÅ, NFC-normalised
+        "\u00C4\u00C5", // ÄÅ, NFC-normalised
         [
-          ["\u00e4", 0, 1], // ä, NFC-normalised
-          ["\u00e5", 1, 2], // å, NFC-normalised
+          ["\u00E4", 0, 1], // ä, NFC-normalised
+          ["\u00E5", 1, 2], // å, NFC-normalised
         ],
       ],
       ["ꝏ", [["ꝏ", 0, 1]]],

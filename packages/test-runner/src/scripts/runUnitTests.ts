@@ -4,7 +4,9 @@
 
 import { TestType, runAllTests } from "../runAllTests";
 
-runAllTests(TestType.unit).catch((error) => {
+try {
+  await runAllTests(TestType.unit);
+} catch (error) {
   console.error(error);
   process.exit(1);
-});
+}

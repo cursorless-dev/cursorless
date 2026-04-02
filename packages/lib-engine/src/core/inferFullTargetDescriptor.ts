@@ -146,7 +146,7 @@ function getPreservedModifiers(
     target.modifiers?.filter(
       (modifier) => modifier.type !== "inferPreviousMark",
     ) ?? [];
-  return preservedModifiers.length !== 0 ? preservedModifiers : undefined;
+  return preservedModifiers.length > 0 ? preservedModifiers : undefined;
 }
 
 /**

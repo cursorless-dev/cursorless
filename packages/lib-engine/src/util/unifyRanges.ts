@@ -35,7 +35,7 @@ function unifyTargetsOnePass(targets: Target[]): [Target[], boolean] {
   targets.forEach((target) => {
     // No intersection. Mark start of new group
     if (
-      currentGroup.length &&
+      currentGroup.length > 0 &&
       !intersects(currentGroup[currentGroup.length - 1], target)
     ) {
       results.push(mergeTargets(currentGroup));

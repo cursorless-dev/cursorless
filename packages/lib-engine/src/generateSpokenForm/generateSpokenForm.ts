@@ -295,7 +295,7 @@ function constructSpokenForms(component: SpokenFormComponent): string[] {
     }
 
     return cartesianProduct(component.map(constructSpokenForms)).map((words) =>
-      words.filter((word) => word.length !== 0).join(" "),
+      words.filter((word) => word.length > 0).join(" "),
     );
   }
 

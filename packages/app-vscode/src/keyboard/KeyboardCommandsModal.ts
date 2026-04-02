@@ -212,9 +212,8 @@ export default class KeyboardCommandsModal {
   modeToggle = () => {
     if (this.isModeOn()) {
       return this.modeOff();
-    } else {
-      return this.modeOn();
     }
+    return this.modeOn();
   };
 
   private isModeOn() {

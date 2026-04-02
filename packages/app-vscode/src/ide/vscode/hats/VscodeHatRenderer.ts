@@ -337,9 +337,9 @@ export default class VscodeHatRenderer {
     // so that you can be notified if/when it changes or is removed.
     const [fill, stroke] = color.split("-");
     let svg = originalSvg
-      .replace(/fill="(?!none)[^"]+"/g, `fill="${fill}"`)
-      .replace(/fill:(?!none)[^;]+;/g, `fill:${fill};`)
-      .replace(/\r?\n/g, " ");
+      .replaceAll(/fill="(?!none)[^"]+"/g, `fill="${fill}"`)
+      .replaceAll(/fill:(?!none)[^;]+;/g, `fill:${fill};`)
+      .replaceAll(/\r?\n/g, " ");
     if (stroke !== undefined) {
       svg = this.addInnerStrokeToSvg(svgInfo, svg, stroke);
     }
@@ -484,7 +484,7 @@ export default class VscodeHatRenderer {
       Number.isNaN(originalViewBoxWidth) ||
       Number.isNaN(originalViewBoxHeight)
     ) {
-      throw new Error(`Invalid viewBox dimensions: ${viewBoxValue}`);
+      throw new TypeError(`Invalid viewBox dimensions: ${viewBoxValue}`);
     }
 
     return { originalViewBoxHeight, originalViewBoxWidth };

@@ -175,8 +175,8 @@ function getAsciiSymbols() {
   ];
   return flatten(
     rangesToTest.map(([start, end]) =>
-      range(start.charCodeAt(0), end.charCodeAt(0) + 1).map((charCode) =>
-        String.fromCharCode(charCode),
+      range(start.codePointAt(0)!, end.codePointAt(0)! + 1).map((charCode) =>
+        String.fromCodePoint(charCode),
       ),
     ),
   );

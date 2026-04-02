@@ -306,7 +306,6 @@ function constructStoredTarget(
 
   if (selections != null) {
     return selections.map(selectionToStoredTarget);
-  } else {
-    return targets;
   }
+  return targets;
 }

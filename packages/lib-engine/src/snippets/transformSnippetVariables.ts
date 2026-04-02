@@ -47,6 +47,7 @@ export function transformSnippetVariables(
           placeholderIndexMap[candidate.name] = placeholderIndex;
         }
         const placeholder = new Placeholder(placeholderIndex);
+        // oxlint-disable-next-line unicorn/prefer-dom-node-append
         candidate.children.forEach((child) => placeholder.appendChild(child));
         candidate.parent.replace(candidate, [placeholder]);
       }

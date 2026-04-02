@@ -70,7 +70,7 @@ export function getSentences(
   let current = [];
 
   // If given text is only whitespace (or nothing of \S+)
-  if (!words || !words.length) {
+  if (!words || words.length === 0) {
     return [];
   }
 
@@ -196,7 +196,7 @@ export function getSentences(
     }
   }
 
-  if (current.length) {
+  if (current.length > 0) {
     sentences.push(current);
   }
 

@@ -22,7 +22,7 @@ abstract class Find implements SimpleAction {
 
     let query: string;
     if (text.length > 200) {
-      query = text.substring(0, 200);
+      query = text.slice(0, 200);
       void showWarning(
         this.ide.messages,
         "truncatedSearchText",

@@ -121,9 +121,8 @@ export abstract class QueryPredicateOperator<T extends HasSchema> {
         }
 
         return capture;
-      } else {
-        return operand.value;
       }
+      return operand.value;
     }) as AcceptFunctionArgs<z.infer<InferSchemaType<T>>>;
   }
 }

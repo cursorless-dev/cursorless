@@ -19,8 +19,7 @@ export class NeovimCommandServerApi implements CommandServerApi {
     const currentMode = await this.client.mode;
     if (currentMode.mode === "t" || currentMode.mode === "nt") {
       return "terminal";
-    } else {
-      return "textEditor";
     }
+    return "textEditor";
   }
 }
