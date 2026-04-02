@@ -74,6 +74,6 @@ export function getScopeTestConfigPaths() {
 
 function pathToName(relativeDir: string, filePath: string) {
   return path
-    .relative(relativeDir, filePath.substring(0, filePath.lastIndexOf(".")))
+    .relative(relativeDir, filePath.slice(0, filePath.lastIndexOf(".")))
     .replaceAll("\\", "/");
 }

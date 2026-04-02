@@ -11,7 +11,7 @@ import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { getPlainNotebookContents } from "../notebook";
 
 // Check that setSelection is able to focus the correct cell
-suite("Edit new cell", async function () {
+suite("Edit new cell", function () {
   endToEndTestSetup(this);
 
   test("drink cell", () =>

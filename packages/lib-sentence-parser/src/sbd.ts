@@ -1,3 +1,4 @@
+// oxlint-disable max-depth
 import * as Match from "./Match";
 import * as stringHelper from "./stringHelper";
 

@@ -200,9 +200,10 @@ export default class KeyboardHandler {
       const disposable = this.pushListener({
         displayOptions,
 
-        async handleInput(text: string) {
+        handleInput(text: string) {
           disposable.dispose();
           resolve(text);
+          return Promise.resolve();
         },
 
         handleCancelled() {

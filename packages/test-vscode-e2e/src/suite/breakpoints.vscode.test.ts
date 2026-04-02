@@ -8,7 +8,7 @@ import {
 } from "@cursorless/lib-vscode-common";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
-suite("breakpoints", async function () {
+suite("breakpoints", function () {
   endToEndTestSetup(this);
 
   setup(() => {

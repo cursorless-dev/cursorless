@@ -23,13 +23,13 @@ export class ActionComponentParser implements StepComponentParser {
     }
   }
 
-  async parse(arg: string): Promise<StepComponent> {
-    return {
+  parse(arg: string): Promise<StepComponent> {
+    return Promise.resolve({
       content: {
         type: "term",
         value: this.getActionSpokenForm(this.parseActionName(arg)),
       },
-    };
+    });
   }
 
   private getActionSpokenForm(actionId: ActionType) {

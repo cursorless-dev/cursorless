@@ -77,11 +77,12 @@ export class VscodeIDE implements IDE {
       highlightId == null
         ? HighlightStyle.highlight0
         : HighlightStyle[highlightId as keyof typeof HighlightStyle];
-    return this.highlights.setHighlightRanges(
+    this.highlights.setHighlightRanges(
       vscodeHighlightId,
       editor as VscodeTextEditor,
       ranges,
     );
+    return Promise.resolve();
   }
 
   flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void> {

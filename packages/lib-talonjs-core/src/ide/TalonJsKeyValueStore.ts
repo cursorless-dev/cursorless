@@ -9,7 +9,7 @@ export class TalonJsKeyValueStore implements KeyValueStore {
     throw new Error("state.get: not implemented.");
   }
 
-  async set<K extends KeyValueStoreKey>(
+  set<K extends KeyValueStoreKey>(
     _key: K,
     _value: KeyValueStoreData[K],
   ): Promise<void> {

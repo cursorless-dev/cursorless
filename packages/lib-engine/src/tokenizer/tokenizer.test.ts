@@ -76,7 +76,8 @@ const globalTests: TestCase[] = [
   ["#111111", ["#", "111111"]],
   // Unicode characters
   ["aåäöb", ["aåäöb"]],
-  ["\u006E\u0303", ["\u006E\u0303"]], // ñ using combining mark
+  // ñ using combining mark
+  ["\u006E\u0303", ["\u006E\u0303"]],
   // Windows filepath
   [
     "tests\\recorded\\typescript\\name",
@@ -93,7 +94,7 @@ const cssDialectTokenizerTests: LanguageTokenizerTests = {
     ["prefers-reduced-motion", ["prefers-reduced-motion"]],
   ],
   // Leave kebab and dashes to css language specific tests.
-  exclusionPredicate: (input: string) => !!input.match("-"),
+  exclusionPredicate: (input: string) => input.match("-") != null,
 };
 
 const shellScriptDialectTokenizerTests: LanguageTokenizerTests = {
@@ -106,7 +107,7 @@ const shellScriptDialectTokenizerTests: LanguageTokenizerTests = {
     ],
   ],
   // Leave kebab and dashes to css language specific tests.
-  exclusionPredicate: (input: string) => !!input.match("-"),
+  exclusionPredicate: (input: string) => input.match("-") != null,
 };
 
 const languageTokenizerTests: Record<string, LanguageTokenizerTests> = {

@@ -5,15 +5,15 @@ export class DisabledHatTokenMap implements HatTokenMap {
     // Do nothing
   }
 
-  async getReadableMap() {
-    return {
+  getReadableMap() {
+    return Promise.resolve({
       getEntries() {
         return [];
       },
       getToken() {
         throw new Error("Hat map is disabled");
       },
-    };
+    });
   }
 
   dispose() {

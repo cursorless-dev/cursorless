@@ -9,10 +9,10 @@ export class SetSpecialTarget implements SimpleAction {
     this.run = this.run.bind(this);
   }
 
-  async run(targets: Target[]): Promise<ActionReturnValue> {
-    return {
+  run(targets: Target[]): Promise<ActionReturnValue> {
+    return Promise.resolve({
       thatTargets: targets,
       [`${this.key}Targets`]: targets,
-    };
+    });
   }
 }

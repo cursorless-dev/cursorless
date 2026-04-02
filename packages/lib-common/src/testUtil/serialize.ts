@@ -48,15 +48,17 @@ function hasSimpleChildren(value: unknown): boolean {
 }
 
 function replacer(key: string, value: unknown): unknown {
+  // top-level, don't change this
   if (key === "") {
     return value;
-  } // top-level, don't change this
+  }
 
   if (hasSimpleChildren(value)) {
     return new CustomDump(value, { flowLevel: 0 });
   }
 
-  return value; // default
+  // default
+  return value;
 }
 
 export function serialize(obj: unknown): string {

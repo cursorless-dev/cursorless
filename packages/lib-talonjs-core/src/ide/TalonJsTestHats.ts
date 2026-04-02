@@ -29,8 +29,9 @@ export class TalonJsTestHats implements Hats {
     ]),
   );
 
-  async setHatRanges(hatRanges: HatRange[]): Promise<void> {
+  setHatRanges(hatRanges: HatRange[]): Promise<void> {
     this.hatRanges = hatRanges;
+    return Promise.resolve();
   }
 
   onDidChangeEnabledHatStyles(_listener: Listener<[HatStyleMap]>): Disposable {

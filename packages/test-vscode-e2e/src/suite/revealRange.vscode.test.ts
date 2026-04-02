@@ -7,7 +7,7 @@ import {
 } from "@cursorless/lib-vscode-common";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
-suite("revealRange", async function () {
+suite("revealRange", function () {
   endToEndTestSetup(this);
 
   test("pre file", preFile);

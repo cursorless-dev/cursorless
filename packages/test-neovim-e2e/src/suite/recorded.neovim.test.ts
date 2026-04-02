@@ -51,7 +51,7 @@ suite("recorded test cases", function () {
             });
           },
           sleepWithBackoff,
-          testHelpers: (await getCursorlessApi()).testHelpers!,
+          testHelpers: getCursorlessApi().testHelpers!,
           runCursorlessCommand,
         });
       }),

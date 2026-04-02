@@ -9,7 +9,11 @@ export class NeovimCommandServerApi implements CommandServerApi {
   signals: { prePhrase: InboundSignal };
 
   constructor(private client: NeovimClient) {
-    this.signals = { prePhrase: { getVersion: async () => null } };
+    this.signals = {
+      prePhrase: {
+        getVersion: () => Promise.resolve(null),
+      },
+    };
   }
 
   // for vscode, it is actually stored into the command-server

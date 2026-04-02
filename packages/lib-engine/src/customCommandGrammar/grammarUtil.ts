@@ -111,7 +111,7 @@ export function createPlaceholderTarget(
     type: "target",
     target: {
       type: "placeholder",
-      index: index.length === 0 ? 0 : parseInt(index) - 1,
+      index: index.length === 0 ? 0 : Number.parseInt(index, 10) - 1,
     },
   };
 }

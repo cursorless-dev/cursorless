@@ -163,26 +163,28 @@ function updateEntriesForType<T extends SpokenFormType>(
       defaultEntries[id] ?? {};
     const customSpokenForms = customEntries[id];
 
-    obj[id] =
-      customSpokenForms == null
-        ? // No entry for the given id. This either means that the user needs to
-          // update Talon, or it's a private spoken form.
-          {
-            defaultSpokenForms,
-            spokenForms: [],
-            // If it's not a private spoken form, then it's a new scope type
-            requiresTalonUpdate: !isPrivate,
-            isCustom: false,
-            isPrivate,
-          }
-        : // We have an entry for the given id
-          {
-            defaultSpokenForms,
-            spokenForms: customSpokenForms,
-            requiresTalonUpdate: false,
-            isCustom: !isEqual(defaultSpokenForms, customSpokenForms),
-            isPrivate,
-          };
+    // No entry for the given id. This either means that the user needs to
+    // update Talon, or it's a private spoken form.
+    if (customSpokenForms == null) {
+      obj[id] = {
+        defaultSpokenForms,
+        spokenForms: [],
+        // If it's not a private spoken form, then it's a new scope type
+        requiresTalonUpdate: !isPrivate,
+        isCustom: false,
+        isPrivate,
+      };
+    }
+    // We have an entry for the given id
+    else {
+      obj[id] = {
+        defaultSpokenForms,
+        spokenForms: customSpokenForms,
+        requiresTalonUpdate: false,
+        isCustom: !isEqual(defaultSpokenForms, customSpokenForms),
+        isPrivate,
+      };
+    }
   }
 
   spokenFormMapToUpdate[key] = obj as SpokenFormMap[T];

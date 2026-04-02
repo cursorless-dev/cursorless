@@ -10,7 +10,7 @@ import {
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
 // Check that setSelection is able to focus the correct cell
-suite("Cross-cell set selection", async function () {
+suite("Cross-cell set selection", function () {
   endToEndTestSetup(this);
 
   test("Cross-cell set selection", runTest);

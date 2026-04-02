@@ -48,11 +48,11 @@ export default class VscodeHighlights {
     );
   }
 
-  async setHighlightRanges(
+  setHighlightRanges(
     style: VscodeStyle,
     editor: VscodeTextEditor,
     ranges: GeneralizedRange[],
-  ) {
+  ): void {
     const [lineRanges, tokenRanges] = partition<LineRange, CharacterRange>(
       ranges,
       isLineRange,

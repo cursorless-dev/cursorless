@@ -32,8 +32,11 @@ export async function runEditTargets(
           index,
         };
       }
+      return undefined;
     })
-    .filter((destination): destination is EditDestination => !!destination);
+    .filter(
+      (destination): destination is EditDestination => destination != null,
+    );
 
   if (destinations.length === 0) {
     return state;

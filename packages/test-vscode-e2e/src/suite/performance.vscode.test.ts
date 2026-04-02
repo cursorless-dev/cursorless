@@ -30,7 +30,7 @@ const thresholds = [
 
 type ModifierType = "containing" | "previous" | "every";
 
-suite(`Performance ${thresholds.join("/")} ms`, async function () {
+suite(`Performance ${thresholds.join("/")} ms`, function () {
   endToEndTestSetup(this);
 
   let previousTitle = "";

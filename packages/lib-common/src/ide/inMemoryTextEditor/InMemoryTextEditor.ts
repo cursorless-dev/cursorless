@@ -79,7 +79,7 @@ export class InMemoryTextEditor implements EditableTextEditor {
     return this.id === other.id;
   }
 
-  async setSelections(
+  setSelections(
     selections: Selection[],
     _opts?: SetSelectionsOpts,
   ): Promise<void> {
@@ -93,6 +93,7 @@ export class InMemoryTextEditor implements EditableTextEditor {
         selections: selections,
       });
     }
+    return Promise.resolve();
   }
 
   edit(edits: Edit[]): Promise<boolean> {
@@ -104,11 +105,11 @@ export class InMemoryTextEditor implements EditableTextEditor {
     return Promise.resolve(true);
   }
 
-  async clipboardCopy(_ranges: Range[]): Promise<void> {
+  clipboardCopy(_ranges: Range[]): Promise<void> {
     throw new Error("clipboardCopy: not implemented");
   }
 
-  async clipboardPaste(): Promise<void> {
+  clipboardPaste(): Promise<void> {
     throw new Error("clipboardPaste: not implemented");
   }
 
@@ -200,27 +201,27 @@ export class InMemoryTextEditor implements EditableTextEditor {
     throw new Error("editNewNotebookCellBelow: not implemented");
   }
 
-  public async gitAccept(_range?: Range): Promise<void> {
+  public gitAccept(_range?: Range): Promise<void> {
     throw new Error("gitAccept: not implemented");
   }
 
-  public async gitRevert(_range?: Range): Promise<void> {
+  public gitRevert(_range?: Range): Promise<void> {
     throw new Error("gitRevert: not implemented");
   }
 
-  public async gitStageFile(): Promise<void> {
+  public gitStageFile(): Promise<void> {
     throw new Error("gitStageFile: not implemented");
   }
 
-  public async gitUnstageFile(): Promise<void> {
+  public gitUnstageFile(): Promise<void> {
     throw new Error("gitUnstageFile: not implemented");
   }
 
-  public async gitStageRange(_range?: Range): Promise<void> {
+  public gitStageRange(_range?: Range): Promise<void> {
     throw new Error("gitStageRange: not implemented");
   }
 
-  public async gitUnstageRange(_range?: Range): Promise<void> {
+  public gitUnstageRange(_range?: Range): Promise<void> {
     throw new Error("gitUnstageRange: not implemented");
   }
 }

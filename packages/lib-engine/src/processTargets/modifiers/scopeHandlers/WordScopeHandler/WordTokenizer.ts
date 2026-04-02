@@ -19,9 +19,11 @@ export class WordTokenizer {
     // First try to split on non letter characters
     const wordMatches = matchText(text, this.wordRegex);
 
-    return wordMatches.length > 1
-      ? wordMatches
-      : // Secondly try split on camel case
-        matchText(text, CAMEL_REGEX);
+    // Secondly try split on camel case
+    if (wordMatches.length === 1) {
+      return matchText(text, CAMEL_REGEX);
+    }
+
+    return wordMatches;
   }
 }

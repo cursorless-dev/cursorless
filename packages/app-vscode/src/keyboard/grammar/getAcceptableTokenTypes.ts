@@ -106,6 +106,7 @@ function computeRootStatePartialArgs(
   let partialArg: any;
   try {
     const argList = [...getCompletedSymbols(state), lastSymbol];
+    // oxlint-disable-next-line unicorn/no-immediate-mutation
     argList.push(
       ...times(state.rule.symbols.length - argList.length, () => MISSING),
     );

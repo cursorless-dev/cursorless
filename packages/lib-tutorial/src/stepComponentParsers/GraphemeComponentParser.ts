@@ -12,13 +12,13 @@ import type {
 export class GraphemeComponentParser implements StepComponentParser {
   constructor(private customSpokenFormGenerator: CustomSpokenFormGenerator) {}
 
-  async parse(arg: string): Promise<StepComponent> {
-    return {
+  parse(arg: string): Promise<StepComponent> {
+    return Promise.resolve({
       content: {
         type: "term",
         value: this.getGraphemeSpokenForm(arg),
       },
-    };
+    });
   }
 
   private getGraphemeSpokenForm(grapheme: string) {

@@ -37,7 +37,7 @@ abstract class SimpleIdeCommandAction {
     this.run = this.run.bind(this);
   }
 
-  async run(
+  run(
     targets: Target[],
     { showDecorations }: Options = {},
   ): Promise<ActionReturnValue> {

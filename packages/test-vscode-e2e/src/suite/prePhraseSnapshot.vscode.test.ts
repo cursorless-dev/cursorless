@@ -25,7 +25,7 @@ const snapshotExpectedSelections = [new vscode.Selection(0, 0, 0, 1)];
  */
 const noSnapshotExpectedSelections = [new vscode.Selection(1, 0, 1, 1)];
 
-suite("Pre-phrase snapshots", async function () {
+suite("Pre-phrase snapshots", function () {
   endToEndTestSetup(this);
 
   suiteSetup(async () => {
@@ -57,7 +57,9 @@ async function runTest(
   editor.selections = [new vscode.Selection(1, 0, 1, 0)];
 
   let prePhraseVersion = "version1";
-  mockPrePhraseGetVersion(commandServerApi, async () => prePhraseVersion);
+  mockPrePhraseGetVersion(commandServerApi, () =>
+    Promise.resolve(prePhraseVersion),
+  );
 
   await hatTokenMap.allocateHats();
   prePhraseVersion = "version2";

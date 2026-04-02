@@ -17,7 +17,7 @@ import { setupFake } from "./setupFake";
 
 // Ensure that the "from" / "instance" work properly when "from"
 // is run in a different editor from "instance"
-suite("Instance across split", async function () {
+suite("Instance across split", function () {
   const { getSpy } = endToEndTestSetup(this);
 
   suiteSetup(async () => {

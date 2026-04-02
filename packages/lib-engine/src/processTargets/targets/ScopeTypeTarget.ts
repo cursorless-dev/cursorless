@@ -45,7 +45,8 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
       parameters.insertionDelimiter ??
       getInsertionDelimiter(parameters.scopeTypeType);
     this.hasDelimiterRange_ =
-      !!this.leadingDelimiterRange_ || !!this.trailingDelimiterRange_;
+      this.leadingDelimiterRange_ != null ||
+      this.trailingDelimiterRange_ != null;
   }
 
   getLeadingDelimiterTarget(): Target | undefined {

@@ -81,11 +81,11 @@ export async function runCommand(
   return await unwrapLegacyCommandResponse(command, response);
 }
 
-async function unwrapLegacyCommandResponse(
+function unwrapLegacyCommandResponse(
   command: Command,
   response: CommandResponse,
   // oxlint-disable-next-line typescript/no-redundant-type-constituents
-): Promise<CommandResponse | unknown> {
+): CommandResponse | unknown {
   if (clientSupportsFallback(command)) {
     return response;
   }

@@ -60,6 +60,10 @@ function inferListTarget(
           return inferRangeTargetWithHoist(element, elementPreviousTargets);
         case "primitive":
           return inferPrimitiveTarget(element, elementPreviousTargets);
+        default: {
+          const exhaustiveCheck: never = element;
+          throw new Error(`Unexpected target type: ${exhaustiveCheck}`);
+        }
       }
     }),
   };

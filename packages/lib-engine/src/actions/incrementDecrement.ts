@@ -96,7 +96,7 @@ function updateNumber(isIncrement: boolean, text: string): string {
 
 function updateInteger(isIncrement: boolean, text: string): string {
   const textWithoutUnderscores = text.replaceAll("_", "");
-  const original = parseInt(textWithoutUnderscores);
+  const original = Number.parseInt(textWithoutUnderscores, 10);
   const diff = 1;
   const value = original + (isIncrement ? diff : -diff);
   return formatNumber(value, text, textWithoutUnderscores);

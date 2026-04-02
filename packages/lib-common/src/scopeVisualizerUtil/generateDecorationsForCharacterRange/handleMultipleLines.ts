@@ -94,9 +94,11 @@ function* handleLine(lineInfo: LineInfo): Iterable<StyledRange> {
           ? BorderStyle.none
           : BorderStyle.porous;
         break;
-      case LineType.current: // event.isLineStart === false
+      // event.isLineStart === false
+      case LineType.current:
         break loop;
-      case LineType.next: // event.isLineStart === false
+      // event.isLineStart === false
+      case LineType.next:
         currentDecoration.bottom = nextLine!.isLast
           ? BorderStyle.solid
           : BorderStyle.porous;

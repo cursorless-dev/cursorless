@@ -18,7 +18,7 @@ import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { setupFake } from "./setupFake";
 import { shouldSkipRecordedTest } from "./shouldSkipTest";
 
-suite("recorded test cases", async function () {
+suite("recorded test cases", function () {
   const { getSpy } = endToEndTestSetup(this);
 
   suiteSetup(async () => {

@@ -180,7 +180,7 @@ export default class KeyboardCommandsTargeted {
    * @param name The action to run
    * @returns A promise that resolves to the result of the cursorless command
    */
-  performSimpleActionOnTarget = async ({
+  performSimpleActionOnTarget = ({
     actionId: name,
     exitCursorlessMode,
   }: SimpleKeyboardActionDescriptor) => {

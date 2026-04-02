@@ -8,7 +8,7 @@ import {
 } from "@cursorless/lib-vscode-common";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
-suite("followLink", async function () {
+suite("followLink", function () {
   endToEndTestSetup(this);
 
   test("follow definition", followDefinition);

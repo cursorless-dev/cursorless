@@ -32,10 +32,10 @@ export default class VscodeFlashHandler {
     );
   }
 
-  private async setDecorationRanges(
+  private setDecorationRanges(
     style: FlashStyle,
     ranges: EditorGeneralizedRange[],
-  ): Promise<void> {
+  ): void {
     const editorRangeMap = groupBy(ranges, ({ editor }) => editor.id);
 
     this.ide.visibleTextEditors.forEach((editor) => {

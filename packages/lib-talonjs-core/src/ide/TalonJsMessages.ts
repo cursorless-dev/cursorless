@@ -5,7 +5,7 @@ import type { Talon } from "../types/talon";
 export class TalonJsMessages implements Messages {
   constructor(private talon: Talon) {}
 
-  async showMessage(
+  showMessage(
     type: MessageType,
     _id: string,
     message: string,
@@ -24,6 +24,6 @@ export class TalonJsMessages implements Messages {
       case MessageType.error:
         this.talon.actions.app.notify(message, "[ERROR] Cursorless");
     }
-    return undefined;
+    return Promise.resolve(undefined);
   }
 }

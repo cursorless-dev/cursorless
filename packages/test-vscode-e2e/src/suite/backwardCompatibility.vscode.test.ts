@@ -7,7 +7,7 @@ import {
 } from "@cursorless/lib-vscode-common";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
-suite("Backward compatibility", async function () {
+suite("Backward compatibility", function () {
   endToEndTestSetup(this);
 
   test("Backward compatibility", runTest);

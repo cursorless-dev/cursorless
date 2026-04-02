@@ -17,8 +17,8 @@ let _clipboard = "";
 
 const actions: TalonActions = {
   app: {
-    notify(_body: string, _title: string): void {
-      console.log(`app.notify: ${_title}: ${_body}`);
+    notify(body: string, title: string): void {
+      console.log(`app.notify: ${title}: ${body}`);
     },
   },
   clip: {

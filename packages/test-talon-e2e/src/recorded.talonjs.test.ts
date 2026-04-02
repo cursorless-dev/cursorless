@@ -80,7 +80,7 @@ function sleepWithBackoff(_ms: number): Promise<void> {
   return Promise.resolve();
 }
 
-async function openNewTestEditor(
+function openNewTestEditor(
   ide: TalonJsIDE,
   content: string,
   languageId: string,
@@ -102,5 +102,5 @@ async function openNewTestEditor(
   // Override any user settings and make sure tests run with default tabs.
   editor.options = DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;
 
-  return editor;
+  return Promise.resolve(editor);
 }

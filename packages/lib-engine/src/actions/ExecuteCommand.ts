@@ -22,7 +22,7 @@ export default class ExecuteCommand {
     this.run = this.run.bind(this);
   }
 
-  async run(
+  run(
     targets: Target[],
     commandId: string,
     {

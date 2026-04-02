@@ -85,14 +85,14 @@ export class NeovimIDE implements IDE {
     );
   }
 
-  async showQuickPick(
+  showQuickPick(
     _items: readonly string[],
     _options?: QuickPickOptions,
   ): Promise<string | undefined> {
     throw new Error("showQuickPick: not implemented");
   }
 
-  async setHighlightRanges(
+  setHighlightRanges(
     _highlightId: string | undefined,
     _editor: TextEditor,
     _ranges: GeneralizedRange[],
@@ -100,8 +100,9 @@ export class NeovimIDE implements IDE {
     throw new Error("setHighlightRanges: not implemented");
   }
 
-  async flashRanges(_flashDescriptors: FlashDescriptor[]): Promise<void> {
+  flashRanges(_flashDescriptors: FlashDescriptor[]): Promise<void> {
     console.debug("flashRanges Not implemented");
+    return Promise.resolve();
   }
 
   get assetsRoot(): string {
@@ -165,32 +166,29 @@ export class NeovimIDE implements IDE {
     return editor as EditableTextEditor;
   }
 
-  public async findInDocument(
-    _query: string,
-    _editor: TextEditor,
-  ): Promise<void> {
+  public findInDocument(_query: string, _editor: TextEditor): Promise<void> {
     throw new Error("findInDocument: not implemented");
   }
 
-  public async findInWorkspace(_query: string): Promise<void> {
+  public findInWorkspace(_query: string): Promise<void> {
     throw new Error("findInWorkspace: not implemented");
   }
 
-  public async openTextDocument(_path: string): Promise<TextEditor> {
+  public openTextDocument(_path: string): Promise<TextEditor> {
     throw new Error("openTextDocument: not implemented");
   }
 
-  public async openUntitledTextDocument(
+  public openUntitledTextDocument(
     _options: OpenUntitledTextDocumentOptions,
   ): Promise<TextEditor> {
     throw new Error("openUntitledTextDocument: not implemented");
   }
 
-  public async showInputBox(_options?: any): Promise<string | undefined> {
+  public showInputBox(_options?: any): Promise<string | undefined> {
     throw new Error("showInputBox: not implemented");
   }
 
-  public async executeCommand<T>(
+  public executeCommand<T>(
     _command: string,
     ..._args: any[]
   ): Promise<T | undefined> {

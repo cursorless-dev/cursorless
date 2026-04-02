@@ -36,7 +36,7 @@ export function getUpdatedText(
 
   // First add any text from the range before the start of the change range
   if (rangeOriginalOffsetsStart < changeOriginalOffsetsStart) {
-    result += rangeInfo.text.substring(
+    result += rangeInfo.text.slice(
       0,
       changeOriginalOffsetsStart - rangeOriginalOffsetsStart,
     );
@@ -47,14 +47,13 @@ export function getUpdatedText(
 
   // Then add any text that was after the original change range
   if (changeOriginalOffsetsEnd < rangeOriginalOffsetsEnd) {
-    result += rangeInfo.text.substring(
+    result += rangeInfo.text.slice(
       rangeOriginalOffsetsEnd - changeOriginalOffsetsEnd,
-      rangeInfo.text.length,
     );
   }
 
   // Then take a substring based on the range's new offsets
-  return result.substring(
+  return result.slice(
     newOffsets.start - newTextStartOffset,
     newOffsets.end - newTextStartOffset,
   );

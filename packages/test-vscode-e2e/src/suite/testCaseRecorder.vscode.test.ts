@@ -24,7 +24,7 @@ import { endToEndTestSetup } from "../endToEndTestSetup";
  */
 
 // Ensure that the test case recorder works
-suite("testCaseRecorder", async function () {
+suite("testCaseRecorder", function () {
   endToEndTestSetup(this);
 
   test("no args", testCaseRecorderNoArgs);

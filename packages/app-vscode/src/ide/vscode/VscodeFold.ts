@@ -3,7 +3,7 @@ import type { Range } from "@cursorless/lib-common";
 import type { VscodeIDE } from "./VscodeIDE";
 import type { VscodeTextEditor } from "./VscodeTextEditor";
 
-export async function vscodeFold(
+export function vscodeFold(
   ide: VscodeIDE,
   editor: VscodeTextEditor,
   ranges: Range[] | undefined,

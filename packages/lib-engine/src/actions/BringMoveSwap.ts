@@ -230,7 +230,7 @@ abstract class BringMoveSwap {
     });
   }
 
-  protected async decorateThatMark(thatMark: MarkEntry[]) {
+  protected decorateThatMark(thatMark: MarkEntry[]) {
     const getRange = (target: Target) => {
       return toGeneralizedRange(
         target,
@@ -267,7 +267,7 @@ function broadcastSource(sources: Target[], destinations: Destination[]) {
   if (sources.length === 1) {
     // If there is only one source target, expand it to same length as
     // destination target
-    return Array(destinations.length).fill(sources[0]);
+    return Array.from({ length: destinations.length }, () => sources[0]);
   }
   return sources;
 }

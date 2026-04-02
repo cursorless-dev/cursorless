@@ -17,11 +17,11 @@ const LIB_ENTRY_POINT = "./src/index.ts";
  * of the package whose package.json we are updating
  * @returns The updated package.json
  */
-export async function updatePackageJson(
+export function updatePackageJson(
   { workspaceDir }: Context,
   rawInput: object | null,
   options: FormatPluginFnOptions,
-): Promise<PackageJson> {
+): PackageJson {
   /** The input package.json that should be checked / updated */
   const input: PackageJson = (rawInput ?? {}) as PackageJson;
   /** Directory of the package whose package.json we are updating */
@@ -73,7 +73,7 @@ export async function updatePackageJson(
     name,
     license: "MIT",
     type: isCursorlessOrgDocs || isCursorlessNeovim ? undefined : "module",
-    scripts: await getScripts(input.scripts, name, packageDir, isRoot, isLib),
+    scripts: getScripts(input.scripts, name, packageDir, isRoot, isLib),
     ...extraFields,
   };
 
@@ -82,7 +82,7 @@ export async function updatePackageJson(
   return omitByDeep(sortFields(output), isUndefined) as PackageJson;
 }
 
-async function getScripts(
+function getScripts(
   inputScripts: PackageJson.Scripts | undefined,
   name: string | undefined,
   packageDir: string,

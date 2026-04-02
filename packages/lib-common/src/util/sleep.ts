@@ -7,5 +7,7 @@
  * the test is retried.  Prefer {@link sleepWithBackoff} instead.
  */
 export default function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
 }

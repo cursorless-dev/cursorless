@@ -13,9 +13,9 @@ import { IndividualHatMap } from "./IndividualHatMap";
 import type { RangeUpdater } from "./updateSelections/RangeUpdater";
 
 /**
- * Maximum age for the pre-phrase snapshot before we consider it to be stale
+ * Maximum age for the pre-phrase snapshot before we consider it to be stale. 60s.
  */
-const PRE_PHRASE_SNAPSHOT_MAX_AGE_MS = 60000; // 60 seconds
+const PRE_PHRASE_SNAPSHOT_MAX_AGE_MS = 60_000;
 
 /**
  * Maps from (hatStyle, character) pairs to tokens

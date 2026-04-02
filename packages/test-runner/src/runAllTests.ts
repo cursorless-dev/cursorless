@@ -70,7 +70,7 @@ async function runTestsInDir(
   const mocha = new Mocha({
     ui: "tdd",
     color: true,
-    grep: testSubsetGrepString(), // Only run a subset of tests
+    grep: testSubsetGrepString(),
   });
 
   const files = await glob(`**/*.${filePattern}`, {

@@ -47,15 +47,11 @@ suite("Scope test cases", function () {
       .sort()
       .forEach((languageId) => {
         const tests = languages[languageId];
-        test(
-          `${languageId} facet coverage`,
-          asyncSafety(() =>
-            testLanguageSupport(
-              languageId,
-              tests.map((test) => test.facet),
-            ),
-          ),
-        );
+        test(`${languageId} facet coverage`, () =>
+          testLanguageSupport(
+            languageId,
+            tests.map((test) => test.facet),
+          ));
       });
   }
 

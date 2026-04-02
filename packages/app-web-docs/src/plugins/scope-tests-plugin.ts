@@ -66,7 +66,7 @@ function parseTest(test: ScopeTestPath) {
   }
 
   const code = fixture.slice(0, delimiterIndex - 1);
-  const lines = fixture.substring(delimiterIndex + 4).split(/\n/);
+  const lines = fixture.slice(delimiterIndex + 4).split(/\n/);
   const scopes: Scope[] = [];
   const unprocessedTypes: string[] = [];
   let currentScopeIndex = "1";
@@ -171,16 +171,16 @@ function parseLine(line: string) {
     return null;
   }
 
-  const header = line.substring(1, line.indexOf("]"));
+  const header = line.slice(1, line.indexOf("]"));
   const { scopeIndex, targetIndex, type } = (() => {
     if (header[0] === "#") {
       const spaceIndex = header.indexOf(" ");
-      const fullIndex = header.substring(1, spaceIndex);
+      const fullIndex = header.slice(1, spaceIndex);
       const [scopeIndex, targetIndex] = fullIndex.split(".");
       return {
         scopeIndex: scopeIndex,
         targetIndex: targetIndex,
-        type: header.substring(spaceIndex + 1),
+        type: header.slice(spaceIndex + 1),
       };
     }
     return {
@@ -190,7 +190,7 @@ function parseLine(line: string) {
     };
   })();
 
-  const rawValue = line.substring(line.indexOf("=") + 1).trim();
+  const rawValue = line.slice(line.indexOf("=") + 1).trim();
   const value = rawValue.length > 0 ? rawValue : undefined;
 
   return { scopeIndex, targetIndex, type, value };

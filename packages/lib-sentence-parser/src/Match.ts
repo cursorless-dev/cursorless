@@ -22,7 +22,8 @@ const englishAbbreviations = [
   "est",
   "etc",
   "Ex",
-  "ext", // + number?
+  // + number?
+  "ext",
   "Fig",
   "fig",
   "Figs",
@@ -125,7 +126,10 @@ export function isSentenceStarter(str: string) {
 }
 
 export function isCommonAbbreviation(str: string) {
-  const noSymbols = str.replaceAll(/[-'`~!@#$%^&*()_|+=?;:'",.<>{}[\]\\/]/gi, "");
+  const noSymbols = str.replaceAll(
+    /[-'`~!@#$%^&*()_|+=?;:'",.<>{}[\]\\/]/gi,
+    "",
+  );
 
   return ~abbreviations.indexOf(noSymbols);
 }

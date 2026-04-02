@@ -9,10 +9,10 @@ import type { StepComponent } from "../types/StepComponent";
  * visualizing a scope type and causes the step to automatically advance when
  * the user visualizes the scope type.
  */
-export async function parseVisualizeComponent(
+export function parseVisualizeComponent(
   customSpokenFormGenerator: CustomSpokenFormGenerator,
   arg: string,
-): Promise<StepComponent> {
+): StepComponent {
   const scopeType = parseScopeType(arg);
 
   return {

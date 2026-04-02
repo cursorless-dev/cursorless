@@ -30,7 +30,7 @@ export function getBorderRadius(borders: DecorationStyle): string {
   ].join(" ");
 }
 
-export function useSingleCornerBorderRadius(
+export function singleCornerBorderRadius(
   side1: BorderStyle,
   side2: BorderStyle,
 ): boolean {
@@ -44,5 +44,5 @@ export function getSingleCornerBorderRadius(
   side1: BorderStyle,
   side2: BorderStyle,
 ) {
-  return useSingleCornerBorderRadius(side1, side2) ? BORDER_RADIUS : "0px";
+  return singleCornerBorderRadius(side1, side2) ? BORDER_RADIUS : "0px";
 }

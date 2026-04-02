@@ -8,7 +8,7 @@ import {
 import { endToEndTestSetup } from "../endToEndTestSetup";
 import { setupFake } from "./setupFake";
 
-suite("Wrap with snippet across split", async function () {
+suite("Wrap with snippet across split", function () {
   endToEndTestSetup(this);
 
   suiteSetup(async () => {

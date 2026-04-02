@@ -2,13 +2,13 @@ import * as assert from "node:assert/strict";
 import { FakeIDE, LATEST_VERSION, asyncSafety } from "@cursorless/lib-common";
 import { CustomSpokenFormGeneratorImpl } from "./CustomSpokenFormGeneratorImpl";
 
-suite("CustomSpokenFormGeneratorImpl", async function () {
+suite("CustomSpokenFormGeneratorImpl", function () {
   test(
     "basic",
     asyncSafety(async () => {
       const generator = new CustomSpokenFormGeneratorImpl(new FakeIDE(), {
-        async getSpokenFormEntries() {
-          return [
+        getSpokenFormEntries() {
+          return Promise.resolve([
             {
               type: "complexScopeTypeType",
               id: "glyph",
@@ -24,7 +24,7 @@ suite("CustomSpokenFormGeneratorImpl", async function () {
               id: "a",
               spokenForms: ["alabaster"],
             },
-          ];
+          ]);
         },
         onDidChange: () => ({ dispose() {} }),
       });

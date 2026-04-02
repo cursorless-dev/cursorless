@@ -67,12 +67,13 @@ function getDifferentiationIndex(
       : maxContainingDifferentiationIndex + 1;
 
   for (; ; i++) {
+    const index = i;
     if (
       !currentRanges.some(
-        ({ differentiationIndex }) => differentiationIndex === i,
+        ({ differentiationIndex }) => differentiationIndex === index,
       )
     ) {
-      return i;
+      return index;
     }
   }
 }

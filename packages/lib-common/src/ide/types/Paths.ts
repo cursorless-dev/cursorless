@@ -47,7 +47,8 @@ export type Paths<
  */
 export type GetFieldType<
   T extends GenericObject,
-  Path extends string, // Or, if you prefer, NestedPaths<T>
+  // Or, if you prefer, NestedPaths<T>
+  Path extends string,
 > = {
   [K in Path]: K extends keyof T
     ? T[K]

@@ -21,7 +21,7 @@ import {
 import { endToEndTestSetup } from "../../endToEndTestSetup";
 import { waitFor } from "../waitFor";
 
-suite("tutorial", async function () {
+suite("tutorial", function () {
   const { getSpy } = endToEndTestSetup(this);
 
   test(

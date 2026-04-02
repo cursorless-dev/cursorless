@@ -37,7 +37,7 @@ export function TutorialStep({ state, vscode }: Props) {
     if (!state.preConditionsMet) {
       return (
         <>
-          <div>Whoops! Looks like you've stepped off the beaten path.</div>
+          <div>Whoops! Looks like you{"'"}ve stepped off the beaten path.</div>
           <div className="mt-1">
             Feel free to keep playing, then say{" "}
             <Command spokenForm="tutorial resume" /> to resume the tutorial.
@@ -57,10 +57,16 @@ export function TutorialStep({ state, vscode }: Props) {
                 case "command":
                   return <Command key={j} spokenForm={fragment.value} />;
                 case "term":
-                  return <span key={j}>"{fragment.value}"</span>;
+                  return (
+                    <span key={j}>
+                      {'"'}
+                      {fragment.value}
+                      {'"'}
+                    </span>
+                  );
                 default: {
-                  // Ensure we handle all cases
-                  const _unused: never = fragment;
+                  const _exhaustiveCheck: never = fragment;
+                  return null;
                 }
               }
             })}

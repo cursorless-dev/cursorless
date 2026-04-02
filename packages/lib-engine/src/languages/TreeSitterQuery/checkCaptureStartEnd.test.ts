@@ -186,9 +186,9 @@ suite("checkCaptureStartEnd", () => {
     test(testCase.name, () => {
       const actualErrorIds: string[] = [];
       const messages: Messages = {
-        async showMessage(_type, id, _message) {
+        showMessage(_type, id, _message) {
           actualErrorIds.push(id);
-          return undefined;
+          return Promise.resolve(undefined);
         },
       };
 

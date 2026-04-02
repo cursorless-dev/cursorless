@@ -137,6 +137,10 @@ class TargetPipeline {
               targetDesc.excludeAnchor,
               targetDesc.excludeActive,
             );
+          default: {
+            const exhaustiveCheck: never = targetDesc.rangeType;
+            throw new Error(`Unknown range type: ${exhaustiveCheck}`);
+          }
         }
       },
     );

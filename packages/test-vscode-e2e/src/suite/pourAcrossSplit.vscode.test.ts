@@ -7,7 +7,7 @@ import {
 } from "@cursorless/lib-vscode-common";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
-suite("Pour across split", async function () {
+suite("Pour across split", function () {
   endToEndTestSetup(this);
 
   test("Pour across split", runTest);

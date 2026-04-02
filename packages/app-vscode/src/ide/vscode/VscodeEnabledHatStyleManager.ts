@@ -46,7 +46,7 @@ export default class VscodeEnabledHatStyleManager {
     return this.notifier.registerListener(listener);
   }
 
-  private async recomputeEnabledHatStyles() {
+  private recomputeEnabledHatStyles() {
     this.constructHatStyleMap();
     this.notifier.notifyListeners(this.hatStyleMap);
   }

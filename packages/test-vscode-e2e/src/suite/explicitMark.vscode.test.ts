@@ -8,7 +8,7 @@ import {
 } from "@cursorless/lib-vscode-common";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
-suite("Explicit mark", async function () {
+suite("Explicit mark", function () {
   endToEndTestSetup(this);
 
   test("Clear explicit mark", explicitMark);

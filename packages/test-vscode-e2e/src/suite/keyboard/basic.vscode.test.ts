@@ -171,7 +171,7 @@ const testCases: TestCase[] = [
   },
 ];
 
-suite("Basic keyboard test", async function () {
+suite("Basic keyboard test", function () {
   endToEndTestSetup(this);
 
   this.beforeEach(async () => {

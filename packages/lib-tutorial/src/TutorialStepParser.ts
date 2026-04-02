@@ -59,7 +59,7 @@ export class TutorialStepParser {
 
     this.componentParsers = {
       command: (arg) => cursorlessCommandParser.parse(arg),
-      special: parseSpecialComponent,
+      special: (arg) => Promise.resolve(parseSpecialComponent(arg)),
       action: (arg) => actionParser.parse(arg),
       grapheme: (arg) => graphemeParser.parse(arg),
 
@@ -83,7 +83,9 @@ export class TutorialStepParser {
         }),
 
       visualize: (arg) =>
-        parseVisualizeComponent(customSpokenFormGenerator, arg),
+        Promise.resolve(
+          parseVisualizeComponent(customSpokenFormGenerator, arg),
+        ),
     };
   }
 

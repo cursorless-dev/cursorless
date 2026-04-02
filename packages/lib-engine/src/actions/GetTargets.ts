@@ -6,12 +6,12 @@ export default class GetTargets implements SimpleAction {
     this.run = this.run.bind(this);
   }
 
-  async run(targets: Target[]): Promise<ActionReturnValue> {
-    return {
+  run(targets: Target[]): Promise<ActionReturnValue> {
+    return Promise.resolve({
       returnValue: targets.map(({ contentRange }) => ({
         contentRange,
       })),
       thatTargets: targets,
-    };
+    });
   }
 }

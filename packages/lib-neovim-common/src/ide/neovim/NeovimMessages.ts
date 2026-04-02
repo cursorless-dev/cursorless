@@ -1,12 +1,12 @@
 import type { MessageId, Messages, MessageType } from "@cursorless/lib-common";
 
 export default class NeovimMessages implements Messages {
-  async showMessage(
+  showMessage(
     _type: MessageType,
     _id: MessageId,
     _message: string,
     ..._options: string[]
   ): Promise<string | undefined> {
-    return undefined;
+    return Promise.resolve(undefined);
   }
 }

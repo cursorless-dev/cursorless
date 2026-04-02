@@ -73,7 +73,7 @@ function parseCommandLineArguments(args: string[]) {
       }
 
       if (flagName === "minimum-version") {
-        const minimumVersionUnchecked = parseInt(args[i + 1]);
+        const minimumVersionUnchecked = Number.parseInt(args[i + 1], 10);
         if (
           minimumVersionUnchecked < 0 ||
           minimumVersionUnchecked > LATEST_VERSION
@@ -95,4 +95,4 @@ function parseCommandLineArguments(args: string[]) {
   return { transformationName, minimumVersion, paths };
 }
 
-void main(process.argv.slice(2));
+await main(process.argv.slice(2));
