@@ -1,6 +1,6 @@
 import type { TestCaseFixtureLegacy } from "@cursorless/lib-common";
 
-const failingFixtures = [
+const failingFixtures = new Set([
   // actual finalState.selections.anchor is -1 compared to expected (other fixture.command.action.name == "insertCopyBefore" tests pass fine)
   "recorded/actions/cloneToken4",
   "recorded/actions/cloneUpToken4",
@@ -16,7 +16,7 @@ const failingFixtures = [
   "recorded/implicitExpansion/cloneThis2",
   // Incorrect final state
   "recorded/relativeScopes/changePreviousPair",
-];
+]);
 
 function isFailingFixture(name: string, fixture: TestCaseFixtureLegacy) {
   const action =
@@ -84,7 +84,7 @@ function isFailingFixture(name: string, fixture: TestCaseFixtureLegacy) {
   }
 
   // We blacklist remaining unsorted failing tests
-  if (failingFixtures.includes(name)) {
+  if (failingFixtures.has(name)) {
     return true;
   }
 

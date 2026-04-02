@@ -6,23 +6,21 @@ interface Props {
 }
 
 const ReactPlayer = lazy(() => import("react-player"));
+const containerStyle = { paddingTop: "56.25%" };
 
 export function EmbeddedVideo({ youtubeSlug }: Props) {
   const [isError, setIsError] = useState(false);
 
   return (
-    <div style={{ position: "relative", paddingTop: "56.25%" }}>
+    <div className="position-relative" style={containerStyle}>
       {isError ? (
-        <div
-          className="d-flex h-100 w-100 border border-dark text-center text-danger"
-          style={{ position: "absolute", top: 0, left: 0 }}
-        >
+        <div className="d-flex h-100 w-100 border border-dark text-center text-danger position-absolute top-0 start-0">
           <div className="m-auto">Error loading YouTube video</div>
         </div>
       ) : (
         <Suspense fallback={null}>
           <ReactPlayer
-            style={{ position: "absolute", top: 0, left: 0 }}
+            className="position-absolute top-0 start-0"
             src={`https://www.youtube-nocookie.com/watch?v=${youtubeSlug}`}
             width="100%"
             height="100%"

@@ -15,7 +15,7 @@ export function extractTargetKeys(target: PartialTargetDescriptor): string[] {
       return extractPrimitiveTargetKeys(target);
 
     case "list":
-      return target.elements.map(extractTargetKeys).flat();
+      return target.elements.flatMap(extractTargetKeys);
 
     case "range":
       return [

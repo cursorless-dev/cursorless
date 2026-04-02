@@ -21,7 +21,7 @@ export function Code({
   link,
   children,
 }: Props) {
-  const [html, setHtml] = React.useState("");
+  const [html, setHtml] = React.useState<{ __html: string }>();
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -39,12 +39,12 @@ export function Code({
             .replaceAll("␣", '<span class="code-ws-symbol">·</span>')
             .replaceAll("⭾", '<span class="code-ws-symbol"> →  </span>');
         }
-        setHtml(html);
+        setHtml({ __html: html });
       })
       .catch(console.error);
   }, [languageId, renderWhitespace, decorations, link, children]);
 
-  if (!html) {
+  if (html == null) {
     return <div className="code-container" />;
   }
 
@@ -80,7 +80,7 @@ export function Code({
       <button onClick={handleCopy} className="code-copy-button">
         {copied ? "✅ Copied!" : "📋 Copy"}
       </button>
-      <div dangerouslySetInnerHTML={{ __html: html }}></div>{" "}
+      <div dangerouslySetInnerHTML={html}></div>{" "}
     </div>
   );
 }

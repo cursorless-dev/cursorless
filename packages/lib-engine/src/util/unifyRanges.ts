@@ -7,6 +7,7 @@ export function unifyRemovalTargets(targets: Target[]): Target[] {
   if (targets.length < 2) {
     return targets;
   }
+  // oxlint-disable-next-line oxc/no-map-spread
   return groupTargetsForEachEditor(targets).flatMap(
     ([_editor, editorTargets]) => {
       if (editorTargets.length < 2) {

@@ -230,6 +230,7 @@ function renderFacet(
         <React.Fragment key={fixture.name}>
           {renderLanguageId(fixture.languageId)}
           <Code
+            // oxlint-disable-next-line react_perf/jsx-no-new-object-as-prop
             link={{
               name: "GitHub",
               url: `https://github.com/cursorless-dev/cursorless/blob/main/resources/fixtures/${fixture.name}.scope`,

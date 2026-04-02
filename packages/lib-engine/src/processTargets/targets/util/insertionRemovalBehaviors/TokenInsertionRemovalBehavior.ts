@@ -4,8 +4,18 @@ import type { Target } from "../../../../typings/target.types";
 import { expandToFullLine, union } from "../../../../util/rangeUtils";
 import { PlainTarget } from "../../PlainTarget";
 
-const leadingDelimiters = ['"', "'", "(", "[", "{", "<"];
-const trailingDelimiters = ['"', "'", ")", "]", "}", ">", ",", ";", ":"];
+const leadingDelimiters = new Set(['"', "'", "(", "[", "{", "<"]);
+const trailingDelimiters = new Set([
+  '"',
+  "'",
+  ")",
+  "]",
+  "}",
+  ">",
+  ",",
+  ";",
+  ":",
+]);
 
 export function getTokenLeadingDelimiterTarget(
   target: Target,
@@ -109,7 +119,7 @@ export function getTokenRemovalRange(target: Target): Range {
     if (
       !leadingWhitespaceRange.isEmpty ||
       contentRange.start.isEqual(fullLineRange.start) ||
-      leadingDelimiters.includes(getLeadingCharacter(editor, contentRange))
+      leadingDelimiters.has(getLeadingCharacter(editor, contentRange))
     ) {
       return contentRange.union(trailingWhitespaceRange);
     }
@@ -120,7 +130,7 @@ export function getTokenRemovalRange(target: Target): Range {
   if (!leadingWhitespaceRange.isEmpty) {
     if (
       contentRange.end.isEqual(fullLineRange.end) ||
-      trailingDelimiters.includes(getTrailingCharacter(editor, contentRange))
+      trailingDelimiters.has(getTrailingCharacter(editor, contentRange))
     ) {
       return contentRange.union(leadingWhitespaceRange);
     }

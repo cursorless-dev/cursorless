@@ -7,7 +7,7 @@ import * as cp from "node:child_process";
 import { extensionDependencies } from "@cursorless/lib-common";
 
 const vsCodeToolName: string = "code";
-const validCliToolParams: Array<string> = ["--code", "--codium"];
+const validCliToolParams = new Set(["--code", "--codium"]);
 
 async function main() {
   try {
@@ -15,7 +15,7 @@ async function main() {
     let cliToolName = vsCodeToolName;
 
     process.argv.forEach((argument) => {
-      if (validCliToolParams.includes(argument)) {
+      if (validCliToolParams.has(argument)) {
         cliToolName = argument.replace("--", "");
         console.log("Cli tool name manually set to " + cliToolName);
       }

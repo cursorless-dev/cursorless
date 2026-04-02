@@ -1,3 +1,4 @@
+// oxlint-disable react/no-array-index-key
 import type { WebviewApi } from "vscode-webview";
 import type { ActiveTutorialNoErrorsState } from "@cursorless/lib-common";
 import { ArrowLeftIcon } from "./ArrowLeftIcon";

@@ -344,6 +344,6 @@ function cartesianProduct<T>(arrays: T[][]): T[][] {
   const [first, ...rest] = arrays;
   const restCartesianProduct = cartesianProduct(rest);
   return first.flatMap((element) =>
-    restCartesianProduct.map((restElement) => [element, ...restElement]),
+    restCartesianProduct.map((restElement) => [element].concat(restElement)),
   );
 }

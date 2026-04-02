@@ -6,11 +6,11 @@ export function getCursorlessVscodeFields(input: PackageJson) {
     contributes: {
       ...(input.contributes as object),
       commands: Object.entries(cursorlessCommandDescriptions).map(
-        ([id, { title, isVisible }]) => ({
-          command: id,
-          title,
-          ...(isVisible ? {} : { enablement: "false" }),
-        }),
+        ([id, { title, isVisible }]) =>
+          Object.assign(
+            { command: id, title },
+            isVisible ? {} : { enablement: "false" },
+          ),
       ),
     },
 

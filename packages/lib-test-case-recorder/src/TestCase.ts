@@ -62,8 +62,7 @@ export class TestCase {
     this.command = command;
     this.partialTargetDescriptors = getPartialTargetDescriptors(command.action);
     this.targetKeys = this.partialTargetDescriptors
-      .map(extractTargetKeys)
-      .flat();
+      .flatMap(extractTargetKeys);
     this.languageId = activeEditor.document.languageId;
     this._awaitingFinalMarkInfo = isHatTokenMapTest;
   }
@@ -205,8 +204,7 @@ export class TestCase {
 
   filterMarks() {
     const marksToCheck = this.partialTargetDescriptors
-      .map(extractTargetKeys)
-      .flat();
+      .flatMap(extractTargetKeys);
     const keys = this.targetKeys.concat(marksToCheck);
 
     this.initialState!.marks = pick(
