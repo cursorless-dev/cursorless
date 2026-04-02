@@ -5,10 +5,8 @@ import type {
   ScopeProvider,
   ScopeType,
 } from "@cursorless/lib-common";
-import {
-  type VscodeScopeVisualizer,
-  createVscodeScopeVisualizer,
-} from "./ide/vscode/VSCodeScopeVisualizer";
+import { createVscodeScopeVisualizer } from "./ide/vscode/VSCodeScopeVisualizer";
+import type { VscodeScopeVisualizer } from "./ide/vscode/VSCodeScopeVisualizer";
 import type {
   ScopeVisualizer,
   ScopeVisualizerListener,

@@ -36,8 +36,8 @@ import {
   serializeScopeType,
   uriEncodeHashId,
 } from "@cursorless/lib-common";
-import { type CustomSpokenFormGenerator } from "@cursorless/lib-engine";
-import { type VscodeApi } from "@cursorless/lib-vscode-common";
+import type { CustomSpokenFormGenerator } from "@cursorless/lib-engine";
+import type { VscodeApi } from "@cursorless/lib-vscode-common";
 import type {
   ScopeVisualizer,
   VisualizationType,

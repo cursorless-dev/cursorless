@@ -61,11 +61,11 @@ export class LanguageDefinitionsImpl implements LanguageDefinitions {
   ) {
     this.disposables.push(
       ide.onDidOpenTextDocument((document) => {
-        this.loadLanguage(document.languageId).catch((err) => {
+        this.loadLanguage(document.languageId).catch((error) => {
           void showError(
             this.ide.messages,
             `Failed to load language definition: ${document.languageId}`,
-            getErrorMessage(err),
+            getErrorMessage(error),
           );
         });
       }),
@@ -105,14 +105,14 @@ export class LanguageDefinitionsImpl implements LanguageDefinitions {
       await Promise.all(
         languageIds.map((languageId) => this.loadLanguage(languageId)),
       );
-    } catch (err) {
+    } catch (error) {
       void showError(
         this.ide.messages,
         "Failed to load language definitions",
-        getErrorMessage(err),
+        getErrorMessage(error),
       );
       if (this.ide.runMode === "test") {
-        throw err;
+        throw error;
       }
     }
   }

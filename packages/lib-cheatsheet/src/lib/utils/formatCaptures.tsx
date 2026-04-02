@@ -24,10 +24,8 @@ export function formatCaptures(input: string): ComponentChildren[] {
 
     parts.push(
       <span key={index} className="cheatsheet-capture">
-        <SmartLink to="#legend" noFormatting={true}>
-          {"["}
-          {innerElement}
-          {"]"}
+        <SmartLink to="#legend" noFormatting>
+          [{innerElement}]
         </SmartLink>
       </span>,
     );

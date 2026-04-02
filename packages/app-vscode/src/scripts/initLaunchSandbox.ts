@@ -64,9 +64,9 @@ async function main() {
         }
       });
     });
-  } catch (err) {
+  } catch (error) {
     console.error("Failed to init launch sandbox");
-    console.error(err);
+    console.error(error);
     process.exit(1);
   }
 }

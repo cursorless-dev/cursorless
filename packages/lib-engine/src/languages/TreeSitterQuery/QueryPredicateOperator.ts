@@ -81,15 +81,15 @@ export abstract class QueryPredicateOperator<T extends HasSchema> {
             try {
               const acceptArgs = this.constructAcceptArgs(result.data, match);
               return this.run(...acceptArgs);
-            } catch (err) {
+            } catch (error) {
               if (
-                err instanceof CaptureNotFoundError &&
+                error instanceof CaptureNotFoundError &&
                 this.allowMissingNode()
               ) {
                 return true;
               }
 
-              throw err;
+              throw error;
             }
           },
         }

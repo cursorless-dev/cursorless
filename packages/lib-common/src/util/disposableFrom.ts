@@ -12,11 +12,11 @@ export function disposableFrom(...disposables: Disposable[]): Disposable {
       disposables.forEach((disposable) => {
         try {
           disposable.dispose();
-        } catch (e) {
+        } catch (error) {
           // just log, but don't throw; some of the VSCode disposables misbehave,
           // and we don't want that to prevent us from disposing the rest of the
           // disposables
-          console.error(e);
+          console.error(error);
         }
       });
     },

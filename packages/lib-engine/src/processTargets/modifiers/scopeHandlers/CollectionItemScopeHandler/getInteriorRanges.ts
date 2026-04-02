@@ -1,8 +1,8 @@
-import {
-  type Range,
-  type SurroundingPairName,
-  type TextEditor,
-  Position,
+import { Position } from "@cursorless/lib-common";
+import type {
+  Range,
+  SurroundingPairName,
+  TextEditor,
 } from "@cursorless/lib-common";
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
 

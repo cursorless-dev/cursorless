@@ -145,7 +145,7 @@ export class ScopeRangeWatcher {
     this.disposables.forEach(({ dispose }) => {
       try {
         dispose();
-      } catch (_e) {
+      } catch {
         // do nothing; some of the VSCode disposables misbehave, and we don't
         // want that to prevent us from disposing the rest of the disposables
       }

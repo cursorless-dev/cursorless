@@ -24,7 +24,7 @@ export function EmbeddedVideo({ youtubeSlug }: Props) {
             src={`https://www.youtube-nocookie.com/watch?v=${youtubeSlug}`}
             width="100%"
             height="100%"
-            controls={true}
+            controls
             onError={(error) => {
               console.warn(`Error loading YouTube video: ${error}`);
               setIsError(true);

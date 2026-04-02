@@ -149,7 +149,7 @@ export default class KeyboardHandler {
         // Call handleCancelled on all listeners that were pushed after this
         // one. Eg if you're in the middle of typing a command and we turn off
         // the modal mode, we want to cancel the command
-        if (index > -1) {
+        if (index !== -1) {
           this.listeners
             .slice(index + 1)
             .reverse()

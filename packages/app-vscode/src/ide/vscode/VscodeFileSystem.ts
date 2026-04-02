@@ -30,8 +30,8 @@ export class VscodeFileSystem implements FileSystem {
       await vscode.workspace.fs.createDirectory(
         vscode.Uri.file(this.cursorlessDir),
       );
-    } catch (err) {
-      console.log("Cannot create cursorlessDir", this.cursorlessDir, err);
+    } catch (error) {
+      console.log("Cannot create cursorlessDir", this.cursorlessDir, error);
     }
   }
 
@@ -51,15 +51,15 @@ export class VscodeFileSystem implements FileSystem {
       return this.decoder.decode(
         await vscode.workspace.fs.readFile(this.resolveBundledPath(path)),
       );
-    } catch (err) {
+    } catch (error) {
       if (
-        err instanceof Error &&
-        "code" in err &&
-        err.code === "FileNotFound"
+        error instanceof Error &&
+        "code" in error &&
+        error.code === "FileNotFound"
       ) {
         return undefined;
       }
-      throw err;
+      throw error;
     }
   }
 

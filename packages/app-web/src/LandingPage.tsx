@@ -65,7 +65,7 @@ function Buttons() {
         <Button
           text="Donate"
           href="https://github.com/sponsors/cursorless-dev"
-          isExternal={true}
+          isExternal
         />
       </div>
     </div>

@@ -99,17 +99,17 @@ export class SpokenFormGenerator {
         type: "success",
         spokenForms: constructSpokenForms(getComponents()),
       };
-    } catch (e) {
-      if (e instanceof NoSpokenFormError) {
+    } catch (error) {
+      if (error instanceof NoSpokenFormError) {
         return {
           type: "error",
-          reason: e.reason,
-          requiresTalonUpdate: e.requiresTalonUpdate,
-          isPrivate: e.isPrivate,
+          reason: error.reason,
+          requiresTalonUpdate: error.requiresTalonUpdate,
+          isPrivate: error.isPrivate,
         };
       }
 
-      throw e;
+      throw error;
     }
   }
 

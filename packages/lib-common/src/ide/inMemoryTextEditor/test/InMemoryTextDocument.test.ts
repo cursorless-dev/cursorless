@@ -25,7 +25,7 @@ suite("InMemoryTextDocument", () => {
       "",
     );
     const document2 = new InMemoryTextDocument(
-      URI.file("dummy\\bar.ts"),
+      URI.file("dummy/bar.ts"),
       "",
       "",
     );

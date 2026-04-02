@@ -118,7 +118,7 @@ export default defineConfig({
     suspicious: "warn",
     pedantic: "warn",
     perf: "warn",
-    // style: "warn",
+    style: "warn",
     // restriction: "warn",
     // nursery: "warn",
   },

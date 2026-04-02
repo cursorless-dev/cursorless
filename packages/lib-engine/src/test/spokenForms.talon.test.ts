@@ -110,8 +110,8 @@ async function runTest(
   const commandsActual = (() => {
     try {
       return JSON.parse(result);
-    } catch (e) {
-      throw new Error(result, { cause: e });
+    } catch (error) {
+      throw new Error(result, { cause: error });
     }
   })();
 

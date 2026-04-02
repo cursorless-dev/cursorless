@@ -195,7 +195,7 @@ export default class GenerateSnippet {
     const metaSnippetText = serializeSnippetFile(snippetFile)
       // Escape dollar signs in the snippet text so that they don't get used as
       // placeholders in the meta snippet
-      .replaceAll("$", "\\$")
+      .replaceAll("$", String.raw`\$`)
       // Replace constant with dollar sign for meta snippet placeholders
       .replaceAll(PLACEHOLDER, "$");
 

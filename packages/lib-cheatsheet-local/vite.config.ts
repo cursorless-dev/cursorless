@@ -1,4 +1,5 @@
-import { defineConfig, type UserConfig } from "vite";
+import { defineConfig } from "vite";
+import type { UserConfig } from "vite";
 import purgeCss from "vite-plugin-purgecss";
 import { viteSingleFile } from "vite-plugin-singlefile";
 import defaultCheatsheetInfo from "@cursorless/lib-cheatsheet/defaultSpokenForms";

@@ -11,13 +11,10 @@ class CustomDump {
   ) {}
 
   represent(): string {
-    let result = yaml.dump(
-      this.data,
-      Object.assign({ replacer, schema }, this.opts),
-    );
+    let result = yaml.dump(this.data, { replacer, schema, ...this.opts });
     result = result.trim();
     if (result.includes("\n")) {
-      result = "\n" + result;
+      result = `\n${result}`;
     }
     return result;
   }

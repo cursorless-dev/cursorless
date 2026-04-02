@@ -38,7 +38,7 @@ function Title() {
         </SmartLink>
         <small>
           See the{" "}
-          <SmartLink to={"https://www.cursorless.org/docs/"}>
+          <SmartLink to="https://www.cursorless.org/docs">
             full documentation
           </SmartLink>{" "}
           to learn more.

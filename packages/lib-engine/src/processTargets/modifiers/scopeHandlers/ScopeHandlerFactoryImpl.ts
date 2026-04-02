@@ -1,9 +1,5 @@
-import {
-  pseudoScopes,
-  UnsupportedScopeError,
-  type IDE,
-  type ScopeType,
-} from "@cursorless/lib-common";
+import { pseudoScopes, UnsupportedScopeError } from "@cursorless/lib-common";
+import type { IDE, ScopeType } from "@cursorless/lib-common";
 import type { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import {
   BoundedNonWhitespaceSequenceScopeHandler,

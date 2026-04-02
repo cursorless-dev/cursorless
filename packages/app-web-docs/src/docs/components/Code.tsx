@@ -53,8 +53,8 @@ export function Code({
       await navigator.clipboard.writeText(children);
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
-    } catch (err) {
-      console.error("Failed to copy!", err);
+    } catch (error) {
+      console.error("Failed to copy!", error);
     }
   };
 
@@ -80,7 +80,7 @@ export function Code({
       <button onClick={handleCopy} className="code-copy-button">
         {copied ? "✅ Copied!" : "📋 Copy"}
       </button>
-      <div dangerouslySetInnerHTML={html}></div>{" "}
+      <div dangerouslySetInnerHTML={html} />{" "}
     </div>
   );
 }

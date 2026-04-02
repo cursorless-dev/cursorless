@@ -1,9 +1,9 @@
-import {
-  type Direction,
-  type IDE,
-  type Position,
-  type ScopeType,
-  type TextEditor,
+import type {
+  Direction,
+  IDE,
+  Position,
+  ScopeType,
+  TextEditor,
 } from "@cursorless/lib-common";
 import type { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { BaseScopeHandler } from "./BaseScopeHandler";

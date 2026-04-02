@@ -140,8 +140,8 @@ export default class VscodeHatRenderer {
         this.hatsDirWatcherDisposable = watchDir(hatsDir, () =>
           this.updateShapeOverrides(hatsDir),
         );
-      } catch (e) {
-        console.error("cannot watch hatsDir", hatsDir, e);
+      } catch (error) {
+        console.error("cannot watch hatsDir", hatsDir, error);
       }
     } else {
       this.hatShapeOverrides = {};

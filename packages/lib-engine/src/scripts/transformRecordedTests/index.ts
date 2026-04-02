@@ -46,10 +46,10 @@ async function main(args: string[]) {
   for (const path of testPaths) {
     try {
       await transformFile(transformation, path);
-    } catch (err) {
+    } catch (error) {
       failureCount++;
       console.log(`Error with file ${path}`);
-      console.log(getErrorMessage(err));
+      console.log(getErrorMessage(error));
     }
   }
 

@@ -26,9 +26,9 @@ export function asyncSafety(fn: () => Promise<void>) {
           done();
         }
       })
-      .catch((err: unknown) => {
+      .catch((error: unknown) => {
         if (!runnable.timedOut && !runnable.duration) {
-          done(err);
+          done(error);
         }
       });
   };

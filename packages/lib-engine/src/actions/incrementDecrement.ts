@@ -105,7 +105,7 @@ function updateInteger(isIncrement: boolean, text: string): string {
 function updateFloat(isIncrement: boolean, text: string): string {
   const textWithoutUnderscores = text.replaceAll("_", "");
   const original = parseFloat(textWithoutUnderscores);
-  const isPercentage = Math.abs(original) <= 1.0;
+  const isPercentage = Math.abs(original) <= 1;
   const diff = isPercentage ? 0.1 : 1;
   const updated = original + (isIncrement ? diff : -diff);
   // Remove precision problems that would add a lot of extra digits

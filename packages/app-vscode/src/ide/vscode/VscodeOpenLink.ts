@@ -33,7 +33,7 @@ export default async function vscodeOpenLink(
 
   try {
     await openLink(filteredLinks[0], openAside);
-  } catch (_err) {
+  } catch {
     // Fallback to moving cursor and running open link command
     await runCommandAtRange(editor, "editor.action.openLink", range);
   }
