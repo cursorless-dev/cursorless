@@ -15,7 +15,7 @@
     "@cursorless/lib-common": "workspace:*",
     "fast-glob": "^3.3.3",
     "immer": "^11.1.4",
-    "lodash-es": "^4.17.23",
+    "lodash-es": "^4.18.1",
     "node-html-parser": "^7.1.0"
   },
   "devDependencies": {
