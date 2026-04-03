@@ -26,8 +26,18 @@ export class Range {
         `Invalid concise range format: "${concise}". Expected "start-end" format.`,
       );
     }
-    const [start, end] = parts.map((s) => Position.fromConcise(s));
+    const start = Position.fromConcise(parts[0]);
+    const end = Position.fromConcise(parts[1]);
     return new Range(start, end);
+  }
+
+  /**
+   * Create a new empty range from a position.
+   * @param position A position.
+   * @returns A {@link Range}
+   */
+  static fromPosition(position: Position): Range {
+    return new Range(position, position);
   }
 
   /**

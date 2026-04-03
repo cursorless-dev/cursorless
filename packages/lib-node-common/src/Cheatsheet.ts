@@ -4,7 +4,7 @@ import { produce } from "immer";
 import { sortBy } from "lodash-es";
 import { parse } from "node-html-parser";
 import type { IDE } from "@cursorless/lib-common";
-import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
+import { getCursorlessRepoRoot } from "./getCursorlessRepoRoot";
 
 /**
  * The argument expected by the cheatsheet command.

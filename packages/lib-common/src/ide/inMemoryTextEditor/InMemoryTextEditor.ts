@@ -1,19 +1,20 @@
 import { URI } from "vscode-uri";
+import type { Edit } from "../../types/Edit";
+import type { GeneralizedRange } from "../../types/GeneralizedRange";
+import type { Range } from "../../types/Range";
+import type { RevealLineAt } from "../../types/RevealLineAt";
+import { Selection } from "../../types/Selection";
+import type { SelectionOffsets } from "../../types/Selection";
+import type { TextDocument } from "../../types/TextDocument";
 import type {
-  Edit,
   EditableTextEditor,
-  EmittableIDE,
-  GeneralizedRange,
   OpenLinkOptions,
-  Range,
-  RevealLineAt,
-  SelectionOffsets,
   SetSelectionsOpts,
-  TextDocument,
   TextEditor,
-  TextEditorOptions,
-} from "@cursorless/lib-common";
-import { Selection, selectionsEqual } from "@cursorless/lib-common";
+} from "../../types/TextEditor";
+import type { TextEditorOptions } from "../../types/TextEditorOptions";
+import { selectionsEqual } from "../../util/selectionsEqual";
+import type { EmittableIDE } from "../types/ide.types";
 import { InMemoryTextDocument } from "./InMemoryTextDocument";
 
 interface Params {

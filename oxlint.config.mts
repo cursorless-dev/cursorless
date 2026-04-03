@@ -184,7 +184,6 @@ export default defineConfig({
         extensions: [".tsx"],
       },
     ],
-    "import/no-cycle": "off",
     eqeqeq: [
       "warn",
       "always",

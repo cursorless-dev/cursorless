@@ -96,7 +96,7 @@ function getIndentEdits(editor: TextEditor, targets: Target[]) {
   return lineNumbers.map((lineNumber) => {
     const line = document.lineAt(lineNumber);
     return {
-      range: line.range.start.toEmptyRange(),
+      range: Range.fromPosition(line.range.start),
       text: indent,
     };
   });
