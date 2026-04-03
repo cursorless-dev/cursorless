@@ -35,10 +35,18 @@ export class TalonJsTestHats implements Hats {
   }
 
   onDidChangeEnabledHatStyles(_listener: Listener<[HatStyleMap]>): Disposable {
-    return { dispose: () => {} };
+    return {
+      dispose: () => {
+        // no-op
+      },
+    };
   }
 
   onDidChangeIsEnabled(_listener: Listener<[boolean]>): Disposable {
-    return { dispose: () => {} };
+    return {
+      dispose: () => {
+        // no-op
+      },
+    };
   }
 }

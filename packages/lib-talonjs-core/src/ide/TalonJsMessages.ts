@@ -23,6 +23,10 @@ export class TalonJsMessages implements Messages {
         break;
       case MessageType.error:
         this.talon.actions.app.notify(message, "[ERROR] Cursorless");
+        break;
+      default: {
+        const _exhaustiveCheck: never = type;
+      }
     }
     return Promise.resolve(undefined);
   }

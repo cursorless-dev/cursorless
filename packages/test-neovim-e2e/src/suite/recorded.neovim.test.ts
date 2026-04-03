@@ -22,8 +22,6 @@ import { shouldRunTest } from "../shouldRunTest";
 suite("recorded test cases", function () {
   const { getSpy, getNeovimIDE } = endToEndTestSetup(this);
 
-  suiteSetup(async () => {});
-
   const tests = getRecordedTestPaths();
 
   for (const { name, path } of tests) {

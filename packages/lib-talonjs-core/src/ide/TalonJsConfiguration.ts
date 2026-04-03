@@ -38,9 +38,10 @@ export class TalonJsConfiguration implements Configuration {
   }
 
   onDidChangeConfiguration(_listener: Listener): Disposable {
-    // Do nothing. For now the configuration can't change
     return {
-      dispose: () => {},
+      dispose: () => {
+        // no-op. For now the configuration can't change
+      },
     };
   }
 }

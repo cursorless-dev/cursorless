@@ -81,7 +81,7 @@ export function Code({
   return (
     <div className="code-container">
       {renderLink()}
-      <button onClick={handleCopy} className="code-copy-button">
+      <button type="button" onClick={handleCopy} className="code-copy-button">
         {copied ? "✅ Copied!" : "📋 Copy"}
       </button>
       <div dangerouslySetInnerHTML={html} />{" "}

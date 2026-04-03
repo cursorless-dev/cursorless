@@ -221,5 +221,6 @@ function getContentRange(
       return contentRange.end.toEmptyRange();
     case "to":
       return contentRange;
+    // No default
   }
 }

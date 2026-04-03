@@ -1,4 +1,5 @@
 import * as cp from "node:child_process";
+import { exit } from "node:process";
 /**
  * This script creates a VSCode settings profile for Cursorless development,
  * allowing you to have a separate set of extensions and settings for use when
@@ -67,7 +68,7 @@ async function main() {
   } catch (error) {
     console.error("Failed to init launch sandbox");
     console.error(error);
-    process.exit(1);
+    exit(1);
   }
 }
 

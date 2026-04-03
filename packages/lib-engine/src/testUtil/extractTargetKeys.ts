@@ -25,6 +25,8 @@ export function extractTargetKeys(target: PartialTargetDescriptor): string[] {
 
     case "implicit":
       return [];
+
+    // No default
   }
 }
 

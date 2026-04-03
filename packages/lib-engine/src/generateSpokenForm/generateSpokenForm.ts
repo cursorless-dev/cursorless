@@ -243,6 +243,8 @@ export class SpokenFormGenerator {
 
       case "implicit":
         return [];
+
+      // No default
     }
   }
 
@@ -269,6 +271,8 @@ export class SpokenFormGenerator {
 
       case "implicit":
         return [];
+
+      // No default
     }
   }
 
@@ -280,6 +284,7 @@ export class SpokenFormGenerator {
         return connectives.before;
       case "after":
         return connectives.after;
+      // No default
     }
   }
 }

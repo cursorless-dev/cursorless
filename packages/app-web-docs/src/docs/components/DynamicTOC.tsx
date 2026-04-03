@@ -44,7 +44,7 @@ function getTOC(minHeadingLevel: number, maxHeadingLevel: number) {
   let indent = 0;
 
   getHeaderElements(minHeadingLevel, maxHeadingLevel).forEach((header) => {
-    const level = parseInt(header.tagName[1], 10);
+    const level = Number.parseInt(header.tagName[1], 10);
 
     if (level !== currentLevel) {
       if (currentLevel != null) {

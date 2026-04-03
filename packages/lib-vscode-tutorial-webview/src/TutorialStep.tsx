@@ -21,6 +21,7 @@ export function TutorialStep({ state, vscode }: Props) {
           stepCount={state.stepCount}
         />
         <button
+          type="button"
           className="btn btn-link p-0 d-inline-flex"
           onClick={() =>
             vscode.postMessage({
@@ -70,6 +71,7 @@ export function TutorialStep({ state, vscode }: Props) {
 
         <div className="mt-2 d-flex w-100 align-items-center justify-content-between">
           <button
+            type="button"
             className="btn btn-link p-0 d-inline-flex"
             onClick={() =>
               vscode.postMessage({
@@ -83,6 +85,7 @@ export function TutorialStep({ state, vscode }: Props) {
             {state.stepNumber + 1} / {state.stepCount}{" "}
           </span>
           <button
+            type="button"
             className="btn btn-link p-0 d-inline-flex"
             onClick={() =>
               vscode.postMessage({

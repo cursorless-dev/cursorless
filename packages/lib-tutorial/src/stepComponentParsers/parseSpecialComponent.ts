@@ -26,6 +26,7 @@ export function parseSpecialComponent(arg: string): StepComponent {
         scopeType: undefined,
       };
       break;
+    // No default
   }
 
   return {

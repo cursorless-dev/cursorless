@@ -225,7 +225,7 @@ export function toUint32(v: number): number {
   if (v > maxUint32) {
     return maxUint32;
   }
-  // oxlint-disable-next-line unicorn/prefer-math-trunc
+  // oxlint-disable-next-line unicorn/prefer-math-trunc, no-bitwise
   return v | 0;
 }
 
@@ -311,7 +311,7 @@ export class PrefixSumComputer {
     let midStop;
 
     while (low <= high) {
-      // oxlint-disable-next-line unicorn/prefer-math-trunc
+      // oxlint-disable-next-line unicorn/prefer-math-trunc, no-bitwise
       mid = (low + (high - low) / 2) | 0;
 
       midStop = this.prefixSum[mid];

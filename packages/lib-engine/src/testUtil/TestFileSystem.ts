@@ -26,7 +26,9 @@ export class TestFileSystem implements FileSystem {
     );
   }
 
-  public async initialize(): Promise<void> {}
+  public initialize(): Promise<void> {
+    return Promise.resolve();
+  }
 
   public async readBundledFile(path: string): Promise<string | undefined> {
     const absolutePath = join(getCursorlessRepoRoot(), path);

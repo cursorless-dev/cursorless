@@ -16,6 +16,7 @@ export default class VscodeMessages implements Messages {
         return await window.showWarningMessage(message, ...options);
       case MessageType.error:
         return await window.showErrorMessage(message, ...options);
+      // No default
     }
   }
 }

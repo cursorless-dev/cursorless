@@ -3,9 +3,12 @@ import { defineConfig } from "oxlint";
 
 // These rules should probably be re-enabled eventually
 const temporarilyDisabled = [
+  "eslint/no-param-reassign",
   "eslint/no-shadow",
   "eslint/prefer-template",
+  "import/no-default-export",
   "typescript/no-unsafe-type-assertion",
+  "unicorn/no-array-reduce",
 ];
 
 const disabledRules = [
@@ -49,6 +52,7 @@ const disabledRules = [
   "import/no-relative-parent-imports",
   "import/prefer-default-export",
   "oxc/no-async-await",
+  "oxc/no-barrel-file",
   "oxc/no-map-spread",
   "oxc/no-optional-chaining",
   "oxc/no-rest-spread-properties",
@@ -57,6 +61,7 @@ const disabledRules = [
   "promise/prefer-await-to-callbacks",
   "react-perf/jsx-no-new-function-as-prop",
   "react/jsx-max-depth",
+  "react/no-danger",
   "react/no-multi-comp",
   "react/only-export-components",
   "react/react-in-jsx-scope",
@@ -104,6 +109,7 @@ export default defineConfig({
     "packages/app-vscode/src/keyboard/grammar/generated/**",
     "packages/lib-engine/src/customCommandGrammar/generated/**",
     "packages/lib-engine/src/snippets/vendor/**",
+    "**/*.d.ts",
   ],
   options: {
     typeAware: true,
@@ -122,7 +128,7 @@ export default defineConfig({
     pedantic: "warn",
     perf: "warn",
     style: "warn",
-    // restriction: "warn",
+    restriction: "warn",
     // nursery: "warn",
   },
 
@@ -157,7 +163,6 @@ export default defineConfig({
         ],
       },
     ],
-    "eslint/no-throw-literal": "warn",
     "eslint/no-unused-vars": [
       "warn",
       {
@@ -166,19 +171,22 @@ export default defineConfig({
         ignoreRestSiblings: true,
       },
     ],
-    "import/no-duplicates": "warn",
     "import/no-unassigned-import": [
       "warn",
       {
         allow: ["**/*.css"],
       },
     ],
-    "mocha/no-exclusive-tests": "warn",
-    "mocha/no-pending-tests": "warn",
     "no-warning-comments": [
       "warn",
       {
         terms: ["todo"],
+      },
+    ],
+    "react/jsx-filename-extension": [
+      "warn",
+      {
+        extensions: [".tsx"],
       },
     ],
     "typescript/consistent-type-assertions": [
@@ -187,14 +195,7 @@ export default defineConfig({
         assertionStyle: "as",
       },
     ],
-    "typescript/consistent-type-imports": "warn",
-    "typescript/no-base-to-string": "off",
-    "typescript/restrict-template-expressions": "off",
-    "typescript/unbound-method": "off",
-    "unicorn/prefer-module": "warn",
-    "unicorn/prefer-node-protocol": "warn",
-    "unicorn/throw-new-error": "warn",
-    curly: "warn",
+    "import/no-cycle": "off",
     eqeqeq: [
       "warn",
       "always",
@@ -205,6 +206,13 @@ export default defineConfig({
   },
 
   overrides: [
+    {
+      files: ["**/*.js"],
+      rules: {
+        "import/unambiguous": "off",
+      },
+    },
+
     {
       files: ["**/*.{ts,cts,mts,tsx}"],
       plugins: [...plugins, "typescript"],

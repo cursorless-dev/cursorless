@@ -4,7 +4,11 @@ import type { LanguageDefinitions } from "../languages/LanguageDefinitions";
 
 export class DisabledLanguageDefinitions implements LanguageDefinitions {
   onDidChangeDefinition(_listener: Listener) {
-    return { dispose: () => {} };
+    return {
+      dispose: () => {
+        // No-op
+      },
+    };
   }
 
   loadLanguage(_languageId: string): Promise<void> {
@@ -16,6 +20,6 @@ export class DisabledLanguageDefinitions implements LanguageDefinitions {
   }
 
   dispose(): void {
-    // Do nothing
+    // No-op
   }
 }

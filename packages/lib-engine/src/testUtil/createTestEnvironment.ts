@@ -65,6 +65,10 @@ class TestMessages implements Messages {
       case MessageType.error:
         console.log(`[error] ${message}`);
         break;
+      default: {
+        const exhaustiveCheck: never = type;
+        throw new Error(`Unhandled message type: ${exhaustiveCheck}`);
+      }
     }
     return Promise.resolve(undefined);
   }

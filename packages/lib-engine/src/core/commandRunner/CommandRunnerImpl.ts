@@ -261,6 +261,7 @@ export class CommandRunnerImpl implements CommandRunner {
         return this.getTargets({ type: "implicit" }).map((target) =>
           target.toDestination("to"),
         );
+      // No default
     }
   }
 }

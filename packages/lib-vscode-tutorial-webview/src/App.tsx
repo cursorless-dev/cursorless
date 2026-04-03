@@ -40,6 +40,7 @@ export function App({ vscode }: Props) {
             {state.tutorials.map((tutorial) => (
               <li key={tutorial.id} className="mb-1">
                 <button
+                  type="button"
                   className="btn btn-link p-0 text-decoration-none"
                   onClick={() =>
                     vscode.postMessage({
@@ -80,6 +81,12 @@ export function App({ vscode }: Props) {
         );
       }
       return <TutorialStep state={state} vscode={vscode} />;
+
+    case "loading":
+      break;
+    default: {
+      const _exhaustiveCheck: never = state;
+    }
   }
 }
 

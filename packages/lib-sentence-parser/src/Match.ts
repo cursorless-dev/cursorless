@@ -185,7 +185,7 @@ export function isNumber(str: string, dotPos?: number) {
     str = str.slice(dotPos - 1, dotPos + 2);
   }
 
-  return !isNaN(str as unknown as number);
+  return !Number.isNaN(Number(str));
 }
 
 // Phone number matching

@@ -71,6 +71,7 @@ function isFailingFixture(name: string, fixture: TestCaseFixtureLegacy) {
     case "indentLine":
     case "outdentLine":
       return true;
+    // no default
   }
 
   // "recorded/lineEndings/*" -> fixture.finalState.documentContents contains \n instead of \r\n

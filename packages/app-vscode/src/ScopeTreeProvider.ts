@@ -374,6 +374,7 @@ class SupportCategoryTreeItem extends TreeItem {
         description = "unsupported in language of active editor";
         collapsibleState = TreeItemCollapsibleState.Collapsed;
         break;
+      // No default
     }
 
     super(label, collapsibleState);

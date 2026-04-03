@@ -255,6 +255,10 @@ function getModifier(
         length: 1,
         scopeType,
       };
+    default: {
+      const exhaustiveCheck: never = modifierType;
+      throw new Error(`Unexpected modifier type: ${exhaustiveCheck}`);
+    }
   }
 }
 
@@ -264,9 +268,8 @@ function getScopeTypeAndTitle(
   if (typeof scope === "string") {
     return [{ type: scope }, scope];
   }
-  switch (scope.type) {
-    case "surroundingPair":
-      return [scope, `${scope.type}.${scope.delimiter}`];
+  if (scope.type === "surroundingPair") {
+    return [scope, `${scope.type}.${scope.delimiter}`];
   }
   throw new Error(`Unexpected scope type: ${scope.type}`);
 }

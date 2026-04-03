@@ -307,6 +307,7 @@ function getScopeFixtures(
       case "javascript.jsx":
         fixture.languageId = "javascriptreact";
         break;
+      // No default
     }
 
     facetMap[fixture.facet]?.fixtures.push(fixture);

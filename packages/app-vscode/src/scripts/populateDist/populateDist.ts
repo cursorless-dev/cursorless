@@ -11,7 +11,9 @@ import type { Context } from "./context";
 export async function run() {
   const context: Context = {
     isForLocalInstall: process.argv.includes("--local-install"),
+    // oxlint-disable-next-line node/no-process-env
     isDeploy: "CURSORLESS_DEPLOY" in process.env,
+    // oxlint-disable-next-line node/no-process-env
     isCi: "CI" in process.env,
   };
 

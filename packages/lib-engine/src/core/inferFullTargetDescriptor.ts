@@ -42,6 +42,7 @@ export function inferFullTargetDescriptor(
       return inferPrimitiveTarget(target, previousTargets);
     case "implicit":
       return target;
+    // No default
   }
 }
 
@@ -260,6 +261,7 @@ function getPreviousTargetAttribute<T>(
         }
         break;
       }
+      // No default
     }
   }
   return undefined;

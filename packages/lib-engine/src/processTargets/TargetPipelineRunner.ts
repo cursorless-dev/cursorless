@@ -108,6 +108,7 @@ class TargetPipeline {
       case "primitive":
       case "implicit":
         return this.processPrimitiveTarget(target);
+      // No default
     }
   }
 

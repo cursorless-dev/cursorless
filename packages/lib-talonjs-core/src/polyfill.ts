@@ -34,3 +34,6 @@ if (global.setTimeout == null) {
     // no-op
   };
 }
+
+// oxlint-disable-next-line unicorn/require-module-specifiers
+export {};

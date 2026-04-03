@@ -30,6 +30,7 @@ function getPartialPrimitiveTargetsHelper(
       );
     case "implicit":
       return [];
+    // No default
   }
 }
 
@@ -80,5 +81,6 @@ function transformPartialPrimitiveTargetsHelper(
           | ImplicitTargetDescriptor,
         active: func(target.active),
       };
+    // No default
   }
 }

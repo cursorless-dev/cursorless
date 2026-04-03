@@ -52,6 +52,7 @@ export function logFailedTests(testNames: string[]) {
  * @returns `true` if we are using the run test subset launch config
  */
 function runTestSubset() {
+  // oxlint-disable-next-line node/no-process-env
   return process.env.CURSORLESS_RUN_TEST_SUBSET === "true";
 }
 
@@ -60,5 +61,6 @@ function runTestSubset() {
  * @returns `true` if we should log failed tests to `packages/test-runner/failedTests.properties`
  */
 export function shouldLogFailedTests() {
+  // oxlint-disable-next-line node/no-process-env
   return process.env.CURSORLESS_LOG_FAILED === "true";
 }

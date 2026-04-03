@@ -43,5 +43,6 @@ function getPartialTargetDescriptorsFromDestination(
       return [destination.target];
     case "implicit":
       return [];
+    // No default
   }
 }

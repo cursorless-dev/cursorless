@@ -1,7 +1,9 @@
 // oxlint-disable unicorn/prefer-global-this
 export function applyBootstrapTheme() {
   if (typeof window === "undefined" || window.matchMedia == null) {
-    return () => {};
+    return () => {
+      // No-op
+    };
   }
 
   const media = window.matchMedia("(prefers-color-scheme: dark)");

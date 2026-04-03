@@ -59,16 +59,21 @@ export abstract class VscodeScopeVisualizer {
       return;
     }
 
-    switch (this.getScopeSupport(editor)) {
+    const scopeSupport = this.getScopeSupport(editor);
+    switch (scopeSupport) {
       case ScopeSupport.supportedAndPresentInEditor:
       case ScopeSupport.supportedButNotPresentInEditor:
-        return;
+        break;
       case ScopeSupport.unsupported:
         void showError(
           this.ide.messages,
           "ScopeVisualizer.scopeTypeNotSupported",
           `Scope type not supported for ${editor.document.languageId}. See ${DOCS_URL}/contributing/adding-a-new-language for more about how to update your language.`,
         );
+        break;
+      default: {
+        const _exhaustiveCheck: never = scopeSupport;
+      }
     }
   }
 

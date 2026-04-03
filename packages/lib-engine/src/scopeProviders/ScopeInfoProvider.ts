@@ -184,5 +184,7 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "customRegex":
     case "glyph":
       return false;
+
+    // No default
   }
 }

@@ -97,4 +97,6 @@ export function upgradeCommand<V extends CommandVersion>(
 function validateCommand(
   _actionName: ActionType,
   _partialTargets: PartialTargetDescriptor[],
-): void {}
+): void {
+  // No-op for now
+}

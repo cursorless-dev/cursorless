@@ -1,6 +1,6 @@
 import * as cp from "node:child_process";
 import { copyFile, mkdirSync, readdirSync } from "node:fs";
-import process from "node:process";
+import process, { exit } from "node:process";
 import { Tail } from "tail";
 import { getEnvironmentVariableStrict, sleep } from "@cursorless/lib-common";
 import { getCursorlessRepoRoot, isWindows } from "@cursorless/lib-node-common";
@@ -32,7 +32,7 @@ export async function launchNeovimAndRunTests() {
       nvimFolder = "/Users/runner/.config/nvim/";
     } else {
       console.error(`Unsupported platform: ${process.platform}`);
-      process.exit(1);
+      exit(1);
     }
 
     console.log(`cli: ${cli}`);
@@ -74,7 +74,7 @@ export async function launchNeovimAndRunTests() {
       console.log(`error: ${error}`);
 
       console.log(`Exiting early`);
-      process.exit(0);
+      exit(0);
     }
 
     // https://neovim.io/doc/user/starting.html#--headless
@@ -120,7 +120,7 @@ export async function launchNeovimAndRunTests() {
       );
       console.log(error);
       code = 3;
-      process.exit(code);
+      exit(code);
     }
     tailTest.on("line", function (data: string) {
       console.log(`neovim test: ${data}`);
@@ -186,5 +186,5 @@ export async function launchNeovimAndRunTests() {
     code = 2;
   }
   console.log(`Returned code: ${code}`);
-  process.exit(code);
+  exit(code);
 }

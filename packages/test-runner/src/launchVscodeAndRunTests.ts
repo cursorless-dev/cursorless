@@ -1,4 +1,5 @@
 import * as path from "node:path";
+import { exit } from "node:process";
 import {
   downloadAndUnzipVSCode,
   resolveCliArgsFromVSCodeExecutablePath,
@@ -86,6 +87,6 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
   } catch (error) {
     console.error("Test run threw exception:");
     console.error(error);
-    process.exit(1);
+    exit(1);
   }
 }

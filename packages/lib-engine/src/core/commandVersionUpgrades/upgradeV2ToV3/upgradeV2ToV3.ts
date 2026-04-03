@@ -57,6 +57,7 @@ function upgradeTarget(
     }
     case "primitive":
       return upgradePrimitiveTarget(target);
+    // No default
   }
 }
 

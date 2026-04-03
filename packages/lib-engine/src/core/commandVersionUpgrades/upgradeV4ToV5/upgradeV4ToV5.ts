@@ -97,6 +97,7 @@ function upgradeTarget(
             ? target.modifiers.map(upgradeModifier)
             : undefined,
       };
+    // No default
   }
 }
 

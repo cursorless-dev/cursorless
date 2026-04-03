@@ -4,6 +4,7 @@
  * @returns The path to the root of the cursorless repo
  */
 export function getCursorlessRepoRoot() {
+  // oxlint-disable-next-line node/no-process-env
   const root = process.env["CURSORLESS_REPO_ROOT"];
   if (root == null) {
     throw new Error(

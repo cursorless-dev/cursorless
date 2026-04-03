@@ -214,6 +214,8 @@ function callback(
     // Unsupported as simple action
     case "highlight":
       throw new Error("Highlight command not supported as simple action");
+
+    // No default
   }
 }
 

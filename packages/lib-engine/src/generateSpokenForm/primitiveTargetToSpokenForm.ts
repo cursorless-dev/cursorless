@@ -344,6 +344,7 @@ export class PrimitiveTargetSpokenFormGenerator {
           numberToSpokenForm(Math.abs(mark.lineNumber)),
         ];
       }
+      // No default
     }
   }
 }

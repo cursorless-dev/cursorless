@@ -41,6 +41,7 @@ function upgradeTarget(
         )[],
       };
     }
+    // No default
   }
 }
 

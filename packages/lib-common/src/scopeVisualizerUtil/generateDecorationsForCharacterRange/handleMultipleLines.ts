@@ -107,6 +107,9 @@ function* handleLine(lineInfo: LineInfo): Iterable<StyledRange> {
           ? BorderStyle.solid
           : BorderStyle.porous;
         break;
+      default: {
+        const _exhaustiveCheck: never = event;
+      }
     }
   }
 

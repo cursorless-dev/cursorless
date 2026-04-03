@@ -207,31 +207,31 @@ export class TalonJsIDE implements EmittableIDE {
   onDidOpenTextDocument(
     _listener: (document: TextDocument) => void,
   ): Disposable {
-    return { dispose: () => {} };
+    return disposable;
   }
 
   onDidCloseTextDocument(
     _listener: (document: TextDocument) => void,
   ): Disposable {
-    return { dispose: () => {} };
+    return disposable;
   }
 
   onDidChangeActiveTextEditor(
     _listener: (editor: TextEditor | undefined) => void,
   ): Disposable {
-    return { dispose: () => {} };
+    return disposable;
   }
 
   onDidChangeVisibleTextEditors(
     _listener: (editors: TextEditor[]) => void,
   ): Disposable {
-    return { dispose: () => {} };
+    return disposable;
   }
 
   onDidChangeTextEditorVisibleRanges(
     _listener: (event: TextEditorVisibleRangesChangeEvent) => void,
   ): Disposable {
-    return { dispose: () => {} };
+    return disposable;
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {
@@ -240,3 +240,9 @@ export class TalonJsIDE implements EmittableIDE {
     return () => pull(this.disposables, ...disposables);
   }
 }
+
+const disposable: Disposable = {
+  dispose: () => {
+    // No-op
+  },
+};

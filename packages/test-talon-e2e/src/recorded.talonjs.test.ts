@@ -68,9 +68,9 @@ async function shouldSkipTest(path: string, name: string): Promise<boolean> {
     case "findInDocument":
     case "findInWorkspace":
       return true;
+    default:
+      return false;
   }
-
-  return false;
 }
 
 function sleepWithBackoff(_ms: number): Promise<void> {

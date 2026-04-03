@@ -95,5 +95,6 @@ export function penaltyEquivalenceClass(hatStability: HatStability): HatMetric {
       return ({ penalty }) => -(penalty < 2 ? 0 : 1);
     case HatStability.stable:
       return (_) => 0;
+    // No default
   }
 }

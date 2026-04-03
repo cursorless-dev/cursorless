@@ -56,6 +56,11 @@ export function runAllTests(type: TestType): Promise<void> {
     case TestType.vscode:
     case TestType.neovim:
       filePattern = `${type}.cjs`;
+      break;
+    default: {
+      const exhaustiveCheck: never = type;
+      throw new Error(`Unhandled test type: ${exhaustiveCheck}`);
+    }
   }
 
   return runTestsInDir(testRoot, filePattern, ignore);
@@ -113,13 +118,16 @@ async function runTestsInDir(
 function parseArgumentsAndUpdateEnv() {
   const args = new Set(process.argv.slice(2));
 
+  // oxlint-disable-next-line node/no-process-env
   process.env.CURSORLESS_MODE = "test";
 
   if (args.has("--subset")) {
+    // oxlint-disable-next-line node/no-process-env
     process.env.CURSORLESS_RUN_TEST_SUBSET = "true";
   }
 
   if (args.has("--update")) {
+    // oxlint-disable-next-line node/no-process-env
     process.env.CURSORLESS_TEST_UPDATE_FIXTURES = "true";
   }
 }

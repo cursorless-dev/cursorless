@@ -25,6 +25,7 @@ export default function prepareAssetsPlugin(
 
     loadContent(): ScopeTests {
       const repoRoot = path.join(__dirname, "../../../..");
+      // oxlint-disable-next-line node/no-process-env
       process.env.CURSORLESS_REPO_ROOT = repoRoot;
       return prepareAssets();
     },

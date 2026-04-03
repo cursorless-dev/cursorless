@@ -18,6 +18,7 @@ function runCommand(command, args, extraEnv = {}) {
   return spawn(command, args, {
     stdio: "inherit",
     env: {
+      // oxlint-disable-next-line node/no-process-env
       ...process.env,
       ...extraEnv,
     },

@@ -152,6 +152,7 @@ function upgradeTarget(
       return upgradeNonImplicitTarget(target);
     case "implicit":
       return target;
+    // No default
   }
 }
 
@@ -167,6 +168,7 @@ function upgradeNonImplicitTarget(
     case "range":
     case "primitive":
       return upgradeRangeOrPrimitiveTarget(target);
+    // No default
   }
 }
 
@@ -187,6 +189,7 @@ function upgradeRangeOrPrimitiveTarget(
       return upgradeRangeTarget(target);
     case "primitive":
       return upgradePrimitiveTarget(target);
+    // No default
   }
 }
 
@@ -236,6 +239,7 @@ function targetToDestination(
       return primitiveTargetToDestination(target);
     case "implicit":
       return implicitTargetToDestination();
+    // No default
   }
 }
 
@@ -336,6 +340,7 @@ function getInsertionMode(
       return getInsertionModeFromPrimitive(target);
     case "range":
       return getInsertionMode(target.anchor);
+    // No default
   }
 }
 

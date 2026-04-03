@@ -113,6 +113,9 @@ export class VscodeTutorial implements WebviewViewProvider {
         case "next":
           void this.next();
           break;
+        default: {
+          throw new Error(`Unknown message type: ${data.type}`);
+        }
       }
     });
   }
