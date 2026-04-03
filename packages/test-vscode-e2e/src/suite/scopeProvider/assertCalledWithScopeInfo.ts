@@ -36,8 +36,11 @@ export async function assertCalledWithoutScopeInfo<T extends ScopeTypeInfo>(
   ...scopeTypes: ScopeType[]
 ) {
   const scopeInfos = await waitForScopeInfos(fake, (scopeInfos) =>
-    scopeTypes.every((scopeType) =>
-      scopeInfos.some((scopeInfo) => isEqual(scopeInfo.scopeType, scopeType)),
+    scopeTypes.every(
+      (scopeType) =>
+        !scopeInfos.some((scopeInfo) =>
+          isEqual(scopeInfo.scopeType, scopeType),
+        ),
     ),
   );
 
