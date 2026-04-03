@@ -1,8 +1,8 @@
 import * as cp from "node:child_process";
 import { copyFile, mkdirSync, readdirSync } from "node:fs";
-import process from "node:process";
+import process, { exit } from "node:process";
 import { Tail } from "tail";
-import { getEnvironmentVariableStrict } from "@cursorless/lib-common";
+import { getEnvironmentVariableStrict, sleep } from "@cursorless/lib-common";
 import { getCursorlessRepoRoot, isWindows } from "@cursorless/lib-node-common";
 
 /**
@@ -17,7 +17,8 @@ import { getCursorlessRepoRoot, isWindows } from "@cursorless/lib-node-common";
  *  - OS X: /Users/runner/work/cursorless/cursorless
  */
 export async function launchNeovimAndRunTests() {
-  let code = 1; // failure
+  // failure
+  let code = 1;
   try {
     const cli = getEnvironmentVariableStrict("NEOVIM_PATH");
 
@@ -31,7 +32,7 @@ export async function launchNeovimAndRunTests() {
       nvimFolder = "/Users/runner/.config/nvim/";
     } else {
       console.error(`Unsupported platform: ${process.platform}`);
-      process.exit(1);
+      exit(1);
     }
 
     console.log(`cli: ${cli}`);
@@ -58,14 +59,14 @@ export async function launchNeovimAndRunTests() {
     if (isWindows()) {
       // const { status, signal, error } = cp.spawnSync(cli, [`-V9`], {
       const { status, signal, error } = cp.spawnSync(cli, [`-V25`], {
-        encoding: "utf-8",
+        encoding: "utf8",
         stdio: "inherit",
         env: {
           ...process.env,
           // ["NVIM_NODE_HOST_DEBUG"]: "1",
-          ["NVIM_NODE_LOG_FILE"]: logName,
-          ["NVIM_NODE_LOG_LEVEL"]: "debug",
-          ["CURSORLESS_MODE"]: "test",
+          NVIM_NODE_LOG_FILE: logName,
+          NVIM_NODE_LOG_LEVEL: "debug",
+          CURSORLESS_MODE: "test",
         },
       });
       console.log(`status: ${status}`);
@@ -73,16 +74,17 @@ export async function launchNeovimAndRunTests() {
       console.log(`error: ${error}`);
 
       console.log(`Exiting early`);
-      process.exit(0);
+      exit(0);
     }
 
     // https://neovim.io/doc/user/starting.html#--headless
     const subprocess = cp.spawn(cli, [`--headless`], {
       env: {
         ...process.env,
-        ["NVIM_NODE_LOG_FILE"]: logName,
-        ["NVIM_NODE_LOG_LEVEL"]: "info", // default for testing
-        ["CURSORLESS_MODE"]: "test",
+        NVIM_NODE_LOG_FILE: logName,
+        // default for testingu
+        NVIM_NODE_LOG_LEVEL: "info",
+        CURSORLESS_MODE: "test",
       },
     });
     console.log("nvim started done");
@@ -93,7 +95,7 @@ export async function launchNeovimAndRunTests() {
     console.log(`pid: ${subprocess.pid}`);
 
     // Make sure the node log file exists
-    await delay(5000);
+    await sleep(5000);
 
     console.log("listing cursorless-neovim/out/:");
     readdirSync(`${getCursorlessRepoRoot()}/packages/app-neovim/out/`).forEach(
@@ -102,7 +104,7 @@ export async function launchNeovimAndRunTests() {
       },
     );
 
-    await delay(10000);
+    await sleep(10_000);
 
     // read log file live and print to console
     // https://stackoverflow.com/questions/26788504/using-node-js-to-read-a-live-file-line-by-line
@@ -118,7 +120,7 @@ export async function launchNeovimAndRunTests() {
       );
       console.log(error);
       code = 3;
-      process.exit(code);
+      exit(code);
     }
     tailTest.on("line", function (data: string) {
       console.log(`neovim test: ${data}`);
@@ -128,13 +130,13 @@ export async function launchNeovimAndRunTests() {
         const found = data.match(/.*==== TESTS FINISHED: code: (\d+).*/);
         console.log(`found: ${found}`);
         if (found != null) {
-          code = parseInt(found[1]);
+          code = Number.parseInt(found[1], 10);
           console.log(`code: ${code}`);
         }
       }
     });
-    tailTest.on("error", function (error) {
-      console.log("neovim test: ERROR: ", error);
+    tailTest.on("error", (error) => {
+      console.log("neovim test: ERROR:", error);
       if (error.includes("==== TESTS FINISHED:")) {
         done = true;
         console.log(`done: ${done}`);
@@ -148,7 +150,7 @@ export async function launchNeovimAndRunTests() {
     const stepSeconds = 10;
     while (true) {
       count += stepSeconds;
-      await delay(stepSeconds * 1000);
+      await sleep(stepSeconds * 1000);
       if (done) {
         console.log("done here, exiting loop");
         break;
@@ -178,16 +180,11 @@ export async function launchNeovimAndRunTests() {
     console.log("tests finished");
 
     tailTest.unwatch();
-  } catch (err) {
+  } catch (error) {
     console.error("Test run threw exception:");
-    console.error(err);
+    console.error(error);
     code = 2;
   }
   console.log(`Returned code: ${code}`);
-  process.exit(code);
-}
-
-// https://stackoverflow.com/questions/37764665/how-to-implement-sleep-function-in-typescript
-function delay(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+  exit(code);
 }

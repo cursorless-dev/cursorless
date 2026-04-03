@@ -30,11 +30,11 @@ export function endToEndTestSetup(suite: Mocha.Suite) {
   let spy: SpyIDE | undefined;
   let neovimIDE: NeovimIDE;
 
-  setup(async function (this: Context) {
+  setup(function (this: Context) {
     const title = this.test!.fullTitle();
     retryCount = title === previousTestTitle ? retryCount + 1 : 0;
     previousTestTitle = title;
-    ({ ide, injectIde, neovimIDE } = (await getCursorlessApi()).testHelpers!);
+    ({ ide, injectIde, neovimIDE } = getCursorlessApi().testHelpers!);
     spy = new SpyIDE(ide);
     injectIde(spy);
   });
@@ -67,7 +67,7 @@ export function endToEndTestSetup(suite: Mocha.Suite) {
 export function sleepWithBackoff(ms: number) {
   const timeToSleep = shouldUpdateFixtures()
     ? ms * 2
-    : ms * Math.pow(2, retryCount - 2);
+    : ms * 2 ** (retryCount - 2);
 
   return sleep(timeToSleep);
 }

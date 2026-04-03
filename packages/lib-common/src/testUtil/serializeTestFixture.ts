@@ -37,6 +37,7 @@ function reorderCommandFields(command: Command): Command {
       throw new Error("All tests must use at least command version 7");
     case 7:
       return reorderCommandV7Fields(command);
+    // No default
   }
 }
 

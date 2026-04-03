@@ -2,6 +2,7 @@ import { readFile, readdir } from "node:fs/promises";
 import * as path from "node:path";
 import type {
   RawTutorialContent,
+  TestCaseFixtureLegacy,
   TutorialContentProvider,
   TutorialId,
 } from "@cursorless/lib-common";
@@ -39,7 +40,10 @@ export class FileSystemTutorialContentProvider implements TutorialContentProvide
     };
   }
 
-  async loadFixture(tutorialId: TutorialId, fixtureName: string) {
+  loadFixture(
+    tutorialId: TutorialId,
+    fixtureName: string,
+  ): Promise<TestCaseFixtureLegacy> {
     return loadFixture(
       path.join(this.tutorialRootDir, tutorialId, fixtureName),
     );

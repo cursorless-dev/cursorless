@@ -15,7 +15,7 @@ type Join<
     ? R
     : undefined;
 
-type Union<L extends unknown, R extends unknown> = L extends undefined
+type Union<L, R> = L extends undefined
   ? R extends undefined
     ? undefined
     : R
@@ -47,7 +47,8 @@ export type Paths<
  */
 export type GetFieldType<
   T extends GenericObject,
-  Path extends string, // Or, if you prefer, NestedPaths<T>
+  // Or, if you prefer, NestedPaths<T>
+  Path extends string,
 > = {
   [K in Path]: K extends keyof T
     ? T[K]

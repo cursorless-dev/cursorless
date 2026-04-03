@@ -59,29 +59,33 @@ export class TutorialStepParser {
 
     this.componentParsers = {
       command: (arg) => cursorlessCommandParser.parse(arg),
-      special: parseSpecialComponent,
+      special: (arg) => Promise.resolve(parseSpecialComponent(arg)),
       action: (arg) => actionParser.parse(arg),
       grapheme: (arg) => graphemeParser.parse(arg),
 
-      term: async (arg) => ({
-        content: {
-          type: "term",
-          value: specialTerms[arg as keyof typeof specialTerms],
-        },
-      }),
+      term: (arg) =>
+        Promise.resolve({
+          content: {
+            type: "term",
+            value: specialTerms[arg as keyof typeof specialTerms],
+          },
+        }),
 
-      scopeType: async (arg) => ({
-        content: {
-          type: "term",
-          value: getScopeTypeSpokenFormStrict(
-            customSpokenFormGenerator,
-            parseScopeType(arg),
-          ),
-        },
-      }),
+      scopeType: (arg) =>
+        Promise.resolve({
+          content: {
+            type: "term",
+            value: getScopeTypeSpokenFormStrict(
+              customSpokenFormGenerator,
+              parseScopeType(arg),
+            ),
+          },
+        }),
 
       visualize: (arg) =>
-        parseVisualizeComponent(customSpokenFormGenerator, arg),
+        Promise.resolve(
+          parseVisualizeComponent(customSpokenFormGenerator, arg),
+        ),
     };
   }
 

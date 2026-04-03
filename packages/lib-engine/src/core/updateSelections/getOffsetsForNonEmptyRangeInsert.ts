@@ -96,6 +96,8 @@ export default function getOffsetsForNonEmptyRangeInsert(
               end: newRangeEnd,
             };
       }
+
+      // No default
     }
   } else {
     const expansionBehavior = rangeInfo.expansionBehavior.end;
@@ -136,6 +138,8 @@ export default function getOffsetsForNonEmptyRangeInsert(
               end: rangeStart + matchLength,
             };
       }
+
+      // No default
     }
   }
 }

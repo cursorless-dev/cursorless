@@ -9,7 +9,11 @@ export class NeovimCommandServerApi implements CommandServerApi {
   signals: { prePhrase: InboundSignal };
 
   constructor(private client: NeovimClient) {
-    this.signals = { prePhrase: { getVersion: async () => null } };
+    this.signals = {
+      prePhrase: {
+        getVersion: () => Promise.resolve(null),
+      },
+    };
   }
 
   // for vscode, it is actually stored into the command-server
@@ -19,8 +23,7 @@ export class NeovimCommandServerApi implements CommandServerApi {
     const currentMode = await this.client.mode;
     if (currentMode.mode === "t" || currentMode.mode === "nt") {
       return "terminal";
-    } else {
-      return "textEditor";
     }
+    return "textEditor";
   }
 }

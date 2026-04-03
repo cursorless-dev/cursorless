@@ -17,8 +17,8 @@ import { hrtimeBigintToSeconds } from "./timeUtils";
 
 export async function takeSnapshot(
   storedTargets: StoredTargetMap | undefined,
-  excludeFields: ExcludableSnapshotField[] = [],
-  extraFields: ExtraSnapshotField[] = [],
+  excludeFields: ExcludableSnapshotField[] | undefined,
+  extraFields: ExtraSnapshotField[] | undefined,
   editor: TextEditor,
   ide: IDE,
   marks?: SerializedMarks,
@@ -38,23 +38,25 @@ export async function takeSnapshot(
     snapshot.metadata = metadata;
   }
 
-  if (!excludeFields.includes("clipboard")) {
+  if (!excludeFields?.includes("clipboard")) {
     snapshot.clipboard = await ide.clipboard.readText();
   }
 
-  if (!excludeFields.includes("visibleRanges")) {
+  if (!excludeFields?.includes("visibleRanges")) {
     snapshot.visibleRanges = editor.visibleRanges.map(rangeToPlainObject);
   }
 
-  for (const storedTargetKey of storedTargetKeys) {
-    const targets = storedTargets?.get(storedTargetKey);
-    const key = `${storedTargetKey}Mark` as const;
-    if (targets != null && !excludeFields.includes(key)) {
-      snapshot[key] = targets.map((target) => target.toPlainObject());
+  if (storedTargets != null) {
+    for (const storedTargetKey of storedTargetKeys) {
+      const targets = storedTargets.get(storedTargetKey);
+      const key = `${storedTargetKey}Mark` as const;
+      if (targets != null && !excludeFields?.includes(key)) {
+        snapshot[key] = targets.map((target) => target.toPlainObject());
+      }
     }
   }
 
-  if (extraFields.includes("timeOffsetSeconds")) {
+  if (extraFields?.includes("timeOffsetSeconds")) {
     const startTimestamp = extraContext?.startTimestamp;
 
     if (startTimestamp == null) {

@@ -30,7 +30,7 @@ export function constructTestHelpers(
   injectIde: (ide: IDE) => void,
 ): NeovimTestHelpers | undefined {
   return {
-    commandServerApi: commandServerApi!,
+    commandServerApi,
     ide: normalizedIde,
     neovimIDE,
     injectIde,

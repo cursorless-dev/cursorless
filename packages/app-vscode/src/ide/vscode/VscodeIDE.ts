@@ -18,7 +18,10 @@ import type {
   TextDocumentChangeEvent,
   TextEditor,
 } from "@cursorless/lib-common";
-import { OutdatedExtensionError } from "@cursorless/lib-common";
+import {
+  getErrorMessage,
+  OutdatedExtensionError,
+} from "@cursorless/lib-common";
 import {
   fromVscodeRange,
   fromVscodeSelection,
@@ -74,11 +77,12 @@ export class VscodeIDE implements IDE {
       highlightId == null
         ? HighlightStyle.highlight0
         : HighlightStyle[highlightId as keyof typeof HighlightStyle];
-    return this.highlights.setHighlightRanges(
+    this.highlights.setHighlightRanges(
       vscodeHighlightId,
       editor as VscodeTextEditor,
       ranges,
     );
+    return Promise.resolve();
   }
 
   flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void> {
@@ -216,17 +220,17 @@ export class VscodeIDE implements IDE {
     return this.editorMap.get(editor)!;
   }
 
-  handleCommandError(err: Error) {
-    if (err instanceof OutdatedExtensionError) {
-      void this.showUpdateExtensionErrorMessage(err);
+  handleCommandError(error: unknown) {
+    if (error instanceof OutdatedExtensionError) {
+      void this.showUpdateExtensionErrorMessage(error);
     } else {
-      void vscode.window.showErrorMessage(err.message);
+      void vscode.window.showErrorMessage(getErrorMessage(error));
     }
   }
 
-  private async showUpdateExtensionErrorMessage(err: OutdatedExtensionError) {
+  private async showUpdateExtensionErrorMessage(error: OutdatedExtensionError) {
     const item = await vscode.window.showErrorMessage(
-      err.message,
+      error.message,
       "Check for updates",
     );
 

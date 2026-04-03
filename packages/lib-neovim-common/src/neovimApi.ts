@@ -26,7 +26,7 @@ export async function bufferGetSelections(
     ];
   // subtract 1 to the lines/columns to get the correct 0-based line/column numbers
   let selections: Selection[];
-  if (reverse === true) {
+  if (reverse) {
     selections = [
       new Selection(
         new Position(endLine - 1, endCol - 1),

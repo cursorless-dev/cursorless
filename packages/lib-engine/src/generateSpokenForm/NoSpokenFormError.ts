@@ -5,5 +5,6 @@ export class NoSpokenFormError extends Error {
     public isPrivate: boolean = false,
   ) {
     super(`No spoken form for: ${reason}`);
+    this.name = "NoSpokenFormError";
   }
 }

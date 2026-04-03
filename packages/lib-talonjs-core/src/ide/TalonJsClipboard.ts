@@ -4,11 +4,12 @@ import type { Talon } from "../types/talon";
 export class TalonJsClipboard implements Clipboard {
   constructor(private talon: Talon) {}
 
-  async readText(): Promise<string> {
-    return this.talon.actions.clip.text();
+  readText(): Promise<string> {
+    return Promise.resolve(this.talon.actions.clip.text());
   }
 
-  async writeText(value: string): Promise<void> {
+  writeText(value: string): Promise<void> {
     this.talon.actions.clip.set_text(value);
+    return Promise.resolve();
   }
 }

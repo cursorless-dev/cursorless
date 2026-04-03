@@ -50,6 +50,7 @@ abstract class SetSelectionBase implements SimpleAction {
           (target) =>
             new Selection(target.contentRange.end, target.contentRange.end),
         );
+      // No default
     }
   }
 }

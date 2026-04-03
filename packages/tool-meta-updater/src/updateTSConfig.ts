@@ -1,7 +1,7 @@
 import * as path from "node:path";
 import { getLockfileImporterId } from "@pnpm/lockfile-file";
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
-import { cloneDeep, isEqual } from "lodash-es";
+import { isEqual } from "lodash-es";
 import normalizePath from "normalize-path";
 import type { TsConfigJson } from "type-fest";
 import type { Context } from "./Context";
@@ -21,11 +21,11 @@ const webJsonName = "tsconfig.web.json";
  * of the package whose tsconfig.json we are updating
  * @returns The updated tsconfig.json
  */
-export async function updateTSConfig(
+export function updateTSConfig(
   { workspaceDir, pnpmLockfile }: Context,
   rawInput: object | null,
   options: FormatPluginFnOptions,
-): Promise<TsConfigJson> {
+): TsConfigJson {
   /** The input tsconfig.json that should be checked / updated */
   const input: TsConfigJson = (rawInput ?? {}) as TsConfigJson;
   /** Directory of the package whose tsconfig.json we are updating */
@@ -58,7 +58,7 @@ export async function updateTSConfig(
   }
 
   const compilerOptions = {
-    ...cloneDeep(input.compilerOptions),
+    ...structuredClone(input.compilerOptions),
   };
   delete compilerOptions.outDir;
   delete compilerOptions.rootDir;
@@ -89,12 +89,15 @@ function getExtends(
   pathFromPackageToRoot: string,
   inputExtends: string | string[] | undefined,
 ) {
-  const extendsList =
-    inputExtends == null
-      ? []
-      : Array.isArray(inputExtends)
-        ? [...inputExtends]
-        : [inputExtends];
+  let extendsList: string[] = [];
+
+  if (inputExtends == null) {
+    extendsList = [];
+  } else if (Array.isArray(inputExtends)) {
+    extendsList = inputExtends;
+  } else {
+    extendsList = [inputExtends];
+  }
 
   const basePath = toPosixPath(path.join(pathFromPackageToRoot, baseName));
   const webPath = toPosixPath(path.join(pathFromPackageToRoot, webJsonName));

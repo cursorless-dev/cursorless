@@ -99,17 +99,17 @@ export class SpokenFormGenerator {
         type: "success",
         spokenForms: constructSpokenForms(getComponents()),
       };
-    } catch (e) {
-      if (e instanceof NoSpokenFormError) {
+    } catch (error) {
+      if (error instanceof NoSpokenFormError) {
         return {
           type: "error",
-          reason: e.reason,
-          requiresTalonUpdate: e.requiresTalonUpdate,
-          isPrivate: e.isPrivate,
+          reason: error.reason,
+          requiresTalonUpdate: error.requiresTalonUpdate,
+          isPrivate: error.isPrivate,
         };
       }
 
-      throw e;
+      throw error;
     }
   }
 
@@ -243,6 +243,8 @@ export class SpokenFormGenerator {
 
       case "implicit":
         return [];
+
+      // No default
     }
   }
 
@@ -269,6 +271,8 @@ export class SpokenFormGenerator {
 
       case "implicit":
         return [];
+
+      // No default
     }
   }
 
@@ -280,6 +284,7 @@ export class SpokenFormGenerator {
         return connectives.before;
       case "after":
         return connectives.after;
+      // No default
     }
   }
 }
@@ -295,7 +300,7 @@ function constructSpokenForms(component: SpokenFormComponent): string[] {
     }
 
     return cartesianProduct(component.map(constructSpokenForms)).map((words) =>
-      words.filter((word) => word.length !== 0).join(" "),
+      words.filter((word) => word.length > 0).join(" "),
     );
   }
 
@@ -344,6 +349,6 @@ function cartesianProduct<T>(arrays: T[][]): T[][] {
   const [first, ...rest] = arrays;
   const restCartesianProduct = cartesianProduct(rest);
   return first.flatMap((element) =>
-    restCartesianProduct.map((restElement) => [element, ...restElement]),
+    restCartesianProduct.map((restElement) => [element].concat(restElement)),
   );
 }

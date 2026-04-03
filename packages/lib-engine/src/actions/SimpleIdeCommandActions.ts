@@ -37,7 +37,7 @@ abstract class SimpleIdeCommandAction {
     this.run = this.run.bind(this);
   }
 
-  async run(
+  run(
     targets: Target[],
     { showDecorations }: Options = {},
   ): Promise<ActionReturnValue> {
@@ -214,6 +214,8 @@ function callback(
     // Unsupported as simple action
     case "highlight":
       throw new Error("Highlight command not supported as simple action");
+
+    // No default
   }
 }
 

@@ -37,8 +37,10 @@ const getLineNumber = (
   switch (lineNumberType) {
     case "absolute":
       return lineNumber;
+
     case "relative":
       return editor.selections[0].active.line + lineNumber;
+
     case "modulo100": {
       const stepSize = 100;
       const startLine = editor.visibleRanges[0].start.line;
@@ -74,5 +76,7 @@ const getLineNumber = (
       }
       throw new Error("Line is not in viewport");
     }
+
+    // No default
   }
 };

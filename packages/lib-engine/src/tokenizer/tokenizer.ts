@@ -1,5 +1,6 @@
 import { escapeRegExp } from "lodash-es";
-import { matchAll, type IDE } from "@cursorless/lib-common";
+import { matchAll } from "@cursorless/lib-common";
+import type { IDE } from "@cursorless/lib-common";
 import type { LanguageTokenizerComponents } from "./tokenizer.types";
 
 const REPEATABLE_SYMBOLS = [
@@ -39,12 +40,16 @@ const FIXED_TOKENS = [
   "-->",
 ];
 
-export const IDENTIFIER_WORD_REGEXES = ["\\p{L}", "\\p{M}", "\\p{N}"];
-const SINGLE_SYMBOLS_REGEX = "[^\\s\\w]";
+export const IDENTIFIER_WORD_REGEXES = [
+  String.raw`\p{L}`,
+  String.raw`\p{M}`,
+  String.raw`\p{N}`,
+];
+const SINGLE_SYMBOLS_REGEX = String.raw`[^\s\w]`;
 // Accepts digits dot digits if not preceded or followed by a digit or dot. The
 // negative lookahead / lookbehind are to prevent matching numbers in semantic
 // versions (eg 1.2.3)
-const NUMBERS_REGEX = "(?<![.\\d])\\d+\\.\\d+(?![.\\d])";
+const NUMBERS_REGEX = String.raw`(?<![.\d])\d+\.\d+(?![.\d])`;
 
 interface Matcher {
   tokenMatcher: RegExp;

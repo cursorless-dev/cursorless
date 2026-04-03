@@ -45,7 +45,7 @@ export function serializeHeader({
 
   if (prefix != null) {
     if (header != null) {
-      parts.push(prefix + ":");
+      parts.push(`${prefix}:`);
     } else {
       parts.push(prefix);
     }

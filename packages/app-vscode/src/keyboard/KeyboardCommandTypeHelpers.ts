@@ -29,7 +29,9 @@ export type KeyboardCommand<T extends keyof KeyboardCommandHandler> = {
 // may look backwards, because the arg type is contravariant, so the 'extends'
 // needs to be flipped.
 // oxlint-disable-next-line @typescript-eslint/no-unused-vars
-function assertExtends<A extends B, B>() {}
+function assertExtends<A extends B, B>() {
+  // No-op
+}
 // oxlint-disable-next-line @typescript-eslint/no-unused-expressions
 assertExtends<
   Record<keyof KeyboardCommandArgTypes, (arg?: object) => never>,

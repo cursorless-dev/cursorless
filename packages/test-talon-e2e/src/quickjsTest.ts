@@ -1,9 +1,6 @@
 import * as std from "std";
-import {
-  LATEST_VERSION,
-  type ActionDescriptor,
-  type CommandLatest,
-} from "@cursorless/lib-common";
+import { LATEST_VERSION } from "@cursorless/lib-common";
+import type { ActionDescriptor, CommandLatest } from "@cursorless/lib-common";
 import { activate } from "@cursorless/lib-talonjs-core";
 import { talonMock } from "./talonMock";
 
@@ -18,7 +15,7 @@ async function runTests() {
 
     await test("testTake", testTake);
     await test("testChuck", testChuck);
-  } catch (_error) {
+  } catch {
     hasFailed = true;
   }
 

@@ -21,9 +21,9 @@ export function DynamicTOC({
 
     // Remove existing TOC if it exists
     if (row.childNodes.length > 1) {
-      row.replaceChild(toc, row.childNodes[1]);
+      row.childNodes[1].replaceWith(toc);
     } else {
-      row.appendChild(toc);
+      row.append(toc);
     }
   }, [minHeadingLevel, maxHeadingLevel]);
 
@@ -44,7 +44,7 @@ function getTOC(minHeadingLevel: number, maxHeadingLevel: number) {
   let indent = 0;
 
   getHeaderElements(minHeadingLevel, maxHeadingLevel).forEach((header) => {
-    const level = parseInt(header.tagName[1], 10);
+    const level = Number.parseInt(header.tagName[1], 10);
 
     if (level !== currentLevel) {
       if (currentLevel != null) {
@@ -61,12 +61,12 @@ function getTOC(minHeadingLevel: number, maxHeadingLevel: number) {
     a.textContent = header.textContent;
     a.style.paddingLeft = `${indent}rem`;
 
-    li.appendChild(a);
-    ul.appendChild(li);
+    li.append(a);
+    ul.append(li);
   });
 
-  toc.appendChild(ul);
-  col.appendChild(toc);
+  toc.append(ul);
+  col.append(toc);
 
   return col;
 }

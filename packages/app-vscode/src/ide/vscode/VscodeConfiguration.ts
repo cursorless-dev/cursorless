@@ -17,7 +17,7 @@ type TranslatorMap = {
 };
 
 const translators: TranslatorMap = {
-  ["experimental.hatStability"]: (value: string) => {
+  "experimental.hatStability": (value: string) => {
     return HatStability[value as keyof typeof HatStability];
   },
 };
@@ -59,14 +59,14 @@ export default class VscodeConfiguration implements Configuration {
  */
 export function vscodeGetConfigurationString(path: string): string | undefined {
   const index = path.lastIndexOf(".");
-  const section = path.substring(0, index);
-  const field = path.substring(index + 1);
+  const section = path.slice(0, index);
+  const field = path.slice(index + 1);
   const value = vscode.workspace.getConfiguration(section).get<string>(field);
   return value != null ? evaluateStringVariables(value) : undefined;
 }
 
 function evaluateStringVariables(value: string): string {
-  return value.replace(/\${(\w+)}/g, (match, variable) => {
+  return value.replaceAll(/\${(\w+)}/g, (match, variable) => {
     switch (variable) {
       case "userHome":
         return os.homedir();

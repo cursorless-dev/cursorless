@@ -431,11 +431,17 @@ class EmptySingleMultiDelimiter extends QueryPredicateOperator<EmptySingleMultiD
       (child) => child.isNamed,
     );
 
-    capture.insertionDelimiter = isEmpty
-      ? insertionDelimiterEmpty
-      : conditionCapture.range.isSingleLine
-        ? insertionDelimiterSingleLine
-        : insertionDelimiterMultiline;
+    let insertionDelimiter: string;
+
+    if (isEmpty) {
+      insertionDelimiter = insertionDelimiterEmpty;
+    } else if (conditionCapture.range.isSingleLine) {
+      insertionDelimiter = insertionDelimiterSingleLine;
+    } else {
+      insertionDelimiter = insertionDelimiterMultiline;
+    }
+
+    capture.insertionDelimiter = insertionDelimiter;
 
     return true;
   }

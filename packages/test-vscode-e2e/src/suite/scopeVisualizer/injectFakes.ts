@@ -1,7 +1,7 @@
 import * as sinon from "sinon";
 import type { DecorationRenderOptions, WorkspaceConfiguration } from "vscode";
+import { getTestHelpers } from "@cursorless/lib-vscode-common";
 import type { VscodeApi } from "@cursorless/lib-vscode-common";
-import { getCursorlessApi } from "@cursorless/lib-vscode-common";
 import { COLOR_CONFIG } from "./colorConfig";
 import type {
   Fakes,
@@ -10,7 +10,7 @@ import type {
 } from "./scopeVisualizerTest.types";
 
 export async function injectFakes(): Promise<Fakes> {
-  const { vscodeApi } = (await getCursorlessApi()).testHelpers!;
+  const { vscodeApi } = await getTestHelpers();
 
   const dispose = sinon.fake<[number], void>();
 

@@ -13,6 +13,7 @@ import {
   NeedsInitialTalonUpdateError,
   Notifier,
   SUPPORTED_ENTRY_TYPES,
+  getErrorMessage,
   showError,
 } from "@cursorless/lib-common";
 import {
@@ -87,15 +88,15 @@ export class CustomSpokenForms {
       if (allCustomEntries.length === 0) {
         throw new Error("Custom spoken forms list empty");
       }
-    } catch (err) {
-      if (err instanceof NeedsInitialTalonUpdateError) {
+    } catch (error) {
+      if (error instanceof NeedsInitialTalonUpdateError) {
         // Handle case where spokenForms.json doesn't exist yet
         this.needsInitialTalonUpdate_ = true;
-      } else if (err instanceof DisabledCustomSpokenFormsError) {
+      } else if (error instanceof DisabledCustomSpokenFormsError) {
         // Do nothing: this ide doesn't currently support custom spoken forms
       } else {
-        console.error("Error loading custom spoken forms", err);
-        const msg = (err as Error).message.replace(/\.$/, "");
+        console.error("Error loading custom spoken forms", error);
+        const msg = getErrorMessage(error).replace(/\.$/, "");
         void showError(
           this.ide.messages,
           "CustomSpokenForms.updateSpokenFormMaps",
@@ -162,26 +163,28 @@ function updateEntriesForType<T extends SpokenFormType>(
       defaultEntries[id] ?? {};
     const customSpokenForms = customEntries[id];
 
-    obj[id] =
-      customSpokenForms == null
-        ? // No entry for the given id. This either means that the user needs to
-          // update Talon, or it's a private spoken form.
-          {
-            defaultSpokenForms,
-            spokenForms: [],
-            // If it's not a private spoken form, then it's a new scope type
-            requiresTalonUpdate: !isPrivate,
-            isCustom: false,
-            isPrivate,
-          }
-        : // We have an entry for the given id
-          {
-            defaultSpokenForms,
-            spokenForms: customSpokenForms,
-            requiresTalonUpdate: false,
-            isCustom: !isEqual(defaultSpokenForms, customSpokenForms),
-            isPrivate,
-          };
+    // No entry for the given id. This either means that the user needs to
+    // update Talon, or it's a private spoken form.
+    if (customSpokenForms == null) {
+      obj[id] = {
+        defaultSpokenForms,
+        spokenForms: [],
+        // If it's not a private spoken form, then it's a new scope type
+        requiresTalonUpdate: !isPrivate,
+        isCustom: false,
+        isPrivate,
+      };
+    }
+    // We have an entry for the given id
+    else {
+      obj[id] = {
+        defaultSpokenForms,
+        spokenForms: customSpokenForms,
+        requiresTalonUpdate: false,
+        isCustom: !isEqual(defaultSpokenForms, customSpokenForms),
+        isPrivate,
+      };
+    }
   }
 
   spokenFormMapToUpdate[key] = obj as SpokenFormMap[T];

@@ -36,6 +36,7 @@ import {
 } from "@cursorless/lib-engine";
 import {
   getRecordedTestsDirPath,
+  isEnoentError,
   walkDirsSync,
 } from "@cursorless/lib-node-common";
 import type { RecordTestCaseCommandOptions } from "./RecordTestCaseCommandOptions";
@@ -111,7 +112,7 @@ export class TestCaseRecorder {
     }
   }
 
-  async pause() {
+  pause() {
     if (!this.active) {
       throw new Error("Asked to pause recording, but no recording active");
     }
@@ -119,7 +120,7 @@ export class TestCaseRecorder {
     this.paused = true;
   }
 
-  async resume() {
+  resume() {
     if (!this.active) {
       throw new Error("Asked to resume recording, but no recording active");
     }
@@ -134,7 +135,7 @@ export class TestCaseRecorder {
     usePrePhraseSnapshot: boolean,
   ) {
     let marks: SerializedMarks | undefined;
-    if (targetedMarks.length !== 0) {
+    if (targetedMarks.length > 0) {
       const keys = targetedMarks.map(({ character, symbolColor }) =>
         getKey(symbolColor, character),
       );
@@ -156,7 +157,7 @@ export class TestCaseRecorder {
       metadata,
     );
 
-    await this.writeToFile(outPath, serialize(snapshot));
+    this.writeToFile(outPath, serialize(snapshot));
   }
 
   isActive() {
@@ -359,10 +360,10 @@ export class TestCaseRecorder {
     await this.finishTestCase();
   }
 
-  async finishTestCase(): Promise<void> {
+  finishTestCase(): void {
     const outPath = this.calculateFilePath(this.testCase!);
     const fixture = this.testCase!.toYaml();
-    await this.writeToFile(outPath, fixture);
+    this.writeToFile(outPath, fixture);
 
     if (!this.isSilent) {
       let message = `"${
@@ -373,13 +374,14 @@ export class TestCaseRecorder {
         message += ` Spoken form error: ${this.testCase!.spokenFormError}`;
       }
 
-      void showInfo(
-        this.ide.messages,
-        "testCaseSaved",
-        message,
-        "View",
-        "Delete",
-      ).then(async (action) => {
+      void (async () => {
+        const action = await showInfo(
+          this.ide.messages,
+          "testCaseSaved",
+          message,
+          "View",
+          "Delete",
+        );
         if (action === "View") {
           await this.ide.openTextDocument(outPath);
         }
@@ -387,11 +389,11 @@ export class TestCaseRecorder {
           try {
             await unlink(outPath);
             console.log(`deleted ${outPath}`);
-          } catch (err) {
-            console.log(`failed to delete ${outPath}: ${err}`);
+          } catch (error) {
+            console.warn(`failed to delete ${outPath}: ${error}`);
           }
         }
-      });
+      })();
     }
 
     this.testCase = null;
@@ -401,17 +403,17 @@ export class TestCaseRecorder {
     }
   }
 
-  private async writeToFile(outPath: string, fixture: string) {
-    fs.writeFileSync(outPath, fixture);
+  private writeToFile(outPath: string, fixture: string) {
+    fs.writeFileSync(outPath, fixture, { encoding: "utf8" });
   }
 
   private async promptSubdirectory(): Promise<string | undefined> {
     try {
       if (this.fixtureRoot == null) {
-        throw new Error();
+        throw new Error("Missing fixture root");
       }
       await access(this.fixtureRoot);
-    } catch (e) {
+    } catch (error) {
       const errorMessage =
         '"Cursorless record" must be run from within cursorless directory';
       void showError(
@@ -419,7 +421,7 @@ export class TestCaseRecorder {
         "promptSubdirectoryError",
         errorMessage,
       );
-      throw new Error(errorMessage, { cause: e });
+      throw new Error(errorMessage, { cause: error });
     }
 
     const subdirectorySelection = await this.ide.showQuickPick(
@@ -457,9 +459,10 @@ export class TestCaseRecorder {
     return filePath;
   }
 
-  async commandErrorHook(error: Error) {
+  async commandErrorHook(error: unknown) {
     if (this.isErrorTest && this.testCase) {
-      this.testCase.thrownError = { name: error.name };
+      const errorName = error instanceof Error ? error.name : "unknown";
+      this.testCase.thrownError = { name: errorName };
       await this.finishTestCase();
     } else {
       this.testCase = null;
@@ -495,9 +498,9 @@ export class TestCaseRecorder {
           await this.postCommandHook(returnValue);
 
           return returnValue;
-        } catch (e) {
-          await this.commandErrorHook(e as Error);
-          throw e;
+        } catch (error) {
+          await this.commandErrorHook(error);
+          throw error;
         } finally {
           this.finallyHook();
         }
@@ -519,13 +522,13 @@ async function readJsonIfExists(
   let rawText: string;
 
   try {
-    rawText = await readFile(path, { encoding: "utf-8" });
-  } catch (err) {
-    if ((err as NodeJS.ErrnoException).code === "ENOENT") {
+    rawText = await readFile(path, { encoding: "utf8" });
+  } catch (error) {
+    if (isEnoentError(error)) {
       return {};
     }
 
-    throw err;
+    throw error;
   }
 
   return JSON.parse(rawText);

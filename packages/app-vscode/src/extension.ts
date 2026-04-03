@@ -127,6 +127,7 @@ export async function activate(
     revisualizeOnCustomRegexChange(scopeVisualizer, scopeProvider),
   );
 
+  // oxlint-disable-next-line no-new
   new ScopeTreeProvider(
     normalizedIde,
     vscodeApi,

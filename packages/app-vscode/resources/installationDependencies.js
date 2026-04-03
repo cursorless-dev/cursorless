@@ -1,16 +1,16 @@
 /* global window, document, acquireVsCodeApi */
 
 const vscode = acquireVsCodeApi();
-const msgTalon = document.getElementById("msg-talon");
-const msgCursorlessTalon = document.getElementById("msg-cursorless-talon");
-const msgCommandServer = document.getElementById("msg-command-server");
-const msgAllInstalled = document.getElementById("msg-all-installed");
-const inputDontShow = document.getElementById("input-dont-show");
+const msgTalon = document.querySelector("#msg-talon");
+const msgCursorlessTalon = document.querySelector("#msg-cursorless-talon");
+const msgCommandServer = document.querySelector("#msg-command-server");
+const msgAllInstalled = document.querySelector("#msg-all-installed");
+const inputDontShow = document.querySelector("#input-dont-show");
 
-inputDontShow.onchange = (e) => {
+inputDontShow.addEventListener("change", (e) => {
   const command = { type: "dontShow", checked: e.target.checked };
   vscode.postMessage(command);
-};
+});
 
 window.addEventListener("message", (event) => {
   const { dontShow, hasMissingDependencies, dependencies } = event.data;

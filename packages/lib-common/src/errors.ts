@@ -23,6 +23,7 @@ export class OutdatedExtensionError extends Error {
     super(
       "Cursorless Talon version is ahead of Cursorless VSCode extension version. Please update Cursorless VSCode.",
     );
+    this.name = "OutdatedExtensionError";
   }
 }
 

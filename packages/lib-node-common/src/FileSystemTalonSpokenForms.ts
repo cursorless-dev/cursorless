@@ -8,6 +8,7 @@ import type {
   TalonSpokenForms,
 } from "@cursorless/lib-common";
 import { NeedsInitialTalonUpdateError, Notifier } from "@cursorless/lib-common";
+import { isEnoentError } from "./isError";
 
 interface TalonSpokenFormsPayload {
   version: number;
@@ -40,16 +41,16 @@ export class FileSystemTalonSpokenForms implements TalonSpokenForms {
     let payload: TalonSpokenFormsPayload;
     try {
       payload = JSON.parse(
-        await readFile(this.fileSystem.cursorlessTalonStateJsonPath, "utf-8"),
+        await readFile(this.fileSystem.cursorlessTalonStateJsonPath, "utf8"),
       );
-    } catch (err) {
-      if (isErrnoException(err) && err.code === "ENOENT") {
+    } catch (error) {
+      if (isEnoentError(error)) {
         throw new NeedsInitialTalonUpdateError(
           `Custom spoken forms file not found at ${this.fileSystem.cursorlessTalonStateJsonPath}. Using default spoken forms.`,
         );
       }
 
-      throw err;
+      throw error;
     }
 
     if (payload.version !== LATEST_SPOKEN_FORMS_JSON_VERSION) {
@@ -65,16 +66,4 @@ export class FileSystemTalonSpokenForms implements TalonSpokenForms {
   dispose() {
     this.disposable.dispose();
   }
-}
-
-/**
- * A user-defined type guard function that checks if a given error is a
- * `NodeJS.ErrnoException`.
- *
- * @param {any} error - The error to check.
- * @returns {error is NodeJS.ErrnoException} - Returns `true` if the error is a
- * {@link NodeJS.ErrnoException}, otherwise `false`.
- */
-function isErrnoException(error: any): error is NodeJS.ErrnoException {
-  return error instanceof Error && "code" in error;
 }

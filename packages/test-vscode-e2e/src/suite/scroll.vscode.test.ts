@@ -6,7 +6,7 @@ import {
 } from "@cursorless/lib-vscode-common";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
-suite("scroll", async function () {
+suite("scroll", function () {
   endToEndTestSetup(this);
 
   test("top whale", topWhale);

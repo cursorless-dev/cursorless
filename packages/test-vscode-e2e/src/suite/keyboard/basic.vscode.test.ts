@@ -1,12 +1,12 @@
 import * as assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import * as path from "node:path";
-import sinon from "sinon";
+import * as sinon from "sinon";
 import * as vscode from "vscode";
 import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
 import {
-  getCursorlessApi,
   getReusableEditor,
+  getTestHelpers,
   openNewEditor,
 } from "@cursorless/lib-vscode-common";
 import { endToEndTestSetup, sleepWithBackoff } from "../../endToEndTestSetup";
@@ -171,7 +171,7 @@ const testCases: TestCase[] = [
   },
 ];
 
-suite("Basic keyboard test", async function () {
+suite("Basic keyboard test", function () {
   endToEndTestSetup(this);
 
   this.beforeEach(async () => {
@@ -187,14 +187,13 @@ suite("Basic keyboard test", async function () {
   test("No automatic token expansion", () => noAutomaticTokenExpansion());
   test("Run vscode command", () => vscodeCommand());
   for (const t of testCases) {
-    test("Sequence " + t.name, () => sequence(t));
+    test(`Sequence ${t.name}`, () => sequence(t));
   }
   test("Check that entering and leaving mode is no-op", () =>
     enterAndLeaveIsNoOp());
 });
 
 async function checkKeyboardStartup() {
-  await getCursorlessApi();
   const editor = await getReusableEditor("");
 
   // Type the letter
@@ -204,7 +203,7 @@ async function checkKeyboardStartup() {
 }
 
 async function basic() {
-  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap } = await getTestHelpers();
 
   const editor = await getReusableEditor("function foo() {}\n", "typescript");
   await hatTokenMap.allocateHats();
@@ -232,7 +231,7 @@ async function basic() {
 }
 
 async function noAutomaticTokenExpansion() {
-  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap } = await getTestHelpers();
 
   const editor = await getReusableEditor("aaa");
   await hatTokenMap.allocateHats();
@@ -251,7 +250,7 @@ async function noAutomaticTokenExpansion() {
  * sequence runs a test keyboard sequences.
  */
 async function sequence(t: TestCase) {
-  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap } = await getTestHelpers();
 
   // This test fails if we use getReusableEditor()
   const editor = await openNewEditor(t.initialContent, "typescript");
@@ -263,7 +262,7 @@ async function sequence(t: TestCase) {
 }
 
 async function vscodeCommand() {
-  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap } = await getTestHelpers();
 
   const editor = await getReusableEditor("aaa;\nbbb;\nccc;\n", "typescript");
   await hatTokenMap.allocateHats();
@@ -316,7 +315,7 @@ async function typeText(text: string) {
 }
 
 async function injectFakes(): Promise<void> {
-  const { vscodeApi } = (await getCursorlessApi()).testHelpers!;
+  const { vscodeApi } = await getTestHelpers();
 
   const keyboardConfigPath = path.join(
     getCursorlessRepoRoot(),

@@ -96,7 +96,7 @@ function updateNumber(isIncrement: boolean, text: string): string {
 
 function updateInteger(isIncrement: boolean, text: string): string {
   const textWithoutUnderscores = text.replaceAll("_", "");
-  const original = parseInt(textWithoutUnderscores);
+  const original = Number.parseInt(textWithoutUnderscores, 10);
   const diff = 1;
   const value = original + (isIncrement ? diff : -diff);
   return formatNumber(value, text, textWithoutUnderscores);
@@ -104,12 +104,12 @@ function updateInteger(isIncrement: boolean, text: string): string {
 
 function updateFloat(isIncrement: boolean, text: string): string {
   const textWithoutUnderscores = text.replaceAll("_", "");
-  const original = parseFloat(textWithoutUnderscores);
-  const isPercentage = Math.abs(original) <= 1.0;
+  const original = Number.parseFloat(textWithoutUnderscores);
+  const isPercentage = Math.abs(original) <= 1;
   const diff = isPercentage ? 0.1 : 1;
   const updated = original + (isIncrement ? diff : -diff);
   // Remove precision problems that would add a lot of extra digits
-  const value = parseFloat(updated.toPrecision(15)) / 1;
+  const value = Number.parseFloat(updated.toPrecision(15)) / 1;
   const decimalPlaces = textWithoutUnderscores.split(".")[1]?.length;
   return formatNumber(value, text, textWithoutUnderscores, decimalPlaces);
 }

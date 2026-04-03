@@ -1,10 +1,23 @@
+import type { OxlintConfig } from "oxlint";
 import { defineConfig } from "oxlint";
 
+// These rules should probably be re-enabled eventually
+const temporarilyDisabled = [
+  "eslint/no-param-reassign",
+  "eslint/no-shadow",
+  "eslint/prefer-template",
+  "import/no-default-export",
+  "typescript/no-unsafe-type-assertion",
+  "unicorn/no-array-reduce",
+];
+
 const disabledRules = [
+  ...temporarilyDisabled,
   "eslint/arrow-body-style",
   "eslint/capitalized-comments",
   "eslint/class-methods-use-this",
   "eslint/complexity",
+  "eslint/func-names",
   "eslint/id-length",
   "eslint/init-declarations",
   "eslint/max-classes-per-file",
@@ -12,9 +25,12 @@ const disabledRules = [
   "eslint/max-lines",
   "eslint/max-params",
   "eslint/max-statements",
+  "eslint/no-await-in-loop",
   "eslint/no-console",
   "eslint/no-continue",
   "eslint/no-eq-null",
+  "eslint/no-lonely-if",
+  "eslint/no-loop-func",
   "eslint/no-magic-numbers",
   "eslint/no-negated-condition",
   "eslint/no-plusplus",
@@ -36,15 +52,20 @@ const disabledRules = [
   "import/no-relative-parent-imports",
   "import/prefer-default-export",
   "oxc/no-async-await",
+  "oxc/no-barrel-file",
+  "oxc/no-map-spread",
   "oxc/no-optional-chaining",
   "oxc/no-rest-spread-properties",
+  "promise/always-return",
   "promise/avoid-new",
   "promise/prefer-await-to-callbacks",
   "react-perf/jsx-no-new-function-as-prop",
   "react/jsx-max-depth",
+  "react/no-danger",
   "react/no-multi-comp",
   "react/only-export-components",
   "react/react-in-jsx-scope",
+  "react/rules-of-hooks",
   "typescript/explicit-function-return-type",
   "typescript/parameter-properties",
   "typescript/prefer-readonly-parameter-types",
@@ -53,12 +74,31 @@ const disabledRules = [
   "unicorn/filename-case",
   "unicorn/no-array-callback-reference",
   "unicorn/no-array-for-each",
+  "unicorn/no-array-reverse",
+  "unicorn/no-array-sort",
+  "unicorn/no-lonely-if",
   "unicorn/no-null",
+  "unicorn/no-object-as-default-parameter",
+  "unicorn/no-useless-undefined",
   "unicorn/prefer-at",
+  "unicorn/prefer-event-target",
   "unicorn/prefer-module",
+  "unicorn/prefer-query-selector",
   "unicorn/prefer-spread",
   "unicorn/prefer-ternary",
+  "unicorn/require-post-message-target-origin",
   "unicorn/switch-case-braces",
+];
+
+const plugins: OxlintConfig["plugins"] = [
+  "eslint",
+  "unicorn",
+  "oxc",
+  "import",
+  "node",
+  "promise",
+  "react",
+  "react-perf",
 ];
 
 // oxlint-disable-next-line import/no-default-export
@@ -69,43 +109,36 @@ export default defineConfig({
     "packages/app-vscode/src/keyboard/grammar/generated/**",
     "packages/lib-engine/src/customCommandGrammar/generated/**",
     "packages/lib-engine/src/snippets/vendor/**",
+    "**/*.d.ts",
   ],
   options: {
     typeAware: true,
     typeCheck: false,
   },
-  plugins: [
-    "eslint",
-    "typescript",
-    "unicorn",
-    "oxc",
-    "import",
-    "node",
-    "promise",
-    "react",
-    "react-perf",
-  ],
+  plugins,
   jsPlugins: [
     {
       name: "mocha",
       specifier: "eslint-plugin-mocha",
     },
   ],
+  categories: {
+    correctness: "warn",
+    suspicious: "warn",
+    pedantic: "warn",
+    perf: "warn",
+    style: "warn",
+    restriction: "warn",
+    // Disabled since nursery contains rules under development that may change
+    // nursery: "warn",
+  },
 
   rules: {
     ...Object.fromEntries(disabledRules.map((r) => [r, "off"])),
-    curly: "warn",
-    eqeqeq: [
-      "warn",
-      "always",
-      {
-        null: "never",
-      },
-    ],
-    "eslint/no-constant-condition": [
+    "eslint/no-duplicate-imports": [
       "warn",
       {
-        checkLoops: false,
+        allowSeparateTypeImports: true,
       },
     ],
     "eslint/no-restricted-imports": [
@@ -125,41 +158,54 @@ export default defineConfig({
         ],
       },
     ],
-    "eslint/no-throw-literal": "warn",
     "eslint/no-unused-vars": [
       "warn",
       {
         argsIgnorePattern: "^_",
         varsIgnorePattern: "^_",
-        caughtErrorsIgnorePattern: "^_",
         ignoreRestSiblings: true,
       },
     ],
-    "import/no-duplicates": "warn",
-    "mocha/no-exclusive-tests": "warn",
-    "mocha/no-pending-tests": "warn",
+    "import/no-unassigned-import": [
+      "warn",
+      {
+        allow: ["**/*.css"],
+      },
+    ],
     "no-warning-comments": [
       "warn",
       {
         terms: ["todo"],
       },
     ],
-    "typescript/consistent-type-assertions": [
+    "react/jsx-filename-extension": [
       "warn",
       {
-        assertionStyle: "as",
+        extensions: [".tsx"],
       },
     ],
-    "typescript/consistent-type-imports": "warn",
-    "typescript/no-base-to-string": "off",
-    "typescript/restrict-template-expressions": "off",
-    "typescript/unbound-method": "off",
-    "unicorn/prefer-module": "warn",
-    "unicorn/prefer-node-protocol": "warn",
-    "unicorn/throw-new-error": "warn",
+    eqeqeq: [
+      "warn",
+      "always",
+      {
+        null: "never",
+      },
+    ],
   },
 
   overrides: [
+    {
+      files: ["**/*.js"],
+      rules: {
+        "import/unambiguous": "off",
+      },
+    },
+
+    {
+      files: ["**/*.{ts,cts,mts,tsx}"],
+      plugins: [...plugins, "typescript"],
+    },
+
     {
       files: ["packages/app-vscode/src/scripts/**/*.ts"],
       rules: {

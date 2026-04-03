@@ -1,5 +1,4 @@
 import { stringToInteger } from "../util/stringUtils";
-import { Range } from "./Range";
 import type { TextDocument } from "./TextDocument";
 
 export class Position {
@@ -156,14 +155,6 @@ export class Position {
       this.line + (lineDelta ?? 0),
       this.character + (characterDelta ?? 0),
     );
-  }
-
-  /**
-   * Create a new empty range from this position.
-   * @returns A {@link Range}
-   */
-  public toEmptyRange(): Range {
-    return new Range(this, this);
   }
 
   /**

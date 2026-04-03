@@ -2,8 +2,8 @@ import {
   FlashStyle,
   RangeExpansionBehavior,
   toCharacterRange,
-  type IDE,
 } from "@cursorless/lib-common";
+import type { IDE } from "@cursorless/lib-common";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import type { Destination } from "../typings/target.types";

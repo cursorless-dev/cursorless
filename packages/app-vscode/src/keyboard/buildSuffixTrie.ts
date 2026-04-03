@@ -40,7 +40,7 @@ export function buildSuffixTrie<T>(entries: [string, T][]): BuildTrieReturn<T> {
    * including {@link entries} themselves, which have `isTopLevel: true` */
   const candidateEntries = entries.flatMap(([fullKey, value]) =>
     range(fullKey.length).map((i) => {
-      const key = fullKey.substring(i);
+      const key = fullKey.slice(i);
       return {
         isTopLevel: fullKey === key,
         key,

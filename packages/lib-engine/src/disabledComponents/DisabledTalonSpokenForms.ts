@@ -7,6 +7,10 @@ export class DisabledTalonSpokenForms implements TalonSpokenForms {
   }
 
   onDidChange() {
-    return { dispose: () => {} };
+    return {
+      dispose: () => {
+        // No-op
+      },
+    };
   }
 }

@@ -11,7 +11,9 @@ import type { Context } from "./context";
 export async function run() {
   const context: Context = {
     isForLocalInstall: process.argv.includes("--local-install"),
+    // oxlint-disable-next-line node/no-process-env
     isDeploy: "CURSORLESS_DEPLOY" in process.env,
+    // oxlint-disable-next-line node/no-process-env
     isCi: "CI" in process.env,
   };
 
@@ -73,8 +75,9 @@ export async function run() {
         }
 
         console.log(`Copying ${fullSource} to ${fullDestination}`);
+        const stat = await lstat(fullSource);
         // If directory, copy recursively
-        if ((await lstat(fullSource)).isDirectory()) {
+        if (stat.isDirectory()) {
           await rm(fullDestination, { recursive: true, force: true });
           await mkdir(fullDestination, { recursive: true });
         }

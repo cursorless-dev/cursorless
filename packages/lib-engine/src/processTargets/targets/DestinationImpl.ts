@@ -216,10 +216,11 @@ function getContentRange(
 ): Range {
   switch (insertionMode) {
     case "before":
-      return contentRange.start.toEmptyRange();
+      return Range.fromPosition(contentRange.start);
     case "after":
-      return contentRange.end.toEmptyRange();
+      return Range.fromPosition(contentRange.end);
     case "to":
       return contentRange;
+    // No default
   }
 }

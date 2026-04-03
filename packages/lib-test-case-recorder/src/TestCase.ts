@@ -27,8 +27,8 @@ import {
 import {
   extractTargetKeys,
   getPartialTargetDescriptors,
-  type StoredTargetMap,
 } from "@cursorless/lib-engine";
+import type { StoredTargetMap } from "@cursorless/lib-engine";
 import { takeSnapshot } from "./takeSnapshot";
 
 export class TestCase {
@@ -51,8 +51,8 @@ export class TestCase {
     private hatTokenMap: ReadOnlyHatMap,
     private storedTargets: StoredTargetMap,
     private spyIde: SpyIDE,
-    private isHatTokenMapTest: boolean = false,
-    private isDecorationsTest: boolean = false,
+    private isHatTokenMapTest: boolean,
+    private isDecorationsTest: boolean,
     private startTimestamp: bigint,
     private captureFinalThatMark: boolean,
     private extraSnapshotFields?: ExtraSnapshotField[],
@@ -61,9 +61,7 @@ export class TestCase {
     const activeEditor = this.spyIde.activeTextEditor!;
     this.command = command;
     this.partialTargetDescriptors = getPartialTargetDescriptors(command.action);
-    this.targetKeys = this.partialTargetDescriptors
-      .map(extractTargetKeys)
-      .flat();
+    this.targetKeys = this.partialTargetDescriptors.flatMap(extractTargetKeys);
     this.languageId = activeEditor.document.languageId;
     this._awaitingFinalMarkInfo = isHatTokenMapTest;
   }
@@ -204,9 +202,8 @@ export class TestCase {
   }
 
   filterMarks() {
-    const marksToCheck = this.partialTargetDescriptors
-      .map(extractTargetKeys)
-      .flat();
+    const marksToCheck =
+      this.partialTargetDescriptors.flatMap(extractTargetKeys);
     const keys = this.targetKeys.concat(marksToCheck);
 
     this.initialState!.marks = pick(

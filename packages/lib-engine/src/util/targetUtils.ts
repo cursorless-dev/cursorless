@@ -41,7 +41,7 @@ export function ensureSingleTarget<T extends Target | Destination>(
   return targets[0];
 }
 
-export async function runForEachEditor<T, U>(
+export function runForEachEditor<T, U>(
   targets: T[],
   getEditor: (target: T) => TextEditor,
   func: (editor: TextEditor, editorTargets: T[]) => Promise<U>,
@@ -53,7 +53,7 @@ export async function runForEachEditor<T, U>(
   );
 }
 
-export async function runOnTargetsForEachEditor<T>(
+export function runOnTargetsForEachEditor<T>(
   targets: Target[],
   func: (editor: TextEditor, targets: Target[]) => Promise<T>,
 ): Promise<T[]> {

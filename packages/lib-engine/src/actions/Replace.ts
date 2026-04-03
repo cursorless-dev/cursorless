@@ -27,7 +27,10 @@ export default class Replace {
     if (Array.isArray(replaceWith)) {
       // Broadcast single text to each target
       if (replaceWith.length === 1) {
-        return Array(destinations.length).fill(replaceWith[0]);
+        return Array.from(
+          { length: destinations.length },
+          () => replaceWith[0],
+        );
       }
       return replaceWith;
     }

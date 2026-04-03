@@ -10,8 +10,8 @@ import { visit } from "unist-util-visit";
 const require = createRequire(import.meta.url);
 
 const docsRelative = "packages/app-web-docs/src/docs/";
-const userRelative = docsRelative + "user";
-const contributingRelative = docsRelative + "contributing";
+const userRelative = `${docsRelative}user`;
+const contributingRelative = `${docsRelative}contributing`;
 const repoLink = "https://github.com/cursorless-dev/cursorless/tree/main/";
 
 /**
@@ -47,8 +47,11 @@ function remarkPluginFixLinksToRepositoryArtifacts(): Transformer<Root> {
         "../..",
       );
       const artifact = resolve(file.dirname!, url);
-      const artifactRelative = relative(repoRoot, artifact).replace(/\\/g, "/");
-      const fileRelative = relative(repoRoot, file.path).replace(/\\/g, "/");
+      const artifactRelative = relative(repoRoot, artifact).replaceAll(
+        "\\",
+        "/",
+      );
+      const fileRelative = relative(repoRoot, file.path).replaceAll("\\", "/");
 
       // We host all files under docs. Will resolve as a relative link, but
       // relative links pointing to a folder passing between user and
@@ -59,7 +62,7 @@ function remarkPluginFixLinksToRepositoryArtifacts(): Transformer<Root> {
           isFolder(url) &&
           passingBetweenUserAndContributing(fileRelative, artifactRelative)
         ) {
-          node.url = "/docs/" + artifactRelative.slice(docsRelative.length);
+          node.url = `/docs/${artifactRelative.slice(docsRelative.length)}`;
         }
         return;
       }
@@ -191,7 +194,7 @@ const config: Config = {
           href: "https://github.com/cursorless-dev/cursorless",
           position: "right",
           className: "header-github-link",
-          ["aria-label"]: "GitHub repository",
+          "aria-label": "GitHub repository",
         },
       ],
     },

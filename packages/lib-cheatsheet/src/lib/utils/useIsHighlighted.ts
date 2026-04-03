@@ -1,3 +1,4 @@
+// oxlint-disable unicorn/prefer-global-this
 import { useCallback, useEffect, useState } from "preact/hooks";
 
 // Check if window is defined (so if in the browser or in node.js).

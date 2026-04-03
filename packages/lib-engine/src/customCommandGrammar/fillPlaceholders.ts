@@ -24,7 +24,7 @@ export function fillPlaceholders<T>(
 
     const result: Partial<T> = {};
     for (const key in input) {
-      if (Object.prototype.hasOwnProperty.call(input, key)) {
+      if (Object.hasOwn(input, key)) {
         result[key as keyof T] = fillPlaceholders((input as any)[key], values);
       }
     }

@@ -34,11 +34,11 @@ async function main() {
 
     const outputSvg = dumper
       .build(svgJson)
-      .replace(/fill="(?!none)[^"]+"/g, 'fill="#666666"')
-      .replace(/fill:(?!none)[^;]+;/g, "fill:#666666;");
+      .replaceAll(/fill="(?!none)[^"]+"/g, 'fill="#666666"')
+      .replaceAll(/fill:(?!none)[^;]+;/g, "fill:#666666;");
 
     await fsp.writeFile(filePath, outputSvg);
   }
 }
 
-void main();
+await main();

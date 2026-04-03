@@ -261,6 +261,7 @@ export class CommandRunnerImpl implements CommandRunner {
         return this.getTargets({ type: "implicit" }).map((target) =>
           target.toDestination("to"),
         );
+      // No default
     }
   }
 }
@@ -306,7 +307,6 @@ function constructStoredTarget(
 
   if (selections != null) {
     return selections.map(selectionToStoredTarget);
-  } else {
-    return targets;
   }
+  return targets;
 }

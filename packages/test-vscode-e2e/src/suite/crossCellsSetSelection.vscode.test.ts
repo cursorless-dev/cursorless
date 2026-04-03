@@ -3,22 +3,21 @@ import { window } from "vscode";
 import { LATEST_VERSION, splitKey } from "@cursorless/lib-common";
 import {
   getCellIndex,
-  getCursorlessApi,
+  getTestHelpers,
   openNewNotebookEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
 // Check that setSelection is able to focus the correct cell
-suite("Cross-cell set selection", async function () {
+suite("Cross-cell set selection", function () {
   endToEndTestSetup(this);
 
   test("Cross-cell set selection", runTest);
 });
 
 async function runTest() {
-  const { hatTokenMap, toVscodeEditor } = (await getCursorlessApi())
-    .testHelpers!;
+  const { hatTokenMap, toVscodeEditor } = await getTestHelpers();
 
   const notebook = await openNewNotebookEditor(['"hello"', '"world"']);
 

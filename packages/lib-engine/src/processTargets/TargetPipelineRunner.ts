@@ -108,6 +108,7 @@ class TargetPipeline {
       case "primitive":
       case "implicit":
         return this.processPrimitiveTarget(target);
+      // No default
     }
   }
 
@@ -137,6 +138,10 @@ class TargetPipeline {
               targetDesc.excludeAnchor,
               targetDesc.excludeActive,
             );
+          default: {
+            const exhaustiveCheck: never = targetDesc.rangeType;
+            throw new Error(`Unknown range type: ${exhaustiveCheck}`);
+          }
         }
       },
     );
@@ -410,6 +415,7 @@ function targetsToVerticalTarget(
   const activeLine = activePosition.line - (excludeActive ? delta : 0);
 
   const results: Target[] = [];
+  // oxlint-disable-next-line no-constant-condition
   for (let i = anchorLine; true; i += delta) {
     const contentRange = new Range(
       i,

@@ -45,11 +45,11 @@ export class InteriorOnlyStage implements ModifierStage {
 
       try {
         return everyModifier.run(target, options);
-      } catch (e) {
-        if (e instanceof UnsupportedScopeError) {
+      } catch (error) {
+        if (error instanceof UnsupportedScopeError) {
           throw new NoContainingScopeError("interior");
         }
-        throw e;
+        throw error;
       }
     }
 
@@ -61,11 +61,11 @@ export class InteriorOnlyStage implements ModifierStage {
           scopeType: compoundInteriorScopeType,
         })
         .run(target, options);
-    } catch (e) {
-      if (e instanceof NoContainingScopeError) {
+    } catch (error) {
+      if (error instanceof NoContainingScopeError) {
         throw new NoContainingScopeError("interior");
       }
-      throw e;
+      throw error;
     }
   }
 }

@@ -20,9 +20,9 @@ const cursorStyleMap = {
   line: TextEditorCursorStyle.Line,
   block: TextEditorCursorStyle.Block,
   underline: TextEditorCursorStyle.Underline,
-  ["line-thin"]: TextEditorCursorStyle.LineThin,
-  ["block-outline"]: TextEditorCursorStyle.BlockOutline,
-  ["underline-thin"]: TextEditorCursorStyle.UnderlineThin,
+  "line-thin": TextEditorCursorStyle.LineThin,
+  "block-outline": TextEditorCursorStyle.BlockOutline,
+  "underline-thin": TextEditorCursorStyle.UnderlineThin,
 } satisfies Record<string, TextEditorCursorStyle>;
 
 export class KeyboardConfig {

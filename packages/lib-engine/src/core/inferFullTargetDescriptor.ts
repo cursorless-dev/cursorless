@@ -42,6 +42,7 @@ export function inferFullTargetDescriptor(
       return inferPrimitiveTarget(target, previousTargets);
     case "implicit":
       return target;
+    // No default
   }
 }
 
@@ -60,6 +61,10 @@ function inferListTarget(
           return inferRangeTargetWithHoist(element, elementPreviousTargets);
         case "primitive":
           return inferPrimitiveTarget(element, elementPreviousTargets);
+        default: {
+          const exhaustiveCheck: never = element;
+          throw new Error(`Unexpected target type: ${exhaustiveCheck}`);
+        }
       }
     }),
   };
@@ -146,7 +151,7 @@ function getPreservedModifiers(
     target.modifiers?.filter(
       (modifier) => modifier.type !== "inferPreviousMark",
     ) ?? [];
-  return preservedModifiers.length !== 0 ? preservedModifiers : undefined;
+  return preservedModifiers.length > 0 ? preservedModifiers : undefined;
 }
 
 /**
@@ -174,7 +179,6 @@ function getLineNumberMarkModifiers(
  * @returns True if this target has a line number mark
  */
 function isLineNumberMark(target: PartialPrimitiveTargetDescriptor): boolean {
-  const isLineNumber = (mark?: PartialMark) => mark?.type === "lineNumber";
   if (isLineNumber(target.mark)) {
     return true;
   }
@@ -182,6 +186,10 @@ function isLineNumberMark(target: PartialPrimitiveTargetDescriptor): boolean {
     return isLineNumber(target.mark.anchor) && isLineNumber(target.mark.active);
   }
   return false;
+}
+
+function isLineNumber(mark?: PartialMark) {
+  return mark?.type === "lineNumber";
 }
 
 function getPreviousMark(
@@ -253,6 +261,7 @@ function getPreviousTargetAttribute<T>(
         }
         break;
       }
+      // No default
     }
   }
   return undefined;

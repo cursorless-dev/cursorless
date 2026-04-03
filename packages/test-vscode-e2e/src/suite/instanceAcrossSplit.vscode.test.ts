@@ -8,7 +8,7 @@ import {
   asyncSafety,
 } from "@cursorless/lib-common";
 import {
-  getCursorlessApi,
+  getTestHelpers,
   openNewEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
@@ -17,11 +17,11 @@ import { setupFake } from "./setupFake";
 
 // Ensure that the "from" / "instance" work properly when "from"
 // is run in a different editor from "instance"
-suite("Instance across split", async function () {
+suite("Instance across split", function () {
   const { getSpy } = endToEndTestSetup(this);
 
   suiteSetup(async () => {
-    const { ide } = (await getCursorlessApi()).testHelpers!;
+    const { ide } = await getTestHelpers();
     setupFake(ide, HatStability.stable);
   });
 
@@ -97,7 +97,7 @@ async function runTest(
   useWholeFile: boolean,
   expectedContents: string,
 ) {
-  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap } = await getTestHelpers();
 
   const { document: instanceDocument } = await openNewEditor("aaa");
   /** The editor containing the "instance" */

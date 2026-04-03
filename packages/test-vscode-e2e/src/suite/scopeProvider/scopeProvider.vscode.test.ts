@@ -5,7 +5,7 @@ import { runCustomRegexScopeInfoTest } from "./runCustomRegexScopeInfoTest";
 import { runCustomSpokenFormScopeInfoTest } from "./runCustomSpokenFormScopeInfoTest";
 import { runSurroundingPairScopeInfoTest } from "./runSurroundingPairScopeInfoTest";
 
-suite("scope provider", async function () {
+suite("scope provider", function () {
   endToEndTestSetup(this);
 
   test(

@@ -56,24 +56,6 @@ export function ScopeVisualizer({ languageId, scopeTypeType }: Props) {
     scopeTypeType != null,
   );
 
-  const renderPublicScopesHeader = () => {
-    return <H2>Scopes</H2>;
-  };
-
-  const renderInternalScopesHeader = () => {
-    return (
-      <>
-        <H2>Internal scopes</H2>
-
-        <p>
-          The following are internal scopes. They are not intended for user
-          interaction or spoken use. These scopes exist solely for internal
-          Cursorless functionality.
-        </p>
-      </>
-    );
-  };
-
   const renderOptions = () => {
     return (
       <div className="mb-4">
@@ -182,6 +164,24 @@ function renderScope(
   );
 }
 
+function renderPublicScopesHeader() {
+  return <H2>Scopes</H2>;
+}
+
+function renderInternalScopesHeader() {
+  return (
+    <>
+      <H2>Internal scopes</H2>
+
+      <p>
+        The following are internal scopes. They are not intended for user
+        interaction or spoken use. These scopes exist solely for internal
+        Cursorless functionality.
+      </p>
+    </>
+  );
+}
+
 function renderFacet(
   languageId: string | undefined,
   scopeTypeType: ScopeTypeType | undefined,
@@ -230,6 +230,7 @@ function renderFacet(
         <React.Fragment key={fixture.name}>
           {renderLanguageId(fixture.languageId)}
           <Code
+            // oxlint-disable-next-line react_perf/jsx-no-new-object-as-prop
             link={{
               name: "GitHub",
               url: `https://github.com/cursorless-dev/cursorless/blob/main/resources/fixtures/${fixture.name}.scope`,
@@ -306,6 +307,7 @@ function getScopeFixtures(
       case "javascript.jsx":
         fixture.languageId = "javascriptreact";
         break;
+      // No default
     }
 
     facetMap[fixture.facet]?.fixtures.push(fixture);

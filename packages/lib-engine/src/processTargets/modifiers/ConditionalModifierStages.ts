@@ -22,10 +22,10 @@ abstract class ConditionalModifierBaseStage implements ModifierStage {
         return this.nestedStage
           .run(target, options)
           .map((newTarget) => newTarget.withThatTarget(target));
-      } catch (ex) {
+      } catch (error) {
         // suppressErrors === true => Allow this target to be returned unmodified
         if (!this.suppressErrors) {
-          throw ex;
+          throw error;
         }
       }
     }

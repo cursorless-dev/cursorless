@@ -1,8 +1,8 @@
-import {
-  NoContainingScopeError,
-  type HeadModifier,
-  type Modifier,
-  type TailModifier,
+import { NoContainingScopeError } from "@cursorless/lib-common";
+import type {
+  HeadModifier,
+  Modifier,
+  TailModifier,
 } from "@cursorless/lib-common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";

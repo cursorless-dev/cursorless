@@ -17,12 +17,12 @@ import {
 } from "@cursorless/lib-neovim-common";
 import { getNeovimRegistry } from "@cursorless/lib-neovim-registry";
 
-export async function registerCommands(
+export function registerCommands(
   client: NeovimClient,
   neovimIDE: NeovimIDE,
   commandApi: CommandApi,
   commandServerApi: CommandServerApi,
-): Promise<void> {
+): void {
   const commands: Record<CursorlessCommandId, (...args: any[]) => any> = {
     // The core Cursorless command
     [CURSORLESS_COMMAND_ID]: async (...args: unknown[]) => {
@@ -55,84 +55,84 @@ export async function registerCommands(
         }
 
         return result;
-      } catch (e) {
+      } catch (error) {
         if (neovimIDE.runMode !== "test") {
-          const err = e as Error;
-          console.error(err.stack);
-          neovimIDE.handleCommandError(err);
+          if (error instanceof Error) {
+            console.error(error.stack);
+          }
+          neovimIDE.handleCommandError(error);
         }
-        throw e;
+        throw error;
       }
     },
 
-    ["cursorless.repeatPreviousCommand"]: dummyCommandHandler,
+    "cursorless.repeatPreviousCommand": dummyCommandHandler,
 
     // Cheatsheet commands
-    ["cursorless.showCheatsheet"]: dummyCommandHandler,
-    ["cursorless.internal.updateCheatsheetDefaults"]: dummyCommandHandler,
+    "cursorless.showCheatsheet": dummyCommandHandler,
+    "cursorless.internal.updateCheatsheetDefaults": dummyCommandHandler,
 
     // Testcase recorder commands
-    ["cursorless.recordTestCase"]: dummyCommandHandler,
-    ["cursorless.recordOneTestCaseThenPause"]: dummyCommandHandler,
-    ["cursorless.pauseRecording"]: dummyCommandHandler,
-    ["cursorless.resumeRecording"]: dummyCommandHandler,
-    ["cursorless.takeSnapshot"]: dummyCommandHandler,
+    "cursorless.recordTestCase": dummyCommandHandler,
+    "cursorless.recordOneTestCaseThenPause": dummyCommandHandler,
+    "cursorless.pauseRecording": dummyCommandHandler,
+    "cursorless.resumeRecording": dummyCommandHandler,
+    "cursorless.takeSnapshot": dummyCommandHandler,
 
     // Scope test recorder commands
-    ["cursorless.recordScopeTests.showUnimplementedFacets"]:
-      dummyCommandHandler,
-    ["cursorless.recordScopeTests.saveActiveDocument"]: dummyCommandHandler,
+    "cursorless.recordScopeTests.showUnimplementedFacets": dummyCommandHandler,
+    "cursorless.recordScopeTests.saveActiveDocument": dummyCommandHandler,
 
     // Other commands
-    ["cursorless.showQuickPick"]: dummyCommandHandler,
-    ["cursorless.showDocumentation"]: dummyCommandHandler,
-    ["cursorless.showInstallationDependencies"]: dummyCommandHandler,
-    ["cursorless.private.logQuickActions"]: dummyCommandHandler,
+    "cursorless.showQuickPick": dummyCommandHandler,
+    "cursorless.showDocumentation": dummyCommandHandler,
+    "cursorless.showInstallationDependencies": dummyCommandHandler,
+    "cursorless.private.logQuickActions": dummyCommandHandler,
 
     // Hats
-    ["cursorless.toggleDecorations"]: dummyCommandHandler,
-    ["cursorless.recomputeDecorationStyles"]: dummyCommandHandler,
+    "cursorless.toggleDecorations": dummyCommandHandler,
+    "cursorless.recomputeDecorationStyles": dummyCommandHandler,
 
     // Scope visualizer
-    ["cursorless.showScopeVisualizer"]: dummyCommandHandler,
-    ["cursorless.hideScopeVisualizer"]: dummyCommandHandler,
-    ["cursorless.scopeVisualizer.openUrl"]: dummyCommandHandler,
+    "cursorless.showScopeVisualizer": dummyCommandHandler,
+    "cursorless.hideScopeVisualizer": dummyCommandHandler,
+    "cursorless.scopeVisualizer.openUrl": dummyCommandHandler,
 
     // Command history
-    ["cursorless.analyzeCommandHistory"]: dummyCommandHandler,
+    "cursorless.analyzeCommandHistory": dummyCommandHandler,
 
     // General keyboard commands
-    ["cursorless.keyboard.escape"]: dummyCommandHandler,
+    "cursorless.keyboard.escape": dummyCommandHandler,
 
     // Targeted keyboard commands
-    ["cursorless.keyboard.targeted.targetHat"]: dummyCommandHandler,
-    ["cursorless.keyboard.targeted.targetScope"]: dummyCommandHandler,
-    ["cursorless.keyboard.targeted.targetSelection"]: dummyCommandHandler,
-    ["cursorless.keyboard.targeted.clearTarget"]: dummyCommandHandler,
-    ["cursorless.keyboard.targeted.runActionOnTarget"]: dummyCommandHandler,
+    "cursorless.keyboard.targeted.targetHat": dummyCommandHandler,
+    "cursorless.keyboard.targeted.targetScope": dummyCommandHandler,
+    "cursorless.keyboard.targeted.targetSelection": dummyCommandHandler,
+    "cursorless.keyboard.targeted.clearTarget": dummyCommandHandler,
+    "cursorless.keyboard.targeted.runActionOnTarget": dummyCommandHandler,
 
     // Modal keyboard commands
-    ["cursorless.keyboard.modal.modeOn"]: dummyCommandHandler,
-    ["cursorless.keyboard.modal.modeOff"]: dummyCommandHandler,
-    ["cursorless.keyboard.modal.modeToggle"]: dummyCommandHandler,
-    ["cursorless.keyboard.undoTarget"]: dummyCommandHandler,
-    ["cursorless.keyboard.redoTarget"]: dummyCommandHandler,
+    "cursorless.keyboard.modal.modeOn": dummyCommandHandler,
+    "cursorless.keyboard.modal.modeOff": dummyCommandHandler,
+    "cursorless.keyboard.modal.modeToggle": dummyCommandHandler,
+    "cursorless.keyboard.undoTarget": dummyCommandHandler,
+    "cursorless.keyboard.redoTarget": dummyCommandHandler,
 
     // Tutorial commands
-    ["cursorless.tutorial.start"]: dummyCommandHandler,
-    ["cursorless.tutorial.next"]: dummyCommandHandler,
-    ["cursorless.tutorial.previous"]: dummyCommandHandler,
-    ["cursorless.tutorial.restart"]: dummyCommandHandler,
-    ["cursorless.tutorial.resume"]: dummyCommandHandler,
-    ["cursorless.tutorial.list"]: dummyCommandHandler,
-    ["cursorless.documentationOpened"]: dummyCommandHandler,
+    "cursorless.tutorial.start": dummyCommandHandler,
+    "cursorless.tutorial.next": dummyCommandHandler,
+    "cursorless.tutorial.previous": dummyCommandHandler,
+    "cursorless.tutorial.restart": dummyCommandHandler,
+    "cursorless.tutorial.resume": dummyCommandHandler,
+    "cursorless.tutorial.list": dummyCommandHandler,
+    "cursorless.documentationOpened": dummyCommandHandler,
   };
 
-  Object.entries(commands).forEach(([commandId, callback]) =>
-    getNeovimRegistry().registerCommand(commandId, callback),
-  );
+  Object.entries(commands).forEach(([commandId, callback]) => {
+    getNeovimRegistry().registerCommand(commandId, callback);
+  });
 }
 
-export async function dummyCommandHandler(...args: any[]) {
+export function dummyCommandHandler(...args: any[]) {
   console.debug(`dummyCommandHandler(): args=${args}`);
 }

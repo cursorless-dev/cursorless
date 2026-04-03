@@ -2,7 +2,7 @@ import * as sinon from "sinon";
 import { Position, commands } from "vscode";
 import type { ScopeSupportInfo } from "@cursorless/lib-common";
 import { ScopeSupport } from "@cursorless/lib-common";
-import { getCursorlessApi, openNewEditor } from "@cursorless/lib-vscode-common";
+import { getTestHelpers, openNewEditor } from "@cursorless/lib-vscode-common";
 import { assertCalledWithScopeInfo } from "./assertCalledWithScopeInfo";
 
 /**
@@ -10,7 +10,7 @@ import { assertCalledWithScopeInfo } from "./assertCalledWithScopeInfo";
  * simple surrounding pair.
  */
 export async function runSurroundingPairScopeInfoTest() {
-  const { scopeProvider } = (await getCursorlessApi()).testHelpers!;
+  const { scopeProvider } = await getTestHelpers();
   const fake = sinon.fake<[scopeInfos: ScopeSupportInfo[]], void>();
 
   await commands.executeCommand("workbench.action.closeAllEditors");

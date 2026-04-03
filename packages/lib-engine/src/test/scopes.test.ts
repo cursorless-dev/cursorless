@@ -23,7 +23,7 @@ import {
   serializeScopeFixture,
 } from "../testUtil/serializeScopeFixture";
 
-suite("Scope test cases", async function () {
+suite("Scope test cases", function () {
   const testPaths = getScopeTestPathsRecursively();
   let testEnvironment: TestEnvironment;
 
@@ -47,15 +47,11 @@ suite("Scope test cases", async function () {
       .sort()
       .forEach((languageId) => {
         const tests = languages[languageId];
-        test(
-          `${languageId} facet coverage`,
-          asyncSafety(() =>
-            testLanguageSupport(
-              languageId,
-              tests.map((test) => test.facet),
-            ),
-          ),
-        );
+        test(`${languageId} facet coverage`, () =>
+          testLanguageSupport(
+            languageId,
+            tests.map((test) => test.facet),
+          ));
       });
   }
 
@@ -73,7 +69,7 @@ suite("Scope test cases", async function () {
  * @param languageId The language to test
  * @param testedFacets The facets for {@link languageId} that are tested
  */
-async function testLanguageSupport(languageId: string, testedFacets: string[]) {
+function testLanguageSupport(languageId: string, testedFacets: string[]) {
   const supportedFacets = (() => {
     if (languageId === "plaintext") {
       return Object.keys(plaintextScopeSupportFacetInfos);
@@ -120,9 +116,8 @@ async function runTest(
   facetId: string,
 ) {
   const { scopeType, isIteration } = getFacetInfo(languageId, facetId);
-  const fixture = (await fsp.readFile(file, "utf8"))
-    .toString()
-    .replaceAll("\r\n", "\n");
+  const content = await fsp.readFile(file, "utf8");
+  const fixture = content.toString().replaceAll("\r\n", "\n");
   const delimiterIndex = fixture.match(/^---$/m)?.index;
 
   assert.ok(
@@ -130,7 +125,7 @@ async function runTest(
     "Can't find delimiter '---' in scope fixture",
   );
 
-  const code = fixture.slice(0, delimiterIndex! - 1);
+  const code = fixture.slice(0, delimiterIndex - 1);
 
   const editor = await testEnvironment.openNewEditor(code, languageId);
 

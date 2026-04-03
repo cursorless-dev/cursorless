@@ -1,5 +1,6 @@
 import * as child from "node:child_process";
 import * as fs from "node:fs";
+import { exit } from "node:process";
 import { testSubsetFilePath } from "../testSubset";
 
 const TEMPLATE = `# This file contains the grep strings to pass to Mocha when running a subset of tests.
@@ -21,6 +22,7 @@ languages/go/
 function run() {
   const testSubsetGrepPath = testSubsetFilePath();
   // Use CURSORLESS_VSCODE_COMMAND environment variable if set, otherwise default to 'code'
+  // oxlint-disable-next-line node/no-process-env
   const vscodeCommand = process.env.CURSORLESS_VSCODE_COMMAND || "code";
 
   const exists = fs.existsSync(testSubsetGrepPath);
@@ -35,7 +37,7 @@ function run() {
 
   if (!exists && process.argv.includes("--fail-if-not-exists")) {
     console.log(`Please edit ${testSubsetGrepPath} and re-run.`);
-    process.exit(1);
+    exit(1);
   }
 }
 

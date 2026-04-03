@@ -81,15 +81,15 @@ export abstract class QueryPredicateOperator<T extends HasSchema> {
             try {
               const acceptArgs = this.constructAcceptArgs(result.data, match);
               return this.run(...acceptArgs);
-            } catch (err) {
+            } catch (error) {
               if (
-                err instanceof CaptureNotFoundError &&
+                error instanceof CaptureNotFoundError &&
                 this.allowMissingNode()
               ) {
                 return true;
               }
 
-              throw err;
+              throw error;
             }
           },
         }
@@ -121,9 +121,8 @@ export abstract class QueryPredicateOperator<T extends HasSchema> {
         }
 
         return capture;
-      } else {
-        return operand.value;
       }
+      return operand.value;
     }) as AcceptFunctionArgs<z.infer<InferSchemaType<T>>>;
   }
 }
@@ -143,5 +142,6 @@ type PredicateResult = SuccessfulPredicateResult | FailedPredicateResult;
 class CaptureNotFoundError extends Error {
   constructor(operandName: string) {
     super(`Could not find capture ${operandName}`);
+    this.name = "CaptureNotFoundError";
   }
 }

@@ -108,7 +108,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     disqualifyDelimiter: isPrivate("disqualify delimiter"),
     pairDelimiter: isPrivate("pair delimiter"),
     interior: isPrivate("interior"),
-    ["private.fieldAccess"]: isPrivate("access"),
+    "private.fieldAccess": isPrivate("access"),
   },
   complexScopeTypeType: {
     glyph: "glyph",
@@ -207,16 +207,16 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     gitUnstage: "git unstage",
 
     // Was disabled by default before, but is now enabled by default
-    ["experimental.setInstanceReference"]: "from",
+    "experimental.setInstanceReference": "from",
 
-    ["private.showParseTree"]: isPrivate("parse tree"),
+    "private.showParseTree": isPrivate("parse tree"),
     editNew: isPrivate("edit new"),
     executeCommand: isPrivate("execute command"),
     parsed: isPrivate("parsed"),
     getText: isPrivate("get text"),
     replace: isPrivate("replace"),
-    ["private.getTargets"]: isPrivate("get targets"),
-    ["private.setKeyboardTarget"]: isPrivate("set keyboard target"),
+    "private.getTargets": isPrivate("get targets"),
+    "private.setKeyboardTarget": isPrivate("set keyboard target"),
 
     // These actions are implemented talon-side, usually using `getText` followed
     // by some other action.

@@ -8,6 +8,7 @@ import { CURSORLESS_COMMAND_ID } from "@cursorless/lib-common";
 import type { CommandApi, StoredTargetMap } from "@cursorless/lib-engine";
 import { analyzeCommandHistory } from "@cursorless/lib-engine";
 import { showCheatsheet, updateDefaults } from "@cursorless/lib-node-common";
+import type { CheatSheetCommandArg } from "@cursorless/lib-node-common";
 import type {
   ScopeTestRecorder,
   TestCaseRecorder,
@@ -45,57 +46,59 @@ export function registerCommands(
   const runCommandWrapper = async (run: () => Promise<unknown>) => {
     try {
       return await run();
-    } catch (e) {
+    } catch (error) {
       if (vscodeIde.runMode !== "test") {
-        const err = e as Error;
-        console.error(err.stack);
-        vscodeIde.handleCommandError(err);
+        if (error instanceof Error) {
+          console.error(error.stack);
+        }
+        vscodeIde.handleCommandError(error);
       }
-      throw e;
+      throw error;
     }
   };
 
   const commands: Record<CursorlessCommandId, (...args: any[]) => any> = {
     // The core Cursorless command
-    [CURSORLESS_COMMAND_ID]: async (...args: unknown[]) => {
+    [CURSORLESS_COMMAND_ID]: (...args: unknown[]) => {
       return runCommandWrapper(() => commandApi.runCommandSafe(...args));
     },
 
-    ["cursorless.repeatPreviousCommand"]: async () => {
+    "cursorless.repeatPreviousCommand": () => {
       return runCommandWrapper(() => commandApi.repeatPreviousCommand());
     },
 
     // Cheatsheet commands
-    ["cursorless.showCheatsheet"]: (arg) => showCheatsheet(vscodeIde, arg),
-    ["cursorless.internal.updateCheatsheetDefaults"]: updateDefaults,
+    "cursorless.showCheatsheet": (arg: CheatSheetCommandArg) =>
+      showCheatsheet(vscodeIde, arg),
+    "cursorless.internal.updateCheatsheetDefaults": updateDefaults,
 
     // Testcase recorder commands
-    ["cursorless.recordTestCase"]: testCaseRecorder.toggle,
-    ["cursorless.recordOneTestCaseThenPause"]:
+    "cursorless.recordTestCase": testCaseRecorder.toggle,
+    "cursorless.recordOneTestCaseThenPause":
       testCaseRecorder.recordOneThenPause,
-    ["cursorless.pauseRecording"]: testCaseRecorder.pause,
-    ["cursorless.resumeRecording"]: testCaseRecorder.resume,
-    ["cursorless.takeSnapshot"]: testCaseRecorder.takeSnapshot,
+    "cursorless.pauseRecording": testCaseRecorder.pause,
+    "cursorless.resumeRecording": testCaseRecorder.resume,
+    "cursorless.takeSnapshot": testCaseRecorder.takeSnapshot,
 
     // Scope test recorder commands
-    ["cursorless.recordScopeTests.showUnimplementedFacets"]:
+    "cursorless.recordScopeTests.showUnimplementedFacets":
       scopeTestRecorder.showUnimplementedFacets,
-    ["cursorless.recordScopeTests.saveActiveDocument"]:
+    "cursorless.recordScopeTests.saveActiveDocument":
       scopeTestRecorder.saveActiveDocument,
 
     // Other commands
-    ["cursorless.showQuickPick"]: showQuickPick,
-    ["cursorless.showDocumentation"]: showDocumentation,
-    ["cursorless.showInstallationDependencies"]: installationDependencies.show,
+    "cursorless.showQuickPick": showQuickPick,
+    "cursorless.showDocumentation": showDocumentation,
+    "cursorless.showInstallationDependencies": installationDependencies.show,
 
-    ["cursorless.private.logQuickActions"]: logQuickActions,
+    "cursorless.private.logQuickActions": logQuickActions,
 
     // Hats
-    ["cursorless.toggleDecorations"]: hats.toggle,
-    ["cursorless.recomputeDecorationStyles"]: hats.recomputeDecorationStyles,
+    "cursorless.toggleDecorations": hats.toggle,
+    "cursorless.recomputeDecorationStyles": hats.recomputeDecorationStyles,
 
     // Scope visualizer
-    ["cursorless.showScopeVisualizer"]: (
+    "cursorless.showScopeVisualizer": (
       scopeType?: ScopeType,
       visualizationType?: VisualizationType,
     ) => {
@@ -104,49 +107,48 @@ export function registerCommands(
       }
       scopeVisualizer.start(scopeType, visualizationType);
     },
-    ["cursorless.hideScopeVisualizer"]: scopeVisualizer.stop,
-    ["cursorless.scopeVisualizer.openUrl"]:
-      showScopeVisualizerItemDocumentation,
+    "cursorless.hideScopeVisualizer": scopeVisualizer.stop,
+    "cursorless.scopeVisualizer.openUrl": showScopeVisualizerItemDocumentation,
 
     // Command history
-    ["cursorless.analyzeCommandHistory"]: () =>
+    "cursorless.analyzeCommandHistory": () =>
       analyzeCommandHistory(vscodeIde, commandHistoryStorage),
 
     // General keyboard commands
-    ["cursorless.keyboard.escape"]:
+    "cursorless.keyboard.escape":
       keyboardCommands.keyboardHandler.cancelActiveListener,
 
     // Targeted keyboard commands
-    ["cursorless.keyboard.targeted.targetHat"]:
+    "cursorless.keyboard.targeted.targetHat":
       keyboardCommands.targeted.targetDecoratedMark,
 
-    ["cursorless.keyboard.targeted.targetScope"]:
+    "cursorless.keyboard.targeted.targetScope":
       keyboardCommands.targeted.modifyTargetContainingScope,
 
-    ["cursorless.keyboard.targeted.targetSelection"]:
+    "cursorless.keyboard.targeted.targetSelection":
       keyboardCommands.targeted.targetSelection,
 
-    ["cursorless.keyboard.targeted.clearTarget"]:
+    "cursorless.keyboard.targeted.clearTarget":
       keyboardCommands.targeted.clearTarget,
 
-    ["cursorless.keyboard.targeted.runActionOnTarget"]:
+    "cursorless.keyboard.targeted.runActionOnTarget":
       keyboardCommands.targeted.performActionOnTarget,
 
     // Modal keyboard commands
-    ["cursorless.keyboard.modal.modeOn"]: keyboardCommands.modal.modeOn,
-    ["cursorless.keyboard.modal.modeOff"]: keyboardCommands.modal.modeOff,
-    ["cursorless.keyboard.modal.modeToggle"]: keyboardCommands.modal.modeToggle,
-    ["cursorless.keyboard.undoTarget"]: () => storedTargets.undo("keyboard"),
-    ["cursorless.keyboard.redoTarget"]: () => storedTargets.redo("keyboard"),
+    "cursorless.keyboard.modal.modeOn": keyboardCommands.modal.modeOn,
+    "cursorless.keyboard.modal.modeOff": keyboardCommands.modal.modeOff,
+    "cursorless.keyboard.modal.modeToggle": keyboardCommands.modal.modeToggle,
+    "cursorless.keyboard.undoTarget": () => storedTargets.undo("keyboard"),
+    "cursorless.keyboard.redoTarget": () => storedTargets.redo("keyboard"),
 
     // Tutorial commands
-    ["cursorless.tutorial.start"]: tutorial.start,
-    ["cursorless.tutorial.next"]: tutorial.next,
-    ["cursorless.tutorial.previous"]: tutorial.previous,
-    ["cursorless.tutorial.restart"]: tutorial.restart,
-    ["cursorless.tutorial.resume"]: tutorial.resume,
-    ["cursorless.tutorial.list"]: tutorial.list,
-    ["cursorless.documentationOpened"]: tutorial.documentationOpened,
+    "cursorless.tutorial.start": tutorial.start,
+    "cursorless.tutorial.next": tutorial.next,
+    "cursorless.tutorial.previous": tutorial.previous,
+    "cursorless.tutorial.restart": tutorial.restart,
+    "cursorless.tutorial.resume": tutorial.resume,
+    "cursorless.tutorial.list": tutorial.list,
+    "cursorless.documentationOpened": tutorial.documentationOpened,
   };
 
   extensionContext.subscriptions.push(

@@ -30,10 +30,10 @@ export class PreferredScopeStage implements ModifierStage {
 
     try {
       return containingScopeStage.run(target);
-    } catch (ex) {
+    } catch (error) {
       // NoContainingScopeError is thrown if no containing scope was found, which is fine.
-      if (!(ex instanceof NoContainingScopeError)) {
-        throw ex;
+      if (!(error instanceof NoContainingScopeError)) {
+        throw error;
       }
     }
 
@@ -104,6 +104,6 @@ function getClosestScope(scopes: Iterable<TargetScope>, position: Position) {
 function distanceBetweenPositions(a: Position, b: Position): number {
   return (
     // 10000 is arbitrary to always pick same-line occurrences first
-    Math.abs(a.line - b.line) * 10000 + Math.abs(a.character - b.character)
+    Math.abs(a.line - b.line) * 10_000 + Math.abs(a.character - b.character)
   );
 }

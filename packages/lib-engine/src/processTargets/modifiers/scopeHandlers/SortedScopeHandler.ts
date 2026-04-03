@@ -84,11 +84,15 @@ export class SortedScopeHandler extends BaseScopeHandler {
       return;
     }
 
-    const iterators = this.scopeHandlers.map((scopeHandler) =>
-      scopeHandler
-        .generateScopes(editor, position, direction, hints)
-        [Symbol.iterator](),
-    );
+    const iterators = this.scopeHandlers.map((scopeHandler) => {
+      const scopes = scopeHandler.generateScopes(
+        editor,
+        position,
+        direction,
+        hints,
+      );
+      return scopes[Symbol.iterator]();
+    });
 
     let iteratorInfos = getInitialIteratorInfos(iterators);
 

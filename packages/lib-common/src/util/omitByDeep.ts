@@ -18,13 +18,11 @@ export function omitByDeep(
         .map(([key, value]) => {
           if (predicate(value)) {
             return undefined;
-          } else {
-            return [key, omitByDeep(value, predicate)];
           }
+          return [key, omitByDeep(value, predicate)];
         })
         .filter((v): v is [string, unknown] => v != null),
     );
-  } else {
-    return input;
   }
+  return input;
 }

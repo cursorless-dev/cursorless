@@ -1,10 +1,10 @@
 import { ifilter } from "itertools";
-import {
-  NoContainingScopeError,
-  type Direction,
-  type Position,
-  type ScopeType,
-  type TextEditor,
+import { NoContainingScopeError } from "@cursorless/lib-common";
+import type {
+  Direction,
+  Position,
+  ScopeType,
+  TextEditor,
 } from "@cursorless/lib-common";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import type { TargetScope } from "./scope.types";

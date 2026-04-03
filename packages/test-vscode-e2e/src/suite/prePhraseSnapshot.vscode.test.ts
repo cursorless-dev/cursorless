@@ -7,8 +7,8 @@ import {
 } from "@cursorless/lib-common";
 import {
   fromVscodeSelection,
-  getCursorlessApi,
   getReusableEditor,
+  getTestHelpers,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
 import { endToEndTestSetup } from "../endToEndTestSetup";
@@ -25,11 +25,11 @@ const snapshotExpectedSelections = [new vscode.Selection(0, 0, 0, 1)];
  */
 const noSnapshotExpectedSelections = [new vscode.Selection(1, 0, 1, 1)];
 
-suite("Pre-phrase snapshots", async function () {
+suite("Pre-phrase snapshots", function () {
   endToEndTestSetup(this);
 
   suiteSetup(async () => {
-    const { ide } = (await getCursorlessApi()).testHelpers!;
+    const { ide } = await getTestHelpers();
     setupFake(ide, HatStability.greedy);
   });
 
@@ -49,15 +49,16 @@ async function runTest(
   multiplePhrases: boolean,
   expectedSelections: vscode.Selection[],
 ) {
-  const { hatTokenMap, commandServerApi } = (await getCursorlessApi())
-    .testHelpers!;
+  const { hatTokenMap, commandServerApi } = await getTestHelpers();
 
   const editor = await getReusableEditor("a\n");
 
   editor.selections = [new vscode.Selection(1, 0, 1, 0)];
 
   let prePhraseVersion = "version1";
-  mockPrePhraseGetVersion(commandServerApi, async () => prePhraseVersion);
+  mockPrePhraseGetVersion(commandServerApi, () =>
+    Promise.resolve(prePhraseVersion),
+  );
 
   await hatTokenMap.allocateHats();
   prePhraseVersion = "version2";

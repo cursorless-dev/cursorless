@@ -22,7 +22,8 @@ const englishAbbreviations = [
   "est",
   "etc",
   "Ex",
-  "ext", // + number?
+  // + number?
+  "ext",
   "Fig",
   "fig",
   "Figs",
@@ -115,25 +116,28 @@ export function setAbbreviations(abbr: string[] | undefined) {
   }
 }
 
-export function isCapitalized(str: string) {
+export function isCapitalized(str: string): boolean {
   return /^[A-Z][a-z].*/.test(str) || isNumber(str);
 }
 
 // Start with opening quotes or capitalized letter
-export function isSentenceStarter(str: string) {
-  return isCapitalized(str) || /``|"|'/.test(str.substring(0, 2));
+export function isSentenceStarter(str: string): boolean {
+  return isCapitalized(str) || /``|"|'/.test(str.slice(0, 2));
 }
 
-export function isCommonAbbreviation(str: string) {
-  const noSymbols = str.replace(/[-'`~!@#$%^&*()_|+=?;:'",.<>{}[\]\\/]/gi, "");
+export function isCommonAbbreviation(str: string): boolean {
+  const noSymbols = str.replaceAll(
+    /[-'`~!@#$%^&*()_|+=?;:'",.<>{}[\]\\/]/gi,
+    "",
+  );
 
-  return ~abbreviations.indexOf(noSymbols);
+  return abbreviations.includes(noSymbols);
 }
 
 // This is going towards too much rule based
-export function isTimeAbbreviation(word: string, next: string) {
+export function isTimeAbbreviation(word: string, next: string): boolean {
   if (word === "a.m." || word === "p.m.") {
-    const tmp = next.replace(/\W+/g, "").slice(-3).toLowerCase();
+    const tmp = next.replaceAll(/\W+/g, "").slice(-3).toLowerCase();
 
     if (tmp === "day") {
       return true;
@@ -144,7 +148,7 @@ export function isTimeAbbreviation(word: string, next: string) {
 }
 
 export function isDottedAbbreviation(word: string) {
-  const matches = word.replace(/[()[]{}]/g, "").match(/(.\.)*/);
+  const matches = word.replaceAll(/[()[]{}]/g, "").match(/(.\.)*/);
   return matches && matches[0].length > 0;
 }
 
@@ -166,7 +170,7 @@ export function isNameAbbreviation(wordCount: number, words: string[]) {
       return true;
     }
 
-    const capitalized = words.filter(function (str) {
+    const capitalized = words.filter((str) => {
       return /[A-Z]/.test(str.charAt(0));
     });
 
@@ -181,7 +185,7 @@ export function isNumber(str: string, dotPos?: number) {
     str = str.slice(dotPos - 1, dotPos + 2);
   }
 
-  return !isNaN(str as unknown as number);
+  return !Number.isNaN(Number(str));
 }
 
 // Phone number matching
@@ -213,7 +217,7 @@ export function isConcatenated(word: string) {
     const c = word.charAt(i + 1);
 
     // Check if the next word starts with a letter
-    if (c.match(/[a-zA-Z].*/)) {
+    if (/[a-zA-Z].*/.test(c)) {
       return [word.slice(0, i), word.slice(i + 1)];
     }
   }

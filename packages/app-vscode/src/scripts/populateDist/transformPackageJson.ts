@@ -15,7 +15,7 @@ export async function transformPackageJson(
 
   json.dependencies = [];
   json.devDependencies = {
-    ["@types/vscode"]: json.devDependencies["@types/vscode"],
+    "@types/vscode": json.devDependencies["@types/vscode"],
   };
 
   delete json.private;
@@ -24,11 +24,11 @@ export async function transformPackageJson(
     // During deployment, we change the package version so that the patch
     // number is the number of commits on the current branch
     const { major, minor } = semver.parse(json.version)!;
-    const commitCount = (await runCommand("git rev-list --count HEAD")).trim();
-    json.version = `${major}.${minor}.${commitCount}`;
+    const commitCount = await runCommand("git rev-list --count HEAD");
+    json.version = `${major}.${minor}.${commitCount.trim()}`;
   } else {
-    const gitSha = (await runCommand("git rev-parse --short HEAD")).trim();
-    json.version = `${json.version}-${gitSha}`;
+    const gitSha = await runCommand("git rev-parse --short HEAD");
+    json.version = `${json.version}-${gitSha.trim()}`;
   }
 
   return json;

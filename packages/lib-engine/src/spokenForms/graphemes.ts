@@ -4,7 +4,7 @@ const alphabet = Object.fromEntries(
   "air bat cap drum each fine gust harp sit jury crunch look made near odd pit quench red sun trap urge vest whale plex yank zip"
     .split(" ")
     .map((word, index) => [
-      String.fromCharCode("a".charCodeAt(0) + index),
+      String.fromCodePoint("a".codePointAt(0)! + index),
       word,
     ]),
 );

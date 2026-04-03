@@ -57,6 +57,7 @@ function upgradeTarget(
     }
     case "primitive":
       return upgradePrimitiveTarget(target);
+    // No default
   }
 }
 
@@ -67,7 +68,7 @@ function upgradePrimitiveTarget(
     target.modifiers != null ? target.modifiers.map(updateModifier) : undefined;
 
   if (target.mark?.type === "lineNumber") {
-    const { anchor, active } = target.mark!;
+    const { anchor, active } = target.mark;
     if (
       anchor.type !== active.type ||
       anchor.lineNumber < 0 !== active.lineNumber < 0

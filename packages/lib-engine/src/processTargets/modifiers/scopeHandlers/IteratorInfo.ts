@@ -35,25 +35,26 @@ export function getInitialIteratorInfos<T>(
 }
 
 /**
- * Advances each iterator until {@link criterion} is `true`, pruning iterators
- * that terminate without {@link criterion} becoming `true`.
+ * Advances each iterator until {@link predicate} is `true`, pruning iterators
+ * that terminate without {@link predicate} becoming `true`.
  *
  * @param iteratorInfos A list of iterator infos
- * @param criterion The criterion to check
+ * @param predicate The predicate to check
  * @returns A new set of iterator infos that have been advanced until
- * {@link criterion} is `true`.  Any iterators that terminate without meeting
- * {@link criterion} are removed
+ * {@link predicate} is `true`.  Any iterators that terminate without meeting
+ * {@link predicate} are removed
  */
 export function advanceIteratorsUntil<T>(
   iteratorInfos: IteratorInfo<T>[],
-  criterion: (arg: T) => boolean,
+  predicate: (arg: T) => boolean,
 ): IteratorInfo<T>[] {
+  // oxlint-disable-next-line array-callback-return
   return iteratorInfos.flatMap((iteratorInfo) => {
     const { iterator, index } = iteratorInfo;
     let { value } = iteratorInfo;
     let done: boolean | undefined = false;
 
-    while (!done && !criterion(value)) {
+    while (!done && !predicate(value)) {
       ({ value, done } = iterator.next());
     }
 

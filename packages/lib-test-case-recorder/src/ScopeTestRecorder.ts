@@ -7,9 +7,8 @@ import {
   languageScopeSupport,
   scopeSupportFacetInfos,
   showInfo,
-  type IDE,
-  type ScopeSupportFacet,
 } from "@cursorless/lib-common";
+import type { IDE, ScopeSupportFacet } from "@cursorless/lib-common";
 import {
   getScopeTestPathsRecursively,
   getScopeTestsDirPath,
@@ -103,7 +102,7 @@ export class ScopeTestRecorder {
         filePath = path.join(directory, `${facet}${i++}.scope`);
       }
 
-      await fsPromises.writeFile(filePath, fullContent, "utf-8");
+      await fsPromises.writeFile(filePath, fullContent, "utf8");
     }
 
     await showInfo(

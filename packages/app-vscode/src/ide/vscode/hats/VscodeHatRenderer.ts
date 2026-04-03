@@ -1,20 +1,20 @@
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { cloneDeep, isEqual } from "lodash-es";
+import { isEqual } from "lodash-es";
 import * as vscode from "vscode";
 import type {
   Listener,
   Messages,
   PathChangeListener,
 } from "@cursorless/lib-common";
-import { Notifier } from "@cursorless/lib-common";
+import { getErrorMessage, Notifier } from "@cursorless/lib-common";
 import { walkFiles } from "@cursorless/lib-node-common";
 import type { VscodeApi } from "@cursorless/lib-vscode-common";
 import type { HatShape, VscodeHatStyleName } from "../hatStyles.types";
 import { HAT_SHAPES } from "../hatStyles.types";
 import { vscodeGetConfigurationString } from "../VscodeConfiguration";
-import type { ExtendedHatStyleMap } from "../VscodeEnabledHatStyleManager";
 import type VscodeEnabledHatStyleManager from "../VscodeEnabledHatStyleManager";
+import type { ExtendedHatStyleMap } from "../VscodeEnabledHatStyleManager";
 import type { FontMeasurements } from "./FontMeasurements";
 import getHatThemeColors from "./getHatThemeColors";
 import { performPr1868ShapeUpdateInit } from "./performPr1868ShapeUpdateInit";
@@ -63,7 +63,7 @@ interface SvgInfo {
 export default class VscodeHatRenderer {
   private decorationMap!: HatDecorationMap;
   private disposables: vscode.Disposable[] = [];
-  private notifier: Notifier<[]> = new Notifier();
+  private notifier: Notifier = new Notifier();
   private lastSeenEnabledHatStyles: ExtendedHatStyleMap = {};
   private hatsDirWatcherDisposable?: vscode.Disposable;
   private hatShapeOverrides: Record<string, vscode.Uri> = {};
@@ -110,7 +110,7 @@ export default class VscodeHatRenderer {
     await this.recomputeDecorations();
   }
 
-  registerListener(listener: Listener<[]>) {
+  registerListener(listener: Listener) {
     return this.notifier.registerListener(listener);
   }
 
@@ -140,8 +140,8 @@ export default class VscodeHatRenderer {
         this.hatsDirWatcherDisposable = watchDir(hatsDir, () =>
           this.updateShapeOverrides(hatsDir),
         );
-      } catch (e) {
-        console.error("cannot watch hatsDir", hatsDir, e);
+      } catch (error) {
+        console.error("cannot watch hatsDir", hatsDir, error);
       }
     } else {
       this.hatShapeOverrides = {};
@@ -169,9 +169,9 @@ export default class VscodeHatRenderer {
       return await walkFiles(hatShapesDir, CURSORLESS_HAT_SHAPES_SUFFIX);
     } catch (error) {
       void vscode.window.showErrorMessage(
-        `Error with cursorless hat shapes dir "${hatShapesDir}": ${
-          (error as Error).message
-        }`,
+        `Error with cursorless hat shapes dir "${hatShapesDir}": ${getErrorMessage(
+          error,
+        )}`,
       );
       return [];
     }
@@ -299,7 +299,7 @@ export default class VscodeHatRenderer {
       ),
     );
 
-    this.lastSeenEnabledHatStyles = cloneDeep(
+    this.lastSeenEnabledHatStyles = structuredClone(
       this.enabledHatStyles.hatStyleMap,
     );
   }
@@ -337,9 +337,9 @@ export default class VscodeHatRenderer {
     // so that you can be notified if/when it changes or is removed.
     const [fill, stroke] = color.split("-");
     let svg = originalSvg
-      .replace(/fill="(?!none)[^"]+"/g, `fill="${fill}"`)
-      .replace(/fill:(?!none)[^;]+;/g, `fill:${fill};`)
-      .replace(/\r?\n/g, " ");
+      .replaceAll(/fill="(?!none)[^"]+"/g, `fill="${fill}"`)
+      .replaceAll(/fill:(?!none)[^;]+;/g, `fill:${fill};`)
+      .replaceAll(/\r?\n/g, " ");
     if (stroke !== undefined) {
       svg = this.addInnerStrokeToSvg(svgInfo, svg, stroke);
     }
@@ -484,7 +484,7 @@ export default class VscodeHatRenderer {
       Number.isNaN(originalViewBoxWidth) ||
       Number.isNaN(originalViewBoxHeight)
     ) {
-      throw new Error(`Invalid viewBox dimensions: ${viewBoxValue}`);
+      throw new TypeError(`Invalid viewBox dimensions: ${viewBoxValue}`);
     }
 
     return { originalViewBoxHeight, originalViewBoxWidth };
@@ -498,11 +498,11 @@ export default class VscodeHatRenderer {
 }
 
 function watchDir(
-  path: string,
+  dirPath: string,
   onDidChange: PathChangeListener,
 ): vscode.Disposable {
   const hatsDirWatcher = vscode.workspace.createFileSystemWatcher(
-    new vscode.RelativePattern(path, `**/*${CURSORLESS_HAT_SHAPES_SUFFIX}`),
+    new vscode.RelativePattern(dirPath, `**/*${CURSORLESS_HAT_SHAPES_SUFFIX}`),
   );
 
   hatsDirWatcher.onDidChange(onDidChange);

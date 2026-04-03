@@ -56,7 +56,7 @@ export class ScopeInfoProvider {
     };
   }
 
-  private async onChange() {
+  private onChange() {
     this.updateScopeTypeInfos();
 
     this.listeners.slice().forEach((listener) => listener(this.scopeInfos));
@@ -184,5 +184,7 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "customRegex":
     case "glyph":
       return false;
+
+    // No default
   }
 }

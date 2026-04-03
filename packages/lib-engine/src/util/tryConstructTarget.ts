@@ -24,7 +24,8 @@ export function tryConstructTarget<T extends Target>(
 ): T | undefined {
   return range == null
     ? undefined
-    : new constructor({
+    : // oxlint-disable-next-line new-cap
+      new constructor({
         editor,
         isReversed,
         contentRange: range,

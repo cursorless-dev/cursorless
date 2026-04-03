@@ -1,4 +1,5 @@
-import { showError, type IDE } from "@cursorless/lib-common";
+import { showError } from "@cursorless/lib-common";
+import type { IDE } from "@cursorless/lib-common";
 import { isCaptureAllowed } from "./captureNames";
 
 // Not a comment. ie line is not starting with `;;`

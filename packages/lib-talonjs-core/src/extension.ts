@@ -1,4 +1,6 @@
+// oxlint-disable-next-line import/no-unassigned-import
 import "./polyfill";
+
 import type { RunMode } from "@cursorless/lib-common";
 import {
   FakeCommandServerApi,

@@ -1,8 +1,8 @@
-import {
-  LATEST_VERSION,
-  type ActionDescriptor,
-  type CommandLatest,
-  type CommandResponse,
+import { LATEST_VERSION } from "@cursorless/lib-common";
+import type {
+  ActionDescriptor,
+  CommandLatest,
+  CommandResponse,
 } from "@cursorless/lib-common";
 
 export interface SpokenFormTest {

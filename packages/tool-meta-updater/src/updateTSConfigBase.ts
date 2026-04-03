@@ -28,7 +28,7 @@ export async function updateTSConfigBase(
     const packageName = packagePath.replace("packages/", "@cursorless/");
     const packageJsonPath = `${packageDir}/${packagePath}/package.json`;
     const packageJson = JSON.parse(
-      await fs.readFile(packageJsonPath, "utf-8"),
+      await fs.readFile(packageJsonPath, "utf8"),
     ) as PackageJson;
 
     if (!packageJson.private) {

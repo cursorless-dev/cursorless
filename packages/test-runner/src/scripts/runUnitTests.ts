@@ -2,9 +2,12 @@
  * Runs all tests that don't have to be run within a particular environment.
  */
 
+import { exit } from "node:process";
 import { TestType, runAllTests } from "../runAllTests";
 
-runAllTests(TestType.unit).catch((error) => {
+try {
+  await runAllTests(TestType.unit);
+} catch (error) {
   console.error(error);
-  process.exit(1);
-});
+  exit(1);
+}

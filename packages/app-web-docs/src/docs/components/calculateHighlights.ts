@@ -3,7 +3,7 @@ import type { DecorationStyle } from "@cursorless/lib-common";
 import {
   generateDecorationsForCharacterRange,
   Range,
-  useSingleCornerBorderRadius,
+  singleCornerBorderRadius,
 } from "@cursorless/lib-common";
 import { flattenHighlights } from "./flattenHighlights";
 import { highlightColors } from "./highlightColors";
@@ -104,10 +104,10 @@ function getHighlights(
       borderColorPorous: colors.borderPorous,
       borderStyle: borders,
       borderRadius: {
-        topLeft: useSingleCornerBorderRadius(borders.top, borders.left),
-        topRight: useSingleCornerBorderRadius(borders.top, borders.right),
-        bottomRight: useSingleCornerBorderRadius(borders.bottom, borders.right),
-        bottomLeft: useSingleCornerBorderRadius(borders.bottom, borders.left),
+        topLeft: singleCornerBorderRadius(borders.top, borders.left),
+        topRight: singleCornerBorderRadius(borders.top, borders.right),
+        bottomRight: singleCornerBorderRadius(borders.bottom, borders.right),
+        bottomLeft: singleCornerBorderRadius(borders.bottom, borders.left),
       },
     },
   };

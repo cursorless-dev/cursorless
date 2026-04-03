@@ -18,6 +18,7 @@ function runCommand(command, args, extraEnv = {}) {
   return spawn(command, args, {
     stdio: "inherit",
     env: {
+      // oxlint-disable-next-line node/no-process-env
       ...process.env,
       ...extraEnv,
     },
@@ -25,7 +26,7 @@ function runCommand(command, args, extraEnv = {}) {
 }
 
 // Main function to execute the script
-async function main() {
+function main() {
   const args = process.argv.slice(2);
 
   // Check if the input file is specified
@@ -44,7 +45,7 @@ async function main() {
     "tsx",
     ["--enable-source-maps", fileToRun, ...childArgs],
     {
-      ["CURSORLESS_REPO_ROOT"]: repoRoot,
+      CURSORLESS_REPO_ROOT: repoRoot,
     },
   );
   nodeProcess.on("error", (error) => {
@@ -54,7 +55,9 @@ async function main() {
   nodeProcess.on("close", (code) => process.exit(code ?? undefined));
 }
 
-main().catch((error) => {
+try {
+  main();
+} catch (error) {
   console.error(error);
   process.exit(1);
-});
+}

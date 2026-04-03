@@ -192,7 +192,7 @@ export class InstanceStage implements ModifierStage {
             }
 
             return null;
-          } catch (_err) {
+          } catch {
             return null;
           }
         }),

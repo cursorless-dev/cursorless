@@ -2,16 +2,15 @@ import { stat, unlink, writeFile } from "node:fs/promises";
 import * as sinon from "sinon";
 import type { ScopeTypeInfo } from "@cursorless/lib-common";
 import { DOCS_URL, sleep } from "@cursorless/lib-common";
-import { getCursorlessApi } from "@cursorless/lib-vscode-common";
+import { getTestHelpers } from "@cursorless/lib-vscode-common";
 import { assertCalledWithScopeInfo } from "./assertCalledWithScopeInfo";
 
 /**
  * Tests that the scope provider correctly reports custom spoken forms
  */
 export async function runCustomSpokenFormScopeInfoTest() {
-  const { scopeProvider, cursorlessTalonStateJsonPath } = (
-    await getCursorlessApi()
-  ).testHelpers!;
+  const { scopeProvider, cursorlessTalonStateJsonPath } =
+    await getTestHelpers();
   const fake = sinon.fake<[scopeInfos: ScopeTypeInfo[]], void>();
 
   const disposable = scopeProvider.onDidChangeScopeInfo(fake);
@@ -58,7 +57,7 @@ export async function runCustomSpokenFormScopeInfoTest() {
       // Sleep to ensure that the scope support provider has time to update
       // before the next test starts
       await sleep(400);
-    } catch (_e) {
+    } catch {
       // Do nothing
     }
   }

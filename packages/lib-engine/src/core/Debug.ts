@@ -28,6 +28,9 @@ export class Debug {
         this.disposableConfiguration =
           ide.configuration.onDidChangeConfiguration(this.evaluateSetting);
         break;
+      default: {
+        const _exhaustiveCheck: never = ide.runMode;
+      }
     }
   }
 

@@ -3,13 +3,13 @@ import * as path from "node:path";
 import { produce } from "immer";
 import { sortBy } from "lodash-es";
 import { parse } from "node-html-parser";
-import { type IDE } from "@cursorless/lib-common";
-import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
+import type { IDE } from "@cursorless/lib-common";
+import { getCursorlessRepoRoot } from "./getCursorlessRepoRoot";
 
 /**
  * The argument expected by the cheatsheet command.
  */
-interface CheatSheetCommandArg {
+export interface CheatSheetCommandArg {
   /**
    * The version of the cheatsheet command.
    */
@@ -37,7 +37,7 @@ export async function showCheatsheet(
 
   const cheatsheetPath = path.join(ide.assetsRoot, "cheatsheet.html");
 
-  const cheatsheetContent = (await readFile(cheatsheetPath)).toString();
+  const cheatsheetContent = await readFile(cheatsheetPath, "utf8");
 
   const root = parse(cheatsheetContent);
 

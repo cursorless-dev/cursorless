@@ -24,7 +24,7 @@ export class FallbackStage implements ModifierStage {
     for (const stage of stages) {
       try {
         return stage.run(target, options);
-      } catch (_error) {
+      } catch {
         continue;
       }
     }

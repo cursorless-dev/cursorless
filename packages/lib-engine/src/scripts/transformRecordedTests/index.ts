@@ -2,7 +2,7 @@ import type {
   CommandVersion,
   TestCaseFixtureLegacy,
 } from "@cursorless/lib-common";
-import { LATEST_VERSION } from "@cursorless/lib-common";
+import { getErrorMessage, LATEST_VERSION } from "@cursorless/lib-common";
 import { getRecordedTestPaths } from "@cursorless/lib-node-common";
 import { checkMarks } from "./checkMarks";
 import { canonicalize } from "./transformations/canonicalize";
@@ -16,7 +16,7 @@ const AVAILABLE_TRANSFORMATIONS: Record<string, FixtureTransformation> = {
   upgrade,
   canonicalize,
   format: identity,
-  ["check-marks"]: checkMarks,
+  "check-marks": checkMarks,
   custom: upgradeDecorations,
 };
 
@@ -46,10 +46,10 @@ async function main(args: string[]) {
   for (const path of testPaths) {
     try {
       await transformFile(transformation, path);
-    } catch (err) {
+    } catch (error) {
       failureCount++;
       console.log(`Error with file ${path}`);
-      console.log((err as Error).message);
+      console.log(getErrorMessage(error));
     }
   }
 
@@ -73,7 +73,7 @@ function parseCommandLineArguments(args: string[]) {
       }
 
       if (flagName === "minimum-version") {
-        const minimumVersionUnchecked = parseInt(args[i + 1]);
+        const minimumVersionUnchecked = Number.parseInt(args[i + 1], 10);
         if (
           minimumVersionUnchecked < 0 ||
           minimumVersionUnchecked > LATEST_VERSION
@@ -95,4 +95,4 @@ function parseCommandLineArguments(args: string[]) {
   return { transformationName, minimumVersion, paths };
 }
 
-void main(process.argv.slice(2));
+await main(process.argv.slice(2));

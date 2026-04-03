@@ -7,7 +7,7 @@ import {
 } from "@cursorless/lib-vscode-common";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
-suite("fold", async function () {
+suite("fold", function () {
   endToEndTestSetup(this);
 
   test("fold made", foldMade);

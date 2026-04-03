@@ -124,11 +124,11 @@ export class FakeIDE implements EmittableIDE {
     this.quickPickReturnValue = value;
   }
 
-  public async showQuickPick(
+  public showQuickPick(
     _items: readonly string[],
     _options?: QuickPickOptions,
   ): Promise<string | undefined> {
-    return this.quickPickReturnValue;
+    return Promise.resolve(this.quickPickReturnValue);
   }
 
   public showInputBox(_options?: any): Promise<string | undefined> {

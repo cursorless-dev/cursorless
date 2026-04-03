@@ -7,21 +7,24 @@ export function unifyRemovalTargets(targets: Target[]): Target[] {
   if (targets.length < 2) {
     return targets;
   }
-  return groupTargetsForEachEditor(targets).flatMap(([_editor, targets]) => {
-    if (targets.length < 2) {
-      return targets;
-    }
-    let results = [...targets];
-    results.sort((a, b) =>
-      a.contentRange.start.compareTo(b.contentRange.start),
-    );
-    let run = true;
-    // Merge targets until there are no overlaps/intersections
-    while (run) {
-      [results, run] = unifyTargetsOnePass(results);
-    }
-    return results;
-  });
+  // oxlint-disable-next-line oxc/no-map-spread
+  return groupTargetsForEachEditor(targets).flatMap(
+    ([_editor, editorTargets]) => {
+      if (editorTargets.length < 2) {
+        return editorTargets;
+      }
+      let results = [...editorTargets];
+      results.sort((a, b) =>
+        a.contentRange.start.compareTo(b.contentRange.start),
+      );
+      let run = true;
+      // Merge targets until there are no overlaps/intersections
+      while (run) {
+        [results, run] = unifyTargetsOnePass(results);
+      }
+      return results;
+    },
+  );
 }
 
 function unifyTargetsOnePass(targets: Target[]): [Target[], boolean] {
@@ -33,7 +36,7 @@ function unifyTargetsOnePass(targets: Target[]): [Target[], boolean] {
   targets.forEach((target) => {
     // No intersection. Mark start of new group
     if (
-      currentGroup.length &&
+      currentGroup.length > 0 &&
       !intersects(currentGroup[currentGroup.length - 1], target)
     ) {
       results.push(mergeTargets(currentGroup));

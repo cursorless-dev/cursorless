@@ -74,6 +74,8 @@ export default function getOffsetsForEmptyRangeInsert(
               end: start + matches[0].length,
             };
       }
+
+      // No default
     }
   } else {
     // In this case the range moves to the right so we care about the start of the range
@@ -101,6 +103,8 @@ export default function getOffsetsForEmptyRangeInsert(
               start: start + index,
               end,
             };
+
+        // No default
       }
     }
   }

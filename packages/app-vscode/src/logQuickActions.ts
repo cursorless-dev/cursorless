@@ -17,21 +17,22 @@ export async function logQuickActions(kind?: string) {
     return;
   }
 
-  const availableCodeActions = (
-    await commands.executeCommand<CodeAction[]>(
-      "vscode.executeCodeActionProvider",
-      editor.document.uri,
-      editor.selections[0],
-      kind,
-    )
-  ).map(({ title, kind, isPreferred }) => ({
-    title,
-    kind: kind?.value,
-    isPreferred,
-  }));
+  const codeActions = await commands.executeCommand<CodeAction[]>(
+    "vscode.executeCodeActionProvider",
+    editor.document.uri,
+    editor.selections[0],
+    kind,
+  );
+  const availableCodeActions = codeActions.map(
+    ({ title, kind, isPreferred }) => ({
+      title,
+      kind: kind?.value,
+      isPreferred,
+    }),
+  );
 
   availableCodeActions.forEach((availableCodeAction) => {
-    console.log(`${JSON.stringify(availableCodeAction, null, 2)}`);
+    console.log(JSON.stringify(availableCodeAction, null, 2));
   });
 
   void window.showInformationMessage(

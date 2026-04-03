@@ -2,19 +2,19 @@ import * as assert from "node:assert/strict";
 import * as vscode from "vscode";
 import { CURSORLESS_COMMAND_ID } from "@cursorless/lib-common";
 import {
-  getCursorlessApi,
   getReusableEditor,
+  getTestHelpers,
 } from "@cursorless/lib-vscode-common";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
-suite("Backward compatibility", async function () {
+suite("Backward compatibility", function () {
   endToEndTestSetup(this);
 
   test("Backward compatibility", runTest);
 });
 
 async function runTest() {
-  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap } = await getTestHelpers();
 
   const editor = await getReusableEditor("");
 

@@ -30,7 +30,7 @@ const thresholds = [
 
 type ModifierType = "containing" | "previous" | "every";
 
-suite(`Performance ${thresholds.join("/")} ms`, async function () {
+suite(`Performance ${thresholds.join("/")} ms`, function () {
   endToEndTestSetup(this);
 
   let previousTitle = "";
@@ -95,9 +95,7 @@ suite(`Performance ${thresholds.join("/")} ms`, async function () {
 
   for (const [scope, threshold, modifierType] of fixtures) {
     const [scopeType, scopeTitle] = getScopeTypeAndTitle(scope);
-    const title = modifierType
-      ? `${modifierType} ${scopeTitle}`
-      : `${scopeTitle}`;
+    const title = modifierType ? `${modifierType} ${scopeTitle}` : scopeTitle;
     test(
       `Select ${title}`,
       asyncSafety(() => selectScopeType(scopeType, threshold, modifierType)),
@@ -257,6 +255,10 @@ function getModifier(
         length: 1,
         scopeType,
       };
+    default: {
+      const exhaustiveCheck: never = modifierType;
+      throw new Error(`Unexpected modifier type: ${exhaustiveCheck}`);
+    }
   }
 }
 
@@ -266,9 +268,8 @@ function getScopeTypeAndTitle(
   if (typeof scope === "string") {
     return [{ type: scope }, scope];
   }
-  switch (scope.type) {
-    case "surroundingPair":
-      return [scope, `${scope.type}.${scope.delimiter}`];
+  if (scope.type === "surroundingPair") {
+    return [scope, `${scope.type}.${scope.delimiter}`];
   }
   throw new Error(`Unexpected scope type: ${scope.type}`);
 }

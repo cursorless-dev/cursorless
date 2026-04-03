@@ -44,9 +44,10 @@ export class CommandHistory implements CommandRunnerDecorator {
           await this.appendToLog(commandComplete);
 
           return returnValue;
-        } catch (e) {
-          await this.appendToLog(commandComplete, e as Error);
-          throw e;
+        } catch (error) {
+          const err = error instanceof Error ? error : new Error(String(error));
+          await this.appendToLog(commandComplete, err);
+          throw error;
         }
       },
     };

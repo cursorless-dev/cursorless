@@ -19,5 +19,6 @@ export function createVscodeScopeVisualizer(
       return new VscodeScopeRemovalVisualizer(ide, scopeProvider, scopeType);
     case "iteration":
       return new VscodeIterationScopeVisualizer(ide, scopeProvider, scopeType);
+    // No default
   }
 }

@@ -1,4 +1,4 @@
-import type { Notifier } from "@cursorless/lib-common";
+import type { Notifier } from "../util/Notifier";
 import type { SpokenFormMapKeyTypes, SpokenFormType } from "./SpokenFormType";
 
 /**

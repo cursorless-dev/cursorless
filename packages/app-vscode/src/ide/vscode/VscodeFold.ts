@@ -3,7 +3,7 @@ import type { Range } from "@cursorless/lib-common";
 import type { VscodeIDE } from "./VscodeIDE";
 import type { VscodeTextEditor } from "./VscodeTextEditor";
 
-export async function vscodeFold(
+export function vscodeFold(
   ide: VscodeIDE,
   editor: VscodeTextEditor,
   ranges: Range[] | undefined,
@@ -33,7 +33,7 @@ async function foldOrUnfold(
   // Don't mix multi and single line targets.
   // This is probably the result of an "every" command
   // and folding the single line targets will fold the parent as well
-  ranges = multiLineRanges.length ? multiLineRanges : singleLineRanges;
+  ranges = multiLineRanges.length > 0 ? multiLineRanges : singleLineRanges;
 
   const originalEditor = ide.activeEditableTextEditor;
 

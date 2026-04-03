@@ -1,4 +1,5 @@
-import { toLineRange, type Range } from "@cursorless/lib-common";
+import { toLineRange } from "@cursorless/lib-common";
+import type { Range } from "@cursorless/lib-common";
 import type { InteriorTarget, ParagraphTarget } from ".";
 import type { TextualType } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";

@@ -1,3 +1,4 @@
+// oxlint-disable react/no-array-index-key
 import type { WebviewApi } from "vscode-webview";
 import type { ActiveTutorialNoErrorsState } from "@cursorless/lib-common";
 import { ArrowLeftIcon } from "./ArrowLeftIcon";
@@ -20,6 +21,7 @@ export function TutorialStep({ state, vscode }: Props) {
           stepCount={state.stepCount}
         />
         <button
+          type="button"
           className="btn btn-link p-0 d-inline-flex"
           onClick={() =>
             vscode.postMessage({
@@ -37,7 +39,7 @@ export function TutorialStep({ state, vscode }: Props) {
     if (!state.preConditionsMet) {
       return (
         <>
-          <div>Whoops! Looks like you've stepped off the beaten path.</div>
+          <div>Whoops! Looks like you&apos;ve stepped off the beaten path.</div>
           <div className="mt-1">
             Feel free to keep playing, then say{" "}
             <Command spokenForm="tutorial resume" /> to resume the tutorial.
@@ -57,10 +59,10 @@ export function TutorialStep({ state, vscode }: Props) {
                 case "command":
                   return <Command key={j} spokenForm={fragment.value} />;
                 case "term":
-                  return <span key={j}>"{fragment.value}"</span>;
+                  return <span key={j}>&quot;{fragment.value}&quot;</span>;
                 default: {
-                  // Ensure we handle all cases
-                  const _unused: never = fragment;
+                  const _exhaustiveCheck: never = fragment;
+                  return null;
                 }
               }
             })}
@@ -69,6 +71,7 @@ export function TutorialStep({ state, vscode }: Props) {
 
         <div className="mt-2 d-flex w-100 align-items-center justify-content-between">
           <button
+            type="button"
             className="btn btn-link p-0 d-inline-flex"
             onClick={() =>
               vscode.postMessage({
@@ -82,6 +85,7 @@ export function TutorialStep({ state, vscode }: Props) {
             {state.stepNumber + 1} / {state.stepCount}{" "}
           </span>
           <button
+            type="button"
             className="btn btn-link p-0 d-inline-flex"
             onClick={() =>
               vscode.postMessage({

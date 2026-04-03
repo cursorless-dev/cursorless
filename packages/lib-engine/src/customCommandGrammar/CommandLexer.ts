@@ -1,8 +1,9 @@
-import moo, {
-  type Lexer as MooLexer,
-  type LexerState as MooLexerState,
-  type Rules,
-  type Token as MooToken,
+import moo from "moo";
+import type {
+  Lexer as MooLexer,
+  LexerState as MooLexerState,
+  Rules,
+  Token as MooToken,
 } from "moo";
 
 export interface NearleyToken {

@@ -7,6 +7,7 @@ export class TutorialError extends Error {
   ) {
     super(message);
 
+    this.name = "TutorialError";
     this.requiresTalonUpdate = requiresTalonUpdate;
   }
 }

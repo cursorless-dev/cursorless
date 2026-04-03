@@ -9,11 +9,15 @@ export class FakeCommandServerApi implements CommandServerApi {
   signals: { prePhrase: InboundSignal };
 
   constructor() {
-    this.signals = { prePhrase: { getVersion: async () => null } };
+    this.signals = {
+      prePhrase: {
+        getVersion: () => Promise.resolve(null),
+      },
+    };
   }
 
-  async getFocusedElementType(): Promise<FocusedElementType | undefined> {
-    return this.focusedElementType;
+  getFocusedElementType(): Promise<FocusedElementType | undefined> {
+    return Promise.resolve(this.focusedElementType);
   }
 
   setFocusedElementType(

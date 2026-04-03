@@ -8,6 +8,7 @@ import type { RunMode } from "@cursorless/lib-common";
  * @returns The current run mode of the application
  */
 export function nodeGetRunMode(): RunMode {
+  // oxlint-disable-next-line node/no-process-env
   const mode = process.env.CURSORLESS_MODE;
   switch (mode) {
     case undefined:

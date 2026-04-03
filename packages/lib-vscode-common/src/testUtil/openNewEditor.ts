@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { getCursorlessApi } from "../getExtensionApi";
+import { getTestHelpers } from "../getExtensionApi";
 import { closeUiElements } from "./closeUiElements";
 
 export async function openNewEditor(
@@ -18,8 +18,10 @@ export async function openNewEditor(
     content,
   });
 
-  (await getCursorlessApi()).testHelpers!.clearCache();
-  await (await getCursorlessApi()).testHelpers!.loadLanguage(languageId);
+  const { clearCache, loadLanguage } = await getTestHelpers();
+
+  clearCache();
+  await loadLanguage(languageId);
 
   const editor = await vscode.window.showTextDocument(
     document,
@@ -63,8 +65,9 @@ export async function openNewNotebookEditor(
     ),
   );
 
-  (await getCursorlessApi()).testHelpers!.clearCache();
-  await (await getCursorlessApi()).testHelpers!.loadLanguage(languageId);
+  const { clearCache, loadLanguage } = await getTestHelpers();
+  clearCache();
+  await loadLanguage(languageId);
 
   // FIXME: There seems to be some timing issue when you create a notebook
   // editor
@@ -84,7 +87,7 @@ function waitForEditorToOpen(): Promise<void> {
         count++;
         if (count === 20) {
           clearInterval(interval);
-          reject("Timed out waiting for editor to open");
+          reject(new Error("Timed out waiting for editor to open"));
         }
       }
     }, 100);

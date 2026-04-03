@@ -43,7 +43,8 @@ function createSelection(selection: SelectionPlainObject): Selection {
 function normalizeRecordedReturnValue(returnValue: unknown) {
   // Recorded fixtures store plain serialized data rather than runtime instances.
   return returnValue != null && typeof returnValue === "object"
-    ? JSON.parse(JSON.stringify(returnValue))
+    ? // oxlint-disable-next-line unicorn/prefer-structured-clone
+      JSON.parse(JSON.stringify(returnValue))
     : returnValue;
 }
 
@@ -168,8 +169,8 @@ export async function runRecordedTest({
       fallback =
         "fallback" in commandResponse ? commandResponse.fallback : undefined;
     }
-  } catch (err) {
-    const error = err as Error;
+  } catch (error) {
+    const errorName = error instanceof Error ? error.name : "unknown";
 
     if (shouldUpdateFixtures()) {
       const outputFixture = {
@@ -177,13 +178,13 @@ export async function runRecordedTest({
         finalState: undefined,
         decorations: undefined,
         returnValue: undefined,
-        thrownError: { name: error.name },
+        thrownError: { name: errorName },
       };
 
       await fsp.writeFile(path, serializeTestFixture(outputFixture));
     } else if (fixture.thrownError != null) {
       assert.equal(
-        error.name,
+        errorName,
         fixture.thrownError.name,
         "Unexpected thrown error",
       );

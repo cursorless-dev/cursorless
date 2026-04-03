@@ -125,8 +125,9 @@ export class VscodeTextEditor implements EditableTextEditor {
     return this.id === other.id;
   }
 
-  public async revealRange(range: Range): Promise<void> {
+  public revealRange(range: Range): Promise<void> {
     this.editor.revealRange(toVscodeRange(range));
+    return Promise.resolve();
   }
 
   public revealLine(lineNumber: number, at: RevealLineAt): Promise<void> {

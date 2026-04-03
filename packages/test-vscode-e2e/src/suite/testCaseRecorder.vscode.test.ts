@@ -11,8 +11,8 @@ import {
   getRecordedTestsDirPath,
 } from "@cursorless/lib-node-common";
 import {
-  getCursorlessApi,
   getReusableEditor,
+  getTestHelpers,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
 import { endToEndTestSetup } from "../endToEndTestSetup";
@@ -24,7 +24,7 @@ import { endToEndTestSetup } from "../endToEndTestSetup";
  */
 
 // Ensure that the test case recorder works
-suite("testCaseRecorder", async function () {
+suite("testCaseRecorder", function () {
   endToEndTestSetup(this);
 
   test("no args", testCaseRecorderNoArgs);
@@ -36,7 +36,7 @@ async function testCaseRecorderNoArgs() {
   const {
     hatTokenMap,
     ide: { fakeIde },
-  } = (await getCursorlessApi()).testHelpers!;
+  } = await getTestHelpers();
   const dirName = crypto.randomBytes(16).toString("hex");
   fakeIde.setQuickPickReturnValue(dirName);
   const tmpdir = path.join(getRecordedTestsDirPath(), dirName);
@@ -50,7 +50,7 @@ async function testCaseRecorderNoArgs() {
 }
 
 async function testCaseRecorderPathArg() {
-  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap } = await getTestHelpers();
   const tmpdir = path.join(os.tmpdir(), crypto.randomBytes(16).toString("hex"));
   await mkdir(tmpdir, { recursive: true });
 
@@ -64,7 +64,7 @@ async function testCaseRecorderPathArg() {
 }
 
 async function testCaseRecorderGracefulError() {
-  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap } = await getTestHelpers();
   const tmpdir = path.join(os.tmpdir(), crypto.randomBytes(16).toString("hex"));
   await mkdir(tmpdir, { recursive: true });
 
@@ -88,7 +88,7 @@ async function testCaseRecorderGracefulError() {
           },
         },
       });
-    } catch (_err) {
+    } catch {
       // Ignore error
     }
 
@@ -158,12 +158,11 @@ async function checkRecordedTest(tmpdir: string) {
   const actualRecordedTestPath = paths[0];
   assert.equal(path.basename(actualRecordedTestPath), "takeEach.yml");
 
-  const expected = (
-    await readFile(
-      getFixturePath("recorded/testCaseRecorder/takeEach.yml"),
-      "utf8",
-    )
-  )
+  const content = await readFile(
+    getFixturePath("recorded/testCaseRecorder/takeEach.yml"),
+    "utf8",
+  );
+  const expected = content
     // We use this to ensure that the test works on Windows. Depending on user
     // / CI git config, the file might be checked out with CRLF line endings
     .replaceAll("\r\n", "\n");

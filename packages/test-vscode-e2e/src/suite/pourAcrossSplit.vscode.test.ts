@@ -1,20 +1,20 @@
 import * as assert from "node:assert/strict";
 import { LATEST_VERSION } from "@cursorless/lib-common";
 import {
-  getCursorlessApi,
+  getTestHelpers,
   openNewEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
-suite("Pour across split", async function () {
+suite("Pour across split", function () {
   endToEndTestSetup(this);
 
   test("Pour across split", runTest);
 });
 
 async function runTest() {
-  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap } = await getTestHelpers();
 
   const { document: document1 } = await openNewEditor("hello world");
   const { document: document2 } = await openNewEditor("", undefined, true);

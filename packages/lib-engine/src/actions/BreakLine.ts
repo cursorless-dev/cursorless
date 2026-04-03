@@ -65,7 +65,7 @@ function getEdits(editor: TextEditor, contentRanges: Range[]): Edit[] {
             new Position(line.lineNumber, characterTrailingWhitespace),
             position,
           )
-        : position.toEmptyRange();
+        : Range.fromPosition(position);
 
     edits.push({
       range: replacementRange,

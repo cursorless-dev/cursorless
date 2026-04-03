@@ -27,8 +27,8 @@ export function prettifyFacet(
 
   // Unless the second part is the iteration scope we want to add `:` to the first part
   // and capitalize the second part.
-  if (iterationIndex < 0 || iterationIndex > 1) {
-    parts[0] = parts[0] + ":";
+  if (iterationIndex === -1 || iterationIndex > 1) {
+    parts[0] += ":";
     parts[1] = capitalize(parts[1]);
   }
 

@@ -1,18 +1,15 @@
 import {
   asyncSafety,
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
-  type TextEditor,
 } from "@cursorless/lib-common";
+import type { TextEditor } from "@cursorless/lib-common";
 import {
   getRecordedTestPaths,
   loadFixture,
   runRecordedTest,
 } from "@cursorless/lib-node-common";
-import {
-  activate,
-  type EditorState,
-  type TalonJsIDE,
-} from "@cursorless/lib-talonjs-core";
+import { activate } from "@cursorless/lib-talonjs-core";
+import type { EditorState, TalonJsIDE } from "@cursorless/lib-talonjs-core";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { endToEndTestSetup } from "./endToEndTestSetUp";
 import { talonMock } from "./talonMock";
@@ -71,16 +68,16 @@ async function shouldSkipTest(path: string, name: string): Promise<boolean> {
     case "findInDocument":
     case "findInWorkspace":
       return true;
+    default:
+      return false;
   }
-
-  return false;
 }
 
 function sleepWithBackoff(_ms: number): Promise<void> {
   return Promise.resolve();
 }
 
-async function openNewTestEditor(
+function openNewTestEditor(
   ide: TalonJsIDE,
   content: string,
   languageId: string,
@@ -102,5 +99,5 @@ async function openNewTestEditor(
   // Override any user settings and make sure tests run with default tabs.
   editor.options = DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;
 
-  return editor;
+  return Promise.resolve(editor);
 }

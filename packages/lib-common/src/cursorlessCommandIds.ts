@@ -70,103 +70,101 @@ export const cursorlessCommandDescriptions: Record<
   CursorlessCommandId,
   CommandDescription
 > = {
-  ["cursorless.toggleDecorations"]: new VisibleCommand("Toggle decorations"),
-  ["cursorless.recomputeDecorationStyles"]: new VisibleCommand(
+  "cursorless.toggleDecorations": new VisibleCommand("Toggle decorations"),
+  "cursorless.recomputeDecorationStyles": new VisibleCommand(
     "Recompute decoration styles",
   ),
-  ["cursorless.recordTestCase"]: new VisibleCommand("Record test case"),
-  ["cursorless.recordOneTestCaseThenPause"]: new VisibleCommand(
+  "cursorless.recordTestCase": new VisibleCommand("Record test case"),
+  "cursorless.recordOneTestCaseThenPause": new VisibleCommand(
     "Record one test case, then pause",
   ),
-  ["cursorless.pauseRecording"]: new VisibleCommand(
-    "Pause test case recording",
-  ),
-  ["cursorless.resumeRecording"]: new VisibleCommand(
+  "cursorless.pauseRecording": new VisibleCommand("Pause test case recording"),
+  "cursorless.resumeRecording": new VisibleCommand(
     "Resume test case recording",
   ),
-  ["cursorless.recordScopeTests.showUnimplementedFacets"]: new VisibleCommand(
+  "cursorless.recordScopeTests.showUnimplementedFacets": new VisibleCommand(
     "Bulk record unimplemented scope facets",
   ),
-  ["cursorless.recordScopeTests.saveActiveDocument"]: new VisibleCommand(
+  "cursorless.recordScopeTests.saveActiveDocument": new VisibleCommand(
     "Bulk save scope tests for the active document",
   ),
-  ["cursorless.showDocumentation"]: new VisibleCommand("Show documentation"),
-  ["cursorless.showInstallationDependencies"]: new VisibleCommand(
+  "cursorless.showDocumentation": new VisibleCommand("Show documentation"),
+  "cursorless.showInstallationDependencies": new VisibleCommand(
     "Show installation dependencies",
   ),
   // showScopeVisualizer can't be called from the command palatte because it
   // requires an argument, but it still needs to be visible or the scope buttons
   // will be disabled in the sidebar
-  ["cursorless.showScopeVisualizer"]: new VisibleCommand(
+  "cursorless.showScopeVisualizer": new VisibleCommand(
     "Show the scope visualizer",
   ),
-  ["cursorless.hideScopeVisualizer"]: new VisibleCommand(
+  "cursorless.hideScopeVisualizer": new VisibleCommand(
     "Hide the scope visualizer",
   ),
-  ["cursorless.scopeVisualizer.openUrl"]: new VisibleCommand("Open in browser"),
-  ["cursorless.analyzeCommandHistory"]: new VisibleCommand(
+  "cursorless.scopeVisualizer.openUrl": new VisibleCommand("Open in browser"),
+  "cursorless.analyzeCommandHistory": new VisibleCommand(
     "Analyze collected command history",
   ),
 
-  ["cursorless.tutorial.start"]: new HiddenCommand("Start a tutorial"),
-  ["cursorless.tutorial.next"]: new VisibleCommand("Tutorial next"),
-  ["cursorless.tutorial.previous"]: new VisibleCommand("Tutorial previous"),
-  ["cursorless.tutorial.restart"]: new VisibleCommand("Tutorial restart"),
-  ["cursorless.tutorial.resume"]: new VisibleCommand("Tutorial resume"),
-  ["cursorless.tutorial.list"]: new VisibleCommand("Tutorial list"),
-  ["cursorless.documentationOpened"]: new HiddenCommand(
+  "cursorless.tutorial.start": new HiddenCommand("Start a tutorial"),
+  "cursorless.tutorial.next": new VisibleCommand("Tutorial next"),
+  "cursorless.tutorial.previous": new VisibleCommand("Tutorial previous"),
+  "cursorless.tutorial.restart": new VisibleCommand("Tutorial restart"),
+  "cursorless.tutorial.resume": new VisibleCommand("Tutorial resume"),
+  "cursorless.tutorial.list": new VisibleCommand("Tutorial list"),
+  "cursorless.documentationOpened": new HiddenCommand(
     "Used by talon to notify us that the docs have been opened; for use with tutorial",
   ),
-  ["cursorless.command"]: new HiddenCommand("The core cursorless command"),
-  ["cursorless.repeatPreviousCommand"]: new VisibleCommand(
+  "cursorless.command": new HiddenCommand("The core cursorless command"),
+  "cursorless.repeatPreviousCommand": new VisibleCommand(
     "Repeat the previous Cursorless command",
   ),
-  ["cursorless.showQuickPick"]: new HiddenCommand(
+  "cursorless.showQuickPick": new HiddenCommand(
     "Pop up a quick pick of all cursorless commands",
   ),
-  ["cursorless.showCheatsheet"]: new HiddenCommand(
+  "cursorless.showCheatsheet": new HiddenCommand(
     "Display the cursorless cheatsheet",
   ),
-  ["cursorless.internal.updateCheatsheetDefaults"]: new HiddenCommand(
+  "cursorless.internal.updateCheatsheetDefaults": new HiddenCommand(
     "Update the default values of the cheatsheet payload used on the website and for local development. Be sure to run this on stock community and cursorless.",
   ),
-  ["cursorless.private.logQuickActions"]: new HiddenCommand(
+  "cursorless.private.logQuickActions": new HiddenCommand(
     "Log the quick actions available at the current cursor position",
   ),
-  ["cursorless.takeSnapshot"]: new HiddenCommand(
+  "cursorless.takeSnapshot": new HiddenCommand(
     "Take a snapshot of the current editor state",
   ),
-  ["cursorless.keyboard.escape"]: new HiddenCommand(
+  "cursorless.keyboard.escape": new HiddenCommand(
     "Should be mapped to the escape key when using cursorless keyboard. By default, exits modal keyboard mode, but changes behaviour when Cursorless is expecting a continuation keystroke.  For example, when you type a color and Cursorless is waiting for a character, it cancels the color and switches back to modal mode.",
   ),
-  ["cursorless.keyboard.targeted.targetHat"]: new HiddenCommand(
+  "cursorless.keyboard.targeted.targetHat": new HiddenCommand(
     "Sets the keyboard target to the given hat",
   ),
-  ["cursorless.keyboard.targeted.targetScope"]: new HiddenCommand(
+  "cursorless.keyboard.targeted.targetScope": new HiddenCommand(
     "Sets the keyboard target to the scope containing the current target",
   ),
-  ["cursorless.keyboard.targeted.targetSelection"]: new HiddenCommand(
+  "cursorless.keyboard.targeted.targetSelection": new HiddenCommand(
     "Sets the keyboard target to the current selection",
   ),
-  ["cursorless.keyboard.targeted.clearTarget"]: new HiddenCommand(
+  "cursorless.keyboard.targeted.clearTarget": new HiddenCommand(
     "Clears the current keyboard target",
   ),
-  ["cursorless.keyboard.targeted.runActionOnTarget"]: new HiddenCommand(
+  "cursorless.keyboard.targeted.runActionOnTarget": new HiddenCommand(
     "Run the given action on the current keyboard target",
   ),
-  ["cursorless.keyboard.modal.modeOn"]: new HiddenCommand(
+  "cursorless.keyboard.modal.modeOn": new HiddenCommand(
     "Turn on the cursorless modal mode",
   ),
-  ["cursorless.keyboard.modal.modeOff"]: new HiddenCommand(
+  "cursorless.keyboard.modal.modeOff": new HiddenCommand(
     "Turn off the cursorless modal mode",
   ),
-  ["cursorless.keyboard.modal.modeToggle"]: new HiddenCommand(
+  "cursorless.keyboard.modal.modeToggle": new HiddenCommand(
     "Toggle the cursorless modal mode",
   ),
-  ["cursorless.keyboard.undoTarget"]: new HiddenCommand(
+  "cursorless.keyboard.undoTarget": new HiddenCommand(
     "Undo keyboard targeting changes",
   ),
-  ["cursorless.keyboard.redoTarget"]: new HiddenCommand(
+  "cursorless.keyboard.redoTarget": new HiddenCommand(
     "Redo keyboard targeting changes",
   ),
 };

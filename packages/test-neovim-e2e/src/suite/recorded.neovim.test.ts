@@ -19,10 +19,8 @@ import {
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { shouldRunTest } from "../shouldRunTest";
 
-suite("recorded test cases", async function () {
+suite("recorded test cases", function () {
   const { getSpy, getNeovimIDE } = endToEndTestSetup(this);
-
-  suiteSetup(async () => {});
 
   const tests = getRecordedTestPaths();
 
@@ -34,7 +32,7 @@ suite("recorded test cases", async function () {
          * The neovim client is set by the test runner in test-runner/src/index.ts into the global object.
          * This allows us to access it in the tests that are executed through mocha.
          */
-        const client = (global as any).additionalParameters.client;
+        const client = (globalThis as any).additionalParameters.client;
 
         const buffer = await fsp.readFile(path);
         const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
@@ -46,12 +44,12 @@ suite("recorded test cases", async function () {
           path,
           spyIde: getSpy()!,
           openNewTestEditor: async (content: string, languageId: string) => {
-            return await openNewTestEditor(client, getNeovimIDE()!, content, {
+            return await openNewTestEditor(client, getNeovimIDE(), content, {
               languageId,
             });
           },
           sleepWithBackoff,
-          testHelpers: (await getCursorlessApi()).testHelpers!,
+          testHelpers: getCursorlessApi().testHelpers!,
           runCursorlessCommand,
         });
       }),
@@ -74,11 +72,11 @@ async function openNewTestEditor(
 
   if (!openBeside) {
     // close all the other buffers (<C-^> is needed because e# fails on unnamed buffers)
-    await client.command("execute '%bd!' | execute 'normal! \\<C-^>'");
+    await client.command(String.raw`execute '%bd!' | execute 'normal! \<C-^>'`);
   }
 
   // standardise newlines so we can easily split the lines
-  const newLines = content.replace(/(?:\r\n|\r|\n)/g, "\n").split("\n");
+  const newLines = content.replaceAll(/(?:\r\n|\r|\n)/g, "\n").split("\n");
 
   // set the buffer contents
   const window = await client.window;

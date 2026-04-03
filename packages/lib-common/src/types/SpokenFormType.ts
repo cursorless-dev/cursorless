@@ -1,9 +1,9 @@
+import type { ActionType } from "./command/ActionDescriptor";
 import type {
-  ActionType,
   ModifierType,
   SimpleScopeTypeType,
   SurroundingPairName,
-} from "@cursorless/lib-common";
+} from "./command/PartialTargetDescriptor.types";
 
 /**
  * This interface is the source of truth for the types used in our spoken form

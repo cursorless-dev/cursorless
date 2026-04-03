@@ -2,9 +2,12 @@
  * Runs all Talon everywhere/JS tests.
  */
 
+import { exit } from "node:process";
 import { TestType, runAllTests } from "../runAllTests";
 
-runAllTests(TestType.talonJs).catch((error) => {
+try {
+  await runAllTests(TestType.talonJs);
+} catch (error) {
   console.error(error);
-  process.exit(1);
-});
+  exit(1);
+}

@@ -37,6 +37,7 @@ export function getRankedTokens(
     const displayLineMap = getDisplayLineMap(editor, [referencePosition.line]);
     const tokens = flatten(
       editor.visibleRanges.map((range) =>
+        // oxlint-disable-next-line oxc/no-map-spread
         getTokensInRange(ide, editor, range).map((partialToken) => ({
           ...partialToken,
           displayLine: displayLineMap.get(partialToken.range.start.line)!,
@@ -91,7 +92,7 @@ function getRankedEditors(
     editors = visibleTextEditors;
   } else {
     editors = [
-      activeTextEditor!,
+      activeTextEditor,
       ...visibleTextEditors.filter((editor) => editor !== activeTextEditor),
     ];
   }

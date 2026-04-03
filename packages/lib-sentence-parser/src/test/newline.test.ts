@@ -34,6 +34,7 @@ suite("sentence-parser: Save newlines", function () {
 
   suite("Multiline strings", function () {
     const entry =
+      // oxlint-disable-next-line no-multi-str
       "How now brown cow.\
         \
         Peter Piper Picked a peck of pickled peppers. A peck of pickled peppers peter piper picked.";

@@ -6,6 +6,7 @@ import type {
   PathChangeListener,
   RunMode,
 } from "@cursorless/lib-common";
+import { isErrnoException } from "@cursorless/lib-node-common";
 
 export class VscodeFileSystem implements FileSystem {
   public readonly cursorlessTalonStateJsonPath: string;
@@ -30,8 +31,8 @@ export class VscodeFileSystem implements FileSystem {
       await vscode.workspace.fs.createDirectory(
         vscode.Uri.file(this.cursorlessDir),
       );
-    } catch (err) {
-      console.log("Cannot create cursorlessDir", this.cursorlessDir, err);
+    } catch (error) {
+      console.log("Cannot create cursorlessDir", this.cursorlessDir, error);
     }
   }
 
@@ -51,15 +52,11 @@ export class VscodeFileSystem implements FileSystem {
       return this.decoder.decode(
         await vscode.workspace.fs.readFile(this.resolveBundledPath(path)),
       );
-    } catch (err) {
-      if (
-        err instanceof Error &&
-        "code" in err &&
-        err.code === "FileNotFound"
-      ) {
+    } catch (error) {
+      if (isErrnoException(error) && error.code === "FileNotFound") {
         return undefined;
       }
-      throw err;
+      throw error;
     }
   }
 

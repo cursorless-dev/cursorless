@@ -12,6 +12,7 @@
 - Engine code is in `/packages/lib-engine/`
 - Tests are in `resources/fixtures/recorded` and `resources/fixtures/scopes`
 - Language-specific parsing is defined in the `resources/queries/*.scm` files
+- Packages starting `lib-` are only used internally in this monorepo and are not published to npm. Changing the api surface is fine as long as every place that consumes the api within this repository is updated.
 
 ## Build and test
 

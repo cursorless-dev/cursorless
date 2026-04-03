@@ -12,9 +12,9 @@ export function checkMarks(originalFixture: TestCaseFixtureLegacy): undefined {
 
   const graphemeSplitter = new TokenGraphemeSplitter(new FakeIDE());
 
-  const targetedMarks = getPartialTargetDescriptors(command.action)
-    .map(extractTargetKeys)
-    .flat();
+  const targetedMarks = getPartialTargetDescriptors(command.action).flatMap(
+    extractTargetKeys,
+  );
   const normalizeGraphemes = (key: string): string =>
     graphemeSplitter
       .getTokenGraphemes(key)

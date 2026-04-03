@@ -26,10 +26,10 @@ suite("sentence-parser: Preserve whitespace", function () {
 
   suite("No effect if newline_boundaries are specified", function () {
     const entry = " This is\ta  sentence   with  funny whitespace. ";
-    const sentences = parser.getSentences(
-      entry,
-      Object.assign({ newlineBoundaries: true }, options),
-    );
+    const sentences = parser.getSentences(entry, {
+      newlineBoundaries: true,
+      ...options,
+    });
 
     test("should get 1 sentences", function () {
       assert.equal(sentences.length, 1);

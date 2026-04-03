@@ -60,22 +60,27 @@ function checkRequirements(
   const { domain } = scope;
 
   // Simple containment checks
-  switch (containment) {
-    case "disallowed":
-      if (domain.contains(position)) {
-        return false;
+  if (containment != null) {
+    switch (containment) {
+      case "disallowed":
+        if (domain.contains(position)) {
+          return false;
+        }
+        break;
+      case "disallowedIfStrict":
+        if (strictlyContains(domain, position)) {
+          return false;
+        }
+        break;
+      case "required":
+        if (!domain.contains(position)) {
+          return false;
+        }
+        break;
+      default: {
+        const _exhaustiveCheck: never = containment;
       }
-      break;
-    case "disallowedIfStrict":
-      if (strictlyContains(domain, position)) {
-        return false;
-      }
-      break;
-    case "required":
-      if (!domain.contains(position)) {
-        return false;
-      }
-      break;
+    }
   }
 
   if (

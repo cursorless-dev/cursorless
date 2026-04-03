@@ -46,6 +46,7 @@ export class UrlScopeHandler extends RegexStageBase {
   regex =
     /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/g;
 
+  // oxlint-disable-next-line no-useless-constructor
   constructor(
     scopeHandlerFactory: ScopeHandlerFactory,
     readonly scopeType: ScopeType,
@@ -60,6 +61,7 @@ export class CustomRegexScopeHandler extends RegexStageBase {
     return new RegExp(this.scopeType.regex, this.scopeType.flags ?? "gu");
   }
 
+  // oxlint-disable-next-line no-useless-constructor
   constructor(
     scopeHandlerFactory: ScopeHandlerFactory,
     readonly scopeType: CustomRegexScopeType,
@@ -74,6 +76,7 @@ export class GlyphScopeHandler extends RegexStageBase {
     return new RegExp(escapeRegExp(this.scopeType.character), "gui");
   }
 
+  // oxlint-disable-next-line no-useless-constructor
   constructor(
     scopeHandlerFactory: ScopeHandlerFactory,
     readonly scopeType: GlyphScopeType,

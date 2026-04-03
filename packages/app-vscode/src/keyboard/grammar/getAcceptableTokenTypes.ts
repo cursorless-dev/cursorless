@@ -106,11 +106,12 @@ function computeRootStatePartialArgs(
   let partialArg: any;
   try {
     const argList = [...getCompletedSymbols(state), lastSymbol];
+    // oxlint-disable-next-line unicorn/no-immediate-mutation
     argList.push(
       ...times(state.rule.symbols.length - argList.length, () => MISSING),
     );
     partialArg = state.rule.postprocess?.(argList) ?? argList;
-  } catch (_err) {
+  } catch {
     // If we can't construct the partial argument because the rule's postprocess
     // wasn't designed to handle partial arguments, then we just replace it with
     // MISSING

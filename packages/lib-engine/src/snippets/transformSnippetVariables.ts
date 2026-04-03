@@ -33,7 +33,7 @@ export function transformSnippetVariables(
         candidate.name = "TM_SELECTED_TEXT";
       } else if (
         substitutions != null &&
-        Object.prototype.hasOwnProperty.call(substitutions, candidate.name)
+        Object.hasOwn(substitutions, candidate.name)
       ) {
         candidate.parent.replace(candidate, [
           new Text(substitutions[candidate.name]),
@@ -47,6 +47,7 @@ export function transformSnippetVariables(
           placeholderIndexMap[candidate.name] = placeholderIndex;
         }
         const placeholder = new Placeholder(placeholderIndex);
+        // oxlint-disable-next-line unicorn/prefer-dom-node-append
         candidate.children.forEach((child) => placeholder.appendChild(child));
         candidate.parent.replace(candidate, [placeholder]);
       }
@@ -55,7 +56,7 @@ export function transformSnippetVariables(
         candidate.parent.replace(candidate, [new Variable("TM_SELECTED_TEXT")]);
       } else if (
         substitutions != null &&
-        Object.prototype.hasOwnProperty.call(substitutions, candidate.index)
+        Object.hasOwn(substitutions, candidate.index)
       ) {
         candidate.parent.replace(candidate, [
           new Text(substitutions[candidate.index]),

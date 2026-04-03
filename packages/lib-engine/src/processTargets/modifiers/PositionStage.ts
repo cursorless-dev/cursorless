@@ -1,4 +1,4 @@
-import type { Range } from "@cursorless/lib-common";
+import { Range } from "@cursorless/lib-common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStage } from "../PipelineStages.types";
 import type { CommonTargetParameters } from "../targets";
@@ -24,12 +24,12 @@ abstract class PositionStage implements ModifierStage {
 
 export class StartOfStage extends PositionStage {
   protected getContentRange(contentRange: Range): Range {
-    return contentRange.start.toEmptyRange();
+    return Range.fromPosition(contentRange.start);
   }
 }
 
 export class EndOfStage extends PositionStage {
   protected getContentRange(contentRange: Range): Range {
-    return contentRange.end.toEmptyRange();
+    return Range.fromPosition(contentRange.end);
   }
 }

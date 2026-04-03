@@ -128,7 +128,7 @@ export class NeovimTextDocument implements TextDocument {
     }
 
     if (range.isSingleLine) {
-      return this._lines[range.start.line].substring(
+      return this._lines[range.start.line].slice(
         range.start.character,
         range.end.character,
       );
@@ -137,17 +137,14 @@ export class NeovimTextDocument implements TextDocument {
     const lineEnding = this._eol,
       startLineIndex = range.start.line,
       endLineIndex = range.end.line,
-      resultLines: string[] = [];
+      resultLines: string[] = [
+        this._lines[startLineIndex].slice(range.start.character),
+      ];
 
-    resultLines.push(
-      this._lines[startLineIndex].substring(range.start.character),
-    );
     for (let i = startLineIndex + 1; i < endLineIndex; i++) {
       resultLines.push(this._lines[i]);
     }
-    resultLines.push(
-      this._lines[endLineIndex].substring(0, range.end.character),
-    );
+    resultLines.push(this._lines[endLineIndex].slice(0, range.end.character));
     return resultLines.join(lineEnding);
   }
 
@@ -223,10 +220,12 @@ export function toUint32(v: number): number {
   if (v < 0) {
     return 0;
   }
-  const maxUint32 = 4294967295; // 2^32 - 1
+  // 2^32 - 1
+  const maxUint32 = 4_294_967_295;
   if (v > maxUint32) {
     return maxUint32;
   }
+  // oxlint-disable-next-line unicorn/prefer-math-trunc, no-bitwise
   return v | 0;
 }
 
@@ -312,6 +311,7 @@ export class PrefixSumComputer {
     let midStop;
 
     while (low <= high) {
+      // oxlint-disable-next-line unicorn/prefer-math-trunc, no-bitwise
       mid = (low + (high - low) / 2) | 0;
 
       midStop = this.prefixSum[mid];

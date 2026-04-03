@@ -93,17 +93,15 @@ async function runTest(file: string) {
     }
 
     await fsp.writeFile(file, serializeTestFixture(fixture));
+  } else if (generatedSpokenForm.type === "success") {
+    assert.equal(
+      fixture.command.spokenForm,
+      generatedSpokenForm.spokenForms[0],
+    );
+    assert.equal(fixture.spokenFormError, undefined);
   } else {
-    if (generatedSpokenForm.type === "success") {
-      assert.equal(
-        fixture.command.spokenForm,
-        generatedSpokenForm.spokenForms[0],
-      );
-      assert.equal(fixture.spokenFormError, undefined);
-    } else {
-      assert.equal(fixture.spokenFormError, generatedSpokenForm.reason);
-      // Don't care what the spoken form is in the test case if we don't know
-      // how to generate it
-    }
+    assert.equal(fixture.spokenFormError, generatedSpokenForm.reason);
+    // Don't care what the spoken form is in the test case if we don't know
+    // how to generate it
   }
 }

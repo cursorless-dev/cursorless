@@ -1,5 +1,5 @@
-import type { Context } from "mocha";
-import { type IDE, SpyIDE } from "@cursorless/lib-common";
+import { SpyIDE } from "@cursorless/lib-common";
+import type { IDE } from "@cursorless/lib-common";
 import type { TalonJsTestHelpers } from "@cursorless/lib-talonjs-core";
 
 interface EndToEndTestSetupOpts {
@@ -19,7 +19,7 @@ export function endToEndTestSetup(
   let injectIde: (ide: IDE) => void;
   let spy: SpyIDE | undefined;
 
-  setup(async function (this: Context) {
+  setup(() => {
     ({ ide, injectIde } = testHelpers);
     testHelpers.commandServerApi.setFocusedElementType(undefined);
     spy = new SpyIDE(ide);

@@ -1,17 +1,14 @@
 import type { Range } from "@cursorless/lib-common";
 import type { TextualType } from "../../typings/target.types";
 import { shrinkRangeToFitContent } from "../../util/selectionUtils";
-import { BaseTarget, type CommonTargetParameters } from "./BaseTarget";
+import { BaseTarget } from "./BaseTarget";
+import type { CommonTargetParameters } from "./BaseTarget";
 import { PlainTarget } from "./PlainTarget";
 
 export class DocumentTarget extends BaseTarget<CommonTargetParameters> {
   type = "DocumentTarget";
   textualType: TextualType = "line";
   insertionDelimiter = "\n\n";
-
-  constructor(parameters: CommonTargetParameters) {
-    super(parameters);
-  }
 
   getInterior() {
     return [

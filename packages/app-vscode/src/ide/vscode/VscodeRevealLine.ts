@@ -14,11 +14,6 @@ export async function vscodeRevealLine(
 
   await vscode.commands.executeCommand("revealLine", {
     lineNumber,
-    at:
-      at === RevealLineAt.top
-        ? "top"
-        : at === RevealLineAt.bottom
-          ? "bottom"
-          : "center",
+    at,
   });
 }

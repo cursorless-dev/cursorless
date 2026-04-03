@@ -14,7 +14,9 @@ suite("SnippetParser", () => {
     }
 
     assertTextsnippetString(
+      // oxlint-disable-next-line no-template-curly-in-string
       "${1|cho\\,ices,wi\\|th,esc\\\\aping,chall\\\\\\,enges|}",
+      // oxlint-disable-next-line no-template-curly-in-string
       "${1|cho\\,ices,wi\\|th,esc\\\\aping,chall\\\\\\,enges|}",
     );
   });

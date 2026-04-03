@@ -1,5 +1,5 @@
 import type { Node } from "web-tree-sitter";
-import type { Range } from "@cursorless/lib-common";
+import { Range } from "@cursorless/lib-common";
 import {
   getNodeEndRange,
   getNodeRange,
@@ -28,10 +28,10 @@ export function rewriteStartOfEndOf(captures: QueryCapture[]): QueryCapture[] {
 
 export function getStartOfEndOfRange(capture: QueryCapture): Range {
   if (capture.name.endsWith(START_OF)) {
-    return capture.range.start.toEmptyRange();
+    return Range.fromPosition(capture.range.start);
   }
   if (capture.name.endsWith(END_OF)) {
-    return capture.range.end.toEmptyRange();
+    return Range.fromPosition(capture.range.end);
   }
   return capture.range;
 }

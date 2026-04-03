@@ -3,7 +3,7 @@ import * as sinon from "sinon";
 import { commands } from "vscode";
 import type { ScopeSupportInfo, ScopeType } from "@cursorless/lib-common";
 import { ScopeSupport, sleep } from "@cursorless/lib-common";
-import { getCursorlessApi, openNewEditor } from "@cursorless/lib-vscode-common";
+import { getTestHelpers, openNewEditor } from "@cursorless/lib-vscode-common";
 import {
   assertCalledWithScopeInfo,
   assertCalledWithoutScopeInfo,
@@ -14,9 +14,8 @@ import {
  * custom regex scopes.
  */
 export async function runCustomRegexScopeInfoTest() {
-  const { scopeProvider, cursorlessTalonStateJsonPath } = (
-    await getCursorlessApi()
-  ).testHelpers!;
+  const { scopeProvider, cursorlessTalonStateJsonPath } =
+    await getTestHelpers();
   const fake = sinon.fake<[scopeInfos: ScopeSupportInfo[]], void>();
 
   await commands.executeCommand("workbench.action.closeAllEditors");
@@ -47,7 +46,7 @@ export async function runCustomRegexScopeInfoTest() {
       // Sleep to ensure that the scope support provider has time to update
       // before the next test starts
       await sleep(250);
-    } catch (_e) {
+    } catch {
       // Do nothing
     }
   }

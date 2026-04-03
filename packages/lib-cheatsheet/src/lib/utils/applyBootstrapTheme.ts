@@ -1,18 +1,15 @@
+// oxlint-disable unicorn/prefer-global-this
 export function applyBootstrapTheme() {
-  if (
-    typeof window === "undefined" ||
-    typeof window.matchMedia === "undefined"
-  ) {
-    return () => {};
+  if (typeof window === "undefined" || window.matchMedia == null) {
+    return () => {
+      // No-op
+    };
   }
 
   const media = window.matchMedia("(prefers-color-scheme: dark)");
 
   function applyTheme() {
-    document.documentElement.setAttribute(
-      "data-bs-theme",
-      media.matches ? "dark" : "light",
-    );
+    document.documentElement.dataset.bsTheme = media.matches ? "dark" : "light";
   }
 
   applyTheme();

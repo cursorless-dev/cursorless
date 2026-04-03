@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import path from "node:path";
 import { isEqual } from "lodash-es";
-import sinon from "sinon";
+import * as sinon from "sinon";
 import { commands } from "vscode";
 import type { SpyIDE, TestCaseFixtureLegacy } from "@cursorless/lib-common";
 import {
@@ -13,29 +13,28 @@ import {
   getRecordedTestsDirPath,
   loadFixture,
 } from "@cursorless/lib-node-common";
+import type { SpyWebViewEvent } from "@cursorless/lib-vscode-common";
 import {
-  getCursorlessApi,
+  getTestHelpers,
   runCursorlessCommand,
-  type SpyWebViewEvent,
 } from "@cursorless/lib-vscode-common";
 import { endToEndTestSetup } from "../../endToEndTestSetup";
 import { waitFor } from "../waitFor";
 
-suite("tutorial", async function () {
+suite("tutorial", function () {
   const { getSpy } = endToEndTestSetup(this);
 
   test(
     "basic",
-    asyncSafety(() => runBasicTutorialTest(getSpy()!)),
+    asyncSafety(() => runBasicTutorialTest(getSpy())),
   );
 });
 
 const BASICS_TUTORIAL_ID = "tutorial-1-basics";
 
 async function runBasicTutorialTest(spyIde: SpyIDE) {
-  const cursorlessApi = await getCursorlessApi();
   const { hatTokenMap, takeSnapshot, getTutorialWebviewEventLog, vscodeApi } =
-    cursorlessApi.testHelpers!;
+    await getTestHelpers();
   const commandsRun: string[] = [];
   sinon.replace(
     vscodeApi.commands,

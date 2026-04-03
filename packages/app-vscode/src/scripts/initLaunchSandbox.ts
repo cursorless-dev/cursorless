@@ -1,4 +1,5 @@
 import * as cp from "node:child_process";
+import { exit } from "node:process";
 /**
  * This script creates a VSCode settings profile for Cursorless development,
  * allowing you to have a separate set of extensions and settings for use when
@@ -7,7 +8,7 @@ import * as cp from "node:child_process";
 import { extensionDependencies } from "@cursorless/lib-common";
 
 const vsCodeToolName: string = "code";
-const validCliToolParams: Array<string> = ["--code", "--codium"];
+const validCliToolParams = new Set(["--code", "--codium"]);
 
 async function main() {
   try {
@@ -15,9 +16,9 @@ async function main() {
     let cliToolName = vsCodeToolName;
 
     process.argv.forEach((argument) => {
-      if (validCliToolParams.includes(argument)) {
+      if (validCliToolParams.has(argument)) {
         cliToolName = argument.replace("--", "");
-        console.log("Cli tool name manually set to " + cliToolName);
+        console.log(`Cli tool name manually set to ${cliToolName}`);
       }
     });
 
@@ -64,11 +65,11 @@ async function main() {
         }
       });
     });
-  } catch (err) {
+  } catch (error) {
     console.error("Failed to init launch sandbox");
-    console.error(err);
-    process.exit(1);
+    console.error(error);
+    exit(1);
   }
 }
 
-void main();
+await main();

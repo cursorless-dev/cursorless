@@ -10,21 +10,21 @@ import {
   runRecordedTest,
 } from "@cursorless/lib-node-common";
 import {
-  getCursorlessApi,
   getReusableEditor,
+  getTestHelpers,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { setupFake } from "./setupFake";
 import { shouldSkipRecordedTest } from "./shouldSkipTest";
 
-suite("recorded test cases", async function () {
+suite("recorded test cases", function () {
   const { getSpy } = endToEndTestSetup(this);
 
   suiteSetup(async () => {
     // Necessary because opening a notebook opens the panel for some reason
     await vscode.commands.executeCommand("workbench.action.closePanel");
-    const { ide } = (await getCursorlessApi()).testHelpers!;
+    const { ide } = await getTestHelpers();
     setupFake(ide, HatStability.stable);
   });
 
@@ -41,7 +41,7 @@ suite("recorded test cases", async function () {
           spyIde: getSpy(),
           openNewTestEditor,
           sleepWithBackoff,
-          testHelpers: (await getCursorlessApi()).testHelpers!,
+          testHelpers: await getTestHelpers(),
           runCursorlessCommand,
         });
       }),
@@ -58,7 +58,7 @@ async function openNewTestEditor(
   // Override any user settings and make sure tests run with default tabs.
   editor.options = DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;
 
-  const testHelpers = (await getCursorlessApi()).testHelpers!;
+  const testHelpers = await getTestHelpers();
 
   return testHelpers.fromVscodeEditor(editor);
 }

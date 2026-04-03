@@ -1,12 +1,13 @@
+// oxlint-disable max-depth
 import * as Match from "./Match";
 import * as stringHelper from "./stringHelper";
 
 const newline_placeholder = " @~@ ";
 const newline_placeholder_t = newline_placeholder.trim();
 
-const whiteSpaceCheck = new RegExp("\\S", "");
-const addNewLineBoundaries = new RegExp("\\n+|[-#=_+*]{4,}", "g");
-const splitIntoWords = new RegExp("\\S+|\\n", "g");
+const whiteSpaceCheck = new RegExp(String.raw`\S`, "");
+const addNewLineBoundaries = new RegExp(String.raw`\n+|[-#=_+*]{4,}`, "g");
+const splitIntoWords = new RegExp(String.raw`\S+|\n`, "g");
 
 export interface SentenceParserOptions {
   newlineBoundaries?: boolean;
@@ -55,7 +56,7 @@ export function getSentences(
     tokens = text.split(/(<br\s*\/?>|\S+|\n+)/);
 
     // every other token is a word
-    words = tokens.filter(function (token, ii) {
+    words = tokens.filter((token, ii) => {
       return ii % 2;
     });
   } else {
@@ -70,7 +71,7 @@ export function getSentences(
   let current = [];
 
   // If given text is only whitespace (or nothing of \S+)
-  if (!words || !words.length) {
+  if (!words || words.length === 0) {
     return [];
   }
 
@@ -81,7 +82,7 @@ export function getSentences(
     current.push(words[i]);
 
     // Sub-sentences, reset counter
-    if (~words[i].indexOf(",")) {
+    if (words[i].includes(",")) {
       wordCount = 0;
     }
 
@@ -117,10 +118,7 @@ export function getSentences(
       // This probably needs to be improved with machine learning
       if (i + 1 < L) {
         // Single character abbr.
-        if (
-          words[i].length === 2 &&
-          isNaN(words[i].charAt(0) as unknown as number)
-        ) {
+        if (words[i].length === 2 && !/^\d/.test(words[i])) {
           continue;
         }
 
@@ -199,17 +197,17 @@ export function getSentences(
     }
   }
 
-  if (current.length) {
+  if (current.length > 0) {
     sentences.push(current);
   }
 
   // Clear "empty" sentences
-  sentences = sentences.filter(function (s) {
+  sentences = sentences.filter((s) => {
     return s.length > 0;
   });
 
   const result = sentences.slice(1).reduce(
-    function (out, sentence) {
+    (out, sentence) => {
       const lastSentence = out[out.length - 1];
 
       // Single words, could be "enumeration lists"
@@ -231,7 +229,7 @@ export function getSentences(
   );
 
   // join tokens back together
-  return result.map(function (sentence, ii) {
+  return result.map((sentence, ii) => {
     if (options.preserveWhitespace && !options.newlineBoundaries) {
       // tokens looks like so: [leading-space token, non-space token, space
       // token, non-space token, space token... ]. In other words, the first

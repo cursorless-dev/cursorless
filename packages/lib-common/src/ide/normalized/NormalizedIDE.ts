@@ -65,7 +65,7 @@ export class NormalizedIDE extends PassthroughIDE {
       : super.setHighlightRanges(highlightId, editor, ranges);
   }
 
-  public async showQuickPick(
+  public showQuickPick(
     _items: readonly string[],
     _options?: QuickPickOptions,
   ): Promise<string | undefined> {

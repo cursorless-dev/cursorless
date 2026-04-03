@@ -11,9 +11,7 @@ const SPECIAL_COMMANDS = {
  * Parses components of the form `{special:help}`. These are special commands
  * that don't correspond to any cursorless command.
  */
-export async function parseSpecialComponent(
-  arg: string,
-): Promise<StepComponent> {
+export function parseSpecialComponent(arg: string): StepComponent {
   let trigger: TutorialStepTrigger | undefined = undefined;
 
   switch (arg) {
@@ -28,6 +26,7 @@ export async function parseSpecialComponent(
         scopeType: undefined,
       };
       break;
+    // No default
   }
 
   return {

@@ -16,7 +16,7 @@ import { multiActionFixture } from "./fixtures/multiAction.fixture";
 import { synonymousSpokenFormsFixture } from "./fixtures/synonymousSpokenForms.fixture";
 import { talonApiFixture } from "./fixtures/talonApi.fixture";
 
-suite("Talon spoken forms", async function () {
+suite("Talon spoken forms", function () {
   const repl = new TalonRepl();
 
   suiteSetup(
@@ -110,8 +110,8 @@ async function runTest(
   const commandsActual = (() => {
     try {
       return JSON.parse(result);
-    } catch (e) {
-      throw new Error(result, { cause: e });
+    } catch (error) {
+      throw new Error(result, { cause: error });
     }
   })();
 

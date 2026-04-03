@@ -8,7 +8,7 @@ import type {
   ScopeRangeConfig,
   ScopeRanges,
 } from "@cursorless/lib-common";
-import { showError } from "@cursorless/lib-common";
+import { getErrorMessage, showError } from "@cursorless/lib-common";
 import type { LanguageDefinitions } from "../languages/LanguageDefinitions";
 import { DecorationDebouncer } from "../util/DecorationDebouncer";
 import type { ScopeRangeProvider } from "./ScopeRangeProvider";
@@ -72,11 +72,11 @@ export class ScopeRangeWatcher {
             editor,
             config,
           );
-        } catch (err) {
+        } catch (error) {
           void showError(
             this.ide.messages,
             "ScopeRangeWatcher.provide",
-            (err as Error).message,
+            getErrorMessage(error),
           );
           // If there was a problem getting scopes for an editor, we show an
           // error and clear any scopes we might have shown last time. This is
@@ -86,7 +86,7 @@ export class ScopeRangeWatcher {
 
           if (this.ide.runMode === "test") {
             // Fail hard if we're in test mode; otherwise recover
-            throw err;
+            throw error;
           }
         }
 
@@ -145,7 +145,7 @@ export class ScopeRangeWatcher {
     this.disposables.forEach(({ dispose }) => {
       try {
         dispose();
-      } catch (_e) {
+      } catch {
         // do nothing; some of the VSCode disposables misbehave, and we don't
         // want that to prevent us from disposing the rest of the disposables
       }

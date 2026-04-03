@@ -21,30 +21,34 @@ export function Code({
   link,
   children,
 }: Props) {
-  const [html, setHtml] = React.useState("");
+  const [html, setHtml] = React.useState<{ __html: string }>();
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    const code = renderWhitespace
-      ? children.replaceAll(" ", "␣").replaceAll("\t", "⭾")
-      : children;
-    codeToHtml(code, {
-      lang: getFallbackLanguage(languageId),
-      theme: "nord",
-      decorations,
-    })
-      .then((html) => {
+    (async () => {
+      const code = renderWhitespace
+        ? children.replaceAll(" ", "␣").replaceAll("\t", "⭾")
+        : children;
+
+      try {
+        let html = await codeToHtml(code, {
+          lang: getFallbackLanguage(languageId),
+          theme: "nord",
+          decorations,
+        });
         if (renderWhitespace) {
           html = html
-            .replace(/␣/g, '<span class="code-ws-symbol">·</span>')
-            .replace(/⭾/g, '<span class="code-ws-symbol"> →  </span>');
+            .replaceAll("␣", '<span class="code-ws-symbol">·</span>')
+            .replaceAll("⭾", '<span class="code-ws-symbol"> →  </span>');
         }
-        setHtml(html);
-      })
-      .catch(console.error);
+        setHtml({ __html: html });
+      } catch (error) {
+        console.error(error);
+      }
+    })();
   }, [languageId, renderWhitespace, decorations, link, children]);
 
-  if (!html) {
+  if (html == null) {
     return <div className="code-container" />;
   }
 
@@ -53,8 +57,8 @@ export function Code({
       await navigator.clipboard.writeText(children);
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
-    } catch (err) {
-      console.error("Failed to copy!", err);
+    } catch (error) {
+      console.error("Failed to copy!", error);
     }
   };
 
@@ -77,10 +81,10 @@ export function Code({
   return (
     <div className="code-container">
       {renderLink()}
-      <button onClick={handleCopy} className="code-copy-button">
+      <button type="button" onClick={handleCopy} className="code-copy-button">
         {copied ? "✅ Copied!" : "📋 Copy"}
       </button>
-      <div dangerouslySetInnerHTML={{ __html: html }}></div>{" "}
+      <div dangerouslySetInnerHTML={html} />{" "}
     </div>
   );
 }

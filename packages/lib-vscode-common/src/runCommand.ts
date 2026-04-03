@@ -13,7 +13,9 @@ export async function runCursorlessCommand(
   return await vscode.commands.executeCommand(CURSORLESS_COMMAND_ID, command);
 }
 
-export async function runCursorlessAction(action: ActionDescriptor) {
+export function runCursorlessAction(
+  action: ActionDescriptor,
+): Promise<CommandResponse | unknown> {
   return runCursorlessCommand({
     version: LATEST_VERSION,
     usePrePhraseSnapshot: false,
