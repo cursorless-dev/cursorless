@@ -170,7 +170,7 @@ export function isNameAbbreviation(wordCount: number, words: string[]) {
       return true;
     }
 
-    const capitalized = words.filter(function (str) {
+    const capitalized = words.filter((str) => {
       return /[A-Z]/.test(str.charAt(0));
     });
 

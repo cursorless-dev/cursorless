@@ -44,7 +44,7 @@ export class VscodeFancyRangeHighlighter {
       // A single range will be split into multiple decorations if it spans
       // multiple lines, so that we can eg use dashed lines to end lines that
       // are part of the same range.
-      function* ({ range, differentiationIndex }) {
+      function* decoratedRanges({ range, differentiationIndex }) {
         const iterable =
           range.type === "line"
             ? generateDecorationsForLineRange(range.start, range.end)

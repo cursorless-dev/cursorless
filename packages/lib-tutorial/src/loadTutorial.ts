@@ -53,7 +53,7 @@ export async function loadTutorial(
       title: tutorialContent.title,
       preConditionsMet: true,
     };
-  } catch (err) {
+  } catch (error) {
     tutorialContent = {
       title: rawContent.title,
       steps: [],
@@ -67,7 +67,7 @@ export async function loadTutorial(
       title: tutorialContent.title,
       preConditionsMet: true,
       requiresTalonUpdate:
-        err instanceof TutorialError && err.requiresTalonUpdate,
+        error instanceof TutorialError && error.requiresTalonUpdate,
     };
   }
 

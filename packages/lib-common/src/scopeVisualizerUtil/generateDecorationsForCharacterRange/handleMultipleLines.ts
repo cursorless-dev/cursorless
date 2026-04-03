@@ -63,6 +63,7 @@ function* handleLine(lineInfo: LineInfo): Iterable<StyledRange> {
 
   // NB: The `loop` label here allows us to break out of the loop from inside
   // the switch statement.
+  // oxlint-disable-next-line no-labels
   loop: for (const event of events) {
     if (event.offset > currentOffset) {
       // If we've moved forward at all since the last event, yield a decoration
@@ -73,12 +74,14 @@ function* handleLine(lineInfo: LineInfo): Iterable<StyledRange> {
           ...currentDecoration,
           // If we're done with this line, draw a right border, otherwise don't,
           // so that it merges in with the next decoration for this line.
-          right:
-            event.offset === currentLine.end
-              ? currentLine.isLast
+          right: (() => {
+            if (event.offset === currentLine.end) {
+              return currentLine.isLast
                 ? BorderStyle.solid
-                : BorderStyle.porous
-              : BorderStyle.none,
+                : BorderStyle.porous;
+            }
+            return BorderStyle.none;
+          })(),
         },
       };
       yieldedAnything = true;
@@ -96,6 +99,7 @@ function* handleLine(lineInfo: LineInfo): Iterable<StyledRange> {
         break;
       // event.isLineStart === false
       case LineType.current:
+        // oxlint-disable-next-line no-labels
         break loop;
       // event.isLineStart === false
       case LineType.next:

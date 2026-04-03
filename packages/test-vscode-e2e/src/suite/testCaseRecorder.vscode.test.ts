@@ -88,7 +88,7 @@ async function testCaseRecorderGracefulError() {
           },
         },
       });
-    } catch (_err) {
+    } catch {
       // Ignore error
     }
 

@@ -106,7 +106,7 @@ async function applySnapshot(
         toCharacterRange(plainObjectToRange(range)),
       ),
     };
-  } catch (err) {
+  } catch (error) {
     if (retry) {
       return await applySnapshot(
         ide,
@@ -116,6 +116,6 @@ async function applySnapshot(
         languageId,
       );
     }
-    throw err;
+    throw error;
   }
 }

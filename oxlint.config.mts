@@ -131,6 +131,12 @@ export default defineConfig({
         checkLoops: false,
       },
     ],
+    "eslint/no-duplicate-imports": [
+      "warn",
+      {
+        allowSeparateTypeImports: true,
+      },
+    ],
     "eslint/no-restricted-imports": [
       "warn",
       {
@@ -154,7 +160,6 @@ export default defineConfig({
       {
         argsIgnorePattern: "^_",
         varsIgnorePattern: "^_",
-        caughtErrorsIgnorePattern: "^_",
         ignoreRestSiblings: true,
       },
     ],

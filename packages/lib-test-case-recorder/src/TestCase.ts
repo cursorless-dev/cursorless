@@ -27,8 +27,8 @@ import {
 import {
   extractTargetKeys,
   getPartialTargetDescriptors,
-  type StoredTargetMap,
 } from "@cursorless/lib-engine";
+import type { StoredTargetMap } from "@cursorless/lib-engine";
 import { takeSnapshot } from "./takeSnapshot";
 
 export class TestCase {
@@ -61,8 +61,7 @@ export class TestCase {
     const activeEditor = this.spyIde.activeTextEditor!;
     this.command = command;
     this.partialTargetDescriptors = getPartialTargetDescriptors(command.action);
-    this.targetKeys = this.partialTargetDescriptors
-      .flatMap(extractTargetKeys);
+    this.targetKeys = this.partialTargetDescriptors.flatMap(extractTargetKeys);
     this.languageId = activeEditor.document.languageId;
     this._awaitingFinalMarkInfo = isHatTokenMapTest;
   }
@@ -203,8 +202,8 @@ export class TestCase {
   }
 
   filterMarks() {
-    const marksToCheck = this.partialTargetDescriptors
-      .flatMap(extractTargetKeys);
+    const marksToCheck =
+      this.partialTargetDescriptors.flatMap(extractTargetKeys);
     const keys = this.targetKeys.concat(marksToCheck);
 
     this.initialState!.marks = pick(

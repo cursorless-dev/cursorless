@@ -184,14 +184,11 @@ async function neovimInsert(
 
   const firstLine = startOfFirstLine + newLines[0];
   const lastLine = newLines[newLines.length - 1] + endOfLastLine;
-  await buffer.setLines(
-    [firstLine, ...newLines.slice(1, newLines.length - 1), lastLine],
-    {
-      start: position.line,
-      end: position.line + 1,
-      strictIndexing: true,
-    },
-  );
+  await buffer.setLines([firstLine, ...newLines.slice(1, -1), lastLine], {
+    start: position.line,
+    end: position.line + 1,
+    strictIndexing: true,
+  });
 }
 
 async function neovimReplace(client: NeovimClient, range: Range, text: string) {

@@ -11,7 +11,7 @@ export function ProgressBar({ currentStep, stepCount }: Props) {
   return (
     <div className="tutorial-progress progress w-100 rounded-pill">
       {/* oxlint-disable-next-line react_perf/jsx-no-new-object-as-prop */}
-      <div className="progress-bar" style={{ width: `${progress}%` }}></div>
+      <div className="progress-bar" style={{ width: `${progress}%` }} />
     </div>
   );
 }

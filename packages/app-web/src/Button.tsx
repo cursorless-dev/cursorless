@@ -5,18 +5,12 @@ interface Props {
 }
 
 export function Button({ text, href, isExternal }: Props) {
-  const extraProps = isExternal
-    ? {
-        target: "_blank",
-        rel: "noreferrer",
-      }
-    : {};
-
   return (
     <a
       href={href}
       className="landing-page-btn text-center text-uppercase"
-      {...extraProps}
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noreferrer" : undefined}
     >
       {text}
     </a>

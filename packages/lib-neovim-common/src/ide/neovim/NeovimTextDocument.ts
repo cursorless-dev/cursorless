@@ -221,7 +221,7 @@ export function toUint32(v: number): number {
     return 0;
   }
   // 2^32 - 1
-  const maxUint32 = 4294967295;
+  const maxUint32 = 4_294_967_295;
   if (v > maxUint32) {
     return maxUint32;
   }

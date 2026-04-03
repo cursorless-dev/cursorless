@@ -6,7 +6,10 @@ import type {
   PathChangeListener,
   RunMode,
 } from "@cursorless/lib-common";
-import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
+import {
+  getCursorlessRepoRoot,
+  isEnoentError,
+} from "@cursorless/lib-node-common";
 
 export class TestFileSystem implements FileSystem {
   public readonly cursorlessTalonStateJsonPath: string;
@@ -28,12 +31,12 @@ export class TestFileSystem implements FileSystem {
   public async readBundledFile(path: string): Promise<string | undefined> {
     const absolutePath = join(getCursorlessRepoRoot(), path);
     try {
-      return await fs.readFile(absolutePath, "utf-8");
-    } catch (e) {
-      if (e instanceof Error && "code" in e && e.code === "ENOENT") {
+      return await fs.readFile(absolutePath, "utf8");
+    } catch (error) {
+      if (isEnoentError(error)) {
         return undefined;
       }
-      throw e;
+      throw error;
     }
   }
 

@@ -16,8 +16,8 @@ import {
 import {
   getCursorlessApi,
   runCursorlessCommand,
-  type SpyWebViewEvent,
 } from "@cursorless/lib-vscode-common";
+import type { SpyWebViewEvent } from "@cursorless/lib-vscode-common";
 import { endToEndTestSetup } from "../../endToEndTestSetup";
 import { waitFor } from "../waitFor";
 

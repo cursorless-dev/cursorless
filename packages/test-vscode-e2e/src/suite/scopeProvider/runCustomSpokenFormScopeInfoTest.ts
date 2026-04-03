@@ -58,7 +58,7 @@ export async function runCustomSpokenFormScopeInfoTest() {
       // Sleep to ensure that the scope support provider has time to update
       // before the next test starts
       await sleep(400);
-    } catch (_e) {
+    } catch {
       // Do nothing
     }
   }

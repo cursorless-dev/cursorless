@@ -44,7 +44,7 @@ function main() {
     "tsx",
     ["--enable-source-maps", fileToRun, ...childArgs],
     {
-      ["CURSORLESS_REPO_ROOT"]: repoRoot,
+      CURSORLESS_REPO_ROOT: repoRoot,
     },
   );
   nodeProcess.on("error", (error) => {

@@ -59,14 +59,14 @@ export async function launchNeovimAndRunTests() {
     if (isWindows()) {
       // const { status, signal, error } = cp.spawnSync(cli, [`-V9`], {
       const { status, signal, error } = cp.spawnSync(cli, [`-V25`], {
-        encoding: "utf-8",
+        encoding: "utf8",
         stdio: "inherit",
         env: {
           ...process.env,
           // ["NVIM_NODE_HOST_DEBUG"]: "1",
-          ["NVIM_NODE_LOG_FILE"]: logName,
-          ["NVIM_NODE_LOG_LEVEL"]: "debug",
-          ["CURSORLESS_MODE"]: "test",
+          NVIM_NODE_LOG_FILE: logName,
+          NVIM_NODE_LOG_LEVEL: "debug",
+          CURSORLESS_MODE: "test",
         },
       });
       console.log(`status: ${status}`);
@@ -81,10 +81,10 @@ export async function launchNeovimAndRunTests() {
     const subprocess = cp.spawn(cli, [`--headless`], {
       env: {
         ...process.env,
-        ["NVIM_NODE_LOG_FILE"]: logName,
+        NVIM_NODE_LOG_FILE: logName,
         // default for testingu
-        ["NVIM_NODE_LOG_LEVEL"]: "info",
-        ["CURSORLESS_MODE"]: "test",
+        NVIM_NODE_LOG_LEVEL: "info",
+        CURSORLESS_MODE: "test",
       },
     });
     console.log("nvim started done");
@@ -104,7 +104,7 @@ export async function launchNeovimAndRunTests() {
       },
     );
 
-    await sleep(10000);
+    await sleep(10_000);
 
     // read log file live and print to console
     // https://stackoverflow.com/questions/26788504/using-node-js-to-read-a-live-file-line-by-line
@@ -135,8 +135,8 @@ export async function launchNeovimAndRunTests() {
         }
       }
     });
-    tailTest.on("error", function (error) {
-      console.log("neovim test: ERROR: ", error);
+    tailTest.on("error", (error) => {
+      console.log("neovim test: ERROR:", error);
       if (error.includes("==== TESTS FINISHED:")) {
         done = true;
         console.log(`done: ${done}`);
@@ -180,9 +180,9 @@ export async function launchNeovimAndRunTests() {
     console.log("tests finished");
 
     tailTest.unwatch();
-  } catch (err) {
+  } catch (error) {
     console.error("Test run threw exception:");
-    console.error(err);
+    console.error(error);
     code = 2;
   }
   console.log(`Returned code: ${code}`);

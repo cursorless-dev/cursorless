@@ -54,13 +54,13 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
     console.log(JSON.stringify(extensionInstallArgs, null, 2));
 
     const { status, signal, error } = sync(cli, extensionInstallArgs, {
-      encoding: "utf-8",
+      encoding: "utf8",
       stdio: "inherit",
     });
 
-    console.log("status: ", status);
-    console.log("signal: ", signal);
-    console.log("error: ", error);
+    console.log("status:", status);
+    console.log("signal:", signal);
+    console.log("error:", error);
 
     console.log("finished installing dependency extensions");
 
@@ -70,7 +70,7 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
       extensionDevelopmentPath,
       extensionTestsPath,
       extensionTestsEnv: {
-        ["CURSORLESS_MODE"]: "test",
+        CURSORLESS_MODE: "test",
       },
       // Note: Crash dump causes legacy VSCode and Windows to hang, so we just
       // don't bother.  Can be re-enabled if we ever need it; on windows it only
@@ -83,9 +83,9 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
     });
 
     console.log(`Returned from "runTests" with value: ${code}`);
-  } catch (err) {
+  } catch (error) {
     console.error("Test run threw exception:");
-    console.error(err);
+    console.error(error);
     process.exit(1);
   }
 }

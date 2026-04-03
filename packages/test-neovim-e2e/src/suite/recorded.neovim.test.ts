@@ -74,7 +74,7 @@ async function openNewTestEditor(
 
   if (!openBeside) {
     // close all the other buffers (<C-^> is needed because e# fails on unnamed buffers)
-    await client.command("execute '%bd!' | execute 'normal! \\<C-^>'");
+    await client.command(String.raw`execute '%bd!' | execute 'normal! \<C-^>'`);
   }
 
   // standardise newlines so we can easily split the lines

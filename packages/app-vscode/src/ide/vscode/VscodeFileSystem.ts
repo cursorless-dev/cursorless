@@ -6,6 +6,7 @@ import type {
   PathChangeListener,
   RunMode,
 } from "@cursorless/lib-common";
+import { isErrnoException } from "@cursorless/lib-node-common";
 
 export class VscodeFileSystem implements FileSystem {
   public readonly cursorlessTalonStateJsonPath: string;
@@ -52,11 +53,7 @@ export class VscodeFileSystem implements FileSystem {
         await vscode.workspace.fs.readFile(this.resolveBundledPath(path)),
       );
     } catch (error) {
-      if (
-        error instanceof Error &&
-        "code" in error &&
-        error.code === "FileNotFound"
-      ) {
+      if (isErrnoException(error) && error.code === "FileNotFound") {
         return undefined;
       }
       throw error;

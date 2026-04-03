@@ -73,11 +73,12 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
     const debouncer = new Debouncer(() => this.checkPreconditions(), 100);
     const runDebouncer = () => debouncer.run();
 
-    void this.loadTutorials().then(() => {
+    void (async () => {
+      await this.loadTutorials();
       if (this.state_.type === "loading") {
         this.setState(this.getPickingTutorialState());
       }
-    });
+    })();
 
     this.disposables.push(
       this.ide.onDidChangeActiveTextEditor(runDebouncer),

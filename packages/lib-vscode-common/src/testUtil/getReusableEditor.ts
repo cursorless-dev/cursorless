@@ -1,4 +1,5 @@
-import { EndOfLine, Range, window, type TextEditor } from "vscode";
+import { EndOfLine, Range, window } from "vscode";
+import type { TextEditor } from "vscode";
 import { getCursorlessApi } from "../getExtensionApi";
 import { closeUiElements } from "./closeUiElements";
 import { openNewEditor } from "./openNewEditor";

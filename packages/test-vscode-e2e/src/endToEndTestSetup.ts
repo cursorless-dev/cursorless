@@ -80,7 +80,7 @@ export function endToEndTestSetup(
 export function sleepWithBackoff(ms: number) {
   const timeToSleep = shouldUpdateFixtures()
     ? ms * 2
-    : ms * Math.pow(2, retryCount - 2);
+    : ms * 2 ** (retryCount - 2);
 
   return sleep(timeToSleep);
 }

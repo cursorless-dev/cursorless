@@ -1,18 +1,15 @@
 import {
   asyncSafety,
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
-  type TextEditor,
 } from "@cursorless/lib-common";
+import type { TextEditor } from "@cursorless/lib-common";
 import {
   getRecordedTestPaths,
   loadFixture,
   runRecordedTest,
 } from "@cursorless/lib-node-common";
-import {
-  activate,
-  type EditorState,
-  type TalonJsIDE,
-} from "@cursorless/lib-talonjs-core";
+import { activate } from "@cursorless/lib-talonjs-core";
+import type { EditorState, TalonJsIDE } from "@cursorless/lib-talonjs-core";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { endToEndTestSetup } from "./endToEndTestSetUp";
 import { talonMock } from "./talonMock";

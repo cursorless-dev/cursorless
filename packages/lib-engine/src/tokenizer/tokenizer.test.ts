@@ -80,7 +80,7 @@ const globalTests: TestCase[] = [
   ["\u006E\u0303", ["\u006E\u0303"]],
   // Windows filepath
   [
-    "tests\\recorded\\typescript\\name",
+    String.raw`tests\recorded\typescript\name`,
     ["tests", "\\", "recorded", "\\", "typescript", "\\", "name"],
   ],
 ];

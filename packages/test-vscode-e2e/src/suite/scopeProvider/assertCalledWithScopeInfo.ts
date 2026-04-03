@@ -1,7 +1,7 @@
 import * as assert from "node:assert/strict";
 import { isEqual } from "lodash-es";
 import type { SinonSpy } from "sinon";
-import { type ScopeType, type ScopeTypeInfo } from "@cursorless/lib-common";
+import type { ScopeType, ScopeTypeInfo } from "@cursorless/lib-common";
 import { waitFor } from "../waitFor";
 
 export async function assertCalledWithScopeInfo<T extends ScopeTypeInfo>(

@@ -56,14 +56,22 @@ function compareTargetScopesForward(
 
     // If they are tied, then start with `a` if it is empty, otherwise start
     // with `b` because it is ending and `a` is starting.
-    return value !== 0 ? value : b.isEmpty ? 1 : -1;
+    if (value !== 0) {
+      return value;
+    }
+
+    return b.isEmpty ? 1 : -1;
   }
 
   // Otherwise `b` starts before position, but `a` does not.  Apply reverse
   // logic to last `if` statement above
   const value = a.start.compareTo(b.end);
 
-  return value !== 0 ? value : a.isEmpty ? -1 : 1;
+  if (value !== 0) {
+    return value;
+  }
+
+  return a.isEmpty ? -1 : 1;
 }
 
 // FIXME: Unify this function with compareTargetScopesForward by constructing
@@ -102,12 +110,20 @@ function compareTargetScopesBackward(
 
     // If they are tied, then start with `a` if it is empty, otherwise start
     // with `b` because it is starting and `a` is ending.
-    return value !== 0 ? value : b.isEmpty ? 1 : -1;
+    if (value !== 0) {
+      return value;
+    }
+
+    return b.isEmpty ? 1 : -1;
   }
 
   // Otherwise `b` starts before position, but `a` does not.  Apply reverse
   // logic to last `if` statement above
   const value = -a.end.compareTo(b.start);
 
-  return value !== 0 ? value : a.isEmpty ? -1 : 1;
+  if (value !== 0) {
+    return value;
+  }
+
+  return a.isEmpty ? -1 : 1;
 }

@@ -1,4 +1,5 @@
-import { type IDE, SpyIDE } from "@cursorless/lib-common";
+import { SpyIDE } from "@cursorless/lib-common";
+import type { IDE } from "@cursorless/lib-common";
 import type { TalonJsTestHelpers } from "@cursorless/lib-talonjs-core";
 
 interface EndToEndTestSetupOpts {

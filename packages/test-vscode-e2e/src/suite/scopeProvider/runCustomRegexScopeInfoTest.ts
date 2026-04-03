@@ -47,7 +47,7 @@ export async function runCustomRegexScopeInfoTest() {
       // Sleep to ensure that the scope support provider has time to update
       // before the next test starts
       await sleep(250);
-    } catch (_e) {
+    } catch {
       // Do nothing
     }
   }

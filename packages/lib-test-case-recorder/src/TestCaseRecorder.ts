@@ -36,6 +36,7 @@ import {
 } from "@cursorless/lib-engine";
 import {
   getRecordedTestsDirPath,
+  isEnoentError,
   walkDirsSync,
 } from "@cursorless/lib-node-common";
 import type { RecordTestCaseCommandOptions } from "./RecordTestCaseCommandOptions";
@@ -387,8 +388,8 @@ export class TestCaseRecorder {
           try {
             await unlink(outPath);
             console.log(`deleted ${outPath}`);
-          } catch (err) {
-            console.log(`failed to delete ${outPath}: ${err}`);
+          } catch (error) {
+            console.log(`failed to delete ${outPath}: ${error}`);
           }
         }
       });
@@ -408,10 +409,10 @@ export class TestCaseRecorder {
   private async promptSubdirectory(): Promise<string | undefined> {
     try {
       if (this.fixtureRoot == null) {
-        throw new Error();
+        throw new Error("Missing fixture root");
       }
       await access(this.fixtureRoot);
-    } catch (e) {
+    } catch (error) {
       const errorMessage =
         '"Cursorless record" must be run from within cursorless directory';
       void showError(
@@ -419,7 +420,7 @@ export class TestCaseRecorder {
         "promptSubdirectoryError",
         errorMessage,
       );
-      throw new Error(errorMessage, { cause: e });
+      throw new Error(errorMessage, { cause: error });
     }
 
     const subdirectorySelection = await this.ide.showQuickPick(
@@ -520,13 +521,13 @@ async function readJsonIfExists(
   let rawText: string;
 
   try {
-    rawText = await readFile(path, { encoding: "utf-8" });
-  } catch (err) {
-    if ((err as NodeJS.ErrnoException).code === "ENOENT") {
+    rawText = await readFile(path, { encoding: "utf8" });
+  } catch (error) {
+    if (isEnoentError(error)) {
       return {};
     }
 
-    throw err;
+    throw error;
   }
 
   return JSON.parse(rawText);

@@ -89,12 +89,15 @@ function getExtends(
   pathFromPackageToRoot: string,
   inputExtends: string | string[] | undefined,
 ) {
-  const extendsList =
-    inputExtends == null
-      ? []
-      : Array.isArray(inputExtends)
-        ? [...inputExtends]
-        : [inputExtends];
+  let extendsList: string[] = [];
+
+  if (inputExtends == null) {
+    extendsList = [];
+  } else if (Array.isArray(inputExtends)) {
+    extendsList = inputExtends;
+  } else {
+    extendsList = [inputExtends];
+  }
 
   const basePath = toPosixPath(path.join(pathFromPackageToRoot, baseName));
   const webPath = toPosixPath(path.join(pathFromPackageToRoot, webJsonName));
