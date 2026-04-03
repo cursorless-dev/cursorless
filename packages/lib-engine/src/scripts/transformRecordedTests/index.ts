@@ -16,7 +16,7 @@ const AVAILABLE_TRANSFORMATIONS: Record<string, FixtureTransformation> = {
   upgrade,
   canonicalize,
   format: identity,
-  ["check-marks"]: checkMarks,
+  "check-marks": checkMarks,
   custom: upgradeDecorations,
 };
 

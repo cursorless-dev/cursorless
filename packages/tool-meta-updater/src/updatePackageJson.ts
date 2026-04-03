@@ -127,6 +127,9 @@ function getScripts(
 
 function removeEmptyFields(obj: Record<string, any>) {
   for (const keyword in obj) {
+    if (!Object.hasOwn(obj, keyword)) {
+      continue;
+    }
     const value = obj[keyword];
     if (Array.isArray(value) && value.length === 0) {
       delete obj[keyword];

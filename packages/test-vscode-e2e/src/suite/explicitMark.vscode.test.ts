@@ -2,8 +2,8 @@ import * as assert from "node:assert/strict";
 import { Selection } from "vscode";
 import { LATEST_VERSION } from "@cursorless/lib-common";
 import {
-  getCursorlessApi,
   getReusableEditor,
+  getTestHelpers,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
 import { endToEndTestSetup } from "../endToEndTestSetup";
@@ -15,7 +15,7 @@ suite("Explicit mark", function () {
 });
 
 async function explicitMark() {
-  const { ide } = (await getCursorlessApi()).testHelpers!;
+  const { ide } = await getTestHelpers();
   const editor = await getReusableEditor("foo bar baz");
   const editorId = ide.visibleTextEditors[0].id;
 

@@ -142,5 +142,6 @@ type PredicateResult = SuccessfulPredicateResult | FailedPredicateResult;
 class CaptureNotFoundError extends Error {
   constructor(operandName: string) {
     super(`Could not find capture ${operandName}`);
+    this.name = "CaptureNotFoundError";
   }
 }

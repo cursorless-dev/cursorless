@@ -1,6 +1,6 @@
 import { commands } from "vscode";
 import { asyncSafety } from "@cursorless/lib-common";
-import { getCursorlessApi } from "@cursorless/lib-vscode-common";
+import { getTestHelpers } from "@cursorless/lib-vscode-common";
 import { endToEndTestSetup } from "../../endToEndTestSetup";
 import { runBasicMultilineContentTest } from "./runBasicMultilineContentTest";
 import { runBasicRemovalTest } from "./runBasicRemovalTest";
@@ -11,7 +11,7 @@ suite("scope visualizer", function () {
   endToEndTestSetup(this);
 
   suiteSetup(async () => {
-    const { ide } = (await getCursorlessApi()).testHelpers!;
+    const { ide } = await getTestHelpers();
     ide.configuration.mockConfiguration("decorationDebounceDelayMs", 0);
   });
 

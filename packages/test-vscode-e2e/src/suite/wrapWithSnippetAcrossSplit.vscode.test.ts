@@ -1,7 +1,7 @@
 import * as assert from "node:assert/strict";
 import { HatStability, LATEST_VERSION } from "@cursorless/lib-common";
 import {
-  getCursorlessApi,
+  getTestHelpers,
   openNewEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
@@ -12,7 +12,7 @@ suite("Wrap with snippet across split", function () {
   endToEndTestSetup(this);
 
   suiteSetup(async () => {
-    const { ide } = (await getCursorlessApi()).testHelpers!;
+    const { ide } = await getTestHelpers();
     setupFake(ide, HatStability.stable);
   });
 
@@ -20,7 +20,7 @@ suite("Wrap with snippet across split", function () {
 });
 
 async function runTest() {
-  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap } = await getTestHelpers();
 
   const { document: document1 } = await openNewEditor("hello world");
   const { document: document2 } = await openNewEditor("", undefined, true);

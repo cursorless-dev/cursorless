@@ -102,6 +102,6 @@ interface TalonInTests extends Talon {
 export const talonMock: TalonInTests = {
   actions,
   settings,
-  ["Context"]: Context,
+  Context,
   getTestHelpers,
 };

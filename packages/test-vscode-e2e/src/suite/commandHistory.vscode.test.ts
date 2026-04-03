@@ -11,7 +11,7 @@ import type {
 } from "@cursorless/lib-common";
 import { LATEST_VERSION } from "@cursorless/lib-common";
 import {
-  getCursorlessApi,
+  getTestHelpers,
   openNewEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
@@ -28,8 +28,8 @@ suite("commandHistory", function () {
   let tmpdir = "";
 
   suiteSetup(async () => {
-    tmpdir = (await getCursorlessApi()).testHelpers!
-      .cursorlessCommandHistoryDirPath;
+    const { cursorlessCommandHistoryDirPath } = await getTestHelpers();
+    tmpdir = cursorlessCommandHistoryDirPath;
   });
 
   this.afterEach(async () => {
@@ -105,14 +105,12 @@ async function getLogEntry(tmpdir: string) {
 }
 
 async function injectFakeIsActive(isActive: boolean): Promise<void> {
-  (await getCursorlessApi()).testHelpers!.ide.configuration.mockConfiguration(
-    "commandHistory",
-    isActive,
-  );
+  const { ide } = await getTestHelpers();
+  ide.configuration.mockConfiguration("commandHistory", isActive);
 }
 
 async function initalizeEditor() {
-  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap } = await getTestHelpers();
 
   const editor = await openNewEditor("hello world");
 

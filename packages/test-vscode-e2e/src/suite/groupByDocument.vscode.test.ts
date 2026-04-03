@@ -2,7 +2,7 @@ import * as assert from "node:assert/strict";
 import * as vscode from "vscode";
 import { LATEST_VERSION, splitKey } from "@cursorless/lib-common";
 import {
-  getCursorlessApi,
+  getTestHelpers,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
 import { endToEndTestSetup } from "../endToEndTestSetup";
@@ -14,8 +14,7 @@ suite("Group by document", function () {
 });
 
 async function runTest() {
-  const { hatTokenMap, toVscodeEditor } = (await getCursorlessApi())
-    .testHelpers!;
+  const { hatTokenMap, toVscodeEditor } = await getTestHelpers();
 
   await vscode.commands.executeCommand("workbench.action.closeAllEditors");
 

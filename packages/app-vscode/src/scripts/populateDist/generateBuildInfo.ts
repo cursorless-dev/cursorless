@@ -15,9 +15,10 @@ export async function generateBuildInfo({ isCi }: Context) {
   const repository = getEnvironmentVariableStrict("GITHUB_REPOSITORY");
   const runId = getEnvironmentVariableStrict("GITHUB_RUN_ID");
   const githubBaseUrl = getEnvironmentVariableStrict("GITHUB_SERVER_URL");
+  const gitSha = await runCommand("git rev-parse HEAD");
 
   return JSON.stringify({
-    gitSha: (await runCommand("git rev-parse HEAD")).trim(),
+    gitSha: gitSha.trim(),
     buildUrl: `${githubBaseUrl}/${repository}/actions/runs/${runId}`,
   });
 }

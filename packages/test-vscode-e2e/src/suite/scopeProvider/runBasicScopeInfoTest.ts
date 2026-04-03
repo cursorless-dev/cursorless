@@ -4,8 +4,8 @@ import { Position, Range, commands } from "vscode";
 import type { ScopeSupportInfo } from "@cursorless/lib-common";
 import { ScopeSupport } from "@cursorless/lib-common";
 import {
-  getCursorlessApi,
   getReusableEditor,
+  getTestHelpers,
 } from "@cursorless/lib-vscode-common";
 import { assertCalledWithScopeInfo } from "./assertCalledWithScopeInfo";
 
@@ -14,7 +14,7 @@ import { assertCalledWithScopeInfo } from "./assertCalledWithScopeInfo";
  * simple named function.
  */
 export async function runBasicScopeInfoTest() {
-  const { scopeProvider } = (await getCursorlessApi()).testHelpers!;
+  const { scopeProvider } = await getTestHelpers();
   const fake = sinon.fake<[scopeInfos: ScopeSupportInfo[]], void>();
 
   await commands.executeCommand("workbench.action.closeAllEditors");

@@ -34,7 +34,7 @@ suite("recorded test cases", function () {
          * The neovim client is set by the test runner in test-runner/src/index.ts into the global object.
          * This allows us to access it in the tests that are executed through mocha.
          */
-        const client = (global as any).additionalParameters.client;
+        const client = (globalThis as any).additionalParameters.client;
 
         const buffer = await fsp.readFile(path);
         const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;

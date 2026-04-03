@@ -360,10 +360,10 @@ export class TestCaseRecorder {
     await this.finishTestCase();
   }
 
-  async finishTestCase(): Promise<void> {
+  finishTestCase(): void {
     const outPath = this.calculateFilePath(this.testCase!);
     const fixture = this.testCase!.toYaml();
-    await this.writeToFile(outPath, fixture);
+    this.writeToFile(outPath, fixture);
 
     if (!this.isSilent) {
       let message = `"${
@@ -374,13 +374,14 @@ export class TestCaseRecorder {
         message += ` Spoken form error: ${this.testCase!.spokenFormError}`;
       }
 
-      void showInfo(
-        this.ide.messages,
-        "testCaseSaved",
-        message,
-        "View",
-        "Delete",
-      ).then(async (action) => {
+      void (async () => {
+        const action = await showInfo(
+          this.ide.messages,
+          "testCaseSaved",
+          message,
+          "View",
+          "Delete",
+        );
         if (action === "View") {
           await this.ide.openTextDocument(outPath);
         }
@@ -389,10 +390,10 @@ export class TestCaseRecorder {
             await unlink(outPath);
             console.log(`deleted ${outPath}`);
           } catch (error) {
-            console.log(`failed to delete ${outPath}: ${error}`);
+            console.warn(`failed to delete ${outPath}: ${error}`);
           }
         }
-      });
+      })();
     }
 
     this.testCase = null;
@@ -403,7 +404,7 @@ export class TestCaseRecorder {
   }
 
   private writeToFile(outPath: string, fixture: string) {
-    fs.writeFileSync(outPath, fixture);
+    fs.writeFileSync(outPath, fixture, { encoding: "utf8" });
   }
 
   private async promptSubdirectory(): Promise<string | undefined> {

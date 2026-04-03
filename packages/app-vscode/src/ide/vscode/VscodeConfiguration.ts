@@ -17,7 +17,7 @@ type TranslatorMap = {
 };
 
 const translators: TranslatorMap = {
-  ["experimental.hatStability"]: (value: string) => {
+  "experimental.hatStability": (value: string) => {
     return HatStability[value as keyof typeof HatStability];
   },
 };

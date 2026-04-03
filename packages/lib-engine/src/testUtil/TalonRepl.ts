@@ -20,7 +20,7 @@ export class TalonRepl {
       this.child = childProcess.spawn(path, { shell: true });
 
       if (this.child?.stdin == null) {
-        reject("stdin is null");
+        reject(new Error("stdin is null"));
         return;
       }
 
@@ -54,7 +54,7 @@ export class TalonRepl {
         this.child.stdin.write(command);
         this.child.stdin.write("\n");
       } else {
-        reject();
+        reject(new Error("REPL not started"));
       }
     });
   }
@@ -71,7 +71,8 @@ export class TalonRepl {
       // `0` back to us (we could put any Python value in there; `0` is just a
       // simple one). We keep doing this until we get `0` back, which means the
       // REPL is responsive again.
-      const output = (await this.command("0")).trim();
+      const result = await this.command("0");
+      const output = result.trim();
 
       if (output === "0") {
         break;

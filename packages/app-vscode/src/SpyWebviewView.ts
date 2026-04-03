@@ -1,4 +1,3 @@
-import { cloneDeep } from "lodash-es";
 import type { Uri, Webview, WebviewOptions, WebviewView } from "vscode";
 import type { Disposable } from "@cursorless/lib-common";
 import type { SpyWebViewEvent } from "@cursorless/lib-vscode-common";
@@ -27,7 +26,7 @@ export class SpyWebviewView {
   }
 
   getEventLog(): SpyWebViewEvent[] {
-    return cloneDeep(this.eventLog);
+    return structuredClone(this.eventLog);
   }
 
   show(preserveFocus: boolean): void {

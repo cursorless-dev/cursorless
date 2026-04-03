@@ -3,8 +3,9 @@ import { defineConfig } from "oxlint";
 
 // These rules should probably be re-enabled eventually
 const temporarilyDisabled = [
-  "typescript/no-unsafe-type-assertion",
   "eslint/no-shadow",
+  "eslint/prefer-template",
+  "typescript/no-unsafe-type-assertion",
 ];
 
 const disabledRules = [
@@ -13,6 +14,7 @@ const disabledRules = [
   "eslint/capitalized-comments",
   "eslint/class-methods-use-this",
   "eslint/complexity",
+  "eslint/func-names",
   "eslint/id-length",
   "eslint/init-declarations",
   "eslint/max-classes-per-file",
@@ -47,6 +49,7 @@ const disabledRules = [
   "import/no-relative-parent-imports",
   "import/prefer-default-export",
   "oxc/no-async-await",
+  "oxc/no-map-spread",
   "oxc/no-optional-chaining",
   "oxc/no-rest-spread-properties",
   "promise/always-return",

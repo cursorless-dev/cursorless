@@ -256,8 +256,8 @@ export class Actions implements ActionRecord {
   unfoldRegion;
   wrapWithPairedDelimiter;
   wrapWithSnippet;
-  ["experimental.setInstanceReference"];
-  ["private.showParseTree"];
-  ["private.getTargets"];
-  ["private.setKeyboardTarget"];
+  "experimental.setInstanceReference";
+  "private.showParseTree";
+  "private.getTargets";
+  "private.setKeyboardTarget";
 }

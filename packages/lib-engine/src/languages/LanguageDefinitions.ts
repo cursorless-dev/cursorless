@@ -60,14 +60,16 @@ export class LanguageDefinitionsImpl implements LanguageDefinitions {
     private treeSitterQueryProvider: RawTreeSitterQueryProvider,
   ) {
     this.disposables.push(
-      ide.onDidOpenTextDocument((document) => {
-        this.loadLanguage(document.languageId).catch((error) => {
+      ide.onDidOpenTextDocument(async (document) => {
+        try {
+          await this.loadLanguage(document.languageId);
+        } catch (error) {
           void showError(
             this.ide.messages,
             `Failed to load language definition: ${document.languageId}`,
             getErrorMessage(error),
           );
-        });
+        }
       }),
 
       ide.onDidChangeVisibleTextEditors((editors) => {

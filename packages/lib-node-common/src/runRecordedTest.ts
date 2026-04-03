@@ -43,7 +43,8 @@ function createSelection(selection: SelectionPlainObject): Selection {
 function normalizeRecordedReturnValue(returnValue: unknown) {
   // Recorded fixtures store plain serialized data rather than runtime instances.
   return returnValue != null && typeof returnValue === "object"
-    ? JSON.parse(JSON.stringify(returnValue))
+    ? // oxlint-disable-next-line unicorn/prefer-structured-clone
+      JSON.parse(JSON.stringify(returnValue))
     : returnValue;
 }
 

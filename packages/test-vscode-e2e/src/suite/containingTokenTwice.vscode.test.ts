@@ -2,8 +2,8 @@ import * as assert from "node:assert/strict";
 import * as vscode from "vscode";
 import { LATEST_VERSION } from "@cursorless/lib-common";
 import {
-  getCursorlessApi,
   getReusableEditor,
+  getTestHelpers,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
 import { endToEndTestSetup } from "../endToEndTestSetup";
@@ -18,7 +18,7 @@ suite("Take token twice", function () {
 });
 
 async function runTest() {
-  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap } = await getTestHelpers();
   const editor = await getReusableEditor("a)");
   await hatTokenMap.allocateHats();
 

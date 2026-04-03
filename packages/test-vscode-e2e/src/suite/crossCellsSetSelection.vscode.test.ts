@@ -3,7 +3,7 @@ import { window } from "vscode";
 import { LATEST_VERSION, splitKey } from "@cursorless/lib-common";
 import {
   getCellIndex,
-  getCursorlessApi,
+  getTestHelpers,
   openNewNotebookEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
@@ -17,8 +17,7 @@ suite("Cross-cell set selection", function () {
 });
 
 async function runTest() {
-  const { hatTokenMap, toVscodeEditor } = (await getCursorlessApi())
-    .testHelpers!;
+  const { hatTokenMap, toVscodeEditor } = await getTestHelpers();
 
   const notebook = await openNewNotebookEditor(['"hello"', '"world"']);
 

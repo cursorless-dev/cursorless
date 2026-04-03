@@ -1,6 +1,6 @@
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { cloneDeep, isEqual } from "lodash-es";
+import { isEqual } from "lodash-es";
 import * as vscode from "vscode";
 import type {
   Listener,
@@ -299,7 +299,7 @@ export default class VscodeHatRenderer {
       ),
     );
 
-    this.lastSeenEnabledHatStyles = cloneDeep(
+    this.lastSeenEnabledHatStyles = structuredClone(
       this.enabledHatStyles.hatStyleMap,
     );
   }

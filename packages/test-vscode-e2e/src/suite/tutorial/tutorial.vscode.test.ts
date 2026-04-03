@@ -13,11 +13,11 @@ import {
   getRecordedTestsDirPath,
   loadFixture,
 } from "@cursorless/lib-node-common";
+import type { SpyWebViewEvent } from "@cursorless/lib-vscode-common";
 import {
-  getCursorlessApi,
+  getTestHelpers,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
-import type { SpyWebViewEvent } from "@cursorless/lib-vscode-common";
 import { endToEndTestSetup } from "../../endToEndTestSetup";
 import { waitFor } from "../waitFor";
 
@@ -33,9 +33,8 @@ suite("tutorial", function () {
 const BASICS_TUTORIAL_ID = "tutorial-1-basics";
 
 async function runBasicTutorialTest(spyIde: SpyIDE) {
-  const cursorlessApi = await getCursorlessApi();
   const { hatTokenMap, takeSnapshot, getTutorialWebviewEventLog, vscodeApi } =
-    cursorlessApi.testHelpers!;
+    await getTestHelpers();
   const commandsRun: string[] = [];
   sinon.replace(
     vscodeApi.commands,

@@ -37,7 +37,7 @@ export async function showCheatsheet(
 
   const cheatsheetPath = path.join(ide.assetsRoot, "cheatsheet.html");
 
-  const cheatsheetContent = (await readFile(cheatsheetPath)).toString();
+  const cheatsheetContent = await readFile(cheatsheetPath, "utf8");
 
   const root = parse(cheatsheetContent);
 

@@ -3,7 +3,7 @@ import * as sinon from "sinon";
 import type { IDE, NormalizedIDE } from "@cursorless/lib-common";
 import { shouldUpdateFixtures, sleep, SpyIDE } from "@cursorless/lib-common";
 import {
-  getCursorlessApi,
+  getTestHelpers,
   resetReusableEditor,
 } from "@cursorless/lib-vscode-common";
 
@@ -40,7 +40,7 @@ export function endToEndTestSetup(
     const title = this.test!.fullTitle();
     retryCount = title === previousTestTitle ? retryCount + 1 : 0;
     previousTestTitle = title;
-    const testHelpers = (await getCursorlessApi()).testHelpers!;
+    const testHelpers = await getTestHelpers();
     originalIde = testHelpers.ide;
     injectIde = testHelpers.injectIde;
     testHelpers.commandServerApi.setFocusedElementType(undefined);

@@ -53,6 +53,6 @@ function formatMessage(message: string): string {
   const lines = message
     .split(/\r?\n/)
     .map((l) => l.trimEnd())
-    .map((l) => (l.length > maxLength ? l.slice(0, maxLength) + "..." : l));
+    .map((l) => (l.length > maxLength ? `${l.slice(0, maxLength)}...` : l));
   return lines.join("\n");
 }

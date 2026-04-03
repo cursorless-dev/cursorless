@@ -1,5 +1,5 @@
 import { produce } from "immer";
-import { cloneDeep, mapKeys } from "lodash-es";
+import { mapKeys } from "lodash-es";
 import type {
   CommandComplete,
   CommandLatest,
@@ -93,7 +93,7 @@ function substituteMissingHats(
   command: CommandLatest,
   initialState: TestCaseSnapshot,
 ) {
-  command = cloneDeep(command);
+  command = structuredClone(command);
 
   // Update the hats in the command
   transformPartialPrimitiveTargets(

@@ -14,7 +14,7 @@ export async function run(plugin: NvimPlugin): Promise<void> {
    * so we add it to the global object.
    */
   const client = plugin.nvim as NeovimClient;
-  (global as any).additionalParameters = {
+  (globalThis as any).additionalParameters = {
     client: client,
   };
   let code = 0;

@@ -17,7 +17,7 @@ async function main() {
     process.argv.forEach((argument) => {
       if (validCliToolParams.has(argument)) {
         cliToolName = argument.replace("--", "");
-        console.log("Cli tool name manually set to " + cliToolName);
+        console.log(`Cli tool name manually set to ${cliToolName}`);
       }
     });
 

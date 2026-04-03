@@ -153,7 +153,7 @@ export async function analyzeCommandHistory(
 }
 
 function toPercent(value: number) {
-  return Intl.NumberFormat(undefined, {
+  return new Intl.NumberFormat(undefined, {
     style: "percent",
     minimumFractionDigits: 0,
     maximumFractionDigits: 1,

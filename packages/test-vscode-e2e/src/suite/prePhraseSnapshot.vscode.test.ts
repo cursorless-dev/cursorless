@@ -7,8 +7,8 @@ import {
 } from "@cursorless/lib-common";
 import {
   fromVscodeSelection,
-  getCursorlessApi,
   getReusableEditor,
+  getTestHelpers,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
 import { endToEndTestSetup } from "../endToEndTestSetup";
@@ -29,7 +29,7 @@ suite("Pre-phrase snapshots", function () {
   endToEndTestSetup(this);
 
   suiteSetup(async () => {
-    const { ide } = (await getCursorlessApi()).testHelpers!;
+    const { ide } = await getTestHelpers();
     setupFake(ide, HatStability.greedy);
   });
 
@@ -49,8 +49,7 @@ async function runTest(
   multiplePhrases: boolean,
   expectedSelections: vscode.Selection[],
 ) {
-  const { hatTokenMap, commandServerApi } = (await getCursorlessApi())
-    .testHelpers!;
+  const { hatTokenMap, commandServerApi } = await getTestHelpers();
 
   const editor = await getReusableEditor("a\n");
 

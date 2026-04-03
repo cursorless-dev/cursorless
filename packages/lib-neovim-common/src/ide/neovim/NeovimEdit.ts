@@ -81,14 +81,13 @@ async function neovimDelete(client: NeovimClient, range: Range): Promise<void> {
   console.debug(`neovimDelete(): range=${JSON.stringify(range)}`);
   const buffer = await client.window.buffer;
 
+  let lines = await buffer.getLines({
+    start: range.end.line,
+    end: range.end.line + 1,
+    strictIndexing: true,
+  });
   // only keep the end of the last line
-  const lastLine = (
-    await buffer.getLines({
-      start: range.end.line,
-      end: range.end.line + 1,
-      strictIndexing: true,
-    })
-  )[0];
+  const lastLine = lines[0];
   const endOfLastLine = lastLine.slice(range.end.character);
 
   // are we only modifying one existing line?
@@ -117,14 +116,13 @@ async function neovimDelete(client: NeovimClient, range: Range): Promise<void> {
     return;
   }
 
+  lines = await buffer.getLines({
+    start: range.start.line,
+    end: range.start.line + 1,
+    strictIndexing: true,
+  });
   // only keep the beginning of the first line
-  const firstLine = (
-    await buffer.getLines({
-      start: range.start.line,
-      end: range.start.line + 1,
-      strictIndexing: true,
-    })
-  )[0];
+  const firstLine = lines[0];
   const startOfFirstLine = firstLine.slice(0, range.start.character);
 
   // are we not including the newline at the end of the first line?
@@ -158,13 +156,12 @@ async function neovimInsert(
 
   const buffer = await client.window.buffer;
 
-  const lineWhereInsertion = (
-    await buffer.getLines({
-      start: position.line,
-      end: position.line + 1,
-      strictIndexing: true,
-    })
-  )[0];
+  const lines = await buffer.getLines({
+    start: position.line,
+    end: position.line + 1,
+    strictIndexing: true,
+  });
+  const lineWhereInsertion = lines[0];
   const startOfFirstLine = lineWhereInsertion.slice(0, position.character);
   const endOfLastLine = lineWhereInsertion.slice(position.character);
 

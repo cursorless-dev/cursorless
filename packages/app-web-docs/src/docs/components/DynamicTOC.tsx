@@ -21,7 +21,7 @@ export function DynamicTOC({
 
     // Remove existing TOC if it exists
     if (row.childNodes.length > 1) {
-      row.replaceChild(toc, row.childNodes[1]);
+      row.childNodes[1].replaceWith(toc);
     } else {
       row.append(toc);
     }

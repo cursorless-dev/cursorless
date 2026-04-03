@@ -1,6 +1,6 @@
-import { EndOfLine, Range, window } from "vscode";
 import type { TextEditor } from "vscode";
-import { getCursorlessApi } from "../getExtensionApi";
+import { EndOfLine, Range, window } from "vscode";
+import { getTestHelpers } from "../getExtensionApi";
 import { closeUiElements } from "./closeUiElements";
 import { openNewEditor } from "./openNewEditor";
 
@@ -21,7 +21,9 @@ export async function getReusableEditor(
   }
 
   await closeUiElements();
-  (await getCursorlessApi()).testHelpers!.clearCache();
+
+  const { clearCache } = await getTestHelpers();
+  clearCache();
 
   // Replace the entire contents of the editor with the new content
   await editor.edit((editBuilder) => {

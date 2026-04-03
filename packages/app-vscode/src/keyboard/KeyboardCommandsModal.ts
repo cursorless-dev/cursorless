@@ -224,5 +224,6 @@ export default class KeyboardCommandsModal {
 class KeySequenceCancelledError extends Error {
   constructor() {
     super("Key sequence cancelled");
+    this.name = "KeySequenceCancelledError";
   }
 }

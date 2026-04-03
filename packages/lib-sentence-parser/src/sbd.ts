@@ -82,7 +82,7 @@ export function getSentences(
     current.push(words[i]);
 
     // Sub-sentences, reset counter
-    if (~words[i].indexOf(",")) {
+    if (words[i].includes(",")) {
       wordCount = 0;
     }
 

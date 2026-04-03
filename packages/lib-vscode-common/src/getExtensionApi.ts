@@ -3,9 +3,8 @@ import type { Query, Tree } from "web-tree-sitter";
 import type { CommandServerApi } from "@cursorless/lib-common";
 import type { VscodeTestHelpers } from "./TestHelpers";
 
-export interface CursorlessApi {
-  testHelpers: VscodeTestHelpers | undefined;
-}
+export const COMMAND_SERVER_EXTENSION_ID = "pokey.command-server";
+const EXTENSION_ID = "pokey.cursorless";
 
 export interface ParseTreeApi {
   loadLanguage(languageId: string): Promise<boolean>;
@@ -13,34 +12,52 @@ export interface ParseTreeApi {
   createQuery(languageId: string, source: string): Query | undefined;
 }
 
-export async function getExtensionApi<T>(extensionId: string) {
-  const extension = vscode.extensions.getExtension(extensionId);
-
-  return extension == null ? undefined : ((await extension.activate()) as T);
+export interface CursorlessApi {
+  testHelpers: VscodeTestHelpers | undefined;
 }
 
-export async function getExtensionApiStrict<T>(extensionId: string) {
+async function getExtensionApi<T>(extensionId: string): Promise<T | undefined> {
   const extension = vscode.extensions.getExtension(extensionId);
 
   if (extension == null) {
-    throw new Error(`Could not get ${extensionId} extension`);
+    return undefined;
   }
 
   return (await extension.activate()) as T;
 }
 
-export const EXTENSION_ID = "pokey.cursorless";
-export const COMMAND_SERVER_EXTENSION_ID = "pokey.command-server";
+async function getExtensionApiStrict<T>(extensionId: string): Promise<T> {
+  const extension = await getExtensionApi<T>(extensionId);
 
-export const getCursorlessApi = () =>
-  getExtensionApiStrict<CursorlessApi>(EXTENSION_ID);
+  if (extension == null) {
+    throw new Error(`Could not get ${extensionId} extension`);
+  }
 
-export const getParseTreeApi = () =>
-  getExtensionApiStrict<ParseTreeApi>("pokey.parse-tree");
+  return extension;
+}
+
+export function getParseTreeApi(): Promise<ParseTreeApi> {
+  return getExtensionApiStrict<ParseTreeApi>("pokey.parse-tree");
+}
+
+function getCursorlessApi(): Promise<CursorlessApi> {
+  return getExtensionApiStrict<CursorlessApi>(EXTENSION_ID);
+}
+
+export async function getTestHelpers(): Promise<VscodeTestHelpers> {
+  const cursorlessApi = await getCursorlessApi();
+
+  if (cursorlessApi.testHelpers == null) {
+    throw new Error("Test helpers are not available");
+  }
+
+  return cursorlessApi.testHelpers;
+}
 
 /**
  *
- * @returns Command server API or null if not installed
+ * @returns Command server API or undefined if not installed
  */
-export const getCommandServerApi = () =>
-  getExtensionApi<CommandServerApi>(COMMAND_SERVER_EXTENSION_ID);
+export function getCommandServerApi(): Promise<CommandServerApi | undefined> {
+  return getExtensionApi<CommandServerApi>(COMMAND_SERVER_EXTENSION_ID);
+}

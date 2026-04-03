@@ -116,26 +116,26 @@ export function setAbbreviations(abbr: string[] | undefined) {
   }
 }
 
-export function isCapitalized(str: string) {
+export function isCapitalized(str: string): boolean {
   return /^[A-Z][a-z].*/.test(str) || isNumber(str);
 }
 
 // Start with opening quotes or capitalized letter
-export function isSentenceStarter(str: string) {
+export function isSentenceStarter(str: string): boolean {
   return isCapitalized(str) || /``|"|'/.test(str.slice(0, 2));
 }
 
-export function isCommonAbbreviation(str: string) {
+export function isCommonAbbreviation(str: string): boolean {
   const noSymbols = str.replaceAll(
     /[-'`~!@#$%^&*()_|+=?;:'",.<>{}[\]\\/]/gi,
     "",
   );
 
-  return ~abbreviations.indexOf(noSymbols);
+  return abbreviations.includes(noSymbols);
 }
 
 // This is going towards too much rule based
-export function isTimeAbbreviation(word: string, next: string) {
+export function isTimeAbbreviation(word: string, next: string): boolean {
   if (word === "a.m." || word === "p.m.") {
     const tmp = next.replaceAll(/\W+/g, "").slice(-3).toLowerCase();
 

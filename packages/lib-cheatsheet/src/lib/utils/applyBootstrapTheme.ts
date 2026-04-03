@@ -1,3 +1,4 @@
+// oxlint-disable unicorn/prefer-global-this
 export function applyBootstrapTheme() {
   if (typeof window === "undefined" || window.matchMedia == null) {
     return () => {};

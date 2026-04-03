@@ -98,7 +98,7 @@ async function runTestsInDir(
       }
 
       if (failures > 0) {
-        reject(`${failures} tests failed.`);
+        reject(new Error(`${failures} tests failed.`));
       } else {
         resolve();
       }

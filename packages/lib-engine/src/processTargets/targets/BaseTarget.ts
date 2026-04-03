@@ -118,6 +118,7 @@ export abstract class BaseTarget<
   private cloneWith(parameters: CloneWithParameters) {
     const constructor = Object.getPrototypeOf(this).constructor;
 
+    // oxlint-disable-next-line new-cap
     return new constructor({
       ...this.getCloneParameters(),
       ...parameters,
@@ -132,6 +133,7 @@ export abstract class BaseTarget<
   ): (ThisType<this> & Target) | null {
     const { constructor } = Object.getPrototypeOf(this);
 
+    // oxlint-disable-next-line new-cap
     return new constructor({
       ...this.getCloneParameters(),
       isReversed,

@@ -30,10 +30,10 @@ export const updater = async (workspaceDir: string) => {
 
   return createUpdateOptions({
     files: {
-      ["package.json"]: updatePackageJson.bind(null, context),
-      ["tsconfig.json"]: updateTSConfig.bind(null, context),
-      ["tsconfig.base.json"]: updateTSConfigBase.bind(null, context),
-      ["resources/fixtures/scopeSupportFacetInfos.md"]:
+      "package.json": updatePackageJson.bind(null, context),
+      "tsconfig.json": updateTSConfig.bind(null, context),
+      "tsconfig.base.json": updateTSConfigBase.bind(null, context),
+      "resources/fixtures/scopeSupportFacetInfos.md":
         updatesScopeSupportFacetInfos,
       ...Object.fromEntries(
         Object.keys(languageScopeSupport).map((languageId) => [

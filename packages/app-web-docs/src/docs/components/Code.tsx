@@ -25,23 +25,27 @@ export function Code({
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    const code = renderWhitespace
-      ? children.replaceAll(" ", "␣").replaceAll("\t", "⭾")
-      : children;
-    codeToHtml(code, {
-      lang: getFallbackLanguage(languageId),
-      theme: "nord",
-      decorations,
-    })
-      .then((html) => {
+    (async () => {
+      const code = renderWhitespace
+        ? children.replaceAll(" ", "␣").replaceAll("\t", "⭾")
+        : children;
+
+      try {
+        let html = await codeToHtml(code, {
+          lang: getFallbackLanguage(languageId),
+          theme: "nord",
+          decorations,
+        });
         if (renderWhitespace) {
           html = html
             .replaceAll("␣", '<span class="code-ws-symbol">·</span>')
             .replaceAll("⭾", '<span class="code-ws-symbol"> →  </span>');
         }
         setHtml({ __html: html });
-      })
-      .catch(console.error);
+      } catch (error) {
+        console.error(error);
+      }
+    })();
   }, [languageId, renderWhitespace, decorations, link, children]);
 
   if (html == null) {

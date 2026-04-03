@@ -3,7 +3,7 @@ import { window } from "vscode";
 import { LATEST_VERSION } from "@cursorless/lib-common";
 import {
   getCellIndex,
-  getCursorlessApi,
+  getTestHelpers,
   openNewNotebookEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
@@ -26,7 +26,7 @@ async function runTest(
   expectedActiveCellIndex: number,
   expectedNotebookContents: string[],
 ) {
-  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap } = await getTestHelpers();
   const notebook = await openNewNotebookEditor(["hello"]);
 
   await hatTokenMap.allocateHats();

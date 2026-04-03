@@ -18,18 +18,20 @@ export function asyncSafety(fn: () => Promise<void>) {
   return function (this: Context, done: Done) {
     const runnable = this.runnable();
 
-    fn.bind(this)()
-      .then(() => {
+    void (async () => {
+      try {
+        await fn.bind(this)();
+
         // for successful I think we only need timedOut? not sure though, might have side effects
         // when the duration check is added it will get stuck and never complete on a second runthrough
         if (!runnable.timedOut) {
           done();
         }
-      })
-      .catch((error: unknown) => {
+      } catch (error) {
         if (!runnable.timedOut && !runnable.duration) {
           done(error);
         }
-      });
+      }
+    })();
   };
 }
