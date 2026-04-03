@@ -99,7 +99,7 @@ class InsertCopy implements SimpleAction {
   }
 }
 
-export class CopyContentBefore extends InsertCopy {
+export class InsertCopyBefore extends InsertCopy {
   constructor(
     ide: IDE,
     rangeUpdater: RangeUpdater,
@@ -109,7 +109,7 @@ export class CopyContentBefore extends InsertCopy {
   }
 }
 
-export class CopyContentAfter extends InsertCopy {
+export class InsertCopyAfter extends InsertCopy {
   constructor(
     ide: IDE,
     rangeUpdater: RangeUpdater,

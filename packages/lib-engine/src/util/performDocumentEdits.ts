@@ -6,9 +6,16 @@ export async function performDocumentEdits(
   editor: EditableTextEditor,
   edits: Edit[],
 ) {
+  const eol = editor.document.eol === "LF" ? "\n" : "\r\n";
+
   const deregister = rangeUpdater.registerReplaceEditList(
     editor.document,
-    edits.filter((edit) => edit.isReplace),
+    edits
+      .filter((edit) => edit.isReplace)
+      .map((edit) => ({
+        ...edit,
+        text: edit.text.replaceAll(/\r?\n/g, eol),
+      })),
   );
 
   try {

@@ -1,0 +1,30 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: float line
+  action:
+    name: insertEmptyLineAfter
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: line}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "abc\r\ndef"
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+  marks: {}
+finalState:
+  documentContents: "abc\r\n\r\ndef"
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 3}
+      isReversed: false
+      hasExplicitRange: true

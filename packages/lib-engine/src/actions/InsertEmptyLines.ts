@@ -103,13 +103,13 @@ export class InsertEmptyLinesAround extends InsertEmptyLines {
   }
 }
 
-export class InsertEmptyLineAbove extends InsertEmptyLines {
+export class InsertEmptyLineBefore extends InsertEmptyLines {
   protected getEdits(targets: Target[]) {
     return targets.map((target) => constructChangeEdit(target, "before"));
   }
 }
 
-export class InsertEmptyLineBelow extends InsertEmptyLines {
+export class InsertEmptyLineAfter extends InsertEmptyLines {
   protected getEdits(targets: Target[]) {
     return targets.map((target) => constructChangeEdit(target, "after"));
   }

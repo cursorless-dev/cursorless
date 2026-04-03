@@ -22,13 +22,10 @@ import GetText from "./GetText";
 import Highlight from "./Highlight";
 import { Decrement, Increment } from "./incrementDecrement";
 import { IndentLine, OutdentLine } from "./IndentLine";
+import { InsertCopyAfter, InsertCopyBefore } from "./InsertCopy";
 import {
-  CopyContentAfter as InsertCopyAfter,
-  CopyContentBefore as InsertCopyBefore,
-} from "./InsertCopy";
-import {
-  InsertEmptyLineBelow as InsertEmptyLineAfter,
-  InsertEmptyLineAbove as InsertEmptyLineBefore,
+  InsertEmptyLineAfter,
+  InsertEmptyLineBefore,
   InsertEmptyLinesAround,
 } from "./InsertEmptyLines";
 import InsertSnippet from "./InsertSnippet";
