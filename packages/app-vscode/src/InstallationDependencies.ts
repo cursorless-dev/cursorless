@@ -39,8 +39,10 @@ export class InstallationDependencies {
       (value) => !value,
     );
     return {
-      dontShow:
-        this.extensionContext.globalState.get<boolean>(STATE_KEY) != null,
+      dontShow: this.extensionContext.globalState.get<boolean>(
+        STATE_KEY,
+        false,
+      ),
       hasMissingDependencies,
       dependencies,
     };
