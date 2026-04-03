@@ -133,9 +133,7 @@ export default class KeyboardCommandsTargeted {
         };
       case "replace":
         return target;
-      default: {
-        const _exhaustiveCheck: never = mode;
-      }
+      // No default
     }
   }
 

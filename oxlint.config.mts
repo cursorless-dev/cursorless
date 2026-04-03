@@ -129,17 +129,12 @@ export default defineConfig({
     perf: "warn",
     style: "warn",
     restriction: "warn",
+    // Disabled since nursery contains rules under development that may change
     // nursery: "warn",
   },
 
   rules: {
     ...Object.fromEntries(disabledRules.map((r) => [r, "off"])),
-    "eslint/no-constant-condition": [
-      "warn",
-      {
-        checkLoops: false,
-      },
-    ],
     "eslint/no-duplicate-imports": [
       "warn",
       {
@@ -187,12 +182,6 @@ export default defineConfig({
       "warn",
       {
         extensions: [".tsx"],
-      },
-    ],
-    "typescript/consistent-type-assertions": [
-      "warn",
-      {
-        assertionStyle: "as",
       },
     ],
     "import/no-cycle": "off",
