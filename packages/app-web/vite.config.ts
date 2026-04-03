@@ -3,7 +3,11 @@ import { defineConfig } from "vite";
 import purgeCss from "vite-plugin-purgecss";
 import svgr from "vite-plugin-svgr";
 import { CURSORLESS_ORG_URL } from "@cursorless/lib-common";
-import { viteHtmlParams, vitePreactAlias } from "@cursorless/lib-common/vite";
+import {
+  viteHtmlParams,
+  vitePreactAlias,
+  purgeCssOptions,
+} from "@cursorless/lib-common/vite";
 import {
   DESCRIPTION,
   TITLE,
@@ -33,7 +37,7 @@ export default defineConfig((): UserConfig => {
     },
 
     plugins: [
-      purgeCss({}),
+      purgeCss(purgeCssOptions),
       svgr(),
       viteHtmlParams({
         CURSORLESS_ORG_URL,
