@@ -37,6 +37,6 @@
     "@types/moo": "^0.5.10",
     "@types/nearley": "^2.11.5",
     "js-yaml": "^4.1.1",
-    "web-tree-sitter": "^0.26.7"
+    "web-tree-sitter": "^0.26.8"
   }
 }

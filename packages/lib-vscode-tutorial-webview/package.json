@@ -16,11 +16,11 @@
   "dependencies": {
     "@cursorless/lib-common": "workspace:*",
     "bootstrap": "^5.3.8",
-    "preact": "^10.29.0"
+    "preact": "^10.29.1"
   },
   "devDependencies": {
     "@types/vscode-webview": "^1.57.5",
-    "vite": "^8.0.5",
+    "vite": "^8.0.6",
     "vite-plugin-purgecss": "^0.2.13"
   }
 }

@@ -23,7 +23,7 @@
     "build": "docusaurus build --out-dir out"
   },
   "dependencies": {
-    "@algolia/client-search": "^5.50.0",
+    "@algolia/client-search": "^5.50.1",
     "@cursorless/lib-common": "workspace:*",
     "@docsearch/react": "^4.6.2",
     "@docusaurus/core": "^3.9.2",
@@ -47,9 +47,9 @@
     "@docusaurus/types": "^3.9.2",
     "@types/mdast": "^4.0.4",
     "@types/mocha": "^10.0.10",
-    "@types/node": "^24.12.0",
+    "@types/node": "^24.12.2",
     "@types/react": "^19.2.14",
-    "sass": "^1.98.0",
+    "sass": "^1.99.0",
     "typescript": "^6.0.2",
     "unified": "^11.0.5"
   }

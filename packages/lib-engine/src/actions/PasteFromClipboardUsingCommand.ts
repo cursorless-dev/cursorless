@@ -89,7 +89,7 @@ export class PasteFromClipboardUsingCommand {
 
     return {
       thatSelections: updatedTargetSelections.map((selection) => ({
-        editor: editor,
+        editor,
         selection,
       })),
     };

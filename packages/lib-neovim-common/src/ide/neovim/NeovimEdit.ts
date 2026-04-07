@@ -57,7 +57,7 @@ export default async function neovimEdit(
   }
 
   getNeovimRegistry().emitEvent("onDidChangeTextDocument", {
-    document: document,
+    document,
     contentChanges: changes,
   });
 

@@ -135,7 +135,7 @@ export class KeyboardConfig {
         }
       >(section, (value) => ({
         type: tokenType,
-        value: value,
+        value,
       }));
     }
 
