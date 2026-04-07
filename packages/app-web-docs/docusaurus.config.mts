@@ -1,5 +1,5 @@
 import { createRequire } from "node:module";
-import { dirname, extname, relative, resolve } from "node:path";
+import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { Config } from "@docusaurus/types";
 import type { Root } from "mdast";
@@ -7,6 +7,8 @@ import { themes } from "prism-react-renderer";
 import type { Transformer } from "unified";
 import { visit } from "unist-util-visit";
 
+// oxlint-disable-next-line unicorn/prefer-import-meta-properties
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
 
 const docsRelative = "packages/app-web-docs/src/docs/";
@@ -42,16 +44,14 @@ function remarkPluginFixLinksToRepositoryArtifacts(): Transformer<Root> {
         return;
       }
 
-      const repoRoot = resolve(
-        dirname(fileURLToPath(import.meta.url)),
-        "../..",
-      );
-      const artifact = resolve(file.dirname!, url);
-      const artifactRelative = relative(repoRoot, artifact).replaceAll(
-        "\\",
-        "/",
-      );
-      const fileRelative = relative(repoRoot, file.path).replaceAll("\\", "/");
+      const repoRoot = path.resolve(__dirname, "../..");
+      const artifact = path.resolve(file.dirname!, url);
+      const artifactRelative = path
+        .relative(repoRoot, artifact)
+        .replaceAll("\\", "/");
+      const fileRelative = path
+        .relative(repoRoot, file.path)
+        .replaceAll("\\", "/");
 
       // We host all files under docs. Will resolve as a relative link, but
       // relative links pointing to a folder passing between user and
@@ -73,7 +73,7 @@ function remarkPluginFixLinksToRepositoryArtifacts(): Transformer<Root> {
 }
 
 function isFolder(url: string) {
-  return !extname(url);
+  return !path.extname(url);
 }
 
 function passingBetweenUserAndContributing(

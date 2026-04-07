@@ -43,10 +43,10 @@ export function fromNeovimContentChange(
   const rangeOffset = document.offsetAt(range.start);
   const rangeLength = document.offsetAt(range.end) - rangeOffset;
   result.push({
-    range: range,
-    rangeOffset: rangeOffset,
-    rangeLength: rangeLength,
-    text: text,
+    range,
+    rangeOffset,
+    rangeLength,
+    text,
   });
   console.debug(`fromNeovimContentChange(): changes=${JSON.stringify(result)}`);
   return result;

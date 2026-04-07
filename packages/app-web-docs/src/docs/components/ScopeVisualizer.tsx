@@ -46,6 +46,7 @@ interface Props {
 
 export function ScopeVisualizer({ languageId, scopeTypeType }: Props) {
   const scopeTests = usePluginData("scope-tests-plugin") as ScopeTests;
+  // oxlint-disable-next-line react/hook-use-state
   const [scopes] = useState(
     getScopeFixtures(scopeTests, languageId, scopeTypeType),
   );

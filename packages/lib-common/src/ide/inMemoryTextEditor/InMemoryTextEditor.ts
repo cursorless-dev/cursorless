@@ -91,7 +91,7 @@ export class InMemoryTextEditor implements EditableTextEditor {
       this.selections = selections;
       this.ide.emitDidChangeTextEditorSelection({
         textEditor: this,
-        selections: selections,
+        selections,
       });
     }
     return Promise.resolve();

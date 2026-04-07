@@ -14,6 +14,7 @@ import type {
   Target,
 } from "../docs/components/types";
 
+// oxlint-disable-next-line unicorn/prefer-import-meta-properties
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default function prepareAssetsPlugin(
@@ -179,8 +180,8 @@ function parseLine(line: string) {
       const fullIndex = header.slice(1, spaceIndex);
       const [scopeIndex, targetIndex] = fullIndex.split(".");
       return {
-        scopeIndex: scopeIndex,
-        targetIndex: targetIndex,
+        scopeIndex,
+        targetIndex,
         type: header.slice(spaceIndex + 1),
       };
     }

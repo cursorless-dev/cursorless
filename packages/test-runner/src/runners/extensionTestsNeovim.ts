@@ -15,7 +15,7 @@ export async function run(plugin: NvimPlugin): Promise<void> {
    */
   const client = plugin.nvim as NeovimClient;
   (globalThis as any).additionalParameters = {
-    client: client,
+    client,
   };
   let code = 0;
   // NOTE: the parsing of the logs below is only done on CI in order to detect success/failure

@@ -86,7 +86,7 @@ export class PasteFromClipboardDirectly {
     );
 
     return thatTargetSelections.map((selection) => ({
-      editor: editor,
+      editor,
       selection,
     }));
   }

@@ -21,21 +21,21 @@ export function getSmartRemovalTarget(target: Target): Target {
       return new ParagraphTarget({
         editor,
         isReversed,
-        contentRange: contentRange,
+        contentRange,
       });
     }
 
     return new LineTarget({
       editor,
       isReversed,
-      contentRange: contentRange,
+      contentRange,
     });
   }
 
   return new TokenTarget({
     editor,
     isReversed,
-    contentRange: contentRange,
+    contentRange,
   });
 }
 
