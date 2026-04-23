@@ -1321,7 +1321,7 @@
     "nearley": "^2.20.1",
     "semver": "^7.7.4",
     "trie-search": "^2.2.1",
-    "uuid": "^13.0.0",
+    "uuid": "^14.0.0",
     "vscode-uri": "^3.1.0"
   },
   "devDependencies": {
