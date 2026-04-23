@@ -2,10 +2,7 @@ import type { OxlintConfig } from "oxlint";
 import { defineConfig } from "oxlint";
 
 // These rules should probably be re-enabled eventually
-const temporarilyDisabled = [
-  "typescript/no-unsafe-type-assertion",
-  "react/rules-of-hooks",
-];
+const temporarilyDisabled = ["typescript/no-unsafe-type-assertion"];
 
 const disabledRules = [
   ...temporarilyDisabled,
@@ -188,6 +185,11 @@ export default defineConfig({
 
   overrides: [
     {
+      files: ["**/*.{ts,cts,mts,tsx}"],
+      plugins: [...plugins, "typescript"],
+    },
+
+    {
       files: ["**/*.js"],
       rules: {
         "import/unambiguous": "off",
@@ -195,8 +197,17 @@ export default defineConfig({
     },
 
     {
-      files: ["**/*.{ts,cts,mts,tsx}"],
-      plugins: [...plugins, "typescript"],
+      files: ["**/*.ts"],
+      rules: {
+        "react/rules-of-hooks": "off",
+      },
+    },
+
+    {
+      files: ["**/*.test.ts"],
+      rules: {
+        "eslint/func-names": "off",
+      },
     },
 
     {
@@ -232,13 +243,6 @@ export default defineConfig({
       ],
       rules: {
         "import/no-nodejs-modules": "off",
-      },
-    },
-
-    {
-      files: ["*.test.ts", "endToEndTestSetup.ts"],
-      rules: {
-        "eslint/func-names": "off",
       },
     },
 
