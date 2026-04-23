@@ -41,7 +41,7 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
-    const cacheKey = "SurroundingPairScopeHandler_" + this.scopeType.delimiter;
+    const cacheKey = `SurroundingPairScopeHandler_${this.scopeType.delimiter}`;
 
     if (!scopeHandlerCache.isValid(cacheKey, editor.document)) {
       const delimiterOccurrences = getDelimiterOccurrences(

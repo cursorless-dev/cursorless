@@ -30,7 +30,7 @@ export function endToEndTestSetup(suite: Mocha.Suite) {
   let spy: SpyIDE | undefined;
   let neovimIDE: NeovimIDE;
 
-  setup(function (this: Context) {
+  setup(function endToEndTestSetupInner(this: Context) {
     const title = this.test!.fullTitle();
     retryCount = title === previousTestTitle ? retryCount + 1 : 0;
     previousTestTitle = title;

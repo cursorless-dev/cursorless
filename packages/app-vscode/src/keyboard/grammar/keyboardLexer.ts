@@ -42,7 +42,7 @@ class KeyboardLexer implements nearley.Lexer {
   }
 
   formatError(_token: any, message: string) {
-    return message + " at index " + (this.index - 1);
+    return `${message} at index ${this.index - 1}`;
   }
 
   has(_type: keyof TokenTypeKeyMapMap) {

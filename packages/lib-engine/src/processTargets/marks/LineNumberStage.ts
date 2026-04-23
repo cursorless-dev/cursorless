@@ -52,15 +52,14 @@ const getLineNumber = (
       let currentLineNumber = base + lineNumber;
       while (currentLineNumber <= endLine) {
         if (currentLineNumber >= startLine) {
+          const lineNumber = currentLineNumber;
           const visible = editor.visibleRanges.find(
-            (r) =>
-              currentLineNumber >= r.start.line &&
-              currentLineNumber <= r.end.line,
+            (r) => lineNumber >= r.start.line && lineNumber <= r.end.line,
           );
           if (visible) {
-            visibleLines.push(currentLineNumber);
+            visibleLines.push(lineNumber);
           } else {
-            invisibleLines.push(currentLineNumber);
+            invisibleLines.push(lineNumber);
           }
         }
         currentLineNumber += stepSize;

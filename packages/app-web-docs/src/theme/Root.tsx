@@ -13,6 +13,7 @@ function syncBootstrapTheme() {
   root.dataset.bsTheme = theme;
 }
 
+// oxlint-disable-next-line import/no-default-export
 export default function Root({ children }: Props): React.ReactNode {
   useEffect(() => {
     syncBootstrapTheme();

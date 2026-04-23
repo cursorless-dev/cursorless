@@ -65,10 +65,11 @@ export class ScopeRangeProvider {
     // Need to have a non empty intersection with the scopes
     if (range.isEmpty) {
       const offset = editor.document.offsetAt(range.start);
-      range = new Range(
+      const targetRange = new Range(
         editor.document.positionAt(offset - 1),
         editor.document.positionAt(offset + 1),
       );
+      return getScopeRanges(editor, scopeHandler, targetRange);
     }
 
     return getScopeRanges(editor, scopeHandler, range);

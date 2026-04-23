@@ -13,7 +13,7 @@ export class FileSystemCommandHistoryStorage implements CommandHistoryStorage {
     fileName: string,
     entry: CommandHistoryEntry,
   ): Promise<void> {
-    const data = JSON.stringify(entry) + "\n";
+    const data = `${JSON.stringify(entry)}\n`;
     const file = path.join(this.dir, fileName);
     await fs.mkdir(this.dir, { recursive: true });
     await fs.appendFile(file, data, "utf8");

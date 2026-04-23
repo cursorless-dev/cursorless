@@ -6,7 +6,7 @@ import {
 } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
 
-export default class Highlight {
+export class Highlight {
   constructor(private ide: IDE) {
     this.run = this.run.bind(this);
   }

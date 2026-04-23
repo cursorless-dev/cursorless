@@ -287,14 +287,14 @@ export class Bring extends BringMoveSwap {
     sources: Target[],
     destinations: Destination[],
   ): Promise<ActionReturnValue> {
-    sources = broadcastSource(sources, destinations);
+    const broadcastSources = broadcastSource(sources, destinations);
 
     await this.decorateTargets(
-      sources,
+      broadcastSources,
       destinations.map((d) => d.target),
     );
 
-    const edits = this.getEditsBringMove(sources, destinations);
+    const edits = this.getEditsBringMove(broadcastSources, destinations);
 
     const markEntries = await this.performEditsAndComputeThatMark(edits);
 
@@ -322,14 +322,14 @@ export class Move extends BringMoveSwap {
     sources: Target[],
     destinations: Destination[],
   ): Promise<ActionReturnValue> {
-    sources = broadcastSource(sources, destinations);
+    const broadcastSources = broadcastSource(sources, destinations);
 
     await this.decorateTargets(
-      sources,
+      broadcastSources,
       destinations.map((d) => d.target),
     );
 
-    const edits = this.getEditsBringMove(sources, destinations);
+    const edits = this.getEditsBringMove(broadcastSources, destinations);
 
     const markEntries = await this.performEditsAndComputeThatMark(edits);
 

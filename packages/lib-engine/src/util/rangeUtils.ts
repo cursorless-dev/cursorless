@@ -64,10 +64,11 @@ export function strictlyContains(
  * Make union between range and additional optional ranges
  */
 export function union(range: Range, ...unionWith: (Range | undefined)[]) {
+  let result = range;
   for (const r of unionWith) {
     if (r != null) {
-      range = range.union(r);
+      result = result.union(r);
     }
   }
-  return range;
+  return result;
 }

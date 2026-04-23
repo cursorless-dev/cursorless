@@ -48,6 +48,8 @@ function createSegment(
   sentence: string,
   index: number,
 ): MatchedText | undefined {
+  let segmentText = sentence;
+  let segmentIndex = index;
   const leadingOffsetMatch = matchRegex(leadingOffsetRegex, sentence);
 
   if (leadingOffsetMatch == null) {
@@ -57,13 +59,13 @@ function createSegment(
   const leadingOffset = leadingOffsetMatch.index!;
 
   if (leadingOffset !== 0) {
-    index += leadingOffset;
-    sentence = sentence.slice(leadingOffset);
+    segmentIndex += leadingOffset;
+    segmentText = segmentText.slice(leadingOffset);
   }
 
   return {
-    text: sentence.trimEnd(),
-    index,
+    text: segmentText.trimEnd(),
+    index: segmentIndex,
   };
 }
 

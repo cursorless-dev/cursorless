@@ -12,7 +12,7 @@ import type { SelectionWithEditor } from "../typings/Types";
 import { flashTargets, runForEachEditor } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
 
-export default class Replace {
+export class Replace {
   constructor(
     private ide: IDE,
     private rangeUpdater: RangeUpdater,

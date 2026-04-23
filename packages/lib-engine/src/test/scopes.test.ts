@@ -23,7 +23,7 @@ import {
   serializeScopeFixture,
 } from "../testUtil/serializeScopeFixture";
 
-suite("Scope test cases", function () {
+suite("Scope test cases", () => {
   const testPaths = getScopeTestPathsRecursively();
   let testEnvironment: TestEnvironment;
 

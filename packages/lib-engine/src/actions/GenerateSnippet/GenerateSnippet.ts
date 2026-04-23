@@ -51,7 +51,7 @@ import type { Offsets } from "./Offsets";
  * 8. Open a new document in the snippets dir to hold the new snippet.
  * 9. Insert the meta snippet so that the user can construct their snippet.
  */
-export default class GenerateSnippet {
+export class GenerateSnippet {
   constructor(
     private ide: IDE,
     private snippets: Snippets,
@@ -79,14 +79,16 @@ export default class GenerateSnippet {
     // win the race and have the input box ready for them
     void flashTargets(this.ide, targets, FlashStyle.referenced);
 
-    if (snippetName == null) {
-      snippetName = await this.ide.showInputBox({
+    let resolvedSnippetName = snippetName;
+
+    if (resolvedSnippetName == null) {
+      resolvedSnippetName = await this.ide.showInputBox({
         prompt: "Name of snippet",
         placeHolder: "helloWorld",
       });
 
       // User cancelled; do nothing
-      if (!snippetName) {
+      if (!resolvedSnippetName) {
         return {};
       }
     }
@@ -146,7 +148,7 @@ export default class GenerateSnippet {
     } else {
       // Otherwise, we create and open a new document for the snippet
       editableEditor = this.ide.getEditableTextEditor(
-        await this.snippets.openNewSnippetFile(snippetName, directory),
+        await this.snippets.openNewSnippetFile(resolvedSnippetName, directory),
       );
       snippetFile = parseSnippetFile(editableEditor.document.getText());
     }
@@ -178,7 +180,8 @@ export default class GenerateSnippet {
     };
 
     const snippet: Snippet = {
-      name: header?.name === snippetName ? undefined : snippetName,
+      name:
+        header?.name === resolvedSnippetName ? undefined : resolvedSnippetName,
       phrases,
       languages: getSnippetLanguages(editor, header),
       body: snippetLines,

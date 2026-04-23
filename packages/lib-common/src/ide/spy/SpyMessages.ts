@@ -10,7 +10,7 @@ export interface Message {
   id: MessageId;
 }
 
-export default class SpyMessages implements Messages {
+export class SpyMessages implements Messages {
   private shownMessages: Message[] = [];
 
   constructor(private original: Messages) {}

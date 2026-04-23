@@ -33,14 +33,14 @@ import {
   windowGetVisibleRanges,
 } from "../../neovimApi";
 import { NeovimCapabilities } from "./NeovimCapabilities";
-import NeovimClipboard from "./NeovimClipboard";
-import NeovimConfiguration from "./NeovimConfiguration";
+import { NeovimClipboard } from "./NeovimClipboard";
+import { NeovimConfiguration } from "./NeovimConfiguration";
 import {
   neovimOnDidChangeTextDocument,
   neovimOnDidOpenTextDocument,
 } from "./NeovimEvents";
-import NeovimKeyValueStore from "./NeovimKeyValueStore";
-import NeovimMessages from "./NeovimMessages";
+import { NeovimKeyValueStore } from "./NeovimKeyValueStore";
+import { NeovimMessages } from "./NeovimMessages";
 import { NeovimTextDocument } from "./NeovimTextDocument";
 import { NeovimTextEditor } from "./NeovimTextEditor";
 

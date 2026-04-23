@@ -59,7 +59,7 @@ export class HatAllocator {
     const activeMap = await this.context.getActiveMap();
 
     // Forced graphemes won't have been normalized
-    forceTokenHats = forceTokenHats?.map((tokenHat) => ({
+    const normalizedForceTokenHats = forceTokenHats?.map((tokenHat) => ({
       ...tokenHat,
       grapheme: this.tokenGraphemeSplitter.normalizeGrapheme(tokenHat.grapheme),
     }));
@@ -69,7 +69,7 @@ export class HatAllocator {
           ide: this.ide,
           tokenGraphemeSplitter: this.tokenGraphemeSplitter,
           enabledHatStyles: this.hats.enabledHatStyles,
-          forceTokenHats,
+          forceTokenHats: normalizedForceTokenHats,
           oldTokenHats: activeMap.tokenHats,
           hatStability: this.ide.configuration.getOwnConfiguration(
             "experimental.hatStability",

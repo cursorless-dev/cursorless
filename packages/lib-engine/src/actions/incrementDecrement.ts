@@ -180,10 +180,9 @@ function formatNumberWithUnderscores(
   for (const match of underscoreMatches) {
     const index = match.index + offset;
     if (index < resultWithUnderscores.length) {
-      resultWithUnderscores =
-        resultWithUnderscores.slice(0, index) +
-        "_" +
-        resultWithUnderscores.slice(index);
+      const prefix = resultWithUnderscores.slice(0, index);
+      const suffix = resultWithUnderscores.slice(index);
+      resultWithUnderscores = `${prefix}_${suffix}`;
     }
   }
 

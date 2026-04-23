@@ -17,6 +17,7 @@ import {
   YOUTUBE_SLUG,
 } from "./src/constants";
 
+// oxlint-disable-next-line import/no-default-export
 export default defineConfig((): UserConfig => {
   return {
     build: {

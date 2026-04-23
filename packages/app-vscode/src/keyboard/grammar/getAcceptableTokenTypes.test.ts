@@ -153,10 +153,10 @@ suite("keyboard.getAcceptableTokenTypes", () => {
             arg: value.partialArg,
           },
         };
+        const json = JSON.stringify(candidates, null, 2);
         assert.ok(
           candidates.some((result) => isEqual(result, fullValue)),
-          "Relevant candidates (note that symbols will be missing):\n" +
-            JSON.stringify(candidates, null, 2),
+          `Relevant candidates (note that symbols will be missing):\n${json}`,
         );
       }
     });

@@ -9,7 +9,7 @@ import { VERSION_KEY } from "../../ReleaseNotes";
 import { DONT_SHOW_TALON_UPDATE_MESSAGE_KEY } from "../../ScopeTreeProvider";
 import { PERFORMED_PR_1868_SHAPE_UPDATE_INIT_KEY } from "./hats/performPr1868ShapeUpdateInit";
 
-export default class VscodeKeyValueStore implements KeyValueStore {
+export class VscodeKeyValueStore implements KeyValueStore {
   constructor(private extensionContext: ExtensionContext) {
     // Mark all keys for synchronization
     extensionContext.globalState.setKeysForSync([

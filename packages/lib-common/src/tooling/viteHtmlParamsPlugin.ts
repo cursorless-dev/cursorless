@@ -4,14 +4,17 @@ export function viteHtmlParams(params: Record<string, string>) {
     enforce: "post",
 
     transformIndexHtml(html: string): string {
+      let output = html;
+
       for (const [key, value] of Object.entries(params)) {
         const pattern = `__${key}__`;
-        if (!html.includes(pattern)) {
+        if (!output.includes(pattern)) {
           throw new Error(`Expected index.html to contain pattern ${pattern}`);
         }
-        html = html.replaceAll(pattern, value);
+        output = output.replaceAll(pattern, value);
       }
-      return html;
+
+      return output;
     },
   };
 }

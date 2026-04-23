@@ -30,7 +30,7 @@ const actionAliasToCanonicalName: Record<string, ActionType> = {
   wrap: "wrapWithPairedDelimiter",
 };
 
-export default function canonicalizeActionName(actionName: string) {
+export function canonicalizeActionName(actionName: string) {
   const canonicalName = actionAliasToCanonicalName[actionName] ?? actionName;
 
   if (!actionNames.includes(canonicalName)) {

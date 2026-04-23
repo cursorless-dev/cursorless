@@ -65,7 +65,8 @@ export async function updateDefaults(spokenFormInfo: CheatsheetInfo) {
     });
   });
 
-  await writeFile(defaultsPath, JSON.stringify(outputObject, null, 2) + "\n");
+  const json = JSON.stringify(outputObject, null, 2);
+  await writeFile(defaultsPath, `${json}\n`);
 }
 
 // FIXME: Stop duplicating these types once we have #945

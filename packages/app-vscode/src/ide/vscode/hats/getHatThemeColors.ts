@@ -7,7 +7,7 @@ interface OldDecorationColorSetting {
   highContrast: string;
 }
 
-export default function getHatThemeColors(colorName: HatColor) {
+export function getHatThemeColors(colorName: HatColor) {
   const oldStyleColorSetting = vscode.workspace
     .getConfiguration("cursorless.colors")
     .get<OldDecorationColorSetting>(colorName);

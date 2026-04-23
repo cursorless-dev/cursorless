@@ -5,7 +5,7 @@ import type {
 } from "../types/KeyValueStore";
 import { KEY_VALUE_STORE_DEFAULTS } from "../types/KeyValueStore";
 
-export default class FakeKeyValueStore implements KeyValueStore {
+export class FakeKeyValueStore implements KeyValueStore {
   private readonly data: KeyValueStoreData = { ...KEY_VALUE_STORE_DEFAULTS };
 
   get<K extends KeyValueStoreKey>(key: K): KeyValueStoreData[K] {

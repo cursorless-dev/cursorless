@@ -27,7 +27,7 @@ export type ExtendedHatStyleMap = Partial<
  * In VSCode, there is a hat style for every shape-color combination, filtered
  * by those whose penalty is not too large.
  */
-export default class VscodeEnabledHatStyleManager {
+export class VscodeEnabledHatStyleManager {
   hatStyleMap!: ExtendedHatStyleMap;
   private notifier: Notifier<[HatStyleMap]> = new Notifier();
 

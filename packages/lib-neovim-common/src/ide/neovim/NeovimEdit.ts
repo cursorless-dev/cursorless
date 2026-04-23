@@ -9,7 +9,7 @@ import type {
 import { getNeovimRegistry } from "@cursorless/lib-neovim-registry";
 import type { NeovimIDE } from "./NeovimIDE";
 
-export default async function neovimEdit(
+export async function neovimEdit(
   client: NeovimClient,
   neovimIDE: NeovimIDE,
   window: Window,

@@ -8,7 +8,7 @@ import {
 } from "../util/targetUtils";
 import type { ActionReturnValue, SimpleAction } from "./actions.types";
 
-export default class FollowLink implements SimpleAction {
+export class FollowLink implements SimpleAction {
   constructor(
     private ide: IDE,
     private options: OpenLinkOptions,

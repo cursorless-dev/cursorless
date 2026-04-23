@@ -12,8 +12,8 @@ import { runCursorlessCommand } from "@cursorless/lib-vscode-common";
 import { getStyleName } from "../ide/vscode/hats/getStyleName";
 import type { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import type { SimpleKeyboardActionDescriptor } from "./KeyboardActionType";
-import type KeyboardCommandsModal from "./KeyboardCommandsModal";
-import type KeyboardHandler from "./KeyboardHandler";
+import type { KeyboardCommandsModal } from "./KeyboardCommandsModal";
+import type { KeyboardHandler } from "./KeyboardHandler";
 
 export type TargetingMode =
   | "replace"
@@ -46,7 +46,7 @@ interface PerformActionOpts {
  * keyboard interface. The commands set highlights and allow you to perform
  * actions on highlighted targets.
  */
-export default class KeyboardCommandsTargeted {
+export class KeyboardCommandsTargeted {
   private modal!: KeyboardCommandsModal;
 
   constructor(private keyboardHandler: KeyboardHandler) {
@@ -73,11 +73,11 @@ export default class KeyboardCommandsTargeted {
   targetDecoratedMark = async ({
     color = "default",
     shape = "default",
-    character,
+    character: characterIn,
     mode = "replace",
   }: TargetDecoratedMarkArgument) => {
-    character =
-      character ??
+    const character =
+      characterIn ??
       (await this.keyboardHandler.awaitSingleKeypress({
         cursorStyle: vscode.TextEditorCursorStyle.Underline,
         whenClauseContext: "cursorless.keyboard.targeted.awaitingHatCharacter",

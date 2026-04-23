@@ -21,10 +21,10 @@ import type {
 import type { Messages } from "../types/Messages";
 import type { QuickPickOptions } from "../types/QuickPickOptions";
 import { FakeCapabilities } from "./FakeCapabilities";
-import FakeClipboard from "./FakeClipboard";
-import FakeConfiguration from "./FakeConfiguration";
-import FakeKeyValueStore from "./FakeKeyValueStore";
-import FakeMessages from "./FakeMessages";
+import { FakeClipboard } from "./FakeClipboard";
+import { FakeConfiguration } from "./FakeConfiguration";
+import { FakeKeyValueStore } from "./FakeKeyValueStore";
+import { FakeMessages } from "./FakeMessages";
 
 export class FakeIDE implements EmittableIDE {
   configuration = new FakeConfiguration();

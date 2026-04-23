@@ -140,23 +140,25 @@ function getTrailingDelimiterRange(editor: TextEditor, contentRange: Range) {
 }
 
 function getPreviousNonEmptyLine(document: TextDocument, line: TextLine) {
-  while (line.lineNumber > 0) {
-    const previousLine = document.lineAt(line.lineNumber - 1);
+  let currentLine = line;
+  while (currentLine.lineNumber > 0) {
+    const previousLine = document.lineAt(currentLine.lineNumber - 1);
     if (!previousLine.isEmptyOrWhitespace) {
       return previousLine;
     }
-    line = previousLine;
+    currentLine = previousLine;
   }
   return null;
 }
 
 function getNextNonEmptyLine(document: TextDocument, line: TextLine) {
-  while (line.lineNumber + 1 < document.lineCount) {
-    const nextLine = document.lineAt(line.lineNumber + 1);
+  let currentLine = line;
+  while (currentLine.lineNumber + 1 < document.lineCount) {
+    const nextLine = document.lineAt(currentLine.lineNumber + 1);
     if (!nextLine.isEmptyOrWhitespace) {
       return nextLine;
     }
-    line = nextLine;
+    currentLine = nextLine;
   }
   return null;
 }

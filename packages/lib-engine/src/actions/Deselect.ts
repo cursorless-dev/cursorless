@@ -3,7 +3,7 @@ import type { Target } from "../typings/target.types";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import type { SimpleAction, ActionReturnValue } from "./actions.types";
 
-export default class Deselect implements SimpleAction {
+export class Deselect implements SimpleAction {
   constructor(private ide: IDE) {
     this.run = this.run.bind(this);
   }

@@ -14,7 +14,7 @@ import {
   toVscodePosition,
   toVscodeRange,
 } from "@cursorless/lib-vscode-common";
-import VscodeTextLine from "./VscodeTextLine";
+import { VscodeTextLine } from "./VscodeTextLine";
 
 export class VscodeTextDocument implements TextDocument {
   get uri(): URI {

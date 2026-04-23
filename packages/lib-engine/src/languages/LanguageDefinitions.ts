@@ -146,8 +146,7 @@ export class LanguageDefinitionsImpl implements LanguageDefinitions {
 
     if (definition == null) {
       throw new Error(
-        "Expected language definition entry is missing for languageId " +
-          languageId,
+        `Expected language definition entry is missing for languageId ${languageId}`,
       );
     }
 

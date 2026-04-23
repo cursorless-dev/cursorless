@@ -5,9 +5,9 @@ import type {
   FullRangeInfo,
   ChangeEventInfo,
 } from "../../typings/updateSelections";
-import getOffsetsForDeleteOrReplace from "./getOffsetsForDeleteOrReplace";
-import getOffsetsForEmptyRangeInsert from "./getOffsetsForEmptyRangeInsert";
-import getOffsetsForNonEmptyRangeInsert from "./getOffsetsForNonEmptyRangeInsert";
+import { getOffsetsForDeleteOrReplace } from "./getOffsetsForDeleteOrReplace";
+import { getOffsetsForEmptyRangeInsert } from "./getOffsetsForEmptyRangeInsert";
+import { getOffsetsForNonEmptyRangeInsert } from "./getOffsetsForNonEmptyRangeInsert";
 import { getUpdatedText } from "./getUpdatedText";
 
 /**

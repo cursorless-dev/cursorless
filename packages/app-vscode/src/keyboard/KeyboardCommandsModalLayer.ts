@@ -2,7 +2,7 @@ import type TrieSearch from "trie-search";
 import * as vscode from "vscode";
 import type { KeyValuePair } from "./buildSuffixTrie";
 import { buildSuffixTrie } from "./buildSuffixTrie";
-import type KeyboardHandler from "./KeyboardHandler";
+import type { KeyboardHandler } from "./KeyboardHandler";
 
 /**
  * Defines a single keyboard layer to use with a modal version of Cursorless

@@ -17,6 +17,7 @@ import type {
 // oxlint-disable-next-line unicorn/prefer-import-meta-properties
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+// oxlint-disable-next-line import/no-default-export
 export default function prepareAssetsPlugin(
   _context: LoadContext,
   _options: PluginOptions,

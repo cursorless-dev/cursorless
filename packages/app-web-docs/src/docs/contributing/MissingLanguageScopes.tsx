@@ -108,7 +108,7 @@ function RenderFacets({
   };
 
   return (
-    <div className={"card" + (open ? " open" : "")}>
+    <div className={`card${open ? " open" : ""}`}>
       <div className="card-header pointer" onClick={() => setOpen(!open)}>
         {title} ({facets.length})
       </div>

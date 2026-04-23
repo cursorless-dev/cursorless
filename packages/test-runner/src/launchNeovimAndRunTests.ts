@@ -122,7 +122,7 @@ export async function launchNeovimAndRunTests() {
       code = 3;
       exit(code);
     }
-    tailTest.on("line", function (data: string) {
+    tailTest.on("line", (data: string) => {
       console.log(`neovim test: ${data}`);
       if (data.includes("==== TESTS FINISHED:")) {
         done = true;

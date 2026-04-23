@@ -1,6 +1,6 @@
 import type { Clipboard } from "../types/Clipboard";
 
-export default class FakeClipboard implements Clipboard {
+export class FakeClipboard implements Clipboard {
   private clipboardContents: string = "";
 
   readText(): Promise<string> {

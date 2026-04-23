@@ -1,5 +1,5 @@
 import type { ComponentChildren } from "preact";
-import SmartLink from "./SmartLink";
+import { SmartLink } from "./SmartLink";
 
 export function formatCaptures(input: string): ComponentChildren[] {
   const parts: ComponentChildren[] = [];

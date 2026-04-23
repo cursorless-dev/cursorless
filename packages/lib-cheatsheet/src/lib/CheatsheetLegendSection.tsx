@@ -1,20 +1,20 @@
 import type { JSX } from "preact";
 import type { CheatsheetLegend } from "./cheatsheet.types";
 import { formatCaptures } from "./utils/formatCaptures";
-import SmartLink from "./utils/SmartLink";
-import useIsHighlighted from "./utils/useIsHighlighted";
+import { SmartLink } from "./utils/SmartLink";
+import { useIsHighlighted } from "./utils/useIsHighlighted";
 
 type Props = {
   data: CheatsheetLegend;
 };
 
-export default function CheatsheetLegendSection({ data }: Props): JSX.Element {
+export function CheatsheetLegendSection({ data }: Props): JSX.Element {
   const isHighlighted = useIsHighlighted("legend");
 
   return (
     <section
       id="legend"
-      className={"card bg-info" + (isHighlighted ? " highlighted" : "")}
+      className={`card bg-info${isHighlighted ? " highlighted" : ""}`}
     >
       <div className="card-header">
         <h2>Legend</h2>

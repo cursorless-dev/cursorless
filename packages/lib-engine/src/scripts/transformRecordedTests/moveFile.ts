@@ -8,7 +8,7 @@ import type { TestCaseFixture } from "@cursorless/lib-common";
  * Can be used to organize files into directories based on eg language id
  * @param file The file to move
  */
-export default async function moveFile(file: string) {
+export async function moveFile(file: string) {
   const buffer = await fsp.readFile(file);
   const inputFixture = yaml.load(buffer.toString()) as TestCaseFixture;
   const parent = path.dirname(file);

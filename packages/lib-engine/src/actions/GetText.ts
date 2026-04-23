@@ -4,7 +4,7 @@ import type { Target } from "../typings/target.types";
 import { ensureSingleTarget, flashTargets } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
 
-export default class GetText {
+export class GetText {
   constructor(private ide: IDE) {
     this.run = this.run.bind(this);
   }

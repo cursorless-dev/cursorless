@@ -12,7 +12,7 @@ import type {
 } from "@cursorless/lib-common";
 import { bufferSetSelections } from "../../neovimApi";
 import { neovimClipboardCopy, neovimClipboardPaste } from "../../neovimHelpers";
-import neovimEdit from "./NeovimEdit";
+import { neovimEdit } from "./NeovimEdit";
 import type { NeovimIDE } from "./NeovimIDE";
 import type { NeovimTextDocument } from "./NeovimTextDocument";
 

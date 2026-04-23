@@ -39,7 +39,7 @@ function canonicalizeColorsInPlace(
   }
 }
 
-export default function canonicalizeTargetsInPlace(
+export function canonicalizeTargetsInPlace(
   partialTargets: PartialTargetDescriptor[],
 ): void {
   getPartialPrimitiveTargets(partialTargets).forEach((target) => {

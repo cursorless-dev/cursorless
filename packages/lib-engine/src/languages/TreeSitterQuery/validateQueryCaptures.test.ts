@@ -87,7 +87,7 @@ const testCases: { name: string; isOk: boolean; content: string }[] = [
   },
 ];
 
-suite("validateQueryCaptures", function () {
+suite("validateQueryCaptures", () => {
   const ide = new FakeIDE();
 
   for (const testCase of testCases) {

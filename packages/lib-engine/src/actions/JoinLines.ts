@@ -18,7 +18,7 @@ import { generateMatchesInRange } from "../util/getMatchesInRange";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
 
-export default class JoinLines {
+export class JoinLines {
   getFinalStages(): ModifierStage[] {
     return [this.modifierStageFactory.create(containingLineIfUntypedModifier)];
   }

@@ -2,22 +2,18 @@ import type { OxlintConfig } from "oxlint";
 import { defineConfig } from "oxlint";
 
 // These rules should probably be re-enabled eventually
-const temporarilyDisabled = [
-  "eslint/no-param-reassign",
-  "eslint/no-shadow",
-  "eslint/prefer-template",
-  "import/no-default-export",
-  "typescript/no-unsafe-type-assertion",
-  "unicorn/no-array-reduce",
+const temporarilyDisabledRules = [
+  "unicorn/no-array-for-each",
+  "unicorn/no-array-reverse",
+  "unicorn/no-array-sort",
 ];
 
 const disabledRules = [
-  ...temporarilyDisabled,
+  ...temporarilyDisabledRules,
   "eslint/arrow-body-style",
   "eslint/capitalized-comments",
   "eslint/class-methods-use-this",
   "eslint/complexity",
-  "eslint/func-names",
   "eslint/id-length",
   "eslint/init-declarations",
   "eslint/max-classes-per-file",
@@ -30,10 +26,10 @@ const disabledRules = [
   "eslint/no-continue",
   "eslint/no-eq-null",
   "eslint/no-lonely-if",
-  "eslint/no-loop-func",
   "eslint/no-magic-numbers",
   "eslint/no-negated-condition",
   "eslint/no-plusplus",
+  "eslint/no-shadow",
   "eslint/no-ternary",
   "eslint/no-undefined",
   "eslint/no-use-before-define",
@@ -61,11 +57,9 @@ const disabledRules = [
   "promise/prefer-await-to-callbacks",
   "react-perf/jsx-no-new-function-as-prop",
   "react/jsx-max-depth",
-  "react/no-danger",
   "react/no-multi-comp",
   "react/only-export-components",
   "react/react-in-jsx-scope",
-  "react/rules-of-hooks",
   "typescript/explicit-function-return-type",
   "typescript/parameter-properties",
   "typescript/prefer-readonly-parameter-types",
@@ -73,9 +67,6 @@ const disabledRules = [
   "typescript/strict-void-return",
   "unicorn/filename-case",
   "unicorn/no-array-callback-reference",
-  "unicorn/no-array-for-each",
-  "unicorn/no-array-reverse",
-  "unicorn/no-array-sort",
   "unicorn/no-lonely-if",
   "unicorn/no-null",
   "unicorn/no-object-as-default-parameter",
@@ -195,6 +186,11 @@ export default defineConfig({
 
   overrides: [
     {
+      files: ["**/*.{ts,cts,mts,tsx}"],
+      plugins: [...plugins, "typescript"],
+    },
+
+    {
       files: ["**/*.js"],
       rules: {
         "import/unambiguous": "off",
@@ -202,8 +198,17 @@ export default defineConfig({
     },
 
     {
-      files: ["**/*.{ts,cts,mts,tsx}"],
-      plugins: [...plugins, "typescript"],
+      files: ["**/*.ts"],
+      rules: {
+        "react/rules-of-hooks": "off",
+      },
+    },
+
+    {
+      files: ["**/*.test.ts"],
+      rules: {
+        "eslint/func-names": "off",
+      },
     },
 
     {

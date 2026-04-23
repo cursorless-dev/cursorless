@@ -5,21 +5,21 @@ import type { ModifierStageFactory } from "../processTargets/ModifierStageFactor
 import type { ActionRecord } from "./actions.types";
 import { BreakLine } from "./BreakLine";
 import { Bring, Move, Swap } from "./BringMoveSwap";
-import Call from "./Call";
-import Clear from "./Clear";
+import { Call } from "./Call";
+import { Clear } from "./Clear";
 import { CopyToClipboard } from "./CopyToClipboard";
 import { CutToClipboard } from "./CutToClipboard";
-import Deselect from "./Deselect";
+import { Deselect } from "./Deselect";
 import { EditNew } from "./EditNew";
 import { EditNewAfter, EditNewBefore } from "./EditNewLineAction";
-import ExecuteCommand from "./ExecuteCommand";
+import { ExecuteCommand } from "./ExecuteCommand";
 import { FindInDocument, FindInWorkspace } from "./Find";
 import { FlashTargets } from "./FlashTargets";
-import FollowLink from "./FollowLink";
-import GenerateSnippet from "./GenerateSnippet";
-import GetTargets from "./GetTargets";
-import GetText from "./GetText";
-import Highlight from "./Highlight";
+import { FollowLink } from "./FollowLink";
+import { GenerateSnippet } from "./GenerateSnippet";
+import { GetTargets } from "./GetTargets";
+import { GetText } from "./GetText";
+import { Highlight } from "./Highlight";
 import { Decrement, Increment } from "./incrementDecrement";
 import { IndentLine, OutdentLine } from "./IndentLine";
 import { InsertCopyAfter, InsertCopyBefore } from "./InsertCopy";
@@ -28,12 +28,12 @@ import {
   InsertEmptyLineBefore,
   InsertEmptyLinesAround,
 } from "./InsertEmptyLines";
-import InsertSnippet from "./InsertSnippet";
-import JoinLines from "./JoinLines";
+import { InsertSnippet } from "./InsertSnippet";
+import { JoinLines } from "./JoinLines";
 import { PasteFromClipboard } from "./PasteFromClipboard";
-import Remove from "./Remove";
-import Replace from "./Replace";
-import Rewrap from "./Rewrap";
+import { Remove } from "./Remove";
+import { Replace } from "./Replace";
+import { Rewrap } from "./Rewrap";
 import { ScrollToBottom, ScrollToCenter, ScrollToTop } from "./Scroll";
 import {
   AddSelection,
@@ -44,7 +44,7 @@ import {
   SetSelectionBefore,
 } from "./SetSelection";
 import { SetSpecialTarget } from "./SetSpecialTarget";
-import ShowParseTree from "./ShowParseTree";
+import { ShowParseTree } from "./ShowParseTree";
 import {
   ExtractVariable,
   Fold,
@@ -63,9 +63,9 @@ import {
   Unfold,
 } from "./SimpleIdeCommandActions";
 import { Random, Reverse, Sort } from "./Sort";
-import ToggleBreakpoint from "./ToggleBreakpoint";
-import Wrap from "./Wrap";
-import WrapWithSnippet from "./WrapWithSnippet";
+import { ToggleBreakpoint } from "./ToggleBreakpoint";
+import { Wrap } from "./Wrap";
+import { WrapWithSnippet } from "./WrapWithSnippet";
 
 /**
  * Keeps a map from action names to objects that implement the given action

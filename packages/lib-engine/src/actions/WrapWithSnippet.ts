@@ -12,7 +12,7 @@ import type { Target } from "../typings/target.types";
 import { ensureSingleEditor, flashTargets } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
 
-export default class WrapWithSnippet {
+export class WrapWithSnippet {
   private snippetParser = new SnippetParser();
 
   constructor(

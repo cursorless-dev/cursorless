@@ -36,7 +36,7 @@ export function endToEndTestSetup(
   let injectIde: (ide: IDE) => void;
   let spyIde: SpyIDE | undefined;
 
-  setup(async function (this: Context) {
+  setup(async function endToEndTestSetupInner(this: Context) {
     const title = this.test!.fullTitle();
     retryCount = title === previousTestTitle ? retryCount + 1 : 0;
     previousTestTitle = title;
