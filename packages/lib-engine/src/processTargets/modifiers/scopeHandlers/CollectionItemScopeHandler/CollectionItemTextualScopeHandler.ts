@@ -45,7 +45,7 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
     const isEveryScope = isEveryScopeModifier(hints);
-    const cacheKey = "CollectionItemTextualScopeHandler_" + isEveryScope;
+    const cacheKey = `CollectionItemTextualScopeHandler_${isEveryScope}`;
 
     if (!scopeHandlerCache.isValid(cacheKey, editor.document)) {
       const scopes = this.getScopes(editor, isEveryScope);

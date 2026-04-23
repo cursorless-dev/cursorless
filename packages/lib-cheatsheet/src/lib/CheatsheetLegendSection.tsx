@@ -14,7 +14,7 @@ export function CheatsheetLegendSection({ data }: Props): JSX.Element {
   return (
     <section
       id="legend"
-      className={"card bg-info" + (isHighlighted ? " highlighted" : "")}
+      className={`card bg-info${isHighlighted ? " highlighted" : ""}`}
     >
       <div className="card-header">
         <h2>Legend</h2>

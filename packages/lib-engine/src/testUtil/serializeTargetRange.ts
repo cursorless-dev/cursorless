@@ -38,13 +38,14 @@ export function serializeTargetRange(
   // Number of characters in the line number + `|`
   const startIndent = start.line.toString().length + 1;
   // Add start of range marker above the first code line
-  const prefix = " ".repeat(startIndent + start.character) + ">";
+  const indent = " ".repeat(startIndent + start.character);
+  const prefix = `${indent}>`;
   if (range.isSingleLine) {
-    lines.push(prefix + "-".repeat(end.character - start.character) + "<");
+    const dashLine = "-".repeat(end.character - start.character);
+    lines.push(`${prefix}${dashLine}<`);
   } else {
-    lines.push(
-      prefix + "-".repeat(codeLines[start.line].length - start.character),
-    );
+    const dashLine = "-".repeat(codeLines[start.line].length - start.character);
+    lines.push(`${prefix}${dashLine}`);
   }
 
   // Output the range with each line prefixed by `n| `, eg:
@@ -62,7 +63,7 @@ export function serializeTargetRange(
   if (!range.isSingleLine) {
     // Number of characters in the line number + `|` + whitespace
     const endIndent = end.line.toString().length + 2;
-    lines.push(" ".repeat(endIndent) + "-".repeat(end.character) + "<");
+    lines.push(`${" ".repeat(endIndent)}${"-".repeat(end.character)}<`);
   }
 
   return lines.join("\n");

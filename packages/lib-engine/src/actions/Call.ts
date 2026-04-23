@@ -17,7 +17,7 @@ export class Call {
 
     // NB: We unwrap and then rewrap the return value here so that we don't include the source mark
     const { thatSelections: thatMark } =
-      await this.actions.wrapWithPairedDelimiter.run(args, texts[0] + "(", ")");
+      await this.actions.wrapWithPairedDelimiter.run(args, `${texts[0]}(`, ")");
 
     return { thatSelections: thatMark };
   }

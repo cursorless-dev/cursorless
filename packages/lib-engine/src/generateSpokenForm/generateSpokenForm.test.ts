@@ -80,7 +80,7 @@ async function runTest(file: string) {
     );
     assert.ok(hatMapSpokenForm.type === "success");
     assert.ok(hatMapSpokenForm.spokenForms.length === 1);
-    generatedSpokenForm.spokenForms[0] += " " + hatMapSpokenForm.spokenForms[0];
+    generatedSpokenForm.spokenForms[0] += ` ${hatMapSpokenForm.spokenForms[0]}`;
   }
 
   if (shouldUpdateFixtures()) {

@@ -3,7 +3,6 @@ import { defineConfig } from "oxlint";
 
 // These rules should probably be re-enabled eventually
 const temporarilyDisabled = [
-  "eslint/prefer-template",
   "typescript/no-unsafe-type-assertion",
   "react/rules-of-hooks",
 ];

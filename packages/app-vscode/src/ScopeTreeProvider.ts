@@ -329,7 +329,7 @@ class ScopeSupportTreeItem extends TreeItem {
           getLanguageExtensionSampleFromLanguageId(languageId);
         if (fileExtension != null) {
           this.resourceUri = URI.parse(
-            "cursorless-dummy://dummy/dummy" + fileExtension,
+            `cursorless-dummy://dummy/dummy${fileExtension}`,
           );
         }
         this.setUrl(languageId);

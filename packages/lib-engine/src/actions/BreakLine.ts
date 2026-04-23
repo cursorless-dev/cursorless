@@ -69,7 +69,7 @@ function getEdits(editor: TextEditor, contentRanges: Range[]): Edit[] {
 
     edits.push({
       range: replacementRange,
-      text: "\n" + indentation,
+      text: `\n${indentation}`,
       isReplace: !replacementRange.isEmpty,
     });
   }

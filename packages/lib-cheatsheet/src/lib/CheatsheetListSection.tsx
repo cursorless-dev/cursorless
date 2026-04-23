@@ -19,7 +19,7 @@ export function CheatsheetListSection({ section }: Props): JSX.Element {
   return (
     <section
       id={section.id}
-      className={"card" + (isHighlighted ? " highlighted" : "")}
+      className={`card${isHighlighted ? " highlighted" : ""}`}
     >
       <div className="card-header">
         <h2>{section.name}</h2>

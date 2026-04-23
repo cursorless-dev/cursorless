@@ -59,8 +59,11 @@ function replacer(key: string, value: unknown): unknown {
 }
 
 export function serialize(obj: unknown): string {
-  return (
-    new CustomDump(obj, { noRefs: true, quotingType: '"' }).represent().trim() +
-    "\n"
-  );
+  const dump = new CustomDump(obj, {
+    noRefs: true,
+    quotingType: '"',
+  })
+    .represent()
+    .trim();
+  return `${dump}\n`;
 }

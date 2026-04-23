@@ -36,9 +36,7 @@ function renderHeader(
     <Tag
       id={encodedId}
       title={title}
-      className={
-        "anchor-with-sticky-navbar" + (className ? " " + className : "")
-      }
+      className={`anchor-with-sticky-navbar${className ? ` ${className}` : ""}`}
     >
       {children}
       <a className="hash-link" href={`#${encodedId}`} />
