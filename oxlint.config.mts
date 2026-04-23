@@ -1,11 +1,7 @@
 import type { OxlintConfig } from "oxlint";
 import { defineConfig } from "oxlint";
 
-// These rules should probably be re-enabled eventually
-const temporarilyDisabled = ["typescript/no-unsafe-type-assertion"];
-
 const disabledRules = [
-  ...temporarilyDisabled,
   "eslint/arrow-body-style",
   "eslint/capitalized-comments",
   "eslint/class-methods-use-this",
