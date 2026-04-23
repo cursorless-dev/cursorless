@@ -48,41 +48,43 @@ export function upgradeCommand<V extends CommandVersion>(
   command: Command,
   minimumVersion: V,
 ): Command & { version: V } {
-  if (command.version > LATEST_VERSION) {
+  let upgradedCommand = command;
+
+  if (upgradedCommand.version > LATEST_VERSION) {
     throw new OutdatedExtensionError();
   }
 
-  while (command.version < minimumVersion) {
-    switch (command.version) {
+  while (upgradedCommand.version < minimumVersion) {
+    switch (upgradedCommand.version) {
       case 0:
-        command = upgradeV0ToV1(command);
+        upgradedCommand = upgradeV0ToV1(upgradedCommand);
         break;
       case 1:
-        command = upgradeV1ToV2(command);
+        upgradedCommand = upgradeV1ToV2(upgradedCommand);
         break;
       case 2:
-        command = upgradeV2ToV3(command);
+        upgradedCommand = upgradeV2ToV3(upgradedCommand);
         break;
       case 3:
-        command = upgradeV3ToV4(command);
+        upgradedCommand = upgradeV3ToV4(upgradedCommand);
         break;
       case 4:
-        command = upgradeV4ToV5(command);
+        upgradedCommand = upgradeV4ToV5(upgradedCommand);
         break;
       case 5:
-        command = upgradeV5ToV6(command);
+        upgradedCommand = upgradeV5ToV6(upgradedCommand);
         break;
       case 6:
-        command = upgradeV6ToV7(command);
+        upgradedCommand = upgradeV6ToV7(upgradedCommand);
         break;
       default:
         throw new Error(
-          `Can't upgrade from unknown version ${command.version}`,
+          `Can't upgrade from unknown version ${upgradedCommand.version}`,
         );
     }
   }
 
-  return command as Command & {
+  return upgradedCommand as Command & {
     version: V;
   };
 }

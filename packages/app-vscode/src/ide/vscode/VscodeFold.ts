@@ -22,10 +22,10 @@ export function vscodeUnfold(
 async function foldOrUnfold(
   ide: VscodeIDE,
   editor: VscodeTextEditor,
-  ranges: Range[] | undefined,
+  rangesIn: Range[] | undefined,
   command: "editor.fold" | "editor.unfold",
 ): Promise<void> {
-  ranges = ranges ?? editor.selections;
+  let ranges = rangesIn ?? editor.selections;
 
   const singleLineRanges = ranges.filter((range) => range.isSingleLine);
   const multiLineRanges = ranges.filter((range) => !range.isSingleLine);

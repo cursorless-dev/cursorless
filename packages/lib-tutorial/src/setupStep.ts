@@ -58,11 +58,12 @@ export async function setupStep(
 async function applySnapshot(
   ide: IDE,
   hatTokenMap: HatTokenMap,
-  editor: TextEditor | undefined,
+  editorIn: TextEditor | undefined,
   snapshot: TestCaseSnapshot,
   languageId: string,
 ): Promise<HighlightedEditor> {
-  const retry = editor != null;
+  const retry = editorIn != null;
+  let editor = editorIn;
 
   try {
     if (editor == null) {

@@ -23,12 +23,14 @@ const defaultOptions: SentenceParserOptions = {
 
 // Split the entry into sentences.
 export function getSentences(
-  text: string,
+  inputText: string,
   userOptions?: SentenceParserOptions,
 ) {
-  if (!text) {
+  if (!inputText) {
     return [];
   }
+
+  let text = inputText;
 
   if (!whiteSpaceCheck.test(text)) {
     // whitespace-only string has no sentences

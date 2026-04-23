@@ -198,15 +198,16 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
   }
 
   async start(tutorialId: TutorialId | number): Promise<void> {
-    if (typeof tutorialId === "number") {
-      tutorialId = this.rawTutorials[tutorialId].id;
-    }
+    const resolvedTutorialId =
+      typeof tutorialId === "number"
+        ? this.rawTutorials[tutorialId].id
+        : tutorialId;
 
     const { tutorialContent, state } = await loadTutorial(
       this.contentProvider,
-      tutorialId,
+      resolvedTutorialId,
       this.customSpokenFormGenerator,
-      this.getRawTutorial(tutorialId),
+      this.getRawTutorial(resolvedTutorialId),
       this.ide.keyValueStore,
       this.hats,
     );

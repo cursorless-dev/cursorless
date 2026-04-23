@@ -72,9 +72,7 @@ function serializeScope(
   }
 
   // If we're going to add a target number we need a scope number as well.
-  if (scopeNumber == null) {
-    scopeNumber = 1;
-  }
+  const resolvedScopeNumber = scopeNumber ?? 1;
 
   // If we have multiple targets or the domain is not equal to the content range: add domain last
   return [
@@ -82,14 +80,14 @@ function serializeScope(
       serializeTarget({
         codeLines,
         target,
-        scopeNumber,
+        scopeNumber: resolvedScopeNumber,
         targetNumber: index + 1,
       }),
     ),
     "",
     serializeHeader({
       header: "Domain",
-      scopeNumber,
+      scopeNumber: resolvedScopeNumber,
       targetNumber: undefined,
       range: domain,
     }),

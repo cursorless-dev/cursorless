@@ -136,18 +136,24 @@ class ChildRange extends QueryPredicateOperator<ChildRange> {
   run(
     capture: MutableQueryCapture,
     startIndex: number,
-    endIndex?: number,
+    endIndex = -1,
     excludeStart?: boolean,
     excludeEnd?: boolean,
   ) {
     const children = getNode(capture).children;
+    const start = children.at(startIndex);
+    const end = children.at(endIndex);
 
-    startIndex = startIndex < 0 ? children.length + startIndex : startIndex;
-    endIndex = endIndex == null ? -1 : endIndex;
-    endIndex = endIndex < 0 ? children.length + endIndex : endIndex;
-
-    const start = children[startIndex];
-    const end = children[endIndex];
+    if (start == null) {
+      throw new Error(
+        `Start index ${startIndex} is out of bounds for node with ${children.length} children`,
+      );
+    }
+    if (end == null) {
+      throw new Error(
+        `End index ${endIndex} is out of bounds for node with ${children.length} children`,
+      );
+    }
 
     setRange(
       capture,

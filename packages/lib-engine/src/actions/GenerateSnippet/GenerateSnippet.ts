@@ -79,14 +79,16 @@ export class GenerateSnippet {
     // win the race and have the input box ready for them
     void flashTargets(this.ide, targets, FlashStyle.referenced);
 
-    if (snippetName == null) {
-      snippetName = await this.ide.showInputBox({
+    let resolvedSnippetName = snippetName;
+
+    if (resolvedSnippetName == null) {
+      resolvedSnippetName = await this.ide.showInputBox({
         prompt: "Name of snippet",
         placeHolder: "helloWorld",
       });
 
       // User cancelled; do nothing
-      if (!snippetName) {
+      if (!resolvedSnippetName) {
         return {};
       }
     }
@@ -146,7 +148,7 @@ export class GenerateSnippet {
     } else {
       // Otherwise, we create and open a new document for the snippet
       editableEditor = this.ide.getEditableTextEditor(
-        await this.snippets.openNewSnippetFile(snippetName, directory),
+        await this.snippets.openNewSnippetFile(resolvedSnippetName, directory),
       );
       snippetFile = parseSnippetFile(editableEditor.document.getText());
     }
@@ -178,7 +180,8 @@ export class GenerateSnippet {
     };
 
     const snippet: Snippet = {
-      name: header?.name === snippetName ? undefined : snippetName,
+      name:
+        header?.name === resolvedSnippetName ? undefined : resolvedSnippetName,
       phrases,
       languages: getSnippetLanguages(editor, header),
       body: snippetLines,

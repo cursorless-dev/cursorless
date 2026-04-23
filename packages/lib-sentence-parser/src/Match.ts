@@ -181,11 +181,9 @@ export function isNameAbbreviation(wordCount: number, words: string[]) {
 }
 
 export function isNumber(str: string, dotPos?: number) {
-  if (dotPos) {
-    str = str.slice(dotPos - 1, dotPos + 2);
-  }
-
-  return !Number.isNaN(Number(str));
+  const value =
+    dotPos != null && dotPos > 0 ? str.slice(dotPos - 1, dotPos + 2) : str;
+  return !Number.isNaN(Number(value));
 }
 
 // Phone number matching

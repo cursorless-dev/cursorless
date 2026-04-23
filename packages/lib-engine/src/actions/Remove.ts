@@ -23,19 +23,19 @@ class Delete implements SimpleAction {
     { showDecorations = true } = {},
   ): Promise<ActionReturnValue> {
     // Unify overlapping targets because of overlapping leading and trailing delimiters.
-    targets = unifyRemovalTargets(targets);
+    const unifiedTargets = unifyRemovalTargets(targets);
 
     if (showDecorations) {
       await flashTargets(
         this.ide,
-        targets,
+        unifiedTargets,
         FlashStyle.pendingDelete,
         (target) => target.getRemovalHighlightRange(),
       );
     }
 
     const thatTargets = flatten(
-      await runOnTargetsForEachEditor(targets, this.runForEditor),
+      await runOnTargetsForEachEditor(unifiedTargets, this.runForEditor),
     );
 
     return { thatTargets };

@@ -73,11 +73,11 @@ export class KeyboardCommandsTargeted {
   targetDecoratedMark = async ({
     color = "default",
     shape = "default",
-    character,
+    character: characterIn,
     mode = "replace",
   }: TargetDecoratedMarkArgument) => {
-    character =
-      character ??
+    const character =
+      characterIn ??
       (await this.keyboardHandler.awaitSingleKeypress({
         cursorStyle: vscode.TextEditorCursorStyle.Underline,
         whenClauseContext: "cursorless.keyboard.targeted.awaitingHatCharacter",

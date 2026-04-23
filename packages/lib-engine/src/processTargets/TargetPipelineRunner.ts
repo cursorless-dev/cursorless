@@ -314,12 +314,16 @@ export function processModifierStages(
   const options: ModifierStateOptions = {
     multipleTargets: targets.length > 1,
   };
-  modifierStages.forEach((stage) => {
-    targets = targets.flatMap((target) => stage.run(target, options));
-  });
+  let currentTargets = targets;
+
+  for (const stage of modifierStages) {
+    currentTargets = currentTargets.flatMap((target) =>
+      stage.run(target, options),
+    );
+  }
 
   // Then return the output from the final stage
-  return targets;
+  return currentTargets;
 }
 
 function getExcludedScope(

@@ -93,19 +93,19 @@ export class NeovimTextDocument implements TextDocument {
   }
 
   public offsetAt(position: Position): number {
-    position = this._validatePosition(position);
+    const validatedPosition = this._validatePosition(position);
     this._ensureLineStarts();
     return (
-      this._lineStarts!.getPrefixSum(position.line - 1) + position.character
+      this._lineStarts!.getPrefixSum(validatedPosition.line - 1) +
+      validatedPosition.character
     );
   }
 
   public positionAt(offset: number): Position {
-    offset = Math.floor(offset);
-    offset = Math.max(0, offset);
+    const normalizedOffset = Math.max(0, Math.floor(offset));
 
     this._ensureLineStarts();
-    const out = this._lineStarts!.getIndexOf(offset);
+    const out = this._lineStarts!.getIndexOf(normalizedOffset);
 
     const lineLength = this._lines[out.index].length;
 
@@ -121,30 +121,32 @@ export class NeovimTextDocument implements TextDocument {
       return this._cachedTextValue;
     }
 
-    range = this._validateRange(range);
+    const validatedRange = this._validateRange(range);
 
-    if (range.isEmpty) {
+    if (validatedRange.isEmpty) {
       return "";
     }
 
-    if (range.isSingleLine) {
-      return this._lines[range.start.line].slice(
-        range.start.character,
-        range.end.character,
+    if (validatedRange.isSingleLine) {
+      return this._lines[validatedRange.start.line].slice(
+        validatedRange.start.character,
+        validatedRange.end.character,
       );
     }
 
     const lineEnding = this._eol,
-      startLineIndex = range.start.line,
-      endLineIndex = range.end.line,
+      startLineIndex = validatedRange.start.line,
+      endLineIndex = validatedRange.end.line,
       resultLines: string[] = [
-        this._lines[startLineIndex].slice(range.start.character),
+        this._lines[startLineIndex].slice(validatedRange.start.character),
       ];
 
     for (let i = startLineIndex + 1; i < endLineIndex; i++) {
       resultLines.push(this._lines[i]);
     }
-    resultLines.push(this._lines[endLineIndex].slice(0, range.end.character));
+    resultLines.push(
+      this._lines[endLineIndex].slice(0, validatedRange.end.character),
+    );
     return resultLines.join(lineEnding);
   }
 
@@ -272,13 +274,14 @@ export class PrefixSumComputer {
       return 0;
     }
 
-    index = toUint32(index);
-    return this._getPrefixSum(index);
+    return this._getPrefixSum(toUint32(index));
   }
 
   private _getPrefixSum(index: number): number {
-    if (index <= this.prefixSumValidIndex[0]) {
-      return this.prefixSum[index];
+    const boundedIndex = Math.min(index, this.values.length - 1);
+
+    if (boundedIndex <= this.prefixSumValidIndex[0]) {
+      return this.prefixSum[boundedIndex];
     }
 
     let startIndex = this.prefixSumValidIndex[0] + 1;
@@ -287,19 +290,18 @@ export class PrefixSumComputer {
       startIndex++;
     }
 
-    if (index >= this.values.length) {
-      index = this.values.length - 1;
-    }
-
-    for (let i = startIndex; i <= index; i++) {
+    for (let i = startIndex; i <= boundedIndex; i++) {
       this.prefixSum[i] = this.prefixSum[i - 1] + this.values[i];
     }
-    this.prefixSumValidIndex[0] = Math.max(this.prefixSumValidIndex[0], index);
-    return this.prefixSum[index];
+    this.prefixSumValidIndex[0] = Math.max(
+      this.prefixSumValidIndex[0],
+      boundedIndex,
+    );
+    return this.prefixSum[boundedIndex];
   }
 
   public getIndexOf(sum: number): PrefixSumIndexOfResult {
-    sum = Math.floor(sum);
+    const normalizedSum = Math.floor(sum);
 
     // Compute all sums (to get a fully valid prefixSum)
     this.getTotalSum();
@@ -317,16 +319,16 @@ export class PrefixSumComputer {
       midStop = this.prefixSum[mid];
       midStart = midStop - this.values[mid];
 
-      if (sum < midStart) {
+      if (normalizedSum < midStart) {
         high = mid - 1;
-      } else if (sum >= midStop) {
+      } else if (normalizedSum >= midStop) {
         low = mid + 1;
       } else {
         break;
       }
     }
 
-    return new PrefixSumIndexOfResult(mid, sum - midStart);
+    return new PrefixSumIndexOfResult(mid, normalizedSum - midStart);
   }
 }
 

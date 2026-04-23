@@ -93,11 +93,11 @@ function substituteMissingHats(
   command: CommandLatest,
   initialState: TestCaseSnapshot,
 ) {
-  command = structuredClone(command);
+  const updatedCommand = structuredClone(command);
 
   // Update the hats in the command
   transformPartialPrimitiveTargets(
-    getPartialTargetDescriptors(command.action),
+    getPartialTargetDescriptors(updatedCommand.action),
     (target) => {
       if (target.mark?.type !== "decoratedSymbol") {
         return target;
@@ -114,20 +114,21 @@ function substituteMissingHats(
   );
 
   // Update the hats in the initial state snapshot
-  if (initialState.marks != null) {
-    initialState = produce(initialState, (draft) => {
-      draft.marks = mapKeys(draft.marks, (_value, key) => {
-        const { hatStyle, character } = splitKey(key);
-        if (enabledHatStyles[hatStyle] === undefined) {
-          return getKey(Object.keys(enabledHatStyles)[0], character);
-        }
-        return key;
-      });
-    });
-  }
+  const updatedInitialState =
+    initialState.marks != null
+      ? produce(initialState, (draft) => {
+          draft.marks = mapKeys(draft.marks, (_value, key) => {
+            const { hatStyle, character } = splitKey(key);
+            if (enabledHatStyles[hatStyle] === undefined) {
+              return getKey(Object.keys(enabledHatStyles)[0], character);
+            }
+            return key;
+          });
+        })
+      : initialState;
 
   return {
-    command,
-    initialState,
+    command: updatedCommand,
+    initialState: updatedInitialState,
   };
 }
