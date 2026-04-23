@@ -91,12 +91,18 @@ function findSnippetWithFewestLanguages<
   }
 
   // Find the snippet with the fewest languages
-  return snippets.reduce((prev, curr) => {
-    if (prev.languages == null || curr.languages == null) {
+  let preferredSnippet = snippets[0];
+
+  for (const snippet of snippets.slice(1)) {
+    if (preferredSnippet.languages == null || snippet.languages == null) {
       throw new Error(
         "Snippet must have languages defined to find the one with the fewest languages",
       );
     }
-    return curr.languages.length < prev.languages.length ? curr : prev;
-  });
+    if (snippet.languages.length < preferredSnippet.languages.length) {
+      preferredSnippet = snippet;
+    }
+  }
+
+  return preferredSnippet;
 }

@@ -25,9 +25,11 @@ export function getIterationRange(
     return editor.document.range;
   }
 
-  let visibleRange = editor.visibleRanges.reduce((acc, range) =>
-    acc.union(range),
-  );
+  let visibleRange = editor.visibleRanges[0];
+
+  for (const range of editor.visibleRanges.slice(1)) {
+    visibleRange = visibleRange.union(range);
+  }
 
   visibleRange = editor.document.range.intersection(
     visibleRange.with(

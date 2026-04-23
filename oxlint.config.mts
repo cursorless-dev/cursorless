@@ -6,7 +6,6 @@ const temporarilyDisabled = [
   "eslint/no-param-reassign",
   "eslint/prefer-template",
   "typescript/no-unsafe-type-assertion",
-  "unicorn/no-array-reduce",
   "react/rules-of-hooks",
 ];
 

@@ -28,20 +28,23 @@ export function uniqWithHash<T>(
 
   /* Keep track of which sets have multiple items, so that we can uniq them. */
   const needsUniq: string[] = [];
-  const hashToItems: Map<string, T[]> = array.reduce((acc, item) => {
+  const hashToItems = new Map<string, T[]>();
+
+  for (const item of array) {
     const key = hash(item);
-    const items = acc.get(key);
+    const items = hashToItems.get(key);
+
     if (items == null) {
-      acc.set(key, [item]);
-      return acc;
+      hashToItems.set(key, [item]);
+      continue;
     }
 
-    acc.get(key)!.push(item);
+    items.push(item);
+
     if (items.length === 2) {
       needsUniq.push(key);
     }
-    return acc;
-  }, new Map<string, T[]>());
+  }
 
   // Another common case: Everything is unique.
   if (needsUniq.length === 0) {

@@ -206,27 +206,24 @@ export function getSentences(
     return s.length > 0;
   });
 
-  const result = sentences.slice(1).reduce(
-    (out, sentence) => {
-      const lastSentence = out[out.length - 1];
+  const result = [sentences[0]];
 
-      // Single words, could be "enumeration lists"
-      if (lastSentence.length === 1 && /^.{1,2}[.]$/.test(lastSentence[0])) {
-        // Check if there is a next sentence
-        // It should not be another list item
-        if (!/[.]/.test(sentence[0])) {
-          out.pop();
-          out.push(lastSentence.concat(sentence));
-          return out;
-        }
+  for (const sentence of sentences.slice(1)) {
+    const lastSentence = result[result.length - 1];
+
+    // Single words, could be "enumeration lists"
+    if (lastSentence.length === 1 && /^.{1,2}[.]$/.test(lastSentence[0])) {
+      // Check if there is a next sentence
+      // It should not be another list item
+      if (!/[.]/.test(sentence[0])) {
+        result.pop();
+        result.push(lastSentence.concat(sentence));
+        continue;
       }
+    }
 
-      out.push(sentence);
-
-      return out;
-    },
-    [sentences[0]],
-  );
+    result.push(sentence);
+  }
 
   // join tokens back together
   return result.map((sentence, ii) => {

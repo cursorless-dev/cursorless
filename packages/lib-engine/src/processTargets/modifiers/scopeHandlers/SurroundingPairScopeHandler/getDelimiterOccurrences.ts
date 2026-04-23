@@ -40,12 +40,14 @@ export function getDelimiterOccurrences(
     getSortedCaptures(capturesMap.textFragment),
   );
 
-  const delimiterTextToDelimiterInfoMap = individualDelimiters.reduce<
-    Record<string, IndividualDelimiter[]>
-  >((acc, individualDelimiter) => {
-    (acc[individualDelimiter.text] ??= []).push(individualDelimiter);
-    return acc;
-  }, {});
+  const delimiterTextToDelimiterInfoMap: Record<string, IndividualDelimiter[]> =
+    {};
+
+  for (const individualDelimiter of individualDelimiters) {
+    (delimiterTextToDelimiterInfoMap[individualDelimiter.text] ??= []).push(
+      individualDelimiter,
+    );
+  }
 
   const regexMatches = matchAllIterator(
     document.getText(),
