@@ -1,7 +1,15 @@
 import type { OxlintConfig } from "oxlint";
 import { defineConfig } from "oxlint";
 
+// These rules should probably be re-enabled eventually
+const temporarilyDisabledRules = [
+  "unicorn/no-array-for-each",
+  "unicorn/no-array-reverse",
+  "unicorn/no-array-sort",
+];
+
 const disabledRules = [
+  ...temporarilyDisabledRules,
   "eslint/arrow-body-style",
   "eslint/capitalized-comments",
   "eslint/class-methods-use-this",
@@ -59,9 +67,6 @@ const disabledRules = [
   "typescript/strict-void-return",
   "unicorn/filename-case",
   "unicorn/no-array-callback-reference",
-  "unicorn/no-array-for-each",
-  "unicorn/no-array-reverse",
-  "unicorn/no-array-sort",
   "unicorn/no-lonely-if",
   "unicorn/no-null",
   "unicorn/no-object-as-default-parameter",
