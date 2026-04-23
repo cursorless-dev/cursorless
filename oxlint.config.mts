@@ -4,11 +4,11 @@ import { defineConfig } from "oxlint";
 // These rules should probably be re-enabled eventually
 const temporarilyDisabled = [
   "eslint/no-param-reassign",
-  "eslint/no-shadow",
   "eslint/prefer-template",
   "import/no-default-export",
   "typescript/no-unsafe-type-assertion",
   "unicorn/no-array-reduce",
+  "react/rules-of-hooks",
 ];
 
 const disabledRules = [
@@ -17,7 +17,6 @@ const disabledRules = [
   "eslint/capitalized-comments",
   "eslint/class-methods-use-this",
   "eslint/complexity",
-  "eslint/func-names",
   "eslint/id-length",
   "eslint/init-declarations",
   "eslint/max-classes-per-file",
@@ -30,10 +29,10 @@ const disabledRules = [
   "eslint/no-continue",
   "eslint/no-eq-null",
   "eslint/no-lonely-if",
-  "eslint/no-loop-func",
   "eslint/no-magic-numbers",
   "eslint/no-negated-condition",
   "eslint/no-plusplus",
+  "eslint/no-shadow",
   "eslint/no-ternary",
   "eslint/no-undefined",
   "eslint/no-use-before-define",
@@ -61,11 +60,9 @@ const disabledRules = [
   "promise/prefer-await-to-callbacks",
   "react-perf/jsx-no-new-function-as-prop",
   "react/jsx-max-depth",
-  "react/no-danger",
   "react/no-multi-comp",
   "react/only-export-components",
   "react/react-in-jsx-scope",
-  "react/rules-of-hooks",
   "typescript/explicit-function-return-type",
   "typescript/parameter-properties",
   "typescript/prefer-readonly-parameter-types",
@@ -239,6 +236,13 @@ export default defineConfig({
       ],
       rules: {
         "import/no-nodejs-modules": "off",
+      },
+    },
+
+    {
+      files: ["*.test.ts", "endToEndTestSetup.ts"],
+      rules: {
+        "eslint/func-names": "off",
       },
     },
 

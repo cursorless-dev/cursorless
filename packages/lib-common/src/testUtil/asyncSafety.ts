@@ -15,7 +15,7 @@ import type { Context, Done } from "mocha";
  * @returns A safely wrapped test function
  */
 export function asyncSafety(fn: () => Promise<void>) {
-  return function (this: Context, done: Done) {
+  return function runAsyncTestSafely(this: Context, done: Done) {
     const runnable = this.runnable();
 
     void (async () => {

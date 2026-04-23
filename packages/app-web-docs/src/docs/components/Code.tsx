@@ -84,7 +84,10 @@ export function Code({
       <button type="button" onClick={handleCopy} className="code-copy-button">
         {copied ? "✅ Copied!" : "📋 Copy"}
       </button>
-      <div dangerouslySetInnerHTML={html} />{" "}
+      <div
+        // oxlint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={html}
+      />
     </div>
   );
 }

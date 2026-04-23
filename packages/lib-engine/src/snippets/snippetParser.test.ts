@@ -6,7 +6,7 @@ import * as assert from "node:assert/strict";
 import { SnippetParser } from "./vendor/vscodeSnippet/snippetParser";
 
 suite("SnippetParser", () => {
-  test("Marker, toTextmateString()", function () {
+  test("Marker, toTextmateString()", () => {
     function assertTextsnippetString(input: string, expected: string): void {
       const snippet = new SnippetParser().parse(input);
       const actual = snippet.toTextmateString();

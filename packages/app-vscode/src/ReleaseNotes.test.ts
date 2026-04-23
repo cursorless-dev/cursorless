@@ -152,7 +152,7 @@ const testCases: TestCase[] = [
   },
 ];
 
-suite("release notes", function () {
+suite("release notes", () => {
   teardown(() => {
     sinon.restore();
   });
