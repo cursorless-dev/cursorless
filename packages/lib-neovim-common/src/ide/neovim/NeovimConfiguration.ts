@@ -14,7 +14,7 @@ interface ConfigurationScopeValues {
   values: Partial<CursorlessConfiguration>;
 }
 
-export default class NeovimConfiguration implements Configuration {
+export class NeovimConfiguration implements Configuration {
   private notifier = new Notifier();
   private mocks: CursorlessConfiguration = {
     ...CONFIGURATION_DEFAULTS,

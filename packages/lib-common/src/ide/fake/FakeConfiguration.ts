@@ -14,7 +14,7 @@ interface ConfigurationScopeValues {
   values: Partial<CursorlessConfiguration>;
 }
 
-export default class FakeConfiguration implements Configuration {
+export class FakeConfiguration implements Configuration {
   private notifier = new Notifier();
   private mocks: CursorlessConfiguration = {
     ...CONFIGURATION_DEFAULTS,

@@ -2,7 +2,7 @@ import path from "node:path";
 import type { URI } from "vscode-uri";
 import type { EndOfLine, TextDocument, TextLine } from "@cursorless/lib-common";
 import { Position, Range } from "@cursorless/lib-common";
-import NeovimTextLine from "./NeovimTextLine";
+import { NeovimTextLine } from "./NeovimTextLine";
 
 export class NeovimTextDocument implements TextDocument {
   private _uri: URI;

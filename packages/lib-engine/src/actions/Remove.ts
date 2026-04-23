@@ -9,7 +9,7 @@ import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
 import type { ActionReturnValue, SimpleAction } from "./actions.types";
 
-export default class Delete implements SimpleAction {
+class Delete implements SimpleAction {
   constructor(
     private ide: IDE,
     private rangeUpdater: RangeUpdater,
@@ -65,3 +65,5 @@ export default class Delete implements SimpleAction {
     );
   }
 }
+
+export { Delete as Remove };

@@ -9,7 +9,7 @@ import type {
 } from "@cursorless/lib-common";
 import { LATEST_VERSION, OutdatedExtensionError } from "@cursorless/lib-common";
 import { getPartialTargetDescriptors } from "../../util/getPartialTargetDescriptors";
-import canonicalizeTargetsInPlace from "./canonicalizeTargetsInPlace";
+import { canonicalizeTargetsInPlace } from "./canonicalizeTargetsInPlace";
 import { upgradeV0ToV1 } from "./upgradeV0ToV1";
 import { upgradeV1ToV2 } from "./upgradeV1ToV2";
 import { upgradeV2ToV3 } from "./upgradeV2ToV3";

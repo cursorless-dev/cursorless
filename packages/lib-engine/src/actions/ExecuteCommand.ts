@@ -11,7 +11,7 @@ import { CallbackAction } from "./CallbackAction";
  * {@link ExecuteCommandOptions.restoreSelection restoreSelection} is `true`. Internally, most
  * of the heavy lifting is done by {@link CallbackAction}.
  */
-export default class ExecuteCommand {
+export class ExecuteCommand {
   private callbackAction: CallbackAction;
 
   constructor(

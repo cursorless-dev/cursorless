@@ -51,7 +51,7 @@ import type { Offsets } from "./Offsets";
  * 8. Open a new document in the snippets dir to hold the new snippet.
  * 9. Insert the meta snippet so that the user can construct their snippet.
  */
-export default class GenerateSnippet {
+export class GenerateSnippet {
   constructor(
     private ide: IDE,
     private snippets: Snippets,

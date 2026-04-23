@@ -6,6 +6,7 @@ import { activate } from "./extension";
  * - Register the functions that are exposed to Neovim.
  *   Note that these function need to start with a capital letter to be callable from Neovim.
  */
+// oxlint-disable-next-line import/no-default-export
 export default function entry(plugin: NvimPlugin) {
   // We make sure the cursorless-neovim extension is only loaded once,
   // as otherwise we will run our first copy when loading the extension

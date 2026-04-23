@@ -12,7 +12,7 @@ import {
 } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
 
-export default class Rewrap {
+export class Rewrap {
   getFinalStages = () => [
     getContainingSurroundingPairIfNoBoundaryStage(this.modifierStageFactory),
   ];

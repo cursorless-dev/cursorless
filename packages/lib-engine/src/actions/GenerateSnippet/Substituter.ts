@@ -14,7 +14,7 @@ interface Substitution {
  * on the final text to replace the random id's with the original strings you
  * desired.
  */
-export default class Substituter {
+export class Substituter {
   private substitutions: Substitution[] = [];
 
   /**

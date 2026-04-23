@@ -13,10 +13,12 @@ import type { VscodeApi } from "@cursorless/lib-vscode-common";
 import type { HatShape, VscodeHatStyleName } from "../hatStyles.types";
 import { HAT_SHAPES } from "../hatStyles.types";
 import { vscodeGetConfigurationString } from "../VscodeConfiguration";
-import type VscodeEnabledHatStyleManager from "../VscodeEnabledHatStyleManager";
-import type { ExtendedHatStyleMap } from "../VscodeEnabledHatStyleManager";
+import type {
+  ExtendedHatStyleMap,
+  VscodeEnabledHatStyleManager,
+} from "../VscodeEnabledHatStyleManager";
 import type { FontMeasurements } from "./FontMeasurements";
-import getHatThemeColors from "./getHatThemeColors";
+import { getHatThemeColors } from "./getHatThemeColors";
 import { performPr1868ShapeUpdateInit } from "./performPr1868ShapeUpdateInit";
 import type { IndividualHatAdjustmentMap } from "./shapeAdjustments";
 import {
@@ -60,7 +62,7 @@ interface SvgInfo {
  * hats.  The decision about which hat styles should be available is up to
  * {@link VscodeEnabledHatStyles}
  */
-export default class VscodeHatRenderer {
+export class VscodeHatRenderer {
   private decorationMap!: HatDecorationMap;
   private disposables: vscode.Disposable[] = [];
   private notifier: Notifier = new Notifier();

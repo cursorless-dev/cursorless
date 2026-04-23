@@ -5,10 +5,10 @@ import type {
   FlashStyle,
 } from "@cursorless/lib-common";
 import { groupBy, sleep } from "@cursorless/lib-common";
-import type VscodeHighlights from "./VscodeHighlights";
+import type { VscodeHighlights } from "./VscodeHighlights";
 import type { VscodeIDE } from "./VscodeIDE";
 
-export default class VscodeFlashHandler {
+export class VscodeFlashHandler {
   constructor(
     private ide: VscodeIDE,
     private highlights: VscodeHighlights,

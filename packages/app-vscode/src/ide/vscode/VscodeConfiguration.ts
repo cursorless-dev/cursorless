@@ -22,7 +22,7 @@ const translators: TranslatorMap = {
   },
 };
 
-export default class VscodeConfiguration implements Configuration {
+export class VscodeConfiguration implements Configuration {
   private notifier = new Notifier();
 
   constructor(ide: VscodeIDE) {

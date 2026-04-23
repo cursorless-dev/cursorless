@@ -5,7 +5,7 @@ import { PassthroughIDE } from "../PassthroughIDE";
 import type { FlashDescriptor } from "../types/FlashDescriptor";
 import type { HighlightId, IDE } from "../types/ide.types";
 import type { Message } from "./SpyMessages";
-import SpyMessages from "./SpyMessages";
+import { SpyMessages } from "./SpyMessages";
 
 interface Highlight {
   highlightId: HighlightId | undefined;

@@ -5,7 +5,7 @@ import type { Target } from "../typings/target.types";
 import { flashTargets } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
 
-export default class InjectedShowParseTree {
+class InjectedShowParseTree {
   constructor(
     private ide: IDE,
     private treeSitter: TreeSitter,
@@ -32,6 +32,8 @@ export default class InjectedShowParseTree {
     return { thatTargets: targets };
   }
 }
+
+export { InjectedShowParseTree as ShowParseTree };
 
 function parseTree(
   document: TextDocument,

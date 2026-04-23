@@ -20,12 +20,12 @@ import {
   toVscodeSelection,
 } from "@cursorless/lib-vscode-common";
 import { isDiffEditorOriginal } from "./isDiffEditorOriginal";
-import vscodeEdit from "./VscodeEdit";
-import vscodeFocusEditor from "./VscodeFocusEditor";
+import { vscodeEdit } from "./VscodeEdit";
+import { vscodeFocusEditor } from "./VscodeFocusEditor";
 import { vscodeFold, vscodeUnfold } from "./VscodeFold";
 import type { VscodeIDE } from "./VscodeIDE";
 import { vscodeInsertSnippet } from "./VscodeInsertSnippets";
-import vscodeOpenLink from "./VscodeOpenLink";
+import { vscodeOpenLink } from "./VscodeOpenLink";
 import { vscodeRevealLine } from "./VscodeRevealLine";
 import { VscodeTextDocument } from "./VscodeTextDocument";
 import { vscodeToggleBreakpoint } from "./VscodeToggleBreakpoint";

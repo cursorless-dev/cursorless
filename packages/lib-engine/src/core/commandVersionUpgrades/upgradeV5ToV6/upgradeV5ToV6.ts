@@ -29,7 +29,7 @@ import type {
   ReplaceWith,
   WrapWithSnippetArg,
 } from "@cursorless/lib-common";
-import canonicalizeActionName from "./canonicalizeActionName";
+import { canonicalizeActionName } from "./canonicalizeActionName";
 
 export function upgradeV5ToV6(command: CommandV5): EnforceUndefined<CommandV6> {
   return {

@@ -5,7 +5,7 @@ import { ensureSingleEditor } from "../util/targetUtils";
 import type { Actions } from "./Actions";
 import type { SimpleAction, ActionReturnValue } from "./actions.types";
 
-export default class Clear implements SimpleAction {
+export class Clear implements SimpleAction {
   constructor(
     private ide: IDE,
     private actions: Actions,

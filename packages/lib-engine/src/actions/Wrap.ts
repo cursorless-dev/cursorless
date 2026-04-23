@@ -11,7 +11,7 @@ import type { Target } from "../typings/target.types";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
 
-export default class Wrap {
+export class Wrap {
   constructor(
     private ide: IDE,
     private rangeUpdater: RangeUpdater,

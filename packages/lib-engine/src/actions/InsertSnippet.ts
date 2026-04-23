@@ -16,7 +16,7 @@ import { ensureSingleEditor } from "../util/targetUtils";
 import type { Actions } from "./Actions";
 import type { ActionReturnValue } from "./actions.types";
 
-export default class InsertSnippet {
+export class InsertSnippet {
   private snippetParser = new SnippetParser();
 
   constructor(

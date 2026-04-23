@@ -15,7 +15,7 @@ type SmartLinkProps = {
  * internal
  * @returns SmartLink component
  */
-export default function SmartLink({
+export function SmartLink({
   to,
   children,
   noFormatting = false,

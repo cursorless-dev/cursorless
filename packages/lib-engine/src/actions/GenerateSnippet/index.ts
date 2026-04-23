@@ -1,1 +1,1 @@
-export { default } from "./GenerateSnippet";
+export { GenerateSnippet } from "./GenerateSnippet";

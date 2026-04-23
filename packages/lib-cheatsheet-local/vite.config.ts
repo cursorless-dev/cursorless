@@ -9,6 +9,7 @@ import {
   vitePreactAlias,
 } from "@cursorless/lib-common/vite";
 
+// oxlint-disable-next-line import/no-default-export
 export default defineConfig((): UserConfig => {
   return {
     build: {

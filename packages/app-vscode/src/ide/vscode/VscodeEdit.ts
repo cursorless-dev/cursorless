@@ -2,7 +2,7 @@ import type * as vscode from "vscode";
 import type { Edit } from "@cursorless/lib-common";
 import { toVscodePosition, toVscodeRange } from "@cursorless/lib-vscode-common";
 
-export default async function vscodeEdit(
+export async function vscodeEdit(
   editor: vscode.TextEditor,
   edits: Edit[],
 ): Promise<boolean> {

@@ -21,7 +21,7 @@ const columnFocusCommands = {
 /**
  * Focus editor. Returns true if selection needs to be set again.
  */
-export default async function vscodeFocusEditor(
+export async function vscodeFocusEditor(
   editor: VscodeTextEditor,
 ): Promise<void> {
   const viewColumn = getViewColumn(editor.vscodeEditor);

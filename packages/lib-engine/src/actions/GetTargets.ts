@@ -1,7 +1,7 @@
 import type { Target } from "../typings/target.types";
 import type { ActionReturnValue, SimpleAction } from "./actions.types";
 
-export default class GetTargets implements SimpleAction {
+export class GetTargets implements SimpleAction {
   constructor() {
     this.run = this.run.bind(this);
   }

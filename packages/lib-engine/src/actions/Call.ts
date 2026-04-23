@@ -3,7 +3,7 @@ import { ensureSingleTarget } from "../util/targetUtils";
 import type { Actions } from "./Actions";
 import type { ActionReturnValue } from "./actions.types";
 
-export default class Call {
+export class Call {
   constructor(private actions: Actions) {
     this.run = this.run.bind(this);
   }

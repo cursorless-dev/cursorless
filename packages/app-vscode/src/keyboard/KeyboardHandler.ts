@@ -79,7 +79,7 @@ interface TypeCommandArg {
  * will take over the keyboard, unless the stack is empty, which will give
  * keyboard control back to VSCode.
  */
-export default class KeyboardHandler {
+export class KeyboardHandler {
   private listeners: ListenerEntry[] = [];
   private activeListener: ListenerEntry | undefined;
   private typeCommandDisposable?: Disposable;

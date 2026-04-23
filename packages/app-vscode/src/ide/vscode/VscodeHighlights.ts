@@ -29,7 +29,7 @@ const allStyles = Object.values<VscodeStyle>(FlashStyle).concat(
  * {@link VscodeFlashHandler} for rendering the decorations used for flashes, but this
  * class doesn't handle the timing of the flashes.
  */
-export default class VscodeHighlights {
+export class VscodeHighlights {
   private highlightDecorations: Record<
     VscodeStyle,
     VscodeHighlightDecorationTypes

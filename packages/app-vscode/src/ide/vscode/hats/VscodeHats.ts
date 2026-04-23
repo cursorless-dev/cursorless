@@ -13,11 +13,11 @@ import { Notifier } from "@cursorless/lib-common";
 import type { VscodeApi } from "@cursorless/lib-vscode-common";
 import { toVscodeRange } from "@cursorless/lib-vscode-common";
 import type { VscodeHatStyleName } from "../hatStyles.types";
-import VscodeEnabledHatStyleManager from "../VscodeEnabledHatStyleManager";
+import { VscodeEnabledHatStyleManager } from "../VscodeEnabledHatStyleManager";
 import type { VscodeIDE } from "../VscodeIDE";
 import type { VscodeTextEditor } from "../VscodeTextEditor";
 import type { FontMeasurements } from "./FontMeasurements";
-import VscodeHatRenderer from "./VscodeHatRenderer";
+import { VscodeHatRenderer } from "./VscodeHatRenderer";
 
 export class VscodeHats implements Hats {
   private enabledHatStyleManager: VscodeEnabledHatStyleManager;

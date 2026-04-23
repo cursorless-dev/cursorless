@@ -1,13 +1,13 @@
 import type { JSX } from "preact";
 import type { CheatsheetSection, Variation } from "./cheatsheet.types";
 import { formatCaptures } from "./utils/formatCaptures";
-import useIsHighlighted from "./utils/useIsHighlighted";
+import { useIsHighlighted } from "./utils/useIsHighlighted";
 
 type Props = {
   section: CheatsheetSection;
 };
 
-export default function CheatsheetListSection({ section }: Props): JSX.Element {
+export function CheatsheetListSection({ section }: Props): JSX.Element {
   const isHighlighted = useIsHighlighted(section.id);
 
   const variations = section.items.flatMap((item) => item.variations);

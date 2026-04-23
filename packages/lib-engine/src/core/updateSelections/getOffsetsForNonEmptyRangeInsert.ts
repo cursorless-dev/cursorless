@@ -31,7 +31,7 @@ import type {
  * @param rangeInfo The range to compute new offsets for
  * @returns The new offsets for the given range
  */
-export default function getOffsetsForNonEmptyRangeInsert(
+export function getOffsetsForNonEmptyRangeInsert(
   changeEventInfo: ChangeEventInfo,
   rangeInfo: FullRangeInfo,
 ): RangeOffsets {

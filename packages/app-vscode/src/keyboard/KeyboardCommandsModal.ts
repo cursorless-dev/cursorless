@@ -8,15 +8,15 @@ import grammar from "./grammar/generated/grammar";
 import { getAcceptableTokenTypes } from "./grammar/getAcceptableTokenTypes";
 import { KeyboardCommandHandler } from "./KeyboardCommandHandler";
 import { KeyboardCommandsModalLayer } from "./KeyboardCommandsModalLayer";
-import type KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
+import type { KeyboardCommandsTargeted } from "./KeyboardCommandsTargeted";
 import { KeyboardConfig } from "./KeyboardConfig";
-import type KeyboardHandler from "./KeyboardHandler";
+import type { KeyboardHandler } from "./KeyboardHandler";
 import type { KeyDescriptor, TokenTypeKeyMapMap } from "./TokenTypeHelpers";
 
 /**
  * Defines a mode to use with a modal version of Cursorless keyboard.
  */
-export default class KeyboardCommandsModal {
+export class KeyboardCommandsModal {
   /**
    * This disposable is returned by {@link KeyboardHandler.pushListener}, and is
    * used to relinquich control of the keyboard.  If this disposable is

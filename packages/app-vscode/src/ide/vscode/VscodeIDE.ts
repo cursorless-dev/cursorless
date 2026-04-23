@@ -27,14 +27,14 @@ import {
   fromVscodeSelection,
 } from "@cursorless/lib-vscode-common";
 import { VscodeCapabilities } from "./VscodeCapabilities";
-import VscodeClipboard from "./VscodeClipboard";
-import VscodeConfiguration from "./VscodeConfiguration";
+import { VscodeClipboard } from "./VscodeClipboard";
+import { VscodeConfiguration } from "./VscodeConfiguration";
 import { forwardEvent, vscodeOnDidChangeTextDocument } from "./VscodeEvents";
-import VscodeFlashHandler from "./VscodeFlashHandler";
-import VscodeHighlights, { HighlightStyle } from "./VscodeHighlights";
+import { VscodeFlashHandler } from "./VscodeFlashHandler";
+import { HighlightStyle, VscodeHighlights } from "./VscodeHighlights";
 import { VscodeNotebookEditorImpl } from "./VscodeIdeNotebook";
-import VscodeKeyValueStore from "./VscodeKeyValueStore";
-import VscodeMessages from "./VscodeMessages";
+import { VscodeKeyValueStore } from "./VscodeKeyValueStore";
+import { VscodeMessages } from "./VscodeMessages";
 import { vscodeRunMode } from "./VscodeRunMode";
 import { vscodeShowQuickPick } from "./vscodeShowQuickPick";
 import { VscodeTextDocument } from "./VscodeTextDocument";

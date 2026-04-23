@@ -11,8 +11,10 @@ import type {
   SimpleKeyboardActionDescriptor,
   SpecificKeyboardActionDescriptor,
 } from "./KeyboardActionType";
-import type { TargetingMode } from "./KeyboardCommandsTargeted";
-import type KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
+import type {
+  TargetingMode,
+  KeyboardCommandsTargeted,
+} from "./KeyboardCommandsTargeted";
 import type { ModalVscodeCommandDescriptor } from "./TokenTypes";
 
 /**

@@ -35,6 +35,7 @@ export async function run(plugin: NvimPlugin): Promise<void> {
  * - Register the functions that are exposed to Neovim.
  *   Note that these function need to start with a capital letter to be callable from Neovim.
  */
+// oxlint-disable-next-line import/no-default-export
 export default function entry(plugin: NvimPlugin) {
   plugin.registerFunction("TestRunnerRun", () => run(plugin), {
     sync: false,

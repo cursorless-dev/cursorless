@@ -10,7 +10,7 @@ import {
 } from "../util/targetUtils";
 import type { ActionReturnValue, SimpleAction } from "./actions.types";
 
-export default class ToggleBreakpoint implements SimpleAction {
+export class ToggleBreakpoint implements SimpleAction {
   getFinalStages = () => [
     this.modifierStageFactory.create(containingLineIfUntypedModifier),
   ];

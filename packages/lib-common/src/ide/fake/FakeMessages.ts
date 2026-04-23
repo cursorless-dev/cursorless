@@ -1,6 +1,6 @@
 import type { MessageId, Messages, MessageType } from "../types/Messages";
 
-export default class FakeMessages implements Messages {
+export class FakeMessages implements Messages {
   showMessage(
     _type: MessageType,
     _id: MessageId,
