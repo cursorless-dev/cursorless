@@ -52,21 +52,21 @@ export function getRankedTokens(
     return tokens;
   });
 
-  return moveForcedHatsToFront(forcedHatMap, tokens).map((token, index) => ({
+  if (forcedHatMap != null) {
+    moveForcedHatsToFront(forcedHatMap, tokens);
+  }
+
+  return tokens.map((token, index) => ({
     token,
     rank: -index,
   }));
 }
 
 function moveForcedHatsToFront(
-  forcedHatMap: CompositeKeyMap<Token, TokenHat> | undefined,
+  forcedHatMap: CompositeKeyMap<Token, TokenHat>,
   tokens: Token[],
-) {
-  if (forcedHatMap == null) {
-    return tokens;
-  }
-
-  return tokens.toSorted((a, b) => {
+): void {
+  tokens.sort((a, b) => {
     const aIsForced = forcedHatMap.has(a);
     const bIsForced = forcedHatMap.has(b);
     if (aIsForced && !bIsForced) {
