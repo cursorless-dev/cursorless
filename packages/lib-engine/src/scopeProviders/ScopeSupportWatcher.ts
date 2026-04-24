@@ -110,7 +110,6 @@ export class ScopeSupportWatcher {
 
     const scopeTypeInfos = this.scopeInfoProvider.getScopeTypeInfos();
 
-    // oxlint-disable-next-line oxc/no-map-spread
     return scopeTypeInfos.map((scopeTypeInfo) => ({
       ...scopeTypeInfo,
       support: getScopeTypeSupport(scopeTypeInfo.scopeType),

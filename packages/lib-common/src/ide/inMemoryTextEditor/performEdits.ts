@@ -42,7 +42,8 @@ function createChangeEvents(
    */
   const sortedEdits = edits
     .map((edit, index) => ({ edit, index }))
-    .toSorted((a, b) => {
+    // oxlint-disable-next-line unicorn/no-array-sort
+    .sort((a, b) => {
       // Edits starting at the same position are sorted in reverse given order.
       if (a.edit.range.start.isEqual(b.edit.range.start)) {
         return b.index - a.index;

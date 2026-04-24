@@ -35,7 +35,6 @@ export function getRankedTokens(
     const referencePosition = editor.selections[0].active;
     const displayLineMap = getDisplayLineMap(editor, [referencePosition.line]);
     const tokens = editor.visibleRanges.flatMap((range) =>
-      // oxlint-disable-next-line oxc/no-map-spread
       getTokensInRange(ide, editor, range).map((partialToken) => ({
         ...partialToken,
         displayLine: displayLineMap.get(partialToken.range.start.line)!,

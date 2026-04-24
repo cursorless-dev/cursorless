@@ -43,5 +43,6 @@ export function generateMatchesInRange(
 
   return direction === "forward"
     ? imap(text.matchAll(regex), matchToRange)
-    : Array.from(text.matchAll(regex), matchToRange).toReversed();
+    : // oxlint-disable-next-line unicorn/no-array-sort
+      Array.from(text.matchAll(regex), matchToRange).sort();
 }
