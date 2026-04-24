@@ -17,7 +17,9 @@ export function getDisplayLineMap(
     ...editor.visibleRanges.flatMap((visibleRange) =>
       range(visibleRange.start.line, visibleRange.end.line + 1),
     ),
-  ]).toSorted((a, b) => a - b);
+  ]);
+
+  lines.sort((a, b) => a - b);
 
   return new Map(lines.map((value, index) => [value, index]));
 }
