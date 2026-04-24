@@ -315,18 +315,19 @@ function getScopeFixtures(
   }
 
   const result: Scopes = { public: [], internal: [] };
+  const sortedScopes = Object.values(scopeMap).sort(nameComparator);
 
-  Object.values(scopeMap)
-    .sort(nameComparator)
-    .forEach((scope) => {
-      scope.facets.sort(facetComparator);
-      scope.facets.forEach((f) => f.fixtures.sort(nameComparator));
-      if (isScopeInternal(scope.scopeTypeType)) {
-        result.internal.push(scope);
-      } else {
-        result.public.push(scope);
-      }
-    });
+  for (const scope of sortedScopes) {
+    scope.facets.sort(facetComparator);
+    for (const f of scope.facets) {
+      f.fixtures.sort(nameComparator);
+    }
+    if (isScopeInternal(scope.scopeTypeType)) {
+      result.internal.push(scope);
+    } else {
+      result.public.push(scope);
+    }
+  }
 
   return result;
 }

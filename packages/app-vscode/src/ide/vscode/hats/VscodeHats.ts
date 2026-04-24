@@ -107,20 +107,20 @@ export class VscodeHats implements Hats {
       ]),
     );
 
-    this.hatRanges.forEach(({ editor, range, styleName }) => {
+    for (const { editor, range, styleName } of this.hatRanges) {
       decorationRanges.get(editor)?.[styleName]?.push(range);
-    });
+    }
 
-    decorationRanges.forEach((ranges, editor) => {
-      hatStyleNames.forEach((hatStyleName) => {
+    for (const [editor, ranges] of decorationRanges) {
+      for (const hatStyleName of hatStyleNames) {
         (editor as VscodeTextEditor).vscodeEditor.setDecorations(
           this.hatRenderer.getDecorationType(
             hatStyleName as VscodeHatStyleName,
           )!,
           ranges[hatStyleName]?.map((range) => toVscodeRange(range)) ?? [],
         );
-      });
-    });
+      }
+    }
   }
 
   get enabledHatStyles(): HatStyleMap {

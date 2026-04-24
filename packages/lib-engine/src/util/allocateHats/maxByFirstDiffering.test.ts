@@ -31,10 +31,10 @@ suite("maxByFirstDiffering", () => {
       [1, 0, 0, 1],
     ];
 
-    testCases.forEach((testCase) => {
+    for (const testCase of testCases) {
       const actual = maxByAllowingTies(testCase, (x) => x);
       const expected = goldenMaxByAllowingTies(testCase, (x) => x);
       assert.deepEqual(actual, expected);
-    });
+    }
   });
 });

@@ -180,9 +180,9 @@ export class VscodeHatRenderer {
   }
 
   private destroyDecorations() {
-    Object.values(this.decorationMap).forEach((decoration) => {
+    for (const decoration of Object.values(this.decorationMap)) {
       decoration.dispose();
-    });
+    }
   }
 
   private async recomputeDecorations() {
@@ -495,7 +495,9 @@ export class VscodeHatRenderer {
   dispose() {
     this.destroyDecorations();
     this.hatsDirWatcherDisposable?.dispose();
-    this.disposables.forEach(({ dispose }) => dispose());
+    for (const disposable of this.disposables) {
+      disposable.dispose();
+    }
   }
 }
 

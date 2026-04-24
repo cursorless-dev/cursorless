@@ -164,9 +164,9 @@ function getTokenOldHatMap(oldTokenHats: readonly TokenHat[]) {
     ({ editor, offsets }) => [editor.id, offsets.start, offsets.end],
   );
 
-  oldTokenHats.forEach((descriptor) =>
-    tokenOldHatMap.set(descriptor.token, descriptor),
-  );
+  for (const descriptor of oldTokenHats) {
+    tokenOldHatMap.set(descriptor.token, descriptor);
+  }
   return tokenOldHatMap;
 }
 

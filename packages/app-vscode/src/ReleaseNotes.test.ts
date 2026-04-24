@@ -157,12 +157,12 @@ suite("release notes", () => {
     sinon.restore();
   });
 
-  testCases.forEach(({ input, expectedOutput }) => {
+  for (const { input, expectedOutput } of testCases) {
     test(
       getTestName(input),
       asyncSafety(() => runTest(input, expectedOutput)),
     );
-  });
+  }
 });
 
 function getTestName(input: Input) {

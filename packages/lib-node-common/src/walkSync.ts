@@ -10,14 +10,14 @@ import * as path from "node:path";
  */
 export const walkFilesSync = (dir: string): string[] => {
   let filelist: string[] = [];
-  readdirSync(dir, { withFileTypes: true }).forEach((dirent) => {
+  for (const dirent of readdirSync(dir, { withFileTypes: true })) {
     const filePath = path.join(dir, dirent.name);
     if (dirent.isDirectory()) {
       filelist = filelist.concat(walkFilesSync(filePath));
     } else {
       filelist.push(filePath);
     }
-  });
+  }
   return filelist;
 };
 
@@ -31,13 +31,13 @@ export const walkDirsSync = (dir: string): string[] => {
   // Inner function returns absolute paths
   const walkDirsSyncInner = (dir: string): string[] => {
     let dirlist: string[] = [];
-    readdirSync(dir, { withFileTypes: true }).forEach((dirent) => {
+    for (const dirent of readdirSync(dir, { withFileTypes: true })) {
       if (dirent.isDirectory()) {
         const dirPath = path.join(dir, dirent.name);
         dirlist.push(dirPath);
         dirlist = dirlist.concat(walkDirsSyncInner(dirPath));
       }
-    });
+    }
     return dirlist;
   };
   // Convert to relative paths

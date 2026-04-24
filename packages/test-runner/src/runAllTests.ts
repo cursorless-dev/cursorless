@@ -1,5 +1,5 @@
 import * as path from "node:path";
-import glob from "fast-glob";
+import fastGlob from "fast-glob";
 import Mocha from "mocha";
 import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
 import {
@@ -78,9 +78,10 @@ async function runTestsInDir(
     grep: testSubsetGrepString(),
   });
 
-  const files = await glob(`**/*.${filePattern}`, {
+  const files = await fastGlob(`**/*.${filePattern}`, {
     cwd: testRoot,
     followSymbolicLinks: false,
+    absolute: true,
     ignore: ["**/node_modules/**", ...ignore],
   });
 
@@ -91,7 +92,9 @@ async function runTestsInDir(
   }
 
   // Add files to the test suite
-  files.forEach((f) => mocha.addFile(path.resolve(testRoot, f)));
+  for (const file of files) {
+    mocha.addFile(file);
+  }
 
   // Run the mocha test
   await new Promise<void>((resolve, reject) => {

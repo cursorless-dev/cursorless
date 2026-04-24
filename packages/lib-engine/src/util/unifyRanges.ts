@@ -33,7 +33,7 @@ function unifyTargetsOnePass(targets: Target[]): [Target[], boolean] {
   }
   const results: Target[] = [];
   let currentGroup: Target[] = [];
-  targets.forEach((target) => {
+  for (const target of targets) {
     // No intersection. Mark start of new group
     if (
       currentGroup.length > 0 &&
@@ -44,7 +44,7 @@ function unifyTargetsOnePass(targets: Target[]): [Target[], boolean] {
     } else {
       currentGroup.push(target);
     }
-  });
+  }
   results.push(mergeTargets(currentGroup));
   return [results, results.length !== targets.length];
 }

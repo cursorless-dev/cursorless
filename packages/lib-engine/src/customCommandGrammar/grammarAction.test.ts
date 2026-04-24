@@ -131,7 +131,7 @@ const testCases: TestCase[] = [
 ];
 
 suite("custom grammar: actions", () => {
-  testCases.forEach(({ input, expectedOutput }) => {
+  for (const { input, expectedOutput } of testCases) {
     test(input, () => {
       assert.deepEqual(
         parseAction(input),
@@ -139,5 +139,5 @@ suite("custom grammar: actions", () => {
         JSON.stringify(parseAction(input), null, 4),
       );
     });
-  });
+  }
 });

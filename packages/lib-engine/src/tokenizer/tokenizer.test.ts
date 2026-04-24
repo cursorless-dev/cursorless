@@ -119,49 +119,42 @@ const languageTokenizerTests: Record<string, LanguageTokenizerTests> = {
 suite("tokenizer", () => {
   const ide = new FakeIDE();
 
-  Object.entries(languageTokenizerTests).forEach(
-    ([languageId, { wordSeparators }]) => {
-      ide.configuration.mockConfigurationScope(
-        {
-          languageId,
-        },
-        {
-          wordSeparators,
-        },
-      );
-    },
-  );
+  for (const languageId of Object.keys(languageTokenizerTests)) {
+    ide.configuration.mockConfigurationScope(
+      {
+        languageId,
+      },
+      {
+        wordSeparators: languageTokenizerTests[languageId].wordSeparators,
+      },
+    );
+  }
 
-  globalTests.forEach(([input, expectedOutput]) => {
+  for (const [input, expectedOutput] of globalTests) {
     test(`tokenizer test, input: "${input}"`, () => {
       const output = tokenize(ide, input, "anyLang", (match) => match[0]);
       assert.deepEqual(output, expectedOutput);
     });
-  });
+  }
 
-  Object.entries(languageTokenizerTests).forEach(
-    ([
-      language,
-      {
-        additionalTests: languageSpecificTests,
-        exclusionPredicate = () => false,
-      },
-    ]) => {
-      const tests = [
-        ...languageSpecificTests,
-        ...globalTests.filter(
-          ([input, _expectedOutput]) => !exclusionPredicate(input),
-        ),
-      ];
+  for (const languageId of Object.keys(languageTokenizerTests)) {
+    const languageSpecificTests = languageTokenizerTests[languageId];
+    const exclusionPredicate =
+      languageSpecificTests.exclusionPredicate ?? (() => false);
+    const tests = [
+      ...languageSpecificTests.additionalTests,
+      ...globalTests.filter(
+        ([input, _expectedOutput]) => !exclusionPredicate(input),
+      ),
+    ];
 
-      tests.forEach(([input, expectedOutput]) => {
-        test(`${language} custom tokenizer, input: "${input}"`, () => {
-          const output = tokenize(ide, input, language, (match) => match[0]);
-          assert.deepEqual(output, expectedOutput);
-        });
+    for (const [input, expectedOutput] of tests) {
+      test(`${languageId} custom tokenizer, input: "${input}"`, () => {
+        const output = tokenize(ide, input, languageId, (match) => match[0]);
+        assert.deepEqual(output, expectedOutput);
       });
-    },
-  );
+    }
+  }
 });
 
 /**

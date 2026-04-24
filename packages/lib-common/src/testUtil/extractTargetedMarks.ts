@@ -8,14 +8,14 @@ export function extractTargetedMarks(
 ) {
   const targetedMarks: { [decoratedCharacter: string]: Token } = {};
 
-  targetKeys.forEach((key) => {
+  for (const key of targetKeys) {
     const { hatStyle, character } = splitKey(key);
     const token = hatTokenMap.getToken(hatStyle, character);
     if (token == null) {
       throw new Error(`Couldn't find mark ${hatStyle} '${character}'`);
     }
     targetedMarks[key] = token;
-  });
+  }
 
   return targetedMarks;
 }

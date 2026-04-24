@@ -72,7 +72,7 @@ abstract class BringMoveSwap {
     const shouldJoinSources =
       sources.length !== destinations.length && destinations.length === 1;
 
-    sources.forEach((source, i) => {
+    for (const [i, source] of sources.entries()) {
       let destination = destinations[i];
       let destinationEdit: ExtendedEdit | undefined;
 
@@ -132,18 +132,18 @@ abstract class BringMoveSwap {
           });
         }
       }
-    });
+    }
 
     if (this.type === "move") {
       // Unify overlapping targets.
-      unifyRemovalTargets(usedSources).forEach((source) => {
+      for (const source of unifyRemovalTargets(usedSources)) {
         results.push({
           edit: source.constructRemovalEdit(),
           editor: source.editor,
           originalTarget: source,
           isSource: true,
         });
-      });
+      }
     }
 
     return results;
@@ -370,7 +370,7 @@ export class Swap extends BringMoveSwap {
   private getEditsSwap(targets1: Target[], targets2: Target[]): ExtendedEdit[] {
     const results: ExtendedEdit[] = [];
 
-    targets1.forEach((target1, i) => {
+    for (const [i, target1] of targets1.entries()) {
       const target2 = targets2[i];
       if (target1 == null || target2 == null) {
         throw new Error("Targets must have same number of args");
@@ -395,7 +395,7 @@ export class Swap extends BringMoveSwap {
         originalTarget: target1,
         isSource: true,
       });
-    });
+    }
 
     return results;
   }

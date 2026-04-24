@@ -3,7 +3,7 @@ import { SentenceSegmenter } from "../processTargets/modifiers/scopeHandlers/Sen
 import { sentenceSegmenterFixture } from "./fixtures/sentenceSegmeter.fixture";
 
 suite("Sentence segmenter", () => {
-  sentenceSegmenterFixture.forEach(({ input, expectedOutput }) => {
+  for (const { input, expectedOutput } of sentenceSegmenterFixture) {
     test(input, () => {
       assert.deepEqual(
         Array.from(new SentenceSegmenter().segment(input)).map(
@@ -12,5 +12,5 @@ suite("Sentence segmenter", () => {
         expectedOutput,
       );
     });
-  });
+  }
 });

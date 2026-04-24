@@ -15,12 +15,12 @@ async function main() {
     // Read cli tool name from arguments, assume tool name is 'code' if not present
     let cliToolName = vsCodeToolName;
 
-    process.argv.forEach((argument) => {
+    for (const argument of process.argv) {
       if (validCliToolParams.has(argument)) {
         cliToolName = argument.replace("--", "");
         console.log(`Cli tool name manually set to ${cliToolName}`);
       }
-    });
+    }
 
     const extensions = [
       ...extensionDependencies,

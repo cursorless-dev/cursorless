@@ -9,7 +9,7 @@ import type { Disposable } from "../ide/types/ide.types";
 export function disposableFrom(...disposables: Disposable[]): Disposable {
   return {
     dispose(): void {
-      disposables.forEach((disposable) => {
+      for (const disposable of disposables) {
         try {
           disposable.dispose();
         } catch (error) {
@@ -18,7 +18,7 @@ export function disposableFrom(...disposables: Disposable[]): Disposable {
           // disposables
           console.error(error);
         }
-      });
+      }
     },
   };
 }

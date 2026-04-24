@@ -33,16 +33,18 @@ export function createScopeVisualizer(
       );
       scopeVisualizer.start();
       currentScopeType = scopeType;
-      listeners
-        .slice()
-        .forEach((listener) => listener(scopeType, visualizationType));
+      for (const listener of listeners.slice()) {
+        listener(scopeType, visualizationType);
+      }
     },
 
     stop() {
       scopeVisualizer?.dispose();
       scopeVisualizer = undefined;
       currentScopeType = undefined;
-      listeners.slice().forEach((listener) => listener(undefined, undefined));
+      for (const listener of listeners.slice()) {
+        listener(undefined, undefined);
+      }
     },
 
     get scopeType() {

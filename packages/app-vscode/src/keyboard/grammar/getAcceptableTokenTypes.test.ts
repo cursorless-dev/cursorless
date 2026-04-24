@@ -137,7 +137,7 @@ suite("keyboard.getAcceptableTokenTypes", () => {
     parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));
   });
 
-  testCases.forEach(({ tokens, expected }) => {
+  for (const { tokens, expected } of testCases) {
     test(`after \`${stringifyTokens(tokens)}\``, () => {
       parser.feed(tokens);
       for (const value of expected) {
@@ -160,5 +160,5 @@ suite("keyboard.getAcceptableTokenTypes", () => {
         );
       }
     });
-  });
+  }
 });

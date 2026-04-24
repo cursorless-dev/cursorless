@@ -39,26 +39,25 @@ export function getHatRankingContext(
     number
   >(({ grapheme, hatStyle }) => [grapheme, hatStyle]);
 
-  tokens.forEach(({ token, rank }) => {
+  for (const { token, rank } of tokens) {
     const existingTokenHat = oldTokenHatMap.get(token);
     if (existingTokenHat != null) {
       hatOldTokenRanks.set(existingTokenHat, rank);
     }
-    tokenGraphemeSplitter
-      .getTokenGraphemes(token.text)
-      .forEach(({ text: graphemeText }) => {
-        let tokenRanksForGrapheme: number[];
+    const graphemes = tokenGraphemeSplitter.getTokenGraphemes(token.text);
+    for (const grapheme of graphemes) {
+      let tokenRanksForGrapheme: number[];
 
-        if (graphemeText in graphemeTokenRanks) {
-          tokenRanksForGrapheme = graphemeTokenRanks[graphemeText];
-        } else {
-          tokenRanksForGrapheme = [];
-          graphemeTokenRanks[graphemeText] = tokenRanksForGrapheme;
-        }
+      if (grapheme.text in graphemeTokenRanks) {
+        tokenRanksForGrapheme = graphemeTokenRanks[grapheme.text];
+      } else {
+        tokenRanksForGrapheme = [];
+        graphemeTokenRanks[grapheme.text] = tokenRanksForGrapheme;
+      }
 
-        tokenRanksForGrapheme.push(rank);
-      });
-  });
+      tokenRanksForGrapheme.push(rank);
+    }
+  }
 
   return {
     hatOldTokenRanks,

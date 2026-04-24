@@ -123,7 +123,9 @@ export class KeyboardHandler {
   }
 
   dispose() {
-    this.disposables.forEach(({ dispose }) => dispose());
+    for (const disposable of this.disposables) {
+      disposable.dispose();
+    }
   }
 
   /**
@@ -150,10 +152,10 @@ export class KeyboardHandler {
         // one. Eg if you're in the middle of typing a command and we turn off
         // the modal mode, we want to cancel the command
         if (index !== -1) {
-          this.listeners
-            .slice(index + 1)
-            .reverse()
-            .forEach(({ listener }) => listener.handleCancelled());
+          const listenersToCancel = this.listeners.slice(index + 1).reverse();
+          for (const entry of listenersToCancel) {
+            entry.listener.handleCancelled();
+          }
           this.listeners.splice(index);
         }
         this.ensureState();

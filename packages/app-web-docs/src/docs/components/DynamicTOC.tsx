@@ -40,10 +40,11 @@ function getTOC(minHeadingLevel: number, maxHeadingLevel: number) {
   const ul = document.createElement("ul");
   ul.className = "table-of-contents table-of-contents__left-border";
 
+  const headerElements = getHeaderElements(minHeadingLevel, maxHeadingLevel);
   let currentLevel: number | undefined = undefined;
   let indent = 0;
 
-  getHeaderElements(minHeadingLevel, maxHeadingLevel).forEach((header) => {
+  for (const header of headerElements) {
     const level = Number.parseInt(header.tagName[1], 10);
 
     if (level !== currentLevel) {
@@ -63,7 +64,7 @@ function getTOC(minHeadingLevel: number, maxHeadingLevel: number) {
 
     li.append(a);
     ul.append(li);
-  });
+  }
 
   toc.append(ul);
   col.append(toc);

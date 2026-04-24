@@ -80,7 +80,7 @@ const tests: Test[] = [
 ];
 
 suite("flatten highlights", () => {
-  tests.forEach((t) => {
+  for (const t of tests) {
     test(t.name, () => {
       const highlights = t.scopes.flatMap((s) => {
         const result: Highlight[] = [];
@@ -96,7 +96,7 @@ suite("flatten highlights", () => {
         assert.equal(actual[i].range.concise(), t.expected[i]);
       }
     });
-  });
+  }
 });
 
 function createHighlight(range: string): Highlight {

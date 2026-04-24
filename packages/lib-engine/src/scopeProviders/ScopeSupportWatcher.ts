@@ -82,7 +82,9 @@ export class ScopeSupportWatcher {
 
     const supportLevels = this.getSupportLevels();
 
-    this.listeners.slice().forEach((listener) => listener(supportLevels));
+    for (const listener of this.listeners.slice()) {
+      listener(supportLevels);
+    }
   }
 
   private getSupportLevels(): ScopeSupportInfo[] {

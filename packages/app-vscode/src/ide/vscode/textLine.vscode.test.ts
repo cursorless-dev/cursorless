@@ -16,7 +16,7 @@ const whiteSpaceTests: [string, number | undefined, number | undefined][] = [
 suite("TextLine", function () {
   this.timeout("100s");
   this.retries(5);
-  whiteSpaceTests.forEach(([text, trimmedStart, trimmedEnd]) => {
+  for (const [text, trimmedStart, trimmedEnd] of whiteSpaceTests) {
     test(`whitespace '${text}'`, async () => {
       const editor = await getReusableEditor(text);
       const line = new VscodeTextLine(editor.document.lineAt(0));
@@ -24,5 +24,5 @@ suite("TextLine", function () {
       assert.equal(line.rangeTrimmed?.start?.character, trimmedStart);
       assert.equal(line.rangeTrimmed?.end?.character, trimmedEnd);
     });
-  });
+  }
 });

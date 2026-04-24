@@ -34,19 +34,21 @@ suite("Talon spoken forms", () => {
   );
 
   // Test spoken forms in all of our recorded test fixtures
-  getRecordedTestPaths().forEach(({ name, path }) =>
-    test(name, () => runRecordedFixture(repl, path)),
-  );
+  for (const { name, path } of getRecordedTestPaths()) {
+    test(name, () => runRecordedFixture(repl, path));
+  }
 
   // A few more spoken forms that we want to test
-  [
+  const fixtures = [
     ...synonymousSpokenFormsFixture,
     ...talonApiFixture,
     ...multiActionFixture,
     ...communitySnippetsSpokenFormsFixture,
-  ].forEach(({ spokenForm, commands, mockedGetValue }) =>
-    test(spokenForm, () => runTest(repl, spokenForm, commands, mockedGetValue)),
-  );
+  ];
+
+  for (const { spokenForm, commands, mockedGetValue } of fixtures) {
+    test(spokenForm, () => runTest(repl, spokenForm, commands, mockedGetValue));
+  }
 });
 
 async function runRecordedFixture(repl: TalonRepl, file: string) {

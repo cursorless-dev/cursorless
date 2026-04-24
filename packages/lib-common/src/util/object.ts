@@ -8,7 +8,7 @@ export function mergeStrict<Value>(
 ): Record<string, Value> {
   const returnValue: Record<string, Value> = {};
 
-  objects.forEach((object: object) => {
+  for (const object of objects) {
     for (const [key, value] of Object.entries(object)) {
       if (Object.hasOwn(returnValue, key)) {
         throw new Error(`Found duplicate property ${key}`);
@@ -16,7 +16,7 @@ export function mergeStrict<Value>(
 
       returnValue[key] = value;
     }
-  });
+  }
 
   return returnValue;
 }

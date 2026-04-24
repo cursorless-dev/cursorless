@@ -8,7 +8,7 @@
 export function groupBy<T, U>(list: T[], func: (element: T) => U): Map<U, T[]> {
   const map = new Map<U, T[]>();
 
-  list.forEach((element) => {
+  for (const element of list) {
     const key = func(element);
     let group: T[];
 
@@ -20,7 +20,7 @@ export function groupBy<T, U>(list: T[], func: (element: T) => U): Map<U, T[]> {
     }
 
     group.push(element);
-  });
+  }
 
   return map;
 }

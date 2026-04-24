@@ -7,7 +7,7 @@ export async function vscodeEdit(
   edits: Edit[],
 ): Promise<boolean> {
   return await editor.edit((editBuilder) => {
-    edits.forEach(({ range, text, isReplace }) => {
+    for (const { range, text, isReplace } of edits) {
       if (text === "") {
         editBuilder.delete(toVscodeRange(range));
       } else if (range.isEmpty && !isReplace) {
@@ -15,6 +15,6 @@ export async function vscodeEdit(
       } else {
         editBuilder.replace(toVscodeRange(range), text);
       }
-    });
+    }
   });
 }

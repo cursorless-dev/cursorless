@@ -59,7 +59,9 @@ export class ScopeInfoProvider {
   private onChange() {
     this.updateScopeTypeInfos();
 
-    this.listeners.slice().forEach((listener) => listener(this.scopeInfos));
+    for (const listener of this.listeners.slice()) {
+      listener(this.scopeInfos);
+    }
   }
 
   private updateScopeTypeInfos(): void {

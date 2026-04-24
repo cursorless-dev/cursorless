@@ -184,12 +184,12 @@ suite("keyboard grammar", () => {
     parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));
   });
 
-  testCases.forEach(({ tokens, expected }) => {
+  for (const { tokens, expected } of testCases) {
     test(`should parse \`${stringifyTokens(tokens)}\``, () => {
       parser.feed(tokens);
 
       assert.equal(parser.results.length, 1);
       assert.deepEqual(parser.results[0], expected);
     });
-  });
+  }
 });

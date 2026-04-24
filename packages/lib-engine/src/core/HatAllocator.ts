@@ -91,6 +91,8 @@ export class HatAllocator {
   }
 
   dispose() {
-    this.disposables.forEach(({ dispose }) => dispose());
+    for (const disposable of this.disposables) {
+      disposable.dispose();
+    }
   }
 }

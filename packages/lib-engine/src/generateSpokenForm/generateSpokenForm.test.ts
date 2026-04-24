@@ -30,9 +30,9 @@ const spokenFormMap: SpokenFormMap = mapSpokenForms(
 );
 
 suite("Generate spoken forms", () => {
-  getRecordedTestPaths().forEach(({ name, path }) =>
-    test(name, () => runTest(path)),
-  );
+  for (const { name, path } of getRecordedTestPaths()) {
+    test(name, () => runTest(path));
+  }
 
   test("generate spoken form for custom regex", () => {
     const generator = new SpokenFormGenerator({

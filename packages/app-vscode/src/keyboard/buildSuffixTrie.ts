@@ -74,7 +74,9 @@ export function buildSuffixTrie<T>(entries: [string, T][]): BuildTrieReturn<T> {
 
     if (isTopLevel) {
       // If we're top-level, we mark every conflicting entry as bad
-      conflicting.forEach(({ id }) => badEntries.add(id));
+      for (const entry of conflicting) {
+        badEntries.add(entry.id);
+      }
 
       const conflictingTopLevel = conflicting.filter(
         ({ isTopLevel }) => isTopLevel,
@@ -94,9 +96,12 @@ export function buildSuffixTrie<T>(entries: [string, T][]): BuildTrieReturn<T> {
       );
     } else {
       // If we're not top-level, we only mark other non-top-level entries as bad
-      conflicting
-        .filter(({ isTopLevel }) => !isTopLevel)
-        .forEach(({ id }) => badEntries.add(id));
+      const nonTopLevelEntries = conflicting.filter(
+        (entry) => !entry.isTopLevel,
+      );
+      for (const entry of nonTopLevelEntries) {
+        badEntries.add(entry.id);
+      }
     }
 
     // If we got here, we have a conflict, so we mark ourselves as bad

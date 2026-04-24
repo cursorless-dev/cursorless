@@ -52,14 +52,14 @@ export function storedTargetHighlighter(
             ({ editor }) => editor.id,
           );
 
-          ide.visibleTextEditors.forEach((editor) => {
+          for (const editor of ide.visibleTextEditors) {
             highlighter.setRanges(
               editor,
               (editorRangeMap.get(editor.id) ?? []).map(({ contentRange }) =>
                 toCharacterRange(contentRange),
               ),
             );
-          });
+          }
         },
       );
 

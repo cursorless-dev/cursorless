@@ -78,9 +78,9 @@ export async function runInsertLineAfterTargets(
   // up after running the command.  We add it to the state so that any
   // potential edit targets can update them after we return from this function.
   const cursorRanges = [...state.cursorRanges];
-  destinations.forEach((commandTarget, index) => {
+  for (const [index, commandTarget] of destinations.entries()) {
     cursorRanges[commandTarget.index] = editor.selections[index];
-  });
+  }
 
   return {
     destinations: state.destinations.map((destination, index) =>

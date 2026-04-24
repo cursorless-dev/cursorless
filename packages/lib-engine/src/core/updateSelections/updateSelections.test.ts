@@ -66,6 +66,8 @@ class TestIDE extends FakeIDE {
   };
 
   override emitDidChangeTextDocument = (event: TextDocumentChangeEvent) => {
-    this.textDocumentChangeListeners.forEach((listener) => listener(event));
+    for (const listener of this.textDocumentChangeListeners) {
+      listener(event);
+    }
   };
 }

@@ -18,11 +18,21 @@ export function parsePredicates(predicateDescriptors: QueryPredicate[][]) {
   const errors: PredicateError[] = [];
   const predicates: PatternPredicate[][] = [];
 
-  predicateDescriptors.forEach((patternPredicateDescriptors, patternIdx) => {
+  for (
+    let patternIdx = 0;
+    patternIdx < predicateDescriptors.length;
+    ++patternIdx
+  ) {
     /** The predicates for a given pattern */
     const patternPredicates: PatternPredicate[] = [];
+    const patternPredicateDescriptors = predicateDescriptors[patternIdx];
 
-    patternPredicateDescriptors.forEach((predicateDescriptor, predicateIdx) => {
+    for (
+      let predicateIdx = 0;
+      predicateIdx < patternPredicateDescriptors.length;
+      ++predicateIdx
+    ) {
+      const predicateDescriptor = patternPredicateDescriptors[predicateIdx];
       const operator = queryPredicateOperators.find(
         ({ name }) => name === predicateDescriptor.operator,
       );
@@ -33,27 +43,27 @@ export function parsePredicates(predicateDescriptors: QueryPredicate[][]) {
           predicateIdx,
           error: `Unknown predicate operator "${predicateDescriptor.operator}"`,
         });
-        return;
+        continue;
       }
 
       const result = operator.createPredicate(predicateDescriptor.operands);
 
       if (!result.success) {
-        errors.push(
-          ...result.errors.map((error) => ({
+        for (const error of result.errors) {
+          errors.push({
             patternIdx,
             predicateIdx,
             error,
-          })),
-        );
-        return;
+          });
+        }
+        continue;
       }
 
       patternPredicates.push(result.predicate);
-    });
+    }
 
     predicates.push(patternPredicates);
-  });
+  }
 
   return { errors, predicates };
 }

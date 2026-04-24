@@ -3,9 +3,9 @@ import { defineConfig } from "oxlint";
 
 // These rules should probably be re-enabled eventually
 const temporarilyDisabledRules = [
-  "unicorn/no-array-for-each",
-  "unicorn/no-array-reverse",
+  // Requires es2023
   "unicorn/no-array-sort",
+  "unicorn/no-array-reverse",
 ];
 
 const disabledRules = [
@@ -26,6 +26,7 @@ const disabledRules = [
   "eslint/no-continue",
   "eslint/no-eq-null",
   "eslint/no-lonely-if",
+  "eslint/no-loop-func",
   "eslint/no-magic-numbers",
   "eslint/no-negated-condition",
   "eslint/no-plusplus",

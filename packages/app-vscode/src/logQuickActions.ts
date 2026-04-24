@@ -31,9 +31,9 @@ export async function logQuickActions(kind?: string) {
     }),
   );
 
-  availableCodeActions.forEach((availableCodeAction) => {
+  for (const availableCodeAction of availableCodeActions) {
     console.log(JSON.stringify(availableCodeAction, null, 2));
-  });
+  }
 
   void window.showInformationMessage(
     "Run command 'Developer: Toggle Developer Tools' to see available code actions",

@@ -28,7 +28,7 @@ suite("recorded test cases", function () {
     setupFake(ide, HatStability.stable);
   });
 
-  getRecordedTestPaths().forEach(({ name, path }) =>
+  for (const { name, path } of getRecordedTestPaths()) {
     test(
       name,
       asyncSafety(async () => {
@@ -45,8 +45,8 @@ suite("recorded test cases", function () {
           runCursorlessCommand,
         });
       }),
-    ),
-  );
+    );
+  }
 });
 
 async function openNewTestEditor(
