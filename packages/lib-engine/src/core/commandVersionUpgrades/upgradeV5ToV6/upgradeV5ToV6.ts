@@ -276,7 +276,7 @@ function listTargetToDestination(
     }
   };
 
-  target.elements.forEach((element) => {
+  for (const element of target.elements) {
     const insertionMode = getInsertionMode(element);
 
     if (insertionMode != null) {
@@ -289,7 +289,7 @@ function listTargetToDestination(
     } else {
       currentElements.push(upgradeRangeOrPrimitiveTarget(element));
     }
-  });
+  }
 
   potentiallyAddDestination();
 

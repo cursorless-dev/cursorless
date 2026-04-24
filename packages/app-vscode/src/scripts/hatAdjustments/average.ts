@@ -55,7 +55,8 @@ function main() {
     }),
   );
 
-  (["value", "originalAdjustment", "newAdjustment"] as const).forEach((key) => {
+  const keys = ["value", "originalAdjustment", "newAdjustment"] as const;
+  for (const key of keys) {
     const map = Object.fromEntries(
       HAT_SHAPES.map((shape) => {
         return [
@@ -66,10 +67,10 @@ function main() {
           },
         ];
       }),
-    ) as IndividualHatAdjustmentMap;
+    );
     console.log(`${key}: `);
     console.log(JSON.stringify(map, null, 2));
-  });
+  }
 }
 
 main();

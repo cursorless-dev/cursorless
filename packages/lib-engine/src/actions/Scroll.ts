@@ -84,10 +84,10 @@ export class ScrollToBottom extends Scroll {
 function getLineNumber(targets: Target[], at: RevealLineAt) {
   let startLine = Number.MAX_SAFE_INTEGER;
   let endLine = 0;
-  targets.forEach((target: Target) => {
+  for (const target of targets) {
     startLine = Math.min(startLine, target.contentRange.start.line);
     endLine = Math.max(endLine, target.contentRange.end.line);
-  });
+  }
 
   if (at === RevealLineAt.top) {
     return startLine;

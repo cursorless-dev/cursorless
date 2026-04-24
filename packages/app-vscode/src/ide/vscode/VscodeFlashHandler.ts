@@ -38,12 +38,12 @@ export class VscodeFlashHandler {
   ): void {
     const editorRangeMap = groupBy(ranges, ({ editor }) => editor.id);
 
-    this.ide.visibleTextEditors.forEach((editor) => {
+    for (const editor of this.ide.visibleTextEditors) {
       const ranges = (editorRangeMap.get(editor.id) ?? []).map(
         ({ range }) => range,
       );
       void this.highlights.setHighlightRanges(style, editor, ranges);
-    });
+    }
   }
 }
 

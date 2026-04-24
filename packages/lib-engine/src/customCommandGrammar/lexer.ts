@@ -89,21 +89,22 @@ for (const [mark, spokenForm] of Object.entries(marks)) {
   }
 }
 
-defaultSpokenFormMap.modifierExtra.next.spokenForms.forEach((spokenForm) => {
+const nextSpokenForms = defaultSpokenFormMap.modifierExtra.next.spokenForms;
+for (const spokenForm of nextSpokenForms) {
   tokens[spokenForm] = {
     type: "direction",
     value: "forward",
   };
-});
+}
 
-defaultSpokenFormMap.modifierExtra.previous.spokenForms.forEach(
-  (spokenForm) => {
-    tokens[spokenForm] = {
-      type: "direction",
-      value: "backward",
-    };
-  },
-);
+const previousSpokenForms =
+  defaultSpokenFormMap.modifierExtra.previous.spokenForms;
+for (const spokenForm of previousSpokenForms) {
+  tokens[spokenForm] = {
+    type: "direction",
+    value: "backward",
+  };
+}
 
 export const lexer = new CommandLexer({
   ws: /[ \t]+/,

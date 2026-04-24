@@ -62,29 +62,27 @@ export class VscodeFancyRangeHighlighterRenderer {
         b.differentiatedStyle.differentiationIndex,
     );
 
-    decoratedRanges.forEach(
-      ({ differentiatedStyle: styleParameters, ranges }) => {
-        const decorationType = this.decorationTypes.get(styleParameters);
+    for (const { differentiatedStyle, ranges } of decoratedRanges) {
+      const decorationType = this.decorationTypes.get(differentiatedStyle);
 
-        vscodeApi.editor.setDecorations(
-          editor.vscodeEditor,
-          decorationType,
-          ranges.map(toVscodeRange),
-        );
+      vscodeApi.editor.setDecorations(
+        editor.vscodeEditor,
+        decorationType,
+        ranges.map(toVscodeRange),
+      );
 
-        untouchedDecorationTypes.delete(decorationType);
-      },
-    );
+      untouchedDecorationTypes.delete(decorationType);
+    }
 
-    untouchedDecorationTypes.forEach((decorationType) => {
+    for (const decorationType of untouchedDecorationTypes) {
       editor.vscodeEditor.setDecorations(decorationType, []);
-    });
+    }
   }
 
   dispose() {
-    Array.from(this.decorationTypes.values()).forEach((decorationType) => {
+    for (const decorationType of this.decorationTypes.values()) {
       decorationType.dispose();
-    });
+    }
   }
 }
 

@@ -31,9 +31,9 @@ const testCases: TestCase[] = [
 ];
 
 suite("custom grammar: scope types", () => {
-  testCases.forEach(({ input, expectedOutput }) => {
+  for (const { input, expectedOutput } of testCases) {
     test(input, () => {
       assert.deepEqual(parseScopeType(input), expectedOutput);
     });
-  });
+  }
 });

@@ -187,7 +187,9 @@ export class TokenGraphemeSplitter {
     this.algorithmChangeNotifier.registerListener;
 
   dispose() {
-    this.disposables.forEach(({ dispose }) => dispose());
+    for (const disposable of this.disposables) {
+      disposable.dispose();
+    }
   }
 }
 

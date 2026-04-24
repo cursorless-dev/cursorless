@@ -280,7 +280,7 @@ const tokenHatSplittingDefaults: TokenHatSplittingMode = {
   symbolsToPreserve: [],
 };
 
-tests.forEach(({ tokenHatSplittingMode, extraTestCases }) => {
+for (const { tokenHatSplittingMode, extraTestCases } of tests) {
   suite(`getTokenGraphemes(${JSON.stringify(tokenHatSplittingMode)})`, () => {
     const ide = new FakeIDE();
 
@@ -291,7 +291,7 @@ tests.forEach(({ tokenHatSplittingMode, extraTestCases }) => {
 
     const testCases = [...commonTestCases, ...extraTestCases];
 
-    testCases.forEach(([input, compactExpectedOutput]) => {
+    for (const [input, compactExpectedOutput] of testCases) {
       const expectedOutput = compactExpectedOutput.map(
         ([text, tokenStartOffset, tokenEndOffset]) => ({
           text,
@@ -308,6 +308,6 @@ tests.forEach(({ tokenHatSplittingMode, extraTestCases }) => {
         );
         assert.deepEqual(actualOutput, expectedOutput);
       });
-    });
+    }
   });
-});
+}

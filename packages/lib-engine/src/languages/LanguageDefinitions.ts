@@ -73,9 +73,9 @@ export class LanguageDefinitionsImpl implements LanguageDefinitions {
       }),
 
       ide.onDidChangeVisibleTextEditors((editors) => {
-        editors.forEach(
-          ({ document }) => void this.loadLanguage(document.languageId),
-        );
+        for (const editor of editors) {
+          void this.loadLanguage(editor.document.languageId);
+        }
       }),
 
       treeSitterQueryProvider.onChanges(() => this.reloadLanguageDefinitions()),
@@ -156,6 +156,8 @@ export class LanguageDefinitionsImpl implements LanguageDefinitions {
   onDidChangeDefinition = this.notifier.registerListener;
 
   dispose() {
-    this.disposables.forEach((disposable) => disposable.dispose());
+    for (const disposable of this.disposables) {
+      disposable.dispose();
+    }
   }
 }

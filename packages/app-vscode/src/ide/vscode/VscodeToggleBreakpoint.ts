@@ -17,7 +17,7 @@ export async function vscodeToggleBreakpoint(
   const toAdd: vscode.Breakpoint[] = [];
   const toRemove: vscode.Breakpoint[] = [];
 
-  ranges.forEach((range) => {
+  for (const range of ranges) {
     const existing = getBreakpoints(uri, range);
 
     if (existing.length > 0) {
@@ -34,7 +34,7 @@ export async function vscodeToggleBreakpoint(
         ),
       );
     }
-  });
+  }
 
   vscode.debug.addBreakpoints(toAdd);
   vscode.debug.removeBreakpoints(toRemove);

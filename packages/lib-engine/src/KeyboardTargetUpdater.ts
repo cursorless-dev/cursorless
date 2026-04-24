@@ -56,7 +56,9 @@ export class KeyboardTargetUpdater {
   }
 
   dispose() {
-    this.disposables.forEach((disposable) => disposable.dispose());
+    for (const disposable of this.disposables) {
+      disposable.dispose();
+    }
     this.selectionWatcherDisposable?.dispose();
   }
 }

@@ -120,7 +120,7 @@ const testCases: TestCase[] = [
 ];
 
 suite("buildSuffixTrie", () => {
-  testCases.forEach(({ input, expected, expectedConflicts }) => {
+  for (const { input, expected, expectedConflicts } of testCases) {
     test(`input: ${input}`, () => {
       const { trie, conflicts } = buildSuffixTrie<string>(
         input.map((key) => [key, key]),
@@ -138,7 +138,7 @@ suite("buildSuffixTrie", () => {
         (expectedConflicts ?? []).map(sortEntries),
       );
     });
-  });
+  }
 });
 
 function sortEntries(entries: KeyValuePair<string>[]) {

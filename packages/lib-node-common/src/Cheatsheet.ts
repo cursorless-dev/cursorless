@@ -60,9 +60,9 @@ export async function updateDefaults(spokenFormInfo: CheatsheetInfo) {
 
   const outputObject = produce(spokenFormInfo, (draft) => {
     draft.sections = sortBy(draft.sections, "id");
-    draft.sections.forEach((section) => {
+    for (const section of draft.sections) {
       section.items = sortBy(section.items, "id");
-    });
+    }
   });
 
   const json = JSON.stringify(outputObject, null, 2);

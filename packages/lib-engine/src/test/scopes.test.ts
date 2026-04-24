@@ -43,24 +43,22 @@ suite("Scope test cases", () => {
       languages[language] ??= [];
     }
 
-    Object.keys(languages)
-      .sort()
-      .forEach((languageId) => {
-        const tests = languages[languageId];
-        test(`${languageId} facet coverage`, () =>
-          testLanguageSupport(
-            languageId,
-            tests.map((test) => test.facet),
-          ));
-      });
+    for (const languageId of Object.keys(languages).sort()) {
+      const tests = languages[languageId];
+      test(`${languageId} facet coverage`, () =>
+        testLanguageSupport(
+          languageId,
+          tests.map((test) => test.facet),
+        ));
+    }
   }
 
-  testPaths.forEach(({ path, name, languageId, facet }) =>
+  for (const { path, name, languageId, facet } of testPaths) {
     test(
       name,
       asyncSafety(() => runTest(testEnvironment, path, languageId, facet)),
-    ),
-  );
+    );
+  }
 });
 
 /**

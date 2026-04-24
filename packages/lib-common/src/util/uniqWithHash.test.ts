@@ -44,7 +44,7 @@ suite("uniqWithHash", () => {
       (_: number) => "0",
     ];
 
-    hashFunctions.forEach((hash) => {
+    for (const hash of hashFunctions) {
       const check = (testCase: number[]) => {
         const actual = uniqWithHash(testCase, (a, b) => a === b, hash);
         const expected = knownGoodUniqWithHash(
@@ -55,11 +55,13 @@ suite("uniqWithHash", () => {
         assert.deepEqual(actual, expected);
       };
 
-      testCases.forEach(check);
+      for (const testCase of testCases) {
+        check(testCase);
+      }
 
       // max length 50 because the known good implementation is quadratic
       const randomNumbers = fc.array(fc.integer(), { maxLength: 50 });
       fc.assert(fc.property(randomNumbers, check));
-    });
+    }
   });
 });

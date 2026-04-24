@@ -47,9 +47,9 @@ export async function launchNeovimAndRunTests() {
     console.log("init.lua copying done");
 
     console.log("listing nvim/:");
-    readdirSync(nvimFolder).forEach((file) => {
+    for (const file of readdirSync(nvimFolder)) {
       console.log(`\t${file}`);
-    });
+    }
 
     const logName = `${getCursorlessRepoRoot()}/packages/app-neovim/out/nvim_node.log`;
 
@@ -98,11 +98,12 @@ export async function launchNeovimAndRunTests() {
     await sleep(5000);
 
     console.log("listing cursorless-neovim/out/:");
-    readdirSync(`${getCursorlessRepoRoot()}/packages/app-neovim/out/`).forEach(
-      (file) => {
-        console.log(`\t${file}`);
-      },
+    const files = readdirSync(
+      `${getCursorlessRepoRoot()}/packages/app-neovim/out/`,
     );
+    for (const file of files) {
+      console.log(`\t${file}`);
+    }
 
     await sleep(10_000);
 

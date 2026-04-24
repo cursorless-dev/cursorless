@@ -46,7 +46,7 @@ export function constructSnippetBody(
     ...remainingLines.map((line) => ({ text: line, startIndex: 0 })),
   ];
 
-  lines.forEach(({ text, startIndex }) => {
+  for (const { text, startIndex } of lines) {
     const newIndentationString = text.match(/^\s*/)?.[0] ?? "";
     const firstNonWhitespaceCharacterIndex = newIndentationString.length;
 
@@ -70,7 +70,7 @@ export function constructSnippetBody(
     const lineContent = text.slice(lineContentStart);
 
     outputLines.push(snippetIndentationString + lineContent);
-  });
+  }
 
   return outputLines;
 }

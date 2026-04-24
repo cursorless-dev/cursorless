@@ -48,7 +48,10 @@ export function transformSnippetVariables(
         }
         const placeholder = new Placeholder(placeholderIndex);
         // oxlint-disable-next-line unicorn/prefer-dom-node-append
-        candidate.children.forEach((child) => placeholder.appendChild(child));
+        for (const child of candidate.children) {
+          // oxlint-disable-next-line unicorn/prefer-dom-node-append
+          placeholder.appendChild(child);
+        }
         candidate.parent.replace(candidate, [placeholder]);
       }
     } else if (candidate instanceof Placeholder) {

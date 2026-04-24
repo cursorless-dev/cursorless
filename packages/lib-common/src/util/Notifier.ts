@@ -18,7 +18,9 @@ export class Notifier<T extends Arr = []> {
   notifyListeners = (...args: [...T]): void => {
     // Iterate over a snapshot so listener removal during notification doesn't
     // affect which listeners are notified in this cycle.
-    this.listeners.slice().forEach((listener) => listener(...args));
+    for (const listener of this.listeners.slice()) {
+      listener(...args);
+    }
   };
 
   /**

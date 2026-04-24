@@ -124,7 +124,7 @@ function serializeIterationScope(
     (range) => !domain.isRangeEqual(range.range),
   );
 
-  ranges.forEach((range, index) => {
+  for (const [index, range] of ranges.entries()) {
     if (!groupHeaders && index > 0) {
       lines.push("");
     }
@@ -141,7 +141,7 @@ function serializeIterationScope(
     if (!groupHeaders) {
       lines.push(serializeTargetRange(codeLines, range.range));
     }
-  });
+  }
 
   if (!groupHeaders) {
     lines.push("");
@@ -192,11 +192,11 @@ function serializeTarget({
 
   const rangeGroups = groupRanges(ranges);
 
-  rangeGroups.forEach((group, i) => {
+  for (const [i, group] of rangeGroups.entries()) {
     if (i > 0) {
       lines.push("");
     }
-    group.headers.forEach((header, j) => {
+    for (const [j, header] of group.headers.entries()) {
       lines.push(
         serializeHeader({
           header,
@@ -205,9 +205,9 @@ function serializeTarget({
           range: j === group.headers.length - 1 ? group.range : undefined,
         }),
       );
-    });
+    }
     lines.push(serializeTargetRange(codeLines, group.range));
-  });
+  }
 
   if (target.leadingDelimiter != null) {
     lines.push(
@@ -285,7 +285,7 @@ function groupRanges(ranges: [string, Range][]) {
   const groups: { headers: string[]; range: Range }[] = [];
   const map: Record<string, { headers: string[]; range: Range }> = {};
 
-  ranges.forEach(([header, range]) => {
+  for (const [header, range] of ranges) {
     const existingGroup = map[range.concise()];
     if (existingGroup != null) {
       existingGroup.headers.push(header);
@@ -294,7 +294,7 @@ function groupRanges(ranges: [string, Range][]) {
       groups.push(group);
       map[range.concise()] = group;
     }
-  });
+  }
 
   return groups;
 }

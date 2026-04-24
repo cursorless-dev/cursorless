@@ -128,9 +128,9 @@ export function registerCommands(
     "cursorless.documentationOpened": dummyCommandHandler,
   };
 
-  Object.entries(commands).forEach(([commandId, callback]) => {
+  for (const [commandId, callback] of Object.entries(commands)) {
     getNeovimRegistry().registerCommand(commandId, callback);
-  });
+  }
 }
 
 export function dummyCommandHandler(...args: any[]) {

@@ -49,12 +49,12 @@ export class Substituter {
    */
   makeSubstitutions(text: string) {
     let output = text;
-    this.substitutions.forEach(({ to, randomId, isQuoted }) => {
+    for (const { to, randomId, isQuoted } of this.substitutions) {
       const from = isQuoted ? `"${randomId}"` : randomId;
       // NB: We use split / join instead of replace because the latter doesn't
       // handle dollar signs well
       output = output.split(from).join(to);
-    });
+    }
 
     return output;
   }

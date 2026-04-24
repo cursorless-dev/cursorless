@@ -119,7 +119,7 @@ const testCases: TestCase[] = [
 ];
 
 suite("BaseScopeHandler", () => {
-  testCases.forEach((testCase) => {
+  for (const testCase of testCases) {
     test(testCase.name, () => {
       const editor = {
         document: { range: toRange(0, testCase.documentEnd ?? Infinity) },
@@ -165,7 +165,7 @@ suite("BaseScopeHandler", () => {
 
       assert.deepEqual(actualScopes, expectedScopes);
     });
-  });
+  }
 });
 
 function fromScope(scope: TargetScope) {

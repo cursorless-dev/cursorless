@@ -146,7 +146,9 @@ export class FakeIDE implements EmittableIDE {
   }
 
   exit(): void {
-    this.disposables.forEach((disposable) => disposable.dispose());
+    for (const disposable of this.disposables) {
+      disposable.dispose();
+    }
   }
 }
 

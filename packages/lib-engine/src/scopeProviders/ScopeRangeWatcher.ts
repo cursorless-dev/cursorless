@@ -65,7 +65,7 @@ export class ScopeRangeWatcher {
     config: ScopeRangeConfig,
   ): Disposable {
     const fn = () => {
-      this.ide.visibleTextEditors.forEach((editor) => {
+      for (const editor of this.ide.visibleTextEditors) {
         let scopeRanges: ScopeRanges[];
         try {
           scopeRanges = this.scopeRangeProvider.provideScopeRanges(
@@ -91,7 +91,7 @@ export class ScopeRangeWatcher {
         }
 
         callback(editor, scopeRanges);
-      });
+      }
     };
 
     this.listeners.push(fn);
@@ -118,12 +118,12 @@ export class ScopeRangeWatcher {
     config: IterationScopeRangeConfig,
   ): Disposable {
     const fn = () => {
-      this.ide.visibleTextEditors.forEach((editor) => {
+      for (const editor of this.ide.visibleTextEditors) {
         callback(
           editor,
           this.scopeRangeProvider.provideIterationScopeRanges(editor, config),
         );
-      });
+      }
     };
 
     this.listeners.push(fn);
@@ -138,17 +138,19 @@ export class ScopeRangeWatcher {
   }
 
   private onChange() {
-    this.listeners.slice().forEach((listener) => listener());
+    for (const listener of this.listeners.slice()) {
+      listener();
+    }
   }
 
   dispose(): void {
-    this.disposables.forEach(({ dispose }) => {
+    for (const disposable of this.disposables) {
       try {
-        dispose();
+        disposable.dispose();
       } catch {
         // do nothing; some of the VSCode disposables misbehave, and we don't
         // want that to prevent us from disposing the rest of the disposables
       }
-    });
+    }
   }
 }

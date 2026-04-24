@@ -6,7 +6,7 @@ import { subtokenFixture } from "./fixtures/subtoken.fixture";
 suite("subtoken regex matcher", () => {
   const ide = new FakeIDE();
 
-  subtokenFixture.forEach(({ input, expectedOutput }) => {
+  for (const { input, expectedOutput } of subtokenFixture) {
     test(input, () => {
       assert.deepEqual(
         new WordTokenizer(ide, "anyLang")
@@ -15,5 +15,5 @@ suite("subtoken regex matcher", () => {
         expectedOutput,
       );
     });
-  });
+  }
 });

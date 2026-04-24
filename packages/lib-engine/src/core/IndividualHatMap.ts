@@ -75,7 +75,9 @@ export class IndividualHatMap implements ReadOnlyHatMap {
     // Clear the old assignment
     this.map = {};
     this.documentTokenLists = new Map();
-    this.deregisterFunctions.forEach((func) => func());
+    for (const func of this.deregisterFunctions) {
+      func();
+    }
     this.deregisterFunctions = [];
 
     // Iterate through the hats in the new assignment, registering them with the
@@ -136,7 +138,9 @@ export class IndividualHatMap implements ReadOnlyHatMap {
 
   dispose() {
     this.isExpired = true;
-    this.deregisterFunctions.forEach((func) => func());
+    for (const func of this.deregisterFunctions) {
+      func();
+    }
     this.deregisterFunctions = [];
   }
 }

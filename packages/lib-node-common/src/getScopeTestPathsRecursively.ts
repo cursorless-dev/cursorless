@@ -66,7 +66,11 @@ export function getScopeTestLanguagesRecursively(): Record<string, string[]> {
     if (!result[languageId].includes(importLanguageId)) {
       result[languageId].push(importLanguageId);
       const config = configs[importLanguageId];
-      config?.imports?.forEach((lang) => add(languageId, lang));
+      if (config?.imports != null) {
+        for (const lang of config.imports) {
+          add(languageId, lang);
+        }
+      }
     }
   }
 
@@ -74,7 +78,9 @@ export function getScopeTestLanguagesRecursively(): Record<string, string[]> {
     if (config.skip) {
       continue;
     }
-    config.imports?.forEach((lang) => add(languageId, lang));
+    for (const lang of config.imports ?? []) {
+      add(languageId, lang);
+    }
   }
 
   return result;

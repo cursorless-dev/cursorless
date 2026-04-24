@@ -256,7 +256,7 @@ function checkMarks(
     return;
   }
 
-  Object.entries(marks).forEach(([key, token]) => {
+  for (const [key, token] of Object.entries(marks)) {
     const { hatStyle, character } = splitKey(key);
     const currentToken = hatTokenMap.getToken(hatStyle, character);
     assert.ok(
@@ -264,5 +264,5 @@ function checkMarks(
       `Mark "${hatStyle} ${character}" not found`,
     );
     assert.deepEqual(rangeToPlainObject(currentToken.range), token);
-  });
+  }
 }

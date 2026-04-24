@@ -86,7 +86,7 @@ const fixtures: Fixture[] = [
 ];
 
 suite("custom grammar: lexer", () => {
-  fixtures.forEach(({ input, expectedOutput }) => {
+  for (const { input, expectedOutput } of fixtures) {
     test(input, () => {
       assert.deepEqual(
         Array.from(iterateTokens(lexer, input)).map(({ type, value }) => ({
@@ -96,7 +96,7 @@ suite("custom grammar: lexer", () => {
         expectedOutput,
       );
     });
-  });
+  }
 });
 
 function* iterateTokens(lexer: NearleyLexer, input: string) {

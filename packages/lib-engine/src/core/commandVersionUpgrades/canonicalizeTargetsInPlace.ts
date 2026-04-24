@@ -20,13 +20,13 @@ const COLOR_CANONICALIZATION_MAPPING: Record<string, HatStyleName> = {
 function canonicalizeScopeTypesInPlace(
   target: PartialPrimitiveTargetDescriptor,
 ): void {
-  target.modifiers?.forEach((mod) => {
+  for (const mod of target.modifiers ?? []) {
     if (mod.type === "containingScope" || mod.type === "everyScope") {
       mod.scopeType.type =
         SCOPE_TYPE_CANONICALIZATION_MAPPING[mod.scopeType.type] ??
         mod.scopeType.type;
     }
-  });
+  }
 }
 
 function canonicalizeColorsInPlace(
@@ -42,8 +42,8 @@ function canonicalizeColorsInPlace(
 export function canonicalizeTargetsInPlace(
   partialTargets: PartialTargetDescriptor[],
 ): void {
-  getPartialPrimitiveTargets(partialTargets).forEach((target) => {
+  for (const target of getPartialPrimitiveTargets(partialTargets)) {
     canonicalizeScopeTypesInPlace(target);
     canonicalizeColorsInPlace(target);
-  });
+  }
 }

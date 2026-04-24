@@ -80,16 +80,16 @@ export async function runEditTargets(
   const finalCursorRanges = [...state.cursorRanges];
 
   // Update the cursor positions for the command targets
-  zip(cursorIndices, updatedCursorRanges).forEach(([index, range]) => {
+  for (const [index, range] of zip(cursorIndices, updatedCursorRanges)) {
     finalCursorRanges[index!] = range;
-  });
+  }
 
   // Add cursor positions for our edit targets.
-  destinations.forEach((delimiterTarget, index) => {
+  for (const [index, delimiterTarget] of destinations.entries()) {
     const edit = edits[index];
     const range = edit.updateRange(updatedEditRanges[index]);
     finalCursorRanges[delimiterTarget.index] = range;
-  });
+  }
 
   return {
     destinations: state.destinations,
