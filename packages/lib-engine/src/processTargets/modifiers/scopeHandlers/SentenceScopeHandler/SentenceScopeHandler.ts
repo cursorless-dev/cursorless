@@ -42,7 +42,7 @@ export class SentenceScopeHandler extends NestedScopeHandler {
 
     return direction === "forward"
       ? imap(sentences, sentenceToScope)
-      : // oxlint-disable-next-line unicorn/no-array-sort
-        Array.from(sentences, sentenceToScope).sort();
+      : // oxlint-disable-next-line unicorn/no-array-reverse
+        Array.from(sentences, sentenceToScope).reverse();
   }
 }
