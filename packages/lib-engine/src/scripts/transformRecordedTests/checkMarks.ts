@@ -29,8 +29,8 @@ export function checkMarks(originalFixture: TestCaseFixtureLegacy): undefined {
   const actualMarks = Object.keys(originalFixture.initialState.marks ?? {});
 
   assert.deepEqual(
-    uniq(actualMarks.map(normalizeGraphemes)).sort(),
-    uniq(expectedMarks.map(normalizeGraphemes)).sort(),
+    uniq(actualMarks.map(normalizeGraphemes)).toSorted(),
+    uniq(expectedMarks.map(normalizeGraphemes)).toSorted(),
   );
 
   return undefined;

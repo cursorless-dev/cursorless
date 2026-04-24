@@ -1,4 +1,3 @@
-import { flatten } from "lodash-es";
 import type {
   CompositeKeyMap,
   IDE,
@@ -35,14 +34,11 @@ export function getRankedTokens(
      */
     const referencePosition = editor.selections[0].active;
     const displayLineMap = getDisplayLineMap(editor, [referencePosition.line]);
-    const tokens = flatten(
-      editor.visibleRanges.map((range) =>
-        // oxlint-disable-next-line oxc/no-map-spread
-        getTokensInRange(ide, editor, range).map((partialToken) => ({
-          ...partialToken,
-          displayLine: displayLineMap.get(partialToken.range.start.line)!,
-        })),
-      ),
+    const tokens = editor.visibleRanges.flatMap((range) =>
+      getTokensInRange(ide, editor, range).map((partialToken) => ({
+        ...partialToken,
+        displayLine: displayLineMap.get(partialToken.range.start.line)!,
+      })),
     );
 
     tokens.sort(
@@ -55,21 +51,21 @@ export function getRankedTokens(
     return tokens;
   });
 
-  return moveForcedHatsToFront(forcedHatMap, tokens).map((token, index) => ({
+  if (forcedHatMap != null) {
+    moveForcedHatsToFront(forcedHatMap, tokens);
+  }
+
+  return tokens.map((token, index) => ({
     token,
     rank: -index,
   }));
 }
 
 function moveForcedHatsToFront(
-  forcedHatMap: CompositeKeyMap<Token, TokenHat> | undefined,
+  forcedHatMap: CompositeKeyMap<Token, TokenHat>,
   tokens: Token[],
-) {
-  if (forcedHatMap == null) {
-    return tokens;
-  }
-
-  return tokens.sort((a, b) => {
+): void {
+  tokens.sort((a, b) => {
     const aIsForced = forcedHatMap.has(a);
     const bIsForced = forcedHatMap.has(b);
     if (aIsForced && !bIsForced) {

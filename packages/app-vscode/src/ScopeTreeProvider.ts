@@ -182,7 +182,7 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
       };
     })();
 
-    return this.supportLevels
+    const supportLevels = this.supportLevels
       .filter(
         (supportLevel) =>
           supportLevel.support === scopeSupport &&
@@ -201,26 +201,11 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
             isEqual(supportLevel.scopeType, this.scopeVisualizer.scopeType),
             getContainmentIcon?.(supportLevel.scopeType),
           ),
-      )
-      .sort((a, b) => {
-        if (
-          a.scopeTypeInfo.spokenForm.type !== b.scopeTypeInfo.spokenForm.type
-        ) {
-          // Scopes with no spoken form are sorted to the bottom
-          return a.scopeTypeInfo.spokenForm.type === "error" ? 1 : -1;
-        }
+      );
 
-        if (
-          a.scopeTypeInfo.isLanguageSpecific !==
-          b.scopeTypeInfo.isLanguageSpecific
-        ) {
-          // Then language-specific scopes are sorted to the top
-          return a.scopeTypeInfo.isLanguageSpecific ? -1 : 1;
-        }
+    supportLevels.sort(compareScopeTypes);
 
-        // Then alphabetical by label
-        return a.label.label.localeCompare(b.label.label);
-      });
+    return supportLevels;
   }
 
   private getContainmentIcon(
@@ -253,6 +238,26 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
   dispose() {
     this.visibleDisposable?.dispose();
   }
+}
+
+function compareScopeTypes(
+  a: ScopeSupportTreeItem,
+  b: ScopeSupportTreeItem,
+): number {
+  if (a.scopeTypeInfo.spokenForm.type !== b.scopeTypeInfo.spokenForm.type) {
+    // Scopes with no spoken form are sorted to the bottom
+    return a.scopeTypeInfo.spokenForm.type === "error" ? 1 : -1;
+  }
+
+  if (
+    a.scopeTypeInfo.isLanguageSpecific !== b.scopeTypeInfo.isLanguageSpecific
+  ) {
+    // Then language-specific scopes are sorted to the top
+    return a.scopeTypeInfo.isLanguageSpecific ? -1 : 1;
+  }
+
+  // Then alphabetical by label
+  return a.label.label.localeCompare(b.label.label);
 }
 
 function getSupportCategories(): SupportCategoryTreeItem[] {

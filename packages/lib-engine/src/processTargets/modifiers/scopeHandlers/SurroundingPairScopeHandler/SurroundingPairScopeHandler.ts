@@ -73,6 +73,7 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
           this.scopeType.requireStrongContainment ?? false,
         ),
       )
+      // oxlint-disable-next-line unicorn/no-array-sort
       .sort((a, b) => compareTargetScopes(direction, position, a, b));
   }
 }

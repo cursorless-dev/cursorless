@@ -25,9 +25,9 @@ abstract class SortBase implements SimpleAction {
     }
 
     // First sort target by document order
-    const sortedTargets = targets
-      .slice()
-      .sort((a, b) => a.contentRange.start.compareTo(b.contentRange.start));
+    const sortedTargets = targets.toSorted((a, b) =>
+      a.contentRange.start.compareTo(b.contentRange.start),
+    );
 
     const { returnValue: unsortedTexts } = await this.actions.getText.run(
       sortedTargets,
@@ -49,7 +49,7 @@ abstract class SortBase implements SimpleAction {
 
 export class Sort extends SortBase {
   protected sortTexts(texts: string[]) {
-    return texts.sort((a, b) =>
+    return texts.toSorted((a, b) =>
       a.localeCompare(b, undefined, {
         numeric: true,
         caseFirst: "upper",
@@ -60,7 +60,7 @@ export class Sort extends SortBase {
 
 export class Reverse extends SortBase {
   protected sortTexts(texts: string[]) {
-    return texts.reverse();
+    return texts.toReversed();
   }
 }
 

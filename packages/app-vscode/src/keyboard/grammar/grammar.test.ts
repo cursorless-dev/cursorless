@@ -180,6 +180,7 @@ const testCases: TestCase[] = [
 
 suite("keyboard grammar", () => {
   let parser: nearley.Parser;
+
   setup(() => {
     parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));
   });

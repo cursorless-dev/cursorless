@@ -22,7 +22,7 @@ export function updatesScopeSupportFacetInfos(
     ...plaintextScopeSupportFacetInfos,
   };
 
-  const facets = Object.keys(facetsInfos).sort();
+  const facets = Object.keys(facetsInfos).toSorted();
   const rows: string[] = [];
   let currentScopeType: string | null = null;
 

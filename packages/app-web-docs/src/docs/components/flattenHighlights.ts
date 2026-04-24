@@ -53,7 +53,7 @@ function getUniquePositions(highlights: Highlight[]): Position[] {
   const result: Position[] = [];
   const positions = highlights
     .flatMap((h) => [h.range.start, h.range.end])
-    .sort((a, b) =>
+    .toSorted((a, b) =>
       a.line === b.line ? a.character - b.character : a.line - b.line,
     );
   for (let i = 0; i < positions.length; i++) {

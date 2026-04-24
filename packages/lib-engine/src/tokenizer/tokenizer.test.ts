@@ -1,5 +1,5 @@
 import * as assert from "node:assert/strict";
-import { flatten, range } from "lodash-es";
+import { range } from "lodash-es";
 import { FakeIDE } from "@cursorless/lib-common";
 import { tokenize } from ".";
 
@@ -167,11 +167,9 @@ function getAsciiSymbols() {
     ["[", "`"],
     ["{", "~"],
   ];
-  return flatten(
-    rangesToTest.map(([start, end]) =>
-      range(start.codePointAt(0)!, end.codePointAt(0)! + 1).map((charCode) =>
-        String.fromCodePoint(charCode),
-      ),
+  return rangesToTest.flatMap(([start, end]) =>
+    range(start.codePointAt(0)!, end.codePointAt(0)! + 1).map((charCode) =>
+      String.fromCodePoint(charCode),
     ),
   );
 }

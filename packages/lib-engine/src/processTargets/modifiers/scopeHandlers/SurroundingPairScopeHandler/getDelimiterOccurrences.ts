@@ -92,5 +92,6 @@ function getSortedCaptures(items?: QueryCapture[]): QueryCapture[] {
   if (items == null) {
     return [];
   }
-  return items.sort((a, b) => a.range.start.compareTo(b.range.start));
+  items.sort((a, b) => a.range.start.compareTo(b.range.start));
+  return items;
 }

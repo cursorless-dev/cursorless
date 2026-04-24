@@ -90,7 +90,7 @@ export class KeyboardCommandsModal {
     const acceptableTokenTypeInfos = getAcceptableTokenTypes(this.parser);
     // FIXME: Here's where we'd update sidebar
     const acceptableTokenTypes = sortedUniq(
-      acceptableTokenTypeInfos.map(({ type }) => type).sort(),
+      acceptableTokenTypeInfos.map(({ type }) => type).toSorted(),
     );
     let layer = this.layerCache.get(acceptableTokenTypes);
     if (layer == null) {
