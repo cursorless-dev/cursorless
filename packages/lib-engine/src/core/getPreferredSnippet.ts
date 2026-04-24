@@ -47,7 +47,7 @@ function getUniqueLanguagesString(snippets: CustomInsertSnippetArg[]): string {
   const languages = new Set(
     snippets.flatMap((snippet) => snippet.languages ?? []),
   );
-  return Array.from(languages).sort().join(", ");
+  return Array.from(languages).toSorted().join(", ");
 }
 
 function tryToFindPreferredSnippet<

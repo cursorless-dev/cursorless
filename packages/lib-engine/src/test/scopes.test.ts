@@ -43,7 +43,7 @@ suite("Scope test cases", () => {
       languages[language] ??= [];
     }
 
-    for (const languageId of Object.keys(languages).sort()) {
+    for (const languageId of Object.keys(languages).toSorted()) {
       const tests = languages[languageId];
       test(`${languageId} facet coverage`, () =>
         testLanguageSupport(
@@ -91,7 +91,7 @@ function testLanguageSupport(languageId: string, testedFacets: string[]) {
     (testedFacet) => !supportedFacets.includes(testedFacet),
   );
   if (unsupportedFacets.length > 0) {
-    const values = uniq(unsupportedFacets).sort().join(", ");
+    const values = uniq(unsupportedFacets).toSorted().join(", ");
     assert.fail(
       `Facets [${values}] are tested but not listed in getLanguageScopeSupport`,
     );
@@ -102,7 +102,7 @@ function testLanguageSupport(languageId: string, testedFacets: string[]) {
     (supportedFacet) => !testedFacets.includes(supportedFacet),
   );
   if (untestedFacets.length > 0) {
-    const values = untestedFacets.sort().join(", ");
+    const values = untestedFacets.toSorted().join(", ");
     assert.fail(`Missing test for scope support facets [${values}]`);
   }
 }

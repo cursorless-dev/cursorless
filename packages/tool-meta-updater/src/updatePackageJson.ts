@@ -119,7 +119,7 @@ function getScripts(
   };
 
   return Object.fromEntries(
-    Object.entries(scripts).sort(
+    Object.entries(scripts).toSorted(
       ([keyA], [keyB]) => getOrder(keyA) - getOrder(keyB),
     ),
   );
@@ -180,21 +180,21 @@ function sortFields(obj: Record<string, any>): Record<string, any> {
     "pnpm",
   ];
   const sorted = Object.fromEntries(
-    Object.entries(obj).sort(
+    Object.entries(obj).toSorted(
       ([keyA], [keyB]) => orderedKeys.indexOf(keyA) - orderedKeys.indexOf(keyB),
     ),
   );
 
   if (sorted.dependencies != null) {
     sorted.dependencies = Object.fromEntries(
-      Object.entries(sorted.dependencies).sort(([keyA], [keyB]) =>
+      Object.entries(sorted.dependencies).toSorted(([keyA], [keyB]) =>
         keyA.localeCompare(keyB),
       ),
     );
   }
   if (sorted.devDependencies != null) {
     sorted.devDependencies = Object.fromEntries(
-      Object.entries(sorted.devDependencies).sort(([keyA], [keyB]) =>
+      Object.entries(sorted.devDependencies).toSorted(([keyA], [keyB]) =>
         keyA.localeCompare(keyB),
       ),
     );

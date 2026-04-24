@@ -202,7 +202,7 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
             getContainmentIcon?.(supportLevel.scopeType),
           ),
       )
-      .sort((a, b) => {
+      .toSorted((a, b) => {
         if (
           a.scopeTypeInfo.spokenForm.type !== b.scopeTypeInfo.spokenForm.type
         ) {

@@ -152,7 +152,9 @@ export class KeyboardHandler {
         // one. Eg if you're in the middle of typing a command and we turn off
         // the modal mode, we want to cancel the command
         if (index !== -1) {
-          const listenersToCancel = this.listeners.slice(index + 1).reverse();
+          const listenersToCancel = this.listeners
+            .slice(index + 1)
+            .toReversed();
           for (const entry of listenersToCancel) {
             entry.listener.handleCancelled();
           }

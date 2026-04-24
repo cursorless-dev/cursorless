@@ -10,7 +10,7 @@ import {
 
 export function MissingLanguageScopes(): React.JSX.Element {
   const [showPrivate, setShowPrivate] = useState(false);
-  const languageIds = Object.keys(languageScopeSupport).sort();
+  const languageIds = Object.keys(languageScopeSupport).toSorted();
 
   return (
     <>
@@ -48,10 +48,10 @@ function Language({
     .filter(
       (facet) => scopeSupport[facet] === ScopeSupportFacetLevel.unsupported,
     )
-    .sort();
+    .toSorted();
   let unspecifiedFacets = scopeSupportFacets
     .filter((facet) => scopeSupport[facet] == null)
-    .sort();
+    .toSorted();
 
   if (!showPrivate) {
     unsupportedFacets = unsupportedFacets.filter((f) => !isPrivate(f));

@@ -1,4 +1,3 @@
-import { flatten } from "lodash-es";
 import type {
   CompositeKeyMap,
   IDE,
@@ -35,14 +34,12 @@ export function getRankedTokens(
      */
     const referencePosition = editor.selections[0].active;
     const displayLineMap = getDisplayLineMap(editor, [referencePosition.line]);
-    const tokens = flatten(
-      editor.visibleRanges.map((range) =>
-        // oxlint-disable-next-line oxc/no-map-spread
-        getTokensInRange(ide, editor, range).map((partialToken) => ({
-          ...partialToken,
-          displayLine: displayLineMap.get(partialToken.range.start.line)!,
-        })),
-      ),
+    const tokens = editor.visibleRanges.flatMap((range) =>
+      // oxlint-disable-next-line oxc/no-map-spread
+      getTokensInRange(ide, editor, range).map((partialToken) => ({
+        ...partialToken,
+        displayLine: displayLineMap.get(partialToken.range.start.line)!,
+      })),
     );
 
     tokens.sort(
@@ -69,7 +66,7 @@ function moveForcedHatsToFront(
     return tokens;
   }
 
-  return tokens.sort((a, b) => {
+  return tokens.toSorted((a, b) => {
     const aIsForced = forcedHatMap.has(a);
     const bIsForced = forcedHatMap.has(b);
     if (aIsForced && !bIsForced) {

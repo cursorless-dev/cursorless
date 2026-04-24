@@ -315,7 +315,7 @@ function getScopeFixtures(
   }
 
   const result: Scopes = { public: [], internal: [] };
-  const sortedScopes = Object.values(scopeMap).sort(nameComparator);
+  const sortedScopes = Object.values(scopeMap).toSorted(nameComparator);
 
   for (const scope of sortedScopes) {
     scope.facets.sort(facetComparator);

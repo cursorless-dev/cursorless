@@ -1,15 +1,7 @@
 import type { OxlintConfig } from "oxlint";
 import { defineConfig } from "oxlint";
 
-// These rules should probably be re-enabled eventually
-const temporarilyDisabledRules = [
-  // Requires es2023
-  "unicorn/no-array-sort",
-  "unicorn/no-array-reverse",
-];
-
 const disabledRules = [
-  ...temporarilyDisabledRules,
   "eslint/arrow-body-style",
   "eslint/capitalized-comments",
   "eslint/class-methods-use-this",

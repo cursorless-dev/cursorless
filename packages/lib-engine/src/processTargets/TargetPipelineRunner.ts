@@ -300,7 +300,7 @@ export function getModifierStagesFromTargetModifiers(
 ) {
   // Reverse target modifiers because they are returned in reverse order from
   // the api, to match the order in which they are spoken.
-  return targetModifiers.map(modifierStageFactory.create).reverse();
+  return targetModifiers.map(modifierStageFactory.create).toReversed();
 }
 
 /** Run all targets through the modifier stages */

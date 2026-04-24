@@ -56,7 +56,7 @@ export function handleHoistedModifiers(
   // modifier to the range owns the range. For example if you say "every line
   // every funk air past bat", the "every line" owns the range, and the "every
   // funk" is applied to the output.
-  for (const [modifier, idx] of indexedModifiers.reverse()) {
+  for (const [modifier, idx] of indexedModifiers.toReversed()) {
     for (const hoistedModifierType of hoistedModifierTypes) {
       const acceptanceInfo = hoistedModifierType.accept(modifier);
       if (acceptanceInfo.accepted) {

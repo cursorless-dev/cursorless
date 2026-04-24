@@ -31,12 +31,12 @@ export function checkCaptureStartEnd(
   const lastStart = captures
     .filter(({ name }) => name.endsWith(".start"))
     .map(({ range: { end } }) => end)
-    .sort((a, b) => a.compareTo(b))
+    .toSorted((a, b) => a.compareTo(b))
     .at(-1);
   const firstEnd = captures
     .filter(({ name }) => name.endsWith(".end"))
     .map(({ range: { start } }) => start)
-    .sort((a, b) => a.compareTo(b))
+    .toSorted((a, b) => a.compareTo(b))
     .at(0);
   if (lastStart != null && firstEnd != null) {
     if (lastStart.isAfter(firstEnd)) {

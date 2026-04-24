@@ -46,7 +46,7 @@ export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
       .matches(document, start, end)
       .map((match) => this.matchToScope(editor, match, isEveryScope))
       .filter((scope): scope is ExtendedTargetScope => scope != null)
-      .sort((a, b) => compareTargetScopes(direction, position, a, b));
+      .toSorted((a, b) => compareTargetScopes(direction, position, a, b));
 
     // Merge scopes that have the same domain into a single scope with multiple
     // targets

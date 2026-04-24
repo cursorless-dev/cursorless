@@ -68,7 +68,7 @@ function getNotebookCells(
   ) {
     return direction === "forward"
       ? notebook.cells.slice(cell.index + 1)
-      : notebook.cells.slice(0, cell.index).reverse();
+      : notebook.cells.slice(0, cell.index).toReversed();
   }
 
   // Every scope
@@ -81,7 +81,7 @@ function getNotebookCells(
 
   return direction === "forward"
     ? notebook.cells.slice(cell.index)
-    : notebook.cells.slice(0, cell.index + 1).reverse();
+    : notebook.cells.slice(0, cell.index + 1).toReversed();
 }
 
 function getNotebook(ide: IDE, editor: TextEditor) {

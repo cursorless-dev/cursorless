@@ -133,8 +133,8 @@ suite("BaseScopeHandler", () => {
       }));
 
       assert.deepEqual(
-        [...inputScopes]
-          .sort((a, b) =>
+        inputScopes
+          .toSorted((a, b) =>
             compareTargetScopes(testCase.direction, position, a, b),
           )
           .map(fromScope),

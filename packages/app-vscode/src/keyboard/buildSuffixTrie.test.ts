@@ -125,7 +125,7 @@ suite("buildSuffixTrie", () => {
       const { trie, conflicts } = buildSuffixTrie<string>(
         input.map((key) => [key, key]),
       );
-      const chars = uniq(input.flatMap((key) => key.split(""))).sort();
+      const chars = uniq(input.flatMap((key) => key.split(""))).toSorted();
       const actual = uniqWith(
         sortEntries(chars.flatMap((char) => trie.search(char))),
         isEqual,

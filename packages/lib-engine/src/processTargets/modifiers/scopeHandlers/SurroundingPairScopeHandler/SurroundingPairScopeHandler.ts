@@ -73,7 +73,7 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
           this.scopeType.requireStrongContainment ?? false,
         ),
       )
-      .sort((a, b) => compareTargetScopes(direction, position, a, b));
+      .toSorted((a, b) => compareTargetScopes(direction, position, a, b));
   }
 }
 
