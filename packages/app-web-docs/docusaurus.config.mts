@@ -98,7 +98,7 @@ const config: Config = {
     v4: {
       removeLegacyPostBuildHeadAttribute: true,
     },
-    experimental_faster: true,
+    faster: true,
   },
 
   stylesheets: [

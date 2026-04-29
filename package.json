@@ -38,15 +38,15 @@
     "@types/node": "^24.12.2",
     "esbuild": "^0.28.0",
     "eslint-plugin-mocha": "^11.2.0",
-    "oxfmt": "^0.44.0",
-    "oxlint": "^1.59.0",
-    "oxlint-tsgolint": "^0.20.0",
-    "stylelint": "^17.6.0",
+    "oxfmt": "^0.47.0",
+    "oxlint": "^1.62.0",
+    "oxlint-tsgolint": "^0.22.1",
+    "stylelint": "^17.9.1",
     "stylelint-config-standard": "^40.0.0",
     "stylelint-config-standard-scss": "^17.0.0",
-    "syncpack": "^14.3.0",
+    "syncpack": "^14.3.1",
     "tsx": "^4.21.0",
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.3"
   },
   "pnpm": {
     "patchedDependencies": {
