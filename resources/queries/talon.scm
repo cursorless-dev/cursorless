@@ -159,6 +159,7 @@
     (key_action)
     (sleep_action)
   ] @functionCallee @_.domain
+  ;; There is no node just for the function callee, so we have to shrink the function call to just the callee
   (#shrink-to-match! @functionCallee "\\w+")
 )
 
