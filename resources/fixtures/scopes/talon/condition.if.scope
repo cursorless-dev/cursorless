@@ -1,0 +1,21 @@
+command:
+    if true: print("true")
+---
+
+[Content] = 1:7-1:11
+         >----<
+1|     if true: print("true")
+
+[Removal] = 1:6-1:11
+        >-----<
+1|     if true: print("true")
+
+[Leading delimiter] = 1:6-1:7
+        >-<
+1|     if true: print("true")
+
+[Domain] = 1:4-1:26
+      >----------------------<
+1|     if true: print("true")
+
+[Insertion delimiter] = " "

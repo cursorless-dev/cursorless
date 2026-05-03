@@ -14,11 +14,16 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
 
   "comment.line": supported,
 
+  "condition.if": supported,
+
   "interior.command": supported,
+  "interior.if": supported,
+  "interior.foreach": supported,
 
   "name.assignment": supported,
   "name.command": supported,
   "name.variable.initialized": supported,
+  "name.foreach": supported,
   "name.iteration.block": supported,
   "name.iteration.document": supported,
 
@@ -26,12 +31,17 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.variable.initialized": supported,
   "statement.assignment": supported,
   "statement.functionCall": supported,
+  "statement.if": supported,
+  "statement.foreach": supported,
   "statement.iteration.block": supported,
   "statement.iteration.document": supported,
+
+  ifStatement: supported,
 
   "value.assignment": supported,
   "value.command": supported,
   "value.variable": supported,
+  "value.foreach": supported,
   "value.iteration.block": supported,
   "value.iteration.document": supported,
 
@@ -231,15 +241,11 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.catch": notApplicable,
   "type.argument.catch": notApplicable,
 
-  // If statement
-  ifStatement: notApplicable,
-  "statement.if": notApplicable,
+  // If statement branches
   "branch.if": notApplicable,
   "branch.if.elif.else": notApplicable,
   "branch.if.else": notApplicable,
   "branch.if.iteration": notApplicable,
-  "condition.if": notApplicable,
-  "interior.if": notApplicable,
 
   // Switch statement
   "statement.switch": notApplicable,
@@ -251,7 +257,7 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.switchCase": notApplicable,
   "value.switch": notApplicable,
 
-  // Loop
+  // Loop branches
   "branch.loop": notApplicable,
   "branch.loop.iteration": notApplicable,
 
@@ -259,13 +265,6 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.for": notApplicable,
   "condition.for": notApplicable,
   "interior.for": notApplicable,
-
-  // For-each loop
-  "statement.foreach": notApplicable,
-  "interior.foreach": notApplicable,
-  "name.foreach": notApplicable,
-  "type.foreach": notApplicable,
-  "value.foreach": notApplicable,
 
   // While loop
   "statement.while": notApplicable,
@@ -358,6 +357,7 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "type.iteration.document": notApplicable,
   "functionCall.generic": notApplicable,
   "functionCallee.generic": notApplicable,
+  "type.foreach": notApplicable,
 
   // Type alias
   "type.alias": notApplicable,

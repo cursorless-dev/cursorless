@@ -2,6 +2,7 @@
 
 ## 2026
 
+- 2026-05-03: Add support for if and for statements in Talon-script. [`#3274`](https://github.com/cursorless-dev/cursorless/pull/3274)
 - 2026-03-12: Added `userColor3` and `userColor4` as additional user-configurable hat colors. They are disabled by default until you enable and name them. ([#3206](https://github.com/cursorless-dev/cursorless/pull/3206))
 - 2026-03-11: Moved scope tests out of VSCode so they can run as regular unit tests with faster local and CI feedback. ([#3210](https://github.com/cursorless-dev/cursorless/pull/3210))
 - 2026-03-11: Git actions can now stage and unstage entire files, not just partial selections. ([#3209](https://github.com/cursorless-dev/cursorless/pull/3209))
