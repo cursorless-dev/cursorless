@@ -25,6 +25,8 @@
   (face_declaration)
   (gamepad_declaration)
   (parrot_declaration)
+  (if_statement)
+  (for_statement)
 ] @statement
 
 (block) @statement.iteration
@@ -206,3 +208,23 @@
 (string
   (string_content) @textFragment
 ) @string
+
+;;!! if true: print("true")
+;;!  ^^^^^^^^^^^^^^^^^^^^^^
+;;!           ^^^^^^^^^^^^^
+;;!     ^^^^
+(if_statement
+  condition: (_) @condition
+  body: (_) @interior
+) @ifStatement @condition.domain
+
+;;!! for v in values: print(v)
+;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^
+;;!      ^
+;;!           ^^^^^^
+;;!                   ^^^^^^^^
+(for_statement
+  name: (_) @name
+  value: (_) @value
+  body: (_) @interior
+) @name.domain @value.domain

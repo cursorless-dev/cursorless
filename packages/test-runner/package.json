@@ -29,7 +29,7 @@
     "tail": "^2.2.6"
   },
   "devDependencies": {
-    "@cursorless/tree-sitter-wasms": "^0.8.1",
+    "@cursorless/tree-sitter-wasms": "^0.9.0",
     "@types/cross-spawn": "^6.0.6",
     "@types/mocha": "^10.0.10",
     "@types/tail": "^2.2.3",
