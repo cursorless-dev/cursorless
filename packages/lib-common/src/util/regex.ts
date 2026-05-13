@@ -78,9 +78,9 @@ export function matchText(text: string, regex: RegExp): MatchedText[] {
 }
 
 export function getLeadingWhitespace(text: string): string {
-  return text.match(/^\s+/)?.[0] ?? "";
+  return text.match(/^\s+/u)?.[0] ?? "";
 }
 
 export function getTrailingWhitespace(text: string): string {
-  return text.match(/\s+$/)?.[0] ?? "";
+  return text.match(/\s+$/u)?.[0] ?? "";
 }

@@ -8,7 +8,7 @@ import { NestedScopeHandler } from "./NestedScopeHandler";
 import type { TargetScope } from "./scope.types";
 import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 
-const PREFERRED_SYMBOLS_REGEX = /[$]/g;
+const PREFERRED_SYMBOLS_REGEX = /[$]/gu;
 
 export class TokenScopeHandler extends NestedScopeHandler {
   public readonly scopeType = { type: "token" } as const;

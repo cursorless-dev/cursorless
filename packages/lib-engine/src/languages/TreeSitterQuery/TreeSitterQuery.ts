@@ -232,10 +232,8 @@ export class TreeSitterQuery {
         map.set(name, { acc, captures });
       } else {
         existing.acc.range = existing.acc.range.union(range);
-        existing.acc.allowMultiple =
-          existing.acc.allowMultiple || capture.allowMultiple;
-        existing.acc.insertionDelimiter =
-          existing.acc.insertionDelimiter ?? capture.insertionDelimiter;
+        existing.acc.allowMultiple ||= capture.allowMultiple;
+        existing.acc.insertionDelimiter ??= capture.insertionDelimiter;
         existing.captures.push(capture);
       }
     }

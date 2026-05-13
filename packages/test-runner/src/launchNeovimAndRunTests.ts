@@ -128,7 +128,7 @@ export async function launchNeovimAndRunTests() {
       if (data.includes("==== TESTS FINISHED:")) {
         done = true;
         console.log(`done: ${done}`);
-        const found = data.match(/.*==== TESTS FINISHED: code: (\d+).*/);
+        const found = data.match(/.*==== TESTS FINISHED: code: (\d+).*/u);
         console.log(`found: ${found}`);
         if (found != null) {
           code = Number.parseInt(found[1], 10);

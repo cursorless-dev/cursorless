@@ -124,7 +124,7 @@ export class GenerateSnippet {
     const originalText = editor.document.getText(target.contentRange);
 
     const snippetBodyText = editText(originalText, [
-      ...matchAll(originalText, /\$|\\/g, (match) => ({
+      ...matchAll(originalText, /\$|\\/gu, (match) => ({
         offsets: {
           start: match.index!,
           end: match.index! + match[0].length,

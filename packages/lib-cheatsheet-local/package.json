@@ -22,10 +22,10 @@
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
-    "@types/node": "^24.12.2",
-    "jest": "^30.3.0",
+    "@types/node": "^24.12.4",
+    "jest": "^30.4.2",
     "typescript": "^6.0.3",
-    "vite": "^8.0.10",
+    "vite": "^8.0.12",
     "vite-plugin-purgecss": "^0.2.13",
     "vite-plugin-singlefile": "^2.3.3"
   }

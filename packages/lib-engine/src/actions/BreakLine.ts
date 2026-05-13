@@ -58,7 +58,7 @@ function getEdits(editor: TextEditor, contentRanges: Range[]): Edit[] {
     );
     const characterTrailingWhitespace = line.text
       .slice(0, position.character)
-      .search(/\s+$/);
+      .search(/\s+$/u);
     const replacementRange =
       characterTrailingWhitespace > -1
         ? new Range(

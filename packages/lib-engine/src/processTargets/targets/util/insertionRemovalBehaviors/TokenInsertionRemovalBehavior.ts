@@ -25,7 +25,7 @@ export function getTokenLeadingDelimiterTarget(
 
   const startLine = editor.document.lineAt(start);
   const leadingText = startLine.text.slice(0, start.character);
-  const leadingDelimiters = leadingText.match(/\s+$/);
+  const leadingDelimiters = leadingText.match(/\s+$/u);
 
   return leadingDelimiters == null
     ? undefined
@@ -49,7 +49,7 @@ export function getTokenTrailingDelimiterTarget(
 
   const endLine = editor.document.lineAt(end);
   const trailingText = endLine.text.slice(end.character);
-  const trailingDelimiters = trailingText.match(/^\s+/);
+  const trailingDelimiters = trailingText.match(/^\s+/u);
 
   return trailingDelimiters == null
     ? undefined

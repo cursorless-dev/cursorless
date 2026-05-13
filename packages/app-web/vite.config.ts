@@ -56,7 +56,7 @@ export default defineConfig((): UserConfig => {
 function formatMessage(message: string): string {
   const maxLength = 1000;
   const lines = message
-    .split(/\r?\n/)
+    .split(/\r?\n/u)
     .map((l) => l.trimEnd())
     .map((l) => (l.length > maxLength ? `${l.slice(0, maxLength)}...` : l));
   return lines.join("\n");

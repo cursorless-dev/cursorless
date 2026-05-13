@@ -55,7 +55,7 @@ export function getScopeTestPaths(): ScopeTestPath[] {
       path: p,
       name: pathToName(relativeDir, p),
       languageId: path.dirname(path.relative(directory, p)).split(path.sep)[0],
-      facet: path.basename(p).match(/([a-zA-Z.]+)\d*\.scope/)![1] as
+      facet: path.basename(p).match(/([a-zA-Z.]+)\d*\.scope/u)![1] as
         | ScopeSupportFacet
         | PlaintextScopeSupportFacet,
     }));

@@ -7,7 +7,7 @@ import { runForEachEditor } from "../util/targetUtils";
 import type { Actions } from "./Actions";
 import type { ActionReturnValue } from "./actions.types";
 
-const REGEX = /-?\d+(?:_?\d+)*(\.\d+(?:_?\d+)*)?/g;
+const REGEX = /-?\d+(?:_?\d+)*(\.\d+(?:_?\d+)*)?/gu;
 
 class IncrementDecrement {
   constructor(
@@ -166,7 +166,7 @@ function formatNumberWithUnderscores(
   originalWithoutUnderscores: string,
   updated: string,
 ): string {
-  const underscoreMatches = Array.from(original.matchAll(/_/g));
+  const underscoreMatches = Array.from(original.matchAll(/_/gu));
 
   if (underscoreMatches.length === 0) {
     return updated;
@@ -190,13 +190,13 @@ function formatNumberWithUnderscores(
 }
 
 function hasLeadingZeros(text: string): boolean {
-  return /^-?0\d/.test(text);
+  return /^-?0\d/u.test(text);
 }
 
 function getIntegerPartLength(text: string): number {
-  return /^-?(\d+)/.exec(text)![1].length;
+  return /^-?(\d+)/u.exec(text)![1].length;
 }
 
 function getIntegerAndSignPartLength(text: string): number {
-  return /^-?\d+/.exec(text)![0].length;
+  return /^-?\d+/u.exec(text)![0].length;
 }

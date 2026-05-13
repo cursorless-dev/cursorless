@@ -87,12 +87,12 @@ for (const captureName of allowedCaptures) {
 }
 
 function normalizeCaptureName(name: string): string {
-  return name.replace(/(\.(start|end))?(\.(startOf|endOf))?$/, "");
+  return name.replace(/(\.(start|end))?(\.(startOf|endOf))?$/u, "");
 }
 
 // eg: for `statement.start.endOf`, returns `statement`
 function getScopeName(captureName: string): string {
-  return /^(private\.[^.]*|[^.]*)/.exec(captureName)![0];
+  return /^(private\.[^.]*|[^.]*)/u.exec(captureName)![0];
 }
 
 export function isCaptureAllowed(captureName: string): boolean {

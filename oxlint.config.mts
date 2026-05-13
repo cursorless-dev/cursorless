@@ -63,6 +63,7 @@ const disabledRules = [
   "unicorn/filename-case",
   "unicorn/no-array-callback-reference",
   "unicorn/no-lonely-if",
+  "unicorn/no-negated-condition",
   "unicorn/no-null",
   "unicorn/no-object-as-default-parameter",
   "unicorn/no-useless-undefined",

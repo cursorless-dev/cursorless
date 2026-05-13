@@ -73,7 +73,7 @@ function createChangeEvents(
       throw new Error("Overlapping ranges are not allowed!");
     }
 
-    const text = edit.text.replaceAll(/\r?\n/g, eol);
+    const text = edit.text.replaceAll(/\r?\n/gu, eol);
 
     changes.push(createChangeEvent(document, edit.range, text));
   }

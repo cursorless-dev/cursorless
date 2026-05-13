@@ -96,7 +96,7 @@ export class CustomSpokenForms {
         // Do nothing: this ide doesn't currently support custom spoken forms
       } else {
         console.error("Error loading custom spoken forms", error);
-        const msg = getErrorMessage(error).replace(/\.$/, "");
+        const msg = getErrorMessage(error).replace(/\.$/u, "");
         void showError(
           this.ide.messages,
           "CustomSpokenForms.updateSpokenFormMaps",

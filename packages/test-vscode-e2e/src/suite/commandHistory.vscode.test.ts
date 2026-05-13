@@ -97,7 +97,7 @@ async function getLogEntry(tmpdir: string) {
   assert.ok(existsSync(tmpdir));
   const paths = await readdir(tmpdir);
   assert.equal(paths.length, 1);
-  assert.ok(/cursorlessCommandHistory_.*\.jsonl/.test(paths[0]));
+  assert.ok(/cursorlessCommandHistory_.*\.jsonl/u.test(paths[0]));
 
   return JSON.parse(
     await readFile(path.join(tmpdir, paths[0]), "utf8"),

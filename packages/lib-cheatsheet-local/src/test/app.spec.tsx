@@ -31,6 +31,6 @@ describe("App", () => {
       render(<App />, container);
     });
 
-    expect(container.textContent).toMatch(/Cursorless Cheatsheet/gi);
+    expect(container.textContent).toMatch(/Cursorless Cheatsheet/giu);
   });
 });

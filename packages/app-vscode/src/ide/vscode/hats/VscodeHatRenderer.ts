@@ -310,8 +310,8 @@ export class VscodeHatRenderer {
     let isOk = true;
 
     if (
-      svg.match(/fill="(?!none)[^"]+"/) == null &&
-      svg.match(/fill:(?!none)[^;]+;/) == null
+      svg.match(/fill="(?!none)[^"]+"/u) == null &&
+      svg.match(/fill:(?!none)[^;]+;/u) == null
     ) {
       void vscode.window.showErrorMessage(
         `Raw svg '${shape}' is missing 'fill' property`,
@@ -319,7 +319,7 @@ export class VscodeHatRenderer {
       isOk = false;
     }
 
-    const viewBoxMatch = svg.match(/viewBox="([^"]+)"/);
+    const viewBoxMatch = svg.match(/viewBox="([^"]+)"/u);
 
     if (viewBoxMatch == null) {
       void vscode.window.showErrorMessage(
@@ -339,9 +339,9 @@ export class VscodeHatRenderer {
     // so that you can be notified if/when it changes or is removed.
     const [fill, stroke] = color.split("-");
     let svg = originalSvg
-      .replaceAll(/fill="(?!none)[^"]+"/g, `fill="${fill}"`)
-      .replaceAll(/fill:(?!none)[^;]+;/g, `fill:${fill};`)
-      .replaceAll(/\r?\n/g, " ");
+      .replaceAll(/fill="(?!none)[^"]+"/gu, `fill="${fill}"`)
+      .replaceAll(/fill:(?!none)[^;]+;/gu, `fill:${fill};`)
+      .replaceAll(/\r?\n/gu, " ");
     if (stroke !== undefined) {
       svg = this.addInnerStrokeToSvg(svgInfo, svg, stroke);
     }
@@ -357,7 +357,7 @@ export class VscodeHatRenderer {
     stroke: string,
   ): string {
     // All hat svgs have exactly one path element. Extract it.
-    const pathRegex = /<path[^>]*d="([^"]+)"[^>]*\/>/;
+    const pathRegex = /<path[^>]*d="([^"]+)"[^>]*\/>/u;
     const pathMatch = pathRegex.exec(svg);
     if (!pathMatch) {
       console.error(`Could not find path in svg: ${svg}`);
@@ -446,9 +446,9 @@ export class VscodeHatRenderer {
     const newViewBoxString = `${newViewBoxX} ${newViewBoxY} ${newViewBoxWidth} ${newViewBoxHeight}`;
 
     const innerSvg = rawSvg
-      .replace(/width="[^"]+"/, ``)
-      .replace(/height="[^"]+"/, ``)
-      .replace(/viewBox="([^"]+)"/, `style="overflow:visible"`);
+      .replace(/width="[^"]+"/u, ``)
+      .replace(/height="[^"]+"/u, ``)
+      .replace(/viewBox="([^"]+)"/u, `style="overflow:visible"`);
 
     const svg =
       `<svg xmlns="http://www.w3.org/2000/svg" ` +
@@ -469,12 +469,12 @@ export class VscodeHatRenderer {
   }
 
   private getViewBoxDimensions(rawSvg: string) {
-    const viewBoxValue = rawSvg.match(/viewBox="([^"]+)"/)?.[1];
+    const viewBoxValue = rawSvg.match(/viewBox="([^"]+)"/u)?.[1];
     if (viewBoxValue == null) {
       throw new Error("Missing viewBox");
     }
 
-    const viewBoxParts = viewBoxValue.trim().split(/\s+/);
+    const viewBoxParts = viewBoxValue.trim().split(/\s+/u);
     // A valid viewBox should have 4 parts: min-x, min-y, width and height
     if (viewBoxParts.length !== 4) {
       throw new Error(`Invalid viewBox format: ${viewBoxValue}`);

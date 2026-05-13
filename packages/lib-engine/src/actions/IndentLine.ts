@@ -140,9 +140,9 @@ function getIndent(editor: TextEditor) {
 function getRegex(editor: TextEditor) {
   if (editor.options.insertSpaces) {
     const tabSize = getTabSize(editor);
-    return new RegExp(`^[ ]{1,${tabSize}}`);
+    return new RegExp(`^[ ]{1,${tabSize}}`, "u");
   }
-  return /^\t/;
+  return /^\t/u;
 }
 
 function getTabSize(editor: TextEditor): number {

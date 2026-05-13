@@ -145,7 +145,7 @@ export class InstanceStage implements ModifierStage {
   ): Iterable<Target> {
     const iterable = imap(
       generateMatchesInRange(
-        new RegExp(escapeRegExp(target.contentText), "g"),
+        new RegExp(escapeRegExp(target.contentText), "gu"),
         editor,
         searchRange,
         direction,

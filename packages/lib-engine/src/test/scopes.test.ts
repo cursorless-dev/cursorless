@@ -116,7 +116,7 @@ async function runTest(
   const { scopeType, isIteration } = getFacetInfo(languageId, facetId);
   const content = await fsp.readFile(file, "utf8");
   const fixture = content.toString().replaceAll("\r\n", "\n");
-  const delimiterIndex = fixture.match(/^---$/m)?.index;
+  const delimiterIndex = fixture.match(/^---$/mu)?.index;
 
   assert.ok(
     delimiterIndex != null,

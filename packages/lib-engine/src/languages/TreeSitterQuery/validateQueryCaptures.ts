@@ -5,7 +5,7 @@ import { isCaptureAllowed } from "./captureNames";
 // Not a comment. ie line is not starting with `;;`
 // Not a string.
 // Capture starts with `@` and is followed by words and/or dots
-const capturePattern = /^(?!;;).*(?<!"\w*)@([\w.]*)/gm;
+const capturePattern = /^(?!;;).*(?<!"\w*)@([\w.]*)/gmu;
 
 export function validateQueryCaptures(
   ide: IDE,

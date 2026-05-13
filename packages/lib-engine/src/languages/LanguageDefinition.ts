@@ -182,7 +182,7 @@ async function readQueryFileAndImports(
         // but is very lenient about whitespace and quotes, and also allows
         // include instead of import, so that we can throw a nice error message
         // if the developer uses the wrong syntax
-        /^[^\S\r\n]*;;?[^\S\r\n]*(?:import|include)[^\S\r\n]+['"]?([\w|/\\.]+)['"]?[^\S\r\n]*$/gm,
+        /^[^\S\r\n]*;;?[^\S\r\n]*(?:import|include)[^\S\r\n]+['"]?([\w|/\\.]+)['"]?[^\S\r\n]*$/gmu,
         (match) => {
           const importName = match[1];
 
@@ -190,7 +190,7 @@ async function readQueryFileAndImports(
             validateImportSyntax(ide, queryName, importName, match[0]);
           }
 
-          rawQueryStrings[importName] = rawQueryStrings[importName] ?? null;
+          rawQueryStrings[importName] ??= null;
         },
       );
     }
@@ -207,7 +207,7 @@ function validateImportSyntax(
 ) {
   let isError = false;
 
-  if (/[/\\]/g.test(importName)) {
+  if (/[/\\]/gu.test(importName)) {
     void showError(
       ide.messages,
       "LanguageDefinition.readQueryFileAndImports.invalidImport",

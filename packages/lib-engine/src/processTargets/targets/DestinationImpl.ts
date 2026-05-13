@@ -172,7 +172,7 @@ export class DestinationImpl implements Destination {
     // Went inserting a new line with eol `CRLF` each `\n` will be converted to
     // `\r\n` and therefore the length is doubled.
     if (this.editor.document.eol === "CRLF") {
-      const matches = this.insertionDelimiter.match(/\n/g);
+      const matches = this.insertionDelimiter.match(/\n/gu);
       if (matches != null) {
         return this.insertionDelimiter.length + matches.length;
       }

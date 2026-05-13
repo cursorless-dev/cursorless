@@ -52,7 +52,7 @@ export class ScopeTestRecorder {
 
   async saveActiveDocument() {
     const text = this.ide.activeTextEditor?.document.getText() ?? "";
-    const matchLanguageId = text.match(/^\[\[([\w-]+)\]\]\n/);
+    const matchLanguageId = text.match(/^\[\[([\w-]+)\]\]\n/u);
 
     if (matchLanguageId == null) {
       throw new Error(`Can't match language id`);
@@ -62,14 +62,14 @@ export class ScopeTestRecorder {
     const restText = text.slice(matchLanguageId[0].length);
 
     const parts = restText
-      .split(/^---$/gm)
+      .split(/^---$/gmu)
       .map((p) => p.trimStart())
       .filter(Boolean);
 
     const facetsToAdd: { facet: string; content: string }[] = [];
 
     for (const part of parts) {
-      const match = part.match(/^\[([\w.]+)\].*\n([\s\S]*)$/);
+      const match = part.match(/^\[([\w.]+)\].*\n([\s\S]*)$/u);
       const facet = match?.[1];
       const content = match?.[2] ?? "";
 

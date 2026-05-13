@@ -38,13 +38,13 @@ abstract class RegexStageBase extends NestedScopeHandler {
 }
 
 export class NonWhitespaceSequenceScopeHandler extends RegexStageBase {
-  regex = /\S+/g;
+  regex = /\S+/gu;
 }
 
 export class UrlScopeHandler extends RegexStageBase {
   // taken from https://regexr.com/3e6m0
   regex =
-    /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/g;
+    /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/gu;
 
   // oxlint-disable-next-line no-useless-constructor
   constructor(

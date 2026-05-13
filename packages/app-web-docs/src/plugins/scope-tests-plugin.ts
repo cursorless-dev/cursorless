@@ -62,14 +62,14 @@ function parseTest(test: ScopeTestPath) {
     .toString()
     .replaceAll("\r\n", "\n");
 
-  const delimiterIndex = fixture.match(/^---$/m)?.index;
+  const delimiterIndex = fixture.match(/^---$/mu)?.index;
 
   if (delimiterIndex === undefined) {
     throw new Error(`Can't find delimiter '---' in scope fixture ${test.path}`);
   }
 
   const code = fixture.slice(0, delimiterIndex - 1);
-  const lines = fixture.slice(delimiterIndex + 4).split(/\n/);
+  const lines = fixture.slice(delimiterIndex + 4).split(/\n/u);
   const scopes: Scope[] = [];
   const unprocessedTypes: string[] = [];
   let currentScopeIndex = "1";

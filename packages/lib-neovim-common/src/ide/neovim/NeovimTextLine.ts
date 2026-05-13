@@ -32,7 +32,7 @@ export class NeovimTextLine implements TextLine {
   }
 
   get rangeTrimmed(): Range | undefined {
-    const startIndex = /^(\s*)/.exec(this._text)![1].length;
+    const startIndex = /^(\s*)/u.exec(this._text)![1].length;
     if (startIndex === this._text.length) {
       return undefined;
     }

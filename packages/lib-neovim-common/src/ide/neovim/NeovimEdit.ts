@@ -152,7 +152,7 @@ async function neovimInsert(
     `neovimInsert(): position=${JSON.stringify(position)}, text='${text}'`,
   );
   // standardise newlines so we can easily split the lines
-  const newLines = text.replaceAll(/(?:\r\n|\r|\n)/g, "\n").split("\n");
+  const newLines = text.replaceAll(/(?:\r\n|\r|\n)/gu, "\n").split("\n");
 
   const buffer = await client.window.buffer;
 

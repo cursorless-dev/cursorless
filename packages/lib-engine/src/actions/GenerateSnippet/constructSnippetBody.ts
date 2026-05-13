@@ -37,7 +37,7 @@ export function constructSnippetBody(
   let currentTabCount = 0;
   let currentIndentationString: string | null = null;
 
-  const [firstLine, ...remainingLines] = text.split(/\r?\n/);
+  const [firstLine, ...remainingLines] = text.split(/\r?\n/u);
   const lines: Line[] = [
     {
       text: linePrefix + firstLine,
@@ -47,7 +47,7 @@ export function constructSnippetBody(
   ];
 
   for (const { text, startIndex } of lines) {
-    const newIndentationString = text.match(/^\s*/)?.[0] ?? "";
+    const newIndentationString = text.match(/^\s*/u)?.[0] ?? "";
     const firstNonWhitespaceCharacterIndex = newIndentationString.length;
 
     if (currentIndentationString != null) {

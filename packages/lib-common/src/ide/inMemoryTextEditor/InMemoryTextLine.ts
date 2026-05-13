@@ -16,7 +16,7 @@ export class InMemoryTextLine implements TextLine {
     public text: string,
     eol: string | undefined,
   ) {
-    this.isEmptyOrWhitespace = /^\s*$/.test(text);
+    this.isEmptyOrWhitespace = /^\s*$/u.test(text);
     this.lengthIncludingEol = text.length + (eol?.length ?? 0);
     const start = new Position(lineNumber, 0);
     const end = new Position(lineNumber, text.length);

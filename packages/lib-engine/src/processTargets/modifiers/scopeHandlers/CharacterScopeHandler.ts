@@ -15,7 +15,7 @@ import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
  */
 const SPLIT_REGEX = /\p{L}\p{M}*|[\p{N}\p{P}\p{S}\p{Z}\p{C}]/gu;
 
-const PREFERRED_SYMBOLS_REGEX = /[$]/g;
+const PREFERRED_SYMBOLS_REGEX = /[$]/gu;
 const NONWHITESPACE_REGEX = /\p{L}\p{M}*|[\p{N}\p{P}\p{S}]/gu;
 
 export class CharacterScopeHandler extends NestedScopeHandler {

@@ -76,7 +76,7 @@ async function openNewTestEditor(
   }
 
   // standardise newlines so we can easily split the lines
-  const newLines = content.replaceAll(/(?:\r\n|\r|\n)/g, "\n").split("\n");
+  const newLines = content.replaceAll(/(?:\r\n|\r|\n)/gu, "\n").split("\n");
 
   // set the buffer contents
   const window = await client.window;

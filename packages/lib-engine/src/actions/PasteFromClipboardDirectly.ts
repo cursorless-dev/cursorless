@@ -28,7 +28,7 @@ export class PasteFromClipboardDirectly {
 
   async run(destinations: Destination[]): Promise<ActionReturnValue> {
     const text = await this.ide.clipboard.readText();
-    const textLines = text.split(/\r?\n/g);
+    const textLines = text.split(/\r?\n/gu);
 
     // FIXME: We should really use the number of targets from the original copy
     // action, as is done in VSCode.

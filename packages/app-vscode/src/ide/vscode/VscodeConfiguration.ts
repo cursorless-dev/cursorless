@@ -66,7 +66,7 @@ export function vscodeGetConfigurationString(path: string): string | undefined {
 }
 
 function evaluateStringVariables(value: string): string {
-  return value.replaceAll(/\${(\w+)}/g, (match, variable) => {
+  return value.replaceAll(/\$\{(\w+)\}/gu, (match, variable) => {
     switch (variable) {
       case "userHome":
         return os.homedir();

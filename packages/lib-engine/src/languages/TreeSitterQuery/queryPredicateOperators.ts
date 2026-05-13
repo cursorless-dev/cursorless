@@ -208,7 +208,7 @@ class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
   run(capture: MutableQueryCapture, pattern: string) {
     const { document, range } = capture;
     const text = getNode(capture).text;
-    const match = text.match(new RegExp(pattern, "ds"));
+    const match = text.match(new RegExp(pattern, "dsu"));
 
     if (match?.index == null) {
       throw new Error(`No match for pattern '${pattern}'`);

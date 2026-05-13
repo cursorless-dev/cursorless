@@ -14,7 +14,7 @@ export async function performDocumentEdits(
       .filter((edit) => edit.isReplace)
       .map((edit) => ({
         ...edit,
-        text: edit.text.replaceAll(/\r?\n/g, eol),
+        text: edit.text.replaceAll(/\r?\n/gu, eol),
       })),
   );
 

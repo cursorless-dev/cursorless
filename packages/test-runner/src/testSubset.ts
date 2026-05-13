@@ -13,7 +13,7 @@ export function testSubsetGrepString(): string | undefined {
   }
   return fs
     .readFileSync(testSubsetFilePath(), "utf8")
-    .split(/\r?\n/)
+    .split(/\r?\n/u)
     .map((line) => line.trim())
     .filter((line) => line.length > 0 && !line.startsWith("#"))
     .join("|");

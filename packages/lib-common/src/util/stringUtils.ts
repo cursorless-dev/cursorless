@@ -10,7 +10,7 @@
  */
 export function camelCaseToAllDown(input: string): string {
   return input
-    .replaceAll(/(?<=[a-z0-9])([A-Z])/g, " $1")
+    .replaceAll(/(?<=[a-z0-9])([A-Z])/gu, " $1")
     .split(" ")
     .map((word) => word.toLowerCase())
     .join(" ");
@@ -40,7 +40,7 @@ export function capitalize(str: string) {
 export function uriEncodeHashId(text: string): string {
   return camelCaseToAllDown(text)
     .replaceAll(" ", "-")
-    .replaceAll(/[^a-z0-9-]/g, "");
+    .replaceAll(/[^a-z0-9-]/gu, "");
 }
 
 /**

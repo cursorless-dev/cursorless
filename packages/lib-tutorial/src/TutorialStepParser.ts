@@ -20,7 +20,7 @@ import type { TutorialStep } from "./types/tutorial.types";
  * This is trying to catch occurrences of things like `{command:cloneStateInk.yml}`
  * or `{action:chuck}` in the tutorial script.
  */
-const componentRegex = /{(\w+):([^}]+)}/g;
+const componentRegex = /\{(\w+):([^}]+)\}/gu;
 
 /**
  * Parses a tutorial step from a raw string. Looks for components in the form

@@ -21,7 +21,7 @@ export class InMemoryTextDocument implements TextDocument {
     public readonly languageId: string,
     text: string,
   ) {
-    this.filename = uri.path.split(/\\|\//g).at(-1) ?? "";
+    this.filename = uri.path.split(/\\|\//gu).at(-1) ?? "";
     this._text = "";
     this._eol = "LF";
     this._version = -1;
@@ -115,7 +115,7 @@ export class InMemoryTextDocument implements TextDocument {
 }
 
 function createLines(text: string): InMemoryTextLine[] {
-  const documentParts = text.split(/(\r?\n)/g);
+  const documentParts = text.split(/(\r?\n)/gu);
   const result: InMemoryTextLine[] = [];
   let offset = 0;
 

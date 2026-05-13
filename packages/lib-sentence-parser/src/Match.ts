@@ -117,17 +117,17 @@ export function setAbbreviations(abbr: string[] | undefined) {
 }
 
 export function isCapitalized(str: string): boolean {
-  return /^[A-Z][a-z].*/.test(str) || isNumber(str);
+  return /^[A-Z][a-z].*/u.test(str) || isNumber(str);
 }
 
 // Start with opening quotes or capitalized letter
 export function isSentenceStarter(str: string): boolean {
-  return isCapitalized(str) || /``|"|'/.test(str.slice(0, 2));
+  return isCapitalized(str) || /``|"|'/u.test(str.slice(0, 2));
 }
 
 export function isCommonAbbreviation(str: string): boolean {
   const noSymbols = str.replaceAll(
-    /[-'`~!@#$%^&*()_|+=?;:'",.<>{}[\]\\/]/gi,
+    /[-'`~!@#$%^&*()_|+=?;:'",.<>{}[\]\\/]/giu,
     "",
   );
 
@@ -137,7 +137,7 @@ export function isCommonAbbreviation(str: string): boolean {
 // This is going towards too much rule based
 export function isTimeAbbreviation(word: string, next: string): boolean {
   if (word === "a.m." || word === "p.m.") {
-    const tmp = next.replaceAll(/\W+/g, "").slice(-3).toLowerCase();
+    const tmp = next.replaceAll(/\W+/gu, "").slice(-3).toLowerCase();
 
     if (tmp === "day") {
       return true;
@@ -148,7 +148,7 @@ export function isTimeAbbreviation(word: string, next: string): boolean {
 }
 
 export function isDottedAbbreviation(word: string) {
-  const matches = word.replaceAll(/[()[]{}]/g, "").match(/(.\.)*/);
+  const matches = word.replaceAll(/[()[\]{}]/gu, "").match(/(.\.)*/u);
   return matches && matches[0].length > 0;
 }
 
@@ -171,7 +171,7 @@ export function isNameAbbreviation(wordCount: number, words: string[]) {
     }
 
     const capitalized = words.filter((str) => {
-      return /[A-Z]/.test(str.charAt(0));
+      return /[A-Z]/u.test(str.charAt(0));
     });
 
     return capitalized.length >= 3;
@@ -190,7 +190,7 @@ export function isNumber(str: string, dotPos?: number) {
 // http://stackoverflow.com/a/123666/951517
 export function isPhoneNr(str: string) {
   return str.match(
-    /^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/,
+    /^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/u,
   );
 }
 
@@ -198,7 +198,7 @@ export function isPhoneNr(str: string) {
 // http://stackoverflow.com/a/3809435/951517
 export function isURL(str: string) {
   return str.match(
-    /[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/,
+    /[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/u,
   );
 }
 
@@ -215,7 +215,7 @@ export function isConcatenated(word: string) {
     const c = word.charAt(i + 1);
 
     // Check if the next word starts with a letter
-    if (/[a-zA-Z].*/.test(c)) {
+    if (/[a-zA-Z].*/u.test(c)) {
       return [word.slice(0, i), word.slice(i + 1)];
     }
   }

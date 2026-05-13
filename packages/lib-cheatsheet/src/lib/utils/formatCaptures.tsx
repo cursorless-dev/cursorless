@@ -40,4 +40,4 @@ export function formatCaptures(input: string): ComponentChildren[] {
   return parts;
 }
 
-const captureRegex = /<([^>]+)>/g;
+const captureRegex = /<([^>]+)>/gu;

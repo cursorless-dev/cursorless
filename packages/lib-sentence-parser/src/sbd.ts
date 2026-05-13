@@ -5,9 +5,9 @@ import * as stringHelper from "./stringHelper";
 const newline_placeholder = " @~@ ";
 const newline_placeholder_t = newline_placeholder.trim();
 
-const whiteSpaceCheck = new RegExp(String.raw`\S`, "");
-const addNewLineBoundaries = new RegExp(String.raw`\n+|[-#=_+*]{4,}`, "g");
-const splitIntoWords = new RegExp(String.raw`\S+|\n`, "g");
+const whiteSpaceCheck = /\S/u;
+const addNewLineBoundaries = /\n+|[-#=_+*]{4,}/gu;
+const splitIntoWords = /\S+|\n/gu;
 
 export interface SentenceParserOptions {
   newlineBoundaries?: boolean;
@@ -55,7 +55,7 @@ export function getSentences(
   // Split the text into words
   if (options.preserveWhitespace) {
     // <br> tags are the odd man out, as whitespace is allowed inside the tag
-    tokens = text.split(/(<br\s*\/?>|\S+|\n+)/);
+    tokens = text.split(/(<br\s*\/?>|\S+|\n+)/u);
 
     // every other token is a word
     words = tokens.filter((token, ii) => {
@@ -120,7 +120,7 @@ export function getSentences(
       // This probably needs to be improved with machine learning
       if (i + 1 < L) {
         // Single character abbr.
-        if (words[i].length === 2 && !/^\d/.test(words[i])) {
+        if (words[i].length === 2 && !/^\d/u.test(words[i])) {
           continue;
         }
 
@@ -214,10 +214,10 @@ export function getSentences(
     const lastSentence = result[result.length - 1];
 
     // Single words, could be "enumeration lists"
-    if (lastSentence.length === 1 && /^.{1,2}[.]$/.test(lastSentence[0])) {
+    if (lastSentence.length === 1 && /^.{1,2}[.]$/u.test(lastSentence[0])) {
       // Check if there is a next sentence
       // It should not be another list item
-      if (!/[.]/.test(sentence[0])) {
+      if (!/[.]/u.test(sentence[0])) {
         result.pop();
         result.push(lastSentence.concat(sentence));
         continue;

@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@types/vscode-webview": "^1.57.5",
-    "vite": "^8.0.10",
+    "vite": "^8.0.12",
     "vite-plugin-purgecss": "^0.2.13"
   }
 }

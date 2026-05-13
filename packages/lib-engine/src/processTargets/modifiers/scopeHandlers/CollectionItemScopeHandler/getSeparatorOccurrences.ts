@@ -3,7 +3,7 @@ import { matchAll, Range } from "@cursorless/lib-common";
 
 const separator = ",";
 
-export const separatorRegex = new RegExp(separator, "g");
+export const separatorRegex = new RegExp(separator, "gu");
 
 export function getSeparatorOccurrences(document: TextDocument): Range[] {
   const text = document.getText();

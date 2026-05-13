@@ -107,9 +107,9 @@ for (const spokenForm of previousSpokenForms) {
 }
 
 export const lexer = new CommandLexer({
-  ws: /[ \t]+/,
+  ws: /[ \t]+/u,
   placeholderTarget: {
-    match: /<target\d*>/,
+    match: /<target\d*>/u,
     value: (text) => text.slice(7, -1),
   },
   token: {

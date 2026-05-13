@@ -26,16 +26,16 @@ async function main() {
     svgJson.svg["@_height"] = "1em";
 
     if (
-      rawSvg.match(/fill="[^"]+"/) == null &&
-      rawSvg.match(/fill:[^;]+;/) == null
+      rawSvg.match(/fill="[^"]+"/u) == null &&
+      rawSvg.match(/fill:[^;]+;/u) == null
     ) {
       svgJson.svg["@_fill"] = "#123456";
     }
 
     const outputSvg = dumper
       .build(svgJson)
-      .replaceAll(/fill="(?!none)[^"]+"/g, 'fill="#666666"')
-      .replaceAll(/fill:(?!none)[^;]+;/g, "fill:#666666;");
+      .replaceAll(/fill="(?!none)[^"]+"/gu, 'fill="#666666"')
+      .replaceAll(/fill:(?!none)[^;]+;/gu, "fill:#666666;");
 
     await fsp.writeFile(filePath, outputSvg);
   }
