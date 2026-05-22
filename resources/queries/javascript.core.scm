@@ -36,7 +36,7 @@
     ;; This is disabled since we want the whole statement and not just the block
     ;; (statement_block)
   ] @statement
-  (#not-parent-type? @statement export_statement)
+  (#not-parent-type? @statement export_statement ambient_declaration)
 )
 
 (
