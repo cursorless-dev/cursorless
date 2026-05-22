@@ -38,7 +38,7 @@
     "prism-react-renderer": "^2.4.1",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "shiki": "^4.0.2",
+    "shiki": "^4.1.0",
     "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
@@ -48,8 +48,8 @@
     "@types/mdast": "^4.0.4",
     "@types/mocha": "^10.0.10",
     "@types/node": "^24.12.4",
-    "@types/react": "^19.2.14",
-    "sass": "^1.99.0",
+    "@types/react": "^19.2.15",
+    "sass": "^1.100.0",
     "typescript": "^6.0.3",
     "unified": "^11.0.5"
   }

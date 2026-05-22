@@ -23,6 +23,7 @@ window.addEventListener("message", (event) => {
   inputDontShow.checked = dontShow;
 });
 
+// oxlint-disable-next-line no-implicit-globals
 function hide(element, doHide) {
   element.className = doHide ? "hide" : "";
 }

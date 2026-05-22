@@ -7,12 +7,6 @@ import { SnippetParser } from "./vendor/vscodeSnippet/snippetParser";
 
 suite("SnippetParser", () => {
   test("Marker, toTextmateString()", () => {
-    function assertTextsnippetString(input: string, expected: string): void {
-      const snippet = new SnippetParser().parse(input);
-      const actual = snippet.toTextmateString();
-      assert.equal(actual, expected);
-    }
-
     assertTextsnippetString(
       // oxlint-disable-next-line no-template-curly-in-string
       "${1|cho\\,ices,wi\\|th,esc\\\\aping,chall\\\\\\,enges|}",
@@ -21,3 +15,9 @@ suite("SnippetParser", () => {
     );
   });
 });
+
+function assertTextsnippetString(input: string, expected: string): void {
+  const snippet = new SnippetParser().parse(input);
+  const actual = snippet.toTextmateString();
+  assert.equal(actual, expected);
+}
