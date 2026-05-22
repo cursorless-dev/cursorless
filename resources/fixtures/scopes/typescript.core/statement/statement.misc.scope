@@ -1,0 +1,10 @@
+declare module "foo" {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:23
+  >-----------------------<
+0| declare module "foo" {}
+
+[Insertion delimiter] = "\n"
