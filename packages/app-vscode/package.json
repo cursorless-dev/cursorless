@@ -1316,10 +1316,10 @@
     "@cursorless/lib-tutorial": "workspace:*",
     "@cursorless/lib-vscode-common": "workspace:*",
     "fast-glob": "^3.3.3",
-    "itertools": "^2.6.0",
+    "itertools": "^2.7.1",
     "lodash-es": "^4.18.1",
     "nearley": "^2.20.1",
-    "semver": "^7.8.0",
+    "semver": "^7.8.1",
     "trie-search": "^2.2.1",
     "uuid": "^14.0.0",
     "vscode-uri": "^3.1.0"
@@ -1337,6 +1337,6 @@
     "fast-xml-parser": "^5.8.0",
     "fs-extra": "^11.3.5",
     "sinon": "^22.0.0",
-    "tsx": "^4.21.0"
+    "tsx": "^4.22.3"
   }
 }

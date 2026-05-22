@@ -18,14 +18,14 @@
   },
   "dependencies": {
     "@cursorless/lib-common": "workspace:*",
-    "preact": "^10.29.1",
+    "preact": "^10.29.2",
     "react-bootstrap-icons": "^1.11.6"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
-    "ts-jest": "^29.4.9",
+    "ts-jest": "^29.4.11",
     "typescript": "^6.0.3"
   }
 }
