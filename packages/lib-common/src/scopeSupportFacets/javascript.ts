@@ -261,7 +261,6 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.loop.iteration": notApplicable,
 
   // Miscellaneous
-  "statement.misc": notApplicable,
   environment: notApplicable,
   selector: notApplicable,
   unit: notApplicable,
@@ -352,5 +351,6 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.actual.enum.iteration": notApplicable,
 
   // Miscellaneous
+  "statement.misc": notApplicable,
   "statement.package": notApplicable,
 };

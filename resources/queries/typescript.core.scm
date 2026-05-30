@@ -2,6 +2,8 @@
 ;; `javascript.jsx.scm`, and tree-sitter would complain because those node
 ;; types are not defined in the typescript grammar.
 
+;; https://github.com/tree-sitter/tree-sitter-typescript/blob/4ad3010c91d700026d036b5230e2d99ba94ae8a4/typescript/src/grammar.json
+
 ;; import javascript.core.scm
 
 ;;!! class Foo { bar(); }
@@ -514,7 +516,7 @@
     (module)
     (type_alias_declaration)
   ] @statement
-  (#not-parent-type? @statement export_statement)
+  (#not-parent-type? @statement export_statement ambient_declaration)
 )
 
 ;; Statements with optional trailing `;`

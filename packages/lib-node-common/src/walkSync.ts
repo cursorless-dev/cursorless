@@ -28,18 +28,19 @@ export const walkFilesSync = (dir: string): string[] => {
  * @returns
  */
 export const walkDirsSync = (dir: string): string[] => {
-  // Inner function returns absolute paths
-  const walkDirsSyncInner = (dir: string): string[] => {
-    let dirlist: string[] = [];
-    for (const dirent of readdirSync(dir, { withFileTypes: true })) {
-      if (dirent.isDirectory()) {
-        const dirPath = path.join(dir, dirent.name);
-        dirlist.push(dirPath);
-        dirlist = dirlist.concat(walkDirsSyncInner(dirPath));
-      }
-    }
-    return dirlist;
-  };
   // Convert to relative paths
   return walkDirsSyncInner(dir).map((absPath) => path.relative(dir, absPath));
+};
+
+// Inner function returns absolute paths
+const walkDirsSyncInner = (dir: string): string[] => {
+  let dirlist: string[] = [];
+  for (const dirent of readdirSync(dir, { withFileTypes: true })) {
+    if (dirent.isDirectory()) {
+      const dirPath = path.join(dir, dirent.name);
+      dirlist.push(dirPath);
+      dirlist = dirlist.concat(walkDirsSyncInner(dirPath));
+    }
+  }
+  return dirlist;
 };

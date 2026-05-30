@@ -35,7 +35,7 @@
     "@types/tail": "^2.2.3",
     "@vscode/test-electron": "^2.5.2",
     "cross-spawn": "^7.0.6",
-    "mocha": "^11.7.5",
-    "tsx": "^4.21.0"
+    "mocha": "^11.7.6",
+    "tsx": "^4.22.3"
   }
 }

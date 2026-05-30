@@ -164,6 +164,6 @@ export async function showErrorMessage(
   client: NeovimClient,
   message: string,
 ): Promise<void> {
-  const luaCode = `vim.notify("${message}")`;
-  await client.executeLua(luaCode, []);
+  const luaCode = "vim.notify(...)";
+  await client.executeLua(luaCode, [message]);
 }
