@@ -10,7 +10,7 @@ jobs:
   publish-vscode-extension:
     name: Publish VSCode extension
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && github.event.workflow_run.head_repository.full_name == github.repository }}
     environment: production
     env:
       CURSORLESS_REPO_ROOT: ${{ github.workspace }}
@@ -50,7 +50,7 @@ jobs:
   publish-neovim-extension:
     name: Publish Neovim extension
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && github.event.workflow_run.head_repository.full_name == github.repository }}
     environment: production
     env:
       CURSORLESS_REPO_ROOT: ${{ github.workspace }}
@@ -99,6 +99,7 @@ jobs:
   push-cursorless-talon:
     name: Push cursorless-talon subrepo
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && github.event.workflow_run.head_repository.full_name == github.repository }}
     needs: publish-vscode-extension
     environment: production
     env:
