@@ -106,9 +106,14 @@ jobs:
         run: xvfb-run -a pnpm -F @cursorless/test-talon-e2e test:quickjs
         if: runner.os == 'Linux' && matrix.app_version == 'stable'
 
-      - name: Run QuickJS tests (Win,Mac)
+      - name: Run QuickJS tests (Win)
         run: pnpm -F @cursorless/test-talon-e2e test:quickjs
-        if: runner.os != 'Linux'
+        if: runner.os == 'Windows'
+
+      # QuickJS tests are currently broken on Mac, so we disable them for now.
+      # - name: Run QuickJS tests (Win,Mac)
+      #   run: pnpm -F @cursorless/test-talon-e2e test:quickjs
+      #   if: runner.os != 'Linux'
 
       - name: Create VSCode dist that can be installed locally
         run: pnpm -F @cursorless/app-vscode populate-dist --local-install

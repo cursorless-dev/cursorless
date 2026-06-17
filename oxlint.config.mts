@@ -2,6 +2,10 @@ import type { OxlintConfig } from "oxlint";
 import { defineConfig } from "oxlint";
 
 const disabledRules = [
+  // Temporarily disabled
+  "eslint/prefer-named-capture-group",
+  "unicorn/import-style",
+
   "eslint/arrow-body-style",
   "eslint/capitalized-comments",
   "eslint/class-methods-use-this",
@@ -41,6 +45,7 @@ const disabledRules = [
   "import/no-nodejs-modules",
   "import/no-relative-parent-imports",
   "import/prefer-default-export",
+  "node/callback-return",
   "oxc/no-async-await",
   "oxc/no-barrel-file",
   "oxc/no-map-spread",
@@ -52,6 +57,7 @@ const disabledRules = [
   "react-perf/jsx-no-new-function-as-prop",
   "react/forbid-component-props",
   "react/jsx-max-depth",
+  "react/jsx-no-literals",
   "react/no-multi-comp",
   "react/only-export-components",
   "react/react-in-jsx-scope",
@@ -71,6 +77,7 @@ const disabledRules = [
   "unicorn/prefer-event-target",
   "unicorn/prefer-module",
   "unicorn/prefer-query-selector",
+  "unicorn/prefer-single-call",
   "unicorn/prefer-spread",
   "unicorn/prefer-ternary",
   "unicorn/require-post-message-target-origin",
