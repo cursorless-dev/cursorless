@@ -13,13 +13,13 @@ command:
           length: 1
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: "2026_015"
+  documentContents: 2026_015
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}
   marks: {}
 finalState:
-  documentContents: "2025_015"
+  documentContents: 2025_015
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}
