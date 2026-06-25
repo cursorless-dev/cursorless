@@ -1,4 +1,4 @@
-import * as vscode from "vscode";
+import vscode from "vscode";
 import type { Clipboard } from "@cursorless/lib-common";
 
 export class VscodeClipboard implements Clipboard {

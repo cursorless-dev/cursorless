@@ -1,12 +1,10 @@
-import * as assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import { promises as fsp } from "node:fs";
-import * as yaml from "js-yaml";
-import type { TestCaseFixtureLegacy } from "@cursorless/lib-common";
 import {
   serializeTestFixture,
   shouldUpdateFixtures,
 } from "@cursorless/lib-common";
-import { getRecordedTestPaths } from "@cursorless/lib-node-common";
+import { getRecordedTestPaths, loadFixture } from "@cursorless/lib-node-common";
 import { SpokenFormGenerator } from ".";
 import { canonicalizeAndValidateCommand } from "../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { defaultSpokenFormInfoMap } from "../spokenForms/defaultSpokenFormMap";
@@ -59,9 +57,7 @@ suite("Generate spoken forms", () => {
 });
 
 async function runTest(file: string) {
-  const buffer = await fsp.readFile(file);
-  const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
-
+  const fixture = await loadFixture(file);
   const generator = new SpokenFormGenerator(spokenFormMap);
 
   const generatedSpokenForm = generator.processCommand(

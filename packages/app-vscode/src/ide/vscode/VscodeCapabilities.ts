@@ -1,5 +1,5 @@
-import * as semver from "semver";
-import * as vscode from "vscode";
+import semver from "semver";
+import vscode from "vscode";
 import type {
   Capabilities,
   CommandCapabilityMap,

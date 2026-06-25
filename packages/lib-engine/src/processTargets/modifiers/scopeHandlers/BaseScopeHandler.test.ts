@@ -1,4 +1,4 @@
-import * as assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import type { TextEditor, Direction } from "@cursorless/lib-common";
 import { Position, Range } from "@cursorless/lib-common";
 import { BaseScopeHandler } from "./BaseScopeHandler";

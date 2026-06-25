@@ -1,11 +1,12 @@
-import * as assert from "node:assert/strict";
-import * as parser from "..";
+import assert from "node:assert/strict";
+import { getSentences } from "..";
+import type { SentenceParserOptions } from "..";
 
 suite("sentence-parser: Abbreviations in sentences", () => {
   suite("Skip dotted abbreviations", () => {
     const entry =
       "Lorem ipsum, dolor sed amat frequentor minimus In I.C.T we have multiple challenges! There should only be two sentences.";
-    const sentences = parser.getSentences(entry);
+    const sentences = getSentences(entry);
 
     test("should get 2 sentences", () => {
       assert.equal(sentences.length, 2);
@@ -15,7 +16,7 @@ suite("sentence-parser: Abbreviations in sentences", () => {
   suite("Skip dotted abbreviations (B)", () => {
     const entry =
       "From amat frequentor minimus hello there at 8 a.m. there p.m. should only be two sentences.";
-    const sentences = parser.getSentences(entry);
+    const sentences = getSentences(entry);
 
     test("should get 1 sentence", () => {
       assert.equal(sentences.length, 1);
@@ -25,7 +26,7 @@ suite("sentence-parser: Abbreviations in sentences", () => {
   suite("Skip dotted abbreviations (C)", () => {
     const entry =
       "The school, called Booker T and Stevie Ray's Wrestling and Mixed Mart Arts Academy, will have an open house 2-6 p.m. Saturday.";
-    const sentences = parser.getSentences(entry);
+    const sentences = getSentences(entry);
 
     test("should get 1 sentence", () => {
       assert.equal(sentences.length, 1);
@@ -35,7 +36,7 @@ suite("sentence-parser: Abbreviations in sentences", () => {
   suite("Skip common abbreviations", () => {
     const entry =
       "Fig. 2. displays currency rates i.e. something libsum. Currencies widely available (i.e. euro, dollar, pound), or alternatively (e.g. €, $, etc.)";
-    const sentences = parser.getSentences(entry);
+    const sentences = getSentences(entry);
 
     test("should get 2 sentences", () => {
       assert.equal(sentences.length, 2);
@@ -45,7 +46,7 @@ suite("sentence-parser: Abbreviations in sentences", () => {
   suite("Skip two worded abbreviations", () => {
     const entry =
       "Claims 1–6 and 15–26 are rejected under pre-AIA 35 USC § 103(a) as being unpatentable over Chalana et al. (US 2012/0179503) in view of Oh (US 2013/0013993).";
-    const sentences = parser.getSentences(entry);
+    const sentences = getSentences(entry);
 
     test("should get 1 sentence", () => {
       assert.equal(sentences.length, 1);
@@ -55,7 +56,7 @@ suite("sentence-parser: Abbreviations in sentences", () => {
   suite("Skip two worded abbreviations", () => {
     const entry =
       "Et al. is an abbreviation of the Latin loanphrase et alii, meaning and others. It is similar to etc. (short for et cetera, meaning and the rest), but whereas etc. applies to things, et al. applies to people.";
-    const sentences = parser.getSentences(entry);
+    const sentences = getSentences(entry);
 
     test("should get 2 sentences", () => {
       assert.equal(sentences.length, 2);
@@ -63,7 +64,7 @@ suite("sentence-parser: Abbreviations in sentences", () => {
   });
 
   suite("Use other languages (accented)", () => {
-    const options: parser.SentenceParserOptions = {
+    const options: SentenceParserOptions = {
       newlineBoundaries: true,
       preserveWhitespace: true,
       abbreviations: ["pré"],
@@ -71,7 +72,7 @@ suite("sentence-parser: Abbreviations in sentences", () => {
 
     const entry =
       "Random words pré. other words and things. Different status updates all assigned";
-    const sentences = parser.getSentences(entry, options);
+    const sentences = getSentences(entry, options);
 
     test("should get 2 sentences", () => {
       assert.equal(sentences.length, 2);
@@ -81,8 +82,8 @@ suite("sentence-parser: Abbreviations in sentences", () => {
   suite("Use other languages", () => {
     const entry =
       "Trzeba tu coś napisać, np. fragment odnoszący się do pkt. 3 wcześniejszego tekstu.";
-    const sentencesEN = parser.getSentences(entry);
-    const sentencesPL = parser.getSentences(entry, {
+    const sentencesEN = getSentences(entry);
+    const sentencesPL = getSentences(entry, {
       abbreviations: ["np", "pkt"],
     });
 
@@ -92,7 +93,7 @@ suite("sentence-parser: Abbreviations in sentences", () => {
     });
 
     test("should not permanently override abbreviations", () => {
-      const sentences = parser.getSentences(entry);
+      const sentences = getSentences(entry);
       assert.equal(sentences.length, 3);
     });
   });
@@ -106,7 +107,7 @@ suite("sentence-parser: Abbreviations in sentences", () => {
 
     const entry =
       "матрицю SWOT- аналізу (табл. hello). Факторами макросередовища (рис. 5.8.). Things on a new line";
-    const sentencesCyrillic = parser.getSentences(entry, options);
+    const sentencesCyrillic = getSentences(entry, options);
 
     test("should get 3 sentences", () => {
       assert.equal(sentencesCyrillic.length, 3);

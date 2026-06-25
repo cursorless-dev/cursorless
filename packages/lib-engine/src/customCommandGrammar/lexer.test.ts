@@ -1,4 +1,4 @@
-import * as assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import type { NearleyLexer, NearleyToken } from "./CommandLexer";
 import { lexer } from "./lexer";
 

@@ -1,4 +1,4 @@
-import * as assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import type { ActionDescriptor } from "@cursorless/lib-common";
 import { parseAction } from "./parseCommand";
 import type { WithPlaceholders } from "./WithPlaceholders";

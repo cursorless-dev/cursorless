@@ -1,12 +1,13 @@
-import { promises as fsp, readdirSync } from "node:fs";
-import * as path from "node:path";
-import * as parser from "fast-xml-parser";
+import { readdirSync } from "node:fs";
+import fsp from "node:fs/promises";
+import path from "node:path";
+import { XMLParser, XMLBuilder } from "fast-xml-parser";
 import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
 
 async function main() {
   const directory = path.join(getCursorlessRepoRoot(), "resources/images/hats");
 
-  const dumper = new parser.XMLBuilder({
+  const dumper = new XMLBuilder({
     ignoreAttributes: false,
     suppressEmptyNode: true,
     format: true,
@@ -18,9 +19,7 @@ async function main() {
     }
     const filePath = path.join(directory, dirent.name);
     const rawSvg = await fsp.readFile(filePath, { encoding: "utf8" });
-    const svgJson = new parser.XMLParser({ ignoreAttributes: false }).parse(
-      rawSvg,
-    );
+    const svgJson = new XMLParser({ ignoreAttributes: false }).parse(rawSvg);
 
     svgJson.svg["@_width"] = "1em";
     svgJson.svg["@_height"] = "1em";

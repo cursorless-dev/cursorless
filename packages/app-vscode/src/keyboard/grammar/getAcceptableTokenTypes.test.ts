@@ -1,4 +1,4 @@
-import * as assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import { isEqual } from "lodash-es";
 import nearley from "nearley";
 import type { KeyDescriptor } from "../TokenTypeHelpers";

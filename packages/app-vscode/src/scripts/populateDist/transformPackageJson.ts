@@ -1,4 +1,4 @@
-import * as semver from "semver";
+import semver from "semver";
 import type { Context } from "./context";
 import { runCommand } from "./runCommand";
 

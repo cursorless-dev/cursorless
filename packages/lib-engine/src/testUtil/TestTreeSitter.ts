@@ -1,4 +1,4 @@
-import * as path from "node:path";
+import path from "node:path";
 import type { Tree } from "web-tree-sitter";
 import { Parser, Query, Language } from "web-tree-sitter";
 import type { TextDocument, TreeSitter } from "@cursorless/lib-common";

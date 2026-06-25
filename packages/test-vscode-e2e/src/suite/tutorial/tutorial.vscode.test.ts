@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import path from "node:path";
 import { isEqual } from "lodash-es";
-import * as sinon from "sinon";
+import { replace } from "sinon";
 import { commands } from "vscode";
 import type { SpyIDE, TestCaseFixtureLegacy } from "@cursorless/lib-common";
 import {
@@ -36,7 +36,7 @@ async function runBasicTutorialTest(spyIde: SpyIDE) {
   const { hatTokenMap, takeSnapshot, getTutorialWebviewEventLog, vscodeApi } =
     await getTestHelpers();
   const commandsRun: string[] = [];
-  sinon.replace(
+  replace(
     vscodeApi.commands,
     "executeCommand",
     <T>(command: string, ...args: any[]): Thenable<T> => {

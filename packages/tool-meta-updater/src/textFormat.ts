@@ -1,4 +1,4 @@
-import * as fs from "node:fs/promises";
+import fs from "node:fs/promises";
 import { createFormat } from "@pnpm/meta-updater";
 
 export const textFormat = createFormat({

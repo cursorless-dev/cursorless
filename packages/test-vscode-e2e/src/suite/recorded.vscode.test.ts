@@ -1,4 +1,4 @@
-import * as vscode from "vscode";
+import vscode from "vscode";
 import type { TextEditor } from "@cursorless/lib-common";
 import {
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,

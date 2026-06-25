@@ -4,7 +4,6 @@ import { defineConfig } from "oxlint";
 const disabledRules = [
   // Temporarily disabled
   "eslint/prefer-named-capture-group",
-  "unicorn/import-style",
 
   "eslint/arrow-body-style",
   "eslint/capitalized-comments",

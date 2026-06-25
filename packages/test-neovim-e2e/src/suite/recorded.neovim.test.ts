@@ -1,7 +1,4 @@
-import { promises as fsp } from "node:fs";
-import * as yaml from "js-yaml";
 import type { NeovimClient } from "neovim";
-import type { TestCaseFixtureLegacy } from "@cursorless/lib-common";
 import { asyncSafety } from "@cursorless/lib-common";
 import type {
   NeovimIDE,
@@ -14,6 +11,7 @@ import {
 } from "@cursorless/lib-neovim-common";
 import {
   getRecordedTestPaths,
+  loadFixture,
   runRecordedTest,
 } from "@cursorless/lib-node-common";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
@@ -34,8 +32,7 @@ suite("recorded test cases", function () {
          */
         const client = (globalThis as any).additionalParameters.client;
 
-        const buffer = await fsp.readFile(path);
-        const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
+        const fixture = await loadFixture(path);
         if (!shouldRunTest(name, fixture)) {
           return this.ctx.skip();
         }

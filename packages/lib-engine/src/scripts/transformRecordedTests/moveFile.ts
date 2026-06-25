@@ -1,16 +1,13 @@
-import { promises as fsp } from "node:fs";
 import { mkdir, rename } from "node:fs/promises";
-import * as path from "node:path";
-import * as yaml from "js-yaml";
-import type { TestCaseFixture } from "@cursorless/lib-common";
+import path from "node:path";
+import { loadFixture } from "@cursorless/lib-node-common";
 
 /**
  * Can be used to organize files into directories based on eg language id
  * @param file The file to move
  */
 export async function moveFile(file: string) {
-  const buffer = await fsp.readFile(file);
-  const inputFixture = yaml.load(buffer.toString()) as TestCaseFixture;
+  const inputFixture = await loadFixture(file);
   const parent = path.dirname(file);
   if (path.basename(parent) !== "surroundingPair") {
     return;

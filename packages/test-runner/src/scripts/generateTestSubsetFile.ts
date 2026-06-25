@@ -1,5 +1,5 @@
-import * as child from "node:child_process";
-import * as fs from "node:fs";
+import cp from "node:child_process";
+import fs from "node:fs";
 import { exit } from "node:process";
 import { testSubsetFilePath } from "../testSubset";
 
@@ -32,7 +32,7 @@ function run() {
   }
 
   if (!exists || process.argv.includes("--always-open")) {
-    child.execSync(`${vscodeCommand} ${testSubsetGrepPath}`);
+    cp.execSync(`${vscodeCommand} ${testSubsetGrepPath}`);
   }
 
   if (!exists && process.argv.includes("--fail-if-not-exists")) {

@@ -1,4 +1,4 @@
-import * as assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import { map } from "itertools";
 import { Range } from "../../types/Range";
 import { BorderStyle } from "../decorationStyle.types";

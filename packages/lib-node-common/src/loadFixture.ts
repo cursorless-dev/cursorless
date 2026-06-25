@@ -1,10 +1,12 @@
-import { readFile } from "node:fs/promises";
-import * as yaml from "js-yaml";
+import fsp from "node:fs/promises";
+import { load } from "js-yaml";
 import type { TestCaseFixtureLegacy } from "@cursorless/lib-common";
 
-export async function loadFixture(
-  path: string,
-): Promise<TestCaseFixtureLegacy> {
-  const buffer = await readFile(path);
-  return yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
+export function loadFixture(file: string): Promise<TestCaseFixtureLegacy> {
+  return loadYamlFile<TestCaseFixtureLegacy>(file);
+}
+
+async function loadYamlFile<T>(file: string): Promise<T> {
+  const buffer = await fsp.readFile(file);
+  return load(buffer.toString()) as T;
 }

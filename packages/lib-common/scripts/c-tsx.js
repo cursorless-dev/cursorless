@@ -4,7 +4,7 @@
 // This script runs a TypeScript file using tsx after setting repo-specific
 // environment variables.
 
-import { join } from "node:path";
+import path from "node:path";
 import { spawn } from "cross-spawn";
 
 /**
@@ -37,7 +37,7 @@ function main() {
 
   const [fileToRun, ...childArgs] = args;
 
-  const repoRoot = join(import.meta.dirname, "..", "..", "..");
+  const repoRoot = path.join(import.meta.dirname, "..", "..", "..");
 
   const nodeProcess = runCommand(
     "tsx",

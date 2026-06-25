@@ -1,5 +1,5 @@
 import fs from "node:fs/promises";
-import { join } from "node:path";
+import path from "node:path";
 import type {
   Disposable,
   FileSystem,
@@ -19,8 +19,11 @@ export class TestFileSystem implements FileSystem {
     private readonly runMode: RunMode,
     private readonly cursorlessDir: string,
   ) {
-    this.cursorlessTalonStateJsonPath = join(this.cursorlessDir, "state.json");
-    this.cursorlessCommandHistoryDirPath = join(
+    this.cursorlessTalonStateJsonPath = path.join(
+      this.cursorlessDir,
+      "state.json",
+    );
+    this.cursorlessCommandHistoryDirPath = path.join(
       this.cursorlessDir,
       "commandHistory",
     );
@@ -30,8 +33,8 @@ export class TestFileSystem implements FileSystem {
     return Promise.resolve();
   }
 
-  public async readBundledFile(path: string): Promise<string | undefined> {
-    const absolutePath = join(getCursorlessRepoRoot(), path);
+  public async readBundledFile(filePath: string): Promise<string | undefined> {
+    const absolutePath = path.join(getCursorlessRepoRoot(), filePath);
     try {
       return await fs.readFile(absolutePath, "utf8");
     } catch (error) {

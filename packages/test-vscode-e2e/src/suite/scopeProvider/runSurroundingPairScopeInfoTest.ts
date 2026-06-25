@@ -1,4 +1,4 @@
-import * as sinon from "sinon";
+import { fake } from "sinon";
 import { Position, commands } from "vscode";
 import type { ScopeSupportInfo } from "@cursorless/lib-common";
 import { ScopeSupport } from "@cursorless/lib-common";
@@ -11,25 +11,25 @@ import { assertCalledWithScopeInfo } from "./assertCalledWithScopeInfo";
  */
 export async function runSurroundingPairScopeInfoTest() {
   const { scopeProvider } = await getTestHelpers();
-  const fake = sinon.fake<[scopeInfos: ScopeSupportInfo[]], void>();
+  const faked = fake<[scopeInfos: ScopeSupportInfo[]], void>();
 
   await commands.executeCommand("workbench.action.closeAllEditors");
 
-  const disposable = scopeProvider.onDidChangeScopeSupport(fake);
+  const disposable = scopeProvider.onDidChangeScopeSupport(faked);
 
   try {
-    await assertCalledWithScopeInfo(fake, unsupported);
+    await assertCalledWithScopeInfo(faked, unsupported);
 
     const editor = await openNewEditor("");
-    await assertCalledWithScopeInfo(fake, supported);
+    await assertCalledWithScopeInfo(faked, supported);
 
     await editor.edit((editBuilder) => {
       editBuilder.insert(new Position(0, 0), "()");
     });
-    await assertCalledWithScopeInfo(fake, present);
+    await assertCalledWithScopeInfo(faked, present);
 
     await commands.executeCommand("workbench.action.closeAllEditors");
-    await assertCalledWithScopeInfo(fake, unsupported);
+    await assertCalledWithScopeInfo(faked, unsupported);
   } finally {
     disposable.dispose();
   }

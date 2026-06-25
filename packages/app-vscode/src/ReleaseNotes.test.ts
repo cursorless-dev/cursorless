@@ -1,4 +1,4 @@
-import * as sinon from "sinon";
+import { fake, restore, assert, match } from "sinon";
 import type { ExtensionContext, Uri } from "vscode";
 import type { MessageType, Messages } from "@cursorless/lib-common";
 import { asyncSafety } from "@cursorless/lib-common";
@@ -154,7 +154,7 @@ const testCases: TestCase[] = [
 
 suite("release notes", () => {
   teardown(() => {
-    sinon.restore();
+    restore();
   });
 
   for (const { input, expectedOutput } of testCases) {
@@ -192,9 +192,9 @@ async function runTest(input: Input, expectedOutput: Output) {
   await new ReleaseNotes(vscodeApi, extensionContext, messages).maybeShow();
 
   if (expectedOutput.storedVersion === false) {
-    sinon.assert.notCalled(update);
+    assert.notCalled(update);
   } else {
-    sinon.assert.calledOnceWithExactly(
+    assert.calledOnceWithExactly(
       update,
       VERSION_KEY,
       expectedOutput.storedVersion,
@@ -202,26 +202,26 @@ async function runTest(input: Input, expectedOutput: Output) {
   }
 
   if (expectedOutput.showedMessage) {
-    sinon.assert.calledOnceWithExactly(
+    assert.calledOnceWithExactly(
       showMessage,
-      sinon.match.any,
+      match.any,
       "releaseNotes",
-      sinon.match.any,
-      sinon.match.any,
+      match.any,
+      match.any,
     );
 
     if (expectedOutput.openedUrl) {
-      sinon.assert.calledOnce(openExternal);
+      assert.calledOnce(openExternal);
     } else {
-      sinon.assert.notCalled(openExternal);
+      assert.notCalled(openExternal);
     }
   } else {
-    sinon.assert.notCalled(showMessage);
+    assert.notCalled(showMessage);
   }
 }
 
 function getFakes(input: Input) {
-  const openExternal = sinon.fake.resolves<[Uri], Promise<boolean>>(true);
+  const openExternal = fake.resolves<[Uri], Promise<boolean>>(true);
   const vscodeApi = {
     window: {
       state: {
@@ -233,7 +233,7 @@ function getFakes(input: Input) {
     },
   } as unknown as VscodeApi;
 
-  const update = sinon.fake<[string, string], Promise<void>>();
+  const update = fake<[string, string], Promise<void>>();
   const extensionContext = {
     globalState: {
       get() {
@@ -248,7 +248,7 @@ function getFakes(input: Input) {
     },
   } as unknown as ExtensionContext;
 
-  const showMessage = sinon.fake.resolves<
+  const showMessage = fake.resolves<
     [MessageType, string, string, ...string[]],
     Promise<string | undefined>
   >(input.pressedButton ? WHATS_NEW : undefined);

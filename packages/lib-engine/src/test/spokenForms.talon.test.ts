@@ -1,13 +1,7 @@
-import * as assert from "node:assert/strict";
-import { promises as fsp } from "node:fs";
-import * as yaml from "js-yaml";
-import type {
-  Command,
-  CommandLatest,
-  TestCaseFixtureLegacy,
-} from "@cursorless/lib-common";
+import assert from "node:assert/strict";
+import type { Command, CommandLatest } from "@cursorless/lib-common";
 import { asyncSafety } from "@cursorless/lib-common";
-import { getRecordedTestPaths } from "@cursorless/lib-node-common";
+import { getRecordedTestPaths, loadFixture } from "@cursorless/lib-node-common";
 import { canonicalizeAndValidateCommand } from "../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { getHatMapCommand } from "../generateSpokenForm/getHatMapCommand";
 import { TalonRepl } from "../testUtil/TalonRepl";
@@ -52,8 +46,7 @@ suite("Talon spoken forms", () => {
 });
 
 async function runRecordedFixture(repl: TalonRepl, file: string) {
-  const buffer = await fsp.readFile(file);
-  const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
+  const fixture = await loadFixture(file);
 
   if (fixture.spokenFormError != null) {
     return;

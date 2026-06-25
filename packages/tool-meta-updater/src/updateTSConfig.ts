@@ -1,4 +1,4 @@
-import * as path from "node:path";
+import path from "node:path";
 import { getLockfileImporterId } from "@pnpm/lockfile-file";
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import { isEqual } from "lodash-es";

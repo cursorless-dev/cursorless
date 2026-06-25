@@ -1,8 +1,8 @@
-import * as assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import * as path from "node:path";
-import * as sinon from "sinon";
-import * as vscode from "vscode";
+import path from "node:path";
+import { fake, replace } from "sinon";
+import vscode from "vscode";
 import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
 import {
   getReusableEditor,
@@ -324,16 +324,16 @@ async function injectFakes(): Promise<void> {
 
   const keyboardConfig = JSON.parse(await readFile(keyboardConfigPath, "utf8"));
 
-  const getConfigurationValue = sinon.fake((sectionName) => {
+  const getConfigurationValue = fake((sectionName) => {
     return keyboardConfig[
       `cursorless.experimental.keyboard.modal.keybindings.${sectionName}`
     ];
   });
 
-  sinon.replace(
+  replace(
     vscodeApi.workspace,
     "getConfiguration",
-    sinon.fake((section) => {
+    fake((section) => {
       if (
         !section?.startsWith(
           "cursorless.experimental.keyboard.modal.keybindings",

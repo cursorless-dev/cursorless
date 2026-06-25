@@ -1,5 +1,5 @@
-import { isAbsolute, join } from "node:path";
-import * as vscode from "vscode";
+import path from "node:path";
+import vscode from "vscode";
 import type {
   Disposable,
   FileSystem,
@@ -19,8 +19,11 @@ export class VscodeFileSystem implements FileSystem {
     private readonly runMode: RunMode,
     private readonly cursorlessDir: string,
   ) {
-    this.cursorlessTalonStateJsonPath = join(this.cursorlessDir, "state.json");
-    this.cursorlessCommandHistoryDirPath = join(
+    this.cursorlessTalonStateJsonPath = path.join(
+      this.cursorlessDir,
+      "state.json",
+    );
+    this.cursorlessCommandHistoryDirPath = path.join(
       this.cursorlessDir,
       "commandHistory",
     );
@@ -60,24 +63,27 @@ export class VscodeFileSystem implements FileSystem {
     }
   }
 
-  private resolveBundledPath(path: string) {
-    if (isAbsolute(path)) {
+  private resolveBundledPath(bundledPath: string) {
+    if (path.isAbsolute(bundledPath)) {
       if (this.runMode !== "development") {
         throw new Error(
           "Absolute paths are not supported outside of development mode",
         );
       }
 
-      return vscode.Uri.file(path);
+      return vscode.Uri.file(bundledPath);
     }
 
-    return vscode.Uri.joinPath(this.extensionContext.extensionUri, path);
+    return vscode.Uri.joinPath(this.extensionContext.extensionUri, bundledPath);
   }
 
-  public watchDir(path: string, onDidChange: PathChangeListener): Disposable {
+  public watchDir(
+    dirPath: string,
+    onDidChange: PathChangeListener,
+  ): Disposable {
     // FIXME: Support globs?
     const watcher = vscode.workspace.createFileSystemWatcher(
-      new vscode.RelativePattern(path, "**"),
+      new vscode.RelativePattern(dirPath, "**"),
     );
 
     watcher.onDidChange(onDidChange);

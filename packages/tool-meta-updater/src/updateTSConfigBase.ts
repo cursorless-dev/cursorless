@@ -1,4 +1,4 @@
-import * as fs from "node:fs/promises";
+import fs from "node:fs/promises";
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import type { PackageJson, TsConfigJson } from "type-fest";
 import type { Context } from "./Context";

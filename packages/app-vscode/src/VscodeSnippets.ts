@@ -1,5 +1,5 @@
 import { open } from "node:fs/promises";
-import { join } from "node:path";
+import path from "node:path";
 import type { IDE, TextEditor } from "@cursorless/lib-common";
 import type { Snippets } from "@cursorless/lib-engine";
 import { isEexistError } from "@cursorless/lib-node-common";
@@ -11,7 +11,7 @@ export class VscodeSnippets implements Snippets {
     snippetName: string,
     directory: string,
   ): Promise<TextEditor> {
-    const snippetPath = join(directory, `${snippetName}.snippet`);
+    const snippetPath = path.join(directory, `${snippetName}.snippet`);
     await createNewFile(snippetPath);
     return this.ide.openTextDocument(snippetPath);
   }

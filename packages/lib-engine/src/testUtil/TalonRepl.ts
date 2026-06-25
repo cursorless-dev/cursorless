@@ -1,5 +1,5 @@
-import * as childProcess from "node:child_process";
-import * as os from "node:os";
+import childProcess from "node:child_process";
+import os from "node:os";
 import { isWindows } from "@cursorless/lib-node-common";
 
 const MAX_OUTPUT_TO_EAT = 20;

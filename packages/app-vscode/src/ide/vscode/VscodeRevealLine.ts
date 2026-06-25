@@ -1,4 +1,4 @@
-import * as vscode from "vscode";
+import vscode from "vscode";
 import { RevealLineAt } from "@cursorless/lib-common";
 import type { VscodeTextEditor } from "./VscodeTextEditor";
 

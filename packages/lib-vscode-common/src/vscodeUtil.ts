@@ -1,4 +1,4 @@
-import * as vscode from "vscode";
+import vscode from "vscode";
 import type { EndOfLine } from "@cursorless/lib-common";
 import { Position, Range, Selection } from "@cursorless/lib-common";
 

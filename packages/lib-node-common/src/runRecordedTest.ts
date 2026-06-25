@@ -1,4 +1,4 @@
-import * as assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import { promises as fsp } from "node:fs";
 import { isUndefined } from "lodash-es";
 import type {
