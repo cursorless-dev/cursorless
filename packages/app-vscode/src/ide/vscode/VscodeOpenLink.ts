@@ -1,4 +1,4 @@
-import * as vscode from "vscode";
+import vscode from "vscode";
 import type { OpenLinkOptions, Range } from "@cursorless/lib-common";
 import { Selection } from "@cursorless/lib-common";
 import { toVscodePositionOrRange } from "@cursorless/lib-vscode-common";

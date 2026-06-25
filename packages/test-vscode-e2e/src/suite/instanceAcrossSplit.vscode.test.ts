@@ -1,4 +1,4 @@
-import * as assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import { Selection } from "vscode";
 import type { Modifier, SpyIDE } from "@cursorless/lib-common";
 import {

@@ -1,5 +1,5 @@
 import type { ExtensionContext } from "vscode";
-import * as vscode from "vscode";
+import { Range } from "vscode";
 import type {
   CharacterRange,
   GeneralizedRange,
@@ -65,18 +65,13 @@ export class VscodeHighlights {
       tokenDecorationType,
       tokenRanges.map(
         ({ start, end }) =>
-          new vscode.Range(
-            start.line,
-            start.character,
-            end.line,
-            end.character,
-          ),
+          new Range(start.line, start.character, end.line, end.character),
       ),
     );
 
     editor.vscodeEditor.setDecorations(
       lineDecorationType,
-      lineRanges.map((range) => new vscode.Range(range.start, 0, range.end, 0)),
+      lineRanges.map((range) => new Range(range.start, 0, range.end, 0)),
     );
   }
 }

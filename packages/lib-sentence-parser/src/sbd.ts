@@ -1,6 +1,18 @@
 // oxlint-disable max-depth
-import * as Match from "./Match";
-import * as stringHelper from "./stringHelper";
+import {
+  isBoundaryChar,
+  isCommonAbbreviation,
+  isConcatenated,
+  isCustomAbbreviation,
+  isDottedAbbreviation,
+  isNameAbbreviation,
+  isNumber,
+  isPhoneNr,
+  isSentenceStarter,
+  isTimeAbbreviation,
+  isURL,
+  setAbbreviations,
+} from "./Match";
 
 const newline_placeholder = " @~@ ";
 const newline_placeholder_t = newline_placeholder.trim();
@@ -42,7 +54,7 @@ export function getSentences(
     ...userOptions,
   };
 
-  Match.setAbbreviations(options.abbreviations);
+  setAbbreviations(options.abbreviations);
 
   if (options.newlineBoundaries) {
     text = text.replace(addNewLineBoundaries, newline_placeholder);
@@ -89,8 +101,9 @@ export function getSentences(
     }
 
     if (
-      Match.isBoundaryChar(words[i]) ||
-      stringHelper.endsWithChar(words[i], "?!") ||
+      isBoundaryChar(words[i]) ||
+      words[i].endsWith("?") ||
+      words[i].endsWith("!") ||
       words[i] === newline_placeholder_t
     ) {
       if (options.newlineBoundaries && words[i] === newline_placeholder_t) {
@@ -105,17 +118,14 @@ export function getSentences(
       continue;
     }
 
-    if (
-      stringHelper.endsWithChar(words[i], '"') ||
-      stringHelper.endsWithChar(words[i], "”")
-    ) {
+    if (words[i].endsWith('"') || words[i].endsWith("”")) {
       words[i] = words[i].slice(0, -1);
     }
 
     // A dot might indicate the end sentences
     // Exception: The next sentence starts with a word (non abbreviation)
     //            that has a capital letter.
-    if (stringHelper.endsWithChar(words[i], ".")) {
+    if (words[i].endsWith(".")) {
       // Check if there is a next word
       // This probably needs to be improved with machine learning
       if (i + 1 < L) {
@@ -125,40 +135,40 @@ export function getSentences(
         }
 
         // Common abbr. that often do not end sentences
-        if (Match.isCommonAbbreviation(words[i])) {
+        if (isCommonAbbreviation(words[i])) {
           continue;
         }
 
         // Next word starts with capital word, but current sentence is
         // quite short
-        if (Match.isSentenceStarter(words[i + 1])) {
-          if (Match.isTimeAbbreviation(words[i], words[i + 1])) {
+        if (isSentenceStarter(words[i + 1])) {
+          if (isTimeAbbreviation(words[i], words[i + 1])) {
             continue;
           }
 
           // Dealing with names at the start of sentences
-          if (Match.isNameAbbreviation(wordCount, words.slice(i, 6))) {
+          if (isNameAbbreviation(wordCount, words.slice(i, 6))) {
             continue;
           }
 
-          if (Match.isNumber(words[i + 1])) {
-            if (Match.isCustomAbbreviation(words[i])) {
+          if (isNumber(words[i + 1])) {
+            if (isCustomAbbreviation(words[i])) {
               continue;
             }
           }
         } else {
           // Skip ellipsis
-          if (stringHelper.endsWith(words[i], "..")) {
+          if (words[i].endsWith("..")) {
             continue;
           }
 
           //// Skip abbreviations
           // Short words + dot or a dot after each letter
-          if (Match.isDottedAbbreviation(words[i])) {
+          if (isDottedAbbreviation(words[i])) {
             continue;
           }
 
-          if (Match.isNameAbbreviation(wordCount, words.slice(i, 5))) {
+          if (isNameAbbreviation(wordCount, words.slice(i, 5))) {
             continue;
           }
         }
@@ -173,22 +183,22 @@ export function getSentences(
 
     // Check if the word has a dot in it
     if ((index = words[i].indexOf(".")) > -1) {
-      if (Match.isNumber(words[i], index)) {
+      if (isNumber(words[i], index)) {
         continue;
       }
 
       // Custom dotted abbreviations (like K.L.M or I.C.T)
-      if (Match.isDottedAbbreviation(words[i])) {
+      if (isDottedAbbreviation(words[i])) {
         continue;
       }
 
       // Skip urls / emails and the like
-      if (Match.isURL(words[i]) || Match.isPhoneNr(words[i])) {
+      if (isURL(words[i]) || isPhoneNr(words[i])) {
         continue;
       }
     }
 
-    if ((temp = Match.isConcatenated(words[i]))) {
+    if ((temp = isConcatenated(words[i]))) {
       current.pop();
       current.push(temp[0]);
       sentences.push(current);

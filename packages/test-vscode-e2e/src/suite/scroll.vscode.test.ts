@@ -1,4 +1,4 @@
-import * as vscode from "vscode";
+import vscode from "vscode";
 import { LATEST_VERSION } from "@cursorless/lib-common";
 import {
   getReusableEditor,

@@ -2,10 +2,6 @@ import type { OxlintConfig } from "oxlint";
 import { defineConfig } from "oxlint";
 
 const disabledRules = [
-  // Temporarily disabled
-  "eslint/prefer-named-capture-group",
-  "unicorn/import-style",
-
   "eslint/arrow-body-style",
   "eslint/capitalized-comments",
   "eslint/class-methods-use-this",
@@ -33,6 +29,7 @@ const disabledRules = [
   "eslint/no-use-before-define",
   "eslint/no-void",
   "eslint/prefer-destructuring",
+  "eslint/prefer-named-capture-group",
   "eslint/sort-imports",
   "eslint/sort-keys",
   "eslint/sort-vars",

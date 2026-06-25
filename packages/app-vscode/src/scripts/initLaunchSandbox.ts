@@ -1,4 +1,4 @@
-import * as cp from "node:child_process";
+import cp from "node:child_process";
 import { exit } from "node:process";
 /**
  * This script creates a VSCode settings profile for Cursorless development,

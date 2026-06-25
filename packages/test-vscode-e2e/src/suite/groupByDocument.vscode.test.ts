@@ -1,5 +1,5 @@
-import * as assert from "node:assert/strict";
-import * as vscode from "vscode";
+import assert from "node:assert/strict";
+import vscode from "vscode";
 import { LATEST_VERSION, splitKey } from "@cursorless/lib-common";
 import {
   getTestHelpers,

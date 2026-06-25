@@ -1,4 +1,4 @@
-import * as assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import * as fc from "fast-check";
 import { uniqWith } from "lodash-es";
 import { uniqWithHash } from "./uniqWithHash";

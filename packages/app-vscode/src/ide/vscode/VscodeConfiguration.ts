@@ -1,5 +1,5 @@
-import * as os from "node:os";
-import * as vscode from "vscode";
+import os from "node:os";
+import vscode from "vscode";
 import type {
   Configuration,
   ConfigurationScope,

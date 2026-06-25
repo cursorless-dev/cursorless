@@ -1,5 +1,5 @@
 import { stat, unlink, writeFile } from "node:fs/promises";
-import * as sinon from "sinon";
+import { fake } from "sinon";
 import type { ScopeTypeInfo } from "@cursorless/lib-common";
 import { DOCS_URL, sleep } from "@cursorless/lib-common";
 import { getTestHelpers } from "@cursorless/lib-vscode-common";
@@ -11,13 +11,13 @@ import { assertCalledWithScopeInfo } from "./assertCalledWithScopeInfo";
 export async function runCustomSpokenFormScopeInfoTest() {
   const { scopeProvider, cursorlessTalonStateJsonPath } =
     await getTestHelpers();
-  const fake = sinon.fake<[scopeInfos: ScopeTypeInfo[]], void>();
+  const faked = fake<[scopeInfos: ScopeTypeInfo[]], void>();
 
-  const disposable = scopeProvider.onDidChangeScopeInfo(fake);
+  const disposable = scopeProvider.onDidChangeScopeInfo(faked);
 
   try {
     await assertCalledWithScopeInfo(
-      fake,
+      faked,
       roundStandard,
       namedFunctionStandard,
       lambdaStandard,
@@ -30,7 +30,7 @@ export async function runCustomSpokenFormScopeInfoTest() {
       JSON.stringify(spokenFormJsonContents),
     );
     await assertCalledWithScopeInfo(
-      fake,
+      faked,
       roundCustom,
       namedFunctionCustom,
       lambdaCustom,
@@ -40,7 +40,7 @@ export async function runCustomSpokenFormScopeInfoTest() {
 
     await unlink(cursorlessTalonStateJsonPath);
     await assertCalledWithScopeInfo(
-      fake,
+      faked,
       roundStandard,
       namedFunctionStandard,
       lambdaStandard,

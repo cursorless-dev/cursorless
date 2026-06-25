@@ -1,5 +1,5 @@
 import { readdir } from "node:fs/promises";
-import * as path from "node:path";
+import path from "node:path";
 import { flatten } from "lodash-es";
 
 /**

@@ -1,5 +1,5 @@
 import type { Context } from "mocha";
-import * as sinon from "sinon";
+import { restore } from "sinon";
 import type { IDE, NormalizedIDE } from "@cursorless/lib-common";
 import { shouldUpdateFixtures, sleep, SpyIDE } from "@cursorless/lib-common";
 import {
@@ -49,7 +49,7 @@ export function endToEndTestSetup(
   });
 
   teardown(() => {
-    sinon.restore();
+    restore();
     injectIde(originalIde);
   });
 

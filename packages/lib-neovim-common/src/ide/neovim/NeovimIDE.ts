@@ -1,4 +1,4 @@
-import * as path from "node:path";
+import path from "node:path";
 import { pull } from "lodash-es";
 import type { Buffer, NeovimClient, Window } from "neovim";
 import { v4 as uuid } from "uuid";

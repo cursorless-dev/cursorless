@@ -1,4 +1,4 @@
-import * as vscode from "vscode";
+import vscode from "vscode";
 import { getReusableEditor } from "@cursorless/lib-vscode-common";
 import { sleepWithBackoff } from "../../endToEndTestSetup";
 import { checkAndResetFakes } from "./checkAndResetFakes";

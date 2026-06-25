@@ -1,4 +1,4 @@
-import * as assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import type * as sinon from "sinon";
 import type { Fakes, ExpectedArgs } from "./scopeVisualizerTest.types";
 import {

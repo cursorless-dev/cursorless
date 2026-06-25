@@ -1,4 +1,4 @@
-import * as assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import type { Messages } from "@cursorless/lib-common";
 import { Range } from "@cursorless/lib-common";
 import { checkCaptureStartEnd } from "./checkCaptureStartEnd";

@@ -1,4 +1,4 @@
-import * as semver from "semver";
+import semver from "semver";
 import type { ExtensionContext } from "vscode";
 import { URI } from "vscode-uri";
 import type { Messages } from "@cursorless/lib-common";

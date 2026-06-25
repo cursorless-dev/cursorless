@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import * as vscode from "vscode";
+import vscode from "vscode";
 import type {
   ActionDescriptor,
   Modifier,

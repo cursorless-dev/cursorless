@@ -1,9 +1,9 @@
-import * as assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
 import { readFile, readdir, rm } from "node:fs/promises";
-import * as path from "node:path";
+import path from "node:path";
 import { produce } from "immer";
-import * as vscode from "vscode";
+import vscode from "vscode";
 import type {
   CommandComplete,
   CommandHistoryEntry,

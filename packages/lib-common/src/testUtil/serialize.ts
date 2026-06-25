@@ -2,16 +2,17 @@
 // This file ensures that simple objects and arrays (ie without array or object
 // children) will be serialized inline, and also ensures that "fullTargets" will be inlined as well
 
-import * as yaml from "js-yaml";
+import { dump, Type, DEFAULT_SCHEMA } from "js-yaml";
+import type { DumpOptions } from "js-yaml";
 
 class CustomDump {
   constructor(
     private readonly data: unknown,
-    private readonly opts: yaml.DumpOptions,
+    private readonly opts: DumpOptions,
   ) {}
 
   represent(): string {
-    let result = yaml.dump(this.data, { replacer, schema, ...this.opts });
+    let result = dump(this.data, { replacer, schema, ...this.opts });
     result = result.trim();
     if (result.includes("\n")) {
       result = `\n${result}`;
@@ -20,14 +21,14 @@ class CustomDump {
   }
 }
 
-const customDumpType = new yaml.Type("!format", {
+const customDumpType = new Type("!format", {
   kind: "scalar",
   resolve: () => false,
   instanceOf: CustomDump,
   represent: (d: unknown) => (d as CustomDump).represent(),
 });
 
-const schema = yaml.DEFAULT_SCHEMA.extend({ implicit: [customDumpType] });
+const schema = DEFAULT_SCHEMA.extend({ implicit: [customDumpType] });
 
 const isObject = (value: unknown): value is object =>
   typeof value === "object" && value != null;

@@ -1,4 +1,4 @@
-import * as vscode from "vscode";
+import vscode from "vscode";
 import type { Query, Tree } from "web-tree-sitter";
 import type { CommandServerApi } from "@cursorless/lib-common";
 import type { VscodeTestHelpers } from "./TestHelpers";

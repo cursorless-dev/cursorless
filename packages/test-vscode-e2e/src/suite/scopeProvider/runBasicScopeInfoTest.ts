@@ -1,4 +1,4 @@
-import * as sinon from "sinon";
+import { fake } from "sinon";
 import type { TextDocument } from "vscode";
 import { Position, Range, commands } from "vscode";
 import type { ScopeSupportInfo } from "@cursorless/lib-common";
@@ -15,30 +15,30 @@ import { assertCalledWithScopeInfo } from "./assertCalledWithScopeInfo";
  */
 export async function runBasicScopeInfoTest() {
   const { scopeProvider } = await getTestHelpers();
-  const fake = sinon.fake<[scopeInfos: ScopeSupportInfo[]], void>();
+  const faked = fake<[scopeInfos: ScopeSupportInfo[]], void>();
 
   await commands.executeCommand("workbench.action.closeAllEditors");
 
-  const disposable = scopeProvider.onDidChangeScopeSupport(fake);
+  const disposable = scopeProvider.onDidChangeScopeSupport(faked);
 
   try {
-    await assertCalledWithScopeInfo(fake, unsupported);
+    await assertCalledWithScopeInfo(faked, unsupported);
 
     const editor = await getReusableEditor("", "typescript");
-    await assertCalledWithScopeInfo(fake, supported);
+    await assertCalledWithScopeInfo(faked, supported);
 
     await editor.edit((editBuilder) => {
       editBuilder.insert(new Position(0, 0), contents);
     });
-    await assertCalledWithScopeInfo(fake, present);
+    await assertCalledWithScopeInfo(faked, present);
 
     await editor.edit((editBuilder) => {
       editBuilder.delete(getDocumentRange(editor.document));
     });
-    await assertCalledWithScopeInfo(fake, supported);
+    await assertCalledWithScopeInfo(faked, supported);
 
     await commands.executeCommand("workbench.action.closeAllEditors");
-    await assertCalledWithScopeInfo(fake, unsupported);
+    await assertCalledWithScopeInfo(faked, unsupported);
   } finally {
     disposable.dispose();
   }

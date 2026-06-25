@@ -1,4 +1,4 @@
-import * as assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import { SentenceSegmenter } from "../processTargets/modifiers/scopeHandlers/SentenceScopeHandler/SentenceSegmenter";
 import { sentenceSegmenterFixture } from "./fixtures/sentenceSegmeter.fixture";
 

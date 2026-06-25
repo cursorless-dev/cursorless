@@ -1,5 +1,5 @@
 import { stat, unlink, writeFile } from "node:fs/promises";
-import * as sinon from "sinon";
+import { fake } from "sinon";
 import { commands } from "vscode";
 import type { ScopeSupportInfo, ScopeType } from "@cursorless/lib-common";
 import { ScopeSupport, sleep } from "@cursorless/lib-common";
@@ -16,26 +16,26 @@ import {
 export async function runCustomRegexScopeInfoTest() {
   const { scopeProvider, cursorlessTalonStateJsonPath } =
     await getTestHelpers();
-  const fake = sinon.fake<[scopeInfos: ScopeSupportInfo[]], void>();
+  const faked = fake<[scopeInfos: ScopeSupportInfo[]], void>();
 
   await commands.executeCommand("workbench.action.closeAllEditors");
 
-  const disposable = scopeProvider.onDidChangeScopeSupport(fake);
+  const disposable = scopeProvider.onDidChangeScopeSupport(faked);
 
   try {
-    await assertCalledWithoutScopeInfo(fake, scopeType);
+    await assertCalledWithoutScopeInfo(faked, scopeType);
 
     await writeFile(
       cursorlessTalonStateJsonPath,
       JSON.stringify(spokenFormJsonContents),
     );
-    await assertCalledWithScopeInfo(fake, unsupported);
+    await assertCalledWithScopeInfo(faked, unsupported);
 
     await openNewEditor(contents);
-    await assertCalledWithScopeInfo(fake, present);
+    await assertCalledWithScopeInfo(faked, present);
 
     await unlink(cursorlessTalonStateJsonPath);
-    await assertCalledWithoutScopeInfo(fake, scopeType);
+    await assertCalledWithoutScopeInfo(faked, scopeType);
   } finally {
     disposable.dispose();
 

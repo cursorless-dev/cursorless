@@ -1,5 +1,5 @@
 import type { Context } from "mocha";
-import * as sinon from "sinon";
+import { restore } from "sinon";
 import type { IDE } from "@cursorless/lib-common";
 import { shouldUpdateFixtures, sleep, SpyIDE } from "@cursorless/lib-common";
 import type { NeovimIDE } from "@cursorless/lib-neovim-common";
@@ -40,7 +40,7 @@ export function endToEndTestSetup(suite: Mocha.Suite) {
   });
 
   teardown(() => {
-    sinon.restore();
+    restore();
     injectIde(ide);
   });
 

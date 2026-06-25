@@ -1,5 +1,5 @@
 import { pull } from "lodash-es";
-import * as vscode from "vscode";
+import vscode from "vscode";
 import type { Disposable } from "vscode";
 import type { StatusBarItem } from "../StatusBarItem";
 

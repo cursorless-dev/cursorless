@@ -1,8 +1,11 @@
 import { pull } from "lodash-es";
 import { v4 as uuid } from "uuid";
-import type { ExtensionContext, WorkspaceFolder } from "vscode";
-import * as vscode from "vscode";
-import { window, workspace } from "vscode";
+import type {
+  ExtensionContext,
+  WorkspaceFolder,
+  TextEditor as VsTextEditor,
+} from "vscode";
+import { commands, window, workspace } from "vscode";
 import type {
   Disposable,
   EditableTextEditor,
@@ -58,7 +61,7 @@ export class VscodeIDE implements IDE {
     this.highlights = new VscodeHighlights(extensionContext);
     this.flashHandler = new VscodeFlashHandler(this, this.highlights);
     this.capabilities = new VscodeCapabilities();
-    this.editorMap = new WeakMap<vscode.TextEditor, VscodeTextEditor>();
+    this.editorMap = new WeakMap<VsTextEditor, VscodeTextEditor>();
   }
 
   showQuickPick(
@@ -124,7 +127,7 @@ export class VscodeIDE implements IDE {
   }
 
   get visibleNotebookEditors(): NotebookEditor[] {
-    return vscode.window.visibleNotebookEditors.map(
+    return window.visibleNotebookEditors.map(
       (editor) => new VscodeNotebookEditorImpl(editor),
     );
   }
@@ -140,13 +143,13 @@ export class VscodeIDE implements IDE {
     if (editor != null && !editor.isActive) {
       await this.getEditableTextEditor(editor).focus();
     }
-    await vscode.commands.executeCommand("editor.actions.findWithArgs", {
+    await commands.executeCommand("editor.actions.findWithArgs", {
       searchString: query,
     });
   }
 
   public async findInWorkspace(query: string): Promise<void> {
-    await vscode.commands.executeCommand("workbench.action.findInFiles", {
+    await commands.executeCommand("workbench.action.findInFiles", {
       query,
     });
   }
@@ -166,14 +169,14 @@ export class VscodeIDE implements IDE {
   public async showInputBox(
     options?: InputBoxOptions,
   ): Promise<string | undefined> {
-    return await vscode.window.showInputBox(options);
+    return await window.showInputBox(options);
   }
 
   public async executeCommand<T>(
     command: string,
     ...args: any[]
   ): Promise<T | undefined> {
-    return await vscode.commands.executeCommand(command, ...args);
+    return await commands.executeCommand(command, ...args);
   }
 
   public onDidChangeTextDocument(
@@ -213,7 +216,7 @@ export class VscodeIDE implements IDE {
     }),
   );
 
-  public fromVscodeEditor(editor: vscode.TextEditor): VscodeTextEditor {
+  public fromVscodeEditor(editor: VsTextEditor): VscodeTextEditor {
     if (!this.editorMap.has(editor)) {
       this.editorMap.set(editor, new VscodeTextEditor(uuid(), this, editor));
     }
@@ -224,12 +227,12 @@ export class VscodeIDE implements IDE {
     if (error instanceof OutdatedExtensionError) {
       void this.showUpdateExtensionErrorMessage(error);
     } else {
-      void vscode.window.showErrorMessage(getErrorMessage(error));
+      void window.showErrorMessage(getErrorMessage(error));
     }
   }
 
   private async showUpdateExtensionErrorMessage(error: OutdatedExtensionError) {
-    const item = await vscode.window.showErrorMessage(
+    const item = await window.showErrorMessage(
       error.message,
       "Check for updates",
     );
@@ -238,7 +241,7 @@ export class VscodeIDE implements IDE {
       return;
     }
 
-    await vscode.commands.executeCommand(
+    await commands.executeCommand(
       "workbench.extensions.action.checkForUpdates",
     );
   }

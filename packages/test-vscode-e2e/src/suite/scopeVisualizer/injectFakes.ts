@@ -1,4 +1,4 @@
-import * as sinon from "sinon";
+import { fake, replace } from "sinon";
 import type { DecorationRenderOptions, WorkspaceConfiguration } from "vscode";
 import { getTestHelpers } from "@cursorless/lib-vscode-common";
 import type { VscodeApi } from "@cursorless/lib-vscode-common";
@@ -12,10 +12,10 @@ import type {
 export async function injectFakes(): Promise<Fakes> {
   const { vscodeApi } = await getTestHelpers();
 
-  const dispose = sinon.fake<[number], void>();
+  const dispose = fake<[number], void>();
 
   let decorationIndex = 0;
-  const createTextEditorDecorationType = sinon.fake<
+  const createTextEditorDecorationType = fake<
     Parameters<VscodeApi["window"]["createTextEditorDecorationType"]>,
     MockDecorationType
   >((_options: DecorationRenderOptions) => {
@@ -28,23 +28,23 @@ export async function injectFakes(): Promise<Fakes> {
     };
   });
 
-  const setDecorations = sinon.fake<
+  const setDecorations = fake<
     SetDecorationsParameters,
     ReturnType<VscodeApi["editor"]["setDecorations"]>
   >();
 
-  const getConfigurationValue = sinon.fake.returns(COLOR_CONFIG);
+  const getConfigurationValue = fake.returns(COLOR_CONFIG);
 
-  sinon.replace(
+  replace(
     vscodeApi.window,
     "createTextEditorDecorationType",
     createTextEditorDecorationType as any,
   );
-  sinon.replace(vscodeApi.editor, "setDecorations", setDecorations as any);
-  sinon.replace(
+  replace(vscodeApi.editor, "setDecorations", setDecorations as any);
+  replace(
     vscodeApi.workspace,
     "getConfiguration",
-    sinon.fake.returns({
+    fake.returns({
       get: getConfigurationValue,
     } as unknown as WorkspaceConfiguration),
   );

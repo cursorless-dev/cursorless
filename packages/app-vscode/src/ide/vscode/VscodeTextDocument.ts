@@ -1,4 +1,4 @@
-import * as path from "node:path";
+import path from "node:path";
 import type * as vscode from "vscode";
 import type { URI } from "vscode-uri";
 import type {

@@ -1,4 +1,4 @@
-import * as assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import { Range } from "../../../types/Range";
 import { getErrorMessage } from "../../../util/getErrorMessage";
 import { createTestDocument } from "./createTestDocument";

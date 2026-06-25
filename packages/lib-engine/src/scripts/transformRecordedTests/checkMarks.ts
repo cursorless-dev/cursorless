@@ -1,4 +1,4 @@
-import * as assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import { uniq } from "lodash-es";
 import type { TestCaseFixtureLegacy } from "@cursorless/lib-common";
 import { FakeIDE } from "@cursorless/lib-common";

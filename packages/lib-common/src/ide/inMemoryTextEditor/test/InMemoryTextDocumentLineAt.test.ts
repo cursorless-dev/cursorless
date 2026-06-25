@@ -1,4 +1,4 @@
-import * as assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import { range } from "lodash-es";
 import { createTestDocument } from "./createTestDocument";
 

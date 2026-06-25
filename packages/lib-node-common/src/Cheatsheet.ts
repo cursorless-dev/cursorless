@@ -1,5 +1,5 @@
 import { readFile, writeFile } from "node:fs/promises";
-import * as path from "node:path";
+import path from "node:path";
 import { produce } from "immer";
 import { sortBy } from "lodash-es";
 import { parse } from "node-html-parser";

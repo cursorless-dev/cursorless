@@ -1,4 +1,4 @@
-import * as std from "std";
+import { exit } from "std";
 import { LATEST_VERSION } from "@cursorless/lib-common";
 import type { ActionDescriptor, CommandLatest } from "@cursorless/lib-common";
 import { activate } from "@cursorless/lib-talonjs-core";
@@ -19,7 +19,7 @@ async function runTests() {
     hasFailed = true;
   }
 
-  std.exit(hasFailed ? 1 : 0);
+  exit(hasFailed ? 1 : 0);
 }
 
 async function testTake() {

@@ -1,4 +1,4 @@
-import * as assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import { window } from "vscode";
 import { LATEST_VERSION, splitKey } from "@cursorless/lib-common";
 import {

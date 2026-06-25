@@ -1,4 +1,4 @@
-import * as cp from "node:child_process";
+import cp from "node:child_process";
 import { copyFile, mkdirSync, readdirSync } from "node:fs";
 import process, { exit } from "node:process";
 import { Tail } from "tail";

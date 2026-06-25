@@ -1,5 +1,5 @@
 import { isString } from "lodash-es";
-import * as vscode from "vscode";
+import vscode from "vscode";
 import type {
   Modifier,
   PartialMark,

@@ -1,4 +1,4 @@
-import * as assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import type { QueryPredicate } from "web-tree-sitter";
 import { parsePredicates } from "./parsePredicates";
 

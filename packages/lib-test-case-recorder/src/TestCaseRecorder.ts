@@ -1,6 +1,6 @@
-import * as fs from "node:fs";
+import fs from "node:fs";
 import { access, readFile, unlink } from "node:fs/promises";
-import * as path from "node:path";
+import path from "node:path";
 import { invariant } from "immutability-helper";
 import { merge } from "lodash-es";
 import type {

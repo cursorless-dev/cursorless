@@ -1,6 +1,6 @@
 import { pick, sortedUniq, toPairs } from "lodash-es";
 import nearley from "nearley";
-import * as vscode from "vscode";
+import vscode from "vscode";
 import { CompositeKeyMap, getErrorMessage } from "@cursorless/lib-common";
 import type { VscodeApi } from "@cursorless/lib-vscode-common";
 import { getTokenTypeKeyMaps } from "./getTokenTypeKeyMaps";

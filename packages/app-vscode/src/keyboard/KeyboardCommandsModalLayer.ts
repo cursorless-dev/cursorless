@@ -1,5 +1,5 @@
 import type TrieSearch from "trie-search";
-import * as vscode from "vscode";
+import vscode from "vscode";
 import type { KeyValuePair } from "./buildSuffixTrie";
 import { buildSuffixTrie } from "./buildSuffixTrie";
 import type { KeyboardHandler } from "./KeyboardHandler";

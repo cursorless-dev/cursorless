@@ -1,9 +1,9 @@
-import * as assert from "node:assert/strict";
-import * as crypto from "node:crypto";
+import assert from "node:assert/strict";
+import crypto from "node:crypto";
 import { mkdir, readFile, readdir, rm } from "node:fs/promises";
-import * as os from "node:os";
-import * as path from "node:path";
-import * as vscode from "vscode";
+import os from "node:os";
+import path from "node:path";
+import vscode from "vscode";
 import type { HatTokenMap, SimpleActionName } from "@cursorless/lib-common";
 import { LATEST_VERSION } from "@cursorless/lib-common";
 import {

@@ -1,7 +1,7 @@
-import * as fs from "node:fs/promises";
-import * as path from "node:path";
+import fs from "node:fs/promises";
+import path from "node:path";
 import { isEqual } from "lodash-es";
-import * as vscode from "vscode";
+import vscode from "vscode";
 import type {
   Listener,
   Messages,

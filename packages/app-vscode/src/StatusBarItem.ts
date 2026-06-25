@@ -1,4 +1,4 @@
-import * as vscode from "vscode";
+import vscode from "vscode";
 
 const DEFAULT_TEXT = "$(cursorless-icon) Cursorless";
 

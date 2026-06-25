@@ -1,4 +1,4 @@
-import * as assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import { FakeIDE, LATEST_VERSION, asyncSafety } from "@cursorless/lib-common";
 import { CustomSpokenFormGeneratorImpl } from "./CustomSpokenFormGeneratorImpl";
 
