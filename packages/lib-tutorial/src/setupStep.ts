@@ -46,7 +46,7 @@ export async function setupStep(
   }
 
   if (currentTutorial == null) {
-    throw new Error("No current tutorial found for tutorial");
+    throw new Error("No current tutorial found");
   }
 
   const { initialState: snapshot, languageId = "plaintext" } =
