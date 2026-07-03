@@ -91,8 +91,8 @@
   font-stretch: 1% 500%; /* Required by Chrome */
   src:
     local(""),
-    /* Modern Browsers */ url("/fonts/Inconsolata_SemiExpanded-Light.ttf")
-      format("truetype");
+    /* Modern Browsers */
+    url("/fonts/Inconsolata_SemiExpanded-Light.ttf") format("truetype");
 }
 
 @font-face {
@@ -102,8 +102,8 @@
   font-stretch: 1% 500%; /* Required by Chrome */
   src:
     local(""),
-    /* Modern Browsers */ url("/fonts/Inconsolata_SemiExpanded-Regular.ttf")
-      format("truetype");
+    /* Modern Browsers */
+    url("/fonts/Inconsolata_SemiExpanded-Regular.ttf") format("truetype");
 }
 
 @font-face {
@@ -113,8 +113,8 @@
   font-stretch: 1% 500%; /* Required by Chrome */
   src:
     local(""),
-    /* Modern Browsers */ url("/fonts/Inconsolata_SemiExpanded-Medium.ttf")
-      format("truetype");
+    /* Modern Browsers */
+    url("/fonts/Inconsolata_SemiExpanded-Medium.ttf") format("truetype");
 }
 
 @font-face {
@@ -124,8 +124,8 @@
   font-stretch: 1% 500%; /* Required by Chrome */
   src:
     local(""),
-    /* Modern Browsers */ url("/fonts/Inconsolata_SemiExpanded-SemiBold.ttf")
-      format("truetype");
+    /* Modern Browsers */
+    url("/fonts/Inconsolata_SemiExpanded-SemiBold.ttf") format("truetype");
 }
 
 @font-face {
@@ -135,8 +135,8 @@
   font-stretch: 1% 500%; /* Required by Chrome */
   src:
     local(""),
-    /* Modern Browsers */ url("/fonts/Inconsolata_SemiExpanded-Bold.ttf")
-      format("truetype");
+    /* Modern Browsers */
+    url("/fonts/Inconsolata_SemiExpanded-Bold.ttf") format("truetype");
 }
 
 @font-face {
@@ -146,8 +146,8 @@
   font-stretch: 1% 500%; /* Required by Chrome */
   src:
     local(""),
-    /* Modern Browsers */ url("/fonts/Inconsolata_SemiExpanded-ExtraBold.ttf")
-      format("truetype");
+    /* Modern Browsers */
+    url("/fonts/Inconsolata_SemiExpanded-ExtraBold.ttf") format("truetype");
 }
 
 @font-face {
@@ -157,8 +157,8 @@
   font-stretch: 1% 500%; /* Required by Chrome */
   src:
     local(""),
-    /* Modern Browsers */ url("/fonts/Inconsolata-ExtraLight.ttf")
-      format("truetype");
+    /* Modern Browsers */
+    url("/fonts/Inconsolata-ExtraLight.ttf") format("truetype");
 }
 
 @font-face {
@@ -178,8 +178,8 @@
   font-stretch: 1% 500%; /* Required by Chrome */
   src:
     local(""),
-    /* Modern Browsers */ url("/fonts/Inconsolata-Regular.ttf")
-      format("truetype");
+    /* Modern Browsers */
+    url("/fonts/Inconsolata-Regular.ttf") format("truetype");
 }
 
 @font-face {
@@ -189,8 +189,8 @@
   font-stretch: 1% 500%; /* Required by Chrome */
   src:
     local(""),
-    /* Modern Browsers */ url("/fonts/Inconsolata-Medium.ttf")
-      format("truetype");
+    /* Modern Browsers */
+    url("/fonts/Inconsolata-Medium.ttf") format("truetype");
 }
 
 @font-face {
@@ -200,8 +200,8 @@
   font-stretch: 1% 500%; /* Required by Chrome */
   src:
     local(""),
-    /* Modern Browsers */ url("/fonts/Inconsolata-SemiBold.ttf")
-      format("truetype");
+    /* Modern Browsers */
+    url("/fonts/Inconsolata-SemiBold.ttf") format("truetype");
 }
 
 @font-face {

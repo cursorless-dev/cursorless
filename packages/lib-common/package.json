@@ -30,6 +30,6 @@
     "cross-spawn": "^7.0.6",
     "fast-check": "^4.8.0",
     "js-yaml": "^4.2.0",
-    "web-tree-sitter": "^0.26.9"
+    "web-tree-sitter": "^0.26.10"
   }
 }

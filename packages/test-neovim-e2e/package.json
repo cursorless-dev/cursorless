@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
-    "@types/sinon": "^21.0.1",
+    "@types/sinon": "^22.0.0",
     "neovim": "^5.4.0",
     "sinon": "^22.0.0"
   }

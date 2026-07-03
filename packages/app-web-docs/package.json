@@ -23,7 +23,7 @@
     "build": "docusaurus build --out-dir out"
   },
   "dependencies": {
-    "@algolia/client-search": "^5.55.0",
+    "@algolia/client-search": "^5.55.1",
     "@cursorless/lib-common": "workspace:*",
     "@docsearch/react": "^4.6.3",
     "@docusaurus/core": "^3.10.1",
@@ -38,7 +38,7 @@
     "prism-react-renderer": "^2.4.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "shiki": "^4.2.0",
+    "shiki": "^4.3.0",
     "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
