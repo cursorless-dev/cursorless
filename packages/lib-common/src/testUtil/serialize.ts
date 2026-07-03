@@ -2,69 +2,32 @@
 // This file ensures that simple objects and arrays (ie without array or object
 // children) will be serialized inline, and also ensures that "fullTargets" will be inlined as well
 
-import { dump, Type, DEFAULT_SCHEMA } from "js-yaml";
-import type { DumpOptions } from "js-yaml";
+import { dump, visit } from "js-yaml";
+import type { Document, MappingNode, Node, SequenceNode } from "js-yaml";
 
-class CustomDump {
-  constructor(
-    private readonly data: unknown,
-    private readonly opts: DumpOptions,
-  ) {}
+function hasOnlyScalarChildren(node: MappingNode | SequenceNode): boolean {
+  return node.kind === "mapping"
+    ? node.items.every(({ value }) => value.kind === "scalar")
+    : node.items.every((item) => item.kind === "scalar");
+}
 
-  represent(): string {
-    let result = dump(this.data, { replacer, schema, ...this.opts });
-    result = result.trim();
-    if (result.includes("\n")) {
-      result = `\n${result}`;
+function inlineSimpleCollections(documents: Document[]): void {
+  visit(documents, (node: Node, { depth }) => {
+    if (depth > 0 && isCollectionNode(node) && hasOnlyScalarChildren(node)) {
+      node.style.flow = true;
     }
-    return result;
-  }
+  });
 }
 
-const customDumpType = new Type("!format", {
-  kind: "scalar",
-  resolve: () => false,
-  instanceOf: CustomDump,
-  represent: (d: unknown) => (d as CustomDump).represent(),
-});
-
-const schema = DEFAULT_SCHEMA.extend({ implicit: [customDumpType] });
-
-const isObject = (value: unknown): value is object =>
-  typeof value === "object" && value != null;
-
-function hasSimpleChildren(value: unknown): boolean {
-  if (isObject(value)) {
-    return Object.values(value).every(
-      (value) => !isObject(value) && !Array.isArray(value),
-    );
-  }
-  if (Array.isArray(value)) {
-    return value.every((value) => !isObject(value) && !Array.isArray(value));
-  }
-  return false;
-}
-
-function replacer(key: string, value: unknown): unknown {
-  // top-level, don't change this
-  if (key === "") {
-    return value;
-  }
-
-  if (hasSimpleChildren(value)) {
-    return new CustomDump(value, { flowLevel: 0 });
-  }
-
-  // default
-  return value;
+function isCollectionNode(node: Node): node is MappingNode | SequenceNode {
+  return node.kind === "mapping" || node.kind === "sequence";
 }
 
 export function serialize(obj: unknown): string {
-  const dump = new CustomDump(obj, {
+  const serialized = dump(obj, {
     noRefs: true,
-    quotingType: '"',
-  })
-    .represent()
-    .trim();
-  return `${dump}\n`;
+    quoteStyle: "double",
+    transform: inlineSimpleCollections,
+  }).trim();
+  return `${serialized}\n`;
 }
