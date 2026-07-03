@@ -45,7 +45,8 @@ function inlineSimpleCollections(documents: Document[]): void {
     // scalars, block scalars, or multiline strings.
     if (
       !isKey &&
-      parent?.style.flow === true &&
+      parent != null &&
+      parent.style.flow &&
       node.kind === "scalar" &&
       node.tag === "tag:yaml.org,2002:str" &&
       !node.value.includes("\n") &&
