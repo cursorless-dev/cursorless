@@ -1,5 +1,3 @@
-import { produce } from "immer";
-import { mapKeys } from "lodash-es";
 import type {
   CommandComplete,
   CommandLatest,
@@ -105,7 +103,7 @@ function substituteMissingHats(
 
       const color = target.mark.symbolColor;
 
-      if (enabledHatStyles[color] === undefined) {
+      if (enabledHatStyles[color] == null) {
         target.mark.symbolColor = Object.keys(enabledHatStyles)[0];
       }
 
@@ -116,15 +114,19 @@ function substituteMissingHats(
   // Update the hats in the initial state snapshot
   const updatedInitialState =
     initialState.marks != null
-      ? produce(initialState, (draft) => {
-          draft.marks = mapKeys(draft.marks, (_value, key) => {
-            const { hatStyle, character } = splitKey(key);
-            if (enabledHatStyles[hatStyle] === undefined) {
-              return getKey(Object.keys(enabledHatStyles)[0], character);
-            }
-            return key;
-          });
-        })
+      ? {
+          ...initialState,
+          marks: Object.fromEntries(
+            Object.entries(initialState.marks).map(([key, value]) => {
+              const { hatStyle, character } = splitKey(key);
+              const newKey =
+                enabledHatStyles[hatStyle] == null
+                  ? getKey(Object.keys(enabledHatStyles)[0], character)
+                  : key;
+              return [newKey, value];
+            }),
+          ),
+        }
       : initialState;
 
   return {
