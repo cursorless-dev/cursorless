@@ -1,5 +1,6 @@
 import type {
   Hats,
+  StringRecord,
   TutorialContentProvider,
   TutorialId,
   TutorialStepFragment,
@@ -31,8 +32,7 @@ export class TutorialStepParser {
   /**
    * A map of component type to a function that parses the component.
    */
-  private componentParsers: Record<
-    string,
+  private componentParsers: StringRecord<
     (arg: string) => Promise<StepComponent>
   >;
 
@@ -153,11 +153,13 @@ export class TutorialStepParser {
 
         currentIndex = index + length;
 
-        const result = await this.componentParsers[type](arg);
+        const componentParser = this.componentParsers[type];
 
-        if (result == null) {
+        if (componentParser == null) {
           throw new Error(`Unknown component type: ${type}`);
         }
+
+        const result = await componentParser(arg);
 
         const { content, ...rest } = result;
 
