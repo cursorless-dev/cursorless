@@ -26,7 +26,7 @@ function isCollectionNode(node: Node): node is MappingNode | SequenceNode {
 export function serialize(obj: unknown): string {
   const serialized = dump(obj, {
     noRefs: true,
-    quoteStyle: "double",
+    quoteStyle: "single",
     transform: inlineSimpleCollections,
   }).trim();
   return `${serialized}\n`;
