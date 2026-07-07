@@ -186,7 +186,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     findInDocument: "scout",
     findInWorkspace: "scout all",
     randomizeTargets: "shuffle",
-    generateSnippet: "snippet make",
+    generateSnippet: "snip make",
     sortTargets: "sort",
     setSelection: "take",
     revealTypeDefinition: "type deaf",
