@@ -1,10 +1,8 @@
-import { pseudoScopes, simpleScopeTypeTypes } from "@cursorless/lib-common";
+import { pseudoScopeTypes, simpleScopeTypeTypes } from "@cursorless/lib-common";
 
-const scopeCaptureNames = [
-  ...simpleScopeTypeTypes.filter((s) => !pseudoScopes.has(s)),
-  // Interior is a pseudo scope, but it's implemented with an actual internal scope
-  "interior",
-] as const;
+const scopeCaptureNames = simpleScopeTypeTypes.filter(
+  (s) => !pseudoScopeTypes.has(s),
+);
 
 export type ScopeCaptureName = (typeof scopeCaptureNames)[number];
 
