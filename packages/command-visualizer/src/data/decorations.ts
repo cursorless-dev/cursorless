@@ -2,19 +2,18 @@
 // (research/highlight-rendering.md §3; verified 2026-06-08). SPEC-v2 §3.1.
 // All background-only; alpha baked into the 8-digit hex; theme-INVARIANT.
 
-// Provenance: these five names are the string values of @cursorless/lib-common's
-// `FlashStyle` enum (ide/types/FlashDescriptor.ts). We deliberately keep a local
-// string-union rather than importing the enum: the names compose here with
-// HighlightStyle into DecorationStyle, which keys DECORATION_HEX and drives
-// overlayPrecedence — switching to enum members would churn every literal and
-// buy no runtime behavior. The HEX values, FLASH_PULSE_MS, MS_PER_STATE, and
-// precedence are ours and are not exported by cursorless.
-export type FlashStyle =
-  | "pendingDelete"
-  | "justAdded"
-  | "referenced"
-  | "pendingModification0"
-  | "pendingModification1";
+import { FlashStyle as CursorlessFlashStyle } from "@cursorless/lib-common";
+
+// FlashStyle is DERIVED from @cursorless/lib-common's `FlashStyle` enum
+// (ide/types/FlashDescriptor.ts) — not cloned. The template-literal type turns
+// the enum's string VALUES into the union
+// "pendingDelete" | "referenced" | "pendingModification0" |
+// "pendingModification1" | "justAdded", so every existing string-keyed usage
+// (DECORATION_HEX keys, "pendingDelete" as DecorationStyle, styles.has(...))
+// keeps working with zero literal churn, while the set of valid names now
+// tracks lib-common automatically. The HEX values, FLASH_PULSE_MS,
+// MS_PER_STATE, and precedence remain ours (not exported by cursorless).
+export type FlashStyle = `${CursorlessFlashStyle}`;
 
 export type HighlightStyle = "highlight0" | "highlight1";
 
