@@ -2,6 +2,22 @@
 // cursorless/packages/app-vscode/package.json cursorless.colors.{dark,light}
 // (verified 2026-06-08; also mirrored in screenshots/oracle/color-matrix.json).
 // SPEC §4.4.
+//
+// WHY NOT IMPORTED (step 6 decision — Option B, kept-with-provenance):
+// These hexes have NO importable TS module. They are declared in app-vscode's
+// package.json as VS Code setting DEFAULTS (contributes.configuration
+// "cursorless.colors.dark" / ".light") and read at runtime from VS Code
+// configuration — app-vscode itself never holds them as a TS constant, and its
+// package exports only ./extension.cjs. Manufacturing a lib-common
+// `defaultHatColors` constant here would create a THIRD copy (package.json stays
+// canonical for the extension), which the dedup explicitly forbids.
+// The HAT_COLORS / HatColor name list below duplicates
+// app-vscode/src/ide/vscode/hatStyles.types.ts, which is likewise not
+// importable (app-vscode exports only extension.cjs).
+// FOLLOW-UP to actually single-source: move HAT_COLORS + a `defaultHatColors`
+// hex map into @cursorless/lib-common and rewire app-vscode (VscodeHatRenderer
+// + package.json generation) to consume it — deferred as it touches the
+// shipping extension's hat path (5 app-vscode files).
 
 export type HatColor =
   | "default"

@@ -3,6 +3,26 @@
 // Only `crosshairs` carries fill-rule="evenodd" clip-rule="evenodd"; every
 // other shape uses the SVG default (nonzero). `ex` is a single subpath (no hole).
 // SPEC §4.1 / DECISIONS.md CORRECTION.
+//
+// WHY NOT IMPORTED (step 6 decision — Option B, kept-with-provenance):
+//   - SHAPE_PATHS `d=` strings: the canonical source is the 11 .svg files under
+//     resources/images/hats/, which app-vscode's VscodeHatRenderer.ts reads at
+//     RUNTIME (readFile of `${shape}.svg`) — there is no compile-time TS
+//     constant for them. Building an SVG-loader here or a TS path constant would
+//     be a second copy; the safest single-source would be a shared build step
+//     that reads the .svg files, which is out of scope.
+//   - HAT_SHAPES / HatShape / SHAPE_ADJUSTMENTS: these DO exist as clean TS
+//     constants upstream — HAT_SHAPES/HAT_NON_DEFAULT_SHAPES/HatShape in
+//     app-vscode/src/ide/vscode/hatStyles.types.ts and defaultShapeAdjustments
+//     (+ DEFAULT_HAT_HEIGHT_EM / DEFAULT_VERTICAL_OFFSET_EM) in
+//     app-vscode/src/ide/vscode/hats/shapeAdjustments.ts — but app-vscode
+//     exports only ./extension.cjs, so nothing outside it can import them.
+// FOLLOW-UP to actually single-source: promote hatStyles.types.ts +
+// shapeAdjustments.ts into @cursorless/lib-common and rewire the 5 app-vscode
+// files that import them (VscodeHatRenderer, performPr1868ShapeUpdateInit, the
+// two hatAdjustments scripts). Deferred: it touches the shipping extension's
+// hat-rendering path and is the "risky app-vscode refactor" this task scoped
+// out. The .svg `d=` strings would still need a separate build-time loader.
 
 export type HatShape =
   | "default"

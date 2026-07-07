@@ -33,11 +33,74 @@ in-monorepo. Everything below touches ONLY `packages/command-visualizer/`.
    - `fixture-extract.ts` `parseMarks`/`buildLines` — lib-common's
      `serializedMarksToTokenHats` needs a live `TextEditor` and returns engine
      `TokenHat[]`; our render model reads plain YAML with no editor.
-5. **Compile config fixed** (step 5). Dropped the non-idiomatic
+5. **Compile config fixed**. Dropped the non-idiomatic
    `tsc --build`/composite setup (no sibling package uses it); `compile:tsc` is
    now plain `tsc`, matching the repo's typecheck convention (resolution via
    `tsconfig.base.json` `paths`). Fixed a real pre-existing type error:
    `pipeline.ts` used `GeneralizedRange` and `Pos` without importing them.
+
+## Dedup against cursorless source (import-not-clone pass)
+
+This pass replaced vendored/cloned code with imports from cursorless packages.
+lib-engine gained additive exports (own commit) to make it possible.
+
+- **DefaultMap / CompositeKeyMap** → imported from `@cursorless/lib-common`
+  (deleted the two `vendor/allocate-hats/common/` copies).
+- **GRAPHEME_SPLIT_REGEX** → imported from `@cursorless/lib-engine` in
+  `columns.ts`, `tokenize.ts`, and `vendor/allocate-hats/splitter.ts` (was
+  cloned in all three).
+- **maxByFirstDiffering** → imported from `@cursorless/lib-engine` (deleted the
+  vendored copy).
+- **FlashStyle** → derived from `@cursorless/lib-common`'s enum via
+  `` `${CursorlessFlashStyle}` `` (was a hand-maintained string union).
+- **lib-engine exports added** (separate lib-engine commit): the allocateHats
+  primitives + tokenGraphemeSplitter barrel now surface from the lib-engine
+  index, so the above imports resolve.
+
+**Still vendored, PINNED at SHA 42452eb on purpose** (current upstream has
+diverged — importing would change hat placement or fail to typecheck against the
+standalone's simplified types): `chooseTokenHat`, `HatMetrics`,
+`getHatRankingContext`, `getTokenComparator`, `common/types.ts`, the tokens-in
+`allocateHats` wrapper (`index.ts`), `rank.ts`, `StandaloneGraphemeSplitter`
+(`splitter.ts`). Each file header states the exact reason; `VENDOR.md` has the
+full split. Upstream added `forcedTokenHat` (#2602) and `avoidFirstLetter` /
+`HatCandidate.isFirstLetter` (#1723), and the engine splitter needs a live IDE.
+
+**Still local (fixture path/marks):** `parseMarks`/`buildLines` (needs no
+TextEditor, unlike lib-common's `serializedMarksToTokenHats`), `fixture-root.ts`
+(dual-layout probe + `$CURSORLESS_REPO` default, unlike lib-node-common's
+single-layout `getFixturesPath`). `fixture-yaml.ts` already uses `js-yaml`.
+
+## Colors / shapes data — step 6 decision: Option B (keep, with provenance)
+
+The hat COLOR hexes, shape SVG `d=` path strings, color names, shape names, and
+shape adjustments have **no importable TS module**, so they are KEPT in
+`data/colors.ts` / `data/shapes.ts` with precise provenance comments naming the
+exact upstream export that would be needed. Option A (add a canonical exported
+constants module) was rejected because it cannot be done without either:
+
+- creating a THIRD copy — the color hexes live in `app-vscode/package.json` as
+  VS Code setting defaults (read at runtime, never a TS constant) and the SVG
+  `d=` strings live in `resources/images/hats/*.svg` (read at runtime by
+  `VscodeHatRenderer.ts`), so any new TS constant is a second/third copy; or
+- a risky app-vscode refactor — `HAT_COLORS`/`HAT_SHAPES`/`HatShape` and
+  `defaultShapeAdjustments` DO exist as clean TS constants in
+  `app-vscode/src/ide/vscode/hatStyles.types.ts` and `.../hats/shapeAdjustments.ts`,
+  but app-vscode exports only `./extension.cjs`, so single-sourcing them means
+  promoting both into `@cursorless/lib-common` AND rewiring the 5 app-vscode
+  files that consume them (VscodeHatRenderer, performPr1868ShapeUpdateInit, the
+  two hatAdjustments scripts) — the shipping extension's hat path, out of scope.
+
+**Follow-up (deferred):** promote `hatStyles.types.ts` + `shapeAdjustments.ts`
+into lib-common and rewire those 5 app-vscode files; the `.svg` `d=` strings
+would still need a separate build-time loader (or a generated TS constant) to
+avoid a second copy.
+
+## Security
+
+- **CodeQL XSS (serialize-cascade.ts)** fixed: the attribute escaper now also
+  escapes `"` (and `'`), so fixture/spoken-form strings can no longer break out
+  of the double-quoted `data-fixture` / `data-spoken-form` attributes.
 
 ## Remaining blockers (NOT introduced by this work)
 
