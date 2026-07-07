@@ -14,8 +14,21 @@ import { resolveFrameOverlays, type LineOverlay } from "./overlays";
 import { HIGHLIGHT_STYLES, MS_PER_STATE } from "./data/decorations";
 import { timelineOf } from "./timeline";
 
+// HTML escaper safe for BOTH text content AND quoted-attribute contexts.
+// `&` is escaped first (so it can't double-escape the entities below), then the
+// tag delimiters, then BOTH quote characters. Escaping the quotes is what
+// closes the CodeQL "incomplete HTML attribute sanitization" finding: fixture /
+// spoken-form strings are interpolated into double-quoted attributes
+// (data-fixture="…", data-spoken-form="…", <title>…), and an unescaped `"`
+// would break out of the attribute. Over-escaping quotes in text content is
+// harmless — &quot; / &#39; render as " / '.
 function esc(s: string): string {
-  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
 function charToCol(cols: Column[], charIndex: number): number {
