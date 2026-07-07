@@ -14,6 +14,8 @@ export * from "./processTargets/modifiers/scopeHandlers/ScopeHandlerCache";
 export * from "./spokenForms/defaultSpokenFormMap";
 export * from "./testUtil/extractTargetKeys";
 export * from "./testUtil/plainObjectToTarget";
+export * from "./tokenGraphemeSplitter";
+export * from "./util/allocateHats";
 export * from "./util/getPartialTargetDescriptors";
 export * from "./util/getPrimitiveTargets";
 export * from "./util/grammarHelpers";
