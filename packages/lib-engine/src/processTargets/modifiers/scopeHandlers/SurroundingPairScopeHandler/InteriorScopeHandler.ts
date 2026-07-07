@@ -1,23 +1,15 @@
-import type {
-  Direction,
-  Position,
-  ScopeType,
-  TextEditor,
-} from "@cursorless/lib-common";
-import { NoContainingScopeError } from "@cursorless/lib-common";
+import type { Direction, Position, TextEditor } from "@cursorless/lib-common";
 import type { LanguageDefinitions } from "../../../../languages/LanguageDefinitions";
 import type { Target } from "../../../../typings/target.types";
 import { InteriorTarget } from "../../../targets";
 import { BaseScopeHandler } from "../BaseScopeHandler";
 import type { TargetScope } from "../scope.types";
-import type {
-  ComplexScopeType,
-  ScopeIteratorRequirements,
-} from "../scopeHandler.types";
+import type { ScopeIteratorRequirements } from "../scopeHandler.types";
 import type { TreeSitterScopeHandler } from "../TreeSitterScopeHandler";
 
 export class InteriorScopeHandler extends BaseScopeHandler {
   public readonly scopeType = { type: "interior" } as const;
+  public readonly iterationScopeType = { type: "document" } as const;
   protected isHierarchical = true;
 
   static maybeCreate(
@@ -37,12 +29,6 @@ export class InteriorScopeHandler extends BaseScopeHandler {
 
   private constructor(private scopeHandler: TreeSitterScopeHandler) {
     super();
-  }
-
-  get iterationScopeType(): ScopeType | ComplexScopeType {
-    throw new NoContainingScopeError(
-      "Iteration scope for InteriorScopeHandler",
-    );
   }
 
   *generateScopeCandidates(
