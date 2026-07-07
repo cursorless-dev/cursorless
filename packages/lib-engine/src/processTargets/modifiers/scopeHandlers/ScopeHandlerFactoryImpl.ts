@@ -1,5 +1,5 @@
-import { pseudoScopes, UnsupportedScopeError } from "@cursorless/lib-common";
 import type { IDE, ScopeType } from "@cursorless/lib-common";
+import { isPseudoScope, UnsupportedScopeError } from "@cursorless/lib-common";
 import type { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import {
   BoundedNonWhitespaceSequenceScopeHandler,
@@ -139,8 +139,8 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         return ConditionalScopeHandler.maybeCreate(this, scopeType, languageId);
       default:
         // Pseudoscopes are handled separately in their own modifiers.
-        if (pseudoScopes.has(scopeType.type)) {
-          throw new Error(`Unexpected scope type '${scopeType.type}'`);
+        if (isPseudoScope(scopeType)) {
+          throw new Error(`Unexpected pseudo scope type '${scopeType.type}'`);
         }
         return this.languageDefinitions
           .get(languageId)

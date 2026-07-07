@@ -211,11 +211,7 @@ export const simpleScopeTypeTypes = [
   "interior",
 ] as const;
 
-export function isSimpleScopeType(
-  scopeType: ScopeType,
-): scopeType is SimpleScopeType {
-  return (simpleScopeTypeTypes as readonly string[]).includes(scopeType.type);
-}
+const simpleScopeTypeTypesSet = new Set(simpleScopeTypeTypes);
 
 export type SimpleScopeTypeType = (typeof simpleScopeTypeTypes)[number];
 
@@ -225,6 +221,16 @@ export const pseudoScopes = new Set<SimpleScopeTypeType>([
   "className",
   "functionName",
 ]);
+
+export function isSimpleScopeType(
+  scopeType: ScopeType,
+): scopeType is SimpleScopeType {
+  return (simpleScopeTypeTypesSet as Set<string>).has(scopeType.type);
+}
+
+export function isPseudoScope(scopeType: ScopeType): boolean {
+  return isSimpleScopeType(scopeType) && pseudoScopes.has(scopeType.type);
+}
 
 export interface SimpleScopeType {
   type: SimpleScopeTypeType;

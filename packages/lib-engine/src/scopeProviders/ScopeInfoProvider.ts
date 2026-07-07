@@ -7,7 +7,7 @@ import type {
   SurroundingPairScopeType,
 } from "@cursorless/lib-common";
 import {
-  pseudoScopes,
+  isPseudoScope,
   simpleScopeTypeTypes,
   surroundingPairNames,
 } from "@cursorless/lib-common";
@@ -67,11 +67,10 @@ export class ScopeInfoProvider {
   private updateScopeTypeInfos(): void {
     const scopeTypes: ScopeType[] = [
       ...simpleScopeTypeTypes
-        // Ignore instance pseudo-scope because it's not really a scope
-        .filter((scopeTypeType) => !pseudoScopes.has(scopeTypeType))
-        .map((scopeTypeType) => ({
-          type: scopeTypeType,
-        })),
+        // Create simple scope types from simple scope type types
+        .map((scopeTypeType) => ({ type: scopeTypeType }))
+        // Ignore pseudo-scope because it's not really a scope
+        .filter((scopeType) => !isPseudoScope(scopeType)),
 
       ...surroundingPairNames.map(
         (surroundingPairName): SurroundingPairScopeType => ({

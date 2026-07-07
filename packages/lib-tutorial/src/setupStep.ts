@@ -49,8 +49,15 @@ export async function setupStep(
     throw new Error("No current tutorial found");
   }
 
-  const { initialState: snapshot, languageId = "plaintext" } =
-    currentTutorial.steps[state.stepNumber];
+  const step = currentTutorial.steps[state.stepNumber];
+
+  if (step == null) {
+    throw new Error(
+      `No tutorial step found for step number ${state.stepNumber}`,
+    );
+  }
+
+  const { initialState: snapshot, languageId = "plaintext" } = step;
 
   if (snapshot == null) {
     return { editor, highlightRanges: [] };

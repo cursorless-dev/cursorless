@@ -5,8 +5,9 @@ import type {
   ScopeProvider,
   ScopeType,
 } from "@cursorless/lib-common";
-import { createVscodeScopeVisualizer } from "./ide/vscode/VSCodeScopeVisualizer";
+import { isPseudoScope } from "@cursorless/lib-common";
 import type { VscodeScopeVisualizer } from "./ide/vscode/VSCodeScopeVisualizer";
+import { createVscodeScopeVisualizer } from "./ide/vscode/VSCodeScopeVisualizer";
 import type {
   ScopeVisualizer,
   ScopeVisualizerListener,
@@ -24,6 +25,12 @@ export function createScopeVisualizer(
 
   return {
     start(scopeType: ScopeType, visualizationType: VisualizationType) {
+      if (isPseudoScope(scopeType)) {
+        throw new Error(
+          `Can't visualize pseudo scopes like '${scopeType.type}'`,
+        );
+      }
+
       scopeVisualizer?.dispose();
       scopeVisualizer = createVscodeScopeVisualizer(
         ide,
