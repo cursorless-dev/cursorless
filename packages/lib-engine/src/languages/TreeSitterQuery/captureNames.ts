@@ -1,7 +1,10 @@
-import { pseudoScopeTypes, simpleScopeTypeTypes } from "@cursorless/lib-common";
+import {
+  pseudoScopeTypeTypes,
+  simpleScopeTypeTypes,
+} from "@cursorless/lib-common";
 
 const scopeCaptureNames = simpleScopeTypeTypes.filter(
-  (s) => !pseudoScopeTypes.has(s),
+  (s) => !pseudoScopeTypeTypes.has(s),
 );
 
 export type ScopeCaptureName = (typeof scopeCaptureNames)[number];

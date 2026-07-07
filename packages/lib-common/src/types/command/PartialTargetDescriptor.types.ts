@@ -215,7 +215,7 @@ const simpleScopeTypeTypesSet = new Set(simpleScopeTypeTypes);
 
 export type SimpleScopeTypeType = (typeof simpleScopeTypeTypes)[number];
 
-export const pseudoScopeTypes = new Set<SimpleScopeTypeType>([
+export const pseudoScopeTypeTypes = new Set<SimpleScopeTypeType>([
   "instance",
   "className",
   "functionName",
@@ -228,7 +228,9 @@ export function isSimpleScopeType(
 }
 
 export function isPseudoScope(scopeType: ScopeType): boolean {
-  return isSimpleScopeType(scopeType) && pseudoScopeTypes.has(scopeType.type);
+  return (
+    isSimpleScopeType(scopeType) && pseudoScopeTypeTypes.has(scopeType.type)
+  );
 }
 
 export interface SimpleScopeType {
