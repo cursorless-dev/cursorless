@@ -1,7 +1,17 @@
 /**
- * Vendored from cursorless packages/cursorless-engine/src/util/allocateHats/getTokenComparator.ts
- * at SHA 42452eba521bb9cccbb3e04a2cd9e9afcf6cbffe.
- * Edits are IMPORT REWRITES ONLY (applied by scripts/vendor.sh):
+ * Vendored from cursorless getTokenComparator.ts (byte-identical to both the
+ * pin at SHA 42452eba521bb9cccbb3e04a2cd9e9afcf6cbffe and current upstream).
+ *
+ * Kept local rather than imported from @cursorless/lib-engine because the
+ * engine version types `TokenWithDisplayLine extends Token` against
+ * lib-common's FULL `Token` (editor.document, method-bearing Range, ...). The
+ * standalone allocator builds its comparator input from the SIMPLIFIED Token
+ * in ../common/types, which is not assignable to lib-common's Token, so the
+ * imported signature would not typecheck against rank.ts's call site. The
+ * regex and the pure-generic maxByFirstDiffering ARE imported from source;
+ * this one stays local for that type-compatibility reason only.
+ *
+ * Edits are IMPORT REWRITES ONLY:
  *   - "@cursorless/common" -> "../common" barrel
  */
 

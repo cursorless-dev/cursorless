@@ -18,12 +18,12 @@
 // whitespace tokens partitions the line with no gaps or overlaps, the roundtrip
 // stays byte-exact. The roundtrip test (src/verify-roundtrip-doc.ts) proves it.
 
+import { GRAPHEME_SPLIT_REGEX } from "@cursorless/lib-engine";
 import type { Line, Token } from "./columns";
 
-// Cursorless grapheme splitter (tokenGraphemeSplitter.ts:73): a base letter +
-// its combining marks is ONE grapheme; each number / punctuation / symbol is
-// its own grapheme. Mirrors GRAPHEME_SPLIT_REGEX in columns.ts.
-const GRAPHEME_RE = /\p{L}\p{M}*|[\p{N}\p{P}\p{S}]/gu;
+// Cursorless grapheme splitter: a base letter + its combining marks is ONE
+// grapheme; each number / punctuation / symbol is its own grapheme. The regex
+// is imported from @cursorless/lib-engine (GRAPHEME_SPLIT_REGEX) — no clone.
 
 /**
  * Tokenize one line's text into per-grapheme tokens (plus whitespace tokens).
@@ -36,7 +36,9 @@ const GRAPHEME_RE = /\p{L}\p{M}*|[\p{N}\p{P}\p{S}]/gu;
  */
 export function tokenizeLine(text: string): Token[] {
   const tokens: Token[] = [];
-  const re = new RegExp(GRAPHEME_RE);
+  // Fresh RegExp per call: GRAPHEME_SPLIT_REGEX is a shared /gu instance whose
+  // lastIndex must not leak across tokenizeLine calls.
+  const re = new RegExp(GRAPHEME_SPLIT_REGEX);
   let m: RegExpExecArray | null;
   let last = 0;
 

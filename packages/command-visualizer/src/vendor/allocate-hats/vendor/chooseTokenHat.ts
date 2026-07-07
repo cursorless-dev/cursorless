@@ -1,9 +1,23 @@
 /**
- * Vendored from cursorless packages/cursorless-engine/src/util/allocateHats/chooseTokenHat.ts
- * at SHA 42452eba521bb9cccbb3e04a2cd9e9afcf6cbffe.
- * Edits are IMPORT REWRITES ONLY (applied by scripts/vendor.sh):
+ * Vendored from cursorless chooseTokenHat.ts, PINNED at SHA
+ * 42452eba521bb9cccbb3e04a2cd9e9afcf6cbffe.
+ *
+ * NOT importable from @cursorless/lib-engine: current upstream chooseTokenHat
+ * has DIVERGED from this pin (two feature commits — #2602 "Make hat forcing
+ * more aggressive" added a `forcedTokenHat` parameter, #1723 "avoid allocating
+ * hats to the first letter of a token" added an `avoidFirstLetter` metric that
+ * needs `HatCandidate.isFirstLetter`, computed from a WordTokenizer(ide,
+ * languageId) this offline renderer cannot construct). Adopting the current
+ * version would change which grapheme gets hatted and break the renderer's
+ * byte-for-byte fidelity to the recorded prose-overlay bundle. This copy stays
+ * pinned on purpose.
+ *
+ * maxByFirstDiffering IS imported from @cursorless/lib-engine (it is
+ * byte-identical to the pin and generic, so no clone is needed).
+ * Remaining edits are IMPORT REWRITES ONLY:
  *   - "@cursorless/common" -> "../common" barrel
  *   - HatCandidate: "./allocateHats" -> "../common/types"
+ *   - maxByFirstDiffering: "./maxByFirstDiffering" -> "@cursorless/lib-engine"
  */
 
 import { HatStability, TokenHat } from "../common";
@@ -16,7 +30,7 @@ import {
   negativePenalty,
   penaltyEquivalenceClass,
 } from "./HatMetrics";
-import { maxByFirstDiffering } from "./maxByFirstDiffering";
+import { maxByFirstDiffering } from "@cursorless/lib-engine";
 
 /**
  * Selects a hat for a given token from amongst {@link candidates}, trading off

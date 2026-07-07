@@ -1,7 +1,20 @@
 /**
- * Vendored from cursorless packages/cursorless-engine/src/util/allocateHats/HatMetrics.ts
- * at SHA 42452eba521bb9cccbb3e04a2cd9e9afcf6cbffe.
- * Edits are IMPORT REWRITES ONLY (applied by scripts/vendor.sh):
+ * Vendored from cursorless HatMetrics.ts, PINNED at SHA
+ * 42452eba521bb9cccbb3e04a2cd9e9afcf6cbffe.
+ *
+ * NOT importable from @cursorless/lib-engine: current upstream HatMetrics adds
+ * `avoidFirstLetter` (introduced with #1723) which reads
+ * `HatCandidate.isFirstLetter` — a field the pinned HatCandidate here does not
+ * carry and which requires a WordTokenizer(ide, languageId) the offline
+ * renderer cannot construct. chooseTokenHat (also pinned) does not call
+ * avoidFirstLetter, so this pinned metric set is the correct, self-consistent
+ * one. Adopting the current version would change hat placement.
+ *
+ * lodash memoize/min are inlined below (not imported) to keep the bundle free
+ * of lodash, whose CommonJS module blows QuickJS's call stack in the
+ * downstream standalone build.
+ *
+ * Edits are IMPORT REWRITES ONLY:
  *   - "@cursorless/common" -> "../common" barrel
  *   - HatCandidate: "./allocateHats" -> "../common/types"
  */

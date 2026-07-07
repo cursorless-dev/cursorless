@@ -21,6 +21,7 @@
   "license": "MIT",
   "dependencies": {
     "@cursorless/lib-common": "workspace:*",
+    "@cursorless/lib-engine": "workspace:*",
     "@cursorless/lib-node-common": "workspace:*",
     "js-yaml": "^5.2.1"
   },

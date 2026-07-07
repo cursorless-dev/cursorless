@@ -6,13 +6,13 @@
 // - Tab → next tabSize stop (SPEC §2.2).
 // - East-Asian Wide/Fullwidth glyph = 2 columns (SPEC §2.3).
 
+import { GRAPHEME_SPLIT_REGEX } from "@cursorless/lib-engine";
 import type { HatColor } from "./data/colors";
 import type { HatShape } from "./data/shapes";
 
-// Cursorless's grapheme splitter regex
-// (tokenGraphemeSplitter.ts:73). A base letter + its combining marks is ONE
-// grapheme; numbers/punct/symbols are each their own grapheme.
-export const GRAPHEME_SPLIT_REGEX = /\p{L}\p{M}*|[\p{N}\p{P}\p{S}]/gu;
+// Cursorless's grapheme splitter regex, imported from @cursorless/lib-engine
+// (no clone): a base letter + its combining marks is ONE grapheme;
+// numbers/punct/symbols are each their own grapheme.
 
 export interface InputHat {
   color: HatColor;

@@ -1,12 +1,17 @@
 /**
- * Standalone grapheme splitter — lifted from proseStandalone.ts in the
- * cursorless fork (SHA 42452eba521bb9cccbb3e04a2cd9e9afcf6cbffe), which in
- * turn mirrors the canonical splitter at
- * packages/cursorless-engine/src/tokenGraphemeSplitter/tokenGraphemeSplitter.ts:74
- * with a STATIC config (no ide().configuration): no lettersToPreserve /
- * symbolsToPreserve user overrides.
+ * Standalone grapheme splitter — mirrors the canonical
+ * @cursorless/lib-engine TokenGraphemeSplitter, but with a STATIC config: no
+ * ide().configuration, so no lettersToPreserve / symbolsToPreserve user
+ * overrides. The engine's class requires an IDE in its constructor (for the
+ * live tokenHatSplittingMode setting), which this offline renderer has no way
+ * to supply — hence this minimal reimplementation of getTokenGraphemes /
+ * normalizeGrapheme rather than importing the class.
+ *
+ * The split regex itself is NOT cloned: GRAPHEME_SPLIT_REGEX is imported from
+ * @cursorless/lib-engine (source of truth).
  */
 
+import { GRAPHEME_SPLIT_REGEX } from "@cursorless/lib-engine";
 import type { Grapheme, GraphemeSplitter } from "./common/types";
 
 /**
@@ -66,13 +71,11 @@ const KNOWN_GRAPHEME_MATCHER = new RegExp(
   "u",
 );
 
-// Letters + combining marks OR any single Unicode Number / Punctuation / Symbol.
-const GRAPHEME_SPLIT_SOURCE = String.raw`\p{L}\p{M}*|[\p{N}\p{P}\p{S}]`;
-const GRAPHEME_SPLIT_FLAGS = "gu";
-
 export class StandaloneGraphemeSplitter implements GraphemeSplitter {
   getTokenGraphemes(tokenText: string): Grapheme[] {
-    const re = new RegExp(GRAPHEME_SPLIT_SOURCE, GRAPHEME_SPLIT_FLAGS);
+    // Fresh RegExp per call: GRAPHEME_SPLIT_REGEX is a shared /gu instance whose
+    // lastIndex would leak across calls if reused directly.
+    const re = new RegExp(GRAPHEME_SPLIT_REGEX);
     const results: Grapheme[] = [];
     let match: RegExpExecArray | null;
     while ((match = re.exec(tokenText)) != null) {

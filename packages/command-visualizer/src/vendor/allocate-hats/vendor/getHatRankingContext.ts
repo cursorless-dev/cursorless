@@ -1,7 +1,15 @@
 /**
- * Vendored from cursorless packages/cursorless-engine/src/util/allocateHats/getHatRankingContext.ts
- * at SHA 42452eba521bb9cccbb3e04a2cd9e9afcf6cbffe.
- * Edits are IMPORT REWRITES ONLY (applied by scripts/vendor.sh):
+ * Vendored from cursorless getHatRankingContext.ts, PINNED at SHA
+ * 42452eba521bb9cccbb3e04a2cd9e9afcf6cbffe.
+ *
+ * NOT importable from @cursorless/lib-engine: the current version types its
+ * third argument as the concrete `TokenGraphemeSplitter` (IDE-backed) and its
+ * tokens as the engine's full `RankedToken`/`Token`. This copy instead accepts
+ * the structural `GraphemeSplitter` interface and the simplified Token from
+ * ../common/types, which is what the offline standalone allocator constructs.
+ * Its body is otherwise identical to the pin.
+ *
+ * Edits are IMPORT REWRITES ONLY:
  *   - "@cursorless/common" -> "../common" barrel
  *   - TokenGraphemeSplitter (concrete class) -> GraphemeSplitter (structural
  *     interface in ../common/types with the same getTokenGraphemes surface)
