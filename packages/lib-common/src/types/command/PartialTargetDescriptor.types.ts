@@ -227,7 +227,7 @@ export function isSimpleScopeType(
   return (simpleScopeTypeTypesSet as Set<string>).has(scopeType.type);
 }
 
-export function isPseudoScope(scopeType: ScopeType): boolean {
+export function isPseudoScopeType(scopeType: ScopeType): boolean {
   return (
     isSimpleScopeType(scopeType) && pseudoScopeTypeTypes.has(scopeType.type)
   );
