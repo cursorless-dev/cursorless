@@ -75,7 +75,7 @@ export class GenerateSnippet {
 
     // NB: We don't await the pending edit decoration so that if the user
     // immediately starts saying the name of the snippet (eg command chain
-    // "snippet make funk camel my function"), we're more likely to
+    // "snip make funk camel my function"), we're more likely to
     // win the race and have the input box ready for them
     void flashTargets(this.ide, targets, FlashStyle.referenced);
 
