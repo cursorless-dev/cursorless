@@ -28,14 +28,16 @@ export function pos(v: YamlValue | undefined): Pos {
   return { line: num(o.line), character: num(o.character) };
 }
 
-// Dedup note (step 4c): @cursorless/lib-common exports
-// serializedMarksToTokenHats, but it requires a live TextEditor (document
-// offsetAt/getText) and returns TokenHat[] — a shape built for the engine, not
-// for SVG rendering. Our parseMarks reads plain fixture-YAML objects with no
-// editor and yields the MarkInfo render model buildLines() needs. buildLines()
-// itself (tokenize → attach fixture hats → real allocator fill → author
-// overrides) is genuinely ours. Adopting the engine helper would mean faking a
-// TextEditor and rewriting buildLines — scope balloon for no gain. Kept.
+// Dedup note (re-verified against current signatures): @cursorless/lib-common
+// exports serializedMarksToTokenHats(marks, editor), but its signature
+// hard-requires a live TextEditor — it calls editor.document.offsetAt(range)
+// and editor.document.getText(range) — and returns engine TokenHat[]
+// (token.editor/offsets/hatRange). Our parseMarks reads plain fixture-YAML
+// `{color}.{grapheme}` objects with NO editor and yields the MarkInfo render
+// model buildLines() needs. buildLines() itself (tokenize → attach fixture hats
+// → real allocator fill → author overrides) is genuinely ours. Adopting the
+// engine helper would mean synthesizing a fake TextEditor and rewriting
+// buildLines — scope balloon for no gain. Kept.
 
 // Step 4: a `{color}.{grapheme}` mark with its line range.
 export interface MarkInfo {

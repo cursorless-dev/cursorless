@@ -11,12 +11,16 @@
 // Throws a CLEAR error if the resolved root does not exist, so a misconfigured
 // checkout fails loudly at startup instead of with an opaque ENOENT mid-run.
 //
-// Dedup note (step 4b): @cursorless/lib-node-common exports getFixturesPath /
-// getRecordedTestsDirPath, but they hardcode the single `resources/fixtures`
-// layout and offer no $CURSORLESS_REPO override. This module deliberately keeps
-// its dual-layout probe (resources/… fork vs data/… main repo) plus the env
-// override and loud errors, so it works across both checkout shapes the
-// renderer targets. Adopting lib-node-common's helpers would be a regression.
+// Dedup note (re-verified against current signatures): @cursorless/lib-node-common
+// exports getFixturesPath()/getRecordedTestsDirPath(), but getFixturesPath()
+// hardcodes `path.join(getCursorlessRepoRoot(), "resources", "fixtures")` — the
+// single layout-A shape — and getCursorlessRepoRoot() *throws* unless
+// CURSORLESS_REPO_ROOT is set (a script-only helper). This module deliberately
+// keeps its dual-layout probe (resources/… fork vs data/… main repo), its
+// $CURSORLESS_REPO override with a working $HOME/code/cursorless default, and
+// loud errors, so it resolves across both checkout shapes the renderer targets.
+// Adopting lib-node-common's helpers would be a regression (layout B unreachable,
+// no default root). Kept.
 
 import { existsSync } from "node:fs";
 import { homedir } from "node:os";
