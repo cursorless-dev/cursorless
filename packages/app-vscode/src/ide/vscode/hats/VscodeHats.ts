@@ -8,11 +8,11 @@ import type {
   Listener,
   Range,
   TextEditor,
+  VscodeHatStyleName,
 } from "@cursorless/lib-common";
 import { Notifier } from "@cursorless/lib-common";
 import type { VscodeApi } from "@cursorless/lib-vscode-common";
 import { toVscodeRange } from "@cursorless/lib-vscode-common";
-import type { VscodeHatStyleName } from "../hatStyles.types";
 import { VscodeEnabledHatStyleManager } from "../VscodeEnabledHatStyleManager";
 import type { VscodeIDE } from "../VscodeIDE";
 import type { VscodeTextEditor } from "../VscodeTextEditor";

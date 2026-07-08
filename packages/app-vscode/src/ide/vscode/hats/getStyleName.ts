@@ -2,7 +2,7 @@ import type {
   HatColor,
   HatShape,
   VscodeHatStyleName,
-} from "../hatStyles.types";
+} from "@cursorless/lib-common";
 
 export function getStyleName(
   color: HatColor,

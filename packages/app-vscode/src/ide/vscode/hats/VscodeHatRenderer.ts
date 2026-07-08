@@ -3,15 +3,23 @@ import path from "node:path";
 import { isEqual } from "lodash-es";
 import vscode from "vscode";
 import type {
+  HatShape,
+  IndividualHatAdjustmentMap,
   Listener,
   Messages,
   PathChangeListener,
+  VscodeHatStyleName,
 } from "@cursorless/lib-common";
-import { getErrorMessage, Notifier } from "@cursorless/lib-common";
+import {
+  DEFAULT_HAT_HEIGHT_EM,
+  DEFAULT_VERTICAL_OFFSET_EM,
+  defaultShapeAdjustments,
+  getErrorMessage,
+  HAT_SHAPES,
+  Notifier,
+} from "@cursorless/lib-common";
 import { walkFiles } from "@cursorless/lib-node-common";
 import type { VscodeApi } from "@cursorless/lib-vscode-common";
-import type { HatShape, VscodeHatStyleName } from "../hatStyles.types";
-import { HAT_SHAPES } from "../hatStyles.types";
 import { vscodeGetConfigurationString } from "../VscodeConfiguration";
 import type {
   ExtendedHatStyleMap,
@@ -20,12 +28,6 @@ import type {
 import type { FontMeasurements } from "./FontMeasurements";
 import { getHatThemeColors } from "./getHatThemeColors";
 import { performPr1868ShapeUpdateInit } from "./performPr1868ShapeUpdateInit";
-import type { IndividualHatAdjustmentMap } from "./shapeAdjustments";
-import {
-  DEFAULT_HAT_HEIGHT_EM,
-  DEFAULT_VERTICAL_OFFSET_EM,
-  defaultShapeAdjustments,
-} from "./shapeAdjustments";
 
 const CURSORLESS_HAT_SHAPES_SUFFIX = ".svg";
 

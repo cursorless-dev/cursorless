@@ -1,6 +1,8 @@
 import vscode from "vscode";
 import type {
   ActionDescriptor,
+  HatColor,
+  HatShape,
   Modifier,
   PartialMark,
   PartialPrimitiveTargetDescriptor,
@@ -10,7 +12,6 @@ import type {
 import { LATEST_VERSION } from "@cursorless/lib-common";
 import { runCursorlessCommand } from "@cursorless/lib-vscode-common";
 import { getStyleName } from "../ide/vscode/hats/getStyleName";
-import type { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import type { SimpleKeyboardActionDescriptor } from "./KeyboardActionType";
 import type { KeyboardCommandsModal } from "./KeyboardCommandsModal";
 import type { KeyboardHandler } from "./KeyboardHandler";

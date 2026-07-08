@@ -5,9 +5,8 @@ import { sum } from "lodash-es";
 import type {
   HatAdjustments,
   IndividualHatAdjustmentMap,
-} from "../../ide/vscode/hats/shapeAdjustments";
-import { defaultShapeAdjustments } from "../../ide/vscode/hats/shapeAdjustments";
-import { HAT_SHAPES } from "../../ide/vscode/hatStyles.types";
+} from "@cursorless/lib-common";
+import { defaultShapeAdjustments, HAT_SHAPES } from "@cursorless/lib-common";
 import { postProcessValue } from "./lib";
 
 /**

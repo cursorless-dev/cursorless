@@ -1,9 +1,11 @@
 import vscode from "vscode";
-import type { Messages } from "@cursorless/lib-common";
+import type {
+  IndividualHatAdjustmentMap,
+  Messages,
+} from "@cursorless/lib-common";
 import { showInfo } from "@cursorless/lib-common";
 import type { VscodeApi } from "@cursorless/lib-vscode-common";
 import type { ExtendedHatStyleMap } from "../VscodeEnabledHatStyleManager";
-import type { IndividualHatAdjustmentMap } from "./shapeAdjustments";
 
 /**
  * We set this key in global state the first time they user gets the new shapes from #1868. We use this to

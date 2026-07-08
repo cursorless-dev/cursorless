@@ -1,13 +1,18 @@
 import { pickBy } from "lodash-es";
 import vscode from "vscode";
 import type {
+  HatColor,
+  HatShape,
   HatStyleInfo,
   HatStyleMap,
   Listener,
+  VscodeHatStyleName,
 } from "@cursorless/lib-common";
-import { Notifier } from "@cursorless/lib-common";
-import type { HatColor, HatShape, VscodeHatStyleName } from "./hatStyles.types";
-import { HAT_COLORS, HAT_NON_DEFAULT_SHAPES } from "./hatStyles.types";
+import {
+  HAT_COLORS,
+  HAT_NON_DEFAULT_SHAPES,
+  Notifier,
+} from "@cursorless/lib-common";
 
 export interface ExtendedHatStyleInfo extends HatStyleInfo {
   color: HatColor;
