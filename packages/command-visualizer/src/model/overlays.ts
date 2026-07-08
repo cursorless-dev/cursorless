@@ -5,7 +5,7 @@
 
 import { type Column, expandColumns } from "./columns";
 import type { Decoration, Frame, OverlayRole } from "./frame-state";
-import type { DecorationStyle } from "../data/decorations";
+import type { OverlayStyleName } from "../data/decorations";
 import { overlayPrecedence } from "../data/decorations";
 import type { Range } from "./geometry";
 
@@ -28,16 +28,16 @@ function roleRank(role: OverlayRole | "selection"): number {
 
 export interface CellOverlay {
   /** the single winning background style for this cell (or null) */
-  winner: DecorationStyle | "selection" | null;
+  winner: OverlayStyleName | "selection" | null;
   /** all overlays present (for data-flash-stack test visibility) */
-  stack: (DecorationStyle | "selection")[];
+  stack: (OverlayStyleName | "selection")[];
 }
 
 export interface LineOverlay {
   /** per visual column -> overlay (indexed by Column.col start) */
   byCol: Map<number, CellOverlay>;
   /** full-width line-range band style, if this line is in any line decoration */
-  lineFlash: DecorationStyle | null;
+  lineFlash: OverlayStyleName | null;
 }
 
 /** Columns covered by a half-open character range on a given line. */
@@ -77,7 +77,7 @@ function resolveLine(
 
   const add = (
     col: number,
-    style: DecorationStyle | "selection",
+    style: OverlayStyleName | "selection",
     role: OverlayRole | "selection",
   ) => {
     let cell = byCol.get(col);
@@ -112,7 +112,7 @@ function resolveLine(
   }
 
   // character-range decorations (highlight prec 1, flash prec 2)
-  let lineFlash: DecorationStyle | null = null;
+  let lineFlash: OverlayStyleName | null = null;
   for (const dec of decorations) {
     if (dec.range.type === "line") {
       if (lineIdx >= dec.range.startLine && lineIdx <= dec.range.endLine) {

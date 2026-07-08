@@ -5,7 +5,7 @@
 import type { Theme } from "../data/colors";
 import type { Line } from "./columns";
 import type { Pos, Range } from "./geometry";
-import type { DecorationStyle } from "../data/decorations";
+import type { OverlayStyleName } from "../data/decorations";
 
 export type FrameRole = "before" | "during" | "after";
 
@@ -31,7 +31,7 @@ export type LineRange = {
 export type GeneralizedRange = CharacterRange | LineRange;
 
 export interface Decoration {
-  style: DecorationStyle;
+  style: OverlayStyleName;
   range: GeneralizedRange;
   role: OverlayRole;
 }

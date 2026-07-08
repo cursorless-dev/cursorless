@@ -3,13 +3,13 @@
 // the two document snapshots, returns the flashes to synthesize. No I/O, no
 // mutation of caller state. logic/ → logic/ import only.
 
-import type { DecorationStyle } from "../data/decorations";
+import type { OverlayStyleName } from "../data/decorations";
 import type { Decoration, GeneralizedRange } from "../model/frame-state";
 import type { Pos } from "../model/geometry";
 
 export interface DerivedFlashes {
   /** pendingDelete flashes to append to the DURING flash list (pre-edit). */
-  duringFlashes: { style: DecorationStyle; range: GeneralizedRange }[];
+  duringFlashes: { style: OverlayStyleName; range: GeneralizedRange }[];
   /** justAdded flash decorations to push onto the AFTER frame (post-edit). */
   afterDecorations: Decoration[];
 }
@@ -33,7 +33,7 @@ export function deriveFlashes(args: {
   hasAfterFrame: boolean;
 }): DerivedFlashes {
   const { recordedFlashCount, initDoc, finDoc, hasAfterFrame } = args;
-  const duringFlashes: { style: DecorationStyle; range: GeneralizedRange }[] =
+  const duringFlashes: { style: OverlayStyleName; range: GeneralizedRange }[] =
     [];
   const afterDecorations: Decoration[] = [];
 
@@ -69,7 +69,7 @@ export function deriveFlashes(args: {
     const insEnd = finDoc.length - sfx;
     if (remEnd > p) {
       duringFlashes.push({
-        style: "pendingDelete" as DecorationStyle,
+        style: "pendingDelete" as OverlayStyleName,
         range: {
           type: "character",
           start: toPos(initDoc, p),
@@ -79,7 +79,7 @@ export function deriveFlashes(args: {
     }
     if (insEnd > p) {
       afterDecorations.push({
-        style: "justAdded" as DecorationStyle,
+        style: "justAdded" as OverlayStyleName,
         role: "flash",
         range: {
           type: "character",

@@ -9,7 +9,7 @@ import type {
   Frame,
   GeneralizedRange,
 } from "../model/frame-state";
-import type { DecorationStyle } from "../data/decorations";
+import type { OverlayStyleName } from "../data/decorations";
 import { asArr, asObj, toGeneralizedRange } from "./fixture-extract";
 import { deriveFlashes } from "./derive-flashes";
 import { deriveOverlays } from "./derive-overlays";
@@ -33,7 +33,7 @@ export function buildRenderObject(
   const { theme, tabSize, meta, initial, final, ide } = parsed;
   const { frames, beforeFrame, afterFrame } = tokenized;
 
-  const duringFlashes: { style: DecorationStyle; range: GeneralizedRange }[] =
+  const duringFlashes: { style: OverlayStyleName; range: GeneralizedRange }[] =
     [];
 
   // Step 6b (derived referenceFlashes) — see derive-flashes.ts. When a fixture
@@ -63,7 +63,7 @@ export function buildRenderObject(
     if (!fo) {
       continue;
     }
-    const style = String(fo.style) as DecorationStyle;
+    const style = String(fo.style) as OverlayStyleName;
     const range = toGeneralizedRange(asObj(fo.range) ?? {});
     if (!range) {
       continue;

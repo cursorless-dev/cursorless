@@ -9,7 +9,7 @@ import { FlashStyle as CursorlessFlashStyle } from "@cursorless/lib-common";
 // the enum's string VALUES into the union
 // "pendingDelete" | "referenced" | "pendingModification0" |
 // "pendingModification1" | "justAdded", so every existing string-keyed usage
-// (DECORATION_HEX keys, "pendingDelete" as DecorationStyle, styles.has(...))
+// (DECORATION_HEX keys, "pendingDelete" as OverlayStyleName, styles.has(...))
 // keeps working with zero literal churn, while the set of valid names now
 // tracks lib-common automatically. The HEX values, FLASH_PULSE_MS,
 // MS_PER_STATE, and precedence remain ours (not exported by cursorless).
@@ -17,11 +17,11 @@ export type FlashStyle = `${CursorlessFlashStyle}`;
 
 export type HighlightStyle = "highlight0" | "highlight1";
 
-export type DecorationStyle = FlashStyle | HighlightStyle;
+export type OverlayStyleName = FlashStyle | HighlightStyle;
 
 // All 7 decoration styles' background hexes (the 2 scope-pair styles use the
 // same band hex family; per-edge borders are BONUS, SPEC-v2 §3.5, not here).
-export const DECORATION_HEX: Record<DecorationStyle, string> = {
+export const DECORATION_HEX: Record<OverlayStyleName, string> = {
   pendingDelete: "#ff00008a", // REQUIRED (COMPLETION crit 3)
   justAdded: "#09ff005b", // REQUIRED (COMPLETION crit 3)
   referenced: "#00a2ff4d",
@@ -56,7 +56,7 @@ export const FLASH_PULSE_MS = 100;
 // changing MS_PER_STATE rescales the state-hold but never the 100ms flash.
 export const MS_PER_STATE = 1000;
 
-export const ALL_DECORATION_STYLES: DecorationStyle[] = [
+export const ALL_DECORATION_STYLES: OverlayStyleName[] = [
   ...FLASH_STYLES,
   ...HIGHLIGHT_STYLES,
 ];
@@ -64,7 +64,7 @@ export const ALL_DECORATION_STYLES: DecorationStyle[] = [
 // Single-winner precedence (SPEC-v2 §3.2, DECISIONS §7.1): selection < highlight
 // < flash, last wins; exactly ONE background per cell. Higher number wins.
 export function overlayPrecedence(
-  style: DecorationStyle | "selection",
+  style: OverlayStyleName | "selection",
 ): number {
   if (style === "selection") {
     return 0;

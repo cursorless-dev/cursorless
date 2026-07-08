@@ -4,7 +4,7 @@
 // append (before-frame highlights, after-frame that/source). No mutation of
 // caller state. logic/ → logic/ import only.
 
-import type { DecorationStyle } from "../data/decorations";
+import type { OverlayStyleName } from "../data/decorations";
 import type { Decoration } from "../model/frame-state";
 import {
   asArr,
@@ -41,7 +41,7 @@ export function deriveOverlays(args: {
     if (!ho) {
       continue;
     }
-    const style = String(ho.style) as DecorationStyle;
+    const style = String(ho.style) as OverlayStyleName;
     for (const r of asArr(ho.ranges)) {
       const range = toGeneralizedRange(asObj(r) ?? {});
       if (range) {
