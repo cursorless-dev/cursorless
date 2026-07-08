@@ -1,32 +1,16 @@
-export const HAT_COLORS = [
-  "default",
-  "blue",
-  "green",
-  "red",
-  "pink",
-  "yellow",
-  "userColor1",
-  "userColor2",
-  "userColor3",
-  "userColor4",
-] as const;
+// The hat color/shape vocabulary was promoted to @cursorless/lib-common so
+// non-VS-Code consumers (e.g. @cursorless/command-visualizer) can import it
+// without a clone. This file is a backward-compatible re-export shim so the
+// existing app-vscode consumers keep importing from their original path.
 
-export const HAT_NON_DEFAULT_SHAPES = [
-  "bolt",
-  "curve",
-  "fox",
-  "frame",
-  "play",
-  "wing",
-  "hole",
-  "ex",
-  "crosshairs",
-  "eye",
-] as const;
-
-export const HAT_SHAPES = ["default", ...HAT_NON_DEFAULT_SHAPES] as const;
-
-export type HatColor = (typeof HAT_COLORS)[number];
-export type HatShape = (typeof HAT_SHAPES)[number];
-export type HatNonDefaultShape = (typeof HAT_NON_DEFAULT_SHAPES)[number];
-export type VscodeHatStyleName = HatColor | `${HatColor}-${HatNonDefaultShape}`;
+export type {
+  HatColor,
+  HatShape,
+  HatNonDefaultShape,
+  VscodeHatStyleName,
+} from "@cursorless/lib-common";
+export {
+  HAT_COLORS,
+  HAT_NON_DEFAULT_SHAPES,
+  HAT_SHAPES,
+} from "@cursorless/lib-common";
