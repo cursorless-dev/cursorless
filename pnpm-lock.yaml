@@ -298,6 +298,28 @@ importers:
         specifier: ^11.0.5
         version: 11.0.5
 
+  packages/command-visualizer:
+    dependencies:
+      '@cursorless/lib-common':
+        specifier: workspace:*
+        version: link:../lib-common
+      '@cursorless/lib-engine':
+        specifier: workspace:*
+        version: link:../lib-engine
+      js-yaml:
+        specifier: ^5.2.1
+        version: 5.2.1
+    devDependencies:
+      '@types/js-yaml':
+        specifier: ^4.0.9
+        version: 4.0.9
+      '@types/mocha':
+        specifier: ^10.0.10
+        version: 10.0.10
+      '@types/node':
+        specifier: ^24.13.2
+        version: 24.13.2
+
   packages/lib-cheatsheet:
     dependencies:
       '@cursorless/lib-common':
