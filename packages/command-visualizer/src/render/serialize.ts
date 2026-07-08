@@ -76,7 +76,12 @@ function emitSpan(c: Column, lineIdx: number, selections: Range[]): string {
   );
 }
 
-function emitLine(line: Line, lineIdx: number, state: EditorState): string {
+function emitLine(
+  line: Line,
+  lineIdx: number,
+  state: EditorState,
+  lineNumbers: boolean,
+): string {
   const cols = expandColumns(line, state.tabSize);
   const selections = state.selections ?? [];
   const cursors = (state.cursors ?? []).filter((c) => c.line === lineIdx);
@@ -88,6 +93,12 @@ function emitLine(line: Line, lineIdx: number, state: EditorState): string {
     const caret = `<span class="caret" data-cursor="" data-cursor-col="${col}"></span>`;
     caretAtCol.set(col, (caretAtCol.get(col) ?? "") + caret);
   }
+
+  // Optional leading line-number cell (1-based, like a real editor). Only
+  // emitted when the gutter is on — keeps the no-gutter output byte-identical.
+  const gutter = lineNumbers
+    ? `<span class="cl-lineno" aria-hidden="true">${lineIdx + 1}</span>`
+    : "";
 
   let html = "";
   for (const c of cols) {
@@ -102,16 +113,39 @@ function emitLine(line: Line, lineIdx: number, state: EditorState): string {
     html += caretAtCol.get(endCol);
   }
 
-  return `    <div class="cl-line" data-line="${lineIdx}">${html}</div>`;
+  return `    <div class="cl-line" data-line="${lineIdx}">${gutter}${html}</div>`;
+}
+
+/** Render options for the single-editor serializer. */
+export interface EditorRenderOptions {
+  /** Emit the left line-number gutter. OFF by default. */
+  lineNumbers?: boolean;
+}
+
+/** Widest line number → digit count for the gutter width. */
+function gutterDigits(state: EditorState): number {
+  return String(Math.max(1, state.lines.length)).length;
 }
 
 /** Serialize state to the inner editor markup (defs + lines). */
-export function serializeEditor(state: EditorState): string {
+export function serializeEditor(
+  state: EditorState,
+  opts: EditorRenderOptions = {},
+): string {
+  const lineNumbers = opts.lineNumbers ?? false;
   const lines = state.lines
-    .map((line, i) => emitLine(line, i, state))
+    .map((line, i) => emitLine(line, i, state, lineNumbers))
     .join("\n");
+  // Only when ON do we add the gutter attribute + digit-width var. OFF →
+  // neither appears, so the markup is byte-identical to before.
+  const gutterAttr = lineNumbers ? ` data-line-numbers=""` : "";
+  // Leading "; " keeps the OFF path's style attribute byte-identical (no
+  // trailing separator appears unless the gutter var is actually emitted).
+  const gutterVar = lineNumbers
+    ? `; --gutter-digits:${gutterDigits(state)}`
+    : "";
   return (
-    `<div class="cl-editor" data-theme="${state.theme}" style="--tab-size:${state.tabSize}">\n` +
+    `<div class="cl-editor" data-theme="${state.theme}"${gutterAttr} style="--tab-size:${state.tabSize}${gutterVar}">\n` +
     `${symbolSheet()}\n` +
     `  <div class="cl-code">\n${lines}\n  </div>\n` +
     `</div>`
@@ -122,6 +156,7 @@ export function serializeEditor(state: EditorState): string {
 export function serializeDocument(
   state: EditorState,
   title = "cursorless state",
+  opts: EditorRenderOptions = {},
 ): string {
   return `<!doctype html>
 <html>
@@ -135,7 +170,7 @@ ${styleSheet()}
 </style>
 </head>
 <body>
-${serializeEditor(state)}
+${serializeEditor(state, opts)}
 </body>
 </html>`;
 }
