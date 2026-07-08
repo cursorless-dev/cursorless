@@ -1,6 +1,6 @@
 // @cursorless/command-visualizer — public surface.
 //
-// fixture YAML in -> animated SVG out. See STATUS.md for integration state.
+// fixture YAML in -> animated SVG out. See ../README.md for an overview.
 
 export {
   fixtureToCascade,
