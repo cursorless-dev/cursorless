@@ -37,7 +37,7 @@ export type { ParsedFixture, PipelineOptions, TokenizedStates };
 // which must not fire at module load in serverless (the API path reads
 // bundled fixtures and never touches disk).
 let fixtureRootCache: string | undefined;
-function FIXTURE_ROOT_LAZY(): string {
+function fixtureRootLazy(): string {
   return (fixtureRootCache ??= fixtureRoot());
 }
 
@@ -157,8 +157,8 @@ export function loadFixtureCascade(
   fixtureRel: string,
   opts: PipelineOptions = {},
 ): CascadeState {
-  const src = readFileSync(`${FIXTURE_ROOT_LAZY()}/${fixtureRel}`, "utf8");
+  const src = readFileSync(`${fixtureRootLazy()}/${fixtureRel}`, "utf8");
   return fixtureToCascade(src, fixtureRel, opts);
 }
 
-export { FIXTURE_ROOT_LAZY as fixtureRootPath };
+export { fixtureRootLazy as fixtureRootPath };

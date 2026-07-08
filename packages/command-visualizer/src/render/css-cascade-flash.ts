@@ -2,7 +2,11 @@
 // css-cascade.ts (the flash TIMING section) so the main module stays under the
 // 250-line limit. render/ → render/ import only; behavior unchanged.
 
-import { DECORATION_HEX, FLASH_PULSE_MS } from "../data/decorations";
+import {
+  DECORATION_HEX,
+  FLASH_PULSE_MS,
+  type OverlayStyleName,
+} from "../data/decorations";
 import type { Frame } from "../model/frame-state";
 import type { Timeline } from "../model/timeline";
 import { pct } from "./css-cascade";
@@ -75,7 +79,7 @@ export function flashFadeKeyframes(
       // exist they take the first half and deletion follows at the midpoint;
       // with deletions only, red starts with the pill and holds to the edit.
       const hasRef = REFERENCE_FLASH_STYLES.some((st) =>
-        styles.has(st as never),
+        styles.has(st as OverlayStyleName),
       );
       const mid = (lo + hi) / 2;
       const refWin: [number, number] = [lo, mid];
@@ -129,7 +133,7 @@ export function flashFadeRules(frames: readonly Frame[]): string {
     if (frame.role === "during") {
       const styles = new Set(frame.decorations.map((d) => d.style));
       for (const st of [...REFERENCE_FLASH_STYLES, "pendingDelete"]) {
-        if (!styles.has(st as never)) {
+        if (!styles.has(st as OverlayStyleName)) {
           continue;
         }
         rules.push(

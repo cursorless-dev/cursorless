@@ -135,7 +135,11 @@ export function expandColumns(line: Line, tabSize: number): Column[] {
 
     graphemes.forEach((g, gi) => {
       const charIndex = token.range.start + g.offset;
-      const isAnchor = !!hat && gi === anchorIdx;
+      // Flow-narrowing: `anchorHat` is the token's hat only on the anchor
+      // grapheme, else undefined. Deriving it once lets the compiler narrow
+      // `anchorHat?.color`/`.shape` without a non-null assertion.
+      const anchorHat = gi === anchorIdx ? hat : undefined;
+      const isAnchor = anchorHat !== undefined;
 
       if (g.text === "\t") {
         const advance = tabSize - (col % tabSize) || tabSize;
@@ -145,8 +149,8 @@ export function expandColumns(line: Line, tabSize: number): Column[] {
           width: advance,
           charIndex,
           isAnchor,
-          hatColor: isAnchor ? hat!.color : undefined,
-          hatShape: isAnchor ? hat!.shape : undefined,
+          hatColor: anchorHat?.color,
+          hatShape: anchorHat?.shape,
         });
         col += advance;
         return;
@@ -159,8 +163,8 @@ export function expandColumns(line: Line, tabSize: number): Column[] {
         width: w,
         charIndex,
         isAnchor,
-        hatColor: isAnchor ? hat!.color : undefined,
-        hatShape: isAnchor ? hat!.shape : undefined,
+        hatColor: anchorHat?.color,
+        hatShape: anchorHat?.shape,
       });
       col += w;
     });
