@@ -5,7 +5,7 @@
 import { DECORATION_HEX, ALL_DECORATION_STYLES } from "../data/decorations";
 import { FLASH_STYLES, HIGHLIGHT_STYLES } from "../data/decorations";
 import { FLASH_PULSE_MS } from "../data/decorations";
-import type { Frame } from "../model/frame-state";
+import type { Frame } from "../model/types";
 import { timelineOf, type Timeline } from "../model/timeline";
 import { flashFadeKeyframes, flashFadeRules } from "./css-cascade-flash";
 

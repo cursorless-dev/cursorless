@@ -22,7 +22,7 @@
 // The CSS half (jumbotronCss) lives in ./jumbotron-css (+ -keyframes); it is
 // re-exported below so the public surface (index.ts) is unchanged.
 
-import type { CascadeState } from "../model/frame-state";
+import type { CascadeState } from "../model/types";
 import { timelineOf } from "../model/timeline";
 import { esc } from "./html";
 import { NL, frameCommands } from "./jumbotron-shared";

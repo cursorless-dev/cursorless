@@ -1,6 +1,14 @@
-// Multi-frame state schema. A FRAME is exactly one `.cl-editor` surface
-// (EditorState minus the doc-level theme/tab). A cascade wraps an ordered list
-// of frames and adds the decoration OVERLAY layer.
+// Package-defined render-model types (the multi-frame cascade schema). A FRAME
+// is one `.cl-editor` surface; a cascade wraps an ordered list of frames plus a
+// decoration overlay layer.
+//
+// MAINTAINERS: these container types are specific to this renderer and have no
+// current home in cursorless (audited — see UPSTREAM_REUSE.md). Their FIELD
+// types already come from `@cursorless/lib-common` (`Position`, `Range`,
+// `GeneralizedRange`). `Decoration` overlaps lib-common's `FlashDescriptor` in
+// shape but that is editor-coupled + flash-only. Decide whether any of these
+// warrant promotion into a shared package; they are isolated here to make that
+// call easy.
 
 import type { Theme } from "../data/colors";
 import type { Line } from "./columns";

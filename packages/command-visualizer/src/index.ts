@@ -33,4 +33,4 @@ export {
   DURING_MS,
   BUMPER_MS,
 } from "./model/timeline";
-export type { CascadeState, Frame } from "./model/frame-state";
+export type { CascadeState, Frame } from "./model/types";

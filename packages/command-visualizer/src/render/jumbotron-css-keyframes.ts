@@ -2,7 +2,7 @@
 // of jumbotronCss. Extracted verbatim from jumbotron.ts so every jumbotron CSS
 // module stays under the 250-line limit. render/ → render/ import only.
 
-import type { CascadeState } from "../model/frame-state";
+import type { CascadeState } from "../model/types";
 import { frameDurMs, timelineOf } from "../model/timeline";
 import {
   NL,

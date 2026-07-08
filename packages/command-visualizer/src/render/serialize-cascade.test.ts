@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import type { Line } from "../model/columns";
-import type { CascadeState, Frame } from "../model/frame-state";
+import type { CascadeState, Frame } from "../model/types";
 import { serializeCascade } from "./serialize-cascade";
 
 /** A plain text line as a single hatless token (no logic/ dependency). */

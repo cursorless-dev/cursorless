@@ -13,7 +13,7 @@
 import { readFileSync } from "node:fs";
 import { parseFixtureYaml } from "./fixture-yaml";
 import type { Theme } from "../data/colors";
-import type { CascadeState, Frame } from "../model/frame-state";
+import type { CascadeState, Frame } from "../model/types";
 import {
   asArr,
   asObj,

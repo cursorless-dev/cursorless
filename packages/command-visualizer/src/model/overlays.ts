@@ -4,7 +4,7 @@
 // line-range bands.
 
 import { type Column, expandColumns } from "./columns";
-import type { Decoration, Frame, OverlayRole } from "./frame-state";
+import type { Decoration, Frame, OverlayRole } from "./types";
 import type { OverlayStyleName } from "../data/decorations";
 import { overlayPrecedence } from "../data/decorations";
 import { type Range, isLineRange } from "@cursorless/lib-common";

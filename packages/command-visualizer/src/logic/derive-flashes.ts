@@ -4,7 +4,7 @@
 // mutation of caller state. logic/ → logic/ import only.
 
 import type { OverlayStyleName } from "../data/decorations";
-import type { Decoration } from "../model/frame-state";
+import type { Decoration } from "../model/types";
 import { Position, type GeneralizedRange } from "@cursorless/lib-common";
 
 export interface DerivedFlashes {

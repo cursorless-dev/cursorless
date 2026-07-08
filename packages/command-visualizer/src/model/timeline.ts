@@ -20,7 +20,7 @@
 // whether it has zero or multiple flash states — the during phase is
 // structural, with the reference sub-window always reserved.
 
-import type { Frame } from "./frame-state";
+import type { Frame } from "./types";
 
 export const INITIAL_MS = 2000;
 export const DURING_MS = 1000;

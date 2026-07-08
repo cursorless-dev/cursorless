@@ -6,7 +6,7 @@
 // ./jumbotron-css-keyframes; this module assembles base + themed + those
 // keyframes + the carousel track. render/ → render/ import only.
 
-import type { CascadeState } from "../model/frame-state";
+import type { CascadeState } from "../model/types";
 import { MS_PER_STATE } from "../data/decorations";
 import { timelineOf } from "../model/timeline";
 import {

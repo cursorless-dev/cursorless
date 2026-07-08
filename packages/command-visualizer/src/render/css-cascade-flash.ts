@@ -7,7 +7,7 @@ import {
   FLASH_PULSE_MS,
   type OverlayStyleName,
 } from "../data/decorations";
-import type { Frame } from "../model/frame-state";
+import type { Frame } from "../model/types";
 import type { Timeline } from "../model/timeline";
 import { pct } from "./css-cascade";
 

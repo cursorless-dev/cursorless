@@ -5,7 +5,7 @@
 
 import type { HatColor, HatShape } from "@cursorless/lib-common";
 import type { Theme } from "../data/colors";
-import type { Frame } from "../model/frame-state";
+import type { Frame } from "../model/types";
 import type { Obj } from "./fixture-extract";
 
 export interface PipelineOptions {

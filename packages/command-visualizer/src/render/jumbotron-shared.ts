@@ -3,7 +3,7 @@
 // dependency-free leaf module so the markup and CSS modules never import each
 // other (avoids a cycle) and never duplicate these. render/ → render/ only.
 
-import type { CascadeState } from "../model/frame-state";
+import type { CascadeState } from "../model/types";
 import type { Timeline } from "../model/timeline";
 
 export const NL = String.fromCharCode(10);

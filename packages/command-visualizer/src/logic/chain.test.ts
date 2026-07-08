@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { chainCascades, ChainContinuityError } from "./chain";
-import type { CascadeState, Frame } from "../model/frame-state";
+import type { CascadeState, Frame } from "../model/types";
 
 function beforeFrame(): Frame {
   return {

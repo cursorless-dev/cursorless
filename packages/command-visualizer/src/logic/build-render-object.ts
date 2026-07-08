@@ -4,7 +4,7 @@
 // Behavior identical to the inline stage that lived in fixtureToCascade.
 // logic/ → logic/ import only.
 
-import type { CascadeState, Frame } from "../model/frame-state";
+import type { CascadeState, Frame } from "../model/types";
 import type { GeneralizedRange } from "@cursorless/lib-common";
 import type { OverlayStyleName } from "../data/decorations";
 import { asArr, asObj, toGeneralizedRange } from "./fixture-extract";

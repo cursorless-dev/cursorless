@@ -9,7 +9,7 @@ import { cascadeStyleSheet, cascadeThemeBridge } from "./css-cascade";
 import { jumbotronCss, serializeJumbotron } from "./jumbotron";
 import type { CellOverlay } from "../model/overlays";
 import { symbolSheet } from "./symbols";
-import type { CascadeState, Frame } from "../model/frame-state";
+import type { CascadeState, Frame } from "../model/types";
 import { resolveFrameOverlays, type LineOverlay } from "../model/overlays";
 import { HIGHLIGHT_STYLES, MS_PER_STATE } from "../data/decorations";
 import { timelineOf } from "../model/timeline";

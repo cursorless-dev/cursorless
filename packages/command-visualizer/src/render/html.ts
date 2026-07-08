@@ -4,7 +4,7 @@
 // of sync — three of the four copies had differing quote-escaping before this
 // was consolidated).
 
-import type { CascadeState } from "../model/frame-state";
+import type { CascadeState } from "../model/types";
 
 /**
  * HTML escaper safe for BOTH text content AND quoted-attribute contexts.

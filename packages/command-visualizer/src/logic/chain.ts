@@ -16,7 +16,7 @@
 //     the merged frame's slot END,
 //   - carries step i's produced clipboard when step {i+1} has none.
 
-import type { CascadeState, Frame } from "../model/frame-state";
+import type { CascadeState, Frame } from "../model/types";
 
 /**
  * Pre-gif / post-gif bumpers: a 500ms PRE frame (initial state, before step 0
