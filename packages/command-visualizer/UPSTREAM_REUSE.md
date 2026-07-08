@@ -5,6 +5,27 @@
 > today** and what would need a **small upstream refactor + export** first.
 > Goal: as a first-party package, reimplement as little as possible.
 
+## Hat vocabulary: consolidated (and a remaining upstream cleanup)
+
+The hat color/shape vocabulary (`HAT_COLORS`/`HAT_SHAPES`/`HatColor`/`HatShape`/…)
+existed in FIVE places on upstream/main, but none was importable by another
+package:
+- `app-vscode/.../hatStyles.types.ts` — full exported set, but app-vscode ships
+  only `extension.cjs`, so unreachable from other packages.
+- private copies in 3 legacy command schemas (`CommandV0V1.types.ts`,
+  `targetDescriptorV2.types.ts`, `PartialTargetDescriptorV3.types.ts`) — frozen
+  historical formats, deliberately self-contained.
+- a private `const HAT_COLORS` in `lib-talonjs-core/.../TalonJsTestHats.ts`.
+
+This PR moved the vocabulary into `lib-common/src/ide/types/hatStyles.types.ts`
+(previously just a `HatStyleName = string` stub) and rewired app-vscode to import
+it — creating the first importable shared home and REDUCING duplication (app-vscode
+no longer defines its own). command-visualizer imports this shared definition.
+
+Remaining (upstream cleanup, NOT this PR): the 3 legacy schemas (frozen by design
+— leave them) and the talonjs test const still hold private copies; a maintainer
+could point the non-frozen ones at the shared lib-common home.
+
 ## Status: already reused (no action)
 
 The package already imports from source rather than cloning:
