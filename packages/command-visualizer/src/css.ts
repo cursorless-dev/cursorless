@@ -1,13 +1,14 @@
 // CSS contract — SPEC §4. Generated from the single-sourced data so color +
 // adjustment values never drift. No render-time JS; CSS does 100% of visual work.
 
-import { COLOR_MATRIX, EDITOR_CHROME, HAT_COLORS } from "./data/colors";
 import {
   DEFAULT_HAT_HEIGHT_EM,
   DEFAULT_VERTICAL_OFFSET_EM,
+  defaultShapeAdjustments as SHAPE_ADJUSTMENTS,
+  HAT_COLORS,
   HAT_SHAPES,
-  SHAPE_ADJUSTMENTS,
-} from "./data/shapes";
+} from "@cursorless/lib-common";
+import { COLOR_MATRIX, EDITOR_CHROME } from "./data/colors";
 
 function shapeAdjustmentRules(): string {
   const lines: string[] = [

@@ -3,7 +3,8 @@
 // Each path + per-shape fill-rule is verbatim from source (src/data/shapes.ts);
 // fill="currentColor" so a hat is tinted by CSS `color` (D4).
 
-import { HAT_SHAPES, SHAPE_PATHS } from "./data/shapes";
+import { HAT_SHAPES } from "@cursorless/lib-common";
+import { SHAPE_PATHS } from "./data/shapes";
 
 export function symbolSheet(): string {
   const symbols = HAT_SHAPES.map((shape) => {

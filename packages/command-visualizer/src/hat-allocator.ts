@@ -36,11 +36,9 @@ import {
   StandaloneGraphemeSplitter,
   type HatStyleMap,
 } from "./vendor/allocate-hats/index";
+import type { HatColor, HatShape } from "@cursorless/lib-common";
+import { HAT_COLORS, HAT_SHAPES } from "@cursorless/lib-common";
 import type { Line } from "./columns";
-import type { HatColor } from "./data/colors";
-import type { HatShape } from "./data/shapes";
-import { HAT_COLORS } from "./data/colors";
-import { HAT_SHAPES } from "./data/shapes";
 import type { Pos } from "./serialize";
 import { segmentLines } from "./word-segments";
 

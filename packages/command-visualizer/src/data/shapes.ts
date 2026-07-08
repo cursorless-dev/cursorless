@@ -1,27 +1,15 @@
-// Hat shape names/types AND the per-shape adjustment constants are imported from
-// @cursorless/lib-common — NOT redefined here:
-//   - HatShape / HAT_SHAPES / HAT_NON_DEFAULT_SHAPES ← lib-common hatStyles.types
-//   - SHAPE_ADJUSTMENTS (defaultShapeAdjustments) / DEFAULT_HAT_HEIGHT_EM /
-//     DEFAULT_VERTICAL_OFFSET_EM / ShapeAdjustment ← lib-common shapeAdjustments
-//     (promoted there from app-vscode in this PR so headless consumers can
-//     import them instead of cloning).
+// SHAPE_PATHS is the only command-visualizer-local shape data. The SVG \`d=\` path
+// strings have no importable TS home: their canonical source is the 11 .svg files
+// under resources/images/hats/, which app-vscode's VscodeHatRenderer reads at
+// runtime — there's no compile-time constant, so a headless renderer carries the
+// byte-for-byte paths here (verified against the source SVGs 2026-06-08). SPEC §4.1.
 //
-// Only the SVG `d=` path data below is local: its canonical source is the 11
-// .svg files under resources/images/hats/, which app-vscode's VscodeHatRenderer
-// reads at RUNTIME (readFile) — there is no compile-time TS constant for them,
-// so a headless renderer must carry the byte-for-byte paths (verified against
-// the source SVGs 2026-06-08). SPEC §4.1.
+// The shape VOCABULARY (\`HatShape\`, \`HAT_SHAPES\`, ...) and the shape-adjustment
+// constants (\`defaultShapeAdjustments\`, \`DEFAULT_HAT_HEIGHT_EM\`,
+// \`DEFAULT_VERTICAL_OFFSET_EM\`) are NOT re-exported here — consumers import them
+// directly from @cursorless/lib-common.
 
 import type { HatShape } from "@cursorless/lib-common";
-
-export type { HatShape, HatNonDefaultShape } from "@cursorless/lib-common";
-export { HAT_SHAPES, HAT_NON_DEFAULT_SHAPES } from "@cursorless/lib-common";
-export {
-  DEFAULT_HAT_HEIGHT_EM,
-  DEFAULT_VERTICAL_OFFSET_EM,
-  defaultShapeAdjustments as SHAPE_ADJUSTMENTS,
-} from "@cursorless/lib-common";
-export type { HatAdjustments as ShapeAdjustment } from "@cursorless/lib-common";
 
 export interface ShapePath {
   d: string;

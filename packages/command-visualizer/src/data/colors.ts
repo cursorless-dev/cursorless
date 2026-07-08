@@ -1,15 +1,12 @@
-// Hat color names/types are imported from @cursorless/lib-common (the shared
-// hatStyles.types) — NOT redefined here. Only the theme hex MATRIX below is
-// local, because it has no importable TS home: the hexes are declared in
-// app-vscode's package.json as VS Code setting DEFAULTS
-// (contributes.configuration "cursorless.colors.dark" / ".light") and read at
-// runtime from VS Code configuration — there is no compile-time constant for
-// them anywhere in the tree, so mirroring the defaults here (with provenance)
-// is the faithful rendering for a headless renderer. Values verified against
-// app-vscode/package.json 2026-06-08. SPEC §4.4.
-
-export type { HatColor } from "@cursorless/lib-common";
-export { HAT_COLORS } from "@cursorless/lib-common";
+// COLOR_MATRIX / EDITOR_CHROME are the only command-visualizer-local color data.
+// The theme hexes have no importable TS home: they're declared in
+// app-vscode/package.json as VS Code setting defaults (\`cursorless.colors.dark\`/
+// \`.light\`) and read at runtime from VS Code config — there's no compile-time
+// constant to import, so a headless renderer mirrors the defaults here (verified
+// against app-vscode/package.json 2026-06-08). SPEC §4.4.
+//
+// The hat color VOCABULARY (\`HatColor\`, \`HAT_COLORS\`) is NOT re-exported here —
+// consumers import it directly from @cursorless/lib-common.
 
 import type { HatColor } from "@cursorless/lib-common";
 

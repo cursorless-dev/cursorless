@@ -4,10 +4,9 @@
 
 import type { YamlValue } from "./fixture-yaml";
 import { tokenizeDoc } from "./tokenize";
+import type { HatColor, HatShape } from "@cursorless/lib-common";
+import { HAT_COLORS } from "@cursorless/lib-common";
 import type { Line, Token, InputHat } from "./columns";
-import type { HatColor } from "./data/colors";
-import type { HatShape } from "./data/shapes";
-import { HAT_COLORS } from "./data/colors";
 import type { GeneralizedRange } from "./frame-state";
 import type { Pos, Range } from "./serialize";
 import { allocateHats } from "./hat-allocator";

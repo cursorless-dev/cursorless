@@ -4,9 +4,9 @@
 //   is unchanged downstream.
 
 import { readFileSync } from "node:fs";
+import type { HatColor, HatShape } from "@cursorless/lib-common";
 import { parseFixtureYaml } from "./fixture-yaml";
-import type { HatColor, Theme } from "./data/colors";
-import type { HatShape } from "./data/shapes";
+import type { Theme } from "./data/colors";
 import type {
   CascadeState,
   Frame,
