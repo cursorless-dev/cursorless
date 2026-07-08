@@ -4,7 +4,7 @@
 // fill="currentColor" so a hat is tinted by CSS `color` (D4).
 
 import { HAT_SHAPES } from "@cursorless/lib-common";
-import { SHAPE_PATHS } from "./data/shapes";
+import { SHAPE_PATHS } from "../data/shapes";
 
 export function symbolSheet(): string {
   const symbols = HAT_SHAPES.map((shape) => {

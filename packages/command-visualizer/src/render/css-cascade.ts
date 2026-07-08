@@ -2,11 +2,11 @@
 // opacity timeline). Generated from the single-sourced decoration hexes so the
 // band colors never drift. Theme-INVARIANT (background-only translucent hexes).
 
-import { DECORATION_HEX, ALL_DECORATION_STYLES } from "./data/decorations";
-import { FLASH_STYLES, HIGHLIGHT_STYLES } from "./data/decorations";
-import { FLASH_PULSE_MS } from "./data/decorations";
-import type { Frame } from "./frame-state";
-import { timelineOf, type Timeline } from "./timeline";
+import { DECORATION_HEX, ALL_DECORATION_STYLES } from "../data/decorations";
+import { FLASH_STYLES, HIGHLIGHT_STYLES } from "../data/decorations";
+import { FLASH_PULSE_MS } from "../data/decorations";
+import type { Frame } from "../model/frame-state";
+import { timelineOf, type Timeline } from "../model/timeline";
 
 // §3.2 — char-range bands on the per-char grid (one bg attr per .ch).
 // The STATIC path (single-frame PNG renders, animate=false): the band is just a

@@ -19,9 +19,9 @@
 // required. Interactive Controls (pause / highlight toggles) are NOT portable
 // to SVG-as-image and are intentionally omitted.
 
-import type { CascadeState } from "./frame-state";
-import { MS_PER_STATE } from "./data/decorations";
-import { frameDurMs, timelineOf } from "./timeline";
+import type { CascadeState } from "../model/frame-state";
+import { MS_PER_STATE } from "../data/decorations";
+import { frameDurMs, timelineOf } from "../model/timeline";
 import { esc } from "./html";
 
 const NL = String.fromCharCode(10);

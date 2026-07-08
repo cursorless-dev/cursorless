@@ -1,19 +1,12 @@
 // Serializer — SPEC §5. Pure state JSON → HTML string. No render-time logic (D1).
 
-import type { Theme } from "./data/colors";
-import { type Column, type Line, expandColumns, lineWidth } from "./columns";
+import type { Theme } from "../data/colors";
+import { type Column, type Line, expandColumns, lineWidth } from "../model/columns";
+import type { Pos, Range } from "../model/geometry";
+import { orderRange } from "../model/geometry";
 import { styleSheet } from "./css";
 import { symbolSheet } from "./symbols";
 import { esc } from "./html";
-
-export interface Pos {
-  line: number;
-  character: number; // UTF-16 char index within the line
-}
-export interface Range {
-  start: Pos;
-  end: Pos;
-}
 
 export interface EditorState {
   theme: Theme;
@@ -41,15 +34,6 @@ function inAnySelection(
     }
   }
   return false;
-}
-
-function orderRange(r: Range): Range {
-  const a = r.start;
-  const b = r.end;
-  if (a.line < b.line || (a.line === b.line && a.character <= b.character)) {
-    return r;
-  }
-  return { start: b, end: a };
 }
 
 /** Map a UTF-16 char index to its visual column on a line (for caret placement). */

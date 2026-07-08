@@ -8,7 +8,7 @@ import {
   HAT_COLORS,
   HAT_SHAPES,
 } from "@cursorless/lib-common";
-import { COLOR_MATRIX, EDITOR_CHROME } from "./data/colors";
+import { COLOR_MATRIX, EDITOR_CHROME } from "../data/colors";
 
 function shapeAdjustmentRules(): string {
   const lines: string[] = [

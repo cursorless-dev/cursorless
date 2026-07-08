@@ -8,7 +8,7 @@
 // survives any monospace fallback; the estimate only needs enough slack that
 // the widest expected monospace advance (~0.62em) never clips.
 
-import type { CascadeState } from "./frame-state";
+import type { CascadeState } from "../model/frame-state";
 import { serializeCascade } from "./serialize-cascade";
 import { jumbotronCss, serializeJumbotron } from "./jumbotron";
 import { styleSheet } from "./css";

@@ -3,16 +3,16 @@
 // per-frame `@keyframes f{k}` opacity timeline, and the decoration overlay layer
 // (data-flash / data-hl / data-line-flash) resolved single-winner per cell.
 
-import { type Column, expandColumns, lineWidth } from "./columns";
+import { type Column, expandColumns, lineWidth } from "../model/columns";
 import { styleSheet } from "./css";
 import { cascadeStyleSheet, cascadeThemeBridge } from "./css-cascade";
 import { jumbotronCss, serializeJumbotron } from "./jumbotron";
-import type { CellOverlay } from "./overlays";
+import type { CellOverlay } from "../model/overlays";
 import { symbolSheet } from "./symbols";
-import type { CascadeState, Frame } from "./frame-state";
-import { resolveFrameOverlays, type LineOverlay } from "./overlays";
-import { HIGHLIGHT_STYLES, MS_PER_STATE } from "./data/decorations";
-import { timelineOf } from "./timeline";
+import type { CascadeState, Frame } from "../model/frame-state";
+import { resolveFrameOverlays, type LineOverlay } from "../model/overlays";
+import { HIGHLIGHT_STYLES, MS_PER_STATE } from "../data/decorations";
+import { timelineOf } from "../model/timeline";
 import { captionHtml, esc, themeBackground } from "./html";
 
 function charToCol(cols: Column[], charIndex: number): number {
