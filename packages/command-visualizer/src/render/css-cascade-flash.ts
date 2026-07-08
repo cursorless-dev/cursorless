@@ -1,6 +1,6 @@
-// Cascade flash-fade CSS — SPEC-v2 §4.2 DURING beats. Extracted verbatim from
-// css-cascade.ts (the flash TIMING section) so the main module stays under the
-// 250-line limit. render/ → render/ import only; behavior unchanged.
+// Cascade flash-fade CSS — DURING beats. Extracted verbatim from css-cascade.ts
+// (the flash TIMING section) so the main module stays under the 250-line limit.
+// render/ → render/ import only; behavior unchanged.
 
 import {
   DECORATION_HEX,
@@ -11,16 +11,16 @@ import type { Frame } from "../model/frame-state";
 import type { Timeline } from "../model/timeline";
 import { pct } from "./css-cascade";
 
-// §4.2 DURING beats — flash TIMING. A flash is a TRANSIENT beat *within* one
+// DURING beats — flash TIMING. A flash is a TRANSIENT beat *within* one
 // frame's timeline slot, not a static band. Two opposite directions:
 //
-// DELETE (R2-i, pendingDelete) rides the BEFORE frame (frame 0, slot [0, 1/N]):
+// DELETE (pendingDelete) rides the BEFORE frame (frame 0, slot [0, 1/N]):
 //   plain (band transparent)  →  hold plain  →  red band fades IN
 // then the frame's opacity snap crosses to the after-frame (text gone). The band
 // fades in LATE in the slot so the before-doc reads plain first, then highlights
 // the doomed span just before it vanishes.
 //
-// ADD (R2-ii, justAdded) rides the AFTER frame (frame N-1, slot [(N-1)/N, 1]):
+// ADD (justAdded) rides the AFTER frame (frame N-1, slot [(N-1)/N, 1]):
 //   green band PRESENT  →  hold green  →  green band fades OUT  →  plain (text stays)
 // the insert just happened, so the green is up-front when the after-frame appears,
 // then fades out over the latter part of the slot leaving plain text behind. This
@@ -33,7 +33,7 @@ import { pct } from "./css-cascade";
 
 const ADD_FLASH_STYLES = ["justAdded"] as const;
 
-// B2/B6 FIX — the flash is a FIXED 100ms pulse, pinned to cursorless's
+// The flash is a FIXED 100ms pulse, pinned to cursorless's
 // `pendingEditDecorationTime` (FLASH_PULSE_MS), DECOUPLED from the readability
 // state-hold cadence.
 //

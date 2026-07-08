@@ -1,4 +1,4 @@
-// Weighted step timeline (Trillium spec, 2026-07-07). Frame phase names:
+// Weighted step timeline. Frame phase names:
 //
 //   pre               500ms   pre-gif bumper (initial state, no command)
 //   step0.initial    2000ms

@@ -1,4 +1,4 @@
-// CSS contract — SPEC §4. Generated from the single-sourced data so color +
+// CSS contract. Generated from the single-sourced data so color +
 // adjustment values never drift. No render-time JS; CSS does 100% of visual work.
 
 import {
@@ -53,7 +53,7 @@ function themeVars(theme: "dark" | "light"): string {
 }
 
 export function styleSheet(): string {
-  return `/* Cursorless state → static CSS. SPEC §4. Generated; do not hand-edit. */
+  return `/* Cursorless state → static CSS. Generated; do not hand-edit. */
 
 :root {
   --hat-height: ${DEFAULT_HAT_HEIGHT_EM}em;
@@ -67,10 +67,10 @@ export function styleSheet(): string {
   --code-line-height: 1.35;
 }
 
-/* ---- per-shape adjustments (shapeAdjustments.ts, SPEC §4.2) ---- */
+/* ---- per-shape adjustments (shapeAdjustments.ts) ---- */
 ${shapeAdjustmentRules()}
 
-/* ---- color tint vars (SPEC §4.4) ---- */
+/* ---- color tint vars ---- */
 ${colorVarRules()}
 
 ${themeVars("dark")}
@@ -96,7 +96,7 @@ ${themeVars("light")}
 .cl-code {
   font-family: "JetBrains Mono", "SF Mono", "Menlo", ui-monospace, monospace;
   font-size: 18px;
-  font-variant-ligatures: none;             /* D8: 1 glyph = its column(s) */
+  font-variant-ligatures: none;             /* 1 glyph = its column(s) */
   font-feature-settings: "liga" 0, "calt" 0;
   letter-spacing: 0;
   line-height: var(--code-line-height);
@@ -113,7 +113,7 @@ ${themeVars("light")}
    box (0-height block contributes nothing), aligning frame 0 with the rest. */
 svg.cl-defs { display: block; }
 
-/* ---- per-char column grid (D8) ---- */
+/* ---- per-char column grid ---- */
 .ch {
   display: inline-block;
   position: relative;          /* hat's offset parent — no long-line drift */
@@ -128,7 +128,7 @@ svg.cl-defs { display: block; }
 .ch[data-col-span="7"]  { width: 7ch; }
 .ch[data-col-span="8"]  { width: 8ch; }
 
-/* ---- hat (SPEC §4.3): tint via color + currentColor (D4) ---- */
+/* ---- hat: tint via color + currentColor ---- */
 .hat {
   position: absolute;
   left: 50%;
@@ -164,7 +164,7 @@ svg.cl-defs { display: block; }
   display: block;
 }
 
-/* ---- cursor + selection (SPEC §4.5) ---- */
+/* ---- cursor + selection ---- */
 .caret[data-cursor] {
   display: inline-block;
   width: 0; height: 1.2em;
@@ -174,7 +174,7 @@ svg.cl-defs { display: block; }
 }
 .ch[data-sel] { background: var(--editor-sel); }
 
-/* ---- optional line-number gutter (R3): OFF by default ----
+/* ---- optional line-number gutter: OFF by default ----
    A leading inline-block .cl-lineno per .cl-line. Because the number shares the
    line box with its code, it aligns to that exact row automatically — works
    identically for single-frame renders and absolutely-positioned stacked cascade

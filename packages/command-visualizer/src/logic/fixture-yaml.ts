@@ -1,4 +1,4 @@
-// Fixture YAML reader — SPEC-v2 §2.1.
+// Fixture YAML reader.
 //
 // Was a hand-rolled parser for the recorded-fixture YAML subset (block maps,
 // block scalars, block sequences, flow maps). Replaced with cursorless's own

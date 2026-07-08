@@ -1,6 +1,6 @@
-// Multi-frame state schema — SPEC-v2 §1. A FRAME is exactly one SPEC.md
-// `.cl-editor` surface (EditorState minus the doc-level theme/tab). v2 wraps an
-// ordered list of frames in a cascade and adds the decoration OVERLAY layer.
+// Multi-frame state schema. A FRAME is exactly one `.cl-editor` surface
+// (EditorState minus the doc-level theme/tab). A cascade wraps an ordered list
+// of frames and adds the decoration OVERLAY layer.
 
 import type { Theme } from "../data/colors";
 import type { Line } from "./columns";
@@ -16,7 +16,7 @@ export type OverlayRole =
   | "source"
   | `scope:${string}`;
 
-// GeneralizedRange (SPEC-v2 §1.1) — character (half-open columns) or line
+// GeneralizedRange — character (half-open columns) or line
 // (full-width, endLine INCLUSIVE).
 export type CharacterRange = {
   type: "character";

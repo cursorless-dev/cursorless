@@ -19,7 +19,7 @@ import type {
   TokenizedStates,
 } from "./pipeline-types";
 
-// Route a flash style to its native frame (SPEC-v2 §1.2 / §2.6).
+// Route a flash style to its native frame.
 function flashRidesAfter(style: string): boolean {
   return style === "justAdded";
 }

@@ -1,4 +1,4 @@
-// Serializer — SPEC §5. Pure state JSON → HTML string. No render-time logic (D1).
+// Serializer. Pure state JSON → HTML string. No render-time logic.
 
 import type { Theme } from "../data/colors";
 import { type Column, type Line, expandColumns, lineWidth } from "../model/columns";

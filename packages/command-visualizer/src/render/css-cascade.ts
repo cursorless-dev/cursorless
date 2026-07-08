@@ -1,5 +1,5 @@
-// Cascade + overlay CSS — SPEC-v2 §3 (highlight bands) + §4 (stacked-frame
-// opacity timeline). Generated from the single-sourced decoration hexes so the
+// Cascade + overlay CSS — highlight bands + stacked-frame opacity timeline.
+// Generated from the single-sourced decoration hexes so the
 // band colors never drift. Theme-INVARIANT (background-only translucent hexes).
 
 import { DECORATION_HEX, ALL_DECORATION_STYLES } from "../data/decorations";
@@ -27,11 +27,11 @@ function charBandRules(): string {
 // (render/ → render/ import; no duplication).
 export const pct = (x: number): string => x.toFixed(3);
 
-// The flash TIMING section (DURING beats: delete R2-i, insert R2-ii, reference
-// pre-edit flashes) lives in ./css-cascade-flash — imported above. See that
-// module's header for the full SPEC-v2 §4.2 rationale.
+// The flash TIMING section (DURING beats: delete, insert, reference pre-edit
+// flashes) lives in ./css-cascade-flash — imported above. See that module's
+// header for the full rationale.
 
-// §3.4 — full-width line-range bands on .cl-line (content box, DECISIONS §7.7).
+// Full-width line-range bands on .cl-line (content box).
 function lineBandRules(): string {
   return ALL_DECORATION_STYLES.map(
     (s) =>
@@ -39,7 +39,7 @@ function lineBandRules(): string {
   ).join("\n");
 }
 
-// §4.2 — per-frame opacity timeline. Frame k of N is opaque on [k/N,(k+1)/N).
+// Per-frame opacity timeline. Frame k of N is opaque on [k/N,(k+1)/N).
 // steps(1,end) gives a hard BEFORE→AFTER snap (no ghosty in-between).
 function frameKeyframes(tl: Timeline): string {
   const n = tl.startFrac.length;
@@ -77,14 +77,14 @@ export function cascadeStyleSheet(
   // renders keep the pure-static band (Phase-3 PNG tests must stay green).
   const animated = n >= 2;
   const flashFade = animated
-    ? `\n/* ---- DURING beats: delete (R2-i) + insert (R2-ii) flash-timing (SPEC-v2 §4.2) ---- */\n${flashFadeKeyframes(frames, tl, flashPulseMs)}\n${flashFadeRules(frames)}\n`
+    ? `\n/* ---- DURING beats: delete + insert flash-timing ---- */\n${flashFadeKeyframes(frames, tl, flashPulseMs)}\n${flashFadeRules(frames)}\n`
     : "";
-  return `/* ---- decoration overlay layer (SPEC-v2 §3) ---- */
+  return `/* ---- decoration overlay layer ---- */
 ${charBandRules()}
 ${lineBandRules()}
 ${flashFade}
 
-/* ---- cascade container + stacked frames (SPEC-v2 §4.1) ---- */
+/* ---- cascade container + stacked frames ---- */
 .cl-cascade {
   position: relative;
   display: inline-block;
@@ -116,7 +116,7 @@ ${flashFade}
   white-space: pre;
 }
 
-/* ---- per-frame opacity timeline (SPEC-v2 §4.2) ---- */
+/* ---- per-frame opacity timeline ---- */
 ${frameKeyframes(tl)}
 
 /* the static (non-animated) default: show the LAST frame so a no-capture view

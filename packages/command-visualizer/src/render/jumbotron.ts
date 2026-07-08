@@ -1,7 +1,7 @@
-// Jumbotron shape — ported from Trillium's VisualizerWrapper implementation
-// (cursorless fork branch gen_2026_01_20, packages/test-case-component/src/
-// components/VisualizerWrapper/: JumbotronView.tsx, VisualizerMetadata.tsx,
-// StateNavigationDots.tsx, VisualizerWrapper.css). See brain-a08pj.
+// Jumbotron shape — ported from a cursorless VisualizerWrapper implementation
+// (packages/test-case-component/src/components/VisualizerWrapper/:
+// JumbotronView.tsx, VisualizerMetadata.tsx, StateNavigationDots.tsx,
+// VisualizerWrapper.css).
 //
 // EVERY render uses the jumbo shape, one step or many:
 //

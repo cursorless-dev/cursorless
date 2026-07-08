@@ -1,10 +1,10 @@
-// Column model — SPEC §2 (resolves D7).
+// Column model.
 // Converts each line's UTF-16 token stream into an ordered list of VISUAL columns.
 // Build-time only; no render-time logic.
 //
-// - Graphemes per cursorless GRAPHEME_SPLIT_REGEX (SPEC §2.1).
-// - Tab → next tabSize stop (SPEC §2.2).
-// - East-Asian Wide/Fullwidth glyph = 2 columns (SPEC §2.3).
+// - Graphemes per cursorless GRAPHEME_SPLIT_REGEX.
+// - Tab → next tabSize stop.
+// - East-Asian Wide/Fullwidth glyph = 2 columns.
 
 import type { HatColor, HatShape } from "@cursorless/lib-common";
 import { GRAPHEME_SPLIT_REGEX } from "@cursorless/lib-engine";
@@ -121,7 +121,7 @@ export function splitGraphemes(text: string): GraphemeUnit[] {
 }
 
 /**
- * Expand a line's tokens into ordered visual columns (SPEC §2).
+ * Expand a line's tokens into ordered visual columns.
  * Resolves each hat's anchor to a computed visual column (never a raw char index).
  */
 export function expandColumns(line: Line, tabSize: number): Column[] {

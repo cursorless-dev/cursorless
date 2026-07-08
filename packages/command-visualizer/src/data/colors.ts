@@ -3,7 +3,7 @@
 // app-vscode/package.json as VS Code setting defaults (\`cursorless.colors.dark\`/
 // \`.light\`) and read at runtime from VS Code config — there's no compile-time
 // constant to import, so a headless renderer mirrors the defaults here (verified
-// against app-vscode/package.json 2026-06-08). SPEC §4.4.
+// against app-vscode/package.json).
 //
 // The hat color VOCABULARY (\`HatColor\`, \`HAT_COLORS\`) is NOT re-exported here —
 // consumers import it directly from @cursorless/lib-common.

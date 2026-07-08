@@ -1,4 +1,4 @@
-// Multi-step chain semantics (Trillium's model, 2026-07-07):
+// Multi-step chain semantics. Model:
 //
 //   every entry:  initialState / referenceFlashes[] / finalState
 //   chained:      finalState.i and initialState.{i+1} MUST agree, and the

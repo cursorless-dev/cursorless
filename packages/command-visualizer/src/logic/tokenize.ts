@@ -1,19 +1,18 @@
-// Grapheme tokenizer + inverse detokenizer — SPEC-v2 §2.3, DECISIONS §7.4, R5.
+// Grapheme tokenizer + inverse detokenizer.
 //
-// Fixtures ship RAW `documentContents`, not tokens. SPEC.md §1 requires every
-// column owned by exactly one token. R5 (grapheme-level hatting) splits each
-// line into ONE TOKEN PER GRAPHEME — letters AND each individual symbol /
-// operator / paren (`=>`, `(`, `)`, `:`, `;`, `"`, …) — exactly like real
-// cursorless (GRAPHEME_SPLIT_REGEX, tokenGraphemeSplitter.ts:73). Whitespace
-// runs between graphemes become their own (non-hattable) tokens. Each token
-// carries its UTF-16 line offsets, so the grapheme/column math (SPEC.md §2)
-// runs unchanged.
+// Fixtures ship RAW `documentContents`, not tokens, and every column must be
+// owned by exactly one token. Grapheme-level hatting splits each line into ONE
+// TOKEN PER GRAPHEME — letters AND each individual symbol / operator / paren
+// (`=>`, `(`, `)`, `:`, `;`, `"`, …) — exactly like real cursorless
+// (GRAPHEME_SPLIT_REGEX, tokenGraphemeSplitter.ts). Whitespace runs between
+// graphemes become their own (non-hattable) tokens. Each token carries its
+// UTF-16 line offsets, so the grapheme/column math runs unchanged.
 //
 // Because each non-whitespace token is now a single grapheme, fixture-extract
 // can attach a hat to EVERY grapheme (one hat per token, anchored at the
 // token's first — and only — grapheme), matching cursorless's dense hatting.
 //
-// GATE 0 (SPEC-v2 named risk): detokenize(tokenize(doc)) === doc BYTE-FOR-BYTE.
+// GATE 0: detokenize(tokenize(doc)) === doc BYTE-FOR-BYTE.
 // Detokenize concatenates token text in order; since the union of grapheme +
 // whitespace tokens partitions the line with no gaps or overlaps, the roundtrip
 // stays byte-exact. The roundtrip test (src/verify-roundtrip-doc.ts) proves it.

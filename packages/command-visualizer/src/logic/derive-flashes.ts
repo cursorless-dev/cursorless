@@ -1,4 +1,4 @@
-// Derived referenceFlashes — SPEC-v2 §2.6 (step 6b). Extracted verbatim from
+// Derived referenceFlashes. Extracted verbatim from
 // pipeline.ts so fixtureToCascade stays under the 250-line limit. Pure: takes
 // the two document snapshots, returns the flashes to synthesize. No I/O, no
 // mutation of caller state. logic/ → logic/ import only.
@@ -15,9 +15,9 @@ export interface DerivedFlashes {
 }
 
 /**
- * Step 6b (derived referenceFlashes): tutorial-corpus recordings carry NO
- * ide.flashes (verified 2026-07-07 — all 10 tutorial-1-basics fixtures have
- * zero) even for document edits. Cursorless flashes are deterministic from
+ * Derived referenceFlashes: tutorial-corpus recordings carry NO
+ * ide.flashes (all 10 tutorial-1-basics fixtures have zero) even for document
+ * edits. Cursorless flashes are deterministic from
  * the edit itself, so when a fixture records none and the doc changed,
  * derive them: char-level common prefix/suffix -> removed span flashes
  * pendingDelete on BEFORE, inserted span flashes justAdded on AFTER.

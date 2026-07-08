@@ -1,7 +1,7 @@
-// Symbol sheet — SPEC §3 / §4.1.
+// Symbol sheet.
 // Emits the shared inline <svg><defs> with 11 <symbol> defs ONCE per document.
 // Each path + per-shape fill-rule is verbatim from source (src/data/shapes.ts);
-// fill="currentColor" so a hat is tinted by CSS `color` (D4).
+// fill="currentColor" so a hat is tinted by CSS `color`.
 
 import { HAT_SHAPES } from "@cursorless/lib-common";
 import { SHAPE_PATHS } from "../data/shapes";

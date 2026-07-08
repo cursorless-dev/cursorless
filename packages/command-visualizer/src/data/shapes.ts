@@ -2,7 +2,7 @@
 // strings have no importable TS home: their canonical source is the 11 .svg files
 // under resources/images/hats/, which app-vscode's VscodeHatRenderer reads at
 // runtime — there's no compile-time constant, so a headless renderer carries the
-// byte-for-byte paths here (verified against the source SVGs 2026-06-08). SPEC §4.1.
+// byte-for-byte paths here (verified against the source SVGs).
 //
 // The shape VOCABULARY (\`HatShape\`, \`HAT_SHAPES\`, ...) and the shape-adjustment
 // constants (\`defaultShapeAdjustments\`, \`DEFAULT_HAT_HEIGHT_EM\`,

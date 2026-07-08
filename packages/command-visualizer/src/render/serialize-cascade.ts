@@ -1,4 +1,4 @@
-// Cascade serializer — SPEC-v2 §4. Pure CascadeState → HTML. Zero render-time JS.
+// Cascade serializer. Pure CascadeState → HTML. Zero render-time JS.
 // Emits N stacked `.frame` surfaces in one `.cl-cascade`, the symbol sheet ONCE,
 // per-frame `@keyframes f{k}` opacity timeline, and the decoration overlay layer
 // (data-flash / data-hl / data-line-flash) resolved single-winner per cell.
@@ -85,7 +85,7 @@ function emitLine(
     );
   }
 
-  // R3: optional leading line-number cell (1-based, like a real editor). Only
+  // Optional leading line-number cell (1-based, like a real editor). Only
   // emitted when the gutter is on — keeps the no-gutter output byte-identical.
   const gutter = lineNumbers
     ? `<span class="cl-lineno" aria-hidden="true">${lineIdx + 1}</span>`
@@ -109,7 +109,7 @@ function emitLine(
   // NO leading whitespace and NO newline joins around cl-line: this markup
   // lives inside .cl-code (white-space: pre), where inter-element whitespace
   // renders as phantom blank lines (latent flaw exposed by the fixed-height
-  // SVG viewport, task-mim).
+  // SVG viewport).
   return `<div class="cl-line" data-line="${lineIdx}"${lineFlashAttr}>${gutter}${inner}</div>`;
 }
 
@@ -132,7 +132,7 @@ function emitFrame(
 
 /** Render options for the cascade serializer. */
 export interface CascadeRenderOptions {
-  /** R3: emit the left line-number gutter. OFF by default. */
+  /** Emit the left line-number gutter. OFF by default. */
   lineNumbers?: boolean;
 }
 
@@ -159,7 +159,7 @@ export function serializeCascade(
   const spokenAttr = state.meta?.spokenForm
     ? ` data-spoken-form="${esc(state.meta.spokenForm)}"`
     : "";
-  // R3: only when ON do we add the gutter attribute + digit-width var. OFF →
+  // Only when ON do we add the gutter attribute + digit-width var. OFF →
   // neither appears, so the markup/CSS hook is byte-identical to before.
   const gutterAttr = lineNumbers ? ` data-line-numbers=""` : "";
   const gutterVar = lineNumbers

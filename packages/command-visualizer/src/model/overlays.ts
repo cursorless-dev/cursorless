@@ -1,7 +1,7 @@
-// Overlay resolution — SPEC-v2 §3.2 / §6. Maps a frame's decorations + selection
-// onto the COLUMN grid (SPEC.md §2 column mapping, not raw char index — audit-5
-// §4 rule), resolving single-winner precedence per cell (selection < highlight <
-// flash, last wins). Also resolves full-width line-range bands.
+// Overlay resolution. Maps a frame's decorations + selection onto the COLUMN
+// grid (column mapping, not raw char index), resolving single-winner precedence
+// per cell (selection < highlight < flash, last wins). Also resolves full-width
+// line-range bands.
 
 import { type Column, expandColumns } from "./columns";
 import type { Decoration, Frame, OverlayRole } from "./frame-state";
@@ -9,8 +9,8 @@ import type { OverlayStyleName } from "../data/decorations";
 import { overlayPrecedence } from "../data/decorations";
 import type { Range } from "./geometry";
 
-// Role sub-rank, used to break style-precedence ties (SPEC-v2 §3.2 / DECISIONS
-// §7.1+§7.2): a REAL ide.flash outranks a DERIVED that/source overlay on the
+// Role sub-rank, used to break style-precedence ties: a REAL ide.flash outranks
+// a DERIVED that/source overlay on the
 // same range, so e.g. justAdded (flash) wins over a thatMark→referenced on the
 // inserted text. selection < highlight < {derived that/source} < flash.
 function roleRank(role: OverlayRole | "selection"): number {

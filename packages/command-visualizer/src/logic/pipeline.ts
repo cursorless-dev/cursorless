@@ -1,7 +1,7 @@
-// Fixture → state pipeline — SPEC-v2 §2 (8 steps). Pure, deterministic.
+// Fixture → state pipeline. Pure, deterministic.
 //   yml → frames → tokenize → marks→hats → synthetic shape → flashes→overlays
-//   → that/source/highlights → CascadeState. Render contract (SPEC.md §3/§4)
-//   is unchanged downstream.
+//   → that/source/highlights → CascadeState. The render contract is unchanged
+//   downstream.
 //
 // The public `fixtureToCascade` is a thin composition of three named stages:
 //   1. parseFixture      — YAML text → ParsedFixture (doc + meta + clipboard)
@@ -64,8 +64,8 @@ export function parseFixture(
   const initial = asObj(doc.initialState);
   const final = asObj(doc.finalState);
 
-  // Clipboard visibility per state — ported from VisualizerMetadata.tsx
-  // (gen_2026_01_20): cut/copy PRODUCE clipboard (visible on AFTER only);
+  // Clipboard visibility per state — ported from cursorless's
+  // VisualizerMetadata.tsx: cut/copy PRODUCE clipboard (visible on AFTER only);
   // paste CONSUMES it (visible on all states).
   const actionName = meta.action ?? "";
   const initClip =
@@ -121,7 +121,7 @@ export function tokenizeStates(
 
   const frames: Frame[] = [beforeFrame];
 
-  // AFTER frame (omit if no finalState — error fixtures, SPEC-v2 §2.2).
+  // AFTER frame (omit if no finalState — error fixtures).
   let afterFrame: Frame | null = null;
   if (final && typeof final.documentContents === "string") {
     // Final docs ship no marks; re-tokenize identically (no hats on after).

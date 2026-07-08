@@ -1,6 +1,6 @@
-// Field-extraction helpers for the fixture → state pipeline (SPEC-v2 §2 steps
-// 3/4/5). Pulls the YAML-shape coercion + marks→hats + selections + range
-// mapping out of pipeline.ts so each module stays under the line ceiling.
+// Field-extraction helpers for the fixture → state pipeline. Pulls the
+// YAML-shape coercion + marks→hats + selections + range mapping out of
+// pipeline.ts so each module stays under the line ceiling.
 
 import type { YamlValue } from "./fixture-yaml";
 import { tokenizeDoc } from "./tokenize";
@@ -108,8 +108,7 @@ export function buildLines(
   // Pass 1: command-relevant fixture marks — exact fixture color; shape is
   // "default" unless a per-fixture override says otherwise. Fixture mark keys
   // ({color}.{grapheme}) carry no shape component: the recorded session's
-  // hats were default-shape, so "default" is the faithful rendering (the old
-  // synthetic hash injected fake shapes here — removed in task-8tq).
+  // hats were default-shape, so "default" is the faithful rendering.
   for (const mk of marks) {
     if (mk.start.line !== mk.end.line) {
       continue;
