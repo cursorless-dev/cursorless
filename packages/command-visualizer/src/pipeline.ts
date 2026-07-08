@@ -28,7 +28,7 @@ import { fixtureRoot } from "./fixture-root";
 
 // Resolved lazily: fixtureRoot() throws when no cursorless checkout exists,
 // which must not fire at module load in serverless (the API path reads
-// vendored fixtures and never touches disk).
+// bundled fixtures and never touches disk).
 let fixtureRootCache: string | undefined;
 function FIXTURE_ROOT_LAZY(): string {
   return (fixtureRootCache ??= fixtureRoot());
