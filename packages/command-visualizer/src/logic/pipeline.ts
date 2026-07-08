@@ -6,14 +6,14 @@
 import { readFileSync } from "node:fs";
 import type { HatColor, HatShape } from "@cursorless/lib-common";
 import { parseFixtureYaml } from "./fixture-yaml";
-import type { Theme } from "./data/colors";
+import type { Theme } from "../data/colors";
 import type {
   CascadeState,
   Frame,
   GeneralizedRange,
-} from "./frame-state";
-import type { DecorationStyle } from "./data/decorations";
-import type { Pos } from "./serialize";
+} from "../model/frame-state";
+import type { DecorationStyle } from "../data/decorations";
+import type { Pos } from "../model/geometry";
 import {
   asArr,
   asObj,

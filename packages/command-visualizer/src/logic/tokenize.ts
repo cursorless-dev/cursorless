@@ -19,7 +19,7 @@
 // stays byte-exact. The roundtrip test (src/verify-roundtrip-doc.ts) proves it.
 
 import { GRAPHEME_SPLIT_REGEX } from "@cursorless/lib-engine";
-import type { Line, Token } from "./columns";
+import type { Line, Token } from "../model/columns";
 
 // Cursorless grapheme splitter: a base letter + its combining marks is ONE
 // grapheme; each number / punctuation / symbol is its own grapheme. The regex

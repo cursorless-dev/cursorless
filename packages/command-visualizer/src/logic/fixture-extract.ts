@@ -6,9 +6,9 @@ import type { YamlValue } from "./fixture-yaml";
 import { tokenizeDoc } from "./tokenize";
 import type { HatColor, HatShape } from "@cursorless/lib-common";
 import { HAT_COLORS } from "@cursorless/lib-common";
-import type { Line, Token, InputHat } from "./columns";
-import type { GeneralizedRange } from "./frame-state";
-import type { Pos, Range } from "./serialize";
+import type { Line, Token, InputHat } from "../model/columns";
+import type { GeneralizedRange } from "../model/frame-state";
+import type { Pos, Range } from "../model/geometry";
 import { allocateHats } from "./hat-allocator";
 
 export type Obj = Record<string, YamlValue>;

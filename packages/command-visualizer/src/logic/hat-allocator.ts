@@ -50,8 +50,8 @@ import {
 } from "@cursorless/lib-engine";
 import type { HatColor, HatShape } from "@cursorless/lib-common";
 import { HAT_COLORS, HAT_SHAPES } from "@cursorless/lib-common";
-import type { Line, Token as RenderToken } from "./columns";
-import type { Pos } from "./serialize";
+import type { Line, Token as RenderToken } from "../model/columns";
+import type { Pos } from "../model/geometry";
 
 // ---------------------------------------------------------------------------
 // Style map: our full palette x (default + 10 shapes), penalty-ordered the way

@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import type { HatColor } from "@cursorless/lib-common";
 import { allocateHats, cssStateHatStyles } from "./hat-allocator";
-import type { InputHat, Line, Token } from "./columns";
+import type { InputHat, Line, Token } from "../model/columns";
 
 // Build a Line whose tokens are one-per-grapheme (the render model, tokenize.ts
 // R5) with line-relative UTF-16 ranges. Spaces are emitted as their own tokens
