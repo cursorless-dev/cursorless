@@ -13,9 +13,36 @@ render/  "what is visually seen": CascadeState -> HTML/CSS/SVG
 
 - `data/` — colors.ts, decorations.ts, shapes.ts
 - `model/` — geometry.ts (Pos/Range + orderRange), frame-state.ts (CascadeState/Frame/Decoration/GeneralizedRange), columns.ts (Line/Token/Column geometry), overlays.ts (decoration → column overlay resolution), timeline.ts (frame timing)
-- `logic/` — pipeline.ts, fixture-extract.ts, fixture-yaml.ts, fixture-root.ts, tokenize.ts, hat-allocator.ts, chain.ts
+- `logic/` — pipeline.ts, pipeline-types.ts, build-render-object.ts, fixture-extract.ts, fixture-yaml.ts, fixture-root.ts, tokenize.ts, hat-allocator.ts, chain.ts
 - `render/` — serialize.ts, serialize-cascade.ts, svg-wrap.ts, jumbotron.ts, css.ts, css-cascade.ts, symbols.ts, html.ts
+- `render-command.ts` — the top-level 4-stage orchestrator (root, spans logic + render).
 - `index.ts` — the public surface; wires logic + render + model exports together.
+
+## Pipeline — 4 stages
+
+The whole tool is one legible top-to-bottom progression. Read `renderCommand`
+in `render-command.ts` to see all four stages at a glance; each delegates to a
+named function:
+
+| # | Stage | Function | File |
+|---|-------|----------|------|
+| 1 | get what to render | `parseFixture` | `logic/pipeline.ts` |
+| 2 | tokenize each step | `tokenizeStates` | `logic/pipeline.ts` |
+| 3 | generate render object | `buildRenderObject` | `logic/build-render-object.ts` |
+| 4 | render from object | `serializeCascade` + `wrapCascadeSvg` | `render/serialize-cascade.ts`, `render/svg-wrap.ts` |
+
+Stages 1–3 produce the `CascadeState` render object; stage 4 serializes it to
+an animated SVG. `fixtureToCascade` (exported, unchanged behavior) is a thin
+composition of stages 1–3; `renderCommand` composes all four. Shared stage
+types live in `logic/pipeline-types.ts` so the stage files can reference the
+contract without a circular import.
+
+**Why the orchestrator lives at the root, not in `logic/`:** stage 4 is in
+`render/`, and `logic/` must never import `render/` (the rule below). The
+4-stage orchestrator therefore lives at the package root (`render-command.ts`,
+alongside `index.ts`) — the ONE allowed composition point that may import from
+both `logic/` and `render/`. Putting it inside `logic/` would create a
+forbidden `logic/ → render/` edge.
 
 ## The one-directional dependency rule
 
