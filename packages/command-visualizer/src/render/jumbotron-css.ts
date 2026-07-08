@@ -17,11 +17,6 @@ import {
 } from "./jumbotron-shared";
 import { litKeyframes } from "./jumbotron-css-keyframes";
 
-/** Fraction of ONE slot spent sliding to the next command. */
-const CMD_SLIDE_FRAC = 0.18;
-/** Fraction of ONE slot the executed (lit) command holds before sliding out. */
-const LIT_HOLD_FRAC = 0.25;
-
 /** Base layout + component CSS (carousel, pill, metadata, dots). */
 function baseCss(n: number): string {
   return `

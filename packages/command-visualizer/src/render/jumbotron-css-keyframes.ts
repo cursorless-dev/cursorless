@@ -74,7 +74,6 @@ export function litKeyframes(
       const durLo =
         durFrame != null ? msPct(tl.startMs[durFrame]) : msPct(tl.endMs[k]);
       const aftFrame = durFrame != null ? durFrame + 1 : k + 1;
-      const aftLo = msPct(tl.startMs[aftFrame] ?? tl.endMs[k]);
       const aftHi = msPct(tl.endMs[aftFrame] ?? tl.endMs[k]);
       const kf = [
         `  0% { opacity: ${iniLo === 0 ? L1 : 0}; }`,

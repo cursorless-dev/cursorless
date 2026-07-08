@@ -27,7 +27,6 @@ import { pct } from "./css-cascade";
 // CSS-only, zero view-time JS. Each flash style gets its own @keyframes scoped to
 // its native frame, so other frames / styles keep the static band.
 
-const DELETE_FLASH_STYLES = ["pendingDelete"] as const;
 const ADD_FLASH_STYLES = ["justAdded"] as const;
 
 // B2/B6 FIX — the flash is a FIXED 100ms pulse, pinned to cursorless's
