@@ -2,19 +2,23 @@
 //
 // fixture YAML in -> animated SVG out. See STATUS.md for integration state.
 
-export { fixtureToCascade, type PipelineOptions } from "./pipeline";
-export { chainCascades, withBumpers, ChainContinuityError } from "./chain";
+export { fixtureToCascade, type PipelineOptions } from "./logic/pipeline";
+export {
+  chainCascades,
+  withBumpers,
+  ChainContinuityError,
+} from "./logic/chain";
 export {
   serializeCascade,
   serializeCascadeDocument,
-} from "./serialize-cascade";
-export { wrapCascadeSvg } from "./svg-wrap";
-export { serializeJumbotron, jumbotronCss } from "./jumbotron";
+} from "./render/serialize-cascade";
+export { wrapCascadeSvg } from "./render/svg-wrap";
+export { serializeJumbotron, jumbotronCss } from "./render/jumbotron";
 export {
   timelineOf,
   frameDurMs,
   INITIAL_MS,
   DURING_MS,
   BUMPER_MS,
-} from "./timeline";
-export type { CascadeState, Frame } from "./frame-state";
+} from "./model/timeline";
+export type { CascadeState, Frame } from "./model/frame-state";
