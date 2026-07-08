@@ -31,13 +31,11 @@ export const DECORATION_HEX: Record<DecorationStyle, string> = {
   highlight1: "#60daff7a",
 };
 
-export const FLASH_STYLES: FlashStyle[] = [
-  "pendingDelete",
-  "justAdded",
-  "referenced",
-  "pendingModification0",
-  "pendingModification1",
-];
+// Derived from lib-common's FlashStyle enum (the 5 flash styles) rather than
+// re-listing the names — the set now tracks source automatically. Order is not
+// significant: consumers use it for membership tests and per-style CSS rule
+// emission with distinct selectors (css-cascade.ts).
+export const FLASH_STYLES: FlashStyle[] = Object.values(CursorlessFlashStyle);
 
 export const HIGHLIGHT_STYLES: HighlightStyle[] = ["highlight0", "highlight1"];
 
