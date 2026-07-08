@@ -1,22 +1,9 @@
 export { allocateHats } from "./allocateHats";
-export type { HatCandidate } from "./allocateHats";
 
-// Individual hat-allocation primitives, exported so downstream consumers (e.g.
-// @cursorless/command-visualizer) can reuse the real ranking/selection
-// building blocks instead of vendoring copies of them.
-export { chooseTokenHat } from "./chooseTokenHat";
-export { getHatRankingContext } from "./getHatRankingContext";
-export type { RankingContext } from "./getHatRankingContext";
-export { getRankedTokens } from "./getRankedTokens";
-export type { RankedToken } from "./getRankedTokens";
-export { getTokenComparator } from "./getTokenComparator";
-export { maxByFirstDiffering, maxByAllowingTies } from "./maxByFirstDiffering";
-export type { HatMetric } from "./HatMetrics";
-export {
-  avoidFirstLetter,
-  hatOldTokenRank,
-  isOldTokenHat,
-  minimumTokenRankContainingGrapheme,
-  negativePenalty,
-  penaltyEquivalenceClass,
-} from "./HatMetrics";
+// maxByFirstDiffering is the only primitive from this sub-tree imported by
+// @cursorless/command-visualizer (vendored chooseTokenHat.ts, SHA 42452eb).
+// The broader ranking/selection helpers (chooseTokenHat, getHatRankingContext,
+// HatMetrics, etc.) have drifted in signature since that SHA and must stay
+// vendored there; they are NOT re-exported here to keep the public surface
+// minimal and prevent callers from taking a dependency on unstable internals.
+export { maxByFirstDiffering } from "./maxByFirstDiffering";
