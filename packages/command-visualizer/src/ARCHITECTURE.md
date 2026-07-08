@@ -12,7 +12,7 @@ render/  "what is visually seen": CascadeState -> HTML/CSS/SVG
 ```
 
 - `data/` — colors.ts, decorations.ts, shapes.ts
-- `model/` — geometry.ts (Pos/Range + orderRange), frame-state.ts (CascadeState/Frame/Decoration/GeneralizedRange), columns.ts (Line/Token/Column geometry), overlays.ts (decoration → column overlay resolution), timeline.ts (frame timing)
+- `model/` — frame-state.ts (CascadeState/Frame/Decoration; geometry `Position`/`Range`/`GeneralizedRange` come from `@cursorless/lib-common`), columns.ts (Line/Token/Column geometry), overlays.ts (decoration → column overlay resolution), timeline.ts (frame timing)
 - `logic/` — pipeline.ts, pipeline-types.ts, build-render-object.ts, fixture-extract.ts, fixture-yaml.ts, fixture-root.ts, tokenize.ts, hat-allocator.ts, chain.ts
 - `render/` — serialize.ts, serialize-cascade.ts, svg-wrap.ts, jumbotron.ts, css.ts, css-cascade.ts, symbols.ts, html.ts
 - `render-command.ts` — the top-level 4-stage orchestrator (root, spans logic + render).

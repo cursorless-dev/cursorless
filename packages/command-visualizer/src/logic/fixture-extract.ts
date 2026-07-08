@@ -7,8 +7,11 @@ import { tokenizeDoc } from "./tokenize";
 import type { HatColor, HatShape } from "@cursorless/lib-common";
 import { HAT_COLORS } from "@cursorless/lib-common";
 import type { Line, Token, InputHat } from "../model/columns";
-import type { GeneralizedRange } from "../model/frame-state";
-import type { Pos, Range } from "../model/geometry";
+import {
+  Position,
+  Range,
+  type GeneralizedRange,
+} from "@cursorless/lib-common";
 import { allocateHats } from "./hat-allocator";
 
 export type Obj = Record<string, YamlValue>;
@@ -22,9 +25,9 @@ export function asArr(v: YamlValue | undefined): YamlValue[] {
 export function num(v: YamlValue | undefined): number {
   return typeof v === "number" ? v : Number(v);
 }
-export function pos(v: YamlValue | undefined): Pos {
+export function pos(v: YamlValue | undefined): Position {
   const o = asObj(v) ?? {};
-  return { line: num(o.line), character: num(o.character) };
+  return new Position(num(o.line), num(o.character));
 }
 
 // Dedup note (re-verified against current signatures): @cursorless/lib-common
@@ -43,8 +46,8 @@ export interface MarkInfo {
   key: string;
   grapheme: string;
   color: HatColor;
-  start: Pos;
-  end: Pos;
+  start: Position;
+  end: Position;
 }
 
 export function parseMarks(marksObj: Obj | null): MarkInfo[] {
@@ -169,10 +172,10 @@ export function buildLines(
 
 // Selections → {cursors, selections}. anchor==active ⇒ caret; reversed normalize.
 export function deriveSelections(selArr: YamlValue[]): {
-  cursors: Pos[];
+  cursors: Position[];
   selections: Range[];
 } {
-  const cursors: Pos[] = [];
+  const cursors: Position[] = [];
   const selections: Range[] = [];
   for (const s of selArr) {
     const o = asObj(s);
@@ -181,17 +184,12 @@ export function deriveSelections(selArr: YamlValue[]): {
     }
     const anchor = pos(o.anchor);
     const active = pos(o.active);
-    if (anchor.line === active.line && anchor.character === active.character) {
+    if (anchor.isEqual(active)) {
       cursors.push(anchor);
     } else {
-      const before =
-        anchor.line < active.line ||
-        (anchor.line === active.line && anchor.character <= active.character);
-      selections.push(
-        before
-          ? { start: anchor, end: active }
-          : { start: active, end: anchor },
-      );
+      // Range's constructor normalizes to non-reversed (start ≤ end), matching
+      // the previous manual anchor/active ordering.
+      selections.push(new Range(anchor, active));
     }
   }
   return { cursors, selections };
@@ -202,8 +200,8 @@ export function toGeneralizedRange(rangeObj: Obj): GeneralizedRange | null {
   if (rangeObj.type === "line") {
     return {
       type: "line",
-      startLine: num(rangeObj.start),
-      endLine: num(rangeObj.end), // INCLUSIVE per GeneralizedRange.ts
+      start: num(rangeObj.start),
+      end: num(rangeObj.end), // last line, INCLUSIVE per lib-common LineRange
     };
   }
   return {

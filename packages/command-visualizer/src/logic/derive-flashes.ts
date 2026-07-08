@@ -4,8 +4,8 @@
 // mutation of caller state. logic/ → logic/ import only.
 
 import type { OverlayStyleName } from "../data/decorations";
-import type { Decoration, GeneralizedRange } from "../model/frame-state";
-import type { Pos } from "../model/geometry";
+import type { Decoration } from "../model/frame-state";
+import { Position, type GeneralizedRange } from "@cursorless/lib-common";
 
 export interface DerivedFlashes {
   /** pendingDelete flashes to append to the DURING flash list (pre-edit). */
@@ -43,11 +43,11 @@ export function deriveFlashes(args: {
     finDoc !== initDoc &&
     hasAfterFrame
   ) {
-    const toPos = (doc: string, off: number): Pos => {
+    const toPos = (doc: string, off: number): Position => {
       const upto = doc.slice(0, off);
       const line = (upto.match(/\n/g) ?? []).length;
       const character = off - (upto.lastIndexOf("\n") + 1);
-      return { line, character };
+      return new Position(line, character);
     };
     let p = 0;
     while (

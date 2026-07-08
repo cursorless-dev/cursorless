@@ -4,7 +4,7 @@
 
 import type { Theme } from "../data/colors";
 import type { Line } from "./columns";
-import type { Pos, Range } from "./geometry";
+import type { Position, Range, GeneralizedRange } from "@cursorless/lib-common";
 import type { OverlayStyleName } from "../data/decorations";
 
 export type FrameRole = "before" | "during" | "after";
@@ -16,19 +16,9 @@ export type OverlayRole =
   | "source"
   | `scope:${string}`;
 
-// GeneralizedRange — character (half-open columns) or line
-// (full-width, endLine INCLUSIVE).
-export type CharacterRange = {
-  type: "character";
-  start: Pos;
-  end: Pos;
-};
-export type LineRange = {
-  type: "line";
-  startLine: number;
-  endLine: number; // INCLUSIVE
-};
-export type GeneralizedRange = CharacterRange | LineRange;
+// GeneralizedRange (character | line) comes from @cursorless/lib-common.
+// A line range's `end` field is the last line, INCLUSIVE — same semantics the
+// local type carried before this adopted lib-common's shape.
 
 export interface Decoration {
   style: OverlayStyleName;
@@ -39,7 +29,7 @@ export interface Decoration {
 export interface Frame {
   role: FrameRole;
   lines: Line[];
-  cursors: Pos[];
+  cursors: Position[];
   selections: Range[];
   decorations: Decoration[];
   /** Spoken form of the command this frame is the BEFORE of (command strip). */

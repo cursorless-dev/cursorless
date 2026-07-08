@@ -7,7 +7,7 @@ import { type Column, expandColumns } from "./columns";
 import type { Decoration, Frame, OverlayRole } from "./frame-state";
 import type { OverlayStyleName } from "../data/decorations";
 import { overlayPrecedence } from "../data/decorations";
-import type { Range } from "./geometry";
+import { type Range, isLineRange } from "@cursorless/lib-common";
 
 // Role sub-rank, used to break style-precedence ties: a REAL ide.flash outranks
 // a DERIVED that/source overlay on the
@@ -44,16 +44,16 @@ export interface LineOverlay {
 function colsForCharRange(
   cols: Column[],
   lineIdx: number,
-  startLine: number,
+  firstLine: number,
   startCh: number,
-  endLine: number,
+  lastLine: number,
   endCh: number,
 ): number[] {
-  if (lineIdx < startLine || lineIdx > endLine) {
+  if (lineIdx < firstLine || lineIdx > lastLine) {
     return [];
   }
-  const loCh = lineIdx === startLine ? startCh : 0;
-  const hiCh = lineIdx === endLine ? endCh : Infinity;
+  const loCh = lineIdx === firstLine ? startCh : 0;
+  const hiCh = lineIdx === lastLine ? endCh : Infinity;
   const out: number[] = [];
   for (const c of cols) {
     // a cell starts at charIndex; treat it as covering [charIndex, nextCharIndex)
@@ -114,8 +114,8 @@ function resolveLine(
   // character-range decorations (highlight prec 1, flash prec 2)
   let lineFlash: OverlayStyleName | null = null;
   for (const dec of decorations) {
-    if (dec.range.type === "line") {
-      if (lineIdx >= dec.range.startLine && lineIdx <= dec.range.endLine) {
+    if (isLineRange(dec.range)) {
+      if (lineIdx >= dec.range.start && lineIdx <= dec.range.end) {
         lineFlash = dec.style; // last line decoration wins
       }
       continue;
