@@ -2,7 +2,12 @@
 // adjustment values never drift. No render-time JS; CSS does 100% of visual work.
 
 import { COLOR_MATRIX, EDITOR_CHROME, HAT_COLORS } from "./data/colors";
-import { HAT_SHAPES, SHAPE_ADJUSTMENTS } from "./data/shapes";
+import {
+  DEFAULT_HAT_HEIGHT_EM,
+  DEFAULT_VERTICAL_OFFSET_EM,
+  HAT_SHAPES,
+  SHAPE_ADJUSTMENTS,
+} from "./data/shapes";
 
 function shapeAdjustmentRules(): string {
   const lines: string[] = [
@@ -50,8 +55,8 @@ export function styleSheet(): string {
   return `/* Cursorless state → static CSS. SPEC §4. Generated; do not hand-edit. */
 
 :root {
-  --hat-height: 0.36em;        /* DEFAULT_HAT_HEIGHT_EM */
-  --hat-base-voffset: 0.05em;  /* DEFAULT_VERTICAL_OFFSET_EM */
+  --hat-height: ${DEFAULT_HAT_HEIGHT_EM}em;
+  --hat-base-voffset: ${DEFAULT_VERTICAL_OFFSET_EM}em;
   --user-size-adj: 0;          /* cursorless.hatSizeAdjustment as fraction */
   --user-voffset: 0em;
   /* Real VS Code default line-height resolves to ~1.35× for the editor font

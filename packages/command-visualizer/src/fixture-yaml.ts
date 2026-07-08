@@ -34,6 +34,11 @@ export type YamlValue =
  * empty/null document so callers can index into it unconditionally.
  */
 export function parseFixtureYaml(src: string): { [k: string]: YamlValue } {
+  // js-yaml 5.x throws on null/undefined input; guard so the `{}` fallback
+  // is actually reachable for blank or whitespace-only fixture strings.
+  if (!src || !src.trim()) {
+    return {};
+  }
   const value = load(src) as YamlValue | undefined;
   if (value != null && typeof value === "object" && !Array.isArray(value)) {
     return value as { [k: string]: YamlValue };

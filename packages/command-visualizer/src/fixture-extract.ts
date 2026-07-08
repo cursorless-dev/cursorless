@@ -59,6 +59,9 @@ export function parseMarks(marksObj: Obj | null): MarkInfo[] {
       continue;
     }
     const dot = key.indexOf(".");
+    if (dot === -1) {
+      continue; // mark key must be "{color}.{grapheme}" — skip malformed entries
+    }
     const colorRaw = key.slice(0, dot);
     const grapheme = key.slice(dot + 1);
     const color = (HAT_COLORS as string[]).includes(colorRaw)

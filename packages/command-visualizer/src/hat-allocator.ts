@@ -131,7 +131,12 @@ export function allocateHats(
         tokenIdx: idx,
         charIdx: g.range.start - seg.start,
         grapheme: SPLITTER.normalizeGrapheme(g.text),
-        styleName: g.hat.color,
+        // Include shape so the allocator reserves the right style key
+        // (cssStateHatStyles keys non-default shapes as `${color}-${shape}`).
+        styleName:
+          g.hat.shape === "default" || !g.hat.shape
+            ? g.hat.color
+            : `${g.hat.color}-${g.hat.shape}`,
       });
       break; // one mark pins the whole segment
     }

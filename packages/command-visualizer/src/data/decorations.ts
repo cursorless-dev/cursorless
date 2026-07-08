@@ -19,7 +19,7 @@ export type HighlightStyle = "highlight0" | "highlight1";
 
 export type DecorationStyle = FlashStyle | HighlightStyle;
 
-// All 11 decoration styles' background hexes (the 2 scope-pair styles use the
+// All 7 decoration styles' background hexes (the 2 scope-pair styles use the
 // same band hex family; per-edge borders are BONUS, SPEC-v2 §3.5, not here).
 export const DECORATION_HEX: Record<DecorationStyle, string> = {
   pendingDelete: "#ff00008a", // REQUIRED (COMPLETION crit 3)

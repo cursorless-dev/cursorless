@@ -71,8 +71,11 @@ export function chainCascades(
   states: CascadeState[],
   fixtureLabel: string,
 ): CascadeState {
+  if (states.length === 0) {
+    throw new ChainContinuityError(0, "chainCascades requires at least one state");
+  }
   if (states.length === 1) {
-    return states[0];
+    return { ...states[0], meta: { ...states[0].meta, fixture: fixtureLabel } };
   }
 
   const frames: Frame[] = [];
