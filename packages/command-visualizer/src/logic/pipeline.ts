@@ -13,18 +13,18 @@ import type {
   GeneralizedRange,
 } from "../model/frame-state";
 import type { DecorationStyle } from "../data/decorations";
-import type { Pos } from "../model/geometry";
 import {
   asArr,
   asObj,
   buildLines,
   deriveSelections,
   parseMarks,
-  pos,
   toGeneralizedRange,
 } from "./fixture-extract";
 
 import { fixtureRoot } from "./fixture-root";
+import { deriveFlashes } from "./derive-flashes";
+import { deriveOverlays } from "./derive-overlays";
 
 // Resolved lazily: fixtureRoot() throws when no cursorless checkout exists,
 // which must not fire at module load in serverless (the API path reads
@@ -143,67 +143,23 @@ export function fixtureToCascade(
   const duringFlashes: { style: DecorationStyle; range: GeneralizedRange }[] =
     [];
 
-  // Step 6b (derived referenceFlashes): tutorial-corpus recordings carry NO
-  // ide.flashes (verified 2026-07-07 — all 10 tutorial-1-basics fixtures have
-  // zero) even for document edits. Cursorless flashes are deterministic from
-  // the edit itself, so when a fixture records none and the doc changed,
-  // derive them: char-level common prefix/suffix -> removed span flashes
-  // pendingDelete on BEFORE, inserted span flashes justAdded on AFTER.
+  // Step 6b (derived referenceFlashes) — see derive-flashes.ts. When a fixture
+  // records no ide.flashes but the doc changed, synthesize the pre-edit
+  // pendingDelete (rides DURING) + post-edit justAdded (rides AFTER) from the
+  // char-level prefix/suffix diff. Behavior identical to the inline version.
   const recordedFlashes = asArr(ide?.flashes);
   const initDoc = (initial?.documentContents as string) ?? "";
   const finDoc =
     typeof final?.documentContents === "string" ? final.documentContents : null;
-  if (
-    recordedFlashes.length === 0 &&
-    finDoc != null &&
-    finDoc !== initDoc &&
-    afterFrame
-  ) {
-    const toPos = (doc: string, off: number): Pos => {
-      const upto = doc.slice(0, off);
-      const line = (upto.match(/\n/g) ?? []).length;
-      const character = off - (upto.lastIndexOf("\n") + 1);
-      return { line, character };
-    };
-    let p = 0;
-    while (
-      p < initDoc.length &&
-      p < finDoc.length &&
-      initDoc[p] === finDoc[p]
-    ) {
-      p++;
-    }
-    let sfx = 0;
-    while (
-      sfx < initDoc.length - p &&
-      sfx < finDoc.length - p &&
-      initDoc[initDoc.length - 1 - sfx] === finDoc[finDoc.length - 1 - sfx]
-    ) {
-      sfx++;
-    }
-    const remEnd = initDoc.length - sfx;
-    const insEnd = finDoc.length - sfx;
-    if (remEnd > p) {
-      duringFlashes.push({
-        style: "pendingDelete" as DecorationStyle,
-        range: {
-          type: "character",
-          start: toPos(initDoc, p),
-          end: toPos(initDoc, remEnd),
-        },
-      });
-    }
-    if (insEnd > p) {
-      afterFrame.decorations.push({
-        style: "justAdded" as DecorationStyle,
-        role: "flash",
-        range: {
-          type: "character",
-          start: toPos(finDoc, p),
-          end: toPos(finDoc, insEnd),
-        },
-      });
-    }
+  const derived = deriveFlashes({
+    recordedFlashCount: recordedFlashes.length,
+    initDoc,
+    finDoc,
+    hasAfterFrame: afterFrame != null,
+  });
+  duringFlashes.push(...derived.duringFlashes);
+  if (afterFrame) {
+    afterFrame.decorations.push(...derived.afterDecorations);
   }
 
   // Step 6: flashes. justAdded rides the AFTER frame (post-edit); every
@@ -255,53 +211,13 @@ export function fixtureToCascade(
     frames.splice(1, 0, duringFrame);
   }
 
-  // Step 7: highlights → decorations (painted on before frame in this corpus).
-  for (const h of asArr(ide?.highlights)) {
-    const ho = asObj(h);
-    if (!ho) {
-      continue;
-    }
-    const style = String(ho.style) as DecorationStyle;
-    for (const r of asArr(ho.ranges)) {
-      const range = toGeneralizedRange(asObj(r) ?? {});
-      if (range) {
-        beforeFrame.decorations.push({ style, range, role: "highlight" });
-      }
-    }
-  }
-
-  // Step 7: thatMark / sourceMark → AFTER decorations (rendered as referenced).
+  // Step 7: highlights → BEFORE decorations, thatMark/sourceMark → AFTER
+  // decorations. See derive-overlays.ts; behavior identical to the inline
+  // version (order preserved: highlights, then that, then source).
+  const overlays = deriveOverlays({ ide, final, hasAfterFrame: afterFrame != null });
+  beforeFrame.decorations.push(...overlays.beforeDecorations);
   if (afterFrame) {
-    for (const tm of asArr(final?.thatMark)) {
-      const o = asObj(tm);
-      const cr = asObj(o?.contentRange);
-      if (cr) {
-        afterFrame.decorations.push({
-          style: "referenced",
-          role: "that",
-          range: {
-            type: "character",
-            start: pos(cr.start),
-            end: pos(cr.end),
-          },
-        });
-      }
-    }
-    for (const sm of asArr(final?.sourceMark)) {
-      const o = asObj(sm);
-      const cr = asObj(o?.contentRange);
-      if (cr) {
-        afterFrame.decorations.push({
-          style: "pendingModification0",
-          role: "source",
-          range: {
-            type: "character",
-            start: pos(cr.start),
-            end: pos(cr.end),
-          },
-        });
-      }
-    }
+    afterFrame.decorations.push(...overlays.afterDecorations);
   }
 
   return { theme, tabSize, meta, frames };
