@@ -22,16 +22,9 @@
 import type { CascadeState } from "./frame-state";
 import { MS_PER_STATE } from "./data/decorations";
 import { frameDurMs, timelineOf } from "./timeline";
+import { esc } from "./html";
 
 const NL = String.fromCharCode(10);
-
-function esc(s: string): string {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
 
 /** Commands carried by the frames, in order. */
 function frameCommands(state: CascadeState): string[] {

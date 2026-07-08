@@ -13,6 +13,7 @@ import { serializeCascade } from "./serialize-cascade";
 import { jumbotronCss, serializeJumbotron } from "./jumbotron";
 import { styleSheet } from "./css";
 import { cascadeStyleSheet, cascadeThemeBridge } from "./css-cascade";
+import { captionHtml, themeBackground } from "./html";
 
 const FONT_PX = 18; // .cl-code font-size (css-cascade.ts)
 const LINE_HEIGHT = 1.35; // --code-line-height default
@@ -46,10 +47,6 @@ function extent(state: CascadeState): { cols: number; rows: number } {
     }
   }
   return { cols, rows };
-}
-
-function esc(s: string): string {
-  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
 /**
@@ -111,18 +108,8 @@ export function wrapCascadeSvg(
     barWidthPx: width - PAD_PX * 2,
   });
 
-  const bg = state.theme === "dark" ? "#141414" : "#e8e8e8";
-  const caption = state.meta
-    ? `<div class="cl-caption">${esc(
-        [
-          state.meta.spokenForm && `"${state.meta.spokenForm}"`,
-          state.meta.action,
-          state.meta.fixture,
-        ]
-          .filter(Boolean)
-          .join("  ·  "),
-      )}</div>`
-    : "";
+  const bg = themeBackground(state.theme);
+  const caption = captionHtml(state.meta);
   // The cascade stylesheet ships animation-play-state: paused (the GIF
   // harness seeks frames via WAAPI). A delivered SVG has no harness — for
   // multi-frame cascades, un-pause and loop forever (readme-embed behavior).

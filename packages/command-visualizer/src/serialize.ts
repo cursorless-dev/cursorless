@@ -4,6 +4,7 @@ import type { Theme } from "./data/colors";
 import { type Column, type Line, expandColumns, lineWidth } from "./columns";
 import { styleSheet } from "./css";
 import { symbolSheet } from "./symbols";
+import { esc } from "./html";
 
 export interface Pos {
   line: number;
@@ -20,19 +21,6 @@ export interface EditorState {
   lines: Line[];
   cursors?: Pos[];
   selections?: Range[];
-}
-
-// Escapes text content AND quoted-attribute contexts: & < > plus both quote
-// chars, so interpolated strings can never break out of an attribute value.
-// Mirrors esc() in serialize-cascade.ts (CodeQL: incomplete attribute
-// sanitization requires the quote escapes too).
-function esc(s: string): string {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
 }
 
 /** Is a given char index on a given line inside any selection range? */
