@@ -64,7 +64,7 @@ export function parseMarks(marksObj: Obj | null): MarkInfo[] {
     }
     const colorRaw = key.slice(0, dot);
     const grapheme = key.slice(dot + 1);
-    const color = (HAT_COLORS as string[]).includes(colorRaw)
+    const color = (HAT_COLORS as readonly string[]).includes(colorRaw)
       ? (colorRaw as HatColor)
       : ("default" as HatColor);
     out.push({

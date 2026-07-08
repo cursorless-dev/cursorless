@@ -1,55 +1,27 @@
-// Hat shape SVG path data — copied VERBATIM from
-// cursorless/resources/images/hats/{shape}.svg (verified 2026-06-08).
-// Only `crosshairs` carries fill-rule="evenodd" clip-rule="evenodd"; every
-// other shape uses the SVG default (nonzero). `ex` is a single subpath (no hole).
-// SPEC §4.1 / DECISIONS.md CORRECTION.
+// Hat shape names/types AND the per-shape adjustment constants are imported from
+// @cursorless/lib-common — NOT redefined here:
+//   - HatShape / HAT_SHAPES / HAT_NON_DEFAULT_SHAPES ← lib-common hatStyles.types
+//   - SHAPE_ADJUSTMENTS (defaultShapeAdjustments) / DEFAULT_HAT_HEIGHT_EM /
+//     DEFAULT_VERTICAL_OFFSET_EM / ShapeAdjustment ← lib-common shapeAdjustments
+//     (promoted there from app-vscode in this PR so headless consumers can
+//     import them instead of cloning).
 //
-// WHY NOT IMPORTED (step 6 decision — Option B, kept-with-provenance):
-//   - SHAPE_PATHS `d=` strings: the canonical source is the 11 .svg files under
-//     resources/images/hats/, which app-vscode's VscodeHatRenderer.ts reads at
-//     RUNTIME (readFile of `${shape}.svg`) — there is no compile-time TS
-//     constant for them. Building an SVG-loader here or a TS path constant would
-//     be a second copy; the safest single-source would be a shared build step
-//     that reads the .svg files, which is out of scope.
-//   - HAT_SHAPES / HatShape / SHAPE_ADJUSTMENTS: these DO exist as clean TS
-//     constants upstream — HAT_SHAPES/HAT_NON_DEFAULT_SHAPES/HatShape in
-//     app-vscode/src/ide/vscode/hatStyles.types.ts and defaultShapeAdjustments
-//     (+ DEFAULT_HAT_HEIGHT_EM / DEFAULT_VERTICAL_OFFSET_EM) in
-//     app-vscode/src/ide/vscode/hats/shapeAdjustments.ts — but app-vscode
-//     exports only ./extension.cjs, so nothing outside it can import them.
-// FOLLOW-UP to actually single-source: promote hatStyles.types.ts +
-// shapeAdjustments.ts into @cursorless/lib-common and rewire the 5 app-vscode
-// files that import them (VscodeHatRenderer, performPr1868ShapeUpdateInit, the
-// two hatAdjustments scripts). Deferred: it touches the shipping extension's
-// hat-rendering path and is the "risky app-vscode refactor" this task scoped
-// out. The .svg `d=` strings would still need a separate build-time loader.
+// Only the SVG `d=` path data below is local: its canonical source is the 11
+// .svg files under resources/images/hats/, which app-vscode's VscodeHatRenderer
+// reads at RUNTIME (readFile) — there is no compile-time TS constant for them,
+// so a headless renderer must carry the byte-for-byte paths (verified against
+// the source SVGs 2026-06-08). SPEC §4.1.
 
-export type HatShape =
-  | "default"
-  | "bolt"
-  | "curve"
-  | "fox"
-  | "frame"
-  | "play"
-  | "wing"
-  | "hole"
-  | "ex"
-  | "crosshairs"
-  | "eye";
+import type { HatShape } from "@cursorless/lib-common";
 
-export const HAT_SHAPES: HatShape[] = [
-  "default",
-  "bolt",
-  "curve",
-  "fox",
-  "frame",
-  "play",
-  "wing",
-  "hole",
-  "ex",
-  "crosshairs",
-  "eye",
-];
+export type { HatShape, HatNonDefaultShape } from "@cursorless/lib-common";
+export { HAT_SHAPES, HAT_NON_DEFAULT_SHAPES } from "@cursorless/lib-common";
+export {
+  DEFAULT_HAT_HEIGHT_EM,
+  DEFAULT_VERTICAL_OFFSET_EM,
+  defaultShapeAdjustments as SHAPE_ADJUSTMENTS,
+} from "@cursorless/lib-common";
+export type { HatAdjustments as ShapeAdjustment } from "@cursorless/lib-common";
 
 export interface ShapePath {
   d: string;
@@ -57,7 +29,9 @@ export interface ShapePath {
   fillRule?: "evenodd";
 }
 
-// d= strings are byte-for-byte from the source SVGs.
+// d= strings are byte-for-byte from resources/images/hats/{shape}.svg.
+// Only `crosshairs` carries fill-rule="evenodd"; every other shape uses the
+// SVG default (nonzero). `ex` is a single subpath (no hole).
 export const SHAPE_PATHS: Record<HatShape, ShapePath> = {
   default: {
     d: "M6 9C9.31371 9 12 6.98528 12 4.5C12 2.01472 9.31371 0 6 0C2.68629 0 0 2.01472 0 4.5C0 6.98528 2.68629 9 6 9Z",
@@ -94,35 +68,3 @@ export const SHAPE_PATHS: Record<HatShape, ShapePath> = {
     d: "M12 4L6.5 0H5.5L0 4V5L5.5 9H6.5L12 5V4ZM6 7.5C6 7.5 4.5 6.5 4.5 4.5C4.5 2.5 6.01103 1.5 6 1.5C6 1.5 7.5 2.5 7.5 4.5C7.5 6.5 6 7.5 6 7.5Z",
   },
 };
-
-/**
- * Per-shape adjustments, ported from
- * cursorless/.../hats/shapeAdjustments.ts (verified 2026-06-08).
- * sizeAdjustment is a PERCENT (e.g. -30 = -0.30 fraction).
- * verticalOffset is a PERCENT applied /100 to em (e.g. -5 = -0.05em).
- */
-export interface ShapeAdjustment {
-  /** percent */
-  sizeAdjustment?: number;
-  /** percent → em/100 */
-  verticalOffset?: number;
-  /** deferred (two-tone stroke, SPEC §7) */
-  strokeFactor?: number;
-}
-
-export const SHAPE_ADJUSTMENTS: Record<HatShape, ShapeAdjustment> = {
-  default: { sizeAdjustment: -30 },
-  ex: { sizeAdjustment: -12.5 },
-  fox: { sizeAdjustment: -5 },
-  wing: { sizeAdjustment: -2.5 },
-  hole: { strokeFactor: 0.7 },
-  frame: { sizeAdjustment: -20 },
-  curve: { verticalOffset: -5 },
-  eye: {},
-  play: {},
-  bolt: {},
-  crosshairs: {},
-};
-
-export const DEFAULT_HAT_HEIGHT_EM = 0.36;
-export const DEFAULT_VERTICAL_OFFSET_EM = 0.05;
