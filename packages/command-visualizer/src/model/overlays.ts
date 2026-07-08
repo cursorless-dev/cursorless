@@ -5,9 +5,9 @@
 
 import { type Column, expandColumns } from "./columns";
 import type { Decoration, Frame, OverlayRole } from "./frame-state";
-import type { DecorationStyle } from "./data/decorations";
-import { overlayPrecedence } from "./data/decorations";
-import type { Range } from "./serialize";
+import type { DecorationStyle } from "../data/decorations";
+import { overlayPrecedence } from "../data/decorations";
+import type { Range } from "./geometry";
 
 // Role sub-rank, used to break style-precedence ties (SPEC-v2 §3.2 / DECISIONS
 // §7.1+§7.2): a REAL ide.flash outranks a DERIVED that/source overlay on the

@@ -2,10 +2,10 @@
 // `.cl-editor` surface (EditorState minus the doc-level theme/tab). v2 wraps an
 // ordered list of frames in a cascade and adds the decoration OVERLAY layer.
 
-import type { Theme } from "./data/colors";
+import type { Theme } from "../data/colors";
 import type { Line } from "./columns";
-import type { Pos, Range } from "./serialize";
-import type { DecorationStyle } from "./data/decorations";
+import type { Pos, Range } from "./geometry";
+import type { DecorationStyle } from "../data/decorations";
 
 export type FrameRole = "before" | "during" | "after";
 
