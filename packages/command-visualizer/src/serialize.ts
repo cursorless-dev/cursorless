@@ -22,8 +22,17 @@ export interface EditorState {
   selections?: Range[];
 }
 
+// Escapes text content AND quoted-attribute contexts: & < > plus both quote
+// chars, so interpolated strings can never break out of an attribute value.
+// Mirrors esc() in serialize-cascade.ts (CodeQL: incomplete attribute
+// sanitization requires the quote escapes too).
 function esc(s: string): string {
-  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
 /** Is a given char index on a given line inside any selection range? */
