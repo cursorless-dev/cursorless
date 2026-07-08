@@ -24,6 +24,7 @@ export * from "./ide/types/FlashDescriptor";
 export * from "./ide/types/Hats";
 export * from "./ide/types/HatStability";
 export * from "./ide/types/hatStyles.types";
+export * from "./ide/types/shapeAdjustments";
 export * from "./ide/types/ide.types";
 export * from "./ide/types/KeyValueStore";
 export * from "./ide/types/Messages";

@@ -1,40 +1,15 @@
-import type { HatShape } from "../hatStyles.types";
+// Hat shape adjustments were promoted to @cursorless/lib-common so non-VS-Code
+// consumers (e.g. @cursorless/command-visualizer) can import them without a
+// clone. This file is a backward-compatible re-export shim so the existing
+// app-vscode consumers (VscodeHatRenderer, performPr1868ShapeUpdateInit, the
+// hatAdjustments scripts) keep importing from their original path unchanged.
 
-export interface HatAdjustments {
-  sizeAdjustment?: number;
-  strokeFactor?: number;
-  verticalOffset?: number;
-}
-
-export type IndividualHatAdjustmentMap = Record<HatShape, HatAdjustments>;
-
-export const DEFAULT_HAT_HEIGHT_EM = 0.36;
-export const DEFAULT_VERTICAL_OFFSET_EM = 0.05;
-
-export const defaultShapeAdjustments: IndividualHatAdjustmentMap = {
-  default: {
-    sizeAdjustment: -30,
-  },
-  ex: {
-    sizeAdjustment: -12.5,
-  },
-  fox: {
-    sizeAdjustment: -5,
-  },
-  wing: {
-    sizeAdjustment: -2.5,
-  },
-  hole: {
-    strokeFactor: 0.7,
-  },
-  frame: {
-    sizeAdjustment: -20,
-  },
-  curve: {
-    verticalOffset: -5,
-  },
-  eye: {},
-  play: {},
-  bolt: {},
-  crosshairs: {},
-};
+export type {
+  HatAdjustments,
+  IndividualHatAdjustmentMap,
+} from "@cursorless/lib-common";
+export {
+  DEFAULT_HAT_HEIGHT_EM,
+  DEFAULT_VERTICAL_OFFSET_EM,
+  defaultShapeAdjustments,
+} from "@cursorless/lib-common";
