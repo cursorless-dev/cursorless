@@ -2,8 +2,7 @@
 
 import type { Theme } from "../data/colors";
 import { type Column, type Line, expandColumns, lineWidth } from "../model/columns";
-import type { Pos, Range } from "../model/geometry";
-import { orderRange } from "../model/geometry";
+import type { Position, Range } from "@cursorless/lib-common";
 import { styleSheet } from "./css";
 import { symbolSheet } from "./symbols";
 import { esc } from "./html";
@@ -12,7 +11,7 @@ export interface EditorState {
   theme: Theme;
   tabSize: number;
   lines: Line[];
-  cursors?: Pos[];
+  cursors?: Position[];
   selections?: Range[];
 }
 
@@ -23,7 +22,8 @@ function inAnySelection(
   selections: Range[],
 ): boolean {
   for (const sel of selections) {
-    const { start, end } = orderRange(sel);
+    // lib-common Range is always non-reversed (start ≤ end), so no reorder.
+    const { start, end } = sel;
     if (lineIdx < start.line || lineIdx > end.line) {
       continue;
     }

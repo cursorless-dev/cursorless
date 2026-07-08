@@ -39,6 +39,7 @@ import {
   HatStability,
   type HatStyleMap,
   InMemoryTextEditor,
+  Position,
   Range,
   Selection,
   type TokenHat,
@@ -51,7 +52,6 @@ import {
 import type { HatColor, HatShape } from "@cursorless/lib-common";
 import { HAT_COLORS, HAT_SHAPES } from "@cursorless/lib-common";
 import type { Line, Token as RenderToken } from "../model/columns";
-import type { Pos } from "../model/geometry";
 
 // ---------------------------------------------------------------------------
 // Style map: our full palette x (default + 10 shapes), penalty-ordered the way
@@ -117,7 +117,7 @@ interface Mark {
 
 export function allocateHats(
   lines: Line[],
-  cursor: Pos = { line: 0, character: 0 },
+  cursor: Position = new Position(0, 0),
 ): void {
   // (1) Reconstruct the document text the render model represents.
   const content = lines
