@@ -93,6 +93,15 @@ let us drop `fixture-root.ts`.
   `app-web-docs/Code.tsx` is Shiki syntax highlighting, unrelated).
 - `model/overlays.ts` cross-decoration last-wins-per-cell precedence — lib-common's
   `decorationUtil` computes single-range **border geometry**, a different concern.
+- `model/frame-state.ts` container types (checked 2026-07-08 against cursorless):
+  its FIELD types already come from lib-common (`Position`/`Range`/`GeneralizedRange`),
+  but the containers have no home. `Decoration {style,range,role}` is the only real
+  shape-overlap — with `FlashDescriptor {style, editor, range}` — but that requires
+  a live `TextEditor`, is flash-only (no `highlight0/1`), and lacks `role`; not
+  adoptable without an editor-free + highlight-inclusive upstream refactor, and even
+  then only partial. `Frame`/`CascadeState`/`CascadeMeta` are render/animation models
+  distinct from `TestCaseSnapshot` (raw text + marks). `FrameRole`/`OverlayRole` are
+  render enums. Do not re-chase.
 
 ## How to pursue
 The geometry adoption is our-side and unblocked — do it directly. Items 1–4 are
