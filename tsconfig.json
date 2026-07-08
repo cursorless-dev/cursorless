@@ -18,6 +18,9 @@
       "path": "./packages/app-web-docs"
     },
     {
+      "path": "./packages/command-visualizer"
+    },
+    {
       "path": "./packages/lib-cheatsheet"
     },
     {

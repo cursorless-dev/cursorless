@@ -1,15 +1,13 @@
 {
   "name": "@cursorless/command-visualizer",
   "version": "0.0.1",
-  "type": "module",
   "description": "Visualizes cursorless commands as animated SVGs: the spoken command entering, flashes firing, the edit landing, hats reallocating — rendered from recorded test fixtures, embeddable via plain <img>.",
+  "license": "MIT",
+  "type": "module",
   "main": "./out/index.js",
   "types": "./out/index.d.ts",
-  "scripts": {
-    "compile:tsc": "tsc",
-    "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
-    "compile": "pnpm compile:tsc && pnpm compile:esbuild",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
+  "exports": {
+    ".": "./src/index.ts"
   },
   "keywords": [
     "cursorless",
@@ -17,8 +15,13 @@
     "svg",
     "fixtures"
   ],
-  "author": "",
-  "license": "MIT",
+  "scripts": {
+    "typecheck": "tsc",
+    "clean": "rm -rf ./out ./dist ./tsconfig.tsbuildinfo",
+    "compile:tsc": "tsc",
+    "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
+    "compile": "pnpm compile:tsc && pnpm compile:esbuild"
+  },
   "dependencies": {
     "@cursorless/lib-common": "workspace:*",
     "@cursorless/lib-engine": "workspace:*",

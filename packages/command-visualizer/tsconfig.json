@@ -4,5 +4,9 @@
     "skipLibCheck": true,
     "types": ["node", "mocha"]
   },
-  "include": ["src/**/*.ts", "../../resources/typings/**/*.d.ts"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.json",
+    "../../resources/typings/**/*.d.ts"
+  ]
 }

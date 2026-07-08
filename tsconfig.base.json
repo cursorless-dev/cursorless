@@ -11,6 +11,7 @@
     "isolatedModules": true,
     "strict": true,
     "paths": {
+      "@cursorless/command-visualizer": ["./packages/command-visualizer"],
       "@cursorless/lib-cheatsheet": ["./packages/lib-cheatsheet"],
       "@cursorless/lib-common": ["./packages/lib-common"],
       "@cursorless/lib-engine": ["./packages/lib-engine"],
