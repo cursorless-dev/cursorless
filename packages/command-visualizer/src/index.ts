@@ -2,7 +2,19 @@
 //
 // fixture YAML in -> animated SVG out. See STATUS.md for integration state.
 
-export { fixtureToCascade, type PipelineOptions } from "./logic/pipeline";
+export {
+  fixtureToCascade,
+  parseFixture,
+  tokenizeStates,
+  buildRenderObject,
+  type PipelineOptions,
+  type ParsedFixture,
+  type TokenizedStates,
+} from "./logic/pipeline";
+export {
+  renderCommand,
+  type RenderCommandOptions,
+} from "./render-command";
 export {
   chainCascades,
   withBumpers,

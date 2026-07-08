@@ -2,29 +2,36 @@
 //   yml → frames → tokenize → marks→hats → synthetic shape → flashes→overlays
 //   → that/source/highlights → CascadeState. Render contract (SPEC.md §3/§4)
 //   is unchanged downstream.
+//
+// The public `fixtureToCascade` is a thin composition of three named stages:
+//   1. parseFixture      — YAML text → ParsedFixture (doc + meta + clipboard)
+//   2. tokenizeStates    — ParsedFixture → before/after Frames (lines + hats)
+//   3. buildRenderObject — Frames → CascadeState (flashes, during, overlays)
+// Each stage is exported so a reviewer can read the progression top-to-bottom.
+// Stage 3 lives in ./build-render-object; its types in ./pipeline-types.
 
 import { readFileSync } from "node:fs";
-import type { HatColor, HatShape } from "@cursorless/lib-common";
 import { parseFixtureYaml } from "./fixture-yaml";
 import type { Theme } from "../data/colors";
-import type {
-  CascadeState,
-  Frame,
-  GeneralizedRange,
-} from "../model/frame-state";
-import type { DecorationStyle } from "../data/decorations";
+import type { CascadeState, Frame } from "../model/frame-state";
 import {
   asArr,
   asObj,
   buildLines,
   deriveSelections,
   parseMarks,
-  toGeneralizedRange,
 } from "./fixture-extract";
 
 import { fixtureRoot } from "./fixture-root";
-import { deriveFlashes } from "./derive-flashes";
-import { deriveOverlays } from "./derive-overlays";
+import { buildRenderObject } from "./build-render-object";
+import type {
+  ParsedFixture,
+  PipelineOptions,
+  TokenizedStates,
+} from "./pipeline-types";
+
+export { buildRenderObject };
+export type { ParsedFixture, PipelineOptions, TokenizedStates };
 
 // Resolved lazily: fixtureRoot() throws when no cursorless checkout exists,
 // which must not fire at module load in serverless (the API path reads
@@ -34,27 +41,13 @@ function FIXTURE_ROOT_LAZY(): string {
   return (fixtureRootCache ??= fixtureRoot());
 }
 
-// Route a flash style to its native frame (SPEC-v2 §1.2 / §2.6).
-function flashRidesAfter(style: string): boolean {
-  return style === "justAdded";
-}
-
-export interface PipelineOptions {
-  shapeOverride?: Record<string, HatShape>;
-  theme?: Theme;
-  tabSize?: number;
-  /** "dense" (default) = real-allocator fill everywhere; "marks-only" = exactly the recorded marks. */
-  fill?: "dense" | "marks-only";
-  /** Position-keyed exact-hat overrides, keyed "{line}:{startChar}" — applied last, wins over everything. */
-  hatOverride?: Record<string, { color?: HatColor; shape?: HatShape }>;
-}
-
-/** Full pipeline: fixture YAML text → CascadeState. */
-export function fixtureToCascade(
+// ── Stage 1: get what to render ──────────────────────────────────────────────
+/** Parse fixture YAML and resolve meta + per-state clipboard visibility. */
+export function parseFixture(
   src: string,
   fixtureRel: string,
   opts: PipelineOptions = {},
-): CascadeState {
+): ParsedFixture {
   const doc = parseFixtureYaml(src);
   const theme: Theme = opts.theme ?? "dark";
   const tabSize = opts.tabSize ?? 4;
@@ -92,19 +85,28 @@ export function fixtureToCascade(
     return undefined;
   };
 
-  const ide = asObj(doc.ide);
+  return { theme, tabSize, meta, initial, final, ide: asObj(doc.ide), clipFor };
+}
 
+// ── Stage 2: tokenize each step ──────────────────────────────────────────────
+/** Tokenize the before (+ after) documents into Frames with lines + hats. */
+export function tokenizeStates(
+  parsed: ParsedFixture,
+  opts: PipelineOptions = {},
+): TokenizedStates {
+  const { initial, final, clipFor } = parsed;
+  const buildOpts = {
+    shapeOverride: opts.shapeOverride,
+    fill: opts.fill,
+    hatOverride: opts.hatOverride,
+  };
   const initMarks = parseMarks(asObj(initial?.marks));
 
   // Step 2: BEFORE frame.
   const beforeLines = buildLines(
     (initial?.documentContents as string) ?? "",
     initMarks,
-    {
-      shapeOverride: opts.shapeOverride,
-      fill: opts.fill,
-      hatOverride: opts.hatOverride,
-    },
+    buildOpts,
   );
   const beforeSel = deriveSelections(asArr(initial?.selections));
   const beforeFrame: Frame = {
@@ -113,7 +115,7 @@ export function fixtureToCascade(
     cursors: beforeSel.cursors,
     selections: beforeSel.selections,
     decorations: [],
-    command: meta.spokenForm,
+    command: parsed.meta.spokenForm,
     clipboard: clipFor("before"),
   };
 
@@ -123,11 +125,7 @@ export function fixtureToCascade(
   let afterFrame: Frame | null = null;
   if (final && typeof final.documentContents === "string") {
     // Final docs ship no marks; re-tokenize identically (no hats on after).
-    const afterLines = buildLines(final.documentContents, [], {
-      shapeOverride: opts.shapeOverride,
-      fill: opts.fill,
-      hatOverride: opts.hatOverride,
-    });
+    const afterLines = buildLines(final.documentContents, [], buildOpts);
     const afterSel = deriveSelections(asArr(final.selections));
     afterFrame = {
       role: "after",
@@ -140,87 +138,18 @@ export function fixtureToCascade(
     frames.push(afterFrame);
   }
 
-  const duringFlashes: { style: DecorationStyle; range: GeneralizedRange }[] =
-    [];
+  return { frames, beforeFrame, afterFrame };
+}
 
-  // Step 6b (derived referenceFlashes) — see derive-flashes.ts. When a fixture
-  // records no ide.flashes but the doc changed, synthesize the pre-edit
-  // pendingDelete (rides DURING) + post-edit justAdded (rides AFTER) from the
-  // char-level prefix/suffix diff. Behavior identical to the inline version.
-  const recordedFlashes = asArr(ide?.flashes);
-  const initDoc = (initial?.documentContents as string) ?? "";
-  const finDoc =
-    typeof final?.documentContents === "string" ? final.documentContents : null;
-  const derived = deriveFlashes({
-    recordedFlashCount: recordedFlashes.length,
-    initDoc,
-    finDoc,
-    hasAfterFrame: afterFrame != null,
-  });
-  duringFlashes.push(...derived.duringFlashes);
-  if (afterFrame) {
-    afterFrame.decorations.push(...derived.afterDecorations);
-  }
-
-  // Step 6: flashes. justAdded rides the AFTER frame (post-edit); every
-  // other flash is PRE-EDIT and rides the dedicated DURING frame (built
-  // below) — reference-class flashes sequence before deletion flashes there.
-  for (const f of asArr(ide?.flashes)) {
-    const fo = asObj(f);
-    if (!fo) {
-      continue;
-    }
-    const style = String(fo.style) as DecorationStyle;
-    const range = toGeneralizedRange(asObj(fo.range) ?? {});
-    if (!range) {
-      continue;
-    }
-    if (flashRidesAfter(style) && afterFrame) {
-      afterFrame.decorations.push({ style, range, role: "flash" });
-    } else {
-      duringFlashes.push({ style, range });
-    }
-  }
-
-  // Build the DURING frame (the execution beat — the instant the command
-  // pill goes active). ALWAYS present when the step has a final state, so
-  // every command occupies the same time scope. Content depends on flashes:
-  //   - WITH pre-edit flashes: the initial doc, flashes firing (reference
-  //     half then delete half) — the edit lands at the phase end.
-  //   - WITHOUT flashes (pure selection commands like "take cap"): the edit
-  //     is instantaneous in a real editor, so the during frame shows the
-  //     FINAL state — the selection highlight lands in the SAME frame as the
-  //     pill activation.
-  if (afterFrame) {
-    const instant = duringFlashes.length === 0;
-    const src = instant ? afterFrame : beforeFrame;
-    const duringFrame: Frame = {
-      role: "during",
-      lines: src.lines,
-      cursors: src.cursors,
-      selections: src.selections,
-      decorations: instant
-        ? []
-        : duringFlashes.map(({ style, range }) => ({
-            style,
-            range,
-            role: "flash" as const,
-          })),
-      clipboard: src.clipboard,
-    };
-    frames.splice(1, 0, duringFrame);
-  }
-
-  // Step 7: highlights → BEFORE decorations, thatMark/sourceMark → AFTER
-  // decorations. See derive-overlays.ts; behavior identical to the inline
-  // version (order preserved: highlights, then that, then source).
-  const overlays = deriveOverlays({ ide, final, hasAfterFrame: afterFrame != null });
-  beforeFrame.decorations.push(...overlays.beforeDecorations);
-  if (afterFrame) {
-    afterFrame.decorations.push(...overlays.afterDecorations);
-  }
-
-  return { theme, tabSize, meta, frames };
+/** Full pipeline: fixture YAML text → CascadeState (stages 1 → 2 → 3). */
+export function fixtureToCascade(
+  src: string,
+  fixtureRel: string,
+  opts: PipelineOptions = {},
+): CascadeState {
+  const parsed = parseFixture(src, fixtureRel, opts); // 1. get what to render
+  const tokenized = tokenizeStates(parsed, opts); //      2. tokenize each step
+  return buildRenderObject(parsed, tokenized, opts); //   3. generate render object
 }
 
 /** Convenience: load a recorded fixture by relative path. */
