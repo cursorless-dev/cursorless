@@ -28,8 +28,8 @@
     "@types/mocha": "^10.0.10",
     "@types/tinycolor2": "^1.4.6",
     "cross-spawn": "^7.0.6",
-    "fast-check": "^4.8.0",
-    "js-yaml": "^5.2.1",
-    "web-tree-sitter": "^0.26.10"
+    "fast-check": "^4.9.0",
+    "js-yaml": "^5.2.2",
+    "web-tree-sitter": "^0.26.11"
   }
 }
