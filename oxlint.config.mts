@@ -44,6 +44,7 @@ const disabledRules = [
   "import/prefer-default-export",
   "node/callback-return",
   "node/no-sync",
+  "node/no-top-level-await",
   "oxc/no-async-await",
   "oxc/no-barrel-file",
   "oxc/no-map-spread",

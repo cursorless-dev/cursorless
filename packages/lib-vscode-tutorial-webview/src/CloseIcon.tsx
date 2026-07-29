@@ -1,6 +1,6 @@
-import type { FunctionComponent } from "preact";
+import type { JSX } from "preact";
 
-export const CloseIcon: FunctionComponent = () => {
+export function CloseIcon(): JSX.Element {
   // From https://github.com/microsoft/vscode-codicons/blob/eaa030691d720b9c5c0efa93d9be9e2e45d7262b/src/icons/close.svg
   // FIXME: Use codicons the way it's intended; see https://github.com/microsoft/vscode-codicons
   return (
@@ -18,4 +18,4 @@ export const CloseIcon: FunctionComponent = () => {
       />
     </svg>
   );
-};
+}

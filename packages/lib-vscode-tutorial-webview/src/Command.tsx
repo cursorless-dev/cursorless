@@ -1,9 +1,9 @@
-import type { FunctionComponent } from "preact";
+import type { JSX } from "preact";
 
-interface CommandProps {
+interface Props {
   spokenForm: string;
 }
 
-export const Command: FunctionComponent<CommandProps> = ({ spokenForm }) => {
+export function Command({ spokenForm }: Props): JSX.Element {
   return <code>{`"${spokenForm}"`}</code>;
-};
+}
