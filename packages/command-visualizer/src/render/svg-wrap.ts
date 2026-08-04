@@ -9,21 +9,25 @@
 // the widest expected monospace advance (~0.62em) never clips.
 
 import type { CascadeState } from "../model/types";
-import { serializeCascade } from "./serialize-cascade";
-import { jumbotronCss, serializeJumbotron } from "./jumbotron";
 import { styleSheet } from "./css";
 import { cascadeStyleSheet, cascadeThemeBridge } from "./css-cascade";
 import { captionHtml, themeBackground } from "./html";
+import { jumbotronCss, serializeJumbotron } from "./jumbotron";
+import { serializeCascade } from "./serialize-cascade";
 
-const FONT_PX = 18; // .cl-code font-size (css-cascade.ts)
-const LINE_HEIGHT = 1.35; // --code-line-height default
+// .cl-code font-size (css-cascade.ts)
+const FONT_PX = 18;
+// --code-line-height default
+const LINE_HEIGHT = 1.35;
 // Monospace advance estimate. SVG-as-image cannot load web fonts, and the
 // viewer's fallback monospace varies: JetBrains/Menlo ~0.6em, but Chromium's
 // SVG-image fallback measures ~0.75em. Size for the widest so nothing clips;
 // narrow-font viewers just get extra right padding.
 const CH_EM = 0.78;
-const PAD_PX = 24; // body padding in the HTML document version
-const CAPTION_PX = 26; // caption line + margin when meta present
+// body padding in the HTML document version
+const PAD_PX = 24;
+// caption line + margin when meta present
+const CAPTION_PX = 26;
 
 export interface SvgWrapOptions {
   /**
@@ -72,8 +76,10 @@ export function wrapCascadeSvg(
     (hasCommands ? 70 : 0) + (hasClip ? 56 : 0) + (multiFrame ? 32 : 0);
   // The cascade box carries its own internal padding (1.2em top, 1.6em
   // bottom, 1em sides — css-cascade.ts) on top of the outer PAD_PX.
-  const boxPadX = 2 * FONT_PX; // 1em + 1em
-  const boxPadY = 2.8 * FONT_PX; // 1.2em + 1.6em
+  // 1em + 1em
+  const boxPadX = 2 * FONT_PX;
+  // 1.2em + 1.6em
+  const boxPadY = 2.8 * FONT_PX;
   // Width drivers: the CODE, and the LONGEST COMMAND PILL at full 28px —
   // the full command text must always be readable, growing the canvas
   // in preference to shrinking text (truncation is never allowed).

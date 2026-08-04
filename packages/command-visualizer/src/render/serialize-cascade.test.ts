@@ -24,9 +24,9 @@ function stateOf(...lineSets: string[][]): CascadeState {
 
 /** All line-number cell contents, in document order. */
 function lineNoTexts(html: string): string[] {
-  return [...html.matchAll(/<span class="cl-lineno"[^>]*>([^<]*)<\/span>/g)].map(
-    (m) => m[1],
-  );
+  return [
+    ...html.matchAll(/<span class="cl-lineno"[^>]*>([^<]*)<\/span>/gu),
+  ].map((m) => m[1]);
 }
 
 suite("command-visualizer/serialize-cascade line numbers", () => {
@@ -41,12 +41,12 @@ suite("command-visualizer/serialize-cascade line numbers", () => {
       "root must carry data-line-numbers when on",
     );
     // Digit-count var reflects the largest line number (3 lines → 1 digit).
-    assert.match(html, /--gutter-digits:1;/);
+    assert.match(html, /--gutter-digits:1;/u);
 
     // (b) exactly one .cl-lineno per line, numbered 1..N (1-based).
     assert.deepEqual(lineNoTexts(html), ["1", "2", "3"]);
     // One .cl-line per rendered line, so counts line up.
-    assert.equal((html.match(/class="cl-line"/g) ?? []).length, 3);
+    assert.equal((html.match(/class="cl-line"/gu) ?? []).length, 3);
   });
 
   test("off: no gutter attribute and no .cl-lineno", () => {
@@ -65,11 +65,9 @@ suite("command-visualizer/serialize-cascade line numbers", () => {
 
   test("digit width scales to the widest line number", () => {
     // A ten-line document → largest line number "10" → 2 digits.
-    const tenState = stateOf(
-      Array.from({ length: 10 }, (_, i) => `line${i}`),
-    );
+    const tenState = stateOf(Array.from({ length: 10 }, (_, i) => `line${i}`));
     const html = serializeCascade(tenState, { lineNumbers: true });
-    assert.match(html, /--gutter-digits:2;/);
+    assert.match(html, /--gutter-digits:2;/u);
     assert.deepEqual(lineNoTexts(html), [
       "1",
       "2",
@@ -89,6 +87,6 @@ suite("command-visualizer/serialize-cascade line numbers", () => {
     const html = serializeCascade(multi, { lineNumbers: true });
     // Two frames × two lines = four line-number cells, numbered per frame.
     assert.deepEqual(lineNoTexts(html), ["1", "2", "1", "2"]);
-    assert.equal((html.match(/class="frame"/g) ?? []).length, 2);
+    assert.equal((html.match(/class="frame"/gu) ?? []).length, 2);
   });
 });

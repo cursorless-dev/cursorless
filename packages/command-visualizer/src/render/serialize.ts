@@ -1,11 +1,12 @@
 // Serializer. Pure state JSON → HTML string. No render-time logic.
 
-import type { Theme } from "../data/colors";
-import { type Column, type Line, expandColumns, lineWidth } from "../model/columns";
 import type { Position, Range } from "@cursorless/lib-common";
+import type { Theme } from "../data/colors";
+import type { Column, Line } from "../model/columns";
+import { expandColumns, lineWidth } from "../model/columns";
 import { styleSheet } from "./css";
-import { symbolSheet } from "./symbols";
 import { esc } from "./html";
+import { symbolSheet } from "./symbols";
 
 export interface EditorState {
   theme: Theme;
@@ -52,28 +53,24 @@ function charToCol(cols: Column[], charIndex: number): number {
 
 function emitSpan(c: Column, lineIdx: number, selections: Range[]): string {
   const classes = c.isAnchor ? "ch ch--anchor" : "ch";
-  const spanAttr =
-    c.width === 2
-      ? ` data-col-span="2"`
-      : c.width > 2
-        ? ` data-col-span="${c.width}"`
-        : "";
+  let spanAttr = "";
+  if (c.width === 2) {
+    spanAttr = ` data-col-span="2"`;
+  } else if (c.width > 2) {
+    spanAttr = ` data-col-span="${c.width}"`;
+  }
   const selAttr = inAnySelection(lineIdx, c.charIndex, selections)
     ? ' data-sel=""'
     : "";
   const hatAttr = c.isAnchor
-    ? ` data-hat="" data-hat-color="${c.hatColor}" data-hat-shape="${c.hatShape}"` +
-      ` data-anchor-line="${lineIdx}" data-anchor-col="${c.col}"`
+    ? ` data-hat="" data-hat-color="${c.hatColor}" data-hat-shape="${c.hatShape}" data-anchor-line="${lineIdx}" data-anchor-col="${c.col}"`
     : "";
   const hat = c.isAnchor
     ? `<svg xmlns="http://www.w3.org/2000/svg" class="hat" aria-hidden="true" viewBox="0 0 12 9"><use href="#hat-${c.hatShape}"/></svg>`
     : "";
   // For blank tab filler emit a single space so the cell has selectable text.
   const text = c.text === "" ? "" : esc(c.text);
-  return (
-    `<span class="${classes}" data-col="${c.col}"${spanAttr}${selAttr}${hatAttr}>` +
-    `${text}${hat}</span>`
-  );
+  return `<span class="${classes}" data-col="${c.col}"${spanAttr}${selAttr}${hatAttr}>${text}${hat}</span>`;
 }
 
 function emitLine(

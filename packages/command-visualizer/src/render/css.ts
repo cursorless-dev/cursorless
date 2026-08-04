@@ -25,7 +25,7 @@ function shapeAdjustmentRules(): string {
       // percent → em/100
       parts.push(`--shape-voffset: ${adj.verticalOffset / 100}em;`);
     }
-    if (parts.length) {
+    if (parts.length > 0) {
       lines.push(
         `.ch--anchor[data-hat-shape="${shape}"] .hat { ${parts.join(" ")} }`,
       );

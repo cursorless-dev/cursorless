@@ -71,5 +71,6 @@ export function overlayPrecedence(
   if (HIGHLIGHT_STYLES.includes(style as HighlightStyle)) {
     return 1;
   }
-  return 2; // flash
+  // flash
+  return 2;
 }

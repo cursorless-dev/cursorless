@@ -11,10 +11,7 @@ export {
   type ParsedFixture,
   type TokenizedStates,
 } from "./logic/pipeline";
-export {
-  renderCommand,
-  type RenderCommandOptions,
-} from "./render-command";
+export { renderCommand, type RenderCommandOptions } from "./render-command";
 export {
   chainCascades,
   withBumpers,

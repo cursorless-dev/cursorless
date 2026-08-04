@@ -24,12 +24,12 @@ The whole tool is one legible top-to-bottom progression. Read `renderCommand`
 in `render-command.ts` to see all four stages at a glance; each delegates to a
 named function:
 
-| # | Stage | Function | File |
-|---|-------|----------|------|
-| 1 | get what to render | `parseFixture` | `logic/pipeline.ts` |
-| 2 | tokenize each step | `tokenizeStates` | `logic/pipeline.ts` |
-| 3 | generate render object | `buildRenderObject` | `logic/build-render-object.ts` |
-| 4 | render from object | `serializeCascade` + `wrapCascadeSvg` | `render/serialize-cascade.ts`, `render/svg-wrap.ts` |
+| #   | Stage                  | Function                              | File                                                |
+| --- | ---------------------- | ------------------------------------- | --------------------------------------------------- |
+| 1   | get what to render     | `parseFixture`                        | `logic/pipeline.ts`                                 |
+| 2   | tokenize each step     | `tokenizeStates`                      | `logic/pipeline.ts`                                 |
+| 3   | generate render object | `buildRenderObject`                   | `logic/build-render-object.ts`                      |
+| 4   | render from object     | `serializeCascade` + `wrapCascadeSvg` | `render/serialize-cascade.ts`, `render/svg-wrap.ts` |
 
 Stages 1–3 produce the `CascadeState` render object; stage 4 serializes it to
 an animated SVG. `fixtureToCascade` (exported, unchanged behavior) is a thin

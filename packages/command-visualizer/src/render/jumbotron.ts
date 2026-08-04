@@ -22,8 +22,8 @@
 // The CSS half (jumbotronCss) lives in ./jumbotron-css (+ -keyframes); it is
 // re-exported below so the public surface (index.ts) is unchanged.
 
-import type { CascadeState } from "../model/types";
 import { timelineOf } from "../model/timeline";
+import type { CascadeState } from "../model/types";
 import { esc } from "./html";
 import { NL, frameCommands } from "./jumbotron-shared";
 
@@ -40,12 +40,15 @@ function hasClipboard(state: CascadeState): boolean {
 /** Command bar — single command sits static; chains carousel (cmdtrack). */
 const PILL_FONT_MAX = 28;
 const PILL_FONT_MIN = 14;
-const PILL_PAD_X = 28; // matches .cl-cmd-pill horizontal padding
-const MONO_CH_EM = 0.78; // matches svg-wrap CH_EM (SVG-image fallback mono)
+// matches .cl-cmd-pill horizontal padding
+const PILL_PAD_X = 28;
+// matches svg-wrap CH_EM (SVG-image fallback mono)
+const MONO_CH_EM = 0.78;
 
 /** Largest font (<= 28px) at which the quoted text fits the bar width. */
 function pillFontPx(text: string, barWidthPx: number): number {
-  const chars = text.length + 2; // + quotes
+  // + quotes
+  const chars = text.length + 2;
   const avail = barWidthPx * 0.96 - PILL_PAD_X * 2;
   const fit = Math.floor(avail / (chars * MONO_CH_EM));
   return Math.max(PILL_FONT_MIN, Math.min(PILL_FONT_MAX, fit));
@@ -90,7 +93,6 @@ function metadataBlock(state: CascadeState): string {
   if (!hasClipboard(state)) {
     return "";
   }
-  const n = Math.max(1, state.frames.length);
   const slots = state.frames
     .map(
       (f, i) =>
@@ -142,17 +144,5 @@ export function serializeJumbotron(
   inner: string,
   opts: { barWidthPx?: number } = {},
 ): string {
-  return (
-    `<div class="visualizer-wrapper visualizer-jumbotron" data-theme="${state.theme}">` +
-    NL +
-    `<div class="jumbotron-container">${NL}${inner}${NL}</div>` +
-    NL +
-    commandBar(state, opts.barWidthPx) +
-    NL +
-    metadataBlock(state) +
-    NL +
-    dots(state) +
-    NL +
-    `</div>`
-  );
+  return `<div class="visualizer-wrapper visualizer-jumbotron" data-theme="${state.theme}">${NL}<div class="jumbotron-container">${NL}${inner}${NL}</div>${NL}${commandBar(state, opts.barWidthPx)}${NL}${metadataBlock(state)}${NL}${dots(state)}${NL}</div>`;
 }

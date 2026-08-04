@@ -37,7 +37,7 @@ export function tokenizeLine(text: string): Token[] {
   const tokens: Token[] = [];
   // Fresh RegExp per call: GRAPHEME_SPLIT_REGEX is a shared /gu instance whose
   // lastIndex must not leak across tokenizeLine calls.
-  const re = new RegExp(GRAPHEME_SPLIT_REGEX);
+  const re = new RegExp(GRAPHEME_SPLIT_REGEX, "u");
   let m: RegExpExecArray | null;
   let last = 0;
 
@@ -47,9 +47,9 @@ export function tokenizeLine(text: string): Token[] {
     // char is emitted as its own token. In practice gaps are whitespace.
     let i = from;
     while (i < to) {
-      if (/\s/.test(text[i])) {
+      if (/\s/u.test(text[i])) {
         let j = i;
-        while (j < to && /\s/.test(text[j])) {
+        while (j < to && /\s/u.test(text[j])) {
           j++;
         }
         tokens.push({ text: text.slice(i, j), range: { start: i, end: j } });
@@ -61,7 +61,7 @@ export function tokenizeLine(text: string): Token[] {
     }
   };
 
-  while ((m = re.exec(text)) !== null) {
+  while ((m = re.exec(text)) != null) {
     if (m.index > last) {
       emitGapAsTokens(last, m.index);
     }
@@ -70,9 +70,10 @@ export function tokenizeLine(text: string): Token[] {
       range: { start: m.index, end: m.index + m[0].length },
     });
     last = m.index + m[0].length;
+    // guard zero-width
     if (m[0].length === 0) {
       re.lastIndex++;
-    } // guard zero-width
+    }
   }
   if (last < text.length) {
     emitGapAsTokens(last, text.length);

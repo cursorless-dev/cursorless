@@ -2,8 +2,8 @@
 // of jumbotronCss. Extracted verbatim from jumbotron.ts so every jumbotron CSS
 // module stays under the 250-line limit. render/ → render/ import only.
 
-import type { CascadeState } from "../model/types";
 import { frameDurMs, timelineOf } from "../model/timeline";
+import type { CascadeState } from "../model/types";
 import {
   NL,
   frameCommands,
@@ -60,7 +60,7 @@ export function litKeyframes(
   };
 
   let litKf = "";
-  if (n >= 2 && commands.length >= 1) {
+  if (n >= 2 && commands.length > 0) {
     const parts: string[] = [];
 
     // Dot phase levels (dotwin-{k}), one per step: disabled(0) ->
@@ -68,7 +68,7 @@ export function litKeyframes(
     // (dotissued-{k}) marks the during phase distinctly, so level 2 reads
     // full+ring and level 3 full without.
     const L1 = 0.45;
-    cmdFrames.forEach((k) => {
+    for (const k of cmdFrames) {
       const iniLo = msPct(tl.startMs[k]);
       const durFrame = state.frames[k + 1]?.role === "during" ? k + 1 : null;
       const durLo =
@@ -93,39 +93,26 @@ export function litKeyframes(
             ]
           : [`  100% { opacity: 1; }`]),
       ];
-      parts.push(`@keyframes dotwin-${k} {` + NL + kf.join(NL) + NL + `}`);
-    });
+      parts.push(`@keyframes dotwin-${k} {${NL}${kf.join(NL)}${NL}}`);
+    }
 
     // ISSUED dot ring — white border across the step's during window.
-    cmdFrames.forEach((k) => {
+    for (const k of cmdFrames) {
       if (state.frames[k + 1]?.role !== "during") {
-        return;
+        continue;
       }
       const [wLo, wHi] = issueWindow(k);
       parts.push(
-        `@keyframes dotissued-${k} {` +
-          NL +
-          `  0% { border-color: transparent; }` +
-          NL +
-          `  ${pctc(wLo)} { border-color: transparent; }` +
-          NL +
-          `  ${pctc(wLo + 0.001)} { border-color: #ffffff; }` +
-          NL +
-          `  ${pctc(wHi)} { border-color: #ffffff; }` +
-          NL +
-          `  ${pctc(wHi + 0.001)} { border-color: transparent; }` +
-          NL +
-          `  100% { border-color: transparent; }` +
-          NL +
-          `}`,
+        `@keyframes dotissued-${k} {${NL}  0% { border-color: transparent; }${NL}  ${pctc(wLo)} { border-color: transparent; }${NL}  ${pctc(wLo + 0.001)} { border-color: #ffffff; }${NL}  ${pctc(wHi)} { border-color: #ffffff; }${NL}  ${pctc(wHi + 0.001)} { border-color: transparent; }${NL}  100% { border-color: transparent; }${NL}}`,
       );
-    });
+    }
 
     // Command pills: entrance into jumbospace (chip 0 rises + fades in),
     // then the BACKGROUND carries disabled -> active (text color constant).
     const DIS = "var(--pill-disabled, #333)";
     const ACT = "var(--pill-active, #1f6fd6)";
-    cmdFrames.forEach((k, i) => {
+    for (let i = 0; i < cmdFrames.length; i++) {
+      const k = cmdFrames[i];
       const enterAt =
         msPct(tl.startMs[k]) + msPct(frameDurMs(state.frames[k])) * ENTER_FRAC;
       const [litStart] = issueWindow(k);
@@ -192,8 +179,8 @@ export function litKeyframes(
           `  100% { opacity: 1; transform: translateY(0); background-color: ${DIS}; }`,
         );
       }
-      parts.push(`@keyframes cmdlit-${i} {` + NL + kfParts.join(NL) + NL + `}`);
-    });
+      parts.push(`@keyframes cmdlit-${i} {${NL}${kfParts.join(NL)}${NL}}`);
+    }
     litKf = parts.join(NL) + NL;
   }
 

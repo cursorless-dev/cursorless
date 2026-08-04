@@ -22,7 +22,8 @@ export interface InputHat {
 
 export interface Token {
   text: string;
-  range: { start: number; end: number }; // UTF-16 offsets within the line
+  // UTF-16 offsets within the line
+  range: { start: number; end: number };
   hat?: InputHat | null;
 }
 
@@ -48,24 +49,42 @@ export interface Column {
 // East_Asian_Width Wide (W) + Fullwidth (F) ranges. Covers CJK, Hangul,
 // fullwidth forms, kana, common emoji presentation. Sufficient for the
 // column-model torture test; extend the table if a fixture needs more.
+// oxlint-disable unicorn/numeric-separators-style
 const WIDE_RANGES: ReadonlyArray<readonly [number, number]> = [
-  [0x1100, 0x115f], // Hangul Jamo
-  [0x2329, 0x232a], // angle brackets
-  [0x2e80, 0x303e], // CJK radicals .. symbols
-  [0x3041, 0x33ff], // Hiragana, Katakana, CJK symbols/punct
-  [0x3400, 0x4dbf], // CJK Ext A
-  [0x4e00, 0x9fff], // CJK Unified
-  [0xa000, 0xa4cf], // Yi
-  [0xac00, 0xd7a3], // Hangul Syllables
-  [0xf900, 0xfaff], // CJK Compatibility Ideographs
-  [0xfe10, 0xfe19], // vertical forms
-  [0xfe30, 0xfe6f], // CJK compat / small forms
-  [0xff00, 0xff60], // Fullwidth Forms
-  [0xffe0, 0xffe6], // Fullwidth signs
-  [0x1f300, 0x1f64f], // emoji + emoticons
-  [0x1f900, 0x1f9ff], // supplemental symbols/pictographs
-  [0x20000, 0x3fffd], // CJK Ext B+ (SIP/TIP)
+  // Hangul Jamo
+  [0x1100, 0x115f],
+  // angle brackets
+  [0x2329, 0x232a],
+  // CJK radicals .. symbols
+  [0x2e80, 0x303e],
+  // Hiragana, Katakana, CJK symbols/punct
+  [0x3041, 0x33ff],
+  // CJK Ext A
+  [0x3400, 0x4dbf],
+  // CJK Unified
+  [0x4e00, 0x9fff],
+  // Yi
+  [0xa000, 0xa4cf],
+  // Hangul Syllables
+  [0xac00, 0xd7a3],
+  // CJK Compatibility Ideographs
+  [0xf900, 0xfaff],
+  // vertical forms
+  [0xfe10, 0xfe19],
+  // CJK compat / small forms
+  [0xfe30, 0xfe6f],
+  // Fullwidth Forms
+  [0xff00, 0xff60],
+  // Fullwidth signs
+  [0xffe0, 0xffe6],
+  // emoji + emoticons
+  [0x1f300, 0x1f64f],
+  // supplemental symbols/pictographs
+  [0x1f900, 0x1f9ff],
+  // CJK Ext B+ (SIP/TIP)
+  [0x20000, 0x3fffd],
 ];
+// oxlint-enable unicorn/numeric-separators-style
 
 function isWideCodePoint(cp: number): boolean {
   for (const [lo, hi] of WIDE_RANGES) {
@@ -97,10 +116,10 @@ interface GraphemeUnit {
 /** Split a token's text into grapheme clusters, tracking each one's char offset. */
 export function splitGraphemes(text: string): GraphemeUnit[] {
   const out: GraphemeUnit[] = [];
-  const re = new RegExp(GRAPHEME_SPLIT_REGEX);
+  const re = new RegExp(GRAPHEME_SPLIT_REGEX, "u");
   let m: RegExpExecArray | null;
   let lastIndex = 0;
-  while ((m = re.exec(text)) !== null) {
+  while ((m = re.exec(text)) != null) {
     // Emit any chars the regex skipped (e.g. whitespace) as single cells so
     // every column of every line is owned by exactly one cell.
     if (m.index > lastIndex) {
@@ -110,9 +129,10 @@ export function splitGraphemes(text: string): GraphemeUnit[] {
     }
     out.push({ text: m[0], offset: m.index });
     lastIndex = m.index + m[0].length;
+    // guard zero-width
     if (m[0].length === 0) {
       re.lastIndex++;
-    } // guard zero-width
+    }
   }
   for (let i = lastIndex; i < text.length; i++) {
     out.push({ text: text[i], offset: i });
@@ -133,7 +153,8 @@ export function expandColumns(line: Line, tabSize: number): Column[] {
     const hat = token.hat ?? undefined;
     const anchorIdx = hat?.anchorGrapheme ?? 0;
 
-    graphemes.forEach((g, gi) => {
+    for (let gi = 0; gi < graphemes.length; gi++) {
+      const g = graphemes[gi];
       const charIndex = token.range.start + g.offset;
       // Flow-narrowing: `anchorHat` is the token's hat only on the anchor
       // grapheme, else undefined. Deriving it once lets the compiler narrow
@@ -153,7 +174,7 @@ export function expandColumns(line: Line, tabSize: number): Column[] {
           hatShape: anchorHat?.shape,
         });
         col += advance;
-        return;
+        continue;
       }
 
       const w = graphemeWidth(g.text);
@@ -167,7 +188,7 @@ export function expandColumns(line: Line, tabSize: number): Column[] {
         hatShape: anchorHat?.shape,
       });
       col += w;
-    });
+    }
   }
 
   return cols;

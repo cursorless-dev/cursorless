@@ -11,7 +11,6 @@
 // Stage 3 lives in ./build-render-object; its types in ./pipeline-types.
 
 import { readFileSync } from "node:fs";
-import { parseFixtureYaml } from "./fixture-yaml";
 import type { Theme } from "../data/colors";
 import type { CascadeState, Frame } from "../model/types";
 import {
@@ -21,17 +20,20 @@ import {
   deriveSelections,
   parseMarks,
 } from "./fixture-extract";
-
 import { fixtureRoot } from "./fixture-root";
-import { buildRenderObject } from "./build-render-object";
+import { parseFixtureYaml } from "./fixture-yaml";
 import type {
   ParsedFixture,
   PipelineOptions,
   TokenizedStates,
 } from "./pipeline-types";
 
-export { buildRenderObject };
-export type { ParsedFixture, PipelineOptions, TokenizedStates };
+export { buildRenderObject } from "./build-render-object";
+export type {
+  ParsedFixture,
+  PipelineOptions,
+  TokenizedStates,
+} from "./pipeline-types";
 
 // Resolved lazily: fixtureRoot() throws when no cursorless checkout exists,
 // which must not fire at module load in serverless (the API path reads
@@ -147,9 +149,12 @@ export function fixtureToCascade(
   fixtureRel: string,
   opts: PipelineOptions = {},
 ): CascadeState {
-  const parsed = parseFixture(src, fixtureRel, opts); // 1. get what to render
-  const tokenized = tokenizeStates(parsed, opts); //      2. tokenize each step
-  return buildRenderObject(parsed, tokenized, opts); //   3. generate render object
+  // 1. get what to render
+  const parsed = parseFixture(src, fixtureRel, opts);
+  // 2. tokenize each step
+  const tokenized = tokenizeStates(parsed, opts);
+  // 3. generate render object
+  return buildRenderObject(parsed, tokenized, opts);
 }
 
 /** Convenience: load a recorded fixture by relative path. */

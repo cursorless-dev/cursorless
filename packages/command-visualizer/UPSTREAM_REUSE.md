@@ -10,6 +10,7 @@
 The hat color/shape vocabulary (`HAT_COLORS`/`HAT_SHAPES`/`HatColor`/`HatShape`/…)
 existed in FIVE places on upstream/main, but none was importable by another
 package:
+
 - `app-vscode/.../hatStyles.types.ts` — full exported set, but app-vscode ships
   only `extension.cjs`, so unreachable from other packages.
 - private copies in 3 legacy command schemas (`CommandV0V1.types.ts`,
@@ -46,6 +47,7 @@ Local-with-provenance (no importable TS source; canonical form is config/SVG):
 ## Adoptable today — no upstream change needed
 
 ### Geometry: `Position` / `Range` / `GeneralizedRange`
+
 - **What:** `@cursorless/lib-common` exports `Position` and `Range` classes (with
   `isEqual`/`isBefore`/`contains`/`with`/`fromConcise`), plus `GeneralizedRange`,
   `CharacterRange`, `LineRange`, and the helpers `isLineRange`, `toLineRange`,
@@ -65,18 +67,19 @@ Local-with-provenance (no importable TS source; canonical form is config/SVG):
 
 ## Needs an upstream refactor + export first
 
-Each of these is blocked by *coupling* (live `TextEditor` / disk I/O / no pure
+Each of these is blocked by _coupling_ (live `TextEditor` / disk I/O / no pure
 unit), not merely a missing export — so it needs a small cursorless-side change
 before we can consume it. Listed by value.
 
-| # | If cursorless… | We'd delete | Value | Feasibility |
-|---|----------------|-------------|-------|-------------|
-| 1 | extracted a **pure flash-derivation** — `diff(beforeDoc, afterDoc) → {pendingDelete, justAdded} ranges` — from the action runtime | `logic/derive-flashes.ts` | **High** (real duplicated logic) | **Hard** — no pure unit exists today |
-| 2 | offered an **editor-free `serializedMarksToTokenHats`** taking plain `{offset,text}` instead of a live `TextEditor` | `parseMarks` + mark attachment in `logic/fixture-extract.ts` | Medium | Medium |
-| 3 | exported a **grapheme-level tokenizer** (or made `getTokensInRange` output headless-consumable as a render model) | most of `logic/tokenize.ts`, part of `model/columns.ts` | Medium | Medium (word-vs-grapheme gap) |
-| 4 | **parameterized fixture-path** resolution — `getFixturesPath(root)` instead of env-var-throw + one hardcoded layout | `logic/fixture-root.ts` | Low | Easy |
+| #   | If cursorless…                                                                                                                    | We'd delete                                                  | Value                            | Feasibility                          |
+| --- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | -------------------------------- | ------------------------------------ |
+| 1   | extracted a **pure flash-derivation** — `diff(beforeDoc, afterDoc) → {pendingDelete, justAdded} ranges` — from the action runtime | `logic/derive-flashes.ts`                                    | **High** (real duplicated logic) | **Hard** — no pure unit exists today |
+| 2   | offered an **editor-free `serializedMarksToTokenHats`** taking plain `{offset,text}` instead of a live `TextEditor`               | `parseMarks` + mark attachment in `logic/fixture-extract.ts` | Medium                           | Medium                               |
+| 3   | exported a **grapheme-level tokenizer** (or made `getTokensInRange` output headless-consumable as a render model)                 | most of `logic/tokenize.ts`, part of `model/columns.ts`      | Medium                           | Medium (word-vs-grapheme gap)        |
+| 4   | **parameterized fixture-path** resolution — `getFixturesPath(root)` instead of env-var-throw + one hardcoded layout               | `logic/fixture-root.ts`                                      | Low                              | Easy                                 |
 
 ### 1. Pure flash-derivation (highest value)
+
 Today, cursorless flashes are a **runtime side-effect**: actions execute against a
 live IDE and call `ide().flashRanges(...)` (see `lib-engine/src/actions/*`,
 `core/updateSelections/`, `RangeUpdater`). There is no pure
@@ -88,6 +91,7 @@ cursorless's own test/tooling surface, not just us. **Best upstream proposal
 candidate.**
 
 ### 2. Editor-free marks → hats
+
 `lib-common/src/util/serializedMarksToTokenHats.ts` hard-requires a live
 `TextEditor` (`editor.document.offsetAt(range)`, `.getText(range)`) and returns
 engine `TokenHat[]`. Our `parseMarks` reads plain fixture YAML (`{color}.{grapheme}`)
@@ -95,6 +99,7 @@ with no editor and yields the render-model `MarkInfo`. A pure core that takes
 offsets/text (splitting the editor I/O from the mapping) would let us drop ours.
 
 ### 3. Grapheme tokenizer / headless token model
+
 The engine tokenizer produces **word/token** units, not one-token-per-grapheme,
 and isn't barrel-exported; `getTokensInRange` needs a live editor. `columns.ts`
 also needs East-Asian display width — for which **no util exists anywhere** in the
@@ -103,12 +108,14 @@ would shrink `tokenize.ts`/`columns.ts`; the display-width piece would still be
 ours unless cursorless grew one (it never needed display geometry).
 
 ### 4. Parameterized fixture path
+
 `lib-node-common` `getCursorlessRepoRoot()` throws unless `CURSORLESS_REPO_ROOT`
 is set, and `getFixturesPath` hardcodes the single `resources/fixtures` layout.
 Ours does a dual-layout probe with a sensible default. A root-param overload would
 let us drop `fixture-root.ts`.
 
 ## Not reusable (genuinely new — no upstream candidate)
+
 - `model/timeline.ts` (animation timing), `logic/chain.ts` (multi-step chaining),
   `render/*` (HTML/CSS/SVG hat renderer — nothing like it exists upstream;
   `app-web-docs/Code.tsx` is Shiki syntax highlighting, unrelated).
@@ -125,6 +132,7 @@ let us drop `fixture-root.ts`.
   render enums. Do not re-chase.
 
 ## How to pursue
+
 The geometry adoption is our-side and unblocked — do it directly. Items 1–4 are
 upstream-contribution opportunities: raise as cursorless issues/PRs (extract the
 pure core, add the export), then consume. Item 1 (pure flash-derivation) is the

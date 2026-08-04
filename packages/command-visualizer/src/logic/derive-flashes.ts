@@ -3,15 +3,23 @@
 // the two document snapshots, returns the flashes to synthesize. No I/O, no
 // mutation of caller state. logic/ → logic/ import only.
 
+import type { GeneralizedRange } from "@cursorless/lib-common";
+import { Position } from "@cursorless/lib-common";
 import type { OverlayStyleName } from "../data/decorations";
 import type { Decoration } from "../model/types";
-import { Position, type GeneralizedRange } from "@cursorless/lib-common";
 
 export interface DerivedFlashes {
   /** pendingDelete flashes to append to the DURING flash list (pre-edit). */
   duringFlashes: { style: OverlayStyleName; range: GeneralizedRange }[];
   /** justAdded flash decorations to push onto the AFTER frame (post-edit). */
   afterDecorations: Decoration[];
+}
+
+function toPos(doc: string, off: number): Position {
+  const upto = doc.slice(0, off);
+  const line = (upto.match(/\n/gu) ?? []).length;
+  const character = off - (upto.lastIndexOf("\n") + 1);
+  return new Position(line, character);
 }
 
 /**
@@ -43,12 +51,6 @@ export function deriveFlashes(args: {
     finDoc !== initDoc &&
     hasAfterFrame
   ) {
-    const toPos = (doc: string, off: number): Position => {
-      const upto = doc.slice(0, off);
-      const line = (upto.match(/\n/g) ?? []).length;
-      const character = off - (upto.lastIndexOf("\n") + 1);
-      return new Position(line, character);
-    };
     let p = 0;
     while (
       p < initDoc.length &&

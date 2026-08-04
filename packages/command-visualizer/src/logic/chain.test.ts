@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
-import { chainCascades, ChainContinuityError } from "./chain";
 import type { CascadeState, Frame } from "../model/types";
+import { chainCascades, ChainContinuityError } from "./chain";
 
 function beforeFrame(): Frame {
   return {
@@ -22,8 +22,8 @@ suite("command-visualizer/chain", () => {
       let caught: unknown;
       try {
         chainCascades([], "recorded/x.yml");
-      } catch (err) {
-        caught = err;
+      } catch (error) {
+        caught = error;
       }
       assert.ok(caught instanceof ChainContinuityError);
       assert.equal((caught as ChainContinuityError).stepIndex, 0);

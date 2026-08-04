@@ -10,10 +10,10 @@
 // warrant promotion into a shared package; they are isolated here to make that
 // call easy.
 
-import type { Theme } from "../data/colors";
-import type { Line } from "./columns";
 import type { Position, Range, GeneralizedRange } from "@cursorless/lib-common";
+import type { Theme } from "../data/colors";
 import type { OverlayStyleName } from "../data/decorations";
+import type { Line } from "./columns";
 
 export type FrameRole = "before" | "during" | "after";
 

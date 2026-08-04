@@ -3,17 +3,18 @@
 // per-frame `@keyframes f{k}` opacity timeline, and the decoration overlay layer
 // (data-flash / data-hl / data-line-flash) resolved single-winner per cell.
 
-import { type Column, expandColumns, lineWidth } from "../model/columns";
+import { HIGHLIGHT_STYLES, MS_PER_STATE } from "../data/decorations";
+import type { Column } from "../model/columns";
+import { expandColumns, lineWidth } from "../model/columns";
+import type { CellOverlay, LineOverlay } from "../model/overlays";
+import { resolveFrameOverlays } from "../model/overlays";
+import { timelineOf } from "../model/timeline";
+import type { CascadeState, Frame } from "../model/types";
 import { styleSheet } from "./css";
 import { cascadeStyleSheet, cascadeThemeBridge } from "./css-cascade";
-import { jumbotronCss, serializeJumbotron } from "./jumbotron";
-import type { CellOverlay } from "../model/overlays";
-import { symbolSheet } from "./symbols";
-import type { CascadeState, Frame } from "../model/types";
-import { resolveFrameOverlays, type LineOverlay } from "../model/overlays";
-import { HIGHLIGHT_STYLES, MS_PER_STATE } from "../data/decorations";
-import { timelineOf } from "../model/timeline";
 import { captionHtml, esc, themeBackground } from "./html";
+import { jumbotronCss, serializeJumbotron } from "./jumbotron";
+import { symbolSheet } from "./symbols";
 
 function charToCol(cols: Column[], charIndex: number): number {
   for (const c of cols) {
@@ -39,12 +40,12 @@ function overlayAttr(winner: string | null): string {
 
 function emitSpan(c: Column, cell: CellOverlay | undefined): string {
   const classes = c.isAnchor ? "ch ch--anchor" : "ch";
-  const spanAttr =
-    c.width === 2
-      ? ` data-col-span="2"`
-      : c.width > 2
-        ? ` data-col-span="${c.width}"`
-        : "";
+  let spanAttr = "";
+  if (c.width === 2) {
+    spanAttr = ` data-col-span="2"`;
+  } else if (c.width > 2) {
+    spanAttr = ` data-col-span="${c.width}"`;
+  }
   const winner = cell?.winner ?? null;
   const ovAttr = overlayAttr(winner);
   const stackAttr =
@@ -52,17 +53,13 @@ function emitSpan(c: Column, cell: CellOverlay | undefined): string {
       ? ` data-flash-stack="${cell.stack.join(",")}"`
       : "";
   const hatAttr = c.isAnchor
-    ? ` data-hat="" data-hat-color="${c.hatColor}" data-hat-shape="${c.hatShape}"` +
-      ` data-anchor-col="${c.col}"`
+    ? ` data-hat="" data-hat-color="${c.hatColor}" data-hat-shape="${c.hatShape}" data-anchor-col="${c.col}"`
     : "";
   const hat = c.isAnchor
     ? `<svg xmlns="http://www.w3.org/2000/svg" class="hat" aria-hidden="true" viewBox="0 0 12 9"><use href="#hat-${c.hatShape}"/></svg>`
     : "";
   const text = c.text === "" ? "" : esc(c.text);
-  return (
-    `<span class="${classes}" data-col="${c.col}"${spanAttr}${ovAttr}${stackAttr}${hatAttr}>` +
-    `${text}${hat}</span>`
-  );
+  return `<span class="${classes}" data-col="${c.col}"${spanAttr}${ovAttr}${stackAttr}${hatAttr}>${text}${hat}</span>`;
 }
 
 function emitLine(
@@ -78,10 +75,10 @@ function emitLine(
   const caretAtCol = new Map<number, string>();
   for (const cur of cursors) {
     const col = charToCol(cols, cur.character);
+    const existing = caretAtCol.get(col) ?? "";
     caretAtCol.set(
       col,
-      (caretAtCol.get(col) ?? "") +
-        `<span class="caret" data-cursor="" data-cursor-col="${col}"></span>`,
+      `${existing}<span class="caret" data-cursor="" data-cursor-col="${col}"></span>`,
     );
   }
 

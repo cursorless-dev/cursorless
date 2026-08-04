@@ -3,11 +3,13 @@
 // per cell (selection < highlight < flash, last wins). Also resolves full-width
 // line-range bands.
 
-import { type Column, expandColumns } from "./columns";
-import type { Decoration, Frame, OverlayRole } from "./types";
+import type { Range } from "@cursorless/lib-common";
+import { isLineRange } from "@cursorless/lib-common";
 import type { OverlayStyleName } from "../data/decorations";
 import { overlayPrecedence } from "../data/decorations";
-import { type Range, isLineRange } from "@cursorless/lib-common";
+import type { Column } from "./columns";
+import { expandColumns } from "./columns";
+import type { Decoration, Frame, OverlayRole } from "./types";
 
 // Role sub-rank, used to break style-precedence ties: a REAL ide.flash outranks
 // a DERIVED that/source overlay on the
@@ -23,7 +25,8 @@ function roleRank(role: OverlayRole | "selection"): number {
   if (role === "highlight") {
     return 1;
   }
-  return 2; // that | source | scope:* (derived)
+  // that | source | scope:* (derived)
+  return 2;
 }
 
 export interface CellOverlay {
@@ -90,7 +93,8 @@ function resolveLine(
     const rank = overlayPrecedence(style) * 10 + roleRank(role);
     const prev = winRank.get(col);
     if (prev === undefined || rank >= prev) {
-      cell.winner = style; // last-wins at equal rank
+      // last-wins at equal rank
+      cell.winner = style;
       winRank.set(col, rank);
     }
   };
@@ -116,7 +120,8 @@ function resolveLine(
   for (const dec of decorations) {
     if (isLineRange(dec.range)) {
       if (lineIdx >= dec.range.start && lineIdx <= dec.range.end) {
-        lineFlash = dec.style; // last line decoration wins
+        // last line decoration wins
+        lineFlash = dec.style;
       }
       continue;
     }

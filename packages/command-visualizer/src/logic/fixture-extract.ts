@@ -2,17 +2,16 @@
 // YAML-shape coercion + marks→hats + selections + range mapping out of
 // pipeline.ts so each module stays under the line ceiling.
 
-import type { YamlValue } from "./fixture-yaml";
-import { tokenizeDoc } from "./tokenize";
-import type { HatColor, HatShape } from "@cursorless/lib-common";
-import { HAT_COLORS } from "@cursorless/lib-common";
-import type { Line, Token, InputHat } from "../model/columns";
-import {
-  Position,
-  Range,
-  type GeneralizedRange,
+import type {
+  HatColor,
+  HatShape,
+  GeneralizedRange,
 } from "@cursorless/lib-common";
+import { HAT_COLORS, Position, Range } from "@cursorless/lib-common";
+import type { Line, Token, InputHat } from "../model/columns";
+import type { YamlValue } from "./fixture-yaml";
 import { allocateHats } from "./hat-allocator";
+import { tokenizeDoc } from "./tokenize";
 
 export type Obj = Record<string, YamlValue>;
 
@@ -61,8 +60,9 @@ export function parseMarks(marksObj: Obj | null): MarkInfo[] {
       continue;
     }
     const dot = key.indexOf(".");
+    // mark key must be "{color}.{grapheme}" — skip malformed entries
     if (dot === -1) {
-      continue; // mark key must be "{color}.{grapheme}" — skip malformed entries
+      continue;
     }
     const colorRaw = key.slice(0, dot);
     const grapheme = key.slice(dot + 1);
@@ -113,9 +113,10 @@ export function buildLines(
   // ({color}.{grapheme}) carry no shape component: the recorded session's
   // hats were default-shape, so "default" is the faithful rendering.
   for (const mk of marks) {
+    // marks are single-line in corpus
     if (mk.start.line !== mk.end.line) {
       continue;
-    } // marks are single-line in corpus
+    }
     const line = lines[mk.start.line];
     if (!line) {
       continue;
@@ -201,7 +202,8 @@ export function toGeneralizedRange(rangeObj: Obj): GeneralizedRange | null {
     return {
       type: "line",
       start: num(rangeObj.start),
-      end: num(rangeObj.end), // last line, INCLUSIVE per lib-common LineRange
+      // last line, INCLUSIVE per lib-common LineRange
+      end: num(rangeObj.end),
     };
   }
   return {

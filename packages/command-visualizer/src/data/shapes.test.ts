@@ -11,10 +11,7 @@ import { SHAPE_PATHS } from "./shapes";
 // fails and points at the exact shape to re-sync. Runtime stays pure; the fs
 // read lives here, at test time, only.
 
-const HATS_DIR = new URL(
-  "../../../../resources/images/hats/",
-  import.meta.url,
-);
+const HATS_DIR = new URL("../../../../resources/images/hats/", import.meta.url);
 
 function svgOf(shape: string): string {
   return readFileSync(new URL(`${shape}.svg`, HATS_DIR), "utf8");
@@ -23,8 +20,8 @@ function svgOf(shape: string): string {
 suite("command-visualizer/data/shapes", () => {
   test("SHAPE_PATHS covers exactly the hat shapes", () => {
     assert.deepEqual(
-      Object.keys(SHAPE_PATHS).sort(),
-      [...HAT_SHAPES].sort(),
+      Object.keys(SHAPE_PATHS).toSorted(),
+      [...HAT_SHAPES].toSorted(),
     );
   });
 

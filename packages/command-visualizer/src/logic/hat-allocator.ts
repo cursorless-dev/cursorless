@@ -34,23 +34,27 @@
 // Determinism: the engine allocator is pure (no Date/random); the same lines +
 // marks + cursor produce identical assignments.
 
+import type {
+  HatColor,
+  HatShape,
+  HatStyleMap,
+  TokenHat,
+} from "@cursorless/lib-common";
 import {
   FakeIDE,
   HatStability,
-  type HatStyleMap,
   InMemoryTextEditor,
   Position,
   Range,
   Selection,
-  type TokenHat,
+  HAT_COLORS,
+  HAT_SHAPES,
 } from "@cursorless/lib-common";
 import {
   allocateHats as allocateHatsReal,
   getTokensInRange,
   TokenGraphemeSplitter,
 } from "@cursorless/lib-engine";
-import type { HatColor, HatShape } from "@cursorless/lib-common";
-import { HAT_COLORS, HAT_SHAPES } from "@cursorless/lib-common";
 import type { Line, Token as RenderToken } from "../model/columns";
 
 // ---------------------------------------------------------------------------
@@ -75,9 +79,10 @@ export function cssStateHatStyles(): HatStyleMap {
   }
   for (const color of HAT_COLORS) {
     for (const shape of HAT_SHAPES) {
+      // bare color IS the default shape
       if (shape === "default") {
         continue;
-      } // bare color IS the default shape
+      }
       out[`${color}-${shape}`] = { penalty: colorPenalty(color) + 1 };
     }
   }
@@ -146,7 +151,8 @@ export function allocateHats(
 
   // (4) Collect fixture marks from the render tokens carrying a pass-1 hat.
   const marks: Mark[] = [];
-  lines.forEach((line, lineIdx) => {
+  for (let lineIdx = 0; lineIdx < lines.length; lineIdx++) {
+    const line = lines[lineIdx];
     for (const token of line.tokens) {
       if (token.hat) {
         marks.push({
@@ -157,7 +163,7 @@ export function allocateHats(
         });
       }
     }
-  });
+  }
 
   // Discover the engine tokens once (whole document), so forced-hat token
   // identity matches what the engine produces internally.
@@ -168,7 +174,8 @@ export function allocateHats(
   const forceTokenHats: TokenHat[] = [];
   const forcedTokenKeys = new Set<string>();
   for (const mark of marks) {
-    const markStart = mark.token.range.start; // line-relative char offset
+    // line-relative char offset
+    const markStart = mark.token.range.start;
     const covering = engineTokens.find(
       (t) =>
         t.range.start.line === mark.lineIdx &&

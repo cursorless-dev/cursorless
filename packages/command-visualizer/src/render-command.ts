@@ -11,23 +11,20 @@
 // BOTH scopes. The folder rule (logic/ ⊥ render/) is preserved: neither folder
 // imports the other; only this root module and index.ts join them.
 
+import type { PipelineOptions } from "./logic/pipeline";
 import {
   parseFixture,
   tokenizeStates,
   buildRenderObject,
-  type PipelineOptions,
 } from "./logic/pipeline";
-import {
-  serializeCascade,
-  type CascadeRenderOptions,
-} from "./render/serialize-cascade";
-import { wrapCascadeSvg, type SvgWrapOptions } from "./render/svg-wrap";
+import type { CascadeRenderOptions } from "./render/serialize-cascade";
+import { serializeCascade } from "./render/serialize-cascade";
+import type { SvgWrapOptions } from "./render/svg-wrap";
+import { wrapCascadeSvg } from "./render/svg-wrap";
 
 /** Options for the end-to-end orchestrator: pipeline + render + SVG-wrap knobs. */
 export interface RenderCommandOptions
-  extends PipelineOptions,
-    SvgWrapOptions,
-    CascadeRenderOptions {}
+  extends PipelineOptions, SvgWrapOptions, CascadeRenderOptions {}
 
 /**
  * Render a single recorded fixture to a standalone animated SVG string.
@@ -45,11 +42,15 @@ export function renderCommand(
   fixtureRel: string,
   opts: RenderCommandOptions = {},
 ): string {
-  const parsed = parseFixture(src, fixtureRel, opts); // 1. get what to render
-  const tokenized = tokenizeStates(parsed, opts); //      2. tokenize each step
-  const cascade = buildRenderObject(parsed, tokenized, opts); // 3. render object
+  // 1. get what to render
+  const parsed = parseFixture(src, fixtureRel, opts);
+  // 2. tokenize each step
+  const tokenized = tokenizeStates(parsed, opts);
+  // 3. render object
+  const cascade = buildRenderObject(parsed, tokenized, opts);
   const inner = serializeCascade(cascade, { lineNumbers: opts.lineNumbers });
+  // 4. render from object
   return wrapCascadeSvg(cascade, inner, undefined, {
     flashPulseMs: opts.flashPulseMs,
-  }); //                                                    4. render from object
+  });
 }

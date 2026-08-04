@@ -6,16 +6,16 @@
 // ./jumbotron-css-keyframes; this module assembles base + themed + those
 // keyframes + the carousel track. render/ → render/ import only.
 
-import type { CascadeState } from "../model/types";
 import { MS_PER_STATE } from "../data/decorations";
 import { timelineOf } from "../model/timeline";
+import type { CascadeState } from "../model/types";
+import { litKeyframes } from "./jumbotron-css-keyframes";
 import {
   NL,
   frameCommands,
   timelinePct,
   commandFrameIndices,
 } from "./jumbotron-shared";
-import { litKeyframes } from "./jumbotron-css-keyframes";
 
 /** Base layout + component CSS (carousel, pill, metadata, dots). */
 function baseCss(n: number): string {
@@ -141,25 +141,16 @@ function carouselTrack(state: CascadeState, n: number): string {
   const pos = (i: number) =>
     `transform: translateX(-${(i * step).toFixed(4)}%);`;
   const kf: string[] = [`  0% { ${pos(0)} }`];
-  cmdFrames.slice(1).forEach((k, j) => {
+  const sliced = cmdFrames.slice(1);
+  for (let j = 0; j < sliced.length; j++) {
+    const k = sliced[j];
     const at = msPct(tl.startMs[k]) + msPct(LIT_HOLD_MS);
     kf.push(`  ${pctc(at)} { ${pos(j)} }`);
     kf.push(`  ${pctc(at + msPct(SLIDE_MS))} { ${pos(j + 1)} }`);
-  });
+  }
   kf.push(`  100% { ${pos(cmdFrames.length - 1)} }`);
 
-  return (
-    "@keyframes cmdtrack {" +
-    NL +
-    kf.join(NL) +
-    NL +
-    "}" +
-    NL +
-    ".cl-cmd-track { animation: cmdtrack var(--dur, " +
-    String(n * MS_PER_STATE) +
-    "ms) cubic-bezier(0.4, 0, 0.2, 1) 1 forwards paused; }" +
-    NL
-  );
+  return `@keyframes cmdtrack {${NL}${kf.join(NL)}${NL}}${NL}.cl-cmd-track { animation: cmdtrack var(--dur, ${n * MS_PER_STATE}ms) cubic-bezier(0.4, 0, 0.2, 1) 1 forwards paused; }${NL}`;
 }
 
 export function jumbotronCss(

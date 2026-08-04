@@ -6,13 +6,8 @@
 
 import type { OverlayStyleName } from "../data/decorations";
 import type { Decoration } from "../model/types";
-import {
-  asArr,
-  asObj,
-  pos,
-  toGeneralizedRange,
-  type Obj,
-} from "./fixture-extract";
+import type { Obj } from "./fixture-extract";
+import { asArr, asObj, pos, toGeneralizedRange } from "./fixture-extract";
 
 export interface OverlayDecorations {
   /** highlight decorations to append to the BEFORE frame. */

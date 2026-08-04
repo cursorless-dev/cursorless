@@ -2,14 +2,11 @@
 // (the flash TIMING section) so the main module stays under the 250-line limit.
 // render/ → render/ import only; behavior unchanged.
 
-import {
-  DECORATION_HEX,
-  FLASH_PULSE_MS,
-  type OverlayStyleName,
-} from "../data/decorations";
-import type { Frame } from "../model/types";
+import type { OverlayStyleName } from "../data/decorations";
+import { DECORATION_HEX, FLASH_PULSE_MS } from "../data/decorations";
 import type { Timeline } from "../model/timeline";
-import { pct } from "./css-cascade";
+import type { Frame } from "../model/types";
+import { pct } from "./css-utils";
 
 // DURING beats — flash TIMING. A flash is a TRANSIENT beat *within* one
 // frame's timeline slot, not a static band. Two opposite directions:
@@ -46,7 +43,8 @@ const ADD_FLASH_STYLES = ["justAdded"] as const;
 // below. A short fade ramp (FADE_FRAC of the pulse) softens each edge but the
 // held-full-color span is exactly the pulse, which is what verify:flash-timing
 // measures. Result: the pulse is ~100ms for ANY N (no slot scaling).
-const FADE_FRAC = 0.4; // soft-edge ramp length as a fraction of the pulse window
+// soft-edge ramp length as a fraction of the pulse window
+const FADE_FRAC = 0.4;
 
 // Reference-class pre-edit flashes (Bring sources/destinations etc.) — they
 // sequence BEFORE deletion flashes inside a DURING window (real cursorless
@@ -57,15 +55,17 @@ const REFERENCE_FLASH_STYLES = [
   "pendingModification1",
 ] as const;
 
+const pct100 = (x: number) => pct(Math.max(0, Math.min(100, x * 100)));
+
 export function flashFadeKeyframes(
   frames: readonly Frame[],
   tl: Timeline,
   pulseMs: number = FLASH_PULSE_MS,
 ): string {
   const out: string[] = [];
-  const pct100 = (x: number) => pct(Math.max(0, Math.min(100, x * 100)));
 
-  frames.forEach((frame, k) => {
+  for (let k = 0; k < frames.length; k++) {
+    const frame = frames[k];
     const lo = tl.startFrac[k];
     const hi = tl.endFrac[k];
 
@@ -85,16 +85,16 @@ export function flashFadeKeyframes(
       const refWin: [number, number] = [lo, mid];
       const delWin: [number, number] = [hasRef ? mid : lo, hi];
       const emit = (style: string, w: [number, number], holdOn: boolean) => {
+        const ending = holdOn
+          ? `  100% { background-color: ${DECORATION_HEX[style as keyof typeof DECORATION_HEX]}; }\n`
+          : `  ${pct100(w[1] + 0.0001)}% { background-color: transparent; }\n  100% { background-color: transparent; }\n`;
         out.push(
-          `@keyframes flashfade-${style}-s${k} {\n` +
-            `  0% { background-color: transparent; }\n` +
-            `  ${pct100(w[0])}% { background-color: transparent; }\n` +
-            `  ${pct100(w[0] + 0.0001)}% { background-color: ${DECORATION_HEX[style as keyof typeof DECORATION_HEX]}; }\n` +
-            `  ${pct100(w[1])}% { background-color: ${DECORATION_HEX[style as keyof typeof DECORATION_HEX]}; }\n` +
-            (holdOn
-              ? `  100% { background-color: ${DECORATION_HEX[style as keyof typeof DECORATION_HEX]}; }\n`
-              : `  ${pct100(w[1] + 0.0001)}% { background-color: transparent; }\n  100% { background-color: transparent; }\n`) +
-            `}`,
+          `@keyframes flashfade-${style}-s${k} {
+  0% { background-color: transparent; }
+  ${pct100(w[0])}% { background-color: transparent; }
+  ${pct100(w[0] + 0.0001)}% { background-color: ${DECORATION_HEX[style as keyof typeof DECORATION_HEX]}; }
+  ${pct100(w[1])}% { background-color: ${DECORATION_HEX[style as keyof typeof DECORATION_HEX]}; }
+${ending}}`,
         );
       };
       for (const st of REFERENCE_FLASH_STYLES) {
@@ -103,8 +103,9 @@ export function flashFadeKeyframes(
         }
       }
       if (styles.has("pendingDelete")) {
+        // held to the edit
         emit("pendingDelete", delWin, true);
-      } // held to the edit
+      }
     } else {
       // ADD pulse at the frame's slot start (post-edit justAdded).
       const durFrac = pulseMs / tl.totalMs;
@@ -122,14 +123,15 @@ export function flashFadeKeyframes(
         );
       }
     }
-  });
+  }
 
   return out.join("\n");
 }
 
 export function flashFadeRules(frames: readonly Frame[]): string {
   const rules: string[] = [];
-  frames.forEach((frame, k) => {
+  for (let k = 0; k < frames.length; k++) {
+    const frame = frames[k];
     if (frame.role === "during") {
       const styles = new Set(frame.decorations.map((d) => d.style));
       for (const st of [...REFERENCE_FLASH_STYLES, "pendingDelete"]) {
@@ -137,22 +139,22 @@ export function flashFadeRules(frames: readonly Frame[]): string {
           continue;
         }
         rules.push(
-          `.cl-cascade .frame[data-frame="${k}"] .ch[data-flash="${st}"] {\n` +
-            `  background-color: transparent;\n` +
-            `  animation: flashfade-${st}-s${k} var(--dur, 2s) linear 1 forwards paused;\n` +
-            `}`,
+          `.cl-cascade .frame[data-frame="${k}"] .ch[data-flash="${st}"] {
+  background-color: transparent;
+  animation: flashfade-${st}-s${k} var(--dur, 2s) linear 1 forwards paused;
+}`,
         );
       }
     } else {
       for (const st of ADD_FLASH_STYLES) {
         rules.push(
-          `.cl-cascade .frame[data-frame="${k}"] .ch[data-flash="${st}"] {\n` +
-            `  background-color: ${DECORATION_HEX[st]};\n` +
-            `  animation: flashfade-${st}-s${k} var(--dur, 2s) linear 1 forwards paused;\n` +
-            `}`,
+          `.cl-cascade .frame[data-frame="${k}"] .ch[data-flash="${st}"] {
+  background-color: ${DECORATION_HEX[st]};
+  animation: flashfade-${st}-s${k} var(--dur, 2s) linear 1 forwards paused;
+}`,
         );
       }
     }
-  });
+  }
   return rules.join("\n");
 }
