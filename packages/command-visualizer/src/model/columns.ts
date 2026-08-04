@@ -49,7 +49,7 @@ export interface Column {
 // East_Asian_Width Wide (W) + Fullwidth (F) ranges. Covers CJK, Hangul,
 // fullwidth forms, kana, common emoji presentation. Sufficient for the
 // column-model torture test; extend the table if a fixture needs more.
-// oxlint-disable unicorn/numeric-separators-style
+// oxlint-disable unicorn/numeric-separators-style,unicorn/number-literal-case
 const WIDE_RANGES: ReadonlyArray<readonly [number, number]> = [
   // Hangul Jamo
   [0x1100, 0x115f],
@@ -84,7 +84,7 @@ const WIDE_RANGES: ReadonlyArray<readonly [number, number]> = [
   // CJK Ext B+ (SIP/TIP)
   [0x20000, 0x3fffd],
 ];
-// oxlint-enable unicorn/numeric-separators-style
+// oxlint-enable unicorn/numeric-separators-style,unicorn/number-literal-case
 
 function isWideCodePoint(cp: number): boolean {
   for (const [lo, hi] of WIDE_RANGES) {
