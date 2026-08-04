@@ -13,6 +13,7 @@
 import { readFileSync } from "node:fs";
 import type { Theme } from "../data/colors";
 import type { CascadeState, Frame } from "../model/types";
+import { buildRenderObject } from "./build-render-object";
 import {
   asArr,
   asObj,
