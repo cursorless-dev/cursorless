@@ -658,8 +658,8 @@ importers:
         version: 2.2.6
     devDependencies:
       '@cursorless/tree-sitter-wasms':
-        specifier: ^0.9.0
-        version: 0.9.0
+        specifier: ^0.10.0
+        version: 0.10.0
       '@types/cross-spawn':
         specifier: ^6.0.6
         version: 6.0.6
@@ -1877,6 +1877,9 @@ packages:
   '@cursorless/talon-tools@0.11.2':
     resolution: {integrity: sha512-35YArL6YW4v6s4ZHE8cvJX1ONHJhAj0uVnJ0n5Epi9nHhROodWNdUO2yBIL/dfW55YqVv4ecC7qjpvagkYFtdQ==}
     hasBin: true
+
+  '@cursorless/tree-sitter-wasms@0.10.0':
+    resolution: {integrity: sha512-e/7mcvp5zDTe9dUUiSKkwacP/oyHRFyn6uGA7Qqx+g87Vb9sd3WNBMaxO9cL4TgcUyPRS7uHoEZn5cWOWGQJYw==}
 
   '@cursorless/tree-sitter-wasms@0.9.0':
     resolution: {integrity: sha512-272qb3uKEOwLClLDxfo/Zv0DZmuI2mkWyGHC3aRZ9pcgr29ddokTEyNsOxx0jy0ouwyfKH7Mcn+kkyQWiVTWUw==}
@@ -12815,6 +12818,8 @@ snapshots:
       fast-glob: 3.3.3
       get-stdin: 10.0.0
       web-tree-sitter: 0.26.10
+
+  '@cursorless/tree-sitter-wasms@0.10.0': {}
 
   '@cursorless/tree-sitter-wasms@0.9.0': {}
 
