@@ -99,15 +99,13 @@ export class GenerateSnippet {
      * The variables that will appear in the user snippet.
      */
     const selections = getsSnippetSelections(editor, target.contentRange);
-    const variables = selections.map(
-      (selection, index): Variable => ({
-        offsets: {
-          start: editor.document.offsetAt(selection.start) - baseOffset,
-          end: editor.document.offsetAt(selection.end) - baseOffset,
-        },
-        name: index === selections.length - 1 ? "0" : `${index + 1}`,
-      }),
-    );
+    const variables = selections.map((selection, index): Variable => ({
+      offsets: {
+        start: editor.document.offsetAt(selection.start) - baseOffset,
+        end: editor.document.offsetAt(selection.end) - baseOffset,
+      },
+      name: index === selections.length - 1 ? "0" : `${index + 1}`,
+    }));
 
     /**
      * Text before the start of the snippet in the snippet start line.  We need

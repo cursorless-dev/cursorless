@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@cursorless/lib-common": "workspace:*",
-    "preact": "^10.29.7",
+    "preact": "^10.29.8",
     "react-bootstrap-icons": "^1.11.6"
   },
   "devDependencies": {

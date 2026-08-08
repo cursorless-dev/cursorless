@@ -6,9 +6,8 @@ export function flashRanges(
   talon: Talon,
   flashDescriptors: FlashDescriptor[],
 ): Promise<void> {
-  const ranges = flashDescriptors.map(
-    (descriptor): RangeOffsets =>
-      toCharacterRangeOffsets(descriptor.editor, descriptor.range),
+  const ranges = flashDescriptors.map((descriptor): RangeOffsets =>
+    toCharacterRangeOffsets(descriptor.editor, descriptor.range),
   );
 
   talon.actions.user.cursorless_everywhere_flash_ranges(ranges);
