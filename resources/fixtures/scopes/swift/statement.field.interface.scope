@@ -1,0 +1,2 @@
+    var requiredSetGetMember: Type = { get set }
+---

@@ -16,3 +16,6 @@ node_modules/
 *.vsix
 .DS_Store
 .luacheckcache
+
+# Swift Test Project
+/resources/playground/swift/cursorless-test-project/.build

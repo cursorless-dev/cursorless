@@ -1,0 +1,4 @@
+class AnotherClassName {
+    let classConstantFieldOfCommonType = 42
+}
+---
