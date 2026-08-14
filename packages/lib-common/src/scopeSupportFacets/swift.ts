@@ -13,8 +13,14 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
     "statement.variable.uninitialized": supported,
     "statement.variable.initialized": supported,
     namedFunction: supported,
+    "name.variable.initialized": supported,
+    "name.variable.uninitialized": supported,
+    "name.class": supported,
+    "name.interface": supported,
+    "name.enum": supported,
     "comment.line": supported,
     "string.singleLine": supported,
     "branch.if": supported,
     class: supported,
+    "textFragment.comment.line": supported
 }
