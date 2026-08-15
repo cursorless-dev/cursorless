@@ -5,8 +5,12 @@ struct ExamplesStruct {
     internal static func exampleFunction(exampleLabel: String) -> String {
         if exampleLabel.isEmpty {
             return "goodbye world"
-        } else {
+        } else if (publicVariable % 2 == 0) {
             return constant + ", " + exampleLabel + "!"
+        } else if (publicVariable % 3 == 0){
+            return constant + ", " + exampleLabel + "?!"
+        } else {
+            return constant + ", " + exampleLabel + "..."
         }
     }
     public mutating func secondExampleFunction(exampleLabel: String, times: any UnsignedInteger) {

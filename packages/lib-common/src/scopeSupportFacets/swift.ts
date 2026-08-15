@@ -21,6 +21,8 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
     "comment.line": supported,
     "string.singleLine": supported,
     "branch.if": supported,
+    "branch.if.else": supported,
+    "condition.if": supported,
     class: supported,
     "textFragment.comment.line": supported
 }
