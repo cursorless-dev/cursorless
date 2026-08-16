@@ -36,7 +36,7 @@ jobs:
       - name: Install luarocks
         uses: leafo/gh-actions-luarocks@v6
 
-        # Pin pre-commit to a specific version to avoid breaking changes.
+      # Pin pre-commit to a specific version to avoid breaking changes.
       - name: Install pre-commit
         run: python -m pip install pre-commit==4.5.1
 
