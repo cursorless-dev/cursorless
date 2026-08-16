@@ -66,11 +66,11 @@ no_wait_actions_post_sleep = {
 
 @mod.capture(
     rule=(
-        "{user.cursorless_simple_action}"
-        "| {user.cursorless_experimental_action}"
-        "| {user.cursorless_callback_action}"
-        "| {user.cursorless_call_action}"
-        "| {user.cursorless_custom_action}"
+        "{user.cursorless_simple_action} |"
+        "{user.cursorless_experimental_action} |"
+        "{user.cursorless_callback_action} |"
+        "{user.cursorless_call_action} |"
+        "{user.cursorless_custom_action}"
     )
 )
 def cursorless_action_or_ide_command(m) -> dict[str, str]:
