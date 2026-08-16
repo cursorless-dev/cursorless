@@ -86,13 +86,11 @@ function getTokenTargetEdits(ide: IDE, target: Target): Edit[] {
     "forward",
   );
 
-  return Array.from(pairwise(matches)).map(
-    ([range1, range2]): Edit => ({
-      range: new Range(range1.end, range2.start),
-      text: "",
-      isReplace: true,
-    }),
-  );
+  return Array.from(pairwise(matches)).map(([range1, range2]): Edit => ({
+    range: new Range(range1.end, range2.start),
+    text: "",
+    isReplace: true,
+  }));
 }
 
 function getLineTargetEdits(target: Target): Edit[] {
@@ -107,14 +105,12 @@ function getLineTargetEdits(target: Target): Edit[] {
     document.lineAt(i),
   );
 
-  return Array.from(pairwise(lines)).map(
-    ([line1, line2]): Edit => ({
-      range: new Range(
-        line1.rangeTrimmed?.end ?? line1.range.end,
-        line2.rangeTrimmed?.start ?? line2.range.start,
-      ),
-      text: line2.isEmptyOrWhitespace ? "" : " ",
-      isReplace: true,
-    }),
-  );
+  return Array.from(pairwise(lines)).map(([line1, line2]): Edit => ({
+    range: new Range(
+      line1.rangeTrimmed?.end ?? line1.range.end,
+      line2.rangeTrimmed?.start ?? line2.range.start,
+    ),
+    text: line2.isEmptyOrWhitespace ? "" : " ",
+    isReplace: true,
+  }));
 }
