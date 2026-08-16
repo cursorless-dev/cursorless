@@ -30,11 +30,11 @@ jobs:
       # - name: Set up Node.js
       #   uses: ./.github/actions/setup-node
 
-      # - name: Install lua
-      #   uses: leafo/gh-actions-lua@v12
+      - name: Install lua
+        uses: leafo/gh-actions-lua@v12
 
-      # - name: Install luarocks
-      #   uses: leafo/gh-actions-luarocks@v6
+      - name: Install luarocks
+        uses: leafo/gh-actions-luarocks@v6
 
       - name: Run pre-commit hooks
         uses: pre-commit/action@v3.0.1
@@ -43,7 +43,7 @@ jobs:
         uses: pre-commit-ci/lite-action@v1.1.0
         if: always()
 
-      # - name: Pyright
-      #   uses: jakebailey/pyright-action@v3
-      #   with:
-      #     pylance-version: latest-release
+      - name: Pyright
+        uses: jakebailey/pyright-action@v3
+        with:
+          pylance-version: latest-release
