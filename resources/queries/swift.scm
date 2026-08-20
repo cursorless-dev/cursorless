@@ -45,6 +45,9 @@
 ;; generic property delc. -- todo a lot on this ngl
 (property_declaration
     name: (_) @name
+    ;;(type_annotation:
+    ;;    ":" 
+    ;;)
 ) @statement
 
 ;; Generic interior
@@ -64,7 +67,7 @@
         "}" @interior.end.startOf
         .
     )
-) @statement
+) @statement @class
 
 ;; Enum "class: decl.
 (class_declaration
