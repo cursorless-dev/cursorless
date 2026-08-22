@@ -210,7 +210,7 @@ def init_csv_and_watch_changes(
 def check_for_duplicates(filename: str, default_values: ListToSpokenForms):
     results_map = {}
     for list_name, values in default_values.items():
-        for key, value in values.items():
+        for _key, value in values.items():
             if value in results_map:
                 existing_list_name = results_map[value]
                 warning = f"WARNING ({filename}): Value `{value}` duplicated between lists '{existing_list_name}' and '{list_name}'"
@@ -233,7 +233,7 @@ def create_default_vocabulary_dicts(
         updated_dict: dict[str, str] = {}
         for key2, value2 in value.items():
             # Enable deactivated(prefixed with a `-`) items
-            active_key = key2[1:] if key2.startswith("-") else key2
+            active_key = key2.removeprefix("-")
             if active_key:
                 updated_dict[active_key] = value2
         default_values_updated[key] = updated_dict
