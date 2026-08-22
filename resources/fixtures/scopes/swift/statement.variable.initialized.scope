@@ -1,0 +1,10 @@
+var initializedMutableVariable: Double = 42.0
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:45
+  >---------------------------------------------<
+0| var initializedMutableVariable: Double = 42.0
+
+[Insertion delimiter] = "\n"

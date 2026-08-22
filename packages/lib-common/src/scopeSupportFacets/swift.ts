@@ -55,7 +55,7 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
     "name.interface": supported,
 
     // named function
-    namedFunction: supported,
+    namedFunction: unsupported,
 
     // function calls
     functionCall: unsupported,
@@ -145,9 +145,14 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
 
     // comments
     "comment.line": supported,
-    "string.singleLine": supported,
     "textFragment.comment.line": supported,
     "comment.block": unsupported,
+
+    // strings
+    "string.singleLine": unsupported,
+    "string.multiLine": unsupported,
+    "textFragment.string.multiLine": unsupported,
+    "textFragment.string.singleLine": unsupported,
 
     // document-wide iteration
     "statement.iteration.document": unsupported,

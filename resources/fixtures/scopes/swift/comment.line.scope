@@ -1,0 +1,10 @@
+// Hello yes this is comment
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:28
+  >----------------------------<
+0| // Hello yes this is comment
+
+[Insertion delimiter] = "\n"

@@ -22,23 +22,20 @@
     (if_statement
         "if" @branch.start.startOf @branch.removal.start
         condition: (_) @condition
-        (statements) @interior.start.startOf @interior.end.endOf
+        (statements) @interior.domain
         .
         "}" @branch.end.endOf @branch.removal.end
         (else)? @branch.removal.end.startOf 
     ) @condition.domain
-    (#not-parent-type? @condition.domain if_statement)
 )
 
 (
+    (else) @branch.start @condition.domain.start
     (if_statement
-        (else) @branch.start @condition.domain.start
-        (if_statement
-            condition: (_) @condition
-            (statements) @interior.start.startOf @interior.end.endOf
-            .
-            "}" @branch.end.endOf @condition.domain.end
-        )
+        condition: (_) @condition
+        (statements) @interior.domain
+        .
+        "}" @branch.end.endOf @condition.domain.end
     )
 )
 
@@ -51,13 +48,10 @@
 ) @statement
 
 ;; Generic interior
-;;(_
-    
-;;    "{" @interior.start.endOf
-;;    "}" @interior.end.startOf
-;;    .
-
-;;)
+(_
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+)
 
 ;; Non-enum class (struct/class) decl.
 (class_declaration

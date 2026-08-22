@@ -18,7 +18,7 @@ struct ExamplesStruct {
         publicVariable += cast
         let fizz = publicVariable % 3 == 0
         let buzz = publicVariable % 5 == 0
-        if (fizz || buzz) {
+        if fizz || buzz {
             print((fizz ? "fizz" : "") + (buzz ? "buzz" : ""))
         }
         for _ in 0 ..< cast {

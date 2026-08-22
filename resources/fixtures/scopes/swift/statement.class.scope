@@ -2,3 +2,14 @@ class ClassName {
 
 }
 ---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-2:1
+  >-----------------
+0| class ClassName {
+1|
+2| }
+   -<
+
+[Insertion delimiter] = "\n"

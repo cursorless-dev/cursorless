@@ -1,4 +1,4 @@
-enum EnumerationName {
+struct ExampleStruct {
 
 }
 ---
@@ -7,9 +7,9 @@ enum EnumerationName {
 [Removal] =
 [Domain] = 0:0-2:1
   >----------------------
-0| enum EnumerationName {
+0| struct ExampleStruct {
 1|
 2| }
    -<
 
-[Insertion delimiter] = "\n"
+[Insertion delimiter] = "\n\n"

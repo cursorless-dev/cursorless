@@ -1,0 +1,23 @@
+struct ExampleStruct {
+    
+}
+---
+
+[Content] =
+[Domain] = 0:7-0:20
+         >-------------<
+0| struct ExampleStruct {
+
+[Removal] = 0:7-0:21
+         >--------------<
+0| struct ExampleStruct {
+
+[Leading delimiter] = 0:6-0:7
+        >-<
+0| struct ExampleStruct {
+
+[Trailing delimiter] = 0:20-0:21
+                      >-<
+0| struct ExampleStruct {
+
+[Insertion delimiter] = " "
