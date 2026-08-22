@@ -10,8 +10,26 @@ target-version = "py311"
 extend-exclude = ["vendor", "resources/playground"]
 
 [tool.ruff.lint]
-select = ["E", "F", "C4", "I001", "UP", "SIM", "FLY"]
-ignore = ["E501", "SIM105", "UP007", "UP035", "UP045"]
+select = [
+  "E", # pycodestyle
+  "F", # Pyflakes
+  "UP", # pyupgrade
+  "B", # flake8-bugbear
+  "SIM", # flake8-simplify
+  "I", # isort
+  "C4", # Catch incorrect use of comprehensions, dict, list, etc
+  "ICN", # Use common import conventions
+  "RET", # Good return practices
+  "FURB", # Suggest more idiomatic Python patterns
+  "FLY", # Checks for str.join calls that can be replaced with f-strings.
+]
+ignore = [
+  "E501", # Line too long
+  "SIM105", # Alow try-except-pass instead of contextlib.suppress({exception})
+  "UP007", # Union[X, Y] -> X | Y not supported in Talon 0.4 actions
+  "UP045", # Optional[X] -> X | None not supported in Talon 0.4 actions
+  "UP035", # Deprecated import
+]
 
 [tool.pyright]
 pythonVersion = "3.11"

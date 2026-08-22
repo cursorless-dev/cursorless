@@ -33,7 +33,9 @@ def cursorless_destination(m) -> Union[ListDestination, PrimitiveDestination]:
     destinations = [
         PrimitiveDestination(insertion_mode, target)
         for insertion_mode, target in zip(
-            m.cursorless_insertion_mode_list, m.cursorless_target_list
+            m.cursorless_insertion_mode_list,
+            m.cursorless_target_list,
+            strict=True,
         )
     ]
 

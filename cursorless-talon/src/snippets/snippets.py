@@ -38,7 +38,7 @@ class Actions:
     @staticmethod
     def cursorless_insert_snippet(
         body: str,
-        destination: CursorlessDestination = ImplicitDestination(),
+        destination: Optional[CursorlessDestination] = None,
         scope_type: Optional[Union[str, list[str]]] = None,
     ):
         """Cursorless: Insert custom snippet <body>"""
@@ -48,7 +48,7 @@ class Actions:
             languages=None,
             substitutions=None,
         )
-        action = InsertSnippetAction(snippet, destination)
+        action = InsertSnippetAction(snippet, destination or ImplicitDestination())
         actions.user.private_cursorless_command_and_wait(action)
 
     @staticmethod
