@@ -1321,7 +1321,7 @@
     "nearley": "^2.20.1",
     "semver": "^7.8.5",
     "trie-search": "^2.2.1",
-    "uuid": "^14.0.1",
+    "uuid": "^14.0.2",
     "vscode-uri": "^3.1.0"
   },
   "devDependencies": {
@@ -1333,10 +1333,10 @@
     "@types/semver": "^7.8.0",
     "@types/sinon": "^22.0.0",
     "@types/vscode": "1.98.0",
-    "esbuild": "^0.28.1",
-    "fast-xml-parser": "^5.10.1",
+    "esbuild": "^0.28.2",
+    "fast-xml-parser": "^5.11.0",
     "fs-extra": "^11.4.0",
     "sinon": "^22.1.0",
-    "tsx": "^4.23.11"
+    "tsx": "^4.23.12"
   }
 }
