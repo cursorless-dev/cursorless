@@ -12,9 +12,8 @@ export function ScrollToHashId() {
     if (location.hash) {
       const id = location.hash.replace("#", "");
       const delay = 100;
-      let attemptsLeft = 5;
 
-      const scrollToId = () => {
+      const scrollToId = (attemptsLeft: number) => {
         const element = document.getElementById(id);
 
         if (element != null) {
@@ -24,16 +23,14 @@ export function ScrollToHashId() {
           element.scrollIntoView();
         }
 
-        attemptsLeft--;
-
-        if (attemptsLeft > 0) {
-          setTimeout(scrollToId, delay);
+        if (attemptsLeft > 1) {
+          setTimeout(() => scrollToId(attemptsLeft - 1), delay);
         }
       };
 
-      setTimeout(scrollToId, delay);
+      setTimeout(() => scrollToId(5), delay);
     }
-    // oxlint-disable-next-line eslint-plugin-react-hooks/exhaustive-deps
+    // oxlint-disable-next-line eslint-plugin-react-hooks/exhaustive-deps, react/exhaustive-effect-dependencies
   }, []);
 
   return null;

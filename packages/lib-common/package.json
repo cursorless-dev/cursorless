@@ -29,7 +29,7 @@
     "@types/tinycolor2": "^1.4.6",
     "cross-spawn": "^7.0.6",
     "fast-check": "^4.9.0",
-    "js-yaml": "^5.2.3",
-    "web-tree-sitter": "0.26.10"
+    "js-yaml": "^5.3.0",
+    "web-tree-sitter": "^0.26.13"
   }
 }

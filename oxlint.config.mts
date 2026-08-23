@@ -28,6 +28,7 @@ const disabledRules = [
   "eslint/no-underscore-dangle",
   "eslint/no-use-before-define",
   "eslint/no-void",
+  "eslint/one-var",
   "eslint/prefer-destructuring",
   "eslint/prefer-named-capture-group",
   "eslint/sort-imports",
