@@ -10,18 +10,16 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
   "branch.if": supported,
   "branch.if.else": supported,
-  "branch.if.elif.else": unsupported,
-  "branch.if.iteration": unsupported,
+  "branch.if.elif.else": supported,
+  "branch.if.iteration": supported,
   "condition.if": supported,
   "interior.if": supported,
 
-  // for loop -- TODO: are swift for loops 'standard' for loops, for-each loops, or both?
-  "statement.for": unsupported,
-  "statement.foreach": unsupported,
-  "condition.for": unsupported,
-  "name.foreach": unsupported,
-  "value.foreach": unsupported,
-  "type.foreach": unsupported,
+  // for loop
+  "statement.foreach": supported,
+  "name.foreach": supported,
+  "value.foreach": supported,
+  "type.foreach": supported,
 
   // switch
   "statement.switch": unsupported,
@@ -187,6 +185,10 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.misc": unsupported,
 
   /* NOT APPLICABLE */
+
+  // c-style for loop
+  "statement.for": notApplicable,
+  "condition.for": notApplicable,
 
   // XML/CSS/LaTeX/Markdown specific
   section: notApplicable,

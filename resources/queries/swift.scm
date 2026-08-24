@@ -12,34 +12,39 @@
   )
 ) @statement
 
-;;if statement -- todo seperate main if branch from else and else if branches
+;;if statement
 (
-  (if_statement) @ifStatement @statement @branch.domain
+  (if_statement) @ifStatement @statement @branch.iteration
   (#not-parent-type? @ifStatement if_statement)
 )
 
 (
   (if_statement
-    "if" @branch.start.startOf @branch.removal.start
+    "if" @branch.start @branch.removal.start
     condition: (_) @condition
-    (statements) @interior.domain
-    .
-    "}" @branch.end.endOf @branch.removal.end
+    (statements)
+    "}" @branch.end @branch.removal.end
     (else)? @branch.removal.end.startOf
   ) @condition.domain
+  (#not-parent-type? @condition.domain else)
 )
 
 (
   (else) @branch.start @condition.domain.start
   (if_statement
     condition: (_) @condition
-    (statements) @interior.domain
-    .
-    "}" @branch.end.endOf @condition.domain.end
+    (statements)
+    "}" @branch.end @condition.domain.end
   )
 )
 
-;; generic property delc. -- todo a lot on this ngl
+(
+  (else) @branch.start
+  (statements)
+  "}" @branch.end
+)
+
+;; generic property delc
 (property_declaration
   name: (_) @name
   ;;(type_annotation:
@@ -63,7 +68,7 @@
   )
 ) @statement @class
 
-;; Enum "class: decl.
+;; Enum "class" decl.
 (class_declaration
   name: (_) @name
   body: (enum_class_body
@@ -72,3 +77,18 @@
     .
   )
 ) @statement
+
+;; For loop w/ type
+(
+  (for_statement
+    "for"
+    item: (_) @name
+    (type_annotation
+      ":" @type.leading
+      .
+      _ @type @name.trailing
+    )?
+    "in"
+    collection: (_) @value
+  ) @statement @_.domain
+)

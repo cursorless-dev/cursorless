@@ -1,0 +1,15 @@
+for item in collection {
+
+}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-2:1
+  >------------------------
+0| for item in collection {
+1|
+2| }
+   -<
+
+[Insertion delimiter] = "\n"

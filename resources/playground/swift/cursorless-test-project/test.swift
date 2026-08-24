@@ -17,12 +17,15 @@ struct ExamplesStruct {
         let cast: UInt128 = numericCast(times)
         publicVariable += cast
         let fizz = publicVariable % 3 == 0
-        let buzz = publicVariable % 5 == 0
+        let buzz: Bool = publicVariable % 5 == 0
         if fizz || buzz {
             print((fizz ? "fizz" : "") + (buzz ? "buzz" : ""))
         }
         for _ in 0 ..< cast {
             print(ExamplesStruct.exampleFunction(exampleLabel: exampleLabel))
+        }
+        for c: Character in "test" {
+
         }
     }
 }

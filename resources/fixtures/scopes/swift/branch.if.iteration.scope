@@ -1,0 +1,18 @@
+if firstCondition {
+
+} else secondCondition {
+
+} else {
+
+}
+---
+
+[Content] =
+[Domain] = 0:0-4:1
+  >-------------------
+0| if firstCondition {
+1|
+2| } else secondCondition {
+3|
+4| } else {
+   -<

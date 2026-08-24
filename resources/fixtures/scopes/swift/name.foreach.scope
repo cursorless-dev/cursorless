@@ -1,0 +1,29 @@
+for item in collection {
+    
+}
+---
+
+[Content] = 0:4-0:8
+      >----<
+0| for item in collection {
+
+[Removal] = 0:4-0:9
+      >-----<
+0| for item in collection {
+
+[Leading delimiter] = 0:3-0:4
+     >-<
+0| for item in collection {
+
+[Trailing delimiter] = 0:8-0:9
+          >-<
+0| for item in collection {
+
+[Domain] = 0:0-2:1
+  >------------------------
+0| for item in collection {
+1|     
+2| }
+   -<
+
+[Insertion delimiter] = " "
