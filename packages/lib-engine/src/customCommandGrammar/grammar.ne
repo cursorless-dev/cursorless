@@ -33,7 +33,7 @@ action -> %bringMove target destination {%
 
 destination -> primitiveDestination {% id %}
 
-destination -> %insertionMode target {%
+primitiveDestination -> %insertionMode target {%
   ([insertionMode, target]) => primitiveDestinationDescriptor(insertionMode, target)
 %}
 

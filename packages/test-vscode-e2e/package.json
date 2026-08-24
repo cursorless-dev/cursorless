@@ -13,7 +13,7 @@
     "@cursorless/lib-common": "workspace:*",
     "@cursorless/lib-node-common": "workspace:*",
     "@cursorless/lib-vscode-common": "workspace:*",
-    "immer": "^11.1.16",
+    "immer": "^11.1.18",
     "lodash-es": "^4.18.1"
   },
   "devDependencies": {
