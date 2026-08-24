@@ -4,3 +4,60 @@ if condition {
 
 }
 ---
+
+[#1 Content] =
+[#1 Domain] = 0:0-2:1
+  >--------------
+0| if condition {
+1|
+2| } else {
+   -<
+
+[#1 Removal] = 0:0-2:2
+  >--------------
+0| if condition {
+1|
+2| } else {
+   --<
+
+[#1 Trailing delimiter] = 2:1-2:2
+   >-<
+2| } else {
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Removal] =
+[#2 Domain] = 0:0-4:1
+  >--------------
+0| if condition {
+1|
+2| } else {
+3|
+4| }
+   -<
+
+[#2 Insertion delimiter] = "\n"
+
+
+[#3 Content] =
+[#3 Domain] = 2:2-4:1
+    >------
+2| } else {
+3|
+4| }
+   -<
+
+[#3 Removal] = 2:1-4:1
+   >-------
+2| } else {
+3|
+4| }
+   -<
+
+[#3 Leading delimiter] = 2:1-2:2
+   >-<
+2| } else {
+
+[#3 Insertion delimiter] = "\n"

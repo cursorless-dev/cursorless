@@ -8,7 +8,6 @@
   body: (protocol_body
     "{" @interior.start.endOf
     "}" @interior.end.startOf
-    .
   )
 ) @statement
 
@@ -22,7 +21,6 @@
   (if_statement
     "if" @branch.start @branch.removal.start
     condition: (_) @condition
-    (statements)
     "}" @branch.end @branch.removal.end
     (else)? @branch.removal.end.startOf
   ) @condition.domain
@@ -32,15 +30,13 @@
 (
   (else) @branch.start @condition.domain.start
   (if_statement
-    condition: (_) @condition
-    (statements)
-    "}" @branch.end @condition.domain.end
+    condition: (_) @condition @condition.domain.end
+    "}" @branch.end
   )
 )
 
 (
   (else) @branch.start
-  (statements)
   "}" @branch.end
 )
 

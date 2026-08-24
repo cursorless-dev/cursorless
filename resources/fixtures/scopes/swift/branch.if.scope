@@ -2,3 +2,14 @@ if condition {
 
 }
 ---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-2:1
+  >--------------
+0| if condition {
+1|
+2| }
+   -<
+
+[Insertion delimiter] = "\n"
