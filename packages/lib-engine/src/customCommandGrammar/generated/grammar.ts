@@ -65,7 +65,7 @@ const grammar: Grammar = {
         ([bringMove, target, destination]) => bringMoveActionDescriptor(bringMove, target, destination)
         },
     {"name": "destination", "symbols": ["primitiveDestination"], "postprocess": id},
-    {"name": "destination", "symbols": [(lexer.has("insertionMode") ? {type: "insertionMode"} : insertionMode), "target"], "postprocess": 
+    {"name": "primitiveDestination", "symbols": [(lexer.has("insertionMode") ? {type: "insertionMode"} : insertionMode), "target"], "postprocess": 
         ([insertionMode, target]) => primitiveDestinationDescriptor(insertionMode, target)
         },
     {"name": "target", "symbols": ["primitiveTarget"], "postprocess": id},

@@ -25,7 +25,7 @@
     "@types/node": "^24.13.3",
     "jest": "^30.4.2",
     "typescript": "^6.0.3",
-    "vite": "^8.2.1",
+    "vite": "^8.2.2",
     "vite-plugin-purgecss": "^0.2.13",
     "vite-plugin-singlefile": "^2.3.3"
   }

@@ -46,7 +46,7 @@ export function Code({
         console.error(error);
       }
     })();
-  }, [languageId, renderWhitespace, decorations, link, children]);
+  }, [languageId, renderWhitespace, decorations, children]);
 
   if (html == null) {
     return <div className="code-container" />;

@@ -11,6 +11,7 @@ const isBrowser = typeof window !== "undefined";
  */
 export function useIsHighlighted(id: string): boolean {
   if (isBrowser) {
+    // oxlint-disable-next-line react/hooks
     const hash = useHash();
     return hash === `#${id}`;
   }
