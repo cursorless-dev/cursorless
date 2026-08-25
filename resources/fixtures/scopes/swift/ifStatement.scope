@@ -1,15 +1,10 @@
-if foo {
-
-}
+if true {}
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-2:1
-  >--------
-0| if foo {
-1|
-2| }
-   -<
+[Domain] = 0:0-0:10
+  >----------<
+0| if true {}
 
 [Insertion delimiter] = "\n"

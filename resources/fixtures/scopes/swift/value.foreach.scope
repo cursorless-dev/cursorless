@@ -1,29 +1,24 @@
-for item in collection {
-
-}
+for foo in bar {}
 ---
 
-[Content] = 0:12-0:22
-              >----------<
-0| for item in collection {
+[Content] = 0:11-0:14
+             >---<
+0| for foo in bar {}
 
-[Removal] = 0:12-0:23
-              >-----------<
-0| for item in collection {
+[Removal] = 0:11-0:15
+             >----<
+0| for foo in bar {}
 
-[Leading delimiter] = 0:11-0:12
-             >-<
-0| for item in collection {
+[Leading delimiter] = 0:10-0:11
+            >-<
+0| for foo in bar {}
 
-[Trailing delimiter] = 0:22-0:23
-                        >-<
-0| for item in collection {
+[Trailing delimiter] = 0:14-0:15
+                >-<
+0| for foo in bar {}
 
-[Domain] = 0:0-2:1
-  >------------------------
-0| for item in collection {
-1|
-2| }
-   -<
+[Domain] = 0:0-0:17
+  >-----------------<
+0| for foo in bar {}
 
 [Insertion delimiter] = " "

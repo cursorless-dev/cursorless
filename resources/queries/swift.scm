@@ -1,7 +1,26 @@
 ;; https://github.com/alex-pinkus/tree-sitter-swift/blob/with-generated-files/src/grammar.json
 
-;; Comment
+;; single line comment
 (comment) @comment @textFragment
+
+;; multiline comment
+(multiline_comment) @comment @textFragment
+
+;; single line string
+(line_string_literal
+  text: (_) @interior @textFragment
+) @string
+
+;; multiline string
+(multi_line_string_literal
+  text: (_) @interior @textFragment
+) @string
+
+;; extended delimiter/"raw" strings (both multiline and single line) -- waiting on better tree-sitter support for these
+;;(raw_string_literal
+;;  text: (_) @interior @textFragment
+;;) @string
+
 ;; Protocol decl.
 (protocol_declaration
   name: (_) @name
@@ -11,12 +30,13 @@
   )
 ) @statement
 
-;;if statement
+;; if statement
 (
   (if_statement) @ifStatement @statement @branch.iteration
   (#not-parent-type? @ifStatement if_statement)
 )
 
+;; if statement w/ condition & child branches
 (
   (if_statement
     "if" @branch.start @branch.removal.start
@@ -27,6 +47,7 @@
   (#not-parent-type? @condition.domain else)
 )
 
+;; else if
 (
   (else) @branch.start @condition.domain.start
   (if_statement
@@ -35,6 +56,7 @@
   )
 )
 
+;; else
 (
   (else) @branch.start
   "}" @branch.end
@@ -74,7 +96,7 @@
   )
 ) @statement
 
-;; For loop w/ type
+;; For loop
 (
   (for_statement
     "for"

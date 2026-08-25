@@ -30,6 +30,18 @@ struct ExamplesStruct {
     }
 }
 
+let basicMultilineString = """
+I am
+a multiline string
+!!
+"""
+
+let extendedDelimiter = #"The radio said "No, John. You are the zombie." And then John was the zombie."#
+
+let multilineExtendedDelimiter = #"""
+""""""""" waow
+"""#
+
 enum ExampleEnum {
     case exampleCaseOne
     case exampleCaseTwo

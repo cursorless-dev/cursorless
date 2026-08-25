@@ -129,12 +129,12 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.formal.constructor.multiLine": unsupported,
 
   // named variable/member/field
-  "statement.field.class": supported,
-  "statement.field.interface": supported,
-  "statement.variable.uninitialized": supported,
-  "statement.variable.initialized": supported,
-  "name.variable.initialized": supported,
-  "name.variable.uninitialized": supported,
+  "statement.field.class": unsupported,
+  "statement.field.interface": unsupported,
+  "statement.variable.uninitialized": unsupported,
+  "statement.variable.initialized": unsupported,
+  "name.variable.initialized": unsupported,
+  "name.variable.uninitialized": unsupported,
 
   // variable/member/field value (RHS)
   "value.field.class": unsupported,
@@ -144,13 +144,14 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   // comments
   "comment.line": supported,
   "textFragment.comment.line": supported,
-  "comment.block": unsupported,
+  "textFragment.comment.block": supported,
+  "comment.block": supported,
 
   // strings
-  "string.singleLine": unsupported,
-  "string.multiLine": unsupported,
-  "textFragment.string.multiLine": unsupported,
-  "textFragment.string.singleLine": unsupported,
+  "string.singleLine": supported,
+  "string.multiLine": supported,
+  "textFragment.string.multiLine": supported,
+  "textFragment.string.singleLine": supported,
 
   // document-wide iteration
   "statement.iteration.document": unsupported,

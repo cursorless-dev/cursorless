@@ -1,15 +1,10 @@
-class ClassName {
-
-}
+class Foo {}
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-2:1
-  >-----------------
-0| class ClassName {
-1|
-2| }
-   -<
+[Domain] = 0:0-0:12
+  >------------<
+0| class Foo {}
 
 [Insertion delimiter] = "\n"

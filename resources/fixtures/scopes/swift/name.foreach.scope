@@ -1,29 +1,24 @@
-for item in collection {
-    
-}
+for foo in bar {}
 ---
 
-[Content] = 0:4-0:8
-      >----<
-0| for item in collection {
+[Content] = 0:4-0:7
+      >---<
+0| for foo in bar {}
 
-[Removal] = 0:4-0:9
-      >-----<
-0| for item in collection {
+[Removal] = 0:4-0:8
+      >----<
+0| for foo in bar {}
 
 [Leading delimiter] = 0:3-0:4
      >-<
-0| for item in collection {
+0| for foo in bar {}
 
-[Trailing delimiter] = 0:8-0:9
-          >-<
-0| for item in collection {
+[Trailing delimiter] = 0:7-0:8
+         >-<
+0| for foo in bar {}
 
-[Domain] = 0:0-2:1
-  >------------------------
-0| for item in collection {
-1|     
-2| }
-   -<
+[Domain] = 0:0-0:17
+  >-----------------<
+0| for foo in bar {}
 
 [Insertion delimiter] = " "

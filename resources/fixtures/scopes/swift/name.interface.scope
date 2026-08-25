@@ -1,23 +1,21 @@
-protocol ExampleProtocol  {
-
-}
+protocol Foo {}
 ---
 
 [Content] =
-[Domain] = 0:9-0:24
-           >---------------<
-0| protocol ExampleProtocol  {
+[Domain] = 0:9-0:12
+           >---<
+0| protocol Foo {}
 
-[Removal] = 0:9-0:26
-           >-----------------<
-0| protocol ExampleProtocol  {
+[Removal] = 0:9-0:13
+           >----<
+0| protocol Foo {}
 
 [Leading delimiter] = 0:8-0:9
           >-<
-0| protocol ExampleProtocol  {
+0| protocol Foo {}
 
-[Trailing delimiter] = 0:24-0:26
-                          >--<
-0| protocol ExampleProtocol  {
+[Trailing delimiter] = 0:12-0:13
+              >-<
+0| protocol Foo {}
 
 [Insertion delimiter] = " "

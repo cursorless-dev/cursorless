@@ -1,23 +1,21 @@
-enum TestEnumeration {
-
-}
+enum Foo {}
 ---
 
 [Content] =
-[Domain] = 0:5-0:20
-       >---------------<
-0| enum TestEnumeration {
+[Domain] = 0:5-0:8
+       >---<
+0| enum Foo {}
 
-[Removal] = 0:5-0:21
-       >----------------<
-0| enum TestEnumeration {
+[Removal] = 0:5-0:9
+       >----<
+0| enum Foo {}
 
 [Leading delimiter] = 0:4-0:5
       >-<
-0| enum TestEnumeration {
+0| enum Foo {}
 
-[Trailing delimiter] = 0:20-0:21
-                      >-<
-0| enum TestEnumeration {
+[Trailing delimiter] = 0:8-0:9
+          >-<
+0| enum Foo {}
 
 [Insertion delimiter] = " "

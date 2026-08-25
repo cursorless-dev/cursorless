@@ -1,18 +1,12 @@
-if firstCondition {
-
-} else secondCondition {
-
-} else {
-
-}
+if foo {}
+else if bar {}
+else {}
 ---
 
 [Content] =
-[Domain] = 0:0-4:1
-  >-------------------
-0| if firstCondition {
-1|
-2| } else secondCondition {
-3|
-4| } else {
-   -<
+[Domain] = 0:0-2:7
+  >---------
+0| if foo {}
+1| else if bar {}
+2| else {}
+   -------<

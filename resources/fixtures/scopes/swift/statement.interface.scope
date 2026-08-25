@@ -1,25 +1,10 @@
-protocol ProtocolName {
-
-} 
+protocol Foo {}
 ---
 
 [Content] =
-[Domain] = 0:0-2:1
-  >-----------------------
-0| protocol ProtocolName {
-1|
-2| } 
-   -<
-
-[Removal] = 0:0-2:2
-  >-----------------------
-0| protocol ProtocolName {
-1|
-2| } 
-   --<
-
-[Trailing delimiter] = 2:1-2:2
-   >-<
-2| } 
+[Removal] =
+[Domain] = 0:0-0:15
+  >---------------<
+0| protocol Foo {}
 
 [Insertion delimiter] = "\n"

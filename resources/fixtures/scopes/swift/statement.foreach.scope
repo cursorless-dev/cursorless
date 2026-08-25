@@ -1,15 +1,10 @@
-for item in collection {
-
-}
+for foo in bar {}
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-2:1
-  >------------------------
-0| for item in collection {
-1|
-2| }
-   -<
+[Domain] = 0:0-0:17
+  >-----------------<
+0| for foo in bar {}
 
 [Insertion delimiter] = "\n"
