@@ -1,5 +1,8 @@
 import type { ActionType } from "../types/command/ActionDescriptor";
-import type { ReferenceEntryWithoutIdKind } from "../types/ReferenceEntry";
+import type {
+  ReferenceEntry,
+  ReferenceEntryWithoutIdKind,
+} from "../types/ReferenceEntry";
 
 const DEFAULT_PATTERN = "<spokenForm> <target>";
 const DEFAULT_PATTERN_SCOPE = "<spokenForm> <scope> <target>";
@@ -16,7 +19,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Adds <target> to the current selection set",
-        descriptionShort: "Add selection",
+        cheatsheet: "Add selection",
       },
     ],
     examples: [],
@@ -28,7 +31,7 @@ const actionReferencesMap: Record<
         pattern: DEFAULT_PATTERN,
         description:
           "Adds empty selection after <target> to the current selection set",
-        descriptionShort: "Add selection after",
+        cheatsheet: "Add selection after",
       },
     ],
     examples: [],
@@ -40,7 +43,7 @@ const actionReferencesMap: Record<
         pattern: DEFAULT_PATTERN,
         description:
           "Adds empty selection before <target> to the current selection set",
-        descriptionShort: "Add selection before",
+        cheatsheet: "Add selection before",
       },
     ],
     examples: [],
@@ -51,7 +54,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Breaks the line before <target>",
-        descriptionShort: "Breaks the line",
+        cheatsheet: "Breaks the line",
       },
     ],
     examples: [],
@@ -64,7 +67,7 @@ const actionReferencesMap: Record<
         pattern: DEFAULT_PATTERN,
         description:
           "Change <target> by clearing it and setting a new selection",
-        descriptionShort: "Change",
+        cheatsheet: "Change",
       },
     ],
     examples: [],
@@ -75,7 +78,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Copy <target> to clipboard",
-        descriptionShort: "Copy to clipboard",
+        cheatsheet: "Copy to clipboard",
       },
     ],
     examples: [],
@@ -86,7 +89,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Cut <target> to clipboard",
-        descriptionShort: "Cut to clipboard",
+        cheatsheet: "Cut to clipboard",
       },
     ],
     examples: [],
@@ -97,7 +100,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Decrement number at <target>",
-        descriptionShort: "Decrement number",
+        cheatsheet: "Decrement number",
       },
     ],
     examples: [],
@@ -108,7 +111,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Deselect <target>",
-        descriptionShort: "Deselect",
+        cheatsheet: "Deselect",
       },
     ],
     examples: [],
@@ -120,12 +123,12 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Edit new line after <target>",
-        descriptionShort: "Edit new line after",
+        cheatsheet: "Edit new line after",
       },
       {
         pattern: DEFAULT_PATTERN_SCOPE,
         description: "Edit new <scope> after <target>",
-        descriptionShort: "Edit new <scope> after",
+        cheatsheet: "Edit new <scope> after",
       },
     ],
     examples: [],
@@ -137,12 +140,12 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Edit new line before <target>",
-        descriptionShort: "Edit new line before",
+        cheatsheet: "Edit new line before",
       },
       {
         pattern: DEFAULT_PATTERN_SCOPE,
         description: "Edit new <scope> before <target>",
-        descriptionShort: "Edit new <scope> before",
+        cheatsheet: "Edit new <scope> before",
       },
     ],
     examples: [],
@@ -155,7 +158,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Set instance reference to <target>",
-        descriptionShort: "Set instance reference",
+        cheatsheet: "Set instance reference",
       },
     ],
     examples: [],
@@ -166,7 +169,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Extract variable from <target>",
-        descriptionShort: "Extract variable",
+        cheatsheet: "Extract variable",
       },
     ],
     examples: [],
@@ -177,7 +180,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Find <target> in document",
-        descriptionShort: "Find in document",
+        cheatsheet: "Find in document",
       },
     ],
     examples: [],
@@ -188,7 +191,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Find <target> in workspace",
-        descriptionShort: "Find in workspace",
+        cheatsheet: "Find in workspace",
       },
     ],
     examples: [],
@@ -199,7 +202,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Flash <target>",
-        descriptionShort: "Flash target",
+        cheatsheet: "Flash target",
       },
     ],
     examples: [],
@@ -210,7 +213,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Fold region at <target>",
-        descriptionShort: "Fold region",
+        cheatsheet: "Fold region",
       },
     ],
     examples: [],
@@ -221,7 +224,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Follow link at <target>",
-        descriptionShort: "Follow link",
+        cheatsheet: "Follow link",
       },
     ],
     examples: [],
@@ -232,7 +235,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Follow link at <target> aside (e.g. in a split view)",
-        descriptionShort: "Follow link aside",
+        cheatsheet: "Follow link aside",
       },
     ],
     examples: [],
@@ -243,7 +246,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Accept Git change at <target>",
-        descriptionShort: "Git accept",
+        cheatsheet: "Git accept",
       },
     ],
     examples: [],
@@ -254,7 +257,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Revert Git change at <target>",
-        descriptionShort: "Git revert",
+        cheatsheet: "Git revert",
       },
     ],
     examples: [],
@@ -265,7 +268,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Stage Git change at <target>",
-        descriptionShort: "Git stage",
+        cheatsheet: "Git stage",
       },
     ],
     examples: [],
@@ -276,7 +279,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Unstage Git change at <target>",
-        descriptionShort: "Git unstage",
+        cheatsheet: "Git unstage",
       },
     ],
     examples: [],
@@ -287,7 +290,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Increment number at <target>",
-        descriptionShort: "Increment number",
+        cheatsheet: "Increment number",
       },
     ],
     examples: [],
@@ -298,7 +301,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Indent line containing <target>",
-        descriptionShort: "Indent line",
+        cheatsheet: "Indent line",
       },
     ],
     examples: [],
@@ -309,7 +312,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Insert copy after <target>",
-        descriptionShort: "Insert copy after",
+        cheatsheet: "Insert copy after",
       },
     ],
     examples: [],
@@ -320,7 +323,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Insert copy before <target>",
-        descriptionShort: "Insert copy before",
+        cheatsheet: "Insert copy before",
       },
     ],
     examples: [],
@@ -331,7 +334,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Insert empty line after <target>",
-        descriptionShort: "Insert empty line after",
+        cheatsheet: "Insert empty line after",
       },
     ],
     examples: [],
@@ -342,7 +345,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Insert empty line before <target>",
-        descriptionShort: "Insert empty line before",
+        cheatsheet: "Insert empty line before",
       },
     ],
     examples: [],
@@ -353,7 +356,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Insert empty lines around <target>",
-        descriptionShort: "Insert empty lines around",
+        cheatsheet: "Insert empty lines around",
       },
     ],
     examples: [],
@@ -364,7 +367,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Join lines at <target>",
-        descriptionShort: "Join lines",
+        cheatsheet: "Join lines",
       },
     ],
     examples: [],
@@ -375,7 +378,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Outdent line containing <target>",
-        descriptionShort: "Outdent line",
+        cheatsheet: "Outdent line",
       },
     ],
     examples: [],
@@ -386,7 +389,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Randomize <target>s",
-        descriptionShort: "Randomize targets",
+        cheatsheet: "Randomize targets",
       },
     ],
     examples: [],
@@ -397,7 +400,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Remove <target>",
-        descriptionShort: "Remove",
+        cheatsheet: "Remove",
       },
     ],
     examples: [],
@@ -408,7 +411,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Rename <target>",
-        descriptionShort: "Rename",
+        cheatsheet: "Rename",
       },
     ],
     examples: [],
@@ -419,7 +422,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Reveal definition of <target>",
-        descriptionShort: "Reveal definition",
+        cheatsheet: "Reveal definition",
       },
     ],
     examples: [],
@@ -430,7 +433,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Reveal type definition of <target>",
-        descriptionShort: "Reveal type definition",
+        cheatsheet: "Reveal type definition",
       },
     ],
     examples: [],
@@ -441,7 +444,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Reverse <target>s",
-        descriptionShort: "Reverse targets",
+        cheatsheet: "Reverse targets",
       },
     ],
     examples: [],
@@ -452,7 +455,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Scroll <target> to bottom of the viewport",
-        descriptionShort: "Scroll to bottom",
+        cheatsheet: "Scroll to bottom",
       },
     ],
     examples: [],
@@ -463,7 +466,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Scroll <target> to center of the viewport",
-        descriptionShort: "Scroll to center",
+        cheatsheet: "Scroll to center",
       },
     ],
     examples: [],
@@ -474,7 +477,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Scroll <target> to top of the viewport",
-        descriptionShort: "Scroll to top",
+        cheatsheet: "Scroll to top",
       },
     ],
     examples: [],
@@ -485,7 +488,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Set selection to <target>",
-        descriptionShort: "Set selection",
+        cheatsheet: "Set selection",
       },
     ],
     examples: [],
@@ -496,7 +499,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Set empty selection after <target>",
-        descriptionShort: "Set selection after",
+        cheatsheet: "Set selection after",
       },
     ],
     examples: [],
@@ -507,7 +510,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Set empty selection before <target>",
-        descriptionShort: "Set selection before",
+        cheatsheet: "Set selection before",
       },
     ],
     examples: [],
@@ -518,7 +521,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Show debug hover for <target>",
-        descriptionShort: "Show debug hover",
+        cheatsheet: "Show debug hover",
       },
     ],
     examples: [],
@@ -529,7 +532,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Show hover for <target>",
-        descriptionShort: "Show hover",
+        cheatsheet: "Show hover",
       },
     ],
     examples: [],
@@ -540,7 +543,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Show quick fix for <target>",
-        descriptionShort: "Show quick fix",
+        cheatsheet: "Show quick fix",
       },
     ],
     examples: [],
@@ -551,7 +554,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Show references for <target>",
-        descriptionShort: "Show references",
+        cheatsheet: "Show references",
       },
     ],
     examples: [],
@@ -562,7 +565,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Sort <target>s",
-        descriptionShort: "Sort targets",
+        cheatsheet: "Sort targets",
       },
     ],
     examples: [],
@@ -574,12 +577,12 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Toggle breakpoint on line containing <target>",
-        descriptionShort: "Toggle line breakpoint",
+        cheatsheet: "Toggle line breakpoint",
       },
       {
         pattern: "<spokenForm> token <target>",
         description: "Toggle inline breakpoint at <target>",
-        descriptionShort: "Toggle inline breakpoint",
+        cheatsheet: "Toggle inline breakpoint",
       },
     ],
     examples: [],
@@ -590,7 +593,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Toggle line comment at <target>",
-        descriptionShort: "Toggle line comment",
+        cheatsheet: "Toggle line comment",
       },
     ],
     examples: [],
@@ -601,7 +604,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Unfold region at <target>",
-        descriptionShort: "Unfold region",
+        cheatsheet: "Unfold region",
       },
     ],
     examples: [],
@@ -612,12 +615,12 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Insert call to <target> on selection",
-        descriptionShort: "Insert call to <target> on selection",
+        cheatsheet: "Insert call to <target> on selection",
       },
       {
         pattern: "<spokenForm> <target 1> on <target 2>",
         description: "Insert call to <target 1> on <target 2>",
-        descriptionShort: "Insert call to <target 1> on <target 2>",
+        cheatsheet: "Insert call to <target 1> on <target 2>",
       },
     ],
     examples: [],
@@ -629,7 +632,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Generate snippet from <target>",
-        descriptionShort: "Generate snippet",
+        cheatsheet: "Generate snippet",
       },
     ],
     examples: [],
@@ -640,7 +643,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Highlight <target>",
-        descriptionShort: "Highlight",
+        cheatsheet: "Highlight",
       },
     ],
     examples: [],
@@ -651,7 +654,7 @@ const actionReferencesMap: Record<
       {
         pattern: "<spokenForm> <snippet> <destination>",
         description: "Insert snippet at <destination>",
-        descriptionShort: "Insert snippet at <destination>",
+        cheatsheet: "Insert snippet at <destination>",
       },
     ],
     examples: [],
@@ -662,12 +665,12 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Move <target> to selection",
-        descriptionShort: "Move <target> to selection",
+        cheatsheet: "Move <target> to selection",
       },
       {
         pattern: "<spokenForm> <target> <destination>",
         description: "Move <target> to <destination>",
-        descriptionShort: "Move <target> to <destination>",
+        cheatsheet: "Move <target> to <destination>",
       },
     ],
     examples: [],
@@ -678,7 +681,7 @@ const actionReferencesMap: Record<
       {
         pattern: "<spokenForm> <destination>",
         description: "Paste from clipboard at <destination>",
-        descriptionShort: "Paste from clipboard at <destination>",
+        cheatsheet: "Paste from clipboard at <destination>",
       },
     ],
     examples: [],
@@ -689,12 +692,12 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Insert copy of <target> at selection",
-        descriptionShort: "Insert copy of <target> at selection",
+        cheatsheet: "Insert copy of <target> at selection",
       },
       {
         pattern: "<spokenForm> <target> <destination>",
         description: "Copy <target> to <destination>",
-        descriptionShort: "Copy <target> to <destination>",
+        cheatsheet: "Copy <target> to <destination>",
       },
     ],
     examples: [],
@@ -705,7 +708,7 @@ const actionReferencesMap: Record<
       {
         pattern: "<pair> <spokenForm> <target>",
         description: "Rewrap <target> with <pair>",
-        descriptionShort: "Rewrap <target> with <pair>",
+        cheatsheet: "Rewrap <target> with <pair>",
       },
     ],
     examples: [],
@@ -716,12 +719,12 @@ const actionReferencesMap: Record<
       {
         pattern: "<spokenForm> <swapConnective> <target>",
         description: "Swap selection with <target>",
-        descriptionShort: "Swap selection with <target>",
+        cheatsheet: "Swap selection with <target>",
       },
       {
         pattern: "<spokenForm> <target 1> <swapConnective> <target 2>",
         description: "Swap <target 1> with <target 2>",
-        descriptionShort: "Swap <target 1> with <target 2>",
+        cheatsheet: "Swap <target 1> with <target 2>",
       },
     ],
     examples: [],
@@ -732,7 +735,7 @@ const actionReferencesMap: Record<
       {
         pattern: "<pair> <spokenForm> <target>",
         description: "Wrap <target> with <pair>",
-        descriptionShort: "Wrap <target> with <pair>",
+        cheatsheet: "Wrap <target> with <pair>",
       },
     ],
     examples: [],
@@ -743,7 +746,7 @@ const actionReferencesMap: Record<
       {
         pattern: "<snippet> <spokenForm> <target>",
         description: "Wrap <target> with <snippet>",
-        descriptionShort: "Wrap <target> with <snippet>",
+        cheatsheet: "Wrap <target> with <snippet>",
       },
     ],
     examples: [],
@@ -754,7 +757,7 @@ const actionReferencesMap: Record<
       {
         pattern: "<spokenForm> <formatter> at <target>",
         description: "Reformat <target> as <formatter>",
-        descriptionShort: "Reformat <target> as <formatter>",
+        cheatsheet: "Reformat <target> as <formatter>",
       },
     ],
     examples: [],
@@ -765,7 +768,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Cycle to next homophone for <target>",
-        descriptionShort: "Cycle to next homophone",
+        cheatsheet: "Cycle to next homophone",
       },
     ],
     examples: [],
@@ -779,7 +782,7 @@ const actionReferencesMap: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: "Show parse tree for <target>",
-        descriptionShort: "Show parse tree",
+        cheatsheet: "Show parse tree",
       },
     ],
     examples: [],
@@ -829,3 +832,11 @@ const actionReferencesMap: Record<
     examples: [],
   },
 };
+
+export const actionReferences: ReferenceEntry[] = Object.entries(
+  actionReferencesMap,
+).map(([actionType, referenceEntry]) => ({
+  id: actionType,
+  kind: "action",
+  ...referenceEntry,
+}));
