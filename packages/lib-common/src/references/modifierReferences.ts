@@ -1,5 +1,6 @@
 import type { ModifierType } from "../types/command/PartialTargetDescriptor.types";
-import type { ReferenceEntry } from "./ReferenceEntry";
+import type { SpokenFormMapKeyTypes } from "../types/SpokenFormType";
+import type { ReferenceEntry, SpokenFormReference } from "./ReferenceEntry";
 
 const DEFAULT_PATTERN = "<spokenForm>";
 
@@ -11,6 +12,7 @@ export const modifierReferences: Record<
 > = {
   startOf: {
     name: "Start of",
+    defaultSpokenForm: "start of",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -22,6 +24,7 @@ export const modifierReferences: Record<
   },
   endOf: {
     name: "End of",
+    defaultSpokenForm: "end of",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -33,6 +36,7 @@ export const modifierReferences: Record<
   },
   interiorOnly: {
     name: "Interior only",
+    defaultSpokenForm: "inside",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -44,6 +48,7 @@ export const modifierReferences: Record<
   },
   excludeInterior: {
     name: "Exclude interior",
+    defaultSpokenForm: "bounds",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -55,6 +60,7 @@ export const modifierReferences: Record<
   },
   visible: {
     name: "Visible",
+    defaultSpokenForm: "visible",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -77,6 +83,7 @@ export const modifierReferences: Record<
   },
   everyScope: {
     name: "Every scope",
+    defaultSpokenForm: "every",
     syntaxes: [
       {
         pattern: "<spokenForm> <scope>",
@@ -88,6 +95,7 @@ export const modifierReferences: Record<
   },
   ancestor: {
     name: "Ancestor",
+    defaultSpokenForm: "grand",
     syntaxes: [
       {
         pattern: "<spokenForm> <scope>",
@@ -236,6 +244,7 @@ export const modifierReferences: Record<
   },
   extendThroughStartOf: {
     name: "Extend through start of",
+    defaultSpokenForm: "head",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -252,6 +261,7 @@ export const modifierReferences: Record<
   },
   extendThroughEndOf: {
     name: "Extend through end of",
+    defaultSpokenForm: "tail",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -268,6 +278,7 @@ export const modifierReferences: Record<
   },
   leading: {
     name: "Leading",
+    defaultSpokenForm: "leading",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -279,6 +290,7 @@ export const modifierReferences: Record<
   },
   trailing: {
     name: "Trailing",
+    defaultSpokenForm: "trailing",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -290,6 +302,7 @@ export const modifierReferences: Record<
   },
   toRawSelection: {
     name: "Raw selection",
+    defaultSpokenForm: "just",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -301,6 +314,7 @@ export const modifierReferences: Record<
   },
   keepContentFilter: {
     name: "Keep content filter",
+    defaultSpokenForm: "content",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -312,6 +326,7 @@ export const modifierReferences: Record<
   },
   keepEmptyFilter: {
     name: "Keep empty filter",
+    defaultSpokenForm: "empty",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -323,6 +338,7 @@ export const modifierReferences: Record<
   },
   inferPreviousMark: {
     name: "Infer previous mark",
+    defaultSpokenForm: "its",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -367,3 +383,52 @@ export const modifierReferences: Record<
     examples: [],
   },
 };
+
+export const simpleModifierReferenceIds = [
+  "excludeInterior",
+  "toRawSelection",
+  "leading",
+  "trailing",
+  "keepContentFilter",
+  "keepEmptyFilter",
+  "inferPreviousMark",
+  "startOf",
+  "endOf",
+  "interiorOnly",
+  "visible",
+  "extendThroughStartOf",
+  "extendThroughEndOf",
+  "everyScope",
+] as const satisfies readonly SpokenFormMapKeyTypes["simpleModifier"][];
+
+export const modifierExtraReferenceIds = [
+  "first",
+  "last",
+  "previous",
+  "next",
+  "forward",
+  "backward",
+  "ancestor",
+] as const satisfies readonly SpokenFormMapKeyTypes["modifierExtra"][];
+
+export const modifierExtraReferences = {
+  first: {
+    defaultSpokenForm: "first",
+  },
+  last: {
+    defaultSpokenForm: "last",
+  },
+  previous: {
+    defaultSpokenForm: "previous",
+  },
+  next: {
+    defaultSpokenForm: "next",
+  },
+  forward: {
+    defaultSpokenForm: "forward",
+  },
+  backward: {
+    defaultSpokenForm: "backward",
+  },
+  ancestor: modifierReferences.ancestor,
+} satisfies Record<SpokenFormMapKeyTypes["modifierExtra"], SpokenFormReference>;

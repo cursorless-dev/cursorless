@@ -556,16 +556,6 @@ eg:
 `pre blue air`
 Moves the cursor to before the token containing letter 'a' with a blue hat.
 
-### Delete
-
-This command can be used to delete a target without moving the cursor
-
-- `"chuck <TARGET>"`
-
-eg:
-`chuck blue air`
-Deletes the token containing letter 'a' with a blue hat.
-
 ### Changing a target
 
 This command will delete a target and leave the cursor where the target used to be, making it easy to change a target

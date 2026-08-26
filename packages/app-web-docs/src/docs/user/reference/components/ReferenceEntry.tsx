@@ -34,18 +34,33 @@ function ReferenceEntryComponent({
       {entry.description != null && <p>{entry.description}</p>}
 
       <p>
-        Internal ID: <code>{id}</code>
+        ID: <code>{id}</code>
       </p>
 
+      {entry.defaultSpokenForm != null && (
+        <p>
+          Default spoken form: <code>{entry.defaultSpokenForm}</code>
+        </p>
+      )}
+
       {entry.legacySpokenForms != null && (
-        <p>Legacy spoken forms: {entry.legacySpokenForms.join(", ")}</p>
+        <p>
+          Legacy spoken forms:{" "}
+          {entry.legacySpokenForms.map((s, i) => (
+            <>
+              {i > 0 && ", "}
+              <code key={s}>{s}</code>
+            </>
+          ))}
+        </p>
       )}
 
       {entry.syntaxes.length > 0 && (
         <ul>
           {entry.syntaxes.map((syntax, index) => (
             <li key={index}>
-              <code>{syntax.pattern}</code>: {syntax.description}
+              {formatPattern(syntax.pattern, entry.defaultSpokenForm)}:{" "}
+              {formatPattern(syntax.description)}
             </li>
           ))}
         </ul>
@@ -57,7 +72,12 @@ function ReferenceEntryComponent({
           <ul>
             {entry.examples.map((example, index) => (
               <li key={index}>
-                <code>{example.spokenForm}</code>: {example.description}
+                <code>
+                  &quot;
+                  {formatPattern(example.spokenForm, entry.defaultSpokenForm)}
+                  &quot;
+                </code>
+                : {example.description}
               </li>
             ))}
           </ul>
@@ -65,4 +85,19 @@ function ReferenceEntryComponent({
       )}
     </>
   );
+}
+
+function formatPattern(
+  pattern: string,
+  defaultSpokenForm?: string,
+): React.ReactNode[] {
+  return pattern.split(/(<\w+>)/gu).map((part, index) => {
+    if (part.startsWith("<") && part.endsWith(">")) {
+      if (part === "<spokenForm>") {
+        return defaultSpokenForm ?? "???";
+      }
+      return <code key={index}>{part}</code>;
+    }
+    return part;
+  });
 }

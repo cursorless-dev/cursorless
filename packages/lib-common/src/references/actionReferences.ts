@@ -12,6 +12,7 @@ export const actionReferences: Record<
 > = {
   addSelection: {
     name: "Add selection",
+    defaultSpokenForm: "append",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -23,6 +24,7 @@ export const actionReferences: Record<
   },
   addSelectionAfter: {
     name: "Add selection after",
+    defaultSpokenForm: "append post",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -35,6 +37,7 @@ export const actionReferences: Record<
   },
   addSelectionBefore: {
     name: "Add selection before",
+    defaultSpokenForm: "append pre",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -47,6 +50,7 @@ export const actionReferences: Record<
   },
   breakLine: {
     name: "Break line",
+    defaultSpokenForm: "break",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -58,6 +62,7 @@ export const actionReferences: Record<
   },
   clearAndSetSelection: {
     name: "Change",
+    defaultSpokenForm: "change",
     legacySpokenForms: ["clear"],
     syntaxes: [
       {
@@ -71,6 +76,7 @@ export const actionReferences: Record<
   },
   copyToClipboard: {
     name: "Copy to clipboard",
+    defaultSpokenForm: "copy",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -82,6 +88,7 @@ export const actionReferences: Record<
   },
   cutToClipboard: {
     name: "Cut to clipboard",
+    defaultSpokenForm: "carve",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -93,6 +100,7 @@ export const actionReferences: Record<
   },
   decrement: {
     name: "Decrement",
+    defaultSpokenForm: "decrement",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -104,6 +112,7 @@ export const actionReferences: Record<
   },
   deselect: {
     name: "Deselect",
+    defaultSpokenForm: "give",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -115,6 +124,7 @@ export const actionReferences: Record<
   },
   editNewLineAfter: {
     name: "Edit new line/scope after",
+    defaultSpokenForm: "pour",
     description: "Scope defaults to line",
     syntaxes: [
       {
@@ -132,6 +142,7 @@ export const actionReferences: Record<
   },
   editNewLineBefore: {
     name: "Edit new line/scope before",
+    defaultSpokenForm: "drink",
     description: "Scope defaults to line",
     syntaxes: [
       {
@@ -149,6 +160,7 @@ export const actionReferences: Record<
   },
   "experimental.setInstanceReference": {
     name: "Set instance reference",
+    defaultSpokenForm: "from",
     description:
       "Sets the instance reference for the next 'instance of' action",
     syntaxes: [
@@ -162,6 +174,7 @@ export const actionReferences: Record<
   },
   extractVariable: {
     name: "Extract variable",
+    defaultSpokenForm: "extract",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -173,6 +186,7 @@ export const actionReferences: Record<
   },
   findInDocument: {
     name: "Find in document",
+    defaultSpokenForm: "scout",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -184,6 +198,7 @@ export const actionReferences: Record<
   },
   findInWorkspace: {
     name: "Find in workspace",
+    defaultSpokenForm: "scout all",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -195,6 +210,7 @@ export const actionReferences: Record<
   },
   flashTargets: {
     name: "Flash target",
+    defaultSpokenForm: "flash",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -206,6 +222,7 @@ export const actionReferences: Record<
   },
   foldRegion: {
     name: "Fold region",
+    defaultSpokenForm: "fold",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -217,6 +234,7 @@ export const actionReferences: Record<
   },
   followLink: {
     name: "Follow link",
+    defaultSpokenForm: "follow",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -228,6 +246,7 @@ export const actionReferences: Record<
   },
   followLinkAside: {
     name: "Follow link aside",
+    defaultSpokenForm: "follow split",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -239,6 +258,7 @@ export const actionReferences: Record<
   },
   gitAccept: {
     name: "Git accept",
+    defaultSpokenForm: "git accept",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -250,6 +270,7 @@ export const actionReferences: Record<
   },
   gitRevert: {
     name: "Git revert",
+    defaultSpokenForm: "git revert",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -261,6 +282,7 @@ export const actionReferences: Record<
   },
   gitStage: {
     name: "Git stage",
+    defaultSpokenForm: "git stage",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -272,6 +294,7 @@ export const actionReferences: Record<
   },
   gitUnstage: {
     name: "Git unstage",
+    defaultSpokenForm: "git unstage",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -283,6 +306,7 @@ export const actionReferences: Record<
   },
   increment: {
     name: "Increment",
+    defaultSpokenForm: "increment",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -294,6 +318,7 @@ export const actionReferences: Record<
   },
   indentLine: {
     name: "Indent line",
+    defaultSpokenForm: "indent",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -305,6 +330,7 @@ export const actionReferences: Record<
   },
   insertCopyAfter: {
     name: "Insert copy after",
+    defaultSpokenForm: "clone",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -316,6 +342,7 @@ export const actionReferences: Record<
   },
   insertCopyBefore: {
     name: "Insert copy before",
+    defaultSpokenForm: "clone up",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -327,6 +354,7 @@ export const actionReferences: Record<
   },
   insertEmptyLineAfter: {
     name: "Insert empty line after",
+    defaultSpokenForm: "float",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -338,6 +366,7 @@ export const actionReferences: Record<
   },
   insertEmptyLineBefore: {
     name: "Insert empty line before",
+    defaultSpokenForm: "drop",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -349,6 +378,7 @@ export const actionReferences: Record<
   },
   insertEmptyLinesAround: {
     name: "Insert empty lines around",
+    defaultSpokenForm: "puff",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -360,6 +390,7 @@ export const actionReferences: Record<
   },
   joinLines: {
     name: "Join lines",
+    defaultSpokenForm: "join",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -371,6 +402,7 @@ export const actionReferences: Record<
   },
   outdentLine: {
     name: "Outdent line",
+    defaultSpokenForm: "dedent",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -382,6 +414,7 @@ export const actionReferences: Record<
   },
   randomizeTargets: {
     name: "Randomize targets",
+    defaultSpokenForm: "shuffle",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -393,6 +426,7 @@ export const actionReferences: Record<
   },
   remove: {
     name: "Remove",
+    defaultSpokenForm: "chuck",
     description:
       "This action can be used to remove a target without moving the cursor",
     syntaxes: [
@@ -411,6 +445,7 @@ export const actionReferences: Record<
   },
   rename: {
     name: "Rename",
+    defaultSpokenForm: "rename",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -422,6 +457,7 @@ export const actionReferences: Record<
   },
   revealDefinition: {
     name: "Reveal definition",
+    defaultSpokenForm: "define",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -433,6 +469,7 @@ export const actionReferences: Record<
   },
   revealTypeDefinition: {
     name: "Reveal type definition",
+    defaultSpokenForm: "type deaf",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -444,6 +481,7 @@ export const actionReferences: Record<
   },
   reverseTargets: {
     name: "Reverse targets",
+    defaultSpokenForm: "reverse",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -455,6 +493,7 @@ export const actionReferences: Record<
   },
   scrollToBottom: {
     name: "Scroll to bottom",
+    defaultSpokenForm: "bottom",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -466,6 +505,7 @@ export const actionReferences: Record<
   },
   scrollToCenter: {
     name: "Scroll to center",
+    defaultSpokenForm: "center",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -477,6 +517,7 @@ export const actionReferences: Record<
   },
   scrollToTop: {
     name: "Scroll to top",
+    defaultSpokenForm: "crown",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -488,6 +529,7 @@ export const actionReferences: Record<
   },
   setSelection: {
     name: "Set selection",
+    defaultSpokenForm: "take",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -499,6 +541,7 @@ export const actionReferences: Record<
   },
   setSelectionAfter: {
     name: "Set selection after",
+    defaultSpokenForm: "post",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -510,6 +553,7 @@ export const actionReferences: Record<
   },
   setSelectionBefore: {
     name: "Set selection before",
+    defaultSpokenForm: "pre",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -521,6 +565,7 @@ export const actionReferences: Record<
   },
   showDebugHover: {
     name: "Show debug hover",
+    defaultSpokenForm: "inspect",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -532,6 +577,7 @@ export const actionReferences: Record<
   },
   showHover: {
     name: "Show hover",
+    defaultSpokenForm: "hover",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -543,6 +589,7 @@ export const actionReferences: Record<
   },
   showQuickFix: {
     name: "Show quick fix",
+    defaultSpokenForm: "quick fix",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -554,6 +601,7 @@ export const actionReferences: Record<
   },
   showReferences: {
     name: "Show references",
+    defaultSpokenForm: "reference",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -565,6 +613,7 @@ export const actionReferences: Record<
   },
   sortTargets: {
     name: "Sort targets",
+    defaultSpokenForm: "sort",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -576,6 +625,7 @@ export const actionReferences: Record<
   },
   toggleLineBreakpoint: {
     name: "Toggle line/scope breakpoint",
+    defaultSpokenForm: "break point",
     description: "Scope defaults to line",
     syntaxes: [
       {
@@ -593,6 +643,7 @@ export const actionReferences: Record<
   },
   toggleLineComment: {
     name: "Toggle line comment",
+    defaultSpokenForm: "comment",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -604,6 +655,7 @@ export const actionReferences: Record<
   },
   unfoldRegion: {
     name: "Unfold region",
+    defaultSpokenForm: "unfold",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -615,6 +667,7 @@ export const actionReferences: Record<
   },
   callAsFunction: {
     name: "Call as function",
+    defaultSpokenForm: "call",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -631,6 +684,7 @@ export const actionReferences: Record<
   },
   generateSnippet: {
     name: "Generate snippet",
+    defaultSpokenForm: "snip make",
     legacySpokenForms: ["snippet make"],
     syntaxes: [
       {
@@ -643,6 +697,7 @@ export const actionReferences: Record<
   },
   highlight: {
     name: "Highlight",
+    defaultSpokenForm: "highlight",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -654,6 +709,7 @@ export const actionReferences: Record<
   },
   insertSnippet: {
     name: "Insert snippet",
+    defaultSpokenForm: "snippet",
     syntaxes: [
       {
         pattern: "<spokenForm> <snippet> <destination>",
@@ -665,6 +721,7 @@ export const actionReferences: Record<
   },
   moveToTarget: {
     name: "Move to target",
+    defaultSpokenForm: "move",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -681,6 +738,7 @@ export const actionReferences: Record<
   },
   pasteFromClipboard: {
     name: "Paste from clipboard",
+    defaultSpokenForm: "paste",
     syntaxes: [
       {
         pattern: "<spokenForm> <destination>",
@@ -692,6 +750,7 @@ export const actionReferences: Record<
   },
   replaceWithTarget: {
     name: "Replace with target",
+    defaultSpokenForm: "bring",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -708,6 +767,7 @@ export const actionReferences: Record<
   },
   rewrapWithPairedDelimiter: {
     name: "Rewrap with paired delimiter",
+    defaultSpokenForm: "repack",
     syntaxes: [
       {
         pattern: "<pair> <spokenForm> <target>",
@@ -719,6 +779,7 @@ export const actionReferences: Record<
   },
   swapTargets: {
     name: "Swap targets",
+    defaultSpokenForm: "swap",
     syntaxes: [
       {
         pattern: "<spokenForm> <swapConnective> <target>",
@@ -735,6 +796,7 @@ export const actionReferences: Record<
   },
   wrapWithPairedDelimiter: {
     name: "Wrap with paired delimiter",
+    defaultSpokenForm: "wrap",
     syntaxes: [
       {
         pattern: "<pair> <spokenForm> <target>",
@@ -746,6 +808,7 @@ export const actionReferences: Record<
   },
   wrapWithSnippet: {
     name: "Wrap with snippet",
+    defaultSpokenForm: "wrap",
     syntaxes: [
       {
         pattern: "<snippet> <spokenForm> <target>",
@@ -757,6 +820,7 @@ export const actionReferences: Record<
   },
   applyFormatter: {
     name: "Apply formatter",
+    defaultSpokenForm: "format",
     syntaxes: [
       {
         pattern: "<spokenForm> <formatter> at <target>",
@@ -768,6 +832,7 @@ export const actionReferences: Record<
   },
   nextHomophone: {
     name: "Next homophone",
+    defaultSpokenForm: "phones",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -781,6 +846,7 @@ export const actionReferences: Record<
   // Private actions, but that has spoken forms
   "private.showParseTree": {
     name: "Show parse tree",
+    defaultSpokenForm: "parse tree",
     private: true,
     syntaxes: [
       {
@@ -795,42 +861,49 @@ export const actionReferences: Record<
   // Actions without spoken forms
   parsed: {
     name: "Parsed",
+    defaultSpokenForm: "parsed",
     private: true,
     syntaxes: [],
     examples: [],
   },
   "private.getTargets": {
     name: "Get targets",
+    defaultSpokenForm: "get targets",
     private: true,
     syntaxes: [],
     examples: [],
   },
   "private.setKeyboardTarget": {
     name: "Set keyboard target",
+    defaultSpokenForm: "set keyboard target",
     private: true,
     syntaxes: [],
     examples: [],
   },
   executeCommand: {
     name: "Execute command",
+    defaultSpokenForm: "execute command",
     private: true,
     syntaxes: [],
     examples: [],
   },
   editNew: {
     name: "Edit new",
+    defaultSpokenForm: "edit new",
     private: true,
     syntaxes: [],
     examples: [],
   },
   getText: {
     name: "Get text",
+    defaultSpokenForm: "get text",
     private: true,
     syntaxes: [],
     examples: [],
   },
   replace: {
     name: "Replace",
+    defaultSpokenForm: "replace",
     private: true,
     syntaxes: [],
     examples: [],

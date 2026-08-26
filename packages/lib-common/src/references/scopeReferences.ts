@@ -11,6 +11,7 @@ export const scopeReferences: Record<
 > = {
   argumentOrParameter: {
     name: "Argument",
+    defaultSpokenForm: "arg",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -22,6 +23,7 @@ export const scopeReferences: Record<
   },
   argumentList: {
     name: "Argument list",
+    defaultSpokenForm: "arg list",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -33,6 +35,7 @@ export const scopeReferences: Record<
   },
   anonymousFunction: {
     name: "Anonymous function",
+    defaultSpokenForm: "lambda",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -44,6 +47,7 @@ export const scopeReferences: Record<
   },
   attribute: {
     name: "Attribute",
+    defaultSpokenForm: "attribute",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -55,6 +59,7 @@ export const scopeReferences: Record<
   },
   branch: {
     name: "Branch",
+    defaultSpokenForm: "branch",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -66,6 +71,7 @@ export const scopeReferences: Record<
   },
   class: {
     name: "Class",
+    defaultSpokenForm: "class",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -77,6 +83,7 @@ export const scopeReferences: Record<
   },
   className: {
     name: "Class name",
+    defaultSpokenForm: "class name",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -88,6 +95,7 @@ export const scopeReferences: Record<
   },
   collectionItem: {
     name: "Collection item",
+    defaultSpokenForm: "item",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -99,6 +107,7 @@ export const scopeReferences: Record<
   },
   collectionKey: {
     name: "Collection key",
+    defaultSpokenForm: "key",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -110,6 +119,7 @@ export const scopeReferences: Record<
   },
   comment: {
     name: "Comment",
+    defaultSpokenForm: "comment",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -121,6 +131,7 @@ export const scopeReferences: Record<
   },
   "private.fieldAccess": {
     name: "Field access",
+    defaultSpokenForm: "access",
     private: true,
     syntaxes: [
       {
@@ -133,6 +144,7 @@ export const scopeReferences: Record<
   },
   functionCall: {
     name: "Function call",
+    defaultSpokenForm: "call",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -144,6 +156,7 @@ export const scopeReferences: Record<
   },
   functionCallee: {
     name: "Function callee",
+    defaultSpokenForm: "callee",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -155,6 +168,7 @@ export const scopeReferences: Record<
   },
   functionName: {
     name: "Function name",
+    defaultSpokenForm: "funk name",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -166,6 +180,7 @@ export const scopeReferences: Record<
   },
   ifStatement: {
     name: "If statement",
+    defaultSpokenForm: "if state",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -177,6 +192,7 @@ export const scopeReferences: Record<
   },
   instance: {
     name: "Instance",
+    defaultSpokenForm: "instance",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -188,6 +204,7 @@ export const scopeReferences: Record<
   },
   list: {
     name: "List",
+    defaultSpokenForm: "list",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -199,6 +216,7 @@ export const scopeReferences: Record<
   },
   map: {
     name: "Map",
+    defaultSpokenForm: "map",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -210,6 +228,7 @@ export const scopeReferences: Record<
   },
   name: {
     name: "Name",
+    defaultSpokenForm: "name",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -221,6 +240,7 @@ export const scopeReferences: Record<
   },
   namedFunction: {
     name: "Named function",
+    defaultSpokenForm: "funk",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -232,6 +252,7 @@ export const scopeReferences: Record<
   },
   regularExpression: {
     name: "Regular expression",
+    defaultSpokenForm: "regex",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -243,6 +264,7 @@ export const scopeReferences: Record<
   },
   statement: {
     name: "Statement",
+    defaultSpokenForm: "state",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -254,6 +276,7 @@ export const scopeReferences: Record<
   },
   string: {
     name: "String",
+    defaultSpokenForm: "parse tree string",
     private: true,
     syntaxes: [
       {
@@ -266,6 +289,7 @@ export const scopeReferences: Record<
   },
   type: {
     name: "Type",
+    defaultSpokenForm: "type",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -277,6 +301,7 @@ export const scopeReferences: Record<
   },
   value: {
     name: "Value",
+    defaultSpokenForm: "value",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -288,6 +313,7 @@ export const scopeReferences: Record<
   },
   condition: {
     name: "Condition",
+    defaultSpokenForm: "condition",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -299,6 +325,7 @@ export const scopeReferences: Record<
   },
   section: {
     name: "Section",
+    defaultSpokenForm: "section",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -310,6 +337,8 @@ export const scopeReferences: Record<
   },
   sectionLevelOne: {
     name: "Section level one",
+    defaultSpokenForm: "one section",
+    disabledByDefault: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -321,6 +350,8 @@ export const scopeReferences: Record<
   },
   sectionLevelTwo: {
     name: "Section level two",
+    defaultSpokenForm: "two section",
+    disabledByDefault: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -332,6 +363,8 @@ export const scopeReferences: Record<
   },
   sectionLevelThree: {
     name: "Section level three",
+    defaultSpokenForm: "three section",
+    disabledByDefault: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -343,6 +376,8 @@ export const scopeReferences: Record<
   },
   sectionLevelFour: {
     name: "Section level four",
+    defaultSpokenForm: "four section",
+    disabledByDefault: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -354,6 +389,8 @@ export const scopeReferences: Record<
   },
   sectionLevelFive: {
     name: "Section level five",
+    defaultSpokenForm: "five section",
+    disabledByDefault: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -365,6 +402,8 @@ export const scopeReferences: Record<
   },
   sectionLevelSix: {
     name: "Section level six",
+    defaultSpokenForm: "six section",
+    disabledByDefault: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -376,6 +415,7 @@ export const scopeReferences: Record<
   },
   selector: {
     name: "Selector",
+    defaultSpokenForm: "selector",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -387,6 +427,7 @@ export const scopeReferences: Record<
   },
   unit: {
     name: "Unit",
+    defaultSpokenForm: "unit",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -398,6 +439,7 @@ export const scopeReferences: Record<
   },
   xmlBothTags: {
     name: "XML both tags",
+    defaultSpokenForm: "tags",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -409,6 +451,7 @@ export const scopeReferences: Record<
   },
   xmlElement: {
     name: "XML element",
+    defaultSpokenForm: "element",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -420,6 +463,7 @@ export const scopeReferences: Record<
   },
   xmlEndTag: {
     name: "XML end tag",
+    defaultSpokenForm: "end tag",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -431,6 +475,7 @@ export const scopeReferences: Record<
   },
   xmlStartTag: {
     name: "XML start tag",
+    defaultSpokenForm: "start tag",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -442,6 +487,7 @@ export const scopeReferences: Record<
   },
   part: {
     name: "Part",
+    defaultSpokenForm: "part",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -453,6 +499,7 @@ export const scopeReferences: Record<
   },
   chapter: {
     name: "Chapter",
+    defaultSpokenForm: "chapter",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -464,6 +511,7 @@ export const scopeReferences: Record<
   },
   subSection: {
     name: "Subsection",
+    defaultSpokenForm: "subsection",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -475,6 +523,7 @@ export const scopeReferences: Record<
   },
   subSubSection: {
     name: "Subsubsection",
+    defaultSpokenForm: "subsubsection",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -486,6 +535,7 @@ export const scopeReferences: Record<
   },
   namedParagraph: {
     name: "Named paragraph",
+    defaultSpokenForm: "paragraph",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -497,6 +547,7 @@ export const scopeReferences: Record<
   },
   subParagraph: {
     name: "Subparagraph",
+    defaultSpokenForm: "subparagraph",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -508,6 +559,7 @@ export const scopeReferences: Record<
   },
   environment: {
     name: "Environment",
+    defaultSpokenForm: "environment",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -519,6 +571,7 @@ export const scopeReferences: Record<
   },
   character: {
     name: "Character",
+    defaultSpokenForm: "char",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -530,6 +583,7 @@ export const scopeReferences: Record<
   },
   word: {
     name: "Sub token word",
+    defaultSpokenForm: "sub",
     legacySpokenForms: ["word"],
     syntaxes: [
       {
@@ -542,6 +596,7 @@ export const scopeReferences: Record<
   },
   token: {
     name: "Token",
+    defaultSpokenForm: "token",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -553,6 +608,7 @@ export const scopeReferences: Record<
   },
   identifier: {
     name: "Identifier",
+    defaultSpokenForm: "identifier",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -564,6 +620,7 @@ export const scopeReferences: Record<
   },
   line: {
     name: "Line",
+    defaultSpokenForm: "line",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -575,6 +632,7 @@ export const scopeReferences: Record<
   },
   fullLine: {
     name: "Full line",
+    defaultSpokenForm: "full line",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -586,6 +644,7 @@ export const scopeReferences: Record<
   },
   sentence: {
     name: "Sentence",
+    defaultSpokenForm: "sentence",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -597,6 +656,7 @@ export const scopeReferences: Record<
   },
   paragraph: {
     name: "Paragraph",
+    defaultSpokenForm: "block",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -608,6 +668,7 @@ export const scopeReferences: Record<
   },
   boundedParagraph: {
     name: "Bounded paragraph",
+    defaultSpokenForm: "short block",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -619,6 +680,7 @@ export const scopeReferences: Record<
   },
   document: {
     name: "Document",
+    defaultSpokenForm: "file",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -630,6 +692,7 @@ export const scopeReferences: Record<
   },
   nonWhitespaceSequence: {
     name: "Non-whitespace sequence",
+    defaultSpokenForm: "paint",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -641,6 +704,7 @@ export const scopeReferences: Record<
   },
   boundedNonWhitespaceSequence: {
     name: "Bounded non-whitespace sequence",
+    defaultSpokenForm: "short paint",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -654,6 +718,7 @@ export const scopeReferences: Record<
   },
   url: {
     name: "URL",
+    defaultSpokenForm: "link",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -665,6 +730,7 @@ export const scopeReferences: Record<
   },
   notebookCell: {
     name: "Notebook cell",
+    defaultSpokenForm: "cell",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -676,6 +742,7 @@ export const scopeReferences: Record<
   },
   command: {
     name: "Command",
+    defaultSpokenForm: "command",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -687,6 +754,7 @@ export const scopeReferences: Record<
   },
   textFragment: {
     name: "Text fragment",
+    defaultSpokenForm: "text fragment",
     private: true,
     syntaxes: [
       {
@@ -699,6 +767,7 @@ export const scopeReferences: Record<
   },
   disqualifyDelimiter: {
     name: "Disqualify delimiter",
+    defaultSpokenForm: "disqualify delimiter",
     private: true,
     syntaxes: [
       {
@@ -711,6 +780,7 @@ export const scopeReferences: Record<
   },
   pairDelimiter: {
     name: "Pair delimiter",
+    defaultSpokenForm: "pair delimiter",
     private: true,
     syntaxes: [
       {
@@ -723,6 +793,7 @@ export const scopeReferences: Record<
   },
   interior: {
     name: "Interior",
+    defaultSpokenForm: "interior",
     private: true,
     syntaxes: [
       {
@@ -735,6 +806,7 @@ export const scopeReferences: Record<
   },
   glyph: {
     name: "Glyph",
+    defaultSpokenForm: "glyph",
     syntaxes: [
       {
         pattern: "<spokenForm> <character>",

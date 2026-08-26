@@ -1,8 +1,13 @@
-export interface ReferenceEntry {
-  name: string;
+export interface SpokenFormReference {
+  defaultSpokenForm?: string;
   private?: boolean;
-  description?: string;
+  disabledByDefault?: boolean;
+}
+
+export interface ReferenceEntry extends SpokenFormReference {
+  name: string;
   legacySpokenForms?: string[];
+  description?: string;
   syntaxes: SyntaxDefinition[];
   examples: ExampleDefinition[];
 }

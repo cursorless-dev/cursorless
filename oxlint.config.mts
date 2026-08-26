@@ -58,6 +58,7 @@ const disabledRules = [
   "react/forbid-component-props",
   "react/jsx-max-depth",
   "react/jsx-no-literals",
+  "react/no-array-index-key",
   "react/no-multi-comp",
   "react/only-export-components",
   "react/react-in-jsx-scope",
@@ -213,13 +214,6 @@ export default defineConfig({
       files: ["**/*.test.ts"],
       rules: {
         "eslint/func-names": "off",
-      },
-    },
-
-    {
-      files: ["**/*.mdx"],
-      rules: {
-        "react/no-array-index-key ": "off",
       },
     },
 
