@@ -1,5 +1,9 @@
 ;; https://github.com/alex-pinkus/tree-sitter-swift/blob/with-generated-files/src/grammar.json
 
+;; document-wide
+(source_file) @class.iteration @statement.iteration @name.iteration @value.iteration @type.iteration
+(#document-range! @class.iteration @statement.iteration @name.iteration @value.iteration @type.iteration)
+
 ;; single line comment
 (comment) @comment @textFragment
 
@@ -70,13 +74,43 @@
   ;;)
 ) @statement
 
-;; Generic interior
+;; Generic interior w/ top-level iterations
 (_
-  "{" @interior.start.endOf
-  "}" @interior.end.startOf
+  "{" @interior.start.endOf @statement.iteration.start.endOf @name.iteration.start.endOf
+  "}" @interior.end.startOf @statement.iteration.end.startOf @name.iteration.end.startOf
 )
 
-;; Non-enum class (struct/class) decl.
+(_
+  "{" @value.iteration.start.endOf @type.iteration.start.endOf @namedFunction.iteration.start.endOf
+  "}" @value.iteration.end.startOf @type.iteration.end.startOf @namedFunction.iteration.end.startOf
+)
+
+;; Generic interior -- class iteration
+;; Classlikes (class/struct/actor) can be nested within other classlikes, and within both top-level functions and member functions.
+;; They, however, cannot be nested within branches or loops of any kind.
+(
+  (
+    (_
+      "{" @class.iteration.start.endOf
+      "}" @class.iteration.end.startOf
+    ) @_dummy
+  ) (#type? @_dummy class_declaration function_declaration)
+  (#not-any-ancestor-type? @_dummy if_statement switch_statement for_statement while_statement)
+  (#not-any-ancestor-type? @_dummy do_statement repeat_while_statement protocol_declaration)
+)
+
+;; Generic interior -- branch and condition iteration
+;; Branches and their conditions cannot be top-level but otherwise have no restrictions
+(
+  (
+    (_
+      "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
+      "}" @condition.iteration.end.startOf @branch.iteration.end.startOf
+    ) @_dummy
+  ) (#not-parent-type? @_dummy source_file)
+)
+
+;; Non-enum class (struct/class/actor) decl.
 (class_declaration
   name: (_) @name
   body: (class_body
@@ -88,7 +122,7 @@
 
 ;; Enum "class" decl.
 (class_declaration
-  name: (_) @name
+  name: (_) @name @type
   body: (enum_class_body
     "{" @interior.start.endOf
     "}" @interior.end.startOf

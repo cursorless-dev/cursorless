@@ -60,3 +60,33 @@ protocol ExampleProtocol {
     var setGetMember: String? { set get }
     var getOnlyNumber: Double! {get} // using an explicit unwrap type like this is legal, but poor practice in real code
 }
+
+actor ExampleActor {
+    
+}
+
+func nestedClassInFunc() {
+    let ternaryDecider = true
+    let ternaryOp = ternaryDecider ? "foo" : "bar"
+    let switchExample: UInt8 = 22
+    var foobart = 0
+    switch switchExample {
+        case 0: foobart = 5
+        case 22: foobart = 42
+        default: foobart = 69
+    }
+    class Nested {
+        func veryNested() {
+            var i = 0
+            while i < 10 {
+                i += 1
+            }
+            repeat {
+                i -= 1
+            } while i > 0
+            struct HyperNested {
+                
+            }
+        }
+    }
+} 

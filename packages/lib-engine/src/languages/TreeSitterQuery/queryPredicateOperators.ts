@@ -93,6 +93,43 @@ class NotParentType extends QueryPredicateOperator<NotParentType> {
 }
 
 /**
+ * A predicate operator that returns true if no node from which this node
+ * descends is of the given type. For example, 
+ *
+ * ```scm
+ * (#not-any-ancestor-type? @foo string)
+ * ```
+ *
+ * will reject the match if the `@foo` capture has any ancestor which is a `string` node,
+ * taking into account the capture's parent, said parent's parent, and so
+ * on until a root node is reached. 
+ * 
+ * Like with `#not-parent-type?`, you may pass multiple types to this predicate, in which case
+ * the math will be rejected has any of said types as any of its ancestor nodes.
+ */
+class NotAnyAncestorType extends QueryPredicateOperator<NotAnyAncestorType> {
+  name = "not-any-ancestor-type?" as const;
+  schema = z.tuple([q.node, q.string]).rest(q.string);
+  run(capture: MutableQueryCapture, ...types: string[]) {
+    var target = getNode(capture).parent;
+    const ancestorTypes: string[] = [] 
+    if (target != null) {
+      while (target != null) {
+        ancestorTypes.push(target.type);
+        target = target.parent;
+      }
+      for (const type of types) {
+        if (ancestorTypes.includes(type)) {
+          return false;
+        }
+      }
+    }
+    // Fall through if node has no parent or if ancestorTypes and types have no matches
+    return true;
+  }
+}
+
+/**
  * A predicate operator that returns true if the node is the nth child of its
  * parent.  For example, `(#is-nth-child? @foo 0)` will reject the match if the
  * `@foo` capture is not the first child of its parent.
@@ -462,6 +499,7 @@ export const queryPredicateOperators = [
   new TrimEnd(),
   new DocumentRange(),
   new NotParentType(),
+  new NotAnyAncestorType(),
   new IsNthChild(),
   new ChildRange(),
   new CharacterRange(),
