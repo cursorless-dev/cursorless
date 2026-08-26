@@ -217,6 +217,13 @@ export default defineConfig({
     },
 
     {
+      files: ["**/*.mdx"],
+      rules: {
+        "react/no-array-index-key ": "off",
+      },
+    },
+
+    {
       files: ["packages/app-vscode/src/scripts/**/*.ts"],
       rules: {
         "no-restricted-imports": [

@@ -42,6 +42,7 @@
     "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
+    "@cursorless/lib-common": "workspace:*",
     "@cursorless/lib-node-common": "workspace:*",
     "@docusaurus/module-type-aliases": "^3.10.2",
     "@docusaurus/types": "^3.10.2",

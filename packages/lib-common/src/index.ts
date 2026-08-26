@@ -32,6 +32,7 @@ export * from "./ide/types/QuickPickOptions";
 export * from "./ide/types/RawTreeSitterQueryProvider";
 export * from "./ide/types/TutorialContentProvider";
 export * from "./ide/util/messages";
+export * from "./references";
 export * from "./scopeSupportFacets/languageScopeSupport";
 export * from "./scopeSupportFacets/PlaintextScopeSupportFacetInfos";
 export * from "./scopeSupportFacets/scopeSupportFacetInfos";

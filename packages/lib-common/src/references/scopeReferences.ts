@@ -1,16 +1,13 @@
 import type { SimpleScopeTypeType } from "../types/command/PartialTargetDescriptor.types";
-import type {
-  ReferenceEntry,
-  ReferenceEntryWithoutIdKind,
-} from "../types/ReferenceEntry";
+import type { ReferenceEntry } from "./ReferenceEntry";
 
 const DEFAULT_PATTERN = "<spokenForm>";
 
 type AdditionalScopeReferenceType = "glyph" | "pair";
 
-const scopeReferencesMap: Record<
+export const scopeReferences: Record<
   SimpleScopeTypeType | AdditionalScopeReferenceType,
-  ReferenceEntryWithoutIdKind
+  ReferenceEntry
 > = {
   argumentOrParameter: {
     name: "Argument",
@@ -759,11 +756,3 @@ const scopeReferencesMap: Record<
     examples: [],
   },
 };
-
-export const scopeReferences: ReferenceEntry[] = Object.entries(
-  scopeReferencesMap,
-).map(([scopeType, referenceEntry]) => ({
-  id: scopeType,
-  kind: "scope",
-  ...referenceEntry,
-}));

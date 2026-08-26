@@ -1,16 +1,13 @@
 import type { ModifierType } from "../types/command/PartialTargetDescriptor.types";
-import type {
-  ReferenceEntry,
-  ReferenceEntryWithoutIdKind,
-} from "../types/ReferenceEntry";
+import type { ReferenceEntry } from "./ReferenceEntry";
 
 const DEFAULT_PATTERN = "<spokenForm>";
 
 type AdditionalModifierReferenceType = "ancestor";
 
-const modifierReferencesMap: Record<
+export const modifierReferences: Record<
   ModifierType | AdditionalModifierReferenceType,
-  ReferenceEntryWithoutIdKind
+  ReferenceEntry
 > = {
   startOf: {
     name: "Start of",
@@ -370,11 +367,3 @@ const modifierReferencesMap: Record<
     examples: [],
   },
 };
-
-export const modifierReferences: ReferenceEntry[] = Object.entries(
-  modifierReferencesMap,
-).map(([modifierType, referenceEntry]) => ({
-  id: modifierType,
-  kind: "modifier",
-  ...referenceEntry,
-}));

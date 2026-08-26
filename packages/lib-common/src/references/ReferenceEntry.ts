@@ -1,6 +1,4 @@
 export interface ReferenceEntry {
-  id: string;
-  kind: "action" | "modifier" | "scope" | "mark";
   name: string;
   private?: boolean;
   description?: string;
@@ -8,8 +6,6 @@ export interface ReferenceEntry {
   syntaxes: SyntaxDefinition[];
   examples: ExampleDefinition[];
 }
-
-export type ReferenceEntryWithoutIdKind = Omit<ReferenceEntry, "id" | "kind">;
 
 interface SyntaxDefinition {
   pattern: string;

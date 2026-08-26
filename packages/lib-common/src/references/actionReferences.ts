@@ -1,17 +1,14 @@
 import type { ActionType } from "../types/command/ActionDescriptor";
-import type {
-  ReferenceEntry,
-  ReferenceEntryWithoutIdKind,
-} from "../types/ReferenceEntry";
+import type { ReferenceEntry } from "./ReferenceEntry";
 
 const DEFAULT_PATTERN = "<spokenForm> <target>";
 const DEFAULT_PATTERN_SCOPE = "<spokenForm> <scope> <target>";
 
 type TalonSideActionType = "applyFormatter" | "nextHomophone";
 
-const actionReferencesMap: Record<
+export const actionReferences: Record<
   ActionType | TalonSideActionType,
-  ReferenceEntryWithoutIdKind
+  ReferenceEntry
 > = {
   addSelection: {
     name: "Add selection",
@@ -396,6 +393,8 @@ const actionReferencesMap: Record<
   },
   remove: {
     name: "Remove",
+    description:
+      "This action can be used to remove a target without moving the cursor",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -403,7 +402,12 @@ const actionReferencesMap: Record<
         cheatsheet: "Remove",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        spokenForm: "<spokenForm> blue air",
+        description: "Removes the token containing letter 'a' with a blue hat.",
+      },
+    ],
   },
   rename: {
     name: "Rename",
@@ -832,11 +836,3 @@ const actionReferencesMap: Record<
     examples: [],
   },
 };
-
-export const actionReferences: ReferenceEntry[] = Object.entries(
-  actionReferencesMap,
-).map(([actionType, referenceEntry]) => ({
-  id: actionType,
-  kind: "action",
-  ...referenceEntry,
-}));
