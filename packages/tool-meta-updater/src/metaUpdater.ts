@@ -15,6 +15,7 @@ import type { Context } from "./Context";
 import { textFormat } from "./textFormat";
 import { updateLanguageMdx } from "./updateLanguageMdx";
 import { updatePackageJson } from "./updatePackageJson";
+import { updatePrivateScopeMdx } from "./updatePrivateScopeMdx";
 import { updateReferenceMdx } from "./updateReferenceMdx";
 import { updatesScopeSupportFacetInfos } from "./updatesScopeSupportFacetInfos";
 import { updateTSConfig } from "./updateTSConfig";
@@ -34,7 +35,9 @@ export const updater = async (workspaceDir: string) => {
     workspaceDir,
   };
 
-  const referenceDir = "src/docs/user/reference";
+  const userDir = "src/docs/user";
+  const contributingDir = "src/docs/contributing";
+  const referenceDir = `${userDir}/reference`;
 
   return createUpdateOptions({
     files: {
@@ -45,26 +48,32 @@ export const updater = async (workspaceDir: string) => {
         updatesScopeSupportFacetInfos,
       ...Object.fromEntries(
         Object.keys(languageScopeSupport).map((languageId) => [
-          `src/docs/user/languages/${languageId}.mdx`,
+          `${userDir}/languages/${languageId}.mdx`,
           updateLanguageMdx.bind(null, languageId),
         ]),
       ),
       ...Object.fromEntries(
         Object.entries(actionReferences).map(([id, entry]) => [
-          `${referenceDir}/actions/${id}.mdx`,
+          `${referenceDir}/actions/${cleanId(id)}.mdx`,
           updateReferenceMdx.bind(null, "action", id, entry),
         ]),
       ),
       ...Object.fromEntries(
         Object.entries(modifierReferences).map(([id, entry]) => [
-          `${referenceDir}/modifiers/${id}.mdx`,
+          `${referenceDir}/modifiers/${cleanId(id)}.mdx`,
           updateReferenceMdx.bind(null, "modifier", id, entry),
         ]),
       ),
       ...Object.fromEntries(
         Object.entries(scopeReferences).map(([id, entry]) => [
-          `${referenceDir}/scopes/${id}.mdx`,
+          `${referenceDir}/scopes/${cleanId(id)}.mdx`,
           updateReferenceMdx.bind(null, "scope", id, entry),
+        ]),
+      ),
+      ...Object.fromEntries(
+        Object.entries(scopeReferences).map(([id, entry]) => [
+          `${contributingDir}/privateScopes/${cleanId(id)}.mdx`,
+          updatePrivateScopeMdx.bind(null, id, entry),
         ]),
       ),
     },
@@ -74,3 +83,7 @@ export const updater = async (workspaceDir: string) => {
     },
   });
 };
+
+function cleanId(id: string): string {
+  return id.replace("private.", "").replace("experimental.", "");
+}

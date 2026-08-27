@@ -1,14 +1,9 @@
-import type { SimpleScopeTypeType } from "../types/command/PartialTargetDescriptor.types";
+import type { ScopeTypeType } from "../types/command/PartialTargetDescriptor.types";
 import type { ReferenceEntry } from "./ReferenceEntry";
 
 const DEFAULT_PATTERN = "<spokenForm>";
 
-type AdditionalScopeReferenceType = "glyph";
-
-export const scopeReferences: Record<
-  SimpleScopeTypeType | AdditionalScopeReferenceType,
-  ReferenceEntry
-> = {
+export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
   argumentOrParameter: {
     name: "Argument or parameter",
     defaultSpokenForm: "arg",
@@ -125,19 +120,6 @@ export const scopeReferences: Record<
         pattern: DEFAULT_PATTERN,
         description: "Comment",
         cheatsheet: "Comment",
-      },
-    ],
-    examples: [],
-  },
-  "private.fieldAccess": {
-    name: "Field access",
-    defaultSpokenForm: "access",
-    private: true,
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Field access",
-        cheatsheet: "Field access",
       },
     ],
     examples: [],
@@ -270,19 +252,6 @@ export const scopeReferences: Record<
         pattern: DEFAULT_PATTERN,
         description: "Statement",
         cheatsheet: "Statement",
-      },
-    ],
-    examples: [],
-  },
-  string: {
-    name: "String",
-    defaultSpokenForm: "parse tree string",
-    private: true,
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "String",
-        cheatsheet: "String",
       },
     ],
     examples: [],
@@ -753,6 +722,58 @@ export const scopeReferences: Record<
     ],
     examples: [],
   },
+  glyph: {
+    name: "Glyph",
+    defaultSpokenForm: "glyph",
+    syntaxes: [
+      {
+        pattern: "<spokenForm> <character>",
+        description: "Instance of single character <character>",
+        cheatsheet: "Instance of single character <character>",
+      },
+    ],
+    examples: [],
+  },
+  surroundingPair: {
+    name: "Surrounding pair",
+    syntaxes: [
+      {
+        pattern: "<pair>",
+        description: "Surrounding pair",
+        cheatsheet: "Surrounding pair",
+      },
+    ],
+    examples: [],
+  },
+
+  // Private scopes --------------------
+
+  "private.fieldAccess": {
+    name: "Field access",
+    defaultSpokenForm: "access",
+    private: true,
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Field access",
+        cheatsheet: "Field access",
+      },
+    ],
+    examples: [],
+  },
+  string: {
+    name: "String",
+    defaultSpokenForm: "string",
+    private: true,
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "String",
+        cheatsheet: "String",
+      },
+    ],
+    examples: [],
+  },
   textFragment: {
     name: "Text fragment",
     defaultSpokenForm: "text fragment",
@@ -805,16 +826,16 @@ export const scopeReferences: Record<
     ],
     examples: [],
   },
-  glyph: {
-    name: "Glyph",
-    defaultSpokenForm: "glyph",
-    syntaxes: [
-      {
-        pattern: "<spokenForm> <character>",
-        description: "Instance of single character <character>",
-        cheatsheet: "Instance of single character <character>",
-      },
-    ],
+  surroundingPairInterior: {
+    name: "Surrounding pair interior",
+    private: true,
+    syntaxes: [],
+    examples: [],
+  },
+  customRegex: {
+    name: "Custom regex",
+    private: true,
+    syntaxes: [],
     examples: [],
   },
 };

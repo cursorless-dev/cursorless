@@ -22,11 +22,11 @@ export function updateReferenceMdx(
   }
 
   expected.push(
-    `import { ${refComponentName} } from "../components/ReferenceEntry";`,
+    `import { ${refComponentName} } from "@site/src/docs/components/ReferenceEntry";`,
   );
 
   if (isScope) {
-    expected.push(`import { Scopes } from "../components/Scopes";`);
+    expected.push(`import { Scopes } from "@site/src/docs/components/Scopes";`);
   }
 
   expected.push(

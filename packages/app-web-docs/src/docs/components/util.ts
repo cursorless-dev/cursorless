@@ -2,7 +2,6 @@ import type {
   PlaintextScopeSupportFacet,
   ScopeSupportFacet,
   ScopeSupportFacetInfo,
-  ScopeTypeType,
 } from "@cursorless/lib-common";
 import {
   camelCaseToAllDown,
@@ -63,17 +62,4 @@ export function nameComparator(
   b: { name: string },
 ): number {
   return a.name.localeCompare(b.name, undefined, { numeric: true });
-}
-
-export function isScopeInternal(scope: ScopeTypeType): boolean {
-  switch (scope) {
-    case "disqualifyDelimiter":
-    case "pairDelimiter":
-    case "textFragment":
-    case "interior":
-    case "surroundingPairInterior":
-      return true;
-    default:
-      return false;
-  }
 }
