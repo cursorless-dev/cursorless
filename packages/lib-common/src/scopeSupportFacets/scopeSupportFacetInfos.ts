@@ -39,6 +39,10 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "environment",
   },
 
+  chapter: {
+    description: "A document chapter",
+    scopeType: "chapter",
+  },
   section: {
     description: "A document section",
     scopeType: "section",
@@ -49,6 +53,51 @@ export const scopeSupportFacetInfos: Record<
     "sections",
     "the parent section",
   ),
+  subSection: {
+    description: "A document subsection",
+    scopeType: "subSection",
+  },
+  subSubSection: {
+    description: "A document subsubsection",
+    scopeType: "subSubSection",
+  },
+  sectionLevelOne: {
+    description: "A level one section",
+    scopeType: "sectionLevelOne",
+  },
+  sectionLevelTwo: {
+    description: "A level two section",
+    scopeType: "sectionLevelTwo",
+  },
+  sectionLevelThree: {
+    description: "A level three section",
+    scopeType: "sectionLevelThree",
+  },
+  sectionLevelFour: {
+    description: "A level four section",
+    scopeType: "sectionLevelFour",
+  },
+  sectionLevelFive: {
+    description: "A level five section",
+    scopeType: "sectionLevelFive",
+  },
+  sectionLevelSix: {
+    description: "A level six section",
+    scopeType: "sectionLevelSix",
+  },
+  namedParagraph: {
+    description: "A named paragraph",
+    scopeType: "namedParagraph",
+  },
+  subParagraph: {
+    description: "A subparagraph",
+    scopeType: "subParagraph",
+  },
+  part: {
+    description: "A document part",
+    scopeType: "part",
+  },
+
   list: {
     description: "A list/array",
     scopeType: "list",
