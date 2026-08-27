@@ -641,8 +641,8 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Paragraph bounded by surrounding pair delimeters",
-        cheatsheet: "Paragraph bounded by surrounding pair delimeters",
+        description: "Paragraph bounded by surrounding pair delimiters",
+        cheatsheet: "Paragraph bounded by surrounding pair delimiters",
       },
     ],
     examples: [],
@@ -679,9 +679,9 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
       {
         pattern: DEFAULT_PATTERN,
         description:
-          "Non-whitespace sequence bounded by surrounding pair delimeters",
+          "Non-whitespace sequence bounded by surrounding pair delimiters",
         cheatsheet:
-          "Non-whitespace sequence bounded by surrounding pair delimeters",
+          "Non-whitespace sequence bounded by surrounding pair delimiters",
       },
     ],
     examples: [],

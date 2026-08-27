@@ -439,7 +439,7 @@ Some examples:
 
 - `"chuck just air"`: deletes just the air token, leaving spaces undisturbed.
 - `"chuck just line"`: deletes just the content of the line, leaving a blank line.
-- `"bring bat after just air"`: results in something like `aaabbb` where the bat token was copied after the air token with no delimeter between them.
+- `"bring bat after just air"`: results in something like `aaabbb` where the bat token was copied after the air token with no delimiter between them.
 
 ##### Surrounding pair
 

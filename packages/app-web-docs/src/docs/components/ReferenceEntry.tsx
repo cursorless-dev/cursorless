@@ -97,7 +97,7 @@ function formatPattern(
   pattern: string,
   defaultSpokenForm?: string,
 ): React.ReactNode[] {
-  return pattern.split(/(<\w+>)/gu).map((part, index) => {
+  return pattern.split(/(<[\w ]+>)/gu).map((part, index) => {
     if (part.startsWith("<") && part.endsWith(">")) {
       if (part === "<spokenForm>") {
         return defaultSpokenForm ?? "???";
