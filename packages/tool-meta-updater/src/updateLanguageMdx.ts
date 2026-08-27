@@ -15,7 +15,7 @@ export function updateLanguageMdx(
   }
 
   const expected = `
-import { Language } from "./components/Language";
+import { Language } from "@site/src/docs/components/Language";
 
 # ${prettifyLanguageName(languageId)}
 

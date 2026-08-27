@@ -43,7 +43,7 @@ Follow the instructions in [Adding a new scope](./adding-a-new-scope.md) to defi
 Create a `.mdx` file in [`languages`](../user/languages) with the `Language` react component. The file should be named after your language, eg `java.mdx`
 
 ```md
-import { Language } from "./components/Language";
+import { Language } from "@site/src/docs/components/Language";
 
 # Java
 

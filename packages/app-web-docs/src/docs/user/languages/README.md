@@ -1,4 +1,4 @@
-# Languages
+# Supported languages
 
 Cursorless supports a wide range of languages, though our level of support varies a bit
 from language to language. See the sidebar for information about how well we support various
