@@ -709,7 +709,7 @@ export const actionReferences: Record<
   },
   insertSnippet: {
     name: "Insert snippet",
-    defaultSpokenForm: "snippet",
+    defaultSpokenForm: "snip",
     syntaxes: [
       {
         pattern: "<spokenForm> <snippet> <destination>",
