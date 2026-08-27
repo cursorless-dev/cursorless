@@ -12,15 +12,35 @@ export function updateReferenceMdx(
     return null;
   }
 
-  const importName = `${kind.charAt(0).toUpperCase() + kind.slice(1)}Reference`;
+  const refComponentName = `${kind.charAt(0).toUpperCase() + kind.slice(1)}Reference`;
+  const isScope = kind === "scope";
 
-  const expected = `
-import { ${importName} } from "../components/ReferenceEntry";
+  const expected: string[] = [];
 
-# ${entry.name}
+  if (entry.nameShort != null) {
+    expected.push(`---`, `sidebar_label: ${entry.nameShort}`, `---`, "");
+  }
 
-<${importName} id="${id}" />
-`.trimStart();
+  expected.push(
+    `import { ${refComponentName} } from "../components/ReferenceEntry";`,
+  );
 
-  return expected;
+  if (isScope) {
+    expected.push(`import { Scopes } from "../components/Scopes";`);
+  }
+
+  expected.push(
+    "",
+    `# ${entry.name}`,
+    "",
+    `<${refComponentName} id="${id}" />`,
+  );
+
+  if (isScope) {
+    expected.push(`<Scopes scopeTypeType="${id}" />`);
+  }
+
+  expected.push("");
+
+  return expected.join("\n");
 }

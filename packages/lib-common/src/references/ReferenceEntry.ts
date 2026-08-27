@@ -6,6 +6,7 @@ export interface SpokenFormReference {
 
 export interface ReferenceEntry extends SpokenFormReference {
   name: string;
+  nameShort?: string;
   legacySpokenForms?: string[];
   description?: string;
   syntaxes: SyntaxDefinition[];

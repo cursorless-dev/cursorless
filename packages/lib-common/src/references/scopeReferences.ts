@@ -10,7 +10,7 @@ export const scopeReferences: Record<
   ReferenceEntry
 > = {
   argumentOrParameter: {
-    name: "Argument",
+    name: "Argument or parameter",
     defaultSpokenForm: "arg",
     syntaxes: [
       {
@@ -704,6 +704,7 @@ export const scopeReferences: Record<
   },
   boundedNonWhitespaceSequence: {
     name: "Bounded non-whitespace sequence",
+    nameShort: "Bounded non-ws sequence",
     defaultSpokenForm: "short paint",
     syntaxes: [
       {

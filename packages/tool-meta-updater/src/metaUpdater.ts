@@ -2,6 +2,7 @@
 // https://github.com/pnpm/pnpm/tree/d583fbb2ad7e6b986d133a4eaf60824713f13c06/.meta-updater/src/index.ts
 // License was
 // https://github.com/pnpm/pnpm/blob/d583fbb2ad7e6b986d133a4eaf60824713f13c06/LICENSE
+
 import { readWantedLockfile } from "@pnpm/lockfile-file";
 import { createUpdateOptions } from "@pnpm/meta-updater";
 import {
@@ -15,7 +16,6 @@ import { textFormat } from "./textFormat";
 import { updateLanguageMdx } from "./updateLanguageMdx";
 import { updatePackageJson } from "./updatePackageJson";
 import { updateReferenceMdx } from "./updateReferenceMdx";
-import { getScopeTypeTypes, updateScopeMdx } from "./updateScopeMdx";
 import { updatesScopeSupportFacetInfos } from "./updatesScopeSupportFacetInfos";
 import { updateTSConfig } from "./updateTSConfig";
 import { updateTSConfigBase } from "./updateTSConfigBase";
@@ -64,13 +64,7 @@ export const updater = async (workspaceDir: string) => {
       ...Object.fromEntries(
         Object.entries(scopeReferences).map(([id, entry]) => [
           `${referenceDir}/scopes/${id}.mdx`,
-          updateReferenceMdx.bind(null, "scope", id, entry.name),
-        ]),
-      ),
-      ...Object.fromEntries(
-        getScopeTypeTypes().map(({ scopeTypeType, name }) => [
-          `src/docs/contributing/scopes/${scopeTypeType.replace("private.", "")}.mdx`,
-          updateScopeMdx.bind(null, scopeTypeType, name),
+          updateReferenceMdx.bind(null, "scope", id, entry),
         ]),
       ),
     },
