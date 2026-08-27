@@ -763,7 +763,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
   },
   string: {
     name: "String",
-    defaultSpokenForm: "string",
+    defaultSpokenForm: "parse tree string",
     private: true,
     syntaxes: [
       {
