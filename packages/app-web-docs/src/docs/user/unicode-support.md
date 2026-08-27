@@ -1,4 +1,4 @@
-# Unicode
+# Unicode support
 
 Cursorless has first-class support for Unicode. By default, when constructing hats, Cursorless will ignore capitalization and any accents or diacritics over letters. For example, each of the following four tokens could each be selected by saying `"take air"` if there were a gray hat over their first letter (note the accents on the first letter for some of them):
 

@@ -1,7 +1,7 @@
 import React from "react";
-import { DynamicTOC } from "../../../components/DynamicTOC";
-import { ScopeVisualizer } from "../../../components/ScopeVisualizer";
-import { ScrollToHashId } from "../../../components/ScrollToHashId";
+import { DynamicTOC } from "./DynamicTOC";
+import { ScopeVisualizer } from "./ScopeVisualizer";
+import { ScrollToHashId } from "./ScrollToHashId";
 
 interface Props {
   languageId: string;

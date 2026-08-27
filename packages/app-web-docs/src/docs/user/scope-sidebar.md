@@ -1,4 +1,4 @@
-# The Cursorless sidebar
+# Cursorless sidebar
 
 You can say `"bar cursorless"` to show the Cursorless sidebar.
 

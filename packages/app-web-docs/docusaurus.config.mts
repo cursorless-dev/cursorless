@@ -6,6 +6,7 @@ import type { Root } from "mdast";
 import { themes } from "prism-react-renderer";
 import type { Transformer } from "unified";
 import { visit } from "unist-util-visit";
+import { sidebarItemsGenerator } from "./sidebarItemsGenerator.ts";
 
 // oxlint-disable-next-line unicorn/prefer-import-meta-properties
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -152,6 +153,7 @@ const config: Config = {
           editUrl:
             "https://github.com/cursorless-dev/cursorless/edit/main/packages/app-web-docs/",
           sidebarPath: require.resolve("./sidebar.js"),
+          sidebarItemsGenerator,
           beforeDefaultRemarkPlugins: [
             remarkPluginFixLinksToRepositoryArtifacts,
           ],

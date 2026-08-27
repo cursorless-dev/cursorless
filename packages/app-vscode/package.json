@@ -1219,7 +1219,7 @@
           }
         },
         "cursorless.experimental.hatStability": {
-          "markdownDescription": "As you scroll, edit, and move your cursor, this setting determines how much Cursorless will move hats around to ensure that the best hats are near the cursor.  See https://www.cursorless.org/docs/user/hatAssignment/",
+          "markdownDescription": "As you scroll, edit, and move your cursor, this setting determines how much Cursorless will move hats around to ensure that the best hats are near the cursor.  See https://www.cursorless.org/docs/user/hat-assignment/",
           "type": "string",
           "default": "balanced",
           "enum": [

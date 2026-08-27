@@ -37,14 +37,13 @@ export const updater = async (workspaceDir: string) => {
 
   const userDir = "src/docs/user";
   const contributingDir = "src/docs/contributing";
-  const referenceDir = `${userDir}/reference`;
 
   return createUpdateOptions({
     files: {
       "package.json": updatePackageJson.bind(null, context),
       "tsconfig.json": updateTSConfig.bind(null, context),
       "tsconfig.base.json": updateTSConfigBase.bind(null, context),
-      "resources/fixtures/scopeSupportFacetInfos.md":
+      "resources/fixtures/scope-support-facet-infos.md":
         updatesScopeSupportFacetInfos,
       ...Object.fromEntries(
         Object.keys(languageScopeSupport).map((languageId) => [
@@ -54,25 +53,25 @@ export const updater = async (workspaceDir: string) => {
       ),
       ...Object.fromEntries(
         Object.entries(actionReferences).map(([id, entry]) => [
-          `${referenceDir}/actions/${cleanId(id)}.mdx`,
+          `${userDir}/actions/${cleanId(id)}.mdx`,
           updateReferenceMdx.bind(null, "action", id, entry),
         ]),
       ),
       ...Object.fromEntries(
         Object.entries(modifierReferences).map(([id, entry]) => [
-          `${referenceDir}/modifiers/${cleanId(id)}.mdx`,
+          `${userDir}/modifiers/${cleanId(id)}.mdx`,
           updateReferenceMdx.bind(null, "modifier", id, entry),
         ]),
       ),
       ...Object.fromEntries(
         Object.entries(scopeReferences).map(([id, entry]) => [
-          `${referenceDir}/scopes/${cleanId(id)}.mdx`,
+          `${userDir}/scopes/${cleanId(id)}.mdx`,
           updateReferenceMdx.bind(null, "scope", id, entry),
         ]),
       ),
       ...Object.fromEntries(
         Object.entries(scopeReferences).map(([id, entry]) => [
-          `${contributingDir}/privateScopes/${cleanId(id)}.mdx`,
+          `${contributingDir}/private-scopes/${cleanId(id)}.mdx`,
           updatePrivateScopeMdx.bind(null, id, entry),
         ]),
       ),
