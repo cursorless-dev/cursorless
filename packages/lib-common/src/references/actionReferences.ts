@@ -843,7 +843,8 @@ export const actionReferences: Record<
     examples: [],
   },
 
-  // Private actions, but that has spoken forms
+  // Private actions --------------------
+
   "private.showParseTree": {
     name: "Show parse tree",
     defaultSpokenForm: "parse tree",
@@ -857,8 +858,6 @@ export const actionReferences: Record<
     ],
     examples: [],
   },
-
-  // Actions without spoken forms
   parsed: {
     name: "Parsed",
     defaultSpokenForm: "parsed",

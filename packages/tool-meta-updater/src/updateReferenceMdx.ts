@@ -1,18 +1,15 @@
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
+import type { ReferenceEntry } from "@cursorless/lib-common";
 
 export function updateReferenceMdx(
   kind: "action" | "modifier" | "scope",
   id: string,
-  name: string,
+  entry: ReferenceEntry,
   actual: string | null,
   options: FormatPluginFnOptions,
 ): string | null {
-  if (options.manifest.name !== "@cursorless/app-web-docs") {
+  if (options.manifest.name !== "@cursorless/app-web-docs" || entry.private) {
     return null;
-  }
-
-  if (actual != null) {
-    return actual;
   }
 
   const importName = `${kind.charAt(0).toUpperCase() + kind.slice(1)}Reference`;
@@ -20,7 +17,7 @@ export function updateReferenceMdx(
   const expected = `
 import { ${importName} } from "../components/ReferenceEntry";
 
-# ${name}
+# ${entry.name}
 
 <${importName} id="${id}" />
 `.trimStart();

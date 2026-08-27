@@ -52,13 +52,13 @@ export const updater = async (workspaceDir: string) => {
       ...Object.fromEntries(
         Object.entries(actionReferences).map(([id, entry]) => [
           `${referenceDir}/actions/${id}.mdx`,
-          updateReferenceMdx.bind(null, "action", id, entry.name),
+          updateReferenceMdx.bind(null, "action", id, entry),
         ]),
       ),
       ...Object.fromEntries(
         Object.entries(modifierReferences).map(([id, entry]) => [
           `${referenceDir}/modifiers/${id}.mdx`,
-          updateReferenceMdx.bind(null, "modifier", id, entry.name),
+          updateReferenceMdx.bind(null, "modifier", id, entry),
         ]),
       ),
       ...Object.fromEntries(
