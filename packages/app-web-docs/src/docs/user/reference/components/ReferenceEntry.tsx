@@ -55,6 +55,12 @@ function ReferenceEntryComponent({
         </p>
       )}
 
+      {entry.disabledByDefault && (
+        <p>
+          <strong>Disabled by default</strong>
+        </p>
+      )}
+
       {entry.syntaxes.length > 0 && (
         <ul>
           {entry.syntaxes.map((syntax, index) => (

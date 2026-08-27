@@ -3,7 +3,7 @@ import type { ReferenceEntry } from "./ReferenceEntry";
 
 const DEFAULT_PATTERN = "<spokenForm>";
 
-type AdditionalScopeReferenceType = "glyph" | "pair";
+type AdditionalScopeReferenceType = "glyph";
 
 export const scopeReferences: Record<
   SimpleScopeTypeType | AdditionalScopeReferenceType,
@@ -813,17 +813,6 @@ export const scopeReferences: Record<
         pattern: "<spokenForm> <character>",
         description: "Instance of single character <character>",
         cheatsheet: "Instance of single character <character>",
-      },
-    ],
-    examples: [],
-  },
-  pair: {
-    name: "Paired delimiters",
-    syntaxes: [
-      {
-        pattern: "<pair>",
-        description: "Paired delimiters",
-        cheatsheet: "Paired delimiters",
       },
     ],
     examples: [],
