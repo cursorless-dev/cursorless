@@ -9,8 +9,8 @@ def get_scopes() -> list[ListItemDescriptor]:
         "scopeType",
         {
             "argumentOrParameter": "Argument",
-            "boundedNonWhitespaceSequence": "Non-whitespace sequence bounded by surrounding pair delimeters",
-            "boundedParagraph": "Paragraph bounded by surrounding pair delimeters",
+            "boundedNonWhitespaceSequence": "Non-whitespace sequence bounded by surrounding pair delimiters",
+            "boundedParagraph": "Paragraph bounded by surrounding pair delimiters",
         },
     )
 

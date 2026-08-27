@@ -1,5 +1,6 @@
 ---
 slug: /
+sidebar_position: 1
 ---
 
 # Cursorless documentation
@@ -438,7 +439,7 @@ Some examples:
 
 - `"chuck just air"`: deletes just the air token, leaving spaces undisturbed.
 - `"chuck just line"`: deletes just the content of the line, leaving a blank line.
-- `"bring bat after just air"`: results in something like `aaabbb` where the bat token was copied after the air token with no delimeter between them.
+- `"bring bat after just air"`: results in something like `aaabbb` where the bat token was copied after the air token with no delimiter between them.
 
 ##### Surrounding pair
 
@@ -554,16 +555,6 @@ Note that when combined with list targets, `take`/`pre`/`post` commands will res
 eg:
 `pre blue air`
 Moves the cursor to before the token containing letter 'a' with a blue hat.
-
-### Delete
-
-This command can be used to delete a target without moving the cursor
-
-- `"chuck <TARGET>"`
-
-eg:
-`chuck blue air`
-Deletes the token containing letter 'a' with a blue hat.
 
 ### Changing a target
 

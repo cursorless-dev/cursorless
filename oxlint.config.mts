@@ -58,6 +58,7 @@ const disabledRules = [
   "react/forbid-component-props",
   "react/jsx-max-depth",
   "react/jsx-no-literals",
+  "react/no-array-index-key",
   "react/no-multi-comp",
   "react/only-export-components",
   "react/react-in-jsx-scope",

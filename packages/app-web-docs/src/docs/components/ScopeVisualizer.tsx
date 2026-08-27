@@ -7,6 +7,7 @@ import type {
 import {
   prettifyLanguageName,
   prettifyScopeType,
+  scopeReferences,
   serializeScopeType,
 } from "@cursorless/lib-common";
 import { generateDecorations } from "./calculateHighlights";
@@ -14,12 +15,7 @@ import { Code } from "./Code";
 import { H2, H3, H4, H5 } from "./Header";
 import "./ScopeSupport.css";
 import type { FacetValue, Fixture, RangeType, ScopeTests } from "./types";
-import {
-  getFacetInfo,
-  isScopeInternal,
-  nameComparator,
-  prettifyFacet,
-} from "./util";
+import { getFacetInfo, nameComparator, prettifyFacet } from "./util";
 
 interface Scopes {
   public: Scope[];
@@ -56,6 +52,10 @@ export function ScopeVisualizer({ languageId, scopeTypeType }: Props) {
   const [renderWhitespace, setRenderWhitespace] = useState(
     scopeTypeType != null,
   );
+
+  if (scopes.internal.length === 0 && scopes.public.length === 0) {
+    return null;
+  }
 
   const renderOptions = () => {
     return (
@@ -322,7 +322,7 @@ function getScopeFixtures(
     for (const f of scope.facets) {
       f.fixtures.sort(nameComparator);
     }
-    if (isScopeInternal(scope.scopeTypeType)) {
+    if (scopeReferences[scope.scopeTypeType].private) {
       result.internal.push(scope);
     } else {
       result.public.push(scope);

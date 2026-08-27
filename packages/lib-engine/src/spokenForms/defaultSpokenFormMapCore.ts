@@ -1,19 +1,60 @@
-import type { DefaultSpokenFormMapDefinition } from "./defaultSpokenFormMap.types";
+import {
+  actionNames,
+  actionReferences,
+  modifierExtraReferenceIds,
+  modifierExtraReferences,
+  modifierReferences,
+  simpleModifierReferenceIds,
+  simpleScopeTypeTypes,
+  scopeReferences,
+} from "@cursorless/lib-common";
+import type { SpokenFormReference } from "@cursorless/lib-common";
+import type {
+  DefaultSpokenFormMapDefinition,
+  DefaultSpokenFormMapEntry,
+} from "./defaultSpokenFormMap.types";
 import { graphemeDefaultSpokenForms } from "./graphemes";
-import { isDisabledByDefault, isPrivate } from "./spokenFormMapUtil";
+import { isPrivate } from "./spokenFormMapUtil";
+
+type DefaultSpokenForm = string | DefaultSpokenFormMapEntry;
+
+function getDefaultSpokenForm(
+  reference: SpokenFormReference,
+): DefaultSpokenForm {
+  const { defaultSpokenForm } = reference;
+
+  if (defaultSpokenForm == null) {
+    throw new Error("Reference has no default spoken form");
+  }
+
+  const isDisabledByDefault = reference.disabledByDefault ?? false;
+  const isPrivate = reference.private ?? false;
+
+  if (!isDisabledByDefault && !isPrivate) {
+    return defaultSpokenForm;
+  }
+
+  return {
+    defaultSpokenForms: [defaultSpokenForm],
+    isDisabledByDefault,
+    isPrivate,
+  };
+}
+
+function getDefaultSpokenFormMap<Key extends string>(
+  keys: readonly Key[],
+  references: Readonly<Record<Key, SpokenFormReference>>,
+): Readonly<Record<Key, DefaultSpokenForm>> {
+  return Object.fromEntries(
+    keys.map((key) => [key, getDefaultSpokenForm(references[key])]),
+  ) as Record<Key, DefaultSpokenForm>;
+}
 
 /**
- * This map contains the default spoken forms for all our speakable entities,
- * including scope types, paired delimiters, etc. We would like this map to
- * become the sole source of truth for our default spoken forms, including the
- * Talon side. Today it is only used on the extension side for testing, and as a
- * fallback when we can't get the custom spoken forms from Talon.
- *
- * In this map, for regular entities, ie ones that are speakable by default, not
- * private, and have only one spoken form, we allow a shorthand of just providing
- * the spoken form as a string. For more complex cases, we can use the
- * {@link isPrivate} or {@link isDisabledByDefault} helper functions to construct
- * {@link DefaultSpokenFormMapEntry} objects, or just construct them manually.
+ * This map contains the default spoken forms for all our speakable entities.
+ * Actions, scopes, and modifiers are constructed from their reference
+ * definitions. Paired delimiters and graphemes remain defined here until they
+ * have corresponding reference definitions.
  */
 export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
   pairedDelimiter: {
@@ -38,191 +79,25 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     collectionBoundary: isPrivate("collection boundary"),
   },
 
-  simpleScopeTypeType: {
-    argumentOrParameter: "arg",
-    argumentList: "arg list",
-    attribute: "attribute",
-    functionCall: "call",
-    functionCallee: "callee",
-    className: "class name",
-    class: "class",
-    comment: "comment",
-    functionName: "funk name",
-    namedFunction: "funk",
-    ifStatement: "if state",
-    instance: "instance",
-    collectionItem: "item",
-    collectionKey: "key",
-    anonymousFunction: "lambda",
-    list: "list",
-    map: "map",
-    name: "name",
-    regularExpression: "regex",
-    section: "section",
-    sectionLevelOne: isDisabledByDefault("one section"),
-    sectionLevelTwo: isDisabledByDefault("two section"),
-    sectionLevelThree: isDisabledByDefault("three section"),
-    sectionLevelFour: isDisabledByDefault("four section"),
-    sectionLevelFive: isDisabledByDefault("five section"),
-    sectionLevelSix: isDisabledByDefault("six section"),
-    selector: "selector",
-    statement: "state",
-    branch: "branch",
-    type: "type",
-    value: "value",
-    condition: "condition",
-    unit: "unit",
-    //  XML, JSX
-    xmlElement: "element",
-    xmlBothTags: "tags",
-    xmlStartTag: "start tag",
-    xmlEndTag: "end tag",
-    // LaTeX
-    part: "part",
-    chapter: "chapter",
-    subSection: "subsection",
-    subSubSection: "subsubsection",
-    namedParagraph: "paragraph",
-    subParagraph: "subparagraph",
-    environment: "environment",
-    // Talon
-    command: "command",
-    // Text-based scope types
-    character: "char",
-    word: "sub",
-    token: "token",
-    identifier: "identifier",
-    line: "line",
-    fullLine: "full line",
-    sentence: "sentence",
-    paragraph: "block",
-    boundedParagraph: "short block",
-    document: "file",
-    nonWhitespaceSequence: "paint",
-    boundedNonWhitespaceSequence: "short paint",
-    url: "link",
-    notebookCell: "cell",
-
-    string: isPrivate("parse tree string"),
-    textFragment: isPrivate("text fragment"),
-    disqualifyDelimiter: isPrivate("disqualify delimiter"),
-    pairDelimiter: isPrivate("pair delimiter"),
-    interior: isPrivate("interior"),
-    "private.fieldAccess": isPrivate("access"),
-  },
+  simpleScopeTypeType: getDefaultSpokenFormMap(
+    simpleScopeTypeTypes,
+    scopeReferences,
+  ),
   complexScopeTypeType: {
-    glyph: "glyph",
+    glyph: getDefaultSpokenForm(scopeReferences.glyph),
   },
 
-  simpleModifier: {
-    excludeInterior: "bounds",
-    toRawSelection: "just",
-    leading: "leading",
-    trailing: "trailing",
-    keepContentFilter: "content",
-    keepEmptyFilter: "empty",
-    inferPreviousMark: "its",
-    startOf: "start of",
-    endOf: "end of",
-    interiorOnly: "inside",
-    visible: "visible",
-    extendThroughStartOf: "head",
-    extendThroughEndOf: "tail",
-    everyScope: "every",
-  },
-
-  modifierExtra: {
-    first: "first",
-    last: "last",
-    previous: "previous",
-    next: "next",
-    forward: "forward",
-    backward: "backward",
-    ancestor: "grand",
-  },
+  simpleModifier: getDefaultSpokenFormMap(
+    simpleModifierReferenceIds,
+    modifierReferences,
+  ),
+  modifierExtra: getDefaultSpokenFormMap(
+    modifierExtraReferenceIds,
+    modifierExtraReferences,
+  ),
 
   customRegex: {},
-  action: {
-    addSelection: "append",
-    addSelectionAfter: "append post",
-    addSelectionBefore: "append pre",
-    breakLine: "break",
-    scrollToBottom: "bottom",
-    toggleLineBreakpoint: "break point",
-    cutToClipboard: "carve",
-    scrollToCenter: "center",
-    clearAndSetSelection: "change",
-    remove: "chuck",
-    insertCopyBefore: "clone up",
-    insertCopyAfter: "clone",
-    toggleLineComment: "comment",
-    copyToClipboard: "copy",
-    scrollToTop: "crown",
-    outdentLine: "dedent",
-    revealDefinition: "define",
-    editNewLineBefore: "drink",
-    insertEmptyLineBefore: "drop",
-    extractVariable: "extract",
-    insertEmptyLineAfter: "float",
-    foldRegion: "fold",
-    followLink: "follow",
-    followLinkAside: "follow split",
-    flashTargets: "flash",
-    deselect: "give",
-    highlight: "highlight",
-    showHover: "hover",
-    increment: "increment",
-    decrement: "decrement",
-    indentLine: "indent",
-    showDebugHover: "inspect",
-    setSelectionAfter: "post",
-    editNewLineAfter: "pour",
-    setSelectionBefore: "pre",
-    insertEmptyLinesAround: "puff",
-    showQuickFix: "quick fix",
-    showReferences: "reference",
-    rename: "rename",
-    reverseTargets: "reverse",
-    findInDocument: "scout",
-    findInWorkspace: "scout all",
-    randomizeTargets: "shuffle",
-    generateSnippet: "snip make",
-    sortTargets: "sort",
-    setSelection: "take",
-    revealTypeDefinition: "type deaf",
-    unfoldRegion: "unfold",
-    callAsFunction: "call",
-    swapTargets: "swap",
-    replaceWithTarget: "bring",
-    moveToTarget: "move",
-    wrapWithPairedDelimiter: "wrap",
-    wrapWithSnippet: "wrap",
-    rewrapWithPairedDelimiter: "repack",
-    insertSnippet: "snippet",
-    pasteFromClipboard: "paste",
-    joinLines: "join",
-    gitAccept: "git accept",
-    gitRevert: "git revert",
-    gitStage: "git stage",
-    gitUnstage: "git unstage",
-
-    // Was disabled by default before, but is now enabled by default
-    "experimental.setInstanceReference": "from",
-
-    "private.showParseTree": isPrivate("parse tree"),
-    editNew: isPrivate("edit new"),
-    executeCommand: isPrivate("execute command"),
-    parsed: isPrivate("parsed"),
-    getText: isPrivate("get text"),
-    replace: isPrivate("replace"),
-    "private.getTargets": isPrivate("get targets"),
-    "private.setKeyboardTarget": isPrivate("set keyboard target"),
-
-    // These actions are implemented talon-side, usually using `getText` followed
-    // by some other action.
-    // applyFormatter: "format",
-    // nextHomophone: "phones",
-  },
+  action: getDefaultSpokenFormMap(actionNames, actionReferences),
   customAction: {},
   grapheme: graphemeDefaultSpokenForms,
 };

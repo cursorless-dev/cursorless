@@ -1336,7 +1336,7 @@
           "variations": [
             {
               "spokenForm": "short paint",
-              "description": "Non-whitespace sequence bounded by surrounding pair delimeters"
+              "description": "Non-whitespace sequence bounded by surrounding pair delimiters"
             }
           ]
         },
@@ -1346,7 +1346,7 @@
           "variations": [
             {
               "spokenForm": "short block",
-              "description": "Paragraph bounded by surrounding pair delimeters"
+              "description": "Paragraph bounded by surrounding pair delimiters"
             }
           ]
         },
