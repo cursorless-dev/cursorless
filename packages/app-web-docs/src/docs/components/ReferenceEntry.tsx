@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import {
   actionReferences,
   modifierReferences,
@@ -47,10 +47,10 @@ function ReferenceEntryComponent({
         <p>
           Legacy spoken forms:{" "}
           {entry.legacySpokenForms.map((s, i) => (
-            <>
+            <Fragment key={s}>
               {i > 0 && ", "}
-              <code key={s}>{s}</code>
-            </>
+              <code>{s}</code>
+            </Fragment>
           ))}
         </p>
       )}
