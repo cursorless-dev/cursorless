@@ -86,6 +86,10 @@
 - `branch.try` A try/catch/finally branch
 - `branch.try.iteration` Iteration scope for try/catch/finally branches: the try-catch statement.
 
+### chapter
+
+- `chapter` A document chapter
+
 ### character
 
 - `character` A single character in the document
@@ -275,6 +279,10 @@
 - `namedFunction.iteration.document` Iteration scope for named functions: the entire document including leading and trailing empty lines.
 - `namedFunction.method` A named method declaration in a class
 
+### namedParagraph
+
+- `namedParagraph` A named paragraph
+
 ### nonWhitespaceSequence
 
 - `nonWhitespaceSequence` A sequence of non-whitespace characters
@@ -291,6 +299,10 @@
 
 - `paragraph` A single paragraph(contiguous block of lines) in the document
 
+### part
+
+- `part` A document part
+
 ### regularExpression
 
 - `regularExpression` A regular expression
@@ -300,6 +312,30 @@
 - `section` A document section
 - `section.iteration.document` Iteration scope for sections: the entire document including leading and trailing empty lines.
 - `section.iteration.parent` Iteration scope for sections: the parent section.
+
+### sectionLevelFive
+
+- `sectionLevelFive` A level five section
+
+### sectionLevelFour
+
+- `sectionLevelFour` A level four section
+
+### sectionLevelOne
+
+- `sectionLevelOne` A level one section
+
+### sectionLevelSix
+
+- `sectionLevelSix` A level six section
+
+### sectionLevelThree
+
+- `sectionLevelThree` A level three section
+
+### sectionLevelTwo
+
+- `sectionLevelTwo` A level two section
 
 ### selector
 
@@ -362,6 +398,18 @@
 
 - `string.multiLine` A multi-line string
 - `string.singleLine` A single-line string
+
+### subParagraph
+
+- `subParagraph` A subparagraph
+
+### subSection
+
+- `subSection` A document subsection
+
+### subSubSection
+
+- `subSubSection` A document subsubsection
 
 ### surroundingPair
 
