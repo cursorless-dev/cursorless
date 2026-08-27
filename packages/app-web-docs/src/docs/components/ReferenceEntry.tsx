@@ -38,8 +38,11 @@ function ReferenceEntryComponent({
       </p>
 
       {entry.defaultSpokenForm != null && (
-        <p>
-          Default spoken form: <code>{entry.defaultSpokenForm}</code>
+        <div className="mb-3">
+          <div>
+            Default spoken form: <code>{entry.defaultSpokenForm}</code>
+          </div>
+
           {entry.legacySpokenForms != null && (
             <div>
               Legacy spoken forms:{" "}
@@ -51,18 +54,19 @@ function ReferenceEntryComponent({
               ))}
             </div>
           )}
+
           {entry.disabledByDefault && (
             <div>
               <strong>Disabled by default</strong>
             </div>
           )}
-        </p>
+        </div>
       )}
 
       {entry.syntaxes.length > 0 && (
         <div>
           Syntax:
-          <ul>
+          <ul className="list-unstyled">
             {entry.syntaxes.map((syntax, index) => (
               <li key={index}>
                 {formatPattern(syntax.pattern, entry.defaultSpokenForm)}:{" "}
@@ -76,7 +80,7 @@ function ReferenceEntryComponent({
       {entry.examples.length > 0 && (
         <div>
           Examples:
-          <ul>
+          <ul className="list-unstyled">
             {entry.examples.map((example, index) => (
               <li key={index}>
                 <code>
