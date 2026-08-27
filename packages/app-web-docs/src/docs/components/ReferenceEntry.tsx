@@ -34,42 +34,43 @@ function ReferenceEntryComponent({
       {entry.description != null && <p>{entry.description}</p>}
 
       <p>
-        ID: <code>{id}</code>
+        Cursorless ID: <code>{id}</code>
       </p>
 
       {entry.defaultSpokenForm != null && (
         <p>
           Default spoken form: <code>{entry.defaultSpokenForm}</code>
-        </p>
-      )}
-
-      {entry.legacySpokenForms != null && (
-        <p>
-          Legacy spoken forms:{" "}
-          {entry.legacySpokenForms.map((s, i) => (
-            <Fragment key={s}>
-              {i > 0 && ", "}
-              <code>{s}</code>
-            </Fragment>
-          ))}
-        </p>
-      )}
-
-      {entry.disabledByDefault && (
-        <p>
-          <strong>Disabled by default</strong>
+          {entry.legacySpokenForms != null && (
+            <div>
+              Legacy spoken forms:{" "}
+              {entry.legacySpokenForms.map((s, i) => (
+                <Fragment key={s}>
+                  {i > 0 && ", "}
+                  <code>{s}</code>
+                </Fragment>
+              ))}
+            </div>
+          )}
+          {entry.disabledByDefault && (
+            <div>
+              <strong>Disabled by default</strong>
+            </div>
+          )}
         </p>
       )}
 
       {entry.syntaxes.length > 0 && (
-        <ul>
-          {entry.syntaxes.map((syntax, index) => (
-            <li key={index}>
-              {formatPattern(syntax.pattern, entry.defaultSpokenForm)}:{" "}
-              {formatPattern(syntax.description)}
-            </li>
-          ))}
-        </ul>
+        <div>
+          Syntax:
+          <ul>
+            {entry.syntaxes.map((syntax, index) => (
+              <li key={index}>
+                {formatPattern(syntax.pattern, entry.defaultSpokenForm)}:{" "}
+                {formatPattern(syntax.description)}
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
 
       {entry.examples.length > 0 && (
