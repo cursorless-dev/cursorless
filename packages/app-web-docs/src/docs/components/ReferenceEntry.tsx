@@ -73,7 +73,7 @@ function ReferenceEntryComponent({
       )}
 
       {entry.examples.length > 0 && (
-        <p>
+        <div>
           Examples:
           <ul>
             {entry.examples.map((example, index) => (
@@ -87,7 +87,7 @@ function ReferenceEntryComponent({
               </li>
             ))}
           </ul>
-        </p>
+        </div>
       )}
     </>
   );
