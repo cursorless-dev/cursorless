@@ -36,7 +36,7 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "condition.doWhile": unsupported,
   "interior.doWhile": unsupported,
 
-  // do-catch (equivalent to try-catch in other languages) 
+  // do-catch (equivalent to try-catch in other languages)
   // we're probably going to want a new scope facet for swift's try statements (`statement.tryErrorable`?)
   "statement.try": unsupported,
   "branch.try": unsupported,
@@ -99,7 +99,7 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   // closures/lambda functions
   anonymousFunction: unsupported,
   "interior.lambda": unsupported,
-  
+
   // function calls
   functionCall: unsupported,
   "functionCall.constructor": unsupported,
@@ -175,7 +175,7 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
 
   // variables and constants (var, let)
   fieldAccess: unsupported,
-  
+
   "statement.field.class": unsupported,
   "statement.field.interface": unsupported,
   "statement.variable.uninitialized": unsupported,
@@ -246,14 +246,14 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   // unenclosed collection item
   "collectionItem.unenclosed.singleLine": unsupported,
   "collectionItem.unenclosed.multiLine": unsupported,
-  "collectionItem.unenclosed.iteration": unsupported,  
+  "collectionItem.unenclosed.iteration": unsupported,
 
   // enclosed collections
   map: unsupported,
   list: unsupported,
   "key.mapPair": unsupported,
   "key.mapPair.iteration": unsupported,
-    
+
   // misc
   regularExpression: unsupported,
   disqualifyDelimiter: unsupported,
@@ -382,5 +382,4 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.constructor": notApplicable,
   "interior.method": notApplicable,
   "interior.foreach": notApplicable,
-
 };

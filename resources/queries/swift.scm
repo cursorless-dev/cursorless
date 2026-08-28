@@ -94,9 +94,10 @@
       "{" @class.iteration.start.endOf
       "}" @class.iteration.end.startOf
     ) @_dummy
-  ) (#type? @_dummy class_declaration function_declaration)
-  (#not-any-ancestor-type? @_dummy if_statement switch_statement for_statement while_statement)
-  (#not-any-ancestor-type? @_dummy do_statement repeat_while_statement protocol_declaration)
+  )
+  (#type? @_dummy class_declaration function_declaration)
+  (#not-parent-type? @_dummy if_statement switch_statement for_statement while_statement)
+  (#not-parent-type? @_dummy do_statement repeat_while_statement protocol_declaration)
 )
 
 ;; Generic interior -- branch and condition iteration
@@ -107,7 +108,8 @@
       "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
       "}" @condition.iteration.end.startOf @branch.iteration.end.startOf
     ) @_dummy
-  ) (#not-parent-type? @_dummy source_file)
+  )
+  (#not-parent-type? @_dummy source_file)
 )
 
 ;; Non-enum class (struct/class/actor) decl.
