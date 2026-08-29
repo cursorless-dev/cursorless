@@ -18,3 +18,8 @@ Cursorless ID: `relativeScope`
 - every previous `<number>` `<scope>`s: Previous `<number>` instances of `<scope>`, as individual targets.
 - next `<number>` `<scope>`s: Next `<number>` instances of `<scope>`, as contiguous range.
 - every next `<number>` `<scope>`s: Next `<number>` instances of `<scope>`, as individual targets.
+
+## Examples
+
+- `"take next state blue air"`: Selects the next statement after the statement containing the token containing letter 'a' with a blue hat.
+- `"take three states backward blue air"`: Selects three statements as a contiguous range, starting at the token containing letter 'a' with a blue hat and going backward.
