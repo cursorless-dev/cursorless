@@ -1168,7 +1168,7 @@ export const actionReferences = {
     ],
   },
   wrapWithPairedDelimiter: {
-    name: "Wrap with paired delimiter",
+    name: "Wrap with paired delimiter/snippet",
     defaultSpokenForm: "wrap",
     syntaxes: [
       {
@@ -1176,18 +1176,6 @@ export const actionReferences = {
         description: `Wrap ${VAR_TARGET} with ${VAR_PAIR}.`,
         cheatsheet: `Wrap ${VAR_TARGET} with ${VAR_PAIR}`,
       },
-    ],
-    examples: [
-      {
-        command: `${SQUARE} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Wraps the ${TARGET_DESC} in square brackets.`,
-      },
-    ],
-  },
-  wrapWithSnippet: {
-    name: "Wrap with snippet",
-    defaultSpokenForm: "wrap",
-    syntaxes: [
       {
         pattern: `${VAR_SNIPPET} ${VAR_SPOKEN_FORM} ${VAR_TARGET}`,
         description: `Wrap ${VAR_TARGET} with ${VAR_SNIPPET}.`,
@@ -1195,6 +1183,10 @@ export const actionReferences = {
       },
     ],
     examples: [
+      {
+        command: `${SQUARE} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Wraps the ${TARGET_DESC} in square brackets.`,
+      },
       {
         command: `${SNIPPET_IF} ${VAR_SPOKEN_FORM} ${TARGET}`,
         description: `Wraps the ${TARGET_DESC} in an if-statement snippet.`,
@@ -1301,6 +1293,13 @@ export const actionReferences = {
   replace: {
     name: "Replace",
     defaultSpokenForm: "replace",
+    private: true,
+    syntaxes: [],
+    examples: [],
+  },
+  wrapWithSnippet: {
+    name: "Wrap with snippet",
+    defaultSpokenForm: "wrap",
     private: true,
     syntaxes: [],
     examples: [],
