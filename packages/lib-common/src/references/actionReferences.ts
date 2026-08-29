@@ -20,7 +20,6 @@ import {
   VAR_TARGET_1,
   VAR_TARGET_2,
 } from "./constants";
-import { getSpokenForm } from "./getSpokenForm";
 import { modifierReferences } from "./modifierReferences";
 import { pairedDelimiterReferences } from "./pairedDelimiterReferences";
 import type { ReferenceEntry } from "./ReferenceEntry";
@@ -28,15 +27,14 @@ import { scopeReferences } from "./scopeReferences";
 import { connectiveDefaultSpokenForms } from "./spokenForms/connectiveDefaultSpokenForms";
 
 const DEFAULT_PATTERN = `${VAR_SPOKEN_FORM} ${VAR_TARGET}`;
-const DEFAULT_PATTERN_SCOPE = `${VAR_SPOKEN_FORM} ${VAR_SCOPE} ${VAR_TARGET}`;
 const DEFAULT_COMMAND = `${VAR_SPOKEN_FORM} ${TARGET}`;
 
-const ITEM = getSpokenForm(scopeReferences.collectionItem);
-const CALL = getSpokenForm(scopeReferences.functionCall);
-const INSTANCE = getSpokenForm(scopeReferences.instance);
-const FUNCTION = getSpokenForm(scopeReferences.namedFunction);
-const TOKEN = getSpokenForm(scopeReferences.token);
-const EVERY = getSpokenForm(modifierReferences.everyScope);
+const ITEM = scopeReferences.collectionItem.defaultSpokenForm;
+const VALUE = scopeReferences.value.defaultSpokenForm;
+const INSTANCE = scopeReferences.instance.defaultSpokenForm;
+const FUNCTION = scopeReferences.namedFunction.defaultSpokenForm;
+const TOKEN = scopeReferences.token.defaultSpokenForm;
+const EVERY = modifierReferences.everyScope.defaultSpokenForm;
 const WITH = connectiveDefaultSpokenForms.swapConnective;
 const AFTER = connectiveDefaultSpokenForms.after;
 const TO = connectiveDefaultSpokenForms.sourceDestinationConnective;
@@ -47,10 +45,7 @@ const ON = connectiveDefaultSpokenForms.on;
 
 type TalonSideActionType = "applyFormatter" | "nextHomophone";
 
-export const actionReferences: Record<
-  ActionType | TalonSideActionType,
-  ReferenceEntry
-> = {
+export const actionReferences = {
   addSelection: {
     name: "Add selection",
     defaultSpokenForm: "append",
@@ -133,7 +128,7 @@ export const actionReferences: Record<
     examples: [
       {
         command: DEFAULT_COMMAND,
-        description: `Deletes the ${TARGET_DESC} and leaves the cursor in its place.`,
+        description: `Changes the ${TARGET_DESC} by clearing it and leaving the cursor in its place.`,
       },
     ],
   },
@@ -216,7 +211,7 @@ export const actionReferences: Record<
         cheatsheet: "Edit new line after",
       },
       {
-        pattern: DEFAULT_PATTERN_SCOPE,
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_SCOPE} ${VAR_TARGET}`,
         description: `Edit new ${VAR_SCOPE} after ${VAR_TARGET}.`,
         cheatsheet: `Edit new ${VAR_SCOPE} after`,
       },
@@ -243,7 +238,7 @@ export const actionReferences: Record<
         cheatsheet: "Edit new line before",
       },
       {
-        pattern: DEFAULT_PATTERN_SCOPE,
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_SCOPE} ${VAR_TARGET}`,
         description: `Edit new ${VAR_SCOPE} before ${VAR_TARGET}.`,
         cheatsheet: `Edit new ${VAR_SCOPE} before`,
       },
@@ -290,8 +285,8 @@ export const actionReferences: Record<
     ],
     examples: [
       {
-        command: `${VAR_SPOKEN_FORM} ${CALL} ${TARGET}`,
-        description: `Extracts the function call containing the ${TARGET_DESC} into a variable.`,
+        command: `${VAR_SPOKEN_FORM} ${VALUE} ${TARGET}`,
+        description: `Extracts the value containing the ${TARGET_DESC} into a variable.`,
       },
     ],
   },
@@ -534,13 +529,13 @@ export const actionReferences: Record<
     ],
   },
   insertEmptyLineAfter: {
-    name: "Insert empty line after",
+    name: "Insert empty line/scope after",
     defaultSpokenForm: "float",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: `Insert empty line after ${VAR_TARGET}.`,
-        cheatsheet: "Insert empty line after",
+        description: `Insert empty line/scope after ${VAR_TARGET}.`,
+        cheatsheet: "Insert empty line/scope after",
       },
     ],
     examples: [
@@ -555,13 +550,13 @@ export const actionReferences: Record<
     ],
   },
   insertEmptyLineBefore: {
-    name: "Insert empty line before",
+    name: "Insert empty line/scope before",
     defaultSpokenForm: "drop",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: `Insert empty line before ${VAR_TARGET}.`,
-        cheatsheet: "Insert empty line before",
+        description: `Insert empty line/scope before ${VAR_TARGET}.`,
+        cheatsheet: "Insert empty line/scope before",
       },
     ],
     examples: [
@@ -576,13 +571,13 @@ export const actionReferences: Record<
     ],
   },
   insertEmptyLinesAround: {
-    name: "Insert empty lines around",
+    name: "Insert empty lines/scopes around",
     defaultSpokenForm: "puff",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: `Insert empty lines around ${VAR_TARGET}.`,
-        cheatsheet: "Insert empty lines around",
+        description: `Insert empty lines/scopes around ${VAR_TARGET}.`,
+        cheatsheet: "Insert empty lines/scopes around",
       },
     ],
     examples: [
@@ -942,6 +937,10 @@ export const actionReferences: Record<
         command: DEFAULT_COMMAND,
         description: `Toggles a breakpoint on the line containing the ${TARGET_DESC}.`,
       },
+      {
+        command: `${VAR_SPOKEN_FORM} ${TOKEN} ${TARGET}`,
+        description: `Toggles an inline breakpoint at the ${TARGET_DESC}.`,
+      },
     ],
   },
   toggleLineComment: {
@@ -997,6 +996,10 @@ export const actionReferences: Record<
       {
         command: DEFAULT_COMMAND,
         description: `Inserts a call to the ${TARGET_DESC} at the current selection.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${TARGET} ${ON} ${TARGET_2}`,
+        description: `Inserts a call to the ${TARGET_DESC} on the ${TARGET_2_DESC}.`,
       },
     ],
   },
@@ -1069,6 +1072,10 @@ export const actionReferences: Record<
     ],
     examples: [
       {
+        command: DEFAULT_COMMAND,
+        description: `Moves the ${TARGET_DESC} to the current selection.`,
+      },
+      {
         command: `${VAR_SPOKEN_FORM} ${TARGET} ${AFTER} ${TARGET_2}`,
         description: `Moves the ${TARGET_DESC} to after the ${TARGET_2_DESC}.`,
       },
@@ -1108,6 +1115,10 @@ export const actionReferences: Record<
     ],
     examples: [
       {
+        command: DEFAULT_COMMAND,
+        description: `Inserts a copy of the ${TARGET_DESC} at the current selection.`,
+      },
+      {
         command: `${VAR_SPOKEN_FORM} ${TARGET} ${TO} ${TARGET_2}`,
         description: `Replaces the ${TARGET_2_DESC} with a copy of the ${TARGET_DESC}.`,
       },
@@ -1146,6 +1157,10 @@ export const actionReferences: Record<
       },
     ],
     examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${WITH} ${TARGET}`,
+        description: `Swaps the current selection with the ${TARGET_DESC}.`,
+      },
       {
         command: `${VAR_SPOKEN_FORM} ${TARGET} ${WITH} ${TARGET_2}`,
         description: `Swaps the ${TARGET_DESC} and the ${TARGET_2_DESC}.`,
@@ -1290,4 +1305,4 @@ export const actionReferences: Record<
     syntaxes: [],
     examples: [],
   },
-};
+} as const satisfies Record<ActionType | TalonSideActionType, ReferenceEntry>;

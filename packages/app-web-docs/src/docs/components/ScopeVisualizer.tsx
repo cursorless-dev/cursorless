@@ -318,7 +318,8 @@ function getScopeFixtures(
     for (const f of scope.facets) {
       f.fixtures.sort(nameComparator);
     }
-    if (scopeReferences[scope.scopeTypeType].private) {
+    const scopeRef = scopeReferences[scope.scopeTypeType];
+    if ("private" in scopeRef && scopeRef.private) {
       result.internal.push(scope);
     } else {
       result.public.push(scope);

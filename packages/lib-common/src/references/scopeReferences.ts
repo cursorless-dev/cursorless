@@ -5,6 +5,8 @@ import {
   LINE,
   SET_SELECTION,
   STATEMENT,
+  TARGET,
+  TARGET_DESC,
   VAR_CHARACTER,
   VAR_PAIR,
   VAR_SPOKEN_FORM,
@@ -17,12 +19,11 @@ import { graphemeDefaultSpokenForms } from "./spokenForms/graphemeDefaultSpokenF
 const DEFAULT_PATTERN = VAR_SPOKEN_FORM;
 
 const AIR = graphemeDefaultSpokenForms.a;
-const TARGET = `blue ${AIR}`;
-const TARGET_DESC = "token containing letter 'a' with a blue hat";
 const PARENTHESIS = pairedDelimiterReferences.parentheses.defaultSpokenForm;
 const NEXT = connectiveDefaultSpokenForms.next;
+const FIRST = connectiveDefaultSpokenForms.first;
 
-export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
+export const scopeReferences = {
   argumentOrParameter: {
     name: "Argument or parameter",
     defaultSpokenForm: "arg",
@@ -596,14 +597,14 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "XML both tags.",
-        cheatsheet: "XML both tags",
+        description: "XML start and end tags.",
+        cheatsheet: "XML start and end tags",
       },
     ],
     examples: [
       {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the xml both tags containing the ${TARGET_DESC}.`,
+        description: `Selects both tags of the XML element containing the ${TARGET_DESC}.`,
       },
     ],
   },
@@ -620,7 +621,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     examples: [
       {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the xml element containing the ${TARGET_DESC}.`,
+        description: `Selects the XML element containing the ${TARGET_DESC}.`,
       },
     ],
   },
@@ -637,7 +638,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     examples: [
       {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the xml end tag containing the ${TARGET_DESC}.`,
+        description: `Selects the XML end tag containing the ${TARGET_DESC}.`,
       },
     ],
   },
@@ -654,7 +655,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     examples: [
       {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the xml start tag containing the ${TARGET_DESC}.`,
+        description: `Selects the XML start tag containing the ${TARGET_DESC}.`,
       },
     ],
   },
@@ -789,8 +790,8 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     ],
     examples: [
       {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the character containing the ${TARGET_DESC}.`,
+        command: `${SET_SELECTION} ${FIRST} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the first character in the ${TARGET_DESC}.`,
       },
     ],
   },
@@ -807,8 +808,8 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     ],
     examples: [
       {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the sub token word containing the ${TARGET_DESC}.`,
+        command: `${SET_SELECTION} ${FIRST} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the first sub token word in the ${TARGET_DESC}.`,
       },
     ],
   },
@@ -825,7 +826,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     examples: [
       {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the token containing the ${TARGET_DESC}.`,
+        description: `Selects the ${TARGET_DESC}.`,
       },
     ],
   },
@@ -1192,4 +1193,4 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [],
     examples: [],
   },
-};
+} as const satisfies Record<ScopeTypeType, ReferenceEntry>;

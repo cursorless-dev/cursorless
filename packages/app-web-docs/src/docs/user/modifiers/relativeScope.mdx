@@ -18,3 +18,20 @@ Cursorless ID: `relativeScope`
 - every previous `<number>` `<scope>`s: Previous `<number>` instances of `<scope>`, as individual targets.
 - next `<number>` `<scope>`s: Next `<number>` instances of `<scope>`, as contiguous range.
 - every next `<number>` `<scope>`s: Next `<number>` instances of `<scope>`, as individual targets.
+
+## Examples
+
+- `"take previous state blue air"`: Selects the previous statement before the statement containing the token containing letter 'a' with a blue hat.
+- `"take third previous state blue air"`: Selects the third statement before the statement containing the token containing letter 'a' with a blue hat.
+- `"take next state blue air"`: Selects the next statement after the statement containing the token containing letter 'a' with a blue hat.
+- `"take third next state blue air"`: Selects the third statement after the statement containing the token containing letter 'a' with a blue hat.
+- `"take state backward blue air"`: Selects the statement containing the token containing letter 'a' with a blue hat, searching backward.
+- `"take state forward blue air"`: Selects the statement containing the token containing letter 'a' with a blue hat, searching forward.
+- `"take three states backward blue air"`: Selects three statements, including the statement containing the token containing letter 'a' with a blue hat, searching backward, as a contiguous range.
+- `"take every three states backward blue air"`: Selects three statements, including the statement containing the token containing letter 'a' with a blue hat, searching backward, as individual targets.
+- `"take three states blue air"`: Selects three statements, including the statement containing the token containing letter 'a' with a blue hat, searching forward, as a contiguous range.
+- `"take every three states blue air"`: Selects three statements, including the statement containing the token containing letter 'a' with a blue hat, searching forward, as individual targets.
+- `"take previous three states blue air"`: Selects the previous three statements before the statement containing the token containing letter 'a' with a blue hat as a contiguous range.
+- `"take every previous three states blue air"`: Selects the previous three statements before the statement containing the token containing letter 'a' with a blue hat as individual targets.
+- `"take next three states blue air"`: Selects the next three statements after the statement containing the token containing letter 'a' with a blue hat as a contiguous range.
+- `"take every next three states blue air"`: Selects the next three statements after the statement containing the token containing letter 'a' with a blue hat as individual targets.

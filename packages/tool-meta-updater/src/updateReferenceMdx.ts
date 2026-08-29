@@ -14,6 +14,12 @@ export function updateReferenceMdx(
     return null;
   }
 
+  if (entry.examples.length < entry.syntaxes.length) {
+    throw new Error(
+      `Reference "${id}" has ${entry.syntaxes.length} syntaxes, but only ${entry.examples.length} examples`,
+    );
+  }
+
   const isScope = kind === "scope";
 
   const expected: string[] = [];
@@ -71,17 +77,17 @@ export function updateReferenceMdx(
     expected.push("");
   }
 
-  //   if (entry.examples.length > 0) {
-  //     expected.push(`## Examples`, "");
-  //     for (const example of entry.examples) {
-  //       const command = injectSpokenForm(
-  //         example.command,
-  //         entry.defaultSpokenForm,
-  //       );
-  //       expected.push(`- \`"${command}"\`: ${example.description}`);
-  //     }
-  //     expected.push("");
-  //   }
+  if (entry.examples.length > 0) {
+    expected.push(`## Examples`, "");
+    for (const example of entry.examples) {
+      const command = injectSpokenForm(
+        example.command,
+        entry.defaultSpokenForm,
+      );
+      expected.push(`- \`"${command}"\`: ${example.description}`);
+    }
+    expected.push("");
+  }
 
   if (isScope) {
     expected.push(`<Scopes scopeTypeType="${id}" />`, "");
