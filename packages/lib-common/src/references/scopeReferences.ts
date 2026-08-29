@@ -597,14 +597,14 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "XML both tags.",
-        cheatsheet: "XML both tags",
+        description: "XML start and end tags.",
+        cheatsheet: "XML start and end tags",
       },
     ],
     examples: [
       {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the xml both tags containing the ${TARGET_DESC}.`,
+        description: `Selects both tags of the XML element containing the ${TARGET_DESC}.`,
       },
     ],
   },
@@ -621,7 +621,7 @@ export const scopeReferences = {
     examples: [
       {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the xml element containing the ${TARGET_DESC}.`,
+        description: `Selects the XML element containing the ${TARGET_DESC}.`,
       },
     ],
   },
@@ -638,7 +638,7 @@ export const scopeReferences = {
     examples: [
       {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the xml end tag containing the ${TARGET_DESC}.`,
+        description: `Selects the XML end tag containing the ${TARGET_DESC}.`,
       },
     ],
   },
@@ -655,7 +655,7 @@ export const scopeReferences = {
     examples: [
       {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the xml start tag containing the ${TARGET_DESC}.`,
+        description: `Selects the XML start tag containing the ${TARGET_DESC}.`,
       },
     ],
   },

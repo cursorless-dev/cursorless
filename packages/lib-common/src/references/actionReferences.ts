@@ -30,7 +30,7 @@ const DEFAULT_PATTERN = `${VAR_SPOKEN_FORM} ${VAR_TARGET}`;
 const DEFAULT_COMMAND = `${VAR_SPOKEN_FORM} ${TARGET}`;
 
 const ITEM = scopeReferences.collectionItem.defaultSpokenForm;
-const CALL = scopeReferences.functionCall.defaultSpokenForm;
+const VALUE = scopeReferences.value.defaultSpokenForm;
 const INSTANCE = scopeReferences.instance.defaultSpokenForm;
 const FUNCTION = scopeReferences.namedFunction.defaultSpokenForm;
 const TOKEN = scopeReferences.token.defaultSpokenForm;
@@ -128,7 +128,7 @@ export const actionReferences = {
     examples: [
       {
         command: DEFAULT_COMMAND,
-        description: `Deletes the ${TARGET_DESC} and leaves the cursor in its place.`,
+        description: `Changes the ${TARGET_DESC} by clearing it and leaving the cursor in its place.`,
       },
     ],
   },
@@ -285,8 +285,8 @@ export const actionReferences = {
     ],
     examples: [
       {
-        command: `${VAR_SPOKEN_FORM} ${CALL} ${TARGET}`,
-        description: `Extracts the function call containing the ${TARGET_DESC} into a variable.`,
+        command: `${VAR_SPOKEN_FORM} ${VALUE} ${TARGET}`,
+        description: `Extracts the value containing the ${TARGET_DESC} into a variable.`,
       },
     ],
   },
@@ -992,6 +992,10 @@ export const actionReferences = {
       {
         command: DEFAULT_COMMAND,
         description: `Inserts a call to the ${TARGET_DESC} at the current selection.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${TARGET} ${ON} ${TARGET_2}`,
+        description: `Inserts a call to the ${TARGET_DESC} on the ${TARGET_2_DESC}.`,
       },
     ],
   },
