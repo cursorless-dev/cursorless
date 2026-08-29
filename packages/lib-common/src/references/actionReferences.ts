@@ -1,36 +1,38 @@
 import type { ActionType } from "../types/command/ActionDescriptor";
 import { connectiveSpokenForms } from "./connectiveSpokenForms";
 import { getSpokenForm } from "./getSpokenForm";
-import { modifierReferences } from "./modifierReferences";
 import type { ReferenceEntry } from "./ReferenceEntry";
 import { scopeReferences } from "./scopeReferences";
-
-const VAR_SPOKEN_FORM = "<spokenForm>";
-const VAR_TARGET = "<target>";
-const VAR_TARGET_1 = "<target 1>";
-const VAR_TARGET_2 = "<target 2>";
-const VAR_DESTINATION = "<destination>";
-const VAR_SCOPE = "<scope>";
-const VAR_SNIPPET = "<snippet>";
-const VAR_PAIR = "<pair>";
-const VAR_FORMATTER = "<formatter>";
+import {
+  VAR_DESTINATION,
+  VAR_FORMATTER,
+  VAR_PAIR,
+  VAR_SCOPE,
+  VAR_SNIPPET,
+  VAR_SPOKEN_FORM,
+  VAR_TARGET,
+  VAR_TARGET_1,
+  VAR_TARGET_2,
+} from "./variables";
 
 const TARGET = "blue air";
 const TARGET_DESC = "token containing letter 'a' with a blue hat";
-const TARGET_2 = "green bat";
-const TARGET_2_DESC = "token containing letter 'b' with a green hat";
+// const TARGET_2 = "green bat";
+// const TARGET_2_DESC = "token containing letter 'b' with a green hat";
 
 const DEFAULT_PATTERN = `${VAR_SPOKEN_FORM} ${VAR_TARGET}`;
 const DEFAULT_PATTERN_SCOPE = `${VAR_SPOKEN_FORM} ${VAR_SCOPE} ${VAR_TARGET}`;
 const DEFAULT_COMMAND = `${VAR_SPOKEN_FORM} ${TARGET}`;
 
-const COLLECTION_ITEM_SCOPE = getSpokenForm(scopeReferences.collectionItem);
-const FUNCTION_CALL_SCOPE = getSpokenForm(scopeReferences.functionCall);
-const INSTANCE_SCOPE = getSpokenForm(scopeReferences.instance);
-const NAMED_FUNCTION_SCOPE = getSpokenForm(scopeReferences.namedFunction);
+// const COLLECTION_ITEM_SCOPE = getSpokenForm(scopeReferences.collectionItem);
+// const FUNCTION_CALL_SCOPE = getSpokenForm(scopeReferences.functionCall);
+// const INSTANCE_SCOPE = getSpokenForm(scopeReferences.instance);
+// const NAMED_FUNCTION_SCOPE = getSpokenForm(scopeReferences.namedFunction);
 const TOKEN_SCOPE = getSpokenForm(scopeReferences.token);
-const EVERY_MODIFIER = getSpokenForm(modifierReferences.everyScope);
+// const EVERY_MODIFIER = getSpokenForm(modifierReferences.everyScope);
 const SET_SELECTION_SPOKEN_FORM = "take";
+
+const SWAP_CONNECTIVE = connectiveSpokenForms.swapConnective;
 
 type TalonSideActionType = "applyFormatter" | "nextHomophone";
 
@@ -463,8 +465,8 @@ export const actionReferences: Record<
     ],
     examples: [
       {
-        spokenForm: "<spokenForm> blue air",
-        description: "Removes the token containing letter 'a' with a blue hat.",
+        command: DEFAULT_COMMAND,
+        description: `Removes the ${TARGET_DESC}.`,
       },
     ],
   },
@@ -697,7 +699,7 @@ export const actionReferences: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: `Insert call to ${VAR_TARGET} on selection.`,
-        cheatsheet: "Insert call to <target> on selection",
+        cheatsheet: `Insert call to ${VAR_TARGET} on selection`,
       },
       {
         pattern: `${VAR_SPOKEN_FORM} ${VAR_TARGET_1} on ${VAR_TARGET_2}`,
@@ -780,7 +782,7 @@ export const actionReferences: Record<
       {
         pattern: DEFAULT_PATTERN,
         description: `Insert copy of ${VAR_TARGET} at selection.`,
-        cheatsheet: "Insert copy of <target> at selection",
+        cheatsheet: `Insert copy of ${VAR_TARGET} at selection`,
       },
       {
         pattern: `${VAR_SPOKEN_FORM} ${VAR_TARGET} ${VAR_DESTINATION}`,
@@ -796,8 +798,8 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: `${VAR_PAIR} ${VAR_SPOKEN_FORM} ${VAR_TARGET}`,
-        description: `Rewrap ${VAR_TARGET} with <pair>.`,
-        cheatsheet: "Rewrap <target> with <pair>",
+        description: `Rewrap ${VAR_TARGET} with ${VAR_PAIR}.`,
+        cheatsheet: `Rewrap ${VAR_TARGET} with ${VAR_PAIR}`,
       },
     ],
     examples: [],
@@ -807,14 +809,14 @@ export const actionReferences: Record<
     defaultSpokenForm: "swap",
     syntaxes: [
       {
-        pattern: `${VAR_SPOKEN_FORM} ${connectiveSpokenForms.swapConnective} ${VAR_TARGET}`,
+        pattern: `${VAR_SPOKEN_FORM} ${SWAP_CONNECTIVE} ${VAR_TARGET}`,
         description: `Swap selection with ${VAR_TARGET}.`,
-        cheatsheet: "Swap selection with <target>",
+        cheatsheet: `Swap selection with ${VAR_TARGET}`,
       },
       {
-        pattern: `${VAR_SPOKEN_FORM} ${VAR_TARGET} ${connectiveSpokenForms.swapConnective} ${VAR_TARGET_2}`,
-        description: `Swap ${VAR_TARGET} with ${VAR_TARGET_2}.`,
-        cheatsheet: `Swap ${VAR_TARGET} with ${VAR_TARGET_2}`,
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_TARGET_1} ${SWAP_CONNECTIVE} ${VAR_TARGET_2}`,
+        description: `Swap ${VAR_TARGET_1} with ${VAR_TARGET_2}.`,
+        cheatsheet: `Swap ${VAR_TARGET_1} with ${VAR_TARGET_2}`,
       },
     ],
     examples: [],

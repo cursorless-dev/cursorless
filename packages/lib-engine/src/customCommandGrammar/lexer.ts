@@ -3,11 +3,11 @@ import type {
   InsertionMode,
 } from "@cursorless/lib-common";
 import {
+  connectiveSpokenForms,
   simpleActionNames,
   simpleScopeTypeTypes,
   surroundingPairNames,
 } from "@cursorless/lib-common";
-import { connectiveSpokenForms } from "../../../lib-common/src/references/connectiveSpokenForms";
 import { marks } from "../generateSpokenForm/defaultSpokenForms/marks";
 import { defaultSpokenFormMap } from "../spokenForms/defaultSpokenFormMap";
 import { CommandLexer } from "./CommandLexer";

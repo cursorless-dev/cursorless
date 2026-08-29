@@ -15,4 +15,4 @@ export const connectiveSpokenForms = {
   next: "next",
   forward: "forward",
   backward: "backward",
-};
+} as const;

@@ -1,5 +1,5 @@
 import type { PartialRangeType } from "@cursorless/lib-common";
-import { connectiveSpokenForms } from "../../../lib-common/src/references/connectiveSpokenForms";
+import { connectiveSpokenForms } from "@cursorless/lib-common";
 import { NoSpokenFormError } from "./NoSpokenFormError";
 
 export function getRangeConnective(

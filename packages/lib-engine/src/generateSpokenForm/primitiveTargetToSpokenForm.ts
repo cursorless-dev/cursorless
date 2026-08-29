@@ -6,7 +6,7 @@ import type {
   RelativeScopeModifier,
   ScopeType,
 } from "@cursorless/lib-common";
-import { connectiveSpokenForms } from "../../../lib-common/src/references/connectiveSpokenForms";
+import { connectiveSpokenForms } from "@cursorless/lib-common";
 import {
   hatColorToSpokenForm,
   hatShapeToSpokenForm,

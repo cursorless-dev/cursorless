@@ -1,7 +1,8 @@
 import type { ScopeTypeType } from "../types/command/PartialTargetDescriptor.types";
 import type { ReferenceEntry } from "./ReferenceEntry";
+import { VAR_CHARACTER, VAR_PAIR, VAR_SPOKEN_FORM } from "./variables";
 
-const DEFAULT_PATTERN = "<spokenForm>";
+const DEFAULT_PATTERN = VAR_SPOKEN_FORM;
 
 export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
   argumentOrParameter: {
@@ -10,7 +11,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Argument",
+        description: "Argument.",
         cheatsheet: "Argument",
       },
     ],
@@ -22,7 +23,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Argument list",
+        description: "Argument list.",
         cheatsheet: "Argument list",
       },
     ],
@@ -34,7 +35,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Anonymous function",
+        description: "Anonymous function.",
         cheatsheet: "Anonymous function",
       },
     ],
@@ -46,7 +47,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Attribute",
+        description: "Attribute.",
         cheatsheet: "Attribute",
       },
     ],
@@ -58,7 +59,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Branch",
+        description: "Branch.",
         cheatsheet: "Branch",
       },
     ],
@@ -70,7 +71,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Class",
+        description: "Class.",
         cheatsheet: "Class",
       },
     ],
@@ -82,7 +83,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Class name",
+        description: "Class name.",
         cheatsheet: "Class name",
       },
     ],
@@ -94,7 +95,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Collection item",
+        description: "Collection item.",
         cheatsheet: "Collection item",
       },
     ],
@@ -106,7 +107,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Collection key",
+        description: "Collection key.",
         cheatsheet: "Collection key",
       },
     ],
@@ -118,7 +119,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Comment",
+        description: "Comment.",
         cheatsheet: "Comment",
       },
     ],
@@ -130,7 +131,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Function call",
+        description: "Function call.",
         cheatsheet: "Function call",
       },
     ],
@@ -142,7 +143,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Function callee",
+        description: "Function callee.",
         cheatsheet: "Function callee",
       },
     ],
@@ -154,7 +155,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Function name",
+        description: "Function name.",
         cheatsheet: "Function name",
       },
     ],
@@ -166,7 +167,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "If statement",
+        description: "If statement.",
         cheatsheet: "If statement",
       },
     ],
@@ -178,7 +179,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Instance",
+        description: "Instance.",
         cheatsheet: "Instance",
       },
     ],
@@ -190,7 +191,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "List",
+        description: "List.",
         cheatsheet: "List",
       },
     ],
@@ -202,7 +203,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Map",
+        description: "Map.",
         cheatsheet: "Map",
       },
     ],
@@ -214,7 +215,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Name",
+        description: "Name.",
         cheatsheet: "Name",
       },
     ],
@@ -226,7 +227,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Named function",
+        description: "Named function.",
         cheatsheet: "Named function",
       },
     ],
@@ -238,7 +239,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Regular expression",
+        description: "Regular expression.",
         cheatsheet: "Regular expression",
       },
     ],
@@ -250,7 +251,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Statement",
+        description: "Statement.",
         cheatsheet: "Statement",
       },
     ],
@@ -262,7 +263,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Type",
+        description: "Type.",
         cheatsheet: "Type",
       },
     ],
@@ -274,7 +275,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Value",
+        description: "Value.",
         cheatsheet: "Value",
       },
     ],
@@ -286,7 +287,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Condition",
+        description: "Condition.",
         cheatsheet: "Condition",
       },
     ],
@@ -298,7 +299,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Section",
+        description: "Section.",
         cheatsheet: "Section",
       },
     ],
@@ -311,7 +312,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Section level one",
+        description: "Section level one.",
         cheatsheet: "Section level one",
       },
     ],
@@ -324,7 +325,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Section level two",
+        description: "Section level two.",
         cheatsheet: "Section level two",
       },
     ],
@@ -337,7 +338,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Section level three",
+        description: "Section level three.",
         cheatsheet: "Section level three",
       },
     ],
@@ -350,7 +351,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Section level four",
+        description: "Section level four.",
         cheatsheet: "Section level four",
       },
     ],
@@ -363,7 +364,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Section level five",
+        description: "Section level five.",
         cheatsheet: "Section level five",
       },
     ],
@@ -376,7 +377,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Section level six",
+        description: "Section level six.",
         cheatsheet: "Section level six",
       },
     ],
@@ -388,7 +389,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Selector",
+        description: "Selector.",
         cheatsheet: "Selector",
       },
     ],
@@ -400,7 +401,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Unit",
+        description: "Unit.",
         cheatsheet: "Unit",
       },
     ],
@@ -412,7 +413,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "XML both tags",
+        description: "XML both tags.",
         cheatsheet: "XML both tags",
       },
     ],
@@ -424,7 +425,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "XML element",
+        description: "XML element.",
         cheatsheet: "XML element",
       },
     ],
@@ -436,7 +437,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "XML end tag",
+        description: "XML end tag.",
         cheatsheet: "XML end tag",
       },
     ],
@@ -448,7 +449,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "XML start tag",
+        description: "XML start tag.",
         cheatsheet: "XML start tag",
       },
     ],
@@ -460,7 +461,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Part",
+        description: "Part.",
         cheatsheet: "Part",
       },
     ],
@@ -472,7 +473,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Chapter",
+        description: "Chapter.",
         cheatsheet: "Chapter",
       },
     ],
@@ -484,7 +485,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Subsection",
+        description: "Subsection.",
         cheatsheet: "Subsection",
       },
     ],
@@ -496,7 +497,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Subsubsection",
+        description: "Subsubsection.",
         cheatsheet: "Subsubsection",
       },
     ],
@@ -508,7 +509,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Named paragraph",
+        description: "Named paragraph.",
         cheatsheet: "Named paragraph",
       },
     ],
@@ -520,7 +521,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Subparagraph",
+        description: "Subparagraph.",
         cheatsheet: "Subparagraph",
       },
     ],
@@ -532,7 +533,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Environment",
+        description: "Environment.",
         cheatsheet: "Environment",
       },
     ],
@@ -544,7 +545,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Character",
+        description: "Character.",
         cheatsheet: "Character",
       },
     ],
@@ -557,7 +558,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Sub token word",
+        description: "Sub token word.",
         cheatsheet: "Sub token word",
       },
     ],
@@ -569,7 +570,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Token",
+        description: "Token.",
         cheatsheet: "Token",
       },
     ],
@@ -581,7 +582,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Identifier",
+        description: "Identifier.",
         cheatsheet: "Identifier",
       },
     ],
@@ -593,7 +594,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Line",
+        description: "Line.",
         cheatsheet: "Line",
       },
     ],
@@ -605,7 +606,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Full line",
+        description: "Full line.",
         cheatsheet: "Full line",
       },
     ],
@@ -617,7 +618,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Sentence",
+        description: "Sentence.",
         cheatsheet: "Sentence",
       },
     ],
@@ -629,7 +630,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Paragraph",
+        description: "Paragraph.",
         cheatsheet: "Paragraph",
       },
     ],
@@ -641,7 +642,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Paragraph bounded by surrounding pair delimiters",
+        description: "Paragraph bounded by surrounding pair delimiters.",
         cheatsheet: "Paragraph bounded by surrounding pair delimiters",
       },
     ],
@@ -653,7 +654,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Document",
+        description: "Document.",
         cheatsheet: "Document",
       },
     ],
@@ -665,7 +666,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Non-whitespace sequence",
+        description: "Non-whitespace sequence.",
         cheatsheet: "Non-whitespace sequence",
       },
     ],
@@ -679,7 +680,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
       {
         pattern: DEFAULT_PATTERN,
         description:
-          "Non-whitespace sequence bounded by surrounding pair delimiters",
+          "Non-whitespace sequence bounded by surrounding pair delimiters.",
         cheatsheet:
           "Non-whitespace sequence bounded by surrounding pair delimiters",
       },
@@ -692,7 +693,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "URL",
+        description: "URL.",
         cheatsheet: "URL",
       },
     ],
@@ -704,7 +705,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Notebook cell",
+        description: "Notebook cell.",
         cheatsheet: "Notebook cell",
       },
     ],
@@ -716,7 +717,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Command",
+        description: "Command.",
         cheatsheet: "Command",
       },
     ],
@@ -727,9 +728,9 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     defaultSpokenForm: "glyph",
     syntaxes: [
       {
-        pattern: "<spokenForm> <character>",
-        description: "Instance of single character <character>",
-        cheatsheet: "Instance of single character <character>",
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_CHARACTER}`,
+        description: `Instance of single character ${VAR_CHARACTER}.`,
+        cheatsheet: `Instance of single character ${VAR_CHARACTER}`,
       },
     ],
     examples: [],
@@ -738,8 +739,8 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     name: "Surrounding pair",
     syntaxes: [
       {
-        pattern: "<pair>",
-        description: "Surrounding pair",
+        pattern: VAR_PAIR,
+        description: "Surrounding pair.",
         cheatsheet: "Surrounding pair",
       },
     ],
@@ -755,7 +756,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Field access",
+        description: "Field access.",
         cheatsheet: "Field access",
       },
     ],
@@ -768,7 +769,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "String",
+        description: "String.",
         cheatsheet: "String",
       },
     ],
@@ -781,7 +782,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Text fragment",
+        description: "Text fragment.",
         cheatsheet: "Text fragment",
       },
     ],
@@ -794,7 +795,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Disqualify delimiter",
+        description: "Disqualify delimiter.",
         cheatsheet: "Disqualify delimiter",
       },
     ],
@@ -807,7 +808,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Pair delimiter",
+        description: "Pair delimiter.",
         cheatsheet: "Pair delimiter",
       },
     ],
@@ -820,7 +821,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Interior",
+        description: "Interior.",
         cheatsheet: "Interior",
       },
     ],

@@ -9,8 +9,11 @@ import type {
   SpokenFormMapKeyTypes,
   SpokenFormType,
 } from "@cursorless/lib-common";
-import { camelCaseToAllDown, DOCS_URL } from "@cursorless/lib-common";
-import { connectiveSpokenForms } from "../../../lib-common/src/references/connectiveSpokenForms";
+import {
+  camelCaseToAllDown,
+  connectiveSpokenForms,
+  DOCS_URL,
+} from "@cursorless/lib-common";
 import type { SpokenFormMap } from "../spokenForms/SpokenFormMap";
 import { surroundingPairDelimitersToSpokenForm } from "./defaultSpokenForms/modifiers";
 import {
