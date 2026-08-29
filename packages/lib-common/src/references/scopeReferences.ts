@@ -1,7 +1,9 @@
 import type { ScopeTypeType } from "../types/command/PartialTargetDescriptor.types";
 import {
+  AIR,
   EVERY,
   ITEM,
+  NEXT,
   PARENTHESES,
   SET_SELECTION,
   STATEMENT,
@@ -1042,8 +1044,8 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     ],
     examples: [
       {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the character indicated by the ${TARGET_DESC}.`,
+        command: `${SET_SELECTION} ${NEXT} ${VAR_SPOKEN_FORM} ${AIR}`,
+        description: `Selects the next 'a'.`,
       },
     ],
   },

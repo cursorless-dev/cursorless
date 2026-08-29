@@ -3,6 +3,7 @@ import { connectiveSpokenForms } from "./connectiveSpokenForms";
 import {
   REMOVE,
   SET_SELECTION,
+  SNIPPET_IF,
   VAR_DESTINATION,
   VAR_FORMATTER,
   VAR_PAIR,
@@ -34,6 +35,7 @@ const NAMED_FUNCTION_SCOPE = getSpokenForm(scopeReferences.namedFunction);
 const TOKEN_SCOPE = getSpokenForm(scopeReferences.token);
 const EVERY_MODIFIER = getSpokenForm(modifierReferences.everyScope);
 const SWAP_CONNECTIVE = connectiveSpokenForms.swapConnective;
+const AFTER = connectiveSpokenForms.after;
 
 type TalonSideActionType = "applyFormatter" | "nextHomophone";
 
@@ -1037,7 +1039,7 @@ export const actionReferences: Record<
     ],
     examples: [
       {
-        command: `${VAR_SPOKEN_FORM} ${VAR_SNIPPET} after ${TARGET}`,
+        command: `${VAR_SPOKEN_FORM} ${SNIPPET_IF} ${AFTER} ${TARGET}`,
         description: `Inserts an if-statement snippet after the ${TARGET_DESC}.`,
       },
     ],

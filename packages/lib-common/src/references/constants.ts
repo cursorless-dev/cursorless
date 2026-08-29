@@ -31,9 +31,12 @@ export const THREE = "three";
 export const THIRD = "third";
 
 // Misc
+export const AIR = "air";
+
 export const FIRST = "first";
 export const LAST = "last";
 export const NEXT = "next";
 export const PREVIOUS = "previous";
 export const BACKWARD = "backward";
 export const FORWARD = "forward";
+export const SNIPPET_IF = "if";
