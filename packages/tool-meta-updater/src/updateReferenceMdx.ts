@@ -12,7 +12,6 @@ export function updateReferenceMdx(
     return null;
   }
 
-  const refComponentName = `${kind.charAt(0).toUpperCase() + kind.slice(1)}Reference`;
   const isScope = kind === "scope";
 
   const expected: string[] = [];
@@ -21,26 +20,98 @@ export function updateReferenceMdx(
     expected.push(`---`, `sidebar_label: ${entry.nameShort}`, `---`, "");
   }
 
-  expected.push(
-    `import { ${refComponentName} } from "@site/src/docs/components/ReferenceEntry";`,
-  );
-
   if (isScope) {
-    expected.push(`import { Scopes } from "@site/src/docs/components/Scopes";`);
+    expected.push(
+      `import { Scopes } from "@site/src/docs/components/Scopes";`,
+      "",
+    );
   }
 
-  expected.push(
-    "",
-    `# ${entry.name}`,
-    "",
-    `<${refComponentName} id="${id}" />`,
-  );
+  expected.push(`# ${entry.name}`, "");
 
-  if (isScope) {
-    expected.push(`<Scopes scopeTypeType="${id}" />`);
+  if (entry.description != null) {
+    expected.push(entry.description, "");
   }
 
-  expected.push("");
+  expected.push(`Cursorless ID: ${code(id)}`, "");
+
+  const spokenFormLines: string[] = [];
+
+  if (entry.defaultSpokenForm != null) {
+    spokenFormLines.push(`Default: ${code(entry.defaultSpokenForm)}`);
+  }
+
+  if (entry.legacySpokenForms != null) {
+    spokenFormLines.push(
+      `Legacy: ${entry.legacySpokenForms.map((s) => code(s)).join(", ")}`,
+    );
+  }
+
+  if (entry.disabledByDefault) {
+    spokenFormLines.push(bold("Disabled by default"));
+  }
+
+  if (spokenFormLines.length > 0) {
+    expected.push("## Spoken form", "", ...formatGroup(spokenFormLines), "");
+  }
+
+  if (entry.syntaxes.length > 0) {
+    expected.push(`## Syntax`, "");
+    for (const syntax of entry.syntaxes) {
+      const pattern = formatPattern(syntax.pattern, entry.defaultSpokenForm);
+      const description = formatPattern(
+        syntax.description,
+        entry.defaultSpokenForm,
+      );
+      expected.push(`- ${pattern}: ${description}`);
+    }
+    expected.push("");
+  }
+
+  if (entry.examples.length > 0) {
+    expected.push(`## Examples`, "");
+    for (const example of entry.examples) {
+      const command = formatPattern(example.command, entry.defaultSpokenForm);
+      expected.push(`- \`"${command}"\`: ${example.description}`);
+    }
+    expected.push("");
+  }
+
+  if (isScope) {
+    expected.push(`<Scopes scopeTypeType="${id}" />`, "");
+  }
 
   return expected.join("\n");
+}
+
+function code(value: string) {
+  return `\`${value}\``;
+}
+
+function bold(value: string) {
+  return `**${value}**`;
+}
+
+function formatPattern(
+  pattern: string,
+  defaultSpokenForm: string | undefined,
+): string {
+  return pattern
+    .split(/(<[\w ]+>)/gu)
+    .map((part) => {
+      if (part.startsWith("<") && part.endsWith(">")) {
+        if (part === "<spokenForm>") {
+          return defaultSpokenForm ?? "???";
+        }
+        return code(part);
+      }
+      return part;
+    })
+    .join("");
+}
+
+function formatGroup(lines: string[]): string[] {
+  return lines.map((line, index) =>
+    index < lines.length - 1 ? `${line}\\` : line,
+  );
 }
