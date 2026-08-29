@@ -1,6 +1,8 @@
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import type { ReferenceEntry } from "@cursorless/lib-common";
 
+const VAR_SPOKEN_FORM = "<spokenForm>";
+
 export function updateReferenceMdx(
   kind: "action" | "modifier" | "scope",
   id: string,
@@ -58,10 +60,11 @@ export function updateReferenceMdx(
   if (entry.syntaxes.length > 0) {
     expected.push(`## Syntax`, "");
     for (const syntax of entry.syntaxes) {
-      const pattern = formatPattern(syntax.pattern, entry.defaultSpokenForm);
-      const description = formatPattern(
-        syntax.description,
-        entry.defaultSpokenForm,
+      const pattern = formatVariables(
+        injectSpokenForm(syntax.pattern, entry.defaultSpokenForm),
+      );
+      const description = formatVariables(
+        injectSpokenForm(syntax.description, entry.defaultSpokenForm),
       );
       expected.push(`- ${pattern}: ${description}`);
     }
@@ -71,7 +74,10 @@ export function updateReferenceMdx(
   if (entry.examples.length > 0) {
     expected.push(`## Examples`, "");
     for (const example of entry.examples) {
-      const command = formatPattern(example.command, entry.defaultSpokenForm);
+      const command = injectSpokenForm(
+        example.command,
+        entry.defaultSpokenForm,
+      );
       expected.push(`- \`"${command}"\`: ${example.description}`);
     }
     expected.push("");
@@ -92,17 +98,26 @@ function bold(value: string) {
   return `**${value}**`;
 }
 
-function formatPattern(
+function injectSpokenForm(
   pattern: string,
   defaultSpokenForm: string | undefined,
 ): string {
+  if (defaultSpokenForm == null) {
+    if (pattern.includes(VAR_SPOKEN_FORM)) {
+      throw new Error(
+        `Pattern "${pattern}" contains ${VAR_SPOKEN_FORM}, but no defaultSpokenForm is provided`,
+      );
+    }
+    return pattern;
+  }
+  return pattern.replace(VAR_SPOKEN_FORM, defaultSpokenForm);
+}
+
+function formatVariables(pattern: string): string {
   return pattern
     .split(/(<[\w ]+>)/gu)
     .map((part) => {
       if (part.startsWith("<") && part.endsWith(">")) {
-        if (part === "<spokenForm>") {
-          return defaultSpokenForm ?? "???";
-        }
         return code(part);
       }
       return part;
