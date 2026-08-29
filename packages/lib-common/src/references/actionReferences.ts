@@ -1,9 +1,8 @@
 import type { ActionType } from "../types/command/ActionDescriptor";
 import { connectiveSpokenForms } from "./connectiveSpokenForms";
-import { getSpokenForm } from "./getSpokenForm";
-import type { ReferenceEntry } from "./ReferenceEntry";
-import { scopeReferences } from "./scopeReferences";
 import {
+  REMOVE,
+  SET_SELECTION,
   VAR_DESTINATION,
   VAR_FORMATTER,
   VAR_PAIR,
@@ -13,25 +12,27 @@ import {
   VAR_TARGET,
   VAR_TARGET_1,
   VAR_TARGET_2,
-} from "./variables";
+} from "./constants";
+import { getSpokenForm } from "./getSpokenForm";
+import { modifierReferences } from "./modifierReferences";
+import type { ReferenceEntry } from "./ReferenceEntry";
+import { scopeReferences } from "./scopeReferences";
 
 const TARGET = "blue air";
 const TARGET_DESC = "token containing letter 'a' with a blue hat";
-// const TARGET_2 = "green bat";
-// const TARGET_2_DESC = "token containing letter 'b' with a green hat";
+const TARGET_2 = "green bat";
+const TARGET_2_DESC = "token containing letter 'b' with a green hat";
 
 const DEFAULT_PATTERN = `${VAR_SPOKEN_FORM} ${VAR_TARGET}`;
 const DEFAULT_PATTERN_SCOPE = `${VAR_SPOKEN_FORM} ${VAR_SCOPE} ${VAR_TARGET}`;
 const DEFAULT_COMMAND = `${VAR_SPOKEN_FORM} ${TARGET}`;
 
-// const COLLECTION_ITEM_SCOPE = getSpokenForm(scopeReferences.collectionItem);
-// const FUNCTION_CALL_SCOPE = getSpokenForm(scopeReferences.functionCall);
-// const INSTANCE_SCOPE = getSpokenForm(scopeReferences.instance);
-// const NAMED_FUNCTION_SCOPE = getSpokenForm(scopeReferences.namedFunction);
+const COLLECTION_ITEM_SCOPE = getSpokenForm(scopeReferences.collectionItem);
+const FUNCTION_CALL_SCOPE = getSpokenForm(scopeReferences.functionCall);
+const INSTANCE_SCOPE = getSpokenForm(scopeReferences.instance);
+const NAMED_FUNCTION_SCOPE = getSpokenForm(scopeReferences.namedFunction);
 const TOKEN_SCOPE = getSpokenForm(scopeReferences.token);
-// const EVERY_MODIFIER = getSpokenForm(modifierReferences.everyScope);
-const SET_SELECTION_SPOKEN_FORM = "take";
-
+const EVERY_MODIFIER = getSpokenForm(modifierReferences.everyScope);
 const SWAP_CONNECTIVE = connectiveSpokenForms.swapConnective;
 
 type TalonSideActionType = "applyFormatter" | "nextHomophone";
@@ -50,7 +51,12 @@ export const actionReferences: Record<
         cheatsheet: "Add selection",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Adds the ${TARGET_DESC} to the current selections.`,
+      },
+    ],
   },
   addSelectionAfter: {
     name: "Add selection after",
@@ -62,7 +68,12 @@ export const actionReferences: Record<
         cheatsheet: "Add selection after",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Adds an empty selection after the ${TARGET_DESC}.`,
+      },
+    ],
   },
   addSelectionBefore: {
     name: "Add selection before",
@@ -74,7 +85,12 @@ export const actionReferences: Record<
         cheatsheet: "Add selection before",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Adds an empty selection before the ${TARGET_DESC}.`,
+      },
+    ],
   },
   breakLine: {
     name: "Break line",
@@ -86,7 +102,12 @@ export const actionReferences: Record<
         cheatsheet: "Breaks the line",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Breaks the line before the ${TARGET_DESC}.`,
+      },
+    ],
   },
   clearAndSetSelection: {
     name: "Change",
@@ -99,7 +120,12 @@ export const actionReferences: Record<
         cheatsheet: "Change",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Deletes the ${TARGET_DESC} and leaves the cursor in its place.`,
+      },
+    ],
   },
   copyToClipboard: {
     name: "Copy to clipboard",
@@ -111,7 +137,12 @@ export const actionReferences: Record<
         cheatsheet: "Copy to clipboard",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Copies the ${TARGET_DESC} to the clipboard.`,
+      },
+    ],
   },
   cutToClipboard: {
     name: "Cut to clipboard",
@@ -123,7 +154,12 @@ export const actionReferences: Record<
         cheatsheet: "Cut to clipboard",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Cuts the ${TARGET_DESC} to the clipboard.`,
+      },
+    ],
   },
   decrement: {
     name: "Decrement",
@@ -135,7 +171,12 @@ export const actionReferences: Record<
         cheatsheet: "Decrement number",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Decrements the number at the ${TARGET_DESC}.`,
+      },
+    ],
   },
   deselect: {
     name: "Deselect",
@@ -147,7 +188,12 @@ export const actionReferences: Record<
         cheatsheet: "Deselect",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Removes the ${TARGET_DESC} from the current selections.`,
+      },
+    ],
   },
   editNewLineAfter: {
     name: "Edit new line/scope after",
@@ -165,7 +211,16 @@ export const actionReferences: Record<
         cheatsheet: `Edit new ${VAR_SCOPE} after`,
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Inserts a new line below the ${TARGET_DESC} and moves the cursor to it.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${COLLECTION_ITEM_SCOPE} ${TARGET}`,
+        description: `Inserts the delimiters for a new collection item after the item containing the ${TARGET_DESC} and moves the cursor there.`,
+      },
+    ],
   },
   editNewLineBefore: {
     name: "Edit new line/scope before",
@@ -183,7 +238,16 @@ export const actionReferences: Record<
         cheatsheet: `Edit new ${VAR_SCOPE} before`,
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Inserts a new line above the ${TARGET_DESC} and moves the cursor to it.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${COLLECTION_ITEM_SCOPE} ${TARGET}`,
+        description: `Inserts the delimiters for a new collection item before the item containing the ${TARGET_DESC} and moves the cursor there.`,
+      },
+    ],
   },
   "experimental.setInstanceReference": {
     name: "Set instance reference",
@@ -197,7 +261,12 @@ export const actionReferences: Record<
         cheatsheet: "Set instance reference",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${NAMED_FUNCTION_SCOPE} ${TARGET} ${SET_SELECTION} ${EVERY_MODIFIER} ${INSTANCE_SCOPE} ${TARGET_2}`,
+        description: `Selects every instance of the ${TARGET_2_DESC} within the function containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   extractVariable: {
     name: "Extract variable",
@@ -209,7 +278,12 @@ export const actionReferences: Record<
         cheatsheet: "Extract variable",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${FUNCTION_CALL_SCOPE} ${TARGET}`,
+        description: `Extracts the function call containing the ${TARGET_DESC} into a variable.`,
+      },
+    ],
   },
   findInDocument: {
     name: "Find in document",
@@ -221,7 +295,12 @@ export const actionReferences: Record<
         cheatsheet: "Find in document",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Searches the current document for the ${TARGET_DESC}.`,
+      },
+    ],
   },
   findInWorkspace: {
     name: "Find in workspace",
@@ -233,7 +312,12 @@ export const actionReferences: Record<
         cheatsheet: "Find in workspace",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Searches the workspace for the ${TARGET_DESC}.`,
+      },
+    ],
   },
   flashTargets: {
     name: "Flash target",
@@ -245,7 +329,12 @@ export const actionReferences: Record<
         cheatsheet: "Flash target",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Briefly flashes the ${TARGET_DESC}.`,
+      },
+    ],
   },
   foldRegion: {
     name: "Fold region",
@@ -257,7 +346,12 @@ export const actionReferences: Record<
         cheatsheet: "Fold region",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${NAMED_FUNCTION_SCOPE} ${TARGET}`,
+        description: `Folds the function containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   followLink: {
     name: "Follow link",
@@ -269,7 +363,12 @@ export const actionReferences: Record<
         cheatsheet: "Follow link",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Opens the link containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   followLinkAside: {
     name: "Follow link aside",
@@ -281,7 +380,12 @@ export const actionReferences: Record<
         cheatsheet: "Follow link aside",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Opens the link containing the ${TARGET_DESC} in a split view.`,
+      },
+    ],
   },
   gitAccept: {
     name: "Git accept",
@@ -293,7 +397,12 @@ export const actionReferences: Record<
         cheatsheet: "Git accept",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Accepts the Git change on the line containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   gitRevert: {
     name: "Git revert",
@@ -305,7 +414,12 @@ export const actionReferences: Record<
         cheatsheet: "Git revert",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Reverts the Git change on the line containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   gitStage: {
     name: "Git stage",
@@ -317,7 +431,12 @@ export const actionReferences: Record<
         cheatsheet: "Git stage",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Stages the Git change on the line containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   gitUnstage: {
     name: "Git unstage",
@@ -329,7 +448,12 @@ export const actionReferences: Record<
         cheatsheet: "Git unstage",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Unstages the Git change on the line containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   increment: {
     name: "Increment",
@@ -341,7 +465,12 @@ export const actionReferences: Record<
         cheatsheet: "Increment number",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Increments the ${TARGET_DESC}.`,
+      },
+    ],
   },
   indentLine: {
     name: "Indent line",
@@ -353,7 +482,12 @@ export const actionReferences: Record<
         cheatsheet: "Indent line",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Indents the line containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   insertCopyAfter: {
     name: "Insert copy after",
@@ -365,7 +499,12 @@ export const actionReferences: Record<
         cheatsheet: "Insert copy after",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${NAMED_FUNCTION_SCOPE} ${TARGET}`,
+        description: `Inserts a copy of the function containing the ${TARGET_DESC} after itself.`,
+      },
+    ],
   },
   insertCopyBefore: {
     name: "Insert copy before",
@@ -377,7 +516,12 @@ export const actionReferences: Record<
         cheatsheet: "Insert copy before",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${NAMED_FUNCTION_SCOPE} ${TARGET}`,
+        description: `Inserts a copy of the function containing the ${TARGET_DESC} before itself.`,
+      },
+    ],
   },
   insertEmptyLineAfter: {
     name: "Insert empty line after",
@@ -389,7 +533,16 @@ export const actionReferences: Record<
         cheatsheet: "Insert empty line after",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Inserts an empty line below the ${TARGET_DESC} without moving the cursor.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${COLLECTION_ITEM_SCOPE} ${TARGET}`,
+        description: `Inserts the required delimiter after the collection item containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   insertEmptyLineBefore: {
     name: "Insert empty line before",
@@ -401,7 +554,16 @@ export const actionReferences: Record<
         cheatsheet: "Insert empty line before",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Inserts an empty line above the ${TARGET_DESC} without moving the cursor.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${COLLECTION_ITEM_SCOPE} ${TARGET}`,
+        description: `Inserts the required delimiter before the collection item containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   insertEmptyLinesAround: {
     name: "Insert empty lines around",
@@ -413,7 +575,16 @@ export const actionReferences: Record<
         cheatsheet: "Insert empty lines around",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Inserts empty lines around the line containing the ${TARGET_DESC} without moving the cursor.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${TOKEN_SCOPE} ${TARGET}`,
+        description: `Inserts spaces around the ${TARGET_DESC}.`,
+      },
+    ],
   },
   joinLines: {
     name: "Join lines",
@@ -425,7 +596,12 @@ export const actionReferences: Record<
         cheatsheet: "Join lines",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Joins the line containing the ${TARGET_DESC} with the following line.`,
+      },
+    ],
   },
   outdentLine: {
     name: "Outdent line",
@@ -437,7 +613,12 @@ export const actionReferences: Record<
         cheatsheet: "Outdent line",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Decreases the indentation of the line containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   randomizeTargets: {
     name: "Randomize targets",
@@ -449,11 +630,16 @@ export const actionReferences: Record<
         cheatsheet: "Randomize targets",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${EVERY_MODIFIER} ${COLLECTION_ITEM_SCOPE} ${TARGET}`,
+        description: `Randomizes the collection items associated with the ${TARGET_DESC}.`,
+      },
+    ],
   },
   remove: {
     name: "Remove",
-    defaultSpokenForm: "chuck",
+    defaultSpokenForm: REMOVE,
     description:
       "This action can be used to remove a target without moving the cursor.",
     syntaxes: [
@@ -480,7 +666,12 @@ export const actionReferences: Record<
         cheatsheet: "Rename",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Starts renaming the ${TARGET_DESC}.`,
+      },
+    ],
   },
   revealDefinition: {
     name: "Reveal definition",
@@ -492,7 +683,12 @@ export const actionReferences: Record<
         cheatsheet: "Reveal definition",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Opens the definition of the ${TARGET_DESC}.`,
+      },
+    ],
   },
   revealTypeDefinition: {
     name: "Reveal type definition",
@@ -504,7 +700,12 @@ export const actionReferences: Record<
         cheatsheet: "Reveal type definition",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Opens the type definition of the ${TARGET_DESC}.`,
+      },
+    ],
   },
   reverseTargets: {
     name: "Reverse targets",
@@ -516,7 +717,12 @@ export const actionReferences: Record<
         cheatsheet: "Reverse targets",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${EVERY_MODIFIER} ${COLLECTION_ITEM_SCOPE} ${TARGET}`,
+        description: `Reverses the collection items associated with the ${TARGET_DESC}.`,
+      },
+    ],
   },
   scrollToBottom: {
     name: "Scroll to bottom",
@@ -528,7 +734,12 @@ export const actionReferences: Record<
         cheatsheet: "Scroll to bottom",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Scrolls the ${TARGET_DESC} to the bottom of the viewport.`,
+      },
+    ],
   },
   scrollToCenter: {
     name: "Scroll to center",
@@ -540,7 +751,12 @@ export const actionReferences: Record<
         cheatsheet: "Scroll to center",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Scrolls the ${TARGET_DESC} to the center of the viewport.`,
+      },
+    ],
   },
   scrollToTop: {
     name: "Scroll to top",
@@ -552,11 +768,16 @@ export const actionReferences: Record<
         cheatsheet: "Scroll to top",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Scrolls the ${TARGET_DESC} to the top of the viewport.`,
+      },
+    ],
   },
   setSelection: {
     name: "Set selection",
-    defaultSpokenForm: SET_SELECTION_SPOKEN_FORM,
+    defaultSpokenForm: SET_SELECTION,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -564,7 +785,12 @@ export const actionReferences: Record<
         cheatsheet: "Set selection",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Selects the ${TARGET_DESC}.`,
+      },
+    ],
   },
   setSelectionAfter: {
     name: "Set selection after",
@@ -576,7 +802,12 @@ export const actionReferences: Record<
         cheatsheet: "Set selection after",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Places the cursor after the ${TARGET_DESC}.`,
+      },
+    ],
   },
   setSelectionBefore: {
     name: "Set selection before",
@@ -588,7 +819,12 @@ export const actionReferences: Record<
         cheatsheet: "Set selection before",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Places the cursor before the ${TARGET_DESC}.`,
+      },
+    ],
   },
   showDebugHover: {
     name: "Show debug hover",
@@ -600,7 +836,12 @@ export const actionReferences: Record<
         cheatsheet: "Show debug hover",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Shows debug information for the ${TARGET_DESC}.`,
+      },
+    ],
   },
   showHover: {
     name: "Show hover",
@@ -612,7 +853,12 @@ export const actionReferences: Record<
         cheatsheet: "Show hover",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Shows hover information for the ${TARGET_DESC}.`,
+      },
+    ],
   },
   showQuickFix: {
     name: "Show quick fix",
@@ -624,7 +870,12 @@ export const actionReferences: Record<
         cheatsheet: "Show quick fix",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Shows quick fixes for the ${TARGET_DESC}.`,
+      },
+    ],
   },
   showReferences: {
     name: "Show references",
@@ -636,7 +887,12 @@ export const actionReferences: Record<
         cheatsheet: "Show references",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Shows references to the ${TARGET_DESC}.`,
+      },
+    ],
   },
   sortTargets: {
     name: "Sort targets",
@@ -648,7 +904,12 @@ export const actionReferences: Record<
         cheatsheet: "Sort targets",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${EVERY_MODIFIER} ${COLLECTION_ITEM_SCOPE} ${TARGET}`,
+        description: `Sorts the collection items associated with the ${TARGET_DESC}.`,
+      },
+    ],
   },
   toggleLineBreakpoint: {
     name: "Toggle line/scope breakpoint",
@@ -666,7 +927,12 @@ export const actionReferences: Record<
         cheatsheet: "Toggle inline breakpoint",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Toggles a breakpoint on the line containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   toggleLineComment: {
     name: "Toggle line comment",
@@ -678,7 +944,12 @@ export const actionReferences: Record<
         cheatsheet: "Toggle line comment",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Toggles the comment on the line containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   unfoldRegion: {
     name: "Unfold region",
@@ -690,7 +961,12 @@ export const actionReferences: Record<
         cheatsheet: "Unfold region",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${NAMED_FUNCTION_SCOPE} ${TARGET}`,
+        description: `Unfolds the function containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   callAsFunction: {
     name: "Call as function",
@@ -707,7 +983,12 @@ export const actionReferences: Record<
         cheatsheet: `Insert call to ${VAR_TARGET_1} on ${VAR_TARGET_2}`,
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Inserts a call to the ${TARGET_DESC} at the current selection.`,
+      },
+    ],
   },
   generateSnippet: {
     name: "Generate snippet",
@@ -720,7 +1001,12 @@ export const actionReferences: Record<
         cheatsheet: "Generate snippet",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${NAMED_FUNCTION_SCOPE} ${TARGET}`,
+        description: `Generates a snippet from the function containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   highlight: {
     name: "Highlight",
@@ -732,7 +1018,12 @@ export const actionReferences: Record<
         cheatsheet: "Highlight",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Highlights the ${TARGET_DESC}.`,
+      },
+    ],
   },
   insertSnippet: {
     name: "Insert snippet",
@@ -744,7 +1035,12 @@ export const actionReferences: Record<
         cheatsheet: `Insert snippet at ${VAR_DESTINATION}`,
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${VAR_SNIPPET} after ${TARGET}`,
+        description: `Inserts an if-statement snippet after the ${TARGET_DESC}.`,
+      },
+    ],
   },
   moveToTarget: {
     name: "Move to target",
@@ -761,7 +1057,12 @@ export const actionReferences: Record<
         cheatsheet: `Move ${VAR_TARGET} to ${VAR_DESTINATION}`,
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${TARGET} after ${TARGET_2}`,
+        description: `Moves the ${TARGET_DESC} to after the ${TARGET_2_DESC}.`,
+      },
+    ],
   },
   pasteFromClipboard: {
     name: "Paste from clipboard",
@@ -773,7 +1074,12 @@ export const actionReferences: Record<
         cheatsheet: `Paste from clipboard at ${VAR_DESTINATION}`,
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} after ${TARGET}`,
+        description: `Pastes the clipboard contents after the ${TARGET_DESC}.`,
+      },
+    ],
   },
   replaceWithTarget: {
     name: "Replace with target",
@@ -790,7 +1096,12 @@ export const actionReferences: Record<
         cheatsheet: `Copy ${VAR_TARGET} to ${VAR_DESTINATION}`,
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${TARGET} to ${TARGET_2}`,
+        description: `Replaces the ${TARGET_2_DESC} with a copy of the ${TARGET_DESC}.`,
+      },
+    ],
   },
   rewrapWithPairedDelimiter: {
     name: "Rewrap with paired delimiter",
@@ -802,7 +1113,12 @@ export const actionReferences: Record<
         cheatsheet: `Rewrap ${VAR_TARGET} with ${VAR_PAIR}`,
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `curly ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Replaces the paired delimiters around the ${TARGET_DESC} with curly brackets.`,
+      },
+    ],
   },
   swapTargets: {
     name: "Swap targets",
@@ -819,7 +1135,12 @@ export const actionReferences: Record<
         cheatsheet: `Swap ${VAR_TARGET_1} with ${VAR_TARGET_2}`,
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${TARGET} ${connectiveSpokenForms.swapConnective} ${TARGET_2}`,
+        description: `Swaps the ${TARGET_DESC} and the ${TARGET_2_DESC}.`,
+      },
+    ],
   },
   wrapWithPairedDelimiter: {
     name: "Wrap with paired delimiter",
@@ -831,7 +1152,12 @@ export const actionReferences: Record<
         cheatsheet: `Wrap ${VAR_TARGET} with ${VAR_PAIR}`,
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `box ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Wraps the ${TARGET_DESC} in square brackets.`,
+      },
+    ],
   },
   wrapWithSnippet: {
     name: "Wrap with snippet",
@@ -843,7 +1169,12 @@ export const actionReferences: Record<
         cheatsheet: `Wrap ${VAR_TARGET} with ${VAR_SNIPPET}`,
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `if ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Wraps the ${TARGET_DESC} in an if-statement snippet.`,
+      },
+    ],
   },
   applyFormatter: {
     name: "Apply formatter",
@@ -855,7 +1186,12 @@ export const actionReferences: Record<
         cheatsheet: `Reformat ${VAR_TARGET} as ${VAR_FORMATTER}`,
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} camel at ${TARGET}`,
+        description: `Reformats the ${TARGET_DESC} as camel case.`,
+      },
+    ],
   },
   nextHomophone: {
     name: "Next homophone",
@@ -867,7 +1203,12 @@ export const actionReferences: Record<
         cheatsheet: "Cycle to next homophone",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Replaces the ${TARGET_DESC} with its next homophone.`,
+      },
+    ],
   },
 
   // Private actions --------------------
@@ -883,7 +1224,12 @@ export const actionReferences: Record<
         cheatsheet: "Show parse tree",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Shows the parse tree for the ${TARGET_DESC}.`,
+      },
+    ],
   },
   parsed: {
     name: "Parsed",

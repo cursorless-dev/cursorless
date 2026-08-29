@@ -1,25 +1,36 @@
 import type { ModifierType } from "../types/command/PartialTargetDescriptor.types";
 import type { SpokenFormMapKeyTypes } from "../types/SpokenFormType";
-import type { ReferenceEntry, SpokenFormReference } from "./ReferenceEntry";
 import {
+  BACKWARD,
+  EVERY,
+  EXTEND_THROUGH_END_OF,
+  FIRST,
+  FORWARD,
+  ITEM,
+  LAST,
+  LINE,
+  NEXT,
+  PARENTHESES,
+  PREVIOUS,
+  REMOVE,
+  SET_SELECTION,
+  STATEMENT,
+  THIRD,
+  THREE,
   VAR_MODIFIER,
   VAR_NUMBER,
   VAR_ORDINAL,
   VAR_SCOPE,
   VAR_SPOKEN_FORM,
-} from "./variables";
+} from "./constants";
+import type { ReferenceEntry, SpokenFormReference } from "./ReferenceEntry";
 
 const DEFAULT_PATTERN = VAR_SPOKEN_FORM;
 
-type AdditionalModifierReferenceType = "ancestor";
+const TARGET = "blue air";
+const TARGET_DESC = "token containing letter 'a' with a blue hat";
 
-const NEXT = "next";
-const FIRST = "first";
-const LAST = "last";
-const PREVIOUS = "previous";
-const BACKWARD = "backward";
-const FORWARD = "forward";
-const EVERY = "every";
+type AdditionalModifierReferenceType = "ancestor";
 
 export const modifierReferences: Record<
   ModifierType | AdditionalModifierReferenceType,
@@ -35,7 +46,12 @@ export const modifierReferences: Record<
         cheatsheet: "Empty position at start of target",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Places the cursor at the start of the ${TARGET_DESC}.`,
+      },
+    ],
   },
   endOf: {
     name: "End of",
@@ -47,7 +63,12 @@ export const modifierReferences: Record<
         cheatsheet: "Empty position at end of target",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Places the cursor at the end of the ${TARGET_DESC}.`,
+      },
+    ],
   },
   interiorOnly: {
     name: "Interior only",
@@ -59,7 +80,12 @@ export const modifierReferences: Record<
         cheatsheet: "Interior only",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${PARENTHESES} ${TARGET}`,
+        description: `Selects the contents of the parentheses containing the ${TARGET_DESC}, excluding the parentheses.`,
+      },
+    ],
   },
   excludeInterior: {
     name: "Exclude interior",
@@ -71,7 +97,12 @@ export const modifierReferences: Record<
         cheatsheet: "Bounding paired delimiters",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${PARENTHESES} ${TARGET}`,
+        description: `Selects only the parentheses containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   visible: {
     name: "Visible",
@@ -83,7 +114,13 @@ export const modifierReferences: Record<
         cheatsheet: "Visible in viewport",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM}`,
+        description:
+          "Selects the content currently visible in the editor viewport.",
+      },
+    ],
   },
   containingScope: {
     name: "Containing scope",
@@ -94,7 +131,12 @@ export const modifierReferences: Record<
         cheatsheet: `Containing instance of ${VAR_SCOPE}`,
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${STATEMENT} ${TARGET}`,
+        description: `Selects the statement containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   everyScope: {
     name: "Every scope",
@@ -106,7 +148,12 @@ export const modifierReferences: Record<
         cheatsheet: `Every instance of ${VAR_SCOPE}`,
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
+        description: `Selects every item in the map containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   ancestor: {
     name: "Ancestor",
@@ -118,7 +165,12 @@ export const modifierReferences: Record<
         cheatsheet: `Grandparent containing instance of ${VAR_SCOPE}`,
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${STATEMENT} ${TARGET}`,
+        description: `Selects the parent statement of the statement containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   ordinalScope: {
     name: "Ordinal scope",
@@ -154,7 +206,17 @@ export const modifierReferences: Record<
         cheatsheet: `Last ${VAR_NUMBER} instances of ${VAR_SCOPE} in iteration scope, as individual targets`,
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${THIRD} ${STATEMENT}`,
+        description: "Selects the third statement in the iteration scope.",
+      },
+      {
+        command: `${SET_SELECTION} ${FIRST} ${THREE} ${STATEMENT}s`,
+        description:
+          "Selects a contiguous range containing the first three statements in the iteration scope.",
+      },
+    ],
   },
   relativeScope: {
     name: "Relative scope",
@@ -230,7 +292,16 @@ export const modifierReferences: Record<
         cheatsheet: `Next ${VAR_NUMBER} instances of ${VAR_SCOPE}, as individual targets`,
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${NEXT} ${STATEMENT} ${TARGET}`,
+        description: `Selects the next statement after the statement containing the ${TARGET_DESC}.`,
+      },
+      {
+        command: `${SET_SELECTION} ${THREE} ${STATEMENT}s ${BACKWARD} ${TARGET}`,
+        description: `Selects three statements as a contiguous range, starting at the ${TARGET_DESC} and going backward.`,
+      },
+    ],
   },
   extendThroughStartOf: {
     name: "Extend through start of",
@@ -247,7 +318,12 @@ export const modifierReferences: Record<
         cheatsheet: `Extend through start of ${VAR_MODIFIER}`,
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects from the ${TARGET_DESC} through the start of its line or surrounding pair.`,
+      },
+    ],
   },
   extendThroughEndOf: {
     name: "Extend through end of",
@@ -264,7 +340,12 @@ export const modifierReferences: Record<
         cheatsheet: `Extend through end of ${VAR_MODIFIER}`,
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects from the ${TARGET_DESC} through the end of its line or surrounding pair.`,
+      },
+    ],
   },
   leading: {
     name: "Leading",
@@ -276,7 +357,12 @@ export const modifierReferences: Record<
         cheatsheet: "Leading delimiter range",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
+        description: `Selects the leading delimiter of the item containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   trailing: {
     name: "Trailing",
@@ -288,7 +374,12 @@ export const modifierReferences: Record<
         cheatsheet: "Trailing delimiter range",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
+        description: `Selects the trailing delimiter of the item containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   toRawSelection: {
     name: "Raw selection",
@@ -300,7 +391,12 @@ export const modifierReferences: Record<
         cheatsheet: "No inference",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${REMOVE} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Deletes only the ${TARGET_DESC}, leaving adjacent whitespace unchanged.`,
+      },
+    ],
   },
   keepContentFilter: {
     name: "Keep content filter",
@@ -312,7 +408,13 @@ export const modifierReferences: Record<
         cheatsheet: "Keep content filter",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM}`,
+        description:
+          "Selects only to the nonempty selections when there are multiple selections.",
+      },
+    ],
   },
   keepEmptyFilter: {
     name: "Keep empty filter",
@@ -324,7 +426,13 @@ export const modifierReferences: Record<
         cheatsheet: "Keep empty filter",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM}`,
+        description:
+          "Selects only the empty selections when there are multiple selections.",
+      },
+    ],
   },
   inferPreviousMark: {
     name: "Infer previous mark",
@@ -336,20 +444,17 @@ export const modifierReferences: Record<
         cheatsheet: "Infer previous mark",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${TARGET} ${EXTEND_THROUGH_END_OF} ${VAR_SPOKEN_FORM} ${LINE}`,
+        description: `Selects from the ${TARGET_DESC} through the end of the line containing that token.`,
+      },
+    ],
   },
 
   // Private modifiers, but that has spoken forms
   preferredScope: {
     name: "Preferred scope",
-    private: true,
-    syntaxes: [],
-    examples: [],
-  },
-
-  // Modifiers without spoken forms
-  modifyIfUntyped: {
-    name: "Modify if untyped",
     private: true,
     syntaxes: [
       {
@@ -358,6 +463,19 @@ export const modifierReferences: Record<
         cheatsheet: `Preferred instance of ${VAR_SCOPE}`,
       },
     ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
+        description: `Selects the closest item to the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+
+  // Modifiers without spoken forms
+  modifyIfUntyped: {
+    name: "Modify if untyped",
+    private: true,
+    syntaxes: [],
     examples: [],
   },
   fallback: {

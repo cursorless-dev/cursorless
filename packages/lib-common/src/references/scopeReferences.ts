@@ -1,8 +1,20 @@
 import type { ScopeTypeType } from "../types/command/PartialTargetDescriptor.types";
+import {
+  EVERY,
+  ITEM,
+  PARENTHESES,
+  SET_SELECTION,
+  STATEMENT,
+  VAR_CHARACTER,
+  VAR_PAIR,
+  VAR_SPOKEN_FORM,
+} from "./constants";
 import type { ReferenceEntry } from "./ReferenceEntry";
-import { VAR_CHARACTER, VAR_PAIR, VAR_SPOKEN_FORM } from "./variables";
 
 const DEFAULT_PATTERN = VAR_SPOKEN_FORM;
+
+const TARGET = "blue air";
+const TARGET_DESC = "token containing letter 'a' with a blue hat";
 
 export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
   argumentOrParameter: {
@@ -15,7 +27,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Argument",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the argument or parameter containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   argumentList: {
     name: "Argument list",
@@ -27,7 +44,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Argument list",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the argument list containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   anonymousFunction: {
     name: "Anonymous function",
@@ -39,7 +61,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Anonymous function",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the anonymous function containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   attribute: {
     name: "Attribute",
@@ -51,7 +78,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Attribute",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the attribute containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   branch: {
     name: "Branch",
@@ -63,7 +95,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Branch",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the branch containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   class: {
     name: "Class",
@@ -75,7 +112,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Class",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the class containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   className: {
     name: "Class name",
@@ -87,11 +129,16 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Class name",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the class name containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   collectionItem: {
     name: "Collection item",
-    defaultSpokenForm: "item",
+    defaultSpokenForm: ITEM,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -99,7 +146,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Collection item",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the collection item containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   collectionKey: {
     name: "Collection key",
@@ -111,7 +163,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Collection key",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the collection key containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   comment: {
     name: "Comment",
@@ -123,7 +180,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Comment",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the comment containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   functionCall: {
     name: "Function call",
@@ -135,7 +197,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Function call",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the function call containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   functionCallee: {
     name: "Function callee",
@@ -147,7 +214,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Function callee",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the function callee containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   functionName: {
     name: "Function name",
@@ -159,7 +231,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Function name",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the function name containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   ifStatement: {
     name: "If statement",
@@ -171,7 +248,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "If statement",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the if statement containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   instance: {
     name: "Instance",
@@ -183,7 +265,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Instance",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${EVERY} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects every instance of the ${TARGET_DESC}.`,
+      },
+    ],
   },
   list: {
     name: "List",
@@ -195,7 +282,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "List",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the list containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   map: {
     name: "Map",
@@ -207,7 +299,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Map",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the map containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   name: {
     name: "Name",
@@ -219,7 +316,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Name",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the name containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   namedFunction: {
     name: "Named function",
@@ -231,7 +333,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Named function",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the named function containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   regularExpression: {
     name: "Regular expression",
@@ -243,11 +350,16 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Regular expression",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the regular expression containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   statement: {
     name: "Statement",
-    defaultSpokenForm: "state",
+    defaultSpokenForm: STATEMENT,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -255,7 +367,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Statement",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the statement containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   type: {
     name: "Type",
@@ -267,7 +384,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Type",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the type containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   value: {
     name: "Value",
@@ -279,7 +401,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Value",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the value containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   condition: {
     name: "Condition",
@@ -291,7 +418,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Condition",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the condition containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   section: {
     name: "Section",
@@ -303,7 +435,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Section",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the section containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   sectionLevelOne: {
     name: "Section level one",
@@ -316,7 +453,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Section level one",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the section level one containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   sectionLevelTwo: {
     name: "Section level two",
@@ -329,7 +471,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Section level two",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the section level two containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   sectionLevelThree: {
     name: "Section level three",
@@ -342,7 +489,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Section level three",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the section level three containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   sectionLevelFour: {
     name: "Section level four",
@@ -355,7 +507,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Section level four",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the section level four containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   sectionLevelFive: {
     name: "Section level five",
@@ -368,7 +525,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Section level five",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the section level five containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   sectionLevelSix: {
     name: "Section level six",
@@ -381,7 +543,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Section level six",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the section level six containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   selector: {
     name: "Selector",
@@ -393,7 +560,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Selector",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the selector containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   unit: {
     name: "Unit",
@@ -405,7 +577,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Unit",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the unit containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   xmlBothTags: {
     name: "XML both tags",
@@ -417,7 +594,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "XML both tags",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the xml both tags containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   xmlElement: {
     name: "XML element",
@@ -429,7 +611,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "XML element",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the xml element containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   xmlEndTag: {
     name: "XML end tag",
@@ -441,7 +628,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "XML end tag",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the xml end tag containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   xmlStartTag: {
     name: "XML start tag",
@@ -453,7 +645,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "XML start tag",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the xml start tag containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   part: {
     name: "Part",
@@ -465,7 +662,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Part",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the part containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   chapter: {
     name: "Chapter",
@@ -477,7 +679,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Chapter",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the chapter containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   subSection: {
     name: "Subsection",
@@ -489,7 +696,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Subsection",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the subsection containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   subSubSection: {
     name: "Subsubsection",
@@ -501,7 +713,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Subsubsection",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the subsubsection containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   namedParagraph: {
     name: "Named paragraph",
@@ -513,7 +730,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Named paragraph",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the named paragraph containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   subParagraph: {
     name: "Subparagraph",
@@ -525,7 +747,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Subparagraph",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the subparagraph containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   environment: {
     name: "Environment",
@@ -537,7 +764,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Environment",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the environment containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   character: {
     name: "Character",
@@ -549,7 +781,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Character",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the character containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   word: {
     name: "Sub token word",
@@ -562,7 +799,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Sub token word",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the sub token word containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   token: {
     name: "Token",
@@ -574,7 +816,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Token",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the token containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   identifier: {
     name: "Identifier",
@@ -586,7 +833,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Identifier",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the identifier containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   line: {
     name: "Line",
@@ -598,7 +850,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Line",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the line containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   fullLine: {
     name: "Full line",
@@ -610,7 +867,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Full line",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the full line containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   sentence: {
     name: "Sentence",
@@ -622,7 +884,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Sentence",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the sentence containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   paragraph: {
     name: "Paragraph",
@@ -634,7 +901,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Paragraph",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the paragraph containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   boundedParagraph: {
     name: "Bounded paragraph",
@@ -646,7 +918,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Paragraph bounded by surrounding pair delimiters",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the bounded paragraph containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   document: {
     name: "Document",
@@ -658,7 +935,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Document",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the document containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   nonWhitespaceSequence: {
     name: "Non-whitespace sequence",
@@ -670,7 +952,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Non-whitespace sequence",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the non-whitespace sequence containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   boundedNonWhitespaceSequence: {
     name: "Bounded non-whitespace sequence",
@@ -685,7 +972,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
           "Non-whitespace sequence bounded by surrounding pair delimiters",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the bounded non-whitespace sequence containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   url: {
     name: "URL",
@@ -697,7 +989,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "URL",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the url containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   notebookCell: {
     name: "Notebook cell",
@@ -709,7 +1006,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Notebook cell",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the notebook cell containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   command: {
     name: "Command",
@@ -721,7 +1023,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Command",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the command containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   glyph: {
     name: "Glyph",
@@ -733,7 +1040,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: `Instance of single character ${VAR_CHARACTER}`,
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the character indicated by the ${TARGET_DESC}.`,
+      },
+    ],
   },
   surroundingPair: {
     name: "Surrounding pair",
@@ -744,7 +1056,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Surrounding pair",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${PARENTHESES} ${TARGET}`,
+        description: `Selects the parentheses containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
 
   // Private scopes --------------------
@@ -760,7 +1077,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Field access",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the field access containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   string: {
     name: "String",
@@ -773,7 +1095,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "String",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the string containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   textFragment: {
     name: "Text fragment",
@@ -786,7 +1113,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Text fragment",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the text fragment containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   disqualifyDelimiter: {
     name: "Disqualify delimiter",
@@ -799,7 +1131,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Disqualify delimiter",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the disqualify delimiter containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   pairDelimiter: {
     name: "Pair delimiter",
@@ -812,7 +1149,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Pair delimiter",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the pair delimiter containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   interior: {
     name: "Interior",
@@ -825,7 +1167,12 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
         cheatsheet: "Interior",
       },
     ],
-    examples: [],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the interior containing the ${TARGET_DESC}.`,
+      },
+    ],
   },
   surroundingPairInterior: {
     name: "Surrounding pair interior",
