@@ -7,7 +7,7 @@ import { injectSpokenForm } from "./util/injectSpokenForm";
 export function updateReferenceMdx(
   kind: "action" | "modifier" | "scope",
   id: string,
-  entry: ReferenceEntry,
+  entry: ReferenceEntry<string>,
   actual: string | null,
   options: FormatPluginFnOptions,
 ): string | null {

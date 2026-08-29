@@ -1,15 +1,12 @@
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
-import type {
-  GroupedReferenceEntry,
-  ReferenceGroup,
-} from "@cursorless/lib-common";
+import type { ReferenceEntry, ReferenceGroup } from "@cursorless/lib-common";
 import { cleanId } from "./util/cleanId";
 import { formatVariables } from "./util/formatVariables";
 import { injectSpokenForm } from "./util/injectSpokenForm";
 
 export function updateReferenceReadmeMd(
   title: string,
-  entries: Record<string, GroupedReferenceEntry<string>>,
+  entries: Record<string, ReferenceEntry<string>>,
   groups: ReferenceGroup<string>[],
   actual: string | null,
   options: FormatPluginFnOptions,

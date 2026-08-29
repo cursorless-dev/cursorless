@@ -1,6 +1,34 @@
-import type { ActionReferenceGroup } from "./ReferenceEntry";
+import type { ReferenceGroup } from "./ReferenceEntry";
 
-export const actionReferenceGroups: ActionReferenceGroup[] = [
+export type ActionReferenceGroupId =
+  | "cursor"
+  | "change"
+  | "clone"
+  | "clipboard"
+  | "swap"
+  | "indentation"
+  | "numbers"
+  | "emptyLines"
+  | "homophones"
+  | "rename"
+  | "scroll"
+  | "insert"
+  | "move"
+  | "reorder"
+  | "wrap"
+  | "navigation"
+  | "folding"
+  | "extract"
+  | "join"
+  | "break"
+  | "visual"
+  | "snippets"
+  | "git"
+  | "editor"
+  | "targetContext"
+  | "private";
+
+export const actionReferenceGroups: ReferenceGroup<ActionReferenceGroupId>[] = [
   {
     id: "cursor",
     name: "Cursor movement",

@@ -9,7 +9,9 @@ import {
   actionReferenceGroups,
   actionReferences,
   languageScopeSupport,
+  modifierReferenceGroups,
   modifierReferences,
+  scopeReferenceGroups,
   scopeReferences,
 } from "@cursorless/lib-common";
 import type { Context } from "./Context";
@@ -59,6 +61,18 @@ export const updater = async (workspaceDir: string) => {
         "Actions",
         actionReferences,
         actionReferenceGroups,
+      ),
+      [`${userDir}/modifiers/README.md`]: updateReferenceReadmeMd.bind(
+        null,
+        "Modifiers",
+        modifierReferences,
+        modifierReferenceGroups,
+      ),
+      [`${userDir}/scopes/README.md`]: updateReferenceReadmeMd.bind(
+        null,
+        "Scopes",
+        scopeReferences,
+        scopeReferenceGroups,
       ),
       ...Object.fromEntries(
         Object.entries(actionReferences).map(([id, entry]) => [

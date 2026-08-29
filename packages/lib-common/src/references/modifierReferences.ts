@@ -14,6 +14,7 @@ import {
   VAR_SCOPE,
   VAR_SPOKEN_FORM,
 } from "./constants";
+import type { ModifierReferenceGroupId } from "./modifierReferenceGroups";
 import { pairedDelimiterReferences } from "./pairedDelimiterReferences";
 import type { ReferenceEntry } from "./ReferenceEntry";
 import { connectiveDefaultSpokenForms } from "./spokenForms/connectiveDefaultSpokenForms";
@@ -35,9 +36,11 @@ const LAST = connectiveDefaultSpokenForms.last;
 type AdditionalModifierReferenceType = "ancestor";
 
 export const modifierReferences = {
+  // Group: position
   startOf: {
     name: "Start of",
     defaultSpokenForm: "start of",
+    group: { id: "position", index: 0 },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -55,6 +58,7 @@ export const modifierReferences = {
   endOf: {
     name: "End of",
     defaultSpokenForm: "end of",
+    group: { id: "position", index: 1 },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -69,9 +73,12 @@ export const modifierReferences = {
       },
     ],
   },
+
+  // Group: delimiters
   interiorOnly: {
     name: "Interior only",
     defaultSpokenForm: "inside",
+    group: { id: "delimiters", index: 0 },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -89,6 +96,7 @@ export const modifierReferences = {
   excludeInterior: {
     name: "Exclude interior",
     defaultSpokenForm: "bounds",
+    group: { id: "delimiters", index: 1 },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -103,26 +111,47 @@ export const modifierReferences = {
       },
     ],
   },
-  visible: {
-    name: "Visible",
-    defaultSpokenForm: "visible",
+  leading: {
+    name: "Leading",
+    defaultSpokenForm: "leading",
+    group: { id: "delimiters", index: 2 },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Visible in viewport.",
-        cheatsheet: "Visible in viewport",
+        description: "Leading delimiter range.",
+        cheatsheet: "Leading delimiter range",
       },
     ],
     examples: [
       {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM}`,
-        description:
-          "Selects the content currently visible in the editor viewport.",
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
+        description: `Selects the leading delimiter of the item containing the ${TARGET_DESC}.`,
       },
     ],
   },
+  trailing: {
+    name: "Trailing",
+    defaultSpokenForm: "trailing",
+    group: { id: "delimiters", index: 3 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Trailing delimiter range.",
+        cheatsheet: "Trailing delimiter range",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
+        description: `Selects the trailing delimiter of the item containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+
+  // Group: scope
   containingScope: {
     name: "Containing scope",
+    group: { id: "scope", index: 0 },
     syntaxes: [
       {
         pattern: VAR_SCOPE,
@@ -140,6 +169,7 @@ export const modifierReferences = {
   everyScope: {
     name: "Every scope",
     defaultSpokenForm: EVERY,
+    group: { id: "scope", index: 1 },
     syntaxes: [
       {
         pattern: `${VAR_SPOKEN_FORM} ${VAR_SCOPE}`,
@@ -157,6 +187,7 @@ export const modifierReferences = {
   ancestor: {
     name: "Ancestor",
     defaultSpokenForm: "grand",
+    group: { id: "scope", index: 2 },
     syntaxes: [
       {
         pattern: `${VAR_SPOKEN_FORM} ${VAR_SCOPE}`,
@@ -173,6 +204,7 @@ export const modifierReferences = {
   },
   ordinalScope: {
     name: "Ordinal scope",
+    group: { id: "scope", index: 3 },
     syntaxes: [
       {
         pattern: `${VAR_ORDINAL} ${VAR_SCOPE}`,
@@ -239,6 +271,7 @@ export const modifierReferences = {
   },
   relativeScope: {
     name: "Relative scope",
+    group: { id: "scope", index: 4 },
     syntaxes: [
       {
         pattern: `${PREVIOUS} ${VAR_SCOPE}`,
@@ -370,9 +403,12 @@ export const modifierReferences = {
       },
     ],
   },
+
+  // Group: range
   extendThroughStartOf: {
     name: "Extend through start of",
     defaultSpokenForm: "head",
+    group: { id: "range", index: 0 },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -399,6 +435,7 @@ export const modifierReferences = {
   extendThroughEndOf: {
     name: "Extend through end of",
     defaultSpokenForm: "tail",
+    group: { id: "range", index: 1 },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -422,60 +459,31 @@ export const modifierReferences = {
       },
     ],
   },
-  leading: {
-    name: "Leading",
-    defaultSpokenForm: "leading",
+
+  // Group: filters
+  visible: {
+    name: "Visible",
+    defaultSpokenForm: "visible",
+    group: { id: "filters", index: 0 },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Leading delimiter range.",
-        cheatsheet: "Leading delimiter range",
+        description: "Visible in viewport.",
+        cheatsheet: "Visible in viewport",
       },
     ],
     examples: [
       {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
-        description: `Selects the leading delimiter of the item containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  trailing: {
-    name: "Trailing",
-    defaultSpokenForm: "trailing",
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Trailing delimiter range.",
-        cheatsheet: "Trailing delimiter range",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
-        description: `Selects the trailing delimiter of the item containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  toRawSelection: {
-    name: "Raw selection",
-    defaultSpokenForm: "just",
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "No inference.",
-        cheatsheet: "No inference",
-      },
-    ],
-    examples: [
-      {
-        command: `${REMOVE} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Deletes only the ${TARGET_DESC}, leaving adjacent whitespace unchanged.`,
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM}`,
+        description:
+          "Selects the content currently visible in the editor viewport.",
       },
     ],
   },
   keepContentFilter: {
     name: "Keep content filter",
     defaultSpokenForm: "content",
+    group: { id: "filters", index: 1 },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -494,6 +502,7 @@ export const modifierReferences = {
   keepEmptyFilter: {
     name: "Keep empty filter",
     defaultSpokenForm: "empty",
+    group: { id: "filters", index: 2 },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -509,9 +518,30 @@ export const modifierReferences = {
       },
     ],
   },
+
+  // Group: inference
+  toRawSelection: {
+    name: "Raw selection",
+    defaultSpokenForm: "just",
+    group: { id: "inference", index: 0 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "No inference.",
+        cheatsheet: "No inference",
+      },
+    ],
+    examples: [
+      {
+        command: `${REMOVE} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Deletes only the ${TARGET_DESC}, leaving adjacent whitespace unchanged.`,
+      },
+    ],
+  },
   inferPreviousMark: {
     name: "Infer previous mark",
     defaultSpokenForm: "its",
+    group: { id: "inference", index: 1 },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -527,10 +557,11 @@ export const modifierReferences = {
     ],
   },
 
-  // Private modifiers, but that has spoken forms
+  // Group: private
   preferredScope: {
     name: "Preferred scope",
     private: true,
+    group: { id: "private", index: 0 },
     syntaxes: [
       {
         pattern: VAR_SCOPE,
@@ -545,27 +576,28 @@ export const modifierReferences = {
       },
     ],
   },
-
-  // Modifiers without spoken forms
   modifyIfUntyped: {
     name: "Modify if untyped",
     private: true,
+    group: { id: "private", index: 1 },
     syntaxes: [],
     examples: [],
   },
   fallback: {
     name: "Fallback",
     private: true,
+    group: { id: "private", index: 2 },
     syntaxes: [],
     examples: [],
   },
   range: {
     name: "Range",
     private: true,
+    group: { id: "private", index: 3 },
     syntaxes: [],
     examples: [],
   },
 } as const satisfies Record<
   ModifierType | AdditionalModifierReferenceType,
-  ReferenceEntry
+  ReferenceEntry<ModifierReferenceGroupId>
 >;

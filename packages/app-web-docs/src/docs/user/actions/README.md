@@ -12,8 +12,8 @@
 
 ## Changing a target
 
-- [`"chuck <target>"`](./remove.mdx) - Remove `<target>`.
 - [`"change <target>"`](./clearAndSetSelection.mdx) - Change `<target>` by clearing it and leaving the cursor in its place.
+- [`"chuck <target>"`](./remove.mdx) - Remove `<target>`.
 
 ## Clone
 
