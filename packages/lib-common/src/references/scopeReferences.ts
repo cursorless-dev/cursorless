@@ -22,7 +22,7 @@ const TARGET_DESC = "token containing letter 'a' with a blue hat";
 const PARENTHESIS = pairedDelimiterReferences.parentheses.defaultSpokenForm;
 const NEXT = connectiveDefaultSpokenForms.next;
 
-export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
+export const scopeReferences = {
   argumentOrParameter: {
     name: "Argument or parameter",
     defaultSpokenForm: "arg",
@@ -1192,4 +1192,4 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [],
     examples: [],
   },
-} as const;
+} as const satisfies Record<ScopeTypeType, ReferenceEntry>;
