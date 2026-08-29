@@ -1,22 +1,72 @@
 import {
   actionNames,
   actionReferences,
-  modifierExtraReferenceIds,
-  modifierExtraReferences,
+  graphemeDefaultSpokenForms,
   modifierReferences,
-  simpleModifierReferenceIds,
+  pairedDelimiterReferences,
   simpleScopeTypeTypes,
   scopeReferences,
+  connectiveDefaultSpokenForms,
 } from "@cursorless/lib-common";
-import type { SpokenFormReference } from "@cursorless/lib-common";
+import type {
+  SpokenFormMapKeyTypes,
+  SpokenFormReference,
+} from "@cursorless/lib-common";
 import type {
   DefaultSpokenFormMapDefinition,
   DefaultSpokenFormMapEntry,
 } from "./defaultSpokenFormMap.types";
-import { graphemeDefaultSpokenForms } from "./graphemes";
-import { isPrivate } from "./spokenFormMapUtil";
 
 type DefaultSpokenForm = string | DefaultSpokenFormMapEntry;
+
+const simpleModifierReferenceIds = [
+  "excludeInterior",
+  "toRawSelection",
+  "leading",
+  "trailing",
+  "keepContentFilter",
+  "keepEmptyFilter",
+  "inferPreviousMark",
+  "startOf",
+  "endOf",
+  "interiorOnly",
+  "visible",
+  "extendThroughStartOf",
+  "extendThroughEndOf",
+  "everyScope",
+] as const satisfies readonly SpokenFormMapKeyTypes["simpleModifier"][];
+
+const modifierExtraReferenceIds = [
+  "first",
+  "last",
+  "previous",
+  "next",
+  "forward",
+  "backward",
+  "ancestor",
+] as const satisfies readonly SpokenFormMapKeyTypes["modifierExtra"][];
+
+const modifierExtraReferences = {
+  first: {
+    defaultSpokenForm: connectiveDefaultSpokenForms.first,
+  },
+  last: {
+    defaultSpokenForm: connectiveDefaultSpokenForms.last,
+  },
+  previous: {
+    defaultSpokenForm: connectiveDefaultSpokenForms.previous,
+  },
+  next: {
+    defaultSpokenForm: connectiveDefaultSpokenForms.next,
+  },
+  forward: {
+    defaultSpokenForm: connectiveDefaultSpokenForms.forward,
+  },
+  backward: {
+    defaultSpokenForm: connectiveDefaultSpokenForms.backward,
+  },
+  ancestor: modifierReferences.ancestor,
+} satisfies Record<SpokenFormMapKeyTypes["modifierExtra"], SpokenFormReference>;
 
 function getDefaultSpokenForm(
   reference: SpokenFormReference,
@@ -50,34 +100,26 @@ function getDefaultSpokenFormMap<Key extends string>(
   ) as Record<Key, DefaultSpokenForm>;
 }
 
+function getCompleteDefaultSpokenFormMap<
+  References extends Readonly<Record<string, SpokenFormReference>>,
+>(
+  references: References,
+): Readonly<Record<keyof References, DefaultSpokenForm>> {
+  return Object.fromEntries(
+    Object.entries(references).map(([key, reference]) => [
+      key,
+      getDefaultSpokenForm(reference),
+    ]),
+  ) as Record<keyof References, DefaultSpokenForm>;
+}
+
 /**
  * This map contains the default spoken forms for all our speakable entities.
- * Actions, scopes, and modifiers are constructed from their reference
- * definitions. Paired delimiters and graphemes remain defined here until they
- * have corresponding reference definitions.
+ * Actions, scopes, modifiers, and paired delimiters are constructed from their
+ * reference definitions. Graphemes remain defined directly.
  */
 export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
-  pairedDelimiter: {
-    curlyBrackets: "curly",
-    angleBrackets: "diamond",
-    escapedDoubleQuotes: "escaped quad",
-    escapedSingleQuotes: "escaped twin",
-    escapedParentheses: "escaped round",
-    escapedSquareBrackets: "escaped box",
-    doubleQuotes: "quad",
-    parentheses: "round",
-    backtickQuotes: "skis",
-    squareBrackets: "box",
-    singleQuotes: "twin",
-    tripleDoubleQuotes: isPrivate("triple quad"),
-    tripleSingleQuotes: isPrivate("triple twin"),
-    tripleBacktickQuotes: isPrivate("triple skis"),
-    any: "pair",
-    string: "string",
-    whitespace: "void",
-
-    collectionBoundary: isPrivate("collection boundary"),
-  },
+  pairedDelimiter: getCompleteDefaultSpokenFormMap(pairedDelimiterReferences),
 
   simpleScopeTypeType: getDefaultSpokenFormMap(
     simpleScopeTypeTypes,

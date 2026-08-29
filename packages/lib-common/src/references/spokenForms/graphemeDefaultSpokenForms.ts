@@ -1,18 +1,51 @@
 // https://github.com/talonhub/community/blob/9acb6c9659bb0c9b794a7b7126d025603b4ed726/core/keys/keys.py
 
+const offset = "a".codePointAt(0)!;
+
 const alphabet = Object.fromEntries(
-  "air bat cap drum each fine gust harp sit jury crunch look made near odd pit quench red sun trap urge vest whale plex yank zip"
-    .split(" ")
-    .map((word, index) => [
-      String.fromCodePoint("a".codePointAt(0)! + index),
-      word,
-    ]),
+  [
+    "air",
+    "bat",
+    "cap",
+    "drum",
+    "each",
+    "fine",
+    "gust",
+    "harp",
+    "sit",
+    "jury",
+    "crunch",
+    "look",
+    "made",
+    "near",
+    "odd",
+    "pit",
+    "quench",
+    "red",
+    "sun",
+    "trap",
+    "urge",
+    "vest",
+    "whale",
+    "plex",
+    "yank",
+    "zip",
+  ].map((word, index) => [String.fromCodePoint(offset + index), word]),
 );
 
 const digits = Object.fromEntries(
-  "zero one two three four five six seven eight nine"
-    .split(" ")
-    .map((word, index) => [index.toString(), word]),
+  [
+    "zero",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine",
+  ].map((word, index) => [index.toString(), word]),
 );
 
 const symbols = {

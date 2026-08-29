@@ -1,5 +1,5 @@
 import type { PartialRangeType } from "@cursorless/lib-common";
-import { connectiveSpokenForms } from "@cursorless/lib-common";
+import { connectiveDefaultSpokenForms } from "@cursorless/lib-common";
 import { NoSpokenFormError } from "./NoSpokenFormError";
 
 export function getRangeConnective(
@@ -8,19 +8,19 @@ export function getRangeConnective(
   type?: PartialRangeType,
 ): string {
   const prefix =
-    type === "vertical" ? `${connectiveSpokenForms.verticalRange} ` : "";
+    type === "vertical" ? `${connectiveDefaultSpokenForms.verticalRange} ` : "";
   if (excludeAnchor && excludeActive) {
-    return prefix + connectiveSpokenForms.rangeExclusive;
+    return prefix + connectiveDefaultSpokenForms.rangeExclusive;
   }
   if (excludeAnchor) {
     throw new NoSpokenFormError("Range exclude anchor");
   }
   if (excludeActive) {
-    return prefix + connectiveSpokenForms.rangeExcludingEnd;
+    return prefix + connectiveDefaultSpokenForms.rangeExcludingEnd;
   }
   if (type === "vertical") {
     // "slice", but could have been "slice past"
-    return connectiveSpokenForms.verticalRange;
+    return connectiveDefaultSpokenForms.verticalRange;
   }
-  return connectiveSpokenForms.rangeInclusive;
+  return connectiveDefaultSpokenForms.rangeInclusive;
 }
