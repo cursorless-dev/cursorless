@@ -1,7 +1,7 @@
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import type { ReferenceEntry } from "@cursorless/lib-common";
-
-const VAR_SPOKEN_FORM = "<spokenForm>";
+import { formatVariables } from "./util/formatVariables";
+import { injectSpokenForm } from "./util/injectSpokenForm";
 
 export function updateReferenceMdx(
   kind: "action" | "modifier" | "scope",
@@ -69,9 +69,7 @@ export function updateReferenceMdx(
       const pattern = formatVariables(
         injectSpokenForm(syntax.pattern, entry.defaultSpokenForm),
       );
-      const description = formatVariables(
-        injectSpokenForm(syntax.description, entry.defaultSpokenForm),
-      );
+      const description = formatVariables(syntax.description);
       expected.push(`- ${pattern}: ${description}`);
     }
     expected.push("");
@@ -102,33 +100,6 @@ function code(value: string) {
 
 function bold(value: string) {
   return `**${value}**`;
-}
-
-function injectSpokenForm(
-  pattern: string,
-  defaultSpokenForm: string | undefined,
-): string {
-  if (defaultSpokenForm == null) {
-    if (pattern.includes(VAR_SPOKEN_FORM)) {
-      throw new Error(
-        `Pattern "${pattern}" contains ${VAR_SPOKEN_FORM}, but no defaultSpokenForm is provided`,
-      );
-    }
-    return pattern;
-  }
-  return pattern.replace(VAR_SPOKEN_FORM, defaultSpokenForm);
-}
-
-function formatVariables(pattern: string): string {
-  return pattern
-    .split(/(<[\w ]+>)/gu)
-    .map((part) => {
-      if (part.startsWith("<") && part.endsWith(">")) {
-        return code(part);
-      }
-      return part;
-    })
-    .join("");
 }
 
 function formatGroup(lines: string[]): string[] {

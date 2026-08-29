@@ -4,6 +4,8 @@ import type {
   ReferenceGroup,
 } from "@cursorless/lib-common";
 import { cleanId } from "./cleanId";
+import { formatVariables } from "./util/formatVariables";
+import { injectSpokenForm } from "./util/injectSpokenForm";
 
 export function updateReferenceReadmeMd(
   title: string,
@@ -22,14 +24,25 @@ export function updateReferenceReadmeMd(
     if (group.id === "private") {
       continue;
     }
+
     expected.push(`## ${group.name}`, "");
-    const groupEntries = Object.entries(entries).filter(
-      ([, entry]) => entry.group.id === group.id,
-    );
+
+    const groupEntries = Object.entries(entries)
+      .filter(([, entry]) => entry.group.id === group.id)
+      .toSorted(([, a], [, b]) => a.group.index - b.group.index);
+
     for (const [rawId, entry] of groupEntries) {
       const id = cleanId(rawId);
-      expected.push(`- [${id}](./${id}.mdx) - ${entry.description}`);
+      for (const syntax of entry.syntaxes) {
+        const pattern = injectSpokenForm(
+          syntax.pattern,
+          entry.defaultSpokenForm,
+        );
+        const description = formatVariables(syntax.description);
+        expected.push(`- [\`"${pattern}"\`](./${id}.mdx) - ${description}`);
+      }
     }
+
     expected.push("");
   }
 

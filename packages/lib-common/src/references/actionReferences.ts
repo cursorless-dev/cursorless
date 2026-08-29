@@ -215,6 +215,29 @@ export const actionReferences = {
       },
     ],
   },
+  remove: {
+    name: "Remove",
+    defaultSpokenForm: REMOVE,
+    group: {
+      id: "change",
+      index: 0,
+    },
+    description:
+      "This action can be used to remove a target without moving the cursor.",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Remove ${VAR_TARGET}.`,
+        cheatsheet: "Remove",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Removes the ${TARGET_DESC}.`,
+      },
+    ],
+  },
   clearAndSetSelection: {
     name: "Change",
     defaultSpokenForm: "change",
@@ -234,27 +257,6 @@ export const actionReferences = {
       {
         command: DEFAULT_COMMAND,
         description: `Changes the ${TARGET_DESC} by clearing it and leaving the cursor in its place.`,
-      },
-    ],
-  },
-  copyToClipboard: {
-    name: "Copy to clipboard",
-    defaultSpokenForm: "copy",
-    group: {
-      id: "clipboard",
-      index: 1,
-    },
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: `Copy ${VAR_TARGET} to clipboard.`,
-        cheatsheet: "Copy to clipboard",
-      },
-    ],
-    examples: [
-      {
-        command: DEFAULT_COMMAND,
-        description: `Copies the ${TARGET_DESC} to the clipboard.`,
       },
     ],
   },
@@ -279,6 +281,69 @@ export const actionReferences = {
       },
     ],
   },
+  copyToClipboard: {
+    name: "Copy to clipboard",
+    defaultSpokenForm: "copy",
+    group: {
+      id: "clipboard",
+      index: 1,
+    },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Copy ${VAR_TARGET} to clipboard.`,
+        cheatsheet: "Copy to clipboard",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Copies the ${TARGET_DESC} to the clipboard.`,
+      },
+    ],
+  },
+  pasteFromClipboard: {
+    name: "Paste from clipboard",
+    defaultSpokenForm: "paste",
+    group: {
+      id: "clipboard",
+      index: 2,
+    },
+    syntaxes: [
+      {
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_DESTINATION}`,
+        description: `Paste from clipboard at ${VAR_DESTINATION}.`,
+        cheatsheet: `Paste from clipboard at ${VAR_DESTINATION}`,
+      },
+    ],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${AFTER} ${TARGET}`,
+        description: `Pastes the clipboard contents after the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  increment: {
+    name: "Increment",
+    defaultSpokenForm: "increment",
+    group: {
+      id: "numbers",
+      index: 0,
+    },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Increment number at ${VAR_TARGET}.`,
+        cheatsheet: "Increment number",
+      },
+    ],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${TARGET_NUMBER}`,
+        description: `Increments the ${TARGET_NUMBER_DESC}.`,
+      },
+    ],
+  },
   decrement: {
     name: "Decrement",
     defaultSpokenForm: "decrement",
@@ -297,6 +362,37 @@ export const actionReferences = {
       {
         command: `${VAR_SPOKEN_FORM} ${TARGET_NUMBER}`,
         description: `Decrements the number at the ${TARGET_NUMBER_DESC}.`,
+      },
+    ],
+  },
+  editNewLineBefore: {
+    name: "Edit new line/scope before",
+    defaultSpokenForm: "drink",
+    group: {
+      id: "emptyLines",
+      index: 0,
+    },
+    description: "Scope defaults to line.",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Edit new line before ${VAR_TARGET}.`,
+        cheatsheet: "Edit new line before",
+      },
+      {
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_SCOPE} ${VAR_TARGET}`,
+        description: `Edit new ${VAR_SCOPE} before ${VAR_TARGET}.`,
+        cheatsheet: `Edit new ${VAR_SCOPE} before`,
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Inserts a new line above the ${TARGET_DESC} and moves the cursor to it.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
+        description: `Inserts the delimiters for a new collection item before the item containing the ${TARGET_DESC} and moves the cursor there.`,
       },
     ],
   },
@@ -331,34 +427,78 @@ export const actionReferences = {
       },
     ],
   },
-  editNewLineBefore: {
-    name: "Edit new line/scope before",
-    defaultSpokenForm: "drink",
+  insertEmptyLineBefore: {
+    name: "Insert empty line/scope before",
+    defaultSpokenForm: "drop",
     group: {
       id: "emptyLines",
-      index: 0,
+      index: 2,
     },
-    description: "Scope defaults to line.",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: `Edit new line before ${VAR_TARGET}.`,
-        cheatsheet: "Edit new line before",
-      },
-      {
-        pattern: `${VAR_SPOKEN_FORM} ${VAR_SCOPE} ${VAR_TARGET}`,
-        description: `Edit new ${VAR_SCOPE} before ${VAR_TARGET}.`,
-        cheatsheet: `Edit new ${VAR_SCOPE} before`,
+        description: `Insert empty line/scope before ${VAR_TARGET}.`,
+        cheatsheet: "Insert empty line/scope before",
       },
     ],
     examples: [
       {
         command: DEFAULT_COMMAND,
-        description: `Inserts a new line above the ${TARGET_DESC} and moves the cursor to it.`,
+        description: `Inserts an empty line above the ${TARGET_DESC} without moving the cursor.`,
       },
       {
         command: `${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
-        description: `Inserts the delimiters for a new collection item before the item containing the ${TARGET_DESC} and moves the cursor there.`,
+        description: `Inserts the required delimiter before the collection item containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  insertEmptyLineAfter: {
+    name: "Insert empty line/scope after",
+    defaultSpokenForm: "float",
+    group: {
+      id: "emptyLines",
+      index: 3,
+    },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Insert empty line/scope after ${VAR_TARGET}.`,
+        cheatsheet: "Insert empty line/scope after",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Inserts an empty line below the ${TARGET_DESC} without moving the cursor.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
+        description: `Inserts the required delimiter after the collection item containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  insertEmptyLinesAround: {
+    name: "Insert empty lines/scopes around",
+    defaultSpokenForm: "puff",
+    group: {
+      id: "emptyLines",
+      index: 4,
+    },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Insert empty lines/scopes around ${VAR_TARGET}.`,
+        cheatsheet: "Insert empty lines/scopes around",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Inserts empty lines around the line containing the ${TARGET_DESC} without moving the cursor.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${TOKEN} ${TARGET}`,
+        description: `Inserts spaces around the ${TARGET_DESC}.`,
       },
     ],
   },
@@ -406,6 +546,111 @@ export const actionReferences = {
       },
     ],
   },
+  revealDefinition: {
+    name: "Reveal definition",
+    defaultSpokenForm: "define",
+    group: {
+      id: "navigation",
+      index: 0,
+    },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Reveal definition of ${VAR_TARGET}.`,
+        cheatsheet: "Reveal definition",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Opens the definition of the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  revealTypeDefinition: {
+    name: "Reveal type definition",
+    defaultSpokenForm: "type deaf",
+    group: {
+      id: "navigation",
+      index: 1,
+    },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Reveal type definition of ${VAR_TARGET}.`,
+        cheatsheet: "Reveal type definition",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Opens the type definition of the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  showReferences: {
+    name: "Show references",
+    defaultSpokenForm: "reference",
+    group: {
+      id: "navigation",
+      index: 2,
+    },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Show references for ${VAR_TARGET}.`,
+        cheatsheet: "Show references",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Shows references to the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  showHover: {
+    name: "Show hover",
+    defaultSpokenForm: "hover",
+    group: {
+      id: "navigation",
+      index: 3,
+    },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Show hover for ${VAR_TARGET}.`,
+        cheatsheet: "Show hover",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Shows hover information for the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  showQuickFix: {
+    name: "Show quick fix",
+    defaultSpokenForm: "quick fix",
+    group: {
+      id: "navigation",
+      index: 4,
+    },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Show quick fix for ${VAR_TARGET}.`,
+        cheatsheet: "Show quick fix",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Shows quick fixes for the ${TARGET_DESC}.`,
+      },
+    ],
+  },
   findInDocument: {
     name: "Find in document",
     defaultSpokenForm: "scout",
@@ -448,48 +693,6 @@ export const actionReferences = {
       },
     ],
   },
-  flashTargets: {
-    name: "Flash target",
-    defaultSpokenForm: "flash",
-    group: {
-      id: "visual",
-      index: 0,
-    },
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: `Flash ${VAR_TARGET}.`,
-        cheatsheet: "Flash target",
-      },
-    ],
-    examples: [
-      {
-        command: DEFAULT_COMMAND,
-        description: `Briefly flashes the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  foldRegion: {
-    name: "Fold region",
-    defaultSpokenForm: "fold",
-    group: {
-      id: "folding",
-      index: 0,
-    },
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: `Fold region at ${VAR_TARGET}.`,
-        cheatsheet: "Fold region",
-      },
-    ],
-    examples: [
-      {
-        command: `${VAR_SPOKEN_FORM} ${FUNCTION} ${TARGET}`,
-        description: `Folds the function containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
   followLink: {
     name: "Follow link",
     defaultSpokenForm: "follow",
@@ -529,6 +732,111 @@ export const actionReferences = {
       {
         command: DEFAULT_COMMAND,
         description: `Opens the link containing the ${TARGET_DESC} in a split view.`,
+      },
+    ],
+  },
+  showDebugHover: {
+    name: "Show debug hover",
+    defaultSpokenForm: "inspect",
+    group: {
+      id: "navigation",
+      index: 9,
+    },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Show debug hover for ${VAR_TARGET}.`,
+        cheatsheet: "Show debug hover",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Shows debug information for the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  flashTargets: {
+    name: "Flash target",
+    defaultSpokenForm: "flash",
+    group: {
+      id: "visual",
+      index: 0,
+    },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Flash ${VAR_TARGET}.`,
+        cheatsheet: "Flash target",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Briefly flashes the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  highlight: {
+    name: "Highlight",
+    defaultSpokenForm: "highlight",
+    group: {
+      id: "visual",
+      index: 1,
+    },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Highlight ${VAR_TARGET}.`,
+        cheatsheet: "Highlight",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Highlights the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  foldRegion: {
+    name: "Fold region",
+    defaultSpokenForm: "fold",
+    group: {
+      id: "folding",
+      index: 0,
+    },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Fold region at ${VAR_TARGET}.`,
+        cheatsheet: "Fold region",
+      },
+    ],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${FUNCTION} ${TARGET}`,
+        description: `Folds the function containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  unfoldRegion: {
+    name: "Unfold region",
+    defaultSpokenForm: "unfold",
+    group: {
+      id: "folding",
+      index: 1,
+    },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Unfold region at ${VAR_TARGET}.`,
+        cheatsheet: "Unfold region",
+      },
+    ],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${FUNCTION} ${TARGET}`,
+        description: `Unfolds the function containing the ${TARGET_DESC}.`,
       },
     ],
   },
@@ -616,27 +924,6 @@ export const actionReferences = {
       },
     ],
   },
-  increment: {
-    name: "Increment",
-    defaultSpokenForm: "increment",
-    group: {
-      id: "numbers",
-      index: 0,
-    },
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: `Increment number at ${VAR_TARGET}.`,
-        cheatsheet: "Increment number",
-      },
-    ],
-    examples: [
-      {
-        command: `${VAR_SPOKEN_FORM} ${TARGET_NUMBER}`,
-        description: `Increments the ${TARGET_NUMBER_DESC}.`,
-      },
-    ],
-  },
   indentLine: {
     name: "Indent line",
     defaultSpokenForm: "indent",
@@ -655,6 +942,27 @@ export const actionReferences = {
       {
         command: DEFAULT_COMMAND,
         description: `Indents the line containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  outdentLine: {
+    name: "Outdent line",
+    defaultSpokenForm: "dedent",
+    group: {
+      id: "indentation",
+      index: 1,
+    },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Outdent line containing ${VAR_TARGET}.`,
+        cheatsheet: "Outdent line",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Decreases the indentation of the line containing the ${TARGET_DESC}.`,
       },
     ],
   },
@@ -700,81 +1008,6 @@ export const actionReferences = {
       },
     ],
   },
-  insertEmptyLineAfter: {
-    name: "Insert empty line/scope after",
-    defaultSpokenForm: "float",
-    group: {
-      id: "emptyLines",
-      index: 3,
-    },
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: `Insert empty line/scope after ${VAR_TARGET}.`,
-        cheatsheet: "Insert empty line/scope after",
-      },
-    ],
-    examples: [
-      {
-        command: DEFAULT_COMMAND,
-        description: `Inserts an empty line below the ${TARGET_DESC} without moving the cursor.`,
-      },
-      {
-        command: `${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
-        description: `Inserts the required delimiter after the collection item containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  insertEmptyLineBefore: {
-    name: "Insert empty line/scope before",
-    defaultSpokenForm: "drop",
-    group: {
-      id: "emptyLines",
-      index: 2,
-    },
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: `Insert empty line/scope before ${VAR_TARGET}.`,
-        cheatsheet: "Insert empty line/scope before",
-      },
-    ],
-    examples: [
-      {
-        command: DEFAULT_COMMAND,
-        description: `Inserts an empty line above the ${TARGET_DESC} without moving the cursor.`,
-      },
-      {
-        command: `${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
-        description: `Inserts the required delimiter before the collection item containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  insertEmptyLinesAround: {
-    name: "Insert empty lines/scopes around",
-    defaultSpokenForm: "puff",
-    group: {
-      id: "emptyLines",
-      index: 4,
-    },
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: `Insert empty lines/scopes around ${VAR_TARGET}.`,
-        cheatsheet: "Insert empty lines/scopes around",
-      },
-    ],
-    examples: [
-      {
-        command: DEFAULT_COMMAND,
-        description: `Inserts empty lines around the line containing the ${TARGET_DESC} without moving the cursor.`,
-      },
-      {
-        command: `${VAR_SPOKEN_FORM} ${TOKEN} ${TARGET}`,
-        description: `Inserts spaces around the ${TARGET_DESC}.`,
-      },
-    ],
-  },
   joinLines: {
     name: "Join lines",
     defaultSpokenForm: "join",
@@ -793,134 +1026,6 @@ export const actionReferences = {
       {
         command: DEFAULT_COMMAND,
         description: `Joins the line containing the ${TARGET_DESC} with the following line.`,
-      },
-    ],
-  },
-  outdentLine: {
-    name: "Outdent line",
-    defaultSpokenForm: "dedent",
-    group: {
-      id: "indentation",
-      index: 1,
-    },
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: `Outdent line containing ${VAR_TARGET}.`,
-        cheatsheet: "Outdent line",
-      },
-    ],
-    examples: [
-      {
-        command: DEFAULT_COMMAND,
-        description: `Decreases the indentation of the line containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  randomizeTargets: {
-    name: "Randomize targets",
-    defaultSpokenForm: "shuffle",
-    group: {
-      id: "reorder",
-      index: 1,
-    },
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: `Randomize ${VAR_TARGET}s.`,
-        cheatsheet: "Randomize targets",
-      },
-    ],
-    examples: [
-      {
-        command: `${VAR_SPOKEN_FORM} ${EVERY} ${ITEM} ${TARGET}`,
-        description: `Randomizes the collection items associated with the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  remove: {
-    name: "Remove",
-    defaultSpokenForm: REMOVE,
-    group: {
-      id: "change",
-      index: 0,
-    },
-    description:
-      "This action can be used to remove a target without moving the cursor.",
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: `Remove ${VAR_TARGET}.`,
-        cheatsheet: "Remove",
-      },
-    ],
-    examples: [
-      {
-        command: DEFAULT_COMMAND,
-        description: `Removes the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  rename: {
-    name: "Rename",
-    defaultSpokenForm: "rename",
-    group: {
-      id: "rename",
-      index: 0,
-    },
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: `Rename ${VAR_TARGET}.`,
-        cheatsheet: "Rename",
-      },
-    ],
-    examples: [
-      {
-        command: DEFAULT_COMMAND,
-        description: `Starts renaming the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  revealDefinition: {
-    name: "Reveal definition",
-    defaultSpokenForm: "define",
-    group: {
-      id: "navigation",
-      index: 0,
-    },
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: `Reveal definition of ${VAR_TARGET}.`,
-        cheatsheet: "Reveal definition",
-      },
-    ],
-    examples: [
-      {
-        command: DEFAULT_COMMAND,
-        description: `Opens the definition of the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  revealTypeDefinition: {
-    name: "Reveal type definition",
-    defaultSpokenForm: "type deaf",
-    group: {
-      id: "navigation",
-      index: 1,
-    },
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: `Reveal type definition of ${VAR_TARGET}.`,
-        cheatsheet: "Reveal type definition",
-      },
-    ],
-    examples: [
-      {
-        command: DEFAULT_COMMAND,
-        description: `Opens the type definition of the ${TARGET_DESC}.`,
       },
     ],
   },
@@ -945,45 +1050,66 @@ export const actionReferences = {
       },
     ],
   },
-  scrollToBottom: {
-    name: "Scroll to bottom",
-    defaultSpokenForm: "bottom",
+  randomizeTargets: {
+    name: "Randomize targets",
+    defaultSpokenForm: "shuffle",
     group: {
-      id: "scroll",
-      index: 2,
-    },
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: `Scroll ${VAR_TARGET} to bottom of the viewport.`,
-        cheatsheet: "Scroll to bottom",
-      },
-    ],
-    examples: [
-      {
-        command: DEFAULT_COMMAND,
-        description: `Scrolls the ${TARGET_DESC} to the bottom of the viewport.`,
-      },
-    ],
-  },
-  scrollToCenter: {
-    name: "Scroll to center",
-    defaultSpokenForm: "center",
-    group: {
-      id: "scroll",
+      id: "reorder",
       index: 1,
     },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: `Scroll ${VAR_TARGET} to center of the viewport.`,
-        cheatsheet: "Scroll to center",
+        description: `Randomize ${VAR_TARGET}s.`,
+        cheatsheet: "Randomize targets",
+      },
+    ],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${EVERY} ${ITEM} ${TARGET}`,
+        description: `Randomizes the collection items associated with the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  sortTargets: {
+    name: "Sort targets",
+    defaultSpokenForm: "sort",
+    group: {
+      id: "reorder",
+      index: 2,
+    },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Sort ${VAR_TARGET}s.`,
+        cheatsheet: "Sort targets",
+      },
+    ],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${EVERY} ${ITEM} ${TARGET}`,
+        description: `Sorts the collection items associated with the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  rename: {
+    name: "Rename",
+    defaultSpokenForm: "rename",
+    group: {
+      id: "rename",
+      index: 0,
+    },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Rename ${VAR_TARGET}.`,
+        cheatsheet: "Rename",
       },
     ],
     examples: [
       {
         command: DEFAULT_COMMAND,
-        description: `Scrolls the ${TARGET_DESC} to the center of the viewport.`,
+        description: `Starts renaming the ${TARGET_DESC}.`,
       },
     ],
   },
@@ -1008,108 +1134,87 @@ export const actionReferences = {
       },
     ],
   },
-  showDebugHover: {
-    name: "Show debug hover",
-    defaultSpokenForm: "inspect",
+  scrollToCenter: {
+    name: "Scroll to center",
+    defaultSpokenForm: "center",
     group: {
-      id: "navigation",
-      index: 9,
+      id: "scroll",
+      index: 1,
     },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: `Show debug hover for ${VAR_TARGET}.`,
-        cheatsheet: "Show debug hover",
+        description: `Scroll ${VAR_TARGET} to center of the viewport.`,
+        cheatsheet: "Scroll to center",
       },
     ],
     examples: [
       {
         command: DEFAULT_COMMAND,
-        description: `Shows debug information for the ${TARGET_DESC}.`,
+        description: `Scrolls the ${TARGET_DESC} to the center of the viewport.`,
       },
     ],
   },
-  showHover: {
-    name: "Show hover",
-    defaultSpokenForm: "hover",
+  scrollToBottom: {
+    name: "Scroll to bottom",
+    defaultSpokenForm: "bottom",
     group: {
-      id: "navigation",
-      index: 3,
-    },
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: `Show hover for ${VAR_TARGET}.`,
-        cheatsheet: "Show hover",
-      },
-    ],
-    examples: [
-      {
-        command: DEFAULT_COMMAND,
-        description: `Shows hover information for the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  showQuickFix: {
-    name: "Show quick fix",
-    defaultSpokenForm: "quick fix",
-    group: {
-      id: "navigation",
-      index: 4,
-    },
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: `Show quick fix for ${VAR_TARGET}.`,
-        cheatsheet: "Show quick fix",
-      },
-    ],
-    examples: [
-      {
-        command: DEFAULT_COMMAND,
-        description: `Shows quick fixes for the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  showReferences: {
-    name: "Show references",
-    defaultSpokenForm: "reference",
-    group: {
-      id: "navigation",
+      id: "scroll",
       index: 2,
     },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: `Show references for ${VAR_TARGET}.`,
-        cheatsheet: "Show references",
+        description: `Scroll ${VAR_TARGET} to bottom of the viewport.`,
+        cheatsheet: "Scroll to bottom",
       },
     ],
     examples: [
       {
         command: DEFAULT_COMMAND,
-        description: `Shows references to the ${TARGET_DESC}.`,
+        description: `Scrolls the ${TARGET_DESC} to the bottom of the viewport.`,
       },
     ],
   },
-  sortTargets: {
-    name: "Sort targets",
-    defaultSpokenForm: "sort",
+  applyFormatter: {
+    name: "Apply formatter",
+    defaultSpokenForm: "format",
     group: {
-      id: "reorder",
-      index: 2,
+      id: "editor",
+      index: 0,
     },
     syntaxes: [
       {
-        pattern: DEFAULT_PATTERN,
-        description: `Sort ${VAR_TARGET}s.`,
-        cheatsheet: "Sort targets",
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_FORMATTER} ${AT} ${VAR_TARGET}`,
+        description: `Reformat ${VAR_TARGET} as ${VAR_FORMATTER}.`,
+        cheatsheet: `Reformat ${VAR_TARGET} as ${VAR_FORMATTER}`,
       },
     ],
     examples: [
       {
-        command: `${VAR_SPOKEN_FORM} ${EVERY} ${ITEM} ${TARGET}`,
-        description: `Sorts the collection items associated with the ${TARGET_DESC}.`,
+        command: `${VAR_SPOKEN_FORM} ${FORMATTER_CAMEL} ${AT} ${TARGET}`,
+        description: `Reformats the ${TARGET_DESC} as camel case.`,
+      },
+    ],
+  },
+  toggleLineComment: {
+    name: "Toggle line comment",
+    defaultSpokenForm: "comment",
+    group: {
+      id: "editor",
+      index: 1,
+    },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Toggle line comment at ${VAR_TARGET}.`,
+        cheatsheet: "Toggle line comment",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Toggles the comment on the line containing the ${TARGET_DESC}.`,
       },
     ],
   },
@@ -1144,45 +1249,33 @@ export const actionReferences = {
       },
     ],
   },
-  toggleLineComment: {
-    name: "Toggle line comment",
-    defaultSpokenForm: "comment",
+  replaceWithTarget: {
+    name: "Replace with target",
+    defaultSpokenForm: "bring",
     group: {
-      id: "editor",
-      index: 1,
+      id: "insert",
+      index: 0,
     },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: `Toggle line comment at ${VAR_TARGET}.`,
-        cheatsheet: "Toggle line comment",
+        description: `Insert copy of ${VAR_TARGET} at selection.`,
+        cheatsheet: `Insert copy of ${VAR_TARGET} at selection`,
+      },
+      {
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_TARGET} ${VAR_DESTINATION}`,
+        description: `Copy ${VAR_TARGET} to ${VAR_DESTINATION}.`,
+        cheatsheet: `Copy ${VAR_TARGET} to ${VAR_DESTINATION}`,
       },
     ],
     examples: [
       {
         command: DEFAULT_COMMAND,
-        description: `Toggles the comment on the line containing the ${TARGET_DESC}.`,
+        description: `Inserts a copy of the ${TARGET_DESC} at the current selection.`,
       },
-    ],
-  },
-  unfoldRegion: {
-    name: "Unfold region",
-    defaultSpokenForm: "unfold",
-    group: {
-      id: "folding",
-      index: 1,
-    },
-    syntaxes: [
       {
-        pattern: DEFAULT_PATTERN,
-        description: `Unfold region at ${VAR_TARGET}.`,
-        cheatsheet: "Unfold region",
-      },
-    ],
-    examples: [
-      {
-        command: `${VAR_SPOKEN_FORM} ${FUNCTION} ${TARGET}`,
-        description: `Unfolds the function containing the ${TARGET_DESC}.`,
+        command: `${VAR_SPOKEN_FORM} ${TARGET} ${TO} ${TARGET_2}`,
+        description: `Replaces the ${TARGET_2_DESC} with a copy of the ${TARGET_DESC}.`,
       },
     ],
   },
@@ -1238,27 +1331,6 @@ export const actionReferences = {
       },
     ],
   },
-  highlight: {
-    name: "Highlight",
-    defaultSpokenForm: "highlight",
-    group: {
-      id: "visual",
-      index: 1,
-    },
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: `Highlight ${VAR_TARGET}.`,
-        cheatsheet: "Highlight",
-      },
-    ],
-    examples: [
-      {
-        command: DEFAULT_COMMAND,
-        description: `Highlights the ${TARGET_DESC}.`,
-      },
-    ],
-  },
   insertSnippet: {
     name: "Insert snippet",
     defaultSpokenForm: "snip",
@@ -1277,6 +1349,27 @@ export const actionReferences = {
       {
         command: `${VAR_SPOKEN_FORM} ${SNIPPET_IF} ${AFTER} ${TARGET}`,
         description: `Inserts an if-statement snippet after the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  wrapWithSnippet: {
+    name: "Wrap with snippet",
+    defaultSpokenForm: "wrap",
+    group: {
+      id: "snippets",
+      index: 2,
+    },
+    syntaxes: [
+      {
+        pattern: `${VAR_SNIPPET} ${VAR_SPOKEN_FORM} ${VAR_TARGET}`,
+        description: `Wrap ${VAR_TARGET} with ${VAR_SNIPPET}.`,
+        cheatsheet: `Wrap ${VAR_TARGET} with ${VAR_SNIPPET}`,
+      },
+    ],
+    examples: [
+      {
+        command: `${SNIPPET_IF} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Wraps the ${TARGET_DESC} in an if-statement snippet.`,
       },
     ],
   },
@@ -1310,54 +1403,24 @@ export const actionReferences = {
       },
     ],
   },
-  pasteFromClipboard: {
-    name: "Paste from clipboard",
-    defaultSpokenForm: "paste",
+  wrapWithPairedDelimiter: {
+    name: "Wrap with paired delimiter",
+    defaultSpokenForm: "wrap",
     group: {
-      id: "clipboard",
-      index: 2,
-    },
-    syntaxes: [
-      {
-        pattern: `${VAR_SPOKEN_FORM} ${VAR_DESTINATION}`,
-        description: `Paste from clipboard at ${VAR_DESTINATION}.`,
-        cheatsheet: `Paste from clipboard at ${VAR_DESTINATION}`,
-      },
-    ],
-    examples: [
-      {
-        command: `${VAR_SPOKEN_FORM} ${AFTER} ${TARGET}`,
-        description: `Pastes the clipboard contents after the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  replaceWithTarget: {
-    name: "Replace with target",
-    defaultSpokenForm: "bring",
-    group: {
-      id: "insert",
+      id: "wrap",
       index: 0,
     },
     syntaxes: [
       {
-        pattern: DEFAULT_PATTERN,
-        description: `Insert copy of ${VAR_TARGET} at selection.`,
-        cheatsheet: `Insert copy of ${VAR_TARGET} at selection`,
-      },
-      {
-        pattern: `${VAR_SPOKEN_FORM} ${VAR_TARGET} ${VAR_DESTINATION}`,
-        description: `Copy ${VAR_TARGET} to ${VAR_DESTINATION}.`,
-        cheatsheet: `Copy ${VAR_TARGET} to ${VAR_DESTINATION}`,
+        pattern: `${VAR_PAIR} ${VAR_SPOKEN_FORM} ${VAR_TARGET}`,
+        description: `Wrap ${VAR_TARGET} with ${VAR_PAIR}.`,
+        cheatsheet: `Wrap ${VAR_TARGET} with ${VAR_PAIR}`,
       },
     ],
     examples: [
       {
-        command: DEFAULT_COMMAND,
-        description: `Inserts a copy of the ${TARGET_DESC} at the current selection.`,
-      },
-      {
-        command: `${VAR_SPOKEN_FORM} ${TARGET} ${TO} ${TARGET_2}`,
-        description: `Replaces the ${TARGET_2_DESC} with a copy of the ${TARGET_DESC}.`,
+        command: `${SQUARE} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Wraps the ${TARGET_DESC} in square brackets.`,
       },
     ],
   },
@@ -1409,69 +1472,6 @@ export const actionReferences = {
       {
         command: `${VAR_SPOKEN_FORM} ${TARGET} ${WITH} ${TARGET_2}`,
         description: `Swaps the ${TARGET_DESC} and the ${TARGET_2_DESC}.`,
-      },
-    ],
-  },
-  wrapWithPairedDelimiter: {
-    name: "Wrap with paired delimiter",
-    defaultSpokenForm: "wrap",
-    group: {
-      id: "wrap",
-      index: 0,
-    },
-    syntaxes: [
-      {
-        pattern: `${VAR_PAIR} ${VAR_SPOKEN_FORM} ${VAR_TARGET}`,
-        description: `Wrap ${VAR_TARGET} with ${VAR_PAIR}.`,
-        cheatsheet: `Wrap ${VAR_TARGET} with ${VAR_PAIR}`,
-      },
-    ],
-    examples: [
-      {
-        command: `${SQUARE} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Wraps the ${TARGET_DESC} in square brackets.`,
-      },
-    ],
-  },
-  wrapWithSnippet: {
-    name: "Wrap with snippet",
-    defaultSpokenForm: "wrap",
-    group: {
-      id: "snippets",
-      index: 2,
-    },
-    syntaxes: [
-      {
-        pattern: `${VAR_SNIPPET} ${VAR_SPOKEN_FORM} ${VAR_TARGET}`,
-        description: `Wrap ${VAR_TARGET} with ${VAR_SNIPPET}.`,
-        cheatsheet: `Wrap ${VAR_TARGET} with ${VAR_SNIPPET}`,
-      },
-    ],
-    examples: [
-      {
-        command: `${SNIPPET_IF} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Wraps the ${TARGET_DESC} in an if-statement snippet.`,
-      },
-    ],
-  },
-  applyFormatter: {
-    name: "Apply formatter",
-    defaultSpokenForm: "format",
-    group: {
-      id: "editor",
-      index: 0,
-    },
-    syntaxes: [
-      {
-        pattern: `${VAR_SPOKEN_FORM} ${VAR_FORMATTER} ${AT} ${VAR_TARGET}`,
-        description: `Reformat ${VAR_TARGET} as ${VAR_FORMATTER}.`,
-        cheatsheet: `Reformat ${VAR_TARGET} as ${VAR_FORMATTER}`,
-      },
-    ],
-    examples: [
-      {
-        command: `${VAR_SPOKEN_FORM} ${FORMATTER_CAMEL} ${AT} ${TARGET}`,
-        description: `Reformats the ${TARGET_DESC} as camel case.`,
       },
     ],
   },
