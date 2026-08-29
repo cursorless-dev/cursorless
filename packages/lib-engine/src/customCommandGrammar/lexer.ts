@@ -7,7 +7,7 @@ import {
   simpleScopeTypeTypes,
   surroundingPairNames,
 } from "@cursorless/lib-common";
-import { connectives } from "../generateSpokenForm/defaultSpokenForms/connectives";
+import { connectiveSpokenForms } from "../../../lib-common/src/references/connectiveSpokenForms";
 import { marks } from "../generateSpokenForm/defaultSpokenForms/marks";
 import { defaultSpokenFormMap } from "../spokenForms/defaultSpokenFormMap";
 import { CommandLexer } from "./CommandLexer";
@@ -50,7 +50,7 @@ const insertionModes: InsertionMode[] = ["before", "after", "to"];
 
 for (const insertionMode of insertionModes) {
   const spokenForm =
-    connectives[
+    connectiveSpokenForms[
       insertionMode === "to" ? "sourceDestinationConnective" : insertionMode
     ];
   tokens[spokenForm] = {

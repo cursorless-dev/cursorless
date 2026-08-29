@@ -1,8 +1,36 @@
 import type { ActionType } from "../types/command/ActionDescriptor";
+import { connectiveSpokenForms } from "./connectiveSpokenForms";
+import { getSpokenForm } from "./getSpokenForm";
+import { modifierReferences } from "./modifierReferences";
 import type { ReferenceEntry } from "./ReferenceEntry";
+import { scopeReferences } from "./scopeReferences";
 
-const DEFAULT_PATTERN = "<spokenForm> <target>";
-const DEFAULT_PATTERN_SCOPE = "<spokenForm> <scope> <target>";
+const VAR_SPOKEN_FORM = "<spokenForm>";
+const VAR_TARGET = "<target>";
+const VAR_TARGET_1 = "<target 1>";
+const VAR_TARGET_2 = "<target 2>";
+const VAR_DESTINATION = "<destination>";
+const VAR_SCOPE = "<scope>";
+const VAR_SNIPPET = "<snippet>";
+const VAR_PAIR = "<pair>";
+const VAR_FORMATTER = "<formatter>";
+
+const TARGET = "blue air";
+const TARGET_DESC = "token containing letter 'a' with a blue hat";
+const TARGET_2 = "green bat";
+const TARGET_2_DESC = "token containing letter 'b' with a green hat";
+
+const DEFAULT_PATTERN = `${VAR_SPOKEN_FORM} ${VAR_TARGET}`;
+const DEFAULT_PATTERN_SCOPE = `${VAR_SPOKEN_FORM} ${VAR_SCOPE} ${VAR_TARGET}`;
+const DEFAULT_COMMAND = `${VAR_SPOKEN_FORM} ${TARGET}`;
+
+const COLLECTION_ITEM_SCOPE = getSpokenForm(scopeReferences.collectionItem);
+const FUNCTION_CALL_SCOPE = getSpokenForm(scopeReferences.functionCall);
+const INSTANCE_SCOPE = getSpokenForm(scopeReferences.instance);
+const NAMED_FUNCTION_SCOPE = getSpokenForm(scopeReferences.namedFunction);
+const TOKEN_SCOPE = getSpokenForm(scopeReferences.token);
+const EVERY_MODIFIER = getSpokenForm(modifierReferences.everyScope);
+const SET_SELECTION_SPOKEN_FORM = "take";
 
 type TalonSideActionType = "applyFormatter" | "nextHomophone";
 
@@ -16,7 +44,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Adds <target> to the current selection set",
+        description: `Adds ${VAR_TARGET} to the current selection set.`,
         cheatsheet: "Add selection",
       },
     ],
@@ -28,8 +56,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description:
-          "Adds empty selection after <target> to the current selection set",
+        description: `Adds empty selection after ${VAR_TARGET} to the current selection set.`,
         cheatsheet: "Add selection after",
       },
     ],
@@ -41,8 +68,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description:
-          "Adds empty selection before <target> to the current selection set",
+        description: `Adds empty selection before ${VAR_TARGET} to the current selection set.`,
         cheatsheet: "Add selection before",
       },
     ],
@@ -54,7 +80,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Breaks the line before <target>",
+        description: `Breaks the line before ${VAR_TARGET}.`,
         cheatsheet: "Breaks the line",
       },
     ],
@@ -67,8 +93,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description:
-          "Change <target> by clearing it and setting a new selection",
+        description: `Change ${VAR_TARGET} by deleting it and leaving the cursor in its place.`,
         cheatsheet: "Change",
       },
     ],
@@ -80,7 +105,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Copy <target> to clipboard",
+        description: `Copy ${VAR_TARGET} to clipboard.`,
         cheatsheet: "Copy to clipboard",
       },
     ],
@@ -92,7 +117,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Cut <target> to clipboard",
+        description: `Cut ${VAR_TARGET} to clipboard.`,
         cheatsheet: "Cut to clipboard",
       },
     ],
@@ -104,7 +129,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Decrement number at <target>",
+        description: `Decrement number at ${VAR_TARGET}.`,
         cheatsheet: "Decrement number",
       },
     ],
@@ -116,7 +141,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Deselect <target>",
+        description: `Deselect ${VAR_TARGET}.`,
         cheatsheet: "Deselect",
       },
     ],
@@ -125,17 +150,17 @@ export const actionReferences: Record<
   editNewLineAfter: {
     name: "Edit new line/scope after",
     defaultSpokenForm: "pour",
-    description: "Scope defaults to line",
+    description: "Scope defaults to line.",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Edit new line after <target>",
+        description: `Edit new line after ${VAR_TARGET}.`,
         cheatsheet: "Edit new line after",
       },
       {
         pattern: DEFAULT_PATTERN_SCOPE,
-        description: "Edit new <scope> after <target>",
-        cheatsheet: "Edit new <scope> after",
+        description: `Edit new ${VAR_SCOPE} after ${VAR_TARGET}.`,
+        cheatsheet: `Edit new ${VAR_SCOPE} after`,
       },
     ],
     examples: [],
@@ -143,17 +168,17 @@ export const actionReferences: Record<
   editNewLineBefore: {
     name: "Edit new line/scope before",
     defaultSpokenForm: "drink",
-    description: "Scope defaults to line",
+    description: "Scope defaults to line.",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Edit new line before <target>",
+        description: `Edit new line before ${VAR_TARGET}.`,
         cheatsheet: "Edit new line before",
       },
       {
         pattern: DEFAULT_PATTERN_SCOPE,
-        description: "Edit new <scope> before <target>",
-        cheatsheet: "Edit new <scope> before",
+        description: `Edit new ${VAR_SCOPE} before ${VAR_TARGET}.`,
+        cheatsheet: `Edit new ${VAR_SCOPE} before`,
       },
     ],
     examples: [],
@@ -162,11 +187,11 @@ export const actionReferences: Record<
     name: "Set instance reference",
     defaultSpokenForm: "from",
     description:
-      "Sets the instance reference for the next 'instance of' action",
+      "Sets the instance reference for the next 'instance of' action.",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Set instance reference to <target>",
+        description: `Set instance reference to ${VAR_TARGET}.`,
         cheatsheet: "Set instance reference",
       },
     ],
@@ -178,7 +203,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Extract variable from <target>",
+        description: `Extract variable from ${VAR_TARGET}.`,
         cheatsheet: "Extract variable",
       },
     ],
@@ -190,7 +215,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Find <target> in document",
+        description: `Find ${VAR_TARGET} in document.`,
         cheatsheet: "Find in document",
       },
     ],
@@ -202,7 +227,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Find <target> in workspace",
+        description: `Find ${VAR_TARGET} in workspace.`,
         cheatsheet: "Find in workspace",
       },
     ],
@@ -214,7 +239,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Flash <target>",
+        description: `Flash ${VAR_TARGET}.`,
         cheatsheet: "Flash target",
       },
     ],
@@ -226,7 +251,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Fold region at <target>",
+        description: `Fold region at ${VAR_TARGET}.`,
         cheatsheet: "Fold region",
       },
     ],
@@ -238,7 +263,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Follow link at <target>",
+        description: `Follow link at ${VAR_TARGET}.`,
         cheatsheet: "Follow link",
       },
     ],
@@ -250,7 +275,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Follow link at <target> aside (e.g. in a split view)",
+        description: `Follow link at ${VAR_TARGET} aside (e.g. in a split view).`,
         cheatsheet: "Follow link aside",
       },
     ],
@@ -262,7 +287,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Accept Git change at <target>",
+        description: `Accept Git change at ${VAR_TARGET}.`,
         cheatsheet: "Git accept",
       },
     ],
@@ -274,7 +299,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Revert Git change at <target>",
+        description: `Revert Git change at ${VAR_TARGET}.`,
         cheatsheet: "Git revert",
       },
     ],
@@ -286,7 +311,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Stage Git change at <target>",
+        description: `Stage Git change at ${VAR_TARGET}.`,
         cheatsheet: "Git stage",
       },
     ],
@@ -298,7 +323,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Unstage Git change at <target>",
+        description: `Unstage Git change at ${VAR_TARGET}.`,
         cheatsheet: "Git unstage",
       },
     ],
@@ -310,7 +335,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Increment number at <target>",
+        description: `Increment number at ${VAR_TARGET}.`,
         cheatsheet: "Increment number",
       },
     ],
@@ -322,7 +347,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Indent line containing <target>",
+        description: `Indent line containing ${VAR_TARGET}.`,
         cheatsheet: "Indent line",
       },
     ],
@@ -334,7 +359,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Insert copy after <target>",
+        description: `Insert copy after ${VAR_TARGET}.`,
         cheatsheet: "Insert copy after",
       },
     ],
@@ -346,7 +371,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Insert copy before <target>",
+        description: `Insert copy before ${VAR_TARGET}.`,
         cheatsheet: "Insert copy before",
       },
     ],
@@ -358,7 +383,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Insert empty line after <target>",
+        description: `Insert empty line after ${VAR_TARGET}.`,
         cheatsheet: "Insert empty line after",
       },
     ],
@@ -370,7 +395,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Insert empty line before <target>",
+        description: `Insert empty line before ${VAR_TARGET}.`,
         cheatsheet: "Insert empty line before",
       },
     ],
@@ -382,7 +407,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Insert empty lines around <target>",
+        description: `Insert empty lines around ${VAR_TARGET}.`,
         cheatsheet: "Insert empty lines around",
       },
     ],
@@ -394,7 +419,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Join lines at <target>",
+        description: `Join lines at ${VAR_TARGET}.`,
         cheatsheet: "Join lines",
       },
     ],
@@ -406,7 +431,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Outdent line containing <target>",
+        description: `Outdent line containing ${VAR_TARGET}.`,
         cheatsheet: "Outdent line",
       },
     ],
@@ -418,7 +443,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Randomize <target>s",
+        description: `Randomize ${VAR_TARGET}s.`,
         cheatsheet: "Randomize targets",
       },
     ],
@@ -428,11 +453,11 @@ export const actionReferences: Record<
     name: "Remove",
     defaultSpokenForm: "chuck",
     description:
-      "This action can be used to remove a target without moving the cursor",
+      "This action can be used to remove a target without moving the cursor.",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Remove <target>",
+        description: `Remove ${VAR_TARGET}.`,
         cheatsheet: "Remove",
       },
     ],
@@ -449,7 +474,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Rename <target>",
+        description: `Rename ${VAR_TARGET}.`,
         cheatsheet: "Rename",
       },
     ],
@@ -461,7 +486,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Reveal definition of <target>",
+        description: `Reveal definition of ${VAR_TARGET}.`,
         cheatsheet: "Reveal definition",
       },
     ],
@@ -473,7 +498,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Reveal type definition of <target>",
+        description: `Reveal type definition of ${VAR_TARGET}.`,
         cheatsheet: "Reveal type definition",
       },
     ],
@@ -485,7 +510,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Reverse <target>s",
+        description: `Reverse ${VAR_TARGET}s.`,
         cheatsheet: "Reverse targets",
       },
     ],
@@ -497,7 +522,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Scroll <target> to bottom of the viewport",
+        description: `Scroll ${VAR_TARGET} to bottom of the viewport.`,
         cheatsheet: "Scroll to bottom",
       },
     ],
@@ -509,7 +534,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Scroll <target> to center of the viewport",
+        description: `Scroll ${VAR_TARGET} to center of the viewport.`,
         cheatsheet: "Scroll to center",
       },
     ],
@@ -521,7 +546,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Scroll <target> to top of the viewport",
+        description: `Scroll ${VAR_TARGET} to top of the viewport.`,
         cheatsheet: "Scroll to top",
       },
     ],
@@ -529,11 +554,11 @@ export const actionReferences: Record<
   },
   setSelection: {
     name: "Set selection",
-    defaultSpokenForm: "take",
+    defaultSpokenForm: SET_SELECTION_SPOKEN_FORM,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Set selection to <target>",
+        description: `Set selection to ${VAR_TARGET}.`,
         cheatsheet: "Set selection",
       },
     ],
@@ -545,7 +570,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Set empty selection after <target>",
+        description: `Set empty selection after ${VAR_TARGET}.`,
         cheatsheet: "Set selection after",
       },
     ],
@@ -557,7 +582,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Set empty selection before <target>",
+        description: `Set empty selection before ${VAR_TARGET}.`,
         cheatsheet: "Set selection before",
       },
     ],
@@ -569,7 +594,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Show debug hover for <target>",
+        description: `Show debug hover for ${VAR_TARGET}.`,
         cheatsheet: "Show debug hover",
       },
     ],
@@ -581,7 +606,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Show hover for <target>",
+        description: `Show hover for ${VAR_TARGET}.`,
         cheatsheet: "Show hover",
       },
     ],
@@ -593,7 +618,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Show quick fix for <target>",
+        description: `Show quick fix for ${VAR_TARGET}.`,
         cheatsheet: "Show quick fix",
       },
     ],
@@ -605,7 +630,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Show references for <target>",
+        description: `Show references for ${VAR_TARGET}.`,
         cheatsheet: "Show references",
       },
     ],
@@ -617,7 +642,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Sort <target>s",
+        description: `Sort ${VAR_TARGET}s.`,
         cheatsheet: "Sort targets",
       },
     ],
@@ -626,16 +651,16 @@ export const actionReferences: Record<
   toggleLineBreakpoint: {
     name: "Toggle line/scope breakpoint",
     defaultSpokenForm: "break point",
-    description: "Scope defaults to line",
+    description: "Scope defaults to line.",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Toggle breakpoint on line containing <target>",
+        description: `Toggle breakpoint on line containing ${VAR_TARGET}.`,
         cheatsheet: "Toggle line breakpoint",
       },
       {
-        pattern: "<spokenForm> token <target>",
-        description: "Toggle inline breakpoint at <target>",
+        pattern: `${VAR_SPOKEN_FORM} ${TOKEN_SCOPE} ${VAR_TARGET}`,
+        description: `Toggle inline breakpoint at ${VAR_TARGET}.`,
         cheatsheet: "Toggle inline breakpoint",
       },
     ],
@@ -647,7 +672,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Toggle line comment at <target>",
+        description: `Toggle line comment at ${VAR_TARGET}.`,
         cheatsheet: "Toggle line comment",
       },
     ],
@@ -659,7 +684,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Unfold region at <target>",
+        description: `Unfold region at ${VAR_TARGET}.`,
         cheatsheet: "Unfold region",
       },
     ],
@@ -671,13 +696,13 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Insert call to <target> on selection",
+        description: `Insert call to ${VAR_TARGET} on selection.`,
         cheatsheet: "Insert call to <target> on selection",
       },
       {
-        pattern: "<spokenForm> <target 1> on <target 2>",
-        description: "Insert call to <target 1> on <target 2>",
-        cheatsheet: "Insert call to <target 1> on <target 2>",
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_TARGET_1} on ${VAR_TARGET_2}`,
+        description: `Insert call to ${VAR_TARGET_1} on ${VAR_TARGET_2}.`,
+        cheatsheet: `Insert call to ${VAR_TARGET_1} on ${VAR_TARGET_2}`,
       },
     ],
     examples: [],
@@ -689,7 +714,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Generate snippet from <target>",
+        description: `Generate snippet from ${VAR_TARGET}.`,
         cheatsheet: "Generate snippet",
       },
     ],
@@ -701,7 +726,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Highlight <target>",
+        description: `Highlight ${VAR_TARGET}.`,
         cheatsheet: "Highlight",
       },
     ],
@@ -712,9 +737,9 @@ export const actionReferences: Record<
     defaultSpokenForm: "snip",
     syntaxes: [
       {
-        pattern: "<spokenForm> <snippet> <destination>",
-        description: "Insert snippet at <destination>",
-        cheatsheet: "Insert snippet at <destination>",
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_SNIPPET} ${VAR_DESTINATION}`,
+        description: `Insert snippet at ${VAR_DESTINATION}.`,
+        cheatsheet: `Insert snippet at ${VAR_DESTINATION}`,
       },
     ],
     examples: [],
@@ -725,13 +750,13 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Move <target> to selection",
-        cheatsheet: "Move <target> to selection",
+        description: `Move ${VAR_TARGET} to selection.`,
+        cheatsheet: `Move ${VAR_TARGET} to selection`,
       },
       {
-        pattern: "<spokenForm> <target> <destination>",
-        description: "Move <target> to <destination>",
-        cheatsheet: "Move <target> to <destination>",
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_TARGET} ${VAR_DESTINATION}`,
+        description: `Move ${VAR_TARGET} to ${VAR_DESTINATION}.`,
+        cheatsheet: `Move ${VAR_TARGET} to ${VAR_DESTINATION}`,
       },
     ],
     examples: [],
@@ -741,9 +766,9 @@ export const actionReferences: Record<
     defaultSpokenForm: "paste",
     syntaxes: [
       {
-        pattern: "<spokenForm> <destination>",
-        description: "Paste from clipboard at <destination>",
-        cheatsheet: "Paste from clipboard at <destination>",
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_DESTINATION}`,
+        description: `Paste from clipboard at ${VAR_DESTINATION}.`,
+        cheatsheet: `Paste from clipboard at ${VAR_DESTINATION}`,
       },
     ],
     examples: [],
@@ -754,13 +779,13 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Insert copy of <target> at selection",
+        description: `Insert copy of ${VAR_TARGET} at selection.`,
         cheatsheet: "Insert copy of <target> at selection",
       },
       {
-        pattern: "<spokenForm> <target> <destination>",
-        description: "Copy <target> to <destination>",
-        cheatsheet: "Copy <target> to <destination>",
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_TARGET} ${VAR_DESTINATION}`,
+        description: `Copy ${VAR_TARGET} to ${VAR_DESTINATION}.`,
+        cheatsheet: `Copy ${VAR_TARGET} to ${VAR_DESTINATION}`,
       },
     ],
     examples: [],
@@ -770,8 +795,8 @@ export const actionReferences: Record<
     defaultSpokenForm: "repack",
     syntaxes: [
       {
-        pattern: "<pair> <spokenForm> <target>",
-        description: "Rewrap <target> with <pair>",
+        pattern: `${VAR_PAIR} ${VAR_SPOKEN_FORM} ${VAR_TARGET}`,
+        description: `Rewrap ${VAR_TARGET} with <pair>.`,
         cheatsheet: "Rewrap <target> with <pair>",
       },
     ],
@@ -782,14 +807,14 @@ export const actionReferences: Record<
     defaultSpokenForm: "swap",
     syntaxes: [
       {
-        pattern: "<spokenForm> <swapConnective> <target>",
-        description: "Swap selection with <target>",
+        pattern: `${VAR_SPOKEN_FORM} ${connectiveSpokenForms.swapConnective} ${VAR_TARGET}`,
+        description: `Swap selection with ${VAR_TARGET}.`,
         cheatsheet: "Swap selection with <target>",
       },
       {
-        pattern: "<spokenForm> <target 1> <swapConnective> <target 2>",
-        description: "Swap <target 1> with <target 2>",
-        cheatsheet: "Swap <target 1> with <target 2>",
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_TARGET} ${connectiveSpokenForms.swapConnective} ${VAR_TARGET_2}`,
+        description: `Swap ${VAR_TARGET} with ${VAR_TARGET_2}.`,
+        cheatsheet: `Swap ${VAR_TARGET} with ${VAR_TARGET_2}`,
       },
     ],
     examples: [],
@@ -799,9 +824,9 @@ export const actionReferences: Record<
     defaultSpokenForm: "wrap",
     syntaxes: [
       {
-        pattern: "<pair> <spokenForm> <target>",
-        description: "Wrap <target> with <pair>",
-        cheatsheet: "Wrap <target> with <pair>",
+        pattern: `${VAR_PAIR} ${VAR_SPOKEN_FORM} ${VAR_TARGET}`,
+        description: `Wrap ${VAR_TARGET} with ${VAR_PAIR}.`,
+        cheatsheet: `Wrap ${VAR_TARGET} with ${VAR_PAIR}`,
       },
     ],
     examples: [],
@@ -811,9 +836,9 @@ export const actionReferences: Record<
     defaultSpokenForm: "wrap",
     syntaxes: [
       {
-        pattern: "<snippet> <spokenForm> <target>",
-        description: "Wrap <target> with <snippet>",
-        cheatsheet: "Wrap <target> with <snippet>",
+        pattern: `${VAR_SNIPPET} ${VAR_SPOKEN_FORM} ${VAR_TARGET}`,
+        description: `Wrap ${VAR_TARGET} with ${VAR_SNIPPET}.`,
+        cheatsheet: `Wrap ${VAR_TARGET} with ${VAR_SNIPPET}`,
       },
     ],
     examples: [],
@@ -823,9 +848,9 @@ export const actionReferences: Record<
     defaultSpokenForm: "format",
     syntaxes: [
       {
-        pattern: "<spokenForm> <formatter> at <target>",
-        description: "Reformat <target> as <formatter>",
-        cheatsheet: "Reformat <target> as <formatter>",
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_FORMATTER} at ${VAR_TARGET}`,
+        description: `Reformat ${VAR_TARGET} as ${VAR_FORMATTER}.`,
+        cheatsheet: `Reformat ${VAR_TARGET} as ${VAR_FORMATTER}`,
       },
     ],
     examples: [],
@@ -836,7 +861,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Cycle to next homophone for <target>",
+        description: `Cycle to next homophone for ${VAR_TARGET}.`,
         cheatsheet: "Cycle to next homophone",
       },
     ],
@@ -852,7 +877,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Show parse tree for <target>",
+        description: `Show parse tree for ${VAR_TARGET}.`,
         cheatsheet: "Show parse tree",
       },
     ],

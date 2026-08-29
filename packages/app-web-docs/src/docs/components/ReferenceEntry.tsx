@@ -85,7 +85,7 @@ function ReferenceEntryComponent({
               <li key={index}>
                 <code>
                   &quot;
-                  {formatPattern(example.spokenForm, entry.defaultSpokenForm)}
+                  {formatPattern(example.command, entry.defaultSpokenForm)}
                   &quot;
                 </code>
                 : {example.description}

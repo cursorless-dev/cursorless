@@ -6,7 +6,7 @@ import type {
   RelativeScopeModifier,
   ScopeType,
 } from "@cursorless/lib-common";
-import { connectives } from "./defaultSpokenForms/connectives";
+import { connectiveSpokenForms } from "../../../lib-common/src/references/connectiveSpokenForms";
 import {
   hatColorToSpokenForm,
   hatShapeToSpokenForm,
@@ -167,8 +167,8 @@ export class PrimitiveTargetSpokenFormGenerator {
     if (modifier.length === 1) {
       const direction =
         modifier.direction === "forward"
-          ? connectives.forward
-          : connectives.backward;
+          ? connectiveSpokenForms.forward
+          : connectiveSpokenForms.backward;
 
       // token forward/backward
       return [isEvery, scope, direction];
@@ -184,7 +184,7 @@ export class PrimitiveTargetSpokenFormGenerator {
     }
 
     // two tokens backward
-    return [isEvery, length, scopePlural, connectives.backward];
+    return [isEvery, length, scopePlural, connectiveSpokenForms.backward];
   }
 
   private handleRelativeScopeExclusive(
@@ -193,8 +193,8 @@ export class PrimitiveTargetSpokenFormGenerator {
     const scope = this.handleScopeType(modifier.scopeType);
     const direction =
       modifier.direction === "forward"
-        ? connectives.next
-        : connectives.previous;
+        ? connectiveSpokenForms.next
+        : connectiveSpokenForms.previous;
     const isEvery = modifier.isEvery
       ? this.spokenFormMap.simpleModifier.everyScope
       : [];
