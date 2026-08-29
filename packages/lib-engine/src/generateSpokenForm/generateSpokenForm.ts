@@ -153,7 +153,7 @@ export class SpokenFormGenerator {
         return [
           this.spokenFormMap.action[action.name],
           this.handleTarget(action.callee),
-          "on",
+          connectiveDefaultSpokenForms.on,
           this.handleTarget(action.argument),
         ];
 
