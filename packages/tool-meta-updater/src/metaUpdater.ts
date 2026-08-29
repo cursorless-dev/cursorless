@@ -12,7 +12,6 @@ import {
   modifierReferences,
   scopeReferences,
 } from "@cursorless/lib-common";
-import { cleanId } from "./cleanId";
 import type { Context } from "./Context";
 import { textFormat } from "./textFormat";
 import { updateLanguageMdx } from "./updateLanguageMdx";
@@ -20,9 +19,10 @@ import { updatePackageJson } from "./updatePackageJson";
 import { updatePrivateScopeMdx } from "./updatePrivateScopeMdx";
 import { updateReferenceMdx } from "./updateReferenceMdx";
 import { updateReferenceReadmeMd } from "./updateReferenceReadmeMd";
-import { updatesScopeSupportFacetInfos } from "./updatesScopeSupportFacetInfos";
+import { updateScopeSupportFacetInfos } from "./updateScopeSupportFacetInfos";
 import { updateTSConfig } from "./updateTSConfig";
 import { updateTSConfigBase } from "./updateTSConfigBase";
+import { cleanId } from "./util/cleanId";
 
 export const updater = async (workspaceDir: string) => {
   const pnpmLockfile = await readWantedLockfile(workspaceDir, {
@@ -47,7 +47,7 @@ export const updater = async (workspaceDir: string) => {
       "tsconfig.json": updateTSConfig.bind(null, context),
       "tsconfig.base.json": updateTSConfigBase.bind(null, context),
       "resources/fixtures/scope-support-facet-infos.md":
-        updatesScopeSupportFacetInfos,
+        updateScopeSupportFacetInfos,
       ...Object.fromEntries(
         Object.keys(languageScopeSupport).map((languageId) => [
           `${userDir}/languages/${languageId}.mdx`,

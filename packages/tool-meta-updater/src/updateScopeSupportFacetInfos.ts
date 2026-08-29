@@ -9,7 +9,7 @@ import {
   plaintextScopeSupportFacetInfos,
 } from "@cursorless/lib-common";
 
-export function updatesScopeSupportFacetInfos(
+export function updateScopeSupportFacetInfos(
   actual: string | null,
   _options: FormatPluginFnOptions,
 ): string | null {

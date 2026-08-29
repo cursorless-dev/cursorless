@@ -3,7 +3,7 @@ import type {
   GroupedReferenceEntry,
   ReferenceGroup,
 } from "@cursorless/lib-common";
-import { cleanId } from "./cleanId";
+import { cleanId } from "./util/cleanId";
 import { formatVariables } from "./util/formatVariables";
 import { injectSpokenForm } from "./util/injectSpokenForm";
 
