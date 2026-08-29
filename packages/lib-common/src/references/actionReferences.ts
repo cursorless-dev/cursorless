@@ -95,7 +95,7 @@ export const actionReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: `Change ${VAR_TARGET} by deleting it and leaving the cursor in its place.`,
+        description: `Change ${VAR_TARGET} by clearing it and leaving the cursor in its place.`,
         cheatsheet: "Change",
       },
     ],
