@@ -6,17 +6,20 @@
 import { readWantedLockfile } from "@pnpm/lockfile-file";
 import { createUpdateOptions } from "@pnpm/meta-updater";
 import {
+  actionReferenceGroups,
   actionReferences,
   languageScopeSupport,
   modifierReferences,
   scopeReferences,
 } from "@cursorless/lib-common";
+import { cleanId } from "./cleanId";
 import type { Context } from "./Context";
 import { textFormat } from "./textFormat";
 import { updateLanguageMdx } from "./updateLanguageMdx";
 import { updatePackageJson } from "./updatePackageJson";
 import { updatePrivateScopeMdx } from "./updatePrivateScopeMdx";
 import { updateReferenceMdx } from "./updateReferenceMdx";
+import { updateReferenceReadmeMd } from "./updateReferenceReadmeMd";
 import { updatesScopeSupportFacetInfos } from "./updatesScopeSupportFacetInfos";
 import { updateTSConfig } from "./updateTSConfig";
 import { updateTSConfigBase } from "./updateTSConfigBase";
@@ -51,6 +54,12 @@ export const updater = async (workspaceDir: string) => {
           updateLanguageMdx.bind(null, languageId),
         ]),
       ),
+      [`${userDir}/actions/README.md`]: updateReferenceReadmeMd.bind(
+        null,
+        "Actions",
+        actionReferences,
+        actionReferenceGroups,
+      ),
       ...Object.fromEntries(
         Object.entries(actionReferences).map(([id, entry]) => [
           `${userDir}/actions/${cleanId(id)}.mdx`,
@@ -82,7 +91,3 @@ export const updater = async (workspaceDir: string) => {
     },
   });
 };
-
-function cleanId(id: string): string {
-  return id.replace("private.", "").replace("experimental.", "");
-}

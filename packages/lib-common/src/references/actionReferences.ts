@@ -22,7 +22,7 @@ import {
 } from "./constants";
 import { modifierReferences } from "./modifierReferences";
 import { pairedDelimiterReferences } from "./pairedDelimiterReferences";
-import type { ReferenceEntry } from "./ReferenceEntry";
+import type { ActionReferenceEntry } from "./ReferenceEntry";
 import { scopeReferences } from "./scopeReferences";
 import { connectiveDefaultSpokenForms } from "./spokenForms/connectiveDefaultSpokenForms";
 
@@ -46,9 +46,76 @@ const ON = connectiveDefaultSpokenForms.on;
 type TalonSideActionType = "applyFormatter" | "nextHomophone";
 
 export const actionReferences = {
+  setSelection: {
+    name: "Set selection",
+    defaultSpokenForm: SET_SELECTION,
+    group: {
+      id: "cursor",
+      index: 0,
+    },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Set selection to ${VAR_TARGET}.`,
+        cheatsheet: "Set selection",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Selects the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  setSelectionBefore: {
+    name: "Set selection before",
+    defaultSpokenForm: "pre",
+    group: {
+      id: "cursor",
+      index: 1,
+    },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Set empty selection before ${VAR_TARGET}.`,
+        cheatsheet: "Set selection before",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Places the cursor before the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  setSelectionAfter: {
+    name: "Set selection after",
+    defaultSpokenForm: "post",
+    group: {
+      id: "cursor",
+      index: 2,
+    },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Set empty selection after ${VAR_TARGET}.`,
+        cheatsheet: "Set selection after",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Places the cursor after the ${TARGET_DESC}.`,
+      },
+    ],
+  },
   addSelection: {
     name: "Add selection",
     defaultSpokenForm: "append",
+    group: {
+      id: "cursor",
+      index: 3,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -63,26 +130,13 @@ export const actionReferences = {
       },
     ],
   },
-  addSelectionAfter: {
-    name: "Add selection after",
-    defaultSpokenForm: "append post",
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: `Adds empty selection after ${VAR_TARGET} to the current selection set.`,
-        cheatsheet: "Add selection after",
-      },
-    ],
-    examples: [
-      {
-        command: DEFAULT_COMMAND,
-        description: `Adds an empty selection after the ${TARGET_DESC}.`,
-      },
-    ],
-  },
   addSelectionBefore: {
     name: "Add selection before",
     defaultSpokenForm: "append pre",
+    group: {
+      id: "cursor",
+      index: 4,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -97,9 +151,56 @@ export const actionReferences = {
       },
     ],
   },
+  addSelectionAfter: {
+    name: "Add selection after",
+    defaultSpokenForm: "append post",
+    group: {
+      id: "cursor",
+      index: 5,
+    },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Adds empty selection after ${VAR_TARGET} to the current selection set.`,
+        cheatsheet: "Add selection after",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Adds an empty selection after the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  deselect: {
+    name: "Deselect",
+    defaultSpokenForm: "give",
+    group: {
+      id: "cursor",
+      index: 6,
+    },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Deselect ${VAR_TARGET}.`,
+        cheatsheet: "Deselect",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Removes the ${TARGET_DESC} from the current selections.`,
+      },
+    ],
+  },
+
   breakLine: {
     name: "Break line",
     defaultSpokenForm: "break",
+    group: {
+      id: "break",
+      index: 0,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -117,6 +218,10 @@ export const actionReferences = {
   clearAndSetSelection: {
     name: "Change",
     defaultSpokenForm: "change",
+    group: {
+      id: "change",
+      index: 1,
+    },
     legacySpokenForms: ["clear"],
     syntaxes: [
       {
@@ -135,6 +240,10 @@ export const actionReferences = {
   copyToClipboard: {
     name: "Copy to clipboard",
     defaultSpokenForm: "copy",
+    group: {
+      id: "clipboard",
+      index: 1,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -152,6 +261,10 @@ export const actionReferences = {
   cutToClipboard: {
     name: "Cut to clipboard",
     defaultSpokenForm: "carve",
+    group: {
+      id: "clipboard",
+      index: 0,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -169,6 +282,10 @@ export const actionReferences = {
   decrement: {
     name: "Decrement",
     defaultSpokenForm: "decrement",
+    group: {
+      id: "numbers",
+      index: 1,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -183,26 +300,13 @@ export const actionReferences = {
       },
     ],
   },
-  deselect: {
-    name: "Deselect",
-    defaultSpokenForm: "give",
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: `Deselect ${VAR_TARGET}.`,
-        cheatsheet: "Deselect",
-      },
-    ],
-    examples: [
-      {
-        command: DEFAULT_COMMAND,
-        description: `Removes the ${TARGET_DESC} from the current selections.`,
-      },
-    ],
-  },
   editNewLineAfter: {
     name: "Edit new line/scope after",
     defaultSpokenForm: "pour",
+    group: {
+      id: "emptyLines",
+      index: 1,
+    },
     description: "Scope defaults to line.",
     syntaxes: [
       {
@@ -230,6 +334,10 @@ export const actionReferences = {
   editNewLineBefore: {
     name: "Edit new line/scope before",
     defaultSpokenForm: "drink",
+    group: {
+      id: "emptyLines",
+      index: 0,
+    },
     description: "Scope defaults to line.",
     syntaxes: [
       {
@@ -257,6 +365,10 @@ export const actionReferences = {
   "experimental.setInstanceReference": {
     name: "Set instance reference",
     defaultSpokenForm: "from",
+    group: {
+      id: "targetContext",
+      index: 0,
+    },
     description:
       "Sets the instance reference for the next 'instance of' action.",
     syntaxes: [
@@ -276,6 +388,10 @@ export const actionReferences = {
   extractVariable: {
     name: "Extract variable",
     defaultSpokenForm: "extract",
+    group: {
+      id: "extract",
+      index: 0,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -293,6 +409,10 @@ export const actionReferences = {
   findInDocument: {
     name: "Find in document",
     defaultSpokenForm: "scout",
+    group: {
+      id: "navigation",
+      index: 5,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -310,6 +430,10 @@ export const actionReferences = {
   findInWorkspace: {
     name: "Find in workspace",
     defaultSpokenForm: "scout all",
+    group: {
+      id: "navigation",
+      index: 6,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -327,6 +451,10 @@ export const actionReferences = {
   flashTargets: {
     name: "Flash target",
     defaultSpokenForm: "flash",
+    group: {
+      id: "visual",
+      index: 0,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -344,6 +472,10 @@ export const actionReferences = {
   foldRegion: {
     name: "Fold region",
     defaultSpokenForm: "fold",
+    group: {
+      id: "folding",
+      index: 0,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -361,6 +493,10 @@ export const actionReferences = {
   followLink: {
     name: "Follow link",
     defaultSpokenForm: "follow",
+    group: {
+      id: "navigation",
+      index: 7,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -378,6 +514,10 @@ export const actionReferences = {
   followLinkAside: {
     name: "Follow link aside",
     defaultSpokenForm: "follow split",
+    group: {
+      id: "navigation",
+      index: 8,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -395,6 +535,10 @@ export const actionReferences = {
   gitAccept: {
     name: "Git accept",
     defaultSpokenForm: "git accept",
+    group: {
+      id: "git",
+      index: 0,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -412,6 +556,10 @@ export const actionReferences = {
   gitRevert: {
     name: "Git revert",
     defaultSpokenForm: "git revert",
+    group: {
+      id: "git",
+      index: 1,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -429,6 +577,10 @@ export const actionReferences = {
   gitStage: {
     name: "Git stage",
     defaultSpokenForm: "git stage",
+    group: {
+      id: "git",
+      index: 2,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -446,6 +598,10 @@ export const actionReferences = {
   gitUnstage: {
     name: "Git unstage",
     defaultSpokenForm: "git unstage",
+    group: {
+      id: "git",
+      index: 3,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -463,6 +619,10 @@ export const actionReferences = {
   increment: {
     name: "Increment",
     defaultSpokenForm: "increment",
+    group: {
+      id: "numbers",
+      index: 0,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -480,6 +640,10 @@ export const actionReferences = {
   indentLine: {
     name: "Indent line",
     defaultSpokenForm: "indent",
+    group: {
+      id: "indentation",
+      index: 0,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -497,6 +661,10 @@ export const actionReferences = {
   insertCopyAfter: {
     name: "Insert copy after",
     defaultSpokenForm: "clone",
+    group: {
+      id: "clone",
+      index: 0,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -514,6 +682,10 @@ export const actionReferences = {
   insertCopyBefore: {
     name: "Insert copy before",
     defaultSpokenForm: "clone up",
+    group: {
+      id: "clone",
+      index: 1,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -531,6 +703,10 @@ export const actionReferences = {
   insertEmptyLineAfter: {
     name: "Insert empty line/scope after",
     defaultSpokenForm: "float",
+    group: {
+      id: "emptyLines",
+      index: 3,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -552,6 +728,10 @@ export const actionReferences = {
   insertEmptyLineBefore: {
     name: "Insert empty line/scope before",
     defaultSpokenForm: "drop",
+    group: {
+      id: "emptyLines",
+      index: 2,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -573,6 +753,10 @@ export const actionReferences = {
   insertEmptyLinesAround: {
     name: "Insert empty lines/scopes around",
     defaultSpokenForm: "puff",
+    group: {
+      id: "emptyLines",
+      index: 4,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -594,6 +778,10 @@ export const actionReferences = {
   joinLines: {
     name: "Join lines",
     defaultSpokenForm: "join",
+    group: {
+      id: "join",
+      index: 0,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -611,6 +799,10 @@ export const actionReferences = {
   outdentLine: {
     name: "Outdent line",
     defaultSpokenForm: "dedent",
+    group: {
+      id: "indentation",
+      index: 1,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -628,6 +820,10 @@ export const actionReferences = {
   randomizeTargets: {
     name: "Randomize targets",
     defaultSpokenForm: "shuffle",
+    group: {
+      id: "reorder",
+      index: 1,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -645,6 +841,10 @@ export const actionReferences = {
   remove: {
     name: "Remove",
     defaultSpokenForm: REMOVE,
+    group: {
+      id: "change",
+      index: 0,
+    },
     description:
       "This action can be used to remove a target without moving the cursor.",
     syntaxes: [
@@ -664,6 +864,10 @@ export const actionReferences = {
   rename: {
     name: "Rename",
     defaultSpokenForm: "rename",
+    group: {
+      id: "rename",
+      index: 0,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -681,6 +885,10 @@ export const actionReferences = {
   revealDefinition: {
     name: "Reveal definition",
     defaultSpokenForm: "define",
+    group: {
+      id: "navigation",
+      index: 0,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -698,6 +906,10 @@ export const actionReferences = {
   revealTypeDefinition: {
     name: "Reveal type definition",
     defaultSpokenForm: "type deaf",
+    group: {
+      id: "navigation",
+      index: 1,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -715,6 +927,10 @@ export const actionReferences = {
   reverseTargets: {
     name: "Reverse targets",
     defaultSpokenForm: "reverse",
+    group: {
+      id: "reorder",
+      index: 0,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -732,6 +948,10 @@ export const actionReferences = {
   scrollToBottom: {
     name: "Scroll to bottom",
     defaultSpokenForm: "bottom",
+    group: {
+      id: "scroll",
+      index: 2,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -749,6 +969,10 @@ export const actionReferences = {
   scrollToCenter: {
     name: "Scroll to center",
     defaultSpokenForm: "center",
+    group: {
+      id: "scroll",
+      index: 1,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -766,6 +990,10 @@ export const actionReferences = {
   scrollToTop: {
     name: "Scroll to top",
     defaultSpokenForm: "crown",
+    group: {
+      id: "scroll",
+      index: 0,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -780,60 +1008,13 @@ export const actionReferences = {
       },
     ],
   },
-  setSelection: {
-    name: "Set selection",
-    defaultSpokenForm: SET_SELECTION,
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: `Set selection to ${VAR_TARGET}.`,
-        cheatsheet: "Set selection",
-      },
-    ],
-    examples: [
-      {
-        command: DEFAULT_COMMAND,
-        description: `Selects the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  setSelectionAfter: {
-    name: "Set selection after",
-    defaultSpokenForm: "post",
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: `Set empty selection after ${VAR_TARGET}.`,
-        cheatsheet: "Set selection after",
-      },
-    ],
-    examples: [
-      {
-        command: DEFAULT_COMMAND,
-        description: `Places the cursor after the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  setSelectionBefore: {
-    name: "Set selection before",
-    defaultSpokenForm: "pre",
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: `Set empty selection before ${VAR_TARGET}.`,
-        cheatsheet: "Set selection before",
-      },
-    ],
-    examples: [
-      {
-        command: DEFAULT_COMMAND,
-        description: `Places the cursor before the ${TARGET_DESC}.`,
-      },
-    ],
-  },
   showDebugHover: {
     name: "Show debug hover",
     defaultSpokenForm: "inspect",
+    group: {
+      id: "navigation",
+      index: 9,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -851,6 +1032,10 @@ export const actionReferences = {
   showHover: {
     name: "Show hover",
     defaultSpokenForm: "hover",
+    group: {
+      id: "navigation",
+      index: 3,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -868,6 +1053,10 @@ export const actionReferences = {
   showQuickFix: {
     name: "Show quick fix",
     defaultSpokenForm: "quick fix",
+    group: {
+      id: "navigation",
+      index: 4,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -885,6 +1074,10 @@ export const actionReferences = {
   showReferences: {
     name: "Show references",
     defaultSpokenForm: "reference",
+    group: {
+      id: "navigation",
+      index: 2,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -902,6 +1095,10 @@ export const actionReferences = {
   sortTargets: {
     name: "Sort targets",
     defaultSpokenForm: "sort",
+    group: {
+      id: "reorder",
+      index: 2,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -919,6 +1116,10 @@ export const actionReferences = {
   toggleLineBreakpoint: {
     name: "Toggle line/scope breakpoint",
     defaultSpokenForm: "break point",
+    group: {
+      id: "editor",
+      index: 2,
+    },
     description: "Scope defaults to line.",
     syntaxes: [
       {
@@ -946,6 +1147,10 @@ export const actionReferences = {
   toggleLineComment: {
     name: "Toggle line comment",
     defaultSpokenForm: "comment",
+    group: {
+      id: "editor",
+      index: 1,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -963,6 +1168,10 @@ export const actionReferences = {
   unfoldRegion: {
     name: "Unfold region",
     defaultSpokenForm: "unfold",
+    group: {
+      id: "folding",
+      index: 1,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -980,6 +1189,10 @@ export const actionReferences = {
   callAsFunction: {
     name: "Call as function",
     defaultSpokenForm: "call",
+    group: {
+      id: "insert",
+      index: 1,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1006,6 +1219,10 @@ export const actionReferences = {
   generateSnippet: {
     name: "Generate snippet",
     defaultSpokenForm: "snip make",
+    group: {
+      id: "snippets",
+      index: 0,
+    },
     legacySpokenForms: ["snippet make"],
     syntaxes: [
       {
@@ -1024,6 +1241,10 @@ export const actionReferences = {
   highlight: {
     name: "Highlight",
     defaultSpokenForm: "highlight",
+    group: {
+      id: "visual",
+      index: 1,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1041,6 +1262,10 @@ export const actionReferences = {
   insertSnippet: {
     name: "Insert snippet",
     defaultSpokenForm: "snip",
+    group: {
+      id: "snippets",
+      index: 1,
+    },
     syntaxes: [
       {
         pattern: `${VAR_SPOKEN_FORM} ${VAR_SNIPPET} ${VAR_DESTINATION}`,
@@ -1058,6 +1283,10 @@ export const actionReferences = {
   moveToTarget: {
     name: "Move to target",
     defaultSpokenForm: "move",
+    group: {
+      id: "move",
+      index: 0,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1084,6 +1313,10 @@ export const actionReferences = {
   pasteFromClipboard: {
     name: "Paste from clipboard",
     defaultSpokenForm: "paste",
+    group: {
+      id: "clipboard",
+      index: 2,
+    },
     syntaxes: [
       {
         pattern: `${VAR_SPOKEN_FORM} ${VAR_DESTINATION}`,
@@ -1101,6 +1334,10 @@ export const actionReferences = {
   replaceWithTarget: {
     name: "Replace with target",
     defaultSpokenForm: "bring",
+    group: {
+      id: "insert",
+      index: 0,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1127,6 +1364,10 @@ export const actionReferences = {
   rewrapWithPairedDelimiter: {
     name: "Rewrap with paired delimiter",
     defaultSpokenForm: "repack",
+    group: {
+      id: "wrap",
+      index: 1,
+    },
     syntaxes: [
       {
         pattern: `${VAR_PAIR} ${VAR_SPOKEN_FORM} ${VAR_TARGET}`,
@@ -1144,6 +1385,10 @@ export const actionReferences = {
   swapTargets: {
     name: "Swap targets",
     defaultSpokenForm: "swap",
+    group: {
+      id: "swap",
+      index: 0,
+    },
     syntaxes: [
       {
         pattern: `${VAR_SPOKEN_FORM} ${WITH} ${VAR_TARGET}`,
@@ -1170,6 +1415,10 @@ export const actionReferences = {
   wrapWithPairedDelimiter: {
     name: "Wrap with paired delimiter",
     defaultSpokenForm: "wrap",
+    group: {
+      id: "wrap",
+      index: 0,
+    },
     syntaxes: [
       {
         pattern: `${VAR_PAIR} ${VAR_SPOKEN_FORM} ${VAR_TARGET}`,
@@ -1187,6 +1436,10 @@ export const actionReferences = {
   wrapWithSnippet: {
     name: "Wrap with snippet",
     defaultSpokenForm: "wrap",
+    group: {
+      id: "snippets",
+      index: 2,
+    },
     syntaxes: [
       {
         pattern: `${VAR_SNIPPET} ${VAR_SPOKEN_FORM} ${VAR_TARGET}`,
@@ -1204,6 +1457,10 @@ export const actionReferences = {
   applyFormatter: {
     name: "Apply formatter",
     defaultSpokenForm: "format",
+    group: {
+      id: "editor",
+      index: 0,
+    },
     syntaxes: [
       {
         pattern: `${VAR_SPOKEN_FORM} ${VAR_FORMATTER} ${AT} ${VAR_TARGET}`,
@@ -1221,6 +1478,10 @@ export const actionReferences = {
   nextHomophone: {
     name: "Next homophone",
     defaultSpokenForm: "phones",
+    group: {
+      id: "homophones",
+      index: 0,
+    },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1241,6 +1502,10 @@ export const actionReferences = {
   "private.showParseTree": {
     name: "Show parse tree",
     defaultSpokenForm: "parse tree",
+    group: {
+      id: "private",
+      index: 0,
+    },
     private: true,
     syntaxes: [
       {
@@ -1260,12 +1525,20 @@ export const actionReferences = {
     name: "Parsed",
     defaultSpokenForm: "parsed",
     private: true,
+    group: {
+      id: "private",
+      index: 1,
+    },
     syntaxes: [],
     examples: [],
   },
   "private.getTargets": {
     name: "Get targets",
     defaultSpokenForm: "get targets",
+    group: {
+      id: "private",
+      index: 2,
+    },
     private: true,
     syntaxes: [],
     examples: [],
@@ -1273,6 +1546,10 @@ export const actionReferences = {
   "private.setKeyboardTarget": {
     name: "Set keyboard target",
     defaultSpokenForm: "set keyboard target",
+    group: {
+      id: "private",
+      index: 3,
+    },
     private: true,
     syntaxes: [],
     examples: [],
@@ -1280,6 +1557,10 @@ export const actionReferences = {
   executeCommand: {
     name: "Execute command",
     defaultSpokenForm: "execute command",
+    group: {
+      id: "private",
+      index: 4,
+    },
     private: true,
     syntaxes: [],
     examples: [],
@@ -1287,6 +1568,10 @@ export const actionReferences = {
   editNew: {
     name: "Edit new",
     defaultSpokenForm: "edit new",
+    group: {
+      id: "private",
+      index: 5,
+    },
     private: true,
     syntaxes: [],
     examples: [],
@@ -1294,6 +1579,10 @@ export const actionReferences = {
   getText: {
     name: "Get text",
     defaultSpokenForm: "get text",
+    group: {
+      id: "private",
+      index: 6,
+    },
     private: true,
     syntaxes: [],
     examples: [],
@@ -1301,8 +1590,15 @@ export const actionReferences = {
   replace: {
     name: "Replace",
     defaultSpokenForm: "replace",
+    group: {
+      id: "private",
+      index: 7,
+    },
     private: true,
     syntaxes: [],
     examples: [],
   },
-} as const satisfies Record<ActionType | TalonSideActionType, ReferenceEntry>;
+} as const satisfies Record<
+  ActionType | TalonSideActionType,
+  ActionReferenceEntry
+>;
