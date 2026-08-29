@@ -34,10 +34,7 @@ const LAST = connectiveDefaultSpokenForms.last;
 
 type AdditionalModifierReferenceType = "ancestor";
 
-export const modifierReferences: Record<
-  ModifierType | AdditionalModifierReferenceType,
-  ReferenceEntry
-> = {
+export const modifierReferences = {
   startOf: {
     name: "Start of",
     defaultSpokenForm: "start of",
@@ -492,4 +489,7 @@ export const modifierReferences: Record<
     syntaxes: [],
     examples: [],
   },
-};
+} as const satisfies Record<
+  ModifierType | AdditionalModifierReferenceType,
+  ReferenceEntry
+>;

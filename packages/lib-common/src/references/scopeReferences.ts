@@ -1192,4 +1192,4 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     syntaxes: [],
     examples: [],
   },
-};
+} as const;

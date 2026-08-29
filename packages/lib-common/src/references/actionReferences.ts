@@ -20,7 +20,6 @@ import {
   VAR_TARGET_1,
   VAR_TARGET_2,
 } from "./constants";
-import { getSpokenForm } from "./getSpokenForm";
 import { modifierReferences } from "./modifierReferences";
 import { pairedDelimiterReferences } from "./pairedDelimiterReferences";
 import type { ReferenceEntry } from "./ReferenceEntry";
@@ -31,12 +30,12 @@ const DEFAULT_PATTERN = `${VAR_SPOKEN_FORM} ${VAR_TARGET}`;
 const DEFAULT_PATTERN_SCOPE = `${VAR_SPOKEN_FORM} ${VAR_SCOPE} ${VAR_TARGET}`;
 const DEFAULT_COMMAND = `${VAR_SPOKEN_FORM} ${TARGET}`;
 
-const ITEM = getSpokenForm(scopeReferences.collectionItem);
-const CALL = getSpokenForm(scopeReferences.functionCall);
-const INSTANCE = getSpokenForm(scopeReferences.instance);
-const FUNCTION = getSpokenForm(scopeReferences.namedFunction);
-const TOKEN = getSpokenForm(scopeReferences.token);
-const EVERY = getSpokenForm(modifierReferences.everyScope);
+const ITEM = scopeReferences.collectionItem.defaultSpokenForm;
+const CALL = scopeReferences.functionCall.defaultSpokenForm;
+const INSTANCE = scopeReferences.instance.defaultSpokenForm;
+const FUNCTION = scopeReferences.namedFunction.defaultSpokenForm;
+const TOKEN = scopeReferences.token.defaultSpokenForm;
+const EVERY = modifierReferences.everyScope.defaultSpokenForm;
 const WITH = connectiveDefaultSpokenForms.swapConnective;
 const AFTER = connectiveDefaultSpokenForms.after;
 const TO = connectiveDefaultSpokenForms.sourceDestinationConnective;
@@ -47,10 +46,7 @@ const ON = connectiveDefaultSpokenForms.on;
 
 type TalonSideActionType = "applyFormatter" | "nextHomophone";
 
-export const actionReferences: Record<
-  ActionType | TalonSideActionType,
-  ReferenceEntry
-> = {
+export const actionReferences = {
   addSelection: {
     name: "Add selection",
     defaultSpokenForm: "append",
@@ -1290,4 +1286,4 @@ export const actionReferences: Record<
     syntaxes: [],
     examples: [],
   },
-};
+} as const satisfies Record<ActionType | TalonSideActionType, ReferenceEntry>;
