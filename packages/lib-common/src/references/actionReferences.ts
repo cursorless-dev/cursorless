@@ -27,7 +27,6 @@ import { scopeReferences } from "./scopeReferences";
 import { connectiveDefaultSpokenForms } from "./spokenForms/connectiveDefaultSpokenForms";
 
 const DEFAULT_PATTERN = `${VAR_SPOKEN_FORM} ${VAR_TARGET}`;
-const DEFAULT_PATTERN_SCOPE = `${VAR_SPOKEN_FORM} ${VAR_SCOPE} ${VAR_TARGET}`;
 const DEFAULT_COMMAND = `${VAR_SPOKEN_FORM} ${TARGET}`;
 
 const ITEM = scopeReferences.collectionItem.defaultSpokenForm;
@@ -212,7 +211,7 @@ export const actionReferences = {
         cheatsheet: "Edit new line after",
       },
       {
-        pattern: DEFAULT_PATTERN_SCOPE,
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_SCOPE} ${VAR_TARGET}`,
         description: `Edit new ${VAR_SCOPE} after ${VAR_TARGET}.`,
         cheatsheet: `Edit new ${VAR_SCOPE} after`,
       },
@@ -239,7 +238,7 @@ export const actionReferences = {
         cheatsheet: "Edit new line before",
       },
       {
-        pattern: DEFAULT_PATTERN_SCOPE,
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_SCOPE} ${VAR_TARGET}`,
         description: `Edit new ${VAR_SCOPE} before ${VAR_TARGET}.`,
         cheatsheet: `Edit new ${VAR_SCOPE} before`,
       },
@@ -530,13 +529,13 @@ export const actionReferences = {
     ],
   },
   insertEmptyLineAfter: {
-    name: "Insert empty line after",
+    name: "Insert empty line/scope after",
     defaultSpokenForm: "float",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: `Insert empty line after ${VAR_TARGET}.`,
-        cheatsheet: "Insert empty line after",
+        description: `Insert empty line/scope after ${VAR_TARGET}.`,
+        cheatsheet: "Insert empty line/scope after",
       },
     ],
     examples: [
@@ -551,13 +550,13 @@ export const actionReferences = {
     ],
   },
   insertEmptyLineBefore: {
-    name: "Insert empty line before",
+    name: "Insert empty line/scope before",
     defaultSpokenForm: "drop",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: `Insert empty line before ${VAR_TARGET}.`,
-        cheatsheet: "Insert empty line before",
+        description: `Insert empty line/scope before ${VAR_TARGET}.`,
+        cheatsheet: "Insert empty line/scope before",
       },
     ],
     examples: [
@@ -572,13 +571,13 @@ export const actionReferences = {
     ],
   },
   insertEmptyLinesAround: {
-    name: "Insert empty lines around",
+    name: "Insert empty lines/scopes around",
     defaultSpokenForm: "puff",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: `Insert empty lines around ${VAR_TARGET}.`,
-        cheatsheet: "Insert empty lines around",
+        description: `Insert empty lines/scopes around ${VAR_TARGET}.`,
+        cheatsheet: "Insert empty lines/scopes around",
       },
     ],
     examples: [

@@ -5,6 +5,8 @@ import {
   LINE,
   SET_SELECTION,
   STATEMENT,
+  TARGET,
+  TARGET_DESC,
   VAR_CHARACTER,
   VAR_PAIR,
   VAR_SPOKEN_FORM,
@@ -17,10 +19,9 @@ import { graphemeDefaultSpokenForms } from "./spokenForms/graphemeDefaultSpokenF
 const DEFAULT_PATTERN = VAR_SPOKEN_FORM;
 
 const AIR = graphemeDefaultSpokenForms.a;
-const TARGET = `blue ${AIR}`;
-const TARGET_DESC = "token containing letter 'a' with a blue hat";
 const PARENTHESIS = pairedDelimiterReferences.parentheses.defaultSpokenForm;
 const NEXT = connectiveDefaultSpokenForms.next;
+const FIRST = connectiveDefaultSpokenForms.first;
 
 export const scopeReferences = {
   argumentOrParameter: {
@@ -789,8 +790,8 @@ export const scopeReferences = {
     ],
     examples: [
       {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the character containing the ${TARGET_DESC}.`,
+        command: `${SET_SELECTION} ${FIRST} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the first character in the ${TARGET_DESC}.`,
       },
     ],
   },
@@ -807,8 +808,8 @@ export const scopeReferences = {
     ],
     examples: [
       {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the sub token word containing the ${TARGET_DESC}.`,
+        command: `${SET_SELECTION} ${FIRST} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the first sub token word in the ${TARGET_DESC}.`,
       },
     ],
   },
@@ -825,7 +826,7 @@ export const scopeReferences = {
     examples: [
       {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the token containing the ${TARGET_DESC}.`,
+        description: `Selects the ${TARGET_DESC}.`,
       },
     ],
   },

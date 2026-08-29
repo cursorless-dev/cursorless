@@ -160,8 +160,8 @@ export const modifierReferences = {
     syntaxes: [
       {
         pattern: `${VAR_SPOKEN_FORM} ${VAR_SCOPE}`,
-        description: `Grandparent containing instance of ${VAR_SCOPE}.`,
-        cheatsheet: `Grandparent containing instance of ${VAR_SCOPE}`,
+        description: `Parent of the containing instance of ${VAR_SCOPE}.`,
+        cheatsheet: `Parent of the containing instance of ${VAR_SCOPE}`,
       },
     ],
     examples: [
@@ -411,7 +411,7 @@ export const modifierReferences = {
       {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM}`,
         description:
-          "Selects only to the nonempty selections when there are multiple selections.",
+          "Selects only the nonempty selections when there are multiple selections.",
       },
     ],
   },
