@@ -6,12 +6,14 @@ import type {
   RelativeScopeModifier,
   ScopeType,
 } from "@cursorless/lib-common";
-import { connectiveSpokenForms } from "@cursorless/lib-common";
+import {
+  connectiveDefaultSpokenForms,
+  lineDirectionDefaultSpokenForms,
+  markDefaultSpokenForms,
+} from "@cursorless/lib-common";
 import {
   hatColorToSpokenForm,
   hatShapeToSpokenForm,
-  lineDirections,
-  marks,
 } from "./defaultSpokenForms/marks";
 import {
   numberToSpokenForm,
@@ -167,8 +169,8 @@ export class PrimitiveTargetSpokenFormGenerator {
     if (modifier.length === 1) {
       const direction =
         modifier.direction === "forward"
-          ? connectiveSpokenForms.forward
-          : connectiveSpokenForms.backward;
+          ? connectiveDefaultSpokenForms.forward
+          : connectiveDefaultSpokenForms.backward;
 
       // token forward/backward
       return [isEvery, scope, direction];
@@ -184,7 +186,12 @@ export class PrimitiveTargetSpokenFormGenerator {
     }
 
     // two tokens backward
-    return [isEvery, length, scopePlural, connectiveSpokenForms.backward];
+    return [
+      isEvery,
+      length,
+      scopePlural,
+      connectiveDefaultSpokenForms.backward,
+    ];
   }
 
   private handleRelativeScopeExclusive(
@@ -193,8 +200,8 @@ export class PrimitiveTargetSpokenFormGenerator {
     const scope = this.handleScopeType(modifier.scopeType);
     const direction =
       modifier.direction === "forward"
-        ? connectiveSpokenForms.next
-        : connectiveSpokenForms.previous;
+        ? connectiveDefaultSpokenForms.next
+        : connectiveDefaultSpokenForms.previous;
     const isEvery = modifier.isEvery
       ? this.spokenFormMap.simpleModifier.everyScope
       : [];
@@ -320,7 +327,7 @@ export class PrimitiveTargetSpokenFormGenerator {
         throw new NoSpokenFormError(`Mark '${mark.type}'`);
 
       default:
-        return [marks[mark.type]];
+        return [markDefaultSpokenForms[mark.type]];
     }
   }
 
@@ -331,7 +338,7 @@ export class PrimitiveTargetSpokenFormGenerator {
       case "modulo100": {
         // row/ five
         return [
-          lineDirections.modulo100,
+          lineDirectionDefaultSpokenForms.modulo100,
           numberToSpokenForm(mark.lineNumber + 1),
         ];
       }
@@ -339,8 +346,8 @@ export class PrimitiveTargetSpokenFormGenerator {
         // up/down five
         return [
           mark.lineNumber < 0
-            ? lineDirections.relativeUp
-            : lineDirections.relativeDown,
+            ? lineDirectionDefaultSpokenForms.relativeUp
+            : lineDirectionDefaultSpokenForms.relativeDown,
           numberToSpokenForm(Math.abs(mark.lineNumber)),
         ];
       }

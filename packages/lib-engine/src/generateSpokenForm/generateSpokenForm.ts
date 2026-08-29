@@ -11,7 +11,7 @@ import type {
 } from "@cursorless/lib-common";
 import {
   camelCaseToAllDown,
-  connectiveSpokenForms,
+  connectiveDefaultSpokenForms,
   DOCS_URL,
 } from "@cursorless/lib-common";
 import type { SpokenFormMap } from "../spokenForms/SpokenFormMap";
@@ -139,7 +139,7 @@ export class SpokenFormGenerator {
         return [
           this.spokenFormMap.action[action.name],
           this.handleTarget(action.target1),
-          connectiveSpokenForms.swapConnective,
+          connectiveDefaultSpokenForms.swapConnective,
           this.handleTarget(action.target2),
         ];
 
@@ -228,7 +228,7 @@ export class SpokenFormGenerator {
           i === 0
             ? this.handleTarget(element)
             : [
-                connectiveSpokenForms.listConnective,
+                connectiveDefaultSpokenForms.listConnective,
                 this.handleTarget(element),
               ],
         );
@@ -267,7 +267,7 @@ export class SpokenFormGenerator {
           i === 0
             ? this.handleDestination(destination)
             : [
-                connectiveSpokenForms.listConnective,
+                connectiveDefaultSpokenForms.listConnective,
                 this.handleDestination(destination),
               ],
         );
@@ -288,11 +288,11 @@ export class SpokenFormGenerator {
   private handleInsertionMode(insertionMode: InsertionMode): string {
     switch (insertionMode) {
       case "to":
-        return connectiveSpokenForms.sourceDestinationConnective;
+        return connectiveDefaultSpokenForms.sourceDestinationConnective;
       case "before":
-        return connectiveSpokenForms.before;
+        return connectiveDefaultSpokenForms.before;
       case "after":
-        return connectiveSpokenForms.after;
+        return connectiveDefaultSpokenForms.after;
       // No default
     }
   }

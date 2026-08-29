@@ -1,22 +1,26 @@
 import type { ScopeTypeType } from "../types/command/PartialTargetDescriptor.types";
 import {
-  AIR,
   EVERY,
   ITEM,
-  NEXT,
-  PARENTHESES,
+  LINE,
   SET_SELECTION,
   STATEMENT,
   VAR_CHARACTER,
   VAR_PAIR,
   VAR_SPOKEN_FORM,
 } from "./constants";
+import { pairedDelimiterReferences } from "./pairedDelimiterReferences";
 import type { ReferenceEntry } from "./ReferenceEntry";
+import { connectiveDefaultSpokenForms } from "./spokenForms/connectiveDefaultSpokenForms";
+import { graphemeDefaultSpokenForms } from "./spokenForms/graphemeDefaultSpokenForms";
 
 const DEFAULT_PATTERN = VAR_SPOKEN_FORM;
 
-const TARGET = "blue air";
+const AIR = graphemeDefaultSpokenForms.a;
+const TARGET = `blue ${AIR}`;
 const TARGET_DESC = "token containing letter 'a' with a blue hat";
+const PARENTHESIS = pairedDelimiterReferences.parentheses.defaultSpokenForm;
+const NEXT = connectiveDefaultSpokenForms.next;
 
 export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
   argumentOrParameter: {
@@ -844,7 +848,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
   },
   line: {
     name: "Line",
-    defaultSpokenForm: "line",
+    defaultSpokenForm: LINE,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1060,7 +1064,7 @@ export const scopeReferences: Record<ScopeTypeType, ReferenceEntry> = {
     ],
     examples: [
       {
-        command: `${SET_SELECTION} ${PARENTHESES} ${TARGET}`,
+        command: `${SET_SELECTION} ${PARENTHESIS} ${TARGET}`,
         description: `Selects the parentheses containing the ${TARGET_DESC}.`,
       },
     ],

@@ -1,34 +1,36 @@
 import type { ModifierType } from "../types/command/PartialTargetDescriptor.types";
-import type { SpokenFormMapKeyTypes } from "../types/SpokenFormType";
 import {
-  BACKWARD,
   EVERY,
-  EXTEND_THROUGH_END_OF,
-  FIRST,
-  FORWARD,
   ITEM,
-  LAST,
   LINE,
-  NEXT,
-  PARENTHESES,
-  PREVIOUS,
   REMOVE,
   SET_SELECTION,
   STATEMENT,
-  THIRD,
-  THREE,
+  TARGET,
+  TARGET_DESC,
   VAR_MODIFIER,
   VAR_NUMBER,
   VAR_ORDINAL,
   VAR_SCOPE,
   VAR_SPOKEN_FORM,
 } from "./constants";
-import type { ReferenceEntry, SpokenFormReference } from "./ReferenceEntry";
+import { pairedDelimiterReferences } from "./pairedDelimiterReferences";
+import type { ReferenceEntry } from "./ReferenceEntry";
+import { connectiveDefaultSpokenForms } from "./spokenForms/connectiveDefaultSpokenForms";
+import { graphemeDefaultSpokenForms } from "./spokenForms/graphemeDefaultSpokenForms";
+import { ordinalDefaultSpokenForms } from "./spokenForms/numberDefaultSpokenForms";
 
 const DEFAULT_PATTERN = VAR_SPOKEN_FORM;
-
-const TARGET = "blue air";
-const TARGET_DESC = "token containing letter 'a' with a blue hat";
+const PARENTHESES = pairedDelimiterReferences.parentheses.defaultSpokenForm;
+const THREE = graphemeDefaultSpokenForms["3"];
+const EXTEND_THROUGH_END_OF = "past end of";
+const THIRD = ordinalDefaultSpokenForms[3];
+const PREVIOUS = connectiveDefaultSpokenForms.previous;
+const NEXT = connectiveDefaultSpokenForms.next;
+const BACKWARD = connectiveDefaultSpokenForms.backward;
+const FORWARD = connectiveDefaultSpokenForms.forward;
+const FIRST = connectiveDefaultSpokenForms.first;
+const LAST = connectiveDefaultSpokenForms.last;
 
 type AdditionalModifierReferenceType = "ancestor";
 
@@ -491,52 +493,3 @@ export const modifierReferences: Record<
     examples: [],
   },
 };
-
-export const simpleModifierReferenceIds = [
-  "excludeInterior",
-  "toRawSelection",
-  "leading",
-  "trailing",
-  "keepContentFilter",
-  "keepEmptyFilter",
-  "inferPreviousMark",
-  "startOf",
-  "endOf",
-  "interiorOnly",
-  "visible",
-  "extendThroughStartOf",
-  "extendThroughEndOf",
-  "everyScope",
-] as const satisfies readonly SpokenFormMapKeyTypes["simpleModifier"][];
-
-export const modifierExtraReferenceIds = [
-  "first",
-  "last",
-  "previous",
-  "next",
-  "forward",
-  "backward",
-  "ancestor",
-] as const satisfies readonly SpokenFormMapKeyTypes["modifierExtra"][];
-
-export const modifierExtraReferences = {
-  first: {
-    defaultSpokenForm: FIRST,
-  },
-  last: {
-    defaultSpokenForm: LAST,
-  },
-  previous: {
-    defaultSpokenForm: PREVIOUS,
-  },
-  next: {
-    defaultSpokenForm: NEXT,
-  },
-  forward: {
-    defaultSpokenForm: FORWARD,
-  },
-  backward: {
-    defaultSpokenForm: BACKWARD,
-  },
-  ancestor: modifierReferences.ancestor,
-} satisfies Record<SpokenFormMapKeyTypes["modifierExtra"], SpokenFormReference>;

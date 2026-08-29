@@ -3,12 +3,12 @@ import type {
   InsertionMode,
 } from "@cursorless/lib-common";
 import {
-  connectiveSpokenForms,
+  connectiveDefaultSpokenForms,
+  markDefaultSpokenForms,
   simpleActionNames,
   simpleScopeTypeTypes,
   surroundingPairNames,
 } from "@cursorless/lib-common";
-import { marks } from "../generateSpokenForm/defaultSpokenForms/marks";
 import { defaultSpokenFormMap } from "../spokenForms/defaultSpokenFormMap";
 import { CommandLexer } from "./CommandLexer";
 
@@ -50,7 +50,7 @@ const insertionModes: InsertionMode[] = ["before", "after", "to"];
 
 for (const insertionMode of insertionModes) {
   const spokenForm =
-    connectiveSpokenForms[
+    connectiveDefaultSpokenForms[
       insertionMode === "to" ? "sourceDestinationConnective" : insertionMode
     ];
   tokens[spokenForm] = {
@@ -80,7 +80,7 @@ for (const pairedDelimiter of surroundingPairNames) {
   }
 }
 
-for (const [mark, spokenForm] of Object.entries(marks)) {
+for (const [mark, spokenForm] of Object.entries(markDefaultSpokenForms)) {
   if (spokenForm != null) {
     tokens[spokenForm] = {
       type: "simpleMarkType",

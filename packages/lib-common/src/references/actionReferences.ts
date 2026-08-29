@@ -1,9 +1,15 @@
 import type { ActionType } from "../types/command/ActionDescriptor";
-import { connectiveSpokenForms } from "./connectiveSpokenForms";
 import {
+  FORMATTER_CAMEL,
   REMOVE,
   SET_SELECTION,
   SNIPPET_IF,
+  TARGET,
+  TARGET_2,
+  TARGET_2_DESC,
+  TARGET_DESC,
+  TARGET_NUMBER,
+  TARGET_NUMBER_DESC,
   VAR_DESTINATION,
   VAR_FORMATTER,
   VAR_PAIR,
@@ -16,26 +22,28 @@ import {
 } from "./constants";
 import { getSpokenForm } from "./getSpokenForm";
 import { modifierReferences } from "./modifierReferences";
+import { pairedDelimiterReferences } from "./pairedDelimiterReferences";
 import type { ReferenceEntry } from "./ReferenceEntry";
 import { scopeReferences } from "./scopeReferences";
-
-const TARGET = "blue air";
-const TARGET_DESC = "token containing letter 'a' with a blue hat";
-const TARGET_2 = "green bat";
-const TARGET_2_DESC = "token containing letter 'b' with a green hat";
+import { connectiveDefaultSpokenForms } from "./spokenForms/connectiveDefaultSpokenForms";
 
 const DEFAULT_PATTERN = `${VAR_SPOKEN_FORM} ${VAR_TARGET}`;
 const DEFAULT_PATTERN_SCOPE = `${VAR_SPOKEN_FORM} ${VAR_SCOPE} ${VAR_TARGET}`;
 const DEFAULT_COMMAND = `${VAR_SPOKEN_FORM} ${TARGET}`;
 
-const COLLECTION_ITEM_SCOPE = getSpokenForm(scopeReferences.collectionItem);
-const FUNCTION_CALL_SCOPE = getSpokenForm(scopeReferences.functionCall);
-const INSTANCE_SCOPE = getSpokenForm(scopeReferences.instance);
-const NAMED_FUNCTION_SCOPE = getSpokenForm(scopeReferences.namedFunction);
-const TOKEN_SCOPE = getSpokenForm(scopeReferences.token);
-const EVERY_MODIFIER = getSpokenForm(modifierReferences.everyScope);
-const SWAP_CONNECTIVE = connectiveSpokenForms.swapConnective;
-const AFTER = connectiveSpokenForms.after;
+const ITEM = getSpokenForm(scopeReferences.collectionItem);
+const CALL = getSpokenForm(scopeReferences.functionCall);
+const INSTANCE = getSpokenForm(scopeReferences.instance);
+const FUNCTION = getSpokenForm(scopeReferences.namedFunction);
+const TOKEN = getSpokenForm(scopeReferences.token);
+const EVERY = getSpokenForm(modifierReferences.everyScope);
+const WITH = connectiveDefaultSpokenForms.swapConnective;
+const AFTER = connectiveDefaultSpokenForms.after;
+const TO = connectiveDefaultSpokenForms.sourceDestinationConnective;
+const CURLY = pairedDelimiterReferences.curlyBrackets.defaultSpokenForm;
+const SQUARE = pairedDelimiterReferences.squareBrackets.defaultSpokenForm;
+const AT = connectiveDefaultSpokenForms.at;
+const ON = connectiveDefaultSpokenForms.on;
 
 type TalonSideActionType = "applyFormatter" | "nextHomophone";
 
@@ -175,8 +183,8 @@ export const actionReferences: Record<
     ],
     examples: [
       {
-        command: DEFAULT_COMMAND,
-        description: `Decrements the number at the ${TARGET_DESC}.`,
+        command: `${VAR_SPOKEN_FORM} ${TARGET_NUMBER}`,
+        description: `Decrements the number at the ${TARGET_NUMBER_DESC}.`,
       },
     ],
   },
@@ -219,7 +227,7 @@ export const actionReferences: Record<
         description: `Inserts a new line below the ${TARGET_DESC} and moves the cursor to it.`,
       },
       {
-        command: `${VAR_SPOKEN_FORM} ${COLLECTION_ITEM_SCOPE} ${TARGET}`,
+        command: `${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
         description: `Inserts the delimiters for a new collection item after the item containing the ${TARGET_DESC} and moves the cursor there.`,
       },
     ],
@@ -246,7 +254,7 @@ export const actionReferences: Record<
         description: `Inserts a new line above the ${TARGET_DESC} and moves the cursor to it.`,
       },
       {
-        command: `${VAR_SPOKEN_FORM} ${COLLECTION_ITEM_SCOPE} ${TARGET}`,
+        command: `${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
         description: `Inserts the delimiters for a new collection item before the item containing the ${TARGET_DESC} and moves the cursor there.`,
       },
     ],
@@ -265,7 +273,7 @@ export const actionReferences: Record<
     ],
     examples: [
       {
-        command: `${VAR_SPOKEN_FORM} ${NAMED_FUNCTION_SCOPE} ${TARGET} ${SET_SELECTION} ${EVERY_MODIFIER} ${INSTANCE_SCOPE} ${TARGET_2}`,
+        command: `${VAR_SPOKEN_FORM} ${FUNCTION} ${TARGET} ${SET_SELECTION} ${EVERY} ${INSTANCE} ${TARGET_2}`,
         description: `Selects every instance of the ${TARGET_2_DESC} within the function containing the ${TARGET_DESC}.`,
       },
     ],
@@ -282,7 +290,7 @@ export const actionReferences: Record<
     ],
     examples: [
       {
-        command: `${VAR_SPOKEN_FORM} ${FUNCTION_CALL_SCOPE} ${TARGET}`,
+        command: `${VAR_SPOKEN_FORM} ${CALL} ${TARGET}`,
         description: `Extracts the function call containing the ${TARGET_DESC} into a variable.`,
       },
     ],
@@ -350,7 +358,7 @@ export const actionReferences: Record<
     ],
     examples: [
       {
-        command: `${VAR_SPOKEN_FORM} ${NAMED_FUNCTION_SCOPE} ${TARGET}`,
+        command: `${VAR_SPOKEN_FORM} ${FUNCTION} ${TARGET}`,
         description: `Folds the function containing the ${TARGET_DESC}.`,
       },
     ],
@@ -469,8 +477,8 @@ export const actionReferences: Record<
     ],
     examples: [
       {
-        command: DEFAULT_COMMAND,
-        description: `Increments the ${TARGET_DESC}.`,
+        command: `${VAR_SPOKEN_FORM} ${TARGET_NUMBER}`,
+        description: `Increments the ${TARGET_NUMBER_DESC}.`,
       },
     ],
   },
@@ -503,7 +511,7 @@ export const actionReferences: Record<
     ],
     examples: [
       {
-        command: `${VAR_SPOKEN_FORM} ${NAMED_FUNCTION_SCOPE} ${TARGET}`,
+        command: `${VAR_SPOKEN_FORM} ${FUNCTION} ${TARGET}`,
         description: `Inserts a copy of the function containing the ${TARGET_DESC} after itself.`,
       },
     ],
@@ -520,7 +528,7 @@ export const actionReferences: Record<
     ],
     examples: [
       {
-        command: `${VAR_SPOKEN_FORM} ${NAMED_FUNCTION_SCOPE} ${TARGET}`,
+        command: `${VAR_SPOKEN_FORM} ${FUNCTION} ${TARGET}`,
         description: `Inserts a copy of the function containing the ${TARGET_DESC} before itself.`,
       },
     ],
@@ -541,7 +549,7 @@ export const actionReferences: Record<
         description: `Inserts an empty line below the ${TARGET_DESC} without moving the cursor.`,
       },
       {
-        command: `${VAR_SPOKEN_FORM} ${COLLECTION_ITEM_SCOPE} ${TARGET}`,
+        command: `${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
         description: `Inserts the required delimiter after the collection item containing the ${TARGET_DESC}.`,
       },
     ],
@@ -562,7 +570,7 @@ export const actionReferences: Record<
         description: `Inserts an empty line above the ${TARGET_DESC} without moving the cursor.`,
       },
       {
-        command: `${VAR_SPOKEN_FORM} ${COLLECTION_ITEM_SCOPE} ${TARGET}`,
+        command: `${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
         description: `Inserts the required delimiter before the collection item containing the ${TARGET_DESC}.`,
       },
     ],
@@ -583,7 +591,7 @@ export const actionReferences: Record<
         description: `Inserts empty lines around the line containing the ${TARGET_DESC} without moving the cursor.`,
       },
       {
-        command: `${VAR_SPOKEN_FORM} ${TOKEN_SCOPE} ${TARGET}`,
+        command: `${VAR_SPOKEN_FORM} ${TOKEN} ${TARGET}`,
         description: `Inserts spaces around the ${TARGET_DESC}.`,
       },
     ],
@@ -634,7 +642,7 @@ export const actionReferences: Record<
     ],
     examples: [
       {
-        command: `${VAR_SPOKEN_FORM} ${EVERY_MODIFIER} ${COLLECTION_ITEM_SCOPE} ${TARGET}`,
+        command: `${VAR_SPOKEN_FORM} ${EVERY} ${ITEM} ${TARGET}`,
         description: `Randomizes the collection items associated with the ${TARGET_DESC}.`,
       },
     ],
@@ -721,7 +729,7 @@ export const actionReferences: Record<
     ],
     examples: [
       {
-        command: `${VAR_SPOKEN_FORM} ${EVERY_MODIFIER} ${COLLECTION_ITEM_SCOPE} ${TARGET}`,
+        command: `${VAR_SPOKEN_FORM} ${EVERY} ${ITEM} ${TARGET}`,
         description: `Reverses the collection items associated with the ${TARGET_DESC}.`,
       },
     ],
@@ -908,7 +916,7 @@ export const actionReferences: Record<
     ],
     examples: [
       {
-        command: `${VAR_SPOKEN_FORM} ${EVERY_MODIFIER} ${COLLECTION_ITEM_SCOPE} ${TARGET}`,
+        command: `${VAR_SPOKEN_FORM} ${EVERY} ${ITEM} ${TARGET}`,
         description: `Sorts the collection items associated with the ${TARGET_DESC}.`,
       },
     ],
@@ -924,7 +932,7 @@ export const actionReferences: Record<
         cheatsheet: "Toggle line breakpoint",
       },
       {
-        pattern: `${VAR_SPOKEN_FORM} ${TOKEN_SCOPE} ${VAR_TARGET}`,
+        pattern: `${VAR_SPOKEN_FORM} ${TOKEN} ${VAR_TARGET}`,
         description: `Toggle inline breakpoint at ${VAR_TARGET}.`,
         cheatsheet: "Toggle inline breakpoint",
       },
@@ -965,7 +973,7 @@ export const actionReferences: Record<
     ],
     examples: [
       {
-        command: `${VAR_SPOKEN_FORM} ${NAMED_FUNCTION_SCOPE} ${TARGET}`,
+        command: `${VAR_SPOKEN_FORM} ${FUNCTION} ${TARGET}`,
         description: `Unfolds the function containing the ${TARGET_DESC}.`,
       },
     ],
@@ -980,7 +988,7 @@ export const actionReferences: Record<
         cheatsheet: `Insert call to ${VAR_TARGET} on selection`,
       },
       {
-        pattern: `${VAR_SPOKEN_FORM} ${VAR_TARGET_1} on ${VAR_TARGET_2}`,
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_TARGET_1} ${ON} ${VAR_TARGET_2}`,
         description: `Insert call to ${VAR_TARGET_1} on ${VAR_TARGET_2}.`,
         cheatsheet: `Insert call to ${VAR_TARGET_1} on ${VAR_TARGET_2}`,
       },
@@ -1005,7 +1013,7 @@ export const actionReferences: Record<
     ],
     examples: [
       {
-        command: `${VAR_SPOKEN_FORM} ${NAMED_FUNCTION_SCOPE} ${TARGET}`,
+        command: `${VAR_SPOKEN_FORM} ${FUNCTION} ${TARGET}`,
         description: `Generates a snippet from the function containing the ${TARGET_DESC}.`,
       },
     ],
@@ -1061,7 +1069,7 @@ export const actionReferences: Record<
     ],
     examples: [
       {
-        command: `${VAR_SPOKEN_FORM} ${TARGET} after ${TARGET_2}`,
+        command: `${VAR_SPOKEN_FORM} ${TARGET} ${AFTER} ${TARGET_2}`,
         description: `Moves the ${TARGET_DESC} to after the ${TARGET_2_DESC}.`,
       },
     ],
@@ -1078,7 +1086,7 @@ export const actionReferences: Record<
     ],
     examples: [
       {
-        command: `${VAR_SPOKEN_FORM} after ${TARGET}`,
+        command: `${VAR_SPOKEN_FORM} ${AFTER} ${TARGET}`,
         description: `Pastes the clipboard contents after the ${TARGET_DESC}.`,
       },
     ],
@@ -1100,7 +1108,7 @@ export const actionReferences: Record<
     ],
     examples: [
       {
-        command: `${VAR_SPOKEN_FORM} ${TARGET} to ${TARGET_2}`,
+        command: `${VAR_SPOKEN_FORM} ${TARGET} ${TO} ${TARGET_2}`,
         description: `Replaces the ${TARGET_2_DESC} with a copy of the ${TARGET_DESC}.`,
       },
     ],
@@ -1117,7 +1125,7 @@ export const actionReferences: Record<
     ],
     examples: [
       {
-        command: `curly ${VAR_SPOKEN_FORM} ${TARGET}`,
+        command: `${CURLY} ${VAR_SPOKEN_FORM} ${TARGET}`,
         description: `Replaces the paired delimiters around the ${TARGET_DESC} with curly brackets.`,
       },
     ],
@@ -1127,19 +1135,19 @@ export const actionReferences: Record<
     defaultSpokenForm: "swap",
     syntaxes: [
       {
-        pattern: `${VAR_SPOKEN_FORM} ${SWAP_CONNECTIVE} ${VAR_TARGET}`,
+        pattern: `${VAR_SPOKEN_FORM} ${WITH} ${VAR_TARGET}`,
         description: `Swap selection with ${VAR_TARGET}.`,
         cheatsheet: `Swap selection with ${VAR_TARGET}`,
       },
       {
-        pattern: `${VAR_SPOKEN_FORM} ${VAR_TARGET_1} ${SWAP_CONNECTIVE} ${VAR_TARGET_2}`,
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_TARGET_1} ${WITH} ${VAR_TARGET_2}`,
         description: `Swap ${VAR_TARGET_1} with ${VAR_TARGET_2}.`,
         cheatsheet: `Swap ${VAR_TARGET_1} with ${VAR_TARGET_2}`,
       },
     ],
     examples: [
       {
-        command: `${VAR_SPOKEN_FORM} ${TARGET} ${connectiveSpokenForms.swapConnective} ${TARGET_2}`,
+        command: `${VAR_SPOKEN_FORM} ${TARGET} ${WITH} ${TARGET_2}`,
         description: `Swaps the ${TARGET_DESC} and the ${TARGET_2_DESC}.`,
       },
     ],
@@ -1156,7 +1164,7 @@ export const actionReferences: Record<
     ],
     examples: [
       {
-        command: `box ${VAR_SPOKEN_FORM} ${TARGET}`,
+        command: `${SQUARE} ${VAR_SPOKEN_FORM} ${TARGET}`,
         description: `Wraps the ${TARGET_DESC} in square brackets.`,
       },
     ],
@@ -1173,7 +1181,7 @@ export const actionReferences: Record<
     ],
     examples: [
       {
-        command: `if ${VAR_SPOKEN_FORM} ${TARGET}`,
+        command: `${SNIPPET_IF} ${VAR_SPOKEN_FORM} ${TARGET}`,
         description: `Wraps the ${TARGET_DESC} in an if-statement snippet.`,
       },
     ],
@@ -1183,14 +1191,14 @@ export const actionReferences: Record<
     defaultSpokenForm: "format",
     syntaxes: [
       {
-        pattern: `${VAR_SPOKEN_FORM} ${VAR_FORMATTER} at ${VAR_TARGET}`,
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_FORMATTER} ${AT} ${VAR_TARGET}`,
         description: `Reformat ${VAR_TARGET} as ${VAR_FORMATTER}.`,
         cheatsheet: `Reformat ${VAR_TARGET} as ${VAR_FORMATTER}`,
       },
     ],
     examples: [
       {
-        command: `${VAR_SPOKEN_FORM} camel at ${TARGET}`,
+        command: `${VAR_SPOKEN_FORM} ${FORMATTER_CAMEL} ${AT} ${TARGET}`,
         description: `Reformats the ${TARGET_DESC} as camel case.`,
       },
     ],

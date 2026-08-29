@@ -1,4 +1,4 @@
-export const connectiveSpokenForms = {
+export const connectiveDefaultSpokenForms = {
   rangeExclusive: "between",
   rangeInclusive: "past",
   // Note: rangeExcludingStart has no default spoken form
@@ -11,8 +11,13 @@ export const connectiveSpokenForms = {
   after: "after",
   verticalRange: "slice",
 
+  first: "first",
+  last: "last",
   previous: "previous",
   next: "next",
   forward: "forward",
   backward: "backward",
+
+  at: "at",
+  on: "on",
 } as const;
