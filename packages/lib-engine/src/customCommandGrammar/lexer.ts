@@ -3,11 +3,11 @@ import type {
   InsertionMode,
 } from "@cursorless/lib-common";
 import {
+  connectiveSpokenForms,
   simpleActionNames,
   simpleScopeTypeTypes,
   surroundingPairNames,
 } from "@cursorless/lib-common";
-import { connectives } from "../generateSpokenForm/defaultSpokenForms/connectives";
 import { marks } from "../generateSpokenForm/defaultSpokenForms/marks";
 import { defaultSpokenFormMap } from "../spokenForms/defaultSpokenFormMap";
 import { CommandLexer } from "./CommandLexer";
@@ -50,7 +50,7 @@ const insertionModes: InsertionMode[] = ["before", "after", "to"];
 
 for (const insertionMode of insertionModes) {
   const spokenForm =
-    connectives[
+    connectiveSpokenForms[
       insertionMode === "to" ? "sourceDestinationConnective" : insertionMode
     ];
   tokens[spokenForm] = {

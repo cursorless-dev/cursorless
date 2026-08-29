@@ -20,6 +20,6 @@ interface SyntaxDefinition {
 }
 
 interface ExampleDefinition {
-  spokenForm: string;
+  command: string;
   description: string;
 }

@@ -1,10 +1,25 @@
 import type { ModifierType } from "../types/command/PartialTargetDescriptor.types";
 import type { SpokenFormMapKeyTypes } from "../types/SpokenFormType";
 import type { ReferenceEntry, SpokenFormReference } from "./ReferenceEntry";
+import {
+  VAR_MODIFIER,
+  VAR_NUMBER,
+  VAR_ORDINAL,
+  VAR_SCOPE,
+  VAR_SPOKEN_FORM,
+} from "./variables";
 
-const DEFAULT_PATTERN = "<spokenForm>";
+const DEFAULT_PATTERN = VAR_SPOKEN_FORM;
 
 type AdditionalModifierReferenceType = "ancestor";
+
+const NEXT = "next";
+const FIRST = "first";
+const LAST = "last";
+const PREVIOUS = "previous";
+const BACKWARD = "backward";
+const FORWARD = "forward";
+const EVERY = "every";
 
 export const modifierReferences: Record<
   ModifierType | AdditionalModifierReferenceType,
@@ -16,7 +31,7 @@ export const modifierReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Empty position at start of target",
+        description: "Empty position at start of target.",
         cheatsheet: "Empty position at start of target",
       },
     ],
@@ -28,7 +43,7 @@ export const modifierReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Empty position at end of target",
+        description: "Empty position at end of target.",
         cheatsheet: "Empty position at end of target",
       },
     ],
@@ -40,7 +55,7 @@ export const modifierReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Interior only",
+        description: "Interior only.",
         cheatsheet: "Interior only",
       },
     ],
@@ -52,7 +67,7 @@ export const modifierReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Bounding paired delimiters",
+        description: "Bounding paired delimiters.",
         cheatsheet: "Bounding paired delimiters",
       },
     ],
@@ -64,7 +79,7 @@ export const modifierReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Visible in viewport",
+        description: "Visible in viewport.",
         cheatsheet: "Visible in viewport",
       },
     ],
@@ -74,21 +89,21 @@ export const modifierReferences: Record<
     name: "Containing scope",
     syntaxes: [
       {
-        pattern: "<scope>",
-        description: "Containing instance of <scope>",
-        cheatsheet: "Containing instance of <scope>",
+        pattern: VAR_SCOPE,
+        description: `Containing instance of ${VAR_SCOPE}.`,
+        cheatsheet: `Containing instance of ${VAR_SCOPE}`,
       },
     ],
     examples: [],
   },
   everyScope: {
     name: "Every scope",
-    defaultSpokenForm: "every",
+    defaultSpokenForm: EVERY,
     syntaxes: [
       {
-        pattern: "<spokenForm> <scope>",
-        description: "Every instance of <scope>",
-        cheatsheet: "Every instance of <scope>",
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_SCOPE}`,
+        description: `Every instance of ${VAR_SCOPE}.`,
+        cheatsheet: `Every instance of ${VAR_SCOPE}`,
       },
     ],
     examples: [],
@@ -98,9 +113,9 @@ export const modifierReferences: Record<
     defaultSpokenForm: "grand",
     syntaxes: [
       {
-        pattern: "<spokenForm> <scope>",
-        description: "Grandparent containing instance of <scope>",
-        cheatsheet: "Grandparent containing instance of <scope>",
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_SCOPE}`,
+        description: `Grandparent containing instance of ${VAR_SCOPE}.`,
+        cheatsheet: `Grandparent containing instance of ${VAR_SCOPE}`,
       },
     ],
     examples: [],
@@ -109,42 +124,34 @@ export const modifierReferences: Record<
     name: "Ordinal scope",
     syntaxes: [
       {
-        pattern: "<ordinal> <scope>",
-        description: "<ordinal> instance of <scope> in iteration scope",
-        cheatsheet: "<ordinal> instance of <scope> in iteration scope",
+        pattern: `${VAR_ORDINAL} ${VAR_SCOPE}`,
+        description: `${VAR_ORDINAL} instance of ${VAR_SCOPE} in iteration scope.`,
+        cheatsheet: `${VAR_ORDINAL} instance of ${VAR_SCOPE} in iteration scope`,
       },
       {
-        pattern: "<ordinal> <last> <scope>",
-        description: "<ordinal>-to-last instance of <scope> in iteration scope",
-        cheatsheet: "<ordinal>-to-last instance of <scope> in iteration scope",
+        pattern: `${VAR_ORDINAL} ${LAST} ${VAR_SCOPE}`,
+        description: `${VAR_ORDINAL}-to-last instance of ${VAR_SCOPE} in iteration scope.`,
+        cheatsheet: `${VAR_ORDINAL}-to-last instance of ${VAR_SCOPE} in iteration scope`,
       },
       {
-        pattern: "<first> <number> <scope>s",
-        description:
-          "First <number> instances of <scope> in iteration scope, as contiguous range",
-        cheatsheet:
-          "First <number> instances of <scope> in iteration scope, as contiguous range",
+        pattern: `${FIRST} ${VAR_NUMBER} ${VAR_SCOPE}s`,
+        description: `First ${VAR_NUMBER} instances of ${VAR_SCOPE} in iteration scope, as contiguous range.`,
+        cheatsheet: `First ${VAR_NUMBER} instances of ${VAR_SCOPE} in iteration scope, as contiguous range`,
       },
       {
-        pattern: "<every> <first> <number> <scope>s",
-        description:
-          "First <number> instances of <scope> in iteration scope, as individual targets",
-        cheatsheet:
-          "First <number> instances of <scope> in iteration scope, as individual targets",
+        pattern: `${EVERY} ${FIRST} ${VAR_NUMBER} ${VAR_SCOPE}s`,
+        description: `First ${VAR_NUMBER} instances of ${VAR_SCOPE} in iteration scope, as individual targets.`,
+        cheatsheet: `First ${VAR_NUMBER} instances of ${VAR_SCOPE} in iteration scope, as individual targets`,
       },
       {
-        pattern: "<last> <number> <scope>s",
-        description:
-          "Last <number> instances of <scope> in iteration scope, as contiguous range",
-        cheatsheet:
-          "Last <number> instances of <scope> in iteration scope, as contiguous range",
+        pattern: `${LAST} ${VAR_NUMBER} ${VAR_SCOPE}s`,
+        description: `Last ${VAR_NUMBER} instances of ${VAR_SCOPE} in iteration scope, as contiguous range.`,
+        cheatsheet: `Last ${VAR_NUMBER} instances of ${VAR_SCOPE} in iteration scope, as contiguous range`,
       },
       {
-        pattern: "<every> <last> <number> <scope>s",
-        description:
-          "Last <number> instances of <scope> in iteration scope, as individual targets",
-        cheatsheet:
-          "Last <number> instances of <scope> in iteration scope, as individual targets",
+        pattern: `${EVERY} ${LAST} ${VAR_NUMBER} ${VAR_SCOPE}s`,
+        description: `Last ${VAR_NUMBER} instances of ${VAR_SCOPE} in iteration scope, as individual targets.`,
+        cheatsheet: `Last ${VAR_NUMBER} instances of ${VAR_SCOPE} in iteration scope, as individual targets`,
       },
     ],
     examples: [],
@@ -153,91 +160,74 @@ export const modifierReferences: Record<
     name: "Relative scope",
     syntaxes: [
       {
-        pattern: "<previous> <scope>",
-        description: "Previous instance of <scope>",
-        cheatsheet: "Previous instance of <scope>",
+        pattern: `${PREVIOUS} ${VAR_SCOPE}`,
+        description: `Previous instance of ${VAR_SCOPE}.`,
+        cheatsheet: `Previous instance of ${VAR_SCOPE}`,
       },
       {
-        pattern: "<ordinal> <previous> <scope>",
-        description: "<ordinal> instance of <scope> before target",
-        cheatsheet: "<ordinal> instance of <scope> before target",
+        pattern: `${VAR_ORDINAL} ${PREVIOUS} ${VAR_SCOPE}`,
+        description: `${VAR_ORDINAL} instance of ${VAR_SCOPE} before target.`,
+        cheatsheet: `${VAR_ORDINAL} instance of ${VAR_SCOPE} before target`,
       },
       {
-        pattern: "<next> <scope>",
-        description: "Next instance of <scope>",
-        cheatsheet: "Next instance of <scope>",
+        pattern: `${NEXT} ${VAR_SCOPE}`,
+        description: `Next instance of ${VAR_SCOPE}.`,
+        cheatsheet: `Next instance of ${VAR_SCOPE}`,
       },
       {
-        pattern: "<ordinal> <next> <scope>",
-        description: "<ordinal> instance of <scope> after target",
-        cheatsheet: "<ordinal> instance of <scope> after target",
+        pattern: `${VAR_ORDINAL} ${NEXT} ${VAR_SCOPE}`,
+        description: `${VAR_ORDINAL} instance of ${VAR_SCOPE} after target.`,
+        cheatsheet: `${VAR_ORDINAL} instance of ${VAR_SCOPE} after target`,
       },
       {
-        pattern: "<scope> <backward>",
-        description:
-          "Single instance of <scope> including target, going backwards",
-        cheatsheet:
-          "Single instance of <scope> including target, going backwards",
+        pattern: `${VAR_SCOPE} ${BACKWARD}`,
+        description: `Single instance of ${VAR_SCOPE} including target, going backwards.`,
+        cheatsheet: `Single instance of ${VAR_SCOPE} including target, going backwards`,
       },
       {
-        pattern: "<scope> <forward>",
-        description:
-          "Single instance of <scope> including target, going forwards",
-        cheatsheet:
-          "Single instance of <scope> including target, going forwards",
+        pattern: `${VAR_SCOPE} ${FORWARD}`,
+        description: `Single instance of ${VAR_SCOPE} including target, going forwards.`,
+        cheatsheet: `Single instance of ${VAR_SCOPE} including target, going forwards`,
       },
       {
-        pattern: "<number> <scope>s <backward>",
-        description:
-          "<number> instances of <scope> including target, going backwards, as contiguous range",
-        cheatsheet:
-          "<number> instances of <scope> including target, going backwards, as contiguous range",
+        pattern: `${VAR_NUMBER} ${VAR_SCOPE}s ${BACKWARD}`,
+        description: `${VAR_NUMBER} instances of ${VAR_SCOPE} including target, going backwards, as contiguous range.`,
+        cheatsheet: `${VAR_NUMBER} instances of ${VAR_SCOPE} including target, going backwards, as contiguous range`,
       },
       {
-        pattern: "<every> <number> <scope>s <backward>",
-        description:
-          "<number> instances of <scope> including target, going backwards, as individual targets",
-        cheatsheet:
-          "<number> instances of <scope> including target, going backwards, as individual targets",
+        pattern: `${EVERY} ${VAR_NUMBER} ${VAR_SCOPE}s ${BACKWARD}`,
+        description: `${VAR_NUMBER} instances of ${VAR_SCOPE} including target, going backwards, as individual targets.`,
+        cheatsheet: `${VAR_NUMBER} instances of ${VAR_SCOPE} including target, going backwards, as individual targets`,
       },
       {
-        pattern: "<number> <scope>s",
-        description:
-          "<number> instances of <scope> including target, going forwards, as contiguous range",
-        cheatsheet:
-          "<number> instances of <scope> including target, going forwards, as contiguous range",
+        pattern: `${VAR_NUMBER} ${VAR_SCOPE}s`,
+        description: `${VAR_NUMBER} instances of ${VAR_SCOPE} including target, going forwards, as contiguous range.`,
+        cheatsheet: `${VAR_NUMBER} instances of ${VAR_SCOPE} including target, going forwards, as contiguous range`,
       },
       {
-        pattern: "<every> <number> <scope>s",
-        description:
-          "<number> instances of <scope> including target, going forwards, as individual targets",
-        cheatsheet:
-          "<number> instances of <scope> including target, going forwards, as individual targets",
+        pattern: `${EVERY} ${VAR_NUMBER} ${VAR_SCOPE}s`,
+        description: `${VAR_NUMBER} instances of ${VAR_SCOPE} including target, going forwards, as individual targets.`,
+        cheatsheet: `${VAR_NUMBER} instances of ${VAR_SCOPE} including target, going forwards, as individual targets`,
       },
       {
-        pattern: "<previous> <number> <scope>s",
-        description:
-          "Previous <number> instances of <scope>, as contiguous range",
-        cheatsheet:
-          "Previous <number> instances of <scope>, as contiguous range",
+        pattern: `${PREVIOUS} ${VAR_NUMBER} ${VAR_SCOPE}s`,
+        description: `Previous ${VAR_NUMBER} instances of ${VAR_SCOPE}, as contiguous range.`,
+        cheatsheet: `Previous ${VAR_NUMBER} instances of ${VAR_SCOPE}, as contiguous range`,
       },
       {
-        pattern: "<every> <previous> <number> <scope>s",
-        description:
-          "Previous <number> instances of <scope>, as individual targets",
-        cheatsheet:
-          "Previous <number> instances of <scope>, as individual targets",
+        pattern: `${EVERY} ${PREVIOUS} ${VAR_NUMBER} ${VAR_SCOPE}s`,
+        description: `Previous ${VAR_NUMBER} instances of ${VAR_SCOPE}, as individual targets.`,
+        cheatsheet: `Previous ${VAR_NUMBER} instances of ${VAR_SCOPE}, as individual targets`,
       },
       {
-        pattern: "<next> <number> <scope>s",
-        description: "Next <number> instances of <scope>, as contiguous range",
-        cheatsheet: "Next <number> instances of <scope>, as contiguous range",
+        pattern: `${NEXT} ${VAR_NUMBER} ${VAR_SCOPE}s`,
+        description: `Next ${VAR_NUMBER} instances of ${VAR_SCOPE}, as contiguous range.`,
+        cheatsheet: `Next ${VAR_NUMBER} instances of ${VAR_SCOPE}, as contiguous range`,
       },
       {
-        pattern: "<every> <next> <number> <scope>s",
-        description:
-          "Next <number> instances of <scope>, as individual targets",
-        cheatsheet: "Next <number> instances of <scope>, as individual targets",
+        pattern: `${EVERY} ${NEXT} ${VAR_NUMBER} ${VAR_SCOPE}s`,
+        description: `Next ${VAR_NUMBER} instances of ${VAR_SCOPE}, as individual targets.`,
+        cheatsheet: `Next ${VAR_NUMBER} instances of ${VAR_SCOPE}, as individual targets`,
       },
     ],
     examples: [],
@@ -248,13 +238,13 @@ export const modifierReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Extend through start of line/pair",
+        description: "Extend through start of line/pair.",
         cheatsheet: "Extend through start of line/pair",
       },
       {
-        pattern: "<spokenForm> <modifier>",
-        description: "Extend through start of <modifier>",
-        cheatsheet: "Extend through start of <modifier>",
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_MODIFIER}`,
+        description: `Extend through start of ${VAR_MODIFIER}.`,
+        cheatsheet: `Extend through start of ${VAR_MODIFIER}`,
       },
     ],
     examples: [],
@@ -265,13 +255,13 @@ export const modifierReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Extend through end of line/pair",
+        description: "Extend through end of line/pair.",
         cheatsheet: "Extend through end of line/pair",
       },
       {
-        pattern: "<spokenForm> <modifier>",
-        description: "Extend through end of <modifier>",
-        cheatsheet: "Extend through end of <modifier>",
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_MODIFIER}`,
+        description: `Extend through end of ${VAR_MODIFIER}.`,
+        cheatsheet: `Extend through end of ${VAR_MODIFIER}`,
       },
     ],
     examples: [],
@@ -282,7 +272,7 @@ export const modifierReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Leading delimiter range",
+        description: "Leading delimiter range.",
         cheatsheet: "Leading delimiter range",
       },
     ],
@@ -294,7 +284,7 @@ export const modifierReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Trailing delimiter range",
+        description: "Trailing delimiter range.",
         cheatsheet: "Trailing delimiter range",
       },
     ],
@@ -306,7 +296,7 @@ export const modifierReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "No inference",
+        description: "No inference.",
         cheatsheet: "No inference",
       },
     ],
@@ -318,7 +308,7 @@ export const modifierReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Keep content filter",
+        description: "Keep content filter.",
         cheatsheet: "Keep content filter",
       },
     ],
@@ -330,7 +320,7 @@ export const modifierReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Keep empty filter",
+        description: "Keep empty filter.",
         cheatsheet: "Keep empty filter",
       },
     ],
@@ -342,7 +332,7 @@ export const modifierReferences: Record<
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Infer previous mark",
+        description: "Infer previous mark.",
         cheatsheet: "Infer previous mark",
       },
     ],
@@ -363,9 +353,9 @@ export const modifierReferences: Record<
     private: true,
     syntaxes: [
       {
-        pattern: "<scope>",
-        description: "Preferred instance of <scope>",
-        cheatsheet: "Preferred instance of <scope>",
+        pattern: VAR_SCOPE,
+        description: `Preferred instance of ${VAR_SCOPE}.`,
+        cheatsheet: `Preferred instance of ${VAR_SCOPE}`,
       },
     ],
     examples: [],
@@ -413,22 +403,22 @@ export const modifierExtraReferenceIds = [
 
 export const modifierExtraReferences = {
   first: {
-    defaultSpokenForm: "first",
+    defaultSpokenForm: FIRST,
   },
   last: {
-    defaultSpokenForm: "last",
+    defaultSpokenForm: LAST,
   },
   previous: {
-    defaultSpokenForm: "previous",
+    defaultSpokenForm: PREVIOUS,
   },
   next: {
-    defaultSpokenForm: "next",
+    defaultSpokenForm: NEXT,
   },
   forward: {
-    defaultSpokenForm: "forward",
+    defaultSpokenForm: FORWARD,
   },
   backward: {
-    defaultSpokenForm: "backward",
+    defaultSpokenForm: BACKWARD,
   },
   ancestor: modifierReferences.ancestor,
 } satisfies Record<SpokenFormMapKeyTypes["modifierExtra"], SpokenFormReference>;

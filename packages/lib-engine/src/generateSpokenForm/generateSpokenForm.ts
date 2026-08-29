@@ -9,9 +9,12 @@ import type {
   SpokenFormMapKeyTypes,
   SpokenFormType,
 } from "@cursorless/lib-common";
-import { camelCaseToAllDown, DOCS_URL } from "@cursorless/lib-common";
+import {
+  camelCaseToAllDown,
+  connectiveSpokenForms,
+  DOCS_URL,
+} from "@cursorless/lib-common";
 import type { SpokenFormMap } from "../spokenForms/SpokenFormMap";
-import { connectives } from "./defaultSpokenForms/connectives";
 import { surroundingPairDelimitersToSpokenForm } from "./defaultSpokenForms/modifiers";
 import {
   insertionSnippetToSpokenForm,
@@ -136,7 +139,7 @@ export class SpokenFormGenerator {
         return [
           this.spokenFormMap.action[action.name],
           this.handleTarget(action.target1),
-          connectives.swapConnective,
+          connectiveSpokenForms.swapConnective,
           this.handleTarget(action.target2),
         ];
 
@@ -224,7 +227,10 @@ export class SpokenFormGenerator {
         return target.elements.map((element, i) =>
           i === 0
             ? this.handleTarget(element)
-            : [connectives.listConnective, this.handleTarget(element)],
+            : [
+                connectiveSpokenForms.listConnective,
+                this.handleTarget(element),
+              ],
         );
 
       case "range": {
@@ -260,7 +266,10 @@ export class SpokenFormGenerator {
         return destination.destinations.map((destination, i) =>
           i === 0
             ? this.handleDestination(destination)
-            : [connectives.listConnective, this.handleDestination(destination)],
+            : [
+                connectiveSpokenForms.listConnective,
+                this.handleDestination(destination),
+              ],
         );
 
       case "primitive":
@@ -279,11 +288,11 @@ export class SpokenFormGenerator {
   private handleInsertionMode(insertionMode: InsertionMode): string {
     switch (insertionMode) {
       case "to":
-        return connectives.sourceDestinationConnective;
+        return connectiveSpokenForms.sourceDestinationConnective;
       case "before":
-        return connectives.before;
+        return connectiveSpokenForms.before;
       case "after":
-        return connectives.after;
+        return connectiveSpokenForms.after;
       // No default
     }
   }

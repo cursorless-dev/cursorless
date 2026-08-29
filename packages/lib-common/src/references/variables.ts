@@ -1,0 +1,13 @@
+export const VAR_SPOKEN_FORM = "<spokenForm>";
+export const VAR_TARGET = "<target>";
+export const VAR_TARGET_1 = "<target 1>";
+export const VAR_TARGET_2 = "<target 2>";
+export const VAR_DESTINATION = "<destination>";
+export const VAR_SCOPE = "<scope>";
+export const VAR_SNIPPET = "<snippet>";
+export const VAR_PAIR = "<pair>";
+export const VAR_FORMATTER = "<formatter>";
+export const VAR_NUMBER = "<number>";
+export const VAR_ORDINAL = "<ordinal>";
+export const VAR_MODIFIER = "<modifier>";
+export const VAR_CHARACTER = "<character>";
