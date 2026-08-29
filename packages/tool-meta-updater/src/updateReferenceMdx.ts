@@ -76,7 +76,7 @@ export function updateReferenceMdx(
         injectSpokenForm(syntax.pattern, entry.defaultSpokenForm),
       );
       const description = formatVariables(syntax.description);
-      expected.push(`- ${pattern}: ${description}`);
+      expected.push(`- ${pattern} - ${description}`);
     }
     expected.push("");
   }
@@ -88,7 +88,7 @@ export function updateReferenceMdx(
         example.command,
         entry.defaultSpokenForm,
       );
-      expected.push(`- \`"${command}"\`: ${example.description}`);
+      expected.push(`- \`"${command}"\` - ${example.description}`);
     }
     expected.push("");
   }
