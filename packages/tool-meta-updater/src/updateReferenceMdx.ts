@@ -14,6 +14,12 @@ export function updateReferenceMdx(
     return null;
   }
 
+  if (entry.examples.length < entry.syntaxes.length) {
+    throw new Error(
+      `Reference "${id}" has ${entry.syntaxes.length} syntaxes, but only ${entry.examples.length} examples`,
+    );
+  }
+
   const isScope = kind === "scope";
 
   const expected: string[] = [];

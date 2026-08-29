@@ -937,6 +937,10 @@ export const actionReferences = {
         command: DEFAULT_COMMAND,
         description: `Toggles a breakpoint on the line containing the ${TARGET_DESC}.`,
       },
+      {
+        command: `${VAR_SPOKEN_FORM} ${TOKEN} ${TARGET}`,
+        description: `Toggles an inline breakpoint at the ${TARGET_DESC}.`,
+      },
     ],
   },
   toggleLineComment: {
@@ -1068,6 +1072,10 @@ export const actionReferences = {
     ],
     examples: [
       {
+        command: DEFAULT_COMMAND,
+        description: `Moves the ${TARGET_DESC} to the current selection.`,
+      },
+      {
         command: `${VAR_SPOKEN_FORM} ${TARGET} ${AFTER} ${TARGET_2}`,
         description: `Moves the ${TARGET_DESC} to after the ${TARGET_2_DESC}.`,
       },
@@ -1107,6 +1115,10 @@ export const actionReferences = {
     ],
     examples: [
       {
+        command: DEFAULT_COMMAND,
+        description: `Inserts a copy of the ${TARGET_DESC} at the current selection.`,
+      },
+      {
         command: `${VAR_SPOKEN_FORM} ${TARGET} ${TO} ${TARGET_2}`,
         description: `Replaces the ${TARGET_2_DESC} with a copy of the ${TARGET_DESC}.`,
       },
@@ -1145,6 +1157,10 @@ export const actionReferences = {
       },
     ],
     examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${WITH} ${TARGET}`,
+        description: `Swaps the current selection with the ${TARGET_DESC}.`,
+      },
       {
         command: `${VAR_SPOKEN_FORM} ${TARGET} ${WITH} ${TARGET_2}`,
         description: `Swaps the ${TARGET_DESC} and the ${TARGET_2_DESC}.`,

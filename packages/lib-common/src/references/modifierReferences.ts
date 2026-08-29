@@ -211,9 +211,29 @@ export const modifierReferences = {
         description: "Selects the third statement in the iteration scope.",
       },
       {
+        command: `${SET_SELECTION} ${THIRD} ${LAST} ${STATEMENT}`,
+        description:
+          "Selects the third-to-last statement in the iteration scope.",
+      },
+      {
         command: `${SET_SELECTION} ${FIRST} ${THREE} ${STATEMENT}s`,
         description:
           "Selects a contiguous range containing the first three statements in the iteration scope.",
+      },
+      {
+        command: `${SET_SELECTION} ${EVERY} ${FIRST} ${THREE} ${STATEMENT}s`,
+        description:
+          "Selects the first three statements in the iteration scope as individual targets.",
+      },
+      {
+        command: `${SET_SELECTION} ${LAST} ${THREE} ${STATEMENT}s`,
+        description:
+          "Selects a contiguous range containing the last three statements in the iteration scope.",
+      },
+      {
+        command: `${SET_SELECTION} ${EVERY} ${LAST} ${THREE} ${STATEMENT}s`,
+        description:
+          "Selects the last three statements in the iteration scope as individual targets.",
       },
     ],
   },
@@ -293,12 +313,60 @@ export const modifierReferences = {
     ],
     examples: [
       {
+        command: `${SET_SELECTION} ${PREVIOUS} ${STATEMENT} ${TARGET}`,
+        description: `Selects the previous statement before the statement containing the ${TARGET_DESC}.`,
+      },
+      {
+        command: `${SET_SELECTION} ${THIRD} ${PREVIOUS} ${STATEMENT} ${TARGET}`,
+        description: `Selects the third statement before the statement containing the ${TARGET_DESC}.`,
+      },
+      {
         command: `${SET_SELECTION} ${NEXT} ${STATEMENT} ${TARGET}`,
         description: `Selects the next statement after the statement containing the ${TARGET_DESC}.`,
       },
       {
+        command: `${SET_SELECTION} ${THIRD} ${NEXT} ${STATEMENT} ${TARGET}`,
+        description: `Selects the third statement after the statement containing the ${TARGET_DESC}.`,
+      },
+      {
+        command: `${SET_SELECTION} ${STATEMENT} ${BACKWARD} ${TARGET}`,
+        description: `Selects the statement containing the ${TARGET_DESC}, searching backward.`,
+      },
+      {
+        command: `${SET_SELECTION} ${STATEMENT} ${FORWARD} ${TARGET}`,
+        description: `Selects the statement containing the ${TARGET_DESC}, searching forward.`,
+      },
+      {
         command: `${SET_SELECTION} ${THREE} ${STATEMENT}s ${BACKWARD} ${TARGET}`,
-        description: `Selects three statements as a contiguous range, starting at the ${TARGET_DESC} and going backward.`,
+        description: `Selects three statements, including the statement containing the ${TARGET_DESC}, searching backward, as a contiguous range.`,
+      },
+      {
+        command: `${SET_SELECTION} ${EVERY} ${THREE} ${STATEMENT}s ${BACKWARD} ${TARGET}`,
+        description: `Selects three statements, including the statement containing the ${TARGET_DESC}, searching backward, as individual targets.`,
+      },
+      {
+        command: `${SET_SELECTION} ${THREE} ${STATEMENT}s ${TARGET}`,
+        description: `Selects three statements, including the statement containing the ${TARGET_DESC}, searching forward, as a contiguous range.`,
+      },
+      {
+        command: `${SET_SELECTION} ${EVERY} ${THREE} ${STATEMENT}s ${TARGET}`,
+        description: `Selects three statements, including the statement containing the ${TARGET_DESC}, searching forward, as individual targets.`,
+      },
+      {
+        command: `${SET_SELECTION} ${PREVIOUS} ${THREE} ${STATEMENT}s ${TARGET}`,
+        description: `Selects the previous three statements before the statement containing the ${TARGET_DESC} as a contiguous range.`,
+      },
+      {
+        command: `${SET_SELECTION} ${EVERY} ${PREVIOUS} ${THREE} ${STATEMENT}s ${TARGET}`,
+        description: `Selects the previous three statements before the statement containing the ${TARGET_DESC} as individual targets.`,
+      },
+      {
+        command: `${SET_SELECTION} ${NEXT} ${THREE} ${STATEMENT}s ${TARGET}`,
+        description: `Selects the next three statements after the statement containing the ${TARGET_DESC} as a contiguous range.`,
+      },
+      {
+        command: `${SET_SELECTION} ${EVERY} ${NEXT} ${THREE} ${STATEMENT}s ${TARGET}`,
+        description: `Selects the next three statements after the statement containing the ${TARGET_DESC} as individual targets.`,
       },
     ],
   },
@@ -322,6 +390,10 @@ export const modifierReferences = {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
         description: `Selects from the ${TARGET_DESC} through the start of its line or surrounding pair.`,
       },
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${STATEMENT} ${TARGET}`,
+        description: `Selects from the ${TARGET_DESC} through the start of its containing statement.`,
+      },
     ],
   },
   extendThroughEndOf: {
@@ -343,6 +415,10 @@ export const modifierReferences = {
       {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
         description: `Selects from the ${TARGET_DESC} through the end of its line or surrounding pair.`,
+      },
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${STATEMENT} ${TARGET}`,
+        description: `Selects from the ${TARGET_DESC} through the end of its containing statement.`,
       },
     ],
   },
