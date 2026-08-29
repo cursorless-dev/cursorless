@@ -53,7 +53,6 @@ type ActionReferenceGroupId =
 export interface ReferenceGroup<T extends string> {
   id: T;
   name: string;
-  description: string[];
 }
 
 export type ActionReferenceGroup = ReferenceGroup<ActionReferenceGroupId>;
