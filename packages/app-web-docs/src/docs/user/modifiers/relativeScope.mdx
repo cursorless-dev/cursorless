@@ -1,5 +1,20 @@
-import { ModifierReference } from "@site/src/docs/components/ReferenceEntry";
-
 # Relative scope
 
-<ModifierReference id="relativeScope" />
+Cursorless ID: `relativeScope`
+
+## Syntax
+
+- previous `<scope>`: Previous instance of `<scope>`.
+- `<ordinal>` previous `<scope>`: `<ordinal>` instance of `<scope>` before target.
+- next `<scope>`: Next instance of `<scope>`.
+- `<ordinal>` next `<scope>`: `<ordinal>` instance of `<scope>` after target.
+- `<scope>` backward: Single instance of `<scope>` including target, going backwards.
+- `<scope>` forward: Single instance of `<scope>` including target, going forwards.
+- `<number>` `<scope>`s backward: `<number>` instances of `<scope>` including target, going backwards, as contiguous range.
+- every `<number>` `<scope>`s backward: `<number>` instances of `<scope>` including target, going backwards, as individual targets.
+- `<number>` `<scope>`s: `<number>` instances of `<scope>` including target, going forwards, as contiguous range.
+- every `<number>` `<scope>`s: `<number>` instances of `<scope>` including target, going forwards, as individual targets.
+- previous `<number>` `<scope>`s: Previous `<number>` instances of `<scope>`, as contiguous range.
+- every previous `<number>` `<scope>`s: Previous `<number>` instances of `<scope>`, as individual targets.
+- next `<number>` `<scope>`s: Next `<number>` instances of `<scope>`, as contiguous range.
+- every next `<number>` `<scope>`s: Next `<number>` instances of `<scope>`, as individual targets.
