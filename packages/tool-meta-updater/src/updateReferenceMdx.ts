@@ -1,5 +1,6 @@
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import type { ReferenceEntry } from "@cursorless/lib-common";
+import { capitalize } from "@cursorless/lib-common";
 import { formatVariables } from "./util/formatVariables";
 import { injectSpokenForm } from "./util/injectSpokenForm";
 
@@ -23,9 +24,14 @@ export function updateReferenceMdx(
   const isScope = kind === "scope";
 
   const expected: string[] = [];
+  let title = entry.name;
 
-  if (entry.nameShort != null) {
-    expected.push(`---`, `sidebar_label: ${entry.nameShort}`, `---`, "");
+  if (entry.defaultSpokenForm != null) {
+    const spokenForm = capitalize(entry.defaultSpokenForm);
+    expected.push(`---`, `sidebar_label: ${spokenForm}`, `---`, "");
+    if (spokenForm !== entry.name) {
+      title = `${spokenForm} (${entry.name})`;
+    }
   }
 
   if (isScope) {
@@ -35,7 +41,7 @@ export function updateReferenceMdx(
     );
   }
 
-  expected.push(`# ${entry.name}`, "");
+  expected.push(`# ${title}`, "");
 
   if (entry.description != null) {
     expected.push(entry.description, "");

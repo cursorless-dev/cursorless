@@ -1352,27 +1352,6 @@ export const actionReferences = {
       },
     ],
   },
-  wrapWithSnippet: {
-    name: "Wrap with snippet",
-    defaultSpokenForm: "wrap",
-    group: {
-      id: "snippets",
-      index: 2,
-    },
-    syntaxes: [
-      {
-        pattern: `${VAR_SNIPPET} ${VAR_SPOKEN_FORM} ${VAR_TARGET}`,
-        description: `Wrap ${VAR_TARGET} with ${VAR_SNIPPET}.`,
-        cheatsheet: `Wrap ${VAR_TARGET} with ${VAR_SNIPPET}`,
-      },
-    ],
-    examples: [
-      {
-        command: `${SNIPPET_IF} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Wraps the ${TARGET_DESC} in an if-statement snippet.`,
-      },
-    ],
-  },
   moveToTarget: {
     name: "Move to target",
     defaultSpokenForm: "move",
@@ -1404,7 +1383,7 @@ export const actionReferences = {
     ],
   },
   wrapWithPairedDelimiter: {
-    name: "Wrap with paired delimiter",
+    name: "Wrap with paired delimiter/snippet",
     defaultSpokenForm: "wrap",
     group: {
       id: "wrap",
@@ -1416,11 +1395,20 @@ export const actionReferences = {
         description: `Wrap ${VAR_TARGET} with ${VAR_PAIR}.`,
         cheatsheet: `Wrap ${VAR_TARGET} with ${VAR_PAIR}`,
       },
+      {
+        pattern: `${VAR_SNIPPET} ${VAR_SPOKEN_FORM} ${VAR_TARGET}`,
+        description: `Wrap ${VAR_TARGET} with ${VAR_SNIPPET}.`,
+        cheatsheet: `Wrap ${VAR_TARGET} with ${VAR_SNIPPET}`,
+      },
     ],
     examples: [
       {
         command: `${SQUARE} ${VAR_SPOKEN_FORM} ${TARGET}`,
         description: `Wraps the ${TARGET_DESC} in square brackets.`,
+      },
+      {
+        command: `${SNIPPET_IF} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Wraps the ${TARGET_DESC} in an if-statement snippet.`,
       },
     ],
   },
@@ -1593,6 +1581,17 @@ export const actionReferences = {
     group: {
       id: "private",
       index: 7,
+    },
+    private: true,
+    syntaxes: [],
+    examples: [],
+  },
+  wrapWithSnippet: {
+    name: "Wrap with snippet",
+    defaultSpokenForm: "wrap",
+    group: {
+      id: "private",
+      index: 8,
     },
     private: true,
     syntaxes: [],
