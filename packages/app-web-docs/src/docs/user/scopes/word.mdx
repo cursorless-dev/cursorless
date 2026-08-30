@@ -6,6 +6,8 @@ import { Scopes } from "@site/src/docs/components/Scopes";
 
 # Sub (Sub token word)
 
+Selects an individual word-like component within a camelCase, snake_case, or similarly structured token. It can be combined with ordinal and range modifiers to select one or more components.
+
 Cursorless ID: `word`
 
 ## Spoken form
@@ -20,5 +22,6 @@ Legacy: `word`
 ## Examples
 
 - `"take first sub blue air"` - Selects the first sub token word in the token containing letter 'a' with a blue hat.
+- `"take second past fourth sub blue air"` - Selects the second through fourth sub token words in the token containing letter 'a' with a blue hat.
 
 <Scopes scopeTypeType="word" />

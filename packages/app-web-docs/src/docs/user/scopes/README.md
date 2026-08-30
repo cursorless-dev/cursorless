@@ -7,7 +7,7 @@
 - [`"token"`](./token.mdx) - Token such as a word, number, or operator.
 - [`"identifier"`](./identifier.mdx) - Identifier-style sequence, such as camelCase, snake_case, or kebab-case.
 - [`"sentence"`](./sentence.mdx) - Text ending at sentence punctuation or a paragraph boundary.
-- [`"line"`](./line.mdx) - Line, without indentation.
+- [`"line"`](./line.mdx) - Line, excluding indentation.
 - [`"full line"`](./fullLine.mdx) - Full line, including indentation.
 - [`"block"`](./paragraph.mdx) - Paragraph, contiguous non-empty lines around the target.
 - [`"short block"`](./boundedParagraph.mdx) - Paragraph bounded by surrounding pair delimiters.

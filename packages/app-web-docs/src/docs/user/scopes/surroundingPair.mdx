@@ -2,6 +2,10 @@ import { Scopes } from "@site/src/docs/components/Scopes";
 
 # Surrounding pair
 
+Expands the input to the nearest containing [paired delimiters](../paired-delimiters.md) and their contents. Use the [interior-only](../modifiers/interiorOnly.mdx) or [exclude-interior](../modifiers/excludeInterior.mdx) modifiers to select only the contents or only the delimiters.
+
+When an opening and closing delimiter use the same character and no parse-tree information is available, Cursorless treats the first occurrence on each line as an opening delimiter and alternates subsequent occurrences between closing and opening delimiters.
+
 Cursorless ID: `surroundingPair`
 
 ## Syntax

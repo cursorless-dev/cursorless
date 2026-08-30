@@ -32,6 +32,16 @@ const BACKWARD = connectiveDefaultSpokenForms.backward;
 const FORWARD = connectiveDefaultSpokenForms.forward;
 const FIRST = connectiveDefaultSpokenForms.first;
 const LAST = connectiveDefaultSpokenForms.last;
+const PASTE = "paste";
+const BRING = "bring";
+const FROM = "from";
+const AFTER = connectiveDefaultSpokenForms.after;
+const TO = connectiveDefaultSpokenForms.sourceDestinationConnective;
+const INSTANCE = "instance";
+const VALUE = "value";
+
+const ITERATION_SCOPE_DESCRIPTION =
+  "The iteration scope depends on the scope type. For example, functions iterate within a class, tokens within a line, and characters within a token.";
 
 type AdditionalModifierReferenceType = "ancestor";
 
@@ -40,6 +50,8 @@ export const modifierReferences = {
   containingScope: {
     name: "Containing scope",
     group: { id: "containing", index: 0 },
+    description:
+      'Expands a target to the containing instance of a scope. When the input is `"this"` with multiple selections, Cursorless expands each selection independently.',
     syntaxes: [
       {
         pattern: VAR_SCOPE,
@@ -58,6 +70,8 @@ export const modifierReferences = {
     name: "Every scope",
     defaultSpokenForm: EVERY,
     group: { id: "containing", index: 1 },
+    description:
+      "Selects all matching sibling scopes. It can also prefix an ordinal or relative modifier to return separate targets instead of one contiguous range.",
     syntaxes: [
       {
         pattern: `${VAR_SPOKEN_FORM} ${VAR_SCOPE}`,
@@ -76,6 +90,8 @@ export const modifierReferences = {
     name: "Ancestor",
     defaultSpokenForm: "grand",
     group: { id: "containing", index: 2 },
+    description:
+      'Selects the parent of a containing scope. Repeat `"grand"` to walk up more than one parent level.',
     syntaxes: [
       {
         pattern: `${VAR_SPOKEN_FORM} ${VAR_SCOPE}`,
@@ -88,6 +104,10 @@ export const modifierReferences = {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${STATEMENT} ${TARGET}`,
         description: `Selects the parent statement of the statement containing the ${TARGET_DESC}.`,
       },
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${VAR_SPOKEN_FORM} ${STATEMENT} ${TARGET}`,
+        description: `Selects the grandparent statement of the statement containing the ${TARGET_DESC}.`,
+      },
     ],
   },
 
@@ -95,6 +115,15 @@ export const modifierReferences = {
   ordinalScope: {
     name: "Ordinal scope",
     group: { id: "ordinal", index: 0 },
+    description: `${ITERATION_SCOPE_DESCRIPTION}
+
+Without \`"every"\`, plural ordinal forms produce one contiguous range. Prefix them with \`"every"\` to produce separate targets instead.
+
+<div className="dark-mode-invert">
+
+![Relative and ordinal modifier diagram](../images/relative_ordinal.png)
+
+</div>`,
     syntaxes: [
       {
         pattern: `${VAR_ORDINAL} ${VAR_SCOPE}`,
@@ -164,6 +193,9 @@ export const modifierReferences = {
   relativeScope: {
     name: "Relative scope",
     group: { id: "relative", index: 0 },
+    description: `${ITERATION_SCOPE_DESCRIPTION}
+
+Relative modifiers select scopes before or after the input target. Without \`"every"\`, plural forms produce one contiguous range; prefix them with \`"every"\` to produce separate targets instead.`,
     syntaxes: [
       {
         pattern: `${PREVIOUS} ${VAR_SCOPE}`,
@@ -375,6 +407,8 @@ export const modifierReferences = {
     name: "Extend through start of",
     defaultSpokenForm: "head",
     group: { id: "range", index: 0 },
+    description:
+      'Extends a target through the start of its line. Inside a surrounding pair, it stops at the start of the pair\'s interior; use an explicit scope such as `"head line"` to override that boundary.',
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -402,6 +436,8 @@ export const modifierReferences = {
     name: "Extend through end of",
     defaultSpokenForm: "tail",
     group: { id: "range", index: 1 },
+    description:
+      'Extends a target through the end of its line. Inside a surrounding pair, it stops at the end of the pair\'s interior; use an explicit scope such as `"tail line"` to override that boundary.',
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -469,6 +505,8 @@ export const modifierReferences = {
     name: "Visible",
     defaultSpokenForm: "visible",
     group: { id: "filters", index: 0 },
+    description:
+      'Limits a target to content currently visible in the editor viewport, excluding folded regions and content scrolled off screen. This is especially useful with the `"from"` action when searching for instances.',
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -481,6 +519,10 @@ export const modifierReferences = {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM}`,
         description:
           "Selects the content currently visible in the editor viewport.",
+      },
+      {
+        command: `${FROM} ${VAR_SPOKEN_FORM} ${SET_SELECTION} ${EVERY} ${INSTANCE} ${TARGET}`,
+        description: `Selects the visible instances of the ${TARGET_DESC}, excluding matches that are folded or outside the viewport.`,
       },
     ],
   },
@@ -528,6 +570,8 @@ export const modifierReferences = {
     name: "Raw selection",
     defaultSpokenForm: "just",
     group: { id: "inference", index: 0 },
+    description:
+      'Strips semantic information from a target and treats it as a raw range. Cursorless will not use the target\'s removal delimiters, insertion delimiters, or scope type. This means deletion leaves adjacent whitespace and line endings untouched, insertion adds no automatic separator, and instance matching is not restricted to targets of the original scope type. When a raw target is the destination of a `"bring"` command, it inherits insertion delimiters from the source.',
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -540,12 +584,27 @@ export const modifierReferences = {
         command: `${REMOVE} ${VAR_SPOKEN_FORM} ${TARGET}`,
         description: `Deletes only the ${TARGET_DESC}, leaving adjacent whitespace unchanged.`,
       },
+      {
+        command: `${REMOVE} ${VAR_SPOKEN_FORM} ${LINE}`,
+        description:
+          "Deletes only the line content, leaving its line ending and therefore a blank line.",
+      },
+      {
+        command: `${PASTE} ${AFTER} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Pastes directly after the ${TARGET_DESC} without inserting a separator.`,
+      },
+      {
+        command: `${SET_SELECTION} ${EVERY} ${INSTANCE} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects every matching text occurrence of the ${TARGET_DESC}, including occurrences that are not full tokens.`,
+      },
     ],
   },
   inferPreviousMark: {
     name: "Infer previous mark",
     defaultSpokenForm: "its",
     group: { id: "inference", index: 1 },
+    description:
+      'Within a compound target, applies the following modifier to the previously mentioned mark. Without `"its"`, an implicit target such as `"line"` is resolved relative to the current selection instead.',
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -557,6 +616,10 @@ export const modifierReferences = {
       {
         command: `${SET_SELECTION} ${TARGET} ${EXTEND_THROUGH_END_OF} ${VAR_SPOKEN_FORM} ${LINE}`,
         description: `Selects from the ${TARGET_DESC} through the end of the line containing that token.`,
+      },
+      {
+        command: `${BRING} ${TARGET} ${TO} ${VAR_SPOKEN_FORM} ${VALUE}`,
+        description: `Replaces the value containing the ${TARGET_DESC} with that token.`,
       },
     ],
   },

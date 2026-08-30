@@ -6,6 +6,8 @@ import {
   SET_SELECTION,
   STATEMENT,
   TARGET,
+  TARGET_2,
+  TARGET_2_DESC,
   TARGET_DESC,
   VAR_CHARACTER,
   VAR_PAIR,
@@ -16,6 +18,7 @@ import type { ReferenceEntry } from "./ReferenceEntry";
 import type { ScopeReferenceGroupId } from "./scopeReferenceGroups";
 import { connectiveDefaultSpokenForms } from "./spokenForms/connectiveDefaultSpokenForms";
 import { graphemeDefaultSpokenForms } from "./spokenForms/graphemeDefaultSpokenForms";
+import { ordinalDefaultSpokenForms } from "./spokenForms/numberDefaultSpokenForms";
 
 const DEFAULT_PATTERN = VAR_SPOKEN_FORM;
 
@@ -23,6 +26,10 @@ const AIR = graphemeDefaultSpokenForms.a;
 const PARENTHESIS = pairedDelimiterReferences.parentheses.defaultSpokenForm;
 const NEXT = connectiveDefaultSpokenForms.next;
 const FIRST = connectiveDefaultSpokenForms.first;
+const LAST = connectiveDefaultSpokenForms.last;
+const PAST = connectiveDefaultSpokenForms.rangeInclusive;
+const SECOND = ordinalDefaultSpokenForms[2];
+const FOURTH = ordinalDefaultSpokenForms[4];
 
 export const scopeReferences = {
   // Group: text
@@ -49,6 +56,8 @@ export const scopeReferences = {
     group: { id: "text", index: 1 },
     defaultSpokenForm: "sub",
     legacySpokenForms: ["word"],
+    description:
+      "Selects an individual word-like component within a camelCase, snake_case, or similarly structured token. It can be combined with ordinal and range modifiers to select one or more components.",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -62,12 +71,18 @@ export const scopeReferences = {
         command: `${SET_SELECTION} ${FIRST} ${VAR_SPOKEN_FORM} ${TARGET}`,
         description: `Selects the first sub token word in the ${TARGET_DESC}.`,
       },
+      {
+        command: `${SET_SELECTION} ${SECOND} ${PAST} ${FOURTH} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the second through fourth sub token words in the ${TARGET_DESC}.`,
+      },
     ],
   },
   token: {
     name: "Token",
     group: { id: "text", index: 2 },
     defaultSpokenForm: "token",
+    description:
+      "Expands the input to the nearest containing token. Without an explicit mark, it uses the token adjacent to the cursor or containing the current selection.",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -86,6 +101,7 @@ export const scopeReferences = {
     name: "Identifier",
     group: { id: "text", index: 3 },
     defaultSpokenForm: "identifier",
+    description: `Like a token, but limited to text that can act as an identifier, such as \`foo\`, \`fooBar\`, or \`foo_bar\`; operators such as \`.\`, \`=\`, and \`+=\` are excluded. This scope is useful with ordinals such as \`${LAST} identifier\`.`,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -127,7 +143,7 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Line, without indentation.",
+        description: "Line, excluding indentation.",
         cheatsheet: "Line",
       },
     ],
@@ -160,6 +176,8 @@ export const scopeReferences = {
     name: "Paragraph",
     group: { id: "text", index: 7 },
     defaultSpokenForm: "block",
+    description:
+      "Expands above and below the input through contiguous nonempty lines, stopping at empty lines.",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -178,6 +196,8 @@ export const scopeReferences = {
     name: "Bounded paragraph",
     group: { id: "text", index: 8 },
     defaultSpokenForm: "short block",
+    description:
+      'Like `"block"`, but also stops at the boundary of a surrounding delimiter pair, so the selection does not escape the pair containing the input target.',
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -196,6 +216,7 @@ export const scopeReferences = {
     name: "Document",
     group: { id: "text", index: 9 },
     defaultSpokenForm: "file",
+    description: "The entire document, from the first to the last character.",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -214,6 +235,8 @@ export const scopeReferences = {
     name: "Non-whitespace sequence",
     group: { id: "text", index: 10 },
     defaultSpokenForm: "paint",
+    description:
+      "Expands forward and backward from the input through adjacent non-whitespace characters.",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -232,6 +255,8 @@ export const scopeReferences = {
     name: "Bounded non-whitespace sequence",
     group: { id: "text", index: 11 },
     defaultSpokenForm: "short paint",
+    description:
+      'Like `"paint"`, but expansion also stops at a delimiter pair that surrounds the input target. Delimiter pairs that do not surround the original target do not stop expansion.',
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -269,6 +294,9 @@ export const scopeReferences = {
   surroundingPair: {
     name: "Surrounding pair",
     group: { id: "text", index: 13 },
+    description: `Expands the input to the nearest containing [paired delimiters](../paired-delimiters.md) and their contents. Use the [interior-only](../modifiers/interiorOnly.mdx) or [exclude-interior](../modifiers/excludeInterior.mdx) modifiers to select only the contents or only the delimiters.
+
+When an opening and closing delimiter use the same character and no parse-tree information is available, Cursorless treats the first occurrence on each line as an opening delimiter and alternates subsequent occurrences between closing and opening delimiters.`,
     syntaxes: [
       {
         pattern: VAR_PAIR,
@@ -673,6 +701,9 @@ export const scopeReferences = {
     name: "Instance",
     group: { id: "objects", index: 2 },
     defaultSpokenForm: "instance",
+    description: `Searches for occurrences of the input target's text. Instance matching preserves the target's scope type, so an instance of a token only matches complete tokens rather than substrings within larger tokens; apply [\`"just"\`](../modifiers/toRawSelection.mdx) to match the raw text instead.
+
+For a range target, the entire range becomes the search text. Without an explicit mark, Cursorless uses the token touching the cursor. Use [\`"from"\`](../actions/setInstanceReference.mdx) to restrict the search region or choose its starting point.`,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -684,6 +715,18 @@ export const scopeReferences = {
       {
         command: `${SET_SELECTION} ${EVERY} ${VAR_SPOKEN_FORM} ${TARGET}`,
         description: `Selects every instance of the ${TARGET_DESC}.`,
+      },
+      {
+        command: `${SET_SELECTION} ${EVERY} ${VAR_SPOKEN_FORM} ${TARGET} ${PAST} ${TARGET_2}`,
+        description: `Selects every occurrence of the text spanning from the ${TARGET_DESC} through the ${TARGET_2_DESC}.`,
+      },
+      {
+        command: `${SET_SELECTION} ${NEXT} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the next instance of the ${TARGET_DESC}.`,
+      },
+      {
+        command: `${SET_SELECTION} ${EVERY} ${VAR_SPOKEN_FORM}`,
+        description: "Selects every instance of the token touching the cursor.",
       },
     ],
   },
