@@ -51,15 +51,9 @@ export const sidebarItemsGenerator: SidebarItemsGenerator = async ({
   const generatedItems = await defaultSidebarItemsGenerator(args);
 
   type NormalizedSidebarItem = (typeof generatedItems)[number];
-
-  if (args.item.dirName !== "user") {
-    return generatedItems;
-  }
-
   const docsById = new Map(args.docs.map((doc) => [doc.id, doc]));
-  const remainingItems = generatedItems.slice();
 
-  function getLabel(item: (typeof generatedItems)[number]) {
+  function getLabel(item: NormalizedSidebarItem) {
     if (item.type === "doc" || item.type === "ref") {
       const doc = docsById.get(item.id);
       return doc?.frontMatter.sidebar_label ?? doc?.title;
@@ -69,6 +63,53 @@ export const sidebarItemsGenerator: SidebarItemsGenerator = async ({
     }
     throw new Error(`Unexpected sidebar item type: ${item.type}`);
   }
+
+  function hasExplicitPosition(item: NormalizedSidebarItem): boolean {
+    let docId: string | undefined;
+    if (item.type === "doc" || item.type === "ref") {
+      docId = item.id;
+    } else if (item.type === "category" && item.link?.type === "doc") {
+      docId = item.link.id;
+    }
+    return docId != null && docsById.get(docId)?.sidebarPosition != null;
+  }
+
+  function sortByLabel(
+    items: NormalizedSidebarItem[],
+  ): NormalizedSidebarItem[] {
+    const normalizedItems = items.map((item): NormalizedSidebarItem =>
+      item.type === "category"
+        ? { ...item, items: sortByLabel(item.items) }
+        : item,
+    );
+    const unpositionedItems = normalizedItems
+      .filter((item) => !hasExplicitPosition(item))
+      .toSorted((a, b) =>
+        (getLabel(a) ?? "").localeCompare(getLabel(b) ?? "", undefined, {
+          numeric: true,
+          sensitivity: "base",
+        }),
+      );
+
+    return normalizedItems.map((item) => {
+      if (hasExplicitPosition(item)) {
+        return item;
+      }
+      const sortedItem = unpositionedItems.shift();
+      if (sortedItem == null) {
+        throw new Error("Missing unpositioned sidebar item");
+      }
+      return sortedItem;
+    });
+  }
+
+  const sortedItems = sortByLabel(generatedItems);
+
+  if (args.item.dirName !== "user") {
+    return sortedItems;
+  }
+
+  const remainingItems = sortedItems.slice();
 
   function takeItem(label: string): NormalizedSidebarItem {
     const index = remainingItems.findIndex(
