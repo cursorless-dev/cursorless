@@ -2,7 +2,7 @@
 sidebar_label: Identifier
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Identifier
 
@@ -22,4 +22,18 @@ Default: `identifier`
 
 - `"take identifier blue air"` - Selects the identifier containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="identifier" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Identifier
+
+<i>A single alphanumeric identifier in the document</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/identifier" />
+
+</ScopeVisualizerProvider>

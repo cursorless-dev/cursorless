@@ -1,5 +1,43 @@
-import { Scopes } from "@site/src/docs/components/Scopes";
+---
+sidebar_label: Access
+---
 
-# Field access
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
-<Scopes scopeTypeType="private.fieldAccess" />
+# Access (Field access)
+
+Cursorless ID: `private.fieldAccess`
+
+## Spoken form
+
+Default: `access`
+
+## Syntax
+
+- access - Field access.
+
+## Examples
+
+- `"take access blue air"` - Selects the field access containing the token containing letter 'a' with a blue hat.
+
+<ScopeVisualizerProvider>
+
+## Internal scopes
+
+The following are internal scopes. They are not intended for user interaction or spoken use. These scopes exist solely for internal Cursorless functionality.
+
+<ScopeVisualizerOptions />
+
+### Field access
+
+<i>A field access</i>
+
+##### JavaScript
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/fieldAccess" />
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/fieldAccess" />
+
+</ScopeVisualizerProvider>

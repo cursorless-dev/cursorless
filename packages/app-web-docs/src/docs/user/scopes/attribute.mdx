@@ -2,7 +2,7 @@
 sidebar_label: Attribute
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Attribute
 
@@ -20,4 +20,34 @@ Default: `attribute`
 
 - `"take attribute blue air"` - Selects the attribute containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="attribute" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Attribute
+
+<i>A attribute, eg of a html element or a C++ attribute</i>
+
+##### C++
+
+<ScopeVisualizer fixtureName="scopes/cpp/attribute" />
+
+##### C#
+
+<ScopeVisualizer fixtureName="scopes/csharp/attribute" />
+
+##### HTML
+
+<ScopeVisualizer fixtureName="scopes/html/attribute" />
+
+##### JavaScript React
+
+<ScopeVisualizer fixtureName="scopes/javascript.jsx/attribute" />
+
+##### XML
+
+<ScopeVisualizer fixtureName="scopes/xml/attribute" />
+
+</ScopeVisualizerProvider>

@@ -1,5 +1,235 @@
-import { Language } from "@site/src/docs/components/Language";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # CSS
 
-<Language languageId="css" />
+<ScopeVisualizerProvider>
+
+Below are visualizations of all our scope tests for this language. These were created primarily for testing purposes rather than as documentation. There are quite a few, and they may feel a bit overwhelming from a documentation standpoint.
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Argument list
+
+#### 1. Argument list: Actual empty
+
+<i>An empty list of arguments in a function call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/css/argumentList.actual.empty" languageId="css" />
+
+#### 2. Argument list: Actual multi line
+
+<i>A multi line list of arguments in a function call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/css/argumentList.actual.multiLine" languageId="css" />
+
+#### 3. Argument list: Actual single line
+
+<i>A single line list of arguments in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/css/argumentList.actual.singleLine" languageId="css" />
+
+### Argument or parameter
+
+#### 1. Argument: Actual multi line
+
+<i>A multiline argument in a function call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/css/argument/argument.actual.multiLine" languageId="css" />
+
+#### 2. Argument: Actual single line
+
+<i>A single line argument in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/css/argument/argument.actual.singleLine" languageId="css" />
+
+<ScopeVisualizer fixtureName="scopes/css/argument/argument.actual.singleLine2" languageId="css" />
+
+<ScopeVisualizer fixtureName="scopes/css/argument/argument.actual.singleLine3" languageId="css" />
+
+<ScopeVisualizer fixtureName="scopes/css/argument/argument.actual.singleLine4" languageId="css" />
+
+#### 3. Argument: Actual (iteration)
+
+<i>Iteration scope for arguments in a function call: the argument list. The domain should be the entire function call.</i>
+
+<ScopeVisualizer fixtureName="scopes/css/argument/argument.actual.iteration" languageId="css" />
+
+<ScopeVisualizer fixtureName="scopes/css/argument/argument.actual.iteration2" languageId="css" />
+
+### Collection item
+
+#### 1. Collection item: Unenclosed multi line
+
+<i>An item in a comma-separated multi line list without enclosing delimiters. This could be multi-variable declarations, import statements, etc. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/css/collectionItem.unenclosed.multiLine" languageId="css" />
+
+#### 2. Collection item: Unenclosed (iteration)
+
+<i>Iteration scope for items in a comma-separated list without enclosing delimiters</i>
+
+<ScopeVisualizer fixtureName="scopes/css/collectionItem.unenclosed.iteration" languageId="css" />
+
+### Collection key
+
+#### 1. Key: Map pair
+
+<i>Key (LHS) of a key-value pair of a map</i>
+
+<ScopeVisualizer fixtureName="scopes/css/key.mapPair" languageId="css" />
+
+#### 2. Key: Map pair (iteration)
+
+<i>Iteration scope for keys of key-value pairs in a map: should be between the braces.</i>
+
+<ScopeVisualizer fixtureName="scopes/css/key.mapPair.iteration" languageId="css" />
+
+### Comment
+
+#### 1. Comment: Block
+
+<i>A block comment</i>
+
+<ScopeVisualizer fixtureName="scopes/css/comment.block" languageId="css" />
+
+### Function call
+
+#### 1. Function call
+
+<i>A function call</i>
+
+<ScopeVisualizer fixtureName="scopes/css/functionCall" languageId="css" />
+
+### Function callee
+
+#### 1. Function callee
+
+<i>The function being called in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/css/functionCallee" languageId="css" />
+
+### Map
+
+#### 1. Map
+
+<i>A map/dictionary</i>
+
+<ScopeVisualizer fixtureName="scopes/css/map" languageId="css" />
+
+### Name
+
+#### 1. Name (iteration block)
+
+<i>Iteration scope for names: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/css/name.iteration.block" languageId="css" />
+
+#### 2. Name (iteration document)
+
+<i>Iteration scope for names: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/css/name.iteration.document" languageId="css" />
+
+### Selector
+
+#### 1. Selector
+
+<i>A selector in a css rule set</i>
+
+<ScopeVisualizer fixtureName="scopes/css/selector/selector" languageId="css" />
+
+<ScopeVisualizer fixtureName="scopes/css/selector/selector2" languageId="css" />
+
+<ScopeVisualizer fixtureName="scopes/css/selector/selector3" languageId="css" />
+
+<ScopeVisualizer fixtureName="scopes/css/selector/selector4" languageId="css" />
+
+<ScopeVisualizer fixtureName="scopes/css/selector/selector5" languageId="css" />
+
+<ScopeVisualizer fixtureName="scopes/css/selector/selector6" languageId="css" />
+
+<ScopeVisualizer fixtureName="scopes/css/selector/selector7" languageId="css" />
+
+### Statement
+
+#### 1. Statement: Misc
+
+<i>A miscellaneous statement</i>
+
+<ScopeVisualizer fixtureName="scopes/css/statement.misc" languageId="css" />
+
+#### 2. Statement (iteration document)
+
+<i>Iteration scope for statements: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/css/statement.iteration.document" languageId="css" />
+
+### Unit
+
+#### 1. Unit
+
+<i>A unit in a css rule set</i>
+
+<ScopeVisualizer fixtureName="scopes/css/unit/unit" languageId="css" />
+
+<ScopeVisualizer fixtureName="scopes/css/unit/unit2" languageId="css" />
+
+<ScopeVisualizer fixtureName="scopes/css/unit/unit3" languageId="css" />
+
+<ScopeVisualizer fixtureName="scopes/css/unit/unit4" languageId="css" />
+
+<ScopeVisualizer fixtureName="scopes/css/unit/unit5" languageId="css" />
+
+### Value
+
+#### 1. Value: Map pair
+
+<i>Value (RHS) of a key-value pair in a map</i>
+
+<ScopeVisualizer fixtureName="scopes/css/value.mapPair" languageId="css" />
+
+<ScopeVisualizer fixtureName="scopes/css/value.mapPair2" languageId="css" />
+
+#### 2. Value: Map pair (iteration)
+
+<i>Iteration scope for values of key-value pairs in a map: should be between the braces.</i>
+
+<ScopeVisualizer fixtureName="scopes/css/value.mapPair.iteration" languageId="css" />
+
+## Internal scopes
+
+The following are internal scopes. They are not intended for user interaction or spoken use. These scopes exist solely for internal Cursorless functionality.
+
+### Disqualify delimiter
+
+#### 1. Disqualify delimiter
+
+<i>Internally used to disqualify a token from being treated as a surrounding pair delimiter. This will usually be operators containing `>` or `<`, eg `<`, `<=`, `->`, etc.</i>
+
+<ScopeVisualizer fixtureName="scopes/css/disqualifyDelimiter" languageId="css" />
+
+### String
+
+#### 1. String: Single line
+
+<i>A single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/css/string.singleLine" languageId="css" />
+
+### Text fragment
+
+#### 1. Text fragment: Comment block
+
+<i>Internally used text fragment consisting of a block comment</i>
+
+<ScopeVisualizer fixtureName="scopes/css/textFragment.comment.block" languageId="css" />
+
+#### 2. Text fragment: String single line
+
+<i>Internally used text fragment consisting of a single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/css/textFragment.string.singleLine" languageId="css" />
+
+</ScopeVisualizerProvider>

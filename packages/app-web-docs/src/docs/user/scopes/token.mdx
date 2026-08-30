@@ -2,7 +2,7 @@
 sidebar_label: Token
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Token
 
@@ -22,4 +22,18 @@ Default: `token`
 
 - `"take token blue air"` - Selects the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="token" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Token
+
+<i>A single token in the document</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/token" />
+
+</ScopeVisualizerProvider>

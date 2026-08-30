@@ -2,7 +2,7 @@
 sidebar_label: Selector
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Selector
 
@@ -20,4 +20,30 @@ Default: `selector`
 
 - `"take selector blue air"` - Selects the selector containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="selector" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Selector
+
+<i>A selector in a css rule set</i>
+
+##### CSS
+
+<ScopeVisualizer fixtureName="scopes/css/selector/selector" />
+
+<ScopeVisualizer fixtureName="scopes/css/selector/selector2" />
+
+<ScopeVisualizer fixtureName="scopes/css/selector/selector3" />
+
+<ScopeVisualizer fixtureName="scopes/css/selector/selector4" />
+
+<ScopeVisualizer fixtureName="scopes/css/selector/selector5" />
+
+<ScopeVisualizer fixtureName="scopes/css/selector/selector6" />
+
+<ScopeVisualizer fixtureName="scopes/css/selector/selector7" />
+
+</ScopeVisualizerProvider>

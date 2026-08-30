@@ -2,7 +2,7 @@
 sidebar_label: File
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # File (Document)
 
@@ -22,4 +22,18 @@ Default: `file`
 
 - `"take file blue air"` - Selects the document containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="document" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Document
+
+<i>The entire document</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/document" />
+
+</ScopeVisualizerProvider>

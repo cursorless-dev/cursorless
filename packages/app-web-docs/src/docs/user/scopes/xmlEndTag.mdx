@@ -2,7 +2,7 @@
 sidebar_label: End tag
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # End tag (XML end tag)
 
@@ -20,4 +20,30 @@ Default: `end tag`
 
 - `"take end tag blue air"` - Selects the XML end tag containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="xmlEndTag" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### End tag
+
+<i>The end tag of a xml element</i>
+
+##### HTML
+
+<ScopeVisualizer fixtureName="scopes/html/endTag" />
+
+##### JavaScript React
+
+<ScopeVisualizer fixtureName="scopes/javascript.jsx/endTag" />
+
+##### Latex
+
+<ScopeVisualizer fixtureName="scopes/latex/endTag" />
+
+##### XML
+
+<ScopeVisualizer fixtureName="scopes/xml/endTag" />
+
+</ScopeVisualizerProvider>

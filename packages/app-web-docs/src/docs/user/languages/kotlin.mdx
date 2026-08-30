@@ -1,5 +1,1635 @@
-import { Language } from "@site/src/docs/components/Language";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Kotlin
 
-<Language languageId="kotlin" />
+<ScopeVisualizerProvider>
+
+Below are visualizations of all our scope tests for this language. These were created primarily for testing purposes rather than as documentation. There are quite a few, and they may feel a bit overwhelming from a documentation standpoint.
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Anonymous function
+
+#### 1. Anonymous function
+
+<i>An anonymous function, eg a lambda function, an arrow function, etc.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/anonymousFunction" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/anonymousFunction2" languageId="kotlin" />
+
+### Argument list
+
+#### 1. Argument list: Actual constructor empty
+
+<i>An empty list of arguments in a constructor call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.actual.constructor.empty" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.actual.constructor.empty2" languageId="kotlin" />
+
+#### 2. Argument list: Actual constructor multi line
+
+<i>A multi line list of arguments in a constructor call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.actual.constructor.multiLine" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.actual.constructor.multiLine2" languageId="kotlin" />
+
+#### 3. Argument list: Actual constructor single line
+
+<i>A single line list of arguments in a constructor call</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.actual.constructor.singleLine" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.actual.constructor.singleLine2" languageId="kotlin" />
+
+#### 4. Argument list: Actual empty
+
+<i>An empty list of arguments in a function call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.actual.empty" languageId="kotlin" />
+
+#### 5. Argument list: Actual enum empty
+
+<i>An empty list of arguments in an enum constructor call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.actual.enum.empty" languageId="kotlin" />
+
+#### 6. Argument list: Actual enum multi line
+
+<i>A multi line list of arguments in an enum constructor call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.actual.enum.multiLine" languageId="kotlin" />
+
+#### 7. Argument list: Actual enum single line
+
+<i>A single line list of arguments in an enum constructor call</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.actual.enum.singleLine" languageId="kotlin" />
+
+#### 8. Argument list: Actual method empty
+
+<i>An empty list of arguments in a method call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.actual.method.empty" languageId="kotlin" />
+
+#### 9. Argument list: Actual method multi line
+
+<i>A multi line list of arguments in a method call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.actual.method.multiLine" languageId="kotlin" />
+
+#### 10. Argument list: Actual method single line
+
+<i>A single line list of arguments in a method call</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.actual.method.singleLine" languageId="kotlin" />
+
+#### 11. Argument list: Actual multi line
+
+<i>A multi line list of arguments in a function call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.actual.multiLine" languageId="kotlin" />
+
+#### 12. Argument list: Actual single line
+
+<i>A single line list of arguments in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.actual.singleLine" languageId="kotlin" />
+
+#### 13. Argument list: Formal constructor empty
+
+<i>An empty list of parameters in a constructor declaration. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.formal.constructor.empty" languageId="kotlin" />
+
+#### 14. Argument list: Formal constructor multi line
+
+<i>A multi line list of parameters in a constructor declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.formal.constructor.multiLine" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.formal.constructor.multiLine2" languageId="kotlin" />
+
+#### 15. Argument list: Formal constructor single line
+
+<i>A single line list of parameters in a constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.formal.constructor.singleLine" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.formal.constructor.singleLine2" languageId="kotlin" />
+
+#### 16. Argument list: Formal empty
+
+<i>An empty list of parameters in a function declaration. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.formal.empty" languageId="kotlin" />
+
+#### 17. Argument list: Formal lambda empty
+
+<i>An empty list of parameters in a lambda declaration. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.formal.lambda.empty" languageId="kotlin" />
+
+#### 18. Argument list: Formal lambda multi line
+
+<i>A multi line list of parameters in a lambda declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.formal.lambda.multiLine" languageId="kotlin" />
+
+#### 19. Argument list: Formal lambda single line
+
+<i>A single line list of parameters in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.formal.lambda.singleLine" languageId="kotlin" />
+
+#### 20. Argument list: Formal method empty
+
+<i>An empty list of parameters in a class method declaration. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.formal.method.empty" languageId="kotlin" />
+
+#### 21. Argument list: Formal method multi line
+
+<i>A multi line list of parameters in a class method declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.formal.method.multiLine" languageId="kotlin" />
+
+#### 22. Argument list: Formal method single line
+
+<i>A single line list of parameters in a class method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.formal.method.singleLine" languageId="kotlin" />
+
+#### 23. Argument list: Formal multi line
+
+<i>A multi line list of parameters in a function declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.formal.multiLine" languageId="kotlin" />
+
+#### 24. Argument list: Formal single line
+
+<i>A single line list of parameters in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argumentList/argumentList.formal.singleLine" languageId="kotlin" />
+
+### Argument or parameter
+
+#### 1. Argument: Actual constructor multi line
+
+<i>A multi line argument in a constructor call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.actual.constructor.multiLine" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.actual.constructor.multiLine2" languageId="kotlin" />
+
+#### 2. Argument: Actual constructor single line
+
+<i>A single line argument in a constructor call</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.actual.constructor.singleLine" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.actual.constructor.singleLine2" languageId="kotlin" />
+
+#### 3. Argument: Actual enum multi line
+
+<i>A multi line argument in an enum constructor call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.actual.enum.multiLine" languageId="kotlin" />
+
+#### 4. Argument: Actual enum single line
+
+<i>A single line argument in an enum constructor call</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.actual.enum.singleLine" languageId="kotlin" />
+
+#### 5. Argument: Actual method multi line
+
+<i>A multi line argument in a method call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.actual.method.multiLine" languageId="kotlin" />
+
+#### 6. Argument: Actual method single line
+
+<i>A single line argument in a method call</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.actual.method.singleLine" languageId="kotlin" />
+
+#### 7. Argument: Actual multi line
+
+<i>A multiline argument in a function call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.actual.multiLine" languageId="kotlin" />
+
+#### 8. Argument: Actual single line
+
+<i>A single line argument in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.actual.singleLine" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.actual.singleLine2" languageId="kotlin" />
+
+#### 9. Argument: Formal catch
+
+<i>A parameter in a catch clause</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.formal.catch" languageId="kotlin" />
+
+#### 10. Argument: Formal constructor multi line
+
+<i>A multi line parameter in a constructor declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.formal.constructor.multiLine" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.formal.constructor.multiLine2" languageId="kotlin" />
+
+#### 11. Argument: Formal constructor single line
+
+<i>A single line parameter in a constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.formal.constructor.singleLine" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.formal.constructor.singleLine2" languageId="kotlin" />
+
+#### 12. Argument: Formal lambda multi line
+
+<i>A multi line parameter in a lambda declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.formal.lambda.multiLine" languageId="kotlin" />
+
+#### 13. Argument: Formal lambda single line
+
+<i>A single line parameter in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.formal.lambda.singleLine" languageId="kotlin" />
+
+#### 14. Argument: Formal method multi line
+
+<i>A multi line parameter in a class method declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.formal.method.multiLine" languageId="kotlin" />
+
+#### 15. Argument: Formal method single line
+
+<i>A single line parameter in a class method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.formal.method.singleLine" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.formal.method.singleLine2" languageId="kotlin" />
+
+#### 16. Argument: Formal multi line
+
+<i>A multi line parameter in a function declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.formal.multiLine" languageId="kotlin" />
+
+#### 17. Argument: Formal single line
+
+<i>A single line parameter in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.formal.singleLine" languageId="kotlin" />
+
+#### 18. Argument: Actual (iteration)
+
+<i>Iteration scope for arguments in a function call: the argument list. The domain should be the entire function call.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.actual.iteration" languageId="kotlin" />
+
+#### 19. Argument: Actual constructor (iteration)
+
+<i>Iteration scope for arguments in a constructor call: the argument list. The domain should be the entire constructor call..</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.actual.constructor.iteration" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.actual.constructor.iteration2" languageId="kotlin" />
+
+#### 20. Argument: Actual enum (iteration)
+
+<i>Iteration scope for arguments in an enum constructor call: the argument list. The domain should be the entire enum constructor call..</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.actual.enum.iteration" languageId="kotlin" />
+
+#### 21. Argument: Actual method (iteration)
+
+<i>Iteration scope for arguments in a method call: the argument list. The domain should be the entire method call.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.actual.method.iteration" languageId="kotlin" />
+
+#### 22. Argument: Formal (iteration)
+
+<i>Iteration scope for formal parameters in a function declaration: the parameters list. The domain should be the entire function.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.formal.iteration" languageId="kotlin" />
+
+#### 23. Argument: Formal constructor (iteration)
+
+<i>Iteration scope for formal parameters in a constructor declaration: the parameter list. The domain should be the entire constructor.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.formal.constructor.iteration" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.formal.constructor.iteration2" languageId="kotlin" />
+
+#### 24. Argument: Formal lambda (iteration)
+
+<i>Iteration scope for formal parameters in a lambda declaration: the parameter list. The domain should be the entire lambda.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.formal.lambda.iteration" languageId="kotlin" />
+
+#### 25. Argument: Formal method (iteration)
+
+<i>Iteration scope for formal parameters in a method declaration: the parameter list. The domain should be the entire method.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.formal.method.iteration" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/argument/argument.formal.method.iteration2" languageId="kotlin" />
+
+### Branch
+
+#### 1. Branch: If
+
+<i>An if branch</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/branch/branch.if" languageId="kotlin" />
+
+#### 2. Branch: If elif else
+
+<i>An if-elif-else branch. The removal range for the if branch should include the trailing `else` keyword.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/branch/branch.if.elif.else" languageId="kotlin" />
+
+#### 3. Branch: If else
+
+<i>An if-else branch</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/branch/branch.if.else" languageId="kotlin" />
+
+#### 4. Branch: Switch case
+
+<i>A case/default branch in a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/branch/branch.switchCase" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/branch/branch.switchCase2" languageId="kotlin" />
+
+#### 5. Branch: Ternary
+
+<i>A branch in a ternary expression</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/branch/branch.ternary" languageId="kotlin" />
+
+#### 6. Branch: Try
+
+<i>A try/catch/finally branch</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/branch/branch.try" languageId="kotlin" />
+
+#### 7. Branch: If (iteration)
+
+<i>Iteration scope for if/elif/else branches: the if-else statement.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/branch/branch.if.iteration" languageId="kotlin" />
+
+#### 8. Branch: Switch case (iteration)
+
+<i>Iteration scope for switch branches: the switch statement body.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/branch/branch.switchCase.iteration" languageId="kotlin" />
+
+#### 9. Branch: Ternary (iteration)
+
+<i>Iteration scope for ternary expression branches: the ternary expression.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/branch/branch.ternary.iteration" languageId="kotlin" />
+
+#### 10. Branch: Try (iteration)
+
+<i>Iteration scope for try/catch/finally branches: the try-catch statement.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/branch/branch.try.iteration" languageId="kotlin" />
+
+### Class
+
+#### 1. Class
+
+<i>A class/struct in an object-oriented language</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/class" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/class2" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/class3" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/class4" languageId="kotlin" />
+
+#### 2. Class (iteration class)
+
+<i>Iteration scope for classes: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/class.iteration.class" languageId="kotlin" />
+
+#### 3. Class (iteration document)
+
+<i>Iteration scope for classes: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/class.iteration.document" languageId="kotlin" />
+
+### Collection key
+
+#### 1. Key: Map pair
+
+<i>Key (LHS) of a key-value pair of a map</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/key.mapPair" languageId="kotlin" />
+
+#### 2. Key: Map pair (iteration)
+
+<i>Iteration scope for keys of key-value pairs in a map: should be between the braces.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/key.mapPair.iteration" languageId="kotlin" />
+
+### Comment
+
+#### 1. Comment: Block
+
+<i>A block comment</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/comment.block" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/comment.block2" languageId="kotlin" />
+
+#### 2. Comment: Line
+
+<i>A line comment</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/comment.line" languageId="kotlin" />
+
+### Condition
+
+#### 1. Condition: Do while
+
+<i>A condition in a do while loop</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/condition/condition.doWhile" languageId="kotlin" />
+
+#### 2. Condition: If
+
+<i>A condition in an if statement</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/condition/condition.if" languageId="kotlin" />
+
+#### 3. Condition: Switch case
+
+<i>A condition in a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/condition/condition.switchCase" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/condition/condition.switchCase2" languageId="kotlin" />
+
+#### 4. Condition: Ternary
+
+<i>A condition in a ternary expression</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/condition/condition.ternary" languageId="kotlin" />
+
+#### 5. Condition: While
+
+<i>A condition in a while loop</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/condition/condition.while" languageId="kotlin" />
+
+#### 6. Condition: Switch case (iteration)
+
+<i>Iteration scope for conditions in a switch statement: the switch statement body.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/condition/condition.switchCase.iteration" languageId="kotlin" />
+
+### Function call
+
+#### 1. Function call
+
+<i>A function call</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCall/functionCall" languageId="kotlin" />
+
+#### 2. Function call: Chain
+
+<i>A chain of function calls, eg `foo().bar()`</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCall/functionCall.chain" languageId="kotlin" />
+
+#### 3. Function call: Constructor
+
+<i>A constructor call</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCall/functionCall.constructor" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCall/functionCall.constructor2" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCall/functionCall.constructor3" languageId="kotlin" />
+
+#### 4. Function call: Enum
+
+<i>An enum constructor call</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCall/functionCall.enum" languageId="kotlin" />
+
+#### 5. Function call: Generic
+
+<i>A function call with generic type arguments</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCall/functionCall.generic" languageId="kotlin" />
+
+#### 6. Function call: Method
+
+<i>A method call</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCall/functionCall.method" languageId="kotlin" />
+
+### Function callee
+
+#### 1. Function callee
+
+<i>The function being called in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCallee/functionCallee" languageId="kotlin" />
+
+#### 2. Function callee: Chain
+
+<i>The function being called in a chain of function calls, including parent objects.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCallee/functionCallee.chain" languageId="kotlin" />
+
+#### 3. Function callee: Constructor
+
+<i>The class being constructed in a class instantiation, including the `new` keyword.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCallee/functionCallee.constructor" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCallee/functionCallee.constructor2" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCallee/functionCallee.constructor3" languageId="kotlin" />
+
+#### 4. Function callee: Enum
+
+<i>The enum constructor being called</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCallee/functionCallee.enum" languageId="kotlin" />
+
+#### 5. Function callee: Generic
+
+<i>The function being called in a function call with generic type arguments</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCallee/functionCallee.generic" languageId="kotlin" />
+
+#### 6. Function callee: Method
+
+<i>The function being called in a method call, including parent objects.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCallee/functionCallee.method" languageId="kotlin" />
+
+### If statement
+
+#### 1. If statement
+
+<i>An if statement</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/ifStatement" languageId="kotlin" />
+
+### Name
+
+#### 1. Name: Argument actual
+
+<i>Name of a (keyword) argument in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.argument.actual" languageId="kotlin" />
+
+#### 2. Name: Argument catch
+
+<i>Name of a parameter in a catch clause</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.argument.catch" languageId="kotlin" />
+
+#### 3. Name: Argument formal
+
+<i>Name of a parameter in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.argument.formal" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.argument.formal2" languageId="kotlin" />
+
+#### 4. Name: Argument formal constructor
+
+<i>The name of a parameter in a constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.argument.formal.constructor" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.argument.formal.constructor2" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.argument.formal.constructor3" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.argument.formal.constructor4" languageId="kotlin" />
+
+#### 5. Name: Argument formal lambda
+
+<i>Name of a parameter in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.argument.formal.lambda" languageId="kotlin" />
+
+#### 6. Name: Argument formal method
+
+<i>Name of a parameter in a class method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.argument.formal.method" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.argument.formal.method2" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.argument.formal.method3" languageId="kotlin" />
+
+#### 7. Name: Assignment
+
+<i>Name (LHS) of an assignment</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.assignment" languageId="kotlin" />
+
+#### 8. Name: Assignment compound
+
+<i>Name (LHS) of a compound assignment, eg +=/-=</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.assignment.compound" languageId="kotlin" />
+
+#### 9. Name: Class
+
+<i>Name of a class</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.class" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.class2" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.class3" languageId="kotlin" />
+
+#### 10. Name: Constant
+
+<i>Name (LHS) of a constant declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.constant" languageId="kotlin" />
+
+#### 11. Name: Constructor
+
+<i>Name of a constructor</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.constructor" languageId="kotlin" />
+
+#### 12. Name: Enum
+
+<i>Name of an enum</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.enum" languageId="kotlin" />
+
+#### 13. Name: Field class
+
+<i>Name (LHS) of a field in a class</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.field.class" languageId="kotlin" />
+
+#### 14. Name: Field enum
+
+<i>Name (LHS) of a field in an enum</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.field.enum" languageId="kotlin" />
+
+#### 15. Name: Field interface
+
+<i>Name (LHS) of a field in an interface</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.field.interface" languageId="kotlin" />
+
+#### 16. Name: Foreach
+
+<i>Iteration variable name in a for each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.foreach" languageId="kotlin" />
+
+#### 17. Name: Function
+
+<i>Name of a function</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.function" languageId="kotlin" />
+
+#### 18. Name: Interface
+
+<i>Name of a interface</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.interface" languageId="kotlin" />
+
+#### 19. Name: Method
+
+<i>Name of a class method</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.method" languageId="kotlin" />
+
+#### 20. Name: Method interface
+
+<i>Name of a interface method</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.method.interface" languageId="kotlin" />
+
+#### 21. Name: Type alias
+
+<i>Name of a type alias</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.typeAlias" languageId="kotlin" />
+
+#### 22. Name: Variable destructuring
+
+<i>Name (LHS) of a variable declaration with pattern destructuring</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.variable.destructuring" languageId="kotlin" />
+
+#### 23. Name: Variable initialized
+
+<i>Name (LHS) of an initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.variable.initialized" languageId="kotlin" />
+
+#### 24. Name: Variable uninitialized
+
+<i>Name (LHS) of an uninitialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.variable.uninitialized" languageId="kotlin" />
+
+#### 25. Name (iteration block)
+
+<i>Iteration scope for names: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.iteration.block" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.iteration.block2" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.iteration.block3" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.iteration.block4" languageId="kotlin" />
+
+#### 26. Name (iteration class)
+
+<i>Iteration scope for names: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.iteration.class" languageId="kotlin" />
+
+#### 27. Name (iteration document)
+
+<i>Iteration scope for names: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.iteration.document" languageId="kotlin" />
+
+#### 28. Name (iteration enum)
+
+<i>Iteration scope for names: enum bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.iteration.enum" languageId="kotlin" />
+
+#### 29. Name (iteration interface)
+
+<i>Iteration scope for names: interface bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.iteration.interface" languageId="kotlin" />
+
+#### 30. Name: Argument actual (iteration)
+
+<i>Iteration scope for names of (keyword) arguments in a function call: the argument list.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.argument.actual.iteration" languageId="kotlin" />
+
+#### 31. Name: Argument formal (iteration)
+
+<i>Iteration scope for names of formal parameters in a function declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.argument.formal.iteration" languageId="kotlin" />
+
+#### 32. Name: Argument formal constructor (iteration)
+
+<i>Iteration scope for names of formal parameters in a constructor declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.argument.formal.constructor.iteration" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.argument.formal.constructor.iteration2" languageId="kotlin" />
+
+#### 33. Name: Argument formal lambda (iteration)
+
+<i>Iteration scope for names of formal parameters in a lambda declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.argument.formal.lambda.iteration" languageId="kotlin" />
+
+#### 34. Name: Argument formal method (iteration)
+
+<i>Iteration scope for names of formal parameters in a method declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/name/name.argument.formal.method.iteration" languageId="kotlin" />
+
+### Named function
+
+#### 1. Named function
+
+<i>A named function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/namedFunction/namedFunction" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/namedFunction/namedFunction2" languageId="kotlin" />
+
+#### 2. Named function: Constructor
+
+<i>A constructor declaration in a class</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/namedFunction/namedFunction.constructor" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/namedFunction/namedFunction.constructor2" languageId="kotlin" />
+
+#### 3. Named function: Method
+
+<i>A named method declaration in a class</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/namedFunction/namedFunction.method" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/namedFunction/namedFunction.method2" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/namedFunction/namedFunction.method3" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/namedFunction/namedFunction.method4" languageId="kotlin" />
+
+#### 4. Named function (iteration class)
+
+<i>Iteration scope for named functions: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/namedFunction/namedFunction.iteration.class" languageId="kotlin" />
+
+#### 5. Named function (iteration document)
+
+<i>Iteration scope for named functions: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/namedFunction/namedFunction.iteration.document" languageId="kotlin" />
+
+### Statement
+
+#### 1. Statement: Assignment
+
+<i>An assignment statement</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.assignment" languageId="kotlin" />
+
+#### 2. Statement: Assignment compound
+
+<i>A compound assignment statement, eg +=/-=</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.assignment.compound" languageId="kotlin" />
+
+#### 3. Statement: Break
+
+<i>A break statement</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.break" languageId="kotlin" />
+
+#### 4. Statement: Class
+
+<i>A class/struct declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.class" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.class2" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.class3" languageId="kotlin" />
+
+#### 5. Statement: Constant
+
+<i>A constant declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.constant" languageId="kotlin" />
+
+#### 6. Statement: Constructor
+
+<i>A constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.constructor" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.constructor2" languageId="kotlin" />
+
+#### 7. Statement: Continue
+
+<i>A continue statement</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.continue" languageId="kotlin" />
+
+#### 8. Statement: Do while
+
+<i>A do-while loop statement</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.doWhile" languageId="kotlin" />
+
+#### 9. Statement: Enum
+
+<i>An enum declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.enum" languageId="kotlin" />
+
+#### 10. Statement: Field class
+
+<i>A field declaration in a class/struct</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.field.class" languageId="kotlin" />
+
+#### 11. Statement: Field interface
+
+<i>A field declaration in a interface</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.field.interface" languageId="kotlin" />
+
+#### 12. Statement: Foreach
+
+<i>A for-each loop statement</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.foreach" languageId="kotlin" />
+
+#### 13. Statement: Function
+
+<i>A named function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.function" languageId="kotlin" />
+
+#### 14. Statement: Function call
+
+<i>A function call statement</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.functionCall" languageId="kotlin" />
+
+#### 15. Statement: If
+
+<i>A if/elif/else statement</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.if" languageId="kotlin" />
+
+#### 16. Statement: Import
+
+<i>An import statement</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.import" languageId="kotlin" />
+
+#### 17. Statement: Interface
+
+<i>An interface declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.interface" languageId="kotlin" />
+
+#### 18. Statement: Method
+
+<i>A method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.method" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.method2" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.method3" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.method4" languageId="kotlin" />
+
+#### 19. Statement: Method interface
+
+<i>A method declaration in a interface</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.method.interface" languageId="kotlin" />
+
+#### 20. Statement: Package
+
+<i>A package declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.package" languageId="kotlin" />
+
+#### 21. Statement: Return
+
+<i>A return statement</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.return" languageId="kotlin" />
+
+#### 22. Statement: Static
+
+<i>A static statement</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.static" languageId="kotlin" />
+
+#### 23. Statement: Switch
+
+<i>A switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.switch" languageId="kotlin" />
+
+#### 24. Statement: Throw
+
+<i>A throw statement</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.throw" languageId="kotlin" />
+
+#### 25. Statement: Try
+
+<i>A try/catch/finally statement</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.try" languageId="kotlin" />
+
+#### 26. Statement: Type alias
+
+<i>A type alias declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.typeAlias" languageId="kotlin" />
+
+#### 27. Statement: Update
+
+<i>An update statement, eg ++/--</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.update" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.update2" languageId="kotlin" />
+
+#### 28. Statement: Variable destructuring
+
+<i>A variable declaration pattern destructuring</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.variable.destructuring" languageId="kotlin" />
+
+#### 29. Statement: Variable initialized
+
+<i>An initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.variable.initialized" languageId="kotlin" />
+
+#### 30. Statement: Variable uninitialized
+
+<i>An uninitialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.variable.uninitialized" languageId="kotlin" />
+
+#### 31. Statement: While
+
+<i>A while loop statement</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.while" languageId="kotlin" />
+
+#### 32. Statement (iteration block)
+
+<i>Iteration scope for statements: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.iteration.block" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.iteration.block2" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.iteration.block3" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.iteration.block4" languageId="kotlin" />
+
+#### 33. Statement (iteration class)
+
+<i>Iteration scope for statements: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.iteration.class" languageId="kotlin" />
+
+#### 34. Statement (iteration document)
+
+<i>Iteration scope for statements: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.iteration.document" languageId="kotlin" />
+
+#### 35. Statement (iteration interface)
+
+<i>Iteration scope for statements: interface bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/statement/statement.iteration.interface" languageId="kotlin" />
+
+### Type
+
+#### 1. Type: Alias
+
+<i>A type alias declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.alias" languageId="kotlin" />
+
+#### 2. Type: Argument catch
+
+<i>Type of a parameter in a catch clause</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.argument.catch" languageId="kotlin" />
+
+#### 3. Type: Argument formal
+
+<i>Type of a formal parameter in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.argument.formal" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.argument.formal2" languageId="kotlin" />
+
+#### 4. Type: Argument formal constructor
+
+<i>Type of a formal parameter in a constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.argument.formal.constructor" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.argument.formal.constructor2" languageId="kotlin" />
+
+#### 5. Type: Argument formal lambda
+
+<i>Type of a formal parameter in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.argument.formal.lambda" languageId="kotlin" />
+
+#### 6. Type: Argument formal method
+
+<i>Type of a formal parameter in a class method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.argument.formal.method" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.argument.formal.method2" languageId="kotlin" />
+
+#### 7. Type: Class
+
+<i>A class declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.class" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.class2" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.class3" languageId="kotlin" />
+
+#### 8. Type: Constant
+
+<i>Type of a constant declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.constant" languageId="kotlin" />
+
+#### 9. Type: Enum
+
+<i>An enum declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.enum" languageId="kotlin" />
+
+#### 10. Type: Field class
+
+<i>Type of a field in a class</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.field.class" languageId="kotlin" />
+
+#### 11. Type: Field interface
+
+<i>Type of a field in a interface</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.field.interface" languageId="kotlin" />
+
+#### 12. Type: Foreach
+
+<i>Type of a variable in a for each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.foreach" languageId="kotlin" />
+
+#### 13. Type: Interface
+
+<i>An interface declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.interface" languageId="kotlin" />
+
+#### 14. Type: Return
+
+<i>Type of a return value in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.return" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.return2" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.return3" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.return4" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.return5" languageId="kotlin" />
+
+#### 15. Type: Return method
+
+<i>Type of a return value in a method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.return.method" languageId="kotlin" />
+
+#### 16. Type: Type argument
+
+<i>Type argument to a generic / parametrized type</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.typeArgument" languageId="kotlin" />
+
+#### 17. Type: Variable initialized
+
+<i>Type of an initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.variable.initialized" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.variable.initialized2" languageId="kotlin" />
+
+#### 18. Type: Variable uninitialized
+
+<i>Type of an uninitialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.variable.uninitialized" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.variable.uninitialized2" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.variable.uninitialized3" languageId="kotlin" />
+
+#### 19. Type (iteration block)
+
+<i>Iteration scope for types: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.iteration.block" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.iteration.block2" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.iteration.block3" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.iteration.block4" languageId="kotlin" />
+
+#### 20. Type (iteration class)
+
+<i>Iteration scope for types: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.iteration.class" languageId="kotlin" />
+
+#### 21. Type (iteration document)
+
+<i>Iteration scope for types: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.iteration.document" languageId="kotlin" />
+
+#### 22. Type (iteration interface)
+
+<i>Iteration scope for types: interface bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.iteration.interface" languageId="kotlin" />
+
+#### 23. Type: Argument formal (iteration)
+
+<i>Iteration scope for types of formal parameters in a function declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.argument.formal.iteration" languageId="kotlin" />
+
+#### 24. Type: Argument formal constructor (iteration)
+
+<i>Iteration scope for types of formal parameters in a constructor declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.argument.formal.constructor.iteration" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.argument.formal.constructor.iteration2" languageId="kotlin" />
+
+#### 25. Type: Argument formal lambda (iteration)
+
+<i>Iteration scope for types of formal parameters in a lambda declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.argument.formal.lambda.iteration" languageId="kotlin" />
+
+#### 26. Type: Argument formal method (iteration)
+
+<i>Iteration scope for types of formal parameters in a method declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.argument.formal.method.iteration" languageId="kotlin" />
+
+#### 27. Type: Type argument (iteration)
+
+<i>Iteration scope for type arguments to a generic / parametrized type: the type argument list.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/type/type.typeArgument.iteration" languageId="kotlin" />
+
+### Value
+
+#### 1. Value: Argument actual
+
+<i>The value of a (keyword) argument in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.argument.actual" languageId="kotlin" />
+
+#### 2. Value: Argument formal
+
+<i>The (default) value of a argument in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.argument.formal" languageId="kotlin" />
+
+#### 3. Value: Argument formal constructor
+
+<i>The (default) value of a parameter in a constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.argument.formal.constructor" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.argument.formal.constructor2" languageId="kotlin" />
+
+#### 4. Value: Argument formal method
+
+<i>The (default) value of a parameter in a method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.argument.formal.method" languageId="kotlin" />
+
+#### 5. Value: Assignment
+
+<i>Value (RHS) of an assignment</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.assignment" languageId="kotlin" />
+
+#### 6. Value: Assignment compound
+
+<i>Value (RHS) of a compound assignment, eg +=/-=</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.assignment.compound" languageId="kotlin" />
+
+#### 7. Value: Constant
+
+<i>Value (RHS) of a constant declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.constant" languageId="kotlin" />
+
+#### 8. Value: Field class
+
+<i>Value (RHS) of a field in a class</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.field.class" languageId="kotlin" />
+
+#### 9. Value: Foreach
+
+<i>Iterable in a for each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.foreach" languageId="kotlin" />
+
+#### 10. Value: Map pair
+
+<i>Value (RHS) of a key-value pair in a map</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.mapPair" languageId="kotlin" />
+
+#### 11. Value: Return
+
+<i>Return value of a function</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.return" languageId="kotlin" />
+
+#### 12. Value: Return lambda
+
+<i>Implicit return value from a lambda</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.return.lambda" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.return.lambda2" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.return.lambda3" languageId="kotlin" />
+
+#### 13. Value: Switch
+
+<i>The value / subject of a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.switch" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.switch2" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.switch3" languageId="kotlin" />
+
+#### 14. Value: Throw
+
+<i>Value of a throw statement</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.throw" languageId="kotlin" />
+
+#### 15. Value: Type alias
+
+<i>Value of a type alias declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.typeAlias" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.typeAlias2" languageId="kotlin" />
+
+#### 16. Value: Variable
+
+<i>Value (RHS) of a variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.variable" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.variable2" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.variable3" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.variable4" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.variable5" languageId="kotlin" />
+
+#### 17. Value: Variable destructuring
+
+<i>Value (RHS) of a variable declaration with pattern destructuring</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.variable.destructuring" languageId="kotlin" />
+
+#### 18. Value (iteration block)
+
+<i>Iteration scope for values: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.iteration.block" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.iteration.block2" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.iteration.block3" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.iteration.block4" languageId="kotlin" />
+
+#### 19. Value (iteration class)
+
+<i>Iteration scope for values: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.iteration.class" languageId="kotlin" />
+
+#### 20. Value (iteration document)
+
+<i>Iteration scope for values: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.iteration.document" languageId="kotlin" />
+
+#### 21. Value: Argument actual (iteration)
+
+<i>Iteration scope for values of (keyword) arguments in a function call: the arguments list.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.argument.actual.iteration" languageId="kotlin" />
+
+#### 22. Value: Argument formal (iteration)
+
+<i>Iteration scope for values of formal parameters in a function declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.argument.formal.iteration" languageId="kotlin" />
+
+#### 23. Value: Argument formal constructor (iteration)
+
+<i>Iteration scope for values of formal parameters in a constructor declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.argument.formal.constructor.iteration" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.argument.formal.constructor.iteration2" languageId="kotlin" />
+
+#### 24. Value: Argument formal method (iteration)
+
+<i>Iteration scope for values of formal parameters in a method declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.argument.formal.method.iteration" languageId="kotlin" />
+
+#### 25. Value: Map pair (iteration)
+
+<i>Iteration scope for values of key-value pairs in a map: should be between the braces.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/value/value.mapPair.iteration" languageId="kotlin" />
+
+## Internal scopes
+
+The following are internal scopes. They are not intended for user interaction or spoken use. These scopes exist solely for internal Cursorless functionality.
+
+### Disqualify delimiter
+
+#### 1. Disqualify delimiter
+
+<i>Internally used to disqualify a token from being treated as a surrounding pair delimiter. This will usually be operators containing `>` or `<`, eg `<`, `<=`, `->`, etc.</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/disqualifyDelimiter" languageId="kotlin" />
+
+### Interior
+
+#### 1. Interior: Class
+
+<i>The body of a class</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/interior/interior.class" languageId="kotlin" />
+
+#### 2. Interior: Constructor
+
+<i>The body of a constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/interior/interior.constructor" languageId="kotlin" />
+
+#### 3. Interior: Do while
+
+<i>The body of a do-while loop</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/interior/interior.doWhile" languageId="kotlin" />
+
+#### 4. Interior: Enum
+
+<i>The body of an enum</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/interior/interior.enum" languageId="kotlin" />
+
+#### 5. Interior: For
+
+<i>The body of a for loop</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/interior/interior.for" languageId="kotlin" />
+
+#### 6. Interior: Foreach
+
+<i>The body of a for-each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/interior/interior.foreach" languageId="kotlin" />
+
+#### 7. Interior: Function
+
+<i>The body of a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/interior/interior.function" languageId="kotlin" />
+
+#### 8. Interior: If
+
+<i>The body of an if/elif/else branch</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/interior/interior.if" languageId="kotlin" />
+
+#### 9. Interior: Interface
+
+<i>The body of a interface</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/interior/interior.interface" languageId="kotlin" />
+
+#### 10. Interior: Lambda
+
+<i>The block body of a lambda/anonymous function</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/interior/interior.lambda" languageId="kotlin" />
+
+#### 11. Interior: Method
+
+<i>The body of a method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/interior/interior.method" languageId="kotlin" />
+
+#### 12. Interior: Static
+
+<i>the body of a static statement</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/interior/interior.static" languageId="kotlin" />
+
+#### 13. Interior: Switch
+
+<i>The body of a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/interior/interior.switch" languageId="kotlin" />
+
+#### 14. Interior: Switch case
+
+<i>The body of a switch case branch</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/interior/interior.switchCase" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/interior/interior.switchCase2" languageId="kotlin" />
+
+#### 15. Interior: Try
+
+<i>The body of a try/catch/finally branch</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/interior/interior.try" languageId="kotlin" />
+
+#### 16. Interior: While
+
+<i>The body of a while loop</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/interior/interior.while" languageId="kotlin" />
+
+### String
+
+#### 1. String: Multi line
+
+<i>A multi-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/string.multiLine" languageId="kotlin" />
+
+#### 2. String: Single line
+
+<i>A single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/string.singleLine" languageId="kotlin" />
+
+### Text fragment
+
+#### 1. Text fragment: Comment block
+
+<i>Internally used text fragment consisting of a block comment</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/textFragment.comment.block" languageId="kotlin" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/textFragment.comment.block2" languageId="kotlin" />
+
+#### 2. Text fragment: Comment line
+
+<i>Internally used text fragment consisting of a line comment</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/textFragment.comment.line" languageId="kotlin" />
+
+#### 3. Text fragment: String multi line
+
+<i>Internally used text fragment consisting of a multi-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/textFragment.string.multiLine" languageId="kotlin" />
+
+#### 4. Text fragment: String single line
+
+<i>Internally used text fragment consisting of a single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/kotlin/textFragment.string.singleLine" languageId="kotlin" />
+
+</ScopeVisualizerProvider>

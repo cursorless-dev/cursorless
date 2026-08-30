@@ -2,7 +2,7 @@
 sidebar_label: Unit
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Unit
 
@@ -20,4 +20,26 @@ Default: `unit`
 
 - `"take unit blue air"` - Selects the unit containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="unit" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Unit
+
+<i>A unit in a css rule set</i>
+
+##### CSS
+
+<ScopeVisualizer fixtureName="scopes/css/unit/unit" />
+
+<ScopeVisualizer fixtureName="scopes/css/unit/unit2" />
+
+<ScopeVisualizer fixtureName="scopes/css/unit/unit3" />
+
+<ScopeVisualizer fixtureName="scopes/css/unit/unit4" />
+
+<ScopeVisualizer fixtureName="scopes/css/unit/unit5" />
+
+</ScopeVisualizerProvider>

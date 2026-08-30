@@ -1,5 +1,1107 @@
-import { Language } from "@site/src/docs/components/Language";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Go
 
-<Language languageId="go" />
+<ScopeVisualizerProvider>
+
+Below are visualizations of all our scope tests for this language. These were created primarily for testing purposes rather than as documentation. There are quite a few, and they may feel a bit overwhelming from a documentation standpoint.
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Anonymous function
+
+#### 1. Anonymous function
+
+<i>An anonymous function, eg a lambda function, an arrow function, etc.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/anonymousFunction" languageId="go" />
+
+### Argument list
+
+#### 1. Argument list: Actual empty
+
+<i>An empty list of arguments in a function call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argumentList/argumentList.actual.empty" languageId="go" />
+
+#### 2. Argument list: Actual method empty
+
+<i>An empty list of arguments in a method call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argumentList/argumentList.actual.method.empty" languageId="go" />
+
+#### 3. Argument list: Actual method multi line
+
+<i>A multi line list of arguments in a method call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argumentList/argumentList.actual.method.multiLine" languageId="go" />
+
+#### 4. Argument list: Actual method single line
+
+<i>A single line list of arguments in a method call</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argumentList/argumentList.actual.method.singleLine" languageId="go" />
+
+#### 5. Argument list: Actual multi line
+
+<i>A multi line list of arguments in a function call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argumentList/argumentList.actual.multiLine" languageId="go" />
+
+#### 6. Argument list: Actual single line
+
+<i>A single line list of arguments in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argumentList/argumentList.actual.singleLine" languageId="go" />
+
+#### 7. Argument list: Formal empty
+
+<i>An empty list of parameters in a function declaration. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argumentList/argumentList.formal.empty" languageId="go" />
+
+#### 8. Argument list: Formal lambda empty
+
+<i>An empty list of parameters in a lambda declaration. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argumentList/argumentList.formal.lambda.empty" languageId="go" />
+
+#### 9. Argument list: Formal lambda multi line
+
+<i>A multi line list of parameters in a lambda declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argumentList/argumentList.formal.lambda.multiLine" languageId="go" />
+
+#### 10. Argument list: Formal lambda single line
+
+<i>A single line list of parameters in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argumentList/argumentList.formal.lambda.singleLine" languageId="go" />
+
+#### 11. Argument list: Formal method empty
+
+<i>An empty list of parameters in a class method declaration. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argumentList/argumentList.formal.method.empty" languageId="go" />
+
+#### 12. Argument list: Formal method multi line
+
+<i>A multi line list of parameters in a class method declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argumentList/argumentList.formal.method.multiLine" languageId="go" />
+
+#### 13. Argument list: Formal method single line
+
+<i>A single line list of parameters in a class method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argumentList/argumentList.formal.method.singleLine" languageId="go" />
+
+#### 14. Argument list: Formal multi line
+
+<i>A multi line list of parameters in a function declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argumentList/argumentList.formal.multiLine" languageId="go" />
+
+#### 15. Argument list: Formal single line
+
+<i>A single line list of parameters in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argumentList/argumentList.formal.singleLine" languageId="go" />
+
+### Argument or parameter
+
+#### 1. Argument: Actual method multi line
+
+<i>A multi line argument in a method call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argument/argument.actual.method.multiLine" languageId="go" />
+
+#### 2. Argument: Actual method single line
+
+<i>A single line argument in a method call</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argument/argument.actual.method.singleLine" languageId="go" />
+
+#### 3. Argument: Actual multi line
+
+<i>A multiline argument in a function call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argument/argument.actual.multiLine" languageId="go" />
+
+#### 4. Argument: Actual single line
+
+<i>A single line argument in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argument/argument.actual.singleLine" languageId="go" />
+
+#### 5. Argument: Formal lambda multi line
+
+<i>A multi line parameter in a lambda declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argument/argument.formal.lambda.multiLine" languageId="go" />
+
+#### 6. Argument: Formal lambda single line
+
+<i>A single line parameter in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argument/argument.formal.lambda.singleLine" languageId="go" />
+
+#### 7. Argument: Formal method multi line
+
+<i>A multi line parameter in a class method declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argument/argument.formal.method.multiLine" languageId="go" />
+
+#### 8. Argument: Formal method single line
+
+<i>A single line parameter in a class method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argument/argument.formal.method.singleLine" languageId="go" />
+
+#### 9. Argument: Formal multi line
+
+<i>A multi line parameter in a function declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argument/argument.formal.multiLine" languageId="go" />
+
+#### 10. Argument: Formal single line
+
+<i>A single line parameter in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argument/argument.formal.singleLine" languageId="go" />
+
+#### 11. Argument: Actual (iteration)
+
+<i>Iteration scope for arguments in a function call: the argument list. The domain should be the entire function call.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argument/argument.actual.iteration" languageId="go" />
+
+#### 12. Argument: Actual method (iteration)
+
+<i>Iteration scope for arguments in a method call: the argument list. The domain should be the entire method call.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argument/argument.actual.method.iteration" languageId="go" />
+
+#### 13. Argument: Formal (iteration)
+
+<i>Iteration scope for formal parameters in a function declaration: the parameters list. The domain should be the entire function.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argument/argument.formal.iteration" languageId="go" />
+
+#### 14. Argument: Formal lambda (iteration)
+
+<i>Iteration scope for formal parameters in a lambda declaration: the parameter list. The domain should be the entire lambda.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argument/argument.formal.lambda.iteration" languageId="go" />
+
+#### 15. Argument: Formal method (iteration)
+
+<i>Iteration scope for formal parameters in a method declaration: the parameter list. The domain should be the entire method.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/argument/argument.formal.method.iteration" languageId="go" />
+
+### Branch
+
+#### 1. Branch: If
+
+<i>An if branch</i>
+
+<ScopeVisualizer fixtureName="scopes/go/branch/branch.if" languageId="go" />
+
+#### 2. Branch: If elif else
+
+<i>An if-elif-else branch. The removal range for the if branch should include the trailing `else` keyword.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/branch/branch.if.elif.else" languageId="go" />
+
+#### 3. Branch: If else
+
+<i>An if-else branch</i>
+
+<ScopeVisualizer fixtureName="scopes/go/branch/branch.if.else" languageId="go" />
+
+#### 4. Branch: Switch case
+
+<i>A case/default branch in a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/go/branch/branch.switchCase" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/branch/branch.switchCase2" languageId="go" />
+
+#### 5. Branch: If (iteration)
+
+<i>Iteration scope for if/elif/else branches: the if-else statement.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/branch/branch.if.iteration" languageId="go" />
+
+#### 6. Branch: Switch case (iteration)
+
+<i>Iteration scope for switch branches: the switch statement body.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/branch/branch.switchCase.iteration" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/branch/branch.switchCase.iteration2" languageId="go" />
+
+### Class
+
+#### 1. Class
+
+<i>A class/struct in an object-oriented language</i>
+
+<ScopeVisualizer fixtureName="scopes/go/class" languageId="go" />
+
+#### 2. Class (iteration document)
+
+<i>Iteration scope for classes: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/class.iteration.document" languageId="go" />
+
+### Collection item
+
+#### 1. Collection item: Unenclosed multi line
+
+<i>An item in a comma-separated multi line list without enclosing delimiters. This could be multi-variable declarations, import statements, etc. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/collectionItem.unenclosed.multiLine" languageId="go" />
+
+#### 2. Collection item: Unenclosed single line
+
+<i>An item in a comma-separated single line list without enclosing delimiters. This could be multi-variable declarations, import statements, etc.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/collectionItem.unenclosed.singleLine" languageId="go" />
+
+#### 3. Collection item: Unenclosed (iteration)
+
+<i>Iteration scope for items in a comma-separated list without enclosing delimiters</i>
+
+<ScopeVisualizer fixtureName="scopes/go/collectionItem.unenclosed.iteration" languageId="go" />
+
+### Collection key
+
+#### 1. Key: Map pair
+
+<i>Key (LHS) of a key-value pair of a map</i>
+
+<ScopeVisualizer fixtureName="scopes/go/key.mapPair" languageId="go" />
+
+#### 2. Key: Map pair (iteration)
+
+<i>Iteration scope for keys of key-value pairs in a map: should be between the braces.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/key.mapPair.iteration" languageId="go" />
+
+### Comment
+
+#### 1. Comment: Block
+
+<i>A block comment</i>
+
+<ScopeVisualizer fixtureName="scopes/go/comment.block" languageId="go" />
+
+#### 2. Comment: Line
+
+<i>A line comment</i>
+
+<ScopeVisualizer fixtureName="scopes/go/comment.line" languageId="go" />
+
+### Condition
+
+#### 1. Condition: For
+
+<i>A condition in a for loop</i>
+
+<ScopeVisualizer fixtureName="scopes/go/condition/condition.for" languageId="go" />
+
+#### 2. Condition: If
+
+<i>A condition in an if statement</i>
+
+<ScopeVisualizer fixtureName="scopes/go/condition/condition.if" languageId="go" />
+
+#### 3. Condition: Switch case
+
+<i>A condition in a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/go/condition/condition.switchCase" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/condition/condition.switchCase2" languageId="go" />
+
+#### 4. Condition: Switch case (iteration)
+
+<i>Iteration scope for conditions in a switch statement: the switch statement body.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/condition/condition.switchCase.iteration" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/condition/condition.switchCase.iteration2" languageId="go" />
+
+### Function call
+
+#### 1. Function call
+
+<i>A function call</i>
+
+<ScopeVisualizer fixtureName="scopes/go/functionCall" languageId="go" />
+
+#### 2. Function call: Chain
+
+<i>A chain of function calls, eg `foo().bar()`</i>
+
+<ScopeVisualizer fixtureName="scopes/go/functionCall.chain" languageId="go" />
+
+#### 3. Function call: Generic
+
+<i>A function call with generic type arguments</i>
+
+<ScopeVisualizer fixtureName="scopes/go/functionCall.generic" languageId="go" />
+
+#### 4. Function call: Method
+
+<i>A method call</i>
+
+<ScopeVisualizer fixtureName="scopes/go/functionCall.method" languageId="go" />
+
+### Function callee
+
+#### 1. Function callee
+
+<i>The function being called in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/go/functionCallee" languageId="go" />
+
+#### 2. Function callee: Chain
+
+<i>The function being called in a chain of function calls, including parent objects.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/functionCallee.chain" languageId="go" />
+
+#### 3. Function callee: Generic
+
+<i>The function being called in a function call with generic type arguments</i>
+
+<ScopeVisualizer fixtureName="scopes/go/functionCallee.generic" languageId="go" />
+
+#### 4. Function callee: Method
+
+<i>The function being called in a method call, including parent objects.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/functionCallee.method" languageId="go" />
+
+### If statement
+
+#### 1. If statement
+
+<i>An if statement</i>
+
+<ScopeVisualizer fixtureName="scopes/go/ifStatement" languageId="go" />
+
+### List
+
+#### 1. List
+
+<i>A list/array</i>
+
+<ScopeVisualizer fixtureName="scopes/go/list" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/list2" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/list3" languageId="go" />
+
+### Map
+
+#### 1. Map
+
+<i>A map/dictionary</i>
+
+<ScopeVisualizer fixtureName="scopes/go/map" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/map2" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/map3" languageId="go" />
+
+### Name
+
+#### 1. Name: Argument formal
+
+<i>Name of a parameter in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.argument.formal" languageId="go" />
+
+#### 2. Name: Argument formal lambda
+
+<i>Name of a parameter in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.argument.formal.lambda" languageId="go" />
+
+#### 3. Name: Argument formal method
+
+<i>Name of a parameter in a class method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.argument.formal.method" languageId="go" />
+
+#### 4. Name: Assignment
+
+<i>Name (LHS) of an assignment</i>
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.assignment" languageId="go" />
+
+#### 5. Name: Assignment compound
+
+<i>Name (LHS) of a compound assignment, eg +=/-=</i>
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.assignment.compound" languageId="go" />
+
+#### 6. Name: Class
+
+<i>Name of a class</i>
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.class" languageId="go" />
+
+#### 7. Name: Constant
+
+<i>Name (LHS) of a constant declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.constant" languageId="go" />
+
+#### 8. Name: Field class
+
+<i>Name (LHS) of a field in a class</i>
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.field.class" languageId="go" />
+
+#### 9. Name: Foreach
+
+<i>Iteration variable name in a for each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.foreach" languageId="go" />
+
+#### 10. Name: Function
+
+<i>Name of a function</i>
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.function" languageId="go" />
+
+#### 11. Name: Interface
+
+<i>Name of a interface</i>
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.interface" languageId="go" />
+
+#### 12. Name: Method
+
+<i>Name of a class method</i>
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.method" languageId="go" />
+
+#### 13. Name: Method interface
+
+<i>Name of a interface method</i>
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.method.interface" languageId="go" />
+
+#### 14. Name: Type alias
+
+<i>Name of a type alias</i>
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.typeAlias" languageId="go" />
+
+#### 15. Name: Variable initialized
+
+<i>Name (LHS) of an initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.variable.initialized" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.variable.initialized2" languageId="go" />
+
+#### 16. Name: Variable uninitialized
+
+<i>Name (LHS) of an uninitialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.variable.uninitialized" languageId="go" />
+
+#### 17. Name (iteration block)
+
+<i>Iteration scope for names: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.iteration.block" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.iteration.block2" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.iteration.block3" languageId="go" />
+
+#### 18. Name (iteration class)
+
+<i>Iteration scope for names: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.iteration.class" languageId="go" />
+
+#### 19. Name (iteration document)
+
+<i>Iteration scope for names: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.iteration.document" languageId="go" />
+
+#### 20. Name (iteration interface)
+
+<i>Iteration scope for names: interface bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.iteration.interface" languageId="go" />
+
+#### 21. Name: Argument formal (iteration)
+
+<i>Iteration scope for names of formal parameters in a function declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.argument.formal.iteration" languageId="go" />
+
+#### 22. Name: Argument formal lambda (iteration)
+
+<i>Iteration scope for names of formal parameters in a lambda declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.argument.formal.lambda.iteration" languageId="go" />
+
+#### 23. Name: Argument formal method (iteration)
+
+<i>Iteration scope for names of formal parameters in a method declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/name/name.argument.formal.method.iteration" languageId="go" />
+
+### Named function
+
+#### 1. Named function
+
+<i>A named function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/namedFunction" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/namedFunction2" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/namedFunction3" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/namedFunction4" languageId="go" />
+
+#### 2. Named function: Method
+
+<i>A named method declaration in a class</i>
+
+<ScopeVisualizer fixtureName="scopes/go/namedFunction.method" languageId="go" />
+
+#### 3. Named function (iteration class)
+
+<i>Iteration scope for named functions: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/namedFunction.iteration.class" languageId="go" />
+
+#### 4. Named function (iteration document)
+
+<i>Iteration scope for named functions: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/namedFunction.iteration.document" languageId="go" />
+
+### Statement
+
+#### 1. Statement: Assignment
+
+<i>An assignment statement</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.assignment" languageId="go" />
+
+#### 2. Statement: Assignment compound
+
+<i>A compound assignment statement, eg +=/-=</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.assignment.compound" languageId="go" />
+
+#### 3. Statement: Break
+
+<i>A break statement</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.break" languageId="go" />
+
+#### 4. Statement: Class
+
+<i>A class/struct declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.class" languageId="go" />
+
+#### 5. Statement: Constant
+
+<i>A constant declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.constant" languageId="go" />
+
+#### 6. Statement: Continue
+
+<i>A continue statement</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.continue" languageId="go" />
+
+#### 7. Statement: Field class
+
+<i>A field declaration in a class/struct</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.field.class" languageId="go" />
+
+#### 8. Statement: For
+
+<i>A for loop statement</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.for" languageId="go" />
+
+#### 9. Statement: Foreach
+
+<i>A for-each loop statement</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.foreach" languageId="go" />
+
+#### 10. Statement: Function
+
+<i>A named function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.function" languageId="go" />
+
+#### 11. Statement: Function call
+
+<i>A function call statement</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.functionCall" languageId="go" />
+
+#### 12. Statement: If
+
+<i>A if/elif/else statement</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.if" languageId="go" />
+
+#### 13. Statement: Import
+
+<i>An import statement</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.import" languageId="go" />
+
+#### 14. Statement: Interface
+
+<i>An interface declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.interface" languageId="go" />
+
+#### 15. Statement: Method
+
+<i>A method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.method" languageId="go" />
+
+#### 16. Statement: Method interface
+
+<i>A method declaration in a interface</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.method.interface" languageId="go" />
+
+#### 17. Statement: Package
+
+<i>A package declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.package" languageId="go" />
+
+#### 18. Statement: Return
+
+<i>A return statement</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.return" languageId="go" />
+
+#### 19. Statement: Switch
+
+<i>A switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.switch" languageId="go" />
+
+#### 20. Statement: Type alias
+
+<i>A type alias declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.typeAlias" languageId="go" />
+
+#### 21. Statement: Update
+
+<i>An update statement, eg ++/--</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.update" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.update2" languageId="go" />
+
+#### 22. Statement: Variable initialized
+
+<i>An initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.variable.initialized" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.variable.initialized2" languageId="go" />
+
+#### 23. Statement: Variable uninitialized
+
+<i>An uninitialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.variable.uninitialized" languageId="go" />
+
+#### 24. Statement (iteration block)
+
+<i>Iteration scope for statements: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.iteration.block" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.iteration.block2" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.iteration.block3" languageId="go" />
+
+#### 25. Statement (iteration class)
+
+<i>Iteration scope for statements: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.iteration.class" languageId="go" />
+
+#### 26. Statement (iteration document)
+
+<i>Iteration scope for statements: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.iteration.document" languageId="go" />
+
+#### 27. Statement (iteration interface)
+
+<i>Iteration scope for statements: interface bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/statement/statement.iteration.interface" languageId="go" />
+
+### Type
+
+#### 1. Type: Alias
+
+<i>A type alias declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/type/type.alias" languageId="go" />
+
+#### 2. Type: Argument formal
+
+<i>Type of a formal parameter in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/type/type.argument.formal" languageId="go" />
+
+#### 3. Type: Argument formal lambda
+
+<i>Type of a formal parameter in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/type/type.argument.formal.lambda" languageId="go" />
+
+#### 4. Type: Argument formal method
+
+<i>Type of a formal parameter in a class method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/type/type.argument.formal.method" languageId="go" />
+
+#### 5. Type: Class
+
+<i>A class declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/type/type.class" languageId="go" />
+
+#### 6. Type: Constant
+
+<i>Type of a constant declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/type/type.constant" languageId="go" />
+
+#### 7. Type: Field class
+
+<i>Type of a field in a class</i>
+
+<ScopeVisualizer fixtureName="scopes/go/type/type.field.class" languageId="go" />
+
+#### 8. Type: Interface
+
+<i>An interface declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/type/type.interface" languageId="go" />
+
+#### 9. Type: Return
+
+<i>Type of a return value in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/type/type.return" languageId="go" />
+
+#### 10. Type: Return lambda
+
+<i>Type of a return value in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/type/type.return.lambda" languageId="go" />
+
+#### 11. Type: Return method
+
+<i>Type of a return value in a method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/type/type.return.method" languageId="go" />
+
+#### 12. Type: Type argument
+
+<i>Type argument to a generic / parametrized type</i>
+
+<ScopeVisualizer fixtureName="scopes/go/type/type.typeArgument" languageId="go" />
+
+#### 13. Type: Variable initialized
+
+<i>Type of an initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/type/type.variable.initialized" languageId="go" />
+
+#### 14. Type: Variable uninitialized
+
+<i>Type of an uninitialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/type/type.variable.uninitialized" languageId="go" />
+
+#### 15. Type (iteration block)
+
+<i>Iteration scope for types: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/go/type/type.iteration.block" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/type/type.iteration.block2" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/type/type.iteration.block3" languageId="go" />
+
+#### 16. Type (iteration class)
+
+<i>Iteration scope for types: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/type/type.iteration.class" languageId="go" />
+
+#### 17. Type (iteration document)
+
+<i>Iteration scope for types: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/type/type.iteration.document" languageId="go" />
+
+#### 18. Type: Argument formal (iteration)
+
+<i>Iteration scope for types of formal parameters in a function declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/type/type.argument.formal.iteration" languageId="go" />
+
+#### 19. Type: Argument formal lambda (iteration)
+
+<i>Iteration scope for types of formal parameters in a lambda declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/type/type.argument.formal.lambda.iteration" languageId="go" />
+
+#### 20. Type: Argument formal method (iteration)
+
+<i>Iteration scope for types of formal parameters in a method declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/type/type.argument.formal.method.iteration" languageId="go" />
+
+#### 21. Type: Type argument (iteration)
+
+<i>Iteration scope for type arguments to a generic / parametrized type: the type argument list.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/type/type.typeArgument.iteration" languageId="go" />
+
+### Value
+
+#### 1. Value: Assignment
+
+<i>Value (RHS) of an assignment</i>
+
+<ScopeVisualizer fixtureName="scopes/go/value/value.assignment" languageId="go" />
+
+#### 2. Value: Assignment compound
+
+<i>Value (RHS) of a compound assignment, eg +=/-=</i>
+
+<ScopeVisualizer fixtureName="scopes/go/value/value.assignment.compound" languageId="go" />
+
+#### 3. Value: Constant
+
+<i>Value (RHS) of a constant declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/value/value.constant" languageId="go" />
+
+#### 4. Value: Foreach
+
+<i>Iterable in a for each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/go/value/value.foreach" languageId="go" />
+
+#### 5. Value: Map pair
+
+<i>Value (RHS) of a key-value pair in a map</i>
+
+<ScopeVisualizer fixtureName="scopes/go/value/value.mapPair" languageId="go" />
+
+#### 6. Value: Return
+
+<i>Return value of a function</i>
+
+<ScopeVisualizer fixtureName="scopes/go/value/value.return" languageId="go" />
+
+#### 7. Value: Switch
+
+<i>The value / subject of a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/go/value/value.switch" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/value/value.switch2" languageId="go" />
+
+#### 8. Value: Type alias
+
+<i>Value of a type alias declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/value/value.typeAlias" languageId="go" />
+
+#### 9. Value: Variable
+
+<i>Value (RHS) of a variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/value/value.variable" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/value/value.variable2" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/value/value.variable3" languageId="go" />
+
+#### 10. Value (iteration block)
+
+<i>Iteration scope for values: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/go/value/value.iteration.block" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/value/value.iteration.block2" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/value/value.iteration.block3" languageId="go" />
+
+#### 11. Value (iteration document)
+
+<i>Iteration scope for values: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/value/value.iteration.document" languageId="go" />
+
+#### 12. Value: Map pair (iteration)
+
+<i>Iteration scope for values of key-value pairs in a map: should be between the braces.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/value/value.mapPair.iteration" languageId="go" />
+
+## Internal scopes
+
+The following are internal scopes. They are not intended for user interaction or spoken use. These scopes exist solely for internal Cursorless functionality.
+
+### Disqualify delimiter
+
+#### 1. Disqualify delimiter
+
+<i>Internally used to disqualify a token from being treated as a surrounding pair delimiter. This will usually be operators containing `>` or `<`, eg `<`, `<=`, `->`, etc.</i>
+
+<ScopeVisualizer fixtureName="scopes/go/disqualifyDelimiter" languageId="go" />
+
+### Interior
+
+#### 1. Interior: Class
+
+<i>The body of a class</i>
+
+<ScopeVisualizer fixtureName="scopes/go/interior/interior.class" languageId="go" />
+
+#### 2. Interior: For
+
+<i>The body of a for loop</i>
+
+<ScopeVisualizer fixtureName="scopes/go/interior/interior.for" languageId="go" />
+
+#### 3. Interior: Foreach
+
+<i>The body of a for-each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/go/interior/interior.foreach" languageId="go" />
+
+#### 4. Interior: Function
+
+<i>The body of a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/interior/interior.function" languageId="go" />
+
+#### 5. Interior: If
+
+<i>The body of an if/elif/else branch</i>
+
+<ScopeVisualizer fixtureName="scopes/go/interior/interior.if" languageId="go" />
+
+#### 6. Interior: Interface
+
+<i>The body of a interface</i>
+
+<ScopeVisualizer fixtureName="scopes/go/interior/interior.interface" languageId="go" />
+
+#### 7. Interior: Lambda
+
+<i>The block body of a lambda/anonymous function</i>
+
+<ScopeVisualizer fixtureName="scopes/go/interior/interior.lambda" languageId="go" />
+
+#### 8. Interior: Method
+
+<i>The body of a method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/go/interior/interior.method" languageId="go" />
+
+#### 9. Interior: Switch
+
+<i>The body of a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/go/interior/interior.switch" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/interior/interior.switch2" languageId="go" />
+
+#### 10. Interior: Switch case
+
+<i>The body of a switch case branch</i>
+
+<ScopeVisualizer fixtureName="scopes/go/interior/interior.switchCase" languageId="go" />
+
+<ScopeVisualizer fixtureName="scopes/go/interior/interior.switchCase2" languageId="go" />
+
+### String
+
+#### 1. String: Multi line
+
+<i>A multi-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/go/string.multiLine" languageId="go" />
+
+#### 2. String: Single line
+
+<i>A single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/go/string.singleLine" languageId="go" />
+
+### Text fragment
+
+#### 1. Text fragment: Comment block
+
+<i>Internally used text fragment consisting of a block comment</i>
+
+<ScopeVisualizer fixtureName="scopes/go/textFragment.comment.block" languageId="go" />
+
+#### 2. Text fragment: Comment line
+
+<i>Internally used text fragment consisting of a line comment</i>
+
+<ScopeVisualizer fixtureName="scopes/go/textFragment.comment.line" languageId="go" />
+
+#### 3. Text fragment: String multi line
+
+<i>Internally used text fragment consisting of a multi-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/go/textFragment.string.multiLine" languageId="go" />
+
+#### 4. Text fragment: String single line
+
+<i>Internally used text fragment consisting of a single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/go/textFragment.string.singleLine" languageId="go" />
+
+</ScopeVisualizerProvider>

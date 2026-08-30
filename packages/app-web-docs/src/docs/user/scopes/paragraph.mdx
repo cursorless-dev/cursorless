@@ -2,7 +2,7 @@
 sidebar_label: Block
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Block (Paragraph)
 
@@ -22,4 +22,18 @@ Default: `block`
 
 - `"take block blue air"` - Selects the paragraph containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="paragraph" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Paragraph
+
+<i>A single paragraph(contiguous block of lines) in the document</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/paragraph" />
+
+</ScopeVisualizerProvider>

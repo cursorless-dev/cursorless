@@ -40,12 +40,10 @@ Follow the instructions in [Adding a new scope](./adding-a-new-scope.md) to defi
 
 ## 5. Document your language
 
-Create a `.mdx` file in [`languages`](../user/languages) with the `Language` react component. The file should be named after your language, eg `java.mdx`
+Run the following command from the repository root:
 
-```md
-import { Language } from "@site/src/docs/components/Language";
-
-# Java
-
-<Language languageId="java" />
+```sh
+pnpm fix:meta
 ```
+
+Meta Updater will generate the language's `.mdx` page in [`languages`](../user/languages) from its scope support map and scope test fixtures. The generated file is named after the language ID, for example `java.mdx`, and should not be edited manually.

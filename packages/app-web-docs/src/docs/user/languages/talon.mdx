@@ -1,5 +1,357 @@
-import { Language } from "@site/src/docs/components/Language";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Talon
 
-<Language languageId="talon" />
+<ScopeVisualizerProvider>
+
+Below are visualizations of all our scope tests for this language. These were created primarily for testing purposes rather than as documentation. There are quite a few, and they may feel a bit overwhelming from a documentation standpoint.
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Argument list
+
+#### 1. Argument list: Actual empty
+
+<i>An empty list of arguments in a function call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/argumentList/argumentList.actual.empty" languageId="talon" />
+
+#### 2. Argument list: Actual method empty
+
+<i>An empty list of arguments in a method call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/argumentList/argumentList.actual.method.empty" languageId="talon" />
+
+#### 3. Argument list: Actual method single line
+
+<i>A single line list of arguments in a method call</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/argumentList/argumentList.actual.method.singleLine" languageId="talon" />
+
+#### 4. Argument list: Actual single line
+
+<i>A single line list of arguments in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/argumentList/argumentList.actual.singleLine" languageId="talon" />
+
+<ScopeVisualizer fixtureName="scopes/talon/argumentList/argumentList.actual.singleLine2" languageId="talon" />
+
+<ScopeVisualizer fixtureName="scopes/talon/argumentList/argumentList.actual.singleLine3" languageId="talon" />
+
+### Argument or parameter
+
+#### 1. Argument: Actual single line
+
+<i>A single line argument in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/argument/argument.actual.singleLine" languageId="talon" />
+
+<ScopeVisualizer fixtureName="scopes/talon/argument/argument.actual.singleLine2" languageId="talon" />
+
+<ScopeVisualizer fixtureName="scopes/talon/argument/argument.actual.singleLine3" languageId="talon" />
+
+#### 2. Argument: Actual (iteration)
+
+<i>Iteration scope for arguments in a function call: the argument list. The domain should be the entire function call.</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/argument/argument.actual.iteration" languageId="talon" />
+
+<ScopeVisualizer fixtureName="scopes/talon/argument/argument.actual.iteration2" languageId="talon" />
+
+<ScopeVisualizer fixtureName="scopes/talon/argument/argument.actual.iteration3" languageId="talon" />
+
+### Collection key
+
+#### 1. Key: Map pair
+
+<i>Key (LHS) of a key-value pair of a map</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/key/key.mapPair" languageId="talon" />
+
+<ScopeVisualizer fixtureName="scopes/talon/key/key.mapPair2" languageId="talon" />
+
+#### 2. Key: Map pair (iteration)
+
+<i>Iteration scope for keys of key-value pairs in a map: should be between the braces.</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/key/key.mapPair.iteration" languageId="talon" />
+
+<ScopeVisualizer fixtureName="scopes/talon/key/key.mapPair.iteration2" languageId="talon" />
+
+<ScopeVisualizer fixtureName="scopes/talon/key/key.mapPair.iteration3" languageId="talon" />
+
+### Command
+
+#### 1. Command
+
+<i>A command, for example Talon spoken command or bash</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/command" languageId="talon" />
+
+<ScopeVisualizer fixtureName="scopes/talon/command2" languageId="talon" />
+
+### Comment
+
+#### 1. Comment: Line
+
+<i>A line comment</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/comment.line" languageId="talon" />
+
+### Condition
+
+#### 1. Condition: If
+
+<i>A condition in an if statement</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/condition.if" languageId="talon" />
+
+### Function call
+
+#### 1. Function call
+
+<i>A function call</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/functionCall" languageId="talon" />
+
+<ScopeVisualizer fixtureName="scopes/talon/functionCall2" languageId="talon" />
+
+#### 2. Function call: Method
+
+<i>A method call</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/functionCall.method" languageId="talon" />
+
+### Function callee
+
+#### 1. Function callee
+
+<i>The function being called in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/functionCallee" languageId="talon" />
+
+<ScopeVisualizer fixtureName="scopes/talon/functionCallee2" languageId="talon" />
+
+#### 2. Function callee: Method
+
+<i>The function being called in a method call, including parent objects.</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/functionCallee.method" languageId="talon" />
+
+### If statement
+
+#### 1. If statement
+
+<i>An if statement</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/ifStatement" languageId="talon" />
+
+### Name
+
+#### 1. Name: Assignment
+
+<i>Name (LHS) of an assignment</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/name/name.assignment" languageId="talon" />
+
+#### 2. Name: Command
+
+<i>LHS of a command, eg Talon spoken command or bash</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/name/name.command" languageId="talon" />
+
+<ScopeVisualizer fixtureName="scopes/talon/name/name.command2" languageId="talon" />
+
+<ScopeVisualizer fixtureName="scopes/talon/name/name.command3" languageId="talon" />
+
+#### 3. Name: Foreach
+
+<i>Iteration variable name in a for each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/name/name.foreach" languageId="talon" />
+
+#### 4. Name: Variable initialized
+
+<i>Name (LHS) of an initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/name/name.variable.initialized" languageId="talon" />
+
+#### 5. Name (iteration block)
+
+<i>Iteration scope for names: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/name/name.iteration.block" languageId="talon" />
+
+<ScopeVisualizer fixtureName="scopes/talon/name/name.iteration.block2" languageId="talon" />
+
+<ScopeVisualizer fixtureName="scopes/talon/name/name.iteration.block3" languageId="talon" />
+
+#### 6. Name (iteration document)
+
+<i>Iteration scope for names: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/name/name.iteration.document" languageId="talon" />
+
+### Statement
+
+#### 1. Statement: Assignment
+
+<i>An assignment statement</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/statement.assignment" languageId="talon" />
+
+#### 2. Statement: Command
+
+<i>A command statement, eg Talon spoken command or bash</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/statement.command" languageId="talon" />
+
+#### 3. Statement: Foreach
+
+<i>A for-each loop statement</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/statement.foreach" languageId="talon" />
+
+#### 4. Statement: Function call
+
+<i>A function call statement</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/statement.functionCall" languageId="talon" />
+
+#### 5. Statement: If
+
+<i>A if/elif/else statement</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/statement.if" languageId="talon" />
+
+#### 6. Statement: Variable initialized
+
+<i>An initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/statement.variable.initialized" languageId="talon" />
+
+#### 7. Statement (iteration block)
+
+<i>Iteration scope for statements: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/statement.iteration.block" languageId="talon" />
+
+#### 8. Statement (iteration document)
+
+<i>Iteration scope for statements: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/statement.iteration.document" languageId="talon" />
+
+### Value
+
+#### 1. Value: Assignment
+
+<i>Value (RHS) of an assignment</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/value/value.assignment" languageId="talon" />
+
+#### 2. Value: Command
+
+<i>Value (RHS) of an command, eg Talon spoken command</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/value/value.command" languageId="talon" />
+
+#### 3. Value: Foreach
+
+<i>Iterable in a for each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/value/value.foreach" languageId="talon" />
+
+#### 4. Value: Map pair
+
+<i>Value (RHS) of a key-value pair in a map</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/value/value.mapPair" languageId="talon" />
+
+<ScopeVisualizer fixtureName="scopes/talon/value/value.mapPair2" languageId="talon" />
+
+#### 5. Value: Variable
+
+<i>Value (RHS) of a variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/value/value.variable" languageId="talon" />
+
+#### 6. Value (iteration block)
+
+<i>Iteration scope for values: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/value/value.iteration.block" languageId="talon" />
+
+<ScopeVisualizer fixtureName="scopes/talon/value/value.iteration.block2" languageId="talon" />
+
+<ScopeVisualizer fixtureName="scopes/talon/value/value.iteration.block3" languageId="talon" />
+
+#### 7. Value (iteration document)
+
+<i>Iteration scope for values: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/value/value.iteration.document" languageId="talon" />
+
+#### 8. Value: Map pair (iteration)
+
+<i>Iteration scope for values of key-value pairs in a map: should be between the braces.</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/value/value.mapPair.iteration" languageId="talon" />
+
+<ScopeVisualizer fixtureName="scopes/talon/value/value.mapPair.iteration2" languageId="talon" />
+
+<ScopeVisualizer fixtureName="scopes/talon/value/value.mapPair.iteration3" languageId="talon" />
+
+## Internal scopes
+
+The following are internal scopes. They are not intended for user interaction or spoken use. These scopes exist solely for internal Cursorless functionality.
+
+### Interior
+
+#### 1. Interior: Command
+
+<i>The body of a command, eg Talon spoken command</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/interior.command" languageId="talon" />
+
+#### 2. Interior: Foreach
+
+<i>The body of a for-each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/interior.foreach" languageId="talon" />
+
+#### 3. Interior: If
+
+<i>The body of an if/elif/else branch</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/interior.if" languageId="talon" />
+
+### String
+
+#### 1. String: Single line
+
+<i>A single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/string.singleLine" languageId="talon" />
+
+<ScopeVisualizer fixtureName="scopes/talon/string.singleLine2" languageId="talon" />
+
+### Text fragment
+
+#### 1. Text fragment: Comment line
+
+<i>Internally used text fragment consisting of a line comment</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/textFragment.comment.line" languageId="talon" />
+
+#### 2. Text fragment: String single line
+
+<i>Internally used text fragment consisting of a single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/talon/textFragment.string.singleLine" languageId="talon" />
+
+<ScopeVisualizer fixtureName="scopes/talon/textFragment.string.singleLine2" languageId="talon" />
+
+</ScopeVisualizerProvider>

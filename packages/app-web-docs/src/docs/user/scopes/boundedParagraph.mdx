@@ -2,7 +2,7 @@
 sidebar_label: Short block
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Short block (Bounded paragraph)
 
@@ -22,4 +22,36 @@ Default: `short block`
 
 - `"take short block blue air"` - Selects the bounded paragraph containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="boundedParagraph" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Bounded paragraph
+
+<i>A single paragraph(contiguous block of lines) in the document bounded by matching pair</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedParagraph/boundedParagraph" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedParagraph/boundedParagraph2" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedParagraph/boundedParagraph3" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedParagraph/boundedParagraph4" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedParagraph/boundedParagraph5" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedParagraph/boundedParagraph6" />
+
+### Bounded paragraph (iteration)
+
+<i>Iteration scope for bounded paragraph</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedParagraph/boundedParagraph.iteration" />
+
+</ScopeVisualizerProvider>

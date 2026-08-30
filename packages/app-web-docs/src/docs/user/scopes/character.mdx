@@ -2,7 +2,7 @@
 sidebar_label: Char
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Char (Character)
 
@@ -20,4 +20,18 @@ Default: `char`
 
 - `"take first char blue air"` - Selects the first character in the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="character" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Character
+
+<i>A single character in the document</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/character" />
+
+</ScopeVisualizerProvider>

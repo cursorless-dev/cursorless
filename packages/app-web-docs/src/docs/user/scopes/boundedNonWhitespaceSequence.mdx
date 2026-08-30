@@ -2,7 +2,7 @@
 sidebar_label: Short paint
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Short paint (Bounded non-whitespace sequence)
 
@@ -22,4 +22,30 @@ Default: `short paint`
 
 - `"take short paint blue air"` - Selects the bounded non-whitespace sequence containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="boundedNonWhitespaceSequence" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Bounded non whitespace sequence
+
+<i>A sequence of non-whitespace characters bounded by matching pair</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedNonWhitespaceSequence" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedNonWhitespaceSequence2" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedNonWhitespaceSequence3" />
+
+### Bounded non whitespace sequence (iteration)
+
+<i>Iteration scope for bounded non-whitespace sequence</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedNonWhitespaceSequence.iteration" />
+
+</ScopeVisualizerProvider>

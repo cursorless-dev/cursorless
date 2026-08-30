@@ -1,5 +1,43 @@
-import { Scopes } from "@site/src/docs/components/Scopes";
+---
+sidebar_label: Pair delimiter
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Pair delimiter
 
-<Scopes scopeTypeType="pairDelimiter" />
+Cursorless ID: `pairDelimiter`
+
+## Spoken form
+
+Default: `pair delimiter`
+
+## Syntax
+
+- pair delimiter - Pair delimiter.
+
+## Examples
+
+- `"take pair delimiter blue air"` - Selects the pair delimiter containing the token containing letter 'a' with a blue hat.
+
+<ScopeVisualizerProvider>
+
+## Internal scopes
+
+The following are internal scopes. They are not intended for user interaction or spoken use. These scopes exist solely for internal Cursorless functionality.
+
+<ScopeVisualizerOptions />
+
+### Pair delimiter
+
+<i>Internally used to add additional language specific surrounding pair delimiters in addition to the text based definitions. eg `r"`.</i>
+
+##### JavaScript
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/pairDelimiter" />
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/pairDelimiter" />
+
+</ScopeVisualizerProvider>

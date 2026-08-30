@@ -2,7 +2,7 @@
 sidebar_label: Line
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Line
 
@@ -20,4 +20,20 @@ Default: `line`
 
 - `"take line blue air"` - Selects the line containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="line" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Line
+
+<i>A single line in the document. Excludes leading and trailing whitespace.</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/line" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/line2" />
+
+</ScopeVisualizerProvider>

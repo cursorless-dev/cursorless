@@ -2,7 +2,7 @@
 sidebar_label: Paint
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Paint (Non-whitespace sequence)
 
@@ -22,4 +22,18 @@ Default: `paint`
 
 - `"take paint blue air"` - Selects the non-whitespace sequence containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="nonWhitespaceSequence" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Non whitespace sequence
+
+<i>A sequence of non-whitespace characters</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/nonWhitespaceSequence" />
+
+</ScopeVisualizerProvider>

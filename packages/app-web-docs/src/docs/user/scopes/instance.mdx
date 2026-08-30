@@ -2,8 +2,6 @@
 sidebar_label: Instance
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
-
 # Instance
 
 Searches for occurrences of the input target's text. Instance matching preserves the target's scope type, so an instance of a token only matches complete tokens rather than substrings within larger tokens; apply [`"just"`](../modifiers/toRawSelection.mdx) to match the raw text instead.
@@ -26,5 +24,3 @@ Default: `instance`
 - `"take every instance blue air past green bat"` - Selects every occurrence of the text spanning from the token containing letter 'a' with a blue hat through the token containing letter 'b' with a green hat.
 - `"take next instance blue air"` - Selects the next instance of the token containing letter 'a' with a blue hat.
 - `"take every instance"` - Selects every instance of the token touching the cursor.
-
-<Scopes scopeTypeType="instance" />

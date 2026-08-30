@@ -1,18 +1,23 @@
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import type { ReferenceEntry } from "@cursorless/lib-common";
 import { capitalize } from "@cursorless/lib-common";
+import {
+  renderScopeVisualizer,
+  scopeVisualizerImport,
+} from "./renderScopeVisualizerMdx";
+import type { ScopeFixtureGroup } from "./scopeFixtureGroups";
 import { DISABLED_BY_DEFAULT } from "./util/constants";
 import { formatVariables } from "./util/formatVariables";
 import { injectSpokenForm } from "./util/injectSpokenForm";
 
 export function updateReferenceMdx(
-  kind: "action" | "modifier" | "scope",
   id: string,
   entry: ReferenceEntry<string>,
+  scopeFixtureGroups: ScopeFixtureGroup[] | undefined,
   actual: string | null,
   options: FormatPluginFnOptions,
 ): string | null {
-  if (options.manifest.name !== "@cursorless/app-web-docs" || entry.private) {
+  if (options.manifest.name !== "@cursorless/app-web-docs") {
     return null;
   }
 
@@ -22,8 +27,7 @@ export function updateReferenceMdx(
     );
   }
 
-  const isScope = kind === "scope";
-
+  const scopeVisualizer = renderScopeVisualizer(scopeFixtureGroups ?? []);
   const expected: string[] = [];
   let title = entry.name;
 
@@ -35,11 +39,8 @@ export function updateReferenceMdx(
     }
   }
 
-  if (isScope) {
-    expected.push(
-      `import { Scopes } from "@site/src/docs/components/Scopes";`,
-      "",
-    );
+  if (scopeVisualizer != null) {
+    expected.push(scopeVisualizerImport, "");
   }
 
   expected.push(`# ${title}`, "");
@@ -94,8 +95,8 @@ export function updateReferenceMdx(
     expected.push("");
   }
 
-  if (isScope) {
-    expected.push(`<Scopes scopeTypeType="${id}" />`, "");
+  if (scopeVisualizer != null) {
+    expected.push(scopeVisualizer, "");
   }
 
   return expected.join("\n");
