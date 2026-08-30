@@ -14,6 +14,12 @@ class SpokenFormOutputEntry(TypedDict):
     spokenForms: list[str]
 
 
+class SpokenFormListOutputEntry(TypedDict):
+    listName: str
+    id: str
+    spokenForms: list[str]
+
+
 class SpokenFormsOutput:
     """
     Writes spoken forms to a json file for use by the Cursorless vscode extension
@@ -29,7 +35,11 @@ class SpokenFormsOutput:
             print(error_message)
             app.notify(error_message)
 
-    def write(self, spoken_forms: list[SpokenFormOutputEntry]):
+    def write(
+        self,
+        spoken_forms: list[SpokenFormOutputEntry],
+        lists: list[SpokenFormListOutputEntry],
+    ):
         with open(SPOKEN_FORMS_OUTPUT_PATH, "w", encoding="UTF-8") as out:
             try:
                 out.write(
@@ -37,6 +47,7 @@ class SpokenFormsOutput:
                         {
                             "version": STATE_JSON_VERSION_NUMBER,
                             "spokenForms": spoken_forms,
+                            "lists": lists,
                         }
                     )
                 )

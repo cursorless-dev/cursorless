@@ -1,12 +1,17 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { parse } from "node-html-parser";
-import type { IDE } from "@cursorless/lib-common";
+import type { CheatsheetInfo, IDE } from "@cursorless/lib-common";
 
 /**
  * The argument expected by the cheatsheet command.
  */
-export interface CheatSheetCommandArg {
+interface CheatSheetCommandArgBase {
+  /** The file to write the cheatsheet to. */
+  outputPath: string;
+}
+
+export interface CheatSheetCommandArgV0 extends CheatSheetCommandArgBase {
   /**
    * The version of the cheatsheet command.
    */
@@ -17,18 +22,23 @@ export interface CheatSheetCommandArg {
    * cheatsheet.
    */
   spokenFormInfo: CheatsheetInfo;
-
-  /**
-   * The file to write the cheatsheet to
-   */
-  outputPath: string;
 }
+
+export interface CheatSheetCommandArgV1 extends CheatSheetCommandArgBase {
+  /** The extension assembles the cheatsheet from the Talon state file. */
+  version: 1;
+}
+
+export type CheatSheetCommandArg =
+  | CheatSheetCommandArgV0
+  | CheatSheetCommandArgV1;
 
 export async function showCheatsheet(
   ide: IDE,
-  { version, spokenFormInfo, outputPath }: CheatSheetCommandArg,
+  { version, outputPath }: CheatSheetCommandArg,
+  spokenFormInfo: CheatsheetInfo,
 ) {
-  if (version !== 0) {
+  if (version !== 0 && version !== 1) {
     throw new Error(`Unsupported cheatsheet api version: ${version}`);
   }
 
@@ -42,25 +52,4 @@ export async function showCheatsheet(
     `document.cheatsheetInfo = ${JSON.stringify(spokenFormInfo)};`;
 
   await writeFile(outputPath, root.toString());
-}
-
-// FIXME: Stop duplicating these types once we have #945
-// The source of truth is at /cursorless-nx/libs/cheatsheet/src/lib/CheatsheetInfo.tsx
-interface Variation {
-  spokenForm: string;
-  description: string;
-}
-
-interface CheatsheetSection {
-  name: string;
-  id: string;
-  items: {
-    id: string;
-    type: string;
-    variations: Variation[];
-  }[];
-}
-
-interface CheatsheetInfo {
-  sections: CheatsheetSection[];
 }

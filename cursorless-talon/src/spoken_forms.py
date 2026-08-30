@@ -17,7 +17,11 @@ from .get_grapheme_spoken_form_entries import (
     grapheme_capture_name,
 )
 from .marks.decorated_mark import init_hats
-from .spoken_forms_output import SpokenFormsOutput
+from .spoken_forms_output import (
+    SpokenFormListOutputEntry,
+    SpokenFormOutputEntry,
+    SpokenFormsOutput,
+)
 from .spoken_scope_forms import init_scope_spoken_forms
 
 JSON_FILE = Path(__file__).parent / "spoken_forms.json"
@@ -109,20 +113,31 @@ def update():
     graphemes_talon_list = get_graphemes_talon_list()
 
     def update_spoken_forms_output():
+        spoken_form_entries: list[SpokenFormOutputEntry] = [
+            {
+                "type": LIST_TO_TYPE_MAP[entry.list_name],
+                "id": entry.id,
+                "spokenForms": entry.spoken_forms,
+            }
+            for spoken_form_list in custom_spoken_forms.values()
+            for entry in spoken_form_list
+            if entry.list_name in LIST_TO_TYPE_MAP
+        ]
+        list_entries: list[SpokenFormListOutputEntry] = [
+            {
+                "listName": entry.list_name,
+                "id": entry.id,
+                "spokenForms": entry.spoken_forms,
+            }
+            for spoken_form_list in custom_spoken_forms.values()
+            for entry in spoken_form_list
+        ]
         spoken_forms_output.write(
             [
-                *[
-                    {
-                        "type": LIST_TO_TYPE_MAP[entry.list_name],
-                        "id": entry.id,
-                        "spokenForms": entry.spoken_forms,
-                    }
-                    for spoken_form_list in custom_spoken_forms.values()
-                    for entry in spoken_form_list
-                    if entry.list_name in LIST_TO_TYPE_MAP
-                ],
+                *spoken_form_entries,
                 *get_grapheme_spoken_form_entries(graphemes_talon_list),
-            ]
+            ],
+            list_entries,
         )
 
     def handle_new_values(csv_name: str, values: Sequence[SpokenFormEntry]):
@@ -186,6 +201,7 @@ def update():
         init_hats(
             spoken_forms["hat_styles.csv"]["hat_color"],
             spoken_forms["hat_styles.csv"]["hat_shape"],
+            lambda values: handle_new_values("hat_styles.csv", values),
         ),
     ]
 

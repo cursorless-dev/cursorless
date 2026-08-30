@@ -10,6 +10,13 @@ export interface TalonSpokenForms {
   onDidChange: Notifier["registerListener"];
 }
 
+/** A raw customizable Talon list entry, used to assemble user-facing syntax. */
+export interface TalonSpokenFormListEntry {
+  listName: string;
+  id: string;
+  spokenForms: string[];
+}
+
 /**
  * The types of entries for which we currently support getting custom spoken
  * forms from Talon.

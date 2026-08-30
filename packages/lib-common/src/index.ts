@@ -1,4 +1,7 @@
 export * from "./constants";
+export * from "./cheatsheet/cheatsheet.types";
+export * from "./cheatsheet/applyLegacyCheatsheetInfo";
+export * from "./cheatsheet/getCheatsheetInfo";
 export * from "./cursorlessCommandIds";
 export * from "./cursorlessSideBarIds";
 export * from "./Debouncer";

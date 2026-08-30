@@ -1,21 +1,8 @@
-export interface Variation {
-  spokenForm: string;
-  description: string;
-}
-
-export interface CheatsheetSection {
-  name: string;
-  id: string;
-  items: {
-    id: string;
-    type: string;
-    variations: Variation[];
-  }[];
-}
-
-export interface CheatsheetInfo {
-  sections: CheatsheetSection[];
-}
+export type {
+  CheatsheetInfo,
+  CheatsheetSection,
+  CheatsheetVariation as Variation,
+} from "@cursorless/lib-common/cheatsheet";
 
 interface CheatsheetLegendEntry {
   term: string;

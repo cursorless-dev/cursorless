@@ -1,6 +1,6 @@
 # Local cheatsheet
 
-This app just bundles up the cheatsheet into a single file to be used when the user says `"cursorless cheatsheet"`. The file inlines all css and js so that it can be opened as a single file by the end user. During actual production use, Talon will send the user's custom spoken forms to the Cursorless engine, which will [inject them](../lib-engine/src/core/Cheatsheet.ts) into the cheatsheet using a global variable.
+This app just bundles up the cheatsheet into a single file to be used when the user says `"cursorless cheatsheet"`. The file inlines all css and js so that it can be opened as a single file by the end user. During actual production use, the extension constructs the cheatsheet from the canonical reference definitions and the user's spoken-form lists in Talon's `state.json`, then injects it into the bundled page using a global variable.
 
 Note that there is no development server for this app. It is just a bundle step. If you want a live development environment for the cheatsheet, you should use the cheatsheet page in [the `app-web` package](../app-web).
 

@@ -9,6 +9,7 @@
   },
   "exports": {
     ".": "./src/index.ts",
+    "./cheatsheet": "./src/cheatsheet/getCheatsheetInfo.ts",
     "./jest": "./src/tooling/jest.ts",
     "./references": "./src/references/index.ts",
     "./vite": "./src/tooling/vite.ts"

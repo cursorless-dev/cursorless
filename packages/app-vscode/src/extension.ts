@@ -166,6 +166,7 @@ export async function activate(
     vscodeTutorial,
     installationDependencies,
     storedTargets,
+    talonSpokenForms,
   );
 
   void new ReleaseNotes(vscodeApi, context, normalizedIde.messages).maybeShow();
