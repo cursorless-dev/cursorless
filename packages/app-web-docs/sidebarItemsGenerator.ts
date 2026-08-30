@@ -71,10 +71,7 @@ export const sidebarItemsGenerator: SidebarItemsGenerator = async ({
     } else if (item.type === "category" && item.link?.type === "doc") {
       docId = item.link.id;
     }
-    return (
-      docId != null &&
-      typeof docsById.get(docId)?.frontMatter.sidebar_position === "number"
-    );
+    return docId != null && docsById.get(docId)?.sidebarPosition != null;
   }
 
   function sortByLabel(
