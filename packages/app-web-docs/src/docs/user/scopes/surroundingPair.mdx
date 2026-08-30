@@ -1,4 +1,4 @@
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Surrounding pair
 
@@ -16,4 +16,38 @@ Cursorless ID: `surroundingPair`
 
 - `"take round blue air"` - Selects the parentheses containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="surroundingPair" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Surrounding pair
+
+<i>A delimiter pair, such as parentheses or quotes</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/surroundingPair/surroundingPair" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/surroundingPair/surroundingPair2" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/surroundingPair/surroundingPair3" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/surroundingPair/surroundingPair4" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/surroundingPair/surroundingPair5" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/surroundingPair/surroundingPair6" />
+
+### Surrounding pair (iteration)
+
+<i>The iteration scope for delimiter pairs</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/surroundingPair/surroundingPair.iteration" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/surroundingPair/surroundingPair.iteration2" />
+
+</ScopeVisualizerProvider>

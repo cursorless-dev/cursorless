@@ -2,7 +2,7 @@
 sidebar_label: Map
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Map
 
@@ -20,4 +20,80 @@ Default: `map`
 
 - `"take map blue air"` - Selects the map containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="map" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Map
+
+<i>A map/dictionary</i>
+
+##### Clojure
+
+<ScopeVisualizer fixtureName="scopes/clojure/map" />
+
+<ScopeVisualizer fixtureName="scopes/clojure/map2" />
+
+##### C#
+
+<ScopeVisualizer fixtureName="scopes/csharp/map" />
+
+##### CSS
+
+<ScopeVisualizer fixtureName="scopes/css/map" />
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/map" />
+
+<ScopeVisualizer fixtureName="scopes/dart/map2" />
+
+##### Go
+
+<ScopeVisualizer fixtureName="scopes/go/map" />
+
+<ScopeVisualizer fixtureName="scopes/go/map2" />
+
+<ScopeVisualizer fixtureName="scopes/go/map3" />
+
+##### JavaScript
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/map" />
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/map2" />
+
+##### JSON
+
+<ScopeVisualizer fixtureName="scopes/json/map" />
+
+##### JSON lines (JSONL)
+
+<ScopeVisualizer fixtureName="scopes/jsonl/map" />
+
+##### Lua
+
+<ScopeVisualizer fixtureName="scopes/lua/map" />
+
+##### PHP
+
+<ScopeVisualizer fixtureName="scopes/php/map" />
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/map" />
+
+##### Ruby
+
+<ScopeVisualizer fixtureName="scopes/ruby/map" />
+
+##### Rust
+
+<ScopeVisualizer fixtureName="scopes/rust/map" />
+
+##### Yaml
+
+<ScopeVisualizer fixtureName="scopes/yaml/map" />
+
+</ScopeVisualizerProvider>

@@ -2,7 +2,7 @@
 sidebar_label: Key
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Key (Collection key)
 
@@ -20,4 +20,180 @@ Default: `key`
 
 - `"take key blue air"` - Selects the collection key containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="collectionKey" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Key: Attribute
+
+<i>Key (LHS) of an attribute eg in a xml element</i>
+
+##### HTML
+
+<ScopeVisualizer fixtureName="scopes/html/key.attribute" />
+
+<ScopeVisualizer fixtureName="scopes/html/key.attribute2" />
+
+##### JavaScript React
+
+<ScopeVisualizer fixtureName="scopes/javascript.jsx/key.attribute" />
+
+<ScopeVisualizer fixtureName="scopes/javascript.jsx/key.attribute2" />
+
+##### XML
+
+<ScopeVisualizer fixtureName="scopes/xml/key.attribute" />
+
+### Key: Map pair
+
+<i>Key (LHS) of a key-value pair of a map</i>
+
+##### C#
+
+<ScopeVisualizer fixtureName="scopes/csharp/key.mapPair" />
+
+##### CSS
+
+<ScopeVisualizer fixtureName="scopes/css/key.mapPair" />
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/key/key.mapPair" />
+
+##### Go
+
+<ScopeVisualizer fixtureName="scopes/go/key.mapPair" />
+
+##### JavaScript
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/key.mapPair" />
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/key.mapPair2" />
+
+##### JSON
+
+<ScopeVisualizer fixtureName="scopes/json/key.mapPair" />
+
+##### Kotlin
+
+<ScopeVisualizer fixtureName="scopes/kotlin/key.mapPair" />
+
+##### Lua
+
+<ScopeVisualizer fixtureName="scopes/lua/key.mapPair" />
+
+##### PHP
+
+<ScopeVisualizer fixtureName="scopes/php/key.mapPair" />
+
+##### Properties
+
+<ScopeVisualizer fixtureName="scopes/properties/key.mapPair" />
+
+<ScopeVisualizer fixtureName="scopes/properties/key.mapPair2" />
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/key.mapPair" />
+
+##### Ruby
+
+<ScopeVisualizer fixtureName="scopes/ruby/key/key.mapPair" />
+
+##### Rust
+
+<ScopeVisualizer fixtureName="scopes/rust/key.mapPair" />
+
+##### Talon-list
+
+<ScopeVisualizer fixtureName="scopes/talon-list/key.mapPair" />
+
+<ScopeVisualizer fixtureName="scopes/talon-list/key.mapPair2" />
+
+##### Talon
+
+<ScopeVisualizer fixtureName="scopes/talon/key/key.mapPair" />
+
+<ScopeVisualizer fixtureName="scopes/talon/key/key.mapPair2" />
+
+##### Yaml
+
+<ScopeVisualizer fixtureName="scopes/yaml/key.mapPair" />
+
+### Key: Map pair (iteration)
+
+<i>Iteration scope for keys of key-value pairs in a map: should be between the braces.</i>
+
+##### C#
+
+<ScopeVisualizer fixtureName="scopes/csharp/key.mapPair.iteration" />
+
+##### CSS
+
+<ScopeVisualizer fixtureName="scopes/css/key.mapPair.iteration" />
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/key/key.mapPair.iteration" />
+
+##### Go
+
+<ScopeVisualizer fixtureName="scopes/go/key.mapPair.iteration" />
+
+##### JavaScript
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/key.mapPair.iteration" />
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/key.mapPair.iteration2" />
+
+##### JSON
+
+<ScopeVisualizer fixtureName="scopes/json/key.mapPair.iteration" />
+
+##### Kotlin
+
+<ScopeVisualizer fixtureName="scopes/kotlin/key.mapPair.iteration" />
+
+##### Lua
+
+<ScopeVisualizer fixtureName="scopes/lua/key.mapPair.iteration" />
+
+##### PHP
+
+<ScopeVisualizer fixtureName="scopes/php/key/key.mapPair.iteration" />
+
+##### Properties
+
+<ScopeVisualizer fixtureName="scopes/properties/key.mapPair.iteration" />
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/key.mapPair.iteration" />
+
+##### Ruby
+
+<ScopeVisualizer fixtureName="scopes/ruby/key/key.mapPair.iteration" />
+
+##### Rust
+
+<ScopeVisualizer fixtureName="scopes/rust/key.mapPair.iteration" />
+
+##### Talon-list
+
+<ScopeVisualizer fixtureName="scopes/talon-list/key.mapPair.iteration" />
+
+##### Talon
+
+<ScopeVisualizer fixtureName="scopes/talon/key/key.mapPair.iteration" />
+
+<ScopeVisualizer fixtureName="scopes/talon/key/key.mapPair.iteration2" />
+
+<ScopeVisualizer fixtureName="scopes/talon/key/key.mapPair.iteration3" />
+
+##### Yaml
+
+<ScopeVisualizer fixtureName="scopes/yaml/key.mapPair.iteration" />
+
+</ScopeVisualizerProvider>

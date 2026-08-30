@@ -1,5 +1,253 @@
-import { Language } from "@site/src/docs/components/Language";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Plaintext
 
-<Language languageId="plaintext" />
+<ScopeVisualizerProvider>
+
+Below are visualizations of all our scope tests for this language. These were created primarily for testing purposes rather than as documentation. There are quite a few, and they may feel a bit overwhelming from a documentation standpoint.
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Bounded non whitespace sequence
+
+#### 1. Bounded non whitespace sequence
+
+<i>A sequence of non-whitespace characters bounded by matching pair</i>
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedNonWhitespaceSequence" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedNonWhitespaceSequence2" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedNonWhitespaceSequence3" languageId="plaintext" />
+
+#### 2. Bounded non whitespace sequence (iteration)
+
+<i>Iteration scope for bounded non-whitespace sequence</i>
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedNonWhitespaceSequence.iteration" languageId="plaintext" />
+
+### Bounded paragraph
+
+#### 1. Bounded paragraph
+
+<i>A single paragraph(contiguous block of lines) in the document bounded by matching pair</i>
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedParagraph/boundedParagraph" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedParagraph/boundedParagraph2" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedParagraph/boundedParagraph3" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedParagraph/boundedParagraph4" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedParagraph/boundedParagraph5" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedParagraph/boundedParagraph6" languageId="plaintext" />
+
+#### 2. Bounded paragraph (iteration)
+
+<i>Iteration scope for bounded paragraph</i>
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedParagraph/boundedParagraph.iteration" languageId="plaintext" />
+
+### Character
+
+#### 1. Character
+
+<i>A single character in the document</i>
+
+<ScopeVisualizer fixtureName="scopes/plaintext/character" languageId="plaintext" />
+
+### Collection item
+
+#### 1. Collection item: Textual
+
+<i>A text based collection item</i>
+
+<ScopeVisualizer fixtureName="scopes/plaintext/collectionItem/collectionItem.textual" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/collectionItem/collectionItem.textual2" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/collectionItem/collectionItem.textual3" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/collectionItem/collectionItem.textual4" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/collectionItem/collectionItem.textual5" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/collectionItem/collectionItem.textual6" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/collectionItem/collectionItem.textual7" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/collectionItem/collectionItem.textual8" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/collectionItem/collectionItem.textual9" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/collectionItem/collectionItem.textual10" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/collectionItem/collectionItem.textual11" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/collectionItem/collectionItem.textual12" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/collectionItem/collectionItem.textual13" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/collectionItem/collectionItem.textual14" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/collectionItem/collectionItem.textual15" languageId="plaintext" />
+
+#### 2. Collection item: Textual (iteration)
+
+<i>Iteration scope for text based collection items</i>
+
+<ScopeVisualizer fixtureName="scopes/plaintext/collectionItem/collectionItem.textual.iteration" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/collectionItem/collectionItem.textual.iteration2" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/collectionItem/collectionItem.textual.iteration3" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/collectionItem/collectionItem.textual.iteration4" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/collectionItem/collectionItem.textual.iteration5" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/collectionItem/collectionItem.textual.iteration6" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/collectionItem/collectionItem.textual.iteration7" languageId="plaintext" />
+
+### Document
+
+#### 1. Document
+
+<i>The entire document</i>
+
+<ScopeVisualizer fixtureName="scopes/plaintext/document" languageId="plaintext" />
+
+### Full line
+
+#### 1. Full line
+
+<i>A single full line in the document. Includes leading and trailing whitespace.</i>
+
+<ScopeVisualizer fixtureName="scopes/plaintext/fullLine" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/fullLine2" languageId="plaintext" />
+
+### Identifier
+
+#### 1. Identifier
+
+<i>A single alphanumeric identifier in the document</i>
+
+<ScopeVisualizer fixtureName="scopes/plaintext/identifier" languageId="plaintext" />
+
+### Line
+
+#### 1. Line
+
+<i>A single line in the document. Excludes leading and trailing whitespace.</i>
+
+<ScopeVisualizer fixtureName="scopes/plaintext/line" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/line2" languageId="plaintext" />
+
+### Non whitespace sequence
+
+#### 1. Non whitespace sequence
+
+<i>A sequence of non-whitespace characters</i>
+
+<ScopeVisualizer fixtureName="scopes/plaintext/nonWhitespaceSequence" languageId="plaintext" />
+
+### Paragraph
+
+#### 1. Paragraph
+
+<i>A single paragraph(contiguous block of lines) in the document</i>
+
+<ScopeVisualizer fixtureName="scopes/plaintext/paragraph" languageId="plaintext" />
+
+### Sentence
+
+#### 1. Sentence
+
+<i>A single sentence in the document</i>
+
+<ScopeVisualizer fixtureName="scopes/plaintext/sentence" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/sentence2" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/sentence3" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/sentence4" languageId="plaintext" />
+
+### Surrounding pair
+
+#### 1. Surrounding pair
+
+<i>A delimiter pair, such as parentheses or quotes</i>
+
+<ScopeVisualizer fixtureName="scopes/plaintext/surroundingPair/surroundingPair" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/surroundingPair/surroundingPair2" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/surroundingPair/surroundingPair3" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/surroundingPair/surroundingPair4" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/surroundingPair/surroundingPair5" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/surroundingPair/surroundingPair6" languageId="plaintext" />
+
+#### 2. Surrounding pair (iteration)
+
+<i>The iteration scope for delimiter pairs</i>
+
+<ScopeVisualizer fixtureName="scopes/plaintext/surroundingPair/surroundingPair.iteration" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/surroundingPair/surroundingPair.iteration2" languageId="plaintext" />
+
+### Token
+
+#### 1. Token
+
+<i>A single token in the document</i>
+
+<ScopeVisualizer fixtureName="scopes/plaintext/token" languageId="plaintext" />
+
+### Url
+
+#### 1. Url
+
+<i>A url</i>
+
+<ScopeVisualizer fixtureName="scopes/plaintext/url" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/url2" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/url3" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/url4" languageId="plaintext" />
+
+### Word
+
+#### 1. Word
+
+<i>A single word in a token</i>
+
+<ScopeVisualizer fixtureName="scopes/plaintext/word" languageId="plaintext" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/word2" languageId="plaintext" />
+
+## Internal scopes
+
+The following are internal scopes. They are not intended for user interaction or spoken use. These scopes exist solely for internal Cursorless functionality.
+
+### Surrounding pair interior
+
+#### 1. Interior: Surrounding pair
+
+<i>The interior scope of a surrounding pair</i>
+
+<ScopeVisualizer fixtureName="scopes/plaintext/interior.surroundingPair" languageId="plaintext" />
+
+</ScopeVisualizerProvider>

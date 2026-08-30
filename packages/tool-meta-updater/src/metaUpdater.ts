@@ -5,6 +5,7 @@
 
 import { readWantedLockfile } from "@pnpm/lockfile-file";
 import { createUpdateOptions } from "@pnpm/meta-updater";
+import type { ScopeTypeType } from "@cursorless/lib-common";
 import {
   actionReferenceGroups,
   actionReferences,
@@ -16,11 +17,11 @@ import {
   scopeReferences,
 } from "@cursorless/lib-common";
 import type { Context } from "./Context";
+import { createScopeFixtureGroups } from "./scopeFixtureGroups";
 import { textFormat } from "./textFormat";
 import { updateLanguageMdx } from "./updateLanguageMdx";
 import { updatePackageJson } from "./updatePackageJson";
 import { updatePairedDelimitersMd } from "./updatePairedDelimitersMd";
-import { updatePrivateScopeMdx } from "./updatePrivateScopeMdx";
 import { updateReferenceMdx } from "./updateReferenceMdx";
 import { updateReferenceReadmeMd } from "./updateReferenceReadmeMd";
 import { updateScopeSupportFacetInfos } from "./updateScopeSupportFacetInfos";
@@ -44,6 +45,8 @@ export const updater = async (workspaceDir: string) => {
 
   const userDir = "src/docs/user";
   const contributingDir = "src/docs/contributing";
+  const scopeFixtureGroups = createScopeFixtureGroups(workspaceDir);
+  const languageIds = [...Object.keys(languageScopeSupport), "plaintext"];
 
   return createUpdateOptions({
     files: {
@@ -53,9 +56,13 @@ export const updater = async (workspaceDir: string) => {
       "resources/fixtures/scope-support-facet-infos.md":
         updateScopeSupportFacetInfos,
       ...Object.fromEntries(
-        Object.keys(languageScopeSupport).map((languageId) => [
+        languageIds.map((languageId) => [
           `${userDir}/languages/${languageId}.mdx`,
-          updateLanguageMdx.bind(null, languageId),
+          updateLanguageMdx.bind(
+            null,
+            languageId,
+            scopeFixtureGroups.forLanguage(languageId),
+          ),
         ]),
       ),
       [`${userDir}/paired-delimiters.md`]: updatePairedDelimitersMd.bind(
@@ -81,28 +88,46 @@ export const updater = async (workspaceDir: string) => {
         scopeReferenceGroups,
       ),
       ...Object.fromEntries(
-        Object.entries(actionReferences).map(([id, entry]) => [
-          `${userDir}/actions/${cleanId(id)}.mdx`,
-          updateReferenceMdx.bind(null, "action", id, entry),
-        ]),
+        Object.entries(actionReferences)
+          .filter(([_, entry]) => !isPrivate(entry))
+          .map(([id, entry]) => [
+            `${userDir}/actions/${cleanId(id)}.mdx`,
+            updateReferenceMdx.bind(null, id, entry, undefined),
+          ]),
       ),
       ...Object.fromEntries(
-        Object.entries(modifierReferences).map(([id, entry]) => [
-          `${userDir}/modifiers/${cleanId(id)}.mdx`,
-          updateReferenceMdx.bind(null, "modifier", id, entry),
-        ]),
+        Object.entries(modifierReferences)
+          .filter(([_, entry]) => !isPrivate(entry))
+          .map(([id, entry]) => [
+            `${userDir}/modifiers/${cleanId(id)}.mdx`,
+            updateReferenceMdx.bind(null, id, entry, undefined),
+          ]),
       ),
       ...Object.fromEntries(
-        Object.entries(scopeReferences).map(([id, entry]) => [
-          `${userDir}/scopes/${cleanId(id)}.mdx`,
-          updateReferenceMdx.bind(null, "scope", id, entry),
-        ]),
+        Object.entries(scopeReferences)
+          .filter(([_, entry]) => !isPrivate(entry))
+          .map(([id, entry]) => [
+            `${userDir}/scopes/${cleanId(id)}.mdx`,
+            updateReferenceMdx.bind(
+              null,
+              id,
+              entry,
+              scopeFixtureGroups.forScope(id as ScopeTypeType),
+            ),
+          ]),
       ),
       ...Object.fromEntries(
-        Object.entries(scopeReferences).map(([id, entry]) => [
-          `${contributingDir}/private-scopes/${cleanId(id)}.mdx`,
-          updatePrivateScopeMdx.bind(null, id, entry),
-        ]),
+        Object.entries(scopeReferences)
+          .filter(([_, entry]) => isPrivate(entry))
+          .map(([id, entry]) => [
+            `${contributingDir}/private-scopes/${cleanId(id)}.mdx`,
+            updateReferenceMdx.bind(
+              null,
+              id,
+              entry,
+              scopeFixtureGroups.forScope(id as ScopeTypeType),
+            ),
+          ]),
       ),
     },
     formats: {
@@ -111,3 +136,7 @@ export const updater = async (workspaceDir: string) => {
     },
   });
 };
+
+function isPrivate(entry: object): boolean {
+  return "private" in entry && entry.private === true;
+}

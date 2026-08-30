@@ -1,5 +1,961 @@
-import { Language } from "@site/src/docs/components/Language";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # C
 
-<Language languageId="c" />
+<ScopeVisualizerProvider>
+
+Below are visualizations of all our scope tests for this language. These were created primarily for testing purposes rather than as documentation. There are quite a few, and they may feel a bit overwhelming from a documentation standpoint.
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Argument list
+
+#### 1. Argument list: Actual empty
+
+<i>An empty list of arguments in a function call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/argumentList/argumentList.actual.empty" languageId="c" />
+
+#### 2. Argument list: Actual method empty
+
+<i>An empty list of arguments in a method call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/argumentList/argumentList.actual.method.empty" languageId="c" />
+
+#### 3. Argument list: Actual method multi line
+
+<i>A multi line list of arguments in a method call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/argumentList/argumentList.actual.method.multiLine" languageId="c" />
+
+#### 4. Argument list: Actual method single line
+
+<i>A single line list of arguments in a method call</i>
+
+<ScopeVisualizer fixtureName="scopes/c/argumentList/argumentList.actual.method.singleLine" languageId="c" />
+
+#### 5. Argument list: Actual multi line
+
+<i>A multi line list of arguments in a function call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/argumentList/argumentList.actual.multiLine" languageId="c" />
+
+#### 6. Argument list: Actual single line
+
+<i>A single line list of arguments in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/c/argumentList/argumentList.actual.singleLine" languageId="c" />
+
+#### 7. Argument list: Formal empty
+
+<i>An empty list of parameters in a function declaration. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/argumentList/argumentList.formal.empty" languageId="c" />
+
+#### 8. Argument list: Formal multi line
+
+<i>A multi line list of parameters in a function declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/argumentList/argumentList.formal.multiLine" languageId="c" />
+
+#### 9. Argument list: Formal single line
+
+<i>A single line list of parameters in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/argumentList/argumentList.formal.singleLine" languageId="c" />
+
+### Argument or parameter
+
+#### 1. Argument: Actual method multi line
+
+<i>A multi line argument in a method call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/argument/argument.actual.method.multiLine" languageId="c" />
+
+#### 2. Argument: Actual method single line
+
+<i>A single line argument in a method call</i>
+
+<ScopeVisualizer fixtureName="scopes/c/argument/argument.actual.method.singleLine" languageId="c" />
+
+#### 3. Argument: Actual multi line
+
+<i>A multiline argument in a function call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/argument/argument.actual.multiLine" languageId="c" />
+
+#### 4. Argument: Actual single line
+
+<i>A single line argument in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/c/argument/argument.actual.singleLine" languageId="c" />
+
+#### 5. Argument: Formal multi line
+
+<i>A multi line parameter in a function declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/argument/argument.formal.multiLine" languageId="c" />
+
+#### 6. Argument: Formal single line
+
+<i>A single line parameter in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/argument/argument.formal.singleLine" languageId="c" />
+
+#### 7. Argument: Actual (iteration)
+
+<i>Iteration scope for arguments in a function call: the argument list. The domain should be the entire function call.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/argument/argument.actual.iteration" languageId="c" />
+
+#### 8. Argument: Actual method (iteration)
+
+<i>Iteration scope for arguments in a method call: the argument list. The domain should be the entire method call.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/argument/argument.actual.method.iteration" languageId="c" />
+
+#### 9. Argument: Formal (iteration)
+
+<i>Iteration scope for formal parameters in a function declaration: the parameters list. The domain should be the entire function.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/argument/argument.formal.iteration" languageId="c" />
+
+### Branch
+
+#### 1. Branch: If
+
+<i>An if branch</i>
+
+<ScopeVisualizer fixtureName="scopes/c/branch/branch.if" languageId="c" />
+
+#### 2. Branch: If elif else
+
+<i>An if-elif-else branch. The removal range for the if branch should include the trailing `else` keyword.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/branch/branch.if.elif.else" languageId="c" />
+
+#### 3. Branch: If else
+
+<i>An if-else branch</i>
+
+<ScopeVisualizer fixtureName="scopes/c/branch/branch.if.else" languageId="c" />
+
+#### 4. Branch: Switch case
+
+<i>A case/default branch in a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/c/branch/branch.switchCase" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/branch/branch.switchCase2" languageId="c" />
+
+#### 5. Branch: Ternary
+
+<i>A branch in a ternary expression</i>
+
+<ScopeVisualizer fixtureName="scopes/c/branch/branch.ternary" languageId="c" />
+
+#### 6. Branch: If (iteration)
+
+<i>Iteration scope for if/elif/else branches: the if-else statement.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/branch/branch.if.iteration" languageId="c" />
+
+#### 7. Branch: Switch case (iteration)
+
+<i>Iteration scope for switch branches: the switch statement body.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/branch/branch.switchCase.iteration" languageId="c" />
+
+#### 8. Branch: Ternary (iteration)
+
+<i>Iteration scope for ternary expression branches: the ternary expression.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/branch/branch.ternary.iteration" languageId="c" />
+
+### Class
+
+#### 1. Class
+
+<i>A class/struct in an object-oriented language</i>
+
+<ScopeVisualizer fixtureName="scopes/c/class/class" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/class/class2" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/class/class3" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/class/class4" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/class/class5" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/class/class6" languageId="c" />
+
+#### 2. Class (iteration document)
+
+<i>Iteration scope for classes: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/class/class.iteration.document" languageId="c" />
+
+### Collection item
+
+#### 1. Collection item: Unenclosed multi line
+
+<i>An item in a comma-separated multi line list without enclosing delimiters. This could be multi-variable declarations, import statements, etc. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/collectionItem.unenclosed.multiLine" languageId="c" />
+
+#### 2. Collection item: Unenclosed single line
+
+<i>An item in a comma-separated single line list without enclosing delimiters. This could be multi-variable declarations, import statements, etc.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/collectionItem.unenclosed.singleLine" languageId="c" />
+
+#### 3. Collection item: Unenclosed (iteration)
+
+<i>Iteration scope for items in a comma-separated list without enclosing delimiters</i>
+
+<ScopeVisualizer fixtureName="scopes/c/collectionItem.unenclosed.iteration" languageId="c" />
+
+### Comment
+
+#### 1. Comment: Block
+
+<i>A block comment</i>
+
+<ScopeVisualizer fixtureName="scopes/c/comment.block" languageId="c" />
+
+#### 2. Comment: Line
+
+<i>A line comment</i>
+
+<ScopeVisualizer fixtureName="scopes/c/comment.line" languageId="c" />
+
+### Condition
+
+#### 1. Condition: Do while
+
+<i>A condition in a do while loop</i>
+
+<ScopeVisualizer fixtureName="scopes/c/condition/condition.doWhile" languageId="c" />
+
+#### 2. Condition: For
+
+<i>A condition in a for loop</i>
+
+<ScopeVisualizer fixtureName="scopes/c/condition/condition.for" languageId="c" />
+
+#### 3. Condition: If
+
+<i>A condition in an if statement</i>
+
+<ScopeVisualizer fixtureName="scopes/c/condition/condition.if" languageId="c" />
+
+#### 4. Condition: Switch case
+
+<i>A condition in a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/c/condition/condition.switchCase" languageId="c" />
+
+#### 5. Condition: Ternary
+
+<i>A condition in a ternary expression</i>
+
+<ScopeVisualizer fixtureName="scopes/c/condition/condition.ternary" languageId="c" />
+
+#### 6. Condition: While
+
+<i>A condition in a while loop</i>
+
+<ScopeVisualizer fixtureName="scopes/c/condition/condition.while" languageId="c" />
+
+#### 7. Condition: Switch case (iteration)
+
+<i>Iteration scope for conditions in a switch statement: the switch statement body.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/condition/condition.switchCase.iteration" languageId="c" />
+
+### Function call
+
+#### 1. Function call
+
+<i>A function call</i>
+
+<ScopeVisualizer fixtureName="scopes/c/functionCall" languageId="c" />
+
+#### 2. Function call: Chain
+
+<i>A chain of function calls, eg `foo().bar()`</i>
+
+<ScopeVisualizer fixtureName="scopes/c/functionCall.chain" languageId="c" />
+
+#### 3. Function call: Method
+
+<i>A method call</i>
+
+<ScopeVisualizer fixtureName="scopes/c/functionCall.method" languageId="c" />
+
+### Function callee
+
+#### 1. Function callee
+
+<i>The function being called in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/c/functionCallee" languageId="c" />
+
+#### 2. Function callee: Chain
+
+<i>The function being called in a chain of function calls, including parent objects.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/functionCallee.chain" languageId="c" />
+
+#### 3. Function callee: Method
+
+<i>The function being called in a method call, including parent objects.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/functionCallee.method" languageId="c" />
+
+### If statement
+
+#### 1. If statement
+
+<i>An if statement</i>
+
+<ScopeVisualizer fixtureName="scopes/c/ifStatement" languageId="c" />
+
+### List
+
+#### 1. List
+
+<i>A list/array</i>
+
+<ScopeVisualizer fixtureName="scopes/c/list" languageId="c" />
+
+### Name
+
+#### 1. Name: Argument formal
+
+<i>Name of a parameter in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.argument.formal" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.argument.formal2" languageId="c" />
+
+#### 2. Name: Assignment
+
+<i>Name (LHS) of an assignment</i>
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.assignment" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.assignment2" languageId="c" />
+
+#### 3. Name: Assignment compound
+
+<i>Name (LHS) of a compound assignment, eg +=/-=</i>
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.assignment.compound" languageId="c" />
+
+#### 4. Name: Class
+
+<i>Name of a class</i>
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.class" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.class2" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.class3" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.class4" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.class5" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.class6" languageId="c" />
+
+#### 5. Name: Constant
+
+<i>Name (LHS) of a constant declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.constant" languageId="c" />
+
+#### 6. Name: Enum
+
+<i>Name of an enum</i>
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.enum" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.enum2" languageId="c" />
+
+#### 7. Name: Field class
+
+<i>Name (LHS) of a field in a class</i>
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.field.class" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.field.class2" languageId="c" />
+
+#### 8. Name: Field enum
+
+<i>Name (LHS) of a field in an enum</i>
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.field.enum" languageId="c" />
+
+#### 9. Name: Function
+
+<i>Name of a function</i>
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.function" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.function2" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.function3" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.function4" languageId="c" />
+
+#### 10. Name: Type alias
+
+<i>Name of a type alias</i>
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.typeAlias" languageId="c" />
+
+#### 11. Name: Variable initialized
+
+<i>Name (LHS) of an initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.variable.initialized" languageId="c" />
+
+#### 12. Name: Variable uninitialized
+
+<i>Name (LHS) of an uninitialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.variable.uninitialized" languageId="c" />
+
+#### 13. Name (iteration block)
+
+<i>Iteration scope for names: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.iteration.block2" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.iteration.block3" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.iteration.block4" languageId="c" />
+
+#### 14. Name (iteration class)
+
+<i>Iteration scope for names: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.iteration.class" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.iteration.class2" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.iteration.class3" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.iteration.class4" languageId="c" />
+
+#### 15. Name (iteration document)
+
+<i>Iteration scope for names: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.iteration.document" languageId="c" />
+
+#### 16. Name (iteration enum)
+
+<i>Iteration scope for names: enum bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.iteration.enum" languageId="c" />
+
+#### 17. Name: Argument formal (iteration)
+
+<i>Iteration scope for names of formal parameters in a function declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.argument.formal.iteration" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/name/name.argument.formal.iteration2" languageId="c" />
+
+### Named function
+
+#### 1. Named function
+
+<i>A named function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/namedFunction/namedFunction" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/namedFunction/namedFunction2" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/namedFunction/namedFunction3" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/namedFunction/namedFunction4" languageId="c" />
+
+#### 2. Named function (iteration document)
+
+<i>Iteration scope for named functions: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/namedFunction/namedFunction.iteration.document" languageId="c" />
+
+### Statement
+
+#### 1. Statement: Assignment
+
+<i>An assignment statement</i>
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.assignment" languageId="c" />
+
+#### 2. Statement: Assignment compound
+
+<i>A compound assignment statement, eg +=/-=</i>
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.assignment.compound" languageId="c" />
+
+#### 3. Statement: Break
+
+<i>A break statement</i>
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.break" languageId="c" />
+
+#### 4. Statement: Class
+
+<i>A class/struct declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.class" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.class2" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.class3" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.class4" languageId="c" />
+
+#### 5. Statement: Constant
+
+<i>A constant declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.constant" languageId="c" />
+
+#### 6. Statement: Continue
+
+<i>A continue statement</i>
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.continue" languageId="c" />
+
+#### 7. Statement: Do while
+
+<i>A do-while loop statement</i>
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.doWhile" languageId="c" />
+
+#### 8. Statement: Enum
+
+<i>An enum declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.enum" languageId="c" />
+
+#### 9. Statement: Field class
+
+<i>A field declaration in a class/struct</i>
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.field.class" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.field.class2" languageId="c" />
+
+#### 10. Statement: For
+
+<i>A for loop statement</i>
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.for" languageId="c" />
+
+#### 11. Statement: Function
+
+<i>A named function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.function" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.function2" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.function3" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.function4" languageId="c" />
+
+#### 12. Statement: Function call
+
+<i>A function call statement</i>
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.functionCall" languageId="c" />
+
+#### 13. Statement: If
+
+<i>A if/elif/else statement</i>
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.if" languageId="c" />
+
+#### 14. Statement: Import
+
+<i>An import statement</i>
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.import" languageId="c" />
+
+#### 15. Statement: Return
+
+<i>A return statement</i>
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.return" languageId="c" />
+
+#### 16. Statement: Switch
+
+<i>A switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.switch" languageId="c" />
+
+#### 17. Statement: Type alias
+
+<i>A type alias declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.typeAlias" languageId="c" />
+
+#### 18. Statement: Update
+
+<i>An update statement, eg ++/--</i>
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.update" languageId="c" />
+
+#### 19. Statement: Variable initialized
+
+<i>An initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.variable.initialized" languageId="c" />
+
+#### 20. Statement: Variable uninitialized
+
+<i>An uninitialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.variable.uninitialized" languageId="c" />
+
+#### 21. Statement: While
+
+<i>A while loop statement</i>
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.while" languageId="c" />
+
+#### 22. Statement (iteration block)
+
+<i>Iteration scope for statements: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.iteration.block2" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.iteration.block3" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.iteration.block4" languageId="c" />
+
+#### 23. Statement (iteration class)
+
+<i>Iteration scope for statements: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.iteration.class" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.iteration.class2" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.iteration.class3" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.iteration.class4" languageId="c" />
+
+#### 24. Statement (iteration document)
+
+<i>Iteration scope for statements: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/statement/statement.iteration.document" languageId="c" />
+
+### Type
+
+#### 1. Type: Alias
+
+<i>A type alias declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/type/type.alias" languageId="c" />
+
+#### 2. Type: Argument formal
+
+<i>Type of a formal parameter in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/type/type.argument.formal" languageId="c" />
+
+#### 3. Type: Cast
+
+<i>A type cast</i>
+
+<ScopeVisualizer fixtureName="scopes/c/type/type.cast" languageId="c" />
+
+#### 4. Type: Class
+
+<i>A class declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/type/type.class" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/type/type.class2" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/type/type.class3" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/type/type.class4" languageId="c" />
+
+#### 5. Type: Constant
+
+<i>Type of a constant declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/type/type.constant" languageId="c" />
+
+#### 6. Type: Enum
+
+<i>An enum declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/type/type.enum" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/type/type.enum2" languageId="c" />
+
+#### 7. Type: Field class
+
+<i>Type of a field in a class</i>
+
+<ScopeVisualizer fixtureName="scopes/c/type/type.field.class" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/type/type.field.class2" languageId="c" />
+
+#### 8. Type: Return
+
+<i>Type of a return value in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/type/type.return" languageId="c" />
+
+#### 9. Type: Variable initialized
+
+<i>Type of an initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/type/type.variable.initialized" languageId="c" />
+
+#### 10. Type: Variable uninitialized
+
+<i>Type of an uninitialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/type/type.variable.uninitialized" languageId="c" />
+
+#### 11. Type (iteration block)
+
+<i>Iteration scope for types: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/c/type/type.iteration.block2" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/type/type.iteration.block3" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/type/type.iteration.block4" languageId="c" />
+
+#### 12. Type (iteration class)
+
+<i>Iteration scope for types: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/type/type.iteration.class" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/type/type.iteration.class2" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/type/type.iteration.class3" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/type/type.iteration.class4" languageId="c" />
+
+#### 13. Type (iteration document)
+
+<i>Iteration scope for types: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/type/type.iteration.document" languageId="c" />
+
+#### 14. Type: Argument formal (iteration)
+
+<i>Iteration scope for types of formal parameters in a function declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/type/type.argument.formal.iteration" languageId="c" />
+
+### Value
+
+#### 1. Value: Assignment
+
+<i>Value (RHS) of an assignment</i>
+
+<ScopeVisualizer fixtureName="scopes/c/value/value.assignment" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/value/value.assignment2" languageId="c" />
+
+#### 2. Value: Assignment compound
+
+<i>Value (RHS) of a compound assignment, eg +=/-=</i>
+
+<ScopeVisualizer fixtureName="scopes/c/value/value.assignment.compound" languageId="c" />
+
+#### 3. Value: Constant
+
+<i>Value (RHS) of a constant declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/value/value.constant" languageId="c" />
+
+#### 4. Value: Field enum
+
+<i>Value (RHS) of a field in an enum</i>
+
+<ScopeVisualizer fixtureName="scopes/c/value/value.field.enum" languageId="c" />
+
+#### 5. Value: Return
+
+<i>Return value of a function</i>
+
+<ScopeVisualizer fixtureName="scopes/c/value/value.return" languageId="c" />
+
+#### 6. Value: Switch
+
+<i>The value / subject of a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/c/value/value.switch" languageId="c" />
+
+#### 7. Value: Type alias
+
+<i>Value of a type alias declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/value/value.typeAlias" languageId="c" />
+
+#### 8. Value: Variable
+
+<i>Value (RHS) of a variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/value/value.variable" languageId="c" />
+
+#### 9. Value (iteration block)
+
+<i>Iteration scope for values: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/c/value/value.iteration.block2" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/value/value.iteration.block3" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/value/value.iteration.block4" languageId="c" />
+
+#### 10. Value (iteration class)
+
+<i>Iteration scope for values: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/value/value.iteration.class" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/value/value.iteration.class2" languageId="c" />
+
+#### 11. Value (iteration document)
+
+<i>Iteration scope for values: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/value/value.iteration.document" languageId="c" />
+
+#### 12. Value (iteration enum)
+
+<i>Iteration scope for values: enum bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/value/value.iteration.enum" languageId="c" />
+
+## Internal scopes
+
+The following are internal scopes. They are not intended for user interaction or spoken use. These scopes exist solely for internal Cursorless functionality.
+
+### Disqualify delimiter
+
+#### 1. Disqualify delimiter
+
+<i>Internally used to disqualify a token from being treated as a surrounding pair delimiter. This will usually be operators containing `>` or `<`, eg `<`, `<=`, `->`, etc.</i>
+
+<ScopeVisualizer fixtureName="scopes/c/disqualifyDelimiter" languageId="c" />
+
+### Interior
+
+#### 1. Interior: Class
+
+<i>The body of a class</i>
+
+<ScopeVisualizer fixtureName="scopes/c/interior/interior.class" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/interior/interior.class2" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/interior/interior.class3" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/interior/interior.class4" languageId="c" />
+
+#### 2. Interior: Do while
+
+<i>The body of a do-while loop</i>
+
+<ScopeVisualizer fixtureName="scopes/c/interior/interior.doWhile" languageId="c" />
+
+#### 3. Interior: Enum
+
+<i>The body of an enum</i>
+
+<ScopeVisualizer fixtureName="scopes/c/interior/interior.enum" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/interior/interior.enum2" languageId="c" />
+
+#### 4. Interior: For
+
+<i>The body of a for loop</i>
+
+<ScopeVisualizer fixtureName="scopes/c/interior/interior.for" languageId="c" />
+
+#### 5. Interior: Function
+
+<i>The body of a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/c/interior/interior.function" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/interior/interior.function2" languageId="c" />
+
+#### 6. Interior: If
+
+<i>The body of an if/elif/else branch</i>
+
+<ScopeVisualizer fixtureName="scopes/c/interior/interior.if" languageId="c" />
+
+#### 7. Interior: Switch
+
+<i>The body of a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/c/interior/interior.switch" languageId="c" />
+
+#### 8. Interior: Switch case
+
+<i>The body of a switch case branch</i>
+
+<ScopeVisualizer fixtureName="scopes/c/interior/interior.switchCase" languageId="c" />
+
+<ScopeVisualizer fixtureName="scopes/c/interior/interior.switchCase2" languageId="c" />
+
+#### 9. Interior: While
+
+<i>The body of a while loop</i>
+
+<ScopeVisualizer fixtureName="scopes/c/interior/interior.while" languageId="c" />
+
+### String
+
+#### 1. String: Single line
+
+<i>A single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/c/string.singleLine" languageId="c" />
+
+### Text fragment
+
+#### 1. Text fragment: Comment block
+
+<i>Internally used text fragment consisting of a block comment</i>
+
+<ScopeVisualizer fixtureName="scopes/c/textFragment.comment.block" languageId="c" />
+
+#### 2. Text fragment: Comment line
+
+<i>Internally used text fragment consisting of a line comment</i>
+
+<ScopeVisualizer fixtureName="scopes/c/textFragment.comment.line" languageId="c" />
+
+#### 3. Text fragment: String single line
+
+<i>Internally used text fragment consisting of a single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/c/textFragment.string.singleLine" languageId="c" />
+
+</ScopeVisualizerProvider>

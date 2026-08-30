@@ -2,7 +2,7 @@
 sidebar_label: Regex
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Regex (Regular expression)
 
@@ -20,4 +20,22 @@ Default: `regex`
 
 - `"take regex blue air"` - Selects the regular expression containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="regularExpression" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Regular expression
+
+<i>A regular expression</i>
+
+##### JavaScript
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/regularExpression" />
+
+##### Ruby
+
+<ScopeVisualizer fixtureName="scopes/ruby/regularExpression" />
+
+</ScopeVisualizerProvider>

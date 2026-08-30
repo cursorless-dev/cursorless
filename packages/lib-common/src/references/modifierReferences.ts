@@ -638,7 +638,7 @@ Relative modifiers select scopes before or after the input target. Without \`"ev
     ],
     examples: [
       {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
+        command: `${SET_SELECTION} ${ITEM} ${TARGET}`,
         description: `Selects the closest item to the ${TARGET_DESC}.`,
       },
     ],

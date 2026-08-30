@@ -1,340 +1,135 @@
 import { usePluginData } from "@docusaurus/useGlobalData";
-import React, { useState } from "react";
-import type {
-  ScopeSupportFacetInfo,
-  ScopeTypeType,
-} from "@cursorless/lib-common";
-import {
-  prettifyLanguageName,
-  prettifyScopeType,
-  scopeReferences,
-  serializeScopeType,
-} from "@cursorless/lib-common";
+import React, { createContext, useContext, useMemo, useState } from "react";
+import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { generateDecorations } from "./calculateHighlights";
 import { Code } from "./Code";
-import { H2, H3, H4, H5 } from "./Header";
-import "./ScopeSupport.css";
-import type { FacetValue, Fixture, RangeType, ScopeTests } from "./types";
-import { getFacetInfo, nameComparator, prettifyFacet } from "./util";
+import type { Fixture, RangeType, ScopeTests } from "./types";
+import { getFacetInfo } from "./util";
 
-interface Scopes {
-  public: Scope[];
-  internal: Scope[];
+interface ScopeVisualizerContextValue {
+  fixtures: ReadonlyMap<string, Fixture>;
+  rangeType: RangeType;
+  setRangeType: Dispatch<SetStateAction<RangeType>>;
+  renderWhitespace: boolean;
+  setRenderWhitespace: Dispatch<SetStateAction<boolean>>;
 }
 
-interface Scope {
-  scopeTypeType: ScopeTypeType;
-  name: string;
-  facets: Facet[];
-}
+const ScopeVisualizerContext = createContext<
+  ScopeVisualizerContextValue | undefined
+>(undefined);
 
-interface Facet {
-  facet: FacetValue;
-  name: string;
-  info: ScopeSupportFacetInfo;
-  fixtures: Fixture[];
-}
-
-interface Props {
-  languageId?: string;
-  scopeTypeType?: ScopeTypeType;
-}
-
-export function ScopeVisualizer({ languageId, scopeTypeType }: Props) {
+export function ScopeVisualizerProvider({ children }: { children: ReactNode }) {
   const scopeTests = usePluginData("scope-tests-plugin") as ScopeTests;
-  // oxlint-disable-next-line react/hook-use-state
-  const [scopes] = useState(
-    getScopeFixtures(scopeTests, languageId, scopeTypeType),
-  );
   const [rangeType, setRangeType] = useState<RangeType>("content");
   const [renderWhitespace, setRenderWhitespace] = useState(true);
+  const fixtures = useMemo(
+    () =>
+      new Map(scopeTests.fixtures.map((fixture) => [fixture.name, fixture])),
+    [scopeTests.fixtures],
+  );
+  const value = useMemo(
+    () => ({
+      fixtures,
+      rangeType,
+      setRangeType,
+      renderWhitespace,
+      setRenderWhitespace,
+    }),
+    [fixtures, rangeType, renderWhitespace],
+  );
 
-  if (scopes.internal.length === 0 && scopes.public.length === 0) {
-    return null;
+  return (
+    <ScopeVisualizerContext.Provider value={value}>
+      {children}
+    </ScopeVisualizerContext.Provider>
+  );
+}
+
+export function ScopeVisualizerOptions() {
+  const { rangeType, renderWhitespace, setRangeType, setRenderWhitespace } =
+    useScopeVisualizer();
+
+  return (
+    <div className="mb-4">
+      <select
+        className="form-select form-select-sm d-inline-block w-auto"
+        value={rangeType}
+        onChange={(event) =>
+          setRangeType(event.currentTarget.value as RangeType)
+        }
+      >
+        <option value="content">Content range</option>
+        <option value="removal">Removal range</option>
+        <option value="blend">Blended ranges</option>
+      </select>
+
+      <label className="ms-2">
+        <input
+          type="checkbox"
+          className="me-1"
+          checked={renderWhitespace}
+          onChange={(event) => setRenderWhitespace(event.currentTarget.checked)}
+        />
+        Render whitespace
+      </label>
+    </div>
+  );
+}
+
+interface ScopeProps {
+  fixtureName: string;
+  languageId?: string;
+}
+
+export function ScopeVisualizer({ fixtureName, languageId }: ScopeProps) {
+  const { fixtures, rangeType, renderWhitespace } = useScopeVisualizer();
+  const fixture = fixtures.get(fixtureName);
+
+  if (fixture == null) {
+    throw new Error(`Unknown scope fixture: ${fixtureName}`);
   }
 
-  const renderOptions = () => {
-    return (
-      <div className="mb-4">
-        <select
-          className="form-select form-select-sm d-inline-block w-auto"
-          value={rangeType}
-          onChange={(e) => setRangeType(e.currentTarget.value as RangeType)}
-        >
-          <option value="content">Content range</option>
-          <option value="removal">Removal range</option>
-          <option value="blend">Blended ranges</option>
-        </select>
+  const facetInfo = getFacetInfo(fixture.languageId, fixture.facet);
 
-        <label className="ms-2">
-          <input
-            type="checkbox"
-            className="me-1"
-            checked={renderWhitespace}
-            onChange={(e) => setRenderWhitespace(e.currentTarget.checked)}
-          />
-          Render whitespace
-        </label>
-      </div>
-    );
-  };
-
-  const renderScopes = (scopes: Scope[]) => {
-    return scopes.map((scope) =>
-      renderScope(
-        languageId,
-        scopeTypeType,
+  return (
+    <Code
+      // oxlint-disable-next-line react_perf/jsx-no-new-object-as-prop
+      link={{
+        name: "GitHub",
+        url: `https://github.com/cursorless-dev/cursorless/blob/main/resources/fixtures/${fixture.name}.scope`,
+      }}
+      languageId={languageId ?? normalizeLanguageId(fixture.languageId)}
+      renderWhitespace={renderWhitespace}
+      decorations={generateDecorations(
+        fixture,
         rangeType,
-        renderWhitespace,
-        scope,
-      ),
-    );
-  };
-
-  // Specific language. Public scopes followed by (optional) internal scopes.
-  if (languageId != null) {
-    return (
-      <>
-        <p>
-          Below are visualizations of all our scope tests for this language.
-          These were created primarily for testing purposes rather than as
-          documentation. There are quite a few, and they may feel a bit
-          overwhelming from a documentation standpoint.
-        </p>
-
-        {renderPublicScopesHeader()}
-        {renderOptions()}
-        {renderScopes(scopes.public)}
-
-        {scopes.internal.length > 0 && (
-          <>
-            {renderInternalScopesHeader()}
-            {renderScopes(scopes.internal)}
-          </>
-        )}
-      </>
-    );
-  }
-
-  // Specific public scope
-  if (scopes.public.length > 0) {
-    return (
-      <>
-        {renderPublicScopesHeader()}
-        {renderOptions()}
-        {renderScopes(scopes.public)}
-      </>
-    );
-  }
-
-  // Specific internal scope
-  return (
-    <>
-      {renderInternalScopesHeader()}
-      {renderOptions()}
-      {renderScopes(scopes.internal)}
-    </>
-  );
-}
-
-function renderScope(
-  languageId: string | undefined,
-  scopeTypeType: ScopeTypeType | undefined,
-  rangeType: RangeType,
-  renderWhitespace: boolean,
-  scope: Scope,
-) {
-  return (
-    <div key={scope.scopeTypeType}>
-      {scopeTypeType == null && <H3>{scope.name}</H3>}
-      {scope.facets.map((facet, index) =>
-        renderFacet(
-          languageId,
-          scopeTypeType,
-          rangeType,
-          renderWhitespace,
-          facet,
-          index,
-        ),
+        facetInfo.isIteration ?? false,
       )}
-    </div>
+    >
+      {fixture.code}
+    </Code>
   );
 }
 
-function renderPublicScopesHeader() {
-  return <H2>Scopes</H2>;
-}
-
-function renderInternalScopesHeader() {
-  return (
-    <>
-      <H2>Internal scopes</H2>
-
-      <p>
-        The following are internal scopes. They are not intended for user
-        interaction or spoken use. These scopes exist solely for internal
-        Cursorless functionality.
-      </p>
-    </>
-  );
-}
-
-function renderFacet(
-  languageId: string | undefined,
-  scopeTypeType: ScopeTypeType | undefined,
-  rangeType: RangeType,
-  renderWhitespace: boolean,
-  facet: Facet,
-  index: number,
-) {
-  let previousLanguageId: string | undefined;
-
-  const renderFacetName = () => {
-    if (scopeTypeType != null) {
-      return (
-        <H3 className="facet-name" title={facet.facet}>
-          {facet.name}
-        </H3>
-      );
-    }
-    return (
-      <H4 className="facet-name" title={facet.facet}>
-        {`${index + 1}. ${facet.name}`}
-      </H4>
+function useScopeVisualizer(): ScopeVisualizerContextValue {
+  const value = useContext(ScopeVisualizerContext);
+  if (value == null) {
+    throw new Error(
+      "Scope visualizer components must be used within ScopeVisualizerProvider",
     );
-  };
-
-  const renderLanguageId = (facetLanguageId: string) => {
-    if (scopeTypeType != null && previousLanguageId !== facetLanguageId) {
-      previousLanguageId = facetLanguageId;
-      return (
-        <H5
-          className="language-id mt-2 mb-1"
-          id={`${facet.name}-${facetLanguageId}`}
-        >
-          {prettifyLanguageName(facetLanguageId)}
-        </H5>
-      );
-    }
-    return null;
-  };
-
-  return (
-    <div key={facet.facet}>
-      {renderFacetName()}
-      <i>{facet.info.description}</i>
-      {facet.fixtures.map((fixture) => (
-        <React.Fragment key={fixture.name}>
-          {renderLanguageId(fixture.languageId)}
-          <Code
-            // oxlint-disable-next-line react_perf/jsx-no-new-object-as-prop
-            link={{
-              name: "GitHub",
-              url: `https://github.com/cursorless-dev/cursorless/blob/main/resources/fixtures/${fixture.name}.scope`,
-            }}
-            languageId={languageId ?? fixture.languageId}
-            renderWhitespace={renderWhitespace}
-            decorations={generateDecorations(
-              fixture,
-              rangeType,
-              facet.info.isIteration ?? false,
-            )}
-          >
-            {fixture.code}
-          </Code>
-        </React.Fragment>
-      ))}
-    </div>
-  );
+  }
+  return value;
 }
 
-function getScopeFixtures(
-  scopeTests: ScopeTests,
-  languageId: string | undefined,
-  scopeTypeType: ScopeTypeType | undefined,
-): Scopes {
-  const scopeMap: Partial<Record<ScopeTypeType, Scope>> = {};
-  const facetMap: Partial<Record<FacetValue, Facet>> = {};
-  const languageIds = new Set<string>(
-    languageId != null ? (scopeTests.imports[languageId] ?? [languageId]) : [],
-  );
-
-  for (const fixture of scopeTests.fixtures) {
-    const info = getFacetInfo(fixture.languageId, fixture.facet);
-    const fixtureScopeTypeType = serializeScopeType(info.scopeType);
-
-    if (
-      languageId != null &&
-      (!languageIds.has(fixture.languageId) ||
-        fixtureScopeTypeType.startsWith("private."))
-    ) {
-      continue;
-    }
-
-    if (scopeTypeType != null && fixtureScopeTypeType !== scopeTypeType) {
-      continue;
-    }
-
-    if (scopeMap[fixtureScopeTypeType] == null) {
-      scopeMap[fixtureScopeTypeType] = {
-        scopeTypeType: fixtureScopeTypeType,
-        name: prettifyScopeType(info.scopeType),
-        facets: [],
-      };
-    }
-
-    if (facetMap[fixture.facet] == null) {
-      const facet = {
-        facet: fixture.facet,
-        name: prettifyFacet(fixture.facet),
-        info,
-        fixtures: [],
-      };
-      facetMap[fixture.facet] = facet;
-      scopeMap[fixtureScopeTypeType].facets.push(facet);
-    }
-
-    switch (fixture.languageId) {
-      case "javascript.core":
-        fixture.languageId = "javascript";
-        break;
-      case "typescript.core":
-        fixture.languageId = "typescript";
-        break;
-      case "javascript.jsx":
-        fixture.languageId = "javascriptreact";
-        break;
-      // No default
-    }
-
-    facetMap[fixture.facet]?.fixtures.push(fixture);
+function normalizeLanguageId(languageId: string): string {
+  switch (languageId) {
+    case "javascript.core":
+      return "javascript";
+    case "typescript.core":
+      return "typescript";
+    case "javascript.jsx":
+      return "javascriptreact";
+    default:
+      return languageId;
   }
-
-  const result: Scopes = { public: [], internal: [] };
-  const sortedScopes = Object.values(scopeMap).toSorted(nameComparator);
-
-  for (const scope of sortedScopes) {
-    scope.facets.sort(facetComparator);
-    for (const f of scope.facets) {
-      f.fixtures.sort(nameComparator);
-    }
-    const scopeRef = scopeReferences[scope.scopeTypeType];
-    if ("private" in scopeRef && scopeRef.private) {
-      result.internal.push(scope);
-    } else {
-      result.public.push(scope);
-    }
-  }
-
-  return result;
-}
-
-export function facetComparator(a: Facet, b: Facet): number {
-  if (a.info.isIteration && !b.info.isIteration) {
-    return 1;
-  }
-  if (!a.info.isIteration && b.info.isIteration) {
-    return -1;
-  }
-  return nameComparator(a, b);
 }

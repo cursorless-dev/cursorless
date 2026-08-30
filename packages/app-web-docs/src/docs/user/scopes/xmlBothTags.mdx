@@ -2,7 +2,7 @@
 sidebar_label: Tags
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Tags (XML both tags)
 
@@ -20,4 +20,30 @@ Default: `tags`
 
 - `"take tags blue air"` - Selects both tags of the XML element containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="xmlBothTags" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Tags
+
+<i>Both tags in a xml element</i>
+
+##### HTML
+
+<ScopeVisualizer fixtureName="scopes/html/tags" />
+
+##### JavaScript React
+
+<ScopeVisualizer fixtureName="scopes/javascript.jsx/tags" />
+
+##### Latex
+
+<ScopeVisualizer fixtureName="scopes/latex/tags" />
+
+##### XML
+
+<ScopeVisualizer fixtureName="scopes/xml/tags" />
+
+</ScopeVisualizerProvider>

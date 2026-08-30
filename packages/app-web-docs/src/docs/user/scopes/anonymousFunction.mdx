@@ -2,7 +2,7 @@
 sidebar_label: Lambda
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Lambda (Anonymous function)
 
@@ -20,4 +20,106 @@ Default: `lambda`
 
 - `"take lambda blue air"` - Selects the anonymous function containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="anonymousFunction" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Anonymous function
+
+<i>An anonymous function, eg a lambda function, an arrow function, etc.</i>
+
+##### Clojure
+
+<ScopeVisualizer fixtureName="scopes/clojure/anonymousFunction" />
+
+<ScopeVisualizer fixtureName="scopes/clojure/anonymousFunction2" />
+
+##### C++
+
+<ScopeVisualizer fixtureName="scopes/cpp/anonymousFunction" />
+
+<ScopeVisualizer fixtureName="scopes/cpp/anonymousFunction2" />
+
+##### C#
+
+<ScopeVisualizer fixtureName="scopes/csharp/anonymousFunction" />
+
+<ScopeVisualizer fixtureName="scopes/csharp/anonymousFunction2" />
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/anonymousFunction" />
+
+<ScopeVisualizer fixtureName="scopes/dart/anonymousFunction2" />
+
+##### Go
+
+<ScopeVisualizer fixtureName="scopes/go/anonymousFunction" />
+
+##### Java
+
+<ScopeVisualizer fixtureName="scopes/java/anonymousFunction" />
+
+<ScopeVisualizer fixtureName="scopes/java/anonymousFunction2" />
+
+##### JavaScript
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/anonymousFunction" />
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/anonymousFunction2" />
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/anonymousFunction3" />
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/anonymousFunction4" />
+
+##### Kotlin
+
+<ScopeVisualizer fixtureName="scopes/kotlin/anonymousFunction" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/anonymousFunction2" />
+
+##### Lua
+
+<ScopeVisualizer fixtureName="scopes/lua/anonymousFunction" />
+
+##### PHP
+
+<ScopeVisualizer fixtureName="scopes/php/anonymousFunction" />
+
+<ScopeVisualizer fixtureName="scopes/php/anonymousFunction2" />
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/anonymousFunction" />
+
+<ScopeVisualizer fixtureName="scopes/python/anonymousFunction2" />
+
+##### R
+
+<ScopeVisualizer fixtureName="scopes/r/anonymousFunction" />
+
+<ScopeVisualizer fixtureName="scopes/r/anonymousFunction2" />
+
+##### Ruby
+
+<ScopeVisualizer fixtureName="scopes/ruby/anonymousFunction" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/anonymousFunction2" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/anonymousFunction3" />
+
+##### Rust
+
+<ScopeVisualizer fixtureName="scopes/rust/anonymousFunction" />
+
+<ScopeVisualizer fixtureName="scopes/rust/anonymousFunction2" />
+
+##### Scala
+
+<ScopeVisualizer fixtureName="scopes/scala/anonymousFunction" />
+
+<ScopeVisualizer fixtureName="scopes/scala/anonymousFunction2" />
+
+</ScopeVisualizerProvider>

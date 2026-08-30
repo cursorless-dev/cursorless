@@ -1,5 +1,1463 @@
-import { Language } from "@site/src/docs/components/Language";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Dart
 
-<Language languageId="dart" />
+<ScopeVisualizerProvider>
+
+Below are visualizations of all our scope tests for this language. These were created primarily for testing purposes rather than as documentation. There are quite a few, and they may feel a bit overwhelming from a documentation standpoint.
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Anonymous function
+
+#### 1. Anonymous function
+
+<i>An anonymous function, eg a lambda function, an arrow function, etc.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/anonymousFunction" languageId="dart" />
+
+<ScopeVisualizer fixtureName="scopes/dart/anonymousFunction2" languageId="dart" />
+
+### Argument list
+
+#### 1. Argument list: Actual constructor empty
+
+<i>An empty list of arguments in a constructor call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argumentList/argumentList.actual.constructor.empty" languageId="dart" />
+
+#### 2. Argument list: Actual constructor multi line
+
+<i>A multi line list of arguments in a constructor call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argumentList/argumentList.actual.constructor.multiLine" languageId="dart" />
+
+#### 3. Argument list: Actual constructor single line
+
+<i>A single line list of arguments in a constructor call</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argumentList/argumentList.actual.constructor.singleLine" languageId="dart" />
+
+#### 4. Argument list: Actual empty
+
+<i>An empty list of arguments in a function call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argumentList/argumentList.actual.empty" languageId="dart" />
+
+#### 5. Argument list: Actual enum empty
+
+<i>An empty list of arguments in an enum constructor call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argumentList/argumentList.actual.enum.empty" languageId="dart" />
+
+#### 6. Argument list: Actual enum multi line
+
+<i>A multi line list of arguments in an enum constructor call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argumentList/argumentList.actual.enum.multiLine" languageId="dart" />
+
+#### 7. Argument list: Actual enum single line
+
+<i>A single line list of arguments in an enum constructor call</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argumentList/argumentList.actual.enum.singleLine" languageId="dart" />
+
+#### 8. Argument list: Actual method empty
+
+<i>An empty list of arguments in a method call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argumentList/argumentList.actual.method.empty" languageId="dart" />
+
+#### 9. Argument list: Actual method multi line
+
+<i>A multi line list of arguments in a method call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argumentList/argumentList.actual.method.multiLine" languageId="dart" />
+
+#### 10. Argument list: Actual method single line
+
+<i>A single line list of arguments in a method call</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argumentList/argumentList.actual.method.singleLine" languageId="dart" />
+
+#### 11. Argument list: Actual multi line
+
+<i>A multi line list of arguments in a function call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argumentList/argumentList.actual.multiLine" languageId="dart" />
+
+#### 12. Argument list: Actual single line
+
+<i>A single line list of arguments in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argumentList/argumentList.actual.singleLine" languageId="dart" />
+
+#### 13. Argument list: Formal constructor empty
+
+<i>An empty list of parameters in a constructor declaration. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argumentList/argumentList.formal.constructor.empty" languageId="dart" />
+
+#### 14. Argument list: Formal constructor multi line
+
+<i>A multi line list of parameters in a constructor declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argumentList/argumentList.formal.constructor.multiLine" languageId="dart" />
+
+#### 15. Argument list: Formal constructor single line
+
+<i>A single line list of parameters in a constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argumentList/argumentList.formal.constructor.singleLine" languageId="dart" />
+
+#### 16. Argument list: Formal empty
+
+<i>An empty list of parameters in a function declaration. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argumentList/argumentList.formal.empty" languageId="dart" />
+
+#### 17. Argument list: Formal lambda empty
+
+<i>An empty list of parameters in a lambda declaration. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argumentList/argumentList.formal.lambda.empty" languageId="dart" />
+
+#### 18. Argument list: Formal lambda multi line
+
+<i>A multi line list of parameters in a lambda declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argumentList/argumentList.formal.lambda.multiLine" languageId="dart" />
+
+#### 19. Argument list: Formal lambda single line
+
+<i>A single line list of parameters in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argumentList/argumentList.formal.lambda.singleLine" languageId="dart" />
+
+#### 20. Argument list: Formal method empty
+
+<i>An empty list of parameters in a class method declaration. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argumentList/argumentList.formal.method.empty" languageId="dart" />
+
+#### 21. Argument list: Formal method multi line
+
+<i>A multi line list of parameters in a class method declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argumentList/argumentList.formal.method.multiLine" languageId="dart" />
+
+#### 22. Argument list: Formal method single line
+
+<i>A single line list of parameters in a class method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argumentList/argumentList.formal.method.singleLine" languageId="dart" />
+
+#### 23. Argument list: Formal multi line
+
+<i>A multi line list of parameters in a function declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argumentList/argumentList.formal.multiLine" languageId="dart" />
+
+#### 24. Argument list: Formal single line
+
+<i>A single line list of parameters in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argumentList/argumentList.formal.singleLine" languageId="dart" />
+
+### Argument or parameter
+
+#### 1. Argument: Actual constructor multi line
+
+<i>A multi line argument in a constructor call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argument/argument.actual.constructor.multiLine" languageId="dart" />
+
+#### 2. Argument: Actual constructor single line
+
+<i>A single line argument in a constructor call</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argument/argument.actual.constructor.singleLine" languageId="dart" />
+
+#### 3. Argument: Actual enum multi line
+
+<i>A multi line argument in an enum constructor call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argument/argument.actual.enum.multiLine" languageId="dart" />
+
+#### 4. Argument: Actual enum single line
+
+<i>A single line argument in an enum constructor call</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argument/argument.actual.enum.singleLine" languageId="dart" />
+
+#### 5. Argument: Actual method multi line
+
+<i>A multi line argument in a method call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argument/argument.actual.method.multiLine" languageId="dart" />
+
+#### 6. Argument: Actual method single line
+
+<i>A single line argument in a method call</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argument/argument.actual.method.singleLine" languageId="dart" />
+
+#### 7. Argument: Actual multi line
+
+<i>A multiline argument in a function call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argument/argument.actual.multiLine" languageId="dart" />
+
+#### 8. Argument: Actual single line
+
+<i>A single line argument in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argument/argument.actual.singleLine" languageId="dart" />
+
+#### 9. Argument: Formal catch
+
+<i>A parameter in a catch clause</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argument/argument.formal.catch" languageId="dart" />
+
+#### 10. Argument: Formal constructor multi line
+
+<i>A multi line parameter in a constructor declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argument/argument.formal.constructor.multiLine" languageId="dart" />
+
+#### 11. Argument: Formal constructor single line
+
+<i>A single line parameter in a constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argument/argument.formal.constructor.singleLine" languageId="dart" />
+
+#### 12. Argument: Formal lambda multi line
+
+<i>A multi line parameter in a lambda declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argument/argument.formal.lambda.multiLine" languageId="dart" />
+
+#### 13. Argument: Formal lambda single line
+
+<i>A single line parameter in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argument/argument.formal.lambda.singleLine" languageId="dart" />
+
+#### 14. Argument: Formal method multi line
+
+<i>A multi line parameter in a class method declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argument/argument.formal.method.multiLine" languageId="dart" />
+
+#### 15. Argument: Formal method single line
+
+<i>A single line parameter in a class method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argument/argument.formal.method.singleLine" languageId="dart" />
+
+#### 16. Argument: Formal multi line
+
+<i>A multi line parameter in a function declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argument/argument.formal.multiLine" languageId="dart" />
+
+#### 17. Argument: Formal single line
+
+<i>A single line parameter in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argument/argument.formal.singleLine" languageId="dart" />
+
+#### 18. Argument: Actual (iteration)
+
+<i>Iteration scope for arguments in a function call: the argument list. The domain should be the entire function call.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argument/argument.actual.iteration" languageId="dart" />
+
+#### 19. Argument: Actual constructor (iteration)
+
+<i>Iteration scope for arguments in a constructor call: the argument list. The domain should be the entire constructor call..</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argument/argument.actual.constructor.iteration" languageId="dart" />
+
+#### 20. Argument: Actual enum (iteration)
+
+<i>Iteration scope for arguments in an enum constructor call: the argument list. The domain should be the entire enum constructor call..</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argument/argument.actual.enum.iteration" languageId="dart" />
+
+#### 21. Argument: Actual method (iteration)
+
+<i>Iteration scope for arguments in a method call: the argument list. The domain should be the entire method call.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argument/argument.actual.method.iteration" languageId="dart" />
+
+#### 22. Argument: Formal (iteration)
+
+<i>Iteration scope for formal parameters in a function declaration: the parameters list. The domain should be the entire function.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argument/argument.formal.iteration" languageId="dart" />
+
+#### 23. Argument: Formal constructor (iteration)
+
+<i>Iteration scope for formal parameters in a constructor declaration: the parameter list. The domain should be the entire constructor.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argument/argument.formal.constructor.iteration" languageId="dart" />
+
+#### 24. Argument: Formal lambda (iteration)
+
+<i>Iteration scope for formal parameters in a lambda declaration: the parameter list. The domain should be the entire lambda.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argument/argument.formal.lambda.iteration" languageId="dart" />
+
+#### 25. Argument: Formal method (iteration)
+
+<i>Iteration scope for formal parameters in a method declaration: the parameter list. The domain should be the entire method.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/argument/argument.formal.method.iteration" languageId="dart" />
+
+### Branch
+
+#### 1. Branch: If
+
+<i>An if branch</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/branch/branch.if" languageId="dart" />
+
+#### 2. Branch: If elif else
+
+<i>An if-elif-else branch. The removal range for the if branch should include the trailing `else` keyword.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/branch/branch.if.elif.else" languageId="dart" />
+
+#### 3. Branch: If else
+
+<i>An if-else branch</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/branch/branch.if.else" languageId="dart" />
+
+#### 4. Branch: Switch case
+
+<i>A case/default branch in a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/branch/branch.switchCase" languageId="dart" />
+
+<ScopeVisualizer fixtureName="scopes/dart/branch/branch.switchCase2" languageId="dart" />
+
+#### 5. Branch: Ternary
+
+<i>A branch in a ternary expression</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/branch/branch.ternary" languageId="dart" />
+
+#### 6. Branch: Try
+
+<i>A try/catch/finally branch</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/branch/branch.try" languageId="dart" />
+
+#### 7. Branch: If (iteration)
+
+<i>Iteration scope for if/elif/else branches: the if-else statement.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/branch/branch.if.iteration" languageId="dart" />
+
+#### 8. Branch: Switch case (iteration)
+
+<i>Iteration scope for switch branches: the switch statement body.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/branch/branch.switchCase.iteration" languageId="dart" />
+
+#### 9. Branch: Ternary (iteration)
+
+<i>Iteration scope for ternary expression branches: the ternary expression.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/branch/branch.ternary.iteration" languageId="dart" />
+
+#### 10. Branch: Try (iteration)
+
+<i>Iteration scope for try/catch/finally branches: the try-catch statement.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/branch/branch.try.iteration" languageId="dart" />
+
+### Class
+
+#### 1. Class
+
+<i>A class/struct in an object-oriented language</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/class" languageId="dart" />
+
+#### 2. Class (iteration document)
+
+<i>Iteration scope for classes: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/class.iteration.document" languageId="dart" />
+
+### Collection item
+
+#### 1. Collection item: Unenclosed multi line
+
+<i>An item in a comma-separated multi line list without enclosing delimiters. This could be multi-variable declarations, import statements, etc. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/collectionItem.unenclosed.multiLine" languageId="dart" />
+
+#### 2. Collection item: Unenclosed single line
+
+<i>An item in a comma-separated single line list without enclosing delimiters. This could be multi-variable declarations, import statements, etc.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/collectionItem.unenclosed.singleLine" languageId="dart" />
+
+#### 3. Collection item: Unenclosed (iteration)
+
+<i>Iteration scope for items in a comma-separated list without enclosing delimiters</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/collectionItem.unenclosed.iteration" languageId="dart" />
+
+### Collection key
+
+#### 1. Key: Map pair
+
+<i>Key (LHS) of a key-value pair of a map</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/key/key.mapPair" languageId="dart" />
+
+#### 2. Key: Map pair (iteration)
+
+<i>Iteration scope for keys of key-value pairs in a map: should be between the braces.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/key/key.mapPair.iteration" languageId="dart" />
+
+### Comment
+
+#### 1. Comment: Block
+
+<i>A block comment</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/comment.block" languageId="dart" />
+
+#### 2. Comment: Line
+
+<i>A line comment</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/comment.line" languageId="dart" />
+
+### Condition
+
+#### 1. Condition: Do while
+
+<i>A condition in a do while loop</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/condition/condition.doWhile" languageId="dart" />
+
+#### 2. Condition: For
+
+<i>A condition in a for loop</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/condition/condition.for" languageId="dart" />
+
+#### 3. Condition: If
+
+<i>A condition in an if statement</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/condition/condition.if" languageId="dart" />
+
+#### 4. Condition: Switch case
+
+<i>A condition in a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/condition/condition.switchCase" languageId="dart" />
+
+#### 5. Condition: Ternary
+
+<i>A condition in a ternary expression</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/condition/condition.ternary" languageId="dart" />
+
+#### 6. Condition: While
+
+<i>A condition in a while loop</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/condition/condition.while" languageId="dart" />
+
+#### 7. Condition: Switch case (iteration)
+
+<i>Iteration scope for conditions in a switch statement: the switch statement body.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/condition/condition.switchCase.iteration" languageId="dart" />
+
+### Function call
+
+#### 1. Function call
+
+<i>A function call</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/functionCall/functionCall" languageId="dart" />
+
+#### 2. Function call: Chain
+
+<i>A chain of function calls, eg `foo().bar()`</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/functionCall/functionCall.chain" languageId="dart" />
+
+#### 3. Function call: Constructor
+
+<i>A constructor call</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/functionCall/functionCall.constructor" languageId="dart" />
+
+#### 4. Function call: Enum
+
+<i>An enum constructor call</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/functionCall/functionCall.enum" languageId="dart" />
+
+#### 5. Function call: Generic
+
+<i>A function call with generic type arguments</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/functionCall/functionCall.generic" languageId="dart" />
+
+#### 6. Function call: Method
+
+<i>A method call</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/functionCall/functionCall.method" languageId="dart" />
+
+### Function callee
+
+#### 1. Function callee
+
+<i>The function being called in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/functionCallee/functionCallee" languageId="dart" />
+
+#### 2. Function callee: Chain
+
+<i>The function being called in a chain of function calls, including parent objects.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/functionCallee/functionCallee.chain" languageId="dart" />
+
+#### 3. Function callee: Constructor
+
+<i>The class being constructed in a class instantiation, including the `new` keyword.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/functionCallee/functionCallee.constructor" languageId="dart" />
+
+#### 4. Function callee: Enum
+
+<i>The enum constructor being called</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/functionCallee/functionCallee.enum" languageId="dart" />
+
+#### 5. Function callee: Generic
+
+<i>The function being called in a function call with generic type arguments</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/functionCallee/functionCallee.generic" languageId="dart" />
+
+#### 6. Function callee: Method
+
+<i>The function being called in a method call, including parent objects.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/functionCallee/functionCallee.method" languageId="dart" />
+
+### If statement
+
+#### 1. If statement
+
+<i>An if statement</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/ifStatement" languageId="dart" />
+
+### List
+
+#### 1. List
+
+<i>A list/array</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/list" languageId="dart" />
+
+### Map
+
+#### 1. Map
+
+<i>A map/dictionary</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/map" languageId="dart" />
+
+<ScopeVisualizer fixtureName="scopes/dart/map2" languageId="dart" />
+
+### Name
+
+#### 1. Name: Argument actual
+
+<i>Name of a (keyword) argument in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.argument.actual" languageId="dart" />
+
+#### 2. Name: Argument catch
+
+<i>Name of a parameter in a catch clause</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.argument.catch" languageId="dart" />
+
+#### 3. Name: Argument formal
+
+<i>Name of a parameter in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.argument.formal" languageId="dart" />
+
+#### 4. Name: Argument formal constructor
+
+<i>The name of a parameter in a constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.argument.formal.constructor" languageId="dart" />
+
+#### 5. Name: Argument formal lambda
+
+<i>Name of a parameter in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.argument.formal.lambda" languageId="dart" />
+
+#### 6. Name: Argument formal method
+
+<i>Name of a parameter in a class method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.argument.formal.method" languageId="dart" />
+
+#### 7. Name: Assignment
+
+<i>Name (LHS) of an assignment</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.assignment" languageId="dart" />
+
+#### 8. Name: Assignment compound
+
+<i>Name (LHS) of a compound assignment, eg +=/-=</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.assignment.compound" languageId="dart" />
+
+#### 9. Name: Class
+
+<i>Name of a class</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name.class" languageId="dart" />
+
+#### 10. Name: Constant
+
+<i>Name (LHS) of a constant declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.constant" languageId="dart" />
+
+#### 11. Name: Constructor
+
+<i>Name of a constructor</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.constructor" languageId="dart" />
+
+#### 12. Name: Enum
+
+<i>Name of an enum</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.enum" languageId="dart" />
+
+#### 13. Name: Field class
+
+<i>Name (LHS) of a field in a class</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.field.class" languageId="dart" />
+
+#### 14. Name: Field enum
+
+<i>Name (LHS) of a field in an enum</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.field.enum" languageId="dart" />
+
+#### 15. Name: Foreach
+
+<i>Iteration variable name in a for each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.foreach" languageId="dart" />
+
+#### 16. Name: Function
+
+<i>Name of a function</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.function" languageId="dart" />
+
+#### 17. Name: Method
+
+<i>Name of a class method</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.method" languageId="dart" />
+
+#### 18. Name: Type alias
+
+<i>Name of a type alias</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.typeAlias" languageId="dart" />
+
+#### 19. Name: Variable initialized
+
+<i>Name (LHS) of an initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.variable.initialized" languageId="dart" />
+
+#### 20. Name: Variable uninitialized
+
+<i>Name (LHS) of an uninitialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.variable.uninitialized" languageId="dart" />
+
+#### 21. Name (iteration block)
+
+<i>Iteration scope for names: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.iteration.block" languageId="dart" />
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.iteration.block2" languageId="dart" />
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.iteration.block3" languageId="dart" />
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.iteration.block4" languageId="dart" />
+
+#### 22. Name (iteration class)
+
+<i>Iteration scope for names: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.iteration.class" languageId="dart" />
+
+#### 23. Name (iteration document)
+
+<i>Iteration scope for names: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.iteration.document" languageId="dart" />
+
+#### 24. Name (iteration enum)
+
+<i>Iteration scope for names: enum bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.iteration.enum" languageId="dart" />
+
+#### 25. Name: Argument actual (iteration)
+
+<i>Iteration scope for names of (keyword) arguments in a function call: the argument list.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.argument.actual.iteration" languageId="dart" />
+
+#### 26. Name: Argument formal (iteration)
+
+<i>Iteration scope for names of formal parameters in a function declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.argument.formal.iteration" languageId="dart" />
+
+#### 27. Name: Argument formal constructor (iteration)
+
+<i>Iteration scope for names of formal parameters in a constructor declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.argument.formal.constructor.iteration" languageId="dart" />
+
+#### 28. Name: Argument formal lambda (iteration)
+
+<i>Iteration scope for names of formal parameters in a lambda declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.argument.formal.lambda.iteration" languageId="dart" />
+
+#### 29. Name: Argument formal method (iteration)
+
+<i>Iteration scope for names of formal parameters in a method declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/name/name.argument.formal.method.iteration" languageId="dart" />
+
+### Named function
+
+#### 1. Named function
+
+<i>A named function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/namedFunction" languageId="dart" />
+
+#### 2. Named function: Constructor
+
+<i>A constructor declaration in a class</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/namedFunction.constructor" languageId="dart" />
+
+#### 3. Named function: Method
+
+<i>A named method declaration in a class</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/namedFunction.method" languageId="dart" />
+
+#### 4. Named function (iteration class)
+
+<i>Iteration scope for named functions: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/namedFunction.iteration.class" languageId="dart" />
+
+#### 5. Named function (iteration document)
+
+<i>Iteration scope for named functions: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/namedFunction.iteration.document" languageId="dart" />
+
+### Statement
+
+#### 1. Statement: Assignment
+
+<i>An assignment statement</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.assignment" languageId="dart" />
+
+#### 2. Statement: Assignment compound
+
+<i>A compound assignment statement, eg +=/-=</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.assignment.compound" languageId="dart" />
+
+#### 3. Statement: Break
+
+<i>A break statement</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.break" languageId="dart" />
+
+#### 4. Statement: Class
+
+<i>A class/struct declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.class" languageId="dart" />
+
+#### 5. Statement: Constant
+
+<i>A constant declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.constant" languageId="dart" />
+
+#### 6. Statement: Constructor
+
+<i>A constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.constructor" languageId="dart" />
+
+#### 7. Statement: Continue
+
+<i>A continue statement</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.continue" languageId="dart" />
+
+#### 8. Statement: Do while
+
+<i>A do-while loop statement</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.doWhile" languageId="dart" />
+
+#### 9. Statement: Enum
+
+<i>An enum declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.enum" languageId="dart" />
+
+#### 10. Statement: Field class
+
+<i>A field declaration in a class/struct</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.field.class" languageId="dart" />
+
+#### 11. Statement: For
+
+<i>A for loop statement</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.for" languageId="dart" />
+
+#### 12. Statement: Foreach
+
+<i>A for-each loop statement</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.foreach" languageId="dart" />
+
+#### 13. Statement: Function
+
+<i>A named function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.function" languageId="dart" />
+
+#### 14. Statement: Function call
+
+<i>A function call statement</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.functionCall" languageId="dart" />
+
+#### 15. Statement: If
+
+<i>A if/elif/else statement</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.if" languageId="dart" />
+
+#### 16. Statement: Import
+
+<i>An import statement</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.import" languageId="dart" />
+
+#### 17. Statement: Method
+
+<i>A method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.method" languageId="dart" />
+
+#### 18. Statement: Return
+
+<i>A return statement</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.return" languageId="dart" />
+
+#### 19. Statement: Switch
+
+<i>A switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.switch" languageId="dart" />
+
+#### 20. Statement: Throw
+
+<i>A throw statement</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.throw" languageId="dart" />
+
+#### 21. Statement: Try
+
+<i>A try/catch/finally statement</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.try" languageId="dart" />
+
+#### 22. Statement: Type alias
+
+<i>A type alias declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.typeAlias" languageId="dart" />
+
+#### 23. Statement: Update
+
+<i>An update statement, eg ++/--</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.update" languageId="dart" />
+
+#### 24. Statement: Variable initialized
+
+<i>An initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.variable.initialized" languageId="dart" />
+
+#### 25. Statement: Variable uninitialized
+
+<i>An uninitialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.variable.uninitialized" languageId="dart" />
+
+#### 26. Statement: While
+
+<i>A while loop statement</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.while" languageId="dart" />
+
+#### 27. Statement: Yield
+
+<i>A yield statement</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.yield" languageId="dart" />
+
+#### 28. Statement (iteration block)
+
+<i>Iteration scope for statements: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.iteration.block" languageId="dart" />
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.iteration.block2" languageId="dart" />
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.iteration.block3" languageId="dart" />
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.iteration.block4" languageId="dart" />
+
+#### 29. Statement (iteration class)
+
+<i>Iteration scope for statements: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.iteration.class" languageId="dart" />
+
+#### 30. Statement (iteration document)
+
+<i>Iteration scope for statements: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/statement/statement.iteration.document" languageId="dart" />
+
+### Type
+
+#### 1. Type: Alias
+
+<i>A type alias declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.alias" languageId="dart" />
+
+#### 2. Type: Argument catch
+
+<i>Type of a parameter in a catch clause</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.argument.catch" languageId="dart" />
+
+#### 3. Type: Argument formal
+
+<i>Type of a formal parameter in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.argument.formal" languageId="dart" />
+
+#### 4. Type: Argument formal constructor
+
+<i>Type of a formal parameter in a constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.argument.formal.constructor" languageId="dart" />
+
+#### 5. Type: Argument formal lambda
+
+<i>Type of a formal parameter in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.argument.formal.lambda" languageId="dart" />
+
+#### 6. Type: Argument formal method
+
+<i>Type of a formal parameter in a class method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.argument.formal.method" languageId="dart" />
+
+#### 7. Type: Cast
+
+<i>A type cast</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.cast" languageId="dart" />
+
+#### 8. Type: Class
+
+<i>A class declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.class" languageId="dart" />
+
+#### 9. Type: Constant
+
+<i>Type of a constant declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.constant" languageId="dart" />
+
+#### 10. Type: Enum
+
+<i>An enum declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.enum" languageId="dart" />
+
+#### 11. Type: Field class
+
+<i>Type of a field in a class</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.field.class" languageId="dart" />
+
+#### 12. Type: Foreach
+
+<i>Type of a variable in a for each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.foreach" languageId="dart" />
+
+#### 13. Type: Return
+
+<i>Type of a return value in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.return" languageId="dart" />
+
+#### 14. Type: Return method
+
+<i>Type of a return value in a method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.return.method" languageId="dart" />
+
+#### 15. Type: Type argument
+
+<i>Type argument to a generic / parametrized type</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.typeArgument" languageId="dart" />
+
+#### 16. Type: Variable initialized
+
+<i>Type of an initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.variable.initialized" languageId="dart" />
+
+#### 17. Type: Variable uninitialized
+
+<i>Type of an uninitialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.variable.uninitialized" languageId="dart" />
+
+#### 18. Type (iteration block)
+
+<i>Iteration scope for types: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.iteration.block" languageId="dart" />
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.iteration.block2" languageId="dart" />
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.iteration.block3" languageId="dart" />
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.iteration.block4" languageId="dart" />
+
+#### 19. Type (iteration class)
+
+<i>Iteration scope for types: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.iteration.class" languageId="dart" />
+
+#### 20. Type (iteration document)
+
+<i>Iteration scope for types: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.iteration.document" languageId="dart" />
+
+#### 21. Type: Argument formal (iteration)
+
+<i>Iteration scope for types of formal parameters in a function declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.argument.formal.iteration" languageId="dart" />
+
+#### 22. Type: Argument formal constructor (iteration)
+
+<i>Iteration scope for types of formal parameters in a constructor declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.argument.formal.constructor.iteration" languageId="dart" />
+
+#### 23. Type: Argument formal lambda (iteration)
+
+<i>Iteration scope for types of formal parameters in a lambda declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.argument.formal.lambda.iteration" languageId="dart" />
+
+#### 24. Type: Argument formal method (iteration)
+
+<i>Iteration scope for types of formal parameters in a method declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.argument.formal.method.iteration" languageId="dart" />
+
+#### 25. Type: Type argument (iteration)
+
+<i>Iteration scope for type arguments to a generic / parametrized type: the type argument list.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/type/type.typeArgument.iteration" languageId="dart" />
+
+### Value
+
+#### 1. Value: Argument actual
+
+<i>The value of a (keyword) argument in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.argument.actual" languageId="dart" />
+
+#### 2. Value: Argument formal
+
+<i>The (default) value of a argument in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.argument.formal" languageId="dart" />
+
+#### 3. Value: Argument formal constructor
+
+<i>The (default) value of a parameter in a constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.argument.formal.constructor" languageId="dart" />
+
+#### 4. Value: Argument formal lambda
+
+<i>The (default) value of a parameter in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.argument.formal.lambda" languageId="dart" />
+
+#### 5. Value: Argument formal method
+
+<i>The (default) value of a parameter in a method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.argument.formal.method" languageId="dart" />
+
+#### 6. Value: Assignment
+
+<i>Value (RHS) of an assignment</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.assignment" languageId="dart" />
+
+#### 7. Value: Assignment compound
+
+<i>Value (RHS) of a compound assignment, eg +=/-=</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.assignment.compound" languageId="dart" />
+
+#### 8. Value: Constant
+
+<i>Value (RHS) of a constant declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.constant" languageId="dart" />
+
+#### 9. Value: Field class
+
+<i>Value (RHS) of a field in a class</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.field.class" languageId="dart" />
+
+#### 10. Value: Foreach
+
+<i>Iterable in a for each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.foreach" languageId="dart" />
+
+#### 11. Value: Map pair
+
+<i>Value (RHS) of a key-value pair in a map</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.mapPair" languageId="dart" />
+
+#### 12. Value: Return
+
+<i>Return value of a function</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.return" languageId="dart" />
+
+#### 13. Value: Return lambda
+
+<i>Implicit return value from a lambda</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.return.lambda" languageId="dart" />
+
+#### 14. Value: Switch
+
+<i>The value / subject of a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.switch" languageId="dart" />
+
+#### 15. Value: Throw
+
+<i>Value of a throw statement</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.throw" languageId="dart" />
+
+#### 16. Value: Type alias
+
+<i>Value of a type alias declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.typeAlias" languageId="dart" />
+
+#### 17. Value: Variable
+
+<i>Value (RHS) of a variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.variable" languageId="dart" />
+
+#### 18. Value: Yield
+
+<i>Value of a yield statement</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.yield" languageId="dart" />
+
+#### 19. Value (iteration block)
+
+<i>Iteration scope for values: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.iteration.block" languageId="dart" />
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.iteration.block2" languageId="dart" />
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.iteration.block3" languageId="dart" />
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.iteration.block4" languageId="dart" />
+
+#### 20. Value (iteration class)
+
+<i>Iteration scope for values: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.iteration.class" languageId="dart" />
+
+#### 21. Value (iteration document)
+
+<i>Iteration scope for values: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.iteration.document" languageId="dart" />
+
+#### 22. Value: Argument actual (iteration)
+
+<i>Iteration scope for values of (keyword) arguments in a function call: the arguments list.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.argument.actual.iteration" languageId="dart" />
+
+#### 23. Value: Argument formal (iteration)
+
+<i>Iteration scope for values of formal parameters in a function declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.argument.formal.iteration" languageId="dart" />
+
+#### 24. Value: Argument formal constructor (iteration)
+
+<i>Iteration scope for values of formal parameters in a constructor declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.argument.formal.constructor.iteration" languageId="dart" />
+
+#### 25. Value: Argument formal lambda (iteration)
+
+<i>Iteration scope for values of formal parameters in a lambda declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.argument.formal.lambda.iteration" languageId="dart" />
+
+#### 26. Value: Argument formal method (iteration)
+
+<i>Iteration scope for values of formal parameters in a method declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.argument.formal.method.iteration" languageId="dart" />
+
+#### 27. Value: Map pair (iteration)
+
+<i>Iteration scope for values of key-value pairs in a map: should be between the braces.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/value/value.mapPair.iteration" languageId="dart" />
+
+## Internal scopes
+
+The following are internal scopes. They are not intended for user interaction or spoken use. These scopes exist solely for internal Cursorless functionality.
+
+### Disqualify delimiter
+
+#### 1. Disqualify delimiter
+
+<i>Internally used to disqualify a token from being treated as a surrounding pair delimiter. This will usually be operators containing `>` or `<`, eg `<`, `<=`, `->`, etc.</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/disqualifyDelimiter" languageId="dart" />
+
+### Interior
+
+#### 1. Interior: Class
+
+<i>The body of a class</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/interior/interior.class" languageId="dart" />
+
+#### 2. Interior: Constructor
+
+<i>The body of a constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/interior/interior.constructor" languageId="dart" />
+
+#### 3. Interior: Do while
+
+<i>The body of a do-while loop</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/interior/interior.doWhile" languageId="dart" />
+
+#### 4. Interior: Enum
+
+<i>The body of an enum</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/interior/interior.enum" languageId="dart" />
+
+#### 5. Interior: For
+
+<i>The body of a for loop</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/interior/interior.for" languageId="dart" />
+
+#### 6. Interior: Foreach
+
+<i>The body of a for-each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/interior/interior.foreach" languageId="dart" />
+
+#### 7. Interior: Function
+
+<i>The body of a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/interior/interior.function" languageId="dart" />
+
+#### 8. Interior: If
+
+<i>The body of an if/elif/else branch</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/interior/interior.if" languageId="dart" />
+
+#### 9. Interior: Lambda
+
+<i>The block body of a lambda/anonymous function</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/interior/interior.lambda" languageId="dart" />
+
+#### 10. Interior: Method
+
+<i>The body of a method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/interior/interior.method" languageId="dart" />
+
+#### 11. Interior: Switch
+
+<i>The body of a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/interior/interior.switch" languageId="dart" />
+
+#### 12. Interior: Switch case
+
+<i>The body of a switch case branch</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/interior/interior.switchCase" languageId="dart" />
+
+<ScopeVisualizer fixtureName="scopes/dart/interior/interior.switchCase2" languageId="dart" />
+
+#### 13. Interior: Try
+
+<i>The body of a try/catch/finally branch</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/interior/interior.try" languageId="dart" />
+
+#### 14. Interior: While
+
+<i>The body of a while loop</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/interior/interior.while" languageId="dart" />
+
+### String
+
+#### 1. String: Multi line
+
+<i>A multi-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/string.multiLine" languageId="dart" />
+
+#### 2. String: Single line
+
+<i>A single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/string.singleLine" languageId="dart" />
+
+### Text fragment
+
+#### 1. Text fragment: Comment block
+
+<i>Internally used text fragment consisting of a block comment</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/textFragment.comment.block" languageId="dart" />
+
+#### 2. Text fragment: Comment line
+
+<i>Internally used text fragment consisting of a line comment</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/textFragment.comment.line" languageId="dart" />
+
+#### 3. Text fragment: String multi line
+
+<i>Internally used text fragment consisting of a multi-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/textFragment.string.multiLine" languageId="dart" />
+
+#### 4. Text fragment: String single line
+
+<i>Internally used text fragment consisting of a single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/dart/textFragment.string.singleLine" languageId="dart" />
+
+</ScopeVisualizerProvider>

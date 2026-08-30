@@ -1,11 +1,7 @@
 import type { ScopeType } from "@cursorless/lib-common";
-import { camelCaseToAllDown, isSimpleScopeType } from "@cursorless/lib-common";
+import { camelCaseToAllDown, scopeReferences } from "@cursorless/lib-common";
 
 export function scopeTypeToString(scopeType: ScopeType): string {
-  if (isSimpleScopeType(scopeType)) {
-    return camelCaseToAllDown(scopeType.type).replace(".", " ");
-  }
-
   if (scopeType.type === "surroundingPair") {
     return `Matching pair of ${camelCaseToAllDown(scopeType.delimiter)}`;
   }
@@ -14,5 +10,5 @@ export function scopeTypeToString(scopeType: ScopeType): string {
     return `Regex \`${scopeType.regex}\``;
   }
 
-  return "Unknown scope type";
+  return scopeReferences[scopeType.type].name;
 }

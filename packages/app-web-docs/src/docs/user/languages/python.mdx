@@ -1,5 +1,1345 @@
-import { Language } from "@site/src/docs/components/Language";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Python
 
-<Language languageId="python" />
+<ScopeVisualizerProvider>
+
+Below are visualizations of all our scope tests for this language. These were created primarily for testing purposes rather than as documentation. There are quite a few, and they may feel a bit overwhelming from a documentation standpoint.
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Anonymous function
+
+#### 1. Anonymous function
+
+<i>An anonymous function, eg a lambda function, an arrow function, etc.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/anonymousFunction" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/anonymousFunction2" languageId="python" />
+
+### Argument list
+
+#### 1. Argument list: Actual constructor empty
+
+<i>An empty list of arguments in a constructor call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argumentList/argumentList.actual.constructor.empty" languageId="python" />
+
+#### 2. Argument list: Actual constructor multi line
+
+<i>A multi line list of arguments in a constructor call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argumentList/argumentList.actual.constructor.multiLine" languageId="python" />
+
+#### 3. Argument list: Actual constructor single line
+
+<i>A single line list of arguments in a constructor call</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argumentList/argumentList.actual.constructor.singleLine" languageId="python" />
+
+#### 4. Argument list: Actual empty
+
+<i>An empty list of arguments in a function call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argumentList/argumentList.actual.empty" languageId="python" />
+
+#### 5. Argument list: Actual method empty
+
+<i>An empty list of arguments in a method call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argumentList/argumentList.actual.method.empty" languageId="python" />
+
+#### 6. Argument list: Actual method multi line
+
+<i>A multi line list of arguments in a method call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argumentList/argumentList.actual.method.multiLine" languageId="python" />
+
+#### 7. Argument list: Actual method single line
+
+<i>A single line list of arguments in a method call</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argumentList/argumentList.actual.method.singleLine" languageId="python" />
+
+#### 8. Argument list: Actual multi line
+
+<i>A multi line list of arguments in a function call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argumentList/argumentList.actual.multiLine" languageId="python" />
+
+#### 9. Argument list: Actual single line
+
+<i>A single line list of arguments in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argumentList/argumentList.actual.singleLine" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/argumentList/argumentList.actual.singleLine2" languageId="python" />
+
+#### 10. Argument list: Formal constructor empty
+
+<i>An empty list of parameters in a constructor declaration. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argumentList/argumentList.formal.constructor.empty" languageId="python" />
+
+#### 11. Argument list: Formal constructor multi line
+
+<i>A multi line list of parameters in a constructor declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argumentList/argumentList.formal.constructor.multiLine" languageId="python" />
+
+#### 12. Argument list: Formal constructor single line
+
+<i>A single line list of parameters in a constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argumentList/argumentList.formal.constructor.singleLine" languageId="python" />
+
+#### 13. Argument list: Formal empty
+
+<i>An empty list of parameters in a function declaration. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argumentList/argumentList.formal.empty" languageId="python" />
+
+#### 14. Argument list: Formal lambda empty
+
+<i>An empty list of parameters in a lambda declaration. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argumentList/argumentList.formal.lambda.empty" languageId="python" />
+
+#### 15. Argument list: Formal lambda single line
+
+<i>A single line list of parameters in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argumentList/argumentList.formal.lambda.singleLine" languageId="python" />
+
+#### 16. Argument list: Formal method empty
+
+<i>An empty list of parameters in a class method declaration. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argumentList/argumentList.formal.method.empty" languageId="python" />
+
+#### 17. Argument list: Formal method multi line
+
+<i>A multi line list of parameters in a class method declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argumentList/argumentList.formal.method.multiLine" languageId="python" />
+
+#### 18. Argument list: Formal method single line
+
+<i>A single line list of parameters in a class method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argumentList/argumentList.formal.method.singleLine" languageId="python" />
+
+#### 19. Argument list: Formal multi line
+
+<i>A multi line list of parameters in a function declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argumentList/argumentList.formal.multiLine" languageId="python" />
+
+#### 20. Argument list: Formal single line
+
+<i>A single line list of parameters in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argumentList/argumentList.formal.singleLine" languageId="python" />
+
+### Argument or parameter
+
+#### 1. Argument: Actual constructor multi line
+
+<i>A multi line argument in a constructor call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argument/argument.actual.constructor.multiLine" languageId="python" />
+
+#### 2. Argument: Actual constructor single line
+
+<i>A single line argument in a constructor call</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argument/argument.actual.constructor.singleLine" languageId="python" />
+
+#### 3. Argument: Actual method multi line
+
+<i>A multi line argument in a method call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argument/argument.actual.method.multiLine" languageId="python" />
+
+#### 4. Argument: Actual method single line
+
+<i>A single line argument in a method call</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argument/argument.actual.method.singleLine" languageId="python" />
+
+#### 5. Argument: Actual multi line
+
+<i>A multiline argument in a function call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argument/argument.actual.multiLine" languageId="python" />
+
+#### 6. Argument: Actual single line
+
+<i>A single line argument in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argument/argument.actual.singleLine" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/argument/argument.actual.singleLine2" languageId="python" />
+
+#### 7. Argument: Formal catch
+
+<i>A parameter in a catch clause</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argument/argument.formal.catch" languageId="python" />
+
+#### 8. Argument: Formal constructor multi line
+
+<i>A multi line parameter in a constructor declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argument/argument.formal.constructor.multiLine" languageId="python" />
+
+#### 9. Argument: Formal constructor single line
+
+<i>A single line parameter in a constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argument/argument.formal.constructor.singleLine" languageId="python" />
+
+#### 10. Argument: Formal lambda single line
+
+<i>A single line parameter in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argument/argument.formal.lambda.singleLine" languageId="python" />
+
+#### 11. Argument: Formal method multi line
+
+<i>A multi line parameter in a class method declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argument/argument.formal.method.multiLine" languageId="python" />
+
+#### 12. Argument: Formal method single line
+
+<i>A single line parameter in a class method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argument/argument.formal.method.singleLine" languageId="python" />
+
+#### 13. Argument: Formal multi line
+
+<i>A multi line parameter in a function declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argument/argument.formal.multiLine" languageId="python" />
+
+#### 14. Argument: Formal single line
+
+<i>A single line parameter in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argument/argument.formal.singleLine" languageId="python" />
+
+#### 15. Argument: Actual (iteration)
+
+<i>Iteration scope for arguments in a function call: the argument list. The domain should be the entire function call.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argument/argument.actual.iteration" languageId="python" />
+
+#### 16. Argument: Actual constructor (iteration)
+
+<i>Iteration scope for arguments in a constructor call: the argument list. The domain should be the entire constructor call..</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argument/argument.actual.constructor.iteration" languageId="python" />
+
+#### 17. Argument: Actual method (iteration)
+
+<i>Iteration scope for arguments in a method call: the argument list. The domain should be the entire method call.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argument/argument.actual.method.iteration" languageId="python" />
+
+#### 18. Argument: Formal (iteration)
+
+<i>Iteration scope for formal parameters in a function declaration: the parameters list. The domain should be the entire function.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argument/argument.formal.iteration" languageId="python" />
+
+#### 19. Argument: Formal constructor (iteration)
+
+<i>Iteration scope for formal parameters in a constructor declaration: the parameter list. The domain should be the entire constructor.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argument/argument.formal.constructor.iteration" languageId="python" />
+
+#### 20. Argument: Formal lambda (iteration)
+
+<i>Iteration scope for formal parameters in a lambda declaration: the parameter list. The domain should be the entire lambda.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argument/argument.formal.lambda.iteration" languageId="python" />
+
+#### 21. Argument: Formal method (iteration)
+
+<i>Iteration scope for formal parameters in a method declaration: the parameter list. The domain should be the entire method.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/argument/argument.formal.method.iteration" languageId="python" />
+
+### Branch
+
+#### 1. Branch: If
+
+<i>An if branch</i>
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.if" languageId="python" />
+
+#### 2. Branch: If elif else
+
+<i>An if-elif-else branch. The removal range for the if branch should include the trailing `else` keyword.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.if.elif.else" languageId="python" />
+
+#### 3. Branch: If else
+
+<i>An if-else branch</i>
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.if.else" languageId="python" />
+
+#### 4. Branch: Loop
+
+<i>A for / while loop branch. For most languages this is not supported, but eg in Python you can have an else branch for a loop.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.loop" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.loop2" languageId="python" />
+
+#### 5. Branch: Switch case
+
+<i>A case/default branch in a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.switchCase" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.switchCase2" languageId="python" />
+
+#### 6. Branch: Ternary
+
+<i>A branch in a ternary expression</i>
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.ternary" languageId="python" />
+
+#### 7. Branch: Try
+
+<i>A try/catch/finally branch</i>
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.try" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.try2" languageId="python" />
+
+#### 8. Branch: If (iteration)
+
+<i>Iteration scope for if/elif/else branches: the if-else statement.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.if.iteration" languageId="python" />
+
+#### 9. Branch: Loop (iteration)
+
+<i>Iteration scope for loop branches: the loop statement.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.loop.iteration" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.loop.iteration2" languageId="python" />
+
+#### 10. Branch: Switch case (iteration)
+
+<i>Iteration scope for switch branches: the switch statement body.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.switchCase.iteration" languageId="python" />
+
+#### 11. Branch: Ternary (iteration)
+
+<i>Iteration scope for ternary expression branches: the ternary expression.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.ternary.iteration" languageId="python" />
+
+#### 12. Branch: Try (iteration)
+
+<i>Iteration scope for try/catch/finally branches: the try-catch statement.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.try.iteration" languageId="python" />
+
+### Class
+
+#### 1. Class
+
+<i>A class/struct in an object-oriented language</i>
+
+<ScopeVisualizer fixtureName="scopes/python/class" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/class2" languageId="python" />
+
+#### 2. Class (iteration class)
+
+<i>Iteration scope for classes: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/class.iteration.class" languageId="python" />
+
+#### 3. Class (iteration document)
+
+<i>Iteration scope for classes: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/class.iteration.document" languageId="python" />
+
+### Collection item
+
+#### 1. Collection item: Unenclosed single line
+
+<i>An item in a comma-separated single line list without enclosing delimiters. This could be multi-variable declarations, import statements, etc.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/collectionItem/collectionItem.unenclosed.singleLine" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/collectionItem/collectionItem.unenclosed.singleLine2" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/collectionItem/collectionItem.unenclosed.singleLine3" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/collectionItem/collectionItem.unenclosed.singleLine4" languageId="python" />
+
+#### 2. Collection item: Unenclosed (iteration)
+
+<i>Iteration scope for items in a comma-separated list without enclosing delimiters</i>
+
+<ScopeVisualizer fixtureName="scopes/python/collectionItem/collectionItem.unenclosed.iteration" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/collectionItem/collectionItem.unenclosed.iteration2" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/collectionItem/collectionItem.unenclosed.iteration3" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/collectionItem/collectionItem.unenclosed.iteration4" languageId="python" />
+
+### Collection key
+
+#### 1. Key: Map pair
+
+<i>Key (LHS) of a key-value pair of a map</i>
+
+<ScopeVisualizer fixtureName="scopes/python/key.mapPair" languageId="python" />
+
+#### 2. Key: Map pair (iteration)
+
+<i>Iteration scope for keys of key-value pairs in a map: should be between the braces.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/key.mapPair.iteration" languageId="python" />
+
+### Comment
+
+#### 1. Comment: Line
+
+<i>A line comment</i>
+
+<ScopeVisualizer fixtureName="scopes/python/comment.line" languageId="python" />
+
+### Condition
+
+#### 1. Condition: If
+
+<i>A condition in an if statement</i>
+
+<ScopeVisualizer fixtureName="scopes/python/condition/condition.if" languageId="python" />
+
+#### 2. Condition: Switch case
+
+<i>A condition in a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/python/condition/condition.switchCase" languageId="python" />
+
+#### 3. Condition: Ternary
+
+<i>A condition in a ternary expression</i>
+
+<ScopeVisualizer fixtureName="scopes/python/condition/condition.ternary" languageId="python" />
+
+#### 4. Condition: While
+
+<i>A condition in a while loop</i>
+
+<ScopeVisualizer fixtureName="scopes/python/condition/condition.while" languageId="python" />
+
+#### 5. Condition: Switch case (iteration)
+
+<i>Iteration scope for conditions in a switch statement: the switch statement body.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/condition/condition.switchCase.iteration" languageId="python" />
+
+### Function call
+
+#### 1. Function call
+
+<i>A function call</i>
+
+<ScopeVisualizer fixtureName="scopes/python/functionCall" languageId="python" />
+
+#### 2. Function call: Chain
+
+<i>A chain of function calls, eg `foo().bar()`</i>
+
+<ScopeVisualizer fixtureName="scopes/python/functionCall.chain" languageId="python" />
+
+#### 3. Function call: Constructor
+
+<i>A constructor call</i>
+
+<ScopeVisualizer fixtureName="scopes/python/functionCall.constructor" languageId="python" />
+
+#### 4. Function call: Method
+
+<i>A method call</i>
+
+<ScopeVisualizer fixtureName="scopes/python/functionCall.method" languageId="python" />
+
+### Function callee
+
+#### 1. Function callee
+
+<i>The function being called in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/python/functionCallee" languageId="python" />
+
+#### 2. Function callee: Chain
+
+<i>The function being called in a chain of function calls, including parent objects.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/functionCallee.chain" languageId="python" />
+
+#### 3. Function callee: Constructor
+
+<i>The class being constructed in a class instantiation, including the `new` keyword.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/functionCallee.constructor" languageId="python" />
+
+#### 4. Function callee: Method
+
+<i>The function being called in a method call, including parent objects.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/functionCallee.method" languageId="python" />
+
+### If statement
+
+#### 1. If statement
+
+<i>An if statement</i>
+
+<ScopeVisualizer fixtureName="scopes/python/ifStatement" languageId="python" />
+
+### List
+
+#### 1. List
+
+<i>A list/array</i>
+
+<ScopeVisualizer fixtureName="scopes/python/list" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/list2" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/list3" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/list4" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/list5" languageId="python" />
+
+### Map
+
+#### 1. Map
+
+<i>A map/dictionary</i>
+
+<ScopeVisualizer fixtureName="scopes/python/map" languageId="python" />
+
+### Name
+
+#### 1. Name: Argument actual
+
+<i>Name of a (keyword) argument in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.argument.actual" languageId="python" />
+
+#### 2. Name: Argument catch
+
+<i>Name of a parameter in a catch clause</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.argument.catch" languageId="python" />
+
+#### 3. Name: Argument formal
+
+<i>Name of a parameter in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.argument.formal" languageId="python" />
+
+#### 4. Name: Argument formal constructor
+
+<i>The name of a parameter in a constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.argument.formal.constructor" languageId="python" />
+
+#### 5. Name: Argument formal lambda
+
+<i>Name of a parameter in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.argument.formal.lambda" languageId="python" />
+
+#### 6. Name: Argument formal method
+
+<i>Name of a parameter in a class method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.argument.formal.method" languageId="python" />
+
+#### 7. Name: Assignment
+
+<i>Name (LHS) of an assignment</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.assignment" languageId="python" />
+
+#### 8. Name: Assignment compound
+
+<i>Name (LHS) of a compound assignment, eg +=/-=</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.assignment.compound" languageId="python" />
+
+#### 9. Name: Assignment destructuring
+
+<i>LHS of an assignment with pattern destructuring</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.assignment.destructuring" languageId="python" />
+
+#### 10. Name: Class
+
+<i>Name of a class</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.class" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.class2" languageId="python" />
+
+#### 11. Name: Constructor
+
+<i>Name of a constructor</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.constructor" languageId="python" />
+
+#### 12. Name: Field class
+
+<i>Name (LHS) of a field in a class</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.field.class" languageId="python" />
+
+#### 13. Name: Foreach
+
+<i>Iteration variable name in a for each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.foreach" languageId="python" />
+
+#### 14. Name: Function
+
+<i>Name of a function</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.function" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.function2" languageId="python" />
+
+#### 15. Name: Method
+
+<i>Name of a class method</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.method" languageId="python" />
+
+#### 16. Name: Resource
+
+<i>Name in a 'with' / 'use' / 'using' statement</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.resource" languageId="python" />
+
+#### 17. Name: Variable destructuring
+
+<i>Name (LHS) of a variable declaration with pattern destructuring</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.variable.destructuring" languageId="python" />
+
+#### 18. Name: Variable initialized
+
+<i>Name (LHS) of an initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.variable.initialized" languageId="python" />
+
+#### 19. Name: Variable uninitialized
+
+<i>Name (LHS) of an uninitialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.variable.uninitialized" languageId="python" />
+
+#### 20. Name (iteration block)
+
+<i>Iteration scope for names: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.iteration.block" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.iteration.block2" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.iteration.block3" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.iteration.block4" languageId="python" />
+
+#### 21. Name (iteration class)
+
+<i>Iteration scope for names: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.iteration.class" languageId="python" />
+
+#### 22. Name (iteration document)
+
+<i>Iteration scope for names: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.iteration.document" languageId="python" />
+
+#### 23. Name: Argument actual (iteration)
+
+<i>Iteration scope for names of (keyword) arguments in a function call: the argument list.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.argument.actual.iteration" languageId="python" />
+
+#### 24. Name: Argument formal (iteration)
+
+<i>Iteration scope for names of formal parameters in a function declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.argument.formal.iteration" languageId="python" />
+
+#### 25. Name: Argument formal constructor (iteration)
+
+<i>Iteration scope for names of formal parameters in a constructor declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.argument.formal.constructor.iteration" languageId="python" />
+
+#### 26. Name: Argument formal lambda (iteration)
+
+<i>Iteration scope for names of formal parameters in a lambda declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.argument.formal.lambda.iteration" languageId="python" />
+
+#### 27. Name: Argument formal method (iteration)
+
+<i>Iteration scope for names of formal parameters in a method declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/name/name.argument.formal.method.iteration" languageId="python" />
+
+### Named function
+
+#### 1. Named function
+
+<i>A named function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/namedFunction/namedFunction" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/namedFunction/namedFunction2" languageId="python" />
+
+#### 2. Named function: Constructor
+
+<i>A constructor declaration in a class</i>
+
+<ScopeVisualizer fixtureName="scopes/python/namedFunction/namedFunction.constructor" languageId="python" />
+
+#### 3. Named function: Method
+
+<i>A named method declaration in a class</i>
+
+<ScopeVisualizer fixtureName="scopes/python/namedFunction/namedFunction.method" languageId="python" />
+
+#### 4. Named function (iteration class)
+
+<i>Iteration scope for named functions: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/namedFunction/namedFunction.iteration.class" languageId="python" />
+
+#### 5. Named function (iteration document)
+
+<i>Iteration scope for named functions: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/namedFunction/namedFunction.iteration.document" languageId="python" />
+
+### Statement
+
+#### 1. Statement: Assignment
+
+<i>An assignment statement</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.assignment" languageId="python" />
+
+#### 2. Statement: Assignment compound
+
+<i>A compound assignment statement, eg +=/-=</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.assignment.compound" languageId="python" />
+
+#### 3. Statement: Assignment destructuring
+
+<i>An assignment statement with pattern destructuring</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.assignment.destructuring" languageId="python" />
+
+#### 4. Statement: Break
+
+<i>A break statement</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.break" languageId="python" />
+
+#### 5. Statement: Class
+
+<i>A class/struct declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.class" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.class2" languageId="python" />
+
+#### 6. Statement: Constructor
+
+<i>A constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.constructor" languageId="python" />
+
+#### 7. Statement: Continue
+
+<i>A continue statement</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.continue" languageId="python" />
+
+#### 8. Statement: Field class
+
+<i>A field declaration in a class/struct</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.field.class" languageId="python" />
+
+#### 9. Statement: Foreach
+
+<i>A for-each loop statement</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.foreach" languageId="python" />
+
+#### 10. Statement: Function
+
+<i>A named function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.function" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.function2" languageId="python" />
+
+#### 11. Statement: Function call
+
+<i>A function call statement</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.functionCall" languageId="python" />
+
+#### 12. Statement: If
+
+<i>A if/elif/else statement</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.if" languageId="python" />
+
+#### 13. Statement: Import
+
+<i>An import statement</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.import" languageId="python" />
+
+#### 14. Statement: Method
+
+<i>A method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.method" languageId="python" />
+
+#### 15. Statement: Resource
+
+<i>A 'with' / 'use' / 'using' statement</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.resource" languageId="python" />
+
+#### 16. Statement: Return
+
+<i>A return statement</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.return" languageId="python" />
+
+#### 17. Statement: Switch
+
+<i>A switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.switch" languageId="python" />
+
+#### 18. Statement: Throw
+
+<i>A throw statement</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.throw" languageId="python" />
+
+#### 19. Statement: Try
+
+<i>A try/catch/finally statement</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.try" languageId="python" />
+
+#### 20. Statement: Variable destructuring
+
+<i>A variable declaration pattern destructuring</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.variable.destructuring" languageId="python" />
+
+#### 21. Statement: Variable initialized
+
+<i>An initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.variable.initialized" languageId="python" />
+
+#### 22. Statement: Variable uninitialized
+
+<i>An uninitialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.variable.uninitialized" languageId="python" />
+
+#### 23. Statement: While
+
+<i>A while loop statement</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.while" languageId="python" />
+
+#### 24. Statement: Yield
+
+<i>A yield statement</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.yield" languageId="python" />
+
+#### 25. Statement (iteration block)
+
+<i>Iteration scope for statements: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.iteration.block" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.iteration.block2" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.iteration.block3" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.iteration.block4" languageId="python" />
+
+#### 26. Statement (iteration class)
+
+<i>Iteration scope for statements: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.iteration.class" languageId="python" />
+
+#### 27. Statement (iteration document)
+
+<i>Iteration scope for statements: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/statement/statement.iteration.document" languageId="python" />
+
+### Type
+
+#### 1. Type: Argument catch
+
+<i>Type of a parameter in a catch clause</i>
+
+<ScopeVisualizer fixtureName="scopes/python/type/type.argument.catch" languageId="python" />
+
+#### 2. Type: Argument formal
+
+<i>Type of a formal parameter in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/type/type.argument.formal" languageId="python" />
+
+#### 3. Type: Argument formal constructor
+
+<i>Type of a formal parameter in a constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/type/type.argument.formal.constructor" languageId="python" />
+
+#### 4. Type: Argument formal method
+
+<i>Type of a formal parameter in a class method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/type/type.argument.formal.method" languageId="python" />
+
+#### 5. Type: Class
+
+<i>A class declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/type/type.class" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/type/type.class2" languageId="python" />
+
+#### 6. Type: Field class
+
+<i>Type of a field in a class</i>
+
+<ScopeVisualizer fixtureName="scopes/python/type/type.field.class" languageId="python" />
+
+#### 7. Type: Return
+
+<i>Type of a return value in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/type/type.return" languageId="python" />
+
+#### 8. Type: Return method
+
+<i>Type of a return value in a method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/type/type.return.method" languageId="python" />
+
+#### 9. Type: Type argument
+
+<i>Type argument to a generic / parametrized type</i>
+
+<ScopeVisualizer fixtureName="scopes/python/type/type.typeArgument" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/type/type.typeArgument2" languageId="python" />
+
+#### 10. Type: Variable initialized
+
+<i>Type of an initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/type/type.variable.initialized" languageId="python" />
+
+#### 11. Type: Variable uninitialized
+
+<i>Type of an uninitialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/type/type.variable.uninitialized" languageId="python" />
+
+#### 12. Type (iteration block)
+
+<i>Iteration scope for types: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/python/type/type.iteration.block" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/type/type.iteration.block2" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/type/type.iteration.block3" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/type/type.iteration.block4" languageId="python" />
+
+#### 13. Type (iteration class)
+
+<i>Iteration scope for types: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/type/type.iteration.class" languageId="python" />
+
+#### 14. Type (iteration document)
+
+<i>Iteration scope for types: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/type/type.iteration.document" languageId="python" />
+
+#### 15. Type: Argument formal (iteration)
+
+<i>Iteration scope for types of formal parameters in a function declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/type/type.argument.formal.iteration" languageId="python" />
+
+#### 16. Type: Argument formal constructor (iteration)
+
+<i>Iteration scope for types of formal parameters in a constructor declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/type/type.argument.formal.constructor.iteration" languageId="python" />
+
+#### 17. Type: Argument formal method (iteration)
+
+<i>Iteration scope for types of formal parameters in a method declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/type/type.argument.formal.method.iteration" languageId="python" />
+
+#### 18. Type: Type argument (iteration)
+
+<i>Iteration scope for type arguments to a generic / parametrized type: the type argument list.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/type/type.typeArgument.iteration" languageId="python" />
+
+### Value
+
+#### 1. Value: Argument actual
+
+<i>The value of a (keyword) argument in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.argument.actual" languageId="python" />
+
+#### 2. Value: Argument formal
+
+<i>The (default) value of a argument in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.argument.formal" languageId="python" />
+
+#### 3. Value: Argument formal constructor
+
+<i>The (default) value of a parameter in a constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.argument.formal.constructor" languageId="python" />
+
+#### 4. Value: Argument formal lambda
+
+<i>The (default) value of a parameter in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.argument.formal.lambda" languageId="python" />
+
+#### 5. Value: Argument formal method
+
+<i>The (default) value of a parameter in a method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.argument.formal.method" languageId="python" />
+
+#### 6. Value: Assignment
+
+<i>Value (RHS) of an assignment</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.assignment" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.assignment2" languageId="python" />
+
+#### 7. Value: Assignment compound
+
+<i>Value (RHS) of a compound assignment, eg +=/-=</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.assignment.compound" languageId="python" />
+
+#### 8. Value: Assignment destructuring
+
+<i>Value (RHS) of an assignment with pattern destructuring</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.assignment.destructuring" languageId="python" />
+
+#### 9. Value: Field class
+
+<i>Value (RHS) of a field in a class</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.field.class" languageId="python" />
+
+#### 10. Value: Foreach
+
+<i>Iterable in a for each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.foreach" languageId="python" />
+
+#### 11. Value: Map pair
+
+<i>Value (RHS) of a key-value pair in a map</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.mapPair" languageId="python" />
+
+#### 12. Value: Return
+
+<i>Return value of a function</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.return" languageId="python" />
+
+#### 13. Value: Return lambda
+
+<i>Implicit return value from a lambda</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.return.lambda" languageId="python" />
+
+#### 14. Value: Switch
+
+<i>The value / subject of a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.switch" languageId="python" />
+
+#### 15. Value: Throw
+
+<i>Value of a throw statement</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.throw" languageId="python" />
+
+#### 16. Value: Variable
+
+<i>Value (RHS) of a variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.variable" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.variable2" languageId="python" />
+
+#### 17. Value: Variable destructuring
+
+<i>Value (RHS) of a variable declaration with pattern destructuring</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.variable.destructuring" languageId="python" />
+
+#### 18. Value: Yield
+
+<i>Value of a yield statement</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.yield" languageId="python" />
+
+#### 19. Value (iteration block)
+
+<i>Iteration scope for values: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.iteration.block" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.iteration.block2" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.iteration.block3" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.iteration.block4" languageId="python" />
+
+#### 20. Value (iteration class)
+
+<i>Iteration scope for values: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.iteration.class" languageId="python" />
+
+#### 21. Value (iteration document)
+
+<i>Iteration scope for values: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.iteration.document" languageId="python" />
+
+#### 22. Value: Argument actual (iteration)
+
+<i>Iteration scope for values of (keyword) arguments in a function call: the arguments list.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.argument.actual.iteration" languageId="python" />
+
+#### 23. Value: Argument formal (iteration)
+
+<i>Iteration scope for values of formal parameters in a function declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.argument.formal.iteration" languageId="python" />
+
+#### 24. Value: Argument formal constructor (iteration)
+
+<i>Iteration scope for values of formal parameters in a constructor declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.argument.formal.constructor.iteration" languageId="python" />
+
+#### 25. Value: Argument formal lambda (iteration)
+
+<i>Iteration scope for values of formal parameters in a lambda declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.argument.formal.lambda.iteration" languageId="python" />
+
+#### 26. Value: Argument formal method (iteration)
+
+<i>Iteration scope for values of formal parameters in a method declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.argument.formal.method.iteration" languageId="python" />
+
+#### 27. Value: Map pair (iteration)
+
+<i>Iteration scope for values of key-value pairs in a map: should be between the braces.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/value/value.mapPair.iteration" languageId="python" />
+
+## Internal scopes
+
+The following are internal scopes. They are not intended for user interaction or spoken use. These scopes exist solely for internal Cursorless functionality.
+
+### Disqualify delimiter
+
+#### 1. Disqualify delimiter
+
+<i>Internally used to disqualify a token from being treated as a surrounding pair delimiter. This will usually be operators containing `>` or `<`, eg `<`, `<=`, `->`, etc.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/disqualifyDelimiter" languageId="python" />
+
+### Interior
+
+#### 1. Interior: Class
+
+<i>The body of a class</i>
+
+<ScopeVisualizer fixtureName="scopes/python/interior/interior.class" languageId="python" />
+
+#### 2. Interior: Constructor
+
+<i>The body of a constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/interior/interior.constructor" languageId="python" />
+
+#### 3. Interior: Foreach
+
+<i>The body of a for-each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/python/interior/interior.foreach" languageId="python" />
+
+#### 4. Interior: Function
+
+<i>The body of a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/interior/interior.function" languageId="python" />
+
+#### 5. Interior: If
+
+<i>The body of an if/elif/else branch</i>
+
+<ScopeVisualizer fixtureName="scopes/python/interior/interior.if" languageId="python" />
+
+#### 6. Interior: Method
+
+<i>The body of a method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/python/interior/interior.method" languageId="python" />
+
+#### 7. Interior: Resource
+
+<i>the body of a 'with' / 'use' / 'using' statement</i>
+
+<ScopeVisualizer fixtureName="scopes/python/interior/interior.resource" languageId="python" />
+
+#### 8. Interior: Switch
+
+<i>The body of a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/python/interior/interior.switch" languageId="python" />
+
+#### 9. Interior: Switch case
+
+<i>The body of a switch case branch</i>
+
+<ScopeVisualizer fixtureName="scopes/python/interior/interior.switchCase" languageId="python" />
+
+#### 10. Interior: Try
+
+<i>The body of a try/catch/finally branch</i>
+
+<ScopeVisualizer fixtureName="scopes/python/interior/interior.try" languageId="python" />
+
+<ScopeVisualizer fixtureName="scopes/python/interior/interior.try2" languageId="python" />
+
+#### 11. Interior: While
+
+<i>The body of a while loop</i>
+
+<ScopeVisualizer fixtureName="scopes/python/interior/interior.while" languageId="python" />
+
+### Pair delimiter
+
+#### 1. Pair delimiter
+
+<i>Internally used to add additional language specific surrounding pair delimiters in addition to the text based definitions. eg `r"`.</i>
+
+<ScopeVisualizer fixtureName="scopes/python/pairDelimiter" languageId="python" />
+
+### String
+
+#### 1. String: Multi line
+
+<i>A multi-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/python/string.multiLine" languageId="python" />
+
+#### 2. String: Single line
+
+<i>A single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/python/string.singleLine" languageId="python" />
+
+### Text fragment
+
+#### 1. Text fragment: Comment line
+
+<i>Internally used text fragment consisting of a line comment</i>
+
+<ScopeVisualizer fixtureName="scopes/python/textFragment.comment.line" languageId="python" />
+
+#### 2. Text fragment: String multi line
+
+<i>Internally used text fragment consisting of a multi-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/python/textFragment.string.multiLine" languageId="python" />
+
+#### 3. Text fragment: String single line
+
+<i>Internally used text fragment consisting of a single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/python/textFragment.string.singleLine" languageId="python" />
+
+</ScopeVisualizerProvider>

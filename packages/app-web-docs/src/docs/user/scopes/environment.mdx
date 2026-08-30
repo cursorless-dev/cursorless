@@ -2,7 +2,7 @@
 sidebar_label: Environment
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Environment
 
@@ -20,4 +20,18 @@ Default: `environment`
 
 - `"take environment blue air"` - Selects the environment containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="environment" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Environment
+
+<i>An environment, eg in LaTeX</i>
+
+##### Latex
+
+<ScopeVisualizer fixtureName="scopes/latex/environment" />
+
+</ScopeVisualizerProvider>

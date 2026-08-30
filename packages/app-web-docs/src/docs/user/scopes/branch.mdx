@@ -2,7 +2,7 @@
 sidebar_label: Branch
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Branch
 
@@ -20,4 +20,610 @@ Default: `branch`
 
 - `"take branch blue air"` - Selects the branch containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="branch" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Branch: If
+
+<i>An if branch</i>
+
+##### C
+
+<ScopeVisualizer fixtureName="scopes/c/branch/branch.if" />
+
+##### C#
+
+<ScopeVisualizer fixtureName="scopes/csharp/branch/branch.if" />
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/branch/branch.if" />
+
+##### Go
+
+<ScopeVisualizer fixtureName="scopes/go/branch/branch.if" />
+
+##### Java
+
+<ScopeVisualizer fixtureName="scopes/java/branch/branch.if" />
+
+##### JavaScript
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/branch/branch.if" />
+
+##### Kotlin
+
+<ScopeVisualizer fixtureName="scopes/kotlin/branch/branch.if" />
+
+##### Lua
+
+<ScopeVisualizer fixtureName="scopes/lua/branch/branch.if" />
+
+##### PHP
+
+<ScopeVisualizer fixtureName="scopes/php/branch/branch.if" />
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.if" />
+
+##### R
+
+<ScopeVisualizer fixtureName="scopes/r/branch/branch.if" />
+
+##### Ruby
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.if" />
+
+##### Rust
+
+<ScopeVisualizer fixtureName="scopes/rust/branch/branch.if" />
+
+##### Scala
+
+<ScopeVisualizer fixtureName="scopes/scala/branch/branch.if" />
+
+##### SCSS
+
+<ScopeVisualizer fixtureName="scopes/scss/branch.if" />
+
+### Branch: If elif else
+
+<i>An if-elif-else branch. The removal range for the if branch should include the trailing `else` keyword.</i>
+
+##### C
+
+<ScopeVisualizer fixtureName="scopes/c/branch/branch.if.elif.else" />
+
+##### C#
+
+<ScopeVisualizer fixtureName="scopes/csharp/branch/branch.if.elif.else" />
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/branch/branch.if.elif.else" />
+
+##### Go
+
+<ScopeVisualizer fixtureName="scopes/go/branch/branch.if.elif.else" />
+
+##### Java
+
+<ScopeVisualizer fixtureName="scopes/java/branch/branch.if.elif.else" />
+
+##### JavaScript
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/branch/branch.if.elif.else" />
+
+##### Kotlin
+
+<ScopeVisualizer fixtureName="scopes/kotlin/branch/branch.if.elif.else" />
+
+##### Lua
+
+<ScopeVisualizer fixtureName="scopes/lua/branch/branch.if.elif.else" />
+
+##### PHP
+
+<ScopeVisualizer fixtureName="scopes/php/branch/branch.if.elif.else" />
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.if.elif.else" />
+
+##### R
+
+<ScopeVisualizer fixtureName="scopes/r/branch/branch.if.elif.else" />
+
+##### Ruby
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.if.elif.else" />
+
+##### Rust
+
+<ScopeVisualizer fixtureName="scopes/rust/branch/branch.if.elif.else" />
+
+##### Scala
+
+<ScopeVisualizer fixtureName="scopes/scala/branch/branch.if.elif.else" />
+
+##### SCSS
+
+<ScopeVisualizer fixtureName="scopes/scss/branch.if.elif.else" />
+
+### Branch: If else
+
+<i>An if-else branch</i>
+
+##### C
+
+<ScopeVisualizer fixtureName="scopes/c/branch/branch.if.else" />
+
+##### C#
+
+<ScopeVisualizer fixtureName="scopes/csharp/branch/branch.if.else" />
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/branch/branch.if.else" />
+
+##### Go
+
+<ScopeVisualizer fixtureName="scopes/go/branch/branch.if.else" />
+
+##### Java
+
+<ScopeVisualizer fixtureName="scopes/java/branch/branch.if.else" />
+
+##### JavaScript
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/branch/branch.if.else" />
+
+##### Kotlin
+
+<ScopeVisualizer fixtureName="scopes/kotlin/branch/branch.if.else" />
+
+##### Lua
+
+<ScopeVisualizer fixtureName="scopes/lua/branch/branch.if.else" />
+
+##### PHP
+
+<ScopeVisualizer fixtureName="scopes/php/branch/branch.if.else" />
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.if.else" />
+
+##### R
+
+<ScopeVisualizer fixtureName="scopes/r/branch/branch.if.else" />
+
+##### Ruby
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.if.else" />
+
+##### Rust
+
+<ScopeVisualizer fixtureName="scopes/rust/branch/branch.if.else" />
+
+##### Scala
+
+<ScopeVisualizer fixtureName="scopes/scala/branch/branch.if.else" />
+
+##### SCSS
+
+<ScopeVisualizer fixtureName="scopes/scss/branch.if.else" />
+
+### Branch: Loop
+
+<i>A for / while loop branch. For most languages this is not supported, but eg in Python you can have an else branch for a loop.</i>
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.loop" />
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.loop2" />
+
+### Branch: Switch case
+
+<i>A case/default branch in a switch statement</i>
+
+##### C
+
+<ScopeVisualizer fixtureName="scopes/c/branch/branch.switchCase" />
+
+<ScopeVisualizer fixtureName="scopes/c/branch/branch.switchCase2" />
+
+##### C#
+
+<ScopeVisualizer fixtureName="scopes/csharp/branch/branch.switchCase" />
+
+<ScopeVisualizer fixtureName="scopes/csharp/branch/branch.switchCase2" />
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/branch/branch.switchCase" />
+
+<ScopeVisualizer fixtureName="scopes/dart/branch/branch.switchCase2" />
+
+##### Go
+
+<ScopeVisualizer fixtureName="scopes/go/branch/branch.switchCase" />
+
+<ScopeVisualizer fixtureName="scopes/go/branch/branch.switchCase2" />
+
+##### Java
+
+<ScopeVisualizer fixtureName="scopes/java/branch/branch.switchCase" />
+
+<ScopeVisualizer fixtureName="scopes/java/branch/branch.switchCase2" />
+
+##### JavaScript
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/branch/branch.switchCase" />
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/branch/branch.switchCase2" />
+
+##### Kotlin
+
+<ScopeVisualizer fixtureName="scopes/kotlin/branch/branch.switchCase" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/branch/branch.switchCase2" />
+
+##### PHP
+
+<ScopeVisualizer fixtureName="scopes/php/branch/branch.switchCase" />
+
+<ScopeVisualizer fixtureName="scopes/php/branch/branch.switchCase2" />
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.switchCase" />
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.switchCase2" />
+
+##### R
+
+<ScopeVisualizer fixtureName="scopes/r/branch/branch.switchCase" />
+
+<ScopeVisualizer fixtureName="scopes/r/branch/branch.switchCase2" />
+
+<ScopeVisualizer fixtureName="scopes/r/branch/branch.switchCase3" />
+
+##### Ruby
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.switchCase" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.switchCase2" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.switchCase3" />
+
+##### Rust
+
+<ScopeVisualizer fixtureName="scopes/rust/branch/branch.switchCase" />
+
+<ScopeVisualizer fixtureName="scopes/rust/branch/branch.switchCase2" />
+
+##### Scala
+
+<ScopeVisualizer fixtureName="scopes/scala/branch/branch.switchCase" />
+
+<ScopeVisualizer fixtureName="scopes/scala/branch/branch.switchCase2" />
+
+### Branch: Ternary
+
+<i>A branch in a ternary expression</i>
+
+##### C
+
+<ScopeVisualizer fixtureName="scopes/c/branch/branch.ternary" />
+
+##### C#
+
+<ScopeVisualizer fixtureName="scopes/csharp/branch/branch.ternary" />
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/branch/branch.ternary" />
+
+##### Java
+
+<ScopeVisualizer fixtureName="scopes/java/branch/branch.ternary" />
+
+##### JavaScript
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/branch/branch.ternary" />
+
+##### Kotlin
+
+<ScopeVisualizer fixtureName="scopes/kotlin/branch/branch.ternary" />
+
+##### PHP
+
+<ScopeVisualizer fixtureName="scopes/php/branch/branch.ternary" />
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.ternary" />
+
+##### Ruby
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.ternary" />
+
+### Branch: Try
+
+<i>A try/catch/finally branch</i>
+
+##### C++
+
+<ScopeVisualizer fixtureName="scopes/cpp/branch.try" />
+
+##### C#
+
+<ScopeVisualizer fixtureName="scopes/csharp/branch/branch.try" />
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/branch/branch.try" />
+
+##### Java
+
+<ScopeVisualizer fixtureName="scopes/java/branch/branch.try" />
+
+##### JavaScript
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/branch/branch.try" />
+
+##### Kotlin
+
+<ScopeVisualizer fixtureName="scopes/kotlin/branch/branch.try" />
+
+##### PHP
+
+<ScopeVisualizer fixtureName="scopes/php/branch/branch.try" />
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.try" />
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.try2" />
+
+##### R
+
+<ScopeVisualizer fixtureName="scopes/r/branch/branch.try" />
+
+##### Ruby
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.try" />
+
+##### Scala
+
+<ScopeVisualizer fixtureName="scopes/scala/branch/branch.try" />
+
+### Branch: If (iteration)
+
+<i>Iteration scope for if/elif/else branches: the if-else statement.</i>
+
+##### C
+
+<ScopeVisualizer fixtureName="scopes/c/branch/branch.if.iteration" />
+
+##### C#
+
+<ScopeVisualizer fixtureName="scopes/csharp/branch/branch.if.iteration" />
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/branch/branch.if.iteration" />
+
+##### Go
+
+<ScopeVisualizer fixtureName="scopes/go/branch/branch.if.iteration" />
+
+##### Java
+
+<ScopeVisualizer fixtureName="scopes/java/branch/branch.if.iteration" />
+
+##### JavaScript
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/branch/branch.if.iteration" />
+
+##### Kotlin
+
+<ScopeVisualizer fixtureName="scopes/kotlin/branch/branch.if.iteration" />
+
+##### Lua
+
+<ScopeVisualizer fixtureName="scopes/lua/branch/branch.if.iteration" />
+
+##### PHP
+
+<ScopeVisualizer fixtureName="scopes/php/branch/branch.if.iteration" />
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.if.iteration" />
+
+##### R
+
+<ScopeVisualizer fixtureName="scopes/r/branch/branch.if.iteration" />
+
+##### Ruby
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.if.iteration" />
+
+##### Rust
+
+<ScopeVisualizer fixtureName="scopes/rust/branch/branch.if.iteration" />
+
+##### Scala
+
+<ScopeVisualizer fixtureName="scopes/scala/branch/branch.if.iteration" />
+
+##### SCSS
+
+<ScopeVisualizer fixtureName="scopes/scss/branch.if.iteration" />
+
+### Branch: Loop (iteration)
+
+<i>Iteration scope for loop branches: the loop statement.</i>
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.loop.iteration" />
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.loop.iteration2" />
+
+### Branch: Switch case (iteration)
+
+<i>Iteration scope for switch branches: the switch statement body.</i>
+
+##### C
+
+<ScopeVisualizer fixtureName="scopes/c/branch/branch.switchCase.iteration" />
+
+##### C#
+
+<ScopeVisualizer fixtureName="scopes/csharp/branch/branch.switchCase.iteration" />
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/branch/branch.switchCase.iteration" />
+
+##### Go
+
+<ScopeVisualizer fixtureName="scopes/go/branch/branch.switchCase.iteration" />
+
+<ScopeVisualizer fixtureName="scopes/go/branch/branch.switchCase.iteration2" />
+
+##### Java
+
+<ScopeVisualizer fixtureName="scopes/java/branch/branch.switchCase.iteration" />
+
+##### JavaScript
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/branch/branch.switchCase.iteration" />
+
+##### Kotlin
+
+<ScopeVisualizer fixtureName="scopes/kotlin/branch/branch.switchCase.iteration" />
+
+##### PHP
+
+<ScopeVisualizer fixtureName="scopes/php/branch/branch.switchCase.iteration" />
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.switchCase.iteration" />
+
+##### R
+
+<ScopeVisualizer fixtureName="scopes/r/branch/branch.switchCase.iteration" />
+
+##### Ruby
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.switchCase.iteration" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.switchCase.iteration2" />
+
+##### Rust
+
+<ScopeVisualizer fixtureName="scopes/rust/branch/branch.switchCase.iteration" />
+
+##### Scala
+
+<ScopeVisualizer fixtureName="scopes/scala/branch/branch.switchCase.iteration" />
+
+### Branch: Ternary (iteration)
+
+<i>Iteration scope for ternary expression branches: the ternary expression.</i>
+
+##### C
+
+<ScopeVisualizer fixtureName="scopes/c/branch/branch.ternary.iteration" />
+
+##### C#
+
+<ScopeVisualizer fixtureName="scopes/csharp/branch/branch.ternary.iteration" />
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/branch/branch.ternary.iteration" />
+
+##### Java
+
+<ScopeVisualizer fixtureName="scopes/java/branch/branch.ternary.iteration" />
+
+##### JavaScript
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/branch/branch.ternary.iteration" />
+
+##### Kotlin
+
+<ScopeVisualizer fixtureName="scopes/kotlin/branch/branch.ternary.iteration" />
+
+##### PHP
+
+<ScopeVisualizer fixtureName="scopes/php/branch/branch.ternary.iteration" />
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.ternary.iteration" />
+
+##### Ruby
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.ternary.iteration" />
+
+### Branch: Try (iteration)
+
+<i>Iteration scope for try/catch/finally branches: the try-catch statement.</i>
+
+##### C++
+
+<ScopeVisualizer fixtureName="scopes/cpp/branch.try.iteration" />
+
+##### C#
+
+<ScopeVisualizer fixtureName="scopes/csharp/branch/branch.try.iteration" />
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/branch/branch.try.iteration" />
+
+##### Java
+
+<ScopeVisualizer fixtureName="scopes/java/branch/branch.try.iteration" />
+
+##### JavaScript
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/branch/branch.try.iteration" />
+
+##### Kotlin
+
+<ScopeVisualizer fixtureName="scopes/kotlin/branch/branch.try.iteration" />
+
+##### PHP
+
+<ScopeVisualizer fixtureName="scopes/php/branch/branch.try.iteration" />
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/branch/branch.try.iteration" />
+
+##### R
+
+<ScopeVisualizer fixtureName="scopes/r/branch/branch.try.iteration" />
+
+##### Ruby
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.try.iteration" />
+
+##### Scala
+
+<ScopeVisualizer fixtureName="scopes/scala/branch/branch.try.iteration" />
+
+</ScopeVisualizerProvider>

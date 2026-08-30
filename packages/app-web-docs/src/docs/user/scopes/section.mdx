@@ -2,7 +2,7 @@
 sidebar_label: Section
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Section
 
@@ -20,4 +20,42 @@ Default: `section`
 
 - `"take section blue air"` - Selects the section containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="section" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Section
+
+<i>A document section</i>
+
+##### Latex
+
+<ScopeVisualizer fixtureName="scopes/latex/section" />
+
+##### Markdown
+
+<ScopeVisualizer fixtureName="scopes/markdown/section" />
+
+### Section (iteration document)
+
+<i>Iteration scope for sections: the entire document including leading and trailing empty lines.</i>
+
+##### Latex
+
+<ScopeVisualizer fixtureName="scopes/latex/section.iteration.document" />
+
+##### Markdown
+
+<ScopeVisualizer fixtureName="scopes/markdown/section.iteration.document" />
+
+### Section (iteration parent)
+
+<i>Iteration scope for sections: the parent section.</i>
+
+##### Markdown
+
+<ScopeVisualizer fixtureName="scopes/markdown/section.iteration.parent" />
+
+</ScopeVisualizerProvider>
