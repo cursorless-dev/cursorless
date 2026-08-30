@@ -1,10 +1,22 @@
 import type { SpeakableSurroundingPairName } from "../types/SpokenFormType";
 import type { SpokenFormReference } from "./ReferenceEntry";
 
+export type IndividualDelimiterText = string | string[];
+
 export interface PairedDelimiterReference extends SpokenFormReference {
   name: string;
   defaultSpokenForm: string;
+
+  /** The canonical delimiters used when inserting a matching pair. */
   delimiters: readonly [string, string] | null;
+
+  /** The delimiters recognized when finding a surrounding pair. */
+  matchingDelimiters:
+    | readonly [IndividualDelimiterText, IndividualDelimiterText]
+    | null;
+
+  /** Whether both delimiters must occur on the same line. */
+  isSingleLine: boolean;
   selectable: boolean;
   referenceIndex: number | null;
 }
@@ -14,6 +26,8 @@ export const pairedDelimiterReferences = {
     name: "curly brackets",
     defaultSpokenForm: "curly",
     delimiters: ["{", "}"],
+    matchingDelimiters: [["{", "${"], "}"],
+    isSingleLine: false,
     selectable: true,
     referenceIndex: 4,
   },
@@ -21,6 +35,11 @@ export const pairedDelimiterReferences = {
     name: "angle brackets",
     defaultSpokenForm: "diamond",
     delimiters: ["<", ">"],
+    matchingDelimiters: [
+      ["</", "<"],
+      [">", "/>"],
+    ],
+    isSingleLine: false,
     selectable: true,
     referenceIndex: 6,
   },
@@ -28,6 +47,8 @@ export const pairedDelimiterReferences = {
     name: "escaped double quotes",
     defaultSpokenForm: "escaped quad",
     delimiters: [String.raw`\"`, String.raw`\"`],
+    matchingDelimiters: [String.raw`\"`, String.raw`\"`],
+    isSingleLine: true,
     selectable: true,
     referenceIndex: 7,
   },
@@ -35,6 +56,8 @@ export const pairedDelimiterReferences = {
     name: "escaped single quotes",
     defaultSpokenForm: "escaped twin",
     delimiters: [String.raw`\'`, String.raw`\'`],
+    matchingDelimiters: [String.raw`\'`, String.raw`\'`],
+    isSingleLine: true,
     selectable: true,
     referenceIndex: 8,
   },
@@ -42,6 +65,8 @@ export const pairedDelimiterReferences = {
     name: "escaped parentheses",
     defaultSpokenForm: "escaped round",
     delimiters: [String.raw`\(`, String.raw`\)`],
+    matchingDelimiters: [String.raw`\(`, String.raw`\)`],
+    isSingleLine: false,
     selectable: true,
     referenceIndex: 9,
   },
@@ -49,6 +74,8 @@ export const pairedDelimiterReferences = {
     name: "escaped square brackets",
     defaultSpokenForm: "escaped box",
     delimiters: [String.raw`\[`, String.raw`\]`],
+    matchingDelimiters: [String.raw`\[`, String.raw`\]`],
+    isSingleLine: false,
     selectable: true,
     referenceIndex: null,
   },
@@ -56,6 +83,8 @@ export const pairedDelimiterReferences = {
     name: "double quotes",
     defaultSpokenForm: "quad",
     delimiters: ['"', '"'],
+    matchingDelimiters: ['"', '"'],
+    isSingleLine: true,
     selectable: true,
     referenceIndex: 0,
   },
@@ -63,6 +92,8 @@ export const pairedDelimiterReferences = {
     name: "parentheses",
     defaultSpokenForm: "round",
     delimiters: ["(", ")"],
+    matchingDelimiters: [["(", "$("], ")"],
+    isSingleLine: false,
     selectable: true,
     referenceIndex: 3,
   },
@@ -70,6 +101,8 @@ export const pairedDelimiterReferences = {
     name: "backtick quotes",
     defaultSpokenForm: "skis",
     delimiters: ["`", "`"],
+    matchingDelimiters: ["`", "`"],
+    isSingleLine: false,
     selectable: true,
     referenceIndex: 2,
   },
@@ -77,6 +110,8 @@ export const pairedDelimiterReferences = {
     name: "square brackets",
     defaultSpokenForm: "box",
     delimiters: ["[", "]"],
+    matchingDelimiters: ["[", "]"],
+    isSingleLine: false,
     selectable: true,
     referenceIndex: 5,
   },
@@ -84,6 +119,8 @@ export const pairedDelimiterReferences = {
     name: "single quotes",
     defaultSpokenForm: "twin",
     delimiters: ["'", "'"],
+    matchingDelimiters: ["'", "'"],
+    isSingleLine: true,
     selectable: true,
     referenceIndex: 1,
   },
@@ -91,6 +128,8 @@ export const pairedDelimiterReferences = {
     name: "triple double quotes",
     defaultSpokenForm: "triple quad",
     delimiters: ['"""', '"""'],
+    matchingDelimiters: [[], []],
+    isSingleLine: false,
     selectable: true,
     referenceIndex: null,
     disabledByDefault: true,
@@ -100,6 +139,8 @@ export const pairedDelimiterReferences = {
     name: "triple single quotes",
     defaultSpokenForm: "triple twin",
     delimiters: ["'''", "'''"],
+    matchingDelimiters: [[], []],
+    isSingleLine: false,
     selectable: true,
     referenceIndex: null,
     disabledByDefault: true,
@@ -109,6 +150,8 @@ export const pairedDelimiterReferences = {
     name: "triple backtick quotes",
     defaultSpokenForm: "triple skis",
     delimiters: ["```", "```"],
+    matchingDelimiters: [[], []],
+    isSingleLine: false,
     selectable: true,
     referenceIndex: null,
     disabledByDefault: true,
@@ -118,6 +161,8 @@ export const pairedDelimiterReferences = {
     name: "any",
     defaultSpokenForm: "pair",
     delimiters: null,
+    matchingDelimiters: null,
+    isSingleLine: false,
     selectable: true,
     referenceIndex: 11,
   },
@@ -125,6 +170,8 @@ export const pairedDelimiterReferences = {
     name: "string",
     defaultSpokenForm: "string",
     delimiters: null,
+    matchingDelimiters: null,
+    isSingleLine: false,
     selectable: true,
     referenceIndex: null,
   },
@@ -132,6 +179,8 @@ export const pairedDelimiterReferences = {
     name: "space",
     defaultSpokenForm: "void",
     delimiters: [" ", " "],
+    matchingDelimiters: [" ", " "],
+    isSingleLine: false,
     selectable: false,
     referenceIndex: 10,
   },
@@ -139,6 +188,8 @@ export const pairedDelimiterReferences = {
     name: "collection boundary",
     defaultSpokenForm: "collection boundary",
     delimiters: null,
+    matchingDelimiters: null,
+    isSingleLine: false,
     selectable: true,
     referenceIndex: null,
     disabledByDefault: true,

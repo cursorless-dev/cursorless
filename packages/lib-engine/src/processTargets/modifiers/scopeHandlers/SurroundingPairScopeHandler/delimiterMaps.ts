@@ -1,18 +1,11 @@
 import type {
   ComplexSurroundingPairName,
+  IndividualDelimiterText,
   SimpleSurroundingPairName,
 } from "@cursorless/lib-common";
-import { unsafeKeys } from "@cursorless/lib-common";
-
-type IndividualDelimiterText = string | string[];
+import { pairedDelimiterReferences, unsafeKeys } from "@cursorless/lib-common";
 
 interface Options {
-  /**
-   * If true, then the delimiter pair can only be on a single line. We use this
-   * flag to save us searching the entire document when we're trying to
-   * determine whether an ambiguous delimiter is opening or closing. The most
-   * salient example is strings.
-   */
   isSingleLine?: boolean;
 }
 
@@ -24,29 +17,43 @@ type DelimiterMap = Record<
 
 // Note that the order here is important since we are creating a regex from the key order.
 // For example triple quotes need to come before single quotes.
-const delimiterToText: DelimiterMap = Object.freeze({
-  angleBrackets: [
-    ["</", "<"],
-    [">", "/>"],
-  ],
-  curlyBrackets: [["{", "${"], "}"],
-  tripleBacktickQuotes: [[], []],
-  tripleDoubleQuotes: [[], []],
-  tripleSingleQuotes: [[], []],
-  doubleQuotes: ['"', '"', { isSingleLine: true }],
-  escapedDoubleQuotes: [String.raw`\"`, String.raw`\"`, { isSingleLine: true }],
-  escapedParentheses: [String.raw`\(`, String.raw`\)`],
-  escapedSquareBrackets: [String.raw`\[`, String.raw`\]`],
-  escapedSingleQuotes: [String.raw`\'`, String.raw`\'`, { isSingleLine: true }],
-  parentheses: [["(", "$("], ")"],
-  backtickQuotes: ["`", "`"],
-  singleQuotes: ["'", "'", { isSingleLine: true }],
-  squareBrackets: ["[", "]"],
+const matchingDelimiterMap: DelimiterMap = Object.freeze({
+  angleBrackets: getReferenceDelimiterDefinition("angleBrackets"),
+  curlyBrackets: getReferenceDelimiterDefinition("curlyBrackets"),
+  tripleBacktickQuotes: getReferenceDelimiterDefinition("tripleBacktickQuotes"),
+  tripleDoubleQuotes: getReferenceDelimiterDefinition("tripleDoubleQuotes"),
+  tripleSingleQuotes: getReferenceDelimiterDefinition("tripleSingleQuotes"),
+  doubleQuotes: getReferenceDelimiterDefinition("doubleQuotes"),
+  escapedDoubleQuotes: getReferenceDelimiterDefinition("escapedDoubleQuotes"),
+  escapedParentheses: getReferenceDelimiterDefinition("escapedParentheses"),
+  escapedSquareBrackets: getReferenceDelimiterDefinition(
+    "escapedSquareBrackets",
+  ),
+  escapedSingleQuotes: getReferenceDelimiterDefinition("escapedSingleQuotes"),
+  parentheses: getReferenceDelimiterDefinition("parentheses"),
+  backtickQuotes: getReferenceDelimiterDefinition("backtickQuotes"),
+  singleQuotes: getReferenceDelimiterDefinition("singleQuotes"),
+  squareBrackets: getReferenceDelimiterDefinition("squareBrackets"),
 });
+
+function getReferenceDelimiterDefinition(
+  name: SimpleSurroundingPairName,
+): DelimiterMap[SimpleSurroundingPairName] {
+  const reference = pairedDelimiterReferences[name];
+  const delimiters = reference.matchingDelimiters;
+
+  if (delimiters == null) {
+    throw new Error(`No matching delimiters defined for '${name}'`);
+  }
+
+  return reference.isSingleLine
+    ? [delimiters[0], delimiters[1], { isSingleLine: true }]
+    : [delimiters[0], delimiters[1]];
+}
 
 // FIXME: Probably remove these as part of
 // https://github.com/cursorless-dev/cursorless/issues/1812#issuecomment-1691493746
-const delimiterToTextOverrides: Record<string, Partial<DelimiterMap>> = {
+const matchingDelimiterOverrides: Record<string, Partial<DelimiterMap>> = {
   nix: {
     singleQuotes: ["''", "''"],
   },
@@ -88,7 +95,7 @@ const delimiterToTextOverrides: Record<string, Partial<DelimiterMap>> = {
 };
 
 export const leftToRightMap: Record<string, string> = Object.fromEntries(
-  Object.values(delimiterToText),
+  Object.values(matchingDelimiterMap),
 );
 
 /**
@@ -99,7 +106,7 @@ export const complexDelimiterMap: Record<
   ComplexSurroundingPairName,
   SimpleSurroundingPairName[]
 > = {
-  any: unsafeKeys(delimiterToText),
+  any: unsafeKeys(matchingDelimiterMap),
   string: [
     "tripleDoubleQuotes",
     "tripleSingleQuotes",
@@ -139,12 +146,12 @@ export function getSimpleDelimiterMap(
   | [IndividualDelimiterText, IndividualDelimiterText]
   | [IndividualDelimiterText, IndividualDelimiterText, Options]
 > {
-  if (languageId != null && languageId in delimiterToTextOverrides) {
+  if (languageId != null && languageId in matchingDelimiterOverrides) {
     return {
-      ...delimiterToText,
-      ...delimiterToTextOverrides[languageId],
+      ...matchingDelimiterMap,
+      ...matchingDelimiterOverrides[languageId],
     };
   }
 
-  return delimiterToText;
+  return matchingDelimiterMap;
 }

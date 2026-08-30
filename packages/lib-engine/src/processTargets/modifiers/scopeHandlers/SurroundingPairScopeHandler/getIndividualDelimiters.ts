@@ -33,10 +33,10 @@ function getSimpleIndividualDelimiters(
   languageId: string | undefined,
   delimiters: SimpleSurroundingPairName[],
 ): IndividualDelimiter[] {
-  const delimiterToText = getSimpleDelimiterMap(languageId);
+  const matchingDelimiterMap = getSimpleDelimiterMap(languageId);
   return delimiters.flatMap((delimiterName) => {
     const [leftDelimiter, rightDelimiter, options] =
-      delimiterToText[delimiterName];
+      matchingDelimiterMap[delimiterName];
     const { isSingleLine = false } = options ?? {};
 
     // Allow for the fact that a delimiter might have multiple ways to indicate
