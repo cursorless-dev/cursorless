@@ -3,9 +3,19 @@ import type { SpokenFormReference } from "./ReferenceEntry";
 
 export type IndividualDelimiterText = string | string[];
 
+export interface PairedDelimiterLanguageOverride {
+  matchingDelimiters?: readonly [
+    IndividualDelimiterText,
+    IndividualDelimiterText,
+  ];
+  isSingleLine?: boolean;
+}
+
 export interface PairedDelimiterReference extends SpokenFormReference {
   name: string;
   defaultSpokenForm: string;
+  selectable: boolean;
+  referenceIndex: number | null;
 
   /** The canonical delimiters used when inserting a surrounding pair. */
   delimiters: readonly [string, string] | null;
@@ -17,8 +27,9 @@ export interface PairedDelimiterReference extends SpokenFormReference {
 
   /** Whether both delimiters must occur on the same line. */
   isSingleLine: boolean;
-  selectable: boolean;
-  referenceIndex: number | null;
+
+  /** Language-specific overrides for matching behavior. */
+  languageOverrides?: Readonly<Record<string, PairedDelimiterLanguageOverride>>;
 }
 
 export const pairedDelimiterReferences = {
@@ -85,6 +96,31 @@ export const pairedDelimiterReferences = {
     delimiters: ['"', '"'],
     matchingDelimiters: ['"', '"'],
     isSingleLine: true,
+    languageOverrides: {
+      lua: {
+        // FIXME: Add special double square brackets
+        // see https://github.com/cursorless-dev/cursorless/pull/2012#issuecomment-1808214409
+        // see also https://github.com/cursorless-dev/cursorless/issues/1812#issuecomment-1691493746
+        matchingDelimiters: [
+          ['"', "[["],
+          ['"', "]]"],
+        ],
+        isSingleLine: false,
+      },
+      ruby: {
+        isSingleLine: false,
+      },
+      clojure: {
+        isSingleLine: false,
+      },
+      csharp: {
+        matchingDelimiters: [
+          ['@"', '"'],
+          ['"', '"'],
+        ],
+        isSingleLine: false,
+      },
+    },
     selectable: true,
     referenceIndex: 0,
   },
@@ -121,6 +157,12 @@ export const pairedDelimiterReferences = {
     delimiters: ["'", "'"],
     matchingDelimiters: ["'", "'"],
     isSingleLine: true,
+    languageOverrides: {
+      nix: {
+        matchingDelimiters: ["''", "''"],
+        isSingleLine: false,
+      },
+    },
     selectable: true,
     referenceIndex: 1,
   },
@@ -130,6 +172,14 @@ export const pairedDelimiterReferences = {
     delimiters: ['"""', '"""'],
     matchingDelimiters: [[], []],
     isSingleLine: false,
+    languageOverrides: {
+      python: {
+        matchingDelimiters: ['"""', '"""'],
+      },
+      ruby: {
+        matchingDelimiters: ["%Q(", ")"],
+      },
+    },
     selectable: true,
     referenceIndex: null,
     disabledByDefault: true,
@@ -141,6 +191,11 @@ export const pairedDelimiterReferences = {
     delimiters: ["'''", "'''"],
     matchingDelimiters: [[], []],
     isSingleLine: false,
+    languageOverrides: {
+      python: {
+        matchingDelimiters: ["'''", "'''"],
+      },
+    },
     selectable: true,
     referenceIndex: null,
     disabledByDefault: true,
@@ -152,6 +207,11 @@ export const pairedDelimiterReferences = {
     delimiters: ["```", "```"],
     matchingDelimiters: [[], []],
     isSingleLine: false,
+    languageOverrides: {
+      markdown: {
+        matchingDelimiters: ["```", "```"],
+      },
+    },
     selectable: true,
     referenceIndex: null,
     disabledByDefault: true,

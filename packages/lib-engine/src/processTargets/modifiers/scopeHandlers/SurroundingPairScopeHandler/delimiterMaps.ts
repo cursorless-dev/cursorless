@@ -1,6 +1,7 @@
 import type {
   ComplexSurroundingPairName,
   IndividualDelimiterText,
+  PairedDelimiterReference,
   SimpleSurroundingPairName,
 } from "@cursorless/lib-common";
 import { pairedDelimiterReferences, unsafeKeys } from "@cursorless/lib-common";
@@ -15,84 +16,53 @@ type DelimiterMap = Record<
   | [IndividualDelimiterText, IndividualDelimiterText, Options]
 >;
 
-// Note that the order here is important since we are creating a regex from the key order.
-// For example triple quotes need to come before single quotes.
-const matchingDelimiterMap: DelimiterMap = Object.freeze({
-  angleBrackets: getReferenceDelimiterDefinition("angleBrackets"),
-  curlyBrackets: getReferenceDelimiterDefinition("curlyBrackets"),
-  tripleBacktickQuotes: getReferenceDelimiterDefinition("tripleBacktickQuotes"),
-  tripleDoubleQuotes: getReferenceDelimiterDefinition("tripleDoubleQuotes"),
-  tripleSingleQuotes: getReferenceDelimiterDefinition("tripleSingleQuotes"),
-  doubleQuotes: getReferenceDelimiterDefinition("doubleQuotes"),
-  escapedDoubleQuotes: getReferenceDelimiterDefinition("escapedDoubleQuotes"),
-  escapedParentheses: getReferenceDelimiterDefinition("escapedParentheses"),
-  escapedSquareBrackets: getReferenceDelimiterDefinition(
-    "escapedSquareBrackets",
-  ),
-  escapedSingleQuotes: getReferenceDelimiterDefinition("escapedSingleQuotes"),
-  parentheses: getReferenceDelimiterDefinition("parentheses"),
-  backtickQuotes: getReferenceDelimiterDefinition("backtickQuotes"),
-  singleQuotes: getReferenceDelimiterDefinition("singleQuotes"),
-  squareBrackets: getReferenceDelimiterDefinition("squareBrackets"),
-});
+const matchingDelimiterMap = getMatchingDelimiterMap(undefined);
+const matchingDelimiterMapCache = new Map<string, DelimiterMap>();
+
+function getMatchingDelimiterMap(languageId: string | undefined): DelimiterMap {
+  const getDefinition = (name: SimpleSurroundingPairName) =>
+    getReferenceDelimiterDefinition(name, languageId);
+
+  // Note that the order here is important since we are creating a regex from the key order.
+  // For example triple quotes need to come before single quotes.
+  return Object.freeze({
+    angleBrackets: getDefinition("angleBrackets"),
+    curlyBrackets: getDefinition("curlyBrackets"),
+    tripleBacktickQuotes: getDefinition("tripleBacktickQuotes"),
+    tripleDoubleQuotes: getDefinition("tripleDoubleQuotes"),
+    tripleSingleQuotes: getDefinition("tripleSingleQuotes"),
+    doubleQuotes: getDefinition("doubleQuotes"),
+    escapedDoubleQuotes: getDefinition("escapedDoubleQuotes"),
+    escapedParentheses: getDefinition("escapedParentheses"),
+    escapedSquareBrackets: getDefinition("escapedSquareBrackets"),
+    escapedSingleQuotes: getDefinition("escapedSingleQuotes"),
+    parentheses: getDefinition("parentheses"),
+    backtickQuotes: getDefinition("backtickQuotes"),
+    singleQuotes: getDefinition("singleQuotes"),
+    squareBrackets: getDefinition("squareBrackets"),
+  });
+}
 
 function getReferenceDelimiterDefinition(
   name: SimpleSurroundingPairName,
+  languageId: string | undefined,
 ): DelimiterMap[SimpleSurroundingPairName] {
-  const reference = pairedDelimiterReferences[name];
-  const delimiters = reference.matchingDelimiters;
+  const reference: PairedDelimiterReference = pairedDelimiterReferences[name];
+  const languageOverride =
+    languageId == null ? undefined : reference.languageOverrides?.[languageId];
+  const delimiters =
+    languageOverride?.matchingDelimiters ?? reference.matchingDelimiters;
 
   if (delimiters == null) {
     throw new Error(`No matching delimiters defined for '${name}'`);
   }
 
-  return reference.isSingleLine
+  const isSingleLine = languageOverride?.isSingleLine ?? reference.isSingleLine;
+
+  return isSingleLine
     ? [delimiters[0], delimiters[1], { isSingleLine: true }]
     : [delimiters[0], delimiters[1]];
 }
-
-// FIXME: Probably remove these as part of
-// https://github.com/cursorless-dev/cursorless/issues/1812#issuecomment-1691493746
-const matchingDelimiterOverrides: Record<string, Partial<DelimiterMap>> = {
-  nix: {
-    singleQuotes: ["''", "''"],
-  },
-
-  lua: {
-    // FIXME: Add special double square brackets
-    // see https://github.com/cursorless-dev/cursorless/pull/2012#issuecomment-1808214409
-    // see also https://github.com/cursorless-dev/cursorless/issues/1812#issuecomment-1691493746
-    doubleQuotes: [
-      ['"', "[["],
-      ['"', "]]"],
-    ],
-  },
-
-  python: {
-    tripleSingleQuotes: ["'''", "'''"],
-    tripleDoubleQuotes: ['"""', '"""'],
-  },
-
-  markdown: {
-    tripleBacktickQuotes: ["```", "```"],
-  },
-
-  ruby: {
-    doubleQuotes: ['"', '"', { isSingleLine: false }],
-    tripleDoubleQuotes: ["%Q(", ")"],
-  },
-
-  clojure: {
-    doubleQuotes: ['"', '"', { isSingleLine: false }],
-  },
-
-  csharp: {
-    doubleQuotes: [
-      ['@"', '"'],
-      ['"', '"'],
-    ],
-  },
-};
 
 export const leftToRightMap: Record<string, string> = Object.fromEntries(
   Object.values(matchingDelimiterMap),
@@ -146,12 +116,16 @@ export function getSimpleDelimiterMap(
   | [IndividualDelimiterText, IndividualDelimiterText]
   | [IndividualDelimiterText, IndividualDelimiterText, Options]
 > {
-  if (languageId != null && languageId in matchingDelimiterOverrides) {
-    return {
-      ...matchingDelimiterMap,
-      ...matchingDelimiterOverrides[languageId],
-    };
+  if (languageId == null) {
+    return matchingDelimiterMap;
   }
 
-  return matchingDelimiterMap;
+  let result = matchingDelimiterMapCache.get(languageId);
+
+  if (result == null) {
+    result = getMatchingDelimiterMap(languageId);
+    matchingDelimiterMapCache.set(languageId, result);
+  }
+
+  return result;
 }
