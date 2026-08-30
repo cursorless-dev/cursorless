@@ -14,6 +14,7 @@ import {
   VAR_SCOPE,
   VAR_SPOKEN_FORM,
 } from "./constants";
+import type { ModifierReferenceGroupId } from "./modifierReferenceGroups";
 import { pairedDelimiterReferences } from "./pairedDelimiterReferences";
 import type { ReferenceEntry } from "./ReferenceEntry";
 import { connectiveDefaultSpokenForms } from "./spokenForms/connectiveDefaultSpokenForms";
@@ -35,94 +36,10 @@ const LAST = connectiveDefaultSpokenForms.last;
 type AdditionalModifierReferenceType = "ancestor";
 
 export const modifierReferences = {
-  startOf: {
-    name: "Start of",
-    defaultSpokenForm: "start of",
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Empty position at start of target.",
-        cheatsheet: "Empty position at start of target",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Places the cursor at the start of the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  endOf: {
-    name: "End of",
-    defaultSpokenForm: "end of",
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Empty position at end of target.",
-        cheatsheet: "Empty position at end of target",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Places the cursor at the end of the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  interiorOnly: {
-    name: "Interior only",
-    defaultSpokenForm: "inside",
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Interior only.",
-        cheatsheet: "Interior only",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${PARENTHESES} ${TARGET}`,
-        description: `Selects the contents of the parentheses containing the ${TARGET_DESC}, excluding the parentheses.`,
-      },
-    ],
-  },
-  excludeInterior: {
-    name: "Exclude interior",
-    defaultSpokenForm: "bounds",
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Bounding paired delimiters.",
-        cheatsheet: "Bounding paired delimiters",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${PARENTHESES} ${TARGET}`,
-        description: `Selects only the parentheses containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  visible: {
-    name: "Visible",
-    defaultSpokenForm: "visible",
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Visible in viewport.",
-        cheatsheet: "Visible in viewport",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM}`,
-        description:
-          "Selects the content currently visible in the editor viewport.",
-      },
-    ],
-  },
+  // Group: containing
   containingScope: {
     name: "Containing scope",
+    group: { id: "containing", index: 0 },
     syntaxes: [
       {
         pattern: VAR_SCOPE,
@@ -140,6 +57,7 @@ export const modifierReferences = {
   everyScope: {
     name: "Every scope",
     defaultSpokenForm: EVERY,
+    group: { id: "containing", index: 1 },
     syntaxes: [
       {
         pattern: `${VAR_SPOKEN_FORM} ${VAR_SCOPE}`,
@@ -157,6 +75,7 @@ export const modifierReferences = {
   ancestor: {
     name: "Ancestor",
     defaultSpokenForm: "grand",
+    group: { id: "containing", index: 2 },
     syntaxes: [
       {
         pattern: `${VAR_SPOKEN_FORM} ${VAR_SCOPE}`,
@@ -171,8 +90,11 @@ export const modifierReferences = {
       },
     ],
   },
+
+  // Group: ordinal
   ordinalScope: {
     name: "Ordinal scope",
+    group: { id: "ordinal", index: 0 },
     syntaxes: [
       {
         pattern: `${VAR_ORDINAL} ${VAR_SCOPE}`,
@@ -237,8 +159,11 @@ export const modifierReferences = {
       },
     ],
   },
+
+  // Group: relative
   relativeScope: {
     name: "Relative scope",
+    group: { id: "relative", index: 0 },
     syntaxes: [
       {
         pattern: `${PREVIOUS} ${VAR_SCOPE}`,
@@ -370,9 +295,86 @@ export const modifierReferences = {
       },
     ],
   },
+
+  // Group: delimiters
+  interiorOnly: {
+    name: "Interior only",
+    defaultSpokenForm: "inside",
+    group: { id: "delimiters", index: 0 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Interior only.",
+        cheatsheet: "Interior only",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${PARENTHESES} ${TARGET}`,
+        description: `Selects the contents of the parentheses containing the ${TARGET_DESC}, excluding the parentheses.`,
+      },
+    ],
+  },
+  excludeInterior: {
+    name: "Exclude interior",
+    defaultSpokenForm: "bounds",
+    group: { id: "delimiters", index: 1 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Bounding paired delimiters.",
+        cheatsheet: "Bounding paired delimiters",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${PARENTHESES} ${TARGET}`,
+        description: `Selects only the parentheses containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  leading: {
+    name: "Leading",
+    defaultSpokenForm: "leading",
+    group: { id: "delimiters", index: 2 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Leading delimiter range.",
+        cheatsheet: "Leading delimiter range",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
+        description: `Selects the leading delimiter of the item containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  trailing: {
+    name: "Trailing",
+    defaultSpokenForm: "trailing",
+    group: { id: "delimiters", index: 3 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Trailing delimiter range.",
+        cheatsheet: "Trailing delimiter range",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
+        description: `Selects the trailing delimiter of the item containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+
+  // Group: range
   extendThroughStartOf: {
     name: "Extend through start of",
     defaultSpokenForm: "head",
+    group: { id: "range", index: 0 },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -399,6 +401,7 @@ export const modifierReferences = {
   extendThroughEndOf: {
     name: "Extend through end of",
     defaultSpokenForm: "tail",
+    group: { id: "range", index: 1 },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -422,60 +425,69 @@ export const modifierReferences = {
       },
     ],
   },
-  leading: {
-    name: "Leading",
-    defaultSpokenForm: "leading",
+
+  // Group: position
+  startOf: {
+    name: "Start of",
+    defaultSpokenForm: "start of",
+    group: { id: "position", index: 0 },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Leading delimiter range.",
-        cheatsheet: "Leading delimiter range",
+        description: "Empty position at start of target.",
+        cheatsheet: "Empty position at start of target",
       },
     ],
     examples: [
       {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
-        description: `Selects the leading delimiter of the item containing the ${TARGET_DESC}.`,
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Places the cursor at the start of the ${TARGET_DESC}.`,
       },
     ],
   },
-  trailing: {
-    name: "Trailing",
-    defaultSpokenForm: "trailing",
+  endOf: {
+    name: "End of",
+    defaultSpokenForm: "end of",
+    group: { id: "position", index: 1 },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Trailing delimiter range.",
-        cheatsheet: "Trailing delimiter range",
+        description: "Empty position at end of target.",
+        cheatsheet: "Empty position at end of target",
       },
     ],
     examples: [
       {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
-        description: `Selects the trailing delimiter of the item containing the ${TARGET_DESC}.`,
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Places the cursor at the end of the ${TARGET_DESC}.`,
       },
     ],
   },
-  toRawSelection: {
-    name: "Raw selection",
-    defaultSpokenForm: "just",
+
+  // Group: filters
+  visible: {
+    name: "Visible",
+    defaultSpokenForm: "visible",
+    group: { id: "filters", index: 0 },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "No inference.",
-        cheatsheet: "No inference",
+        description: "Visible in viewport.",
+        cheatsheet: "Visible in viewport",
       },
     ],
     examples: [
       {
-        command: `${REMOVE} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Deletes only the ${TARGET_DESC}, leaving adjacent whitespace unchanged.`,
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM}`,
+        description:
+          "Selects the content currently visible in the editor viewport.",
       },
     ],
   },
   keepContentFilter: {
     name: "Keep content filter",
     defaultSpokenForm: "content",
+    group: { id: "filters", index: 1 },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -494,6 +506,7 @@ export const modifierReferences = {
   keepEmptyFilter: {
     name: "Keep empty filter",
     defaultSpokenForm: "empty",
+    group: { id: "filters", index: 2 },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -509,9 +522,30 @@ export const modifierReferences = {
       },
     ],
   },
+
+  // Group: inference
+  toRawSelection: {
+    name: "Raw selection",
+    defaultSpokenForm: "just",
+    group: { id: "inference", index: 0 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "No inference.",
+        cheatsheet: "No inference",
+      },
+    ],
+    examples: [
+      {
+        command: `${REMOVE} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Deletes only the ${TARGET_DESC}, leaving adjacent whitespace unchanged.`,
+      },
+    ],
+  },
   inferPreviousMark: {
     name: "Infer previous mark",
     defaultSpokenForm: "its",
+    group: { id: "inference", index: 1 },
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -527,10 +561,11 @@ export const modifierReferences = {
     ],
   },
 
-  // Private modifiers, but that has spoken forms
+  // Group: private
   preferredScope: {
     name: "Preferred scope",
     private: true,
+    group: { id: "private", index: 0 },
     syntaxes: [
       {
         pattern: VAR_SCOPE,
@@ -545,27 +580,28 @@ export const modifierReferences = {
       },
     ],
   },
-
-  // Modifiers without spoken forms
   modifyIfUntyped: {
     name: "Modify if untyped",
     private: true,
+    group: { id: "private", index: 1 },
     syntaxes: [],
     examples: [],
   },
   fallback: {
     name: "Fallback",
     private: true,
+    group: { id: "private", index: 2 },
     syntaxes: [],
     examples: [],
   },
   range: {
     name: "Range",
     private: true,
+    group: { id: "private", index: 3 },
     syntaxes: [],
     examples: [],
   },
 } as const satisfies Record<
   ModifierType | AdditionalModifierReferenceType,
-  ReferenceEntry
+  ReferenceEntry<ModifierReferenceGroupId>
 >;

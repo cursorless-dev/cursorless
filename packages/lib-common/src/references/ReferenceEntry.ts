@@ -4,13 +4,23 @@ export interface SpokenFormReference {
   disabledByDefault?: boolean;
 }
 
-export interface ReferenceEntry extends SpokenFormReference {
+export interface ReferenceEntry<T extends string> extends SpokenFormReference {
   name: string;
-  nameShort?: string;
   legacySpokenForms?: string[];
   description?: string;
+  group: GroupDefinition<T>;
   syntaxes: SyntaxDefinition[];
   examples: ExampleDefinition[];
+}
+
+export interface ReferenceGroup<T extends string> {
+  id: T;
+  name: string;
+}
+
+interface GroupDefinition<T extends string> {
+  id: T;
+  index: number;
 }
 
 interface SyntaxDefinition {

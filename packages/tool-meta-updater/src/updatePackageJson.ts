@@ -3,7 +3,7 @@ import { isUndefined } from "lodash-es";
 import type { PackageJson } from "type-fest";
 import { omitByDeep } from "@cursorless/lib-common";
 import type { Context } from "./Context";
-import { getCursorlessVscodeFields } from "./getCursorlessVscodeFields";
+import { getCursorlessVscodeFields } from "./util/getCursorlessVscodeFields";
 
 const LIB_ENTRY_POINT = "./src/index.ts";
 

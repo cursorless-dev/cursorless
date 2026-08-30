@@ -3,7 +3,7 @@ import type { ReferenceEntry } from "@cursorless/lib-common";
 
 export function updatePrivateScopeMdx(
   id: string,
-  entry: ReferenceEntry,
+  entry: ReferenceEntry<string>,
   actual: string | null,
   options: FormatPluginFnOptions,
 ): string | null {
