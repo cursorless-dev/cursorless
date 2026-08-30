@@ -7,7 +7,7 @@ export interface PairedDelimiterReference extends SpokenFormReference {
   name: string;
   defaultSpokenForm: string;
 
-  /** The canonical delimiters used when inserting a matching pair. */
+  /** The canonical delimiters used when inserting a surrounding pair. */
   delimiters: readonly [string, string] | null;
 
   /** The delimiters recognized when finding a surrounding pair. */
