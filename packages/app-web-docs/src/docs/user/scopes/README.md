@@ -18,16 +18,6 @@
 - [`"<pair>"`](./surroundingPair.mdx) - Surrounding matching delimiter pair and its contents.
 - [`"glyph <character>"`](./glyph.mdx) - Instance of single character `<character>`.
 
-## Sections
-
-- [`"section"`](./section.mdx) - Heading and its content through the next heading of the same or higher level.
-- [`"one section"`](./sectionLevelOne.mdx) - Level-one heading and its content.
-- [`"two section"`](./sectionLevelTwo.mdx) - Level-two heading and its content.
-- [`"three section"`](./sectionLevelThree.mdx) - Level-three heading and its content.
-- [`"four section"`](./sectionLevelFour.mdx) - Level-four heading and its content.
-- [`"five section"`](./sectionLevelFive.mdx) - Level-five heading and its content.
-- [`"six section"`](./sectionLevelSix.mdx) - Level-six heading and its content.
-
 ## Document hierarchy
 
 - [`"part"`](./part.mdx) - Document part and its contents.
@@ -83,6 +73,16 @@
 - [`"tags"`](./xmlBothTags.mdx) - Opening and closing XML, HTML, or JSX tags, or LaTeX `begin` and `end` commands.
 - [`"selector"`](./selector.mdx) - CSS selector.
 - [`"unit"`](./unit.mdx) - Unit suffix in a measurement, such as `px` in `100px`.
+
+## Sections
+
+- [`"section"`](./section.mdx) - Heading and its content through the next heading of the same or higher level.
+- [`"one section"`](./sectionLevelOne.mdx) - Level-one heading and its content. (**Disabled by default**)
+- [`"two section"`](./sectionLevelTwo.mdx) - Level-two heading and its content. (**Disabled by default**)
+- [`"three section"`](./sectionLevelThree.mdx) - Level-three heading and its content. (**Disabled by default**)
+- [`"four section"`](./sectionLevelFour.mdx) - Level-four heading and its content. (**Disabled by default**)
+- [`"five section"`](./sectionLevelFive.mdx) - Level-five heading and its content. (**Disabled by default**)
+- [`"six section"`](./sectionLevelSix.mdx) - Level-six heading and its content. (**Disabled by default**)
 
 ## Notebook
 

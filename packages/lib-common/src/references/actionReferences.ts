@@ -2,6 +2,7 @@ import type { ActionType } from "../types/command/ActionDescriptor";
 import type { ActionReferenceGroupId } from "./actionReferenceGroups";
 import {
   FORMATTER_CAMEL,
+  LINE,
   REMOVE,
   SET_SELECTION,
   SNIPPET_IF,
@@ -26,6 +27,7 @@ import { pairedDelimiterReferences } from "./pairedDelimiterReferences";
 import type { ReferenceEntry } from "./ReferenceEntry";
 import { scopeReferences } from "./scopeReferences";
 import { connectiveDefaultSpokenForms } from "./spokenForms/connectiveDefaultSpokenForms";
+import { markDefaultSpokenForms } from "./spokenForms/markDefaultSpokenForms";
 
 const DEFAULT_PATTERN = `${VAR_SPOKEN_FORM} ${VAR_TARGET}`;
 const DEFAULT_COMMAND = `${VAR_SPOKEN_FORM} ${TARGET}`;
@@ -43,6 +45,19 @@ const CURLY = pairedDelimiterReferences.curlyBrackets.defaultSpokenForm;
 const SQUARE = pairedDelimiterReferences.squareBrackets.defaultSpokenForm;
 const AT = connectiveDefaultSpokenForms.at;
 const ON = connectiveDefaultSpokenForms.on;
+const SLICE = connectiveDefaultSpokenForms.verticalRange;
+const CURRENT_SELECTION = markDefaultSpokenForms.cursor;
+
+const MULTI_TARGET_CURSOR_DESCRIPTION =
+  "When used with a list target, this action creates one cursor for each target.";
+const CLONE_SELECTION_DESCRIPTION =
+  "After insertion, each selection moves to its newly created copy.";
+const SCOPE_INSERTION_DESCRIPTION =
+  "Scope defaults to line. When used with a provided scope target, this action inserts the delimiters or spacing required for a new instance of that scope.";
+const REORDER_DESCRIPTION =
+  "This action changes the order of multiple target contents. The targets can come from a list or range target, or from existing multiple selections.";
+const PAIRED_DELIMITER_DESCRIPTION =
+  "See [paired delimiters](../README.md#paired-delimiters) for the available pairs.";
 
 type TalonSideActionType = "applyFormatter" | "nextHomophone";
 
@@ -52,6 +67,7 @@ export const actionReferences = {
     name: "Set selection",
     defaultSpokenForm: SET_SELECTION,
     group: { id: "cursor", index: 0 },
+    description: MULTI_TARGET_CURSOR_DESCRIPTION,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -70,6 +86,7 @@ export const actionReferences = {
     name: "Set selection before",
     defaultSpokenForm: "pre",
     group: { id: "cursor", index: 1 },
+    description: MULTI_TARGET_CURSOR_DESCRIPTION,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -88,6 +105,7 @@ export const actionReferences = {
     name: "Set selection after",
     defaultSpokenForm: "post",
     group: { id: "cursor", index: 2 },
+    description: MULTI_TARGET_CURSOR_DESCRIPTION,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -277,6 +295,7 @@ export const actionReferences = {
     name: "Insert copy after",
     defaultSpokenForm: "clone",
     group: { id: "insert", index: 0 },
+    description: CLONE_SELECTION_DESCRIPTION,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -295,6 +314,7 @@ export const actionReferences = {
     name: "Insert copy before",
     defaultSpokenForm: "clone up",
     group: { id: "insert", index: 1 },
+    description: CLONE_SELECTION_DESCRIPTION,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -369,6 +389,8 @@ export const actionReferences = {
     name: "Swap targets",
     defaultSpokenForm: "swap",
     group: { id: "swap", index: 0 },
+    description:
+      "When both operands contain multiple targets, their targets are paired by position and swapped.",
     syntaxes: [
       {
         pattern: `${VAR_SPOKEN_FORM} ${WITH} ${VAR_TARGET}`,
@@ -398,6 +420,8 @@ export const actionReferences = {
     name: "Move to target",
     defaultSpokenForm: "move",
     group: { id: "move", index: 0 },
+    description:
+      "A target destination is replaced, while a position destination such as `before` or `after` inserts there. The source is removed from its original location in either case.",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -465,7 +489,7 @@ export const actionReferences = {
     name: "Edit new line/scope before",
     defaultSpokenForm: "drink",
     group: { id: "emptyLines", index: 0 },
-    description: "Scope defaults to line.",
+    description: SCOPE_INSERTION_DESCRIPTION,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -493,7 +517,7 @@ export const actionReferences = {
     name: "Edit new line/scope after",
     defaultSpokenForm: "pour",
     group: { id: "emptyLines", index: 1 },
-    description: "Scope defaults to line.",
+    description: SCOPE_INSERTION_DESCRIPTION,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -521,6 +545,7 @@ export const actionReferences = {
     name: "Insert empty line/scope before",
     defaultSpokenForm: "drop",
     group: { id: "emptyLines", index: 2 },
+    description: SCOPE_INSERTION_DESCRIPTION,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -543,6 +568,7 @@ export const actionReferences = {
     name: "Insert empty line/scope after",
     defaultSpokenForm: "float",
     group: { id: "emptyLines", index: 3 },
+    description: SCOPE_INSERTION_DESCRIPTION,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -565,6 +591,7 @@ export const actionReferences = {
     name: "Insert empty lines/scopes around",
     defaultSpokenForm: "puff",
     group: { id: "emptyLines", index: 4 },
+    description: SCOPE_INSERTION_DESCRIPTION,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -589,6 +616,7 @@ export const actionReferences = {
     name: "Reverse targets",
     defaultSpokenForm: "reverse",
     group: { id: "reorder", index: 0 },
+    description: REORDER_DESCRIPTION,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -601,12 +629,21 @@ export const actionReferences = {
         command: `${VAR_SPOKEN_FORM} ${EVERY} ${ITEM} ${TARGET}`,
         description: `Reverses the collection items associated with the ${TARGET_DESC}.`,
       },
+      {
+        command: `${VAR_SPOKEN_FORM} ${LINE} ${TARGET} ${SLICE} ${TARGET_2}`,
+        description: `Reverses the lines from the ${TARGET_DESC} through the ${TARGET_2_DESC}.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${CURRENT_SELECTION}`,
+        description: "Reverses the current selections.",
+      },
     ],
   },
   randomizeTargets: {
     name: "Randomize targets",
     defaultSpokenForm: "shuffle",
     group: { id: "reorder", index: 1 },
+    description: REORDER_DESCRIPTION,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -619,12 +656,21 @@ export const actionReferences = {
         command: `${VAR_SPOKEN_FORM} ${EVERY} ${ITEM} ${TARGET}`,
         description: `Randomizes the collection items associated with the ${TARGET_DESC}.`,
       },
+      {
+        command: `${VAR_SPOKEN_FORM} ${LINE} ${TARGET} ${SLICE} ${TARGET_2}`,
+        description: `Randomizes the lines from the ${TARGET_DESC} through the ${TARGET_2_DESC}.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${CURRENT_SELECTION}`,
+        description: "Randomizes the current selections.",
+      },
     ],
   },
   sortTargets: {
     name: "Sort targets",
     defaultSpokenForm: "sort",
     group: { id: "reorder", index: 2 },
+    description: REORDER_DESCRIPTION,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -637,6 +683,14 @@ export const actionReferences = {
         command: `${VAR_SPOKEN_FORM} ${EVERY} ${ITEM} ${TARGET}`,
         description: `Sorts the collection items associated with the ${TARGET_DESC}.`,
       },
+      {
+        command: `${VAR_SPOKEN_FORM} ${LINE} ${TARGET} ${SLICE} ${TARGET_2}`,
+        description: `Sorts the lines from the ${TARGET_DESC} through the ${TARGET_2_DESC}.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${CURRENT_SELECTION}`,
+        description: "Sorts the current selections.",
+      },
     ],
   },
 
@@ -645,6 +699,7 @@ export const actionReferences = {
     name: "Wrap with paired delimiter/snippet",
     defaultSpokenForm: "wrap",
     group: { id: "wrap", index: 0 },
+    description: PAIRED_DELIMITER_DESCRIPTION,
     syntaxes: [
       {
         pattern: `${VAR_PAIR} ${VAR_SPOKEN_FORM} ${VAR_TARGET}`,
@@ -672,6 +727,7 @@ export const actionReferences = {
     name: "Rewrap with paired delimiter",
     defaultSpokenForm: "repack",
     group: { id: "wrap", index: 1 },
+    description: PAIRED_DELIMITER_DESCRIPTION,
     syntaxes: [
       {
         pattern: `${VAR_PAIR} ${VAR_SPOKEN_FORM} ${VAR_TARGET}`,
@@ -730,6 +786,7 @@ export const actionReferences = {
     name: "Rename",
     defaultSpokenForm: "rename",
     group: { id: "refactor", index: 0 },
+    description: "Uses the editor's rename operation.",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -748,6 +805,7 @@ export const actionReferences = {
     name: "Extract variable",
     defaultSpokenForm: "extract",
     group: { id: "refactor", index: 1 },
+    description: "Uses the editor's extract-variable refactoring.",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -765,6 +823,7 @@ export const actionReferences = {
   showQuickFix: {
     name: "Show quick fix",
     defaultSpokenForm: "quick fix",
+    description: "Shows the editor's quick fix menu.",
     group: { id: "refactor", index: 2 },
     syntaxes: [
       {
@@ -786,6 +845,8 @@ export const actionReferences = {
     name: "Join lines",
     defaultSpokenForm: "join",
     group: { id: "joinBreak", index: 0 },
+    description:
+      "When the target spans multiple lines, joins all of those lines; otherwise joins the target's line with the following line.",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -957,6 +1018,8 @@ export const actionReferences = {
     name: "Next homophone",
     defaultSpokenForm: "phones",
     group: { id: "homophones", index: 0 },
+    description:
+      "Cycles through words that sound alike, such as changing `where` to `wear`.",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,

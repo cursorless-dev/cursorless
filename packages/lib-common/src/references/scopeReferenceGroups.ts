@@ -2,24 +2,20 @@ import type { ReferenceGroup } from "./ReferenceEntry";
 
 export type ScopeReferenceGroupId =
   | "text"
-  | "sections"
   | "documentHierarchy"
-  | "notebook"
   | "collections"
   | "functions"
   | "objects"
   | "statements"
   | "markup"
+  | "sections"
+  | "notebook"
   | "private";
 
 export const scopeReferenceGroups: ReferenceGroup<ScopeReferenceGroupId>[] = [
   {
     id: "text",
     name: "Text-based scopes",
-  },
-  {
-    id: "sections",
-    name: "Sections",
   },
   {
     id: "documentHierarchy",
@@ -44,6 +40,10 @@ export const scopeReferenceGroups: ReferenceGroup<ScopeReferenceGroupId>[] = [
   {
     id: "markup",
     name: "Markup and styles",
+  },
+  {
+    id: "sections",
+    name: "Sections",
   },
   {
     id: "notebook",

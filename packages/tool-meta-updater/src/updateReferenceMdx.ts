@@ -1,6 +1,7 @@
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import type { ReferenceEntry } from "@cursorless/lib-common";
 import { capitalize } from "@cursorless/lib-common";
+import { DISABLED_BY_DEFAULT } from "./util/constants";
 import { formatVariables } from "./util/formatVariables";
 import { injectSpokenForm } from "./util/injectSpokenForm";
 
@@ -62,7 +63,7 @@ export function updateReferenceMdx(
   }
 
   if (entry.disabledByDefault) {
-    spokenFormLines.push(bold("Disabled by default"));
+    spokenFormLines.push(DISABLED_BY_DEFAULT);
   }
 
   if (spokenFormLines.length > 0) {
@@ -102,10 +103,6 @@ export function updateReferenceMdx(
 
 function code(value: string) {
   return `\`${value}\``;
-}
-
-function bold(value: string) {
-  return `**${value}**`;
 }
 
 function formatGroup(lines: string[]): string[] {
