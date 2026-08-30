@@ -38,6 +38,7 @@ const INSTANCE = scopeReferences.instance.defaultSpokenForm;
 const FUNCTION = scopeReferences.namedFunction.defaultSpokenForm;
 const TOKEN = scopeReferences.token.defaultSpokenForm;
 const EVERY = modifierReferences.everyScope.defaultSpokenForm;
+const NEXT = connectiveDefaultSpokenForms.next;
 const WITH = connectiveDefaultSpokenForms.swapConnective;
 const AFTER = connectiveDefaultSpokenForms.after;
 const TO = connectiveDefaultSpokenForms.sourceDestinationConnective;
@@ -1060,8 +1061,9 @@ export const actionReferences = {
     name: "Set instance reference",
     defaultSpokenForm: "from",
     group: { id: "instanceReference", index: 0 },
-    description:
-      "Sets the instance reference for the next 'instance of' action.",
+    description: `Sets the instance reference. This restricts the next instance search to a target. With \`"every instance"\`, the target defines the region to search; with \`"next instance"\`, it defines the position where the search begins.
+
+Older Cursorless installations may have \`"from"\` disabled. Remove the leading \`-\` from its entry in \`experimental/experimental_actions.csv\` to enable it; see the [settings CSV documentation](../customization.md).`,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1073,6 +1075,10 @@ export const actionReferences = {
       {
         command: `${VAR_SPOKEN_FORM} ${FUNCTION} ${TARGET} ${SET_SELECTION} ${EVERY} ${INSTANCE} ${TARGET_2}`,
         description: `Selects every instance of the ${TARGET_2_DESC} within the function containing the ${TARGET_DESC}.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${TARGET} ${SET_SELECTION} ${NEXT} ${INSTANCE} ${TARGET_2}`,
+        description: `Selects the next instance of the ${TARGET_2_DESC}, searching from the ${TARGET_DESC}.`,
       },
     ],
   },

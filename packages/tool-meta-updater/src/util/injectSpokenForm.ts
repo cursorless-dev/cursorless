@@ -12,5 +12,5 @@ export function injectSpokenForm(
     }
     return pattern;
   }
-  return pattern.replace(VAR_SPOKEN_FORM, defaultSpokenForm);
+  return pattern.replaceAll(VAR_SPOKEN_FORM, defaultSpokenForm);
 }

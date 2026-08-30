@@ -4,6 +4,8 @@ sidebar_label: Visible
 
 # Visible
 
+Limits a target to content currently visible in the editor viewport, excluding folded regions and content scrolled off screen. This is especially useful with the `"from"` action when searching for instances.
+
 Cursorless ID: `visible`
 
 ## Spoken form
@@ -17,3 +19,4 @@ Default: `visible`
 ## Examples
 
 - `"take visible"` - Selects the content currently visible in the editor viewport.
+- `"from visible take every instance blue air"` - Selects the visible instances of the token containing letter 'a' with a blue hat, excluding matches that are folded or outside the viewport.
