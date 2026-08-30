@@ -1,4 +1,9 @@
-import type { ScopeTypeType } from "../types/command/PartialTargetDescriptor.types";
+import type {
+  ScopeType,
+  ScopeTypeType,
+  SimpleScopeTypeType,
+} from "../types/command/PartialTargetDescriptor.types";
+import { simpleScopeTypeTypes } from "../types/command/PartialTargetDescriptor.types";
 import {
   EVERY,
   ITEM,
@@ -23,6 +28,12 @@ import { ordinalDefaultSpokenForms } from "./spokenForms/numberDefaultSpokenForm
 interface ScopeReferenceEntry extends ReferenceEntry<ScopeReferenceGroupId> {
   /** Whether the scope is defined on a per-language basis. */
   isLanguageSpecific: boolean;
+
+  /** Whether the scope is implemented by a dedicated modifier. */
+  isPseudoScope?: boolean;
+
+  /** The delimiter to use when inserting another instance of the scope. */
+  defaultInsertionDelimiter?: string;
 }
 
 const DEFAULT_PATTERN = VAR_SPOKEN_FORM;
@@ -39,10 +50,10 @@ const FOURTH = ordinalDefaultSpokenForms[4];
 export const scopeReferences = {
   // Group: text
   character: {
-    isLanguageSpecific: false,
     name: "Character",
     group: { id: "text", index: 0 },
     defaultSpokenForm: "char",
+    isLanguageSpecific: false,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -58,11 +69,11 @@ export const scopeReferences = {
     ],
   },
   word: {
-    isLanguageSpecific: false,
     name: "Sub token word",
     group: { id: "text", index: 1 },
     defaultSpokenForm: "sub",
     legacySpokenForms: ["word"],
+    isLanguageSpecific: false,
     description:
       "Selects an individual word-like component within a camelCase, snake_case, or similarly structured token. It can be combined with ordinal and range modifiers to select one or more components.",
     syntaxes: [
@@ -85,10 +96,10 @@ export const scopeReferences = {
     ],
   },
   token: {
-    isLanguageSpecific: false,
     name: "Token",
     group: { id: "text", index: 2 },
     defaultSpokenForm: "token",
+    isLanguageSpecific: false,
     description:
       "Expands the input to the nearest containing token. Without an explicit mark, it uses the token adjacent to the cursor or containing the current selection.",
     syntaxes: [
@@ -106,10 +117,10 @@ export const scopeReferences = {
     ],
   },
   identifier: {
-    isLanguageSpecific: false,
     name: "Identifier",
     group: { id: "text", index: 3 },
     defaultSpokenForm: "identifier",
+    isLanguageSpecific: false,
     description: `Like a token, but limited to text that can act as an identifier, such as \`foo\`, \`fooBar\`, or \`foo_bar\`; operators such as \`.\`, \`=\`, and \`+=\` are excluded. This scope is useful with ordinals such as \`${LAST} identifier\`.`,
     syntaxes: [
       {
@@ -127,10 +138,10 @@ export const scopeReferences = {
     ],
   },
   sentence: {
-    isLanguageSpecific: false,
     name: "Sentence",
     group: { id: "text", index: 4 },
     defaultSpokenForm: "sentence",
+    isLanguageSpecific: false,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -147,10 +158,10 @@ export const scopeReferences = {
     ],
   },
   line: {
-    isLanguageSpecific: false,
     name: "Line",
     group: { id: "text", index: 5 },
     defaultSpokenForm: LINE,
+    isLanguageSpecific: false,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -166,10 +177,10 @@ export const scopeReferences = {
     ],
   },
   fullLine: {
-    isLanguageSpecific: false,
     name: "Full line",
     group: { id: "text", index: 6 },
     defaultSpokenForm: "full line",
+    isLanguageSpecific: false,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -185,10 +196,10 @@ export const scopeReferences = {
     ],
   },
   paragraph: {
-    isLanguageSpecific: false,
     name: "Paragraph",
     group: { id: "text", index: 7 },
     defaultSpokenForm: "block",
+    isLanguageSpecific: false,
     description:
       "Expands above and below the input through contiguous nonempty lines, stopping at empty lines.",
     syntaxes: [
@@ -206,10 +217,10 @@ export const scopeReferences = {
     ],
   },
   boundedParagraph: {
-    isLanguageSpecific: false,
     name: "Bounded paragraph",
     group: { id: "text", index: 8 },
     defaultSpokenForm: "short block",
+    isLanguageSpecific: false,
     description:
       'Like `"block"`, but also stops at the boundary of a surrounding delimiter pair, so the selection does not escape the pair containing the input target.',
     syntaxes: [
@@ -227,10 +238,10 @@ export const scopeReferences = {
     ],
   },
   document: {
-    isLanguageSpecific: false,
     name: "Document",
     group: { id: "text", index: 9 },
     defaultSpokenForm: "file",
+    isLanguageSpecific: false,
     description: "The entire document, from the first to the last character.",
     syntaxes: [
       {
@@ -247,10 +258,10 @@ export const scopeReferences = {
     ],
   },
   nonWhitespaceSequence: {
-    isLanguageSpecific: false,
     name: "Non-whitespace sequence",
     group: { id: "text", index: 10 },
     defaultSpokenForm: "paint",
+    isLanguageSpecific: false,
     description:
       "Expands forward and backward from the input through adjacent non-whitespace characters.",
     syntaxes: [
@@ -268,10 +279,10 @@ export const scopeReferences = {
     ],
   },
   boundedNonWhitespaceSequence: {
-    isLanguageSpecific: false,
     name: "Bounded non-whitespace sequence",
     group: { id: "text", index: 11 },
     defaultSpokenForm: "short paint",
+    isLanguageSpecific: false,
     description:
       'Like `"paint"`, but expansion also stops at a delimiter pair that surrounds the input target. Delimiter pairs that do not surround the original target do not stop expansion.',
     syntaxes: [
@@ -291,10 +302,10 @@ export const scopeReferences = {
     ],
   },
   url: {
-    isLanguageSpecific: false,
     name: "URL",
     group: { id: "text", index: 12 },
     defaultSpokenForm: "link",
+    isLanguageSpecific: false,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -310,9 +321,9 @@ export const scopeReferences = {
     ],
   },
   surroundingPair: {
-    isLanguageSpecific: false,
     name: "Surrounding pair",
     group: { id: "text", index: 13 },
+    isLanguageSpecific: false,
     description: `Expands the input to the nearest containing [paired delimiters](../paired-delimiters.md) and their contents. Use the [interior-only](../modifiers/interiorOnly.mdx) or [exclude-interior](../modifiers/excludeInterior.mdx) modifiers to select only the contents or only the delimiters.
 
 When an opening and closing delimiter use the same character and no parse-tree information is available, Cursorless treats the first occurrence on each line as an opening delimiter and alternates subsequent occurrences between closing and opening delimiters.`,
@@ -331,10 +342,10 @@ When an opening and closing delimiter use the same character and no parse-tree i
     ],
   },
   glyph: {
-    isLanguageSpecific: false,
     name: "Glyph",
     group: { id: "text", index: 14 },
     defaultSpokenForm: "glyph",
+    isLanguageSpecific: false,
     syntaxes: [
       {
         pattern: `${VAR_SPOKEN_FORM} ${VAR_CHARACTER}`,
@@ -352,10 +363,11 @@ When an opening and closing delimiter use the same character and no parse-tree i
 
   // Group: documentHierarchy
   part: {
-    isLanguageSpecific: true,
     name: "Part",
     group: { id: "documentHierarchy", index: 0 },
     defaultSpokenForm: "part",
+    isLanguageSpecific: true,
+    defaultInsertionDelimiter: "\n\n",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -371,10 +383,11 @@ When an opening and closing delimiter use the same character and no parse-tree i
     ],
   },
   chapter: {
-    isLanguageSpecific: true,
     name: "Chapter",
     group: { id: "documentHierarchy", index: 1 },
     defaultSpokenForm: "chapter",
+    isLanguageSpecific: true,
+    defaultInsertionDelimiter: "\n\n",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -390,10 +403,11 @@ When an opening and closing delimiter use the same character and no parse-tree i
     ],
   },
   subSection: {
-    isLanguageSpecific: true,
     name: "Subsection",
     group: { id: "documentHierarchy", index: 2 },
     defaultSpokenForm: "subsection",
+    isLanguageSpecific: true,
+    defaultInsertionDelimiter: "\n\n",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -409,10 +423,11 @@ When an opening and closing delimiter use the same character and no parse-tree i
     ],
   },
   subSubSection: {
-    isLanguageSpecific: true,
     name: "Subsubsection",
     group: { id: "documentHierarchy", index: 3 },
     defaultSpokenForm: "subsubsection",
+    isLanguageSpecific: true,
+    defaultInsertionDelimiter: "\n\n",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -428,10 +443,11 @@ When an opening and closing delimiter use the same character and no parse-tree i
     ],
   },
   namedParagraph: {
-    isLanguageSpecific: true,
     name: "Named paragraph",
     group: { id: "documentHierarchy", index: 4 },
     defaultSpokenForm: "paragraph",
+    isLanguageSpecific: true,
+    defaultInsertionDelimiter: "\n\n",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -447,10 +463,11 @@ When an opening and closing delimiter use the same character and no parse-tree i
     ],
   },
   subParagraph: {
-    isLanguageSpecific: true,
     name: "Subparagraph",
     group: { id: "documentHierarchy", index: 5 },
     defaultSpokenForm: "subparagraph",
+    isLanguageSpecific: true,
+    defaultInsertionDelimiter: "\n\n",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -466,10 +483,11 @@ When an opening and closing delimiter use the same character and no parse-tree i
     ],
   },
   environment: {
-    isLanguageSpecific: true,
     name: "Environment",
     group: { id: "documentHierarchy", index: 6 },
     defaultSpokenForm: "environment",
+    isLanguageSpecific: true,
+    defaultInsertionDelimiter: "\n",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -487,10 +505,10 @@ When an opening and closing delimiter use the same character and no parse-tree i
 
   // Group: collections
   list: {
-    isLanguageSpecific: true,
     name: "List",
     group: { id: "collections", index: 0 },
     defaultSpokenForm: "list",
+    isLanguageSpecific: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -506,10 +524,10 @@ When an opening and closing delimiter use the same character and no parse-tree i
     ],
   },
   map: {
-    isLanguageSpecific: true,
     name: "Map",
     group: { id: "collections", index: 1 },
     defaultSpokenForm: "map",
+    isLanguageSpecific: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -525,10 +543,11 @@ When an opening and closing delimiter use the same character and no parse-tree i
     ],
   },
   collectionItem: {
-    isLanguageSpecific: true,
     name: "Collection item",
     group: { id: "collections", index: 2 },
     defaultSpokenForm: ITEM,
+    isLanguageSpecific: true,
+    defaultInsertionDelimiter: "\n",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -544,10 +563,10 @@ When an opening and closing delimiter use the same character and no parse-tree i
     ],
   },
   collectionKey: {
-    isLanguageSpecific: true,
     name: "Collection key",
     group: { id: "collections", index: 3 },
     defaultSpokenForm: "key",
+    isLanguageSpecific: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -565,10 +584,10 @@ When an opening and closing delimiter use the same character and no parse-tree i
 
   // Group: functions
   argumentOrParameter: {
-    isLanguageSpecific: true,
     name: "Argument or parameter",
     group: { id: "functions", index: 0 },
     defaultSpokenForm: "arg",
+    isLanguageSpecific: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -584,10 +603,10 @@ When an opening and closing delimiter use the same character and no parse-tree i
     ],
   },
   argumentList: {
-    isLanguageSpecific: true,
     name: "Argument list",
     group: { id: "functions", index: 1 },
     defaultSpokenForm: "arg list",
+    isLanguageSpecific: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -603,10 +622,11 @@ When an opening and closing delimiter use the same character and no parse-tree i
     ],
   },
   anonymousFunction: {
-    isLanguageSpecific: true,
     name: "Anonymous function",
     group: { id: "functions", index: 2 },
     defaultSpokenForm: "lambda",
+    isLanguageSpecific: true,
+    defaultInsertionDelimiter: "\n",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -622,10 +642,11 @@ When an opening and closing delimiter use the same character and no parse-tree i
     ],
   },
   namedFunction: {
-    isLanguageSpecific: true,
     name: "Named function",
     group: { id: "functions", index: 3 },
     defaultSpokenForm: "funk",
+    isLanguageSpecific: true,
+    defaultInsertionDelimiter: "\n\n",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -641,10 +662,11 @@ When an opening and closing delimiter use the same character and no parse-tree i
     ],
   },
   functionName: {
-    isLanguageSpecific: true,
     name: "Function name",
     group: { id: "functions", index: 4 },
     defaultSpokenForm: "funk name",
+    isLanguageSpecific: true,
+    isPseudoScope: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -660,10 +682,10 @@ When an opening and closing delimiter use the same character and no parse-tree i
     ],
   },
   functionCall: {
-    isLanguageSpecific: true,
     name: "Function call",
     group: { id: "functions", index: 5 },
     defaultSpokenForm: "call",
+    isLanguageSpecific: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -679,10 +701,10 @@ When an opening and closing delimiter use the same character and no parse-tree i
     ],
   },
   functionCallee: {
-    isLanguageSpecific: true,
     name: "Function callee",
     group: { id: "functions", index: 6 },
     defaultSpokenForm: "callee",
+    isLanguageSpecific: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -700,10 +722,11 @@ When an opening and closing delimiter use the same character and no parse-tree i
 
   // Group: objects
   class: {
-    isLanguageSpecific: true,
     name: "Class",
     group: { id: "objects", index: 0 },
     defaultSpokenForm: "class",
+    isLanguageSpecific: true,
+    defaultInsertionDelimiter: "\n\n",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -719,10 +742,11 @@ When an opening and closing delimiter use the same character and no parse-tree i
     ],
   },
   className: {
-    isLanguageSpecific: true,
     name: "Class name",
     group: { id: "objects", index: 1 },
     defaultSpokenForm: "class name",
+    isLanguageSpecific: true,
+    isPseudoScope: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -738,10 +762,11 @@ When an opening and closing delimiter use the same character and no parse-tree i
     ],
   },
   instance: {
-    isLanguageSpecific: true,
     name: "Instance",
     group: { id: "objects", index: 2 },
     defaultSpokenForm: "instance",
+    isLanguageSpecific: true,
+    isPseudoScope: true,
     description: `Searches for occurrences of the input target's text. Instance matching preserves the target's scope type, so an instance of a token only matches complete tokens rather than substrings within larger tokens; apply [\`"just"\`](../modifiers/toRawSelection.mdx) to match the raw text instead.
 
 For a range target, the entire range becomes the search text. Without an explicit mark, Cursorless uses the token touching the cursor. Use [\`"from"\`](../actions/setInstanceReference.mdx) to restrict the search region or choose its starting point.`,
@@ -772,10 +797,10 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   name: {
-    isLanguageSpecific: true,
     name: "Name",
     group: { id: "objects", index: 3 },
     defaultSpokenForm: "name",
+    isLanguageSpecific: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -792,10 +817,10 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   attribute: {
-    isLanguageSpecific: true,
     name: "Attribute",
     group: { id: "objects", index: 4 },
     defaultSpokenForm: "attribute",
+    isLanguageSpecific: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -811,10 +836,10 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   type: {
-    isLanguageSpecific: true,
     name: "Type",
     group: { id: "objects", index: 5 },
     defaultSpokenForm: "type",
+    isLanguageSpecific: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -830,10 +855,10 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   value: {
-    isLanguageSpecific: true,
     name: "Value",
     group: { id: "objects", index: 6 },
     defaultSpokenForm: "value",
+    isLanguageSpecific: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -852,10 +877,11 @@ For a range target, the entire range becomes the search text. Without an explici
 
   // Group: statements
   statement: {
-    isLanguageSpecific: true,
     name: "Statement",
     group: { id: "statements", index: 0 },
     defaultSpokenForm: STATEMENT,
+    isLanguageSpecific: true,
+    defaultInsertionDelimiter: "\n",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -872,10 +898,11 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   branch: {
-    isLanguageSpecific: true,
     name: "Branch",
     group: { id: "statements", index: 1 },
     defaultSpokenForm: "branch",
+    isLanguageSpecific: true,
+    defaultInsertionDelimiter: "\n",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -892,10 +919,11 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   ifStatement: {
-    isLanguageSpecific: true,
     name: "If statement",
     group: { id: "statements", index: 2 },
     defaultSpokenForm: "if state",
+    isLanguageSpecific: true,
+    defaultInsertionDelimiter: "\n",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -911,10 +939,10 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   condition: {
-    isLanguageSpecific: true,
     name: "Condition",
     group: { id: "statements", index: 3 },
     defaultSpokenForm: "condition",
+    isLanguageSpecific: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -930,10 +958,11 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   comment: {
-    isLanguageSpecific: true,
     name: "Comment",
     group: { id: "statements", index: 4 },
     defaultSpokenForm: "comment",
+    isLanguageSpecific: true,
+    defaultInsertionDelimiter: "\n",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -949,10 +978,10 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   command: {
-    isLanguageSpecific: true,
     name: "Command",
     group: { id: "statements", index: 5 },
     defaultSpokenForm: "command",
+    isLanguageSpecific: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -969,10 +998,10 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   regularExpression: {
-    isLanguageSpecific: true,
     name: "Regular expression",
     group: { id: "statements", index: 6 },
     defaultSpokenForm: "regex",
+    isLanguageSpecific: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -990,10 +1019,11 @@ For a range target, the entire range becomes the search text. Without an explici
 
   // Group: markup
   xmlElement: {
-    isLanguageSpecific: true,
     name: "XML element",
     group: { id: "markup", index: 0 },
     defaultSpokenForm: "element",
+    isLanguageSpecific: true,
+    defaultInsertionDelimiter: "\n",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1010,10 +1040,10 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   xmlStartTag: {
-    isLanguageSpecific: true,
     name: "XML start tag",
     group: { id: "markup", index: 1 },
     defaultSpokenForm: "start tag",
+    isLanguageSpecific: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1029,10 +1059,10 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   xmlEndTag: {
-    isLanguageSpecific: true,
     name: "XML end tag",
     group: { id: "markup", index: 2 },
     defaultSpokenForm: "end tag",
+    isLanguageSpecific: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1048,10 +1078,10 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   xmlBothTags: {
-    isLanguageSpecific: true,
     name: "XML both tags",
     group: { id: "markup", index: 3 },
     defaultSpokenForm: "tags",
+    isLanguageSpecific: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1068,10 +1098,10 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   selector: {
-    isLanguageSpecific: true,
     name: "Selector",
     group: { id: "markup", index: 4 },
     defaultSpokenForm: "selector",
+    isLanguageSpecific: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1087,10 +1117,10 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   unit: {
-    isLanguageSpecific: true,
     name: "Unit",
     group: { id: "markup", index: 5 },
     defaultSpokenForm: "unit",
+    isLanguageSpecific: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1108,10 +1138,11 @@ For a range target, the entire range becomes the search text. Without an explici
 
   // Group: sections
   section: {
-    isLanguageSpecific: true,
     name: "Section",
     group: { id: "sections", index: 0 },
     defaultSpokenForm: "section",
+    isLanguageSpecific: true,
+    defaultInsertionDelimiter: "\n\n",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1128,11 +1159,12 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   sectionLevelOne: {
-    isLanguageSpecific: true,
     name: "Section level one",
     group: { id: "sections", index: 1 },
     defaultSpokenForm: "one section",
     disabledByDefault: true,
+    isLanguageSpecific: true,
+    defaultInsertionDelimiter: "\n\n",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1148,11 +1180,12 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   sectionLevelTwo: {
-    isLanguageSpecific: true,
     name: "Section level two",
     group: { id: "sections", index: 2 },
     defaultSpokenForm: "two section",
     disabledByDefault: true,
+    isLanguageSpecific: true,
+    defaultInsertionDelimiter: "\n\n",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1168,11 +1201,12 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   sectionLevelThree: {
-    isLanguageSpecific: true,
     name: "Section level three",
     group: { id: "sections", index: 3 },
     defaultSpokenForm: "three section",
     disabledByDefault: true,
+    isLanguageSpecific: true,
+    defaultInsertionDelimiter: "\n\n",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1188,11 +1222,12 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   sectionLevelFour: {
-    isLanguageSpecific: true,
     name: "Section level four",
     group: { id: "sections", index: 4 },
     defaultSpokenForm: "four section",
     disabledByDefault: true,
+    isLanguageSpecific: true,
+    defaultInsertionDelimiter: "\n\n",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1208,11 +1243,12 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   sectionLevelFive: {
-    isLanguageSpecific: true,
     name: "Section level five",
     group: { id: "sections", index: 5 },
     defaultSpokenForm: "five section",
     disabledByDefault: true,
+    isLanguageSpecific: true,
+    defaultInsertionDelimiter: "\n\n",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1228,11 +1264,12 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   sectionLevelSix: {
-    isLanguageSpecific: true,
     name: "Section level six",
     group: { id: "sections", index: 6 },
     defaultSpokenForm: "six section",
     disabledByDefault: true,
+    isLanguageSpecific: true,
+    defaultInsertionDelimiter: "\n\n",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1250,10 +1287,10 @@ For a range target, the entire range becomes the search text. Without an explici
 
   // Group: notebook
   notebookCell: {
-    isLanguageSpecific: false,
     name: "Notebook cell",
     group: { id: "notebook", index: 0 },
     defaultSpokenForm: "cell",
+    isLanguageSpecific: false,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1271,11 +1308,11 @@ For a range target, the entire range becomes the search text. Without an explici
 
   // Group: private
   "private.fieldAccess": {
-    isLanguageSpecific: true,
     name: "Field access",
     group: { id: "private", index: 0 },
     defaultSpokenForm: "access",
     private: true,
+    isLanguageSpecific: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1291,11 +1328,11 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   string: {
-    isLanguageSpecific: true,
     name: "String",
     group: { id: "private", index: 1 },
     defaultSpokenForm: "parse tree string",
     private: true,
+    isLanguageSpecific: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1311,11 +1348,11 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   textFragment: {
-    isLanguageSpecific: true,
     name: "Text fragment",
     group: { id: "private", index: 2 },
     defaultSpokenForm: "text fragment",
     private: true,
+    isLanguageSpecific: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1331,11 +1368,11 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   disqualifyDelimiter: {
-    isLanguageSpecific: true,
     name: "Disqualify delimiter",
     group: { id: "private", index: 3 },
     defaultSpokenForm: "disqualify delimiter",
     private: true,
+    isLanguageSpecific: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1351,11 +1388,11 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   pairDelimiter: {
-    isLanguageSpecific: true,
     name: "Pair delimiter",
     group: { id: "private", index: 4 },
     defaultSpokenForm: "pair delimiter",
     private: true,
+    isLanguageSpecific: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1371,11 +1408,11 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   interior: {
-    isLanguageSpecific: true,
     name: "Interior",
     group: { id: "private", index: 5 },
     defaultSpokenForm: "interior",
     private: true,
+    isLanguageSpecific: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1391,19 +1428,38 @@ For a range target, the entire range becomes the search text. Without an explici
     ],
   },
   surroundingPairInterior: {
-    isLanguageSpecific: false,
     name: "Surrounding pair interior",
     group: { id: "private", index: 6 },
     private: true,
+    isLanguageSpecific: false,
     syntaxes: [],
     examples: [],
   },
   customRegex: {
-    isLanguageSpecific: false,
     name: "Custom regex",
     group: { id: "private", index: 7 },
     private: true,
+    isLanguageSpecific: false,
     syntaxes: [],
     examples: [],
   },
 } as const satisfies Record<ScopeTypeType, ScopeReferenceEntry>;
+
+export const pseudoScopeTypeTypes = new Set<SimpleScopeTypeType>(
+  simpleScopeTypeTypes.filter((scopeType) => {
+    const reference: ScopeReferenceEntry = scopeReferences[scopeType];
+    return reference.isPseudoScope;
+  }),
+);
+
+export function isPseudoScopeType(scopeType: ScopeType): boolean {
+  const reference: ScopeReferenceEntry = scopeReferences[scopeType.type];
+  return reference.isPseudoScope ?? false;
+}
+
+export function getDefaultInsertionDelimiter(
+  scopeType: SimpleScopeTypeType,
+): string {
+  const reference: ScopeReferenceEntry = scopeReferences[scopeType];
+  return reference.defaultInsertionDelimiter ?? " ";
+}
