@@ -80,11 +80,10 @@ export const sidebarItemsGenerator: SidebarItemsGenerator = async ({
   function sortByLabel(
     items: NormalizedSidebarItem[],
   ): NormalizedSidebarItem[] {
-    const normalizedItems = items.map(
-      (item): NormalizedSidebarItem =>
-        item.type === "category"
-          ? { ...item, items: sortByLabel(item.items) }
-          : item,
+    const normalizedItems = items.map((item): NormalizedSidebarItem =>
+      item.type === "category"
+        ? { ...item, items: sortByLabel(item.items) }
+        : item,
     );
     const unpositionedItems = normalizedItems
       .filter((item) => !hasExplicitPosition(item))
