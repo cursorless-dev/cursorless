@@ -57,7 +57,7 @@ const SCOPE_INSERTION_DESCRIPTION =
 const REORDER_DESCRIPTION =
   "This action changes the order of multiple target contents. The targets can come from a list or range target, or from existing multiple selections.";
 const PAIRED_DELIMITER_DESCRIPTION =
-  "See [paired delimiters](../README.md#paired-delimiters) for the available pairs.";
+  "See [paired delimiters](../paired-delimiters.md) for the available pairs.";
 
 type TalonSideActionType = "applyFormatter" | "nextHomophone";
 

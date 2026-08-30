@@ -11,6 +11,7 @@ import {
   languageScopeSupport,
   modifierReferenceGroups,
   modifierReferences,
+  pairedDelimiterReferences,
   scopeReferenceGroups,
   scopeReferences,
 } from "@cursorless/lib-common";
@@ -18,6 +19,7 @@ import type { Context } from "./Context";
 import { textFormat } from "./textFormat";
 import { updateLanguageMdx } from "./updateLanguageMdx";
 import { updatePackageJson } from "./updatePackageJson";
+import { updatePairedDelimitersMd } from "./updatePairedDelimitersMd";
 import { updatePrivateScopeMdx } from "./updatePrivateScopeMdx";
 import { updateReferenceMdx } from "./updateReferenceMdx";
 import { updateReferenceReadmeMd } from "./updateReferenceReadmeMd";
@@ -55,6 +57,10 @@ export const updater = async (workspaceDir: string) => {
           `${userDir}/languages/${languageId}.mdx`,
           updateLanguageMdx.bind(null, languageId),
         ]),
+      ),
+      [`${userDir}/paired-delimiters.md`]: updatePairedDelimitersMd.bind(
+        null,
+        pairedDelimiterReferences,
       ),
       [`${userDir}/actions/README.md`]: updateReferenceReadmeMd.bind(
         null,
