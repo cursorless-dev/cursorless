@@ -127,7 +127,7 @@ const squareMissing: ScopeTypeInfo = {
 };
 
 const namedFunctionStandard: ScopeTypeInfo = {
-  humanReadableName: "named function",
+  humanReadableName: "Named function",
   isLanguageSpecific: true,
   scopeType: { type: "namedFunction" },
   spokenForm: {
@@ -137,7 +137,7 @@ const namedFunctionStandard: ScopeTypeInfo = {
 };
 
 const namedFunctionCustom: ScopeTypeInfo = {
-  humanReadableName: "named function",
+  humanReadableName: "Named function",
   isLanguageSpecific: true,
   scopeType: { type: "namedFunction" },
   spokenForm: {
@@ -147,7 +147,7 @@ const namedFunctionCustom: ScopeTypeInfo = {
 };
 
 const lambdaStandard: ScopeTypeInfo = {
-  humanReadableName: "anonymous function",
+  humanReadableName: "Anonymous function",
   isLanguageSpecific: true,
   scopeType: { type: "anonymousFunction" },
   spokenForm: {
@@ -157,7 +157,7 @@ const lambdaStandard: ScopeTypeInfo = {
 };
 
 const lambdaCustom: ScopeTypeInfo = {
-  humanReadableName: "anonymous function",
+  humanReadableName: "Anonymous function",
   isLanguageSpecific: true,
   scopeType: { type: "anonymousFunction" },
   spokenForm: {
@@ -169,7 +169,7 @@ const lambdaCustom: ScopeTypeInfo = {
 };
 
 const statementStandard: ScopeTypeInfo = {
-  humanReadableName: "statement",
+  humanReadableName: "Statement",
   isLanguageSpecific: true,
   scopeType: { type: "statement" },
   spokenForm: {
@@ -179,7 +179,7 @@ const statementStandard: ScopeTypeInfo = {
 };
 
 const statementMissing: ScopeTypeInfo = {
-  humanReadableName: "statement",
+  humanReadableName: "Statement",
   isLanguageSpecific: true,
   scopeType: { type: "statement" },
   spokenForm: {

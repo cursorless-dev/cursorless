@@ -22,10 +22,10 @@ export function updatePairedDelimitersMd(
 
   const rows = Object.values(entries)
     .filter(
-      (entry): entry is PairedDelimiterReference & { referenceIndex: number } =>
-        !entry.private && entry.referenceIndex != null,
+      (entry): entry is PairedDelimiterReference & { index: number } =>
+        !entry.private && entry.index != null,
     )
-    .toSorted((a, b) => a.referenceIndex - b.referenceIndex)
+    .toSorted((a, b) => a.index - b.index)
     .map((entry) => {
       const [before, after] = entry.delimiters ?? [null, null];
       const spokenForm = `${code(`"${entry.defaultSpokenForm}"`)}${entry.disabledByDefault ? ` (${DISABLED_BY_DEFAULT})` : ""}`;
@@ -36,7 +36,7 @@ export function updatePairedDelimitersMd(
         before == null ? "N/A" : code(formatDelimiter(before)),
         after == null ? "N/A" : code(formatDelimiter(after)),
         booleanIcon(entry.delimiters != null),
-        booleanIcon(entry.selectable),
+        booleanIcon(entry.matchingDelimiters != null),
       ];
     });
 

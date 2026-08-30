@@ -57,7 +57,7 @@ function helloWorld() {
 
 function getExpectedScope(scopeSupport: ScopeSupport): ScopeSupportInfo {
   return {
-    humanReadableName: "named function",
+    humanReadableName: "Named function",
     isLanguageSpecific: true,
     iterationScopeSupport: scopeSupport,
     scopeType: {
