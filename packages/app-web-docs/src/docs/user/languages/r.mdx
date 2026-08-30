@@ -1,5 +1,669 @@
-import { Language } from "@site/src/docs/components/Language";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # R
 
-<Language languageId="r" />
+<ScopeVisualizerProvider>
+
+Below are visualizations of all our scope tests for this language. These were created primarily for testing purposes rather than as documentation. There are quite a few, and they may feel a bit overwhelming from a documentation standpoint.
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Anonymous function
+
+#### 1. Anonymous function
+
+<i>An anonymous function, eg a lambda function, an arrow function, etc.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/anonymousFunction" languageId="r" />
+
+<ScopeVisualizer fixtureName="scopes/r/anonymousFunction2" languageId="r" />
+
+### Argument list
+
+#### 1. Argument list: Actual empty
+
+<i>An empty list of arguments in a function call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/argumentList/argumentList.actual.empty" languageId="r" />
+
+#### 2. Argument list: Actual method empty
+
+<i>An empty list of arguments in a method call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/argumentList/argumentList.actual.method.empty" languageId="r" />
+
+#### 3. Argument list: Actual method multi line
+
+<i>A multi line list of arguments in a method call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/argumentList/argumentList.actual.method.multiLine" languageId="r" />
+
+#### 4. Argument list: Actual method single line
+
+<i>A single line list of arguments in a method call</i>
+
+<ScopeVisualizer fixtureName="scopes/r/argumentList/argumentList.actual.method.singleLine" languageId="r" />
+
+#### 5. Argument list: Actual multi line
+
+<i>A multi line list of arguments in a function call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/argumentList/argumentList.actual.multiLine" languageId="r" />
+
+#### 6. Argument list: Actual single line
+
+<i>A single line list of arguments in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/r/argumentList/argumentList.actual.singleLine" languageId="r" />
+
+#### 7. Argument list: Formal empty
+
+<i>An empty list of parameters in a function declaration. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/argumentList/argumentList.formal.empty" languageId="r" />
+
+#### 8. Argument list: Formal lambda empty
+
+<i>An empty list of parameters in a lambda declaration. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/argumentList/argumentList.formal.lambda.empty" languageId="r" />
+
+#### 9. Argument list: Formal lambda multi line
+
+<i>A multi line list of parameters in a lambda declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/argumentList/argumentList.formal.lambda.multiLine" languageId="r" />
+
+#### 10. Argument list: Formal lambda single line
+
+<i>A single line list of parameters in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/r/argumentList/argumentList.formal.lambda.singleLine" languageId="r" />
+
+#### 11. Argument list: Formal multi line
+
+<i>A multi line list of parameters in a function declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/argumentList/argumentList.formal.multiLine" languageId="r" />
+
+#### 12. Argument list: Formal single line
+
+<i>A single line list of parameters in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/r/argumentList/argumentList.formal.singleLine" languageId="r" />
+
+### Argument or parameter
+
+#### 1. Argument: Actual method multi line
+
+<i>A multi line argument in a method call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/argument/argument.actual.method.multiLine" languageId="r" />
+
+#### 2. Argument: Actual method single line
+
+<i>A single line argument in a method call</i>
+
+<ScopeVisualizer fixtureName="scopes/r/argument/argument.actual.method.singleLine" languageId="r" />
+
+#### 3. Argument: Actual multi line
+
+<i>A multiline argument in a function call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/argument/argument.actual.multiLine" languageId="r" />
+
+#### 4. Argument: Actual single line
+
+<i>A single line argument in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/r/argument/argument.actual.singleLine" languageId="r" />
+
+#### 5. Argument: Formal lambda multi line
+
+<i>A multi line parameter in a lambda declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/argument/argument.formal.lambda.multiLine" languageId="r" />
+
+#### 6. Argument: Formal lambda single line
+
+<i>A single line parameter in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/r/argument/argument.formal.lambda.singleLine" languageId="r" />
+
+#### 7. Argument: Formal multi line
+
+<i>A multi line parameter in a function declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/argument/argument.formal.multiLine" languageId="r" />
+
+#### 8. Argument: Formal single line
+
+<i>A single line parameter in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/r/argument/argument.formal.singleLine" languageId="r" />
+
+#### 9. Argument: Actual (iteration)
+
+<i>Iteration scope for arguments in a function call: the argument list. The domain should be the entire function call.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/argument/argument.actual.iteration" languageId="r" />
+
+#### 10. Argument: Actual method (iteration)
+
+<i>Iteration scope for arguments in a method call: the argument list. The domain should be the entire method call.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/argument/argument.actual.method.iteration" languageId="r" />
+
+#### 11. Argument: Formal (iteration)
+
+<i>Iteration scope for formal parameters in a function declaration: the parameters list. The domain should be the entire function.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/argument/argument.formal.iteration" languageId="r" />
+
+#### 12. Argument: Formal lambda (iteration)
+
+<i>Iteration scope for formal parameters in a lambda declaration: the parameter list. The domain should be the entire lambda.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/argument/argument.formal.lambda.iteration" languageId="r" />
+
+### Branch
+
+#### 1. Branch: If
+
+<i>An if branch</i>
+
+<ScopeVisualizer fixtureName="scopes/r/branch/branch.if" languageId="r" />
+
+#### 2. Branch: If elif else
+
+<i>An if-elif-else branch. The removal range for the if branch should include the trailing `else` keyword.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/branch/branch.if.elif.else" languageId="r" />
+
+#### 3. Branch: If else
+
+<i>An if-else branch</i>
+
+<ScopeVisualizer fixtureName="scopes/r/branch/branch.if.else" languageId="r" />
+
+#### 4. Branch: Switch case
+
+<i>A case/default branch in a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/r/branch/branch.switchCase" languageId="r" />
+
+<ScopeVisualizer fixtureName="scopes/r/branch/branch.switchCase2" languageId="r" />
+
+<ScopeVisualizer fixtureName="scopes/r/branch/branch.switchCase3" languageId="r" />
+
+#### 5. Branch: Try
+
+<i>A try/catch/finally branch</i>
+
+<ScopeVisualizer fixtureName="scopes/r/branch/branch.try" languageId="r" />
+
+#### 6. Branch: If (iteration)
+
+<i>Iteration scope for if/elif/else branches: the if-else statement.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/branch/branch.if.iteration" languageId="r" />
+
+#### 7. Branch: Switch case (iteration)
+
+<i>Iteration scope for switch branches: the switch statement body.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/branch/branch.switchCase.iteration" languageId="r" />
+
+#### 8. Branch: Try (iteration)
+
+<i>Iteration scope for try/catch/finally branches: the try-catch statement.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/branch/branch.try.iteration" languageId="r" />
+
+### Comment
+
+#### 1. Comment: Line
+
+<i>A line comment</i>
+
+<ScopeVisualizer fixtureName="scopes/r/comment.line" languageId="r" />
+
+### Condition
+
+#### 1. Condition: If
+
+<i>A condition in an if statement</i>
+
+<ScopeVisualizer fixtureName="scopes/r/condition.if" languageId="r" />
+
+#### 2. Condition: Switch case
+
+<i>A condition in a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/r/condition.switchCase" languageId="r" />
+
+<ScopeVisualizer fixtureName="scopes/r/condition.switchCase2" languageId="r" />
+
+#### 3. Condition: While
+
+<i>A condition in a while loop</i>
+
+<ScopeVisualizer fixtureName="scopes/r/condition.while" languageId="r" />
+
+#### 4. Condition: Switch case (iteration)
+
+<i>Iteration scope for conditions in a switch statement: the switch statement body.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/condition.switchCase.iteration" languageId="r" />
+
+### Function call
+
+#### 1. Function call
+
+<i>A function call</i>
+
+<ScopeVisualizer fixtureName="scopes/r/functionCall" languageId="r" />
+
+#### 2. Function call: Method
+
+<i>A method call</i>
+
+<ScopeVisualizer fixtureName="scopes/r/functionCall.method" languageId="r" />
+
+### Function callee
+
+#### 1. Function callee
+
+<i>The function being called in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/r/functionCallee" languageId="r" />
+
+#### 2. Function callee: Method
+
+<i>The function being called in a method call, including parent objects.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/functionCallee.method" languageId="r" />
+
+### If statement
+
+#### 1. If statement
+
+<i>An if statement</i>
+
+<ScopeVisualizer fixtureName="scopes/r/ifStatement" languageId="r" />
+
+### List
+
+#### 1. List
+
+<i>A list/array</i>
+
+<ScopeVisualizer fixtureName="scopes/r/list" languageId="r" />
+
+### Name
+
+#### 1. Name: Argument actual
+
+<i>Name of a (keyword) argument in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/r/name/name.argument.actual" languageId="r" />
+
+#### 2. Name: Argument formal
+
+<i>Name of a parameter in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/r/name/name.argument.formal" languageId="r" />
+
+#### 3. Name: Argument formal lambda
+
+<i>Name of a parameter in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/r/name/name.argument.formal.lambda" languageId="r" />
+
+#### 4. Name: Assignment
+
+<i>Name (LHS) of an assignment</i>
+
+<ScopeVisualizer fixtureName="scopes/r/name/name.assignment" languageId="r" />
+
+<ScopeVisualizer fixtureName="scopes/r/name/name.assignment2" languageId="r" />
+
+#### 5. Name: Foreach
+
+<i>Iteration variable name in a for each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/r/name/name.foreach" languageId="r" />
+
+#### 6. Name: Function
+
+<i>Name of a function</i>
+
+<ScopeVisualizer fixtureName="scopes/r/name/name.function" languageId="r" />
+
+#### 7. Name: Variable initialized
+
+<i>Name (LHS) of an initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/r/name/name.variable.initialized" languageId="r" />
+
+#### 8. Name (iteration block)
+
+<i>Iteration scope for names: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/r/name/name.iteration.block" languageId="r" />
+
+<ScopeVisualizer fixtureName="scopes/r/name/name.iteration.block2" languageId="r" />
+
+<ScopeVisualizer fixtureName="scopes/r/name/name.iteration.block3" languageId="r" />
+
+#### 9. Name (iteration document)
+
+<i>Iteration scope for names: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/name/name.iteration.document" languageId="r" />
+
+#### 10. Name: Argument actual (iteration)
+
+<i>Iteration scope for names of (keyword) arguments in a function call: the argument list.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/name/name.argument.actual.iteration" languageId="r" />
+
+#### 11. Name: Argument formal (iteration)
+
+<i>Iteration scope for names of formal parameters in a function declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/name/name.argument.formal.iteration" languageId="r" />
+
+#### 12. Name: Argument formal lambda (iteration)
+
+<i>Iteration scope for names of formal parameters in a lambda declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/name/name.argument.formal.lambda.iteration" languageId="r" />
+
+### Named function
+
+#### 1. Named function
+
+<i>A named function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/r/namedFunction" languageId="r" />
+
+#### 2. Named function (iteration document)
+
+<i>Iteration scope for named functions: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/namedFunction.iteration.document" languageId="r" />
+
+### Statement
+
+#### 1. Statement: Assignment
+
+<i>An assignment statement</i>
+
+<ScopeVisualizer fixtureName="scopes/r/statement/statement.assignment" languageId="r" />
+
+<ScopeVisualizer fixtureName="scopes/r/statement/statement.assignment2" languageId="r" />
+
+#### 2. Statement: Break
+
+<i>A break statement</i>
+
+<ScopeVisualizer fixtureName="scopes/r/statement/statement.break" languageId="r" />
+
+#### 3. Statement: Continue
+
+<i>A continue statement</i>
+
+<ScopeVisualizer fixtureName="scopes/r/statement/statement.continue" languageId="r" />
+
+#### 4. Statement: Foreach
+
+<i>A for-each loop statement</i>
+
+<ScopeVisualizer fixtureName="scopes/r/statement/statement.foreach" languageId="r" />
+
+#### 5. Statement: Function
+
+<i>A named function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/r/statement/statement.function" languageId="r" />
+
+#### 6. Statement: Function call
+
+<i>A function call statement</i>
+
+<ScopeVisualizer fixtureName="scopes/r/statement/statement.functionCall" languageId="r" />
+
+#### 7. Statement: If
+
+<i>A if/elif/else statement</i>
+
+<ScopeVisualizer fixtureName="scopes/r/statement/statement.if" languageId="r" />
+
+#### 8. Statement: Return
+
+<i>A return statement</i>
+
+<ScopeVisualizer fixtureName="scopes/r/statement/statement.return" languageId="r" />
+
+#### 9. Statement: Switch
+
+<i>A switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/r/statement/statement.switch" languageId="r" />
+
+#### 10. Statement: Try
+
+<i>A try/catch/finally statement</i>
+
+<ScopeVisualizer fixtureName="scopes/r/statement/statement.try" languageId="r" />
+
+#### 11. Statement: Variable initialized
+
+<i>An initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/r/statement/statement.variable.initialized" languageId="r" />
+
+#### 12. Statement: While
+
+<i>A while loop statement</i>
+
+<ScopeVisualizer fixtureName="scopes/r/statement/statement.while" languageId="r" />
+
+#### 13. Statement (iteration block)
+
+<i>Iteration scope for statements: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/r/statement/statement.iteration.block" languageId="r" />
+
+<ScopeVisualizer fixtureName="scopes/r/statement/statement.iteration.block2" languageId="r" />
+
+<ScopeVisualizer fixtureName="scopes/r/statement/statement.iteration.block3" languageId="r" />
+
+#### 14. Statement (iteration document)
+
+<i>Iteration scope for statements: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/statement/statement.iteration.document" languageId="r" />
+
+### Value
+
+#### 1. Value: Argument actual
+
+<i>The value of a (keyword) argument in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/r/value/value.argument.actual" languageId="r" />
+
+#### 2. Value: Argument formal
+
+<i>The (default) value of a argument in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/r/value/value.argument.formal" languageId="r" />
+
+#### 3. Value: Argument formal lambda
+
+<i>The (default) value of a parameter in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/r/value/value.argument.formal.lambda" languageId="r" />
+
+#### 4. Value: Assignment
+
+<i>Value (RHS) of an assignment</i>
+
+<ScopeVisualizer fixtureName="scopes/r/value/value.assignment" languageId="r" />
+
+<ScopeVisualizer fixtureName="scopes/r/value/value.assignment2" languageId="r" />
+
+#### 5. Value: Foreach
+
+<i>Iterable in a for each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/r/value/value.foreach" languageId="r" />
+
+#### 6. Value: Return
+
+<i>Return value of a function</i>
+
+<ScopeVisualizer fixtureName="scopes/r/value/value.return" languageId="r" />
+
+#### 7. Value: Switch
+
+<i>The value / subject of a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/r/value/value.switch" languageId="r" />
+
+#### 8. Value: Variable
+
+<i>Value (RHS) of a variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/r/value/value.variable" languageId="r" />
+
+#### 9. Value (iteration block)
+
+<i>Iteration scope for values: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/r/value/value.iteration.block" languageId="r" />
+
+<ScopeVisualizer fixtureName="scopes/r/value/value.iteration.block2" languageId="r" />
+
+<ScopeVisualizer fixtureName="scopes/r/value/value.iteration.block3" languageId="r" />
+
+#### 10. Value (iteration document)
+
+<i>Iteration scope for values: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/value/value.iteration.document" languageId="r" />
+
+#### 11. Value: Argument actual (iteration)
+
+<i>Iteration scope for values of (keyword) arguments in a function call: the arguments list.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/value/value.argument.actual.iteration" languageId="r" />
+
+#### 12. Value: Argument formal (iteration)
+
+<i>Iteration scope for values of formal parameters in a function declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/value/value.argument.formal.iteration" languageId="r" />
+
+#### 13. Value: Argument formal lambda (iteration)
+
+<i>Iteration scope for values of formal parameters in a lambda declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/value/value.argument.formal.lambda.iteration" languageId="r" />
+
+## Internal scopes
+
+The following are internal scopes. They are not intended for user interaction or spoken use. These scopes exist solely for internal Cursorless functionality.
+
+### Disqualify delimiter
+
+#### 1. Disqualify delimiter
+
+<i>Internally used to disqualify a token from being treated as a surrounding pair delimiter. This will usually be operators containing `>` or `<`, eg `<`, `<=`, `->`, etc.</i>
+
+<ScopeVisualizer fixtureName="scopes/r/disqualifyDelimiter" languageId="r" />
+
+### Interior
+
+#### 1. Interior: Foreach
+
+<i>The body of a for-each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/r/interior/interior.foreach" languageId="r" />
+
+#### 2. Interior: Function
+
+<i>The body of a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/r/interior/interior.function" languageId="r" />
+
+#### 3. Interior: If
+
+<i>The body of an if/elif/else branch</i>
+
+<ScopeVisualizer fixtureName="scopes/r/interior/interior.if" languageId="r" />
+
+#### 4. Interior: Lambda
+
+<i>The block body of a lambda/anonymous function</i>
+
+<ScopeVisualizer fixtureName="scopes/r/interior/interior.lambda" languageId="r" />
+
+#### 5. Interior: Switch case
+
+<i>The body of a switch case branch</i>
+
+<ScopeVisualizer fixtureName="scopes/r/interior/interior.switchCase" languageId="r" />
+
+<ScopeVisualizer fixtureName="scopes/r/interior/interior.switchCase2" languageId="r" />
+
+#### 6. Interior: Try
+
+<i>The body of a try/catch/finally branch</i>
+
+<ScopeVisualizer fixtureName="scopes/r/interior/interior.try" languageId="r" />
+
+#### 7. Interior: While
+
+<i>The body of a while loop</i>
+
+<ScopeVisualizer fixtureName="scopes/r/interior/interior.while" languageId="r" />
+
+### String
+
+#### 1. String: Multi line
+
+<i>A multi-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/r/string.multiLine" languageId="r" />
+
+#### 2. String: Single line
+
+<i>A single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/r/string.singleLine" languageId="r" />
+
+### Text fragment
+
+#### 1. Text fragment: Comment line
+
+<i>Internally used text fragment consisting of a line comment</i>
+
+<ScopeVisualizer fixtureName="scopes/r/textFragment.comment.line" languageId="r" />
+
+#### 2. Text fragment: String multi line
+
+<i>Internally used text fragment consisting of a multi-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/r/textFragment.string.multiLine" languageId="r" />
+
+#### 3. Text fragment: String single line
+
+<i>Internally used text fragment consisting of a single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/r/textFragment.string.singleLine" languageId="r" />
+
+</ScopeVisualizerProvider>

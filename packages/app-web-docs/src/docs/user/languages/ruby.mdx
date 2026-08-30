@@ -1,5 +1,995 @@
-import { Language } from "@site/src/docs/components/Language";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Ruby
 
-<Language languageId="ruby" />
+<ScopeVisualizerProvider>
+
+Below are visualizations of all our scope tests for this language. These were created primarily for testing purposes rather than as documentation. There are quite a few, and they may feel a bit overwhelming from a documentation standpoint.
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Anonymous function
+
+#### 1. Anonymous function
+
+<i>An anonymous function, eg a lambda function, an arrow function, etc.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/anonymousFunction" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/anonymousFunction2" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/anonymousFunction3" languageId="ruby" />
+
+### Argument list
+
+#### 1. Argument list: Actual empty
+
+<i>An empty list of arguments in a function call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argumentList/argumentList.actual.empty" languageId="ruby" />
+
+#### 2. Argument list: Actual method empty
+
+<i>An empty list of arguments in a method call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argumentList/argumentList.actual.method.empty" languageId="ruby" />
+
+#### 3. Argument list: Actual method multi line
+
+<i>A multi line list of arguments in a method call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argumentList/argumentList.actual.method.multiLine" languageId="ruby" />
+
+#### 4. Argument list: Actual method single line
+
+<i>A single line list of arguments in a method call</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argumentList/argumentList.actual.method.singleLine" languageId="ruby" />
+
+#### 5. Argument list: Actual multi line
+
+<i>A multi line list of arguments in a function call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argumentList/argumentList.actual.multiLine" languageId="ruby" />
+
+#### 6. Argument list: Actual single line
+
+<i>A single line list of arguments in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argumentList/argumentList.actual.singleLine" languageId="ruby" />
+
+#### 7. Argument list: Formal empty
+
+<i>An empty list of parameters in a function declaration. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argumentList/argumentList.formal.empty" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/argumentList/argumentList.formal.empty2" languageId="ruby" />
+
+#### 8. Argument list: Formal lambda empty
+
+<i>An empty list of parameters in a lambda declaration. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argumentList/argumentList.formal.lambda.empty" languageId="ruby" />
+
+#### 9. Argument list: Formal lambda multi line
+
+<i>A multi line list of parameters in a lambda declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argumentList/argumentList.formal.lambda.multiLine" languageId="ruby" />
+
+#### 10. Argument list: Formal lambda single line
+
+<i>A single line list of parameters in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argumentList/argumentList.formal.lambda.singleLine" languageId="ruby" />
+
+#### 11. Argument list: Formal method empty
+
+<i>An empty list of parameters in a class method declaration. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argumentList/argumentList.formal.method.empty" languageId="ruby" />
+
+#### 12. Argument list: Formal method multi line
+
+<i>A multi line list of parameters in a class method declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argumentList/argumentList.formal.method.multiLine" languageId="ruby" />
+
+#### 13. Argument list: Formal method single line
+
+<i>A single line list of parameters in a class method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argumentList/argumentList.formal.method.singleLine" languageId="ruby" />
+
+#### 14. Argument list: Formal multi line
+
+<i>A multi line list of parameters in a function declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argumentList/argumentList.formal.multiLine" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/argumentList/argumentList.formal.multiLine2" languageId="ruby" />
+
+#### 15. Argument list: Formal single line
+
+<i>A single line list of parameters in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argumentList/argumentList.formal.singleLine" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/argumentList/argumentList.formal.singleLine2" languageId="ruby" />
+
+### Argument or parameter
+
+#### 1. Argument: Actual method multi line
+
+<i>A multi line argument in a method call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argument/argument.actual.method.multiLine" languageId="ruby" />
+
+#### 2. Argument: Actual method single line
+
+<i>A single line argument in a method call</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argument/argument.actual.method.singleLine" languageId="ruby" />
+
+#### 3. Argument: Actual multi line
+
+<i>A multiline argument in a function call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argument/argument.actual.multiLine" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/argument/argument.actual.multiLine2" languageId="ruby" />
+
+#### 4. Argument: Actual single line
+
+<i>A single line argument in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argument/argument.actual.singleLine" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/argument/argument.actual.singleLine2" languageId="ruby" />
+
+#### 5. Argument: Formal lambda multi line
+
+<i>A multi line parameter in a lambda declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argument/argument.formal.lambda.multiLine" languageId="ruby" />
+
+#### 6. Argument: Formal lambda single line
+
+<i>A single line parameter in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argument/argument.formal.lambda.singleLine" languageId="ruby" />
+
+#### 7. Argument: Formal method multi line
+
+<i>A multi line parameter in a class method declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argument/argument.formal.method.multiLine" languageId="ruby" />
+
+#### 8. Argument: Formal method single line
+
+<i>A single line parameter in a class method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argument/argument.formal.method.singleLine" languageId="ruby" />
+
+#### 9. Argument: Formal multi line
+
+<i>A multi line parameter in a function declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argument/argument.formal.multiLine" languageId="ruby" />
+
+#### 10. Argument: Formal single line
+
+<i>A single line parameter in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argument/argument.formal.singleLine" languageId="ruby" />
+
+#### 11. Argument: Actual (iteration)
+
+<i>Iteration scope for arguments in a function call: the argument list. The domain should be the entire function call.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argument/argument.actual.iteration" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/argument/argument.actual.iteration2" languageId="ruby" />
+
+#### 12. Argument: Actual method (iteration)
+
+<i>Iteration scope for arguments in a method call: the argument list. The domain should be the entire method call.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argument/argument.actual.method.iteration" languageId="ruby" />
+
+#### 13. Argument: Formal (iteration)
+
+<i>Iteration scope for formal parameters in a function declaration: the parameters list. The domain should be the entire function.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argument/argument.formal.iteration" languageId="ruby" />
+
+#### 14. Argument: Formal lambda (iteration)
+
+<i>Iteration scope for formal parameters in a lambda declaration: the parameter list. The domain should be the entire lambda.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argument/argument.formal.lambda.iteration" languageId="ruby" />
+
+#### 15. Argument: Formal method (iteration)
+
+<i>Iteration scope for formal parameters in a method declaration: the parameter list. The domain should be the entire method.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/argument/argument.formal.method.iteration" languageId="ruby" />
+
+### Branch
+
+#### 1. Branch: If
+
+<i>An if branch</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.if" languageId="ruby" />
+
+#### 2. Branch: If elif else
+
+<i>An if-elif-else branch. The removal range for the if branch should include the trailing `else` keyword.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.if.elif.else" languageId="ruby" />
+
+#### 3. Branch: If else
+
+<i>An if-else branch</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.if.else" languageId="ruby" />
+
+#### 4. Branch: Switch case
+
+<i>A case/default branch in a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.switchCase" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.switchCase2" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.switchCase3" languageId="ruby" />
+
+#### 5. Branch: Ternary
+
+<i>A branch in a ternary expression</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.ternary" languageId="ruby" />
+
+#### 6. Branch: Try
+
+<i>A try/catch/finally branch</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.try" languageId="ruby" />
+
+#### 7. Branch: If (iteration)
+
+<i>Iteration scope for if/elif/else branches: the if-else statement.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.if.iteration" languageId="ruby" />
+
+#### 8. Branch: Switch case (iteration)
+
+<i>Iteration scope for switch branches: the switch statement body.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.switchCase.iteration" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.switchCase.iteration2" languageId="ruby" />
+
+#### 9. Branch: Ternary (iteration)
+
+<i>Iteration scope for ternary expression branches: the ternary expression.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.ternary.iteration" languageId="ruby" />
+
+#### 10. Branch: Try (iteration)
+
+<i>Iteration scope for try/catch/finally branches: the try-catch statement.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/branch/branch.try.iteration" languageId="ruby" />
+
+### Class
+
+#### 1. Class
+
+<i>A class/struct in an object-oriented language</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/class" languageId="ruby" />
+
+#### 2. Class (iteration class)
+
+<i>Iteration scope for classes: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/class.iteration.class" languageId="ruby" />
+
+#### 3. Class (iteration document)
+
+<i>Iteration scope for classes: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/class.iteration.document" languageId="ruby" />
+
+### Collection key
+
+#### 1. Key: Map pair
+
+<i>Key (LHS) of a key-value pair of a map</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/key/key.mapPair" languageId="ruby" />
+
+#### 2. Key: Map pair (iteration)
+
+<i>Iteration scope for keys of key-value pairs in a map: should be between the braces.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/key/key.mapPair.iteration" languageId="ruby" />
+
+### Comment
+
+#### 1. Comment: Block
+
+<i>A block comment</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/comment.block" languageId="ruby" />
+
+#### 2. Comment: Line
+
+<i>A line comment</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/comment.line" languageId="ruby" />
+
+### Condition
+
+#### 1. Condition: If
+
+<i>A condition in an if statement</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/condition/condition.if" languageId="ruby" />
+
+#### 2. Condition: Switch case
+
+<i>A condition in a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/condition/condition.switchCase" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/condition/condition.switchCase2" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/condition/condition.switchCase3" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/condition/condition.switchCase4" languageId="ruby" />
+
+#### 3. Condition: Ternary
+
+<i>A condition in a ternary expression</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/condition/condition.ternary" languageId="ruby" />
+
+#### 4. Condition: While
+
+<i>A condition in a while loop</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/condition/condition.while" languageId="ruby" />
+
+#### 5. Condition: Switch case (iteration)
+
+<i>Iteration scope for conditions in a switch statement: the switch statement body.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/condition/condition.switchCase.iteration" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/condition/condition.switchCase.iteration2" languageId="ruby" />
+
+### Function call
+
+#### 1. Function call
+
+<i>A function call</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/functionCall/functionCall" languageId="ruby" />
+
+#### 2. Function call: Chain
+
+<i>A chain of function calls, eg `foo().bar()`</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/functionCall/functionCall.chain" languageId="ruby" />
+
+#### 3. Function call: Method
+
+<i>A method call</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/functionCall/functionCall.method" languageId="ruby" />
+
+### Function callee
+
+#### 1. Function callee
+
+<i>The function being called in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/functionCallee/functionCallee" languageId="ruby" />
+
+#### 2. Function callee: Chain
+
+<i>The function being called in a chain of function calls, including parent objects.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/functionCallee/functionCallee.chain" languageId="ruby" />
+
+#### 3. Function callee: Method
+
+<i>The function being called in a method call, including parent objects.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/functionCallee/functionCallee.method" languageId="ruby" />
+
+### If statement
+
+#### 1. If statement
+
+<i>An if statement</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/ifStatement" languageId="ruby" />
+
+### List
+
+#### 1. List
+
+<i>A list/array</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/list" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/list2" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/list3" languageId="ruby" />
+
+### Map
+
+#### 1. Map
+
+<i>A map/dictionary</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/map" languageId="ruby" />
+
+### Name
+
+#### 1. Name: Argument actual
+
+<i>Name of a (keyword) argument in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/name/name.argument.actual" languageId="ruby" />
+
+#### 2. Name: Argument formal
+
+<i>Name of a parameter in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/name/name.argument.formal" languageId="ruby" />
+
+#### 3. Name: Argument formal lambda
+
+<i>Name of a parameter in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/name/name.argument.formal.lambda" languageId="ruby" />
+
+#### 4. Name: Argument formal method
+
+<i>Name of a parameter in a class method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/name/name.argument.formal.method" languageId="ruby" />
+
+#### 5. Name: Assignment
+
+<i>Name (LHS) of an assignment</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/name/name.assignment" languageId="ruby" />
+
+#### 6. Name: Class
+
+<i>Name of a class</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/name/name.class" languageId="ruby" />
+
+#### 7. Name: Foreach
+
+<i>Iteration variable name in a for each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/name/name.foreach" languageId="ruby" />
+
+#### 8. Name: Function
+
+<i>Name of a function</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/name/name.function" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/name/name.function2" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/name/name.function3" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/name/name.function4" languageId="ruby" />
+
+#### 9. Name: Method
+
+<i>Name of a class method</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/name/name.method" languageId="ruby" />
+
+#### 10. Name (iteration block)
+
+<i>Iteration scope for names: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/name/name.iteration.block" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/name/name.iteration.block2" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/name/name.iteration.block3" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/name/name.iteration.block4" languageId="ruby" />
+
+#### 11. Name (iteration class)
+
+<i>Iteration scope for names: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/name/name.iteration.class" languageId="ruby" />
+
+#### 12. Name (iteration document)
+
+<i>Iteration scope for names: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/name/name.iteration.document" languageId="ruby" />
+
+#### 13. Name: Argument actual (iteration)
+
+<i>Iteration scope for names of (keyword) arguments in a function call: the argument list.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/name/name.argument.actual.iteration" languageId="ruby" />
+
+#### 14. Name: Argument formal (iteration)
+
+<i>Iteration scope for names of formal parameters in a function declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/name/name.argument.formal.iteration" languageId="ruby" />
+
+#### 15. Name: Argument formal lambda (iteration)
+
+<i>Iteration scope for names of formal parameters in a lambda declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/name/name.argument.formal.lambda.iteration" languageId="ruby" />
+
+#### 16. Name: Argument formal method (iteration)
+
+<i>Iteration scope for names of formal parameters in a method declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/name/name.argument.formal.method.iteration" languageId="ruby" />
+
+### Named function
+
+#### 1. Named function
+
+<i>A named function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/namedFunction" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/namedFunction2" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/namedFunction3" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/namedFunction4" languageId="ruby" />
+
+#### 2. Named function: Method
+
+<i>A named method declaration in a class</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/namedFunction.method" languageId="ruby" />
+
+#### 3. Named function (iteration class)
+
+<i>Iteration scope for named functions: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/namedFunction.iteration.class" languageId="ruby" />
+
+#### 4. Named function (iteration document)
+
+<i>Iteration scope for named functions: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/namedFunction.iteration.document" languageId="ruby" />
+
+### Regular expression
+
+#### 1. Regular expression
+
+<i>A regular expression</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/regularExpression" languageId="ruby" />
+
+### Statement
+
+#### 1. Statement: Assignment
+
+<i>An assignment statement</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.assignment" languageId="ruby" />
+
+#### 2. Statement: Break
+
+<i>A break statement</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.break" languageId="ruby" />
+
+#### 3. Statement: Class
+
+<i>A class/struct declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.class" languageId="ruby" />
+
+#### 4. Statement: Continue
+
+<i>A continue statement</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.continue" languageId="ruby" />
+
+#### 5. Statement: Foreach
+
+<i>A for-each loop statement</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.foreach" languageId="ruby" />
+
+#### 6. Statement: Function
+
+<i>A named function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.function" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.function2" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.function3" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.function4" languageId="ruby" />
+
+#### 7. Statement: Function call
+
+<i>A function call statement</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.functionCall" languageId="ruby" />
+
+#### 8. Statement: If
+
+<i>A if/elif/else statement</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.if" languageId="ruby" />
+
+#### 9. Statement: Method
+
+<i>A method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.method" languageId="ruby" />
+
+#### 10. Statement: Misc
+
+<i>A miscellaneous statement</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.misc" languageId="ruby" />
+
+#### 11. Statement: Return
+
+<i>A return statement</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.return" languageId="ruby" />
+
+#### 12. Statement: Switch
+
+<i>A switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.switch" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.switch2" languageId="ruby" />
+
+#### 13. Statement: Throw
+
+<i>A throw statement</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.throw" languageId="ruby" />
+
+#### 14. Statement: Try
+
+<i>A try/catch/finally statement</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.try" languageId="ruby" />
+
+#### 15. Statement: Variable initialized
+
+<i>An initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.variable.initialized" languageId="ruby" />
+
+#### 16. Statement: While
+
+<i>A while loop statement</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.while" languageId="ruby" />
+
+#### 17. Statement: Yield
+
+<i>A yield statement</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.yield" languageId="ruby" />
+
+#### 18. Statement (iteration block)
+
+<i>Iteration scope for statements: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.iteration.block" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.iteration.block2" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.iteration.block3" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.iteration.block4" languageId="ruby" />
+
+#### 19. Statement (iteration class)
+
+<i>Iteration scope for statements: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.iteration.class" languageId="ruby" />
+
+#### 20. Statement (iteration document)
+
+<i>Iteration scope for statements: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/statement/statement.iteration.document" languageId="ruby" />
+
+### Value
+
+#### 1. Value: Argument actual
+
+<i>The value of a (keyword) argument in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/value/value.argument.actual" languageId="ruby" />
+
+#### 2. Value: Argument formal
+
+<i>The (default) value of a argument in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/value/value.argument.formal" languageId="ruby" />
+
+#### 3. Value: Argument formal lambda
+
+<i>The (default) value of a parameter in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/value/value.argument.formal.lambda" languageId="ruby" />
+
+#### 4. Value: Argument formal method
+
+<i>The (default) value of a parameter in a method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/value/value.argument.formal.method" languageId="ruby" />
+
+#### 5. Value: Assignment
+
+<i>Value (RHS) of an assignment</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/value/value.assignment" languageId="ruby" />
+
+#### 6. Value: Foreach
+
+<i>Iterable in a for each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/value/value.foreach" languageId="ruby" />
+
+#### 7. Value: Map pair
+
+<i>Value (RHS) of a key-value pair in a map</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/value/value.mapPair" languageId="ruby" />
+
+#### 8. Value: Return
+
+<i>Return value of a function</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/value/value.return" languageId="ruby" />
+
+#### 9. Value: Return lambda
+
+<i>Implicit return value from a lambda</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/value/value.return.lambda" languageId="ruby" />
+
+#### 10. Value: Switch
+
+<i>The value / subject of a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/value/value.switch" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/value/value.switch2" languageId="ruby" />
+
+#### 11. Value: Throw
+
+<i>Value of a throw statement</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/value/value.throw" languageId="ruby" />
+
+#### 12. Value: Variable
+
+<i>Value (RHS) of a variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/value/value.variable" languageId="ruby" />
+
+#### 13. Value: Yield
+
+<i>Value of a yield statement</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/value/value.yield" languageId="ruby" />
+
+#### 14. Value (iteration block)
+
+<i>Iteration scope for values: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/value/value.iteration.block" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/value/value.iteration.block2" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/value/value.iteration.block3" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/value/value.iteration.block4" languageId="ruby" />
+
+#### 15. Value (iteration class)
+
+<i>Iteration scope for values: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/value/value.iteration.class" languageId="ruby" />
+
+#### 16. Value (iteration document)
+
+<i>Iteration scope for values: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/value/value.iteration.document" languageId="ruby" />
+
+#### 17. Value: Argument actual (iteration)
+
+<i>Iteration scope for values of (keyword) arguments in a function call: the arguments list.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/value/value.argument.actual.iteration" languageId="ruby" />
+
+#### 18. Value: Argument formal (iteration)
+
+<i>Iteration scope for values of formal parameters in a function declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/value/value.argument.formal.iteration" languageId="ruby" />
+
+#### 19. Value: Argument formal lambda (iteration)
+
+<i>Iteration scope for values of formal parameters in a lambda declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/value/value.argument.formal.lambda.iteration" languageId="ruby" />
+
+#### 20. Value: Argument formal method (iteration)
+
+<i>Iteration scope for values of formal parameters in a method declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/value/value.argument.formal.method.iteration" languageId="ruby" />
+
+#### 21. Value: Map pair (iteration)
+
+<i>Iteration scope for values of key-value pairs in a map: should be between the braces.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/value/value.mapPair.iteration" languageId="ruby" />
+
+## Internal scopes
+
+The following are internal scopes. They are not intended for user interaction or spoken use. These scopes exist solely for internal Cursorless functionality.
+
+### Disqualify delimiter
+
+#### 1. Disqualify delimiter
+
+<i>Internally used to disqualify a token from being treated as a surrounding pair delimiter. This will usually be operators containing `>` or `<`, eg `<`, `<=`, `->`, etc.</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/disqualifyDelimiter" languageId="ruby" />
+
+### Interior
+
+#### 1. Interior: Class
+
+<i>The body of a class</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/interior/interior.class" languageId="ruby" />
+
+#### 2. Interior: Foreach
+
+<i>The body of a for-each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/interior/interior.foreach" languageId="ruby" />
+
+#### 3. Interior: Function
+
+<i>The body of a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/interior/interior.function" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/interior/interior.function2" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/interior/interior.function3" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/interior/interior.function4" languageId="ruby" />
+
+#### 4. Interior: If
+
+<i>The body of an if/elif/else branch</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/interior/interior.if" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/interior/interior.if2" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/interior/interior.if3" languageId="ruby" />
+
+#### 5. Interior: Lambda
+
+<i>The block body of a lambda/anonymous function</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/interior/interior.lambda" languageId="ruby" />
+
+#### 6. Interior: Method
+
+<i>The body of a method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/interior/interior.method" languageId="ruby" />
+
+#### 7. Interior: Switch
+
+<i>The body of a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/interior/interior.switch" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/interior/interior.switch2" languageId="ruby" />
+
+#### 8. Interior: Switch case
+
+<i>The body of a switch case branch</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/interior/interior.switchCase" languageId="ruby" />
+
+<ScopeVisualizer fixtureName="scopes/ruby/interior/interior.switchCase2" languageId="ruby" />
+
+#### 9. Interior: Try
+
+<i>The body of a try/catch/finally branch</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/interior/interior.try" languageId="ruby" />
+
+#### 10. Interior: While
+
+<i>The body of a while loop</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/interior/interior.while" languageId="ruby" />
+
+### String
+
+#### 1. String: Multi line
+
+<i>A multi-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/string.multiLine" languageId="ruby" />
+
+#### 2. String: Single line
+
+<i>A single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/string.singleLine" languageId="ruby" />
+
+### Text fragment
+
+#### 1. Text fragment: Comment block
+
+<i>Internally used text fragment consisting of a block comment</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/textFragment.comment.block" languageId="ruby" />
+
+#### 2. Text fragment: Comment line
+
+<i>Internally used text fragment consisting of a line comment</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/textFragment.comment.line" languageId="ruby" />
+
+#### 3. Text fragment: String multi line
+
+<i>Internally used text fragment consisting of a multi-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/textFragment.string.multiLine" languageId="ruby" />
+
+#### 4. Text fragment: String single line
+
+<i>Internally used text fragment consisting of a single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/ruby/textFragment.string.singleLine" languageId="ruby" />
+
+</ScopeVisualizerProvider>

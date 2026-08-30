@@ -2,7 +2,7 @@
 sidebar_label: Full line
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Full line
 
@@ -20,4 +20,20 @@ Default: `full line`
 
 - `"take full line blue air"` - Selects the full line containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="fullLine" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Full line
+
+<i>A single full line in the document. Includes leading and trailing whitespace.</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/fullLine" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/fullLine2" />
+
+</ScopeVisualizerProvider>

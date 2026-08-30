@@ -2,7 +2,7 @@
 sidebar_label: Sub
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Sub (Sub token word)
 
@@ -24,4 +24,20 @@ Legacy: `word`
 - `"take first sub blue air"` - Selects the first sub token word in the token containing letter 'a' with a blue hat.
 - `"take second past fourth sub blue air"` - Selects the second through fourth sub token words in the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="word" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Word
+
+<i>A single word in a token</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/word" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/word2" />
+
+</ScopeVisualizerProvider>

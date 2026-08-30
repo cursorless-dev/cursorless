@@ -2,7 +2,7 @@
 sidebar_label: Element
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Element (XML element)
 
@@ -20,4 +20,30 @@ Default: `element`
 
 - `"take element blue air"` - Selects the XML element containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="xmlElement" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Element
+
+<i>A xml/html element. Also used for LaTeX environments</i>
+
+##### HTML
+
+<ScopeVisualizer fixtureName="scopes/html/element" />
+
+##### JavaScript React
+
+<ScopeVisualizer fixtureName="scopes/javascript.jsx/element" />
+
+##### Latex
+
+<ScopeVisualizer fixtureName="scopes/latex/element" />
+
+##### XML
+
+<ScopeVisualizer fixtureName="scopes/xml/element" />
+
+</ScopeVisualizerProvider>

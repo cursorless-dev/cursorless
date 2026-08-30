@@ -1,5 +1,119 @@
-import { Language } from "@site/src/docs/components/Language";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # HTML
 
-<Language languageId="html" />
+<ScopeVisualizerProvider>
+
+Below are visualizations of all our scope tests for this language. These were created primarily for testing purposes rather than as documentation. There are quite a few, and they may feel a bit overwhelming from a documentation standpoint.
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Attribute
+
+#### 1. Attribute
+
+<i>A attribute, eg of a html element or a C++ attribute</i>
+
+<ScopeVisualizer fixtureName="scopes/html/attribute" languageId="html" />
+
+### Collection key
+
+#### 1. Key: Attribute
+
+<i>Key (LHS) of an attribute eg in a xml element</i>
+
+<ScopeVisualizer fixtureName="scopes/html/key.attribute" languageId="html" />
+
+<ScopeVisualizer fixtureName="scopes/html/key.attribute2" languageId="html" />
+
+### Comment
+
+#### 1. Comment: Block
+
+<i>A block comment</i>
+
+<ScopeVisualizer fixtureName="scopes/html/comment.block" languageId="html" />
+
+### Value
+
+#### 1. Value: Attribute
+
+<i>Value (RHS) of an attribute eg in a xml element</i>
+
+<ScopeVisualizer fixtureName="scopes/html/value.attribute" languageId="html" />
+
+### Xml both tags
+
+#### 1. Tags
+
+<i>Both tags in a xml element</i>
+
+<ScopeVisualizer fixtureName="scopes/html/tags" languageId="html" />
+
+### Xml element
+
+#### 1. Element
+
+<i>A xml/html element. Also used for LaTeX environments</i>
+
+<ScopeVisualizer fixtureName="scopes/html/element" languageId="html" />
+
+### Xml end tag
+
+#### 1. End tag
+
+<i>The end tag of a xml element</i>
+
+<ScopeVisualizer fixtureName="scopes/html/endTag" languageId="html" />
+
+### Xml start tag
+
+#### 1. Start tag
+
+<i>The start tag of a xml element</i>
+
+<ScopeVisualizer fixtureName="scopes/html/startTag" languageId="html" />
+
+## Internal scopes
+
+The following are internal scopes. They are not intended for user interaction or spoken use. These scopes exist solely for internal Cursorless functionality.
+
+### Interior
+
+#### 1. Interior: Element
+
+<i>The interior/children of a XML element</i>
+
+<ScopeVisualizer fixtureName="scopes/html/interior.element" languageId="html" />
+
+### String
+
+#### 1. String: Single line
+
+<i>A single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/html/string.singleLine" languageId="html" />
+
+### Text fragment
+
+#### 1. Text fragment: Comment block
+
+<i>Internally used text fragment consisting of a block comment</i>
+
+<ScopeVisualizer fixtureName="scopes/html/textFragment.comment.block" languageId="html" />
+
+#### 2. Text fragment: Element
+
+<i>Internally used text fragment consisting of a xml element interior</i>
+
+<ScopeVisualizer fixtureName="scopes/html/textFragment.element" languageId="html" />
+
+#### 3. Text fragment: String single line
+
+<i>Internally used text fragment consisting of a single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/html/textFragment.string.singleLine" languageId="html" />
+
+</ScopeVisualizerProvider>

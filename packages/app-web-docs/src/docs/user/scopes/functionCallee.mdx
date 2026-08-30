@@ -2,7 +2,7 @@
 sidebar_label: Callee
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Callee (Function callee)
 
@@ -20,4 +20,326 @@ Default: `callee`
 
 - `"take callee blue air"` - Selects the function callee containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="functionCallee" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Function callee
+
+<i>The function being called in a function call</i>
+
+##### C
+
+<ScopeVisualizer fixtureName="scopes/c/functionCallee" />
+
+##### Clojure
+
+<ScopeVisualizer fixtureName="scopes/clojure/functionCallee" />
+
+##### C#
+
+<ScopeVisualizer fixtureName="scopes/csharp/functionCallee" />
+
+##### CSS
+
+<ScopeVisualizer fixtureName="scopes/css/functionCallee" />
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/functionCallee/functionCallee" />
+
+##### Go
+
+<ScopeVisualizer fixtureName="scopes/go/functionCallee" />
+
+##### Java
+
+<ScopeVisualizer fixtureName="scopes/java/functionCallee/functionCallee" />
+
+##### JavaScript
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/functionCallee" />
+
+##### Kotlin
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCallee/functionCallee" />
+
+##### Latex
+
+<ScopeVisualizer fixtureName="scopes/latex/functionCallee" />
+
+##### Lua
+
+<ScopeVisualizer fixtureName="scopes/lua/functionCallee/functionCallee" />
+
+##### PHP
+
+<ScopeVisualizer fixtureName="scopes/php/functionCallee/functionCallee" />
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/functionCallee" />
+
+##### R
+
+<ScopeVisualizer fixtureName="scopes/r/functionCallee" />
+
+##### Ruby
+
+<ScopeVisualizer fixtureName="scopes/ruby/functionCallee/functionCallee" />
+
+##### Rust
+
+<ScopeVisualizer fixtureName="scopes/rust/functionCallee" />
+
+##### Scala
+
+<ScopeVisualizer fixtureName="scopes/scala/functionCallee" />
+
+##### Tree sitter query (SCM)
+
+<ScopeVisualizer fixtureName="scopes/scm/functionCallee" />
+
+##### Talon
+
+<ScopeVisualizer fixtureName="scopes/talon/functionCallee" />
+
+<ScopeVisualizer fixtureName="scopes/talon/functionCallee2" />
+
+### Function callee: Chain
+
+<i>The function being called in a chain of function calls, including parent objects.</i>
+
+##### C
+
+<ScopeVisualizer fixtureName="scopes/c/functionCallee.chain" />
+
+##### C#
+
+<ScopeVisualizer fixtureName="scopes/csharp/functionCallee.chain" />
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/functionCallee/functionCallee.chain" />
+
+##### Go
+
+<ScopeVisualizer fixtureName="scopes/go/functionCallee.chain" />
+
+##### Java
+
+<ScopeVisualizer fixtureName="scopes/java/functionCallee/functionCallee.chain" />
+
+##### JavaScript
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/functionCallee.chain" />
+
+##### Kotlin
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCallee/functionCallee.chain" />
+
+##### Lua
+
+<ScopeVisualizer fixtureName="scopes/lua/functionCallee/functionCallee.chain" />
+
+<ScopeVisualizer fixtureName="scopes/lua/functionCallee/functionCallee.chain2" />
+
+##### PHP
+
+<ScopeVisualizer fixtureName="scopes/php/functionCallee/functionCallee.chain" />
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/functionCallee.chain" />
+
+##### Ruby
+
+<ScopeVisualizer fixtureName="scopes/ruby/functionCallee/functionCallee.chain" />
+
+##### Rust
+
+<ScopeVisualizer fixtureName="scopes/rust/functionCallee.chain" />
+
+##### Scala
+
+<ScopeVisualizer fixtureName="scopes/scala/functionCallee.chain" />
+
+### Function callee: Constructor
+
+<i>The class being constructed in a class instantiation, including the `new` keyword.</i>
+
+##### C++
+
+<ScopeVisualizer fixtureName="scopes/cpp/functionCallee.constructor" />
+
+##### C#
+
+<ScopeVisualizer fixtureName="scopes/csharp/functionCallee.constructor" />
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/functionCallee/functionCallee.constructor" />
+
+##### Java
+
+<ScopeVisualizer fixtureName="scopes/java/functionCallee/functionCallee.constructor" />
+
+##### JavaScript
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/functionCallee.constructor" />
+
+##### Kotlin
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCallee/functionCallee.constructor" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCallee/functionCallee.constructor2" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCallee/functionCallee.constructor3" />
+
+##### PHP
+
+<ScopeVisualizer fixtureName="scopes/php/functionCallee/functionCallee.constructor" />
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/functionCallee.constructor" />
+
+##### Scala
+
+<ScopeVisualizer fixtureName="scopes/scala/functionCallee.constructor" />
+
+### Function callee: Enum
+
+<i>The enum constructor being called</i>
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/functionCallee/functionCallee.enum" />
+
+##### Java
+
+<ScopeVisualizer fixtureName="scopes/java/functionCallee/functionCallee.enum" />
+
+##### Kotlin
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCallee/functionCallee.enum" />
+
+##### Rust
+
+<ScopeVisualizer fixtureName="scopes/rust/functionCallee.enum" />
+
+### Function callee: Generic
+
+<i>The function being called in a function call with generic type arguments</i>
+
+##### C++
+
+<ScopeVisualizer fixtureName="scopes/cpp/functionCallee.generic" />
+
+##### C#
+
+<ScopeVisualizer fixtureName="scopes/csharp/functionCallee.generic" />
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/functionCallee/functionCallee.generic" />
+
+##### Go
+
+<ScopeVisualizer fixtureName="scopes/go/functionCallee.generic" />
+
+##### Java
+
+<ScopeVisualizer fixtureName="scopes/java/functionCallee/functionCallee.generic" />
+
+##### Kotlin
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCallee/functionCallee.generic" />
+
+##### Rust
+
+<ScopeVisualizer fixtureName="scopes/rust/functionCallee.generic" />
+
+##### Scala
+
+<ScopeVisualizer fixtureName="scopes/scala/functionCallee.generic" />
+
+##### TypeScript
+
+<ScopeVisualizer fixtureName="scopes/typescript.core/functionCallee.generic" />
+
+### Function callee: Method
+
+<i>The function being called in a method call, including parent objects.</i>
+
+##### C
+
+<ScopeVisualizer fixtureName="scopes/c/functionCallee.method" />
+
+##### C++
+
+<ScopeVisualizer fixtureName="scopes/cpp/functionCallee.method" />
+
+##### C#
+
+<ScopeVisualizer fixtureName="scopes/csharp/functionCallee.method" />
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/functionCallee/functionCallee.method" />
+
+##### Go
+
+<ScopeVisualizer fixtureName="scopes/go/functionCallee.method" />
+
+##### Java
+
+<ScopeVisualizer fixtureName="scopes/java/functionCallee/functionCallee.method" />
+
+##### JavaScript
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/functionCallee.method" />
+
+##### Kotlin
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCallee/functionCallee.method" />
+
+##### Lua
+
+<ScopeVisualizer fixtureName="scopes/lua/functionCallee/functionCallee.method" />
+
+<ScopeVisualizer fixtureName="scopes/lua/functionCallee/functionCallee.method2" />
+
+##### PHP
+
+<ScopeVisualizer fixtureName="scopes/php/functionCallee/functionCallee.method" />
+
+<ScopeVisualizer fixtureName="scopes/php/functionCallee/functionCallee.method2" />
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/functionCallee.method" />
+
+##### R
+
+<ScopeVisualizer fixtureName="scopes/r/functionCallee.method" />
+
+##### Ruby
+
+<ScopeVisualizer fixtureName="scopes/ruby/functionCallee/functionCallee.method" />
+
+##### Rust
+
+<ScopeVisualizer fixtureName="scopes/rust/functionCallee.method" />
+
+##### Scala
+
+<ScopeVisualizer fixtureName="scopes/scala/functionCallee.method" />
+
+##### Talon
+
+<ScopeVisualizer fixtureName="scopes/talon/functionCallee.method" />
+
+</ScopeVisualizerProvider>

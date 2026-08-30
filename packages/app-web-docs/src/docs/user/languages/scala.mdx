@@ -1,5 +1,1409 @@
-import { Language } from "@site/src/docs/components/Language";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Scala
 
-<Language languageId="scala" />
+<ScopeVisualizerProvider>
+
+Below are visualizations of all our scope tests for this language. These were created primarily for testing purposes rather than as documentation. There are quite a few, and they may feel a bit overwhelming from a documentation standpoint.
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Anonymous function
+
+#### 1. Anonymous function
+
+<i>An anonymous function, eg a lambda function, an arrow function, etc.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/anonymousFunction" languageId="scala" />
+
+<ScopeVisualizer fixtureName="scopes/scala/anonymousFunction2" languageId="scala" />
+
+### Argument list
+
+#### 1. Argument list: Actual constructor empty
+
+<i>An empty list of arguments in a constructor call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argumentList/argumentList.actual.constructor.empty" languageId="scala" />
+
+#### 2. Argument list: Actual constructor multi line
+
+<i>A multi line list of arguments in a constructor call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argumentList/argumentList.actual.constructor.multiLine" languageId="scala" />
+
+#### 3. Argument list: Actual constructor single line
+
+<i>A single line list of arguments in a constructor call</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argumentList/argumentList.actual.constructor.singleLine" languageId="scala" />
+
+#### 4. Argument list: Actual empty
+
+<i>An empty list of arguments in a function call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argumentList/argumentList.actual.empty" languageId="scala" />
+
+#### 5. Argument list: Actual method empty
+
+<i>An empty list of arguments in a method call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argumentList/argumentList.actual.method.empty" languageId="scala" />
+
+#### 6. Argument list: Actual method multi line
+
+<i>A multi line list of arguments in a method call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argumentList/argumentList.actual.method.multiLine" languageId="scala" />
+
+#### 7. Argument list: Actual method single line
+
+<i>A single line list of arguments in a method call</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argumentList/argumentList.actual.method.singleLine" languageId="scala" />
+
+#### 8. Argument list: Actual multi line
+
+<i>A multi line list of arguments in a function call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argumentList/argumentList.actual.multiLine" languageId="scala" />
+
+#### 9. Argument list: Actual single line
+
+<i>A single line list of arguments in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argumentList/argumentList.actual.singleLine" languageId="scala" />
+
+#### 10. Argument list: Formal constructor empty
+
+<i>An empty list of parameters in a constructor declaration. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argumentList/argumentList.formal.constructor.empty" languageId="scala" />
+
+#### 11. Argument list: Formal constructor multi line
+
+<i>A multi line list of parameters in a constructor declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argumentList/argumentList.formal.constructor.multiLine" languageId="scala" />
+
+#### 12. Argument list: Formal constructor single line
+
+<i>A single line list of parameters in a constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argumentList/argumentList.formal.constructor.singleLine" languageId="scala" />
+
+#### 13. Argument list: Formal empty
+
+<i>An empty list of parameters in a function declaration. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argumentList/argumentList.formal.empty" languageId="scala" />
+
+<ScopeVisualizer fixtureName="scopes/scala/argumentList/argumentList.formal.empty2" languageId="scala" />
+
+#### 14. Argument list: Formal lambda empty
+
+<i>An empty list of parameters in a lambda declaration. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argumentList/argumentList.formal.lambda.empty" languageId="scala" />
+
+#### 15. Argument list: Formal lambda multi line
+
+<i>A multi line list of parameters in a lambda declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argumentList/argumentList.formal.lambda.multiLine" languageId="scala" />
+
+#### 16. Argument list: Formal lambda single line
+
+<i>A single line list of parameters in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argumentList/argumentList.formal.lambda.singleLine" languageId="scala" />
+
+#### 17. Argument list: Formal method empty
+
+<i>An empty list of parameters in a class method declaration. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argumentList/argumentList.formal.method.empty" languageId="scala" />
+
+#### 18. Argument list: Formal method multi line
+
+<i>A multi line list of parameters in a class method declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argumentList/argumentList.formal.method.multiLine" languageId="scala" />
+
+#### 19. Argument list: Formal method single line
+
+<i>A single line list of parameters in a class method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argumentList/argumentList.formal.method.singleLine" languageId="scala" />
+
+#### 20. Argument list: Formal multi line
+
+<i>A multi line list of parameters in a function declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argumentList/argumentList.formal.multiLine" languageId="scala" />
+
+<ScopeVisualizer fixtureName="scopes/scala/argumentList/argumentList.formal.multiLine2" languageId="scala" />
+
+#### 21. Argument list: Formal single line
+
+<i>A single line list of parameters in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argumentList/argumentList.formal.singleLine" languageId="scala" />
+
+<ScopeVisualizer fixtureName="scopes/scala/argumentList/argumentList.formal.singleLine2" languageId="scala" />
+
+### Argument or parameter
+
+#### 1. Argument: Actual constructor multi line
+
+<i>A multi line argument in a constructor call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argument/argument.actual.constructor.multiLine" languageId="scala" />
+
+#### 2. Argument: Actual constructor single line
+
+<i>A single line argument in a constructor call</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argument/argument.actual.constructor.singleLine" languageId="scala" />
+
+#### 3. Argument: Actual method multi line
+
+<i>A multi line argument in a method call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argument/argument.actual.method.multiLine" languageId="scala" />
+
+#### 4. Argument: Actual method single line
+
+<i>A single line argument in a method call</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argument/argument.actual.method.singleLine" languageId="scala" />
+
+#### 5. Argument: Actual multi line
+
+<i>A multiline argument in a function call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argument/argument.actual.multiLine" languageId="scala" />
+
+#### 6. Argument: Actual single line
+
+<i>A single line argument in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argument/argument.actual.singleLine" languageId="scala" />
+
+#### 7. Argument: Formal catch
+
+<i>A parameter in a catch clause</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argument/argument.formal.catch" languageId="scala" />
+
+#### 8. Argument: Formal constructor multi line
+
+<i>A multi line parameter in a constructor declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argument/argument.formal.constructor.multiLine" languageId="scala" />
+
+#### 9. Argument: Formal constructor single line
+
+<i>A single line parameter in a constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argument/argument.formal.constructor.singleLine" languageId="scala" />
+
+#### 10. Argument: Formal lambda multi line
+
+<i>A multi line parameter in a lambda declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argument/argument.formal.lambda.multiLine" languageId="scala" />
+
+#### 11. Argument: Formal lambda single line
+
+<i>A single line parameter in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argument/argument.formal.lambda.singleLine" languageId="scala" />
+
+#### 12. Argument: Formal method multi line
+
+<i>A multi line parameter in a class method declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argument/argument.formal.method.multiLine" languageId="scala" />
+
+#### 13. Argument: Formal method single line
+
+<i>A single line parameter in a class method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argument/argument.formal.method.singleLine" languageId="scala" />
+
+#### 14. Argument: Formal multi line
+
+<i>A multi line parameter in a function declaration. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argument/argument.formal.multiLine" languageId="scala" />
+
+#### 15. Argument: Formal single line
+
+<i>A single line parameter in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argument/argument.formal.singleLine" languageId="scala" />
+
+#### 16. Argument: Actual (iteration)
+
+<i>Iteration scope for arguments in a function call: the argument list. The domain should be the entire function call.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argument/argument.actual.iteration" languageId="scala" />
+
+#### 17. Argument: Actual constructor (iteration)
+
+<i>Iteration scope for arguments in a constructor call: the argument list. The domain should be the entire constructor call..</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argument/argument.actual.constructor.iteration" languageId="scala" />
+
+#### 18. Argument: Actual method (iteration)
+
+<i>Iteration scope for arguments in a method call: the argument list. The domain should be the entire method call.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argument/argument.actual.method.iteration" languageId="scala" />
+
+#### 19. Argument: Formal (iteration)
+
+<i>Iteration scope for formal parameters in a function declaration: the parameters list. The domain should be the entire function.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argument/argument.formal.iteration" languageId="scala" />
+
+#### 20. Argument: Formal constructor (iteration)
+
+<i>Iteration scope for formal parameters in a constructor declaration: the parameter list. The domain should be the entire constructor.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argument/argument.formal.constructor.iteration" languageId="scala" />
+
+#### 21. Argument: Formal lambda (iteration)
+
+<i>Iteration scope for formal parameters in a lambda declaration: the parameter list. The domain should be the entire lambda.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argument/argument.formal.lambda.iteration" languageId="scala" />
+
+#### 22. Argument: Formal method (iteration)
+
+<i>Iteration scope for formal parameters in a method declaration: the parameter list. The domain should be the entire method.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/argument/argument.formal.method.iteration" languageId="scala" />
+
+### Branch
+
+#### 1. Branch: If
+
+<i>An if branch</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/branch/branch.if" languageId="scala" />
+
+#### 2. Branch: If elif else
+
+<i>An if-elif-else branch. The removal range for the if branch should include the trailing `else` keyword.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/branch/branch.if.elif.else" languageId="scala" />
+
+#### 3. Branch: If else
+
+<i>An if-else branch</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/branch/branch.if.else" languageId="scala" />
+
+#### 4. Branch: Switch case
+
+<i>A case/default branch in a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/branch/branch.switchCase" languageId="scala" />
+
+<ScopeVisualizer fixtureName="scopes/scala/branch/branch.switchCase2" languageId="scala" />
+
+#### 5. Branch: Try
+
+<i>A try/catch/finally branch</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/branch/branch.try" languageId="scala" />
+
+#### 6. Branch: If (iteration)
+
+<i>Iteration scope for if/elif/else branches: the if-else statement.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/branch/branch.if.iteration" languageId="scala" />
+
+#### 7. Branch: Switch case (iteration)
+
+<i>Iteration scope for switch branches: the switch statement body.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/branch/branch.switchCase.iteration" languageId="scala" />
+
+#### 8. Branch: Try (iteration)
+
+<i>Iteration scope for try/catch/finally branches: the try-catch statement.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/branch/branch.try.iteration" languageId="scala" />
+
+### Class
+
+#### 1. Class
+
+<i>A class/struct in an object-oriented language</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/class" languageId="scala" />
+
+#### 2. Class (iteration class)
+
+<i>Iteration scope for classes: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/class.iteration.class" languageId="scala" />
+
+#### 3. Class (iteration document)
+
+<i>Iteration scope for classes: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/class.iteration.document" languageId="scala" />
+
+### Collection item
+
+#### 1. Collection item: Unenclosed multi line
+
+<i>An item in a comma-separated multi line list without enclosing delimiters. This could be multi-variable declarations, import statements, etc. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/collectionItem/collectionItem.unenclosed.multiLine" languageId="scala" />
+
+#### 2. Collection item: Unenclosed single line
+
+<i>An item in a comma-separated single line list without enclosing delimiters. This could be multi-variable declarations, import statements, etc.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/collectionItem/collectionItem.unenclosed.singleLine" languageId="scala" />
+
+#### 3. Collection item: Unenclosed (iteration)
+
+<i>Iteration scope for items in a comma-separated list without enclosing delimiters</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/collectionItem/collectionItem.unenclosed.iteration" languageId="scala" />
+
+### Comment
+
+#### 1. Comment: Block
+
+<i>A block comment</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/comment.block" languageId="scala" />
+
+#### 2. Comment: Line
+
+<i>A line comment</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/comment.line" languageId="scala" />
+
+### Condition
+
+#### 1. Condition: Do while
+
+<i>A condition in a do while loop</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/condition/condition.doWhile" languageId="scala" />
+
+#### 2. Condition: If
+
+<i>A condition in an if statement</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/condition/condition.if" languageId="scala" />
+
+#### 3. Condition: Switch case
+
+<i>A condition in a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/condition/condition.switchCase" languageId="scala" />
+
+<ScopeVisualizer fixtureName="scopes/scala/condition/condition.switchCase2" languageId="scala" />
+
+#### 4. Condition: While
+
+<i>A condition in a while loop</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/condition/condition.while" languageId="scala" />
+
+#### 5. Condition: Switch case (iteration)
+
+<i>Iteration scope for conditions in a switch statement: the switch statement body.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/condition/condition.switchCase.iteration" languageId="scala" />
+
+### Function call
+
+#### 1. Function call
+
+<i>A function call</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/functionCall" languageId="scala" />
+
+#### 2. Function call: Chain
+
+<i>A chain of function calls, eg `foo().bar()`</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/functionCall.chain" languageId="scala" />
+
+#### 3. Function call: Constructor
+
+<i>A constructor call</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/functionCall.constructor" languageId="scala" />
+
+#### 4. Function call: Generic
+
+<i>A function call with generic type arguments</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/functionCall.generic" languageId="scala" />
+
+#### 5. Function call: Method
+
+<i>A method call</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/functionCall.method" languageId="scala" />
+
+### Function callee
+
+#### 1. Function callee
+
+<i>The function being called in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/functionCallee" languageId="scala" />
+
+#### 2. Function callee: Chain
+
+<i>The function being called in a chain of function calls, including parent objects.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/functionCallee.chain" languageId="scala" />
+
+#### 3. Function callee: Constructor
+
+<i>The class being constructed in a class instantiation, including the `new` keyword.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/functionCallee.constructor" languageId="scala" />
+
+#### 4. Function callee: Generic
+
+<i>The function being called in a function call with generic type arguments</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/functionCallee.generic" languageId="scala" />
+
+#### 5. Function callee: Method
+
+<i>The function being called in a method call, including parent objects.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/functionCallee.method" languageId="scala" />
+
+### If statement
+
+#### 1. If statement
+
+<i>An if statement</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/ifStatement" languageId="scala" />
+
+### Name
+
+#### 1. Name: Argument actual
+
+<i>Name of a (keyword) argument in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.argument.actual" languageId="scala" />
+
+#### 2. Name: Argument catch
+
+<i>Name of a parameter in a catch clause</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.argument.catch" languageId="scala" />
+
+#### 3. Name: Argument formal
+
+<i>Name of a parameter in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.argument.formal" languageId="scala" />
+
+#### 4. Name: Argument formal constructor
+
+<i>The name of a parameter in a constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.argument.formal.constructor" languageId="scala" />
+
+#### 5. Name: Argument formal lambda
+
+<i>Name of a parameter in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.argument.formal.lambda" languageId="scala" />
+
+#### 6. Name: Argument formal method
+
+<i>Name of a parameter in a class method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.argument.formal.method" languageId="scala" />
+
+#### 7. Name: Assignment
+
+<i>Name (LHS) of an assignment</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.assignment" languageId="scala" />
+
+#### 8. Name: Assignment compound
+
+<i>Name (LHS) of a compound assignment, eg +=/-=</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.assignment.compound" languageId="scala" />
+
+#### 9. Name: Class
+
+<i>Name of a class</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.class" languageId="scala" />
+
+#### 10. Name: Constant
+
+<i>Name (LHS) of a constant declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.constant" languageId="scala" />
+
+#### 11. Name: Enum
+
+<i>Name of an enum</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.enum" languageId="scala" />
+
+#### 12. Name: Field class
+
+<i>Name (LHS) of a field in a class</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.field.class" languageId="scala" />
+
+#### 13. Name: Field enum
+
+<i>Name (LHS) of a field in an enum</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.field.enum" languageId="scala" />
+
+#### 14. Name: Field interface
+
+<i>Name (LHS) of a field in an interface</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.field.interface" languageId="scala" />
+
+#### 15. Name: Foreach
+
+<i>Iteration variable name in a for each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.foreach" languageId="scala" />
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.foreach2" languageId="scala" />
+
+#### 16. Name: Function
+
+<i>Name of a function</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.function" languageId="scala" />
+
+#### 17. Name: Interface
+
+<i>Name of a interface</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.interface" languageId="scala" />
+
+#### 18. Name: Method
+
+<i>Name of a class method</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.method" languageId="scala" />
+
+#### 19. Name: Method interface
+
+<i>Name of a interface method</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.method.interface" languageId="scala" />
+
+#### 20. Name: Namespace
+
+<i>Name of a namespace</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.namespace" languageId="scala" />
+
+#### 21. Name: Type alias
+
+<i>Name of a type alias</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.typeAlias" languageId="scala" />
+
+#### 22. Name: Variable destructuring
+
+<i>Name (LHS) of a variable declaration with pattern destructuring</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.variable.destructuring" languageId="scala" />
+
+#### 23. Name: Variable initialized
+
+<i>Name (LHS) of an initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.variable.initialized" languageId="scala" />
+
+#### 24. Name: Variable uninitialized
+
+<i>Name (LHS) of an uninitialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.variable.uninitialized" languageId="scala" />
+
+#### 25. Name (iteration block)
+
+<i>Iteration scope for names: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.iteration.block" languageId="scala" />
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.iteration.block2" languageId="scala" />
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.iteration.block3" languageId="scala" />
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.iteration.block4" languageId="scala" />
+
+#### 26. Name (iteration class)
+
+<i>Iteration scope for names: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.iteration.class" languageId="scala" />
+
+#### 27. Name (iteration document)
+
+<i>Iteration scope for names: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.iteration.document" languageId="scala" />
+
+#### 28. Name (iteration enum)
+
+<i>Iteration scope for names: enum bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.iteration.enum" languageId="scala" />
+
+#### 29. Name (iteration interface)
+
+<i>Iteration scope for names: interface bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.iteration.interface" languageId="scala" />
+
+#### 30. Name: Argument actual (iteration)
+
+<i>Iteration scope for names of (keyword) arguments in a function call: the argument list.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.argument.actual.iteration" languageId="scala" />
+
+#### 31. Name: Argument formal (iteration)
+
+<i>Iteration scope for names of formal parameters in a function declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.argument.formal.iteration" languageId="scala" />
+
+#### 32. Name: Argument formal constructor (iteration)
+
+<i>Iteration scope for names of formal parameters in a constructor declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.argument.formal.constructor.iteration" languageId="scala" />
+
+#### 33. Name: Argument formal lambda (iteration)
+
+<i>Iteration scope for names of formal parameters in a lambda declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.argument.formal.lambda.iteration" languageId="scala" />
+
+#### 34. Name: Argument formal method (iteration)
+
+<i>Iteration scope for names of formal parameters in a method declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/name/name.argument.formal.method.iteration" languageId="scala" />
+
+### Named function
+
+#### 1. Named function
+
+<i>A named function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/namedFunction" languageId="scala" />
+
+#### 2. Named function: Method
+
+<i>A named method declaration in a class</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/namedFunction.method" languageId="scala" />
+
+#### 3. Named function (iteration class)
+
+<i>Iteration scope for named functions: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/namedFunction.iteration.class" languageId="scala" />
+
+#### 4. Named function (iteration document)
+
+<i>Iteration scope for named functions: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/namedFunction.iteration.document" languageId="scala" />
+
+### Statement
+
+#### 1. Statement: Assignment
+
+<i>An assignment statement</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.assignment" languageId="scala" />
+
+#### 2. Statement: Assignment compound
+
+<i>A compound assignment statement, eg +=/-=</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.assignment.compound" languageId="scala" />
+
+#### 3. Statement: Class
+
+<i>A class/struct declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.class" languageId="scala" />
+
+#### 4. Statement: Constant
+
+<i>A constant declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.constant" languageId="scala" />
+
+#### 5. Statement: Do while
+
+<i>A do-while loop statement</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.doWhile" languageId="scala" />
+
+#### 6. Statement: Enum
+
+<i>An enum declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.enum" languageId="scala" />
+
+#### 7. Statement: Field class
+
+<i>A field declaration in a class/struct</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.field.class" languageId="scala" />
+
+#### 8. Statement: Field interface
+
+<i>A field declaration in a interface</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.field.interface" languageId="scala" />
+
+#### 9. Statement: Foreach
+
+<i>A for-each loop statement</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.foreach" languageId="scala" />
+
+#### 10. Statement: Function
+
+<i>A named function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.function" languageId="scala" />
+
+#### 11. Statement: Function call
+
+<i>A function call statement</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.functionCall" languageId="scala" />
+
+#### 12. Statement: If
+
+<i>A if/elif/else statement</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.if" languageId="scala" />
+
+#### 13. Statement: Import
+
+<i>An import statement</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.import" languageId="scala" />
+
+#### 14. Statement: Interface
+
+<i>An interface declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.interface" languageId="scala" />
+
+#### 15. Statement: Method
+
+<i>A method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.method" languageId="scala" />
+
+#### 16. Statement: Method interface
+
+<i>A method declaration in a interface</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.method.interface" languageId="scala" />
+
+#### 17. Statement: Namespace
+
+<i>A namespace declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.namespace" languageId="scala" />
+
+#### 18. Statement: Package
+
+<i>A package declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.package" languageId="scala" />
+
+#### 19. Statement: Return
+
+<i>A return statement</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.return" languageId="scala" />
+
+#### 20. Statement: Switch
+
+<i>A switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.switch" languageId="scala" />
+
+#### 21. Statement: Throw
+
+<i>A throw statement</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.throw" languageId="scala" />
+
+#### 22. Statement: Try
+
+<i>A try/catch/finally statement</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.try" languageId="scala" />
+
+#### 23. Statement: Type alias
+
+<i>A type alias declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.typeAlias" languageId="scala" />
+
+#### 24. Statement: Update
+
+<i>An update statement, eg ++/--</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.update" languageId="scala" />
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.update2" languageId="scala" />
+
+#### 25. Statement: Variable destructuring
+
+<i>A variable declaration pattern destructuring</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.variable.destructuring" languageId="scala" />
+
+#### 26. Statement: Variable initialized
+
+<i>An initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.variable.initialized" languageId="scala" />
+
+#### 27. Statement: Variable uninitialized
+
+<i>An uninitialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.variable.uninitialized" languageId="scala" />
+
+#### 28. Statement: While
+
+<i>A while loop statement</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.while" languageId="scala" />
+
+#### 29. Statement (iteration block)
+
+<i>Iteration scope for statements: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.iteration.block" languageId="scala" />
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.iteration.block2" languageId="scala" />
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.iteration.block3" languageId="scala" />
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.iteration.block4" languageId="scala" />
+
+#### 30. Statement (iteration class)
+
+<i>Iteration scope for statements: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.iteration.class" languageId="scala" />
+
+#### 31. Statement (iteration document)
+
+<i>Iteration scope for statements: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.iteration.document" languageId="scala" />
+
+#### 32. Statement (iteration interface)
+
+<i>Iteration scope for statements: interface bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/statement/statement.iteration.interface" languageId="scala" />
+
+### Type
+
+#### 1. Type: Alias
+
+<i>A type alias declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.alias" languageId="scala" />
+
+#### 2. Type: Argument catch
+
+<i>Type of a parameter in a catch clause</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.argument.catch" languageId="scala" />
+
+#### 3. Type: Argument formal
+
+<i>Type of a formal parameter in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.argument.formal" languageId="scala" />
+
+#### 4. Type: Argument formal constructor
+
+<i>Type of a formal parameter in a constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.argument.formal.constructor" languageId="scala" />
+
+#### 5. Type: Argument formal lambda
+
+<i>Type of a formal parameter in a lambda declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.argument.formal.lambda" languageId="scala" />
+
+#### 6. Type: Argument formal method
+
+<i>Type of a formal parameter in a class method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.argument.formal.method" languageId="scala" />
+
+#### 7. Type: Class
+
+<i>A class declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.class" languageId="scala" />
+
+#### 8. Type: Constant
+
+<i>Type of a constant declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.constant" languageId="scala" />
+
+#### 9. Type: Enum
+
+<i>An enum declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.enum" languageId="scala" />
+
+#### 10. Type: Field class
+
+<i>Type of a field in a class</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.field.class" languageId="scala" />
+
+#### 11. Type: Field interface
+
+<i>Type of a field in a interface</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.field.interface" languageId="scala" />
+
+#### 12. Type: Foreach
+
+<i>Type of a variable in a for each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.foreach" languageId="scala" />
+
+#### 13. Type: Interface
+
+<i>An interface declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.interface" languageId="scala" />
+
+#### 14. Type: Return
+
+<i>Type of a return value in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.return" languageId="scala" />
+
+#### 15. Type: Return method
+
+<i>Type of a return value in a method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.return.method" languageId="scala" />
+
+#### 16. Type: Type argument
+
+<i>Type argument to a generic / parametrized type</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.typeArgument" languageId="scala" />
+
+#### 17. Type: Variable initialized
+
+<i>Type of an initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.variable.initialized" languageId="scala" />
+
+#### 18. Type: Variable uninitialized
+
+<i>Type of an uninitialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.variable.uninitialized" languageId="scala" />
+
+#### 19. Type (iteration block)
+
+<i>Iteration scope for types: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.iteration.block" languageId="scala" />
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.iteration.block2" languageId="scala" />
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.iteration.block3" languageId="scala" />
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.iteration.block4" languageId="scala" />
+
+#### 20. Type (iteration class)
+
+<i>Iteration scope for types: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.iteration.class" languageId="scala" />
+
+#### 21. Type (iteration document)
+
+<i>Iteration scope for types: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.iteration.document" languageId="scala" />
+
+#### 22. Type (iteration interface)
+
+<i>Iteration scope for types: interface bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.iteration.interface" languageId="scala" />
+
+#### 23. Type: Argument formal (iteration)
+
+<i>Iteration scope for types of formal parameters in a function declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.argument.formal.iteration" languageId="scala" />
+
+#### 24. Type: Argument formal constructor (iteration)
+
+<i>Iteration scope for types of formal parameters in a constructor declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.argument.formal.constructor.iteration" languageId="scala" />
+
+#### 25. Type: Argument formal lambda (iteration)
+
+<i>Iteration scope for types of formal parameters in a lambda declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.argument.formal.lambda.iteration" languageId="scala" />
+
+#### 26. Type: Argument formal method (iteration)
+
+<i>Iteration scope for types of formal parameters in a method declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.argument.formal.method.iteration" languageId="scala" />
+
+#### 27. Type: Type argument (iteration)
+
+<i>Iteration scope for type arguments to a generic / parametrized type: the type argument list.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/type/type.typeArgument.iteration" languageId="scala" />
+
+### Value
+
+#### 1. Value: Argument actual
+
+<i>The value of a (keyword) argument in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.argument.actual" languageId="scala" />
+
+#### 2. Value: Argument formal
+
+<i>The (default) value of a argument in a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.argument.formal" languageId="scala" />
+
+#### 3. Value: Argument formal constructor
+
+<i>The (default) value of a parameter in a constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.argument.formal.constructor" languageId="scala" />
+
+#### 4. Value: Argument formal method
+
+<i>The (default) value of a parameter in a method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.argument.formal.method" languageId="scala" />
+
+#### 5. Value: Assignment
+
+<i>Value (RHS) of an assignment</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.assignment" languageId="scala" />
+
+#### 6. Value: Assignment compound
+
+<i>Value (RHS) of a compound assignment, eg +=/-=</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.assignment.compound" languageId="scala" />
+
+#### 7. Value: Constant
+
+<i>Value (RHS) of a constant declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.constant" languageId="scala" />
+
+#### 8. Value: Field class
+
+<i>Value (RHS) of a field in a class</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.field.class" languageId="scala" />
+
+#### 9. Value: Field interface
+
+<i>Value (RHS) of a field in an interface</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.field.interface" languageId="scala" />
+
+#### 10. Value: Foreach
+
+<i>Iterable in a for each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.foreach" languageId="scala" />
+
+#### 11. Value: Return
+
+<i>Return value of a function</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.return" languageId="scala" />
+
+#### 12. Value: Return lambda
+
+<i>Implicit return value from a lambda</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.return.lambda" languageId="scala" />
+
+#### 13. Value: Switch
+
+<i>The value / subject of a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.switch" languageId="scala" />
+
+#### 14. Value: Throw
+
+<i>Value of a throw statement</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.throw" languageId="scala" />
+
+#### 15. Value: Type alias
+
+<i>Value of a type alias declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.typeAlias" languageId="scala" />
+
+#### 16. Value: Variable
+
+<i>Value (RHS) of a variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.variable" languageId="scala" />
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.variable2" languageId="scala" />
+
+#### 17. Value: Variable destructuring
+
+<i>Value (RHS) of a variable declaration with pattern destructuring</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.variable.destructuring" languageId="scala" />
+
+#### 18. Value (iteration block)
+
+<i>Iteration scope for values: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.iteration.block" languageId="scala" />
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.iteration.block2" languageId="scala" />
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.iteration.block3" languageId="scala" />
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.iteration.block4" languageId="scala" />
+
+#### 19. Value (iteration class)
+
+<i>Iteration scope for values: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.iteration.class" languageId="scala" />
+
+#### 20. Value (iteration document)
+
+<i>Iteration scope for values: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.iteration.document" languageId="scala" />
+
+#### 21. Value: Argument actual (iteration)
+
+<i>Iteration scope for values of (keyword) arguments in a function call: the arguments list.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.argument.actual.iteration" languageId="scala" />
+
+#### 22. Value: Argument formal (iteration)
+
+<i>Iteration scope for values of formal parameters in a function declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.argument.formal.iteration" languageId="scala" />
+
+#### 23. Value: Argument formal constructor (iteration)
+
+<i>Iteration scope for values of formal parameters in a constructor declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.argument.formal.constructor.iteration" languageId="scala" />
+
+#### 24. Value: Argument formal method (iteration)
+
+<i>Iteration scope for values of formal parameters in a method declaration: the parameters list.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/value/value.argument.formal.method.iteration" languageId="scala" />
+
+## Internal scopes
+
+The following are internal scopes. They are not intended for user interaction or spoken use. These scopes exist solely for internal Cursorless functionality.
+
+### Disqualify delimiter
+
+#### 1. Disqualify delimiter
+
+<i>Internally used to disqualify a token from being treated as a surrounding pair delimiter. This will usually be operators containing `>` or `<`, eg `<`, `<=`, `->`, etc.</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/disqualifyDelimiter" languageId="scala" />
+
+### Interior
+
+#### 1. Interior: Class
+
+<i>The body of a class</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/interior/interior.class" languageId="scala" />
+
+#### 2. Interior: Do while
+
+<i>The body of a do-while loop</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/interior/interior.doWhile" languageId="scala" />
+
+#### 3. Interior: Enum
+
+<i>The body of an enum</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/interior/interior.enum" languageId="scala" />
+
+#### 4. Interior: Foreach
+
+<i>The body of a for-each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/interior/interior.foreach" languageId="scala" />
+
+#### 5. Interior: Function
+
+<i>The body of a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/interior/interior.function" languageId="scala" />
+
+#### 6. Interior: If
+
+<i>The body of an if/elif/else branch</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/interior/interior.if" languageId="scala" />
+
+#### 7. Interior: Interface
+
+<i>The body of a interface</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/interior/interior.interface" languageId="scala" />
+
+#### 8. Interior: Lambda
+
+<i>The block body of a lambda/anonymous function</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/interior/interior.lambda" languageId="scala" />
+
+#### 9. Interior: Method
+
+<i>The body of a method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/interior/interior.method" languageId="scala" />
+
+#### 10. Interior: Namespace
+
+<i>the body of a namespace statement</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/interior/interior.namespace" languageId="scala" />
+
+#### 11. Interior: Switch
+
+<i>The body of a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/interior/interior.switch" languageId="scala" />
+
+#### 12. Interior: Switch case
+
+<i>The body of a switch case branch</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/interior/interior.switchCase" languageId="scala" />
+
+<ScopeVisualizer fixtureName="scopes/scala/interior/interior.switchCase2" languageId="scala" />
+
+#### 13. Interior: Try
+
+<i>The body of a try/catch/finally branch</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/interior/interior.try" languageId="scala" />
+
+#### 14. Interior: While
+
+<i>The body of a while loop</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/interior/interior.while" languageId="scala" />
+
+### String
+
+#### 1. String: Multi line
+
+<i>A multi-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/string.multiLine" languageId="scala" />
+
+#### 2. String: Single line
+
+<i>A single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/string.singleLine" languageId="scala" />
+
+### Text fragment
+
+#### 1. Text fragment: Comment block
+
+<i>Internally used text fragment consisting of a block comment</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/textFragment.comment.block" languageId="scala" />
+
+#### 2. Text fragment: Comment line
+
+<i>Internally used text fragment consisting of a line comment</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/textFragment.comment.line" languageId="scala" />
+
+#### 3. Text fragment: String multi line
+
+<i>Internally used text fragment consisting of a multi-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/textFragment.string.multiLine" languageId="scala" />
+
+#### 4. Text fragment: String single line
+
+<i>Internally used text fragment consisting of a single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/scala/textFragment.string.singleLine" languageId="scala" />
+
+</ScopeVisualizerProvider>

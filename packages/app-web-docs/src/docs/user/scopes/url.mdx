@@ -2,7 +2,7 @@
 sidebar_label: Link
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Link (URL)
 
@@ -20,4 +20,24 @@ Default: `link`
 
 - `"take link blue air"` - Selects the url containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="url" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Url
+
+<i>A url</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/url" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/url2" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/url3" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/url4" />
+
+</ScopeVisualizerProvider>

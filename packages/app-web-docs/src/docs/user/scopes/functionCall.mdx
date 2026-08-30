@@ -2,7 +2,7 @@
 sidebar_label: Call
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Call (Function call)
 
@@ -20,4 +20,326 @@ Default: `call`
 
 - `"take call blue air"` - Selects the function call containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="functionCall" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Function call
+
+<i>A function call</i>
+
+##### C
+
+<ScopeVisualizer fixtureName="scopes/c/functionCall" />
+
+##### Clojure
+
+<ScopeVisualizer fixtureName="scopes/clojure/functionCall" />
+
+##### C#
+
+<ScopeVisualizer fixtureName="scopes/csharp/functionCall" />
+
+##### CSS
+
+<ScopeVisualizer fixtureName="scopes/css/functionCall" />
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/functionCall/functionCall" />
+
+##### Go
+
+<ScopeVisualizer fixtureName="scopes/go/functionCall" />
+
+##### Java
+
+<ScopeVisualizer fixtureName="scopes/java/functionCall/functionCall" />
+
+##### JavaScript
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/functionCall" />
+
+##### Kotlin
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCall/functionCall" />
+
+##### Latex
+
+<ScopeVisualizer fixtureName="scopes/latex/functionCall" />
+
+##### Lua
+
+<ScopeVisualizer fixtureName="scopes/lua/functionCall/functionCall" />
+
+##### PHP
+
+<ScopeVisualizer fixtureName="scopes/php/functionCall/functionCall" />
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/functionCall" />
+
+##### R
+
+<ScopeVisualizer fixtureName="scopes/r/functionCall" />
+
+##### Ruby
+
+<ScopeVisualizer fixtureName="scopes/ruby/functionCall/functionCall" />
+
+##### Rust
+
+<ScopeVisualizer fixtureName="scopes/rust/functionCall" />
+
+##### Scala
+
+<ScopeVisualizer fixtureName="scopes/scala/functionCall" />
+
+##### Tree sitter query (SCM)
+
+<ScopeVisualizer fixtureName="scopes/scm/functionCall" />
+
+##### Talon
+
+<ScopeVisualizer fixtureName="scopes/talon/functionCall" />
+
+<ScopeVisualizer fixtureName="scopes/talon/functionCall2" />
+
+### Function call: Chain
+
+<i>A chain of function calls, eg `foo().bar()`</i>
+
+##### C
+
+<ScopeVisualizer fixtureName="scopes/c/functionCall.chain" />
+
+##### C#
+
+<ScopeVisualizer fixtureName="scopes/csharp/functionCall.chain" />
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/functionCall/functionCall.chain" />
+
+##### Go
+
+<ScopeVisualizer fixtureName="scopes/go/functionCall.chain" />
+
+##### Java
+
+<ScopeVisualizer fixtureName="scopes/java/functionCall/functionCall.chain" />
+
+##### JavaScript
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/functionCall.chain" />
+
+##### Kotlin
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCall/functionCall.chain" />
+
+##### Lua
+
+<ScopeVisualizer fixtureName="scopes/lua/functionCall/functionCall.chain" />
+
+<ScopeVisualizer fixtureName="scopes/lua/functionCall/functionCall.chain2" />
+
+##### PHP
+
+<ScopeVisualizer fixtureName="scopes/php/functionCall/functionCall.chain" />
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/functionCall.chain" />
+
+##### Ruby
+
+<ScopeVisualizer fixtureName="scopes/ruby/functionCall/functionCall.chain" />
+
+##### Rust
+
+<ScopeVisualizer fixtureName="scopes/rust/functionCall.chain" />
+
+##### Scala
+
+<ScopeVisualizer fixtureName="scopes/scala/functionCall.chain" />
+
+### Function call: Constructor
+
+<i>A constructor call</i>
+
+##### C++
+
+<ScopeVisualizer fixtureName="scopes/cpp/functionCall.constructor" />
+
+##### C#
+
+<ScopeVisualizer fixtureName="scopes/csharp/functionCall.constructor" />
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/functionCall/functionCall.constructor" />
+
+##### Java
+
+<ScopeVisualizer fixtureName="scopes/java/functionCall/functionCall.constructor" />
+
+##### JavaScript
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/functionCall.constructor" />
+
+##### Kotlin
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCall/functionCall.constructor" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCall/functionCall.constructor2" />
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCall/functionCall.constructor3" />
+
+##### PHP
+
+<ScopeVisualizer fixtureName="scopes/php/functionCall/functionCall.constructor" />
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/functionCall.constructor" />
+
+##### Scala
+
+<ScopeVisualizer fixtureName="scopes/scala/functionCall.constructor" />
+
+### Function call: Enum
+
+<i>An enum constructor call</i>
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/functionCall/functionCall.enum" />
+
+##### Java
+
+<ScopeVisualizer fixtureName="scopes/java/functionCall/functionCall.enum" />
+
+##### Kotlin
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCall/functionCall.enum" />
+
+##### Rust
+
+<ScopeVisualizer fixtureName="scopes/rust/functionCall.enum" />
+
+### Function call: Generic
+
+<i>A function call with generic type arguments</i>
+
+##### C++
+
+<ScopeVisualizer fixtureName="scopes/cpp/functionCall.generic" />
+
+##### C#
+
+<ScopeVisualizer fixtureName="scopes/csharp/functionCall.generic" />
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/functionCall/functionCall.generic" />
+
+##### Go
+
+<ScopeVisualizer fixtureName="scopes/go/functionCall.generic" />
+
+##### Java
+
+<ScopeVisualizer fixtureName="scopes/java/functionCall/functionCall.generic" />
+
+##### Kotlin
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCall/functionCall.generic" />
+
+##### Rust
+
+<ScopeVisualizer fixtureName="scopes/rust/functionCall.generic" />
+
+##### Scala
+
+<ScopeVisualizer fixtureName="scopes/scala/functionCall.generic" />
+
+##### TypeScript
+
+<ScopeVisualizer fixtureName="scopes/typescript.core/functionCall.generic" />
+
+### Function call: Method
+
+<i>A method call</i>
+
+##### C
+
+<ScopeVisualizer fixtureName="scopes/c/functionCall.method" />
+
+##### C++
+
+<ScopeVisualizer fixtureName="scopes/cpp/functionCall.method" />
+
+##### C#
+
+<ScopeVisualizer fixtureName="scopes/csharp/functionCall.method" />
+
+##### Dart
+
+<ScopeVisualizer fixtureName="scopes/dart/functionCall/functionCall.method" />
+
+##### Go
+
+<ScopeVisualizer fixtureName="scopes/go/functionCall.method" />
+
+##### Java
+
+<ScopeVisualizer fixtureName="scopes/java/functionCall/functionCall.method" />
+
+##### JavaScript
+
+<ScopeVisualizer fixtureName="scopes/javascript.core/functionCall.method" />
+
+##### Kotlin
+
+<ScopeVisualizer fixtureName="scopes/kotlin/functionCall/functionCall.method" />
+
+##### Lua
+
+<ScopeVisualizer fixtureName="scopes/lua/functionCall/functionCall.method" />
+
+<ScopeVisualizer fixtureName="scopes/lua/functionCall/functionCall.method2" />
+
+##### PHP
+
+<ScopeVisualizer fixtureName="scopes/php/functionCall/functionCall.method" />
+
+<ScopeVisualizer fixtureName="scopes/php/functionCall/functionCall.method2" />
+
+##### Python
+
+<ScopeVisualizer fixtureName="scopes/python/functionCall.method" />
+
+##### R
+
+<ScopeVisualizer fixtureName="scopes/r/functionCall.method" />
+
+##### Ruby
+
+<ScopeVisualizer fixtureName="scopes/ruby/functionCall/functionCall.method" />
+
+##### Rust
+
+<ScopeVisualizer fixtureName="scopes/rust/functionCall.method" />
+
+##### Scala
+
+<ScopeVisualizer fixtureName="scopes/scala/functionCall.method" />
+
+##### Talon
+
+<ScopeVisualizer fixtureName="scopes/talon/functionCall.method" />
+
+</ScopeVisualizerProvider>

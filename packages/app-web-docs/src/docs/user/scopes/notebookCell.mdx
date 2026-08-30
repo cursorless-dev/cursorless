@@ -2,7 +2,7 @@
 sidebar_label: Cell
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Cell (Notebook cell)
 
@@ -20,4 +20,20 @@ Default: `cell`
 
 - `"take cell blue air"` - Selects the notebook cell containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="notebookCell" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Notebook cell
+
+<i>A cell in a notebook or a markdown code block</i>
+
+##### Markdown
+
+<ScopeVisualizer fixtureName="scopes/markdown/notebookCell" />
+
+<ScopeVisualizer fixtureName="scopes/markdown/notebookCell2" />
+
+</ScopeVisualizerProvider>

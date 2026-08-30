@@ -2,7 +2,7 @@
 sidebar_label: Command
 ---
 
-import { Scopes } from "@site/src/docs/components/Scopes";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Command
 
@@ -20,4 +20,20 @@ Default: `command`
 
 - `"take command blue air"` - Selects the command containing the token containing letter 'a' with a blue hat.
 
-<Scopes scopeTypeType="command" />
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Command
+
+<i>A command, for example Talon spoken command or bash</i>
+
+##### Talon
+
+<ScopeVisualizer fixtureName="scopes/talon/command" />
+
+<ScopeVisualizer fixtureName="scopes/talon/command2" />
+
+</ScopeVisualizerProvider>

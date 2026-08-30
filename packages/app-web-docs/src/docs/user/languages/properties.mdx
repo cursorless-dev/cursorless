@@ -1,5 +1,105 @@
-import { Language } from "@site/src/docs/components/Language";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Properties
 
-<Language languageId="properties" />
+<ScopeVisualizerProvider>
+
+Below are visualizations of all our scope tests for this language. These were created primarily for testing purposes rather than as documentation. There are quite a few, and they may feel a bit overwhelming from a documentation standpoint.
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Collection key
+
+#### 1. Key: Map pair
+
+<i>Key (LHS) of a key-value pair of a map</i>
+
+<ScopeVisualizer fixtureName="scopes/properties/key.mapPair" languageId="properties" />
+
+<ScopeVisualizer fixtureName="scopes/properties/key.mapPair2" languageId="properties" />
+
+#### 2. Key: Map pair (iteration)
+
+<i>Iteration scope for keys of key-value pairs in a map: should be between the braces.</i>
+
+<ScopeVisualizer fixtureName="scopes/properties/key.mapPair.iteration" languageId="properties" />
+
+### Comment
+
+#### 1. Comment: Line
+
+<i>A line comment</i>
+
+<ScopeVisualizer fixtureName="scopes/properties/comment.line" languageId="properties" />
+
+### Name
+
+#### 1. Name: Variable initialized
+
+<i>Name (LHS) of an initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/properties/name.variable.initialized" languageId="properties" />
+
+<ScopeVisualizer fixtureName="scopes/properties/name.variable.initialized2" languageId="properties" />
+
+#### 2. Name (iteration document)
+
+<i>Iteration scope for names: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/properties/name.iteration.document" languageId="properties" />
+
+### Statement
+
+#### 1. Statement: Variable initialized
+
+<i>An initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/properties/statement.variable.initialized" languageId="properties" />
+
+#### 2. Statement (iteration document)
+
+<i>Iteration scope for statements: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/properties/statement.iteration.document" languageId="properties" />
+
+### Value
+
+#### 1. Value: Map pair
+
+<i>Value (RHS) of a key-value pair in a map</i>
+
+<ScopeVisualizer fixtureName="scopes/properties/value.mapPair" languageId="properties" />
+
+#### 2. Value: Variable
+
+<i>Value (RHS) of a variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/properties/value.variable" languageId="properties" />
+
+#### 3. Value (iteration document)
+
+<i>Iteration scope for values: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/properties/value.iteration.document" languageId="properties" />
+
+#### 4. Value: Map pair (iteration)
+
+<i>Iteration scope for values of key-value pairs in a map: should be between the braces.</i>
+
+<ScopeVisualizer fixtureName="scopes/properties/value.mapPair.iteration" languageId="properties" />
+
+## Internal scopes
+
+The following are internal scopes. They are not intended for user interaction or spoken use. These scopes exist solely for internal Cursorless functionality.
+
+### Text fragment
+
+#### 1. Text fragment: Comment line
+
+<i>Internally used text fragment consisting of a line comment</i>
+
+<ScopeVisualizer fixtureName="scopes/properties/textFragment.comment.line" languageId="properties" />
+
+</ScopeVisualizerProvider>

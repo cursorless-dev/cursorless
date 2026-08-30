@@ -1,8 +1,14 @@
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import { prettifyLanguageName } from "@cursorless/lib-common";
+import {
+  renderLanguageScopeVisualizer,
+  scopeVisualizerImport,
+} from "./renderScopeVisualizerMdx";
+import type { ScopeFixtureGroup } from "./scopeFixtureGroups";
 
 export function updateLanguageMdx(
   languageId: string,
+  scopeFixtureGroups: ScopeFixtureGroup[],
   actual: string | null,
   options: FormatPluginFnOptions,
 ): string | null {
@@ -10,17 +16,14 @@ export function updateLanguageMdx(
     return null;
   }
 
-  if (actual != null) {
-    return actual;
-  }
+  const expected = [
+    scopeVisualizerImport,
+    "",
+    `# ${prettifyLanguageName(languageId)}`,
+    "",
+    renderLanguageScopeVisualizer(languageId, scopeFixtureGroups),
+    "",
+  ];
 
-  const expected = `
-import { Language } from "@site/src/docs/components/Language";
-
-# ${prettifyLanguageName(languageId)}
-
-<Language languageId="${languageId}" />
-`.trimStart();
-
-  return expected;
+  return expected.join("\n");
 }

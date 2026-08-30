@@ -1,5 +1,193 @@
-import { Language } from "@site/src/docs/components/Language";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
 
 # Clojure
 
-<Language languageId="clojure" />
+<ScopeVisualizerProvider>
+
+Below are visualizations of all our scope tests for this language. These were created primarily for testing purposes rather than as documentation. There are quite a few, and they may feel a bit overwhelming from a documentation standpoint.
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Anonymous function
+
+#### 1. Anonymous function
+
+<i>An anonymous function, eg a lambda function, an arrow function, etc.</i>
+
+<ScopeVisualizer fixtureName="scopes/clojure/anonymousFunction" languageId="clojure" />
+
+<ScopeVisualizer fixtureName="scopes/clojure/anonymousFunction2" languageId="clojure" />
+
+### Argument list
+
+#### 1. Argument list: Actual empty
+
+<i>An empty list of arguments in a function call. Insertion delimiter should be empty.</i>
+
+<ScopeVisualizer fixtureName="scopes/clojure/argumentList.actual.empty" languageId="clojure" />
+
+#### 2. Argument list: Actual multi line
+
+<i>A multi line list of arguments in a function call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/clojure/argumentList.actual.multiLine" languageId="clojure" />
+
+#### 3. Argument list: Actual single line
+
+<i>A single line list of arguments in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/clojure/argumentList.actual.singleLine" languageId="clojure" />
+
+### Argument or parameter
+
+#### 1. Argument: Actual multi line
+
+<i>A multiline argument in a function call. Insertion delimiter should include new line.</i>
+
+<ScopeVisualizer fixtureName="scopes/clojure/argument.actual.multiLine" languageId="clojure" />
+
+#### 2. Argument: Actual single line
+
+<i>A single line argument in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/clojure/argument.actual.singleLine" languageId="clojure" />
+
+#### 3. Argument: Actual (iteration)
+
+<i>Iteration scope for arguments in a function call: the argument list. The domain should be the entire function call.</i>
+
+<ScopeVisualizer fixtureName="scopes/clojure/argument.actual.iteration" languageId="clojure" />
+
+### Comment
+
+#### 1. Comment: Line
+
+<i>A line comment</i>
+
+<ScopeVisualizer fixtureName="scopes/clojure/comment.line" languageId="clojure" />
+
+### Condition
+
+#### 1. Condition: If
+
+<i>A condition in an if statement</i>
+
+<ScopeVisualizer fixtureName="scopes/clojure/condition.if" languageId="clojure" />
+
+### Function call
+
+#### 1. Function call
+
+<i>A function call</i>
+
+<ScopeVisualizer fixtureName="scopes/clojure/functionCall" languageId="clojure" />
+
+### Function callee
+
+#### 1. Function callee
+
+<i>The function being called in a function call</i>
+
+<ScopeVisualizer fixtureName="scopes/clojure/functionCallee" languageId="clojure" />
+
+### If statement
+
+#### 1. If statement
+
+<i>An if statement</i>
+
+<ScopeVisualizer fixtureName="scopes/clojure/ifStatement" languageId="clojure" />
+
+### List
+
+#### 1. List
+
+<i>A list/array</i>
+
+<ScopeVisualizer fixtureName="scopes/clojure/list" languageId="clojure" />
+
+<ScopeVisualizer fixtureName="scopes/clojure/list2" languageId="clojure" />
+
+<ScopeVisualizer fixtureName="scopes/clojure/list3" languageId="clojure" />
+
+### Map
+
+#### 1. Map
+
+<i>A map/dictionary</i>
+
+<ScopeVisualizer fixtureName="scopes/clojure/map" languageId="clojure" />
+
+<ScopeVisualizer fixtureName="scopes/clojure/map2" languageId="clojure" />
+
+### Name
+
+#### 1. Name: Function
+
+<i>Name of a function</i>
+
+<ScopeVisualizer fixtureName="scopes/clojure/name.function" languageId="clojure" />
+
+### Named function
+
+#### 1. Named function
+
+<i>A named function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/clojure/namedFunction" languageId="clojure" />
+
+#### 2. Named function (iteration document)
+
+<i>Iteration scope for named functions: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/clojure/namedFunction.iteration.document" languageId="clojure" />
+
+## Internal scopes
+
+The following are internal scopes. They are not intended for user interaction or spoken use. These scopes exist solely for internal Cursorless functionality.
+
+### Disqualify delimiter
+
+#### 1. Disqualify delimiter
+
+<i>Internally used to disqualify a token from being treated as a surrounding pair delimiter. This will usually be operators containing `>` or `<`, eg `<`, `<=`, `->`, etc.</i>
+
+<ScopeVisualizer fixtureName="scopes/clojure/disqualifyDelimiter" languageId="clojure" />
+
+### String
+
+#### 1. String: Multi line
+
+<i>A multi-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/clojure/string.multiLine" languageId="clojure" />
+
+#### 2. String: Single line
+
+<i>A single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/clojure/string.singleLine" languageId="clojure" />
+
+### Text fragment
+
+#### 1. Text fragment: Comment line
+
+<i>Internally used text fragment consisting of a line comment</i>
+
+<ScopeVisualizer fixtureName="scopes/clojure/textFragment.comment.line" languageId="clojure" />
+
+#### 2. Text fragment: String multi line
+
+<i>Internally used text fragment consisting of a multi-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/clojure/textFragment.string.multiLine" languageId="clojure" />
+
+#### 3. Text fragment: String single line
+
+<i>Internally used text fragment consisting of a single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/clojure/textFragment.string.singleLine" languageId="clojure" />
+
+</ScopeVisualizerProvider>
