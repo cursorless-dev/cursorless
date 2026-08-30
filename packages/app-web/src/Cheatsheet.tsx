@@ -1,12 +1,14 @@
-import { Cheatsheet as OriginalCheatsheet } from "@cursorless/lib-cheatsheet";
-import defaultCheatsheetInfo from "@cursorless/lib-cheatsheet/defaultSpokenForms";
+import {
+  Cheatsheet as OriginalCheatsheet,
+  getDefaultCheatsheetInfo,
+} from "@cursorless/lib-cheatsheet";
 import { Title } from "./Title";
 
 export function Cheatsheet() {
   return (
     <>
       <Title>Cursorless cheatsheet</Title>
-      <OriginalCheatsheet cheatsheetInfo={defaultCheatsheetInfo} />
+      <OriginalCheatsheet cheatsheetInfo={getDefaultCheatsheetInfo()} />
     </>
   );
 }

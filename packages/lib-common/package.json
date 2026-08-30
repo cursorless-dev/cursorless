@@ -10,6 +10,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./jest": "./src/tooling/jest.ts",
+    "./references": "./src/references/index.ts",
     "./vite": "./src/tooling/vite.ts"
   },
   "scripts": {

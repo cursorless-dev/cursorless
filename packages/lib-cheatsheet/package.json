@@ -5,8 +5,7 @@
   "license": "MIT",
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
-    "./defaultSpokenForms": "./src/lib/sampleSpokenFormInfos/defaults.json"
+    ".": "./src/index.ts"
   },
   "sideEffects": [
     "*.css"

@@ -25,7 +25,6 @@ class VisibleCommand extends Command implements CommandDescription {
 export const cursorlessCommandIds = [
   "cursorless.command",
   "cursorless.repeatPreviousCommand",
-  "cursorless.internal.updateCheatsheetDefaults",
   "cursorless.private.logQuickActions",
   "cursorless.keyboard.escape",
   "cursorless.keyboard.modal.modeOff",
@@ -124,9 +123,6 @@ export const cursorlessCommandDescriptions: Record<
   ),
   "cursorless.showCheatsheet": new HiddenCommand(
     "Display the cursorless cheatsheet",
-  ),
-  "cursorless.internal.updateCheatsheetDefaults": new HiddenCommand(
-    "Update the default values of the cheatsheet payload used on the website and for local development. Be sure to run this on stock community and cursorless.",
   ),
   "cursorless.private.logQuickActions": new HiddenCommand(
     "Log the quick actions available at the current cursor position",

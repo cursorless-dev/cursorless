@@ -7,7 +7,7 @@ import type {
 import { CURSORLESS_COMMAND_ID } from "@cursorless/lib-common";
 import type { CommandApi, StoredTargetMap } from "@cursorless/lib-engine";
 import { analyzeCommandHistory } from "@cursorless/lib-engine";
-import { showCheatsheet, updateDefaults } from "@cursorless/lib-node-common";
+import { showCheatsheet } from "@cursorless/lib-node-common";
 import type { CheatSheetCommandArg } from "@cursorless/lib-node-common";
 import type {
   ScopeTestRecorder,
@@ -70,7 +70,6 @@ export function registerCommands(
     // Cheatsheet commands
     "cursorless.showCheatsheet": (arg: CheatSheetCommandArg) =>
       showCheatsheet(vscodeIde, arg),
-    "cursorless.internal.updateCheatsheetDefaults": updateDefaults,
 
     // Testcase recorder commands
     "cursorless.recordTestCase": testCaseRecorder.toggle,

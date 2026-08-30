@@ -1,10 +1,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { produce } from "immer";
-import { sortBy } from "lodash-es";
 import { parse } from "node-html-parser";
 import type { IDE } from "@cursorless/lib-common";
-import { getCursorlessRepoRoot } from "./getCursorlessRepoRoot";
 
 /**
  * The argument expected by the cheatsheet command.
@@ -45,28 +42,6 @@ export async function showCheatsheet(
     `document.cheatsheetInfo = ${JSON.stringify(spokenFormInfo)};`;
 
   await writeFile(outputPath, root.toString());
-}
-
-/**
- * Updates the default spoken forms stored in `defaults.json` for
- * development.
- * @param spokenFormInfo The new value to use for default spoken forms.
- */
-export async function updateDefaults(spokenFormInfo: CheatsheetInfo) {
-  const defaultsPath = path.join(
-    getCursorlessRepoRoot(),
-    "packages/lib-cheatsheet/src/lib/sampleSpokenFormInfos/defaults.json",
-  );
-
-  const outputObject = produce(spokenFormInfo, (draft) => {
-    draft.sections = sortBy(draft.sections, "id");
-    for (const section of draft.sections) {
-      section.items = sortBy(section.items, "id");
-    }
-  });
-
-  const json = JSON.stringify(outputObject, null, 2);
-  await writeFile(defaultsPath, `${json}\n`);
 }
 
 // FIXME: Stop duplicating these types once we have #945

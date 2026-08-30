@@ -30,12 +30,6 @@ class Actions:
             'Please first focus an app that supports cursorless, eg say "focus code"'
         )
 
-    def private_cursorless_cheat_sheet_update_json():
-        """Update default cursorless cheatsheet json (for developer use only)"""
-        app.notify(
-            'Please first focus an app that supports cursorless, eg say "focus code"'
-        )
-
     def private_cursorless_open_instructions():
         """Open web page with cursorless instructions"""
         actions.user.private_cursorless_notify_docs_opened()
@@ -65,14 +59,6 @@ class CursorlessActions:
             },
         )
         webbrowser.open(cheatsheet_out_path.as_uri())
-
-    def private_cursorless_cheat_sheet_update_json():
-        """Update default cursorless cheatsheet json (for developer use only)"""
-        actions.user.private_cursorless_run_rpc_command_and_wait(
-            "cursorless.internal.updateCheatsheetDefaults",
-            cursorless_cheat_sheet_get_json(),
-        )
-
 
 def cheatsheet_dir_linux() -> Path:
     """Get cheatsheet directory for Linux"""
