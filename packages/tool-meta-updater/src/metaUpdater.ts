@@ -46,6 +46,7 @@ export const updater = async (workspaceDir: string) => {
   const userDir = "src/docs/user";
   const contributingDir = "src/docs/contributing";
   const scopeFixtureGroups = createScopeFixtureGroups(workspaceDir);
+  const languageIds = [...Object.keys(languageScopeSupport), "plaintext"];
 
   return createUpdateOptions({
     files: {
@@ -55,7 +56,7 @@ export const updater = async (workspaceDir: string) => {
       "resources/fixtures/scope-support-facet-infos.md":
         updateScopeSupportFacetInfos,
       ...Object.fromEntries(
-        Object.keys(languageScopeSupport).map((languageId) => [
+        languageIds.map((languageId) => [
           `${userDir}/languages/${languageId}.mdx`,
           updateLanguageMdx.bind(
             null,
