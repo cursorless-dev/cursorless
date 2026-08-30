@@ -1,6 +1,7 @@
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import type { ReferenceEntry, ReferenceGroup } from "@cursorless/lib-common";
 import { cleanId } from "./util/cleanId";
+import { DISABLED_BY_DEFAULT } from "./util/constants";
 import { formatVariables } from "./util/formatVariables";
 import { injectSpokenForm } from "./util/injectSpokenForm";
 
@@ -30,13 +31,18 @@ export function updateReferenceReadmeMd(
 
     for (const [rawId, entry] of groupEntries) {
       const id = cleanId(rawId);
+      const disabledByDefault = entry.disabledByDefault
+        ? ` (${DISABLED_BY_DEFAULT})`
+        : "";
       for (const syntax of entry.syntaxes) {
         const pattern = injectSpokenForm(
           syntax.pattern,
           entry.defaultSpokenForm,
         );
         const description = formatVariables(syntax.description);
-        expected.push(`- [\`"${pattern}"\`](./${id}.mdx) - ${description}`);
+        expected.push(
+          `- [\`"${pattern}"\`](./${id}.mdx) - ${description}${disabledByDefault}`,
+        );
       }
     }
 

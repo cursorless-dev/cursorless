@@ -302,141 +302,6 @@ export const scopeReferences = {
     ],
   },
 
-  // Group: sections
-  section: {
-    name: "Section",
-    group: { id: "sections", index: 0 },
-    defaultSpokenForm: "section",
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description:
-          "Heading and its content through the next heading of the same or higher level.",
-        cheatsheet: "Section",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the section containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  sectionLevelOne: {
-    name: "Section level one",
-    group: { id: "sections", index: 1 },
-    defaultSpokenForm: "one section",
-    disabledByDefault: true,
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Level-one heading and its content.",
-        cheatsheet: "Section level one",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the section level one containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  sectionLevelTwo: {
-    name: "Section level two",
-    group: { id: "sections", index: 2 },
-    defaultSpokenForm: "two section",
-    disabledByDefault: true,
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Level-two heading and its content.",
-        cheatsheet: "Section level two",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the section level two containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  sectionLevelThree: {
-    name: "Section level three",
-    group: { id: "sections", index: 3 },
-    defaultSpokenForm: "three section",
-    disabledByDefault: true,
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Level-three heading and its content.",
-        cheatsheet: "Section level three",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the section level three containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  sectionLevelFour: {
-    name: "Section level four",
-    group: { id: "sections", index: 4 },
-    defaultSpokenForm: "four section",
-    disabledByDefault: true,
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Level-four heading and its content.",
-        cheatsheet: "Section level four",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the section level four containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  sectionLevelFive: {
-    name: "Section level five",
-    group: { id: "sections", index: 5 },
-    defaultSpokenForm: "five section",
-    disabledByDefault: true,
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Level-five heading and its content.",
-        cheatsheet: "Section level five",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the section level five containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  sectionLevelSix: {
-    name: "Section level six",
-    group: { id: "sections", index: 6 },
-    defaultSpokenForm: "six section",
-    disabledByDefault: true,
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Level-six heading and its content.",
-        cheatsheet: "Section level six",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the section level six containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-
   // Group: documentHierarchy
   part: {
     name: "Part",
@@ -1136,6 +1001,141 @@ export const scopeReferences = {
       {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
         description: `Selects the unit containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+
+  // Group: sections
+  section: {
+    name: "Section",
+    group: { id: "sections", index: 0 },
+    defaultSpokenForm: "section",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description:
+          "Heading and its content through the next heading of the same or higher level.",
+        cheatsheet: "Section",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the section containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  sectionLevelOne: {
+    name: "Section level one",
+    group: { id: "sections", index: 1 },
+    defaultSpokenForm: "one section",
+    disabledByDefault: true,
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Level-one heading and its content.",
+        cheatsheet: "Section level one",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the section level one containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  sectionLevelTwo: {
+    name: "Section level two",
+    group: { id: "sections", index: 2 },
+    defaultSpokenForm: "two section",
+    disabledByDefault: true,
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Level-two heading and its content.",
+        cheatsheet: "Section level two",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the section level two containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  sectionLevelThree: {
+    name: "Section level three",
+    group: { id: "sections", index: 3 },
+    defaultSpokenForm: "three section",
+    disabledByDefault: true,
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Level-three heading and its content.",
+        cheatsheet: "Section level three",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the section level three containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  sectionLevelFour: {
+    name: "Section level four",
+    group: { id: "sections", index: 4 },
+    defaultSpokenForm: "four section",
+    disabledByDefault: true,
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Level-four heading and its content.",
+        cheatsheet: "Section level four",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the section level four containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  sectionLevelFive: {
+    name: "Section level five",
+    group: { id: "sections", index: 5 },
+    defaultSpokenForm: "five section",
+    disabledByDefault: true,
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Level-five heading and its content.",
+        cheatsheet: "Section level five",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the section level five containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  sectionLevelSix: {
+    name: "Section level six",
+    group: { id: "sections", index: 6 },
+    defaultSpokenForm: "six section",
+    disabledByDefault: true,
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Level-six heading and its content.",
+        cheatsheet: "Section level six",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the section level six containing the ${TARGET_DESC}.`,
       },
     ],
   },
