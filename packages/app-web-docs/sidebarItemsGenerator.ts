@@ -20,6 +20,7 @@ const items: (Group | string)[] = [
       "Actions",
       "Modifiers",
       "Scopes",
+      "Targets",
       "Destinations",
       "Paired delimiters",
     ],
