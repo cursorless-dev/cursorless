@@ -3,14 +3,12 @@ import type { ReferenceGroup } from "./ReferenceEntry";
 export type ActionReferenceGroupId =
   | "cursor"
   | "change"
-  | "clone"
   | "clipboard"
   | "swap"
   | "indentation"
   | "numbers"
   | "emptyLines"
   | "homophones"
-  | "rename"
   | "scroll"
   | "insert"
   | "move"
@@ -18,14 +16,15 @@ export type ActionReferenceGroupId =
   | "wrap"
   | "navigation"
   | "folding"
-  | "extract"
-  | "join"
-  | "break"
+  | "refactor"
+  | "joinBreak"
   | "visual"
   | "snippets"
   | "git"
-  | "editor"
-  | "targetContext"
+  | "format"
+  | "comment"
+  | "breakpoint"
+  | "instanceReference"
   | "private";
 
 export const actionReferenceGroups: ReferenceGroup<ActionReferenceGroupId>[] = [
@@ -38,95 +37,91 @@ export const actionReferenceGroups: ReferenceGroup<ActionReferenceGroupId>[] = [
     name: "Changing a target",
   },
   {
-    id: "clone",
-    name: "Clone",
+    id: "clipboard",
+    name: "Cut / copy / paste",
   },
   {
-    id: "clipboard",
-    name: "Cut, copy, and paste",
+    id: "insert",
+    name: "Insert / use / repeat",
   },
   {
     id: "swap",
     name: "Swap",
   },
   {
-    id: "indentation",
-    name: "Indent and outdent",
+    id: "move",
+    name: "Move / replace",
   },
   {
-    id: "numbers",
-    name: "Increment and decrement",
+    id: "indentation",
+    name: "Indent / outdent",
   },
   {
     id: "emptyLines",
-    name: "Insert empty lines or scopes",
-  },
-  {
-    id: "homophones",
-    name: "Homophones",
-  },
-  {
-    id: "rename",
-    name: "Rename",
-  },
-  {
-    id: "scroll",
-    name: "Scroll",
-  },
-  {
-    id: "insert",
-    name: "Insert, use, and repeat",
-  },
-  {
-    id: "move",
-    name: "Move and replace",
+    name: "Insert empty lines / scopes",
   },
   {
     id: "reorder",
-    name: "Reverse, shuffle, and sort",
+    name: "Reverse / shuffle / sort",
   },
   {
     id: "wrap",
-    name: "Wrap and rewrap",
+    name: "Wrap / rewrap",
   },
   {
-    id: "navigation",
-    name: "Navigate and inspect",
+    id: "numbers",
+    name: "Increment / decrement",
   },
   {
-    id: "folding",
-    name: "Fold and unfold",
+    id: "refactor",
+    name: "Refactor / fix",
   },
   {
-    id: "extract",
-    name: "Extract",
-  },
-  {
-    id: "join",
-    name: "Join",
-  },
-  {
-    id: "break",
-    name: "Break",
-  },
-  {
-    id: "visual",
-    name: "Visual feedback",
+    id: "joinBreak",
+    name: "Join / break",
   },
   {
     id: "snippets",
     name: "Snippets",
   },
   {
+    id: "scroll",
+    name: "Scroll",
+  },
+  {
+    id: "folding",
+    name: "Fold / unfold",
+  },
+  {
+    id: "homophones",
+    name: "Homophones",
+  },
+  {
+    id: "format",
+    name: "Format",
+  },
+  {
+    id: "instanceReference",
+    name: "Instance reference",
+  },
+  {
+    id: "comment",
+    name: "Comment",
+  },
+  {
+    id: "breakpoint",
+    name: "Breakpoint",
+  },
+  {
+    id: "navigation",
+    name: "Navigate / inspect",
+  },
+  {
     id: "git",
     name: "Git",
   },
   {
-    id: "editor",
-    name: "Editor commands",
-  },
-  {
-    id: "targetContext",
-    name: "Target context",
+    id: "visual",
+    name: "Visual feedback",
   },
 ];

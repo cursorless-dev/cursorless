@@ -25,15 +25,15 @@ const NEXT = connectiveDefaultSpokenForms.next;
 const FIRST = connectiveDefaultSpokenForms.first;
 
 export const scopeReferences = {
-  // Group: tokens
+  // Group: text
   character: {
     name: "Character",
-    group: { id: "tokens", index: 0 },
+    group: { id: "text", index: 0 },
     defaultSpokenForm: "char",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Character.",
+        description: "Single character within a token.",
         cheatsheet: "Character",
       },
     ],
@@ -46,13 +46,14 @@ export const scopeReferences = {
   },
   word: {
     name: "Sub token word",
-    group: { id: "tokens", index: 1 },
+    group: { id: "text", index: 1 },
     defaultSpokenForm: "sub",
     legacySpokenForms: ["word"],
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Sub token word.",
+        description:
+          "Word-like component within a token, such as part of camelCase or snake_case.",
         cheatsheet: "Sub token word",
       },
     ],
@@ -65,12 +66,12 @@ export const scopeReferences = {
   },
   token: {
     name: "Token",
-    group: { id: "tokens", index: 2 },
+    group: { id: "text", index: 2 },
     defaultSpokenForm: "token",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Token.",
+        description: "Token such as a word, number, or operator.",
         cheatsheet: "Token",
       },
     ],
@@ -83,12 +84,13 @@ export const scopeReferences = {
   },
   identifier: {
     name: "Identifier",
-    group: { id: "tokens", index: 3 },
+    group: { id: "text", index: 3 },
     defaultSpokenForm: "identifier",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Identifier.",
+        description:
+          "Identifier-style sequence, such as camelCase, snake_case, or kebab-case.",
         cheatsheet: "Identifier",
       },
     ],
@@ -99,27 +101,118 @@ export const scopeReferences = {
       },
     ],
   },
-  glyph: {
-    name: "Glyph",
-    group: { id: "tokens", index: 4 },
-    defaultSpokenForm: "glyph",
+  sentence: {
+    name: "Sentence",
+    group: { id: "text", index: 4 },
+    defaultSpokenForm: "sentence",
     syntaxes: [
       {
-        pattern: `${VAR_SPOKEN_FORM} ${VAR_CHARACTER}`,
-        description: `Instance of single character ${VAR_CHARACTER}.`,
-        cheatsheet: `Instance of single character ${VAR_CHARACTER}`,
+        pattern: DEFAULT_PATTERN,
+        description:
+          "Text ending at sentence punctuation or a paragraph boundary.",
+        cheatsheet: "Sentence",
       },
     ],
     examples: [
       {
-        command: `${SET_SELECTION} ${NEXT} ${VAR_SPOKEN_FORM} ${AIR}`,
-        description: `Selects the next 'a'.`,
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the sentence containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  line: {
+    name: "Line",
+    group: { id: "text", index: 5 },
+    defaultSpokenForm: LINE,
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Line, without indentation.",
+        cheatsheet: "Line",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the line containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  fullLine: {
+    name: "Full line",
+    group: { id: "text", index: 6 },
+    defaultSpokenForm: "full line",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Full line, including indentation.",
+        cheatsheet: "Full line",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the full line containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  paragraph: {
+    name: "Paragraph",
+    group: { id: "text", index: 7 },
+    defaultSpokenForm: "block",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Paragraph, contiguous non-empty lines around the target.",
+        cheatsheet: "Paragraph",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the paragraph containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  boundedParagraph: {
+    name: "Bounded paragraph",
+    group: { id: "text", index: 8 },
+    defaultSpokenForm: "short block",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Paragraph bounded by surrounding pair delimiters.",
+        cheatsheet: "Paragraph bounded by surrounding pair delimiters",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the bounded paragraph containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  document: {
+    name: "Document",
+    group: { id: "text", index: 9 },
+    defaultSpokenForm: "file",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Entire document.",
+        cheatsheet: "Document",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the document containing the ${TARGET_DESC}.`,
       },
     ],
   },
   nonWhitespaceSequence: {
     name: "Non-whitespace sequence",
-    group: { id: "tokens", index: 5 },
+    group: { id: "text", index: 10 },
     defaultSpokenForm: "paint",
     syntaxes: [
       {
@@ -137,7 +230,7 @@ export const scopeReferences = {
   },
   boundedNonWhitespaceSequence: {
     name: "Bounded non-whitespace sequence",
-    group: { id: "tokens", index: 6 },
+    group: { id: "text", index: 11 },
     defaultSpokenForm: "short paint",
     syntaxes: [
       {
@@ -157,12 +250,12 @@ export const scopeReferences = {
   },
   url: {
     name: "URL",
-    group: { id: "tokens", index: 7 },
+    group: { id: "text", index: 12 },
     defaultSpokenForm: "link",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "URL.",
+        description: "URL / Web address.",
         cheatsheet: "URL",
       },
     ],
@@ -173,149 +266,375 @@ export const scopeReferences = {
       },
     ],
   },
-  regularExpression: {
-    name: "Regular expression",
-    group: { id: "tokens", index: 8 },
-    defaultSpokenForm: "regex",
+  surroundingPair: {
+    name: "Surrounding pair",
+    group: { id: "text", index: 13 },
     syntaxes: [
       {
-        pattern: DEFAULT_PATTERN,
-        description: "Regular expression.",
-        cheatsheet: "Regular expression",
+        pattern: VAR_PAIR,
+        description: "Surrounding matching delimiter pair and its contents.",
+        cheatsheet: "Surrounding pair",
       },
     ],
     examples: [
       {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the regular expression containing the ${TARGET_DESC}.`,
+        command: `${SET_SELECTION} ${PARENTHESIS} ${TARGET}`,
+        description: `Selects the parentheses containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  glyph: {
+    name: "Glyph",
+    group: { id: "text", index: 14 },
+    defaultSpokenForm: "glyph",
+    syntaxes: [
+      {
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_CHARACTER}`,
+        description: `Instance of single character ${VAR_CHARACTER}.`,
+        cheatsheet: `Instance of single character ${VAR_CHARACTER}`,
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${NEXT} ${VAR_SPOKEN_FORM} ${AIR}`,
+        description: `Selects the next 'a'.`,
       },
     ],
   },
 
-  // Group: text
-  line: {
-    name: "Line",
-    group: { id: "text", index: 0 },
-    defaultSpokenForm: LINE,
+  // Group: sections
+  section: {
+    name: "Section",
+    group: { id: "sections", index: 0 },
+    defaultSpokenForm: "section",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Line.",
-        cheatsheet: "Line",
+        description:
+          "Heading and its content through the next heading of the same or higher level.",
+        cheatsheet: "Section",
       },
     ],
     examples: [
       {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the line containing the ${TARGET_DESC}.`,
+        description: `Selects the section containing the ${TARGET_DESC}.`,
       },
     ],
   },
-  fullLine: {
-    name: "Full line",
-    group: { id: "text", index: 1 },
-    defaultSpokenForm: "full line",
+  sectionLevelOne: {
+    name: "Section level one",
+    group: { id: "sections", index: 1 },
+    defaultSpokenForm: "one section",
+    disabledByDefault: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Full line.",
-        cheatsheet: "Full line",
+        description: "Level-one heading and its content.",
+        cheatsheet: "Section level one",
       },
     ],
     examples: [
       {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the full line containing the ${TARGET_DESC}.`,
+        description: `Selects the section level one containing the ${TARGET_DESC}.`,
       },
     ],
   },
-  sentence: {
-    name: "Sentence",
-    group: { id: "text", index: 2 },
-    defaultSpokenForm: "sentence",
+  sectionLevelTwo: {
+    name: "Section level two",
+    group: { id: "sections", index: 2 },
+    defaultSpokenForm: "two section",
+    disabledByDefault: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Sentence.",
-        cheatsheet: "Sentence",
+        description: "Level-two heading and its content.",
+        cheatsheet: "Section level two",
       },
     ],
     examples: [
       {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the sentence containing the ${TARGET_DESC}.`,
+        description: `Selects the section level two containing the ${TARGET_DESC}.`,
       },
     ],
   },
-  paragraph: {
-    name: "Paragraph",
-    group: { id: "text", index: 3 },
-    defaultSpokenForm: "block",
+  sectionLevelThree: {
+    name: "Section level three",
+    group: { id: "sections", index: 3 },
+    defaultSpokenForm: "three section",
+    disabledByDefault: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Paragraph.",
-        cheatsheet: "Paragraph",
+        description: "Level-three heading and its content.",
+        cheatsheet: "Section level three",
       },
     ],
     examples: [
       {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the paragraph containing the ${TARGET_DESC}.`,
+        description: `Selects the section level three containing the ${TARGET_DESC}.`,
       },
     ],
   },
-  boundedParagraph: {
-    name: "Bounded paragraph",
-    group: { id: "text", index: 4 },
-    defaultSpokenForm: "short block",
+  sectionLevelFour: {
+    name: "Section level four",
+    group: { id: "sections", index: 4 },
+    defaultSpokenForm: "four section",
+    disabledByDefault: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Paragraph bounded by surrounding pair delimiters.",
-        cheatsheet: "Paragraph bounded by surrounding pair delimiters",
+        description: "Level-four heading and its content.",
+        cheatsheet: "Section level four",
       },
     ],
     examples: [
       {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the bounded paragraph containing the ${TARGET_DESC}.`,
+        description: `Selects the section level four containing the ${TARGET_DESC}.`,
       },
     ],
   },
-  document: {
-    name: "Document",
-    group: { id: "text", index: 5 },
-    defaultSpokenForm: "file",
+  sectionLevelFive: {
+    name: "Section level five",
+    group: { id: "sections", index: 5 },
+    defaultSpokenForm: "five section",
+    disabledByDefault: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Document.",
-        cheatsheet: "Document",
+        description: "Level-five heading and its content.",
+        cheatsheet: "Section level five",
       },
     ],
     examples: [
       {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the document containing the ${TARGET_DESC}.`,
+        description: `Selects the section level five containing the ${TARGET_DESC}.`,
       },
     ],
   },
-  notebookCell: {
-    name: "Notebook cell",
-    group: { id: "text", index: 6 },
-    defaultSpokenForm: "cell",
+  sectionLevelSix: {
+    name: "Section level six",
+    group: { id: "sections", index: 6 },
+    defaultSpokenForm: "six section",
+    disabledByDefault: true,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Notebook cell.",
-        cheatsheet: "Notebook cell",
+        description: "Level-six heading and its content.",
+        cheatsheet: "Section level six",
       },
     ],
     examples: [
       {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the notebook cell containing the ${TARGET_DESC}.`,
+        description: `Selects the section level six containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+
+  // Group: documentHierarchy
+  part: {
+    name: "Part",
+    group: { id: "documentHierarchy", index: 0 },
+    defaultSpokenForm: "part",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Document part and its contents.",
+        cheatsheet: "Part",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the part containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  chapter: {
+    name: "Chapter",
+    group: { id: "documentHierarchy", index: 1 },
+    defaultSpokenForm: "chapter",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Document chapter and its contents.",
+        cheatsheet: "Chapter",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the chapter containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  subSection: {
+    name: "Subsection",
+    group: { id: "documentHierarchy", index: 2 },
+    defaultSpokenForm: "subsection",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Document subsection and its contents.",
+        cheatsheet: "Subsection",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the subsection containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  subSubSection: {
+    name: "Subsubsection",
+    group: { id: "documentHierarchy", index: 3 },
+    defaultSpokenForm: "subsubsection",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Document subsubsection and its contents.",
+        cheatsheet: "Subsubsection",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the subsubsection containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  namedParagraph: {
+    name: "Named paragraph",
+    group: { id: "documentHierarchy", index: 4 },
+    defaultSpokenForm: "paragraph",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Named document paragraph and its contents.",
+        cheatsheet: "Named paragraph",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the named paragraph containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  subParagraph: {
+    name: "Subparagraph",
+    group: { id: "documentHierarchy", index: 5 },
+    defaultSpokenForm: "subparagraph",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Document subparagraph and its contents.",
+        cheatsheet: "Subparagraph",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the subparagraph containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  environment: {
+    name: "Environment",
+    group: { id: "documentHierarchy", index: 6 },
+    defaultSpokenForm: "environment",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Named document environment and its contents.",
+        cheatsheet: "Environment",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the environment containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+
+  // Group: collections
+  list: {
+    name: "List",
+    group: { id: "collections", index: 0 },
+    defaultSpokenForm: "list",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "List or array.",
+        cheatsheet: "List",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the list containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  map: {
+    name: "Map",
+    group: { id: "collections", index: 1 },
+    defaultSpokenForm: "map",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Map, object, or dictionary.",
+        cheatsheet: "Map",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the map containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  collectionItem: {
+    name: "Collection item",
+    group: { id: "collections", index: 2 },
+    defaultSpokenForm: ITEM,
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Entry in a list, map, object, or similar collection.",
+        cheatsheet: "Collection item",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the collection item containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  collectionKey: {
+    name: "Collection key",
+    group: { id: "collections", index: 3 },
+    defaultSpokenForm: "key",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Key in a map, object, or dictionary.",
+        cheatsheet: "Collection key",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the collection key containing the ${TARGET_DESC}.`,
       },
     ],
   },
@@ -328,7 +647,7 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Argument.",
+        description: "Function parameter or function-call argument.",
         cheatsheet: "Argument",
       },
     ],
@@ -346,7 +665,7 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Argument list.",
+        description: "Complete parameter or argument list.",
         cheatsheet: "Argument list",
       },
     ],
@@ -364,7 +683,7 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Anonymous function.",
+        description: "Anonymous or lambda function.",
         cheatsheet: "Anonymous function",
       },
     ],
@@ -382,7 +701,7 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Named function.",
+        description: "Named function declaration.",
         cheatsheet: "Named function",
       },
     ],
@@ -400,7 +719,7 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Function name.",
+        description: "Name in a function declaration.",
         cheatsheet: "Function name",
       },
     ],
@@ -418,7 +737,7 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Function call.",
+        description: "Function, method, or constructor call.",
         cheatsheet: "Function call",
       },
     ],
@@ -436,7 +755,7 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Function callee.",
+        description: "Expression invoked by a function call.",
         cheatsheet: "Function callee",
       },
     ],
@@ -456,7 +775,7 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Class.",
+        description: "Class or struct declaration or definition.",
         cheatsheet: "Class",
       },
     ],
@@ -474,7 +793,7 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Class name.",
+        description: "Name in a class or struct declaration.",
         cheatsheet: "Class name",
       },
     ],
@@ -492,7 +811,7 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Instance.",
+        description: "Occurrence matching the current instance.",
         cheatsheet: "Instance",
       },
     ],
@@ -510,7 +829,8 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Name.",
+        description:
+          "Name in a declaration, such as a variable or function name.",
         cheatsheet: "Name",
       },
     ],
@@ -528,7 +848,7 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Attribute.",
+        description: "Attribute, such as one on an HTML element.",
         cheatsheet: "Attribute",
       },
     ],
@@ -546,7 +866,7 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Type.",
+        description: "Type annotation or declaration.",
         cheatsheet: "Type",
       },
     ],
@@ -564,7 +884,8 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Value.",
+        description:
+          "Value in an assignment, collection entry, return statement, or similar construct.",
         cheatsheet: "Value",
       },
     ],
@@ -572,80 +893,6 @@ export const scopeReferences = {
       {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
         description: `Selects the value containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-
-  // Group: collections
-  list: {
-    name: "List",
-    group: { id: "collections", index: 0 },
-    defaultSpokenForm: "list",
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "List.",
-        cheatsheet: "List",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the list containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  map: {
-    name: "Map",
-    group: { id: "collections", index: 1 },
-    defaultSpokenForm: "map",
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Map.",
-        cheatsheet: "Map",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the map containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  collectionItem: {
-    name: "Collection item",
-    group: { id: "collections", index: 2 },
-    defaultSpokenForm: ITEM,
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Collection item.",
-        cheatsheet: "Collection item",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the collection item containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  collectionKey: {
-    name: "Collection key",
-    group: { id: "collections", index: 3 },
-    defaultSpokenForm: "key",
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Collection key.",
-        cheatsheet: "Collection key",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the collection key containing the ${TARGET_DESC}.`,
       },
     ],
   },
@@ -658,7 +905,8 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Statement.",
+        description:
+          "Complete statement, such as a variable declaration or expression statement.",
         cheatsheet: "Statement",
       },
     ],
@@ -676,7 +924,8 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Branch.",
+        description:
+          "Branch of a control-flow construct, such as if, try, switch, or ternary.",
         cheatsheet: "Branch",
       },
     ],
@@ -694,7 +943,7 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "If statement.",
+        description: "Complete if statement.",
         cheatsheet: "If statement",
       },
     ],
@@ -712,7 +961,7 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Condition.",
+        description: "Condition of a conditional, loop, or similar construct.",
         cheatsheet: "Condition",
       },
     ],
@@ -730,7 +979,7 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Comment.",
+        description: "Line or block comment.",
         cheatsheet: "Comment",
       },
     ],
@@ -748,7 +997,8 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Command.",
+        description:
+          "Command, such as a Talon spoken command or shell command.",
         cheatsheet: "Command",
       },
     ],
@@ -756,6 +1006,24 @@ export const scopeReferences = {
       {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
         description: `Selects the command containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  regularExpression: {
+    name: "Regular expression",
+    group: { id: "statements", index: 6 },
+    defaultSpokenForm: "regex",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: "Regular-expression literal.",
+        cheatsheet: "Regular expression",
+      },
+    ],
+    examples: [
+      {
+        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Selects the regular expression containing the ${TARGET_DESC}.`,
       },
     ],
   },
@@ -768,7 +1036,8 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "XML element.",
+        description:
+          "Complete XML, HTML, or JSX element, or a LaTeX environment.",
         cheatsheet: "XML element",
       },
     ],
@@ -786,7 +1055,7 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "XML start tag.",
+        description: "Opening XML, HTML, or JSX tag, or LaTeX `begin` command.",
         cheatsheet: "XML start tag",
       },
     ],
@@ -804,7 +1073,7 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "XML end tag.",
+        description: "Closing XML, HTML, or JSX tag, or LaTeX `end` command.",
         cheatsheet: "XML end tag",
       },
     ],
@@ -822,7 +1091,8 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "XML start and end tags.",
+        description:
+          "Opening and closing XML, HTML, or JSX tags, or LaTeX `begin` and `end` commands.",
         cheatsheet: "XML start and end tags",
       },
     ],
@@ -840,7 +1110,7 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Selector.",
+        description: "CSS selector.",
         cheatsheet: "Selector",
       },
     ],
@@ -858,7 +1128,7 @@ export const scopeReferences = {
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Unit.",
+        description: "Unit suffix in a measurement, such as `px` in `100px`.",
         cheatsheet: "Unit",
       },
     ],
@@ -870,281 +1140,22 @@ export const scopeReferences = {
     ],
   },
 
-  // Group: documentStructure
-  section: {
-    name: "Section",
-    group: { id: "documentStructure", index: 0 },
-    defaultSpokenForm: "section",
+  // Group: notebook
+  notebookCell: {
+    name: "Notebook cell",
+    group: { id: "notebook", index: 0 },
+    defaultSpokenForm: "cell",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: "Section.",
-        cheatsheet: "Section",
+        description: "Notebook cell or Markdown fenced code block.",
+        cheatsheet: "Notebook cell",
       },
     ],
     examples: [
       {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the section containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  sectionLevelOne: {
-    name: "Section level one",
-    group: { id: "documentStructure", index: 1 },
-    defaultSpokenForm: "one section",
-    disabledByDefault: true,
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Section level one.",
-        cheatsheet: "Section level one",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the section level one containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  sectionLevelTwo: {
-    name: "Section level two",
-    group: { id: "documentStructure", index: 2 },
-    defaultSpokenForm: "two section",
-    disabledByDefault: true,
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Section level two.",
-        cheatsheet: "Section level two",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the section level two containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  sectionLevelThree: {
-    name: "Section level three",
-    group: { id: "documentStructure", index: 3 },
-    defaultSpokenForm: "three section",
-    disabledByDefault: true,
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Section level three.",
-        cheatsheet: "Section level three",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the section level three containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  sectionLevelFour: {
-    name: "Section level four",
-    group: { id: "documentStructure", index: 4 },
-    defaultSpokenForm: "four section",
-    disabledByDefault: true,
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Section level four.",
-        cheatsheet: "Section level four",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the section level four containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  sectionLevelFive: {
-    name: "Section level five",
-    group: { id: "documentStructure", index: 5 },
-    defaultSpokenForm: "five section",
-    disabledByDefault: true,
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Section level five.",
-        cheatsheet: "Section level five",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the section level five containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  sectionLevelSix: {
-    name: "Section level six",
-    group: { id: "documentStructure", index: 6 },
-    defaultSpokenForm: "six section",
-    disabledByDefault: true,
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Section level six.",
-        cheatsheet: "Section level six",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the section level six containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  part: {
-    name: "Part",
-    group: { id: "documentStructure", index: 7 },
-    defaultSpokenForm: "part",
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Part.",
-        cheatsheet: "Part",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the part containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  chapter: {
-    name: "Chapter",
-    group: { id: "documentStructure", index: 8 },
-    defaultSpokenForm: "chapter",
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Chapter.",
-        cheatsheet: "Chapter",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the chapter containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  subSection: {
-    name: "Subsection",
-    group: { id: "documentStructure", index: 9 },
-    defaultSpokenForm: "subsection",
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Subsection.",
-        cheatsheet: "Subsection",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the subsection containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  subSubSection: {
-    name: "Subsubsection",
-    group: { id: "documentStructure", index: 10 },
-    defaultSpokenForm: "subsubsection",
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Subsubsection.",
-        cheatsheet: "Subsubsection",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the subsubsection containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  namedParagraph: {
-    name: "Named paragraph",
-    group: { id: "documentStructure", index: 11 },
-    defaultSpokenForm: "paragraph",
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Named paragraph.",
-        cheatsheet: "Named paragraph",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the named paragraph containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  subParagraph: {
-    name: "Subparagraph",
-    group: { id: "documentStructure", index: 12 },
-    defaultSpokenForm: "subparagraph",
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Subparagraph.",
-        cheatsheet: "Subparagraph",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the subparagraph containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  environment: {
-    name: "Environment",
-    group: { id: "documentStructure", index: 13 },
-    defaultSpokenForm: "environment",
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Environment.",
-        cheatsheet: "Environment",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the environment containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-
-  // Group: delimiters
-  surroundingPair: {
-    name: "Surrounding pair",
-    group: { id: "delimiters", index: 0 },
-    syntaxes: [
-      {
-        pattern: VAR_PAIR,
-        description: "Surrounding pair.",
-        cheatsheet: "Surrounding pair",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${PARENTHESIS} ${TARGET}`,
-        description: `Selects the parentheses containing the ${TARGET_DESC}.`,
+        description: `Selects the notebook cell containing the ${TARGET_DESC}.`,
       },
     ],
   },

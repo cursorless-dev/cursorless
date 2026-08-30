@@ -1,25 +1,33 @@
 import type { ReferenceGroup } from "./ReferenceEntry";
 
 export type ScopeReferenceGroupId =
-  | "tokens"
   | "text"
+  | "sections"
+  | "documentHierarchy"
+  | "notebook"
+  | "collections"
   | "functions"
   | "objects"
-  | "collections"
   | "statements"
   | "markup"
-  | "documentStructure"
-  | "delimiters"
   | "private";
 
 export const scopeReferenceGroups: ReferenceGroup<ScopeReferenceGroupId>[] = [
   {
-    id: "tokens",
-    name: "Characters and tokens",
+    id: "text",
+    name: "Text-based scopes",
   },
   {
-    id: "text",
-    name: "Lines and documents",
+    id: "sections",
+    name: "Sections",
+  },
+  {
+    id: "documentHierarchy",
+    name: "Document hierarchy",
+  },
+  {
+    id: "collections",
+    name: "Collections",
   },
   {
     id: "functions",
@@ -30,23 +38,15 @@ export const scopeReferenceGroups: ReferenceGroup<ScopeReferenceGroupId>[] = [
     name: "Classes and objects",
   },
   {
-    id: "collections",
-    name: "Collections",
-  },
-  {
     id: "statements",
     name: "Statements and expressions",
   },
   {
     id: "markup",
-    name: "Markup",
+    name: "Markup and styles",
   },
   {
-    id: "documentStructure",
-    name: "Document structure",
-  },
-  {
-    id: "delimiters",
-    name: "Paired delimiters",
+    id: "notebook",
+    name: "Notebook",
   },
 ];

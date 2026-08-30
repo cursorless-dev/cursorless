@@ -15,33 +15,37 @@
 - [`"change <target>"`](./clearAndSetSelection.mdx) - Change `<target>` by clearing it and leaving the cursor in its place.
 - [`"chuck <target>"`](./remove.mdx) - Remove `<target>`.
 
-## Clone
-
-- [`"clone <target>"`](./insertCopyAfter.mdx) - Insert copy after `<target>`.
-- [`"clone up <target>"`](./insertCopyBefore.mdx) - Insert copy before `<target>`.
-
-## Cut, copy, and paste
+## Cut / copy / paste
 
 - [`"carve <target>"`](./cutToClipboard.mdx) - Cut `<target>` to clipboard.
 - [`"copy <target>"`](./copyToClipboard.mdx) - Copy `<target>` to clipboard.
 - [`"paste <destination>"`](./pasteFromClipboard.mdx) - Paste from clipboard at `<destination>`.
+
+## Insert / use / repeat
+
+- [`"clone <target>"`](./insertCopyAfter.mdx) - Insert copy after `<target>`.
+- [`"clone up <target>"`](./insertCopyBefore.mdx) - Insert copy before `<target>`.
+- [`"bring <target>"`](./replaceWithTarget.mdx) - Insert copy of `<target>` at selection.
+- [`"bring <target> <destination>"`](./replaceWithTarget.mdx) - Copy `<target>` to `<destination>`.
+- [`"call <target>"`](./callAsFunction.mdx) - Insert call to `<target>` on selection.
+- [`"call <target 1> on <target 2>"`](./callAsFunction.mdx) - Insert call to `<target 1>` on `<target 2>`.
 
 ## Swap
 
 - [`"swap with <target>"`](./swapTargets.mdx) - Swap selection with `<target>`.
 - [`"swap <target 1> with <target 2>"`](./swapTargets.mdx) - Swap `<target 1>` with `<target 2>`.
 
-## Indent and outdent
+## Move / replace
+
+- [`"move <target>"`](./moveToTarget.mdx) - Move `<target>` to selection.
+- [`"move <target> <destination>"`](./moveToTarget.mdx) - Move `<target>` to `<destination>`.
+
+## Indent / outdent
 
 - [`"indent <target>"`](./indentLine.mdx) - Indent line containing `<target>`.
 - [`"dedent <target>"`](./outdentLine.mdx) - Outdent line containing `<target>`.
 
-## Increment and decrement
-
-- [`"increment <target>"`](./increment.mdx) - Increment number at `<target>`.
-- [`"decrement <target>"`](./decrement.mdx) - Decrement number at `<target>`.
-
-## Insert empty lines or scopes
+## Insert empty lines / scopes
 
 - [`"drink <target>"`](./editNewLineBefore.mdx) - Edit new line before `<target>`.
 - [`"drink <scope> <target>"`](./editNewLineBefore.mdx) - Edit new `<scope>` before `<target>`.
@@ -51,13 +55,38 @@
 - [`"float <target>"`](./insertEmptyLineAfter.mdx) - Insert empty line/scope after `<target>`.
 - [`"puff <target>"`](./insertEmptyLinesAround.mdx) - Insert empty lines/scopes around `<target>`.
 
-## Homophones
+## Reverse / shuffle / sort
 
-- [`"phones <target>"`](./nextHomophone.mdx) - Cycle to next homophone for `<target>`.
+- [`"reverse <target>"`](./reverseTargets.mdx) - Reverse `<target>`s.
+- [`"shuffle <target>"`](./randomizeTargets.mdx) - Randomize `<target>`s.
+- [`"sort <target>"`](./sortTargets.mdx) - Sort `<target>`s.
 
-## Rename
+## Wrap / rewrap
+
+- [`"<pair> wrap <target>"`](./wrapWithPairedDelimiter.mdx) - Wrap `<target>` with `<pair>`.
+- [`"<snippet> wrap <target>"`](./wrapWithPairedDelimiter.mdx) - Wrap `<target>` with `<snippet>`.
+- [`"<pair> repack <target>"`](./rewrapWithPairedDelimiter.mdx) - Rewrap `<target>` with `<pair>`.
+
+## Increment / decrement
+
+- [`"increment <target>"`](./increment.mdx) - Increment number at `<target>`.
+- [`"decrement <target>"`](./decrement.mdx) - Decrement number at `<target>`.
+
+## Refactor / fix
 
 - [`"rename <target>"`](./rename.mdx) - Rename `<target>`.
+- [`"extract <target>"`](./extractVariable.mdx) - Extract variable from `<target>`.
+- [`"quick fix <target>"`](./showQuickFix.mdx) - Show quick fix for `<target>`.
+
+## Join / break
+
+- [`"join <target>"`](./joinLines.mdx) - Join lines at `<target>`.
+- [`"break <target>"`](./breakLine.mdx) - Breaks the line before `<target>`.
+
+## Snippets
+
+- [`"snip make <target>"`](./generateSnippet.mdx) - Generate snippet from `<target>`.
+- [`"snip <snippet> <destination>"`](./insertSnippet.mdx) - Insert snippet at `<destination>`.
 
 ## Scroll
 
@@ -65,69 +94,43 @@
 - [`"center <target>"`](./scrollToCenter.mdx) - Scroll `<target>` to center of the viewport.
 - [`"bottom <target>"`](./scrollToBottom.mdx) - Scroll `<target>` to bottom of the viewport.
 
-## Insert, use, and repeat
+## Fold / unfold
 
-- [`"bring <target>"`](./replaceWithTarget.mdx) - Insert copy of `<target>` at selection.
-- [`"bring <target> <destination>"`](./replaceWithTarget.mdx) - Copy `<target>` to `<destination>`.
-- [`"call <target>"`](./callAsFunction.mdx) - Insert call to `<target>` on selection.
-- [`"call <target 1> on <target 2>"`](./callAsFunction.mdx) - Insert call to `<target 1>` on `<target 2>`.
+- [`"fold <target>"`](./foldRegion.mdx) - Fold region at `<target>`.
+- [`"unfold <target>"`](./unfoldRegion.mdx) - Unfold region at `<target>`.
 
-## Move and replace
+## Homophones
 
-- [`"move <target>"`](./moveToTarget.mdx) - Move `<target>` to selection.
-- [`"move <target> <destination>"`](./moveToTarget.mdx) - Move `<target>` to `<destination>`.
+- [`"phones <target>"`](./nextHomophone.mdx) - Cycle to next homophone for `<target>`.
 
-## Reverse, shuffle, and sort
+## Format
 
-- [`"reverse <target>"`](./reverseTargets.mdx) - Reverse `<target>`s.
-- [`"shuffle <target>"`](./randomizeTargets.mdx) - Randomize `<target>`s.
-- [`"sort <target>"`](./sortTargets.mdx) - Sort `<target>`s.
+- [`"format <formatter> at <target>"`](./applyFormatter.mdx) - Reformat `<target>` as `<formatter>`.
 
-## Wrap and rewrap
+## Instance reference
 
-- [`"<pair> wrap <target>"`](./wrapWithPairedDelimiter.mdx) - Wrap `<target>` with `<pair>`.
-- [`"<snippet> wrap <target>"`](./wrapWithPairedDelimiter.mdx) - Wrap `<target>` with `<snippet>`.
-- [`"<pair> repack <target>"`](./rewrapWithPairedDelimiter.mdx) - Rewrap `<target>` with `<pair>`.
+- [`"from <target>"`](./setInstanceReference.mdx) - Set instance reference to `<target>`.
 
-## Navigate and inspect
+## Comment
+
+- [`"comment <target>"`](./toggleLineComment.mdx) - Toggle line comment at `<target>`.
+
+## Breakpoint
+
+- [`"break point <target>"`](./toggleLineBreakpoint.mdx) - Toggle breakpoint on line containing `<target>`.
+- [`"break point token <target>"`](./toggleLineBreakpoint.mdx) - Toggle inline breakpoint at `<target>`.
+
+## Navigate / inspect
 
 - [`"define <target>"`](./revealDefinition.mdx) - Reveal definition of `<target>`.
 - [`"type deaf <target>"`](./revealTypeDefinition.mdx) - Reveal type definition of `<target>`.
 - [`"reference <target>"`](./showReferences.mdx) - Show references for `<target>`.
 - [`"hover <target>"`](./showHover.mdx) - Show hover for `<target>`.
-- [`"quick fix <target>"`](./showQuickFix.mdx) - Show quick fix for `<target>`.
 - [`"scout <target>"`](./findInDocument.mdx) - Find `<target>` in document.
 - [`"scout all <target>"`](./findInWorkspace.mdx) - Find `<target>` in workspace.
 - [`"follow <target>"`](./followLink.mdx) - Follow link at `<target>`.
 - [`"follow split <target>"`](./followLinkAside.mdx) - Follow link at `<target>` aside (e.g. in a split view).
 - [`"inspect <target>"`](./showDebugHover.mdx) - Show debug hover for `<target>`.
-
-## Fold and unfold
-
-- [`"fold <target>"`](./foldRegion.mdx) - Fold region at `<target>`.
-- [`"unfold <target>"`](./unfoldRegion.mdx) - Unfold region at `<target>`.
-
-## Extract
-
-- [`"extract <target>"`](./extractVariable.mdx) - Extract variable from `<target>`.
-
-## Join
-
-- [`"join <target>"`](./joinLines.mdx) - Join lines at `<target>`.
-
-## Break
-
-- [`"break <target>"`](./breakLine.mdx) - Breaks the line before `<target>`.
-
-## Visual feedback
-
-- [`"flash <target>"`](./flashTargets.mdx) - Flash `<target>`.
-- [`"highlight <target>"`](./highlight.mdx) - Highlight `<target>`.
-
-## Snippets
-
-- [`"snip make <target>"`](./generateSnippet.mdx) - Generate snippet from `<target>`.
-- [`"snip <snippet> <destination>"`](./insertSnippet.mdx) - Insert snippet at `<destination>`.
 
 ## Git
 
@@ -136,13 +139,7 @@
 - [`"git stage <target>"`](./gitStage.mdx) - Stage Git change at `<target>`.
 - [`"git unstage <target>"`](./gitUnstage.mdx) - Unstage Git change at `<target>`.
 
-## Editor commands
+## Visual feedback
 
-- [`"format <formatter> at <target>"`](./applyFormatter.mdx) - Reformat `<target>` as `<formatter>`.
-- [`"comment <target>"`](./toggleLineComment.mdx) - Toggle line comment at `<target>`.
-- [`"break point <target>"`](./toggleLineBreakpoint.mdx) - Toggle breakpoint on line containing `<target>`.
-- [`"break point token <target>"`](./toggleLineBreakpoint.mdx) - Toggle inline breakpoint at `<target>`.
-
-## Target context
-
-- [`"from <target>"`](./setInstanceReference.mdx) - Set instance reference to `<target>`.
+- [`"flash <target>"`](./flashTargets.mdx) - Flash `<target>`.
+- [`"highlight <target>"`](./highlight.mdx) - Highlight `<target>`.

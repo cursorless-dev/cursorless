@@ -1,89 +1,89 @@
 # Scopes
 
-## Characters and tokens
+## Text-based scopes
 
-- [`"char"`](./character.mdx) - Character.
-- [`"sub"`](./word.mdx) - Sub token word.
-- [`"token"`](./token.mdx) - Token.
-- [`"identifier"`](./identifier.mdx) - Identifier.
-- [`"glyph <character>"`](./glyph.mdx) - Instance of single character `<character>`.
+- [`"char"`](./character.mdx) - Single character within a token.
+- [`"sub"`](./word.mdx) - Word-like component within a token, such as part of camelCase or snake_case.
+- [`"token"`](./token.mdx) - Token such as a word, number, or operator.
+- [`"identifier"`](./identifier.mdx) - Identifier-style sequence, such as camelCase, snake_case, or kebab-case.
+- [`"sentence"`](./sentence.mdx) - Text ending at sentence punctuation or a paragraph boundary.
+- [`"line"`](./line.mdx) - Line, without indentation.
+- [`"full line"`](./fullLine.mdx) - Full line, including indentation.
+- [`"block"`](./paragraph.mdx) - Paragraph, contiguous non-empty lines around the target.
+- [`"short block"`](./boundedParagraph.mdx) - Paragraph bounded by surrounding pair delimiters.
+- [`"file"`](./document.mdx) - Entire document.
 - [`"paint"`](./nonWhitespaceSequence.mdx) - Non-whitespace sequence.
 - [`"short paint"`](./boundedNonWhitespaceSequence.mdx) - Non-whitespace sequence bounded by surrounding pair delimiters.
-- [`"link"`](./url.mdx) - URL.
-- [`"regex"`](./regularExpression.mdx) - Regular expression.
+- [`"link"`](./url.mdx) - URL / Web address.
+- [`"<pair>"`](./surroundingPair.mdx) - Surrounding matching delimiter pair and its contents.
+- [`"glyph <character>"`](./glyph.mdx) - Instance of single character `<character>`.
 
-## Lines and documents
+## Sections
 
-- [`"line"`](./line.mdx) - Line.
-- [`"full line"`](./fullLine.mdx) - Full line.
-- [`"sentence"`](./sentence.mdx) - Sentence.
-- [`"block"`](./paragraph.mdx) - Paragraph.
-- [`"short block"`](./boundedParagraph.mdx) - Paragraph bounded by surrounding pair delimiters.
-- [`"file"`](./document.mdx) - Document.
-- [`"cell"`](./notebookCell.mdx) - Notebook cell.
+- [`"section"`](./section.mdx) - Heading and its content through the next heading of the same or higher level.
+- [`"one section"`](./sectionLevelOne.mdx) - Level-one heading and its content.
+- [`"two section"`](./sectionLevelTwo.mdx) - Level-two heading and its content.
+- [`"three section"`](./sectionLevelThree.mdx) - Level-three heading and its content.
+- [`"four section"`](./sectionLevelFour.mdx) - Level-four heading and its content.
+- [`"five section"`](./sectionLevelFive.mdx) - Level-five heading and its content.
+- [`"six section"`](./sectionLevelSix.mdx) - Level-six heading and its content.
 
-## Functions and calls
+## Document hierarchy
 
-- [`"arg"`](./argumentOrParameter.mdx) - Argument.
-- [`"arg list"`](./argumentList.mdx) - Argument list.
-- [`"lambda"`](./anonymousFunction.mdx) - Anonymous function.
-- [`"funk"`](./namedFunction.mdx) - Named function.
-- [`"funk name"`](./functionName.mdx) - Function name.
-- [`"call"`](./functionCall.mdx) - Function call.
-- [`"callee"`](./functionCallee.mdx) - Function callee.
-
-## Classes and objects
-
-- [`"class"`](./class.mdx) - Class.
-- [`"class name"`](./className.mdx) - Class name.
-- [`"instance"`](./instance.mdx) - Instance.
-- [`"name"`](./name.mdx) - Name.
-- [`"attribute"`](./attribute.mdx) - Attribute.
-- [`"type"`](./type.mdx) - Type.
-- [`"value"`](./value.mdx) - Value.
+- [`"part"`](./part.mdx) - Document part and its contents.
+- [`"chapter"`](./chapter.mdx) - Document chapter and its contents.
+- [`"subsection"`](./subSection.mdx) - Document subsection and its contents.
+- [`"subsubsection"`](./subSubSection.mdx) - Document subsubsection and its contents.
+- [`"paragraph"`](./namedParagraph.mdx) - Named document paragraph and its contents.
+- [`"subparagraph"`](./subParagraph.mdx) - Document subparagraph and its contents.
+- [`"environment"`](./environment.mdx) - Named document environment and its contents.
 
 ## Collections
 
-- [`"list"`](./list.mdx) - List.
-- [`"map"`](./map.mdx) - Map.
-- [`"item"`](./collectionItem.mdx) - Collection item.
-- [`"key"`](./collectionKey.mdx) - Collection key.
+- [`"list"`](./list.mdx) - List or array.
+- [`"map"`](./map.mdx) - Map, object, or dictionary.
+- [`"item"`](./collectionItem.mdx) - Entry in a list, map, object, or similar collection.
+- [`"key"`](./collectionKey.mdx) - Key in a map, object, or dictionary.
+
+## Functions and calls
+
+- [`"arg"`](./argumentOrParameter.mdx) - Function parameter or function-call argument.
+- [`"arg list"`](./argumentList.mdx) - Complete parameter or argument list.
+- [`"lambda"`](./anonymousFunction.mdx) - Anonymous or lambda function.
+- [`"funk"`](./namedFunction.mdx) - Named function declaration.
+- [`"funk name"`](./functionName.mdx) - Name in a function declaration.
+- [`"call"`](./functionCall.mdx) - Function, method, or constructor call.
+- [`"callee"`](./functionCallee.mdx) - Expression invoked by a function call.
+
+## Classes and objects
+
+- [`"class"`](./class.mdx) - Class or struct declaration or definition.
+- [`"class name"`](./className.mdx) - Name in a class or struct declaration.
+- [`"instance"`](./instance.mdx) - Occurrence matching the current instance.
+- [`"name"`](./name.mdx) - Name in a declaration, such as a variable or function name.
+- [`"attribute"`](./attribute.mdx) - Attribute, such as one on an HTML element.
+- [`"type"`](./type.mdx) - Type annotation or declaration.
+- [`"value"`](./value.mdx) - Value in an assignment, collection entry, return statement, or similar construct.
 
 ## Statements and expressions
 
-- [`"state"`](./statement.mdx) - Statement.
-- [`"branch"`](./branch.mdx) - Branch.
-- [`"if state"`](./ifStatement.mdx) - If statement.
-- [`"condition"`](./condition.mdx) - Condition.
-- [`"comment"`](./comment.mdx) - Comment.
-- [`"command"`](./command.mdx) - Command.
+- [`"state"`](./statement.mdx) - Complete statement, such as a variable declaration or expression statement.
+- [`"branch"`](./branch.mdx) - Branch of a control-flow construct, such as if, try, switch, or ternary.
+- [`"if state"`](./ifStatement.mdx) - Complete if statement.
+- [`"condition"`](./condition.mdx) - Condition of a conditional, loop, or similar construct.
+- [`"comment"`](./comment.mdx) - Line or block comment.
+- [`"command"`](./command.mdx) - Command, such as a Talon spoken command or shell command.
+- [`"regex"`](./regularExpression.mdx) - Regular-expression literal.
 
-## Markup
+## Markup and styles
 
-- [`"element"`](./xmlElement.mdx) - XML element.
-- [`"start tag"`](./xmlStartTag.mdx) - XML start tag.
-- [`"end tag"`](./xmlEndTag.mdx) - XML end tag.
-- [`"tags"`](./xmlBothTags.mdx) - XML start and end tags.
-- [`"selector"`](./selector.mdx) - Selector.
-- [`"unit"`](./unit.mdx) - Unit.
+- [`"element"`](./xmlElement.mdx) - Complete XML, HTML, or JSX element, or a LaTeX environment.
+- [`"start tag"`](./xmlStartTag.mdx) - Opening XML, HTML, or JSX tag, or LaTeX `begin` command.
+- [`"end tag"`](./xmlEndTag.mdx) - Closing XML, HTML, or JSX tag, or LaTeX `end` command.
+- [`"tags"`](./xmlBothTags.mdx) - Opening and closing XML, HTML, or JSX tags, or LaTeX `begin` and `end` commands.
+- [`"selector"`](./selector.mdx) - CSS selector.
+- [`"unit"`](./unit.mdx) - Unit suffix in a measurement, such as `px` in `100px`.
 
-## Document structure
+## Notebook
 
-- [`"section"`](./section.mdx) - Section.
-- [`"one section"`](./sectionLevelOne.mdx) - Section level one.
-- [`"two section"`](./sectionLevelTwo.mdx) - Section level two.
-- [`"three section"`](./sectionLevelThree.mdx) - Section level three.
-- [`"four section"`](./sectionLevelFour.mdx) - Section level four.
-- [`"five section"`](./sectionLevelFive.mdx) - Section level five.
-- [`"six section"`](./sectionLevelSix.mdx) - Section level six.
-- [`"part"`](./part.mdx) - Part.
-- [`"chapter"`](./chapter.mdx) - Chapter.
-- [`"subsection"`](./subSection.mdx) - Subsection.
-- [`"subsubsection"`](./subSubSection.mdx) - Subsubsection.
-- [`"paragraph"`](./namedParagraph.mdx) - Named paragraph.
-- [`"subparagraph"`](./subParagraph.mdx) - Subparagraph.
-- [`"environment"`](./environment.mdx) - Environment.
-
-## Paired delimiters
-
-- [`"<pair>"`](./surroundingPair.mdx) - Surrounding pair.
+- [`"cell"`](./notebookCell.mdx) - Notebook cell or Markdown fenced code block.

@@ -3,7 +3,9 @@ import type { ReferenceGroup } from "./ReferenceEntry";
 export type ModifierReferenceGroupId =
   | "position"
   | "delimiters"
-  | "scope"
+  | "containing"
+  | "ordinal"
+  | "relative"
   | "range"
   | "filters"
   | "inference"
@@ -12,20 +14,28 @@ export type ModifierReferenceGroupId =
 export const modifierReferenceGroups: ReferenceGroup<ModifierReferenceGroupId>[] =
   [
     {
-      id: "position",
-      name: "Positions",
+      id: "containing",
+      name: "Scope containment",
+    },
+    {
+      id: "ordinal",
+      name: "Ordinal scope",
+    },
+    {
+      id: "relative",
+      name: "Relative scope",
     },
     {
       id: "delimiters",
-      name: "Interiors and delimiters",
-    },
-    {
-      id: "scope",
-      name: "Scope navigation",
+      name: "Interiors / delimiters",
     },
     {
       id: "range",
       name: "Range extension",
+    },
+    {
+      id: "position",
+      name: "Positions",
     },
     {
       id: "filters",
