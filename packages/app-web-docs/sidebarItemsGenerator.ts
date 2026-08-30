@@ -16,7 +16,13 @@ const items: (Group | string)[] = [
   },
   {
     label: "Reference",
-    items: ["Actions", "Modifiers", "Scopes", "Destinations"],
+    items: [
+      "Actions",
+      "Modifiers",
+      "Scopes",
+      "Destinations",
+      "Paired delimiters",
+    ],
   },
   "Supported languages",
   {

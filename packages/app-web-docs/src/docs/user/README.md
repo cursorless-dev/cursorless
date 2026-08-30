@@ -446,7 +446,7 @@ Cursorless has support for expanding the selection to the nearest containing pai
 
 - `"take round"` expands selection to include containing parentheses `(` and `)`
 - `"take curly"` expands selection to include containing braces `{` and `}`
-- `"take box"` expands selection to include containing brackets `[` and `]`. See [paired delimiters](#paired-delimiters) for other possible surrounding pairs.
+- `"take box"` expands selection to include containing brackets `[` and `]`. See [paired delimiters](./paired-delimiters.md) for other possible surrounding pairs.
 - `"take inside round"` is the same as `"take round"`, but excludes the parentheses themselves
 - `"take bounds round"` selects only the parentheses
 - `"take pair"` expands to include the nearest containing pair of any kind
@@ -454,7 +454,7 @@ Cursorless has support for expanding the selection to the nearest containing pai
 - `"take inside"` selects until the nearest containing paired delimiters of any kind, but doesn't include the delimiters themselves
 - `"take round air"` selects the parentheses containing the token with a hat over the `a`.
 
-See [paired delimiters](#paired-delimiters) for a list of possible surrounding pairs.
+See [paired delimiters](./paired-delimiters.md) for a list of possible surrounding pairs.
 
 ###### Ambiguous delimiters (`"`, `'`, `` ` ``, etc)
 
@@ -538,20 +538,3 @@ Selects both the token containing letter 'a' with a blue hat AND the token conta
 Every Cursorless command combines an action with a target. The action determines what happens to the target. For example, `"chuck air"` removes the target, while `"take air"` selects it.
 
 See the [action reference](./actions/README.md) for the complete list of actions, syntax, behavior, and examples.
-
-## Paired delimiters
-
-| Default spoken form | Delimiter name        | Symbol inserted before target | Symbol inserted after target | Is wrapper? | Is selectable? |
-| ------------------- | --------------------- | ----------------------------- | ---------------------------- | ----------- | -------------- |
-| `"curly"`           | curly brackets        | `{`                           | `}`                          | ✅          | ✅             |
-| `"diamond"`         | angle brackets        | `<`                           | `>`                          | ✅          | ✅             |
-| `"escaped quad"`    | escaped double quotes | `\\"`                         | `\\"`                        | ✅          | ✅             |
-| `"escaped round"`   | escaped parentheses   | `\\(`                         | `\\)`                        | ✅          | ✅             |
-| `"escaped twin"`    | escaped single quotes | `\\'`                         | `\\'`                        | ✅          | ✅             |
-| `"pair"`            | any                   | N/A                           | N/A                          | ❌          | ✅             |
-| `"quad"`            | double quotes         | `"`                           | `"`                          | ✅          | ✅             |
-| `"round"`           | parentheses           | `(`                           | `)`                          | ✅          | ✅             |
-| `"skis"`            | backtick quotes       | `` ` ``                       | `` ` ``                      | ✅          | ✅             |
-| `"box"`             | square brackets       | `[`                           | `]`                          | ✅          | ✅             |
-| `"twin"`            | single quotes         | `'`                           | `'`                          | ✅          | ✅             |
-| `"void"`            | space                 | ` `                           | ` `                          | ✅          | ❌             |
