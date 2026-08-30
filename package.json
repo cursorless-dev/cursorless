@@ -18,7 +18,7 @@
     "lint:style": "stylelint --ignore-path .gitignore '**/*.{css,scss}'",
     "lint:fmt": "oxfmt --check .",
     "lint": "pnpm typecheck &&pnpm lint:meta && pnpm lint:syncpack && pnpm lint:ts && pnpm lint:style && pnpm lint:fmt",
-    "fix:meta": "pnpm meta-updater",
+    "fix:meta": "pnpm meta-updater && pnpm -r exec oxfmt tsconfig.json package.json",
     "fix:syncpack": "syncpack fix",
     "fix:ts": "oxlint -c oxlint.config.mts --fix .",
     "fix:style": "stylelint --ignore-path .gitignore --fix '**/*.{css,scss}'",
