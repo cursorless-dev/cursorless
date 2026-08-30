@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useDynamicTOC } from "./DynamicTOCContext";
 
 interface Props {
   minHeadingLevel?: number;
@@ -9,67 +10,25 @@ export function DynamicTOC({
   minHeadingLevel = 2,
   maxHeadingLevel = 3,
 }: Props) {
+  const { setDynamicTOC } = useDynamicTOC();
+
   useEffect(() => {
-    const row = document.querySelector("main .row");
+    const headings = getHeaderElements(minHeadingLevel, maxHeadingLevel);
 
-    if (row == null) {
-      console.error("No row found in the main element");
-      return;
-    }
+    setDynamicTOC({
+      items: Array.from(headings, (heading) => ({
+        id: heading.id,
+        level: Number.parseInt(heading.tagName[1], 10),
+        value: heading.textContent ?? "",
+      })),
+      minHeadingLevel,
+      maxHeadingLevel,
+    });
 
-    const toc = getTOC(minHeadingLevel, maxHeadingLevel);
-
-    // Remove existing TOC if it exists
-    if (row.childNodes.length > 1) {
-      row.childNodes[1].replaceWith(toc);
-    } else {
-      row.append(toc);
-    }
-  }, [minHeadingLevel, maxHeadingLevel]);
+    return () => setDynamicTOC(undefined);
+  }, [maxHeadingLevel, minHeadingLevel, setDynamicTOC]);
 
   return null;
-}
-
-function getTOC(minHeadingLevel: number, maxHeadingLevel: number) {
-  const col = document.createElement("div");
-  col.className = "col col--3";
-
-  const toc = document.createElement("div");
-  toc.className = "tableOfContents_TDAO thin-scrollbar";
-
-  const ul = document.createElement("ul");
-  ul.className = "table-of-contents table-of-contents__left-border";
-
-  const headerElements = getHeaderElements(minHeadingLevel, maxHeadingLevel);
-  let currentLevel: number | undefined = undefined;
-  let indent = 0;
-
-  for (const header of headerElements) {
-    const level = Number.parseInt(header.tagName[1], 10);
-
-    if (level !== currentLevel) {
-      if (currentLevel != null) {
-        indent += level < currentLevel ? -1 : 1;
-      }
-      currentLevel = level;
-    }
-
-    const li = document.createElement("li");
-
-    const a = document.createElement("a");
-    a.href = `#${header.id}`;
-    a.className = "table-of-contents__link";
-    a.textContent = header.textContent;
-    a.style.paddingLeft = `${indent}rem`;
-
-    li.append(a);
-    ul.append(li);
-  }
-
-  toc.append(ul);
-  col.append(toc);
-
-  return col;
 }
 
 function getHeaderElements(
@@ -78,7 +37,7 @@ function getHeaderElements(
 ): NodeListOf<HTMLHeadingElement> {
   const queryParts = [];
   for (let i = minHeadingLevel; i <= maxHeadingLevel; i++) {
-    queryParts.push(`h${i}`);
+    queryParts.push(`main article h${i}`);
   }
   return document.querySelectorAll(queryParts.join(", "));
 }
