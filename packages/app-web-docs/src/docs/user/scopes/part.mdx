@@ -2,6 +2,8 @@
 sidebar_label: Part
 ---
 
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+
 # Part
 
 Cursorless ID: `part`
@@ -17,3 +19,19 @@ Default: `part`
 ## Examples
 
 - `"take part blue air"` - Selects the part containing the token containing letter `a` with a blue hat.
+
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Part
+
+<i>A document part</i>
+
+##### LaTeX
+
+<ScopeVisualizer fixtureName="scopes/latex/part" />
+
+</ScopeVisualizerProvider>

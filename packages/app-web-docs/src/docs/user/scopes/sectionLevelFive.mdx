@@ -2,6 +2,8 @@
 sidebar_label: Five section
 ---
 
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+
 # Five section (Section level five)
 
 Cursorless ID: `sectionLevelFive`
@@ -18,3 +20,19 @@ Default: `five section`\
 ## Examples
 
 - `"take five section blue air"` - Selects the section level five containing the token containing letter `a` with a blue hat.
+
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Section level five
+
+<i>A level five section</i>
+
+##### Markdown
+
+<ScopeVisualizer fixtureName="scopes/markdown/sectionLevelFive" />
+
+</ScopeVisualizerProvider>

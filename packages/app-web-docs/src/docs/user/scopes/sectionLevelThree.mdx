@@ -2,6 +2,8 @@
 sidebar_label: Three section
 ---
 
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+
 # Three section (Section level three)
 
 Cursorless ID: `sectionLevelThree`
@@ -18,3 +20,19 @@ Default: `three section`\
 ## Examples
 
 - `"take three section blue air"` - Selects the section level three containing the token containing letter `a` with a blue hat.
+
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Section level three
+
+<i>A level three section</i>
+
+##### Markdown
+
+<ScopeVisualizer fixtureName="scopes/markdown/sectionLevelThree" />
+
+</ScopeVisualizerProvider>

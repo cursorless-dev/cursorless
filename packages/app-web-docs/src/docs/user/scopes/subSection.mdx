@@ -2,6 +2,8 @@
 sidebar_label: Subsection
 ---
 
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+
 # Subsection
 
 Cursorless ID: `subSection`
@@ -17,3 +19,19 @@ Default: `subsection`
 ## Examples
 
 - `"take subsection blue air"` - Selects the subsection containing the token containing letter `a` with a blue hat.
+
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Sub section
+
+<i>A document subsection</i>
+
+##### LaTeX
+
+<ScopeVisualizer fixtureName="scopes/latex/subSection" />
+
+</ScopeVisualizerProvider>

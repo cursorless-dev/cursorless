@@ -2,6 +2,8 @@
 sidebar_label: Six section
 ---
 
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+
 # Six section (Section level six)
 
 Cursorless ID: `sectionLevelSix`
@@ -18,3 +20,19 @@ Default: `six section`\
 ## Examples
 
 - `"take six section blue air"` - Selects the section level six containing the token containing letter `a` with a blue hat.
+
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Section level six
+
+<i>A level six section</i>
+
+##### Markdown
+
+<ScopeVisualizer fixtureName="scopes/markdown/sectionLevelSix" />
+
+</ScopeVisualizerProvider>

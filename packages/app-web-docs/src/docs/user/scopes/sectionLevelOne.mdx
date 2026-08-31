@@ -2,6 +2,8 @@
 sidebar_label: One section
 ---
 
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+
 # One section (Section level one)
 
 Cursorless ID: `sectionLevelOne`
@@ -18,3 +20,19 @@ Default: `one section`\
 ## Examples
 
 - `"take one section blue air"` - Selects the section level one containing the token containing letter `a` with a blue hat.
+
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Section level one
+
+<i>A level one section</i>
+
+##### Markdown
+
+<ScopeVisualizer fixtureName="scopes/markdown/sectionLevelOne" />
+
+</ScopeVisualizerProvider>

@@ -7,9 +7,16 @@ export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
   "comment.block": supported,
   "textFragment.comment.block": supported,
 
+  // Document
   section: supported,
   "section.iteration.document": supported,
   "section.iteration.parent": supported,
+  sectionLevelOne: supported,
+  sectionLevelTwo: supported,
+  sectionLevelThree: supported,
+  sectionLevelFour: supported,
+  sectionLevelFive: supported,
+  sectionLevelSix: supported,
 
   notebookCell: supported,
   "interior.cell": supported,
@@ -355,6 +362,14 @@ export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.misc": notApplicable,
   "statement.iteration.document": notApplicable,
   "statement.iteration.block": notApplicable,
+
+  // Document
+  chapter: notApplicable,
+  subSection: notApplicable,
+  subSubSection: notApplicable,
+  namedParagraph: notApplicable,
+  subParagraph: notApplicable,
+  part: notApplicable,
 
   // Miscellaneous
   environment: notApplicable,

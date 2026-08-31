@@ -372,6 +372,20 @@ export const propertiesScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.variable.uninitialized": notApplicable,
   "name.variable.uninitialized": notApplicable,
 
+  // Document
+  chapter: notApplicable,
+  subSection: notApplicable,
+  subSubSection: notApplicable,
+  sectionLevelOne: notApplicable,
+  sectionLevelTwo: notApplicable,
+  sectionLevelThree: notApplicable,
+  sectionLevelFour: notApplicable,
+  sectionLevelFive: notApplicable,
+  sectionLevelSix: notApplicable,
+  namedParagraph: notApplicable,
+  subParagraph: notApplicable,
+  part: notApplicable,
+
   // Miscellaneous
   disqualifyDelimiter: notApplicable,
   environment: notApplicable,
