@@ -1,9 +1,9 @@
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable, Sequence
 
 from talon import Module, actions, cron, fs
 
-from ..csv_overrides import init_csv_and_watch_changes
+from ..csv_overrides import SpokenFormEntry, init_csv_and_watch_changes
 from .mark_types import DecoratedSymbol
 
 mod = Module()
@@ -88,7 +88,11 @@ FALLBACK_COLOR_ENABLEMENT = DEFAULT_COLOR_ENABLEMENT
 unsubscribe_hat_styles: Any = None
 
 
-def setup_hat_styles_csv(hat_colors: dict[str, str], hat_shapes: dict[str, str]):
+def setup_hat_styles_csv(
+    hat_colors: dict[str, str],
+    hat_shapes: dict[str, str],
+    handle_new_values: Callable[[Sequence[SpokenFormEntry]], None],
+):
     global unsubscribe_hat_styles
 
     (
@@ -140,6 +144,7 @@ def setup_hat_styles_csv(hat_colors: dict[str, str], hat_shapes: dict[str, str])
             "hat_color": active_hat_colors,
             "hat_shape": active_hat_shapes,
         },
+        handle_new_values,
         extra_ignored_values=[*hat_colors.values(), *hat_shapes.values()],
         no_update_file=is_shape_error or is_color_error,
     )
@@ -152,8 +157,12 @@ fast_reload_job = None
 slow_reload_job = None
 
 
-def init_hats(hat_colors: dict[str, str], hat_shapes: dict[str, str]):
-    setup_hat_styles_csv(hat_colors, hat_shapes)
+def init_hats(
+    hat_colors: dict[str, str],
+    hat_shapes: dict[str, str],
+    handle_new_values: Callable[[Sequence[SpokenFormEntry]], None],
+):
+    setup_hat_styles_csv(hat_colors, hat_shapes, handle_new_values)
 
     vscode_settings_path: Path | None = None
 
@@ -167,16 +176,23 @@ def init_hats(hat_colors: dict[str, str], hat_shapes: dict[str, str]):
         cron.cancel(fast_reload_job)
         cron.cancel(slow_reload_job)
         fast_reload_job = cron.after(
-            "500ms", lambda: setup_hat_styles_csv(hat_colors, hat_shapes)
+            "500ms",
+            lambda: setup_hat_styles_csv(hat_colors, hat_shapes, handle_new_values),
         )
         slow_reload_job = cron.after(
-            "10s", lambda: setup_hat_styles_csv(hat_colors, hat_shapes)
+            "10s",
+            lambda: setup_hat_styles_csv(hat_colors, hat_shapes, handle_new_values),
         )
 
     if vscode_settings_path is not None:
         fs.watch(vscode_settings_path, on_watch)
 
     def unsubscribe():
+        global fast_reload_job, slow_reload_job
+        cron.cancel(fast_reload_job)
+        cron.cancel(slow_reload_job)
+        fast_reload_job = None
+        slow_reload_job = None
         if vscode_settings_path is not None:
             fs.unwatch(vscode_settings_path, on_watch)
         if unsubscribe_hat_styles is not None:
