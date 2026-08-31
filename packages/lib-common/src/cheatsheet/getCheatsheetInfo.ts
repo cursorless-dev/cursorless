@@ -10,7 +10,7 @@ import {
   pairedDelimiterReferences,
   scopeReferences,
 } from "../references";
-import type { TalonSpokenFormListEntry } from "../types/TalonSpokenForms";
+import type { TalonSpokenFormEntry } from "../types/TalonSpokenForms";
 import type { CheatsheetInfo, CheatsheetSection } from "./cheatsheet.types";
 
 interface CheatsheetReference {
@@ -27,25 +27,12 @@ type ReferenceMap = Readonly<Record<string, CheatsheetReference>>;
 
 const REFERENCE_SPOKEN_FORM = "<spokenForm>";
 
-const actionListNames = [
-  "simple_action",
-  "callback_action",
-  "paste_action",
-  "bring_move_action",
-  "swap_action",
-  "wrap_action",
-  "insert_snippet_action",
-  "reformat_action",
-  "call_action",
-  "experimental_action",
-] as const;
+const actionTypes = ["action"] as const;
 
 type ReferenceKind = "action" | "modifier" | "scope";
 
 export interface GetCheatsheetInfoOptions {
-  /** Include entries that need Talon state to become active. */
-  includeDisabledByDefault?: boolean;
-  listEntries?: readonly TalonSpokenFormListEntry[];
+  spokenFormEntries?: readonly TalonSpokenFormEntry[];
 }
 
 /** Construct the stock cheatsheet directly from the canonical references. */
@@ -53,12 +40,11 @@ export function getDefaultCheatsheetInfo(): CheatsheetInfo {
   return getCheatsheetInfo();
 }
 
-/** Construct a cheatsheet using optional customized Talon list entries. */
+/** Construct a cheatsheet using optional customized Talon spoken forms. */
 export function getCheatsheetInfo({
-  includeDisabledByDefault = false,
-  listEntries = [],
+  spokenFormEntries = [],
 }: GetCheatsheetInfoOptions = {}): CheatsheetInfo {
-  const resolver = new SpokenFormResolver(listEntries);
+  const resolver = new SpokenFormResolver(spokenFormEntries);
 
   return {
     sections: [
@@ -69,10 +55,9 @@ export function getCheatsheetInfo({
         "action",
         "action",
         actionReferences,
-        includeDisabledByDefault,
       ),
-      colorsSection(resolver, includeDisabledByDefault),
-      compoundTargetsSection(resolver, includeDisabledByDefault),
+      colorsSection(resolver),
+      compoundTargetsSection(resolver),
       destinationsSection(resolver),
       referenceSection(
         resolver,
@@ -81,14 +66,13 @@ export function getCheatsheetInfo({
         "modifier",
         "modifier",
         modifierReferences,
-        includeDisabledByDefault,
         {
           endOf: "end",
           everyScope: "every",
           startOf: "start",
         },
       ),
-      pairedDelimitersSection(resolver, includeDisabledByDefault),
+      pairedDelimitersSection(resolver),
       scopeVisualizerSection(resolver),
       referenceSection(
         resolver,
@@ -97,12 +81,11 @@ export function getCheatsheetInfo({
         "scopeType",
         "scope",
         scopeReferences,
-        includeDisabledByDefault,
         {
           surroundingPair: "pair",
         },
       ),
-      shapesSection(resolver, includeDisabledByDefault),
+      shapesSection(resolver),
       specialMarksSection(resolver),
       tutorialSection,
     ],
@@ -116,7 +99,6 @@ function referenceSection(
   type: string,
   referenceKind: ReferenceKind,
   references: ReferenceMap,
-  includeDisabledByDefault: boolean,
   itemIdOverrides: Readonly<Record<string, string>> = {},
 ): CheatsheetSection {
   return {
@@ -130,7 +112,7 @@ function referenceSection(
           referenceKind,
           referenceId,
           reference.defaultSpokenForm,
-          includeDisabledByDefault || !reference.disabledByDefault,
+          !reference.disabledByDefault,
         );
         const replacements = getSyntaxReplacements(resolver);
 
@@ -165,23 +147,21 @@ function referenceSection(
 class SpokenFormResolver {
   private entries = new Map<string, readonly string[]>();
 
-  constructor(listEntries: readonly TalonSpokenFormListEntry[]) {
-    for (const { listName, id, spokenForms } of listEntries) {
-      this.entries.set(`${listName}\0${id}`, spokenForms);
+  constructor(spokenFormEntries: readonly TalonSpokenFormEntry[]) {
+    for (const { type, id, spokenForms } of spokenFormEntries) {
+      this.entries.set(`${type}\0${id}`, spokenForms);
     }
   }
 
   get(
-    listNames: readonly string[],
+    types: readonly string[],
     id: string,
     defaultSpokenForms: readonly string[],
   ): readonly string[] {
-    const matches = listNames.flatMap(
-      (listName) => this.entries.get(`${listName}\0${id}`) ?? [],
+    const matches = types.flatMap(
+      (type) => this.entries.get(`${type}\0${id}`) ?? [],
     );
-    const hasEntry = listNames.some((listName) =>
-      this.entries.has(`${listName}\0${id}`),
-    );
+    const hasEntry = types.some((type) => this.entries.has(`${type}\0${id}`));
 
     return hasEntry ? matches : defaultSpokenForms;
   }
@@ -201,19 +181,16 @@ function getReferenceSpokenForms(
   if (kind === "action") {
     const talonId = id === "rewrapWithPairedDelimiter" ? "rewrap" : id;
     return resolver.get(
-      actionListNames,
+      actionTypes,
       talonId,
       enabledByDefault ? [defaultSpokenForm] : [],
     );
   }
 
   if (kind === "scope") {
-    const listNames = id === "glyph" ? ["glyph_scope_type"] : ["scope_type"];
-    return resolver.get(
-      listNames,
-      id,
-      enabledByDefault ? [defaultSpokenForm] : [],
-    );
+    const types =
+      id === "glyph" ? ["complexScopeTypeType"] : ["simpleScopeTypeType"];
+    return resolver.get(types, id, enabledByDefault ? [defaultSpokenForm] : []);
   }
 
   const definition = modifierSpokenFormDefinitions[id];
@@ -222,40 +199,40 @@ function getReferenceSpokenForms(
     return defaultSpokenForms;
   }
 
-  return resolver.get(definition.listNames, definition.id, defaultSpokenForms);
+  return resolver.get(definition.types, definition.id, defaultSpokenForms);
 }
 
 const modifierSpokenFormDefinitions: Readonly<
-  Record<string, { listNames: readonly string[]; id: string }>
+  Record<string, { types: readonly string[]; id: string }>
 > = {
-  everyScope: { listNames: ["every_scope_modifier"], id: "every" },
-  ancestor: { listNames: ["ancestor_scope_modifier"], id: "ancestor" },
-  interiorOnly: { listNames: ["interior_modifier"], id: "interiorOnly" },
-  excludeInterior: { listNames: ["simple_modifier"], id: "excludeInterior" },
-  leading: { listNames: ["simple_modifier"], id: "leading" },
-  trailing: { listNames: ["simple_modifier"], id: "trailing" },
+  everyScope: { types: ["every_scope_modifier"], id: "every" },
+  ancestor: { types: ["ancestor_scope_modifier"], id: "ancestor" },
+  interiorOnly: { types: ["interior_modifier"], id: "interiorOnly" },
+  excludeInterior: { types: ["simple_modifier"], id: "excludeInterior" },
+  leading: { types: ["simple_modifier"], id: "leading" },
+  trailing: { types: ["simple_modifier"], id: "trailing" },
   extendThroughStartOf: {
-    listNames: ["head_tail_modifier"],
+    types: ["head_tail_modifier"],
     id: "extendThroughStartOf",
   },
   extendThroughEndOf: {
-    listNames: ["head_tail_modifier"],
+    types: ["head_tail_modifier"],
     id: "extendThroughEndOf",
   },
-  startOf: { listNames: ["position"], id: "start" },
-  endOf: { listNames: ["position"], id: "end" },
-  visible: { listNames: ["simple_modifier"], id: "visible" },
+  startOf: { types: ["position"], id: "start" },
+  endOf: { types: ["position"], id: "end" },
+  visible: { types: ["simple_modifier"], id: "visible" },
   keepContentFilter: {
-    listNames: ["simple_modifier"],
+    types: ["simple_modifier"],
     id: "keepContentFilter",
   },
   keepEmptyFilter: {
-    listNames: ["simple_modifier"],
+    types: ["simple_modifier"],
     id: "keepEmptyFilter",
   },
-  toRawSelection: { listNames: ["simple_modifier"], id: "toRawSelection" },
+  toRawSelection: { types: ["simple_modifier"], id: "toRawSelection" },
   inferPreviousMark: {
-    listNames: ["simple_modifier"],
+    types: ["simple_modifier"],
     id: "inferPreviousMark",
   },
 };
@@ -317,7 +294,7 @@ function getSyntaxReplacements(
     replacement(
       scopeReferences.token.defaultSpokenForm,
       resolver,
-      ["scope_type"],
+      ["simpleScopeTypeType"],
       "token",
     ),
   ];
@@ -326,10 +303,10 @@ function getSyntaxReplacements(
 function replacement(
   defaultSpokenForm: string,
   resolver: SpokenFormResolver,
-  listNames: readonly string[],
+  types: readonly string[],
   id: string,
 ): SyntaxReplacement {
-  return [defaultSpokenForm, resolver.get(listNames, id, [defaultSpokenForm])];
+  return [defaultSpokenForm, resolver.get(types, id, [defaultSpokenForm])];
 }
 
 function applyReplacements(
@@ -369,7 +346,6 @@ function termRegex(term: string): RegExp {
 
 function pairedDelimitersSection(
   resolver: SpokenFormResolver,
-  includeDisabledByDefault: boolean,
 ): CheatsheetSection {
   return {
     name: "Paired delimiters",
@@ -381,16 +357,9 @@ function pairedDelimitersSection(
         type: "pairedDelimiter",
         variations: resolver
           .get(
-            [
-              "wrapper_only_paired_delimiter",
-              "wrapper_selectable_paired_delimiter",
-              "selectable_only_paired_delimiter",
-              "surrounding_pair_scope_type",
-            ],
+            ["pairedDelimiter"],
             id,
-            !includeDisabledByDefault &&
-              "disabledByDefault" in reference &&
-              reference.disabledByDefault
+            "disabledByDefault" in reference && reference.disabledByDefault
               ? []
               : [reference.defaultSpokenForm],
           )
@@ -407,10 +376,7 @@ function capitalize(value: string): string {
   return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
-function colorsSection(
-  resolver: SpokenFormResolver,
-  includeDisabledByDefault: boolean,
-): CheatsheetSection {
+function colorsSection(resolver: SpokenFormResolver): CheatsheetSection {
   const defaultEnabledIds = new Set(["blue", "green", "pink", "red", "yellow"]);
   return {
     name: "Colors",
@@ -424,7 +390,7 @@ function colorsSection(
           .get(
             ["hat_color"],
             id,
-            includeDisabledByDefault || defaultEnabledIds.has(id)
+            defaultEnabledIds.has(id)
               ? [requiredSpokenForm(defaultSpokenForm)]
               : [],
           )
@@ -447,7 +413,6 @@ function requiredSpokenForm(spokenForm: string | null): string {
 
 function compoundTargetsSection(
   resolver: SpokenFormResolver,
-  includeDisabledByDefault: boolean,
 ): CheatsheetSection {
   return {
     name: "Compound targets",
@@ -455,13 +420,13 @@ function compoundTargetsSection(
     items: [
       {
         id: "listConnective",
-        listNames: ["list_connective"],
+        types: ["list_connective"],
         spokenForm: connectiveDefaultSpokenForms.listConnective,
         descriptions: ["<target 1> and <target 2>"],
       },
       {
         id: "rangeExclusive",
-        listNames: ["range_connective"],
+        types: ["range_connective"],
         spokenForm: connectiveDefaultSpokenForms.rangeExclusive,
         descriptions: [
           "between <target 1> and <target 2>",
@@ -470,7 +435,7 @@ function compoundTargetsSection(
       },
       {
         id: "rangeInclusive",
-        listNames: ["range_connective"],
+        types: ["range_connective"],
         spokenForm: connectiveDefaultSpokenForms.rangeInclusive,
         descriptions: [
           "<target 1> through <target 2>",
@@ -479,7 +444,7 @@ function compoundTargetsSection(
       },
       {
         id: "rangeExcludingStart",
-        listNames: ["range_connective"],
+        types: ["range_connective"],
         spokenForm: connectiveDefaultSpokenForms.rangeExcludingStart,
         descriptions: [
           "end of <target 1> through <target 2>",
@@ -488,7 +453,7 @@ function compoundTargetsSection(
       },
       {
         id: "rangeExcludingEnd",
-        listNames: ["range_connective"],
+        types: ["range_connective"],
         spokenForm: connectiveDefaultSpokenForms.rangeExcludingEnd,
         descriptions: [
           "<target 1> until start of <target 2>",
@@ -497,7 +462,7 @@ function compoundTargetsSection(
       },
       {
         id: "verticalRange",
-        listNames: ["range_type"],
+        types: ["range_type"],
         spokenForm: connectiveDefaultSpokenForms.verticalRange,
         descriptions: [
           "<target 1> vertically through <target 2>",
@@ -505,12 +470,10 @@ function compoundTargetsSection(
         ],
       },
     ]
-      .map(({ id, listNames, spokenForm, descriptions }) => {
+      .map(({ id, types, spokenForm, descriptions }) => {
         let defaultSpokenForms: string[];
         if (spokenForm != null) {
           defaultSpokenForms = [spokenForm];
-        } else if (includeDisabledByDefault) {
-          defaultSpokenForms = [id];
         } else {
           defaultSpokenForms = [];
         }
@@ -519,7 +482,7 @@ function compoundTargetsSection(
           id,
           type: "compoundTargetConnective",
           variations: resolver
-            .get(listNames, id, defaultSpokenForms)
+            .get(types, id, defaultSpokenForms)
             .flatMap((customSpokenForm) =>
               descriptions.map((description, index) => ({
                 spokenForm:
@@ -542,31 +505,31 @@ function destinationsSection(resolver: SpokenFormResolver): CheatsheetSection {
     items: [
       {
         id: "destination_after",
-        listNames: ["insertion_mode_before_after"],
+        types: ["insertion_mode_before_after"],
         valueId: "after",
         spokenForm: connectiveDefaultSpokenForms.after,
         description: "Insert after <target>",
       },
       {
         id: "destination_before",
-        listNames: ["insertion_mode_before_after"],
+        types: ["insertion_mode_before_after"],
         valueId: "before",
         spokenForm: connectiveDefaultSpokenForms.before,
         description: "Insert before <target>",
       },
       {
         id: "destination_to",
-        listNames: ["insertion_mode_to"],
+        types: ["insertion_mode_to"],
         valueId: "sourceDestinationConnective",
         spokenForm: connectiveDefaultSpokenForms.sourceDestinationConnective,
         description: "Replace <target>",
       },
     ]
-      .map(({ id, listNames, valueId, spokenForm, description }) => ({
+      .map(({ id, types, valueId, spokenForm, description }) => ({
         id,
         type: "destination",
         variations: resolver
-          .get(listNames, valueId, [spokenForm])
+          .get(types, valueId, [spokenForm])
           .map((customSpokenForm) => ({
             spokenForm: `${customSpokenForm} <target>`,
             description,
@@ -626,30 +589,19 @@ function scopeVisualizerSection(
   };
 }
 
-function shapesSection(
-  resolver: SpokenFormResolver,
-  includeDisabledByDefault: boolean,
-): CheatsheetSection {
+function shapesSection(resolver: SpokenFormResolver): CheatsheetSection {
   return {
     name: "Shapes",
     id: "shapes",
     items: Object.entries(hatShapeDefaultSpokenForms)
       .filter(([id, spokenForm]) => id !== "default" && spokenForm != null)
-      .map(([id, defaultSpokenForm]) => ({
+      .map(([id]) => ({
         id,
         type: "hatShape",
-        variations: resolver
-          .get(
-            ["hat_shape"],
-            id,
-            includeDisabledByDefault
-              ? [requiredSpokenForm(defaultSpokenForm)]
-              : [],
-          )
-          .map((spokenForm) => ({
-            spokenForm,
-            description: capitalize(id),
-          })),
+        variations: resolver.get(["hat_shape"], id, []).map((spokenForm) => ({
+          spokenForm,
+          description: capitalize(id),
+        })),
       }))
       .filter(({ variations }) => variations.length > 0),
   };

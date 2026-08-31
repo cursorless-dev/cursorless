@@ -18,7 +18,6 @@ from .get_grapheme_spoken_form_entries import (
 )
 from .marks.decorated_mark import init_hats
 from .spoken_forms_output import (
-    SpokenFormListOutputEntry,
     SpokenFormOutputEntry,
     SpokenFormsOutput,
 )
@@ -115,17 +114,7 @@ def update():
     def update_spoken_forms_output():
         spoken_form_entries: list[SpokenFormOutputEntry] = [
             {
-                "type": LIST_TO_TYPE_MAP[entry.list_name],
-                "id": entry.id,
-                "spokenForms": entry.spoken_forms,
-            }
-            for spoken_form_list in custom_spoken_forms.values()
-            for entry in spoken_form_list
-            if entry.list_name in LIST_TO_TYPE_MAP
-        ]
-        list_entries: list[SpokenFormListOutputEntry] = [
-            {
-                "listName": entry.list_name,
+                "type": LIST_TO_TYPE_MAP.get(entry.list_name, entry.list_name),
                 "id": entry.id,
                 "spokenForms": entry.spoken_forms,
             }
@@ -136,8 +125,7 @@ def update():
             [
                 *spoken_form_entries,
                 *get_grapheme_spoken_form_entries(graphemes_talon_list),
-            ],
-            list_entries,
+            ]
         )
 
     def handle_new_values(csv_name: str, values: Sequence[SpokenFormEntry]):

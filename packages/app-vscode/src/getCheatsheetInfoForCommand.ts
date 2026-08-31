@@ -22,7 +22,7 @@ export async function getCheatsheetInfoForCommand(
 
   if (version === 1) {
     return getCheatsheetInfo({
-      listEntries: await talonSpokenForms.getSpokenFormLists(),
+      spokenFormEntries: await talonSpokenForms.getSpokenFormEntries(),
     });
   }
 

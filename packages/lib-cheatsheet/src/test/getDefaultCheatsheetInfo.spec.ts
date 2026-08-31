@@ -35,27 +35,31 @@ describe("getDefaultCheatsheetInfo", () => {
     expect(getItem("scopes", "pair")).toBeDefined();
   });
 
-  test("applies raw Talon list entries to the current syntax", () => {
+  test("applies Talon spoken-form entries to the current syntax", () => {
     const customCheatsheetInfo = getCheatsheetInfo({
-      listEntries: [
+      spokenFormEntries: [
         {
-          listName: "simple_action",
+          type: "action",
           id: "editNewLineBefore",
           spokenForms: ["gulp"],
         },
         {
-          listName: "interior_modifier",
+          type: "interior_modifier",
           id: "interiorOnly",
           spokenForms: ["within"],
         },
-        { listName: "scope_type", id: "token", spokenForms: ["word unit"] },
         {
-          listName: "scope_type",
+          type: "simpleScopeTypeType",
+          id: "token",
+          spokenForms: ["word unit"],
+        },
+        {
+          type: "simpleScopeTypeType",
           id: "sectionLevelOne",
           spokenForms: ["one section"],
         },
         {
-          listName: "range_connective",
+          type: "range_connective",
           id: "rangeExcludingStart",
           spokenForms: ["from end"],
         },
@@ -91,7 +95,9 @@ describe("getDefaultCheatsheetInfo", () => {
 
   test("an empty raw list entry disables only the corresponding item", () => {
     const customCheatsheetInfo = getCheatsheetInfo({
-      listEntries: [{ listName: "scope_type", id: "token", spokenForms: [] }],
+      spokenFormEntries: [
+        { type: "simpleScopeTypeType", id: "token", spokenForms: [] },
+      ],
     });
 
     expect(getSection("scopes", customCheatsheetInfo).items).not.toContainEqual(
