@@ -362,7 +362,7 @@ When an opening and closing delimiter use the same character and no parse-tree i
       },
       {
         command: `${SET_SELECTION} ${EVERY} ${VAR_SPOKEN_FORM} ${DOLLAR}`,
-        description: `Selects every '$'.`,
+        description: `Selects every \`$\`.`,
       },
     ],
   },
