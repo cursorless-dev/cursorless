@@ -1,6 +1,5 @@
 import vscode from "vscode";
 import type {
-  CheatSheetCommandArg,
   CommandHistoryStorage,
   CursorlessCommandId,
   ScopeType,
@@ -8,7 +7,10 @@ import type {
 import { CURSORLESS_COMMAND_ID } from "@cursorless/lib-common";
 import type { CommandApi, StoredTargetMap } from "@cursorless/lib-engine";
 import { analyzeCommandHistory } from "@cursorless/lib-engine";
-import type { FileSystemTalonSpokenForms } from "@cursorless/lib-node-common";
+import type {
+  CheatSheetCommandArg,
+  FileSystemTalonSpokenForms,
+} from "@cursorless/lib-node-common";
 import { showCheatsheet } from "@cursorless/lib-node-common";
 import type {
   ScopeTestRecorder,
@@ -19,7 +21,6 @@ import {
   showQuickPick,
   showScopeVisualizerItemDocumentation,
 } from "./commands";
-import { getCheatsheetInfoForCommand } from "./getCheatsheetInfoForCommand";
 import type { VscodeHats } from "./ide/vscode/hats/VscodeHats";
 import type { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import type { InstallationDependencies } from "./InstallationDependencies";
@@ -71,12 +72,8 @@ export function registerCommands(
     },
 
     // Cheatsheet commands
-    "cursorless.showCheatsheet": async (arg: CheatSheetCommandArg) => {
-      const cheatsheetInfo = await getCheatsheetInfoForCommand(
-        arg,
-        talonSpokenForms,
-      );
-      return showCheatsheet(vscodeIde, arg.outputPath, cheatsheetInfo);
+    "cursorless.showCheatsheet": (arg: CheatSheetCommandArg) => {
+      return showCheatsheet(vscodeIde, talonSpokenForms, arg);
     },
 
     // Testcase recorder commands
