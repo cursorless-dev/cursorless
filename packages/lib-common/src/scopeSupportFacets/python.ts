@@ -342,6 +342,20 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "value.constant": notApplicable,
   "type.constant": notApplicable,
 
+  // Document
+  chapter: notApplicable,
+  subSection: notApplicable,
+  subSubSection: notApplicable,
+  sectionLevelOne: notApplicable,
+  sectionLevelTwo: notApplicable,
+  sectionLevelThree: notApplicable,
+  sectionLevelFour: notApplicable,
+  sectionLevelFive: notApplicable,
+  sectionLevelSix: notApplicable,
+  namedParagraph: notApplicable,
+  subParagraph: notApplicable,
+  part: notApplicable,
+
   // Miscellaneous
   "statement.misc": notApplicable,
   "statement.package": notApplicable,

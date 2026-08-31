@@ -2,6 +2,8 @@
 sidebar_label: Four section
 ---
 
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+
 # Four section (Section level four)
 
 Cursorless ID: `sectionLevelFour`
@@ -18,3 +20,19 @@ Default: `four section`\
 ## Examples
 
 - `"take four section blue air"` - Selects the section level four containing the token containing letter 'a' with a blue hat.
+
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Section level four
+
+<i>A level four section</i>
+
+##### Markdown
+
+<ScopeVisualizer fixtureName="scopes/markdown/sectionLevelFour" />
+
+</ScopeVisualizerProvider>

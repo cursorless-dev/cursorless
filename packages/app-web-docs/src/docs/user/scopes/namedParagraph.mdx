@@ -2,6 +2,8 @@
 sidebar_label: Paragraph
 ---
 
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+
 # Paragraph (Named paragraph)
 
 Cursorless ID: `namedParagraph`
@@ -17,3 +19,19 @@ Default: `paragraph`
 ## Examples
 
 - `"take paragraph blue air"` - Selects the named paragraph containing the token containing letter 'a' with a blue hat.
+
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Named paragraph
+
+<i>A named paragraph</i>
+
+##### LaTeX
+
+<ScopeVisualizer fixtureName="scopes/latex/namedParagraph" />
+
+</ScopeVisualizerProvider>

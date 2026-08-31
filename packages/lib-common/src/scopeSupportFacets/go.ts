@@ -348,6 +348,20 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "value.variable.destructuring": notApplicable,
   "value.assignment.destructuring": notApplicable,
 
+  // Document
+  chapter: notApplicable,
+  subSection: notApplicable,
+  subSubSection: notApplicable,
+  sectionLevelOne: notApplicable,
+  sectionLevelTwo: notApplicable,
+  sectionLevelThree: notApplicable,
+  sectionLevelFour: notApplicable,
+  sectionLevelFive: notApplicable,
+  sectionLevelSix: notApplicable,
+  namedParagraph: notApplicable,
+  subParagraph: notApplicable,
+  part: notApplicable,
+
   // Miscellaneous
   "value.field.interface": notApplicable,
   "statement.misc": notApplicable,
