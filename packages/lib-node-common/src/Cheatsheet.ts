@@ -1,8 +1,17 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { parse } from "node-html-parser";
-import { getCheatsheetInfo, showWarning } from "@cursorless/lib-common";
-import type { CheatsheetInfo, IDE } from "@cursorless/lib-common";
+import {
+  getCheatsheetInfo,
+  getDefaultCheatsheetInfo,
+  getErrorMessage,
+  showWarning,
+} from "@cursorless/lib-common";
+import type {
+  CheatsheetInfo,
+  IDE,
+  SpokenFormEntry,
+} from "@cursorless/lib-common";
 import type { FileSystemTalonSpokenForms } from "./FileSystemTalonSpokenForms";
 
 interface CheatSheetCommandArgV0 {
@@ -68,7 +77,17 @@ async function getCheatsheetInfoForCommand(
   }
 
   if (version === 1) {
-    const { spokenForms } = await talonSpokenForms.getSpokenForms();
+    let spokenForms: SpokenFormEntry[];
+    try {
+      ({ spokenForms } = await talonSpokenForms.getSpokenForms());
+    } catch (error) {
+      void showWarning(
+        ide.messages,
+        "cheatsheetSpokenFormsFallback",
+        `Unable to load custom spoken forms: ${getErrorMessage(error)}. Using default spoken forms.`,
+      );
+      return getDefaultCheatsheetInfo();
+    }
     return getCheatsheetInfo(spokenForms);
   }
 
