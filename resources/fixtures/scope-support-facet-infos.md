@@ -173,6 +173,11 @@
 - `functionCallee.generic` The function being called in a function call with generic type arguments
 - `functionCallee.method` The function being called in a method call, including parent objects.
 
+### glyph
+
+- `glyph.a` A single 'a' glyph
+- `glyph.dollar` A single '$' glyph
+
 ### identifier
 
 - `identifier` A single alphanumeric identifier in the document

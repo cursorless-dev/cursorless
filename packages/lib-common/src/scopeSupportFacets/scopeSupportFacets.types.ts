@@ -368,7 +368,9 @@ export type PlaintextScopeSupportFacet =
   | "surroundingPair.iteration"
   | "interior.surroundingPair"
   | "collectionItem.textual"
-  | "collectionItem.textual.iteration";
+  | "collectionItem.textual.iteration"
+  | "glyph.a"
+  | "glyph.dollar";
 
 export type LanguageScopeSupportFacetMap = Partial<
   Record<ScopeSupportFacet, ScopeSupportFacetLevel>
