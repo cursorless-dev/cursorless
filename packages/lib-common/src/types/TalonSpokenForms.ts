@@ -6,15 +6,8 @@ import type { SpokenFormMapKeyTypes, SpokenFormType } from "./SpokenFormType";
  * the user's custom spoken forms to the Cursorless engine.
  */
 export interface TalonSpokenForms {
-  getSpokenFormEntries(): Promise<TalonSpokenFormEntry[]>;
+  getSpokenFormEntries(): Promise<SpokenFormEntry[]>;
   onDidChange: Notifier["registerListener"];
-}
-
-/** A customizable spoken-form entry received from Talon. */
-export interface TalonSpokenFormEntry {
-  type: string;
-  id: string;
-  spokenForms: string[];
 }
 
 /**

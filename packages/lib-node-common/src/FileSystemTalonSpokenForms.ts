@@ -4,7 +4,7 @@ import type {
   Disposable,
   FileSystem,
   Listener,
-  TalonSpokenFormEntry,
+  SpokenFormEntry,
   TalonSpokenForms,
 } from "@cursorless/lib-common";
 import { NeedsInitialTalonUpdateError, Notifier } from "@cursorless/lib-common";
@@ -12,7 +12,7 @@ import { isEnoentError } from "./isError";
 
 interface TalonSpokenFormsPayload {
   version: number;
-  spokenForms: TalonSpokenFormEntry[];
+  spokenForms: SpokenFormEntry[];
 }
 
 const LATEST_SPOKEN_FORMS_JSON_VERSION = 0;
@@ -37,12 +37,7 @@ export class FileSystemTalonSpokenForms implements TalonSpokenForms {
     return this.notifier.registerListener(listener);
   }
 
-  async getSpokenFormEntries(): Promise<TalonSpokenFormEntry[]> {
-    const payload = await this.getPayload();
-    return payload.spokenForms;
-  }
-
-  private async getPayload(): Promise<TalonSpokenFormsPayload> {
+  async getSpokenFormEntries(): Promise<SpokenFormEntry[]> {
     let payload: TalonSpokenFormsPayload;
     try {
       payload = JSON.parse(
@@ -65,7 +60,7 @@ export class FileSystemTalonSpokenForms implements TalonSpokenForms {
       );
     }
 
-    return payload;
+    return payload.spokenForms;
   }
 
   dispose() {

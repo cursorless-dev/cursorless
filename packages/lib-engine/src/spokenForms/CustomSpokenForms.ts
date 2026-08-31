@@ -3,9 +3,9 @@ import type {
   CustomRegexScopeType,
   Disposable,
   IDE,
+  SpokenFormEntry,
   SpokenFormMapKeyTypes,
   SpokenFormType,
-  TalonSpokenFormEntry,
   TalonSpokenForms,
 } from "@cursorless/lib-common";
 import {
@@ -77,7 +77,7 @@ export class CustomSpokenForms {
   onDidChangeCustomSpokenForms = this.notifier.registerListener;
 
   private async updateSpokenFormMaps(): Promise<void> {
-    let allCustomEntries: TalonSpokenFormEntry[];
+    let allCustomEntries: SpokenFormEntry[];
 
     // We successfully loaded spoken forms, so any previous "needs update"
     // state is no longer relevant.

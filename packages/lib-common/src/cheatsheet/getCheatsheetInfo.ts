@@ -10,7 +10,7 @@ import {
   pairedDelimiterReferences,
   scopeReferences,
 } from "../references";
-import type { TalonSpokenFormEntry } from "../types/TalonSpokenForms";
+import type { SpokenFormEntry } from "../types/TalonSpokenForms";
 import type { CheatsheetInfo, CheatsheetSection } from "./cheatsheet.types";
 
 interface CheatsheetReference {
@@ -32,7 +32,7 @@ const actionTypes = ["action"] as const;
 type ReferenceKind = "action" | "modifier" | "scope";
 
 export interface GetCheatsheetInfoOptions {
-  spokenFormEntries?: readonly TalonSpokenFormEntry[];
+  spokenFormEntries?: readonly SpokenFormEntry[];
 }
 
 /** Construct the stock cheatsheet directly from the canonical references. */
@@ -147,7 +147,7 @@ function referenceSection(
 class SpokenFormResolver {
   private entries = new Map<string, readonly string[]>();
 
-  constructor(spokenFormEntries: readonly TalonSpokenFormEntry[]) {
+  constructor(spokenFormEntries: readonly SpokenFormEntry[]) {
     for (const { type, id, spokenForms } of spokenFormEntries) {
       this.entries.set(`${type}\0${id}`, spokenForms);
     }
