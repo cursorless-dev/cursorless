@@ -14,6 +14,7 @@ export async function getCheatsheetInfoForCommand(
   const version = arg.version;
 
   if (version === 0) {
+    // DEPRECATED: 2026-08-31
     void vscodeApi.window.showWarningMessage(
       "Cheatsheet command version 0 is deprecated. Please update cursorless-talon",
     );
