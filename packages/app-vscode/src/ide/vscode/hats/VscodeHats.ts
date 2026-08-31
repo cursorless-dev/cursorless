@@ -1,5 +1,5 @@
-import vscode from "vscode";
 import type { Disposable } from "vscode";
+import vscode from "vscode";
 import type {
   HatRange,
   Hats,
@@ -10,7 +10,6 @@ import type {
   TextEditor,
 } from "@cursorless/lib-common";
 import { Notifier } from "@cursorless/lib-common";
-import type { VscodeApi } from "@cursorless/lib-vscode-common";
 import { toVscodeRange } from "@cursorless/lib-vscode-common";
 import type { VscodeHatStyleName } from "../hatStyles.types";
 import { VscodeEnabledHatStyleManager } from "../VscodeEnabledHatStyleManager";
@@ -28,7 +27,6 @@ export class VscodeHats implements Hats {
 
   constructor(
     private ide: VscodeIDE,
-    vscodeApi: VscodeApi,
     extensionContext: vscode.ExtensionContext,
     fontMeasurements: FontMeasurements,
   ) {
@@ -36,9 +34,7 @@ export class VscodeHats implements Hats {
       extensionContext,
     );
     this.hatRenderer = new VscodeHatRenderer(
-      vscodeApi,
       extensionContext,
-      ide.messages,
       this.enabledHatStyleManager,
       fontMeasurements,
     );
