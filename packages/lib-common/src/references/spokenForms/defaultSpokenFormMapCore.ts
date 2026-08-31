@@ -1,21 +1,30 @@
-import {
-  actionNames,
-  actionReferences,
-  graphemeDefaultSpokenForms,
-  modifierReferences,
-  pairedDelimiterReferences,
-  simpleScopeTypeTypes,
-  scopeReferences,
-  connectiveDefaultSpokenForms,
-} from "@cursorless/lib-common";
-import type {
-  SpokenFormMapKeyTypes,
-  SpokenFormReference,
-} from "@cursorless/lib-common";
+import { actionNames } from "../../types/command/ActionDescriptor";
+import { simpleScopeTypeTypes } from "../../types/command/PartialTargetDescriptor.types";
 import type {
   DefaultSpokenFormMapDefinition,
   DefaultSpokenFormMapEntry,
-} from "./defaultSpokenFormMap.types";
+} from "../../types/DefaultSpokenFormMap";
+import type { SpokenFormMapKeyTypes } from "../../types/SpokenFormType";
+import { actionReferences, talonSideActionNames } from "../actionReferences";
+import { hatColorReferences, hatShapeReferences } from "../hatStyleReferences";
+import {
+  modifierExtraReferences,
+  modifierReferences,
+} from "../modifierReferences";
+import { pairedDelimiterReferences } from "../pairedDelimiterReferences";
+import type { SpokenFormReference } from "../ReferenceEntry";
+import { scopeReferences } from "../scopeReferences";
+import {
+  connectiveDefaultSpokenForms,
+  insertionModeDefaultSpokenForms,
+} from "./connectiveDefaultSpokenForms";
+import { graphemeDefaultSpokenForms } from "./graphemeDefaultSpokenForms";
+import {
+  lineDirectionDefaultSpokenForms,
+  markDefaultSpokenForms,
+  unknownSymbolMarkDefaultSpokenForm,
+} from "./markDefaultSpokenForms";
+import { isDisabledByDefault } from "./spokenFormMapUtil";
 
 type DefaultSpokenForm = string | DefaultSpokenFormMapEntry;
 
@@ -46,28 +55,6 @@ const modifierExtraReferenceIds = [
   "ancestor",
 ] as const satisfies readonly SpokenFormMapKeyTypes["modifierExtra"][];
 
-const modifierExtraReferences = {
-  first: {
-    defaultSpokenForm: connectiveDefaultSpokenForms.first,
-  },
-  last: {
-    defaultSpokenForm: connectiveDefaultSpokenForms.last,
-  },
-  previous: {
-    defaultSpokenForm: connectiveDefaultSpokenForms.previous,
-  },
-  next: {
-    defaultSpokenForm: connectiveDefaultSpokenForms.next,
-  },
-  forward: {
-    defaultSpokenForm: connectiveDefaultSpokenForms.forward,
-  },
-  backward: {
-    defaultSpokenForm: connectiveDefaultSpokenForms.backward,
-  },
-  ancestor: modifierReferences.ancestor,
-} satisfies Record<SpokenFormMapKeyTypes["modifierExtra"], SpokenFormReference>;
-
 function getDefaultSpokenForm(
   reference: SpokenFormReference,
 ): DefaultSpokenForm {
@@ -77,17 +64,15 @@ function getDefaultSpokenForm(
     throw new Error("Reference has no default spoken form");
   }
 
-  const isDisabledByDefault = reference.disabledByDefault ?? false;
-  const isPrivate = reference.private ?? false;
+  const { visibility } = reference;
 
-  if (!isDisabledByDefault && !isPrivate) {
+  if (visibility == null) {
     return defaultSpokenForm;
   }
 
   return {
     defaultSpokenForms: [defaultSpokenForm],
-    isDisabledByDefault,
-    isPrivate,
+    visibility,
   };
 }
 
@@ -120,7 +105,10 @@ function getCompleteDefaultSpokenFormMap<
  */
 export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
   pairedDelimiter: getCompleteDefaultSpokenFormMap(pairedDelimiterReferences),
-
+  action: getDefaultSpokenFormMap(
+    [...actionNames, ...talonSideActionNames],
+    actionReferences,
+  ),
   simpleScopeTypeType: getDefaultSpokenFormMap(
     simpleScopeTypeTypes,
     scopeReferences,
@@ -128,7 +116,6 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
   complexScopeTypeType: {
     glyph: getDefaultSpokenForm(scopeReferences.glyph),
   },
-
   simpleModifier: getDefaultSpokenFormMap(
     simpleModifierReferenceIds,
     modifierReferences,
@@ -137,9 +124,33 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     modifierExtraReferenceIds,
     modifierExtraReferences,
   ),
-
-  customRegex: {},
-  action: getDefaultSpokenFormMap(actionNames, actionReferences),
-  customAction: {},
+  hatColor: getCompleteDefaultSpokenFormMap(hatColorReferences),
+  hatShape: getCompleteDefaultSpokenFormMap(hatShapeReferences),
   grapheme: graphemeDefaultSpokenForms,
+  insertionMode: insertionModeDefaultSpokenForms,
+  connective: {
+    ...connectiveDefaultSpokenForms,
+    rangeExcludingStart: isDisabledByDefault(),
+  },
+  specialMark: {
+    currentSelection: markDefaultSpokenForms.cursor,
+    previousTarget: markDefaultSpokenForms.that,
+    previousSource: markDefaultSpokenForms.source,
+    nothing: markDefaultSpokenForms.nothing,
+    lineNumberModulo100: lineDirectionDefaultSpokenForms.modulo100,
+    lineNumberRelativeUp: lineDirectionDefaultSpokenForms.relativeUp,
+    lineNumberRelativeDown: lineDirectionDefaultSpokenForms.relativeDown,
+    unknownSymbol: unknownSymbolMarkDefaultSpokenForm,
+  },
+  scopeVisualizer: {
+    showScopeVisualizer: "visualize",
+    hideScopeVisualizer: "visualize nothing",
+    removal: "removal",
+    iteration: "iteration",
+  },
+  sidebar: {
+    bar: "bar",
+  },
+  customRegex: {},
+  customAction: {},
 };

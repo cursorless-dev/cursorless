@@ -1,26 +1,33 @@
 import type { PartialRangeType } from "@cursorless/lib-common";
-import { connectiveDefaultSpokenForms } from "@cursorless/lib-common";
-import { NoSpokenFormError } from "./NoSpokenFormError";
+import type { SpokenFormComponentMap } from "./getSpokenFormComponentMap";
+import type { SpokenFormComponent } from "./SpokenFormComponent";
 
 export function getRangeConnective(
+  spokenFormMap: SpokenFormComponentMap,
   excludeAnchor: boolean,
   excludeActive: boolean,
   type?: PartialRangeType,
-): string {
+): SpokenFormComponent {
   const prefix =
-    type === "vertical" ? `${connectiveDefaultSpokenForms.verticalRange} ` : "";
+    type === "vertical" ? spokenFormMap.connective.verticalRange : undefined;
   if (excludeAnchor && excludeActive) {
-    return prefix + connectiveDefaultSpokenForms.rangeExclusive;
+    return prefix != null
+      ? [prefix, spokenFormMap.connective.rangeExclusive]
+      : spokenFormMap.connective.rangeExclusive;
   }
   if (excludeAnchor) {
-    throw new NoSpokenFormError("Range exclude anchor");
+    return prefix != null
+      ? [prefix, spokenFormMap.connective.rangeExcludingStart]
+      : spokenFormMap.connective.rangeExcludingStart;
   }
   if (excludeActive) {
-    return prefix + connectiveDefaultSpokenForms.rangeExcludingEnd;
+    return prefix != null
+      ? [prefix, spokenFormMap.connective.rangeExcludingEnd]
+      : spokenFormMap.connective.rangeExcludingEnd;
   }
   if (type === "vertical") {
     // "slice", but could have been "slice past"
-    return connectiveDefaultSpokenForms.verticalRange;
+    return spokenFormMap.connective.verticalRange;
   }
-  return connectiveDefaultSpokenForms.rangeInclusive;
+  return spokenFormMap.connective.rangeInclusive;
 }

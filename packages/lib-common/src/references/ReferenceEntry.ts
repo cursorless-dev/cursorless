@@ -1,11 +1,13 @@
+import type { SpokenFormVisibility } from "../types/SpokenFormVisibility";
+
 export interface SpokenFormReference {
   defaultSpokenForm?: string;
-  private?: boolean;
-  disabledByDefault?: boolean;
+  visibility?: SpokenFormVisibility;
 }
 
 export interface ReferenceEntry<T extends string> extends SpokenFormReference {
   name: string;
+  csv_id?: string;
   legacySpokenForms?: string[];
   description?: string;
   group: GroupDefinition<T>;

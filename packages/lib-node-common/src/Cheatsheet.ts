@@ -1,91 +1,90 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { produce } from "immer";
-import { sortBy } from "lodash-es";
 import { parse } from "node-html-parser";
-import type { IDE } from "@cursorless/lib-common";
-import { getCursorlessRepoRoot } from "./getCursorlessRepoRoot";
+import type { CheatsheetInfo, IDE } from "@cursorless/lib-common";
+import {
+  getCheatsheetInfo,
+  getDefaultCheatsheetInfo,
+  getErrorMessage,
+  showWarning,
+} from "@cursorless/lib-common";
+import type { FileSystemTalonSpokenForms } from "./FileSystemTalonSpokenForms";
 
-/**
- * The argument expected by the cheatsheet command.
- */
-export interface CheatSheetCommandArg {
-  /**
-   * The version of the cheatsheet command.
-   */
+interface CheatSheetCommandArgV0 {
   version: 0;
+
+  /** The file to write the cheatsheet to. */
+  outputPath: string;
 
   /**
    * A representation of all spoken forms that is used to generate the
    * cheatsheet.
    */
   spokenFormInfo: CheatsheetInfo;
+}
 
-  /**
-   * The file to write the cheatsheet to
-   */
+/** The extension assembles the cheatsheet from the Talon state file. */
+interface CheatSheetCommandArgV1 {
+  version: 1;
+
+  /** The file to write the cheatsheet to. */
   outputPath: string;
 }
 
+export type CheatSheetCommandArg =
+  | CheatSheetCommandArgV0
+  | CheatSheetCommandArgV1;
+
 export async function showCheatsheet(
   ide: IDE,
-  { version, spokenFormInfo, outputPath }: CheatSheetCommandArg,
+  talonSpokenForms: FileSystemTalonSpokenForms,
+  arg: CheatSheetCommandArg,
 ) {
-  if (version !== 0) {
-    throw new Error(`Unsupported cheatsheet api version: ${version}`);
-  }
-
+  const cheatsheetInfo = await getCheatsheetInfoForCommand(
+    ide,
+    talonSpokenForms,
+    arg,
+  );
   const cheatsheetPath = path.join(ide.assetsRoot, "cheatsheet.html");
-
   const cheatsheetContent = await readFile(cheatsheetPath, "utf8");
-
   const root = parse(cheatsheetContent);
 
   root.getElementById("cheatsheet-data")!.textContent =
-    `document.cheatsheetInfo = ${JSON.stringify(spokenFormInfo)};`;
+    `document.cheatsheetInfo = ${JSON.stringify(cheatsheetInfo)};`;
 
-  await writeFile(outputPath, root.toString());
+  await writeFile(arg.outputPath, root.toString());
 }
 
-/**
- * Updates the default spoken forms stored in `defaults.json` for
- * development.
- * @param spokenFormInfo The new value to use for default spoken forms.
- */
-export async function updateDefaults(spokenFormInfo: CheatsheetInfo) {
-  const defaultsPath = path.join(
-    getCursorlessRepoRoot(),
-    "packages/lib-cheatsheet/src/lib/sampleSpokenFormInfos/defaults.json",
-  );
+async function getCheatsheetInfoForCommand(
+  ide: IDE,
+  talonSpokenForms: FileSystemTalonSpokenForms,
+  arg: CheatSheetCommandArg,
+): Promise<CheatsheetInfo> {
+  const version = arg.version;
 
-  const outputObject = produce(spokenFormInfo, (draft) => {
-    draft.sections = sortBy(draft.sections, "id");
-    for (const section of draft.sections) {
-      section.items = sortBy(section.items, "id");
+  if (version === 0) {
+    // DEPRECATED: 2026-08-31
+    void showWarning(
+      ide.messages,
+      "cheatSheetV0Deprecated",
+      "Cheat sheet command version 0 is deprecated. Please update cursorless-talon.",
+    );
+    return arg.spokenFormInfo;
+  }
+
+  if (version === 1) {
+    try {
+      const { spokenForms } = await talonSpokenForms.getSpokenForms();
+      return getCheatsheetInfo(spokenForms);
+    } catch (error) {
+      void showWarning(
+        ide.messages,
+        "cheatsheetSpokenFormsFallback",
+        `Unable to load custom spoken forms: ${getErrorMessage(error)}. Using default spoken forms.`,
+      );
+      return getDefaultCheatsheetInfo();
     }
-  });
+  }
 
-  const json = JSON.stringify(outputObject, null, 2);
-  await writeFile(defaultsPath, `${json}\n`);
-}
-
-// FIXME: Stop duplicating these types once we have #945
-// The source of truth is at /cursorless-nx/libs/cheatsheet/src/lib/CheatsheetInfo.tsx
-interface Variation {
-  spokenForm: string;
-  description: string;
-}
-
-interface CheatsheetSection {
-  name: string;
-  id: string;
-  items: {
-    id: string;
-    type: string;
-    variations: Variation[];
-  }[];
-}
-
-interface CheatsheetInfo {
-  sections: CheatsheetSection[];
+  throw new Error(`Unsupported cheatsheet command version: ${version}`);
 }

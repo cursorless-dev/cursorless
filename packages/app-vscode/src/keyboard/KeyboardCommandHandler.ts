@@ -5,7 +5,7 @@ import type {
   PartialMark,
   SurroundingPairName,
 } from "@cursorless/lib-common";
-import { surroundingPairsDelimiters } from "@cursorless/lib-engine";
+import { pairedDelimiterReferences } from "@cursorless/lib-common";
 import type { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import type {
   SimpleKeyboardActionDescriptor,
@@ -87,13 +87,16 @@ export class KeyboardCommandHandler {
     actionDescriptor,
     delimiter,
   }: WrapActionArg) {
-    const [left, right] = surroundingPairsDelimiters[delimiter]!;
+    const delimiters = pairedDelimiterReferences[delimiter].delimiters;
+    if (delimiters == null) {
+      throw new Error(`Unknown surrounding pair delimiters for '${delimiter}'`);
+    }
     await this.targeted.performActionOnTarget(
       (target) => ({
         name: "wrapWithPairedDelimiter",
         target,
-        left,
-        right,
+        left: delimiters[0],
+        right: delimiters[1],
       }),
       actionDescriptor,
     );

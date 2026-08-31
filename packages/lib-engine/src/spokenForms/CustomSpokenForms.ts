@@ -1,6 +1,7 @@
 import { isEqual } from "lodash-es";
 import type {
   CustomRegexScopeType,
+  DefaultSpokenFormMapEntry,
   Disposable,
   IDE,
   SpokenFormEntry,
@@ -20,7 +21,6 @@ import {
   defaultSpokenFormInfoMap,
   defaultSpokenFormMap,
 } from "./defaultSpokenFormMap";
-import type { DefaultSpokenFormMapEntry } from "./defaultSpokenFormMap.types";
 import type { SpokenFormMap, SpokenFormMapEntry } from "./SpokenFormMap";
 
 type Writable<T> = {
@@ -78,13 +78,16 @@ export class CustomSpokenForms {
 
   private async updateSpokenFormMaps(): Promise<void> {
     let allCustomEntries: SpokenFormEntry[];
+    let spokenFormsVersion: number;
 
     // We successfully loaded spoken forms, so any previous "needs update"
     // state is no longer relevant.
     this.needsInitialTalonUpdate_ = false;
 
     try {
-      allCustomEntries = await this.talonSpokenForms.getSpokenFormEntries();
+      const payload = await this.talonSpokenForms.getSpokenForms();
+      allCustomEntries = payload.spokenForms;
+      spokenFormsVersion = payload.version;
       if (allCustomEntries.length === 0) {
         throw new Error("Custom spoken forms list empty");
       }
@@ -110,15 +113,26 @@ export class CustomSpokenForms {
       return;
     }
 
+    this.spokenFormMap_ = { ...defaultSpokenFormMap };
+
     for (const entryType of SUPPORTED_ENTRY_TYPES) {
+      const entriesForType = allCustomEntries.filter(
+        (entry) => entry.type === entryType,
+      );
+
+      // Older Talon versions don't provide every entry type. In that case,
+      // retain the defaults for the entire type instead of treating each entry
+      // as a newly added spoken form that requires a Talon update.
+      if (entriesForType.length === 0 && spokenFormsVersion === 0) {
+        continue;
+      }
+
       updateEntriesForType(
         this.spokenFormMap_,
         entryType,
         defaultSpokenFormInfoMap[entryType],
         Object.fromEntries(
-          allCustomEntries
-            .filter((entry) => entry.type === entryType)
-            .map(({ id, spokenForms }) => [id, spokenForms]),
+          entriesForType.map(({ id, spokenForms }) => [id, spokenForms]),
         ),
       );
     }
@@ -159,8 +173,8 @@ function updateEntriesForType<T extends SpokenFormType>(
 
   const obj: Partial<Record<SpokenFormMapKeyTypes[T], SpokenFormMapEntry>> = {};
   for (const id of ids) {
-    const { defaultSpokenForms = [], isPrivate = false } =
-      defaultEntries[id] ?? {};
+    const { defaultSpokenForms = [], visibility } = defaultEntries[id] ?? {};
+    const isPrivate = visibility === "private";
     const customSpokenForms = customEntries[id];
 
     // No entry for the given id. This either means that the user needs to

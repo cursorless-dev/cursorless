@@ -1,3 +1,4 @@
+import { afterEach, beforeEach, describe, expect, it } from "@jest/globals";
 import { render } from "preact";
 import { act } from "preact/test-utils";
 import { fakeCheatsheetInfo } from "@cursorless/lib-cheatsheet";

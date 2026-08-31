@@ -5,7 +5,7 @@ from typing import TypedDict
 from talon import app
 
 SPOKEN_FORMS_OUTPUT_PATH = Path.home() / ".cursorless" / "state.json"
-STATE_JSON_VERSION_NUMBER = 0
+STATE_JSON_VERSION_NUMBER = 1
 
 
 class SpokenFormOutputEntry(TypedDict):

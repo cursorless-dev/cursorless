@@ -1,18 +1,22 @@
-import { CompositeKeyMap } from "@cursorless/lib-common";
+import {
+  CompositeKeyMap,
+  pairedDelimiterReferences,
+} from "@cursorless/lib-common";
 import type { SpeakableSurroundingPairName } from "@cursorless/lib-common";
 import type { SpokenFormComponentMap } from "../getSpokenFormComponentMap";
 import type { CustomizableSpokenFormComponentForType } from "../SpokenFormComponent";
-import { surroundingPairsDelimiters } from "./surroundingPairsDelimiters";
 
 const surroundingPairDelimiterToName = new CompositeKeyMap<
   [string, string],
   SpeakableSurroundingPairName
 >((pair) => pair);
 
-for (const [name, pair] of Object.entries(surroundingPairsDelimiters)) {
-  if (pair != null) {
+for (const [name, { delimiters }] of Object.entries(
+  pairedDelimiterReferences,
+)) {
+  if (delimiters != null) {
     surroundingPairDelimiterToName.set(
-      pair,
+      delimiters,
       name as SpeakableSurroundingPairName,
     );
   }

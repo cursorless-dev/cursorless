@@ -113,7 +113,7 @@
     }
   },
   "positions.csv": {
-    "position": {
+    "position_modifier": {
       "start of": "start",
       "end of": "end"
     },

@@ -41,7 +41,7 @@ export async function setupStep(
   state: TutorialState,
   currentTutorial: TutorialContent | undefined,
 ): Promise<HighlightedEditor> {
-  if (state.type !== "doingTutorial") {
+  if (state.type !== "doingTutorial" || state.hasErrors) {
     return { editor: undefined, highlightRanges: [] };
   }
 

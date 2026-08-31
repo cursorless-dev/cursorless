@@ -84,8 +84,6 @@ const symbols = {
   "]": "right square",
   "<": "angle",
   ">": "right angle",
-
-  "\uFFFD": "special",
 };
 
 export const graphemeDefaultSpokenForms: Record<string, string> = {

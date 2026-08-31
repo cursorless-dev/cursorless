@@ -18,13 +18,16 @@ import { getHatMapCommand } from "./getHatMapCommand";
  */
 const spokenFormMap: SpokenFormMap = mapSpokenForms(
   defaultSpokenFormInfoMap,
-  ({ defaultSpokenForms, isPrivate }) => ({
-    spokenForms: isPrivate ? [] : defaultSpokenForms,
-    isCustom: false,
-    defaultSpokenForms,
-    requiresTalonUpdate: false,
-    isPrivate,
-  }),
+  ({ defaultSpokenForms, visibility }) => {
+    const isPrivate = visibility === "private";
+    return {
+      spokenForms: isPrivate ? [] : defaultSpokenForms,
+      isCustom: false,
+      defaultSpokenForms,
+      requiresTalonUpdate: false,
+      isPrivate,
+    };
+  },
 );
 
 suite("Generate spoken forms", () => {

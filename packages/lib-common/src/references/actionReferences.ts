@@ -22,32 +22,38 @@ import {
   VAR_TARGET_1,
   VAR_TARGET_2,
 } from "./constants";
-import { modifierReferences } from "./modifierReferences";
+import {
+  modifierExtraReferences,
+  modifierReferences,
+} from "./modifierReferences";
 import { pairedDelimiterReferences } from "./pairedDelimiterReferences";
 import type { ReferenceEntry } from "./ReferenceEntry";
 import { scopeReferences } from "./scopeReferences";
-import { connectiveDefaultSpokenForms } from "./spokenForms/connectiveDefaultSpokenForms";
+import {
+  connectiveDefaultSpokenForms,
+  insertionModeDefaultSpokenForms,
+} from "./spokenForms/connectiveDefaultSpokenForms";
 import { markDefaultSpokenForms } from "./spokenForms/markDefaultSpokenForms";
 
 const DEFAULT_PATTERN = `${VAR_SPOKEN_FORM} ${VAR_TARGET}`;
 const DEFAULT_COMMAND = `${VAR_SPOKEN_FORM} ${TARGET}`;
 
+const CURLY = pairedDelimiterReferences.curlyBrackets.defaultSpokenForm;
+const SQUARE = pairedDelimiterReferences.squareBrackets.defaultSpokenForm;
 const ITEM = scopeReferences.collectionItem.defaultSpokenForm;
 const VALUE = scopeReferences.value.defaultSpokenForm;
 const INSTANCE = scopeReferences.instance.defaultSpokenForm;
 const FUNCTION = scopeReferences.namedFunction.defaultSpokenForm;
 const TOKEN = scopeReferences.token.defaultSpokenForm;
 const EVERY = modifierReferences.everyScope.defaultSpokenForm;
-const NEXT = connectiveDefaultSpokenForms.next;
+const NEXT = modifierExtraReferences.next.defaultSpokenForm;
 const WITH = connectiveDefaultSpokenForms.swapConnective;
-const AFTER = connectiveDefaultSpokenForms.after;
-const TO = connectiveDefaultSpokenForms.sourceDestinationConnective;
-const CURLY = pairedDelimiterReferences.curlyBrackets.defaultSpokenForm;
-const SQUARE = pairedDelimiterReferences.squareBrackets.defaultSpokenForm;
 const AT = connectiveDefaultSpokenForms.at;
 const ON = connectiveDefaultSpokenForms.on;
 const SLICE = connectiveDefaultSpokenForms.verticalRange;
 const CURRENT_SELECTION = markDefaultSpokenForms.cursor;
+const AFTER = insertionModeDefaultSpokenForms.after;
+const TO = insertionModeDefaultSpokenForms.to;
 
 const MULTI_TARGET_CURSOR_DESCRIPTION =
   "When used with a list target, this action creates one cursor for each target.";
@@ -60,20 +66,25 @@ const REORDER_DESCRIPTION =
 const PAIRED_DELIMITER_DESCRIPTION =
   "See [paired delimiters](../paired-delimiters.md) for the available pairs.";
 
-type TalonSideActionType = "applyFormatter" | "nextHomophone";
+export const talonSideActionNames = [
+  "applyFormatter",
+  "nextHomophone",
+] as const;
+
+export type TalonSideActionType = (typeof talonSideActionNames)[number];
 
 export const actionReferences = {
   // Group: cursor
   setSelection: {
-    name: "Set selection",
+    name: "Select",
     defaultSpokenForm: SET_SELECTION,
     group: { id: "cursor", index: 0 },
     description: MULTI_TARGET_CURSOR_DESCRIPTION,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: `Set selection to ${VAR_TARGET}.`,
-        cheatsheet: "Set selection",
+        description: `Select ${VAR_TARGET}.`,
+        cheatsheet: "Select",
       },
     ],
     examples: [
@@ -726,6 +737,7 @@ export const actionReferences = {
   },
   rewrapWithPairedDelimiter: {
     name: "Rewrap with paired delimiter",
+    csv_id: "rewrap",
     defaultSpokenForm: "repack",
     group: { id: "wrap", index: 1 },
     description: PAIRED_DELIMITER_DESCRIPTION,
@@ -1414,7 +1426,7 @@ Older Cursorless installations may have \`"from"\` disabled. Remove the leading 
     name: "Show parse tree",
     defaultSpokenForm: "parse tree",
     group: { id: "private", index: 0 },
-    private: true,
+    visibility: "private",
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
@@ -1432,7 +1444,7 @@ Older Cursorless installations may have \`"from"\` disabled. Remove the leading 
   parsed: {
     name: "Parsed",
     defaultSpokenForm: "parsed",
-    private: true,
+    visibility: "private",
     group: { id: "private", index: 1 },
     syntaxes: [],
     examples: [],
@@ -1441,7 +1453,7 @@ Older Cursorless installations may have \`"from"\` disabled. Remove the leading 
     name: "Get targets",
     defaultSpokenForm: "get targets",
     group: { id: "private", index: 2 },
-    private: true,
+    visibility: "private",
     syntaxes: [],
     examples: [],
   },
@@ -1449,7 +1461,7 @@ Older Cursorless installations may have \`"from"\` disabled. Remove the leading 
     name: "Set keyboard target",
     defaultSpokenForm: "set keyboard target",
     group: { id: "private", index: 3 },
-    private: true,
+    visibility: "private",
     syntaxes: [],
     examples: [],
   },
@@ -1457,7 +1469,7 @@ Older Cursorless installations may have \`"from"\` disabled. Remove the leading 
     name: "Execute command",
     defaultSpokenForm: "execute command",
     group: { id: "private", index: 4 },
-    private: true,
+    visibility: "private",
     syntaxes: [],
     examples: [],
   },
@@ -1465,7 +1477,7 @@ Older Cursorless installations may have \`"from"\` disabled. Remove the leading 
     name: "Edit new",
     defaultSpokenForm: "edit new",
     group: { id: "private", index: 5 },
-    private: true,
+    visibility: "private",
     syntaxes: [],
     examples: [],
   },
@@ -1473,7 +1485,7 @@ Older Cursorless installations may have \`"from"\` disabled. Remove the leading 
     name: "Get text",
     defaultSpokenForm: "get text",
     group: { id: "private", index: 6 },
-    private: true,
+    visibility: "private",
     syntaxes: [],
     examples: [],
   },
@@ -1481,7 +1493,7 @@ Older Cursorless installations may have \`"from"\` disabled. Remove the leading 
     name: "Replace",
     defaultSpokenForm: "replace",
     group: { id: "private", index: 7 },
-    private: true,
+    visibility: "private",
     syntaxes: [],
     examples: [],
   },
@@ -1489,7 +1501,7 @@ Older Cursorless installations may have \`"from"\` disabled. Remove the leading 
     name: "Wrap with snippet",
     defaultSpokenForm: "wrap",
     group: { id: "private", index: 8 },
-    private: true,
+    visibility: "private",
     syntaxes: [],
     examples: [],
   },

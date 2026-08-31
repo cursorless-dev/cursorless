@@ -1,5 +1,6 @@
 export * from "./actionReferenceGroups";
 export * from "./actionReferences";
+export * from "./hatStyleReferences";
 export * from "./modifierReferenceGroups";
 export * from "./modifierReferences";
 export * from "./pairedDelimiterReferences";
@@ -7,6 +8,7 @@ export * from "./ReferenceEntry";
 export * from "./scopeReferenceGroups";
 export * from "./scopeReferences";
 export * from "./spokenForms/connectiveDefaultSpokenForms";
+export * from "./spokenForms/defaultSpokenFormMapCore";
 export * from "./spokenForms/graphemeDefaultSpokenForms";
 export * from "./spokenForms/markDefaultSpokenForms";
 export * from "./spokenForms/numberDefaultSpokenForms";

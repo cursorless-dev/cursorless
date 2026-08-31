@@ -177,8 +177,7 @@ export const pairedDelimiterReferences = {
   tripleDoubleQuotes: {
     name: "triple double quotes",
     defaultSpokenForm: "triple quad",
-    private: true,
-    disabledByDefault: true,
+    visibility: "private",
     index: null,
     isSingleLine: false,
     delimiters: ['"""', '"""'],
@@ -195,8 +194,7 @@ export const pairedDelimiterReferences = {
   tripleSingleQuotes: {
     name: "triple single quotes",
     defaultSpokenForm: "triple twin",
-    private: true,
-    disabledByDefault: true,
+    visibility: "private",
     index: null,
     isSingleLine: false,
     delimiters: ["'''", "'''"],
@@ -210,8 +208,7 @@ export const pairedDelimiterReferences = {
   tripleBacktickQuotes: {
     name: "triple backtick quotes",
     defaultSpokenForm: "triple skis",
-    private: true,
-    disabledByDefault: true,
+    visibility: "private",
     index: null,
     isSingleLine: false,
     delimiters: ["```", "```"],
@@ -233,8 +230,7 @@ export const pairedDelimiterReferences = {
   collectionBoundary: {
     name: "collection boundary",
     defaultSpokenForm: "collection boundary",
-    private: true,
-    disabledByDefault: true,
+    visibility: "private",
     index: null,
     isSingleLine: false,
     delimiters: null,

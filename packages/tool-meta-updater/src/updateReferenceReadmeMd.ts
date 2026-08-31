@@ -31,9 +31,10 @@ export function updateReferenceReadmeMd(
 
     for (const [rawId, entry] of groupEntries) {
       const id = cleanId(rawId);
-      const disabledByDefault = entry.disabledByDefault
-        ? ` (${DISABLED_BY_DEFAULT})`
-        : "";
+      const disabledByDefault =
+        entry.visibility === "disabledByDefault"
+          ? ` (${DISABLED_BY_DEFAULT})`
+          : "";
       for (const syntax of entry.syntaxes) {
         const pattern = injectSpokenForm(
           syntax.pattern,

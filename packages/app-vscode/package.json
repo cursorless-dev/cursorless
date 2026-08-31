@@ -178,11 +178,6 @@
         "enablement": "false"
       },
       {
-        "command": "cursorless.internal.updateCheatsheetDefaults",
-        "title": "Cursorless: Update the default values of the cheatsheet payload used on the website and for local development. Be sure to run this on stock community and cursorless.",
-        "enablement": "false"
-      },
-      {
         "command": "cursorless.private.logQuickActions",
         "title": "Cursorless: Log the quick actions available at the current cursor position",
         "enablement": "false"

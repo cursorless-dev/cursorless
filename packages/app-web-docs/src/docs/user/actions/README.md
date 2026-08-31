@@ -2,7 +2,7 @@
 
 ## Cursor movement
 
-- [`"take <target>"`](./setSelection.mdx) - Set selection to `<target>`.
+- [`"take <target>"`](./setSelection.mdx) - Select `<target>`.
 - [`"pre <target>"`](./setSelectionBefore.mdx) - Set empty selection before `<target>`.
 - [`"post <target>"`](./setSelectionAfter.mdx) - Set empty selection after `<target>`.
 - [`"append <target>"`](./addSelection.mdx) - Adds `<target>` to the current selection set.

@@ -310,9 +310,12 @@ importers:
         specifier: ^1.11.6
         version: 1.11.6(react@19.2.8)
     devDependencies:
-      '@types/jest':
-        specifier: ^30.0.0
-        version: 30.0.0
+      '@jest/globals':
+        specifier: ^30.4.1
+        version: 30.4.1
+      '@types/node':
+        specifier: ^24.13.3
+        version: 24.13.3
       jest:
         specifier: ^30.4.2
         version: 30.4.2(@types/node@24.13.3)(ts-node@10.9.2(@swc/core@1.16.1)(@types/node@24.13.3)(typescript@6.0.3))
@@ -341,9 +344,9 @@ importers:
         specifier: ^10.29.8
         version: 10.29.8
     devDependencies:
-      '@types/jest':
-        specifier: ^30.0.0
-        version: 30.0.0
+      '@jest/globals':
+        specifier: ^30.4.1
+        version: 30.4.1
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3
@@ -4924,9 +4927,6 @@ packages:
 
   '@types/istanbul-reports@3.0.4':
     resolution: {integrity: sha512-pk2B1NWalF9toCRu6gjBzR69syFjP4Od8WRAX+0mmf9lAjCRicLOWc+ZrxZHx/0XRjotgkF9t6iaMJ+aXcOdZQ==}
-
-  '@types/jest@30.0.0':
-    resolution: {integrity: sha512-XTYugzhuwqWjws0CVz8QpM36+T+Dz5mTEBKhNs/esGLnCIlGdRy+Dq78NRjd7ls7r8BC8ZRMOrKlkO1hU0JOwA==}
 
   '@types/js-yaml@4.0.9':
     resolution: {integrity: sha512-k4MGaQl5TGo/iipqb2UDG2UwjXziSWkh0uysQelTlJpX1qGlpUZYm8PnO4DxG1qBomtJUdYJ6qR6xdIah10JLg==}
@@ -16954,11 +16954,6 @@ snapshots:
   '@types/istanbul-reports@3.0.4':
     dependencies:
       '@types/istanbul-lib-report': 3.0.3
-
-  '@types/jest@30.0.0':
-    dependencies:
-      expect: 30.4.1
-      pretty-format: 30.4.1
 
   '@types/js-yaml@4.0.9': {}
 

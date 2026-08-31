@@ -1,20 +1,17 @@
-import type { DefaultSpokenFormMapEntry } from "./defaultSpokenFormMap.types";
+import type { DefaultSpokenFormMapEntry } from "../../types/DefaultSpokenFormMap";
 
 /**
  * Used to construct entities that should not be speakable by default.
  *
  * @param spokenForms The default spoken forms for this entity
- * @returns A DefaultSpokenFormMapEntry with the given spoken forms, and
- * {@link DefaultSpokenFormMapEntry.isDisabledByDefault|isDisabledByDefault} set
- * to true
+ * @returns A disabled-by-default entry with the given spoken forms
  */
 export function isDisabledByDefault(
   ...spokenForms: string[]
 ): DefaultSpokenFormMapEntry {
   return {
     defaultSpokenForms: spokenForms,
-    isDisabledByDefault: true,
-    isPrivate: false,
+    visibility: "disabledByDefault",
   };
 }
 
@@ -22,14 +19,11 @@ export function isDisabledByDefault(
  * Used to construct entities that are only for internal experimentation.
  *
  * @param spokenForms The default spoken forms for this entity
- * @returns A DefaultSpokenFormMapEntry with the given spoken forms, and
- * {@link DefaultSpokenFormMapEntry.isDisabledByDefault|isDisabledByDefault} and
- * {@link DefaultSpokenFormMapEntry.isPrivate|isPrivate} set to true
+ * @returns A private entry with the given spoken forms
  */
 export function isPrivate(...spokenForms: string[]): DefaultSpokenFormMapEntry {
   return {
     defaultSpokenForms: spokenForms,
-    isDisabledByDefault: true,
-    isPrivate: true,
+    visibility: "private",
   };
 }

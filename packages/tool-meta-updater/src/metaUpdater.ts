@@ -138,5 +138,5 @@ export const updater = async (workspaceDir: string) => {
 };
 
 function isPrivate(entry: object): boolean {
-  return "private" in entry && entry.private === true;
+  return "visibility" in entry && entry.visibility === "private";
 }
