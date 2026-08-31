@@ -1,5 +1,5 @@
+import { hatColorReferences } from "./hatStyleReferences";
 import { graphemeDefaultSpokenForms } from "./spokenForms/graphemeDefaultSpokenForms";
-import { hatColorDefaultSpokenForms } from "./spokenForms/markDefaultSpokenForms";
 
 // Template variables
 export const VAR_SPOKEN_FORM = "<spokenForm>";
@@ -17,11 +17,11 @@ export const VAR_MODIFIER = "<modifier>";
 export const VAR_CHARACTER = "<character>";
 
 // Targets
-export const TARGET = `${hatColorDefaultSpokenForms.blue} ${graphemeDefaultSpokenForms.a}`;
+export const TARGET = `${hatColorReferences.blue.defaultSpokenForm} ${graphemeDefaultSpokenForms.a}`;
 export const TARGET_DESC = "token containing letter 'a' with a blue hat";
-export const TARGET_2 = `${hatColorDefaultSpokenForms.green} ${graphemeDefaultSpokenForms.b}`;
+export const TARGET_2 = `${hatColorReferences.green.defaultSpokenForm} ${graphemeDefaultSpokenForms.b}`;
 export const TARGET_2_DESC = "token containing letter 'b' with a green hat";
-export const TARGET_NUMBER = `${hatColorDefaultSpokenForms.blue} ${graphemeDefaultSpokenForms["5"]}`;
+export const TARGET_NUMBER = `${hatColorReferences.blue.defaultSpokenForm} ${graphemeDefaultSpokenForms["5"]}`;
 export const TARGET_NUMBER_DESC = "token containing number '5' with a blue hat";
 
 // Actions

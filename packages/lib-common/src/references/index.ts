@@ -1,5 +1,6 @@
 export * from "./actionReferenceGroups";
 export * from "./actionReferences";
+export * from "./hatStyleReferences";
 export * from "./modifierReferenceGroups";
 export * from "./modifierReferences";
 export * from "./pairedDelimiterReferences";

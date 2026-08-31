@@ -6,6 +6,7 @@ import type {
 } from "../../types/DefaultSpokenFormMap";
 import type { SpokenFormMapKeyTypes } from "../../types/SpokenFormType";
 import { actionReferences, talonSideActionNames } from "../actionReferences";
+import { hatColorReferences, hatShapeReferences } from "../hatStyleReferences";
 import {
   modifierExtraReferences,
   modifierReferences,
@@ -19,8 +20,6 @@ import {
 } from "./connectiveDefaultSpokenForms";
 import { graphemeDefaultSpokenForms } from "./graphemeDefaultSpokenForms";
 import {
-  hatColorDefaultSpokenForms,
-  hatShapeDefaultSpokenForms,
   lineDirectionDefaultSpokenForms,
   markDefaultSpokenForms,
   unknownSymbolMarkDefaultSpokenForm,
@@ -55,9 +54,6 @@ const modifierExtraReferenceIds = [
   "backward",
   "ancestor",
 ] as const satisfies readonly SpokenFormMapKeyTypes["modifierExtra"][];
-
-const { default: hatShapeDefault, ...hatShapes } = hatShapeDefaultSpokenForms;
-const { default: hatColorDefault, ...hatColors } = hatColorDefaultSpokenForms;
 
 function getDefaultSpokenForm(
   reference: SpokenFormReference,
@@ -130,10 +126,10 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     modifierExtraReferenceIds,
     modifierExtraReferences,
   ),
+  hatColor: getCompleteDefaultSpokenFormMap(hatColorReferences),
+  hatShape: getCompleteDefaultSpokenFormMap(hatShapeReferences),
   grapheme: graphemeDefaultSpokenForms,
   insertionMode: insertionModeDefaultSpokenForms,
-  hatColor: hatColors,
-  hatShape: hatShapes,
   connective: {
     ...connectiveDefaultSpokenForms,
     rangeExcludingStart: isDisabledByDefault(),

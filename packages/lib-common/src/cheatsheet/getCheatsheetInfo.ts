@@ -2,8 +2,8 @@ import {
   actionReferences,
   connectiveDefaultSpokenForms,
   defaultSpokenFormMapCore,
-  hatColorDefaultSpokenForms,
-  hatShapeDefaultSpokenForms,
+  hatColorReferences,
+  hatShapeReferences,
   modifierExtraReferences,
   modifierReferences,
   pairedDelimiterReferences,
@@ -448,14 +448,13 @@ function colorsSection(resolver: SpokenFormResolver): CheatsheetSection {
   return {
     name: "Colors",
     id: "colors",
-    items: Object.entries(hatColorDefaultSpokenForms)
-      .filter(([id, spokenForm]) => id !== "default" && spokenForm != null)
-      .map(([id]) => ({
+    items: Object.entries(hatColorReferences)
+      .map(([id, reference]) => ({
         id,
         type: "hatColor",
         variations: resolver.get(["hatColor"], id).map((spokenForm) => ({
           spokenForm,
-          description: capitalize(id),
+          description: reference.name,
         })),
       }))
       .filter(({ variations }) => variations.length > 0),
@@ -620,14 +619,13 @@ function shapesSection(resolver: SpokenFormResolver): CheatsheetSection {
   return {
     name: "Shapes",
     id: "shapes",
-    items: Object.entries(hatShapeDefaultSpokenForms)
-      .filter(([id, spokenForm]) => id !== "default" && spokenForm != null)
-      .map(([id]) => ({
+    items: Object.entries(hatShapeReferences)
+      .map(([id, reference]) => ({
         id,
         type: "hatShape",
         variations: resolver.get(["hatShape"], id).map((spokenForm) => ({
           spokenForm,
-          description: capitalize(id),
+          description: reference.name,
         })),
       }))
       .filter(({ variations }) => variations.length > 0),
