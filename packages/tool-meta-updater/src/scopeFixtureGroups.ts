@@ -185,7 +185,8 @@ function groupFixtures(fixtures: FixtureMetadata[]): ScopeFixtureGroup[] {
         name: prettifyScopeType(
           getFacetInfo(fixture.languageId, fixture.facet).scopeType,
         ),
-        private: "private" in reference && reference.private === true,
+        private:
+          "visibility" in reference && reference.visibility === "private",
         scopeTypeType: fixture.scopeTypeType,
       };
       scopeMap.set(fixture.scopeTypeType, scope);

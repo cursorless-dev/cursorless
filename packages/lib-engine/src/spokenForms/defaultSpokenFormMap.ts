@@ -17,8 +17,6 @@ export const defaultSpokenFormInfoMap: DefaultSpokenFormInfoMap =
     typeof value === "string"
       ? {
           defaultSpokenForms: [value],
-          isDisabledByDefault: false,
-          isPrivate: false,
         }
       : value,
   );
@@ -29,11 +27,14 @@ export const defaultSpokenFormInfoMap: DefaultSpokenFormInfoMap =
  */
 export const defaultSpokenFormMap: SpokenFormMap = mapSpokenForms(
   defaultSpokenFormInfoMap,
-  ({ defaultSpokenForms, isDisabledByDefault, isPrivate }) => ({
-    spokenForms: isDisabledByDefault ? [] : defaultSpokenForms,
-    isCustom: false,
-    defaultSpokenForms,
-    requiresTalonUpdate: false,
-    isPrivate,
-  }),
+  ({ defaultSpokenForms, visibility }) => {
+    const isPrivate = visibility === "private";
+    return {
+      spokenForms: visibility == null ? defaultSpokenForms : [],
+      isCustom: false,
+      defaultSpokenForms,
+      requiresTalonUpdate: false,
+      isPrivate,
+    };
+  },
 );

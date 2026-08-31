@@ -63,7 +63,7 @@ export function updateReferenceMdx(
     );
   }
 
-  if (entry.disabledByDefault) {
+  if (entry.visibility === "disabledByDefault") {
     spokenFormLines.push(DISABLED_BY_DEFAULT);
   }
 

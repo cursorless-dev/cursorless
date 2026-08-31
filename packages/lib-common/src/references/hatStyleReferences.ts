@@ -29,22 +29,22 @@ export const hatColorReferences = {
   userColor1: {
     name: "User color 1",
     defaultSpokenForm: "navy",
-    disabledByDefault: true,
+    visibility: "disabledByDefault",
   },
   userColor2: {
     name: "User color 2",
     defaultSpokenForm: "apricot",
-    disabledByDefault: true,
+    visibility: "disabledByDefault",
   },
   userColor3: {
     name: "User color 3",
     defaultSpokenForm: "user color three",
-    disabledByDefault: true,
+    visibility: "disabledByDefault",
   },
   userColor4: {
     name: "User color 4",
     defaultSpokenForm: "user color four",
-    disabledByDefault: true,
+    visibility: "disabledByDefault",
   },
 } as const satisfies Record<string, HatStyleReference>;
 
@@ -52,51 +52,51 @@ export const hatShapeReferences = {
   ex: {
     name: "Ex",
     defaultSpokenForm: "ex",
-    disabledByDefault: true,
+    visibility: "disabledByDefault",
   },
   fox: {
     name: "Fox",
     defaultSpokenForm: "fox",
-    disabledByDefault: true,
+    visibility: "disabledByDefault",
   },
   wing: {
     name: "Wing",
     defaultSpokenForm: "wing",
-    disabledByDefault: true,
+    visibility: "disabledByDefault",
   },
   hole: {
     name: "Hole",
     defaultSpokenForm: "hole",
-    disabledByDefault: true,
+    visibility: "disabledByDefault",
   },
   frame: {
     name: "Frame",
     defaultSpokenForm: "frame",
-    disabledByDefault: true,
+    visibility: "disabledByDefault",
   },
   curve: {
     name: "Curve",
     defaultSpokenForm: "curve",
-    disabledByDefault: true,
+    visibility: "disabledByDefault",
   },
   eye: {
     name: "Eye",
     defaultSpokenForm: "eye",
-    disabledByDefault: true,
+    visibility: "disabledByDefault",
   },
   play: {
     name: "Play",
     defaultSpokenForm: "play",
-    disabledByDefault: true,
+    visibility: "disabledByDefault",
   },
   crosshairs: {
     name: "Crosshairs",
     defaultSpokenForm: "cross",
-    disabledByDefault: true,
+    visibility: "disabledByDefault",
   },
   bolt: {
     name: "Bolt",
     defaultSpokenForm: "bolt",
-    disabledByDefault: true,
+    visibility: "disabledByDefault",
   },
 } as const satisfies Record<string, HatStyleReference>;

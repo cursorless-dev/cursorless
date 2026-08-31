@@ -64,17 +64,15 @@ function getDefaultSpokenForm(
     throw new Error("Reference has no default spoken form");
   }
 
-  const isDisabledByDefault = reference.disabledByDefault ?? false;
-  const isPrivate = reference.private ?? false;
+  const { visibility } = reference;
 
-  if (!isDisabledByDefault && !isPrivate) {
+  if (visibility == null) {
     return defaultSpokenForm;
   }
 
   return {
     defaultSpokenForms: [defaultSpokenForm],
-    isDisabledByDefault,
-    isPrivate,
+    visibility,
   };
 }
 

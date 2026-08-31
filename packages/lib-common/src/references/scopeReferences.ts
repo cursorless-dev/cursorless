@@ -1163,7 +1163,7 @@ For a range target, the entire range becomes the search text. Without an explici
     name: "Section level one",
     group: { id: "sections", index: 1 },
     defaultSpokenForm: "one section",
-    disabledByDefault: true,
+    visibility: "disabledByDefault",
     isLanguageSpecific: true,
     defaultInsertionDelimiter: "\n\n",
     syntaxes: [
@@ -1184,7 +1184,7 @@ For a range target, the entire range becomes the search text. Without an explici
     name: "Section level two",
     group: { id: "sections", index: 2 },
     defaultSpokenForm: "two section",
-    disabledByDefault: true,
+    visibility: "disabledByDefault",
     isLanguageSpecific: true,
     defaultInsertionDelimiter: "\n\n",
     syntaxes: [
@@ -1205,7 +1205,7 @@ For a range target, the entire range becomes the search text. Without an explici
     name: "Section level three",
     group: { id: "sections", index: 3 },
     defaultSpokenForm: "three section",
-    disabledByDefault: true,
+    visibility: "disabledByDefault",
     isLanguageSpecific: true,
     defaultInsertionDelimiter: "\n\n",
     syntaxes: [
@@ -1226,7 +1226,7 @@ For a range target, the entire range becomes the search text. Without an explici
     name: "Section level four",
     group: { id: "sections", index: 4 },
     defaultSpokenForm: "four section",
-    disabledByDefault: true,
+    visibility: "disabledByDefault",
     isLanguageSpecific: true,
     defaultInsertionDelimiter: "\n\n",
     syntaxes: [
@@ -1247,7 +1247,7 @@ For a range target, the entire range becomes the search text. Without an explici
     name: "Section level five",
     group: { id: "sections", index: 5 },
     defaultSpokenForm: "five section",
-    disabledByDefault: true,
+    visibility: "disabledByDefault",
     isLanguageSpecific: true,
     defaultInsertionDelimiter: "\n\n",
     syntaxes: [
@@ -1268,7 +1268,7 @@ For a range target, the entire range becomes the search text. Without an explici
     name: "Section level six",
     group: { id: "sections", index: 6 },
     defaultSpokenForm: "six section",
-    disabledByDefault: true,
+    visibility: "disabledByDefault",
     isLanguageSpecific: true,
     defaultInsertionDelimiter: "\n\n",
     syntaxes: [
@@ -1312,7 +1312,7 @@ For a range target, the entire range becomes the search text. Without an explici
     name: "Field access",
     group: { id: "private", index: 0 },
     defaultSpokenForm: "access",
-    private: true,
+    visibility: "private",
     isLanguageSpecific: true,
     syntaxes: [
       {
@@ -1332,7 +1332,7 @@ For a range target, the entire range becomes the search text. Without an explici
     name: "String",
     group: { id: "private", index: 1 },
     defaultSpokenForm: "parse tree string",
-    private: true,
+    visibility: "private",
     isLanguageSpecific: true,
     syntaxes: [
       {
@@ -1352,7 +1352,7 @@ For a range target, the entire range becomes the search text. Without an explici
     name: "Text fragment",
     group: { id: "private", index: 2 },
     defaultSpokenForm: "text fragment",
-    private: true,
+    visibility: "private",
     isLanguageSpecific: true,
     syntaxes: [
       {
@@ -1372,7 +1372,7 @@ For a range target, the entire range becomes the search text. Without an explici
     name: "Disqualify delimiter",
     group: { id: "private", index: 3 },
     defaultSpokenForm: "disqualify delimiter",
-    private: true,
+    visibility: "private",
     isLanguageSpecific: true,
     syntaxes: [
       {
@@ -1392,7 +1392,7 @@ For a range target, the entire range becomes the search text. Without an explici
     name: "Pair delimiter",
     group: { id: "private", index: 4 },
     defaultSpokenForm: "pair delimiter",
-    private: true,
+    visibility: "private",
     isLanguageSpecific: true,
     syntaxes: [
       {
@@ -1412,7 +1412,7 @@ For a range target, the entire range becomes the search text. Without an explici
     name: "Interior",
     group: { id: "private", index: 5 },
     defaultSpokenForm: "interior",
-    private: true,
+    visibility: "private",
     isLanguageSpecific: true,
     syntaxes: [
       {
@@ -1431,7 +1431,7 @@ For a range target, the entire range becomes the search text. Without an explici
   surroundingPairInterior: {
     name: "Surrounding pair interior",
     group: { id: "private", index: 6 },
-    private: true,
+    visibility: "private",
     isLanguageSpecific: false,
     syntaxes: [],
     examples: [],
@@ -1439,7 +1439,7 @@ For a range target, the entire range becomes the search text. Without an explici
   customRegex: {
     name: "Custom regex",
     group: { id: "private", index: 7 },
-    private: true,
+    visibility: "private",
     isLanguageSpecific: false,
     syntaxes: [],
     examples: [],

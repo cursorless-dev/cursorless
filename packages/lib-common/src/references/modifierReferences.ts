@@ -652,28 +652,28 @@ Relative modifiers select scopes before or after the input target. Without \`"ev
   // Group: private
   preferredScope: {
     name: "Preferred scope",
-    private: true,
+    visibility: "private",
     group: { id: "private", index: 0 },
     syntaxes: [],
     examples: [],
   },
   modifyIfUntyped: {
     name: "Modify if untyped",
-    private: true,
+    visibility: "private",
     group: { id: "private", index: 1 },
     syntaxes: [],
     examples: [],
   },
   fallback: {
     name: "Fallback",
-    private: true,
+    visibility: "private",
     group: { id: "private", index: 2 },
     syntaxes: [],
     examples: [],
   },
   range: {
     name: "Range",
-    private: true,
+    visibility: "private",
     group: { id: "private", index: 3 },
     syntaxes: [],
     examples: [],

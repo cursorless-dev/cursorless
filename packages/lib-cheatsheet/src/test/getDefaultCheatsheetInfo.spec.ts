@@ -21,13 +21,40 @@ describe("getDefaultCheatsheetInfo", () => {
     ]);
   });
 
-  test("includes private and omits disabled-by-default references", () => {
-    expect(
-      getItem("actions", "private.showParseTree").variations[0]?.description,
-    ).toMatch(/\(PRIVATE\)$/u);
+  test("omits private and disabled-by-default references", () => {
+    expect(getSection("actions").items).not.toContainEqual(
+      expect.objectContaining({ id: "private.showParseTree" }),
+    );
+    expect(getSection("scopes").items).not.toContainEqual(
+      expect.objectContaining({ id: "private.fieldAccess" }),
+    );
     expect(getSection("scopes").items).not.toContainEqual(
       expect.objectContaining({ id: "sectionLevelOne" }),
     );
+  });
+
+  test("includes private references with actual spoken forms", () => {
+    const customCheatsheetInfo = getCheatsheetInfo([
+      {
+        type: "action",
+        id: "private.showParseTree",
+        spokenForms: ["inspect parse tree"],
+      },
+      {
+        type: "simpleScopeTypeType",
+        id: "private.fieldAccess",
+        spokenForms: ["access"],
+      },
+    ]);
+
+    expect(
+      getItem("actions", "private.showParseTree", customCheatsheetInfo)
+        .variations[0]?.description,
+    ).toMatch(/\(PRIVATE\)$/u);
+    expect(
+      getItem("scopes", "private.fieldAccess", customCheatsheetInfo)
+        .variations[0]?.description,
+    ).toMatch(/\(PRIVATE\)$/u);
   });
 
   test("uses canonical reference ids", () => {
@@ -69,6 +96,17 @@ describe("getDefaultCheatsheetInfo", () => {
         ],
       },
     ]);
+  });
+
+  test("includes only colors and shapes that are enabled by default", () => {
+    expect(getSection("colors").items.map(({ id }) => id)).toEqual([
+      "blue",
+      "green",
+      "red",
+      "pink",
+      "yellow",
+    ]);
+    expect(getSection("shapes").items).toEqual([]);
   });
 
   test("applies Talon spoken-form entries to the current syntax", () => {

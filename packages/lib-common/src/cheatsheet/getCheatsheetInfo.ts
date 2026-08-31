@@ -9,6 +9,7 @@ import {
   pairedDelimiterReferences,
   scopeReferences,
 } from "../references";
+import type { SpokenFormReference } from "../references";
 import type {
   DefaultSpokenFormMapDefinition,
   DefaultSpokenFormMapEntry,
@@ -17,10 +18,7 @@ import type { SpokenFormEntry } from "../types/TalonSpokenForms";
 import { camelCaseToAllDown, capitalize } from "../util/stringUtils";
 import type { CheatsheetInfo, CheatsheetSection } from "./cheatsheet.types";
 
-interface CheatsheetReference {
-  defaultSpokenForm?: string;
-  disabledByDefault?: boolean;
-  private?: boolean;
+interface CheatsheetReference extends SpokenFormReference {
   syntaxes: readonly {
     pattern: string;
     cheatsheet: string;
@@ -188,9 +186,10 @@ function referenceSection(
                 ],
               ).map((customPattern) => ({
                 spokenForm: customPattern,
-                description: reference.private
-                  ? `${cheatsheet} (PRIVATE)`
-                  : cheatsheet,
+                description:
+                  reference.visibility === "private"
+                    ? `${cheatsheet} (PRIVATE)`
+                    : cheatsheet,
               })),
             ),
           ),
@@ -243,7 +242,7 @@ function getEnabledDefaultSpokenForms(
     return [value];
   }
 
-  return value.isDisabledByDefault ? [] : value.defaultSpokenForms;
+  return value.visibility == null ? value.defaultSpokenForms : [];
 }
 
 function getReferenceSpokenForms(

@@ -159,8 +159,8 @@ function updateEntriesForType<T extends SpokenFormType>(
 
   const obj: Partial<Record<SpokenFormMapKeyTypes[T], SpokenFormMapEntry>> = {};
   for (const id of ids) {
-    const { defaultSpokenForms = [], isPrivate = false } =
-      defaultEntries[id] ?? {};
+    const { defaultSpokenForms = [], visibility } = defaultEntries[id] ?? {};
+    const isPrivate = visibility === "private";
     const customSpokenForms = customEntries[id];
 
     // No entry for the given id. This either means that the user needs to
