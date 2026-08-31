@@ -76,15 +76,15 @@ export type TalonSideActionType = (typeof talonSideActionNames)[number];
 export const actionReferences = {
   // Group: cursor
   setSelection: {
-    name: "Set selection",
+    name: "Select",
     defaultSpokenForm: SET_SELECTION,
     group: { id: "cursor", index: 0 },
     description: MULTI_TARGET_CURSOR_DESCRIPTION,
     syntaxes: [
       {
         pattern: DEFAULT_PATTERN,
-        description: `Set selection to ${VAR_TARGET}.`,
-        cheatsheet: "Set selection",
+        description: `Select ${VAR_TARGET}.`,
+        cheatsheet: "Select",
       },
     ],
     examples: [
