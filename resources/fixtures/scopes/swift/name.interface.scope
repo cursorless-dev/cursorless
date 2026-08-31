@@ -1,0 +1,21 @@
+protocol Foo {}
+---
+
+[Content] =
+[Domain] = 0:9-0:12
+           >---<
+0| protocol Foo {}
+
+[Removal] = 0:9-0:13
+           >----<
+0| protocol Foo {}
+
+[Leading delimiter] = 0:8-0:9
+          >-<
+0| protocol Foo {}
+
+[Trailing delimiter] = 0:12-0:13
+              >-<
+0| protocol Foo {}
+
+[Insertion delimiter] = " "

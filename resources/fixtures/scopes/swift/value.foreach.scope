@@ -1,0 +1,24 @@
+for foo in bar {}
+---
+
+[Content] = 0:11-0:14
+             >---<
+0| for foo in bar {}
+
+[Removal] = 0:11-0:15
+             >----<
+0| for foo in bar {}
+
+[Leading delimiter] = 0:10-0:11
+            >-<
+0| for foo in bar {}
+
+[Trailing delimiter] = 0:14-0:15
+                >-<
+0| for foo in bar {}
+
+[Domain] = 0:0-0:17
+  >-----------------<
+0| for foo in bar {}
+
+[Insertion delimiter] = " "
