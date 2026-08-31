@@ -77,9 +77,9 @@ async function getCheatsheetInfoForCommand(
   }
 
   if (version === 1) {
-    let spokenForms: SpokenFormEntry[];
     try {
-      ({ spokenForms } = await talonSpokenForms.getSpokenForms());
+      const { spokenForms } = await talonSpokenForms.getSpokenForms();
+      return getCheatsheetInfo(spokenForms);
     } catch (error) {
       void showWarning(
         ide.messages,
@@ -88,7 +88,6 @@ async function getCheatsheetInfoForCommand(
       );
       return getDefaultCheatsheetInfo();
     }
-    return getCheatsheetInfo(spokenForms);
   }
 
   throw new Error(`Unsupported cheatsheet command version: ${version}`);
