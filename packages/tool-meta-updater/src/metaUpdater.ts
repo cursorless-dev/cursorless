@@ -25,6 +25,7 @@ import { updatePairedDelimitersMd } from "./updatePairedDelimitersMd";
 import { updateReferenceMdx } from "./updateReferenceMdx";
 import { updateReferenceReadmeMd } from "./updateReferenceReadmeMd";
 import { updateScopeSupportFacetInfos } from "./updateScopeSupportFacetInfos";
+import { updateSpokenForms } from "./updateSpokenForms";
 import { updateTSConfig } from "./updateTSConfig";
 import { updateTSConfigBase } from "./updateTSConfigBase";
 import { cleanId } from "./util/cleanId";
@@ -55,6 +56,7 @@ export const updater = async (workspaceDir: string) => {
       "tsconfig.base.json": updateTSConfigBase.bind(null, context),
       "resources/fixtures/scope-support-facet-infos.md":
         updateScopeSupportFacetInfos,
+      "cursorless-talon/src/spoken_forms.json": updateSpokenForms,
       ...Object.fromEntries(
         languageIds.map((languageId) => [
           `${userDir}/languages/${languageId}.mdx`,

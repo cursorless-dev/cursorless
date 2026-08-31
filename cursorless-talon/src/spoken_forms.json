@@ -2,18 +2,18 @@
   "NOTE FOR USERS": "Please don't edit this json file; see https://www.cursorless.org/docs/user/customization",
   "actions.csv": {
     "simple_action": {
+      "append": "addSelection",
       "append post": "addSelectionAfter",
       "append pre": "addSelectionBefore",
-      "append": "addSelection",
       "bottom": "scrollToBottom",
-      "break point": "toggleLineBreakpoint",
       "break": "breakLine",
+      "break point": "toggleLineBreakpoint",
       "carve": "cutToClipboard",
       "center": "scrollToCenter",
       "change": "clearAndSetSelection",
       "chuck": "remove",
-      "clone up": "insertCopyBefore",
       "clone": "insertCopyAfter",
+      "clone up": "insertCopyBefore",
       "comment": "toggleLineComment",
       "copy": "copyToClipboard",
       "crown": "scrollToTop",
@@ -26,12 +26,12 @@
       "flash": "flashTargets",
       "float": "insertEmptyLineAfter",
       "fold": "foldRegion",
-      "follow split": "followLinkAside",
       "follow": "followLink",
+      "follow split": "followLinkAside",
       "git accept": "gitAccept",
+      "git revert": "gitRevert",
       "git stage": "gitStage",
       "git unstage": "gitUnstage",
-      "git revert": "gitRevert",
       "give": "deselect",
       "highlight": "highlight",
       "hover": "showHover",
@@ -47,8 +47,8 @@
       "reference": "showReferences",
       "rename": "rename",
       "reverse": "reverseTargets",
-      "scout all": "findInWorkspace",
       "scout": "findInDocument",
+      "scout all": "findInWorkspace",
       "shuffle": "randomizeTargets",
       "snip make": "generateSnippet",
       "sort": "sortTargets",
@@ -59,16 +59,29 @@
     "callback_action": {
       "phones": "nextHomophone"
     },
-    "paste_action": { "paste": "pasteFromClipboard" },
+    "paste_action": {
+      "paste": "pasteFromClipboard"
+    },
     "bring_move_action": {
       "bring": "replaceWithTarget",
       "move": "moveToTarget"
     },
-    "swap_action": { "swap": "swapTargets" },
-    "wrap_action": { "wrap": "wrapWithPairedDelimiter", "repack": "rewrap" },
-    "insert_snippet_action": { "snip": "insertSnippet" },
-    "reformat_action": { "format": "applyFormatter" },
-    "call_action": { "call": "callAsFunction" }
+    "swap_action": {
+      "swap": "swapTargets"
+    },
+    "wrap_action": {
+      "wrap": "wrapWithPairedDelimiter",
+      "repack": "rewrap"
+    },
+    "insert_snippet_action": {
+      "snip": "insertSnippet"
+    },
+    "reformat_action": {
+      "format": "applyFormatter"
+    },
+    "call_action": {
+      "call": "callAsFunction"
+    }
   },
   "target_connectives.csv": {
     "range_connective": {
@@ -77,9 +90,15 @@
       "-": "rangeExcludingStart",
       "until": "rangeExcludingEnd"
     },
-    "list_connective": { "and": "listConnective" },
-    "swap_connective": { "with": "swapConnective" },
-    "insertion_mode_to": { "to": "sourceDestinationConnective" }
+    "list_connective": {
+      "and": "listConnective"
+    },
+    "swap_connective": {
+      "with": "swapConnective"
+    },
+    "insertion_mode_to": {
+      "to": "sourceDestinationConnective"
+    }
   },
   "modifiers.csv": {
     "simple_modifier": {
@@ -92,8 +111,9 @@
       "its": "inferPreviousMark",
       "visible": "visible"
     },
-    "every_scope_modifier": { "every": "every" },
-    "ancestor_scope_modifier": { "grand": "ancestor" },
+    "every_scope_modifier": {
+      "every": "every"
+    },
     "interior_modifier": {
       "inside": "interiorOnly"
     },
@@ -104,9 +124,19 @@
     "range_type": {
       "slice": "verticalRange"
     },
-    "first_modifier": { "first": "first" },
-    "last_modifier": { "last": "last" },
-    "previous_next_modifier": { "previous": "previous", "next": "next" },
+    "ancestor_scope_modifier": {
+      "grand": "ancestor"
+    },
+    "first_modifier": {
+      "first": "first"
+    },
+    "last_modifier": {
+      "last": "last"
+    },
+    "previous_next_modifier": {
+      "previous": "previous",
+      "next": "next"
+    },
     "forward_backward_modifier": {
       "forward": "forward",
       "backward": "backward"
@@ -126,23 +156,28 @@
     "scope_type": {
       "arg": "argumentOrParameter",
       "arg list": "argumentList",
+      "lambda": "anonymousFunction",
       "attribute": "attribute",
-      "call": "functionCall",
-      "callee": "functionCallee",
-      "class name": "className",
+      "branch": "branch",
       "class": "class",
-      "comment": "comment",
-      "funk name": "functionName",
-      "funk": "namedFunction",
-      "if state": "ifStatement",
-      "instance": "instance",
+      "class name": "className",
       "item": "collectionItem",
       "key": "collectionKey",
-      "lambda": "anonymousFunction",
+      "comment": "comment",
+      "call": "functionCall",
+      "callee": "functionCallee",
+      "funk name": "functionName",
+      "if state": "ifStatement",
+      "instance": "instance",
       "list": "list",
       "map": "map",
       "name": "name",
+      "funk": "namedFunction",
       "regex": "regularExpression",
+      "state": "statement",
+      "type": "type",
+      "value": "value",
+      "condition": "condition",
       "section": "section",
       "-one section": "sectionLevelOne",
       "-two section": "sectionLevelTwo",
@@ -151,16 +186,11 @@
       "-five section": "sectionLevelFive",
       "-six section": "sectionLevelSix",
       "selector": "selector",
-      "state": "statement",
-      "branch": "branch",
-      "type": "type",
-      "value": "value",
-      "condition": "condition",
       "unit": "unit",
-      "element": "xmlElement",
       "tags": "xmlBothTags",
-      "start tag": "xmlStartTag",
+      "element": "xmlElement",
       "end tag": "xmlEndTag",
+      "start tag": "xmlStartTag",
       "part": "part",
       "chapter": "chapter",
       "subsection": "subSection",
@@ -168,7 +198,6 @@
       "paragraph": "namedParagraph",
       "subparagraph": "subParagraph",
       "environment": "environment",
-      "command": "command",
       "char": "character",
       "sub": "word",
       "token": "token",
@@ -177,12 +206,13 @@
       "full line": "fullLine",
       "sentence": "sentence",
       "block": "paragraph",
+      "short block": "boundedParagraph",
       "file": "document",
       "paint": "nonWhitespaceSequence",
       "short paint": "boundedNonWhitespaceSequence",
-      "short block": "boundedParagraph",
       "link": "url",
-      "cell": "notebookCell"
+      "cell": "notebookCell",
+      "command": "command"
     },
     "surrounding_pair_scope_type": {
       "string": "string"
@@ -192,8 +222,12 @@
     }
   },
   "paired_delimiters.csv": {
-    "selectable_only_paired_delimiter": { "pair": "any" },
-    "wrapper_only_paired_delimiter": { "void": "whitespace" },
+    "selectable_only_paired_delimiter": {
+      "pair": "any"
+    },
+    "wrapper_only_paired_delimiter": {
+      "void": "whitespace"
+    },
     "wrapper_selectable_paired_delimiter": {
       "curly": "curlyBrackets",
       "diamond": "angleBrackets",
@@ -215,7 +249,9 @@
       "source": "previousSource",
       "nothing": "nothing"
     },
-    "unknown_symbol": { "special": "unknownSymbol" },
+    "unknown_symbol": {
+      "special": "unknownSymbol"
+    },
     "line_direction": {
       "row": "lineNumberModulo100",
       "up": "lineNumberRelativeUp",
@@ -223,8 +259,12 @@
     }
   },
   "scope_visualizer.csv": {
-    "show_scope_visualizer": { "visualize": "showScopeVisualizer" },
-    "hide_scope_visualizer": { "visualize nothing": "hideScopeVisualizer" },
+    "show_scope_visualizer": {
+      "visualize": "showScopeVisualizer"
+    },
+    "hide_scope_visualizer": {
+      "visualize nothing": "hideScopeVisualizer"
+    },
     "visualization_type": {
       "removal": "removal",
       "iteration": "iteration"
