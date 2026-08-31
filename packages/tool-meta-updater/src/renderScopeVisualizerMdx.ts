@@ -1,4 +1,4 @@
-import { prettifyLanguageName } from "@cursorless/lib-common";
+import { languageReferences } from "@cursorless/lib-common";
 import type {
   ScopeFixtureFacet,
   ScopeFixtureGroup,
@@ -117,7 +117,7 @@ function renderFacets(
         fixture.languageId !== previousLanguageId
       ) {
         previousLanguageId = fixture.languageId;
-        lines.push(`##### ${prettifyLanguageName(fixture.languageId)}`, "");
+        lines.push(`##### ${languageReferences[fixture.languageId].name}`, "");
       }
 
       const languageProp =

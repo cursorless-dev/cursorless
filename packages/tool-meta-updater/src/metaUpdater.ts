@@ -9,12 +9,13 @@ import type { ScopeTypeType } from "@cursorless/lib-common";
 import {
   actionReferenceGroups,
   actionReferences,
-  languageScopeSupport,
+  languageReferences,
   modifierReferenceGroups,
   modifierReferences,
   pairedDelimiterReferences,
   scopeReferenceGroups,
   scopeReferences,
+  unsafeKeys,
 } from "@cursorless/lib-common";
 import type { Context } from "./Context";
 import { createScopeFixtureGroups } from "./scopeFixtureGroups";
@@ -47,7 +48,7 @@ export const updater = async (workspaceDir: string) => {
   const userDir = "src/docs/user";
   const contributingDir = "src/docs/contributing";
   const scopeFixtureGroups = createScopeFixtureGroups(workspaceDir);
-  const languageIds = [...Object.keys(languageScopeSupport), "plaintext"];
+  const languageIds = unsafeKeys(languageReferences);
 
   return createUpdateOptions({
     files: {

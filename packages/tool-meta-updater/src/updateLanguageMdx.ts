@@ -1,5 +1,6 @@
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
-import { prettifyLanguageName } from "@cursorless/lib-common";
+import type { LanguageId } from "@cursorless/lib-common";
+import { languageReferences } from "@cursorless/lib-common";
 import {
   renderLanguageScopeVisualizer,
   scopeVisualizerImport,
@@ -7,7 +8,7 @@ import {
 import type { ScopeFixtureGroup } from "./scopeFixtureGroups";
 
 export function updateLanguageMdx(
-  languageId: string,
+  languageId: LanguageId,
   scopeFixtureGroups: ScopeFixtureGroup[],
   actual: string | null,
   options: FormatPluginFnOptions,
@@ -19,7 +20,7 @@ export function updateLanguageMdx(
   const expected = [
     scopeVisualizerImport,
     "",
-    `# ${prettifyLanguageName(languageId)}`,
+    `# ${languageReferences[languageId].name}`,
     "",
     renderLanguageScopeVisualizer(languageId, scopeFixtureGroups),
     "",
