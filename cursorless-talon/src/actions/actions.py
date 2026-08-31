@@ -117,6 +117,10 @@ class Actions:
 
         Deprecated: prefer `cursorless_ide_command`
         """
+        # Deprecated 2026-08-31
+        actions.app.notify(
+            "Deprecated: cursorless_vscode_command is deprecated, prefer cursorless_ide_command"
+        )
         return actions.user.cursorless_ide_command(command_id, target)
 
     @staticmethod
