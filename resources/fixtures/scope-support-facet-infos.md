@@ -175,8 +175,8 @@
 
 ### glyph
 
-- `glyph.a` A single 'a' glyph
-- `glyph.dollar` A single '$' glyph
+- `glyph.a` A single `a` glyph
+- `glyph.dollar` A single `$` glyph
 
 ### identifier
 
@@ -203,7 +203,7 @@
 - `interior.lambda` The block body of a lambda/anonymous function
 - `interior.method` The body of a method declaration
 - `interior.namespace` the body of a namespace statement
-- `interior.resource` the body of a 'with' / 'use' / 'using' statement
+- `interior.resource` the body of a `with` / `use` / `using` statement
 - `interior.static` the body of a static statement
 
 ### surroundingPairInterior
@@ -270,7 +270,7 @@
 - `name.method` Name of a class method
 - `name.method.interface` Name of a interface method
 - `name.namespace` Name of a namespace
-- `name.resource` Name in a 'with' / 'use' / 'using' statement
+- `name.resource` Name in a `with` / `use` / `using` statement
 - `name.typeAlias` Name of a type alias
 - `name.variable.destructuring` Name (LHS) of a variable declaration with pattern destructuring
 - `name.variable.initialized` Name (LHS) of an initialized variable declaration
@@ -385,7 +385,7 @@
 - `statement.misc` A miscellaneous statement
 - `statement.namespace` A namespace declaration
 - `statement.package` A package declaration
-- `statement.resource` A 'with' / 'use' / 'using' statement
+- `statement.resource` A `with` / `use` / `using` statement
 - `statement.return` A return statement
 - `statement.static` A static statement
 - `statement.switch` A switch statement
@@ -461,7 +461,7 @@
 - `type.iteration.class` Iteration scope for types: class bodies.
 - `type.iteration.document` Iteration scope for types: the entire document including leading and trailing empty lines.
 - `type.iteration.interface` Iteration scope for types: interface bodies.
-- `type.resource` Type in a 'with' / 'use' / 'using' statement
+- `type.resource` Type in a `with` / `use` / `using` statement
 - `type.return` Type of a return value in a function declaration
 - `type.return.lambda` Type of a return value in a lambda declaration
 - `type.return.method` Type of a return value in a method declaration
@@ -506,7 +506,7 @@
 - `value.iteration.enum` Iteration scope for values: enum bodies.
 - `value.mapPair` Value (RHS) of a key-value pair in a map
 - `value.mapPair.iteration` Iteration scope for values of key-value pairs in a map: should be between the braces.
-- `value.resource` Value of a 'with' / 'use' / 'using' statement
+- `value.resource` Value of a `with` / `use` / `using` statement
 - `value.return` Return value of a function
 - `value.return.lambda` Implicit return value from a lambda
 - `value.switch` The value / subject of a switch statement

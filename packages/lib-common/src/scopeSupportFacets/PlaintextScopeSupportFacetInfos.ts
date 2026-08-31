@@ -106,14 +106,14 @@ export const plaintextScopeSupportFacetInfos: Record<
     isIteration: true,
   },
   "glyph.a": {
-    description: "A single 'a' glyph",
+    description: "A single `a` glyph",
     scopeType: {
       type: "glyph",
       character: "a",
     },
   },
   "glyph.dollar": {
-    description: "A single '$' glyph",
+    description: "A single `$` glyph",
     scopeType: {
       type: "glyph",
       character: "$",
