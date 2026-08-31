@@ -1,7 +1,7 @@
 import { useEffect } from "preact/hooks";
 import { QuestionCircleFill } from "react-bootstrap-icons";
 import "./cheatsheet.css";
-import type { CheatsheetInfo } from "./cheatsheet.types";
+import type { CheatsheetInfo } from "@cursorless/lib-common";
 import { CheatsheetLegendSection } from "./CheatsheetLegendSection";
 import { CheatsheetListSection } from "./CheatsheetListSection";
 import { CheatsheetNotesSection } from "./CheatsheetNotesSection";

@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import type { UserConfig } from "vite";
 import purgeCss from "vite-plugin-purgecss";
 import { viteSingleFile } from "vite-plugin-singlefile";
-import { getDefaultCheatsheetInfo } from "@cursorless/lib-cheatsheet";
+import { getDefaultCheatsheetInfo } from "@cursorless/lib-common";
 import {
   purgeCssOptions,
   viteHtmlParams,

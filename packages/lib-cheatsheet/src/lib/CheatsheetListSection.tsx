@@ -1,5 +1,8 @@
 import type { JSX } from "preact";
-import type { CheatsheetSection, Variation } from "./cheatsheet.types";
+import type {
+  CheatsheetSection,
+  CheatsheetVariation,
+} from "@cursorless/lib-common";
 import { formatCaptures } from "./utils/formatCaptures";
 import { useIsHighlighted } from "./utils/useIsHighlighted";
 
@@ -47,7 +50,7 @@ export function CheatsheetListSection({ section }: Props): JSX.Element {
 }
 
 type CheatsheetListEntryProps = {
-  variation: Variation;
+  variation: CheatsheetVariation;
 };
 
 function CheatsheetListEntry({

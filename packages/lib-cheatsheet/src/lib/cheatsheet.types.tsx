@@ -1,9 +1,3 @@
-export type {
-  CheatsheetInfo,
-  CheatsheetSection,
-  CheatsheetVariation as Variation,
-} from "@cursorless/lib-common/cheatsheet";
-
 interface CheatsheetLegendEntry {
   term: string;
   definition: string;

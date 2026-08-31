@@ -1,7 +1,5 @@
-import {
-  Cheatsheet as OriginalCheatsheet,
-  getDefaultCheatsheetInfo,
-} from "@cursorless/lib-cheatsheet";
+import { Cheatsheet as OriginalCheatsheet } from "@cursorless/lib-cheatsheet";
+import { getDefaultCheatsheetInfo } from "@cursorless/lib-common";
 import { Title } from "./Title";
 
 export function Cheatsheet() {

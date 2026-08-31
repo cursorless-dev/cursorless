@@ -1,9 +1,10 @@
+import { describe, expect, test } from "@jest/globals";
+import type { CheatsheetInfo } from "@cursorless/lib-common/cheatsheet";
 import {
   applyLegacyCheatsheetInfo,
   getCheatsheetInfo,
   getDefaultCheatsheetInfo,
 } from "@cursorless/lib-common/cheatsheet";
-import type { CheatsheetInfo } from "@cursorless/lib-common/cheatsheet";
 
 describe("getDefaultCheatsheetInfo", () => {
   const cheatsheetInfo = getDefaultCheatsheetInfo();

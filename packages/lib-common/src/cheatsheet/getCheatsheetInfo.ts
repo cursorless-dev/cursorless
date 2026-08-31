@@ -13,14 +13,6 @@ import {
 import type { TalonSpokenFormListEntry } from "../types/TalonSpokenForms";
 import type { CheatsheetInfo, CheatsheetSection } from "./cheatsheet.types";
 
-export type {
-  CheatsheetInfo,
-  CheatsheetItem,
-  CheatsheetSection,
-  CheatsheetVariation,
-} from "./cheatsheet.types";
-export { applyLegacyCheatsheetInfo } from "./applyLegacyCheatsheetInfo";
-
 interface CheatsheetReference {
   defaultSpokenForm?: string;
   disabledByDefault?: boolean;
