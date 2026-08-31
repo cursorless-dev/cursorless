@@ -1,16 +1,12 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { parse } from "node-html-parser";
+import type { CheatsheetInfo, IDE } from "@cursorless/lib-common";
 import {
   getCheatsheetInfo,
   getDefaultCheatsheetInfo,
   getErrorMessage,
   showWarning,
-} from "@cursorless/lib-common";
-import type {
-  CheatsheetInfo,
-  IDE,
-  SpokenFormEntry,
 } from "@cursorless/lib-common";
 import type { FileSystemTalonSpokenForms } from "./FileSystemTalonSpokenForms";
 
