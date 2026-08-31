@@ -1,0 +1,15 @@
+##### H5
+
+Sub
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-2:3
+  >--------
+0| ##### H5
+1|
+2| Sub
+   ---<
+
+[Insertion delimiter] = "\n\n"

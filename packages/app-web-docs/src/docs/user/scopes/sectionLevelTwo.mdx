@@ -2,6 +2,8 @@
 sidebar_label: Two section
 ---
 
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+
 # Two section (Section level two)
 
 Cursorless ID: `sectionLevelTwo`
@@ -18,3 +20,19 @@ Default: `two section`\
 ## Examples
 
 - `"take two section blue air"` - Selects the section level two containing the token containing letter 'a' with a blue hat.
+
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Section level two
+
+<i>A level two section</i>
+
+##### Markdown
+
+<ScopeVisualizer fixtureName="scopes/markdown/sectionLevelTwo" />
+
+</ScopeVisualizerProvider>

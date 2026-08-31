@@ -2,6 +2,8 @@
 sidebar_label: Chapter
 ---
 
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+
 # Chapter
 
 Cursorless ID: `chapter`
@@ -17,3 +19,19 @@ Default: `chapter`
 ## Examples
 
 - `"take chapter blue air"` - Selects the chapter containing the token containing letter 'a' with a blue hat.
+
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Chapter
+
+<i>A document chapter</i>
+
+##### LaTeX
+
+<ScopeVisualizer fixtureName="scopes/latex/chapter" />
+
+</ScopeVisualizerProvider>

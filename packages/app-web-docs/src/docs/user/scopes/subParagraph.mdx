@@ -2,6 +2,8 @@
 sidebar_label: Subparagraph
 ---
 
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+
 # Subparagraph
 
 Cursorless ID: `subParagraph`
@@ -17,3 +19,19 @@ Default: `subparagraph`
 ## Examples
 
 - `"take subparagraph blue air"` - Selects the subparagraph containing the token containing letter 'a' with a blue hat.
+
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Sub paragraph
+
+<i>A subparagraph</i>
+
+##### LaTeX
+
+<ScopeVisualizer fixtureName="scopes/latex/subParagraph" />
+
+</ScopeVisualizerProvider>
