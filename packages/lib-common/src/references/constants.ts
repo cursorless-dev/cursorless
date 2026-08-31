@@ -18,11 +18,11 @@ export const VAR_CHARACTER = "<character>";
 
 // Targets
 export const TARGET = `${hatColorReferences.blue.defaultSpokenForm} ${graphemeDefaultSpokenForms.a}`;
-export const TARGET_DESC = "token containing letter 'a' with a blue hat";
+export const TARGET_DESC = "token containing letter `a` with a blue hat";
 export const TARGET_2 = `${hatColorReferences.green.defaultSpokenForm} ${graphemeDefaultSpokenForms.b}`;
-export const TARGET_2_DESC = "token containing letter 'b' with a green hat";
+export const TARGET_2_DESC = "token containing letter `b` with a green hat";
 export const TARGET_NUMBER = `${hatColorReferences.blue.defaultSpokenForm} ${graphemeDefaultSpokenForms["5"]}`;
-export const TARGET_NUMBER_DESC = "token containing number '5' with a blue hat";
+export const TARGET_NUMBER_DESC = "token containing number `5` with a blue hat";
 
 // Actions
 export const SET_SELECTION = "take";

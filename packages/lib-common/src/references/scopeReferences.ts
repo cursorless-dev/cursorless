@@ -358,7 +358,7 @@ When an opening and closing delimiter use the same character and no parse-tree i
     examples: [
       {
         command: `${SET_SELECTION} ${NEXT} ${VAR_SPOKEN_FORM} ${AIR}`,
-        description: `Selects the next 'a'.`,
+        description: `Selects the next \`a\`.`,
       },
       {
         command: `${SET_SELECTION} ${EVERY} ${VAR_SPOKEN_FORM} ${DOLLAR}`,
