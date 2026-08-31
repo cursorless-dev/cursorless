@@ -1,11 +1,4 @@
-import type { SpokenFormMapKeyTypes } from "@cursorless/lib-common";
-import type { SpokenFormMappingType } from "./SpokenFormMap";
-
-export type DefaultSpokenFormMapDefinition = {
-  readonly [K in keyof SpokenFormMapKeyTypes]: Readonly<
-    Record<SpokenFormMapKeyTypes[K], string | DefaultSpokenFormMapEntry>
-  >;
-};
+import type { SpokenFormMapKeyTypes } from "./SpokenFormType";
 
 export interface DefaultSpokenFormMapEntry {
   defaultSpokenForms: string[];
@@ -24,5 +17,8 @@ export interface DefaultSpokenFormMapEntry {
   isPrivate: boolean;
 }
 
-export type DefaultSpokenFormInfoMap =
-  SpokenFormMappingType<DefaultSpokenFormMapEntry>;
+export type DefaultSpokenFormMapDefinition = {
+  readonly [K in keyof SpokenFormMapKeyTypes]: Readonly<
+    Record<SpokenFormMapKeyTypes[K], string | DefaultSpokenFormMapEntry>
+  >;
+};

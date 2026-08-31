@@ -7,6 +7,7 @@ export * from "./ReferenceEntry";
 export * from "./scopeReferenceGroups";
 export * from "./scopeReferences";
 export * from "./spokenForms/connectiveDefaultSpokenForms";
+export * from "./spokenForms/defaultSpokenFormMapCore";
 export * from "./spokenForms/graphemeDefaultSpokenForms";
 export * from "./spokenForms/markDefaultSpokenForms";
 export * from "./spokenForms/numberDefaultSpokenForms";

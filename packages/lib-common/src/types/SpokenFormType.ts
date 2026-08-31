@@ -1,9 +1,40 @@
 import type { ActionType } from "./command/ActionDescriptor";
+import type { InsertionMode } from "./command/DestinationDescriptor.types";
 import type {
   ModifierType,
   SimpleScopeTypeType,
   SurroundingPairName,
 } from "./command/PartialTargetDescriptor.types";
+
+type SpecialMark =
+  | "previousSource"
+  | "previousTarget"
+  | "currentSelection"
+  | "lineNumberRelativeDown"
+  | "lineNumberModulo100"
+  | "lineNumberRelativeUp"
+  | "nothing"
+  | "unknownSymbol";
+
+type Connective =
+  | "rangeExclusive"
+  | "rangeInclusive"
+  | "rangeExcludingStart"
+  | "rangeExcludingEnd"
+  | "listConnective"
+  | "swapConnective"
+  | "verticalRange"
+  | "at"
+  | "on";
+
+type ScopeVisualizer =
+  | "showScopeVisualizer"
+  | "hideScopeVisualizer"
+  | "removal"
+  | "iteration";
+
+type ComplexScopeTypeType = "glyph";
+type Sidebar = "bar";
 
 /**
  * This interface is the source of truth for the types used in our spoken form
@@ -13,9 +44,17 @@ import type {
  * spoken form.
  */
 export interface SpokenFormMapKeyTypes {
+  action: ActionType;
   pairedDelimiter: SpeakableSurroundingPairName;
   simpleScopeTypeType: SimpleScopeTypeType;
-  complexScopeTypeType: "glyph";
+  complexScopeTypeType: ComplexScopeTypeType;
+  insertionMode: InsertionMode;
+  specialMark: SpecialMark;
+  connective: Connective;
+  hatColor: string;
+  hatShape: string;
+  sidebar: Sidebar;
+  scopeVisualizer: ScopeVisualizer;
 
   /**
    * These modifier types are spoken by directly saying the spoken form for the
@@ -32,9 +71,11 @@ export interface SpokenFormMapKeyTypes {
    * modifiers, but `next` itself isn't a modifier type.
    */
   modifierExtra: ModifierExtra;
-  customRegex: string;
 
-  action: ActionType;
+  /**
+   * These are customizable spoken forms that correspond to a regex pattern.
+   */
+  customRegex: string;
 
   /**
    * These actions correspond to id's of app commands. Eg in VSCode, you can have

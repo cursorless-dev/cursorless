@@ -22,32 +22,38 @@ import {
   VAR_TARGET_1,
   VAR_TARGET_2,
 } from "./constants";
-import { modifierReferences } from "./modifierReferences";
+import {
+  modifierExtraReferences,
+  modifierReferences,
+} from "./modifierReferences";
 import { pairedDelimiterReferences } from "./pairedDelimiterReferences";
 import type { ReferenceEntry } from "./ReferenceEntry";
 import { scopeReferences } from "./scopeReferences";
-import { connectiveDefaultSpokenForms } from "./spokenForms/connectiveDefaultSpokenForms";
+import {
+  connectiveDefaultSpokenForms,
+  insertionModeDefaultSpokenForms,
+} from "./spokenForms/connectiveDefaultSpokenForms";
 import { markDefaultSpokenForms } from "./spokenForms/markDefaultSpokenForms";
 
 const DEFAULT_PATTERN = `${VAR_SPOKEN_FORM} ${VAR_TARGET}`;
 const DEFAULT_COMMAND = `${VAR_SPOKEN_FORM} ${TARGET}`;
 
+const CURLY = pairedDelimiterReferences.curlyBrackets.defaultSpokenForm;
+const SQUARE = pairedDelimiterReferences.squareBrackets.defaultSpokenForm;
 const ITEM = scopeReferences.collectionItem.defaultSpokenForm;
 const VALUE = scopeReferences.value.defaultSpokenForm;
 const INSTANCE = scopeReferences.instance.defaultSpokenForm;
 const FUNCTION = scopeReferences.namedFunction.defaultSpokenForm;
 const TOKEN = scopeReferences.token.defaultSpokenForm;
 const EVERY = modifierReferences.everyScope.defaultSpokenForm;
-const NEXT = connectiveDefaultSpokenForms.next;
+const NEXT = modifierExtraReferences.next.defaultSpokenForm;
 const WITH = connectiveDefaultSpokenForms.swapConnective;
-const AFTER = connectiveDefaultSpokenForms.after;
-const TO = connectiveDefaultSpokenForms.sourceDestinationConnective;
-const CURLY = pairedDelimiterReferences.curlyBrackets.defaultSpokenForm;
-const SQUARE = pairedDelimiterReferences.squareBrackets.defaultSpokenForm;
 const AT = connectiveDefaultSpokenForms.at;
 const ON = connectiveDefaultSpokenForms.on;
 const SLICE = connectiveDefaultSpokenForms.verticalRange;
 const CURRENT_SELECTION = markDefaultSpokenForms.cursor;
+const AFTER = insertionModeDefaultSpokenForms.after;
+const TO = insertionModeDefaultSpokenForms.to;
 
 const MULTI_TARGET_CURSOR_DESCRIPTION =
   "When used with a list target, this action creates one cursor for each target.";

@@ -24,6 +24,11 @@ suite("CustomSpokenFormGeneratorImpl", () => {
               id: "a",
               spokenForms: ["alabaster"],
             },
+            {
+              type: "specialMark",
+              id: "currentSelection",
+              spokenForms: ["this"],
+            },
           ]);
         },
         onDidChange: () => ({

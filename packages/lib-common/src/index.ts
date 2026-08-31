@@ -69,6 +69,7 @@ export * from "./types/command/legacy/PartialTargetDescriptorV4.types";
 export * from "./types/command/legacy/PartialTargetDescriptorV5.types";
 export * from "./types/command/legacy/targetDescriptorV2.types";
 export * from "./types/command/PartialTargetDescriptor.types";
+export * from "./types/DefaultSpokenFormMap";
 export * from "./types/commandHistory";
 export * from "./types/CommandServerApi";
 export * from "./types/Edit";

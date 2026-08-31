@@ -1,6 +1,7 @@
 import { isEqual } from "lodash-es";
 import type {
   CustomRegexScopeType,
+  DefaultSpokenFormMapEntry,
   Disposable,
   IDE,
   SpokenFormEntry,
@@ -20,7 +21,6 @@ import {
   defaultSpokenFormInfoMap,
   defaultSpokenFormMap,
 } from "./defaultSpokenFormMap";
-import type { DefaultSpokenFormMapEntry } from "./defaultSpokenFormMap.types";
 import type { SpokenFormMap, SpokenFormMapEntry } from "./SpokenFormMap";
 
 type Writable<T> = {

@@ -2,7 +2,7 @@ import type { PartialMark } from "../../types/command/PartialTargetDescriptor.ty
 
 type MarkType = PartialMark["type"];
 
-export const hatColorDefaultSpokenForms: Record<string, string | null> = {
+export const hatColorDefaultSpokenForms = {
   blue: "blue",
   green: "green",
   red: "red",
@@ -14,9 +14,9 @@ export const hatColorDefaultSpokenForms: Record<string, string | null> = {
   userColor4: "user color four",
 
   default: null,
-};
+} as const satisfies Record<string, string | null>;
 
-export const hatShapeDefaultSpokenForms: Record<string, string | null> = {
+export const hatShapeDefaultSpokenForms = {
   ex: "ex",
   fox: "fox",
   wing: "wing",
@@ -29,7 +29,7 @@ export const hatShapeDefaultSpokenForms: Record<string, string | null> = {
   bolt: "bolt",
 
   default: null,
-};
+} as const satisfies Record<string, string | null>;
 
 export const markDefaultSpokenForms = {
   cursor: "this",
@@ -44,6 +44,8 @@ export const markDefaultSpokenForms = {
   range: null,
   target: null,
 } as const satisfies Record<MarkType, string | null>;
+
+export const unknownSymbolMarkDefaultSpokenForm = "special";
 
 export const lineDirectionDefaultSpokenForms = {
   modulo100: "row",

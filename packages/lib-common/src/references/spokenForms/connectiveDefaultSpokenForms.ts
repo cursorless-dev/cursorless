@@ -6,18 +6,13 @@ export const connectiveDefaultSpokenForms = {
   rangeExcludingEnd: "until",
   listConnective: "and",
   swapConnective: "with",
-  sourceDestinationConnective: "to",
-  before: "before",
-  after: "after",
   verticalRange: "slice",
-
-  first: "first",
-  last: "last",
-  previous: "previous",
-  next: "next",
-  forward: "forward",
-  backward: "backward",
-
   at: "at",
   on: "on",
+} as const;
+
+export const insertionModeDefaultSpokenForms = {
+  to: "to",
+  before: "before",
+  after: "after",
 } as const;

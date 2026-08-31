@@ -21,7 +21,9 @@ command:
       excludeAnchor: true
       excludeActive: false
   usePrePhraseSnapshot: true
-spokenFormError: Range exclude anchor
+spokenFormError: >-
+  connective with id rangeExcludingStart; please see
+  https://www.cursorless.org/docs/user/customization for more information
 initialState:
   documentContents: |-
     def aaa():

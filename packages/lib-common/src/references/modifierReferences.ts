@@ -1,4 +1,5 @@
 import type { ModifierType } from "../types/command/PartialTargetDescriptor.types";
+import type { SpokenFormMapKeyTypes } from "../types/SpokenFormType";
 import {
   EVERY,
   ITEM,
@@ -16,8 +17,7 @@ import {
 } from "./constants";
 import type { ModifierReferenceGroupId } from "./modifierReferenceGroups";
 import { pairedDelimiterReferences } from "./pairedDelimiterReferences";
-import type { ReferenceEntry } from "./ReferenceEntry";
-import { connectiveDefaultSpokenForms } from "./spokenForms/connectiveDefaultSpokenForms";
+import type { ReferenceEntry, SpokenFormReference } from "./ReferenceEntry";
 import { graphemeDefaultSpokenForms } from "./spokenForms/graphemeDefaultSpokenForms";
 import { ordinalDefaultSpokenForms } from "./spokenForms/numberDefaultSpokenForms";
 
@@ -26,17 +26,18 @@ const PARENTHESES = pairedDelimiterReferences.parentheses.defaultSpokenForm;
 const THREE = graphemeDefaultSpokenForms["3"];
 const EXTEND_THROUGH_END_OF = "past end of";
 const THIRD = ordinalDefaultSpokenForms[3];
-const PREVIOUS = connectiveDefaultSpokenForms.previous;
-const NEXT = connectiveDefaultSpokenForms.next;
-const BACKWARD = connectiveDefaultSpokenForms.backward;
-const FORWARD = connectiveDefaultSpokenForms.forward;
-const FIRST = connectiveDefaultSpokenForms.first;
-const LAST = connectiveDefaultSpokenForms.last;
+const PREVIOUS = "previous";
+const NEXT = "next";
+const BACKWARD = "backward";
+const FORWARD = "forward";
+const FIRST = "first";
+const LAST = "last";
 const PASTE = "paste";
 const BRING = "bring";
 const FROM = "from";
-const AFTER = connectiveDefaultSpokenForms.after;
-const TO = connectiveDefaultSpokenForms.sourceDestinationConnective;
+const GRAND = "grand";
+const AFTER = "after";
+const TO = "to";
 const INSTANCE = "instance";
 const VALUE = "value";
 
@@ -44,6 +45,30 @@ const ITERATION_SCOPE_DESCRIPTION =
   "The iteration scope depends on the scope type. For example, functions iterate within a class, tokens within a line, and characters within a token.";
 
 type AdditionalModifierReferenceType = "ancestor";
+
+export const modifierExtraReferences = {
+  first: {
+    defaultSpokenForm: FIRST,
+  },
+  last: {
+    defaultSpokenForm: LAST,
+  },
+  previous: {
+    defaultSpokenForm: PREVIOUS,
+  },
+  next: {
+    defaultSpokenForm: NEXT,
+  },
+  forward: {
+    defaultSpokenForm: FORWARD,
+  },
+  backward: {
+    defaultSpokenForm: BACKWARD,
+  },
+  ancestor: {
+    defaultSpokenForm: GRAND,
+  },
+} satisfies Record<SpokenFormMapKeyTypes["modifierExtra"], SpokenFormReference>;
 
 export const modifierReferences = {
   // Group: containing
@@ -88,7 +113,7 @@ export const modifierReferences = {
   },
   ancestor: {
     name: "Ancestor",
-    defaultSpokenForm: "grand",
+    defaultSpokenForm: GRAND,
     group: { id: "containing", index: 2 },
     description:
       'Selects the parent of a containing scope. Repeat `"grand"` to walk up more than one parent level.',

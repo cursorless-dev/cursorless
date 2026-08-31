@@ -18,6 +18,7 @@ import {
   VAR_PAIR,
   VAR_SPOKEN_FORM,
 } from "./constants";
+import { modifierExtraReferences } from "./modifierReferences";
 import { pairedDelimiterReferences } from "./pairedDelimiterReferences";
 import type { ReferenceEntry } from "./ReferenceEntry";
 import type { ScopeReferenceGroupId } from "./scopeReferenceGroups";
@@ -40,9 +41,9 @@ const DEFAULT_PATTERN = VAR_SPOKEN_FORM;
 
 const AIR = graphemeDefaultSpokenForms.a;
 const PARENTHESIS = pairedDelimiterReferences.parentheses.defaultSpokenForm;
-const NEXT = connectiveDefaultSpokenForms.next;
-const FIRST = connectiveDefaultSpokenForms.first;
-const LAST = connectiveDefaultSpokenForms.last;
+const NEXT = modifierExtraReferences.next.defaultSpokenForm;
+const FIRST = modifierExtraReferences.first.defaultSpokenForm;
+const LAST = modifierExtraReferences.last.defaultSpokenForm;
 const PAST = connectiveDefaultSpokenForms.rangeInclusive;
 const SECOND = ordinalDefaultSpokenForms[2];
 const FOURTH = ordinalDefaultSpokenForms[4];

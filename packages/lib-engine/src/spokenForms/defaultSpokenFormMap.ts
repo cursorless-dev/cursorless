@@ -1,7 +1,10 @@
-import type { DefaultSpokenFormInfoMap } from "./defaultSpokenFormMap.types";
-import { defaultSpokenFormMapCore } from "./defaultSpokenFormMapCore";
-import type { SpokenFormMap } from "./SpokenFormMap";
+import { defaultSpokenFormMapCore } from "@cursorless/lib-common";
+import type { DefaultSpokenFormMapEntry } from "@cursorless/lib-common";
+import type { SpokenFormMap, SpokenFormMappingType } from "./SpokenFormMap";
 import { mapSpokenForms } from "./SpokenFormMap";
+
+export type DefaultSpokenFormInfoMap =
+  SpokenFormMappingType<DefaultSpokenFormMapEntry>;
 
 /**
  * This map contains information about the default spoken forms for all our

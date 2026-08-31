@@ -3,7 +3,7 @@ import type {
   InsertionMode,
 } from "@cursorless/lib-common";
 import {
-  connectiveDefaultSpokenForms,
+  insertionModeDefaultSpokenForms,
   markDefaultSpokenForms,
   simpleActionNames,
   simpleScopeTypeTypes,
@@ -49,10 +49,7 @@ for (const bringMoveActionName of bringMoveActionNames) {
 const insertionModes: InsertionMode[] = ["before", "after", "to"];
 
 for (const insertionMode of insertionModes) {
-  const spokenForm =
-    connectiveDefaultSpokenForms[
-      insertionMode === "to" ? "sourceDestinationConnective" : insertionMode
-    ];
+  const spokenForm = insertionModeDefaultSpokenForms[insertionMode];
   tokens[spokenForm] = {
     type: "insertionMode",
     value: insertionMode,

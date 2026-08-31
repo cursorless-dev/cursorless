@@ -21,6 +21,15 @@ export const SUPPORTED_ENTRY_TYPES = [
   "pairedDelimiter",
   "action",
   "customAction",
+  "simpleModifier",
+  "modifierExtra",
+  "connective",
+  "insertionMode",
+  "specialMark",
+  "hatColor",
+  "hatShape",
+  "sidebar",
+  "scopeVisualizer",
   "grapheme",
 ] as const;
 

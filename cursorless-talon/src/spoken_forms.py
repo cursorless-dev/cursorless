@@ -82,12 +82,49 @@ LIST_TO_TYPE_MAP = {
     "scope_type": "simpleScopeTypeType",
     "glyph_scope_type": "complexScopeTypeType",
     "custom_regex_scope_type": "customRegex",
+    "simple_modifier": "simpleModifier",
+    "interior_modifier": "simpleModifier",
+    "head_tail_modifier": "simpleModifier",
+    "position_modifier": "simpleModifier",
+    "every_scope_modifier": "simpleModifier",
+    "previous_next_modifier": "modifierExtra",
+    "forward_backward_modifier": "modifierExtra",
+    "first_modifier": "modifierExtra",
+    "last_modifier": "modifierExtra",
+    "ancestor_scope_modifier": "modifierExtra",
+    "range_connective": "connective",
+    "list_connective": "connective",
+    "swap_connective": "connective",
+    "range_type": "connective",
+    "insertion_mode_before_after": "insertionMode",
+    "insertion_mode_to": "insertionMode",
+    "simple_mark": "specialMark",
+    "unknown_symbol": "specialMark",
+    "line_direction": "specialMark",
+    "hat_color": "hatColor",
+    "hat_shape": "hatShape",
+    "show_scope_visualizer": "scopeVisualizer",
+    "hide_scope_visualizer": "scopeVisualizer",
+    "visualization_type": "scopeVisualizer",
     **{
         action_list_name: "action"
         for action_list_name in ACTION_LIST_NAMES
         if action_list_name != "custom_action"
     },
     "custom_action": "customAction",
+}
+
+ID_REWRITE_MAP = {
+    "sourceDestinationConnective": "to",
+    "every": "everyScope",
+    "start": "startOf",
+    "end": "endOf",
+}
+
+LITERALS = {
+    "at": "connective",
+    "on": "connective",
+    "bar": "sidebar",
 }
 
 
@@ -114,12 +151,20 @@ def update():
                 *[
                     {
                         "type": LIST_TO_TYPE_MAP[entry.list_name],
-                        "id": entry.id,
+                        "id": ID_REWRITE_MAP.get(entry.id, entry.id),
                         "spokenForms": entry.spoken_forms,
                     }
                     for spoken_form_list in custom_spoken_forms.values()
                     for entry in spoken_form_list
                     if entry.list_name in LIST_TO_TYPE_MAP
+                ],
+                *[
+                    {
+                        "type": LITERALS[literal],
+                        "id": literal,
+                        "spokenForms": [literal],
+                    }
+                    for literal in LITERALS
                 ],
                 *get_grapheme_spoken_form_entries(graphemes_talon_list),
             ]

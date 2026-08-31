@@ -120,7 +120,7 @@ const squareMissing: ScopeTypeInfo = {
   scopeType: { type: "surroundingPair", delimiter: "squareBrackets" },
   spokenForm: {
     isPrivate: false,
-    reason: `paired delimiter with id squareBrackets; please update talon to the latest version (see ${DOCS_URL}/user/updating)`,
+    reason: `paired delimiter with id squareBrackets; please update cursorless-talon to the latest version (see ${DOCS_URL}/user/updating)`,
     requiresTalonUpdate: true,
     type: "error",
   },
@@ -184,7 +184,7 @@ const statementMissing: ScopeTypeInfo = {
   scopeType: { type: "statement" },
   spokenForm: {
     isPrivate: false,
-    reason: `simple scope type type with id statement; please update talon to the latest version (see ${DOCS_URL}/user/updating)`,
+    reason: `simple scope type type with id statement; please update cursorless-talon to the latest version (see ${DOCS_URL}/user/updating)`,
     requiresTalonUpdate: true,
     type: "error",
   },
