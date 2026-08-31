@@ -1,7 +1,9 @@
-import type { CheatsheetInfo } from "@cursorless/lib-common";
+import type {
+  CheatSheetCommandArg,
+  CheatsheetInfo,
+} from "@cursorless/lib-common";
 import { getCheatsheetInfo } from "@cursorless/lib-common";
 import type { FileSystemTalonSpokenForms } from "@cursorless/lib-node-common";
-import type { CheatSheetCommandArg } from "./ide/CheatSheetCommandArg";
 import { vscodeApi } from "./vscodeApi";
 
 export async function getCheatsheetInfoForCommand(
@@ -13,7 +15,7 @@ export async function getCheatsheetInfoForCommand(
   if (version === 0) {
     // DEPRECATED: 2026-08-31
     void vscodeApi.window.showWarningMessage(
-      "Cheatsheet command version 0 is deprecated. Please update cursorless-talon.",
+      "Cheat sheet command version 0 is deprecated. Please update cursorless-talon.",
     );
     return arg.spokenFormInfo;
   }

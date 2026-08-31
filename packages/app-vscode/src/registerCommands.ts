@@ -1,5 +1,6 @@
 import vscode from "vscode";
 import type {
+  CheatSheetCommandArg,
   CommandHistoryStorage,
   CursorlessCommandId,
   ScopeType,
@@ -19,7 +20,6 @@ import {
   showScopeVisualizerItemDocumentation,
 } from "./commands";
 import { getCheatsheetInfoForCommand } from "./getCheatsheetInfoForCommand";
-import type { CheatSheetCommandArg } from "./ide/CheatSheetCommandArg";
 import type { VscodeHats } from "./ide/vscode/hats/VscodeHats";
 import type { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import type { InstallationDependencies } from "./InstallationDependencies";
