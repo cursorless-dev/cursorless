@@ -4,18 +4,13 @@ import type {
   Disposable,
   FileSystem,
   Listener,
-  SpokenFormEntry,
   TalonSpokenForms,
+  TalonSpokenFormsPayload,
 } from "@cursorless/lib-common";
 import { NeedsInitialTalonUpdateError, Notifier } from "@cursorless/lib-common";
 import { isEnoentError } from "./isError";
 
-interface TalonSpokenFormsPayload {
-  version: number;
-  spokenForms: SpokenFormEntry[];
-}
-
-const LATEST_SPOKEN_FORMS_JSON_VERSION = 0;
+const LATEST_SPOKEN_FORMS_JSON_VERSION = 1;
 
 export class FileSystemTalonSpokenForms implements TalonSpokenForms {
   private disposable: Disposable;
@@ -37,7 +32,7 @@ export class FileSystemTalonSpokenForms implements TalonSpokenForms {
     return this.notifier.registerListener(listener);
   }
 
-  async getSpokenFormEntries(): Promise<SpokenFormEntry[]> {
+  async getSpokenForms(): Promise<TalonSpokenFormsPayload> {
     let payload: TalonSpokenFormsPayload;
     try {
       payload = JSON.parse(
@@ -53,14 +48,13 @@ export class FileSystemTalonSpokenForms implements TalonSpokenForms {
       throw error;
     }
 
-    if (payload.version !== LATEST_SPOKEN_FORMS_JSON_VERSION) {
-      // In the future, we'll need to handle migrations. Not sure exactly how yet.
+    if (payload.version > LATEST_SPOKEN_FORMS_JSON_VERSION) {
       throw new Error(
-        `Invalid spoken forms version. Expected ${LATEST_SPOKEN_FORMS_JSON_VERSION} but got ${payload.version}`,
+        `Unsupported spoken forms version ${payload.version}. Supported versions: 0-${LATEST_SPOKEN_FORMS_JSON_VERSION}`,
       );
     }
 
-    return payload.spokenForms;
+    return payload;
   }
 
   dispose() {

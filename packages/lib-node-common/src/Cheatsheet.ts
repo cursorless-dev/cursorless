@@ -68,8 +68,8 @@ async function getCheatsheetInfoForCommand(
   }
 
   if (version === 1) {
-    const spokenFormEntries = await talonSpokenForms.getSpokenFormEntries();
-    return getCheatsheetInfo(spokenFormEntries);
+    const { spokenForms } = await talonSpokenForms.getSpokenForms();
+    return getCheatsheetInfo(spokenForms);
   }
 
   throw new Error(`Unsupported cheatsheet command version: ${version}`);
