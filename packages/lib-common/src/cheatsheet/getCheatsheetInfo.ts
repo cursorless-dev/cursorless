@@ -389,30 +389,54 @@ function applyReplacements(
   pattern: string,
   replacements: readonly SyntaxReplacement[],
 ): string[] {
-  let patterns = [pattern];
+  let protectedPattern: (string | number)[] = [pattern];
 
-  for (const [defaultSpokenForm, spokenForms] of replacements) {
-    const replacedPatterns: string[] = [];
+  for (const [
+    replacementIndex,
+    [defaultSpokenForm],
+  ] of replacements.entries()) {
+    protectedPattern = protectedPattern.flatMap((part) =>
+      typeof part === "string"
+        ? intersperse(
+            part.split(termRegex(defaultSpokenForm)),
+            replacementIndex,
+          )
+        : [part],
+    );
+  }
+
+  let patterns = [protectedPattern];
+
+  for (const [replacementIndex, [, spokenForms]] of replacements.entries()) {
+    if (!protectedPattern.includes(replacementIndex)) {
+      continue;
+    }
+
+    const replacedPatterns: (string | number)[][] = [];
     for (const currentPattern of patterns) {
-      if (!termRegex(defaultSpokenForm).test(currentPattern)) {
-        replacedPatterns.push(currentPattern);
-        continue;
-      }
-
       for (const spokenForm of spokenForms) {
         replacedPatterns.push(
-          replaceTerm(currentPattern, defaultSpokenForm, spokenForm),
+          currentPattern.map((part) =>
+            part === replacementIndex ? spokenForm : part,
+          ),
         );
       }
     }
     patterns = replacedPatterns;
   }
 
-  return patterns;
+  return patterns.map((parts) => parts.join(""));
 }
 
-function replaceTerm(pattern: string, from: string, to: string): string {
-  return pattern.replaceAll(termRegex(from), to);
+function intersperse<T, U>(items: readonly T[], separator: U): (T | U)[] {
+  const result: (T | U)[] = [];
+  for (const [index, item] of items.entries()) {
+    result.push(item);
+    if (index < items.length - 1) {
+      result.push(separator);
+    }
+  }
+  return result;
 }
 
 function termRegex(term: string): RegExp {

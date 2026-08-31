@@ -206,6 +206,23 @@ describe("getDefaultCheatsheetInfo", () => {
     ).toEqual(["call <target>", "call <target 1> onto <target 2>"]);
   });
 
+  test("does not apply replacements to customized spoken forms", () => {
+    const customCheatsheetInfo = getCheatsheetInfo([
+      { type: "action", id: "swapTargets", spokenForms: ["swap"] },
+      {
+        type: "connective",
+        id: "swapConnective",
+        spokenForms: ["next"],
+      },
+      { type: "modifierExtra", id: "next", spokenForms: ["afterward"] },
+    ]);
+
+    expect(
+      getItem("actions", "swapTargets", customCheatsheetInfo).variations[0]
+        ?.spokenForm,
+    ).toBe("swap next <target>");
+  });
+
   test("includes only the first spoken form for custom actions", () => {
     const customCheatsheetInfo = getCheatsheetInfo([
       {
