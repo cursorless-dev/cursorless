@@ -188,6 +188,11 @@ def init_hats(
         fs.watch(vscode_settings_path, on_watch)
 
     def unsubscribe():
+        global fast_reload_job, slow_reload_job
+        cron.cancel(fast_reload_job)
+        cron.cancel(slow_reload_job)
+        fast_reload_job = None
+        slow_reload_job = None
         if vscode_settings_path is not None:
             fs.unwatch(vscode_settings_path, on_watch)
         if unsubscribe_hat_styles is not None:
