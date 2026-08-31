@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import type {
+  LanguageId,
   PlaintextScopeSupportFacet,
   ScopeSupportFacet,
   ScopeSupportFacetInfo,
@@ -9,6 +10,7 @@ import type {
 import {
   camelCaseToAllDown,
   capitalize,
+  getLanguageId,
   plaintextScopeSupportFacetInfos,
   prettifyScopeType,
   scopeReferences,
@@ -30,7 +32,7 @@ interface FixtureMetadata {
 }
 
 export interface ScopeFixture {
-  languageId: string;
+  languageId: LanguageId;
   name: string;
 }
 
@@ -269,7 +271,7 @@ function nameComparator(a: { name: string }, b: { name: string }): number {
   return a.name.localeCompare(b.name, undefined, { numeric: true });
 }
 
-function normalizeLanguageId(languageId: string): string {
+function normalizeLanguageId(languageId: string): LanguageId {
   switch (languageId) {
     case "javascript.core":
       return "javascript";
@@ -278,6 +280,6 @@ function normalizeLanguageId(languageId: string): string {
     case "javascript.jsx":
       return "javascriptreact";
     default:
-      return languageId;
+      return getLanguageId(languageId);
   }
 }

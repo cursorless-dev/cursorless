@@ -1,14 +1,20 @@
 import fs from "node:fs";
 import fsPromises from "node:fs/promises";
 import path from "node:path";
+import type {
+  IDE,
+  LanguageId,
+  LanguageScopeSupportId,
+  ScopeSupportFacet,
+} from "@cursorless/lib-common";
 import {
   ScopeSupportFacetLevel,
+  getScopeSupportLanguageId,
   groupBy,
   languageScopeSupport,
   scopeSupportFacetInfos,
   showInfo,
 } from "@cursorless/lib-common";
-import type { IDE, ScopeSupportFacet } from "@cursorless/lib-common";
 import {
   getScopeTestPathsRecursively,
   getScopeTestsDirPath,
@@ -21,12 +27,13 @@ export class ScopeTestRecorder {
   }
 
   async showUnimplementedFacets() {
-    const languageId = await this.languageSelection();
+    const languageSelection = await this.languageSelection();
 
-    if (languageId == null) {
+    if (languageSelection == null) {
       return;
     }
 
+    const languageId = getScopeSupportLanguageId(languageSelection);
     const supportedScopeFacets = getSupportedScopeFacets(languageId);
     const existingScopeTestFacets = getExistingScopeFacetTest(languageId);
 
@@ -39,7 +46,7 @@ export class ScopeTestRecorder {
       (facet) =>
         `[${facet}] - ${scopeSupportFacetInfos[facet].description}\n$${currentSnippetPlaceholder++}\n---\n`,
     );
-    const header = `[[${languageId}]]\n\n`;
+    const header = `[[${languageSelection}]]\n\n`;
     const snippetText = `${header}${missingScopeFacetRows.join("\n")}`;
 
     const editor = await this.ide.openUntitledTextDocument({
@@ -122,7 +129,9 @@ export class ScopeTestRecorder {
   }
 }
 
-function getSupportedScopeFacets(languageId: string): ScopeSupportFacet[] {
+function getSupportedScopeFacets(
+  languageId: LanguageScopeSupportId,
+): ScopeSupportFacet[] {
   const scopeSupport = languageScopeSupport[languageId];
 
   if (scopeSupport == null) {
@@ -136,7 +145,7 @@ function getSupportedScopeFacets(languageId: string): ScopeSupportFacet[] {
   );
 }
 
-function getExistingScopeFacetTest(languageId: string): Set<string> {
+function getExistingScopeFacetTest(languageId: LanguageId): Set<string> {
   const testPaths = getScopeTestPathsRecursively();
   const languages = groupBy(testPaths, (test) => test.languageId);
   const testPathsForLanguage = languages.get(languageId) ?? [];

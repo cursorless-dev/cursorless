@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { promises as fsp } from "node:fs";
 import { groupBy, uniq } from "lodash-es";
 import type {
+  LanguageId,
   PlaintextScopeSupportFacet,
   ScopeRangeConfig,
   ScopeSupportFacet,
@@ -9,6 +10,7 @@ import type {
 } from "@cursorless/lib-common";
 import {
   asyncSafety,
+  getLanguageId,
   languageScopeSupport,
   plaintextScopeSupportFacetInfos,
   scopeSupportFacetInfos,
@@ -47,7 +49,7 @@ suite("Scope test cases", () => {
       const tests = languages[languageId];
       test(`${languageId} facet coverage`, () =>
         testLanguageSupport(
-          languageId,
+          getLanguageId(languageId),
           tests.map((test) => test.facet),
         ));
     }
@@ -67,7 +69,7 @@ suite("Scope test cases", () => {
  * @param languageId The language to test
  * @param testedFacets The facets for {@link languageId} that are tested
  */
-function testLanguageSupport(languageId: string, testedFacets: string[]) {
+function testLanguageSupport(languageId: LanguageId, testedFacets: string[]) {
   const supportedFacets = (() => {
     if (languageId === "plaintext") {
       return Object.keys(plaintextScopeSupportFacetInfos);
