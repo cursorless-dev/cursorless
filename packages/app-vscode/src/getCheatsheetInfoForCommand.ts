@@ -4,11 +4,10 @@ import {
   getCheatsheetInfo,
 } from "@cursorless/lib-common";
 import type { FileSystemTalonSpokenForms } from "@cursorless/lib-node-common";
-import type { VscodeApi } from "@cursorless/lib-vscode-common";
 import type { CheatSheetCommandArg } from "./ide/CheatSheetCommandArg";
+import { vscodeApi } from "./vscodeApi";
 
 export async function getCheatsheetInfoForCommand(
-  vscodeApi: VscodeApi,
   arg: CheatSheetCommandArg,
   talonSpokenForms: FileSystemTalonSpokenForms,
 ): Promise<CheatsheetInfo> {
