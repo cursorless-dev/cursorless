@@ -1,7 +1,6 @@
 import { describe, expect, test } from "@jest/globals";
 import type { CheatsheetInfo } from "@cursorless/lib-common/cheatsheet";
 import {
-  applyLegacyCheatsheetInfo,
   getCheatsheetInfo,
   getDefaultCheatsheetInfo,
 } from "@cursorless/lib-common/cheatsheet";
@@ -101,49 +100,6 @@ describe("getDefaultCheatsheetInfo", () => {
     expect(
       getItem("actions", "swapTargets", customCheatsheetInfo),
     ).toBeDefined();
-  });
-
-  test("uses a legacy payload's spoken forms with current syntax and descriptions", () => {
-    const current = getCheatsheetInfo({ includeDisabledByDefault: true });
-    const legacy = getDefaultCheatsheetInfo();
-    const legacyItem = getItem("actions", "editNewLineBefore", legacy);
-    legacyItem.variations = [
-      {
-        spokenForm: "gulp <target>",
-        description: "An obsolete description",
-      },
-    ];
-    getSection("shapes", legacy).items.push({
-      id: "fox",
-      type: "hatShape",
-      variations: [{ spokenForm: "animal", description: "Fox" }],
-    });
-
-    const result = applyLegacyCheatsheetInfo(current, legacy);
-
-    expect(getItem("actions", "editNewLineBefore", result).variations).toEqual([
-      { spokenForm: "gulp <target>", description: "Edit new line before" },
-      {
-        spokenForm: "gulp <scope> <target>",
-        description: "Edit new <scope> before",
-      },
-    ]);
-    expect(getItem("shapes", "fox", result).variations).toEqual([
-      { spokenForm: "animal", description: "Fox" },
-    ]);
-  });
-
-  test("does not re-enable items omitted from a legacy payload", () => {
-    const current = getCheatsheetInfo({ includeDisabledByDefault: true });
-    const legacy = getDefaultCheatsheetInfo();
-    const legacyScopes = getSection("scopes", legacy);
-    legacyScopes.items = legacyScopes.items.filter(({ id }) => id !== "token");
-
-    const result = applyLegacyCheatsheetInfo(current, legacy);
-
-    expect(getSection("scopes", result).items).not.toContainEqual(
-      expect.objectContaining({ id: "token" }),
-    );
   });
 
   // oxlint-disable-next-line unicorn/consistent-function-scoping
