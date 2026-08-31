@@ -157,6 +157,45 @@ describe("getDefaultCheatsheetInfo", () => {
     ).toBe("call <target 1> onto <target 2>");
   });
 
+  test("includes custom actions", () => {
+    const customCheatsheetInfo = getCheatsheetInfo([
+      {
+        type: "customAction",
+        id: "editor.action.moveLinesDownAction",
+        spokenForms: ["push down", "shove down"],
+      },
+      {
+        type: "customAction",
+        id: "disabled.action",
+        spokenForms: [],
+      },
+    ]);
+
+    expect(
+      getItem(
+        "actions",
+        "editor.action.moveLinesDownAction",
+        customCheatsheetInfo,
+      ),
+    ).toEqual({
+      id: "editor.action.moveLinesDownAction",
+      type: "action",
+      variations: [
+        {
+          spokenForm: "push down <target>",
+          description: "Editor action move lines down action",
+        },
+        {
+          spokenForm: "shove down <target>",
+          description: "Editor action move lines down action",
+        },
+      ],
+    });
+    expect(
+      getSection("actions", customCheatsheetInfo).items,
+    ).not.toContainEqual(expect.objectContaining({ id: "disabled.action" }));
+  });
+
   test("an empty spoken-form entry disables only the corresponding item", () => {
     const customCheatsheetInfo = getCheatsheetInfo([
       { type: "simpleScopeTypeType", id: "token", spokenForms: [] },

@@ -115,10 +115,10 @@ LIST_TO_TYPE_MAP = {
 }
 
 ID_REWRITE_MAP = {
-    "sourceDestinationConnective": "to",
-    "every": "everyScope",
-    "start": "startOf",
-    "end": "endOf",
+    ("insertion_mode_to", "sourceDestinationConnective"): "to",
+    ("every_scope_modifier", "every"): "everyScope",
+    ("position_modifier", "start"): "startOf",
+    ("position_modifier", "end"): "endOf",
 }
 
 LITERALS = {
@@ -151,7 +151,7 @@ def update():
                 *[
                     {
                         "type": LIST_TO_TYPE_MAP[entry.list_name],
-                        "id": ID_REWRITE_MAP.get(entry.id, entry.id),
+                        "id": ID_REWRITE_MAP.get((entry.list_name, entry.id), entry.id),
                         "spokenForms": entry.spoken_forms,
                     }
                     for spoken_form_list in custom_spoken_forms.values()

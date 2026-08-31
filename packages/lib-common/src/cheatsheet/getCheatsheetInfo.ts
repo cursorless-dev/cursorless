@@ -55,14 +55,7 @@ function constructCheatsheetInfo(
 
   return {
     sections: [
-      referenceSection(
-        resolver,
-        "Actions",
-        "actions",
-        "action",
-        "action",
-        actionReferences,
-      ),
+      actionsSection(resolver, spokenFormEntries),
       colorsSection(resolver),
       compoundTargetsSection(resolver),
       destinationsSection(resolver),
@@ -95,6 +88,38 @@ function constructCheatsheetInfo(
       shapesSection(resolver),
       specialMarksSection(resolver),
       tutorialSection,
+    ],
+  };
+}
+
+function actionsSection(
+  resolver: SpokenFormResolver,
+  spokenFormEntries: readonly SpokenFormResolverEntry[],
+): CheatsheetSection {
+  const section = referenceSection(
+    resolver,
+    "Actions",
+    "actions",
+    "action",
+    "action",
+    actionReferences,
+  );
+
+  return {
+    ...section,
+    items: [
+      ...section.items,
+      ...spokenFormEntries
+        .filter(({ type }) => type === "customAction")
+        .map(({ id, spokenForms }) =>
+          items(
+            id,
+            "action",
+            spokenForms.map((spokenForm) => `${spokenForm} <target>`),
+            makeReadable(id),
+          ),
+        )
+        .filter(({ variations }) => variations.length > 0),
     ],
   };
 }
@@ -393,6 +418,22 @@ function pairedDelimitersSection(
 
 function capitalize(value: string): string {
   return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
+function makeReadable(value: string): string {
+  const isPrivate = value.startsWith("private.");
+  const name = isPrivate ? value.slice("private.".length) : value;
+  const readable = capitalize(
+    name
+      .replaceAll(".", " ")
+      .replaceAll(
+        /(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|(?<=[a-zA-Z])(?=[0-9])|(?<=[0-9])(?=[a-zA-Z])/gu,
+        " ",
+      )
+      .toLowerCase(),
+  );
+
+  return isPrivate ? `${readable} (PRIVATE)` : readable;
 }
 
 function colorsSection(resolver: SpokenFormResolver): CheatsheetSection {
