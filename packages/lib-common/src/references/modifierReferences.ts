@@ -654,19 +654,8 @@ Relative modifiers select scopes before or after the input target. Without \`"ev
     name: "Preferred scope",
     private: true,
     group: { id: "private", index: 0 },
-    syntaxes: [
-      {
-        pattern: VAR_SCOPE,
-        description: `Preferred instance of ${VAR_SCOPE}.`,
-        cheatsheet: `Preferred instance of ${VAR_SCOPE}`,
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${ITEM} ${TARGET}`,
-        description: `Selects the closest item to the ${TARGET_DESC}.`,
-      },
-    ],
+    syntaxes: [],
+    examples: [],
   },
   modifyIfUntyped: {
     name: "Modify if untyped",

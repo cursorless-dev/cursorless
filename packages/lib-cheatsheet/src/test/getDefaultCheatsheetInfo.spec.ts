@@ -21,18 +21,19 @@ describe("getDefaultCheatsheetInfo", () => {
     ]);
   });
 
-  test("omits private and disabled-by-default references", () => {
-    expect(getSection("actions").items).not.toContainEqual(
-      expect.objectContaining({ id: "private.showParseTree" }),
-    );
+  test("includes private and omits disabled-by-default references", () => {
+    expect(
+      getItem("actions", "private.showParseTree").variations[0]?.description,
+    ).toMatch(/\(PRIVATE\)$/u);
     expect(getSection("scopes").items).not.toContainEqual(
       expect.objectContaining({ id: "sectionLevelOne" }),
     );
   });
 
-  test("maps reference ids to the established cheatsheet ids", () => {
-    expect(getItem("modifiers", "every")).toBeDefined();
-    expect(getItem("scopes", "pair")).toBeDefined();
+  test("uses canonical reference ids", () => {
+    expect(getItem("modifiers", "everyScope")).toBeDefined();
+    expect(getItem("scopes", "surroundingPair")).toBeDefined();
+    expect(getItem("actions", "rewrapWithPairedDelimiter")).toBeDefined();
   });
 
   test("constructs default destinations", () => {
@@ -78,24 +79,27 @@ describe("getDefaultCheatsheetInfo", () => {
         spokenForms: ["gulp"],
       },
       { type: "action", id: "swapTargets", spokenForms: ["swap"] },
-      { type: "action", id: "applyFormatter", spokenForms: ["format"] },
+      {
+        type: "action",
+        id: "pasteFromClipboard",
+        spokenForms: ["paste", "plop"],
+      },
       { type: "action", id: "callAsFunction", spokenForms: ["call"] },
       {
         type: "modifierExtra",
         id: "ancestor",
-        spokenForms: ["parental"],
+        spokenForms: ["parental", "ancestral"],
       },
       {
         type: "simpleModifier",
         id: "interiorOnly",
         spokenForms: ["within"],
       },
-      { type: "connective", id: "at", spokenForms: ["using"] },
-      { type: "connective", id: "on", spokenForms: ["onto"] },
+      { type: "connective", id: "on", spokenForms: ["onto", "upon"] },
       {
         type: "simpleScopeTypeType",
         id: "token",
-        spokenForms: ["word unit"],
+        spokenForms: ["word unit", "lexeme"],
       },
       {
         type: "simpleScopeTypeType",
@@ -128,13 +132,15 @@ describe("getDefaultCheatsheetInfo", () => {
         ?.spokenForm,
     ).toBe("within");
     expect(
-      getItem("modifiers", "ancestor", customCheatsheetInfo).variations[0]
-        ?.spokenForm,
-    ).toBe("parental <scope>");
+      getItem("modifiers", "ancestor", customCheatsheetInfo).variations.map(
+        ({ spokenForm }) => spokenForm,
+      ),
+    ).toEqual(["parental <scope>"]);
     expect(
-      getItem("scopes", "token", customCheatsheetInfo).variations[0]
-        ?.spokenForm,
-    ).toBe("word unit");
+      getItem("scopes", "token", customCheatsheetInfo).variations.map(
+        ({ spokenForm }) => spokenForm,
+      ),
+    ).toEqual(["word unit"]);
     expect(
       getItem("scopes", "sectionLevelOne", customCheatsheetInfo).variations[0]
         ?.spokenForm,
@@ -148,16 +154,21 @@ describe("getDefaultCheatsheetInfo", () => {
         ?.spokenForm,
     ).toBe("swap versus <target>");
     expect(
-      getItem("actions", "applyFormatter", customCheatsheetInfo).variations[0]
-        ?.spokenForm,
-    ).toBe("format <formatter> using <target>");
+      getItem("actions", "pasteFromClipboard", customCheatsheetInfo).variations,
+    ).toEqual([
+      {
+        spokenForm: "paste <destination>",
+        description: "Paste from clipboard at <destination>",
+      },
+    ]);
     expect(
-      getItem("actions", "callAsFunction", customCheatsheetInfo).variations[1]
-        ?.spokenForm,
-    ).toBe("call <target 1> onto <target 2>");
+      getItem("actions", "callAsFunction", customCheatsheetInfo).variations.map(
+        ({ spokenForm }) => spokenForm,
+      ),
+    ).toEqual(["call <target>", "call <target 1> onto <target 2>"]);
   });
 
-  test("includes custom actions", () => {
+  test("includes only the first spoken form for custom actions", () => {
     const customCheatsheetInfo = getCheatsheetInfo([
       {
         type: "customAction",
@@ -185,15 +196,42 @@ describe("getDefaultCheatsheetInfo", () => {
           spokenForm: "push down <target>",
           description: "Editor action move lines down action",
         },
-        {
-          spokenForm: "shove down <target>",
-          description: "Editor action move lines down action",
-        },
       ],
     });
     expect(
       getSection("actions", customCheatsheetInfo).items,
     ).not.toContainEqual(expect.objectContaining({ id: "disabled.action" }));
+  });
+
+  test("includes custom regex scopes", () => {
+    const customCheatsheetInfo = getCheatsheetInfo([
+      {
+        type: "customRegex",
+        id: String.raw`[\w.]+`,
+        spokenForms: ["dotted", "dotty"],
+      },
+      {
+        type: "customRegex",
+        id: "disabled",
+        spokenForms: [],
+      },
+    ]);
+
+    expect(
+      getItem("scopes", "customRegex.dotted", customCheatsheetInfo),
+    ).toEqual({
+      id: "customRegex.dotted",
+      type: "scopeType",
+      variations: [
+        {
+          spokenForm: "dotted",
+          description: String.raw`/[\w.]+/`,
+        },
+      ],
+    });
+    expect(getSection("scopes", customCheatsheetInfo).items).not.toContainEqual(
+      expect.objectContaining({ id: "customRegex.disabled" }),
+    );
   });
 
   test("an empty spoken-form entry disables only the corresponding item", () => {
@@ -218,8 +256,8 @@ describe("getDefaultCheatsheetInfo", () => {
   test("omits syntax examples whose spoken form is missing or disabled", () => {
     const customCheatsheetInfo = getCheatsheetInfo([
       { type: "action", id: "callAsFunction", spokenForms: ["call"] },
-      { type: "action", id: "applyFormatter", spokenForms: ["format"] },
-      { type: "connective", id: "at", spokenForms: [] },
+      { type: "action", id: "swapTargets", spokenForms: ["swap"] },
+      { type: "connective", id: "swapConnective", spokenForms: [] },
     ]);
 
     expect(
@@ -232,12 +270,16 @@ describe("getDefaultCheatsheetInfo", () => {
     ]);
     expect(
       getSection("actions", customCheatsheetInfo).items,
-    ).not.toContainEqual(expect.objectContaining({ id: "applyFormatter" }));
+    ).not.toContainEqual(expect.objectContaining({ id: "swapTargets" }));
   });
 
   test("constructs destinations only from enabled spoken forms", () => {
     const customCheatsheetInfo = getCheatsheetInfo([
-      { type: "insertionMode", id: "before", spokenForms: ["ahead of"] },
+      {
+        type: "insertionMode",
+        id: "before",
+        spokenForms: ["ahead of", "prior to"],
+      },
       { type: "insertionMode", id: "to", spokenForms: ["toward"] },
     ]);
 
@@ -270,7 +312,7 @@ describe("getDefaultCheatsheetInfo", () => {
       {
         type: "scopeVisualizer",
         id: "showScopeVisualizer",
-        spokenForms: ["inspect"],
+        spokenForms: ["inspect", "visualize"],
       },
       {
         type: "scopeVisualizer",

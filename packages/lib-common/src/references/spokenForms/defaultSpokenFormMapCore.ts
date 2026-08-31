@@ -5,7 +5,7 @@ import type {
   DefaultSpokenFormMapEntry,
 } from "../../types/DefaultSpokenFormMap";
 import type { SpokenFormMapKeyTypes } from "../../types/SpokenFormType";
-import { actionReferences } from "../actionReferences";
+import { actionReferences, talonSideActionNames } from "../actionReferences";
 import {
   modifierExtraReferences,
   modifierReferences,
@@ -111,7 +111,10 @@ function getCompleteDefaultSpokenFormMap<
  */
 export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
   pairedDelimiter: getCompleteDefaultSpokenFormMap(pairedDelimiterReferences),
-  action: getDefaultSpokenFormMap(actionNames, actionReferences),
+  action: getDefaultSpokenFormMap(
+    [...actionNames, ...talonSideActionNames],
+    actionReferences,
+  ),
   simpleScopeTypeType: getDefaultSpokenFormMap(
     simpleScopeTypeTypes,
     scopeReferences,

@@ -1,3 +1,4 @@
+import type { TalonSideActionType } from "../references/actionReferences";
 import type { ActionType } from "./command/ActionDescriptor";
 import type { InsertionMode } from "./command/DestinationDescriptor.types";
 import type {
@@ -44,7 +45,7 @@ type Sidebar = "bar";
  * spoken form.
  */
 export interface SpokenFormMapKeyTypes {
-  action: ActionType;
+  action: ActionType | TalonSideActionType;
   pairedDelimiter: SpeakableSurroundingPairName;
   simpleScopeTypeType: SimpleScopeTypeType;
   complexScopeTypeType: ComplexScopeTypeType;

@@ -14,6 +14,7 @@ import type {
   DefaultSpokenFormMapEntry,
 } from "../types/DefaultSpokenFormMap";
 import type { SpokenFormEntry } from "../types/TalonSpokenForms";
+import { camelCaseToAllDown, capitalize } from "../util/stringUtils";
 import type { CheatsheetInfo, CheatsheetSection } from "./cheatsheet.types";
 
 interface CheatsheetReference {
@@ -56,9 +57,9 @@ function constructCheatsheetInfo(
   return {
     sections: [
       actionsSection(resolver, spokenFormEntries),
-      colorsSection(resolver),
-      compoundTargetsSection(resolver),
       destinationsSection(resolver),
+      scopesSection(resolver, spokenFormEntries),
+      scopeVisualizerSection(resolver),
       referenceSection(
         resolver,
         "Modifiers",
@@ -66,27 +67,12 @@ function constructCheatsheetInfo(
         "modifier",
         "modifier",
         modifierReferences,
-        {
-          endOf: "end",
-          everyScope: "every",
-          startOf: "start",
-        },
       ),
       pairedDelimitersSection(resolver),
-      scopeVisualizerSection(resolver),
-      referenceSection(
-        resolver,
-        "Scopes",
-        "scopes",
-        "scopeType",
-        "scope",
-        scopeReferences,
-        {
-          surroundingPair: "pair",
-        },
-      ),
-      shapesSection(resolver),
       specialMarksSection(resolver),
+      compoundTargetsSection(resolver),
+      colorsSection(resolver),
+      shapesSection(resolver),
       tutorialSection,
     ],
   };
@@ -115,11 +101,50 @@ function actionsSection(
           items(
             id,
             "action",
-            spokenForms.map((spokenForm) => `${spokenForm} <target>`),
+            spokenForms
+              .slice(0, 1)
+              .map((spokenForm) => `${spokenForm} <target>`),
             makeReadable(id),
           ),
         )
         .filter(({ variations }) => variations.length > 0),
+    ],
+  };
+}
+
+function scopesSection(
+  resolver: SpokenFormResolver,
+  spokenFormEntries: readonly SpokenFormResolverEntry[],
+): CheatsheetSection {
+  const section = referenceSection(
+    resolver,
+    "Scopes",
+    "scopes",
+    "scopeType",
+    "scope",
+    scopeReferences,
+  );
+
+  return {
+    ...section,
+    items: [
+      ...section.items,
+      ...spokenFormEntries
+        .filter(({ type }) => type === "customRegex")
+        .flatMap(({ id }) => {
+          const spokenForms = resolver.get(["customRegex"], id);
+          if (spokenForms.length === 0) {
+            return [];
+          }
+          return [
+            items(
+              `customRegex.${spokenForms[0]}`,
+              "scopeType",
+              spokenForms,
+              `/${id}/`,
+            ),
+          ];
+        }),
     ],
   };
 }
@@ -131,13 +156,11 @@ function referenceSection(
   type: string,
   referenceKind: ReferenceKind,
   references: ReferenceMap,
-  itemIdOverrides: Readonly<Record<string, string>> = {},
 ): CheatsheetSection {
   return {
     name,
     id,
     items: Object.entries(references)
-      .filter(([, reference]) => !reference.private)
       .map(([referenceId, reference]) => {
         const spokenForms = getReferenceSpokenForms(
           resolver,
@@ -148,7 +171,7 @@ function referenceSection(
         const replacements = getSyntaxReplacements(resolver);
 
         return {
-          id: itemIdOverrides[referenceId] ?? referenceId,
+          id: referenceId,
           type,
           variations: reference.syntaxes.flatMap(({ pattern, cheatsheet }) =>
             spokenForms.flatMap((spokenForm) =>
@@ -165,7 +188,9 @@ function referenceSection(
                 ],
               ).map((customPattern) => ({
                 spokenForm: customPattern,
-                description: cheatsheet,
+                description: reference.private
+                  ? `${cheatsheet} (PRIVATE)`
+                  : cheatsheet,
               })),
             ),
           ),
@@ -185,7 +210,9 @@ class SpokenFormResolver {
   }
 
   get(types: readonly string[], id: string): readonly string[] {
-    return types.flatMap((type) => this.entries.get(`${type}\0${id}`) ?? []);
+    return types
+      .flatMap((type) => this.entries.get(`${type}\0${id}`) ?? [])
+      .slice(0, 1);
   }
 }
 
@@ -203,8 +230,7 @@ function getDefaultSpokenFormEntries(
       entries as Readonly<Record<string, string | DefaultSpokenFormMapEntry>>,
     ).map(([id, value]) => ({
       type,
-      id:
-        type === "action" && id === "rewrapWithPairedDelimiter" ? "rewrap" : id,
+      id,
       spokenForms: getEnabledDefaultSpokenForms(value),
     })),
   );
@@ -231,8 +257,7 @@ function getReferenceSpokenForms(
   }
 
   if (kind === "action") {
-    const talonId = id === "rewrapWithPairedDelimiter" ? "rewrap" : id;
-    return resolver.get(actionTypes, talonId);
+    return resolver.get(actionTypes, id);
   }
 
   if (kind === "scope") {
@@ -403,7 +428,6 @@ function pairedDelimitersSection(
     name: "Paired delimiters",
     id: "pairedDelimiters",
     items: Object.entries(pairedDelimiterReferences)
-      .filter(([, reference]) => !("private" in reference && reference.private))
       .map(([id, reference]) => ({
         id,
         type: "pairedDelimiter",
@@ -416,24 +440,8 @@ function pairedDelimitersSection(
   };
 }
 
-function capitalize(value: string): string {
-  return value.charAt(0).toUpperCase() + value.slice(1);
-}
-
 function makeReadable(value: string): string {
-  const isPrivate = value.startsWith("private.");
-  const name = isPrivate ? value.slice("private.".length) : value;
-  const readable = capitalize(
-    name
-      .replaceAll(".", " ")
-      .replaceAll(
-        /(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|(?<=[a-zA-Z])(?=[0-9])|(?<=[0-9])(?=[a-zA-Z])/gu,
-        " ",
-      )
-      .toLowerCase(),
-  );
-
-  return isPrivate ? `${readable} (PRIVATE)` : readable;
+  return capitalize(camelCaseToAllDown(value.replaceAll(".", " ")));
 }
 
 function colorsSection(resolver: SpokenFormResolver): CheatsheetSection {

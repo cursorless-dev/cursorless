@@ -6,6 +6,7 @@ export interface SpokenFormReference {
 
 export interface ReferenceEntry<T extends string> extends SpokenFormReference {
   name: string;
+  csv_id?: string;
   legacySpokenForms?: string[];
   description?: string;
   group: GroupDefinition<T>;

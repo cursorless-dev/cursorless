@@ -106,12 +106,12 @@ LIST_TO_TYPE_MAP = {
     "show_scope_visualizer": "scopeVisualizer",
     "hide_scope_visualizer": "scopeVisualizer",
     "visualization_type": "scopeVisualizer",
+    "custom_action": "customAction",
     **{
         action_list_name: "action"
         for action_list_name in ACTION_LIST_NAMES
         if action_list_name != "custom_action"
     },
-    "custom_action": "customAction",
 }
 
 ID_REWRITE_MAP = {
@@ -119,6 +119,7 @@ ID_REWRITE_MAP = {
     ("every_scope_modifier", "every"): "everyScope",
     ("position_modifier", "start"): "startOf",
     ("position_modifier", "end"): "endOf",
+    ("wrap_action", "rewrap"): "rewrapWithPairedDelimiter",
 }
 
 LITERALS = {

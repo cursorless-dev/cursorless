@@ -66,7 +66,12 @@ const REORDER_DESCRIPTION =
 const PAIRED_DELIMITER_DESCRIPTION =
   "See [paired delimiters](../paired-delimiters.md) for the available pairs.";
 
-type TalonSideActionType = "applyFormatter" | "nextHomophone";
+export const talonSideActionNames = [
+  "applyFormatter",
+  "nextHomophone",
+] as const;
+
+export type TalonSideActionType = (typeof talonSideActionNames)[number];
 
 export const actionReferences = {
   // Group: cursor
@@ -732,6 +737,7 @@ export const actionReferences = {
   },
   rewrapWithPairedDelimiter: {
     name: "Rewrap with paired delimiter",
+    csv_id: "rewrap",
     defaultSpokenForm: "repack",
     group: { id: "wrap", index: 1 },
     description: PAIRED_DELIMITER_DESCRIPTION,

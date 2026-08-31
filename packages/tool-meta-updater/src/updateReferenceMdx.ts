@@ -49,7 +49,7 @@ export function updateReferenceMdx(
     expected.push(entry.description, "");
   }
 
-  expected.push(`Cursorless ID: ${code(id)}`, "");
+  expected.push(`Cursorless ID: ${code(entry.csv_id ?? id)}`, "");
 
   const spokenFormLines: string[] = [];
 
