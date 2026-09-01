@@ -2,6 +2,8 @@
 sidebar_label: Bring
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Bring (Replace with target)
 
 Cursorless ID: `replaceWithTarget`
@@ -19,3 +21,35 @@ Default: `bring`
 
 - `"bring blue air"` - Inserts a copy of the token containing letter `a` with a blue hat at the current selection.
 - `"bring blue air to green bat"` - Replaces the token containing letter `b` with a green hat with a copy of the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"bring air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/replaceWithTarget" />
+
+### `"bring air to bat"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/replaceWithTarget2" />
+
+### `"bring air before bat"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/replaceWithTarget3" />
+
+### `"bring bat after air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/replaceWithTarget4" />
+
+### `"bring air to bat and cap"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/replaceWithTarget5" />
+
+### `"bring air and bat to cap and drum"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/replaceWithTarget6" />
+
+</RecordedTestVisualizerProvider>

@@ -2,6 +2,8 @@
 sidebar_label: Append post
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Append post (Add selection after)
 
 Cursorless ID: `addSelectionAfter`
@@ -17,3 +19,15 @@ Default: `append post`
 ## Examples
 
 - `"append post blue air"` - Adds an empty selection after the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"append post air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/addSelectionAfter" />
+
+</RecordedTestVisualizerProvider>

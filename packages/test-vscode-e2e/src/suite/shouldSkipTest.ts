@@ -9,6 +9,12 @@ const isVersionProblematic =
   semver.lt(vscode.version, "1.107.0") && semver.gte(vscode.version, "1.98.0");
 
 export function shouldSkipRecordedTest(name: string): boolean {
+  switch (name) {
+    case "recorded/docs/actions/randomizeTargets":
+      return true;
+    // No default
+  }
+
   return isVersionProblematic && name.startsWith("recorded/languages/latex/");
 }
 

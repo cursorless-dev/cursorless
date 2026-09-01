@@ -1,0 +1,28 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: form camel at line
+  action:
+    name: replace
+    replaceWith: ['aaaBbb']
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: line}
+  usePrePhraseSnapshot: false
+spokenFormError: Action 'replace'
+initialState:
+  documentContents: aaa bbb
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: "aaaBbb"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

@@ -2,6 +2,8 @@
 sidebar_label: Puff
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Puff (Insert empty lines/scopes around)
 
 Scope defaults to line. When used with a provided scope target, this action inserts the delimiters or spacing required for a new instance of that scope.
@@ -20,3 +22,19 @@ Default: `puff`
 
 - `"puff blue air"` - Inserts empty lines around the line containing the token containing letter `a` with a blue hat without moving the cursor.
 - `"puff token blue air"` - Inserts spaces around the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"puff air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/insertEmptyLinesAround" />
+
+### `"puff token bat"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/insertEmptyLinesAround2" />
+
+</RecordedTestVisualizerProvider>

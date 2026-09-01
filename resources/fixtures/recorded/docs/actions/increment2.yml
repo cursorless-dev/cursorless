@@ -1,0 +1,24 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: increment air
+  action:
+    name: increment
+    target:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: // 5 aaa10
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 5}
+      end: {line: 0, character: 10}
+finalState:
+  documentContents: // 5 aaa11
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

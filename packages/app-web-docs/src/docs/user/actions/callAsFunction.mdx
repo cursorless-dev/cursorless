@@ -2,6 +2,8 @@
 sidebar_label: Call
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Call (Call as function)
 
 Cursorless ID: `callAsFunction`
@@ -19,3 +21,23 @@ Default: `call`
 
 - `"call blue air"` - Inserts a call to the token containing letter `a` with a blue hat at the current selection.
 - `"call blue air on green bat"` - Inserts a call to the token containing letter `a` with a blue hat on the token containing letter `b` with a green hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"call air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/callAsFunction" />
+
+### `"call air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/callAsFunction2" />
+
+### `"call air on bat"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/callAsFunction3" />
+
+</RecordedTestVisualizerProvider>

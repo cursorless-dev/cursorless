@@ -1,0 +1,40 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: bring air to bat and cap
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: list
+        elements:
+          - type: primitive
+            mark: {type: decoratedSymbol, symbolColor: default, character: b}
+          - type: primitive
+            mark: {type: decoratedSymbol, symbolColor: default, character: c}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: // aaa bbb ccc
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 3}
+      end: {line: 0, character: 6}
+    default.b:
+      start: {line: 0, character: 7}
+      end: {line: 0, character: 10}
+    default.c:
+      start: {line: 0, character: 11}
+      end: {line: 0, character: 14}
+finalState:
+  documentContents: // aaa aaa aaa
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

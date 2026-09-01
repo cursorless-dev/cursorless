@@ -2,6 +2,8 @@
 sidebar_label: Append pre
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Append pre (Add selection before)
 
 Cursorless ID: `addSelectionBefore`
@@ -17,3 +19,15 @@ Default: `append pre`
 ## Examples
 
 - `"append pre blue air"` - Adds an empty selection before the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"append pre air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/addSelectionBefore" />
+
+</RecordedTestVisualizerProvider>

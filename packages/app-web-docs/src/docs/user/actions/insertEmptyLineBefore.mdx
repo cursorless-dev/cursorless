@@ -2,6 +2,8 @@
 sidebar_label: Drop
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Drop (Insert empty line/scope before)
 
 Scope defaults to line. When used with a provided scope target, this action inserts the delimiters or spacing required for a new instance of that scope.
@@ -20,3 +22,19 @@ Default: `drop`
 
 - `"drop blue air"` - Inserts an empty line above the token containing letter `a` with a blue hat without moving the cursor.
 - `"drop item blue air"` - Inserts the required delimiter before the collection item containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"drop air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/insertEmptyLineBefore" />
+
+### `"drop token air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/insertEmptyLineBefore2" />
+
+</RecordedTestVisualizerProvider>

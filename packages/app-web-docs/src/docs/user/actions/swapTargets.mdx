@@ -2,6 +2,8 @@
 sidebar_label: Swap
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Swap (Swap targets)
 
 When both operands contain multiple targets, their targets are paired by position and swapped.
@@ -21,3 +23,19 @@ Default: `swap`
 
 - `"swap with blue air"` - Swaps the current selection with the token containing letter `a` with a blue hat.
 - `"swap blue air with green bat"` - Swaps the token containing letter `a` with a blue hat and the token containing letter `b` with a green hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"swap air with bat"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/swapTargets" />
+
+### `"swap air and bat with cap and drum"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/swapTargets2" />
+
+</RecordedTestVisualizerProvider>

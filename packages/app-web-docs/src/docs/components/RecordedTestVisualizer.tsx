@@ -141,9 +141,9 @@ function CodeState({
   const decorations = useMemo(
     () => [
       ...state.selections.map(toDecoration),
-      ...toMarkDecorations(state.marks),
+      ...toMarkDecorations(state.marks, state.documentContents),
     ],
-    [state.selections, state.marks],
+    [state.selections, state.marks, state.documentContents],
   );
   return (
     <Code
@@ -178,19 +178,46 @@ function toDecoration(plainSelection: SelectionPlainObject): DecorationItem {
   };
 }
 
+/**
+ * Converts serialized token marks to Shiki decorations around the first
+ * occurrence of each mark's decorated character within its token.
+ */
 function toMarkDecorations(
   marks: SerializedMarks | undefined,
+  documentContents: string,
 ): DecorationItem[] {
   if (marks == null) {
     return [];
   }
 
+  const lines = documentContents.split(/\r?\n/u);
+
   return Object.entries(marks).map(([key, range]) => {
-    const { hatStyle } = splitKey(key);
+    if (range.start.line !== range.end.line) {
+      throw new Error(`Mark ${key} spans multiple lines`);
+    }
+
+    const line = lines[range.start.line];
+
+    if (line == null) {
+      throw new Error(`Mark ${key} is outside the document`);
+    }
+
+    const { hatStyle, character } = splitKey(key);
+    const tokenText = line.slice(range.start.character, range.end.character);
+    const characterOffset = tokenText.indexOf(character);
+    const characterStart = range.start.character + characterOffset;
+
+    if (characterOffset === -1) {
+      throw new Error(`Mark ${key} does not occur in its token`);
+    }
 
     return {
-      start: range.start,
-      end: range.end,
+      start: { line: range.start.line, character: characterStart },
+      end: {
+        line: range.start.line,
+        character: characterStart + character.length,
+      },
       alwaysWrap: true,
       properties: {
         className: ["code-hat", `code-hat-${hatStyle}`],

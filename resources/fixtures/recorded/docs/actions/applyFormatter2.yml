@@ -1,0 +1,29 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: form snake at bat
+  action:
+    name: replace
+    replaceWith: [bbb_aaa]
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: false
+spokenFormError: Action 'replace'
+initialState:
+  documentContents: // bbbAaa
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.b:
+      start: {line: 0, character: 3}
+      end: {line: 0, character: 9}
+finalState:
+  documentContents: // bbb_aaa
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

@@ -2,6 +2,8 @@
 sidebar_label: Pour
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Pour (Edit new line/scope after)
 
 Scope defaults to line. When used with a provided scope target, this action inserts the delimiters or spacing required for a new instance of that scope.
@@ -21,3 +23,19 @@ Default: `pour`
 
 - `"pour blue air"` - Inserts a new line below the token containing letter `a` with a blue hat and moves the cursor to it.
 - `"pour item blue air"` - Inserts the delimiters for a new collection item after the item containing the token containing letter `a` with a blue hat and moves the cursor there.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"pour air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/editNewLineAfter" />
+
+### `"pour token air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/editNewLineAfter2" />
+
+</RecordedTestVisualizerProvider>

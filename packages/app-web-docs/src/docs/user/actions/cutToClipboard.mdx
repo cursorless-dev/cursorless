@@ -2,6 +2,8 @@
 sidebar_label: Carve
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Carve (Cut to clipboard)
 
 Cursorless ID: `cutToClipboard`
@@ -17,3 +19,15 @@ Default: `carve`
 ## Examples
 
 - `"carve blue air"` - Cuts the token containing letter `a` with a blue hat to the clipboard.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"carve bat"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/cutToClipboard" />
+
+</RecordedTestVisualizerProvider>

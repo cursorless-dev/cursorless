@@ -2,6 +2,8 @@
 sidebar_label: Phones
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Phones (Next homophone)
 
 Cycles through words that sound alike, such as changing `where` to `wear`.
@@ -19,3 +21,19 @@ Default: `phones`
 ## Examples
 
 - `"phones blue air"` - Replaces the token containing letter `a` with a blue hat with its next homophone.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"phones sit"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/nextHomophone" />
+
+### `"phones sit"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/nextHomophone2" />
+
+</RecordedTestVisualizerProvider>

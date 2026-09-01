@@ -1,0 +1,26 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: curly repack air
+  action:
+    name: rewrapWithPairedDelimiter
+    left: "{"
+    right: "}"
+    target:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: // bbb (aaa)
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 8}
+      end: {line: 0, character: 11}
+finalState:
+  documentContents: // bbb {aaa}
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

@@ -2,6 +2,8 @@
 sidebar_label: Pre
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Pre (Set selection before)
 
 When used with a list target, this action creates one cursor for each target.
@@ -19,3 +21,15 @@ Default: `pre`
 ## Examples
 
 - `"pre blue air"` - Places the cursor before the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"pre air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/setSelectionBefore" />
+
+</RecordedTestVisualizerProvider>

@@ -2,6 +2,8 @@
 sidebar_label: Clone up
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Clone up (Insert copy before)
 
 After insertion, each selection moves to its newly created copy.
@@ -19,3 +21,19 @@ Default: `clone up`
 ## Examples
 
 - `"clone up funk blue air"` - Inserts a copy of the function containing the token containing letter `a` with a blue hat before itself.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"clone up air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/insertCopyBefore" />
+
+### `"clone up token air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/insertCopyBefore2" />
+
+</RecordedTestVisualizerProvider>

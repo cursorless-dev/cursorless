@@ -2,6 +2,8 @@
 sidebar_label: Append
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Append (Add selection)
 
 Cursorless ID: `addSelection`
@@ -17,3 +19,15 @@ Default: `append`
 ## Examples
 
 - `"append blue air"` - Adds the token containing letter `a` with a blue hat to the current selections.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"append air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/addSelection" />
+
+</RecordedTestVisualizerProvider>

@@ -2,6 +2,8 @@
 sidebar_label: Give
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Give (Deselect)
 
 Cursorless ID: `deselect`
@@ -17,3 +19,15 @@ Default: `give`
 ## Examples
 
 - `"give blue air"` - Removes the token containing letter `a` with a blue hat from the current selections.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"give air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/deselect" />
+
+</RecordedTestVisualizerProvider>

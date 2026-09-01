@@ -2,6 +2,8 @@
 sidebar_label: Float
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Float (Insert empty line/scope after)
 
 Scope defaults to line. When used with a provided scope target, this action inserts the delimiters or spacing required for a new instance of that scope.
@@ -20,3 +22,19 @@ Default: `float`
 
 - `"float blue air"` - Inserts an empty line below the token containing letter `a` with a blue hat without moving the cursor.
 - `"float item blue air"` - Inserts the required delimiter after the collection item containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"float air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/insertEmptyLineAfter" />
+
+### `"float token bat"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/insertEmptyLineAfter2" />
+
+</RecordedTestVisualizerProvider>

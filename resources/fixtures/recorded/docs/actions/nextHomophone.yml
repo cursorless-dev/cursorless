@@ -1,0 +1,29 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: phones sit
+  action:
+    name: replace
+    replaceWith: [rite]
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: i}
+  usePrePhraseSnapshot: false
+spokenFormError: Action 'replace'
+initialState:
+  documentContents: // right
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.i:
+      start: {line: 0, character: 3}
+      end: {line: 0, character: 8}
+finalState:
+  documentContents: // rite
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

@@ -1,0 +1,24 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: indent air
+  action:
+    name: indentLine
+    target:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: // bbb aaa
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 7}
+      end: {line: 0, character: 10}
+finalState:
+  documentContents: "    // bbb aaa"
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
