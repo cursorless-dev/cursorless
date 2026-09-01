@@ -43,10 +43,9 @@ export function Code({
                 if (node.children.length === 0 && decorations != null) {
                   const hasDecoration = decorations.some((d) => {
                     return (
-                      isPositionsEqual(d.start, d.end) &&
-                      typeof d.start !== "number" &&
-                      d.start.line === line - 1 &&
-                      d.start.character === 0
+                      arePositionsEqual(d.start, d.end) &&
+                      // line is 1-indexed, but the Position is 0-indexed
+                      isPositionAtStartOfLine(d.start, line - 1)
                     );
                   });
                   if (hasDecoration) {
@@ -132,9 +131,18 @@ function getFallbackLanguage(languageId: string): string {
   }
 }
 
-function isPositionsEqual(a: OffsetOrPosition, b: OffsetOrPosition) {
+function arePositionsEqual(a: OffsetOrPosition, b: OffsetOrPosition) {
   if (typeof a === "number" || typeof b === "number") {
     return a === b;
   }
   return a.line === b.line && a.character === b.character;
+}
+
+function isPositionAtStartOfLine(
+  pos: OffsetOrPosition,
+  lineNumber: number,
+): boolean {
+  return (
+    typeof pos !== "number" && pos.line === lineNumber && pos.character === 0
+  );
 }
