@@ -11,7 +11,6 @@ export type FacetValue = ScopeSupportFacet | PlaintextScopeSupportFacet;
 
 export interface RecordedTest {
   path: string;
-  relativePath: string;
   name: string;
   fixture: TestCaseFixtureLegacy;
 }

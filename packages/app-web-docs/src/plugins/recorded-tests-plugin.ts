@@ -30,8 +30,9 @@ export default function recordedTestsPlugin(
       return Promise.all(
         recordedTestPaths.map(async (test) => {
           return {
-            path: test.path,
-            relativePath: path.relative(recordedTestsDir, test.path),
+            path: path
+              .relative(recordedTestsDir, test.path)
+              .replaceAll(path.sep, "/"),
             name: test.name,
             fixture: await loadFixture(test.path),
           };

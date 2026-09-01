@@ -84,7 +84,7 @@ export function RecordedTestVisualizer({ fixtureName }: ModifierProps) {
     throw new Error(`Unknown recorded test fixture: ${fixtureName}`);
   }
 
-  const { fixture, relativePath } = test;
+  const { fixture, path } = test;
   const { languageId, initialState, finalState } = fixture;
 
   if (finalState == null) {
@@ -94,7 +94,7 @@ export function RecordedTestVisualizer({ fixtureName }: ModifierProps) {
   // oxlint-disable-next-line react_perf/jsx-no-new-object-as-prop
   const link = {
     name: "GitHub",
-    url: `https://github.com/cursorless-dev/cursorless/blob/main/resources/fixtures/recorded/docs/${relativePath}`,
+    url: `https://github.com/cursorless-dev/cursorless/blob/main/resources/fixtures/recorded/docs/${path}`,
   };
 
   return (
