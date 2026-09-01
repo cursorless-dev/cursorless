@@ -41,11 +41,7 @@ initialState:
       start: {line: 0, character: 6}
       end: {line: 0, character: 9}
 finalState:
-  documentContents: |-
-    const aaa = 0;
-    if () {
-
-    }
+  documentContents: "const aaa = 0;\nif () {\n    \n}"
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
