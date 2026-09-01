@@ -72,6 +72,13 @@
   }
 }
 
+/* Code selection */
+.code-selection {
+  background-color: #264f78;
+}
+
+/* Code cursor */
+
 .code-cursor-before,
 .code-cursor-after {
   position: relative;
@@ -91,12 +98,12 @@
 
 .code-cursor-before::before {
   left: -1px;
-  border-left: 2px solid white;
+  border-left: 2px solid #aeafad;
 }
 
 .code-cursor-after::after {
   right: -1px;
-  border-right: 2px solid white;
+  border-right: 2px solid #aeafad;
 }
 
 @keyframes code-cursor-blink {
@@ -110,4 +117,23 @@
   .code-cursor-after::after {
     animation: none;
   }
+}
+
+/* Code hat */
+
+.code-hat {
+  position: relative;
+}
+
+.code-hat-default::before {
+  content: "";
+  position: absolute;
+  top: 0.15em;
+  left: 50%;
+  width: 0.3em;
+  height: 0.3em;
+  border-radius: 50%;
+  background-color: #b9b6cd;
+  transform: translate(-50%, -100%);
+  pointer-events: none;
 }

@@ -19,7 +19,7 @@ command:
   usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
-    // Hello world
+
     const aaa = 0;
   selections:
     - anchor: {line: 0, character: 0}
@@ -30,7 +30,7 @@ initialState:
       end: {line: 1, character: 9}
 finalState:
   documentContents: |-
-    // Hello world
+
     const aaa = aaa;
   selections:
     - anchor: {line: 0, character: 0}
