@@ -40,6 +40,7 @@ interface ScopeReferenceEntry extends ReferenceEntry<ScopeReferenceGroupId> {
 const DEFAULT_PATTERN = VAR_SPOKEN_FORM;
 
 const AIR = graphemeDefaultSpokenForms.a;
+const DOLLAR = graphemeDefaultSpokenForms["$"];
 const PARENTHESIS = pairedDelimiterReferences.parentheses.defaultSpokenForm;
 const NEXT = modifierExtraReferences.next.defaultSpokenForm;
 const FIRST = modifierExtraReferences.first.defaultSpokenForm;
@@ -358,6 +359,10 @@ When an opening and closing delimiter use the same character and no parse-tree i
       {
         command: `${SET_SELECTION} ${NEXT} ${VAR_SPOKEN_FORM} ${AIR}`,
         description: `Selects the next \`a\`.`,
+      },
+      {
+        command: `${SET_SELECTION} ${EVERY} ${VAR_SPOKEN_FORM} ${DOLLAR}`,
+        description: `Selects every \`$\`.`,
       },
     ],
   },

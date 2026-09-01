@@ -244,7 +244,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "statement",
   },
   "statement.resource": {
-    description: "A 'with' / 'use' / 'using' statement",
+    description: "A `with` / `use` / `using` statement",
     scopeType: "statement",
   },
   "statement.command": {
@@ -808,7 +808,7 @@ export const scopeSupportFacetInfos: Record<
   "name.iteration.enum": enumIter("name", "names"),
   "name.iteration.document": documentIter("name", "names"),
   "name.resource": {
-    description: "Name in a 'with' / 'use' / 'using' statement",
+    description: "Name in a `with` / `use` / `using` statement",
     scopeType: "name",
   },
   "name.argument.actual": {
@@ -958,7 +958,7 @@ export const scopeSupportFacetInfos: Record<
   "value.iteration.enum": enumIter("value", "values"),
   "value.iteration.document": documentIter("value", "values"),
   "value.resource": {
-    description: "Value of a 'with' / 'use' / 'using' statement",
+    description: "Value of a `with` / `use` / `using` statement",
     scopeType: "value",
   },
   "value.argument.actual": {
@@ -1119,7 +1119,7 @@ export const scopeSupportFacetInfos: Record<
     "the type argument list",
   ),
   "type.resource": {
-    description: "Type in a 'with' / 'use' / 'using' statement",
+    description: "Type in a `with` / `use` / `using` statement",
     scopeType: "type",
   },
   "type.iteration.block": blockIter("type", "types"),
@@ -1200,7 +1200,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: { type: "interior" },
   },
   "interior.resource": {
-    description: "the body of a 'with' / 'use' / 'using' statement",
+    description: "the body of a `with` / `use` / `using` statement",
     scopeType: { type: "interior" },
   },
   "interior.namespace": {

@@ -2,6 +2,8 @@
 sidebar_label: Glyph
 ---
 
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+
 # Glyph
 
 Cursorless ID: `glyph`
@@ -17,3 +19,28 @@ Default: `glyph`
 ## Examples
 
 - `"take next glyph air"` - Selects the next `a`.
+- `"take every glyph dollar"` - Selects every `$`.
+
+<ScopeVisualizerProvider>
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Glyph: A
+
+<i>A single `a` glyph</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/glyph.a" />
+
+### Glyph: Dollar
+
+<i>A single `$` glyph</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/glyph.dollar" />
+
+</ScopeVisualizerProvider>
