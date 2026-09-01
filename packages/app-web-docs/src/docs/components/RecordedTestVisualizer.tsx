@@ -4,12 +4,11 @@ import { createContext, useContext, useMemo, useState } from "react";
 import type { DecorationItem } from "shiki";
 import type {
   SelectionPlainObject,
+  SerializedMarks,
   TestCaseSnapshot,
 } from "@cursorless/lib-common";
-import { BorderStyle, plainObjectToSelection } from "@cursorless/lib-common";
+import { plainObjectToSelection, splitKey } from "@cursorless/lib-common";
 import { Code } from "./Code";
-import { highlightColors } from "./highlightColors";
-import { highlightToDecoration } from "./highlightsToDecorations";
 import type { RecordedTest } from "./types";
 
 interface RecordedTestVisualizerContextValue {
@@ -72,11 +71,13 @@ export function RecordedTestVisualizerOptions() {
   );
 }
 
-interface ModifierProps {
+interface RecordedTestVisualizerProps {
   fixtureName: string;
 }
 
-export function RecordedTestVisualizer({ fixtureName }: ModifierProps) {
+export function RecordedTestVisualizer({
+  fixtureName,
+}: RecordedTestVisualizerProps): JSX.Element {
   const { fixtures, renderWhitespace } = useRecordedTestVisualizer();
   const test = fixtures.get(fixtureName);
 
@@ -121,12 +122,7 @@ export function RecordedTestVisualizer({ fixtureName }: ModifierProps) {
   );
 }
 
-function CodeState({
-  renderWhitespace,
-  languageId,
-  link,
-  state,
-}: {
+interface CodeStateProps {
   renderWhitespace: boolean;
   languageId: string;
   link: {
@@ -134,14 +130,27 @@ function CodeState({
     url: string;
   };
   state: TestCaseSnapshot;
-}): JSX.Element {
+}
+
+function CodeState({
+  renderWhitespace,
+  languageId,
+  link,
+  state,
+}: CodeStateProps): JSX.Element {
+  const decorations = useMemo(
+    () => [
+      ...state.selections.map(toDecoration),
+      ...toMarkDecorations(state.marks),
+    ],
+    [state.selections, state.marks],
+  );
   return (
     <Code
       link={link}
       languageId={languageId}
       renderWhitespace={renderWhitespace}
-      // oxlint-disable-next-line react-perf/jsx-no-new-array-as-prop
-      decorations={state.selections.map(toDecoration)}
+      decorations={decorations}
     >
       {state.documentContents}
     </Code>
@@ -151,48 +160,43 @@ function CodeState({
 function toDecoration(plainSelection: SelectionPlainObject): DecorationItem {
   const selection = plainObjectToSelection(plainSelection);
 
-  if (selection.isEmpty) {
-    return {
-      start: selection.start,
-      end: selection.start,
-      properties: {
-        className: ["code-cursor-before"],
-      },
-    };
-  }
-
-  const decoration = highlightToDecoration({
-    range: selection,
-    style: {
-      backgroundColor: highlightColors.content.background,
-      borderColorSolid: highlightColors.content.borderSolid,
-      borderColorPorous: highlightColors.content.borderPorous,
-      borderStyle: {
-        top: BorderStyle.solid,
-        bottom: BorderStyle.solid,
-        left: BorderStyle.solid,
-        right: BorderStyle.solid,
-      },
-      borderRadius: {
-        topLeft: true,
-        topRight: true,
-        bottomRight: true,
-        bottomLeft: true,
-      },
-    },
-  });
-
-  const className = selection.isReversed
+  const cursorClassName = selection.isReversed
     ? "code-cursor-before"
     : "code-cursor-after";
 
+  const classNames = selection.isEmpty
+    ? [cursorClassName]
+    : [cursorClassName, "code-selection"];
+
   return {
-    ...decoration,
+    start: selection.start,
+    end: selection.end,
+    alwaysWrap: true,
     properties: {
-      ...decoration.properties,
-      className: [className],
+      className: classNames,
     },
   };
+}
+
+function toMarkDecorations(
+  marks: SerializedMarks | undefined,
+): DecorationItem[] {
+  if (marks == null) {
+    return [];
+  }
+
+  return Object.entries(marks).map(([key, range]) => {
+    const { hatStyle } = splitKey(key);
+
+    return {
+      start: range.start,
+      end: range.end,
+      alwaysWrap: true,
+      properties: {
+        className: ["code-hat", `code-hat-${hatStyle}`],
+      },
+    };
+  });
 }
 
 function useRecordedTestVisualizer(): RecordedTestVisualizerContextValue {
