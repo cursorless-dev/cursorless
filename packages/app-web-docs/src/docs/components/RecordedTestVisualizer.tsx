@@ -146,14 +146,22 @@ function CodeState({
     [state.selections, state.marks, state.documentContents],
   );
   return (
-    <Code
-      link={link}
-      languageId={languageId}
-      renderWhitespace={renderWhitespace}
-      decorations={decorations}
-    >
-      {state.documentContents}
-    </Code>
+    <>
+      <Code
+        link={link}
+        languageId={languageId}
+        renderWhitespace={renderWhitespace}
+        decorations={decorations}
+      >
+        {state.documentContents}
+      </Code>
+      {state.clipboard != null && (
+        <div className="mt-2">
+          <strong>Clipboard:</strong>
+          &nbsp;<i>&quot;{state.clipboard}&quot;</i>
+        </div>
+      )}
+    </>
   );
 }
 

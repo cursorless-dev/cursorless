@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 7
-  spokenForm: form camel at bat
+  spokenForm: format camel at bat
   action:
     name: replace
     replaceWith: [bbbAaa]

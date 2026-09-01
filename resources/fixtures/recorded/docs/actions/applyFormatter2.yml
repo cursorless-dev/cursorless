@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 7
-  spokenForm: form snake at bat
+  spokenForm: format snake at bat
   action:
     name: replace
     replaceWith: [bbb_aaa]
