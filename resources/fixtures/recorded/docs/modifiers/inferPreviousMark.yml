@@ -1,0 +1,39 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: take air past end of its line
+  action:
+    name: setSelection
+    target:
+      type: range
+      anchor:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      active:
+        type: primitive
+        modifiers:
+          - {type: endOf}
+          - {type: inferPreviousMark}
+          - type: containingScope
+            scopeType: {type: line}
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    // Hello world
+    const aaa = 0;
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 9}
+finalState:
+  documentContents: |-
+    // Hello world
+    const aaa = 0;
+  selections:
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 14}

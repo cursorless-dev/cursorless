@@ -1,6 +1,11 @@
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import type { ReferenceEntry } from "@cursorless/lib-common";
 import { capitalize } from "@cursorless/lib-common";
+import type { RecordedTestPath } from "@cursorless/lib-node-common";
+import {
+  recordedTestVisualizerImport,
+  renderRecordedTestVisualizer,
+} from "./renderRecordedTestVisualizer";
 import {
   renderScopeVisualizer,
   scopeVisualizerImport,
@@ -10,13 +15,14 @@ import { DISABLED_BY_DEFAULT } from "./util/constants";
 import { formatVariables } from "./util/formatVariables";
 import { injectSpokenForm } from "./util/injectSpokenForm";
 
-export function updateReferenceMdx(
+export async function updateReferenceMdx(
   id: string,
   entry: ReferenceEntry<string>,
+  recordedDocsPaths: RecordedTestPath[],
   scopeFixtureGroups: ScopeFixtureGroup[] | undefined,
   actual: string | null,
   options: FormatPluginFnOptions,
-): string | null {
+): Promise<string | null> {
   if (options.manifest.name !== "@cursorless/app-web-docs") {
     return null;
   }
@@ -27,6 +33,8 @@ export function updateReferenceMdx(
     );
   }
 
+  const recordedTestVisualizer =
+    await renderRecordedTestVisualizer(recordedDocsPaths);
   const scopeVisualizer = renderScopeVisualizer(scopeFixtureGroups ?? []);
   const expected: string[] = [];
   let title = entry.name;
@@ -39,6 +47,9 @@ export function updateReferenceMdx(
     }
   }
 
+  if (recordedTestVisualizer != null) {
+    expected.push(recordedTestVisualizerImport, "");
+  }
   if (scopeVisualizer != null) {
     expected.push(scopeVisualizerImport, "");
   }
@@ -93,6 +104,10 @@ export function updateReferenceMdx(
       expected.push(`- \`"${command}"\` - ${example.description}`);
     }
     expected.push("");
+  }
+
+  if (recordedTestVisualizer != null) {
+    expected.push(recordedTestVisualizer, "");
   }
 
   if (scopeVisualizer != null) {

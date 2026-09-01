@@ -2,6 +2,8 @@
 sidebar_label: Start of
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Start of
 
 Cursorless ID: `startOf`
@@ -17,3 +19,15 @@ Default: `start of`
 ## Examples
 
 - `"take start of blue air"` - Places the cursor at the start of the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"take start of token"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/startOf" />
+
+</RecordedTestVisualizerProvider>

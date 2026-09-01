@@ -1,0 +1,37 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: bring air to its value
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        modifiers:
+          - {type: inferPreviousMark}
+          - type: containingScope
+            scopeType: {type: value}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    // Hello world
+    const aaa = 0;
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 9}
+finalState:
+  documentContents: |-
+    // Hello world
+    const aaa = aaa;
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

@@ -42,32 +42,30 @@ export function renderLanguageScopeVisualizer(
   }
 
   lines.push("</ScopeVisualizerProvider>");
+
   return lines.join("\n");
 }
 
 export function renderScopeVisualizer(
   groups: ScopeFixtureGroup[],
 ): string | undefined {
-  const scope = groups[0];
-  if (scope == null) {
+  if (groups.length === 0) {
     return undefined;
   }
   if (groups.length > 1) {
     throw new Error("Expected fixtures for exactly one scope");
   }
 
-  const lines = [
-    "<ScopeVisualizerProvider>",
-    "",
-    scope.private ? "## Internal scopes" : "## Scopes",
-    "",
-  ];
+  const scope = groups[0];
+  const lines = ["## Visualization", "", "<ScopeVisualizerProvider>", ""];
+
   if (scope.private) {
     lines.push(
       "The following are internal scopes. They are not intended for user interaction or spoken use. These scopes exist solely for internal Cursorless functionality.",
       "",
     );
   }
+
   lines.push("<ScopeVisualizerOptions />", "");
   renderFacets(lines, scope.facets, {});
   lines.push("</ScopeVisualizerProvider>");

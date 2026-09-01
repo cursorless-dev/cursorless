@@ -1,0 +1,24 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: chuck just token
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - {type: toRawSelection}
+        - type: containingScope
+          scopeType: {type: token}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: // Hello world
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+  marks: {}
+finalState:
+  documentContents: //  world
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

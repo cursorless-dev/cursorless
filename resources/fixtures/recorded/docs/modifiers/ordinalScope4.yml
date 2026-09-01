@@ -1,0 +1,25 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: take last two items
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: collectionItem}
+          start: -2
+          length: 2
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "[1, 2, 3]"
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  marks: {}
+finalState:
+  documentContents: "[1, 2, 3]"
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 8}

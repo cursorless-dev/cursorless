@@ -3,16 +3,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { LoadContext, Plugin, PluginOptions } from "@docusaurus/types";
 import type { ScopeTestPath } from "@cursorless/lib-node-common";
-import {
-  getScopeTestLanguagesRecursively,
-  getScopeTestPaths,
-} from "@cursorless/lib-node-common";
-import type {
-  Fixture,
-  Scope,
-  ScopeTests,
-  Target,
-} from "../docs/components/types";
+import { getScopeTestPaths } from "@cursorless/lib-node-common";
+import type { Fixture, Scope, Target } from "../docs/components/types";
 
 // oxlint-disable-next-line unicorn/prefer-import-meta-properties
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -21,38 +13,30 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default function prepareAssetsPlugin(
   _context: LoadContext,
   _options: PluginOptions,
-): Plugin<ScopeTests> {
+): Plugin<Fixture[]> {
   return {
     name: "scope-tests-plugin",
 
-    loadContent(): ScopeTests {
+    loadContent(): Fixture[] {
       const repoRoot = path.join(__dirname, "../../../..");
       // oxlint-disable-next-line node/no-process-env
       process.env.CURSORLESS_REPO_ROOT = repoRoot;
-      return prepareAssets();
+
+      const fixtures: Fixture[] = [];
+
+      for (const test of getScopeTestPaths()) {
+        const fixture = parseTest(test);
+        if (fixture != null) {
+          fixtures.push(fixture);
+        }
+      }
+
+      return fixtures;
     },
 
     contentLoaded({ content, actions }) {
       actions.setGlobalData(content);
     },
-  };
-}
-
-function prepareAssets(): ScopeTests {
-  const fixtures: Fixture[] = [];
-
-  const importedLanguages = getScopeTestLanguagesRecursively();
-
-  for (const test of getScopeTestPaths()) {
-    const fixture = parseTest(test);
-    if (fixture != null) {
-      fixtures.push(fixture);
-    }
-  }
-
-  return {
-    imports: importedLanguages,
-    fixtures,
   };
 }
 

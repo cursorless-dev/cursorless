@@ -71,3 +71,43 @@
     background-color: #444;
   }
 }
+
+.code-cursor-before,
+.code-cursor-after {
+  position: relative;
+}
+
+.code-cursor-before::before,
+.code-cursor-after::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  pointer-events: none;
+  opacity: 1;
+  animation: code-cursor-blink 1s step-end infinite;
+}
+
+.code-cursor-before::before {
+  left: -1px;
+  border-left: 2px solid white;
+}
+
+.code-cursor-after::after {
+  right: -1px;
+  border-right: 2px solid white;
+}
+
+@keyframes code-cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .code-cursor-before::before,
+  .code-cursor-after::after {
+    animation: none;
+  }
+}

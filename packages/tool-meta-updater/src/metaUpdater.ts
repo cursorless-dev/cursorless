@@ -17,6 +17,8 @@ import {
   scopeReferences,
   unsafeKeys,
 } from "@cursorless/lib-common";
+import { getRecordedDocsPaths } from "@cursorless/lib-node-common";
+import type { RecordedTestPath } from "@cursorless/lib-node-common";
 import type { Context } from "./Context";
 import { createScopeFixtureGroups } from "./scopeFixtureGroups";
 import { textFormat } from "./textFormat";
@@ -45,9 +47,13 @@ export const updater = async (workspaceDir: string) => {
     workspaceDir,
   };
 
+  // oxlint-disable-next-line node/no-process-env
+  process.env.CURSORLESS_REPO_ROOT = workspaceDir;
+
   const userDir = "src/docs/user";
   const contributingDir = "src/docs/contributing";
   const scopeFixtureGroups = createScopeFixtureGroups(workspaceDir);
+  const recordedDocsPaths = getRecordedDocsPaths();
   const languageIds = unsafeKeys(languageReferences);
 
   return createUpdateOptions({
@@ -95,7 +101,13 @@ export const updater = async (workspaceDir: string) => {
           .filter(([_, entry]) => !isPrivate(entry))
           .map(([id, entry]) => [
             `${userDir}/actions/${cleanId(id)}.mdx`,
-            updateReferenceMdx.bind(null, id, entry, undefined),
+            updateReferenceMdx.bind(
+              null,
+              id,
+              entry,
+              filterRecordedDocsPaths(recordedDocsPaths, "actions", id),
+              undefined,
+            ),
           ]),
       ),
       ...Object.fromEntries(
@@ -103,7 +115,13 @@ export const updater = async (workspaceDir: string) => {
           .filter(([_, entry]) => !isPrivate(entry))
           .map(([id, entry]) => [
             `${userDir}/modifiers/${cleanId(id)}.mdx`,
-            updateReferenceMdx.bind(null, id, entry, undefined),
+            updateReferenceMdx.bind(
+              null,
+              id,
+              entry,
+              filterRecordedDocsPaths(recordedDocsPaths, "modifiers", id),
+              undefined,
+            ),
           ]),
       ),
       ...Object.fromEntries(
@@ -115,6 +133,7 @@ export const updater = async (workspaceDir: string) => {
               null,
               id,
               entry,
+              [],
               scopeFixtureGroups.forScope(id as ScopeTypeType),
             ),
           ]),
@@ -128,6 +147,7 @@ export const updater = async (workspaceDir: string) => {
               null,
               id,
               entry,
+              [],
               scopeFixtureGroups.forScope(id as ScopeTypeType),
             ),
           ]),
@@ -139,6 +159,16 @@ export const updater = async (workspaceDir: string) => {
     },
   });
 };
+
+function filterRecordedDocsPaths(
+  recordedDocsPaths: RecordedTestPath[],
+  folder: "actions" | "modifiers",
+  id: string,
+): RecordedTestPath[] {
+  return recordedDocsPaths.filter((path) =>
+    new RegExp(`^docs/${folder}/${id}\\d*$`, "u").test(path.name),
+  );
+}
 
 function isPrivate(entry: object): boolean {
   return "visibility" in entry && entry.visibility === "private";

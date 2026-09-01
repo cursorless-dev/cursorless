@@ -2,6 +2,8 @@
 sidebar_label: Head
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Head (Extend through start of)
 
 Extends a target through the start of its line. Inside a surrounding pair, it stops at the start of the pair's interior; use an explicit scope such as `"head line"` to override that boundary.
@@ -21,3 +23,15 @@ Default: `head`
 
 - `"take head blue air"` - Selects from the token containing letter `a` with a blue hat through the start of its line or surrounding pair.
 - `"take head state blue air"` - Selects from the token containing letter `a` with a blue hat through the start of its containing statement.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"take head"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/extendThroughStartOf" />
+
+</RecordedTestVisualizerProvider>

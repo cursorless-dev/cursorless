@@ -1,3 +1,5 @@
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Relative scope
 
 The iteration scope depends on the scope type. For example, functions iterate within a class, tokens within a line, and characters within a token.
@@ -39,3 +41,27 @@ Cursorless ID: `relativeScope`
 - `"take every previous three states blue air"` - Selects the previous three statements before the statement containing the token containing letter `a` with a blue hat as individual targets.
 - `"take next three states blue air"` - Selects the next three statements after the statement containing the token containing letter `a` with a blue hat as a contiguous range.
 - `"take every next three states blue air"` - Selects the next three statements after the statement containing the token containing letter `a` with a blue hat as individual targets.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"take next item"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/relativeScope" />
+
+### `"take previous item"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/relativeScope2" />
+
+### `"take next two items"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/relativeScope3" />
+
+### `"take previous two items"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/relativeScope4" />
+
+</RecordedTestVisualizerProvider>

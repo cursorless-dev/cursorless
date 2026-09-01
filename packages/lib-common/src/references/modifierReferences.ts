@@ -643,6 +643,10 @@ Relative modifiers select scopes before or after the input target. Without \`"ev
         description: `Selects from the ${TARGET_DESC} through the end of the line containing that token.`,
       },
       {
+        command: `${BRING} ${TARGET} ${TO} ${VAR_SPOKEN_FORM} ${LINE}`,
+        description: `Replaces the line containing the ${TARGET_DESC} with that token.`,
+      },
+      {
         command: `${BRING} ${TARGET} ${TO} ${VAR_SPOKEN_FORM} ${VALUE}`,
         description: `Replaces the value containing the ${TARGET_DESC} with that token.`,
       },

@@ -2,6 +2,8 @@
 sidebar_label: Inside
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Inside (Interior only)
 
 Cursorless ID: `interiorOnly`
@@ -17,3 +19,15 @@ Default: `inside`
 ## Examples
 
 - `"take inside round blue air"` - Selects the contents of the parentheses containing the token containing letter `a` with a blue hat, excluding the parentheses.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"take inside"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/interiorOnly" />
+
+</RecordedTestVisualizerProvider>

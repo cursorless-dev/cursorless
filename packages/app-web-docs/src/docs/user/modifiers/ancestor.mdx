@@ -2,6 +2,8 @@
 sidebar_label: Grand
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Grand (Ancestor)
 
 Selects the parent of a containing scope. Repeat `"grand"` to walk up more than one parent level.
@@ -20,3 +22,19 @@ Default: `grand`
 
 - `"take grand state blue air"` - Selects the parent statement of the statement containing the token containing letter `a` with a blue hat.
 - `"take grand grand state blue air"` - Selects the grandparent statement of the statement containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"take grand item"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/ancestor" />
+
+### `"take grand grand item"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/ancestor2" />
+
+</RecordedTestVisualizerProvider>

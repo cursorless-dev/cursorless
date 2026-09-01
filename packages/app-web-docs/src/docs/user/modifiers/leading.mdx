@@ -2,6 +2,8 @@
 sidebar_label: Leading
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Leading
 
 Cursorless ID: `leading`
@@ -17,3 +19,19 @@ Default: `leading`
 ## Examples
 
 - `"take leading item blue air"` - Selects the leading delimiter of the item containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"take leading"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/leading" />
+
+### `"take leading item"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/leading2" />
+
+</RecordedTestVisualizerProvider>
