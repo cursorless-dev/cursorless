@@ -1,0 +1,29 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: format camel at bat
+  action:
+    name: replace
+    replaceWith: [bbbAaa]
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: false
+spokenFormError: Action 'replace'
+initialState:
+  documentContents: // bbb_aaa
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.b:
+      start: {line: 0, character: 3}
+      end: {line: 0, character: 10}
+finalState:
+  documentContents: // bbbAaa
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

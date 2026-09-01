@@ -2,6 +2,8 @@
 sidebar_label: Decrement
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Decrement
 
 Cursorless ID: `decrement`
@@ -17,3 +19,23 @@ Default: `decrement`
 ## Examples
 
 - `"decrement blue five"` - Decrements the number at the token containing number `5` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"decrement five"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/decrement" />
+
+### `"decrement air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/decrement2" />
+
+### `"decrement line"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/decrement3" />
+
+</RecordedTestVisualizerProvider>

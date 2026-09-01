@@ -2,6 +2,8 @@
 sidebar_label: Chuck
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Chuck (Remove)
 
 This action can be used to remove a target without moving the cursor.
@@ -19,3 +21,15 @@ Default: `chuck`
 ## Examples
 
 - `"chuck blue air"` - Removes the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"chuck air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/remove" />
+
+</RecordedTestVisualizerProvider>

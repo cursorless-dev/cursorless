@@ -2,6 +2,8 @@
 sidebar_label: Format
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Format (Apply formatter)
 
 Cursorless ID: `applyFormatter`
@@ -17,3 +19,23 @@ Default: `format`
 ## Examples
 
 - `"format camel at blue air"` - Reformats the token containing letter `a` with a blue hat as camel case.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"format camel at bat"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/applyFormatter" />
+
+### `"format snake at bat"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/applyFormatter2" />
+
+### `"format camel at line"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/applyFormatter3" />
+
+</RecordedTestVisualizerProvider>

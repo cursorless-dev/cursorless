@@ -2,6 +2,8 @@
 sidebar_label: Change
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Change
 
 Cursorless ID: `clearAndSetSelection`
@@ -18,3 +20,15 @@ Legacy: `clear`
 ## Examples
 
 - `"change blue air"` - Changes the token containing letter `a` with a blue hat by clearing it and leaving the cursor in its place.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"change air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/clearAndSetSelection" />
+
+</RecordedTestVisualizerProvider>

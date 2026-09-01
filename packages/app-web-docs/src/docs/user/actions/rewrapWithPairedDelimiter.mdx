@@ -2,6 +2,8 @@
 sidebar_label: Repack
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Repack (Rewrap with paired delimiter)
 
 See [paired delimiters](../paired-delimiters.md) for the available pairs.
@@ -19,3 +21,15 @@ Default: `repack`
 ## Examples
 
 - `"curly repack blue air"` - Replaces the paired delimiters around the token containing letter `a` with a blue hat with curly brackets.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"curly repack air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/rewrapWithPairedDelimiter" />
+
+</RecordedTestVisualizerProvider>

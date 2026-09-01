@@ -2,6 +2,8 @@
 sidebar_label: Wrap
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Wrap (Wrap with paired delimiter/snippet)
 
 See [paired delimiters](../paired-delimiters.md) for the available pairs.
@@ -21,3 +23,19 @@ Default: `wrap`
 
 - `"box wrap blue air"` - Wraps the token containing letter `a` with a blue hat in square brackets.
 - `"if wrap blue air"` - Wraps the token containing letter `a` with a blue hat in an if-statement snippet.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"round wrap air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/wrapWithPairedDelimiter" />
+
+### `"if wrap air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/wrapWithPairedDelimiter2" />
+
+</RecordedTestVisualizerProvider>

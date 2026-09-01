@@ -2,6 +2,8 @@
 sidebar_label: Sort
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Sort (Sort targets)
 
 This action changes the order of multiple target contents. The targets can come from a list or range target, or from existing multiple selections.
@@ -21,3 +23,15 @@ Default: `sort`
 - `"sort every item blue air"` - Sorts the collection items associated with the token containing letter `a` with a blue hat.
 - `"sort line blue air slice green bat"` - Sorts the lines from the token containing letter `a` with a blue hat through the token containing letter `b` with a green hat.
 - `"sort this"` - Sorts the current selections.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"sort every item"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/sortTargets" />
+
+</RecordedTestVisualizerProvider>

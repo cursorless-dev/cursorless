@@ -2,6 +2,8 @@
 sidebar_label: Snip
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Snip (Insert snippet)
 
 Cursorless ID: `insertSnippet`
@@ -17,3 +19,15 @@ Default: `snip`
 ## Examples
 
 - `"snip if after blue air"` - Inserts an if-statement snippet after the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"snip if after air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/insertSnippet" />
+
+</RecordedTestVisualizerProvider>

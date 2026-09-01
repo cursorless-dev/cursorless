@@ -2,6 +2,8 @@
 sidebar_label: Clone
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Clone (Insert copy after)
 
 After insertion, each selection moves to its newly created copy.
@@ -19,3 +21,19 @@ Default: `clone`
 ## Examples
 
 - `"clone funk blue air"` - Inserts a copy of the function containing the token containing letter `a` with a blue hat after itself.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"clone air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/insertCopyAfter" />
+
+### `"clone token air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/insertCopyAfter2" />
+
+</RecordedTestVisualizerProvider>

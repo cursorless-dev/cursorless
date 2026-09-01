@@ -2,6 +2,8 @@
 sidebar_label: Take
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Take (Select)
 
 When used with a list target, this action creates one cursor for each target.
@@ -19,3 +21,15 @@ Default: `take`
 ## Examples
 
 - `"take blue air"` - Selects the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"take air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/setSelection" />
+
+</RecordedTestVisualizerProvider>

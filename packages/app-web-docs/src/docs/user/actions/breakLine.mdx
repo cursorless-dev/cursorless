@@ -2,6 +2,8 @@
 sidebar_label: Break
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Break (Break line)
 
 Cursorless ID: `breakLine`
@@ -17,3 +19,15 @@ Default: `break`
 ## Examples
 
 - `"break blue air"` - Breaks the line before the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"break air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/breakLine" />
+
+</RecordedTestVisualizerProvider>

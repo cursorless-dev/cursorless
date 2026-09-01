@@ -2,6 +2,8 @@
 sidebar_label: Copy
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Copy (Copy to clipboard)
 
 Cursorless ID: `copyToClipboard`
@@ -17,3 +19,15 @@ Default: `copy`
 ## Examples
 
 - `"copy blue air"` - Copies the token containing letter `a` with a blue hat to the clipboard.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"copy line"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/copyToClipboard" />
+
+</RecordedTestVisualizerProvider>

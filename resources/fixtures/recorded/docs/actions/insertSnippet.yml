@@ -1,0 +1,51 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: snip if after air
+  action:
+    name: insertSnippet
+    snippetDescription:
+      type: list
+      fallbackLanguage: typescript
+      snippets:
+        - type: custom
+          body: "if ($1) {\n\t$0\n}"
+          scopeTypes:
+            - {type: statement}
+          languages: [c, cpp, csharp, java, javascript, typescript, javascriptreact, typescriptreact]
+        - type: custom
+          body: "if $1:\n\t$0"
+          scopeTypes:
+            - {type: statement}
+          languages: [python]
+        - type: custom
+          body: "if $1 then\n\t$0\nend"
+          scopeTypes:
+            - {type: statement}
+          languages: [lua]
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: false
+spokenFormError: list insertion snippet
+initialState:
+  documentContents: const aaa = 0;
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 9}
+finalState:
+  documentContents: |-
+    const aaa = 0;
+    if () {
+        
+    }
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

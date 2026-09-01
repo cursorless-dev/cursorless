@@ -2,6 +2,8 @@
 sidebar_label: Dedent
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Dedent (Outdent line)
 
 Cursorless ID: `outdentLine`
@@ -17,3 +19,15 @@ Default: `dedent`
 ## Examples
 
 - `"dedent blue air"` - Decreases the indentation of the line containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"dedent air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/outdentLine" />
+
+</RecordedTestVisualizerProvider>

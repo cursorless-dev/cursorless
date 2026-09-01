@@ -2,6 +2,8 @@
 sidebar_label: Paste
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Paste (Paste from clipboard)
 
 Cursorless ID: `pasteFromClipboard`
@@ -17,3 +19,23 @@ Default: `paste`
 ## Examples
 
 - `"paste after blue air"` - Pastes the clipboard contents after the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"paste to air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/pasteFromClipboard" />
+
+### `"paste before air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/pasteFromClipboard2" />
+
+### `"paste after air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/pasteFromClipboard3" />
+
+</RecordedTestVisualizerProvider>
