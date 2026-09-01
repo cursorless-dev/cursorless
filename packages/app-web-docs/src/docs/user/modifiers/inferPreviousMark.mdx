@@ -21,6 +21,7 @@ Default: `its`
 ## Examples
 
 - `"take blue air past end of its line"` - Selects from the token containing letter `a` with a blue hat through the end of the line containing that token.
+- `"bring blue air to its line"` - Replaces the line containing the token containing letter `a` with a blue hat with that token.
 - `"bring blue air to its value"` - Replaces the value containing the token containing letter `a` with a blue hat with that token.
 
 ## Visualization
@@ -29,8 +30,16 @@ Default: `its`
 
 <RecordedTestVisualizerOptions />
 
-### `"take bat past end of its line"`
+### `"take air past end of its line"`
 
 <RecordedTestVisualizer fixtureName="docs/modifiers/inferPreviousMark" />
+
+### `"bring air to its line"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/inferPreviousMark2" />
+
+### `"bring air to its value"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/inferPreviousMark3" />
 
 </RecordedTestVisualizerProvider>
