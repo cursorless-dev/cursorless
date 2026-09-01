@@ -1,3 +1,5 @@
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Ordinal scope
 
 The iteration scope depends on the scope type. For example, functions iterate within a class, tokens within a line, and characters within a token.
@@ -29,3 +31,35 @@ Cursorless ID: `ordinalScope`
 - `"take every first three states"` - Selects the first three statements in the iteration scope as individual targets.
 - `"take last three states"` - Selects a contiguous range containing the last three statements in the iteration scope.
 - `"take every last three states"` - Selects the last three statements in the iteration scope as individual targets.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"take first item"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/ordinalScope" />
+
+### `"take last item"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/ordinalScope2" />
+
+### `"take first two items"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/ordinalScope3" />
+
+### `"take last two items"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/ordinalScope4" />
+
+### `"take first past second item"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/ordinalScope5" />
+
+### `"take second past third item"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/ordinalScope6" />
+
+</RecordedTestVisualizerProvider>

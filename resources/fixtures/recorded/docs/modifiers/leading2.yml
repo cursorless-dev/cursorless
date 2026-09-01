@@ -1,0 +1,24 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: take leading item
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: leading}
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "[1, 2, 3]"
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  marks: {}
+finalState:
+  documentContents: "[1, 2, 3]"
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 4}

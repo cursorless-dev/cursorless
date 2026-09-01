@@ -2,6 +2,8 @@
 sidebar_label: Just
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Just (Raw selection)
 
 Strips semantic information from a target and treats it as a raw range. Cursorless will not use the target's removal delimiters, insertion delimiters, or scope type. This means deletion leaves adjacent whitespace and line endings untouched, insertion adds no automatic separator, and instance matching is not restricted to targets of the original scope type. When a raw target is the destination of a `"bring"` command, it inherits insertion delimiters from the source.
@@ -22,3 +24,15 @@ Default: `just`
 - `"chuck just line"` - Deletes only the line content, leaving its line ending and therefore a blank line.
 - `"paste after just blue air"` - Pastes directly after the token containing letter `a` with a blue hat without inserting a separator.
 - `"take every instance just blue air"` - Selects every matching text occurrence of the token containing letter `a` with a blue hat, including occurrences that are not full tokens.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"chuck just token"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/toRawSelection" />
+
+</RecordedTestVisualizerProvider>

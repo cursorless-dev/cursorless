@@ -1,3 +1,5 @@
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Containing scope
 
 Expands a target to the containing instance of a scope. When the input is `"this"` with multiple selections, Cursorless expands each selection independently.
@@ -11,3 +13,15 @@ Cursorless ID: `containingScope`
 ## Examples
 
 - `"take state blue air"` - Selects the statement containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"take token"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/containingScope" />
+
+</RecordedTestVisualizerProvider>

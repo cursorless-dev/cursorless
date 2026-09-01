@@ -2,7 +2,7 @@
 sidebar_label: Bounds
 ---
 
-import { ModifierVisualizer, ModifierVisualizerProvider, ModifierVisualizerOptions } from "@site/src/docs/components/ModifierVisualizer";
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
 
 # Bounds (Exclude interior)
 
@@ -20,11 +20,14 @@ Default: `bounds`
 
 - `"take bounds round blue air"` - Selects only the parentheses containing the token containing letter `a` with a blue hat.
 
+## Visualization
 
-<ModifierVisualizerProvider>
+<RecordedTestVisualizerProvider>
 
-<ModifierVisualizerOptions />
+<RecordedTestVisualizerOptions />
 
-<ModifierVisualizer fixtureName="modifiers/takeBounds" />
+### `"take bounds"`
 
-</ModifierVisualizerProvider>
+<RecordedTestVisualizer fixtureName="docs/modifiers/excludeInterior" />
+
+</RecordedTestVisualizerProvider>

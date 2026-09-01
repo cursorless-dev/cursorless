@@ -72,9 +72,17 @@
   }
 }
 
-.code-cursor {
+.code-cursor,
+.code-cursor-line::after {
   border-left: 2px solid white;
   animation: code-cursor-blink 1s step-end infinite;
+}
+
+.code-cursor-line::after {
+  content: "";
+  display: inline-block;
+  height: 1em;
+  vertical-align: text-bottom;
 }
 
 @keyframes code-cursor-blink {
@@ -84,7 +92,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .code-cursor {
+  .code-cursor,
+  .code-cursor-line::after {
     animation: none;
   }
 }

@@ -1,0 +1,39 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: take bat past end of its line
+  action:
+    name: setSelection
+    target:
+      type: range
+      anchor:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      active:
+        type: primitive
+        modifiers:
+          - {type: endOf}
+          - {type: inferPreviousMark}
+          - type: containingScope
+            scopeType: {type: line}
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    // aaa
+    // bbb !!!
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.b:
+      start: {line: 1, character: 3}
+      end: {line: 1, character: 6}
+finalState:
+  documentContents: |-
+    // aaa
+    // bbb !!!
+  selections:
+    - anchor: {line: 1, character: 3}
+      active: {line: 1, character: 10}

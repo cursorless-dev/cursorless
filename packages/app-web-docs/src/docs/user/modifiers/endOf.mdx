@@ -2,6 +2,8 @@
 sidebar_label: End of
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # End of
 
 Cursorless ID: `endOf`
@@ -17,3 +19,15 @@ Default: `end of`
 ## Examples
 
 - `"take end of blue air"` - Places the cursor at the end of the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"take end of token"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/endOf" />
+
+</RecordedTestVisualizerProvider>

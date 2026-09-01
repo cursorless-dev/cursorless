@@ -2,6 +2,8 @@
 sidebar_label: Empty
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Empty (Keep empty filter)
 
 Cursorless ID: `keepEmptyFilter`
@@ -17,3 +19,15 @@ Default: `empty`
 ## Examples
 
 - `"take empty"` - Selects only the empty selections when there are multiple selections.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"take empty"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/keepEmptyFilter" />
+
+</RecordedTestVisualizerProvider>

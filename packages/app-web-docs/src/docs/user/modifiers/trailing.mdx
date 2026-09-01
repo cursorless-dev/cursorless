@@ -2,6 +2,8 @@
 sidebar_label: Trailing
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Trailing
 
 Cursorless ID: `trailing`
@@ -17,3 +19,19 @@ Default: `trailing`
 ## Examples
 
 - `"take trailing item blue air"` - Selects the trailing delimiter of the item containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"take trailing"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/trailing" />
+
+### `"take trailing item"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/trailing2" />
+
+</RecordedTestVisualizerProvider>

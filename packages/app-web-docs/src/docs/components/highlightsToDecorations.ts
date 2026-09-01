@@ -10,10 +10,10 @@ import type { BorderRadius, Highlight, Style } from "./types";
 export function highlightsToDecorations(
   highlights: Highlight[],
 ): DecorationItem[] {
-  return highlights.map(highlightToDecorations);
+  return highlights.map(highlightToDecoration);
 }
 
-export function highlightToDecorations(highlight: Highlight): DecorationItem {
+export function highlightToDecoration(highlight: Highlight): DecorationItem {
   const { start, end } = highlight.range;
   return {
     start,

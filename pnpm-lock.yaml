@@ -752,6 +752,9 @@ importers:
       '@cursorless/lib-common':
         specifier: workspace:*
         version: link:../lib-common
+      '@cursorless/lib-node-common':
+        specifier: workspace:*
+        version: link:../lib-node-common
       '@pnpm/lockfile-file':
         specifier: ^9.1.3
         version: 9.1.3(@pnpm/logger@1001.0.1)

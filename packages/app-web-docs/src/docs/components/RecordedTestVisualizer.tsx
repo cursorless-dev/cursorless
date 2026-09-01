@@ -9,32 +9,34 @@ import type {
 import { BorderStyle, plainObjectToSelection } from "@cursorless/lib-common";
 import { Code } from "./Code";
 import { highlightColors } from "./highlightColors";
-import { highlightToDecorations } from "./highlightsToDecorations";
+import { highlightToDecoration } from "./highlightsToDecorations";
 import type { RecordedTest } from "./types";
 
-interface ModifierVisualizerContextValue {
+interface RecordedTestVisualizerContextValue {
   fixtures: ReadonlyMap<string, RecordedTest>;
   renderWhitespace: boolean;
   setRenderWhitespace: Dispatch<SetStateAction<boolean>>;
 }
 
-const ModifierVisualizerContext = createContext<
-  ModifierVisualizerContextValue | undefined
+const RecordedTestVisualizerContext = createContext<
+  RecordedTestVisualizerContextValue | undefined
 >(undefined);
 
-export function ModifierVisualizerProvider({
+export function RecordedTestVisualizerProvider({
   children,
 }: {
   children: ReactNode;
 }) {
-  const scopeTests = usePluginData("recorded-tests-plugin") as RecordedTest[];
+  const recordedTests = usePluginData(
+    "recorded-tests-plugin",
+  ) as RecordedTest[];
   const [renderWhitespace, setRenderWhitespace] = useState(true);
   const fixtures = useMemo(
     () =>
       new Map(
-        scopeTests.map((recordedTest) => [recordedTest.name, recordedTest]),
+        recordedTests.map((recordedTest) => [recordedTest.name, recordedTest]),
       ),
-    [scopeTests],
+    [recordedTests],
   );
   const value = useMemo(
     () => ({
@@ -46,14 +48,14 @@ export function ModifierVisualizerProvider({
   );
 
   return (
-    <ModifierVisualizerContext.Provider value={value}>
+    <RecordedTestVisualizerContext.Provider value={value}>
       {children}
-    </ModifierVisualizerContext.Provider>
+    </RecordedTestVisualizerContext.Provider>
   );
 }
 
-export function ModifierVisualizerOptions() {
-  const { renderWhitespace, setRenderWhitespace } = useModifierVisualizer();
+export function RecordedTestVisualizerOptions() {
+  const { renderWhitespace, setRenderWhitespace } = useRecordedTestVisualizer();
 
   return (
     <div className="mb-4">
@@ -74,15 +76,15 @@ interface ModifierProps {
   fixtureName: string;
 }
 
-export function ModifierVisualizer({ fixtureName }: ModifierProps) {
-  const { fixtures, renderWhitespace } = useModifierVisualizer();
+export function RecordedTestVisualizer({ fixtureName }: ModifierProps) {
+  const { fixtures, renderWhitespace } = useRecordedTestVisualizer();
   const test = fixtures.get(fixtureName);
 
   if (test == null) {
-    throw new Error(`Unknown modifier fixture: ${fixtureName}`);
+    throw new Error(`Unknown recorded test fixture: ${fixtureName}`);
   }
 
-  const { fixture, path } = test;
+  const { fixture, relativePath } = test;
   const { languageId, initialState, finalState } = fixture;
 
   if (finalState == null) {
@@ -92,7 +94,7 @@ export function ModifierVisualizer({ fixtureName }: ModifierProps) {
   // oxlint-disable-next-line react_perf/jsx-no-new-object-as-prop
   const link = {
     name: "GitHub",
-    url: `https://github.com/cursorless-dev/cursorless/blob/main/resources/fixtures/recorded/docs/${path}`,
+    url: `https://github.com/cursorless-dev/cursorless/blob/main/resources/fixtures/recorded/docs/${relativePath}`,
   };
 
   return (
@@ -133,6 +135,8 @@ function CodeState({
   };
   state: TestCaseSnapshot;
 }): JSX.Element {
+  console.log(state.selections);
+  console.log(state.selections.map(toDecoration));
   return (
     <Code
       link={link}
@@ -159,30 +163,7 @@ function toDecoration(plainSelection: SelectionPlainObject): DecorationItem {
     };
   }
 
-  console.log(
-    highlightToDecorations({
-      range: selection,
-      style: {
-        backgroundColor: highlightColors.content.background,
-        borderColorSolid: highlightColors.content.borderSolid,
-        borderColorPorous: highlightColors.content.borderPorous,
-        borderStyle: {
-          top: BorderStyle.solid,
-          bottom: BorderStyle.solid,
-          left: BorderStyle.solid,
-          right: BorderStyle.solid,
-        },
-        borderRadius: {
-          topLeft: true,
-          topRight: true,
-          bottomRight: true,
-          bottomLeft: true,
-        },
-      },
-    }),
-  );
-
-  return highlightToDecorations({
+  return highlightToDecoration({
     range: selection,
     style: {
       backgroundColor: highlightColors.content.background,
@@ -204,11 +185,11 @@ function toDecoration(plainSelection: SelectionPlainObject): DecorationItem {
   });
 }
 
-function useModifierVisualizer(): ModifierVisualizerContextValue {
-  const value = useContext(ModifierVisualizerContext);
+function useRecordedTestVisualizer(): RecordedTestVisualizerContextValue {
+  const value = useContext(RecordedTestVisualizerContext);
   if (value == null) {
     throw new Error(
-      "Modifier visualizer components must be used within ModifierVisualizerProvider",
+      "Recorded test visualizer components must be used within RecordedTestVisualizerProvider",
     );
   }
   return value;

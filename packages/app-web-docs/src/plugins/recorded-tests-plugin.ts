@@ -1,8 +1,11 @@
-import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { LoadContext, Plugin, PluginOptions } from "@docusaurus/types";
-import { loadFixture } from "@cursorless/lib-node-common";
+import {
+  getRecordedDocsDirPath,
+  getRecordedDocsPaths,
+  loadFixture,
+} from "@cursorless/lib-node-common";
 import type { RecordedTest } from "../docs/components/types";
 
 // oxlint-disable-next-line unicorn/prefer-import-meta-properties
@@ -17,24 +20,20 @@ export default function recordedTestsPlugin(
     name: "recorded-tests-plugin",
 
     loadContent(): Promise<RecordedTest[]> {
-      const recordedTestsDirectory = path.join(
-        __dirname,
-        "../../../../resources/fixtures/recorded/docs",
-      );
+      const repoRoot = path.join(__dirname, "../../../..");
+      // oxlint-disable-next-line node/no-process-env
+      process.env.CURSORLESS_REPO_ROOT = repoRoot;
 
-      const recordedTestPaths = fs
-        .globSync("**/*.{yml,yaml}", { cwd: recordedTestsDirectory })
-        .toSorted();
+      const recordedTestsDir = getRecordedDocsDirPath();
+      const recordedTestPaths = getRecordedDocsPaths();
 
       return Promise.all(
-        recordedTestPaths.map(async (relativePath) => {
-          const testPath = relativePath.replaceAll(path.sep, "/");
+        recordedTestPaths.map(async (test) => {
           return {
-            path: testPath,
-            name: testPath.slice(0, -path.extname(relativePath).length),
-            fixture: await loadFixture(
-              path.join(recordedTestsDirectory, relativePath),
-            ),
+            path: test.path,
+            relativePath: path.relative(recordedTestsDir, test.path),
+            name: test.name,
+            fixture: await loadFixture(test.path),
           };
         }),
       );

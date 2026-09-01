@@ -2,6 +2,8 @@
 sidebar_label: Content
 ---
 
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
 # Content (Keep content filter)
 
 Cursorless ID: `keepContentFilter`
@@ -17,3 +19,15 @@ Default: `content`
 ## Examples
 
 - `"take content"` - Selects only the nonempty selections when there are multiple selections.
+
+## Visualization
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+### `"take content"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/keepContentFilter" />
+
+</RecordedTestVisualizerProvider>
