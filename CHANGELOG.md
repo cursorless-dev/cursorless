@@ -2,7 +2,7 @@
 
 ## 2026
 
-- 2026-09-01: Visualize modifiers on the docs page. ([#3328](https://github.com/cursorless-dev/cursorless/pull/3328))
+- 2026-09-01: Visualize modifiers on the documentation page. ([#3328](https://github.com/cursorless-dev/cursorless/pull/3328))
 - 2026-08-30: Overhauled the user documentation with generated and grouped action, modifier, and scope reference pages, richer descriptions and examples, dedicated paired-delimiter and target guides, and a streamlined landing page. ([#3303](https://github.com/cursorless-dev/cursorless/pull/3303); [#3304](https://github.com/cursorless-dev/cursorless/pull/3304); [#3305](https://github.com/cursorless-dev/cursorless/pull/3305); [#3306](https://github.com/cursorless-dev/cursorless/pull/3306); [#3307](https://github.com/cursorless-dev/cursorless/pull/3307); [#3308](https://github.com/cursorless-dev/cursorless/pull/3308); [#3309](https://github.com/cursorless-dev/cursorless/pull/3309); [#3310](https://github.com/cursorless-dev/cursorless/pull/3310); [#3311](https://github.com/cursorless-dev/cursorless/pull/3311); [#3312](https://github.com/cursorless-dev/cursorless/pull/3312); [#3313](https://github.com/cursorless-dev/cursorless/pull/3313); [#3314](https://github.com/cursorless-dev/cursorless/pull/3314); [#3315](https://github.com/cursorless-dev/cursorless/pull/3315); [#3316](https://github.com/cursorless-dev/cursorless/pull/3316))
 - 2026-05-03: Add support for if and for statements in Talon-script. [`#3274`](https://github.com/cursorless-dev/cursorless/pull/3274)
 - 2026-03-12: Added `userColor3` and `userColor4` as additional user-configurable hat colors. They are disabled by default until you enable and name them. ([#3206](https://github.com/cursorless-dev/cursorless/pull/3206))
