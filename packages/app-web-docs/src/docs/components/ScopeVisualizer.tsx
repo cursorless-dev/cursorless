@@ -1,9 +1,9 @@
 import { usePluginData } from "@docusaurus/useGlobalData";
-import React, { createContext, useContext, useMemo, useState } from "react";
 import type { Dispatch, ReactNode, SetStateAction } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 import { generateDecorations } from "./calculateHighlights";
 import { Code } from "./Code";
-import type { Fixture, RangeType, ScopeTests } from "./types";
+import type { Fixture, RangeType } from "./types";
 import { getFacetInfo } from "./util";
 
 interface ScopeVisualizerContextValue {
@@ -19,13 +19,12 @@ const ScopeVisualizerContext = createContext<
 >(undefined);
 
 export function ScopeVisualizerProvider({ children }: { children: ReactNode }) {
-  const scopeTests = usePluginData("scope-tests-plugin") as ScopeTests;
+  const scopeTests = usePluginData("scope-tests-plugin") as Fixture[];
   const [rangeType, setRangeType] = useState<RangeType>("content");
   const [renderWhitespace, setRenderWhitespace] = useState(true);
   const fixtures = useMemo(
-    () =>
-      new Map(scopeTests.fixtures.map((fixture) => [fixture.name, fixture])),
-    [scopeTests.fixtures],
+    () => new Map(scopeTests.map((fixture) => [fixture.name, fixture])),
+    [scopeTests],
   );
   const value = useMemo(
     () => ({

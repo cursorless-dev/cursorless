@@ -71,3 +71,20 @@
     background-color: #444;
   }
 }
+
+.code-cursor {
+  border-left: 2px solid white;
+  animation: code-cursor-blink 1s step-end infinite;
+}
+
+@keyframes code-cursor-blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .code-cursor {
+    animation: none;
+  }
+}

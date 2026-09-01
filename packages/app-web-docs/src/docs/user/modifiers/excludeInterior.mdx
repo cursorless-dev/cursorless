@@ -2,6 +2,8 @@
 sidebar_label: Bounds
 ---
 
+import { ModifierVisualizer, ModifierVisualizerProvider, ModifierVisualizerOptions } from "@site/src/docs/components/ModifierVisualizer";
+
 # Bounds (Exclude interior)
 
 Cursorless ID: `excludeInterior`
@@ -17,3 +19,12 @@ Default: `bounds`
 ## Examples
 
 - `"take bounds round blue air"` - Selects only the parentheses containing the token containing letter `a` with a blue hat.
+
+
+<ModifierVisualizerProvider>
+
+<ModifierVisualizerOptions />
+
+<ModifierVisualizer fixtureName="modifiers/takeBounds" />
+
+</ModifierVisualizerProvider>
