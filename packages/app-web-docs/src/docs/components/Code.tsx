@@ -33,7 +33,7 @@ export function Code({
       try {
         let html = await codeToHtml(code, {
           lang: getFallbackLanguage(languageId),
-          theme: "nord",
+          theme: "dark-plus",
           decorations,
           transformers: [
             // Shiki omits decorations for empty lines. This transformation adds the cursor class to the line itself if needed.
