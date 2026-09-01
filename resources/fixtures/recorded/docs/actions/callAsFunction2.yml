@@ -10,7 +10,7 @@ command:
     argument: {type: implicit}
   usePrePhraseSnapshot: false
 initialState:
-  documentContents: "// bbb aaa"
+  documentContents: // bbb aaa
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 6}
@@ -19,7 +19,7 @@ initialState:
       start: {line: 0, character: 7}
       end: {line: 0, character: 10}
 finalState:
-  documentContents: "// aaa(bbb) aaa"
+  documentContents: // aaa(bbb) aaa
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 10}

@@ -4,7 +4,7 @@ command:
   spokenForm: form camel at line
   action:
     name: replace
-    replaceWith: ['aaaBbb']
+    replaceWith: [aaaBbb]
     destination:
       type: primitive
       insertionMode: to
@@ -22,7 +22,7 @@ initialState:
       active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: "aaaBbb"
+  documentContents: aaaBbb
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
