@@ -135,8 +135,6 @@ function CodeState({
   };
   state: TestCaseSnapshot;
 }): JSX.Element {
-  console.log(state.selections);
-  console.log(state.selections.map(toDecoration));
   return (
     <Code
       link={link}
@@ -156,14 +154,14 @@ function toDecoration(plainSelection: SelectionPlainObject): DecorationItem {
   if (selection.isEmpty) {
     return {
       start: selection.start,
-      end: selection.end,
+      end: selection.start,
       properties: {
-        className: ["code-cursor"],
+        className: ["code-cursor-before"],
       },
     };
   }
 
-  return highlightToDecoration({
+  const decoration = highlightToDecoration({
     range: selection,
     style: {
       backgroundColor: highlightColors.content.background,
@@ -183,6 +181,18 @@ function toDecoration(plainSelection: SelectionPlainObject): DecorationItem {
       },
     },
   });
+
+  const className = selection.isReversed
+    ? "code-cursor-before"
+    : "code-cursor-after";
+
+  return {
+    ...decoration,
+    properties: {
+      ...decoration.properties,
+      className: [className],
+    },
+  };
 }
 
 function useRecordedTestVisualizer(): RecordedTestVisualizerContextValue {
