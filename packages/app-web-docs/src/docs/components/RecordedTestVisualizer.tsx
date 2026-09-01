@@ -155,6 +155,7 @@ function CodeState({
       >
         {state.documentContents}
       </Code>
+
       {state.clipboard != null && (
         <div className="mt-2">
           <strong>Clipboard:</strong>
