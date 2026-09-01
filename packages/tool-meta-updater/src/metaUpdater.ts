@@ -166,7 +166,7 @@ function filterRecordedDocsPaths(
   id: string,
 ): RecordedTestPath[] {
   return recordedDocsPaths.filter((path) =>
-    new RegExp(`^docs/${folder}/${id}\\d?$`, "u").test(path.name),
+    new RegExp(`^docs/${folder}/${id}\\d*$`, "u").test(path.name),
   );
 }
 
