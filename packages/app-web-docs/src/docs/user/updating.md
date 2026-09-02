@@ -1,3 +1,9 @@
+---
+sidebar_group: Project
+sidebar_group_position: 8
+sidebar_position: 1
+---
+
 # Updating
 
 Cursorless consists of two components:

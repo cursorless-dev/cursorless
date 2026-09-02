@@ -1,3 +1,9 @@
+---
+sidebar_group: Getting started
+sidebar_group_position: 2
+sidebar_position: 1
+---
+
 # Installation
 
 1. Install [Talon](https://talonvoice.com/)

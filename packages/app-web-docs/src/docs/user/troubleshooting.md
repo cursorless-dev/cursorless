@@ -1,3 +1,8 @@
+---
+sidebar_group: Getting started
+sidebar_position: 5
+---
+
 # Troubleshooting
 
 Here is a list of common issues you might encounter, along with possible solutions:

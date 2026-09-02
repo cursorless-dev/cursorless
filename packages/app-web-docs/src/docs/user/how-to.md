@@ -1,3 +1,8 @@
+---
+sidebar_group: Getting started
+sidebar_position: 4
+---
+
 # How-to guides
 
 This section contains some how-to guides for common tasks.

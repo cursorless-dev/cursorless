@@ -1,3 +1,8 @@
+---
+sidebar_group: Customization
+sidebar_position: 4
+---
+
 # Custom regex scopes
 
 You can define custom scopes using regexes in `user/cursorless-settings/experimental/regex_scope_types.csv`

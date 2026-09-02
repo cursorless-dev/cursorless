@@ -40,9 +40,17 @@ export function updatePairedDelimitersMd(
       ];
     });
 
-  return ["# Paired delimiters", "", ...formatTable(HEADERS, rows), ""].join(
-    "\n",
-  );
+  return [
+    "---",
+    "sidebar_group: Reference",
+    "sidebar_position: 6",
+    "---",
+    "",
+    "# Paired delimiters",
+    "",
+    ...formatTable(HEADERS, rows),
+    "",
+  ].join("\n");
 }
 
 function code(value: string): string {

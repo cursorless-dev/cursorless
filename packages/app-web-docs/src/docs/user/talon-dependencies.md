@@ -1,3 +1,9 @@
+---
+sidebar_group: Advanced
+sidebar_group_position: 7
+sidebar_position: 1
+---
+
 # Talon dependencies
 
 Cursorless uses several definitions from [Talon Community](https://github.com/talonhub/community). If your Talon setup includes Talon Community and you have not removed any of the dependencies listed below, you can safely ignore this page.

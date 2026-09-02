@@ -3,65 +3,12 @@ import type * as ClassicPreset from "@docusaurus/preset-classic";
 type DocsOptions = Exclude<ClassicPreset.Options["docs"], false | undefined>;
 type SidebarItemsGenerator = NonNullable<DocsOptions["sidebarItemsGenerator"]>;
 
-interface Group {
-  label: string;
-  items: string[];
-}
-
-const items: (Group | string)[] = [
-  "Cursorless",
-  {
-    label: "Getting started",
-    items: [
-      "Installation",
-      "Recommendations",
-      "Learning resources",
-      "How-to guides",
-      "Troubleshooting",
-    ],
-  },
-  {
-    label: "Reference",
-    items: [
-      "Actions",
-      "Modifiers",
-      "Scopes",
-      "Targets",
-      "Destinations",
-      "Paired delimiters",
-      "Alphabet and symbols",
-    ],
-  },
-  "Supported languages",
-  {
-    label: "Customization",
-    items: [
-      "Customization",
-      "Hat assignment",
-      "Visual Accessibility",
-      "Custom IDE actions",
-      "Custom regex scopes",
-      "Public Talon API",
-    ],
-  },
-  {
-    label: "Tools",
-    items: [
-      "Cursorless sidebar",
-      "Scope visualizer",
-      "Local command history",
-      "Draft editor",
-    ],
-  },
-  {
-    label: "Advanced",
-    items: ["Talon dependencies", "Unicode support", "Experimental features"],
-  },
-  {
-    label: "Project",
-    items: ["Updating", "Glossary", "Release notes"],
-  },
-];
+/**
+ * Set directly in Markdown front matter. For `_category_.json`, set it under
+ * `customProps`, which is Docusaurus's supported category metadata extension.
+ */
+const sidebarGroupKey = "sidebar_group";
+const sidebarGroupPositionKey = "sidebar_group_position";
 
 export const sidebarItemsGenerator: SidebarItemsGenerator = async ({
   defaultSidebarItemsGenerator,
@@ -93,6 +40,60 @@ export const sidebarItemsGenerator: SidebarItemsGenerator = async ({
     return docId != null && docsById.get(docId)?.sidebarPosition != null;
   }
 
+  function getSidebarGroup(item: NormalizedSidebarItem): string | undefined {
+    let sidebarGroup: unknown;
+    if (item.type === "doc" || item.type === "ref") {
+      sidebarGroup = docsById.get(item.id)?.frontMatter[sidebarGroupKey];
+    } else if (item.type === "category") {
+      sidebarGroup = item.customProps?.[sidebarGroupKey];
+    }
+    if (sidebarGroup === undefined) {
+      return undefined;
+    }
+    if (typeof sidebarGroup !== "string" || sidebarGroup.trim().length === 0) {
+      throw new Error(
+        `Invalid ${sidebarGroupKey} for sidebar item '${getLabel(item)}'`,
+      );
+    }
+    return sidebarGroup.trim();
+  }
+
+  function getSidebarGroupPosition(
+    item: NormalizedSidebarItem,
+  ): number | undefined {
+    let sidebarGroupPosition: unknown;
+    if (item.type === "doc" || item.type === "ref") {
+      sidebarGroupPosition = docsById.get(item.id)?.frontMatter[
+        sidebarGroupPositionKey
+      ];
+    } else if (item.type === "category") {
+      sidebarGroupPosition = item.customProps?.[sidebarGroupPositionKey];
+    }
+    if (sidebarGroupPosition === undefined) {
+      return undefined;
+    }
+    if (
+      typeof sidebarGroupPosition !== "number" ||
+      !Number.isFinite(sidebarGroupPosition)
+    ) {
+      // oxlint-disable-next-line unicorn/prefer-type-error
+      throw new Error(
+        `Invalid ${sidebarGroupPositionKey} for sidebar item '${getLabel(item)}'`,
+      );
+    }
+    return sidebarGroupPosition;
+  }
+
+  function getSidebarPosition(item: NormalizedSidebarItem): number | undefined {
+    let docId: string | undefined;
+    if (item.type === "doc" || item.type === "ref") {
+      docId = item.id;
+    } else if (item.type === "category" && item.link?.type === "doc") {
+      docId = item.link.id;
+    }
+    return docId == null ? undefined : docsById.get(docId)?.sidebarPosition;
+  }
+
   function sortByLabel(
     items: NormalizedSidebarItem[],
   ): NormalizedSidebarItem[] {
@@ -122,36 +123,25 @@ export const sidebarItemsGenerator: SidebarItemsGenerator = async ({
     });
   }
 
-  const sortedItems = sortByLabel(generatedItems);
-
   if (args.item.dirName !== "user") {
-    return sortedItems;
+    return sortByLabel(generatedItems);
   }
 
-  const remainingItems = sortedItems.slice();
-
-  function takeItem(label: string): NormalizedSidebarItem {
-    const index = remainingItems.findIndex(
-      (item) => getLabel(item)?.toLowerCase() === label.toLowerCase(),
-    );
-    const item = remainingItems[index];
-    if (item == null) {
-      throw new Error(`Missing generated sidebar item '${label}'`);
-    }
-    remainingItems.splice(index, 1);
-    return item;
-  }
-
-  function createGroup(group: Group): NormalizedSidebarItem {
-    const items = group.items.map(takeItem);
+  function createGroup(
+    label: string,
+    groupItems: NormalizedSidebarItem[],
+  ): NormalizedSidebarItem {
+    const items = groupItems.slice();
     const linkIndex = items.findIndex(
-      (item) => item.type === "doc" && getLabel(item) === group.label,
+      (item) =>
+        item.type === "doc" &&
+        getLabel(item)?.toLowerCase() === label.toLowerCase(),
     );
     const [link] = linkIndex === -1 ? [] : items.splice(linkIndex, 1);
 
     return {
       type: "category",
-      label: group.label,
+      label,
       collapsible: false,
       collapsed: false,
       ...(link?.type === "doc" ? { link: { type: "doc", id: link.id } } : {}),
@@ -159,27 +149,58 @@ export const sidebarItemsGenerator: SidebarItemsGenerator = async ({
     };
   }
 
-  const groupedItems = items.map((item): NormalizedSidebarItem => {
-    if (typeof item === "string") {
-      return takeItem(item);
+  const itemsByGroup = new Map<string, NormalizedSidebarItem[]>();
+  const positionsByGroup = new Map<string, number>();
+  const ungroupedItems: NormalizedSidebarItem[] = [];
+  for (const item of generatedItems) {
+    const sidebarGroup = getSidebarGroup(item);
+    const sidebarGroupPosition = getSidebarGroupPosition(item);
+    if (sidebarGroup == null) {
+      if (sidebarGroupPosition != null) {
+        throw new Error(
+          `${sidebarGroupPositionKey} requires ${sidebarGroupKey} for sidebar item '${getLabel(item)}'`,
+        );
+      }
+      ungroupedItems.push(item);
+      continue;
     }
-    return createGroup(item);
-  });
 
-  if (remainingItems.length > 0) {
-    const remainingJson = remainingItems
-      .map((item) => {
-        if (item.type === "category") {
-          const { items, ...rest } = item;
-          return JSON.stringify(rest);
-        }
-        return JSON.stringify(item);
-      })
-      .join(", ");
-    throw new Error(
-      `Unassigned generated user sidebar items: ${remainingJson}`,
-    );
+    if (sidebarGroupPosition != null) {
+      const existingPosition = positionsByGroup.get(sidebarGroup);
+      if (
+        existingPosition != null &&
+        existingPosition !== sidebarGroupPosition
+      ) {
+        throw new Error(
+          `Conflicting ${sidebarGroupPositionKey} values for sidebar group '${sidebarGroup}': ${existingPosition} and ${sidebarGroupPosition}`,
+        );
+      }
+      positionsByGroup.set(sidebarGroup, sidebarGroupPosition);
+    }
+
+    const groupItems = itemsByGroup.get(sidebarGroup) ?? [];
+    groupItems.push(item);
+    itemsByGroup.set(sidebarGroup, groupItems);
   }
 
-  return groupedItems;
+  const topLevelItems = sortByLabel(ungroupedItems).map((item) => ({
+    item,
+    position: getSidebarPosition(item),
+  }));
+  for (const [label, groupItems] of itemsByGroup) {
+    topLevelItems.push({
+      item: createGroup(label, sortByLabel(groupItems)),
+      position: positionsByGroup.get(label),
+    });
+  }
+
+  return topLevelItems
+    .toSorted((a, b) => {
+      const aPosition = a.position ?? Number.POSITIVE_INFINITY;
+      const bPosition = b.position ?? Number.POSITIVE_INFINITY;
+      return aPosition === bPosition
+        ? (getLabel(a.item) ?? "").localeCompare(getLabel(b.item) ?? "")
+        : aPosition - bPosition;
+    })
+    .map(({ item }) => item);
 };

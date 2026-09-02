@@ -1,3 +1,8 @@
+---
+sidebar_group: Tools
+sidebar_position: 4
+---
+
 # Draft editor
 
 The draft editor is a [Talon Community](https://github.com/talonhub/community) plugin that lets you revise text in a full text editor before inserting it

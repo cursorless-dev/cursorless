@@ -1,3 +1,7 @@
+---
+sidebar_position: 4
+---
+
 # Supported languages
 
 Cursorless supports a wide range of languages, though our level of support varies a bit

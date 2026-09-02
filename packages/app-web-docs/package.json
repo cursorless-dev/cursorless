@@ -19,6 +19,7 @@
   "scripts": {
     "typecheck": "tsc",
     "clean": "docusaurus clear && rm -rf ./out ./dist ./tsconfig.tsbuildinfo",
+    "test": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types --test src/sidebarItemsGenerator.test.ts",
     "dev": "docusaurus start",
     "build": "docusaurus build --out-dir out"
   },

@@ -1,3 +1,8 @@
+---
+sidebar_group: Customization
+sidebar_position: 3
+---
+
 # Custom IDE actions
 
 You can use Cursorless to run any built-in IDE command on a specific target.

@@ -28,6 +28,11 @@ export function updateGraphemeDefaultSpokenFormsMd(
   }
 
   return [
+    "---",
+    "sidebar_group: Reference",
+    "sidebar_position: 7",
+    "---",
+    "",
     "# Alphabet and symbols",
     "",
     "Cursorless uses the [Talon Community](https://github.com/talonhub/community) alphabet, digits, and symbol spoken forms via the [`user.any_alphanumeric_key`](https://github.com/talonhub/community/blob/607c3415f5f29a5f75db6fe5648e37f514f62ac5/core/keys/keys.py#L71-L74) capture.",

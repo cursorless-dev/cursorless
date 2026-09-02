@@ -1,3 +1,9 @@
+---
+sidebar_group: Tools
+sidebar_group_position: 6
+sidebar_position: 1
+---
+
 # Cursorless sidebar
 
 You can say `"bar cursorless"` to show the Cursorless sidebar.

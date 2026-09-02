@@ -1,3 +1,7 @@
 {
-  "label": "Release notes"
+  "label": "Release notes",
+  "position": 3,
+  "customProps": {
+    "sidebar_group": "Project"
+  }
 }
