@@ -178,7 +178,7 @@ const config: Config = {
         alt: "Cursorless",
         src: "logo.svg",
         srcDark: "logo-dark.svg",
-        href: "https://www.cursorless.org/",
+        href: "https://www.cursorless.org",
         target: "_self",
       },
       items: [
@@ -195,6 +195,12 @@ const config: Config = {
           to: "contributing/",
           sidebarId: "contributing",
           label: "For contributors",
+        },
+        {
+          href: "https://github.com/sponsors/cursorless-dev",
+          position: "right",
+          className: "header-sponsor-link",
+          "aria-label": "Sponsor Cursorless",
         },
         {
           href: "https://github.com/cursorless-dev/cursorless",
