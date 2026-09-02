@@ -33,7 +33,7 @@ mklink /D C:\path\to\cursorless\packages\app-neovim\cursorless.nvim\node\cursorl
 mklink /D C:\path\to\cursorless\packages\app-neovim\cursorless.nvim\node\test-runner C:\path\to\cursorless\packages\test-runner
 ```
 
-Note that the `C:\path\to\cursorless` path above should match your cloned cursorless repository.
+Note that the `C:\path\to\cursorless` path above should match your cloned Cursorless repository.
 
 ## Running / testing extension locally
 
@@ -49,7 +49,7 @@ If you don't have the `cursorless-talon-dev` files in your Talon user directory 
 
 ### Running lua tests
 
-Their are separate cursorless and lua tests. You can run the lua tests by entering the `packages/app-neovim/cursorless.nvim` folder and
+Their are separate Cursorless and lua tests. You can run the lua tests by entering the `packages/app-neovim/cursorless.nvim` folder and
 running: `busted --run unit`. These tests currently only work on Linux.
 
 ## Sending pull requests

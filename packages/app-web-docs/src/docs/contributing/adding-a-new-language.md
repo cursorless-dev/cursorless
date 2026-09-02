@@ -1,6 +1,6 @@
 # Adding a new programming language
 
-So you want cursorless to support a new language? Great! Here's how to do it:
+So you want Cursorless to support a new language? Great! Here's how to do it:
 
 ## 1. Add support to the [vscode-parse-tree](https://github.com/pokey/vscode-parse-tree) extension
 
@@ -11,7 +11,7 @@ for how to add support for a new parser
 
 ## 2. Ensure file type is supported by VS Code
 
-If you are adding support for a new language that isn't natively detected by VS Code, you will need to add the appropriate extension to the list of dependencies. The list of languages officially supported by VS Code is listed [in the VS Code docs](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers). If your language is in that list, you can skip this step and proceed to step 3. If your language is not in that list, you need to find a VS Code extension that adds support for your language, and add the id of the given extension to [`packages/lib-common/src/extensionDependencies.ts`](../../../../../packages/lib-common/src/extensionDependencies.ts) and then re-run `pnpm init-vscode-sandbox` to ensure it is installed. If you do not do this you will encounter errors when attempting to execute cursorless commands in the next step. See [#1895](https://github.com/cursorless-dev/cursorless/issues/1895) for more info.
+If you are adding support for a new language that isn't natively detected by VS Code, you will need to add the appropriate extension to the list of dependencies. The list of languages officially supported by VS Code is listed [in the VS Code docs](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers). If your language is in that list, you can skip this step and proceed to step 3. If your language is not in that list, you need to find a VS Code extension that adds support for your language, and add the id of the given extension to [`packages/lib-common/src/extensionDependencies.ts`](../../../../../packages/lib-common/src/extensionDependencies.ts) and then re-run `pnpm init-vscode-sandbox` to ensure it is installed. If you do not do this you will encounter errors when attempting to execute Cursorless commands in the next step. See [#1895](https://github.com/cursorless-dev/cursorless/issues/1895) for more info.
 
 ## 3. Register your language with Cursorless
 

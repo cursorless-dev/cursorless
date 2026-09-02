@@ -13,10 +13,10 @@ The IDE settings can be accessed by saying `"cursorless settings"` with your IDE
 
 ## Talon-side settings
 
-Many of the spoken forms used in cursorless can be easily customized without
-needing to fork cursorless or modify the talon / python files contained
+Many of the spoken forms used in Cursorless can be easily customized without
+needing to fork Cursorless or modify the talon / python files contained
 therein. If you find that your customization needs cannot be met without making
-changes to cursorless files, please [file an
+changes to Cursorless files, please [file an
 issue](https://github.com/cursorless-dev/cursorless/issues/new) so we can
 improve customization.
 
@@ -35,8 +35,8 @@ Note that these csv's:
 - ignore leading / trailing whitespace on identifiers and spoken forms
 
 If the spoken form begins with a `-`, it will be disabled. Please do not remove
-any lines, because that will trigger cursorless to add them back on next
-reload, as cursorless uses these lines to track disabled spoken forms.
+any lines, because that will trigger Cursorless to add them back on next
+reload, as Cursorless uses these lines to track disabled spoken forms.
 
 ### Changing a spoken form
 
@@ -54,7 +54,7 @@ When new actions, scope types, etc are added, Cursorless will detect that they'r
 
 If you'd like to remove an action, scope type, etc, you can simply set the
 spoken form in the first column to any thing starting with `-`. Please don't
-delete any lines, as that will trigger cursorless to automatically add the
+delete any lines, as that will trigger Cursorless to automatically add the
 spoken form back on talon restart.
 
 ## Toggling "hat" display

@@ -2,7 +2,7 @@
 
 Cursorless has an experimental modal keyboard interface. This allows you to switch to Cursorless mode, and then you can use your keyboard to control Cursorless without holding any modifier keys, similar to how `vim` works.
 
-The cursorless keyboard interface works by moving a highlight around, and allowing you to perform actions on the highlighted target.
+The Cursorless keyboard interface works by moving a highlight around, and allowing you to perform actions on the highlighted target.
 
 ![Delete demo](images/keyboardDelete.gif)
 ![Bring demo](images/keyboardBring.gif)

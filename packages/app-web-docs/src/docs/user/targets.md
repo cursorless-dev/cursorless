@@ -12,7 +12,7 @@ There are several types of marks:
 
 #### Decorated symbol
 
-This is the first type of mark you'll notice when you start using cursorless. You'll see that for every token on the screen, one of its characters will have a hat on top of it. We can refer to the given token by saying the name of the character that has a hat, along with the color if the hat is not gray, and the shape of the hat if the hat is not the default dot:
+This is the first type of mark you'll notice when you start using Cursorless. You'll see that for every token on the screen, one of its characters will have a hat on top of it. We can refer to the given token by saying the name of the character that has a hat, along with the color if the hat is not gray, and the shape of the hat if the hat is not the default dot:
 
 - `"air"` (if the color is gray)
 - `"blue bat"`
@@ -77,9 +77,9 @@ You can enable or disable shapes in your VS Code settings, by searching for [`cu
 
 If you find these shape names unintuitive / tough to remember, their
 spoken forms can be [customized](./customization.md) like any other spoken form
-in cursorless. If you change a spoken form to be more than one syllable, you
+in Cursorless. If you change a spoken form to be more than one syllable, you
 can change the penalty in the [`cursorless.hatPenalties.shapes`](vscode://settings/cursorless.hatPenalties.shapes) setting to the
-number of syllables you use, so that cursorless can optimize hat allocation to
+number of syllables you use, so that Cursorless can optimize hat allocation to
 minimize syllables.
 
 #### `"this"`
@@ -95,7 +95,7 @@ Note that if you say `"this"` with an empty selection, it refers to the token co
 
 #### `"that"`
 
-The word `"that"` can be used as a mark to refer to the target of the previous cursorless command.
+The word `"that"` can be used as a mark to refer to the target of the previous Cursorless command.
 
 - `"pre that"`
 - `"round wrap that"`
@@ -165,7 +165,7 @@ These `"every"` ranges also play nicely with exclusive ranges, eg `"take every f
 
 ### List targets
 
-In addition to range targets, cursorless supports list targets, which allow you to refer to multiple targets at the same time. When combined with the `"take"` action, this will result in multiple cursors, for other actions, such as `"chuck"` the action will be applied to all the different targets at once.
+In addition to range targets, Cursorless supports list targets, which allow you to refer to multiple targets at the same time. When combined with the `"take"` action, this will result in multiple cursors, for other actions, such as `"chuck"` the action will be applied to all the different targets at once.
 
 - `"take [blue] air and [green] bat"`
 - `"take funk [blue] air and [green] bat"` (note second target inherits `"funk"`)

@@ -2,8 +2,8 @@
 
 We use an automated test case recorder to generate test cases. To use it, you
 set up a file the way you'd like (usually a minimal file containing something
-like `hello world`), positioning your cursor where you want, tell cursorless to
-start recording, and then issue one or more cursorless commands. It works by
+like `hello world`), positioning your cursor where you want, tell Cursorless to
+start recording, and then issue one or more Cursorless commands. It works by
 recording the initial state of the file including cursor position(s), the
 command run, and the final state, all in the form of a yaml document. See
 [existing test cases](../../../../../resources/fixtures/recorded) for example outputs.
@@ -20,11 +20,11 @@ command run, and the final state, all in the form of a yaml document. See
    commands listed in [Test case recorder options](#test-case-recorder-options).
 1. Pick a target directory, or create a new one by just typing the name of the
    new directory. Using `/` will create nested subdirectories.
-1. Issue any cursorless voice command, eg `"take air"`. This will result in a
+1. Issue any Cursorless voice command, eg `"take air"`. This will result in a
    new test case being generated in the Cursorless directory. You can verify by
    returning to the main VS Code window and looking at the source control
    sidebar to see the new yaml file.
-1. Repeat as many cursorless voice commands as you want recorded. Each command
+1. Repeat as many Cursorless voice commands as you want recorded. Each command
    you issue will generate a test case in the form of a new yaml file.
 1. Issue `"cursorless record"` command again to stop recording
 
