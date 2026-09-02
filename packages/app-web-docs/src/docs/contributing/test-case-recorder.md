@@ -12,7 +12,7 @@ command run, and the final state, all in the form of a yaml document. See
 
 1. Run the extension locally by saying `"debug extension"` (as described [in the
    inital setup
-   documentation](https://www.cursorless.org/docs/contributing/#running--testing-extension-locally)).
+   documentation](./CONTRIBUTING.mdx#running--testing-extension-locally)).
 1. Open an editor and fill it out with the content on which you'd like to
    operate. You can just use an untitled document, or open a real file; it
    doesn't matter. Please try to keep the file as small as possible, though.
