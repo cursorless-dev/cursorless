@@ -18,6 +18,7 @@ These resources can help you learn Cursorless, from your first commands through 
 
 - [Cursorless cheatsheet](https://www.cursorless.org/cheatsheet) - Look up actions, scopes, modifiers, and other spoken forms.
 - [Scope visualizer](./scope-visualizer.md) - Explore which Cursorless scopes are available in your code.
+- [Cursorless katas](https://github.com/Will-Sommers/cursorless-katas) - Exercises and challenges.
 
 ## Talon and community resources
 
