@@ -23,6 +23,7 @@ const items: (Group | string)[] = [
       "Targets",
       "Destinations",
       "Paired delimiters",
+      "Alphabet and symbols",
     ],
   },
   "Supported languages",

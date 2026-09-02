@@ -9,6 +9,7 @@ import type { ScopeTypeType } from "@cursorless/lib-common";
 import {
   actionReferenceGroups,
   actionReferences,
+  graphemeDefaultSpokenForms,
   languageReferences,
   modifierReferenceGroups,
   modifierReferences,
@@ -22,6 +23,7 @@ import type { RecordedTestPath } from "@cursorless/lib-node-common";
 import type { Context } from "./Context";
 import { createScopeFixtureGroups } from "./scopeFixtureGroups";
 import { textFormat } from "./textFormat";
+import { updateGraphemeDefaultSpokenFormsMd } from "./updateGraphemeDefaultSpokenFormsMd";
 import { updateLanguageMdx } from "./updateLanguageMdx";
 import { updatePackageJson } from "./updatePackageJson";
 import { updatePairedDelimitersMd } from "./updatePairedDelimitersMd";
@@ -78,6 +80,11 @@ export const updater = async (workspaceDir: string) => {
         null,
         pairedDelimiterReferences,
       ),
+      [`${userDir}/alphabet-and-symbols.md`]:
+        updateGraphemeDefaultSpokenFormsMd.bind(
+          null,
+          graphemeDefaultSpokenForms,
+        ),
       [`${userDir}/actions/README.md`]: updateReferenceReadmeMd.bind(
         null,
         "Actions",
