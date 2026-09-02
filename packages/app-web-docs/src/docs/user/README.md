@@ -4,7 +4,7 @@ slug: /
 
 # Cursorless
 
-Welcome to Cursorless! If you're new, start with the [tutorial videos](https://www.youtube.com/watch?v=5mAzHGM2M0k&list=PLXv2sppxeoQZz49evjy4T0QJRIgc_JPqs) or the [how-to guides](./how-to.md).
+Welcome to Cursorless! If you're new, start with the [learning resources](./learning-resources.md) or the [how-to guides](./how-to.md).
 
 This guide assumes you've already [installed Cursorless](./installation.md).
 
