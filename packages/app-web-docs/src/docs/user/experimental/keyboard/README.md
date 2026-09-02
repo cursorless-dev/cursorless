@@ -28,7 +28,7 @@ The keys used for actions, targets, and modifiers are context-sensitive. For exa
 
 ### `keybindings.json`
 
-Paste the following into your [VSCode `keybindings.json`](https://code.visualstudio.com/docs/getstarted/keybindings#_advanced-customization):
+Paste the following into your [VS Code `keybindings.json`](https://code.visualstudio.com/docs/getstarted/keybindings#_advanced-customization):
 
 ```json
     {
@@ -73,7 +73,7 @@ If you're already in Cursorless mode, pressing `ctrl-c` again will target the cu
 
 ### `settings.json`
 
-To bind keys that do not have modifiers (eg just pressing `a`), add entries like the following to your [VSCode `settings.json`](https://code.visualstudio.com/docs/getstarted/settings#_settingsjson) (or edit these settings in the VSCode settings gui by saying `"cursorless settings"`):
+To bind keys that do not have modifiers (eg just pressing `a`), add entries like the following to your [VS Code `settings.json`](https://code.visualstudio.com/docs/getstarted/settings#_settingsjson) (or edit these settings in the VS Code settings gui by saying `"cursorless settings"`):
 
 ```json
   "cursorless.experimental.keyboard.modal.keybindings.scope": {

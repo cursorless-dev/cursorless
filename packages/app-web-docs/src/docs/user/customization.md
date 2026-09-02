@@ -2,14 +2,14 @@
 
 Cursorless consists of
 
-- an IDE plugin (eg a VSCode extension), and
+- an IDE plugin (eg a VS Code extension), and
 - a set of Talon files that define spoken commands
 
 Because of this split, Cursorless has user settings available both on the IDE side, and on the Talon side. The rule of thumb is that anything that changes spoken forms happens Talon-side; everything else is IDE-side.
 
 ## IDE-side settings
 
-The IDE settings can be accessed by saying `"cursorless settings"` with your IDE (eg VSCode) focused.
+The IDE settings can be accessed by saying `"cursorless settings"` with your IDE (eg VS Code) focused.
 
 ## Talon-side settings
 
@@ -57,53 +57,6 @@ spoken form in the first column to any thing starting with `-`. Please don't
 delete any lines, as that will trigger cursorless to automatically add the
 spoken form back on talon restart.
 
-## \[Experimental\] Cursorless custom IDE actions
-
-You can use Cursorless to run any built-in IDE command on a specific target.
-
-Just add your custom commands to: `experimental/actions_custom.csv`. For example, if you wanted to be able to say `"push down <T>"` to move the line(s) containing target `<T>` downwards, you could do the following:
-
-```csv
-Spoken form, VSCode command
-push down, editor.action.moveLinesDownAction
-```
-
-Now when you say eg "push down air and bat", cursorless will first select the two tokens with a gray hat over the `a` and `b`, then issue the VSCode command `editor.action.moveLinesDownAction`, and then restore your original selection.
-
-## \[Experimental\] Cursorless custom regex scopes
-
-You can define custom scopes using regexes in `user/cursorless-settings/experimental/regex_scope_types.csv`
-
-:::tip
-
-Use `"visualize <scope>"` to see a live preview of the regex scope in [the scope visualizer](./scope-visualizer.md). It updates in real time every time you save `regex_scope_types.csv`.
-
-:::
-
-For example, here's what `"visualize dotted"` would show with the scope type `dotted,"[\w.]+"`:
-
-<div class="light-mode-invert">
-  ![visualization of a custom regex scope](./images/custom-regex-scopes.png)
-</div>
-
-You can then use commands such as
-
-- `"take dotted sun"` to select `user.text` (line 10)
-- `"copy dotted urge"` to copy `user.chrome_mod` (line 11)
-- `"take every dotted urge"` to select `user.chrome_mod`, `shift`, and `a`
-
-:::tip
-
-> Check out [our wiki page](https://github.com/cursorless-dev/cursorless/wiki/Custom-regex-scopes) for a recipe book of user-created regex scopes!
-
-:::
-
-:::warning
-
-Regex matches cannot cross line boundaries (so multiline matches are not supported). The regexes also have the unicode flag set.
-
-:::
-
 ## Toggling "hat" display
 
 It is possible to show / hide the hats with a command. Keep in mind that many users, often after less than a week using Cursorless, find that their brain starts to tune out the hat display. Some start to miss them when they're gone 🥲
@@ -138,102 +91,4 @@ The word separators are characters that defines the boundary between words in a 
 "[css]": {
   "cursorless.wordSeparators": ["_", "-"]
 }
-```
-
-## Cursorless public API
-
-Cursorless exposes a couple talon actions and captures that you can use to define your own custom command grammar leveraging cursorless targets.
-
-### Public Talon captures
-
-- `<user.cursorless_target>`
-  Represents a cursorless target, such as `"air"`, `"this"`, `"air past bat"`, `"air and bat"`, `"funk air past token bat and class cap"`, etc
-
-- `<user.cursorless_destination>`
-  Represents a cursorless destination, such as `"to air"`, `"before this"`, `"after air and bat"`, etc
-
-### Public Talon actions
-
-- `user.cursorless_command(action_id: str, target: cursorless_target)`:
-  Perform a Cursorless command on the given target
-  eg: `user.cursorless_command("setSelection", cursorless_target)`.
-  Note that for `"bring"` (`replaceWithTarget`), `cursorless_target` will be the source of the bring and the destination will be the current selection(s), as if you had said `"bring <target>"`
-- `user.cursorless_ide_command(command_id: str, target: cursorless_target)`:
-  Performs a built-in IDE command on the given target
-  eg: `user.cursorless_ide_command("editor.action.addCommentLine", cursorless_target)`
-- `user.cursorless_get_text(target: CursorlessTarget, hide_decorations: bool = False) -> str`
-  Get text from target. If `hide_decorations` is `true`, will not show decorations.
-- `user.cursorless_get_text_list(target: CursorlessTarget, hide_decorations: bool = False) -> list[str]`
-  Get texts from multiple targets. If `hide_decorations` is `true`, will not show decorations.
-- `user.cursorless_insert(destination: CursorlessDestination, text: Union[str, List[str]])`:
-  Insert text at destination.
-  eg: `user.cursorless_insert(cursorless_destination, "hello")`
-- `user.cursorless_create_destination(target: CursorlessTarget, insertion_mode: Literal["to", "before", "after"] = "to") -> CursorlessDestination`:
-  Create a destination from a target. The insertion mode can be `to`, `before`, or `after`, and defaults to `to`, which will replace the target. See [How do I run a custom Python transformation on a target?](./how-to.md#how-do-i-run-a-custom-python-transformation-on-a-target) for example usage.
-- `user.cursorless_reformat(target: CursorlessTarget, formatters: str)`
-  Reformat target with specified formatters.
-  eg: `user.cursorless_reformat(cursorless_target, "ALL_CAPS")`
-
-#### Snippet actions
-
-- `user.cursorless_insert_snippet(body: str, destination: Optional[CursorlessDestination], scope_type: Optional[Union[str, list[str]]])`: Insert a snippet with the given body. The body should be a single string, which could contain newline `\n` characters, rather than a list of strings as is expected in our snippet json representation. Destination is where the snippet will be inserted. If omitted will default to current selection. An optional scope type can be provided for the target to expand to. `"snip if after air"` for example could be desired to go after the statement containing `air` instead of the token.
-- `user.cursorless_wrap_with_snippet(body, target, variable_name, scope)`: Wrap the given target with a snippet with the given body. The body should be a single string, which could contain newline `\n` characters, rather than a list of strings as is expected in our snippet json representation. Note that `variable_name` should be one of the variables defined in `body`. Eg, if `body` has a variable `$foo`, you can pass in `"foo"` for `variable_name`, and `target` will be inserted into the position of `$foo` in the given named snippet. The `scope` variable can be used to automatically expand the target to the given scope type, eg `"line"`.
-
-### Example of combining capture and action
-
-```talon
-add dock string <user.cursorless_target>:
-    user.cursorless_command("editNewLineAfter", cursorless_target)
-    "\"\"\"\"\"\""
-    key(left:3)
-
-push <user.cursorless_target> down:
-    user.cursorless_ide_command("editor.action.moveLinesDownAction", cursorless_target)
-```
-
-### Example of custom formatter command
-
-The below command will allow you to say `camel form blue air`.
-_You can disable the default Cursorless reformat command by prefixing the spoken form in `actions.csv` with a dash. `-format, applyFormatter`_
-
-```talon
-<user.formatters> form <user.cursorless_target>:
-    user.cursorless_reformat(cursorless_target, formatters)
-```
-
-### Experimental custom command action
-
-:::warning
-
-This feature is experimental! Not as thoroughly tested as the rest of Cursorless and might change in the future. Early adopters should subscribe to this [discussion](https://github.com/cursorless-dev/cursorless/discussions/2942) to get updates about breaking changes\_
-
-:::
-
-`user.cursorless_x_custom_command(command: string, *args)`
-
-Run a custom Cursorless command by parsing the specified command string. Supports a subset of the Cursorless grammar, with **default** spoken forms (not your custom spoken forms). See https://www.cursorless.org/custom-command-railroad to see the subset of our grammar that we support today.
-
-- Utilizes default Cursorless spoken forms in the command string.
-- Optional target arguments can be interpolated in the command string. (see examples below)
-
-#### Examples
-
-In order to map `"scratch"` to perform `"chuck block"`:
-
-```talon
-scratch: user.cursorless_x_custom_command("chuck block")
-```
-
-To map `"scratch air"` => `"chuck block air"`
-
-```talon
-scratch <user.cursorless_target>:
-    user.cursorless_x_custom_command("chuck block <target>", cursorless_target)
-```
-
-To map `"combine air plus bat"` => `"bring block air after bat"`
-
-```talon
-combine <user.cursorless_target> plus <user.cursorless_target>:
-    user.cursorless_x_custom_command("bring block <target1> after <target2>", cursorless_target_1, cursorless_target_2)
 ```

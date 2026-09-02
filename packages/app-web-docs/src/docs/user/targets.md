@@ -44,9 +44,9 @@ The following colors are supported. Note that to target the default (gray) hat y
 | `"user color 3"` | user 3  | `userColor3` | ❌                  |
 | `"user color 4"` | user 4  | `userColor4` | ❌                  |
 
-You can enable or disable colors in your VSCode settings, by searching for [`cursorless.hatEnablement.colors`](vscode://settings/cursorless.hatEnablement.colors) and checking the box next to the internal ID for the given shape as listed above. To navigate to your VSCode settings, either say "show settings", or go to File --> Preferences --> Settings.
+You can enable or disable colors in your VS Code settings, by searching for [`cursorless.hatEnablement.colors`](vscode://settings/cursorless.hatEnablement.colors) and checking the box next to the internal ID for the given shape as listed above. To navigate to your VS Code settings, either say "show settings", or go to File --> Preferences --> Settings.
 
-You can also tweak the visible colors for any of these colors in your VSCode settings, by searching for [`cursorless.colors`](vscode://settings/cursorless.colors) and changing the hex color code next to the internal ID for the given shape as listed above. Note that you can configure different colors for dark and light themes. See our [visual accessibility guide](./visual-accessibility.md) for more on visual accessibility.
+You can also tweak the visible colors for any of these colors in your VS Code settings, by searching for [`cursorless.colors`](vscode://settings/cursorless.colors) and changing the hex color code next to the internal ID for the given shape as listed above. Note that you can configure different colors for dark and light themes. See our [visual accessibility guide](./visual-accessibility.md) for more on visual accessibility.
 
 If you find these color names unintuitive / tough to remember, their
 spoken forms can be [customized](./customization.md) like any other spoken form
@@ -73,7 +73,7 @@ The following shapes are supported. Note that to target the default (dot) shape 
 | `"cross"`   | ![Crosshairs](../../../../../resources/images/hats/crosshairs.svg) | `crosshairs` | ❌                  |
 | `"eye"`     | ![Eye](../../../../../resources/images/hats/eye.svg)               | `eye`        | ❌                  |
 
-You can enable or disable shapes in your VSCode settings, by searching for [`cursorless.hatEnablement.shapes`](vscode://settings/cursorless.hatEnablement.shapes) and checking the box next to the internal ID for the given shape as listed above. To navigate to your VSCode settings, either say "show settings", or go to File --> Preferences --> Settings.
+You can enable or disable shapes in your VS Code settings, by searching for [`cursorless.hatEnablement.shapes`](vscode://settings/cursorless.hatEnablement.shapes) and checking the box next to the internal ID for the given shape as listed above. To navigate to your VS Code settings, either say "show settings", or go to File --> Preferences --> Settings.
 
 If you find these shape names unintuitive / tough to remember, their
 spoken forms can be [customized](./customization.md) like any other spoken form
@@ -110,7 +110,7 @@ The word `"row"` followed by a number can be used to refer to a line by its line
 
 #### `"up <number>"` / `"down <number>"`
 
-The word `"up"` or `"down"` followed by a number can be used to refer to the line that is `<number>` lines above or below the cursor. The line may be outside of the viewport. In the case of multiple selections, this mark only refers to the line relative to the primary selection. You can turn on relative line numbers in the VSCode settings to make these marks easier to use.
+The word `"up"` or `"down"` followed by a number can be used to refer to the line that is `<number>` lines above or below the cursor. The line may be outside of the viewport. In the case of multiple selections, this mark only refers to the line relative to the primary selection. You can turn on relative line numbers in the VS Code settings to make these marks easier to use.
 
 - `"copy up one"`
 - `"comment down two"`

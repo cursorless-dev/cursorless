@@ -3,7 +3,7 @@ import TabItem from "@theme/TabItem";
 
 # Contributing
 
-Welcome! So glad you've decided to help make Cursorless better. You'll want to start by getting [set up](#initial-setup) and learning how to [run / test a local copy of the extension](#running--testing-extension-locally). You may also find the [VSCode API docs](https://code.visualstudio.com/api) helpful to learn about VSCode extension development.
+Welcome! So glad you've decided to help make Cursorless better. You'll want to start by getting [set up](#initial-setup) and learning how to [run / test a local copy of the extension](#running--testing-extension-locally). You may also find the [VS Code API docs](https://code.visualstudio.com/api) helpful to learn about VS Code extension development.
 
 ## Initial setup
 
@@ -12,13 +12,13 @@ Welcome! So glad you've decided to help make Cursorless better. You'll want to s
 - [Git](https://git-scm.com/)
 - [Node.js](https://nodejs.org/en/)
 - [Corepack](https://nodejs.org/api/corepack.html) or [pnpm](https://pnpm.io/installation)
-- [VSCode](https://code.visualstudio.com/) or [VSCodium](https://vscodium.com/)
-  Both VSCode and VSCodium will be referred to as VSCode except when instructions differ between the editors.
+- [VS Code](https://code.visualstudio.com/) or [VSCodium](https://vscodium.com/)
+  Both VS Code and VSCodium will be referred to as VS Code except when instructions differ between the editors.
 
 ### Steps
 
 1.  Clone [`cursorless`](https://github.com/cursorless-dev/cursorless) locally. Note that it doesn't matter where you clone it, as long as you _**do not**_ clone it into your Talon user directory.
-2.  Open the newly created `cursorless` directory in VSCode. If you're on Windows, don't use WSL (see [#919](https://github.com/cursorless-dev/cursorless/issues/919) for discussion / workaround).
+2.  Open the newly created `cursorless` directory in VS Code. If you're on Windows, don't use WSL (see [#919](https://github.com/cursorless-dev/cursorless/issues/919) for discussion / workaround).
 3.  Run the following in the terminal:
 
     ```bash
@@ -29,7 +29,7 @@ Welcome! So glad you've decided to help make Cursorless better. You'll want to s
 
         <Tabs groupId="vsx">
 
-      <TabItem value="vscode" label="VSCode" default>
+      <TabItem value="vscode" label="VS Code" default>
 
             ```bash
              code --profile=cursorlessDevelopment
@@ -47,13 +47,13 @@ Welcome! So glad you've decided to help make Cursorless better. You'll want to s
 
     </Tabs>
 
-        and then close the window that opens (eg say `"window close"`). This step is necessary to create the [VSCode settings profile](https://code.visualstudio.com/updates/v1_72#_settings-profiles) that acts as a sandbox containing a specific set of VSCode extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. Once https://github.com/microsoft/vscode/issues/172046 is resolved, we will be able to remove this step, as the profile can then automatically be created.
+        and then close the window that opens (eg say `"window close"`). This step is necessary to create the [VS Code settings profile](https://code.visualstudio.com/updates/v1_72#_settings-profiles) that acts as a sandbox containing a specific set of VS Code extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. Once https://github.com/microsoft/vscode/issues/172046 is resolved, we will be able to remove this step, as the profile can then automatically be created.
 
 5.  Run the following in the terminal:
 
         <Tabs groupId="vsx">
 
-      <TabItem value="vscode" label="VSCode">
+      <TabItem value="vscode" label="VS Code">
 
             ```bash
              pnpm init-vscode-sandbox
@@ -83,11 +83,11 @@ Welcome! So glad you've decided to help make Cursorless better. You'll want to s
 
     </Tabs>
 
-        Said command adds extensions to the aforementioned settings profile that acts as a sandbox containing a specific set of VSCode extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. This approach is [suggested](https://code.visualstudio.com/updates/v1_72#_extension-debugging-in-a-clean-environment) by the VSCode documentation. If you need to update any of the extension dependencies in the sandbox, you can add `--force` to the command. If you'd like to use additional extensions when debugging locally, you can use the following command:
+        Said command adds extensions to the aforementioned settings profile that acts as a sandbox containing a specific set of VS Code extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. This approach is [suggested](https://code.visualstudio.com/updates/v1_72#_extension-debugging-in-a-clean-environment) by the VS Code documentation. If you need to update any of the extension dependencies in the sandbox, you can add `--force` to the command. If you'd like to use additional extensions when debugging locally, you can use the following command:
 
         <Tabs groupId="vsx">
 
-      <TabItem value="vscode" label="VSCode">
+      <TabItem value="vscode" label="VS Code">
 
             ```bash
              code --profile=cursorlessDevelopment --install-extension some.extension
@@ -109,7 +109,7 @@ Welcome! So glad you've decided to help make Cursorless better. You'll want to s
 
         Note that you do not need to install the Cursorless extension into the `cursorlessDevelopment` profile. A local development version of Cursorless will be automatically installed there every time you debug the extension, as described below.
 
-        Also note that if you are adding support for a new language that isn't in the default list of [language identifiers](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers) supported by VSCode, you may need to add an extension dependency. See [Adding a new language](./adding-a-new-language.md#2-ensure-file-type-is-supported-by-vscode) for more details.
+        Also note that if you are adding support for a new language that isn't in the default list of [language identifiers](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers) supported by VS Code, you may need to add an extension dependency. See [Adding a new language](./adding-a-new-language.md#2-ensure-file-type-is-supported-by-vs-code) for more details.
 
 6.  Copy / symlink [`cursorless-talon-dev`](../../cursorless-talon-dev) into your Talon user directory for some useful voice commands for developing Cursorless.
 
@@ -118,16 +118,16 @@ Welcome! So glad you've decided to help make Cursorless better. You'll want to s
 In order to test out your local version of the extension or to run unit tests
 locally, you need to run the extension in debug mode. To do so you need to do the following:
 
-1. Open the Cursorless repository in VSCode (with your regular default profile, _**not**_ with the `cursorlessDevelopment` profile)
+1. Open the Cursorless repository in VS Code (with your regular default profile, _**not**_ with the `cursorlessDevelopment` profile)
 2. Say `"debug extension"` to run the extension. If you want to run the tests instead, say `"debug test"`.
 
-If you don't have the `cursorless-talon-dev` files in your Talon user directory as described in step 6 above, then you instead need to run the `workbench.action.debug.selectandstart` command in VSCode and then select either "Run extension" or "Extension tests".
+If you don't have the `cursorless-talon-dev` files in your Talon user directory as described in step 6 above, then you instead need to run the `workbench.action.debug.selectandstart` command in VS Code and then select either "Run extension" or "Extension tests".
 
 ### Running a subset of tests
 
 The entire test suite takes a little while to run (1-2 mins), so you may want to run just a subset of the tests.
 
-To specify the set of tests to run, say `"debug generate subset"`, or if you haven't installed the cursorless-talon-dev files, run the VSCode task "Generate test subset file". To do this, choose "Tasks: Run Task" from the command palette.
+To specify the set of tests to run, say `"debug generate subset"`, or if you haven't installed the cursorless-talon-dev files, run the VS Code task "Generate test subset file". To do this, choose "Tasks: Run Task" from the command palette.
 
 To run the specified subset of tests, say `"debug test subset"` (or use the "Extension tests (subset)" launch config).
 
@@ -151,7 +151,7 @@ Run the `workbench.action.debug.selectandstart` command and then select
 
 See [test-case-recorder.md](./test-case-recorder.md).
 
-It is also possible to write manual tests. When doing so, we have a convention that any test that must be run within a VSCode context (eg because it imports `"vscode"`), should be placed in a file with the suffix `.vscode.test.ts`. All other tests should end with just `.test.ts`. This allows us to run non-VSCode tests locally outside of VSCode using `pnpm test`. The non-VSCode tests run much faster than the full VSCode test suite.
+It is also possible to write manual tests. When doing so, we have a convention that any test that must be run within a VS Code context (eg because it imports `"vscode"`), should be placed in a file with the suffix `.vscode.test.ts`. All other tests should end with just `.test.ts`. This allows us to run non-VS Code tests locally outside of VS Code using `pnpm test`. The non-VS Code tests run much faster than the full VS Code test suite.
 
 ## Parse tree support
 
@@ -159,7 +159,7 @@ It is also possible to write manual tests. When doing so, we have a convention t
 
 See [docs](./adding-a-new-language.md).
 
-### Testing Cursorless with a local version of the VSCode parse tree extension
+### Testing Cursorless with a local version of the VS Code parse tree extension
 
 First bundle the parse tree extension into a `.vsix`, using something like the following:
 
@@ -171,7 +171,7 @@ vsce package -o bundle.vsix
 Once you have your package then you can install it into the sandbox using the following command:
 
 <Tabs groupId="vsx">
-  <TabItem value="vscode" label="VSCode">
+  <TabItem value="vscode" label="VS Code">
 
     ```bash
     code --profile=cursorlessDevelopment --install-extension bundle.vsix

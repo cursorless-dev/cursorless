@@ -22,7 +22,7 @@ command run, and the final state, all in the form of a yaml document. See
    new directory. Using `/` will create nested subdirectories.
 1. Issue any cursorless voice command, eg `"take air"`. This will result in a
    new test case being generated in the Cursorless directory. You can verify by
-   returning to the main VSCode window and looking at the source control
+   returning to the main VS Code window and looking at the source control
    sidebar to see the new yaml file.
 1. Repeat as many cursorless voice commands as you want recorded. Each command
    you issue will generate a test case in the form of a new yaml file.

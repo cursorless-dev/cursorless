@@ -4,9 +4,9 @@
    - Make sure a speech engine is installed (click the Talon tray icon, then select one from the `Speech Recognition` menu)
 2. Install the [community Talon commands](https://github.com/talonhub/community).
    _(Or see [here](https://github.com/cursorless-dev/cursorless/wiki/Talon-home-requirements) if you prefer not to use community.)_
-3. Install [VSCode](https://code.visualstudio.com/)
-4. Install the [VSCode talon extension pack](https://marketplace.visualstudio.com/items?itemName=pokey.talon)
-5. Install the [Cursorless VSCode extension](https://marketplace.visualstudio.com/items?itemName=pokey.cursorless)
+3. Install [VS Code](https://code.visualstudio.com/)
+4. Install the [VS Code talon extension pack](https://marketplace.visualstudio.com/items?itemName=pokey.talon)
+5. Install the [Cursorless VS Code extension](https://marketplace.visualstudio.com/items?itemName=pokey.cursorless)
 6. Follow the instructions below to install the Talon side of Cursorless.
 7. Restart Talon.
 

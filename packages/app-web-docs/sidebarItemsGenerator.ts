@@ -14,6 +14,7 @@ const items: (Group | string)[] = [
     label: "Getting started",
     items: [
       "Installation",
+      "Recommendations",
       "Learning resources",
       "How-to guides",
       "Troubleshooting",
@@ -34,7 +35,14 @@ const items: (Group | string)[] = [
   "Supported languages",
   {
     label: "Customization",
-    items: ["Customization", "Hat assignment", "Visual Accessibility"],
+    items: [
+      "Customization",
+      "Hat assignment",
+      "Visual Accessibility",
+      "Custom IDE actions",
+      "Custom regex scopes",
+      "Public Talon API",
+    ],
   },
   {
     label: "Tools",

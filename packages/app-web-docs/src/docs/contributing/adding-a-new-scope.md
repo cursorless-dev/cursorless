@@ -70,7 +70,7 @@ The tests generated in step 4 only include the code example. Now that you've tol
 
 1. Say `"debug edit subset"` and alter the file to include just the name of your language.
 2. Run `pnpm test:update:subset` from the repository root to update the fixtures for the selected subset of tests. If you want to update all fixtures instead, run `pnpm test:update`.
-3. Check that the fixtures now look as expected, and no other tests for your language have been altered. The VSCode source control side bar is useful for this purpose. For help understanding the scope test format, see the [scope test format docs](./scope-test-format.md).
+3. Check that the fixtures now look as expected, and no other tests for your language have been altered. The VS Code source control side bar is useful for this purpose. For help understanding the scope test format, see the [scope test format docs](./scope-test-format.md).
 
 ## 7. File a PR!
 

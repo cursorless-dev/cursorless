@@ -31,7 +31,7 @@ Each step shows a command to say and usually advances automatically when you com
 
 ### Start a tutorial
 
-With VSCode focused, say `"cursorless tutorial"` to start or continue the Introduction tutorial.
+With VS Code focused, say `"cursorless tutorial"` to start or continue the Introduction tutorial.
 
 To choose a tutorial, say `"tutorial list"`, then click its name or say `"tutorial <number>"`. For example, say `"tutorial two"` to start or continue Basic coding.
 
