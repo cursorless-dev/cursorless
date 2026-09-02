@@ -388,6 +388,10 @@ Relative modifiers select scopes before or after the input target. Without \`"ev
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${PARENTHESES} ${TARGET}`,
         description: `Selects only the parentheses containing the ${TARGET_DESC}.`,
       },
+      {
+        command: `${REMOVE} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Removes the boundaries containing the ${TARGET_DESC}.`,
+      },
     ],
   },
   leading: {

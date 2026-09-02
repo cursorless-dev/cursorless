@@ -14,9 +14,9 @@ To replace a target with the contents of the clipboard, say `"paste to <target>"
 
 :::
 
-## How do I run a VSCode task / bash shell command on a target?
+## How do I run a VS Code task / bash shell command on a target?
 
-1. Add a [VSCode task](https://code.visualstudio.com/docs/editor/variables-reference) to your `tasks.json` (say `"please open tasks"`):
+1. Add a [VS Code task](https://code.visualstudio.com/docs/editor/variables-reference) to your `tasks.json` (say `"please open tasks"`):
 
    ```json
    {
@@ -43,7 +43,7 @@ You can now say eg `"echo air past bat"`.
 
 :::info
 
-See the [Talon-side api docs](./customization.md#cursorless-public-api) for more on creating custom Cursorless commands
+See the [Talon-side api docs](./public-talon-api.md) for more on creating custom Cursorless commands
 
 :::
 
@@ -78,7 +78,7 @@ Now, for example if you have a target `aardvark` with a hat over the `a`, you ca
 
 :::info
 
-See the [Talon-side api docs](./customization.md#cursorless-public-api) for more on creating custom Cursorless commands
+See the [Talon-side api docs](./public-talon-api.md) for more on creating custom Cursorless commands
 
 :::
 

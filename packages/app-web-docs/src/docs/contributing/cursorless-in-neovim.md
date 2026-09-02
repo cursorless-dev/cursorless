@@ -24,7 +24,7 @@ On Windows, open the Control Panel, navigate to `User Accounts > User Accounts`.
 
 ### 4. (Windows only) Create symlinks for the built plugins
 
-This step is only required on Windows if you don't run VSCode with Administrator privileges.
+This step is only required on Windows if you don't run VS Code with Administrator privileges.
 
 Open a `cmd.exe` with Administrator privileges and create the symbolic links between the source folders and the `packages/app-neovim/cursorless.nvim` destination folder:
 
@@ -33,23 +33,23 @@ mklink /D C:\path\to\cursorless\packages\app-neovim\cursorless.nvim\node\cursorl
 mklink /D C:\path\to\cursorless\packages\app-neovim\cursorless.nvim\node\test-runner C:\path\to\cursorless\packages\test-runner
 ```
 
-Note that the `C:\path\to\cursorless` path above should match your cloned cursorless repository.
+Note that the `C:\path\to\cursorless` path above should match your cloned Cursorless repository.
 
 ## Running / testing extension locally
 
 In order to test out your local version of the extension or to run unit tests locally, you need to run the extension in debug mode. To do so you need to do the following:
 
-1. Open the Cursorless repository in VSCode (with your regular default profile, _**not**_ with the `cursorlessDevelopment` profile)
+1. Open the Cursorless repository in VS Code (with your regular default profile, _**not**_ with the `cursorlessDevelopment` profile)
 2. Say `"neovim log"` to open the neovim log.
 3. Say `"debug neovim"` to run the extension. If you want to run the tests instead, say `"debug test neovim"`.
 
-NOTE: This will spawn a standalone nvim instance that is independent of VSCode. Consequently after you're done debugging, you need to close nvim.
+NOTE: This will spawn a standalone nvim instance that is independent of VS Code. Consequently after you're done debugging, you need to close nvim.
 
-If you don't have the `cursorless-talon-dev` files in your Talon user directory as described in step 6 of [CONTRIBUTING.mdx](./CONTRIBUTING.mdx#initial-setup), then you instead need to run the `workbench.action.debug.selectandstart` command in VSCode and then select either "Neovim: Run" or "Neovim: Test".
+If you don't have the `cursorless-talon-dev` files in your Talon user directory as described in step 6 of [CONTRIBUTING.mdx](./CONTRIBUTING.mdx#initial-setup), then you instead need to run the `workbench.action.debug.selectandstart` command in VS Code and then select either "Neovim: Run" or "Neovim: Test".
 
 ### Running lua tests
 
-Their are separate cursorless and lua tests. You can run the lua tests by entering the `packages/app-neovim/cursorless.nvim` folder and
+Their are separate Cursorless and lua tests. You can run the lua tests by entering the `packages/app-neovim/cursorless.nvim` folder and
 running: `busted --run unit`. These tests currently only work on Linux.
 
 ## Sending pull requests
