@@ -42,7 +42,7 @@ const items: (Group | string)[] = [
   },
   {
     label: "Advanced",
-    items: ["Unicode support", "Experimental features", "Talon dependencies"],
+    items: ["Talon dependencies", "Unicode support", "Experimental features"],
   },
   {
     label: "Project",
