@@ -6,6 +6,19 @@ For each scope that your language should support (eg `"funk"`), you need to do t
 
 You'll first need to figure out the internal identifier we use for the given scope. You can do so by looking in your `modifier_scope_types.csv` (see [Customization](../user/customization.md) if you're not sure where that file is). The internal identifier is the second column in the CSV file. For example, the internal identifier for `"funk"` is `namedFunction`. This identifier is what you'll use in the `.scm` file in step 4 below when you define your language's parse tree patterns.
 
+### Activating internal scopes
+
+Some scope types are used internally by Cursorless, so they are not included in `modifier_scope_types.csv` by default. To refer to them by voice while developing or testing a language and to add them to the [scope visualizer](../user/scope-visualizer.md), add the following entries to that file:
+
+```csv
+access, private.fieldAccess
+text fragment, textFragment
+disqualify, disqualifyDelimiter
+core, interior
+```
+
+For example, after adding the `textFragment` entry, you can say `"take text fragment blue air"` to select the text fragment containing the blue `air` target. The spoken forms in the first column are only suggestions and can be changed.
+
 ## 2. Find the appropriate scope support facets
 
 Find the _facets_ of the given scope that are relevant to your language. Each scope has several "facets" that indicate different syntactic constructs that should be considered to be the given scope.
@@ -23,7 +36,33 @@ These facet ids will be the keys in your language's scope support table below.
 Note that in addition to the straightforward facet IDs that correspond to the scope type, there are also some special facet IDs. In particular:
 
 - `foo.iteration` indicates the iteration scope of a given facet. For example, `namedFunction.method.iteration.class` allows you to indicate that the iteration scope for functions is a class.
-- `textFragment.xxx` scopes allow you to indicate regions in the document that have no syntactic structure. These allow us to support matching pairs inside of strings and comments, where there will be no tokens for delimiters like `(` and `)`.
+- `textFragment.xxx` scopes identify regions of text such as strings and comments. See [Text fragments](#text-fragments) below.
+
+### Text fragments
+
+Cursorless scans document text for surrounding-pair delimiters such as `(` and `)`. Inside strings, comments, and markup text, these delimiters often have no corresponding syntax-tree nodes. A `textFragment` capture tells Cursorless which continuous region of text contains each delimiter. Cursorless only pairs delimiters that belong to the same text fragment, preventing an opening delimiter in one string or comment from being paired with a closing delimiter in another.
+
+When adding scope support for a language:
+
+1. Mark each applicable `textFragment.xxx` facet as `supported` in the language's scope support table.
+2. Add an `@textFragment` capture for each applicable text region in the language's query file. Capture the text content without its syntactic delimiters when the parse tree permits it.
+3. Add fixtures for each supported text-fragment facet using the scope test recorder described below.
+
+For example, the JavaScript query captures comments directly and trims the first and last children from strings so that their quote delimiters are excluded:
+
+```scm
+[
+  (comment)
+  (regex_pattern)
+] @textFragment
+
+(
+  (string) @textFragment
+  (#child-range! @textFragment 0 -1 true true)
+)
+```
+
+See the [`textFragment` scope reference](./private-scopes/textFragment.mdx) for the available facets and visualizations of their fixtures, and browse the existing [language query files](../../../../../resources/queries) for examples covering different parse-tree shapes.
 
 ## 3. Add entries to your language's scope support table
 
