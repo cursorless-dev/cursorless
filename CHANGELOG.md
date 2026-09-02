@@ -2,6 +2,7 @@
 
 ## 2026
 
+- 2026-09-02: Added documentation for learning resources. ([#3334](https://github.com/cursorless-dev/cursorless/pull/3334))
 - 2026-09-02: Added reference documentation for community draft editor. ([#3333](https://github.com/cursorless-dev/cursorless/pull/3333))
 - 2026-09-02: Added reference documentation for community alphabet and symbols. ([#3332](https://github.com/cursorless-dev/cursorless/pull/3332))
 - 2026-09-02: Visualize actions on the documentation page. ([#3330](https://github.com/cursorless-dev/cursorless/pull/3330))

@@ -12,7 +12,7 @@ const items: (Group | string)[] = [
   "Cursorless",
   {
     label: "Getting started",
-    items: ["Installation", "How-to guides"],
+    items: ["Installation", "Learning resources", "How-to guides"],
   },
   {
     label: "Reference",
