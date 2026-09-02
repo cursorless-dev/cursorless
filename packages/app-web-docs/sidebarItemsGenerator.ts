@@ -24,6 +24,7 @@ const items: (Group | string)[] = [
       "Destinations",
       "Paired delimiters",
       "Alphabet and symbols",
+      "Draft editor",
     ],
   },
   "Supported languages",
