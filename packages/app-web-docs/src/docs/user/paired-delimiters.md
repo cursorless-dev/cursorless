@@ -1,3 +1,8 @@
+---
+sidebar_group: Reference
+sidebar_position: 6
+---
+
 # Paired delimiters
 
 | Default spoken form | Delimiter name        | Symbol inserted before target | Symbol inserted after target | Is wrapper? | Is selectable? |

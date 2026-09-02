@@ -1,3 +1,8 @@
+---
+sidebar_group: Tools
+sidebar_position: 2
+---
+
 # Scope visualizer
 
 The scope visualizer allows you to visualize Cursorless scopes on your code in real time. It is useful to understand how Cursorless scopes work, and is also useful for Cursorless contributors as they develop new scopes. You may find the [scope visualizer intro video](https://youtu.be/BbXEzUrf5lU) helpful.

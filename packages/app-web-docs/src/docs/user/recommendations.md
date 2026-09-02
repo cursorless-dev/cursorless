@@ -1,3 +1,8 @@
+---
+sidebar_group: Getting started
+sidebar_position: 2
+---
+
 # Recommendations
 
 These optional recommendations can improve your Cursorless workflow but are not required by Cursorless.

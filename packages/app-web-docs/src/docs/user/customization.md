@@ -1,3 +1,8 @@
+---
+sidebar_group: Customization
+sidebar_group_position: 5
+---
+
 # Customization
 
 Cursorless consists of

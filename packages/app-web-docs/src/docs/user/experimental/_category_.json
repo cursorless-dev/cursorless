@@ -1,3 +1,7 @@
 {
-  "label": "Experimental features"
+  "label": "Experimental features",
+  "position": 3,
+  "customProps": {
+    "sidebar_group": "Advanced"
+  }
 }

@@ -1,3 +1,8 @@
+---
+sidebar_group: Customization
+sidebar_position: 1
+---
+
 # Hat assignment
 
 Every time you move your cursor, edit a document, or scroll, Cursorless assigns hats to the tokens in each visible editor. When selecting hats, Cursorless attempts to give "good" hats to tokens near your cursor, while at the same time keeping hats from moving around too much.

@@ -1,3 +1,8 @@
+---
+sidebar_group: Customization
+sidebar_position: 5
+---
+
 # Public Talon API
 
 Cursorless exposes Talon actions and captures that you can use to define custom command grammars with Cursorless targets.

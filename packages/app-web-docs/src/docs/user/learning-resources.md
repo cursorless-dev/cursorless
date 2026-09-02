@@ -1,3 +1,8 @@
+---
+sidebar_group: Getting started
+sidebar_position: 3
+---
+
 # Learning resources
 
 These resources can help you learn Cursorless, from your first commands through more advanced workflows.
@@ -5,7 +10,7 @@ These resources can help you learn Cursorless, from your first commands through 
 ## Start here
 
 - [Cursorless tutorial videos](https://www.youtube.com/watch?v=5mAzHGM2M0k&list=PLXv2sppxeoQZz49evjy4T0QJRIgc_JPqs) - Learn the basic concepts and commands.
-- [Interactive tutorial](./scope-sidebar.md#tutorial) - Learn Cursorless inside your editor using the Cursorless sidebar.
+- [Interactive tutorial](./sidebar.md#tutorial) - Learn Cursorless inside your editor using the Cursorless sidebar.
 
 ## Learn from examples
 

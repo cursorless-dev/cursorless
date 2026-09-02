@@ -1,3 +1,8 @@
+---
+sidebar_group: Reference
+sidebar_position: 5
+---
+
 # Destinations
 
 Some actions expect a destination, rather than a target. Destinations combine a preposition and a target, to define a place and behavior for a Cursorless action.

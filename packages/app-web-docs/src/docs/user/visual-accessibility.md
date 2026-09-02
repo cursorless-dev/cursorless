@@ -1,3 +1,8 @@
+---
+sidebar_group: Customization
+sidebar_position: 2
+---
+
 # Visual Accessibility
 
 Cursorless has multiple settings that can be customized to improve accessibility for users with color blindness or other vision impairments. The primary visual elements of Cursorless are the [hats](./targets.md#decorated-symbol), so this guide will focus on customizing the hats.

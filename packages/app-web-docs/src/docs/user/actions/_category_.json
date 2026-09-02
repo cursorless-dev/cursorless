@@ -1,3 +1,8 @@
 {
-  "label": "Actions"
+  "label": "Actions",
+  "position": 1,
+  "customProps": {
+    "sidebar_group": "Reference",
+    "sidebar_group_position": 3
+  }
 }

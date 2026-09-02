@@ -1,3 +1,8 @@
+---
+sidebar_group: Tools
+sidebar_position: 3
+---
+
 # Local command history
 
 By default, Cursorless doesn't capture anything about your usage. However, we do have a way to opt in to a local, sanitized command history. This history is never sent to our servers, and any commands that may contain text will be sanitized.

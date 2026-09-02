@@ -1,3 +1,8 @@
+---
+sidebar_group: Reference
+sidebar_position: 4
+---
+
 # Targets
 
 There are two types of targets: primitive targets and compound targets. Compound targets are constructed from primitive targets, so let's begin with primitive targets.
