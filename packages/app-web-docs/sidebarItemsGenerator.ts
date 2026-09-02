@@ -33,7 +33,12 @@ const items: (Group | string)[] = [
   },
   {
     label: "Tools",
-    items: ["Cursorless sidebar", "Scope visualizer", "Local command history"],
+    items: [
+      "Cursorless sidebar",
+      "Scope visualizer",
+      "Local command history",
+      "Draft editor",
+    ],
   },
   {
     label: "Advanced",

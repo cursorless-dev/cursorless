@@ -2,6 +2,8 @@
 
 ## 2026
 
+- 2026-09-02: Added reference documentation for community draft editor. ([#3333](https://github.com/cursorless-dev/cursorless/pull/3333))
+- 2026-09-02: Added reference documentation for community alphabet and symbols. ([#3332](https://github.com/cursorless-dev/cursorless/pull/3332))
 - 2026-09-02: Visualize actions on the documentation page. ([#3330](https://github.com/cursorless-dev/cursorless/pull/3330))
 - 2026-09-01: Visualize modifiers on the documentation page. ([#3328](https://github.com/cursorless-dev/cursorless/pull/3328); [#3329](https://github.com/cursorless-dev/cursorless/pull/3329))
 - 2026-08-30: Overhauled the user documentation with generated and grouped action, modifier, and scope reference pages, richer descriptions and examples, dedicated paired-delimiter and target guides, and a streamlined landing page. ([#3303](https://github.com/cursorless-dev/cursorless/pull/3303); [#3304](https://github.com/cursorless-dev/cursorless/pull/3304); [#3305](https://github.com/cursorless-dev/cursorless/pull/3305); [#3306](https://github.com/cursorless-dev/cursorless/pull/3306); [#3307](https://github.com/cursorless-dev/cursorless/pull/3307); [#3308](https://github.com/cursorless-dev/cursorless/pull/3308); [#3309](https://github.com/cursorless-dev/cursorless/pull/3309); [#3310](https://github.com/cursorless-dev/cursorless/pull/3310); [#3311](https://github.com/cursorless-dev/cursorless/pull/3311); [#3312](https://github.com/cursorless-dev/cursorless/pull/3312); [#3313](https://github.com/cursorless-dev/cursorless/pull/3313); [#3314](https://github.com/cursorless-dev/cursorless/pull/3314); [#3315](https://github.com/cursorless-dev/cursorless/pull/3315); [#3316](https://github.com/cursorless-dev/cursorless/pull/3316))
