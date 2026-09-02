@@ -14,6 +14,7 @@ Some scope types are used internally by Cursorless, so they are not included in 
 access, private.fieldAccess
 text fragment, textFragment
 disqualify, disqualifyDelimiter
+pair delimiter, pairDelimiter
 core, interior
 ```
 

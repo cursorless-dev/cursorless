@@ -25,3 +25,7 @@
 .pointer {
   cursor: pointer;
 }
+
+.navbar__item.navbar__link--active {
+  box-shadow: inset 0 -3px 0 currentcolor;
+}
