@@ -26,8 +26,10 @@ initialState:
     default.b:
       start: {line: 0, character: 3}
       end: {line: 0, character: 6}
+  hatTokenMap: []
 finalState:
   documentContents: // aaa
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+  hatTokenMap: []

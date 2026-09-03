@@ -3,6 +3,7 @@ import type {
   RangePlainObject,
   SelectionPlainObject,
   SerializedMarks,
+  SimpleTokenHat,
   TargetPlainObject,
 } from "../util/toPlainObject";
 
@@ -18,6 +19,7 @@ export interface TestCaseSnapshot extends MarkKeys {
   // https://github.com/cursorless-dev/cursorless/issues/160
   visibleRanges?: RangePlainObject[];
   marks?: SerializedMarks;
+  hatTokenMap?: SimpleTokenHat[];
   timeOffsetSeconds?: number;
 
   /**

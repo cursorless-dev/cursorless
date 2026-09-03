@@ -3,6 +3,7 @@ import type {
   ExtraContext,
   ExtraSnapshotField,
   IDE,
+  ReadOnlyHatMap,
   SerializedMarks,
   TestCaseSnapshot,
   TextEditor,
@@ -11,6 +12,7 @@ import {
   rangeToPlainObject,
   selectionToPlainObject,
   storedTargetKeys,
+  tokenHatToPlainObject,
 } from "@cursorless/lib-common";
 import type { StoredTargetMap } from "@cursorless/lib-engine";
 import { hrtimeBigintToSeconds } from "./timeUtils";
@@ -22,6 +24,7 @@ export async function takeSnapshot(
   editor: TextEditor,
   ide: IDE,
   marks?: SerializedMarks,
+  hatTokenMap?: ReadOnlyHatMap,
   extraContext?: ExtraContext,
   metadata?: unknown,
 ) {
@@ -32,6 +35,10 @@ export async function takeSnapshot(
 
   if (marks != null) {
     snapshot.marks = marks;
+  }
+
+  if (hatTokenMap != null) {
+    snapshot.hatTokenMap = tokenHatToPlainObject(hatTokenMap);
   }
 
   if (metadata != null) {

@@ -33,6 +33,11 @@ export class IndividualHatMap implements ReadOnlyHatMap {
     return this._tokenHats;
   }
 
+  getTokenHats(): readonly Readonly<TokenHat>[] {
+    this.checkExpired();
+    return this._tokenHats;
+  }
+
   constructor(
     private ide: IDE,
     private tokenGraphemeSplitter: TokenGraphemeSplitter,

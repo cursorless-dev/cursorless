@@ -18,6 +18,8 @@ export interface TokenHat {
 }
 
 export interface ReadOnlyHatMap {
+  /** Returns the complete read-only hat assignments in this map. */
+  getTokenHats(): readonly Readonly<TokenHat>[];
   getEntries(): readonly [string, Token][];
   getToken(hatStyle: HatStyleName, character: string): Token | undefined;
 }

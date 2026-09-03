@@ -4,10 +4,9 @@ import { createContext, useContext, useMemo, useState } from "react";
 import type { DecorationItem } from "shiki";
 import type {
   SelectionPlainObject,
-  SerializedMarks,
   TestCaseSnapshot,
 } from "@cursorless/lib-common";
-import { plainObjectToSelection, splitKey } from "@cursorless/lib-common";
+import { plainObjectToSelection } from "@cursorless/lib-common";
 import { Code } from "./Code";
 import type { RecordedTest } from "./types";
 
@@ -139,11 +138,8 @@ function CodeState({
   state,
 }: CodeStateProps): JSX.Element {
   const decorations = useMemo(
-    () => [
-      ...state.selections.map(toDecoration),
-      ...toMarkDecorations(state.marks, state.documentContents),
-    ],
-    [state.selections, state.marks, state.documentContents],
+    () => [...state.selections.map(toDecoration), ...toHatDecorations(state)],
+    [state],
   );
   return (
     <>
@@ -187,52 +183,19 @@ function toDecoration(plainSelection: SelectionPlainObject): DecorationItem {
   };
 }
 
-/**
- * Converts serialized token marks to Shiki decorations around the first
- * occurrence of each mark's decorated character within its token.
- */
-function toMarkDecorations(
-  marks: SerializedMarks | undefined,
-  documentContents: string,
-): DecorationItem[] {
-  if (marks == null) {
+function toHatDecorations(state: TestCaseSnapshot): DecorationItem[] {
+  if (state.hatTokenMap == null) {
     return [];
   }
 
-  const lines = documentContents.split(/\r?\n/u);
-
-  return Object.entries(marks).map(([key, range]) => {
-    if (range.start.line !== range.end.line) {
-      throw new Error(`Mark ${key} spans multiple lines`);
-    }
-
-    const line = lines[range.start.line];
-
-    if (line == null) {
-      throw new Error(`Mark ${key} is outside the document`);
-    }
-
-    const { hatStyle, character } = splitKey(key);
-    const tokenText = line.slice(range.start.character, range.end.character);
-    const characterOffset = tokenText.indexOf(character);
-    const characterStart = range.start.character + characterOffset;
-
-    if (characterOffset === -1) {
-      throw new Error(`Mark ${key} does not occur in its token`);
-    }
-
-    return {
-      start: { line: range.start.line, character: characterStart },
-      end: {
-        line: range.start.line,
-        character: characterStart + character.length,
-      },
-      alwaysWrap: true,
-      properties: {
-        className: ["code-hat", `code-hat-${hatStyle}`],
-      },
-    };
-  });
+  return state.hatTokenMap.map(({ hatStyle, hatRange }) => ({
+    start: hatRange.start,
+    end: hatRange.end,
+    alwaysWrap: true,
+    properties: {
+      className: ["code-hat", `code-hat-${hatStyle}`],
+    },
+  }));
 }
 
 function useRecordedTestVisualizer(): RecordedTestVisualizerContextValue {

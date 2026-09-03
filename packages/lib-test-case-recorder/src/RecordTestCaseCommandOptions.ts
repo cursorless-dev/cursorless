@@ -49,4 +49,9 @@ export interface RecordTestCaseCommandOptions {
    * Whether to capture the `that` mark returned by the action.
    */
   captureFinalThatMark?: boolean;
+
+  /**
+   * Whether to capture the hat token map in the test case snapshot.
+   */
+  captureHatTokenMap?: boolean;
 }

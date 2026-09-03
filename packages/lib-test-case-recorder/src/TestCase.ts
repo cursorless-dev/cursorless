@@ -55,6 +55,7 @@ export class TestCase {
     private isDecorationsTest: boolean,
     private startTimestamp: bigint,
     private captureFinalThatMark: boolean,
+    private captureHatTokenMap: boolean,
     private extraSnapshotFields?: ExtraSnapshotField[],
     public readonly spokenFormError?: string,
   ) {
@@ -169,7 +170,9 @@ export class TestCase {
       this.spyIde.activeTextEditor!,
       this.spyIde,
       this.getMarks(),
+      this.captureHatTokenMap ? this.hatTokenMap : undefined,
       { startTimestamp: this.startTimestamp },
+      undefined,
     );
   }
 
@@ -190,6 +193,7 @@ export class TestCase {
       this.spyIde.activeTextEditor!,
       this.spyIde,
       this.isHatTokenMapTest ? this.getMarks() : undefined,
+      this.captureHatTokenMap ? this.hatTokenMap : undefined,
       { startTimestamp: this.startTimestamp },
     );
     this.recordSpyIdeValues();

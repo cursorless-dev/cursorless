@@ -36,6 +36,9 @@ export async function getSnapshotForComparison(
           extractTargetedMarks(Object.keys(finalState.marks), readableHatMap),
         );
 
+  const hatTokenMap =
+    finalState?.hatTokenMap != null ? readableHatMap : undefined;
+
   if (finalState?.clipboard == null) {
     excludeFields.push("clipboard");
   }
@@ -61,6 +64,7 @@ export async function getSnapshotForComparison(
     editor,
     spyIde,
     marks,
+    hatTokenMap,
   );
 
   return resultState;
