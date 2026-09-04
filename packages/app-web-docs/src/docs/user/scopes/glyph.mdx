@@ -3,6 +3,7 @@ sidebar_label: Glyph
 ---
 
 import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/glyph.json";
 
 # Glyph
 
@@ -23,7 +24,7 @@ Default: `glyph`
 
 ## Visualization
 
-<ScopeVisualizerProvider>
+<ScopeVisualizerProvider scopeTests={scopeTests}>
 
 <ScopeVisualizerOptions />
 

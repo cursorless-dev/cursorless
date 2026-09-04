@@ -3,6 +3,7 @@ sidebar_label: Trailing
 ---
 
 import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/trailing.json";
 
 # Trailing
 
@@ -22,7 +23,7 @@ Default: `trailing`
 
 ## Visualization
 
-<RecordedTestVisualizerProvider>
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
 
 <RecordedTestVisualizerOptions />
 

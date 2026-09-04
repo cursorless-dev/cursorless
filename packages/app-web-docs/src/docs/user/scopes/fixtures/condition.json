@@ -1,0 +1,1737 @@
+[
+	{
+		"name": "scopes/c/condition/condition.doWhile",
+		"languageId": "c",
+		"facet": "condition.doWhile",
+		"code": "do {} while (true);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:17",
+						"removal": "0:13-0:17"
+					}
+				],
+				"domain": "0:0-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/condition/condition.for",
+		"languageId": "c",
+		"facet": "condition.for",
+		"code": "for (int i = 0; i < size; i++) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:16-0:24",
+						"removal": "0:15-0:24"
+					}
+				],
+				"domain": "0:0-0:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/condition/condition.if",
+		"languageId": "c",
+		"facet": "condition.if",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:8",
+						"removal": "0:4-0:8"
+					}
+				],
+				"domain": "0:0-2:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:9-1:14",
+						"removal": "1:9-1:14"
+					}
+				],
+				"domain": "1:0-1:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/condition/condition.switchCase.iteration",
+		"languageId": "c",
+		"facet": "condition.switchCase.iteration",
+		"code": "switch (foo) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/condition/condition.switchCase",
+		"languageId": "c",
+		"facet": "condition.switchCase",
+		"code": "switch (foo) {\n    case 0: break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:10",
+						"removal": "1:8-1:10"
+					}
+				],
+				"domain": "1:4-1:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/condition/condition.ternary",
+		"languageId": "c",
+		"facet": "condition.ternary",
+		"code": "true ? 0 : 1",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:4",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/condition/condition.while",
+		"languageId": "c",
+		"facet": "condition.while",
+		"code": "while (true) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:11",
+						"removal": "0:7-0:11"
+					}
+				],
+				"domain": "0:0-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/clojure/condition.if",
+		"languageId": "clojure",
+		"facet": "condition.if",
+		"code": "(if true\n    aaa\n    bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:8",
+						"removal": "0:3-0:8"
+					}
+				],
+				"domain": "0:0-2:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/condition/condition.doWhile",
+		"languageId": "csharp",
+		"facet": "condition.doWhile",
+		"code": "do {} while (true);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:17",
+						"removal": "0:13-0:17"
+					}
+				],
+				"domain": "0:0-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/condition/condition.for",
+		"languageId": "csharp",
+		"facet": "condition.for",
+		"code": "for (int i = 0; i < size; i++) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:16-0:24",
+						"removal": "0:15-0:24"
+					}
+				],
+				"domain": "0:0-0:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/condition/condition.if",
+		"languageId": "csharp",
+		"facet": "condition.if",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:8",
+						"removal": "0:4-0:8"
+					}
+				],
+				"domain": "0:0-2:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:9-1:14",
+						"removal": "1:9-1:14"
+					}
+				],
+				"domain": "1:0-1:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/condition/condition.switchCase.iteration",
+		"languageId": "csharp",
+		"facet": "condition.switchCase.iteration",
+		"code": "switch(foo) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:14"
+					}
+				],
+				"domain": "0:13-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/condition/condition.switchCase",
+		"languageId": "csharp",
+		"facet": "condition.switchCase",
+		"code": "switch(foo) {\n    case 0: break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:10",
+						"removal": "1:8-1:10"
+					}
+				],
+				"domain": "1:4-1:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/condition/condition.ternary",
+		"languageId": "csharp",
+		"facet": "condition.ternary",
+		"code": "true ? 0 : 1;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:4",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/condition/condition.while",
+		"languageId": "csharp",
+		"facet": "condition.while",
+		"code": "while (true) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:11",
+						"removal": "0:7-0:11"
+					}
+				],
+				"domain": "0:0-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/condition/condition.doWhile",
+		"languageId": "dart",
+		"facet": "condition.doWhile",
+		"code": "void main() {\n    do {} while (true);\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:17-1:21",
+						"removal": "1:17-1:21"
+					}
+				],
+				"domain": "1:4-1:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/condition/condition.for",
+		"languageId": "dart",
+		"facet": "condition.for",
+		"code": "void main() {\n    for (var i = 0; i < size; i++) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:20-1:28",
+						"removal": "1:19-1:28"
+					}
+				],
+				"domain": "1:4-1:37"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/condition/condition.if",
+		"languageId": "dart",
+		"facet": "condition.if",
+		"code": "void main() {\n    if (true) {}\n    else if (false) {}\n    else {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:12",
+						"removal": "1:8-1:12"
+					}
+				],
+				"domain": "1:4-3:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:13-2:18",
+						"removal": "2:13-2:18"
+					}
+				],
+				"domain": "2:4-2:22"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/condition/condition.switchCase.iteration",
+		"languageId": "dart",
+		"facet": "condition.switchCase.iteration",
+		"code": "void main() {\n    switch (foo) { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:18-1:19"
+					}
+				],
+				"domain": "1:18-1:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/condition/condition.switchCase",
+		"languageId": "dart",
+		"facet": "condition.switchCase",
+		"code": "void main() {\n    switch (foo) {\n        case 0: break;\n    }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:13-2:14",
+						"removal": "2:12-2:14"
+					}
+				],
+				"domain": "2:8-2:22"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/condition/condition.ternary",
+		"languageId": "dart",
+		"facet": "condition.ternary",
+		"code": "void main() {\n    true ? 0 : 1;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:8",
+						"removal": "1:4-1:9"
+					}
+				],
+				"domain": "1:4-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/condition/condition.while",
+		"languageId": "dart",
+		"facet": "condition.while",
+		"code": "void main() {\n    while (true) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:11-1:15",
+						"removal": "1:11-1:15"
+					}
+				],
+				"domain": "1:4-1:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/condition/condition.for",
+		"languageId": "go",
+		"facet": "condition.for",
+		"code": "for i := 0; i < size; i++ {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:12-0:20",
+						"removal": "0:11-0:20"
+					}
+				],
+				"domain": "0:0-0:28"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/condition/condition.if",
+		"languageId": "go",
+		"facet": "condition.if",
+		"code": "if true {\n} else if false {\n} else {\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:3-0:7",
+						"removal": "0:3-0:8"
+					}
+				],
+				"domain": "0:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:10-1:15",
+						"removal": "1:10-1:16"
+					}
+				],
+				"domain": "1:2-2:1"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/condition/condition.switchCase.iteration",
+		"languageId": "go",
+		"facet": "condition.switchCase.iteration",
+		"code": "switch foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/condition/condition.switchCase.iteration2",
+		"languageId": "go",
+		"facet": "condition.switchCase.iteration",
+		"code": "switch v := x.(type) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:22-0:23"
+					}
+				],
+				"domain": "0:22-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/condition/condition.switchCase",
+		"languageId": "go",
+		"facet": "condition.switchCase",
+		"code": "switch (foo) {\n    case 0: break\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:10",
+						"removal": "1:8-1:10"
+					}
+				],
+				"domain": "1:4-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/condition/condition.switchCase2",
+		"languageId": "go",
+		"facet": "condition.switchCase",
+		"code": "switch (foo) {\n    case 0, 1: break\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:13",
+						"removal": "1:8-1:13"
+					}
+				],
+				"domain": "1:4-1:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/condition/condition.doWhile",
+		"languageId": "java",
+		"facet": "condition.doWhile",
+		"code": "do {} while (true);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:17",
+						"removal": "0:13-0:17"
+					}
+				],
+				"domain": "0:0-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/condition/condition.for",
+		"languageId": "java",
+		"facet": "condition.for",
+		"code": "for (int i = 0; i < size; i++) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:16-0:24",
+						"removal": "0:15-0:24"
+					}
+				],
+				"domain": "0:0-0:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/condition/condition.if",
+		"languageId": "java",
+		"facet": "condition.if",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:8",
+						"removal": "0:4-0:8"
+					}
+				],
+				"domain": "0:0-2:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:9-1:14",
+						"removal": "1:9-1:14"
+					}
+				],
+				"domain": "1:0-1:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/condition/condition.switchCase.iteration",
+		"languageId": "java",
+		"facet": "condition.switchCase.iteration",
+		"code": "switch (foo) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/condition/condition.switchCase",
+		"languageId": "java",
+		"facet": "condition.switchCase",
+		"code": "switch (foo) {\n    case 0: break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:10",
+						"removal": "1:8-1:10"
+					}
+				],
+				"domain": "1:4-1:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/condition/condition.switchCase2",
+		"languageId": "java",
+		"facet": "condition.switchCase",
+		"code": "switch (foo) {\n    case 0, 1: break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:13",
+						"removal": "1:8-1:13"
+					}
+				],
+				"domain": "1:4-1:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/condition/condition.switchCase3",
+		"languageId": "java",
+		"facet": "condition.switchCase",
+		"code": "switch (foo) {\n    case 0 -> 0;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:10",
+						"removal": "1:9-1:11"
+					}
+				],
+				"domain": "1:4-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/condition/condition.switchCase4",
+		"languageId": "java",
+		"facet": "condition.switchCase",
+		"code": "switch (foo) {\n    case 0, 1 -> 0;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:13",
+						"removal": "1:9-1:14"
+					}
+				],
+				"domain": "1:4-1:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/condition/condition.ternary",
+		"languageId": "java",
+		"facet": "condition.ternary",
+		"code": "true ? 0 : 1;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:4",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/condition/condition.while",
+		"languageId": "java",
+		"facet": "condition.while",
+		"code": "while (true) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:11",
+						"removal": "0:7-0:11"
+					}
+				],
+				"domain": "0:0-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/condition/condition.doWhile",
+		"languageId": "javascript.core",
+		"facet": "condition.doWhile",
+		"code": "do {} while (true);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:17",
+						"removal": "0:13-0:17"
+					}
+				],
+				"domain": "0:0-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/condition/condition.for",
+		"languageId": "javascript.core",
+		"facet": "condition.for",
+		"code": "for (let i = 0; i < size; i++) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:16-0:24",
+						"removal": "0:15-0:24"
+					}
+				],
+				"domain": "0:0-0:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/condition/condition.if",
+		"languageId": "javascript.core",
+		"facet": "condition.if",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:8",
+						"removal": "0:4-0:8"
+					}
+				],
+				"domain": "0:0-2:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:9-1:14",
+						"removal": "1:9-1:14"
+					}
+				],
+				"domain": "1:0-1:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/condition/condition.switchCase.iteration",
+		"languageId": "javascript.core",
+		"facet": "condition.switchCase.iteration",
+		"code": "switch (foo) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/condition/condition.switchCase",
+		"languageId": "javascript.core",
+		"facet": "condition.switchCase",
+		"code": "switch (foo) {\n    case 0: break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:10",
+						"removal": "1:8-1:10"
+					}
+				],
+				"domain": "1:4-1:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/condition/condition.ternary",
+		"languageId": "javascript.core",
+		"facet": "condition.ternary",
+		"code": "true ? 0 : 1",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:4",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/condition/condition.while",
+		"languageId": "javascript.core",
+		"facet": "condition.while",
+		"code": "while (true) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:11",
+						"removal": "0:7-0:11"
+					}
+				],
+				"domain": "0:0-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/condition/condition.doWhile",
+		"languageId": "kotlin",
+		"facet": "condition.doWhile",
+		"code": "do {} while (true)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:17",
+						"removal": "0:13-0:17"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/condition/condition.if",
+		"languageId": "kotlin",
+		"facet": "condition.if",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:8",
+						"removal": "0:4-0:8"
+					}
+				],
+				"domain": "0:0-2:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:9-1:14",
+						"removal": "1:9-1:14"
+					}
+				],
+				"domain": "1:0-1:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/condition/condition.switchCase.iteration",
+		"languageId": "kotlin",
+		"facet": "condition.switchCase.iteration",
+		"code": "when (foo) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/condition/condition.switchCase",
+		"languageId": "kotlin",
+		"facet": "condition.switchCase",
+		"code": "when (foo) {\n    0 -> break\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:5",
+						"removal": "1:4-1:6"
+					}
+				],
+				"domain": "1:4-1:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/condition/condition.switchCase2",
+		"languageId": "kotlin",
+		"facet": "condition.switchCase",
+		"code": "when (foo) {\n    0, 1 -> break\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:8",
+						"removal": "1:4-1:9"
+					}
+				],
+				"domain": "1:4-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/condition/condition.ternary",
+		"languageId": "kotlin",
+		"facet": "condition.ternary",
+		"code": "if (true) 0 else 1",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:8",
+						"removal": "0:4-0:8"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/condition/condition.while",
+		"languageId": "kotlin",
+		"facet": "condition.while",
+		"code": "while (true) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:11",
+						"removal": "0:7-0:11"
+					}
+				],
+				"domain": "0:0-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/condition.doWhile",
+		"languageId": "lua",
+		"facet": "condition.doWhile",
+		"code": "repeat until true",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:17",
+						"removal": "0:12-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/condition.for",
+		"languageId": "lua",
+		"facet": "condition.for",
+		"code": "for i = 1, 3 do end",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:12",
+						"removal": "0:4-0:13"
+					}
+				],
+				"domain": "0:0-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/condition.if",
+		"languageId": "lua",
+		"facet": "condition.if",
+		"code": "if true then\n    a = 1\nelseif false then\n    a = 1\nelse\n    a = 1\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:3-0:7",
+						"removal": "0:3-0:8"
+					}
+				],
+				"domain": "0:0-6:3"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:7-2:12",
+						"removal": "2:7-2:13"
+					}
+				],
+				"domain": "2:0-3:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/condition.while",
+		"languageId": "lua",
+		"facet": "condition.while",
+		"code": "while true do end",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:10",
+						"removal": "0:6-0:11"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/condition/condition.doWhile",
+		"languageId": "php",
+		"facet": "condition.doWhile",
+		"code": "<?php\ndo {} while (true);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:13-1:17",
+						"removal": "1:13-1:17"
+					}
+				],
+				"domain": "1:0-1:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/condition/condition.for",
+		"languageId": "php",
+		"facet": "condition.for",
+		"code": "<?php\nfor ($i = 0; $i < $size; $i++) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:13-1:23",
+						"removal": "1:12-1:23"
+					}
+				],
+				"domain": "1:0-1:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/condition/condition.if",
+		"languageId": "php",
+		"facet": "condition.if",
+		"code": "<?php\nif (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:8",
+						"removal": "1:4-1:8"
+					}
+				],
+				"domain": "1:0-3:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:9-2:14",
+						"removal": "2:9-2:14"
+					}
+				],
+				"domain": "2:0-2:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/condition/condition.switchCase.iteration",
+		"languageId": "php",
+		"facet": "condition.switchCase.iteration",
+		"code": "<?php\nswitch ($foo) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:15-1:16"
+					}
+				],
+				"domain": "1:15-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/condition/condition.switchCase",
+		"languageId": "php",
+		"facet": "condition.switchCase",
+		"code": "<?php\nswitch ($foo) {\n    case 0: break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:9-2:10",
+						"removal": "2:8-2:10"
+					}
+				],
+				"domain": "2:4-2:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/condition/condition.ternary",
+		"languageId": "php",
+		"facet": "condition.ternary",
+		"code": "<?php\ntrue ? 0 : 1",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:4",
+						"removal": "1:0-1:5"
+					}
+				],
+				"domain": "1:0-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/condition/condition.while",
+		"languageId": "php",
+		"facet": "condition.while",
+		"code": "<?php\nwhile (true) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:7-1:11",
+						"removal": "1:7-1:11"
+					}
+				],
+				"domain": "1:0-1:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/condition/condition.if",
+		"languageId": "python",
+		"facet": "condition.if",
+		"code": "if True: pass\nelif False: pass\nelse: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:3-0:7",
+						"removal": "0:2-0:7"
+					}
+				],
+				"domain": "0:0-2:10"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:5-1:10",
+						"removal": "1:4-1:10"
+					}
+				],
+				"domain": "1:0-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/condition/condition.switchCase.iteration",
+		"languageId": "python",
+		"facet": "condition.switchCase.iteration",
+		"code": "match foo:\n    pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-1:8"
+					}
+				],
+				"domain": "0:10-1:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/condition/condition.switchCase",
+		"languageId": "python",
+		"facet": "condition.switchCase",
+		"code": "match foo:\n    case 0: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:10",
+						"removal": "1:8-1:10"
+					}
+				],
+				"domain": "1:4-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/condition/condition.ternary",
+		"languageId": "python",
+		"facet": "condition.ternary",
+		"code": "0 if True else 1",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:9",
+						"removal": "0:5-0:10"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/condition/condition.while",
+		"languageId": "python",
+		"facet": "condition.while",
+		"code": "while True: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:10",
+						"removal": "0:5-0:10"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/condition.if",
+		"languageId": "r",
+		"facet": "condition.if",
+		"code": "if (TRUE) {\n} else if (FALSE) {\n} else {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:8",
+						"removal": "0:4-0:8"
+					}
+				],
+				"domain": "0:0-2:9"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-1:16",
+						"removal": "1:11-1:16"
+					}
+				],
+				"domain": "1:2-2:1"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/condition.switchCase.iteration",
+		"languageId": "r",
+		"facet": "condition.switchCase.iteration",
+		"code": "switch( )",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:8"
+					}
+				],
+				"domain": "0:7-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/condition.switchCase",
+		"languageId": "r",
+		"facet": "condition.switchCase",
+		"code": "switch(foo,\n    a = 0\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:5",
+						"removal": "1:4-1:6"
+					}
+				],
+				"domain": "1:4-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/condition.switchCase2",
+		"languageId": "r",
+		"facet": "condition.switchCase",
+		"code": "switch(foo,\n    \"_\"\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/condition.while",
+		"languageId": "r",
+		"facet": "condition.while",
+		"code": "while (TRUE) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:11",
+						"removal": "0:7-0:11"
+					}
+				],
+				"domain": "0:0-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/condition/condition.if",
+		"languageId": "ruby",
+		"facet": "condition.if",
+		"code": "if true\n    a\nelsif false\n    a\nelse\n    a\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:3-0:7",
+						"removal": "0:2-0:7"
+					}
+				],
+				"domain": "0:0-6:3"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:6-2:11",
+						"removal": "2:5-2:11"
+					}
+				],
+				"domain": "2:0-3:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/condition/condition.switchCase.iteration",
+		"languageId": "ruby",
+		"facet": "condition.switchCase.iteration",
+		"code": "case foo\nwhen 0\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-2:0"
+					}
+				],
+				"domain": "0:8-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/condition/condition.switchCase.iteration2",
+		"languageId": "ruby",
+		"facet": "condition.switchCase.iteration",
+		"code": "case foo\nin 0\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-2:0"
+					}
+				],
+				"domain": "0:8-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/condition/condition.switchCase",
+		"languageId": "ruby",
+		"facet": "condition.switchCase",
+		"code": "case foo\nwhen 0\n    puts 0\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:5-1:6",
+						"removal": "1:4-1:6"
+					}
+				],
+				"domain": "1:0-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/condition/condition.switchCase2",
+		"languageId": "ruby",
+		"facet": "condition.switchCase",
+		"code": "case foo\nwhen 0..5\n    puts 0\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:5-1:9",
+						"removal": "1:4-1:9"
+					}
+				],
+				"domain": "1:0-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/condition/condition.switchCase3",
+		"languageId": "ruby",
+		"facet": "condition.switchCase",
+		"code": "case foo\nin 0\n    puts 0\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:3-1:4",
+						"removal": "1:2-1:4"
+					}
+				],
+				"domain": "1:0-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/condition/condition.switchCase4",
+		"languageId": "ruby",
+		"facet": "condition.switchCase",
+		"code": "case foo\nin 0 | 1\n    puts 0\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:3-1:8",
+						"removal": "1:2-1:8"
+					}
+				],
+				"domain": "1:0-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/condition/condition.ternary",
+		"languageId": "ruby",
+		"facet": "condition.ternary",
+		"code": "true ? 0 : 1",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:4",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/condition/condition.while",
+		"languageId": "ruby",
+		"facet": "condition.while",
+		"code": "while true end",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:10",
+						"removal": "0:6-0:11"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/condition.if",
+		"languageId": "rust",
+		"facet": "condition.if",
+		"code": "if true {}\nelse if false {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:3-0:7",
+						"removal": "0:3-0:8"
+					}
+				],
+				"domain": "0:0-2:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:8-1:13",
+						"removal": "1:8-1:14"
+					}
+				],
+				"domain": "1:0-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/condition.switchCase.iteration",
+		"languageId": "rust",
+		"facet": "condition.switchCase.iteration",
+		"code": "match foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/condition.switchCase",
+		"languageId": "rust",
+		"facet": "condition.switchCase",
+		"code": "match foo {\n    0 => 0\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:5",
+						"removal": "1:4-1:6"
+					}
+				],
+				"domain": "1:4-1:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/condition.switchCase2",
+		"languageId": "rust",
+		"facet": "condition.switchCase",
+		"code": "match foo {\n    _ => 0\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:5",
+						"removal": "1:4-1:6"
+					}
+				],
+				"domain": "1:4-1:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/condition.while",
+		"languageId": "rust",
+		"facet": "condition.while",
+		"code": "while true {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:10",
+						"removal": "0:6-0:11"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/condition/condition.doWhile",
+		"languageId": "scala",
+		"facet": "condition.doWhile",
+		"code": "do {} while (true)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:17",
+						"removal": "0:13-0:17"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/condition/condition.if",
+		"languageId": "scala",
+		"facet": "condition.if",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:8",
+						"removal": "0:4-0:8"
+					}
+				],
+				"domain": "0:0-2:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:9-1:14",
+						"removal": "1:9-1:14"
+					}
+				],
+				"domain": "1:0-1:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/condition/condition.switchCase.iteration",
+		"languageId": "scala",
+		"facet": "condition.switchCase.iteration",
+		"code": "foo match { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/condition/condition.switchCase",
+		"languageId": "scala",
+		"facet": "condition.switchCase",
+		"code": "foo match {\n    case 0 => {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:10",
+						"removal": "1:9-1:11"
+					}
+				],
+				"domain": "1:4-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/condition/condition.switchCase2",
+		"languageId": "scala",
+		"facet": "condition.switchCase",
+		"code": "foo match {\n    case _ => {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:10",
+						"removal": "1:9-1:11"
+					}
+				],
+				"domain": "1:4-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/condition/condition.while",
+		"languageId": "scala",
+		"facet": "condition.while",
+		"code": "while (true) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:11",
+						"removal": "0:7-0:11"
+					}
+				],
+				"domain": "0:0-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/scss/condition.if",
+		"languageId": "scss",
+		"facet": "condition.if",
+		"code": "@if true {}\n@else if false {}\n@else {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:8",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:0-2:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:9-1:14",
+						"removal": "1:9-1:15"
+					}
+				],
+				"domain": "1:0-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/talon/condition.if",
+		"languageId": "talon",
+		"facet": "condition.if",
+		"code": "command:\n    if true: print(\"true\")",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:7-1:11",
+						"removal": "1:6-1:11"
+					}
+				],
+				"domain": "1:4-1:26"
+			}
+		]
+	}
+]

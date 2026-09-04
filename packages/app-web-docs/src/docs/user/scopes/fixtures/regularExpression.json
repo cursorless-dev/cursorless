@@ -1,0 +1,36 @@
+[
+	{
+		"name": "scopes/javascript.core/regularExpression",
+		"languageId": "javascript.core",
+		"facet": "regularExpression",
+		"code": "/^\\w+$/g",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:8",
+						"removal": "0:0-0:8"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/regularExpression",
+		"languageId": "ruby",
+		"facet": "regularExpression",
+		"code": "/^\\w+$/g",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:8",
+						"removal": "0:0-0:8"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	}
+]

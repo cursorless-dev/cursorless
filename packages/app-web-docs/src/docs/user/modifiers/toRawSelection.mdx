@@ -3,6 +3,7 @@ sidebar_label: Just
 ---
 
 import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/toRawSelection.json";
 
 # Just (Raw selection)
 
@@ -27,7 +28,7 @@ Default: `just`
 
 ## Visualization
 
-<RecordedTestVisualizerProvider>
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
 
 <RecordedTestVisualizerOptions />
 

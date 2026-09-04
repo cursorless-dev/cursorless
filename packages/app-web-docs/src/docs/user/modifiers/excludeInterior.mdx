@@ -3,6 +3,7 @@ sidebar_label: Bounds
 ---
 
 import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/excludeInterior.json";
 
 # Bounds (Exclude interior)
 
@@ -23,7 +24,7 @@ Default: `bounds`
 
 ## Visualization
 
-<RecordedTestVisualizerProvider>
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
 
 <RecordedTestVisualizerOptions />
 

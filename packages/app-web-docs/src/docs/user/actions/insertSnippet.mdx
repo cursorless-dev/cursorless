@@ -3,6 +3,7 @@ sidebar_label: Snip
 ---
 
 import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/insertSnippet.json";
 
 # Snip (Insert snippet)
 
@@ -22,7 +23,7 @@ Default: `snip`
 
 ## Visualization
 
-<RecordedTestVisualizerProvider>
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
 
 <RecordedTestVisualizerOptions />
 

@@ -1,0 +1,5738 @@
+[
+	{
+		"name": "scopes/java/anonymousFunction",
+		"languageId": "java",
+		"facet": "anonymousFunction",
+		"code": "() -> {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:8",
+						"removal": "0:0-0:8"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/anonymousFunction2",
+		"languageId": "java",
+		"facet": "anonymousFunction",
+		"code": "() -> 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:7",
+						"removal": "0:0-0:7"
+					}
+				],
+				"domain": "0:0-0:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.actual.constructor.iteration",
+		"languageId": "java",
+		"facet": "argument.actual.constructor.iteration",
+		"code": "new Foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.actual.constructor.multiLine",
+		"languageId": "java",
+		"facet": "argument.actual.constructor.multiLine",
+		"code": "new Foo(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.actual.constructor.singleLine",
+		"languageId": "java",
+		"facet": "argument.actual.constructor.singleLine",
+		"code": "new Foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:13"
+					}
+				],
+				"domain": "0:8-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:11-0:16"
+					}
+				],
+				"domain": "0:13-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.actual.enum.iteration",
+		"languageId": "java",
+		"facet": "argument.actual.enum.iteration",
+		"code": "enum Foo {\n    bar(aaa, bbb);\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:16"
+					}
+				],
+				"domain": "1:4-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.actual.enum.multiLine",
+		"languageId": "java",
+		"facet": "argument.actual.enum.multiLine",
+		"code": "enum Foo {\n    bar(\n        aaa,\n        bbb\n    );\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:11",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:11",
+						"removal": "2:11-3:11"
+					}
+				],
+				"domain": "3:8-3:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.actual.enum.singleLine",
+		"languageId": "java",
+		"facet": "argument.actual.enum.singleLine",
+		"code": "enum Foo {\n    bar(aaa, bbb);\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:11",
+						"removal": "1:8-1:13"
+					}
+				],
+				"domain": "1:8-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:16",
+						"removal": "1:11-1:16"
+					}
+				],
+				"domain": "1:13-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.actual.iteration",
+		"languageId": "java",
+		"facet": "argument.actual.iteration",
+		"code": "foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:12"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.actual.method.iteration",
+		"languageId": "java",
+		"facet": "argument.actual.method.iteration",
+		"code": "foo.bar(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.actual.method.multiLine",
+		"languageId": "java",
+		"facet": "argument.actual.method.multiLine",
+		"code": "foo.bar(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.actual.method.singleLine",
+		"languageId": "java",
+		"facet": "argument.actual.method.singleLine",
+		"code": "foo.bar(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:13"
+					}
+				],
+				"domain": "0:8-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:11-0:16"
+					}
+				],
+				"domain": "0:13-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.actual.multiLine",
+		"languageId": "java",
+		"facet": "argument.actual.multiLine",
+		"code": "foo(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.actual.singleLine",
+		"languageId": "java",
+		"facet": "argument.actual.singleLine",
+		"code": "foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:7",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:4-0:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:12",
+						"removal": "0:7-0:12"
+					}
+				],
+				"domain": "0:9-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.formal.catch",
+		"languageId": "java",
+		"facet": "argument.formal.catch",
+		"code": "try {}\ncatch(final MyException e) {}\ncatch(final Exception e) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:6-1:25",
+						"removal": "1:6-1:25"
+					}
+				],
+				"domain": "1:6-1:25"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:6-2:23",
+						"removal": "2:6-2:23"
+					}
+				],
+				"domain": "2:6-2:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.formal.constructor.iteration",
+		"languageId": "java",
+		"facet": "argument.formal.constructor.iteration",
+		"code": "public class Foo {\n    public Foo(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:15-1:31"
+					}
+				],
+				"domain": "1:4-1:35"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.formal.constructor.multiLine",
+		"languageId": "java",
+		"facet": "argument.formal.constructor.multiLine",
+		"code": "public class Foo {\n    public Foo(\n        int aaa,\n        int bbb\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:15",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:15",
+						"removal": "2:15-3:15"
+					}
+				],
+				"domain": "3:8-3:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.formal.constructor.singleLine",
+		"languageId": "java",
+		"facet": "argument.formal.constructor.singleLine",
+		"code": "public class Foo {\n    public Foo(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:15-1:22",
+						"removal": "1:15-1:24"
+					}
+				],
+				"domain": "1:15-1:22"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:24-1:31",
+						"removal": "1:22-1:31"
+					}
+				],
+				"domain": "1:24-1:31"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.formal.lambda.iteration",
+		"languageId": "java",
+		"facet": "argument.formal.lambda.iteration",
+		"code": "(aaa, bbb) -> {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:9"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.formal.lambda.multiLine",
+		"languageId": "java",
+		"facet": "argument.formal.lambda.multiLine",
+		"code": "(\n    aaa,\n    bbb\n) -> {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.formal.lambda.singleLine",
+		"languageId": "java",
+		"facet": "argument.formal.lambda.singleLine",
+		"code": "(aaa, bbb) -> {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:4",
+						"removal": "0:1-0:6"
+					}
+				],
+				"domain": "0:1-0:4"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:6-0:9",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:6-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.formal.method.iteration",
+		"languageId": "java",
+		"facet": "argument.formal.method.iteration",
+		"code": "public class Foo {\n    public void bar(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:20-1:36"
+					}
+				],
+				"domain": "1:4-1:40"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.formal.method.multiLine",
+		"languageId": "java",
+		"facet": "argument.formal.method.multiLine",
+		"code": "public class Foo {\n    public void bar(\n        int aaa,\n        int bbb\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:15",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:15",
+						"removal": "2:15-3:15"
+					}
+				],
+				"domain": "3:8-3:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.formal.method.singleLine",
+		"languageId": "java",
+		"facet": "argument.formal.method.singleLine",
+		"code": "public class Foo {\n    public void bar(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:20-1:27",
+						"removal": "1:20-1:29"
+					}
+				],
+				"domain": "1:20-1:27"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:29-1:36",
+						"removal": "1:27-1:36"
+					}
+				],
+				"domain": "1:29-1:36"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argumentList/argumentList.actual.constructor.empty",
+		"languageId": "java",
+		"facet": "argumentList.actual.constructor.empty",
+		"code": "new Foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:8",
+						"removal": "0:8-0:8"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argumentList/argumentList.actual.constructor.multiLine",
+		"languageId": "java",
+		"facet": "argumentList.actual.constructor.multiLine",
+		"code": "new Foo(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:7",
+						"removal": "0:8-3:0"
+					}
+				],
+				"domain": "0:0-3:1"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argumentList/argumentList.actual.constructor.singleLine",
+		"languageId": "java",
+		"facet": "argumentList.actual.constructor.singleLine",
+		"code": "new Foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16",
+						"removal": "0:8-0:16"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argumentList/argumentList.actual.empty",
+		"languageId": "java",
+		"facet": "argumentList.actual.empty",
+		"code": "foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:4",
+						"removal": "0:4-0:4"
+					}
+				],
+				"domain": "0:0-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argumentList/argumentList.actual.enum.empty",
+		"languageId": "java",
+		"facet": "argumentList.actual.enum.empty",
+		"code": "enum Foo {\n    bar();\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:8",
+						"removal": "1:8-1:8"
+					}
+				],
+				"domain": "1:4-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argumentList/argumentList.actual.enum.multiLine",
+		"languageId": "java",
+		"facet": "argumentList.actual.enum.multiLine",
+		"code": "enum Foo {\n    bar(\n        aaa,\n        bbb\n    );\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-3:11",
+						"removal": "1:8-4:4"
+					}
+				],
+				"domain": "1:4-4:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argumentList/argumentList.actual.enum.singleLine",
+		"languageId": "java",
+		"facet": "argumentList.actual.enum.singleLine",
+		"code": "enum Foo {\n    bar(aaa, bbb);\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:16",
+						"removal": "1:8-1:16"
+					}
+				],
+				"domain": "1:4-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argumentList/argumentList.actual.method.empty",
+		"languageId": "java",
+		"facet": "argumentList.actual.method.empty",
+		"code": "foo.bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:8",
+						"removal": "0:8-0:8"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argumentList/argumentList.actual.method.multiLine",
+		"languageId": "java",
+		"facet": "argumentList.actual.method.multiLine",
+		"code": "foo.bar(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:7",
+						"removal": "0:8-3:0"
+					}
+				],
+				"domain": "0:0-3:1"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argumentList/argumentList.actual.method.singleLine",
+		"languageId": "java",
+		"facet": "argumentList.actual.method.singleLine",
+		"code": "foo.bar(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16",
+						"removal": "0:8-0:16"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argumentList/argumentList.actual.multiLine",
+		"languageId": "java",
+		"facet": "argumentList.actual.multiLine",
+		"code": "foo(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:7",
+						"removal": "0:4-3:0"
+					}
+				],
+				"domain": "0:0-3:1"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argumentList/argumentList.actual.singleLine",
+		"languageId": "java",
+		"facet": "argumentList.actual.singleLine",
+		"code": "foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:12",
+						"removal": "0:4-0:12"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argumentList/argumentList.formal.constructor.empty",
+		"languageId": "java",
+		"facet": "argumentList.formal.constructor.empty",
+		"code": "public class Foo {\n    public Foo() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:15-1:15",
+						"removal": "1:15-1:15"
+					}
+				],
+				"domain": "1:4-1:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argumentList/argumentList.formal.constructor.multiLine",
+		"languageId": "java",
+		"facet": "argumentList.formal.constructor.multiLine",
+		"code": "public class Foo {\n    public Foo(\n        int aaa,\n        int bbb\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-3:15",
+						"removal": "1:15-4:4"
+					}
+				],
+				"domain": "1:4-4:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argumentList/argumentList.formal.constructor.singleLine",
+		"languageId": "java",
+		"facet": "argumentList.formal.constructor.singleLine",
+		"code": "public class Foo {\n    public Foo(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:15-1:31",
+						"removal": "1:15-1:31"
+					}
+				],
+				"domain": "1:4-1:35"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argumentList/argumentList.formal.lambda.empty",
+		"languageId": "java",
+		"facet": "argumentList.formal.lambda.empty",
+		"code": "() -> {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:1",
+						"removal": "0:1-0:1"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argumentList/argumentList.formal.lambda.multiLine",
+		"languageId": "java",
+		"facet": "argumentList.formal.lambda.multiLine",
+		"code": "(\n    aaa,\n    bbb\n) -> {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:7",
+						"removal": "0:1-3:0"
+					}
+				],
+				"domain": "0:0-3:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argumentList/argumentList.formal.lambda.singleLine",
+		"languageId": "java",
+		"facet": "argumentList.formal.lambda.singleLine",
+		"code": "(aaa, bbb) -> {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:9",
+						"removal": "0:1-0:9"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argumentList/argumentList.formal.method.empty",
+		"languageId": "java",
+		"facet": "argumentList.formal.method.empty",
+		"code": "public class Foo {\n    public void bar() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:20-1:20",
+						"removal": "1:20-1:20"
+					}
+				],
+				"domain": "1:4-1:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argumentList/argumentList.formal.method.multiLine",
+		"languageId": "java",
+		"facet": "argumentList.formal.method.multiLine",
+		"code": "public class Foo {\n    public void bar(\n        int aaa,\n        int bbb\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-3:15",
+						"removal": "1:20-4:4"
+					}
+				],
+				"domain": "1:4-4:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argumentList/argumentList.formal.method.singleLine",
+		"languageId": "java",
+		"facet": "argumentList.formal.method.singleLine",
+		"code": "public class Foo {\n    public void bar(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:20-1:36",
+						"removal": "1:20-1:36"
+					}
+				],
+				"domain": "1:4-1:40"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/branch/branch.if.elif.else",
+		"languageId": "java",
+		"facet": "branch.if.elif.else",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-1:5"
+					}
+				],
+				"domain": "0:0-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:18",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:0-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-2:7",
+						"removal": "1:18-2:7"
+					}
+				],
+				"domain": "2:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/branch/branch.if.else",
+		"languageId": "java",
+		"facet": "branch.if.else",
+		"code": "if (true) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-1:0"
+					}
+				],
+				"domain": "0:0-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:7",
+						"removal": "0:12-1:7"
+					}
+				],
+				"domain": "1:0-1:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/branch/branch.if.iteration",
+		"languageId": "java",
+		"facet": "branch.if.iteration",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:7"
+					}
+				],
+				"domain": "0:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/branch/branch.if",
+		"languageId": "java",
+		"facet": "branch.if",
+		"code": "if (true) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-0:12"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/branch/branch.switchCase.iteration",
+		"languageId": "java",
+		"facet": "branch.switchCase.iteration",
+		"code": "switch (foo) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/branch/branch.switchCase",
+		"languageId": "java",
+		"facet": "branch.switchCase",
+		"code": "switch (foo) {\n    case 0:\n        break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:14",
+						"removal": "1:0-3:0"
+					}
+				],
+				"domain": "1:4-2:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/branch/branch.switchCase2",
+		"languageId": "java",
+		"facet": "branch.switchCase",
+		"code": "switch (foo) {\n    default: {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:15",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/branch/branch.ternary.iteration",
+		"languageId": "java",
+		"facet": "branch.ternary.iteration",
+		"code": "true ? 0 : 1;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/branch/branch.ternary",
+		"languageId": "java",
+		"facet": "branch.ternary",
+		"code": "true ? 0 : 1;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:8",
+						"removal": "0:7-0:9"
+					}
+				],
+				"domain": "0:7-0:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:10-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/branch/branch.try.iteration",
+		"languageId": "java",
+		"facet": "branch.try.iteration",
+		"code": "try {}\ncatch(Exception e) {}\nfinally {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:10"
+					}
+				],
+				"domain": "0:0-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/branch/branch.try",
+		"languageId": "java",
+		"facet": "branch.try",
+		"code": "try {}\ncatch(Exception e) {}\nfinally {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:6",
+						"removal": "0:0-1:0"
+					}
+				],
+				"domain": "0:0-0:6"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:21",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:0-1:21"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-2:10",
+						"removal": "1:21-2:10"
+					}
+				],
+				"domain": "2:0-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/class.iteration.class",
+		"languageId": "java",
+		"facet": "class.iteration.class",
+		"code": "public class Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:20"
+					}
+				],
+				"domain": "0:0-0:20"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:18-0:19"
+					}
+				],
+				"domain": "0:18-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/class.iteration.document",
+		"languageId": "java",
+		"facet": "class.iteration.document",
+		"code": "\nclass Foo {}\n",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:0"
+					}
+				],
+				"domain": "0:0-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/class",
+		"languageId": "java",
+		"facet": "class",
+		"code": "public class Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:19",
+						"removal": "0:0-0:19"
+					}
+				],
+				"domain": "0:0-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/class2",
+		"languageId": "java",
+		"facet": "class",
+		"code": "@bar\npublic class Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:19",
+						"removal": "0:0-1:19"
+					}
+				],
+				"domain": "0:0-1:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/collectionItem.unenclosed.iteration",
+		"languageId": "java",
+		"facet": "collectionItem.unenclosed.iteration",
+		"code": "public class Foo {\n    int aaa, bbb;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:17"
+					}
+				],
+				"domain": "0:18-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:17"
+					}
+				],
+				"domain": "1:0-1:17"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:8-1:16"
+					}
+				],
+				"domain": "1:4-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/collectionItem.unenclosed.iteration2",
+		"languageId": "java",
+		"facet": "collectionItem.unenclosed.iteration",
+		"code": "class Foo {\n    void bar() {\n        int aaa, bbb;\n    }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-3:5"
+					}
+				],
+				"domain": "0:11-4:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-2:21"
+					}
+				],
+				"domain": "1:16-3:4"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-2:21"
+					}
+				],
+				"domain": "2:0-2:21"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:12-2:20"
+					}
+				],
+				"domain": "2:8-2:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/collectionItem.unenclosed.iteration3",
+		"languageId": "java",
+		"facet": "collectionItem.unenclosed.iteration",
+		"code": "class Foo {\n    void bar() throws AException, BException {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:47"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:47"
+					}
+				],
+				"domain": "1:0-1:47"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:22-1:44"
+					}
+				],
+				"domain": "1:15-1:44"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/collectionItem.unenclosed.multiLine",
+		"languageId": "java",
+		"facet": "collectionItem.unenclosed.multiLine",
+		"code": "class Foo {\n    int aaa,\n        bbb;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:11",
+						"removal": "1:4-2:8"
+					}
+				],
+				"domain": "1:4-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:8-1:11",
+						"removal": "1:8-2:8"
+					}
+				],
+				"domain": "1:8-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-2:11",
+						"removal": "1:11-2:11"
+					}
+				],
+				"domain": "2:8-2:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-2:12",
+						"removal": "1:11-2:12"
+					}
+				],
+				"domain": "2:8-2:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/collectionItem.unenclosed.multiLine2",
+		"languageId": "java",
+		"facet": "collectionItem.unenclosed.multiLine",
+		"code": "class Foo {\n    void bar() {\n        int aaa,\n            bbb;\n    }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-4:5",
+						"removal": "1:0-5:0"
+					}
+				],
+				"domain": "1:4-4:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-2:15",
+						"removal": "2:8-3:12"
+					}
+				],
+				"domain": "2:8-2:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:12-2:15",
+						"removal": "2:12-3:12"
+					}
+				],
+				"domain": "2:12-2:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:12-3:15",
+						"removal": "2:15-3:15"
+					}
+				],
+				"domain": "3:12-3:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:12-3:16",
+						"removal": "2:15-3:16"
+					}
+				],
+				"domain": "3:12-3:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/collectionItem.unenclosed.multiLine3",
+		"languageId": "java",
+		"facet": "collectionItem.unenclosed.multiLine",
+		"code": "class Foo {\n    void bar() throws AException,\n        BException {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:32",
+						"removal": "1:4-2:8"
+					}
+				],
+				"domain": "1:4-1:32"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:22-1:32",
+						"removal": "1:22-2:8"
+					}
+				],
+				"domain": "1:22-1:32"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-2:18",
+						"removal": "1:32-2:18"
+					}
+				],
+				"domain": "2:8-2:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-2:21",
+						"removal": "1:32-2:21"
+					}
+				],
+				"domain": "2:8-2:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/collectionItem.unenclosed.singleLine",
+		"languageId": "java",
+		"facet": "collectionItem.unenclosed.singleLine",
+		"code": "class Foo {\n    int aaa, bbb;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:11",
+						"removal": "1:4-1:13"
+					}
+				],
+				"domain": "1:4-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:8-1:11",
+						"removal": "1:8-1:13"
+					}
+				],
+				"domain": "1:8-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:16",
+						"removal": "1:11-1:16"
+					}
+				],
+				"domain": "1:13-1:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:17",
+						"removal": "1:11-1:17"
+					}
+				],
+				"domain": "1:13-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/collectionItem.unenclosed.singleLine2",
+		"languageId": "java",
+		"facet": "collectionItem.unenclosed.singleLine",
+		"code": "class Foo {\n    void bar() {\n        int aaa, bbb;\n    }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-3:5",
+						"removal": "1:0-4:0"
+					}
+				],
+				"domain": "1:4-3:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-2:15",
+						"removal": "2:8-2:17"
+					}
+				],
+				"domain": "2:8-2:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:12-2:15",
+						"removal": "2:12-2:17"
+					}
+				],
+				"domain": "2:12-2:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:17-2:20",
+						"removal": "2:15-2:20"
+					}
+				],
+				"domain": "2:17-2:20"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:17-2:21",
+						"removal": "2:15-2:21"
+					}
+				],
+				"domain": "2:17-2:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/collectionItem.unenclosed.singleLine3",
+		"languageId": "java",
+		"facet": "collectionItem.unenclosed.singleLine",
+		"code": "class Foo {\n    void bar() throws AException, BException {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:32",
+						"removal": "1:4-1:34"
+					}
+				],
+				"domain": "1:4-1:32"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:22-1:32",
+						"removal": "1:22-1:34"
+					}
+				],
+				"domain": "1:22-1:32"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:34-1:44",
+						"removal": "1:32-1:44"
+					}
+				],
+				"domain": "1:34-1:44"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:34-1:47",
+						"removal": "1:32-1:47"
+					}
+				],
+				"domain": "1:34-1:47"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/comment.block",
+		"languageId": "java",
+		"facet": "comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/comment.block2",
+		"languageId": "java",
+		"facet": "comment.block",
+		"code": "/** Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:18",
+						"removal": "0:0-0:18"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/comment.line",
+		"languageId": "java",
+		"facet": "comment.line",
+		"code": "// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/condition/condition.doWhile",
+		"languageId": "java",
+		"facet": "condition.doWhile",
+		"code": "do {} while (true);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:17",
+						"removal": "0:13-0:17"
+					}
+				],
+				"domain": "0:0-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/condition/condition.for",
+		"languageId": "java",
+		"facet": "condition.for",
+		"code": "for (int i = 0; i < size; i++) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:16-0:24",
+						"removal": "0:15-0:24"
+					}
+				],
+				"domain": "0:0-0:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/condition/condition.if",
+		"languageId": "java",
+		"facet": "condition.if",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:8",
+						"removal": "0:4-0:8"
+					}
+				],
+				"domain": "0:0-2:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:9-1:14",
+						"removal": "1:9-1:14"
+					}
+				],
+				"domain": "1:0-1:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/condition/condition.switchCase.iteration",
+		"languageId": "java",
+		"facet": "condition.switchCase.iteration",
+		"code": "switch (foo) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/condition/condition.switchCase",
+		"languageId": "java",
+		"facet": "condition.switchCase",
+		"code": "switch (foo) {\n    case 0: break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:10",
+						"removal": "1:8-1:10"
+					}
+				],
+				"domain": "1:4-1:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/condition/condition.switchCase2",
+		"languageId": "java",
+		"facet": "condition.switchCase",
+		"code": "switch (foo) {\n    case 0, 1: break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:13",
+						"removal": "1:8-1:13"
+					}
+				],
+				"domain": "1:4-1:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/condition/condition.switchCase3",
+		"languageId": "java",
+		"facet": "condition.switchCase",
+		"code": "switch (foo) {\n    case 0 -> 0;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:10",
+						"removal": "1:9-1:11"
+					}
+				],
+				"domain": "1:4-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/condition/condition.switchCase4",
+		"languageId": "java",
+		"facet": "condition.switchCase",
+		"code": "switch (foo) {\n    case 0, 1 -> 0;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:13",
+						"removal": "1:9-1:14"
+					}
+				],
+				"domain": "1:4-1:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/condition/condition.ternary",
+		"languageId": "java",
+		"facet": "condition.ternary",
+		"code": "true ? 0 : 1;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:4",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/condition/condition.while",
+		"languageId": "java",
+		"facet": "condition.while",
+		"code": "while (true) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:11",
+						"removal": "0:7-0:11"
+					}
+				],
+				"domain": "0:0-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/disqualifyDelimiter",
+		"languageId": "java",
+		"facet": "disqualifyDelimiter",
+		"code": "1 < 2;\n1 > 2;\n1 <= 2;\n1 >= 2;\na << 2;\na >> 2;\na <<= 2;\na >>= 2;\na >>> 2;\na >>>= 2;\n() -> 2;\nswitch (foo) {\n    case a -> 2\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:2-0:3"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "1:2-1:3"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "2:2-2:4"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "3:2-3:4"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "4:2-4:4"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "5:2-5:4"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "6:2-6:5"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "7:2-7:5"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "8:2-8:5"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "9:2-9:6"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "10:3-10:5"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "12:11-12:13"
+					}
+				]
+			}
+		]
+	},
+	{
+		"name": "scopes/java/functionCall/functionCall.chain",
+		"languageId": "java",
+		"facet": "functionCall.chain",
+		"code": "foo().bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:0-0:11"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/functionCall/functionCall.constructor",
+		"languageId": "java",
+		"facet": "functionCall.constructor",
+		"code": "new Foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/functionCall/functionCall.enum",
+		"languageId": "java",
+		"facet": "functionCall.enum",
+		"code": "enum Foo {\n    bar();\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:9",
+						"removal": "1:0-1:9"
+					}
+				],
+				"domain": "1:4-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/functionCall/functionCall.generic",
+		"languageId": "java",
+		"facet": "functionCall.generic",
+		"code": "new foo<Bar>();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/functionCall/functionCall.method",
+		"languageId": "java",
+		"facet": "functionCall.method",
+		"code": "foo.bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/functionCall/functionCall",
+		"languageId": "java",
+		"facet": "functionCall",
+		"code": "foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/functionCallee/functionCallee.chain",
+		"languageId": "java",
+		"facet": "functionCallee.chain",
+		"code": "foo().bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:3",
+						"removal": "0:0-0:3"
+					}
+				],
+				"domain": "0:0-0:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/functionCallee/functionCallee.constructor",
+		"languageId": "java",
+		"facet": "functionCallee.constructor",
+		"code": "new Foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:7",
+						"removal": "0:0-0:7"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/functionCallee/functionCallee.enum",
+		"languageId": "java",
+		"facet": "functionCallee.enum",
+		"code": "enum Foo {\n    bar();\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-1:7"
+					}
+				],
+				"domain": "1:4-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/functionCallee/functionCallee.generic",
+		"languageId": "java",
+		"facet": "functionCallee.generic",
+		"code": "new foo<Bar>();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-0:12"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/functionCallee/functionCallee.method",
+		"languageId": "java",
+		"facet": "functionCallee.method",
+		"code": "foo.bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:7",
+						"removal": "0:0-0:7"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/functionCallee/functionCallee",
+		"languageId": "java",
+		"facet": "functionCallee",
+		"code": "foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:3",
+						"removal": "0:0-0:3"
+					}
+				],
+				"domain": "0:0-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/ifStatement",
+		"languageId": "java",
+		"facet": "ifStatement",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:7",
+						"removal": "0:0-2:7"
+					}
+				],
+				"domain": "0:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.class",
+		"languageId": "java",
+		"facet": "interior.class",
+		"code": "public class Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:18-0:19",
+						"removal": "0:18-0:19"
+					}
+				],
+				"domain": "0:18-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.constructor",
+		"languageId": "java",
+		"facet": "interior.constructor",
+		"code": "public class Foo {\n    public Foo() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:20",
+						"removal": "0:18-2:0"
+					}
+				],
+				"domain": "0:18-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:18-1:19",
+						"removal": "1:18-1:19"
+					}
+				],
+				"domain": "1:18-1:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.doWhile",
+		"languageId": "java",
+		"facet": "interior.doWhile",
+		"code": "do { } while (true);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:5",
+						"removal": "0:4-0:5"
+					}
+				],
+				"domain": "0:4-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.enum",
+		"languageId": "java",
+		"facet": "interior.enum",
+		"code": "public enum Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:17-0:18",
+						"removal": "0:17-0:18"
+					}
+				],
+				"domain": "0:17-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.for",
+		"languageId": "java",
+		"facet": "interior.for",
+		"code": "for (int i = 0; i < size; ++i) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:32-0:33",
+						"removal": "0:32-0:33"
+					}
+				],
+				"domain": "0:32-0:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.foreach",
+		"languageId": "java",
+		"facet": "interior.foreach",
+		"code": "for (int v : values) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:22-0:23",
+						"removal": "0:22-0:23"
+					}
+				],
+				"domain": "0:22-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.if",
+		"languageId": "java",
+		"facet": "interior.if",
+		"code": "if (true) { }\nelse if (false) { }\nelse { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:17-1:18",
+						"removal": "1:17-1:18"
+					}
+				],
+				"domain": "1:17-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:6-2:7",
+						"removal": "2:6-2:7"
+					}
+				],
+				"domain": "2:6-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.interface",
+		"languageId": "java",
+		"facet": "interior.interface",
+		"code": "public interface Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:22-0:23",
+						"removal": "0:22-0:23"
+					}
+				],
+				"domain": "0:22-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.lambda",
+		"languageId": "java",
+		"facet": "interior.lambda",
+		"code": "() -> { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:8",
+						"removal": "0:7-0:8"
+					}
+				],
+				"domain": "0:7-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.method",
+		"languageId": "java",
+		"facet": "interior.method",
+		"code": "public class Foo {\n    public void bar() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:25",
+						"removal": "0:18-2:0"
+					}
+				],
+				"domain": "0:18-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:23-1:24",
+						"removal": "1:23-1:24"
+					}
+				],
+				"domain": "1:23-1:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.resource",
+		"languageId": "java",
+		"facet": "interior.resource",
+		"code": "try (Foo bar = create()) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:26-0:27",
+						"removal": "0:26-0:27"
+					}
+				],
+				"domain": "0:26-0:27"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.static",
+		"languageId": "java",
+		"facet": "interior.static",
+		"code": "class Foo {\n    static { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:14",
+						"removal": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:12-1:13",
+						"removal": "1:12-1:13"
+					}
+				],
+				"domain": "1:12-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.switch",
+		"languageId": "java",
+		"facet": "interior.switch",
+		"code": "switch (value) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:16-0:17",
+						"removal": "0:16-0:17"
+					}
+				],
+				"domain": "0:16-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.switchCase",
+		"languageId": "java",
+		"facet": "interior.switchCase",
+		"code": "switch (foo) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-6:14",
+						"removal": "0:14-7:0"
+					}
+				],
+				"domain": "0:14-7:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-3:14",
+						"removal": "1:11-3:14"
+					}
+				],
+				"domain": "1:11-3:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "5:8-6:14",
+						"removal": "4:12-6:14"
+					}
+				],
+				"domain": "4:12-6:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.switchCase2",
+		"languageId": "java",
+		"facet": "interior.switchCase",
+		"code": "switch (foo) {\n    case 0: { }\n    default: { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:16",
+						"removal": "0:14-3:0"
+					}
+				],
+				"domain": "0:14-3:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:14",
+						"removal": "1:13-1:14"
+					}
+				],
+				"domain": "1:13-1:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:14-2:15",
+						"removal": "2:14-2:15"
+					}
+				],
+				"domain": "2:14-2:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.try",
+		"languageId": "java",
+		"facet": "interior.try",
+		"code": "try { }\ncatch(Exception ex) { }\nfinally { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:6",
+						"removal": "0:5-0:6"
+					}
+				],
+				"domain": "0:5-0:6"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:21-1:22",
+						"removal": "1:21-1:22"
+					}
+				],
+				"domain": "1:21-1:22"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:9-2:10",
+						"removal": "2:9-2:10"
+					}
+				],
+				"domain": "2:9-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.while",
+		"languageId": "java",
+		"facet": "interior.while",
+		"code": "while (true) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15",
+						"removal": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/list",
+		"languageId": "java",
+		"facet": "list",
+		"code": "new int[] {aaa, bbb};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:20",
+						"removal": "0:9-0:20"
+					}
+				],
+				"domain": "0:10-0:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.argument.catch",
+		"languageId": "java",
+		"facet": "name.argument.catch",
+		"code": "try {}\ncatch(final MyException e) {}\ncatch(final Exception e) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:24-1:25",
+						"removal": "1:23-1:25"
+					}
+				],
+				"domain": "1:6-1:25"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:22-2:23",
+						"removal": "2:21-2:23"
+					}
+				],
+				"domain": "2:6-2:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.argument.formal.constructor.iteration",
+		"languageId": "java",
+		"facet": "name.argument.formal.constructor.iteration",
+		"code": "public class Foo {\n    public Foo(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:18-2:0"
+					}
+				],
+				"domain": "0:18-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:15-1:31"
+					}
+				],
+				"domain": "1:15-1:31"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.argument.formal.constructor",
+		"languageId": "java",
+		"facet": "name.argument.formal.constructor",
+		"code": "public class Foo {\n    public Foo(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:13-0:17"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-1:14",
+						"removal": "1:11-1:14"
+					}
+				],
+				"domain": "1:4-1:35"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:19-1:22",
+						"removal": "1:18-1:22"
+					}
+				],
+				"domain": "1:15-1:22"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:28-1:31",
+						"removal": "1:27-1:31"
+					}
+				],
+				"domain": "1:24-1:31"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.argument.formal.lambda.iteration",
+		"languageId": "java",
+		"facet": "name.argument.formal.lambda.iteration",
+		"code": "(int aaa, int bbb) -> {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:24"
+					}
+				],
+				"domain": "0:0-0:24"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:1-0:17"
+					}
+				],
+				"domain": "0:1-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.argument.formal.lambda",
+		"languageId": "java",
+		"facet": "name.argument.formal.lambda",
+		"code": "(int aaa, int bbb) -> {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:8",
+						"removal": "0:4-0:8"
+					}
+				],
+				"domain": "0:1-0:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:14-0:17",
+						"removal": "0:13-0:17"
+					}
+				],
+				"domain": "0:10-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.argument.formal.method.iteration",
+		"languageId": "java",
+		"facet": "name.argument.formal.method.iteration",
+		"code": "public class Foo {\n    public void bar(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:18-2:0"
+					}
+				],
+				"domain": "0:18-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:20-1:36"
+					}
+				],
+				"domain": "1:20-1:36"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.argument.formal.method",
+		"languageId": "java",
+		"facet": "name.argument.formal.method",
+		"code": "public class Foo {\n    public void foo(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:13-0:17"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:16-1:19",
+						"removal": "1:16-1:19"
+					}
+				],
+				"domain": "1:4-1:40"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:24-1:27",
+						"removal": "1:23-1:27"
+					}
+				],
+				"domain": "1:20-1:27"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:33-1:36",
+						"removal": "1:32-1:36"
+					}
+				],
+				"domain": "1:29-1:36"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.assignment.compound",
+		"languageId": "java",
+		"facet": "name.assignment.compound",
+		"code": "foo += 0",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:3",
+						"removal": "0:0-0:7"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.assignment",
+		"languageId": "java",
+		"facet": "name.assignment",
+		"code": "foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:3",
+						"removal": "0:0-0:6"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.class",
+		"languageId": "java",
+		"facet": "name.class",
+		"code": "public class Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:13-0:17"
+					}
+				],
+				"domain": "0:0-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.class2",
+		"languageId": "java",
+		"facet": "name.class",
+		"code": "@bar\npublic class Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:13-1:16",
+						"removal": "1:13-1:17"
+					}
+				],
+				"domain": "0:0-1:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.constant",
+		"languageId": "java",
+		"facet": "name.constant",
+		"code": "final int foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:13",
+						"removal": "0:0-0:16"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.constructor",
+		"languageId": "java",
+		"facet": "name.constructor",
+		"code": "public class Foo {\n    public Foo() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:13-0:17"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-1:14",
+						"removal": "1:11-1:14"
+					}
+				],
+				"domain": "1:4-1:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.constructor2",
+		"languageId": "java",
+		"facet": "name.constructor",
+		"code": "public class Foo {\n    @bar\n    public Foo() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:13-0:17"
+					}
+				],
+				"domain": "0:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:11-2:14",
+						"removal": "2:11-2:14"
+					}
+				],
+				"domain": "1:4-2:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.enum",
+		"languageId": "java",
+		"facet": "name.enum",
+		"code": "public enum Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:12-0:15",
+						"removal": "0:12-0:16"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.field.class",
+		"languageId": "java",
+		"facet": "name.field.class",
+		"code": "class Foo {\n    private int bar;\n    private int baz = 0;\n    @An int bongo = 0;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:9",
+						"removal": "0:6-0:10"
+					}
+				],
+				"domain": "0:0-4:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:16-1:19",
+						"removal": "1:4-1:19"
+					}
+				],
+				"domain": "1:4-1:20"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:16-2:19",
+						"removal": "2:4-2:22"
+					}
+				],
+				"domain": "2:4-2:24"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:12-3:17",
+						"removal": "3:4-3:20"
+					}
+				],
+				"domain": "3:4-3:22"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.field.enum",
+		"languageId": "java",
+		"facet": "name.field.enum",
+		"code": "enum Foo {\n    bar,\n    baz();\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:8",
+						"removal": "0:5-0:9"
+					}
+				],
+				"domain": "0:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:0-1:7"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "2:4-2:7"
+					}
+				],
+				"domain": "2:4-2:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.field.interface",
+		"languageId": "java",
+		"facet": "name.field.interface",
+		"code": "interface Foo {\n    private int bar;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:13",
+						"removal": "0:10-0:14"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:16-1:19",
+						"removal": "1:4-1:19"
+					}
+				],
+				"domain": "1:4-1:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.foreach",
+		"languageId": "java",
+		"facet": "name.foreach",
+		"code": "for (final int v : values) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:15-0:16",
+						"removal": "0:15-0:17"
+					}
+				],
+				"domain": "0:0-0:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.interface",
+		"languageId": "java",
+		"facet": "name.interface",
+		"code": "public interface Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:17-0:20",
+						"removal": "0:17-0:21"
+					}
+				],
+				"domain": "0:0-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.iteration.block",
+		"languageId": "java",
+		"facet": "name.iteration.block",
+		"code": "class Foo {\n    void bar() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:16-1:17"
+					}
+				],
+				"domain": "1:16-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.iteration.block2",
+		"languageId": "java",
+		"facet": "name.iteration.block",
+		"code": "void foo() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.iteration.block3",
+		"languageId": "java",
+		"facet": "name.iteration.block",
+		"code": "if (true) { }\nelse if (false) { }\nelse { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:8"
+					}
+				],
+				"domain": "0:0-2:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:17-1:18"
+					}
+				],
+				"domain": "1:17-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:6-2:7"
+					}
+				],
+				"domain": "2:6-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.iteration.block4",
+		"languageId": "java",
+		"facet": "name.iteration.block",
+		"code": "while (true) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:16"
+					}
+				],
+				"domain": "0:0-0:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.iteration.class",
+		"languageId": "java",
+		"facet": "name.iteration.class",
+		"code": "class Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.iteration.document",
+		"languageId": "java",
+		"facet": "name.iteration.document",
+		"code": "\nint foo;\n",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:0"
+					}
+				],
+				"domain": "0:0-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.iteration.enum",
+		"languageId": "java",
+		"facet": "name.iteration.enum",
+		"code": "public enum Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:19"
+					}
+				],
+				"domain": "0:0-0:19"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:17-0:18"
+					}
+				],
+				"domain": "0:17-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.iteration.interface",
+		"languageId": "java",
+		"facet": "name.iteration.interface",
+		"code": "interface Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:15-0:16"
+					}
+				],
+				"domain": "0:15-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.method.interface",
+		"languageId": "java",
+		"facet": "name.method.interface",
+		"code": "interface Foo {\n    void bar();\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:13",
+						"removal": "0:10-0:14"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:9-1:12",
+						"removal": "1:9-1:12"
+					}
+				],
+				"domain": "1:4-1:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.method",
+		"languageId": "java",
+		"facet": "name.method",
+		"code": "public class Foo {\n    public void bar() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:13-0:17"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:16-1:19",
+						"removal": "1:16-1:19"
+					}
+				],
+				"domain": "1:4-1:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.method2",
+		"languageId": "java",
+		"facet": "name.method",
+		"code": "public class Foo {\n    @An\n    public void bar() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:13-0:17"
+					}
+				],
+				"domain": "0:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:16-2:19",
+						"removal": "2:16-2:19"
+					}
+				],
+				"domain": "1:4-2:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.resource",
+		"languageId": "java",
+		"facet": "name.resource",
+		"code": "try (Foo foo = create()) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:9-0:12",
+						"removal": "0:9-0:13"
+					}
+				],
+				"domain": "0:0-0:27"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.variable.initialized",
+		"languageId": "java",
+		"facet": "name.variable.initialized",
+		"code": "int foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:7",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/name/name.variable.uninitialized",
+		"languageId": "java",
+		"facet": "name.variable.uninitialized",
+		"code": "int foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:7",
+						"removal": "0:0-0:7"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/namedFunction.constructor",
+		"languageId": "java",
+		"facet": "namedFunction.constructor",
+		"code": "public class Foo {\n    public Foo() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:19",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/namedFunction.constructor2",
+		"languageId": "java",
+		"facet": "namedFunction.constructor",
+		"code": "public class Foo {\n    @bar\n    public Foo() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:19",
+						"removal": "1:0-3:0"
+					}
+				],
+				"domain": "1:4-2:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/namedFunction.iteration.class",
+		"languageId": "java",
+		"facet": "namedFunction.iteration.class",
+		"code": "class Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/namedFunction.method",
+		"languageId": "java",
+		"facet": "namedFunction.method",
+		"code": "public class Foo {\n    public void bar() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:24",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/namedFunction.method2",
+		"languageId": "java",
+		"facet": "namedFunction.method",
+		"code": "public class Foo {\n    @An\n    public void bar() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:24",
+						"removal": "1:0-3:0"
+					}
+				],
+				"domain": "1:4-2:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.assignment.compound",
+		"languageId": "java",
+		"facet": "statement.assignment.compound",
+		"code": "foo += 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.assignment",
+		"languageId": "java",
+		"facet": "statement.assignment",
+		"code": "foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:8",
+						"removal": "0:0-0:8"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.break",
+		"languageId": "java",
+		"facet": "statement.break",
+		"code": "while (true) {\n    break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1",
+						"removal": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:10",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.class",
+		"languageId": "java",
+		"facet": "statement.class",
+		"code": "public class Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:19",
+						"removal": "0:0-0:19"
+					}
+				],
+				"domain": "0:0-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.class2",
+		"languageId": "java",
+		"facet": "statement.class",
+		"code": "@bar\nclass Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:12",
+						"removal": "0:0-1:12"
+					}
+				],
+				"domain": "0:0-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.constant",
+		"languageId": "java",
+		"facet": "statement.constant",
+		"code": "final int foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:18",
+						"removal": "0:0-0:18"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.constructor",
+		"languageId": "java",
+		"facet": "statement.constructor",
+		"code": "public class Foo {\n    public Foo() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1",
+						"removal": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:19",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.constructor2",
+		"languageId": "java",
+		"facet": "statement.constructor",
+		"code": "public class Foo {\n    @bar\n    public Foo() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:1",
+						"removal": "0:0-3:1"
+					}
+				],
+				"domain": "0:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-2:19",
+						"removal": "1:0-3:0"
+					}
+				],
+				"domain": "1:4-2:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.continue",
+		"languageId": "java",
+		"facet": "statement.continue",
+		"code": "while (true) {\n    continue;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1",
+						"removal": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:13",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.doWhile",
+		"languageId": "java",
+		"facet": "statement.doWhile",
+		"code": "do {} while (true);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:19",
+						"removal": "0:0-0:19"
+					}
+				],
+				"domain": "0:0-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.enum",
+		"languageId": "java",
+		"facet": "statement.enum",
+		"code": "public enum Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:18",
+						"removal": "0:0-0:18"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.field.class",
+		"languageId": "java",
+		"facet": "statement.field.class",
+		"code": "public class Foo {\n    private int bar;\n    private int baz = 0;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:1",
+						"removal": "0:0-3:1"
+					}
+				],
+				"domain": "0:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:20",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:20"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:24",
+						"removal": "2:0-3:0"
+					}
+				],
+				"domain": "2:4-2:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.field.interface",
+		"languageId": "java",
+		"facet": "statement.field.interface",
+		"code": "public interface Foo {\n    private int bar;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1",
+						"removal": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:20",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.for",
+		"languageId": "java",
+		"facet": "statement.for",
+		"code": "for (int i = 0; i < size; i++) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:33",
+						"removal": "0:0-0:33"
+					}
+				],
+				"domain": "0:0-0:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.foreach",
+		"languageId": "java",
+		"facet": "statement.foreach",
+		"code": "for (final int v : values) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:29",
+						"removal": "0:0-0:29"
+					}
+				],
+				"domain": "0:0-0:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.functionCall",
+		"languageId": "java",
+		"facet": "statement.functionCall",
+		"code": "foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:6",
+						"removal": "0:0-0:6"
+					}
+				],
+				"domain": "0:0-0:6"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.if",
+		"languageId": "java",
+		"facet": "statement.if",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:7",
+						"removal": "0:0-2:7"
+					}
+				],
+				"domain": "0:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.import",
+		"languageId": "java",
+		"facet": "statement.import",
+		"code": "import foo.bar.Baz;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:19",
+						"removal": "0:0-0:19"
+					}
+				],
+				"domain": "0:0-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.interface",
+		"languageId": "java",
+		"facet": "statement.interface",
+		"code": "public interface Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:23",
+						"removal": "0:0-0:23"
+					}
+				],
+				"domain": "0:0-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.interface2",
+		"languageId": "java",
+		"facet": "statement.interface",
+		"code": "interface Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:16",
+						"removal": "0:0-0:16"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.iteration.block",
+		"languageId": "java",
+		"facet": "statement.iteration.block",
+		"code": "class Foo {\n    void bar() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:16-1:17"
+					}
+				],
+				"domain": "1:16-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.iteration.block2",
+		"languageId": "java",
+		"facet": "statement.iteration.block",
+		"code": "void foo() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.iteration.block3",
+		"languageId": "java",
+		"facet": "statement.iteration.block",
+		"code": "if (true) { }\nelse if (false) { }\nelse { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:8"
+					}
+				],
+				"domain": "0:0-2:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:17-1:18"
+					}
+				],
+				"domain": "1:17-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:6-2:7"
+					}
+				],
+				"domain": "2:6-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.iteration.block4",
+		"languageId": "java",
+		"facet": "statement.iteration.block",
+		"code": "while (true) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:16"
+					}
+				],
+				"domain": "0:0-0:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.iteration.class",
+		"languageId": "java",
+		"facet": "statement.iteration.class",
+		"code": "class Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.iteration.class2",
+		"languageId": "java",
+		"facet": "statement.iteration.class",
+		"code": "interface Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:15-0:16"
+					}
+				],
+				"domain": "0:15-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.iteration.document",
+		"languageId": "java",
+		"facet": "statement.iteration.document",
+		"code": "\nint foo;\n",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:0"
+					}
+				],
+				"domain": "0:0-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.iteration.interface",
+		"languageId": "java",
+		"facet": "statement.iteration.interface",
+		"code": "interface Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:15-0:16"
+					}
+				],
+				"domain": "0:15-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.method.interface",
+		"languageId": "java",
+		"facet": "statement.method.interface",
+		"code": "interface Foo {\n    void bar();\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1",
+						"removal": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:15",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.method",
+		"languageId": "java",
+		"facet": "statement.method",
+		"code": "public class Foo {\n    public void bar() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1",
+						"removal": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:24",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.method2",
+		"languageId": "java",
+		"facet": "statement.method",
+		"code": "public class Foo {\n    @An\n    public void bar() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:1",
+						"removal": "0:0-3:1"
+					}
+				],
+				"domain": "0:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-2:24",
+						"removal": "1:0-3:0"
+					}
+				],
+				"domain": "1:4-2:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.misc",
+		"languageId": "java",
+		"facet": "statement.misc",
+		"code": "public record Foo(int a) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:27",
+						"removal": "0:0-0:27"
+					}
+				],
+				"domain": "0:0-0:27"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.package",
+		"languageId": "java",
+		"facet": "statement.package",
+		"code": "package foo.bar;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:16",
+						"removal": "0:0-0:16"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.resource",
+		"languageId": "java",
+		"facet": "statement.resource",
+		"code": "try (Foo foo = create()) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:27",
+						"removal": "0:0-0:27"
+					}
+				],
+				"domain": "0:0-0:27"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.return",
+		"languageId": "java",
+		"facet": "statement.return",
+		"code": "public class Foo {\n    public int bar() {\n        return 0;\n    }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-4:1",
+						"removal": "0:0-4:1"
+					}
+				],
+				"domain": "0:0-4:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-3:5",
+						"removal": "1:0-4:0"
+					}
+				],
+				"domain": "1:4-3:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-2:17",
+						"removal": "2:0-3:0"
+					}
+				],
+				"domain": "2:8-2:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.static",
+		"languageId": "java",
+		"facet": "statement.static",
+		"code": "class Foo {\n    static {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1",
+						"removal": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:13",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.switch",
+		"languageId": "java",
+		"facet": "statement.switch",
+		"code": "switch (foo) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:15",
+						"removal": "0:0-0:15"
+					}
+				],
+				"domain": "0:0-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.throw",
+		"languageId": "java",
+		"facet": "statement.throw",
+		"code": "throw foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.try",
+		"languageId": "java",
+		"facet": "statement.try",
+		"code": "try {}\ncatch(Exception ex) {}\nfinally {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:10",
+						"removal": "0:0-2:10"
+					}
+				],
+				"domain": "0:0-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.update",
+		"languageId": "java",
+		"facet": "statement.update",
+		"code": "foo++;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:6",
+						"removal": "0:0-0:6"
+					}
+				],
+				"domain": "0:0-0:6"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.update2",
+		"languageId": "java",
+		"facet": "statement.update",
+		"code": "--foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:6",
+						"removal": "0:0-0:6"
+					}
+				],
+				"domain": "0:0-0:6"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.variable.initialized",
+		"languageId": "java",
+		"facet": "statement.variable.initialized",
+		"code": "int foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-0:12"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.variable.uninitialized",
+		"languageId": "java",
+		"facet": "statement.variable.uninitialized",
+		"code": "int foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:8",
+						"removal": "0:0-0:8"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.while",
+		"languageId": "java",
+		"facet": "statement.while",
+		"code": "while (true) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:15",
+						"removal": "0:0-0:15"
+					}
+				],
+				"domain": "0:0-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/statement/statement.yield",
+		"languageId": "java",
+		"facet": "statement.yield",
+		"code": "switch (foo) {\n    case 0:\n        yield 0;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:1",
+						"removal": "0:0-3:1"
+					}
+				],
+				"domain": "0:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-2:16",
+						"removal": "2:0-3:0"
+					}
+				],
+				"domain": "2:8-2:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/string.multiLine",
+		"languageId": "java",
+		"facet": "string.multiLine",
+		"code": "\"\"\"\nHello\nworld\n\"\"\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:3",
+						"removal": "0:0-3:3"
+					}
+				],
+				"domain": "0:0-3:3"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/string.singleLine",
+		"languageId": "java",
+		"facet": "string.singleLine",
+		"code": "\"Hello world\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/textFragment.comment.block",
+		"languageId": "java",
+		"facet": "textFragment.comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/textFragment.comment.block2",
+		"languageId": "java",
+		"facet": "textFragment.comment.block",
+		"code": "/** Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:18",
+						"removal": "0:0-0:18"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/textFragment.comment.line",
+		"languageId": "java",
+		"facet": "textFragment.comment.line",
+		"code": "// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/textFragment.string.multiLine",
+		"languageId": "java",
+		"facet": "textFragment.string.multiLine",
+		"code": "\"\"\"\nHello\nworld\n\"\"\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:3-3:0",
+						"removal": "0:3-3:0"
+					}
+				],
+				"domain": "0:3-3:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/textFragment.string.singleLine",
+		"languageId": "java",
+		"facet": "textFragment.string.singleLine",
+		"code": "\"Hello world\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:12",
+						"removal": "0:1-0:12"
+					}
+				],
+				"domain": "0:1-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.argument.catch",
+		"languageId": "java",
+		"facet": "type.argument.catch",
+		"code": "try {}\ncatch(final MyException e) {}\ncatch(final Exception e) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:12-1:23",
+						"removal": "1:12-1:24"
+					}
+				],
+				"domain": "1:6-1:25"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:12-2:21",
+						"removal": "2:12-2:22"
+					}
+				],
+				"domain": "2:6-2:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.argument.formal.constructor.iteration",
+		"languageId": "java",
+		"facet": "type.argument.formal.constructor.iteration",
+		"code": "public class Foo {\n    public Foo(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:18-2:0"
+					}
+				],
+				"domain": "0:18-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:15-1:31"
+					}
+				],
+				"domain": "1:15-1:31"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.argument.formal.constructor",
+		"languageId": "java",
+		"facet": "type.argument.formal.constructor",
+		"code": "public class Foo {\n    public Foo(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1",
+						"removal": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:15-1:18",
+						"removal": "1:15-1:19"
+					}
+				],
+				"domain": "1:15-1:22"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:24-1:27",
+						"removal": "1:24-1:28"
+					}
+				],
+				"domain": "1:24-1:31"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.argument.formal.lambda.iteration",
+		"languageId": "java",
+		"facet": "type.argument.formal.lambda.iteration",
+		"code": "(int aaa, int bbb) -> {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:24"
+					}
+				],
+				"domain": "0:0-0:24"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:1-0:17"
+					}
+				],
+				"domain": "0:1-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.argument.formal.lambda",
+		"languageId": "java",
+		"facet": "type.argument.formal.lambda",
+		"code": "(int aaa, int bbb) -> {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:4",
+						"removal": "0:1-0:5"
+					}
+				],
+				"domain": "0:1-0:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:10-0:13",
+						"removal": "0:10-0:14"
+					}
+				],
+				"domain": "0:10-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.argument.formal.method.iteration",
+		"languageId": "java",
+		"facet": "type.argument.formal.method.iteration",
+		"code": "public class Foo {\n    public void bar(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:18-2:0"
+					}
+				],
+				"domain": "0:18-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:20-1:36"
+					}
+				],
+				"domain": "1:20-1:36"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.argument.formal.method",
+		"languageId": "java",
+		"facet": "type.argument.formal.method",
+		"code": "public class Foo {\n    public void bar(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1",
+						"removal": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-1:15",
+						"removal": "1:11-1:16"
+					}
+				],
+				"domain": "1:4-1:40"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:20-1:23",
+						"removal": "1:20-1:24"
+					}
+				],
+				"domain": "1:20-1:27"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:29-1:32",
+						"removal": "1:29-1:33"
+					}
+				],
+				"domain": "1:29-1:36"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.cast",
+		"languageId": "java",
+		"facet": "type.cast",
+		"code": "(int)foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:4",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.class",
+		"languageId": "java",
+		"facet": "type.class",
+		"code": "public class Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:19",
+						"removal": "0:0-0:19"
+					}
+				],
+				"domain": "0:0-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.constant",
+		"languageId": "java",
+		"facet": "type.constant",
+		"code": "final int foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:9",
+						"removal": "0:6-0:10"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.enum",
+		"languageId": "java",
+		"facet": "type.enum",
+		"code": "public enum Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:18",
+						"removal": "0:0-0:18"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.field.class",
+		"languageId": "java",
+		"facet": "type.field.class",
+		"code": "class Foo {\n    int bar;\n    int baz = 0;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:1",
+						"removal": "0:0-3:1"
+					}
+				],
+				"domain": "0:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-1:8"
+					}
+				],
+				"domain": "1:4-1:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "2:4-2:8"
+					}
+				],
+				"domain": "2:4-2:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.field.interface",
+		"languageId": "java",
+		"facet": "type.field.interface",
+		"code": "interface Foo {\n    private int bar;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1",
+						"removal": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:12-1:15",
+						"removal": "1:12-1:16"
+					}
+				],
+				"domain": "1:4-1:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.foreach",
+		"languageId": "java",
+		"facet": "type.foreach",
+		"code": "for (final int v : values) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:14",
+						"removal": "0:11-0:15"
+					}
+				],
+				"domain": "0:0-0:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.interface",
+		"languageId": "java",
+		"facet": "type.interface",
+		"code": "public interface Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:23",
+						"removal": "0:0-0:23"
+					}
+				],
+				"domain": "0:0-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.iteration.block",
+		"languageId": "java",
+		"facet": "type.iteration.block",
+		"code": "class Foo {\n    void bar() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:16-1:17"
+					}
+				],
+				"domain": "1:16-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.iteration.block2",
+		"languageId": "java",
+		"facet": "type.iteration.block",
+		"code": "void foo() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.iteration.block3",
+		"languageId": "java",
+		"facet": "type.iteration.block",
+		"code": "if (true) { }\nelse if (false) { }\nelse { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:8"
+					}
+				],
+				"domain": "0:0-2:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:17-1:18"
+					}
+				],
+				"domain": "1:17-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:6-2:7"
+					}
+				],
+				"domain": "2:6-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.iteration.block4",
+		"languageId": "java",
+		"facet": "type.iteration.block",
+		"code": "while (true) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:16"
+					}
+				],
+				"domain": "0:0-0:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.iteration.class",
+		"languageId": "java",
+		"facet": "type.iteration.class",
+		"code": "class Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.iteration.class2",
+		"languageId": "java",
+		"facet": "type.iteration.class",
+		"code": "interface Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:15-0:16"
+					}
+				],
+				"domain": "0:15-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.iteration.document",
+		"languageId": "java",
+		"facet": "type.iteration.document",
+		"code": "\nint foo;\n",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:0"
+					}
+				],
+				"domain": "0:0-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.iteration.interface",
+		"languageId": "java",
+		"facet": "type.iteration.interface",
+		"code": "interface Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:15-0:16"
+					}
+				],
+				"domain": "0:15-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.resource",
+		"languageId": "java",
+		"facet": "type.resource",
+		"code": "try (Foo foo = create()) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:8",
+						"removal": "0:5-0:9"
+					}
+				],
+				"domain": "0:0-0:27"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.return.method",
+		"languageId": "java",
+		"facet": "type.return.method",
+		"code": "class Foo {\n    int bar() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1",
+						"removal": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-1:8"
+					}
+				],
+				"domain": "1:4-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.typeArgument.iteration",
+		"languageId": "java",
+		"facet": "type.typeArgument.iteration",
+		"code": "Map<int, int> foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:18"
+					}
+				],
+				"domain": "0:0-0:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:4-0:12"
+					}
+				],
+				"domain": "0:4-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.typeArgument",
+		"languageId": "java",
+		"facet": "type.typeArgument",
+		"code": "Map<int, int> foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:4-0:7",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:4-0:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:12",
+						"removal": "0:7-0:12"
+					}
+				],
+				"domain": "0:9-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.variable.initialized",
+		"languageId": "java",
+		"facet": "type.variable.initialized",
+		"code": "int foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:3",
+						"removal": "0:0-0:4"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/type/type.variable.uninitialized",
+		"languageId": "java",
+		"facet": "type.variable.uninitialized",
+		"code": "int foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:3",
+						"removal": "0:0-0:4"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/value/value.assignment.compound",
+		"languageId": "java",
+		"facet": "value.assignment.compound",
+		"code": "foo += 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:8",
+						"removal": "0:3-0:8"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/value/value.assignment",
+		"languageId": "java",
+		"facet": "value.assignment",
+		"code": "foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:7",
+						"removal": "0:3-0:7"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/value/value.assignment2",
+		"languageId": "java",
+		"facet": "value.assignment",
+		"code": "foo += 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:8",
+						"removal": "0:3-0:8"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/value/value.constant",
+		"languageId": "java",
+		"facet": "value.constant",
+		"code": "final int foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:16-0:17",
+						"removal": "0:13-0:17"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/value/value.field.class",
+		"languageId": "java",
+		"facet": "value.field.class",
+		"code": "class Foo {\n    private int bar = 0;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:22-1:23",
+						"removal": "1:19-1:23"
+					}
+				],
+				"domain": "1:4-1:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/value/value.field.interface",
+		"languageId": "java",
+		"facet": "value.field.interface",
+		"code": "interface Foo {\n    int bar = 0;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:14-1:15",
+						"removal": "1:11-1:15"
+					}
+				],
+				"domain": "1:4-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/value/value.foreach",
+		"languageId": "java",
+		"facet": "value.foreach",
+		"code": "for (final int v : values) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:19-0:25",
+						"removal": "0:18-0:25"
+					}
+				],
+				"domain": "0:0-0:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/value/value.iteration.block",
+		"languageId": "java",
+		"facet": "value.iteration.block",
+		"code": "class Foo {\n    void bar() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:16-1:17"
+					}
+				],
+				"domain": "1:16-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/value/value.iteration.block2",
+		"languageId": "java",
+		"facet": "value.iteration.block",
+		"code": "void foo() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/value/value.iteration.block3",
+		"languageId": "java",
+		"facet": "value.iteration.block",
+		"code": "if (true) { }\nelse if (false) { }\nelse { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:8"
+					}
+				],
+				"domain": "0:0-2:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:17-1:18"
+					}
+				],
+				"domain": "1:17-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:6-2:7"
+					}
+				],
+				"domain": "2:6-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/value/value.iteration.block4",
+		"languageId": "java",
+		"facet": "value.iteration.block",
+		"code": "while (true) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:16"
+					}
+				],
+				"domain": "0:0-0:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/value/value.iteration.class",
+		"languageId": "java",
+		"facet": "value.iteration.class",
+		"code": "class Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/value/value.iteration.class2",
+		"languageId": "java",
+		"facet": "value.iteration.class",
+		"code": "interface Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:15-0:16"
+					}
+				],
+				"domain": "0:15-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/value/value.iteration.document",
+		"languageId": "java",
+		"facet": "value.iteration.document",
+		"code": "\nint foo;\n",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:0"
+					}
+				],
+				"domain": "0:0-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/value/value.resource",
+		"languageId": "java",
+		"facet": "value.resource",
+		"code": "try (Foo foo = create()) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:15-0:23",
+						"removal": "0:14-0:23"
+					}
+				],
+				"domain": "0:0-0:27"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/value/value.return.lambda",
+		"languageId": "java",
+		"facet": "value.return.lambda",
+		"code": "() -> 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:7",
+						"removal": "0:5-0:7"
+					}
+				],
+				"domain": "0:0-0:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/value/value.return",
+		"languageId": "java",
+		"facet": "value.return",
+		"code": "public class Foo {\n    public int bar() {\n        return 0;\n    }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:15-2:16",
+						"removal": "2:14-2:16"
+					}
+				],
+				"domain": "2:8-2:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/value/value.switch",
+		"languageId": "java",
+		"facet": "value.switch",
+		"code": "switch (value) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:13",
+						"removal": "0:8-0:13"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/value/value.throw",
+		"languageId": "java",
+		"facet": "value.throw",
+		"code": "throw foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:9",
+						"removal": "0:5-0:9"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/value/value.variable",
+		"languageId": "java",
+		"facet": "value.variable",
+		"code": "int foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:11",
+						"removal": "0:7-0:11"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/value/value.yield",
+		"languageId": "java",
+		"facet": "value.yield",
+		"code": "switch (foo) {\n    case 0:\n        yield 0;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:11"
+					}
+				],
+				"domain": "0:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:14-2:15",
+						"removal": "2:13-2:15"
+					}
+				],
+				"domain": "2:8-2:16"
+			}
+		]
+	}
+]

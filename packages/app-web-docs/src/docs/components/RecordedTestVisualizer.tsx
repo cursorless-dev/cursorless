@@ -1,9 +1,9 @@
-import { usePluginData } from "@docusaurus/useGlobalData";
 import type { Dispatch, JSX, ReactNode, SetStateAction } from "react";
 import { createContext, useContext, useMemo, useState } from "react";
 import type { DecorationItem } from "shiki";
 import type {
   Position,
+  Range,
   Selection,
   TestCaseSnapshot,
 } from "@cursorless/lib-common";
@@ -25,14 +25,15 @@ const RecordedTestVisualizerContext = createContext<
   RecordedTestVisualizerContextValue | undefined
 >(undefined);
 
+interface ProviderProps {
+  children: ReactNode;
+  recordedTests: RecordedTest[];
+}
+
 export function RecordedTestVisualizerProvider({
   children,
-}: {
-  children: ReactNode;
-}) {
-  const recordedTests = usePluginData(
-    "recorded-tests-plugin",
-  ) as RecordedTest[];
+  recordedTests,
+}: ProviderProps): JSX.Element {
   const [renderWhitespace, setRenderWhitespace] = useState(true);
   const fixtures = useMemo(
     () =>
@@ -57,7 +58,7 @@ export function RecordedTestVisualizerProvider({
   );
 }
 
-export function RecordedTestVisualizerOptions() {
+export function RecordedTestVisualizerOptions(): JSX.Element {
   const { renderWhitespace, setRenderWhitespace } = useRecordedTestVisualizer();
 
   return (
@@ -99,7 +100,7 @@ export function RecordedTestVisualizer({
   // oxlint-disable-next-line react_perf/jsx-no-new-object-as-prop
   const link = {
     name: "GitHub",
-    url: `https://github.com/cursorless-dev/cursorless/blob/main/resources/fixtures/recorded/docs/${path}`,
+    url: `https://github.com/cursorless-dev/cursorless/blob/main/resources/fixtures/recorded/${path}`,
   };
 
   const renderHats =
@@ -109,7 +110,7 @@ export function RecordedTestVisualizer({
   return (
     <div className="row">
       <div className="col">
-        Input
+        Before
         <CodeState
           renderWhitespace={renderWhitespace}
           renderHats={renderHats}
@@ -119,7 +120,7 @@ export function RecordedTestVisualizer({
         />
       </div>
       <div className="col">
-        Output
+        After
         <CodeState
           renderWhitespace={renderWhitespace}
           renderHats={renderHats}
@@ -204,16 +205,21 @@ function toDecorations(
         plainObjectToRange(hatRange),
       )
     : [];
+  const markRanges = renderHats
+    ? Object.values(state.marks ?? {}).map(plainObjectToRange)
+    : [];
 
   // Shiki rejects intersecting decorations. A zero-width cursor at the end of
-  // a hat range intersects the hat decoration, so render both on one wrapper.
-  // We only merge at the end because code-cursor-after recreates that exact
-  // boundary without competing with the hat's ::before pseudo-element.
+  // a hat or mark range intersects that decoration, so render both on one
+  // wrapper. We only merge at the end because code-cursor-after recreates that
+  // exact boundary without competing with the hat's ::before pseudo-element.
   const mergedCursorPositions = selections
     .filter(
       (selection) =>
         selection.isEmpty &&
-        hatRanges.some(({ end }) => end.isEqual(selection.active)),
+        [...hatRanges, ...markRanges].some(({ end }) =>
+          end.isEqual(selection.active),
+        ),
     )
     .map(({ active }) => active);
 
@@ -228,8 +234,44 @@ function toDecorations(
           ),
       )
       .map(toDecoration),
+    ...toMarkDecorations(markRanges, hatRanges, mergedCursorPositions),
     ...toHatDecorations(state, renderHats, mergedCursorPositions),
   ];
+}
+
+function toMarkDecorations(
+  markRanges: readonly Range[],
+  hatRanges: readonly Range[],
+  mergedCursorPositions: readonly Position[],
+): DecorationItem[] {
+  return markRanges
+    .filter(
+      (range, index) =>
+        markRanges.findIndex((otherRange) => otherRange.isRangeEqual(range)) ===
+        index,
+    )
+    .map((range) => {
+      const className = ["code-mark"];
+
+      // Prefer placing the cursor on the smaller hat wrapper when both the hat
+      // and its containing mark end at the cursor position.
+      if (
+        mergedCursorPositions.some((position) => position.isEqual(range.end)) &&
+        !hatRanges.some(({ end }) => end.isEqual(range.end))
+      ) {
+        className.push("code-cursor-after");
+      }
+
+      return {
+        start: range.start,
+        end: range.end,
+        alwaysWrap: true,
+        properties: {
+          className,
+          style: `--code-mark-color: ${highlightColors.content.background};`,
+        },
+      };
+    });
 }
 
 function toHatDecorations(
@@ -241,22 +283,11 @@ function toHatDecorations(
     return [];
   }
 
-  const markRanges = Object.values(state.marks ?? {}).map(plainObjectToRange);
-
   return state.hatTokenMap.map(({ hatStyle, hatRange }) => {
     const range = plainObjectToRange(hatRange);
     const properties: DecorationItem["properties"] = {
       className: ["code-hat", `code-hat-${hatStyle}`],
     };
-
-    const isReferenced = markRanges.some((markRange) =>
-      markRange.contains(range),
-    );
-
-    if (isReferenced) {
-      properties.className?.push("code-hat-referenced");
-      properties.style = `--code-hat-referenced-color: ${highlightColors.content.background};`;
-    }
 
     if (mergedCursorPositions.some((position) => position.isEqual(range.end))) {
       // The hat uses ::before and the cursor uses ::after, allowing both

@@ -3,6 +3,7 @@ sidebar_label: Char
 ---
 
 import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/character.json";
 
 # Char (Character)
 
@@ -22,7 +23,7 @@ Default: `char`
 
 ## Visualization
 
-<ScopeVisualizerProvider>
+<ScopeVisualizerProvider scopeTests={scopeTests}>
 
 <ScopeVisualizerOptions />
 

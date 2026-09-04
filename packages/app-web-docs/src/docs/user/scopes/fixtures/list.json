@@ -1,0 +1,512 @@
+[
+	{
+		"name": "scopes/c/list",
+		"languageId": "c",
+		"facet": "list",
+		"code": "int foo[2] = {aaa, bbb};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:23",
+						"removal": "0:12-0:23"
+					}
+				],
+				"domain": "0:13-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/clojure/list",
+		"languageId": "clojure",
+		"facet": "list",
+		"code": "[aaa bbb]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/clojure/list2",
+		"languageId": "clojure",
+		"facet": "list",
+		"code": "'[aaa bbb]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/clojure/list3",
+		"languageId": "clojure",
+		"facet": "list",
+		"code": "'(aaa bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/list",
+		"languageId": "csharp",
+		"facet": "list",
+		"code": "new List<int>() {aaa, bbb};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:16-0:26",
+						"removal": "0:15-0:26"
+					}
+				],
+				"domain": "0:16-0:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/list",
+		"languageId": "dart",
+		"facet": "list",
+		"code": "final foo = [aaa, bbb]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:12-0:22",
+						"removal": "0:11-0:22"
+					}
+				],
+				"domain": "0:12-0:22"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/list",
+		"languageId": "go",
+		"facet": "list",
+		"code": "T{aaa, bbb}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:11",
+						"removal": "0:1-0:11"
+					}
+				],
+				"domain": "0:1-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/list2",
+		"languageId": "go",
+		"facet": "list",
+		"code": "T{aaa, bbb: 0}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:14",
+						"removal": "0:1-0:14"
+					}
+				],
+				"domain": "0:1-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/list3",
+		"languageId": "go",
+		"facet": "list",
+		"code": "T{}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:3",
+						"removal": "0:1-0:3"
+					}
+				],
+				"domain": "0:1-0:3"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/list",
+		"languageId": "java",
+		"facet": "list",
+		"code": "new int[] {aaa, bbb};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:20",
+						"removal": "0:9-0:20"
+					}
+				],
+				"domain": "0:10-0:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/list",
+		"languageId": "javascript.core",
+		"facet": "list",
+		"code": "[aaa, bbb]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/json/list",
+		"languageId": "json",
+		"facet": "list",
+		"code": "[aaa, bbb]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/latex/list",
+		"languageId": "latex",
+		"facet": "list",
+		"code": "\\begin{itemize}\n  \\item aaa\n  \\item bbb\n\\end{itemize}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:13",
+						"removal": "0:0-3:13"
+					}
+				],
+				"domain": "0:0-3:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/list",
+		"languageId": "lua",
+		"facet": "list",
+		"code": "{aaa, bbb}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/markdown/list",
+		"languageId": "markdown",
+		"facet": "list",
+		"code": "* aaa\n* bbb",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:5",
+						"removal": "0:0-1:5"
+					}
+				],
+				"domain": "0:0-1:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/list",
+		"languageId": "php",
+		"facet": "list",
+		"code": "<?php\n[aaa, bbb]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:10",
+						"removal": "0:5-1:10"
+					}
+				],
+				"domain": "1:0-1:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/list",
+		"languageId": "python",
+		"facet": "list",
+		"code": "[aaa, bbb]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/list2",
+		"languageId": "python",
+		"facet": "list",
+		"code": "[aaa for i in bbb]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:18",
+						"removal": "0:0-0:18"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/list3",
+		"languageId": "python",
+		"facet": "list",
+		"code": "{aaa, bbb}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/list4",
+		"languageId": "python",
+		"facet": "list",
+		"code": "{aaa for i in bbb}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:18",
+						"removal": "0:0-0:18"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/list5",
+		"languageId": "python",
+		"facet": "list",
+		"code": "(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/list",
+		"languageId": "r",
+		"facet": "list",
+		"code": "list(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/list",
+		"languageId": "ruby",
+		"facet": "list",
+		"code": "[aaa, bbb]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/list2",
+		"languageId": "ruby",
+		"facet": "list",
+		"code": "%w[aaa bbb]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:0-0:11"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/list3",
+		"languageId": "ruby",
+		"facet": "list",
+		"code": "%i[aaa bbb]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:0-0:11"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/list",
+		"languageId": "rust",
+		"facet": "list",
+		"code": "[aaa, bbb]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/list2",
+		"languageId": "rust",
+		"facet": "list",
+		"code": "(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/scm/list",
+		"languageId": "scm",
+		"facet": "list",
+		"code": "[(aaa) (bbb)]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/yaml/list",
+		"languageId": "yaml",
+		"facet": "list",
+		"code": "foo: [aaa, bbb]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:15",
+						"removal": "0:4-0:15"
+					}
+				],
+				"domain": "0:5-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/yaml/list2",
+		"languageId": "yaml",
+		"facet": "list",
+		"code": "foo:\n  - aaa\n  - bbb",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:2-2:7",
+						"removal": "0:4-2:7"
+					}
+				],
+				"domain": "1:2-2:7"
+			}
+		]
+	}
+]

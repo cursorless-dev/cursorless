@@ -1,0 +1,7802 @@
+[
+	{
+		"name": "scopes/c/argument/argument.actual.iteration",
+		"languageId": "c",
+		"facet": "argument.actual.iteration",
+		"code": "foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:12"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/argument/argument.actual.method.iteration",
+		"languageId": "c",
+		"facet": "argument.actual.method.iteration",
+		"code": "foo.bar(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/argument/argument.actual.method.multiLine",
+		"languageId": "c",
+		"facet": "argument.actual.method.multiLine",
+		"code": "foo.bar(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/argument/argument.actual.method.singleLine",
+		"languageId": "c",
+		"facet": "argument.actual.method.singleLine",
+		"code": "foo.bar(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:13"
+					}
+				],
+				"domain": "0:8-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:11-0:16"
+					}
+				],
+				"domain": "0:13-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/argument/argument.actual.multiLine",
+		"languageId": "c",
+		"facet": "argument.actual.multiLine",
+		"code": "foo(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/argument/argument.actual.singleLine",
+		"languageId": "c",
+		"facet": "argument.actual.singleLine",
+		"code": "foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:7",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:4-0:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:12",
+						"removal": "0:7-0:12"
+					}
+				],
+				"domain": "0:9-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/argument/argument.formal.iteration",
+		"languageId": "c",
+		"facet": "argument.formal.iteration",
+		"code": "void foo(int aaa, int bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:9-0:25"
+					}
+				],
+				"domain": "0:0-0:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/argument/argument.formal.multiLine",
+		"languageId": "c",
+		"facet": "argument.formal.multiLine",
+		"code": "void foo(\n    int aaa,\n    int bbb\n) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:11",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:11",
+						"removal": "1:11-2:11"
+					}
+				],
+				"domain": "2:4-2:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/argument/argument.formal.singleLine",
+		"languageId": "c",
+		"facet": "argument.formal.singleLine",
+		"code": "void foo(int aaa, int bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:9-0:16",
+						"removal": "0:9-0:18"
+					}
+				],
+				"domain": "0:9-0:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:18-0:25",
+						"removal": "0:16-0:25"
+					}
+				],
+				"domain": "0:18-0:25"
+			}
+		]
+	},
+	{
+		"name": "scopes/clojure/argument.actual.iteration",
+		"languageId": "clojure",
+		"facet": "argument.actual.iteration",
+		"code": "(foo aaa bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:12"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/clojure/argument.actual.multiLine",
+		"languageId": "clojure",
+		"facet": "argument.actual.multiLine",
+		"code": "(foo\n    aaa\n    bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "2:0-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/clojure/argument.actual.singleLine",
+		"languageId": "clojure",
+		"facet": "argument.actual.singleLine",
+		"code": "(foo aaa bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:8",
+						"removal": "0:5-0:9"
+					}
+				],
+				"domain": "0:5-0:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:12",
+						"removal": "0:8-0:12"
+					}
+				],
+				"domain": "0:9-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.actual.constructor.iteration",
+		"languageId": "cpp",
+		"facet": "argument.actual.constructor.iteration",
+		"code": "new Foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.actual.constructor.multiLine",
+		"languageId": "cpp",
+		"facet": "argument.actual.constructor.multiLine",
+		"code": "new Foo(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.actual.constructor.singleLine",
+		"languageId": "cpp",
+		"facet": "argument.actual.constructor.singleLine",
+		"code": "new Foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:13"
+					}
+				],
+				"domain": "0:8-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:11-0:16"
+					}
+				],
+				"domain": "0:13-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.formal.catch",
+		"languageId": "cpp",
+		"facet": "argument.formal.catch",
+		"code": "try {}\ncatch (const std::exception e) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:7-1:29",
+						"removal": "1:7-1:29"
+					}
+				],
+				"domain": "1:7-1:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.formal.constructor.iteration",
+		"languageId": "cpp",
+		"facet": "argument.formal.constructor.iteration",
+		"code": "class Foo {\n    Foo(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:24"
+					}
+				],
+				"domain": "1:4-1:28"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.formal.constructor.multiLine",
+		"languageId": "cpp",
+		"facet": "argument.formal.constructor.multiLine",
+		"code": "class Foo {\n    Foo(\n        int aaa,\n        int bbb\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:15",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:15",
+						"removal": "2:15-3:15"
+					}
+				],
+				"domain": "3:8-3:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.formal.constructor.singleLine",
+		"languageId": "cpp",
+		"facet": "argument.formal.constructor.singleLine",
+		"code": "class Foo {\n    Foo(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:15",
+						"removal": "1:8-1:17"
+					}
+				],
+				"domain": "1:8-1:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:17-1:24",
+						"removal": "1:15-1:24"
+					}
+				],
+				"domain": "1:17-1:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.formal.lambda.iteration",
+		"languageId": "cpp",
+		"facet": "argument.formal.lambda.iteration",
+		"code": "[](int aaa, int bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:3-0:19"
+					}
+				],
+				"domain": "0:0-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.formal.lambda.multiLine",
+		"languageId": "cpp",
+		"facet": "argument.formal.lambda.multiLine",
+		"code": "[](\n    int aaa,\n    int bbb\n) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:11",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:11",
+						"removal": "1:11-2:11"
+					}
+				],
+				"domain": "2:4-2:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.formal.lambda.singleLine",
+		"languageId": "cpp",
+		"facet": "argument.formal.lambda.singleLine",
+		"code": "[](int aaa, int bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:3-0:10",
+						"removal": "0:3-0:12"
+					}
+				],
+				"domain": "0:3-0:10"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:12-0:19",
+						"removal": "0:10-0:19"
+					}
+				],
+				"domain": "0:12-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.formal.method.iteration",
+		"languageId": "cpp",
+		"facet": "argument.formal.method.iteration",
+		"code": "class Foo {\n    void bar(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:13-1:29"
+					}
+				],
+				"domain": "1:4-1:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.formal.method.multiLine",
+		"languageId": "cpp",
+		"facet": "argument.formal.method.multiLine",
+		"code": "class Foo {\n    void bar(\n        int aaa,\n        int bbb\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:15",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:15",
+						"removal": "2:15-3:15"
+					}
+				],
+				"domain": "3:8-3:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.formal.method.singleLine",
+		"languageId": "cpp",
+		"facet": "argument.formal.method.singleLine",
+		"code": "class Foo {\n    void bar(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:13-1:20",
+						"removal": "1:13-1:22"
+					}
+				],
+				"domain": "1:13-1:20"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:22-1:29",
+						"removal": "1:20-1:29"
+					}
+				],
+				"domain": "1:22-1:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/argument/argument.actual.constructor.iteration",
+		"languageId": "csharp",
+		"facet": "argument.actual.constructor.iteration",
+		"code": "new Foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/argument/argument.actual.constructor.multiLine",
+		"languageId": "csharp",
+		"facet": "argument.actual.constructor.multiLine",
+		"code": "new Foo(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/argument/argument.actual.constructor.singleLine",
+		"languageId": "csharp",
+		"facet": "argument.actual.constructor.singleLine",
+		"code": "new Foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:13"
+					}
+				],
+				"domain": "0:8-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:11-0:16"
+					}
+				],
+				"domain": "0:13-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/argument/argument.actual.iteration",
+		"languageId": "csharp",
+		"facet": "argument.actual.iteration",
+		"code": "Foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:12"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/argument/argument.actual.method.iteration",
+		"languageId": "csharp",
+		"facet": "argument.actual.method.iteration",
+		"code": "foo.bar(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/argument/argument.actual.method.multiLine",
+		"languageId": "csharp",
+		"facet": "argument.actual.method.multiLine",
+		"code": "foo.bar(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/argument/argument.actual.method.singleLine",
+		"languageId": "csharp",
+		"facet": "argument.actual.method.singleLine",
+		"code": "foo.bar(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:13"
+					}
+				],
+				"domain": "0:8-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:11-0:16"
+					}
+				],
+				"domain": "0:13-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/argument/argument.actual.multiLine",
+		"languageId": "csharp",
+		"facet": "argument.actual.multiLine",
+		"code": "Foo(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/argument/argument.actual.singleLine",
+		"languageId": "csharp",
+		"facet": "argument.actual.singleLine",
+		"code": "Foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:7",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:4-0:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:12",
+						"removal": "0:7-0:12"
+					}
+				],
+				"domain": "0:9-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/argument/argument.formal.catch",
+		"languageId": "csharp",
+		"facet": "argument.formal.catch",
+		"code": "try {}\ncatch(MyException e) {}\ncatch(Exception e) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:6-1:19",
+						"removal": "1:6-1:19"
+					}
+				],
+				"domain": "1:6-1:19"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:6-2:17",
+						"removal": "2:6-2:17"
+					}
+				],
+				"domain": "2:6-2:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/argument/argument.formal.constructor.iteration",
+		"languageId": "csharp",
+		"facet": "argument.formal.constructor.iteration",
+		"code": "class Foo {\n    Foo(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:24"
+					}
+				],
+				"domain": "1:4-1:28"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/argument/argument.formal.constructor.multiLine",
+		"languageId": "csharp",
+		"facet": "argument.formal.constructor.multiLine",
+		"code": "class Foo {\n    Foo(\n        int aaa,\n        int bbb\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:15",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:15",
+						"removal": "2:15-3:15"
+					}
+				],
+				"domain": "3:8-3:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/argument/argument.formal.constructor.singleLine",
+		"languageId": "csharp",
+		"facet": "argument.formal.constructor.singleLine",
+		"code": "class Foo {\n    Foo(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:15",
+						"removal": "1:8-1:17"
+					}
+				],
+				"domain": "1:8-1:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:17-1:24",
+						"removal": "1:15-1:24"
+					}
+				],
+				"domain": "1:17-1:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/argument/argument.formal.iteration",
+		"languageId": "csharp",
+		"facet": "argument.formal.iteration",
+		"code": "void Foo(int aaa, int bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:9-0:25"
+					}
+				],
+				"domain": "0:0-0:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/argument/argument.formal.lambda.iteration",
+		"languageId": "csharp",
+		"facet": "argument.formal.lambda.iteration",
+		"code": "(aaa, bbb) => {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:9"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/argument/argument.formal.lambda.multiLine",
+		"languageId": "csharp",
+		"facet": "argument.formal.lambda.multiLine",
+		"code": "(\n    aaa,\n    bbb\n) => {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/argument/argument.formal.lambda.singleLine",
+		"languageId": "csharp",
+		"facet": "argument.formal.lambda.singleLine",
+		"code": "(aaa, bbb) => {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:4",
+						"removal": "0:1-0:6"
+					}
+				],
+				"domain": "0:1-0:4"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:6-0:9",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:6-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/argument/argument.formal.method.iteration",
+		"languageId": "csharp",
+		"facet": "argument.formal.method.iteration",
+		"code": "class Foo {\n    void Bar(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:13-1:29"
+					}
+				],
+				"domain": "1:4-1:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/argument/argument.formal.method.multiLine",
+		"languageId": "csharp",
+		"facet": "argument.formal.method.multiLine",
+		"code": "class Foo {\n    void Bar(\n        int aaa,\n        int bbb\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:15",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:15",
+						"removal": "2:15-3:15"
+					}
+				],
+				"domain": "3:8-3:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/argument/argument.formal.method.singleLine",
+		"languageId": "csharp",
+		"facet": "argument.formal.method.singleLine",
+		"code": "class Foo {\n    void Bar(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:13-1:20",
+						"removal": "1:13-1:22"
+					}
+				],
+				"domain": "1:13-1:20"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:22-1:29",
+						"removal": "1:20-1:29"
+					}
+				],
+				"domain": "1:22-1:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/argument/argument.formal.multiLine",
+		"languageId": "csharp",
+		"facet": "argument.formal.multiLine",
+		"code": "void Foo(\n    int aaa,\n    int bbb\n) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:11",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:11",
+						"removal": "1:11-2:11"
+					}
+				],
+				"domain": "2:4-2:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/argument/argument.formal.singleLine",
+		"languageId": "csharp",
+		"facet": "argument.formal.singleLine",
+		"code": "void Foo(int aaa, int bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:9-0:16",
+						"removal": "0:9-0:18"
+					}
+				],
+				"domain": "0:9-0:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:18-0:25",
+						"removal": "0:16-0:25"
+					}
+				],
+				"domain": "0:18-0:25"
+			}
+		]
+	},
+	{
+		"name": "scopes/css/argument/argument.actual.iteration",
+		"languageId": "css",
+		"facet": "argument.actual.iteration",
+		"code": "* {\n    width: calc(100% - 50px);\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:16-1:27"
+					}
+				],
+				"domain": "1:11-1:28"
+			}
+		]
+	},
+	{
+		"name": "scopes/css/argument/argument.actual.iteration2",
+		"languageId": "css",
+		"facet": "argument.actual.iteration",
+		"code": "* {\n    background: repeating-linear-gradient(red, orange 50px);\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:42-1:58"
+					}
+				],
+				"domain": "1:16-1:59"
+			}
+		]
+	},
+	{
+		"name": "scopes/css/argument/argument.actual.multiLine",
+		"languageId": "css",
+		"facet": "argument.actual.multiLine",
+		"code": "* {\n    clip-path: polygon(\n        50% 0%,\n        60% 40%\n    );\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:14",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:15",
+						"removal": "2:14-3:15"
+					}
+				],
+				"domain": "3:8-3:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/css/argument/argument.actual.singleLine",
+		"languageId": "css",
+		"facet": "argument.actual.singleLine",
+		"code": "* {\n    width: calc(100% - 50px);\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:16-1:27",
+						"removal": "1:16-1:27"
+					}
+				],
+				"domain": "1:16-1:27"
+			}
+		]
+	},
+	{
+		"name": "scopes/css/argument/argument.actual.singleLine2",
+		"languageId": "css",
+		"facet": "argument.actual.singleLine",
+		"code": "* {\n    background: repeating-linear-gradient(red, orange 50px);\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:42-1:45",
+						"removal": "1:42-1:47"
+					}
+				],
+				"domain": "1:42-1:45"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:47-1:58",
+						"removal": "1:45-1:58"
+					}
+				],
+				"domain": "1:47-1:58"
+			}
+		]
+	},
+	{
+		"name": "scopes/css/argument/argument.actual.singleLine3",
+		"languageId": "css",
+		"facet": "argument.actual.singleLine",
+		"code": "* {\n    clip-path: ellipse(115px 55px at 50% 40%);\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:23-1:33",
+						"removal": "1:23-1:37"
+					}
+				],
+				"domain": "1:23-1:33"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:37-1:44",
+						"removal": "1:33-1:44"
+					}
+				],
+				"domain": "1:37-1:44"
+			}
+		]
+	},
+	{
+		"name": "scopes/css/argument/argument.actual.singleLine4",
+		"languageId": "css",
+		"facet": "argument.actual.singleLine",
+		"code": "* {\n    clip-path: polygon(50% 0%, 60% 40%, 100% 50%);\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:23-1:29",
+						"removal": "1:23-1:31"
+					}
+				],
+				"domain": "1:23-1:29"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:31-1:38",
+						"removal": "1:31-1:40"
+					}
+				],
+				"domain": "1:31-1:38"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:40-1:48",
+						"removal": "1:38-1:48"
+					}
+				],
+				"domain": "1:40-1:48"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/argument/argument.actual.constructor.iteration",
+		"languageId": "dart",
+		"facet": "argument.actual.constructor.iteration",
+		"code": "var foo = Bar(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:22"
+					}
+				],
+				"domain": "0:10-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/argument/argument.actual.constructor.multiLine",
+		"languageId": "dart",
+		"facet": "argument.actual.constructor.multiLine",
+		"code": "var foo = Bar(\n        aaa,\n        bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:11",
+						"removal": "1:8-2:8"
+					}
+				],
+				"domain": "1:8-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-2:11",
+						"removal": "1:11-2:11"
+					}
+				],
+				"domain": "2:8-2:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/argument/argument.actual.constructor.singleLine",
+		"languageId": "dart",
+		"facet": "argument.actual.constructor.singleLine",
+		"code": "var foo = Bar(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:17",
+						"removal": "0:14-0:19"
+					}
+				],
+				"domain": "0:14-0:17"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:19-0:22",
+						"removal": "0:17-0:22"
+					}
+				],
+				"domain": "0:19-0:22"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/argument/argument.actual.enum.iteration",
+		"languageId": "dart",
+		"facet": "argument.actual.enum.iteration",
+		"code": "enum Foo {\n    bar(aaa, bbb);\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:16"
+					}
+				],
+				"domain": "1:4-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/argument/argument.actual.enum.multiLine",
+		"languageId": "dart",
+		"facet": "argument.actual.enum.multiLine",
+		"code": "enum Foo {\n    bar(\n        aaa,\n        bbb\n    );\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:11",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:11",
+						"removal": "2:11-3:11"
+					}
+				],
+				"domain": "3:8-3:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/argument/argument.actual.enum.singleLine",
+		"languageId": "dart",
+		"facet": "argument.actual.enum.singleLine",
+		"code": "enum Foo {\n    bar(aaa, bbb);\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:11",
+						"removal": "1:8-1:13"
+					}
+				],
+				"domain": "1:8-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:16",
+						"removal": "1:11-1:16"
+					}
+				],
+				"domain": "1:13-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/argument/argument.actual.iteration",
+		"languageId": "dart",
+		"facet": "argument.actual.iteration",
+		"code": "var foo = bar(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:22"
+					}
+				],
+				"domain": "0:10-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/argument/argument.actual.method.iteration",
+		"languageId": "dart",
+		"facet": "argument.actual.method.iteration",
+		"code": "var foo = bar.baz(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:18-0:26"
+					}
+				],
+				"domain": "0:10-0:27"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/argument/argument.actual.method.multiLine",
+		"languageId": "dart",
+		"facet": "argument.actual.method.multiLine",
+		"code": "var foo = bar.baz(\n        aaa,\n        bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:11",
+						"removal": "1:8-2:8"
+					}
+				],
+				"domain": "1:8-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-2:11",
+						"removal": "1:11-2:11"
+					}
+				],
+				"domain": "2:8-2:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/argument/argument.actual.method.singleLine",
+		"languageId": "dart",
+		"facet": "argument.actual.method.singleLine",
+		"code": "var foo = bar.baz(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:18-0:21",
+						"removal": "0:18-0:23"
+					}
+				],
+				"domain": "0:18-0:21"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:23-0:26",
+						"removal": "0:21-0:26"
+					}
+				],
+				"domain": "0:23-0:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/argument/argument.actual.multiLine",
+		"languageId": "dart",
+		"facet": "argument.actual.multiLine",
+		"code": "var foo = bar(\n        aaa,\n        bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:11",
+						"removal": "1:8-2:8"
+					}
+				],
+				"domain": "1:8-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-2:11",
+						"removal": "1:11-2:11"
+					}
+				],
+				"domain": "2:8-2:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/argument/argument.actual.singleLine",
+		"languageId": "dart",
+		"facet": "argument.actual.singleLine",
+		"code": "var foo = bar(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:17",
+						"removal": "0:14-0:19"
+					}
+				],
+				"domain": "0:14-0:17"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:19-0:22",
+						"removal": "0:17-0:22"
+					}
+				],
+				"domain": "0:19-0:22"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/argument/argument.formal.catch",
+		"languageId": "dart",
+		"facet": "argument.formal.catch",
+		"code": "void main() {\n    try {}\n    catch (e, s) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:11-2:12",
+						"removal": "2:11-2:14"
+					}
+				],
+				"domain": "2:11-2:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:14-2:15",
+						"removal": "2:12-2:15"
+					}
+				],
+				"domain": "2:14-2:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/argument/argument.formal.constructor.iteration",
+		"languageId": "dart",
+		"facet": "argument.formal.constructor.iteration",
+		"code": "class Foo {\n        Foo(aaa, bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:12-1:20"
+					}
+				],
+				"domain": "1:8-1:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/argument/argument.formal.constructor.multiLine",
+		"languageId": "dart",
+		"facet": "argument.formal.constructor.multiLine",
+		"code": "class Foo {\n    Foo(\n        aaa,\n        bbb\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:11",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:11",
+						"removal": "2:11-3:11"
+					}
+				],
+				"domain": "3:8-3:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/argument/argument.formal.constructor.singleLine",
+		"languageId": "dart",
+		"facet": "argument.formal.constructor.singleLine",
+		"code": "class Foo {\n    Foo(aaa, bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:11",
+						"removal": "1:8-1:13"
+					}
+				],
+				"domain": "1:8-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:16",
+						"removal": "1:11-1:16"
+					}
+				],
+				"domain": "1:13-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/argument/argument.formal.iteration",
+		"languageId": "dart",
+		"facet": "argument.formal.iteration",
+		"code": "void foo(aaa, bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:9-0:17"
+					}
+				],
+				"domain": "0:0-0:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/argument/argument.formal.lambda.iteration",
+		"languageId": "dart",
+		"facet": "argument.formal.lambda.iteration",
+		"code": "void main() {\n    var foo = (aaa, bbb) {};\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:15-1:23"
+					}
+				],
+				"domain": "1:14-1:27"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/argument/argument.formal.lambda.multiLine",
+		"languageId": "dart",
+		"facet": "argument.formal.lambda.multiLine",
+		"code": "void main() {\n    var foo = (\n        aaa,\n        bbb\n    ) {};\n\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:11",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:11",
+						"removal": "2:11-3:11"
+					}
+				],
+				"domain": "3:8-3:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/argument/argument.formal.lambda.singleLine",
+		"languageId": "dart",
+		"facet": "argument.formal.lambda.singleLine",
+		"code": "void main() {\n    var foo = (aaa, bbb) {};\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:15-1:18",
+						"removal": "1:15-1:20"
+					}
+				],
+				"domain": "1:15-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:20-1:23",
+						"removal": "1:18-1:23"
+					}
+				],
+				"domain": "1:20-1:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/argument/argument.formal.method.iteration",
+		"languageId": "dart",
+		"facet": "argument.formal.method.iteration",
+		"code": "class Foo {\n        void bar(aaa, bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:17-1:25"
+					}
+				],
+				"domain": "1:8-1:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/argument/argument.formal.method.multiLine",
+		"languageId": "dart",
+		"facet": "argument.formal.method.multiLine",
+		"code": "class Foo {\n    void bar(\n        aaa,\n        bbb\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:11",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:11",
+						"removal": "2:11-3:11"
+					}
+				],
+				"domain": "3:8-3:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/argument/argument.formal.method.singleLine",
+		"languageId": "dart",
+		"facet": "argument.formal.method.singleLine",
+		"code": "class Foo {\n    void bar(aaa, bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:13-1:16",
+						"removal": "1:13-1:18"
+					}
+				],
+				"domain": "1:13-1:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:18-1:21",
+						"removal": "1:16-1:21"
+					}
+				],
+				"domain": "1:18-1:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/argument/argument.formal.multiLine",
+		"languageId": "dart",
+		"facet": "argument.formal.multiLine",
+		"code": "void foo(\n    aaa,\n    bbb\n) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/argument/argument.formal.singleLine",
+		"languageId": "dart",
+		"facet": "argument.formal.singleLine",
+		"code": "void foo(aaa, bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:9-0:12",
+						"removal": "0:9-0:14"
+					}
+				],
+				"domain": "0:9-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:14-0:17",
+						"removal": "0:12-0:17"
+					}
+				],
+				"domain": "0:14-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/argument/argument.actual.iteration",
+		"languageId": "go",
+		"facet": "argument.actual.iteration",
+		"code": "foo(aaa, bbb, ccc)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:17"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/argument/argument.actual.method.iteration",
+		"languageId": "go",
+		"facet": "argument.actual.method.iteration",
+		"code": "foo.bar(aaa, bbb, ccc)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:21"
+					}
+				],
+				"domain": "0:0-0:22"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/argument/argument.actual.method.multiLine",
+		"languageId": "go",
+		"facet": "argument.actual.method.multiLine",
+		"code": "foo.bar(\n    aaa,\n    bbb,\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/argument/argument.actual.method.singleLine",
+		"languageId": "go",
+		"facet": "argument.actual.method.singleLine",
+		"code": "foo.bar(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:13"
+					}
+				],
+				"domain": "0:8-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:11-0:16"
+					}
+				],
+				"domain": "0:13-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/argument/argument.actual.multiLine",
+		"languageId": "go",
+		"facet": "argument.actual.multiLine",
+		"code": "foo(\n    aaa,\n    bbb,\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/argument/argument.actual.singleLine",
+		"languageId": "go",
+		"facet": "argument.actual.singleLine",
+		"code": "foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:7",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:4-0:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:12",
+						"removal": "0:7-0:12"
+					}
+				],
+				"domain": "0:9-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/argument/argument.formal.iteration",
+		"languageId": "go",
+		"facet": "argument.formal.iteration",
+		"code": "func foo(aaa int, bbb string, ccc int) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:9-0:37"
+					}
+				],
+				"domain": "0:0-0:41"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/argument/argument.formal.lambda.iteration",
+		"languageId": "go",
+		"facet": "argument.formal.lambda.iteration",
+		"code": "func(aaa int, bbb string, ccc int) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:33"
+					}
+				],
+				"domain": "0:0-0:37"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/argument/argument.formal.lambda.multiLine",
+		"languageId": "go",
+		"facet": "argument.formal.lambda.multiLine",
+		"code": "func(\n    aaa int,\n    bbb string,\n) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:11",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:14",
+						"removal": "1:11-2:14"
+					}
+				],
+				"domain": "2:4-2:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/argument/argument.formal.lambda.singleLine",
+		"languageId": "go",
+		"facet": "argument.formal.lambda.singleLine",
+		"code": "func(aaa int, bbb string) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:12",
+						"removal": "0:5-0:14"
+					}
+				],
+				"domain": "0:5-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:14-0:24",
+						"removal": "0:12-0:24"
+					}
+				],
+				"domain": "0:14-0:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/argument/argument.formal.method.iteration",
+		"languageId": "go",
+		"facet": "argument.formal.method.iteration",
+		"code": "func (f Foo) bar(aaa int, bbb string, ccc int) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:17-0:45"
+					}
+				],
+				"domain": "0:0-0:49"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/argument/argument.formal.method.multiLine",
+		"languageId": "go",
+		"facet": "argument.formal.method.multiLine",
+		"code": "func (f Foo) bar(\n    aaa int,\n    bbb string,\n) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:11",
+						"removal": "0:6-0:11"
+					}
+				],
+				"domain": "0:6-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:11",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:14",
+						"removal": "1:11-2:14"
+					}
+				],
+				"domain": "2:4-2:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/argument/argument.formal.method.singleLine",
+		"languageId": "go",
+		"facet": "argument.formal.method.singleLine",
+		"code": "func (f Foo) bar(aaa int, bbb string) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:11",
+						"removal": "0:6-0:11"
+					}
+				],
+				"domain": "0:6-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:17-0:24",
+						"removal": "0:17-0:26"
+					}
+				],
+				"domain": "0:17-0:24"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:26-0:36",
+						"removal": "0:24-0:36"
+					}
+				],
+				"domain": "0:26-0:36"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/argument/argument.formal.multiLine",
+		"languageId": "go",
+		"facet": "argument.formal.multiLine",
+		"code": "func foo(\n    aaa int,\n    bbb string,\n) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:11",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:14",
+						"removal": "1:11-2:14"
+					}
+				],
+				"domain": "2:4-2:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/argument/argument.formal.singleLine",
+		"languageId": "go",
+		"facet": "argument.formal.singleLine",
+		"code": "func foo(aaa int, bbb string) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:9-0:16",
+						"removal": "0:9-0:18"
+					}
+				],
+				"domain": "0:9-0:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:18-0:28",
+						"removal": "0:16-0:28"
+					}
+				],
+				"domain": "0:18-0:28"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.actual.constructor.iteration",
+		"languageId": "java",
+		"facet": "argument.actual.constructor.iteration",
+		"code": "new Foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.actual.constructor.multiLine",
+		"languageId": "java",
+		"facet": "argument.actual.constructor.multiLine",
+		"code": "new Foo(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.actual.constructor.singleLine",
+		"languageId": "java",
+		"facet": "argument.actual.constructor.singleLine",
+		"code": "new Foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:13"
+					}
+				],
+				"domain": "0:8-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:11-0:16"
+					}
+				],
+				"domain": "0:13-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.actual.enum.iteration",
+		"languageId": "java",
+		"facet": "argument.actual.enum.iteration",
+		"code": "enum Foo {\n    bar(aaa, bbb);\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:16"
+					}
+				],
+				"domain": "1:4-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.actual.enum.multiLine",
+		"languageId": "java",
+		"facet": "argument.actual.enum.multiLine",
+		"code": "enum Foo {\n    bar(\n        aaa,\n        bbb\n    );\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:11",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:11",
+						"removal": "2:11-3:11"
+					}
+				],
+				"domain": "3:8-3:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.actual.enum.singleLine",
+		"languageId": "java",
+		"facet": "argument.actual.enum.singleLine",
+		"code": "enum Foo {\n    bar(aaa, bbb);\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:11",
+						"removal": "1:8-1:13"
+					}
+				],
+				"domain": "1:8-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:16",
+						"removal": "1:11-1:16"
+					}
+				],
+				"domain": "1:13-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.actual.iteration",
+		"languageId": "java",
+		"facet": "argument.actual.iteration",
+		"code": "foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:12"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.actual.method.iteration",
+		"languageId": "java",
+		"facet": "argument.actual.method.iteration",
+		"code": "foo.bar(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.actual.method.multiLine",
+		"languageId": "java",
+		"facet": "argument.actual.method.multiLine",
+		"code": "foo.bar(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.actual.method.singleLine",
+		"languageId": "java",
+		"facet": "argument.actual.method.singleLine",
+		"code": "foo.bar(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:13"
+					}
+				],
+				"domain": "0:8-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:11-0:16"
+					}
+				],
+				"domain": "0:13-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.actual.multiLine",
+		"languageId": "java",
+		"facet": "argument.actual.multiLine",
+		"code": "foo(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.actual.singleLine",
+		"languageId": "java",
+		"facet": "argument.actual.singleLine",
+		"code": "foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:7",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:4-0:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:12",
+						"removal": "0:7-0:12"
+					}
+				],
+				"domain": "0:9-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.formal.catch",
+		"languageId": "java",
+		"facet": "argument.formal.catch",
+		"code": "try {}\ncatch(final MyException e) {}\ncatch(final Exception e) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:6-1:25",
+						"removal": "1:6-1:25"
+					}
+				],
+				"domain": "1:6-1:25"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:6-2:23",
+						"removal": "2:6-2:23"
+					}
+				],
+				"domain": "2:6-2:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.formal.constructor.iteration",
+		"languageId": "java",
+		"facet": "argument.formal.constructor.iteration",
+		"code": "public class Foo {\n    public Foo(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:15-1:31"
+					}
+				],
+				"domain": "1:4-1:35"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.formal.constructor.multiLine",
+		"languageId": "java",
+		"facet": "argument.formal.constructor.multiLine",
+		"code": "public class Foo {\n    public Foo(\n        int aaa,\n        int bbb\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:15",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:15",
+						"removal": "2:15-3:15"
+					}
+				],
+				"domain": "3:8-3:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.formal.constructor.singleLine",
+		"languageId": "java",
+		"facet": "argument.formal.constructor.singleLine",
+		"code": "public class Foo {\n    public Foo(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:15-1:22",
+						"removal": "1:15-1:24"
+					}
+				],
+				"domain": "1:15-1:22"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:24-1:31",
+						"removal": "1:22-1:31"
+					}
+				],
+				"domain": "1:24-1:31"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.formal.lambda.iteration",
+		"languageId": "java",
+		"facet": "argument.formal.lambda.iteration",
+		"code": "(aaa, bbb) -> {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:9"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.formal.lambda.multiLine",
+		"languageId": "java",
+		"facet": "argument.formal.lambda.multiLine",
+		"code": "(\n    aaa,\n    bbb\n) -> {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.formal.lambda.singleLine",
+		"languageId": "java",
+		"facet": "argument.formal.lambda.singleLine",
+		"code": "(aaa, bbb) -> {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:4",
+						"removal": "0:1-0:6"
+					}
+				],
+				"domain": "0:1-0:4"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:6-0:9",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:6-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.formal.method.iteration",
+		"languageId": "java",
+		"facet": "argument.formal.method.iteration",
+		"code": "public class Foo {\n    public void bar(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:20-1:36"
+					}
+				],
+				"domain": "1:4-1:40"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.formal.method.multiLine",
+		"languageId": "java",
+		"facet": "argument.formal.method.multiLine",
+		"code": "public class Foo {\n    public void bar(\n        int aaa,\n        int bbb\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:15",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:15",
+						"removal": "2:15-3:15"
+					}
+				],
+				"domain": "3:8-3:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/argument/argument.formal.method.singleLine",
+		"languageId": "java",
+		"facet": "argument.formal.method.singleLine",
+		"code": "public class Foo {\n    public void bar(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:20-1:27",
+						"removal": "1:20-1:29"
+					}
+				],
+				"domain": "1:20-1:27"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:29-1:36",
+						"removal": "1:27-1:36"
+					}
+				],
+				"domain": "1:29-1:36"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.actual.constructor.iteration",
+		"languageId": "javascript.core",
+		"facet": "argument.actual.constructor.iteration",
+		"code": "new Foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.actual.constructor.multiLine",
+		"languageId": "javascript.core",
+		"facet": "argument.actual.constructor.multiLine",
+		"code": "new Foo(\n    aaa,\n    bbb\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.actual.constructor.singleLine",
+		"languageId": "javascript.core",
+		"facet": "argument.actual.constructor.singleLine",
+		"code": "new Foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:13"
+					}
+				],
+				"domain": "0:8-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:11-0:16"
+					}
+				],
+				"domain": "0:13-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.actual.iteration",
+		"languageId": "javascript.core",
+		"facet": "argument.actual.iteration",
+		"code": "foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:12"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.actual.method.iteration",
+		"languageId": "javascript.core",
+		"facet": "argument.actual.method.iteration",
+		"code": "foo.bar(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.actual.method.multiLine",
+		"languageId": "javascript.core",
+		"facet": "argument.actual.method.multiLine",
+		"code": "foo.bar(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.actual.method.singleLine",
+		"languageId": "javascript.core",
+		"facet": "argument.actual.method.singleLine",
+		"code": "foo.bar(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:13"
+					}
+				],
+				"domain": "0:8-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:11-0:16"
+					}
+				],
+				"domain": "0:13-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.actual.multiLine",
+		"languageId": "javascript.core",
+		"facet": "argument.actual.multiLine",
+		"code": "foo(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.actual.singleLine",
+		"languageId": "javascript.core",
+		"facet": "argument.actual.singleLine",
+		"code": "foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:7",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:4-0:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:12",
+						"removal": "0:7-0:12"
+					}
+				],
+				"domain": "0:9-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.catch",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.catch",
+		"code": "try {}\ncatch(e) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:6-1:7",
+						"removal": "1:6-1:7"
+					}
+				],
+				"domain": "1:6-1:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.constructor.iteration",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.constructor.iteration",
+		"code": "class Foo {\n    constructor(aaa, bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:16-1:24"
+					}
+				],
+				"domain": "1:4-1:28"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.constructor.multiLine",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.constructor.multiLine",
+		"code": "class Foo {\n    constructor(\n        aaa,\n        bbb\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:11",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:11",
+						"removal": "2:11-3:11"
+					}
+				],
+				"domain": "3:8-3:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.constructor.singleLine",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.constructor.singleLine",
+		"code": "class Foo {\n    constructor(aaa, bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:16-1:19",
+						"removal": "1:16-1:21"
+					}
+				],
+				"domain": "1:16-1:19"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:21-1:24",
+						"removal": "1:19-1:24"
+					}
+				],
+				"domain": "1:21-1:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.iteration",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.iteration",
+		"code": "function foo(aaa, bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:21"
+					}
+				],
+				"domain": "0:0-0:25"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.iteration10",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.iteration",
+		"code": "export const foo = (aaa, bbb) => {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:20-0:28"
+					}
+				],
+				"domain": "0:0-0:36"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.iteration11",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.iteration",
+		"code": "export default function(aaa, bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:24-0:32"
+					}
+				],
+				"domain": "0:0-0:36"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.iteration12",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.iteration",
+		"code": "export default function *(aaa, bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:26-0:34"
+					}
+				],
+				"domain": "0:0-0:38"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.iteration13",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.iteration",
+		"code": "export default (aaa, bbb) => {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:16-0:24"
+					}
+				],
+				"domain": "0:0-0:32"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.iteration14",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.iteration",
+		"code": "const foo = function bar(aaa, bbb) {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:25-0:33"
+					}
+				],
+				"domain": "0:12-0:37"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.iteration15",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.iteration",
+		"code": "const foo = function *bar(aaa, bbb) {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:26-0:34"
+					}
+				],
+				"domain": "0:12-0:38"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.iteration2",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.iteration",
+		"code": "function *foo(aaa, bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:22"
+					}
+				],
+				"domain": "0:0-0:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.iteration3",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.iteration",
+		"code": "const foo = function(aaa, bbb) {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:21-0:29"
+					}
+				],
+				"domain": "0:0-0:34"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.iteration4",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.iteration",
+		"code": "const foo = function *(aaa, bbb) {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:23-0:31"
+					}
+				],
+				"domain": "0:0-0:36"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.iteration5",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.iteration",
+		"code": "const foo = (aaa, bbb) => {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:21"
+					}
+				],
+				"domain": "0:0-0:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.iteration6",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.iteration",
+		"code": "export function foo(aaa, bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:20-0:28"
+					}
+				],
+				"domain": "0:0-0:32"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.iteration7",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.iteration",
+		"code": "export function *foo(aaa, bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:21-0:29"
+					}
+				],
+				"domain": "0:0-0:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.iteration8",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.iteration",
+		"code": "export const foo = function(aaa, bbb) {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:28-0:36"
+					}
+				],
+				"domain": "0:0-0:41"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.iteration9",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.iteration",
+		"code": "export const foo = function *(aaa, bbb) {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:30-0:38"
+					}
+				],
+				"domain": "0:0-0:43"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.lambda.iteration",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.lambda.iteration",
+		"code": "(aaa, bbb) => {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:9"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.lambda.iteration2",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.lambda.iteration",
+		"code": "function (aaa, bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:18"
+					}
+				],
+				"domain": "0:0-0:22"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.lambda.multiLine",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.lambda.multiLine",
+		"code": "(\n    aaa,\n    bbb\n) => {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.lambda.singleLine",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.lambda.singleLine",
+		"code": "(aaa, bbb) => {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:4",
+						"removal": "0:1-0:6"
+					}
+				],
+				"domain": "0:1-0:4"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:6-0:9",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:6-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.lambda.singleLine2",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.lambda.singleLine",
+		"code": "function (aaa, bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:13",
+						"removal": "0:10-0:15"
+					}
+				],
+				"domain": "0:10-0:13"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:15-0:18",
+						"removal": "0:13-0:18"
+					}
+				],
+				"domain": "0:15-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.method.iteration",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.method.iteration",
+		"code": "class Foo {\n    bar(aaa, bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:16"
+					}
+				],
+				"domain": "1:4-1:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.method.iteration2",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.method.iteration",
+		"code": "class Foo {\n    @An\n    bar(aaa, bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:16"
+					}
+				],
+				"domain": "1:4-2:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.method.iteration3",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.method.iteration",
+		"code": "class Foo {\n    bar = (aaa, bbb) => {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:11-1:19"
+					}
+				],
+				"domain": "1:4-1:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.method.iteration4",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.method.iteration",
+		"code": "class Foo {\n    @An\n    bar = (aaa, bbb) => {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:11-2:19"
+					}
+				],
+				"domain": "1:4-2:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.method.iteration5",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.method.iteration",
+		"code": "const foo = {\n    bar(aaa, bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:16"
+					}
+				],
+				"domain": "1:4-1:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.method.iteration6",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.method.iteration",
+		"code": "const foo = {\n    bar: function(aaa, bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:18-1:26"
+					}
+				],
+				"domain": "1:4-1:30"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.method.iteration7",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.method.iteration",
+		"code": "const foo = {\n    bar: function *(aaa, bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:20-1:28"
+					}
+				],
+				"domain": "1:4-1:32"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.method.iteration8",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.method.iteration",
+		"code": "const foo = {\n    bar: (aaa, bbb) => {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:10-1:18"
+					}
+				],
+				"domain": "1:4-1:25"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.method.multiLine",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.method.multiLine",
+		"code": "class Foo {\n    bar(\n        aaa,\n        bbb\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:11",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:11",
+						"removal": "2:11-3:11"
+					}
+				],
+				"domain": "3:8-3:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.method.singleLine",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.method.singleLine",
+		"code": "class Foo {\n    bar(aaa, bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:11",
+						"removal": "1:8-1:13"
+					}
+				],
+				"domain": "1:8-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:16",
+						"removal": "1:11-1:16"
+					}
+				],
+				"domain": "1:13-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.multiLine",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.multiLine",
+		"code": "function foo(\n    aaa,\n    bbb\n) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/argument/argument.formal.singleLine",
+		"languageId": "javascript.core",
+		"facet": "argument.formal.singleLine",
+		"code": "function foo(aaa, bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:13-0:18"
+					}
+				],
+				"domain": "0:13-0:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:18-0:21",
+						"removal": "0:16-0:21"
+					}
+				],
+				"domain": "0:18-0:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.actual.constructor.iteration",
+		"languageId": "kotlin",
+		"facet": "argument.actual.constructor.iteration",
+		"code": "Foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:12"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.actual.constructor.iteration2",
+		"languageId": "kotlin",
+		"facet": "argument.actual.constructor.iteration",
+		"code": "class Foo: Bar(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:15-0:23"
+					}
+				],
+				"domain": "0:11-0:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.actual.constructor.multiLine",
+		"languageId": "kotlin",
+		"facet": "argument.actual.constructor.multiLine",
+		"code": "Foo(\n    aaa,\n    bbb\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.actual.constructor.multiLine2",
+		"languageId": "kotlin",
+		"facet": "argument.actual.constructor.multiLine",
+		"code": "class Foo: Bar(\n    aaa,\n    bbb\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.actual.constructor.singleLine",
+		"languageId": "kotlin",
+		"facet": "argument.actual.constructor.singleLine",
+		"code": "Foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:7",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:4-0:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:12",
+						"removal": "0:7-0:12"
+					}
+				],
+				"domain": "0:9-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.actual.constructor.singleLine2",
+		"languageId": "kotlin",
+		"facet": "argument.actual.constructor.singleLine",
+		"code": "class Foo: Bar(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:15-0:18",
+						"removal": "0:15-0:20"
+					}
+				],
+				"domain": "0:15-0:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:20-0:23",
+						"removal": "0:18-0:23"
+					}
+				],
+				"domain": "0:20-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.actual.enum.iteration",
+		"languageId": "kotlin",
+		"facet": "argument.actual.enum.iteration",
+		"code": "enum class Foo {\n    bar(aaa, bbb)\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:16"
+					}
+				],
+				"domain": "1:4-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.actual.enum.multiLine",
+		"languageId": "kotlin",
+		"facet": "argument.actual.enum.multiLine",
+		"code": "enum class Foo {\n    bar(\n        aaa,\n        bbb\n    )\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:11",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:11",
+						"removal": "2:11-3:11"
+					}
+				],
+				"domain": "3:8-3:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.actual.enum.singleLine",
+		"languageId": "kotlin",
+		"facet": "argument.actual.enum.singleLine",
+		"code": "enum class Foo {\n    bar(aaa, bbb)\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:11",
+						"removal": "1:8-1:13"
+					}
+				],
+				"domain": "1:8-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:16",
+						"removal": "1:11-1:16"
+					}
+				],
+				"domain": "1:13-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.actual.iteration",
+		"languageId": "kotlin",
+		"facet": "argument.actual.iteration",
+		"code": "foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:12"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.actual.method.iteration",
+		"languageId": "kotlin",
+		"facet": "argument.actual.method.iteration",
+		"code": "foo.bar(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.actual.method.multiLine",
+		"languageId": "kotlin",
+		"facet": "argument.actual.method.multiLine",
+		"code": "foo.bar(\n    aaa,\n    bbb\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.actual.method.singleLine",
+		"languageId": "kotlin",
+		"facet": "argument.actual.method.singleLine",
+		"code": "foo.bar(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:13"
+					}
+				],
+				"domain": "0:8-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:11-0:16"
+					}
+				],
+				"domain": "0:13-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.actual.multiLine",
+		"languageId": "kotlin",
+		"facet": "argument.actual.multiLine",
+		"code": "foo(\n    aaa,\n    bbb\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.actual.singleLine",
+		"languageId": "kotlin",
+		"facet": "argument.actual.singleLine",
+		"code": "foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:7",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:4-0:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:12",
+						"removal": "0:7-0:12"
+					}
+				],
+				"domain": "0:9-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.actual.singleLine2",
+		"languageId": "kotlin",
+		"facet": "argument.actual.singleLine",
+		"code": "foo(aaa = 0, bbb = 1)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:11",
+						"removal": "0:4-0:13"
+					}
+				],
+				"domain": "0:4-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:20",
+						"removal": "0:11-0:20"
+					}
+				],
+				"domain": "0:13-0:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.formal.catch",
+		"languageId": "kotlin",
+		"facet": "argument.formal.catch",
+		"code": "try {\n} catch (e: MyException) {\n} catch (e: Exception) {\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:23",
+						"removal": "1:9-1:23"
+					}
+				],
+				"domain": "1:9-1:23"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:9-2:21",
+						"removal": "2:9-2:21"
+					}
+				],
+				"domain": "2:9-2:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.formal.constructor.iteration",
+		"languageId": "kotlin",
+		"facet": "argument.formal.constructor.iteration",
+		"code": "class Foo {\n    constructor(aaa: Int, bbb: Int) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:16-1:34"
+					}
+				],
+				"domain": "1:4-1:38"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.formal.constructor.iteration2",
+		"languageId": "kotlin",
+		"facet": "argument.formal.constructor.iteration",
+		"code": "class Foo(aaa: Int, bbb: Int) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:28"
+					}
+				],
+				"domain": "0:0-0:32"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.formal.constructor.multiLine",
+		"languageId": "kotlin",
+		"facet": "argument.formal.constructor.multiLine",
+		"code": "class Foo {\n    constructor(\n        aaa: Int,\n        vararg bbb: Int,\n        ccc: Int = 0,\n        vararg ddd: Int = 1\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:16",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:23",
+						"removal": "3:8-4:8"
+					}
+				],
+				"domain": "3:8-3:23"
+			},
+			{
+				"targets": [
+					{
+						"content": "4:8-4:20",
+						"removal": "4:8-5:8"
+					}
+				],
+				"domain": "4:8-4:20"
+			},
+			{
+				"targets": [
+					{
+						"content": "5:8-5:27",
+						"removal": "4:20-5:27"
+					}
+				],
+				"domain": "5:8-5:27"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.formal.constructor.multiLine2",
+		"languageId": "kotlin",
+		"facet": "argument.formal.constructor.multiLine",
+		"code": "class Foo(\n        aaa: Int,\n        vararg bbb: Int,\n        ccc: Int = 0,\n        vararg ddd: Int = 1\n    ) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:16",
+						"removal": "1:8-2:8"
+					}
+				],
+				"domain": "1:8-1:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-2:23",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:23"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:20",
+						"removal": "3:8-4:8"
+					}
+				],
+				"domain": "3:8-3:20"
+			},
+			{
+				"targets": [
+					{
+						"content": "4:8-4:27",
+						"removal": "3:20-4:27"
+					}
+				],
+				"domain": "4:8-4:27"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.formal.constructor.singleLine",
+		"languageId": "kotlin",
+		"facet": "argument.formal.constructor.singleLine",
+		"code": "class Foo {\n    constructor(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:16-1:24",
+						"removal": "1:16-1:26"
+					}
+				],
+				"domain": "1:16-1:24"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:26-1:41",
+						"removal": "1:26-1:43"
+					}
+				],
+				"domain": "1:26-1:41"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:43-1:55",
+						"removal": "1:43-1:57"
+					}
+				],
+				"domain": "1:43-1:55"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:57-1:76",
+						"removal": "1:55-1:76"
+					}
+				],
+				"domain": "1:57-1:76"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.formal.constructor.singleLine2",
+		"languageId": "kotlin",
+		"facet": "argument.formal.constructor.singleLine",
+		"code": "class Foo(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:18",
+						"removal": "0:10-0:20"
+					}
+				],
+				"domain": "0:10-0:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:20-0:35",
+						"removal": "0:20-0:37"
+					}
+				],
+				"domain": "0:20-0:35"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:37-0:49",
+						"removal": "0:37-0:51"
+					}
+				],
+				"domain": "0:37-0:49"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:51-0:70",
+						"removal": "0:49-0:70"
+					}
+				],
+				"domain": "0:51-0:70"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.formal.iteration",
+		"languageId": "kotlin",
+		"facet": "argument.formal.iteration",
+		"code": "fun bar(aaa: Int, bbb: Int) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:26"
+					}
+				],
+				"domain": "0:0-0:30"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.formal.lambda.iteration",
+		"languageId": "kotlin",
+		"facet": "argument.formal.lambda.iteration",
+		"code": "{aaa, bbb -> }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:9"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.formal.lambda.multiLine",
+		"languageId": "kotlin",
+		"facet": "argument.formal.lambda.multiLine",
+		"code": "{\n    aaa,\n    bbb ->\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.formal.lambda.singleLine",
+		"languageId": "kotlin",
+		"facet": "argument.formal.lambda.singleLine",
+		"code": "{aaa, bbb -> }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:4",
+						"removal": "0:1-0:6"
+					}
+				],
+				"domain": "0:1-0:4"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:6-0:9",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:6-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.formal.method.iteration",
+		"languageId": "kotlin",
+		"facet": "argument.formal.method.iteration",
+		"code": "class Foo {\n    fun bar(aaa: Int, bbb: Int) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:12-1:30"
+					}
+				],
+				"domain": "1:4-1:34"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.formal.method.iteration2",
+		"languageId": "kotlin",
+		"facet": "argument.formal.method.iteration",
+		"code": "class Foo {\n    set(aaa: Int) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:16"
+					}
+				],
+				"domain": "1:4-1:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.formal.method.multiLine",
+		"languageId": "kotlin",
+		"facet": "argument.formal.method.multiLine",
+		"code": "class Foo {\n    fun bar(\n        aaa: Int,\n        vararg bbb: Int,\n        ccc: Int = 0,\n        vararg ddd: Int = 1\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:16",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:23",
+						"removal": "3:8-4:8"
+					}
+				],
+				"domain": "3:8-3:23"
+			},
+			{
+				"targets": [
+					{
+						"content": "4:8-4:20",
+						"removal": "4:8-5:8"
+					}
+				],
+				"domain": "4:8-4:20"
+			},
+			{
+				"targets": [
+					{
+						"content": "5:8-5:27",
+						"removal": "4:20-5:27"
+					}
+				],
+				"domain": "5:8-5:27"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.formal.method.singleLine",
+		"languageId": "kotlin",
+		"facet": "argument.formal.method.singleLine",
+		"code": "class Foo {\n    fun bar(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:12-1:20",
+						"removal": "1:12-1:22"
+					}
+				],
+				"domain": "1:12-1:20"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:22-1:37",
+						"removal": "1:22-1:39"
+					}
+				],
+				"domain": "1:22-1:37"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:39-1:51",
+						"removal": "1:39-1:53"
+					}
+				],
+				"domain": "1:39-1:51"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:53-1:72",
+						"removal": "1:51-1:72"
+					}
+				],
+				"domain": "1:53-1:72"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.formal.method.singleLine2",
+		"languageId": "kotlin",
+		"facet": "argument.formal.method.singleLine",
+		"code": "class Foo {\n    set(aaa: Int) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:16",
+						"removal": "1:8-1:16"
+					}
+				],
+				"domain": "1:8-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.formal.multiLine",
+		"languageId": "kotlin",
+		"facet": "argument.formal.multiLine",
+		"code": "fun bar(\n    aaa: Int,\n    vararg bbb: Int,\n    ccc: Int = 0,\n    vararg ddd: Int = 1\n) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:12",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:19",
+						"removal": "2:4-3:4"
+					}
+				],
+				"domain": "2:4-2:19"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:4-3:16",
+						"removal": "3:4-4:4"
+					}
+				],
+				"domain": "3:4-3:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "4:4-4:23",
+						"removal": "3:16-4:23"
+					}
+				],
+				"domain": "4:4-4:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/argument/argument.formal.singleLine",
+		"languageId": "kotlin",
+		"facet": "argument.formal.singleLine",
+		"code": "fun bar(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16",
+						"removal": "0:8-0:18"
+					}
+				],
+				"domain": "0:8-0:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:18-0:33",
+						"removal": "0:18-0:35"
+					}
+				],
+				"domain": "0:18-0:33"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:35-0:47",
+						"removal": "0:35-0:49"
+					}
+				],
+				"domain": "0:35-0:47"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:49-0:68",
+						"removal": "0:47-0:68"
+					}
+				],
+				"domain": "0:49-0:68"
+			}
+		]
+	},
+	{
+		"name": "scopes/latex/argument.actual.iteration",
+		"languageId": "latex",
+		"facet": "argument.actual.iteration",
+		"code": "\\foo{aaa}{bbb}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/latex/argument.actual.multiLine",
+		"languageId": "latex",
+		"facet": "argument.actual.multiLine",
+		"code": "\\foo\n    {aaa}\n    {bbb}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:5-1:8",
+						"removal": "1:4-1:9"
+					}
+				],
+				"domain": "1:5-1:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:5-2:8",
+						"removal": "2:4-2:9"
+					}
+				],
+				"domain": "2:5-2:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/latex/argument.actual.singleLine",
+		"languageId": "latex",
+		"facet": "argument.actual.singleLine",
+		"code": "\\foo{aaa}{bbb}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:8",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:5-0:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:10-0:13",
+						"removal": "0:9-0:14"
+					}
+				],
+				"domain": "0:10-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/argument/argument.actual.iteration",
+		"languageId": "lua",
+		"facet": "argument.actual.iteration",
+		"code": "foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:12"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/argument/argument.actual.method.iteration",
+		"languageId": "lua",
+		"facet": "argument.actual.method.iteration",
+		"code": "foo:bar(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/argument/argument.actual.method.multiLine",
+		"languageId": "lua",
+		"facet": "argument.actual.method.multiLine",
+		"code": "foo:bar(\n    aaa,\n    bbb\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/argument/argument.actual.method.singleLine",
+		"languageId": "lua",
+		"facet": "argument.actual.method.singleLine",
+		"code": "foo:bar(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:13"
+					}
+				],
+				"domain": "0:8-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:11-0:16"
+					}
+				],
+				"domain": "0:13-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/argument/argument.actual.multiLine",
+		"languageId": "lua",
+		"facet": "argument.actual.multiLine",
+		"code": "foo(\n    aaa,\n    bbb\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/argument/argument.actual.singleLine",
+		"languageId": "lua",
+		"facet": "argument.actual.singleLine",
+		"code": "foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:7",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:4-0:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:12",
+						"removal": "0:7-0:12"
+					}
+				],
+				"domain": "0:9-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/argument/argument.formal.iteration",
+		"languageId": "lua",
+		"facet": "argument.formal.iteration",
+		"code": "function foo(aaa, bbb) end",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:21"
+					}
+				],
+				"domain": "0:0-0:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/argument/argument.formal.lambda.iteration",
+		"languageId": "lua",
+		"facet": "argument.formal.lambda.iteration",
+		"code": "f = function(aaa, bbb) end",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:21"
+					}
+				],
+				"domain": "0:4-0:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/argument/argument.formal.lambda.multiLine",
+		"languageId": "lua",
+		"facet": "argument.formal.lambda.multiLine",
+		"code": "f = function(\n    aaa,\n    bbb\n) end",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/argument/argument.formal.lambda.singleLine",
+		"languageId": "lua",
+		"facet": "argument.formal.lambda.singleLine",
+		"code": "f = function(aaa, bbb) end",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:13-0:18"
+					}
+				],
+				"domain": "0:13-0:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:18-0:21",
+						"removal": "0:16-0:21"
+					}
+				],
+				"domain": "0:18-0:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/argument/argument.formal.method.iteration",
+		"languageId": "lua",
+		"facet": "argument.formal.method.iteration",
+		"code": "function foo:bar(aaa, bbb) end",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:17-0:25"
+					}
+				],
+				"domain": "0:0-0:30"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/argument/argument.formal.method.multiLine",
+		"languageId": "lua",
+		"facet": "argument.formal.method.multiLine",
+		"code": "function foo:bar(\n    aaa,\n    bbb\n) end",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/argument/argument.formal.method.singleLine",
+		"languageId": "lua",
+		"facet": "argument.formal.method.singleLine",
+		"code": "function foo:bar(aaa, bbb) end",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:17-0:20",
+						"removal": "0:17-0:22"
+					}
+				],
+				"domain": "0:17-0:20"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:22-0:25",
+						"removal": "0:20-0:25"
+					}
+				],
+				"domain": "0:22-0:25"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/argument/argument.formal.multiLine",
+		"languageId": "lua",
+		"facet": "argument.formal.multiLine",
+		"code": "function foo(\n    aaa,\n    bbb\n)\n  return a + b\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/argument/argument.formal.singleLine",
+		"languageId": "lua",
+		"facet": "argument.formal.singleLine",
+		"code": "function foo(aaa, bbb) end",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:13-0:18"
+					}
+				],
+				"domain": "0:13-0:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:18-0:21",
+						"removal": "0:16-0:21"
+					}
+				],
+				"domain": "0:18-0:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.actual.constructor.iteration",
+		"languageId": "php",
+		"facet": "argument.actual.constructor.iteration",
+		"code": "<?php\nnew Foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:16"
+					}
+				],
+				"domain": "1:0-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.actual.constructor.multiLine",
+		"languageId": "php",
+		"facet": "argument.actual.constructor.multiLine",
+		"code": "<?php\nnew Foo(\n    aaa,\n    bbb\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "2:4-3:4"
+					}
+				],
+				"domain": "2:4-2:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:4-3:7",
+						"removal": "2:7-3:7"
+					}
+				],
+				"domain": "3:4-3:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.actual.constructor.singleLine",
+		"languageId": "php",
+		"facet": "argument.actual.constructor.singleLine",
+		"code": "<?php\nnew Foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:11",
+						"removal": "1:8-1:13"
+					}
+				],
+				"domain": "1:8-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:16",
+						"removal": "1:11-1:16"
+					}
+				],
+				"domain": "1:13-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.actual.iteration",
+		"languageId": "php",
+		"facet": "argument.actual.iteration",
+		"code": "<?php\nfoo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:12"
+					}
+				],
+				"domain": "1:0-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.actual.method.iteration",
+		"languageId": "php",
+		"facet": "argument.actual.method.iteration",
+		"code": "<?php\nfoo.bar(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:16"
+					}
+				],
+				"domain": "1:0-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.actual.method.multiLine",
+		"languageId": "php",
+		"facet": "argument.actual.method.multiLine",
+		"code": "<?php\nfoo.bar(\n    aaa,\n    bbb\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "2:4-3:4"
+					}
+				],
+				"domain": "2:4-2:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:4-3:7",
+						"removal": "2:7-3:7"
+					}
+				],
+				"domain": "3:4-3:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.actual.method.singleLine",
+		"languageId": "php",
+		"facet": "argument.actual.method.singleLine",
+		"code": "<?php\nfoo.bar(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:11",
+						"removal": "1:8-1:13"
+					}
+				],
+				"domain": "1:8-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:16",
+						"removal": "1:11-1:16"
+					}
+				],
+				"domain": "1:13-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.actual.multiLine",
+		"languageId": "php",
+		"facet": "argument.actual.multiLine",
+		"code": "<?php\nfoo(\n    aaa,\n    bbb\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "2:4-3:4"
+					}
+				],
+				"domain": "2:4-2:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:4-3:7",
+						"removal": "2:7-3:7"
+					}
+				],
+				"domain": "3:4-3:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.actual.singleLine",
+		"languageId": "php",
+		"facet": "argument.actual.singleLine",
+		"code": "<?php\nfoo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-1:9"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:9-1:12",
+						"removal": "1:7-1:12"
+					}
+				],
+				"domain": "1:9-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.catch",
+		"languageId": "php",
+		"facet": "argument.formal.catch",
+		"code": "<?php\ntry {}\ncatch (Exception $e) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:7-2:19",
+						"removal": "2:7-2:19"
+					}
+				],
+				"domain": "2:7-2:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.constructor.iteration",
+		"languageId": "php",
+		"facet": "argument.formal.constructor.iteration",
+		"code": "<?php\nclass Foo {\n    function __construct($aaa, $bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:25-2:35"
+					}
+				],
+				"domain": "2:4-2:39"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.constructor.multiLine",
+		"languageId": "php",
+		"facet": "argument.formal.constructor.multiLine",
+		"code": "<?php\nclass Foo {\n    function __construct(\n        number $aaa,\n        number $bbb\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "3:8-3:19",
+						"removal": "3:8-4:8"
+					}
+				],
+				"domain": "3:8-3:19"
+			},
+			{
+				"targets": [
+					{
+						"content": "4:8-4:19",
+						"removal": "3:19-4:19"
+					}
+				],
+				"domain": "4:8-4:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.constructor.singleLine",
+		"languageId": "php",
+		"facet": "argument.formal.constructor.singleLine",
+		"code": "<?php\nclass Foo {\n    function __construct(number $aaa, number $bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:25-2:36",
+						"removal": "2:25-2:38"
+					}
+				],
+				"domain": "2:25-2:36"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:38-2:49",
+						"removal": "2:36-2:49"
+					}
+				],
+				"domain": "2:38-2:49"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.iteration",
+		"languageId": "php",
+		"facet": "argument.formal.iteration",
+		"code": "<?php\nfunction foo($aaa, number $bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:13-1:30"
+					}
+				],
+				"domain": "1:0-1:34"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.lambda.iteration",
+		"languageId": "php",
+		"facet": "argument.formal.lambda.iteration",
+		"code": "<?php\nfunction($aaa, $bbb) {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:19"
+					}
+				],
+				"domain": "1:0-1:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.lambda.multiLine",
+		"languageId": "php",
+		"facet": "argument.formal.lambda.multiLine",
+		"code": "<?php\nfunction(\n    $aaa,\n    $bbb\n) {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-2:8",
+						"removal": "2:4-3:4"
+					}
+				],
+				"domain": "2:4-2:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:4-3:8",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "3:4-3:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.lambda.singleLine",
+		"languageId": "php",
+		"facet": "argument.formal.lambda.singleLine",
+		"code": "<?php\nfunction($aaa, $bbb) {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:13",
+						"removal": "1:9-1:15"
+					}
+				],
+				"domain": "1:9-1:13"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:15-1:19",
+						"removal": "1:13-1:19"
+					}
+				],
+				"domain": "1:15-1:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.method.iteration",
+		"languageId": "php",
+		"facet": "argument.formal.method.iteration",
+		"code": "<?php\nclass Foo {\n    function bar($aaa, number $bbb) { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:17-2:34"
+					}
+				],
+				"domain": "2:4-2:39"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.method.multiLine",
+		"languageId": "php",
+		"facet": "argument.formal.method.multiLine",
+		"code": "<?php\nclass Foo {\n    function bar(\n        $aaa,\n        number $bbb\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "3:8-3:12",
+						"removal": "3:8-4:8"
+					}
+				],
+				"domain": "3:8-3:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "4:8-4:19",
+						"removal": "3:12-4:19"
+					}
+				],
+				"domain": "4:8-4:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.method.singleLine",
+		"languageId": "php",
+		"facet": "argument.formal.method.singleLine",
+		"code": "<?php\nclass Foo {\n    function bar($aaa, number $bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:17-2:21",
+						"removal": "2:17-2:23"
+					}
+				],
+				"domain": "2:17-2:21"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:23-2:34",
+						"removal": "2:21-2:34"
+					}
+				],
+				"domain": "2:23-2:34"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.multiLine",
+		"languageId": "php",
+		"facet": "argument.formal.multiLine",
+		"code": "<?php\nfunction foo(\n    $aaa,\n    number $bbb\n) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-2:8",
+						"removal": "2:4-3:4"
+					}
+				],
+				"domain": "2:4-2:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:4-3:15",
+						"removal": "2:8-3:15"
+					}
+				],
+				"domain": "3:4-3:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.singleLine",
+		"languageId": "php",
+		"facet": "argument.formal.singleLine",
+		"code": "<?php\nfunction foo($aaa, number $bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:13-1:17",
+						"removal": "1:13-1:19"
+					}
+				],
+				"domain": "1:13-1:17"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:19-1:30",
+						"removal": "1:17-1:30"
+					}
+				],
+				"domain": "1:19-1:30"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/argument/argument.actual.constructor.iteration",
+		"languageId": "python",
+		"facet": "argument.actual.constructor.iteration",
+		"code": "Foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:12"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/argument/argument.actual.constructor.multiLine",
+		"languageId": "python",
+		"facet": "argument.actual.constructor.multiLine",
+		"code": "Foo(\n    aaa,\n    bbb\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/argument/argument.actual.constructor.singleLine",
+		"languageId": "python",
+		"facet": "argument.actual.constructor.singleLine",
+		"code": "Foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:7",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:4-0:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:12",
+						"removal": "0:7-0:12"
+					}
+				],
+				"domain": "0:9-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/argument/argument.actual.iteration",
+		"languageId": "python",
+		"facet": "argument.actual.iteration",
+		"code": "foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:12"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/argument/argument.actual.method.iteration",
+		"languageId": "python",
+		"facet": "argument.actual.method.iteration",
+		"code": "foo.bar(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/argument/argument.actual.method.multiLine",
+		"languageId": "python",
+		"facet": "argument.actual.method.multiLine",
+		"code": "foo.bar(\n    aaa,\n    bbb\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/argument/argument.actual.method.singleLine",
+		"languageId": "python",
+		"facet": "argument.actual.method.singleLine",
+		"code": "foo.bar(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:13"
+					}
+				],
+				"domain": "0:8-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:11-0:16"
+					}
+				],
+				"domain": "0:13-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/argument/argument.actual.multiLine",
+		"languageId": "python",
+		"facet": "argument.actual.multiLine",
+		"code": "foo(\n    aaa,\n    bbb\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/argument/argument.actual.singleLine",
+		"languageId": "python",
+		"facet": "argument.actual.singleLine",
+		"code": "foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:7",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:4-0:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:12",
+						"removal": "0:7-0:12"
+					}
+				],
+				"domain": "0:9-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/argument/argument.actual.singleLine2",
+		"languageId": "python",
+		"facet": "argument.actual.singleLine",
+		"code": "\" \".join(v for v in values)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:9-0:26",
+						"removal": "0:9-0:26"
+					}
+				],
+				"domain": "0:9-0:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/argument/argument.formal.catch",
+		"languageId": "python",
+		"facet": "argument.formal.catch",
+		"code": "try: pass\nexcept MyException as e: pass\nexcept Exception as e: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:7-1:23",
+						"removal": "1:6-1:23"
+					}
+				],
+				"domain": "1:7-1:23"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:7-2:21",
+						"removal": "2:6-2:21"
+					}
+				],
+				"domain": "2:7-2:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/argument/argument.formal.constructor.iteration",
+		"languageId": "python",
+		"facet": "argument.formal.constructor.iteration",
+		"code": "class Foo:\n    def __init__(self, aaa: str, bbb: int): pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:17-1:41"
+					}
+				],
+				"domain": "1:4-1:48"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/argument/argument.formal.constructor.multiLine",
+		"languageId": "python",
+		"facet": "argument.formal.constructor.multiLine",
+		"code": "class Foo:\n    def __init__(\n        self,\n        aaa: str,\n        bbb: int\n    ): pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:12",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:16",
+						"removal": "3:8-4:8"
+					}
+				],
+				"domain": "3:8-3:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "4:8-4:16",
+						"removal": "3:16-4:16"
+					}
+				],
+				"domain": "4:8-4:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/argument/argument.formal.constructor.singleLine",
+		"languageId": "python",
+		"facet": "argument.formal.constructor.singleLine",
+		"code": "class Foo:\n    def __init__(self, aaa: str, bbb: int): pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:17-1:21",
+						"removal": "1:17-1:23"
+					}
+				],
+				"domain": "1:17-1:21"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:23-1:31",
+						"removal": "1:23-1:33"
+					}
+				],
+				"domain": "1:23-1:31"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:33-1:41",
+						"removal": "1:31-1:41"
+					}
+				],
+				"domain": "1:33-1:41"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/argument/argument.formal.iteration",
+		"languageId": "python",
+		"facet": "argument.formal.iteration",
+		"code": "def for(aaa: int, bbb: int): pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:26"
+					}
+				],
+				"domain": "0:0-0:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/argument/argument.formal.lambda.iteration",
+		"languageId": "python",
+		"facet": "argument.formal.lambda.iteration",
+		"code": "lambda aaa, bbb: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:15"
+					}
+				],
+				"domain": "0:0-0:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/argument/argument.formal.lambda.singleLine",
+		"languageId": "python",
+		"facet": "argument.formal.lambda.singleLine",
+		"code": "lambda aaa, bbb: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:10",
+						"removal": "0:7-0:12"
+					}
+				],
+				"domain": "0:7-0:10"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:12-0:15",
+						"removal": "0:10-0:15"
+					}
+				],
+				"domain": "0:12-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/argument/argument.formal.method.iteration",
+		"languageId": "python",
+		"facet": "argument.formal.method.iteration",
+		"code": "class Foo:\n    def bar(aaa: str, bbb: int): pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:12-1:30"
+					}
+				],
+				"domain": "1:4-1:37"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/argument/argument.formal.method.multiLine",
+		"languageId": "python",
+		"facet": "argument.formal.method.multiLine",
+		"code": "class Foo:\n    def bar(\n        aaa: str,\n        bbb: int\n    ): pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:16",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:16",
+						"removal": "2:16-3:16"
+					}
+				],
+				"domain": "3:8-3:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/argument/argument.formal.method.singleLine",
+		"languageId": "python",
+		"facet": "argument.formal.method.singleLine",
+		"code": "class Foo:\n    def bar(aaa: str, bbb: int): pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:12-1:20",
+						"removal": "1:12-1:22"
+					}
+				],
+				"domain": "1:12-1:20"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:22-1:30",
+						"removal": "1:20-1:30"
+					}
+				],
+				"domain": "1:22-1:30"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/argument/argument.formal.multiLine",
+		"languageId": "python",
+		"facet": "argument.formal.multiLine",
+		"code": "def foo(\n    aaa,\n    bbb,\n): pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/argument/argument.formal.singleLine",
+		"languageId": "python",
+		"facet": "argument.formal.singleLine",
+		"code": "def for(aaa: int, bbb: int): pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16",
+						"removal": "0:8-0:18"
+					}
+				],
+				"domain": "0:8-0:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:18-0:26",
+						"removal": "0:16-0:26"
+					}
+				],
+				"domain": "0:18-0:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/argument/argument.actual.iteration",
+		"languageId": "r",
+		"facet": "argument.actual.iteration",
+		"code": "foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:12"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/argument/argument.actual.method.iteration",
+		"languageId": "r",
+		"facet": "argument.actual.method.iteration",
+		"code": "foo.bar(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/argument/argument.actual.method.multiLine",
+		"languageId": "r",
+		"facet": "argument.actual.method.multiLine",
+		"code": "foo.bar(\n    aaa,\n    bbb\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/argument/argument.actual.method.singleLine",
+		"languageId": "r",
+		"facet": "argument.actual.method.singleLine",
+		"code": "foo.bar(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:13"
+					}
+				],
+				"domain": "0:8-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:11-0:16"
+					}
+				],
+				"domain": "0:13-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/argument/argument.actual.multiLine",
+		"languageId": "r",
+		"facet": "argument.actual.multiLine",
+		"code": "foo(\n    aaa,\n    bbb\n)\n",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/argument/argument.actual.singleLine",
+		"languageId": "r",
+		"facet": "argument.actual.singleLine",
+		"code": "func(aaa, bbb = 0)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:8",
+						"removal": "0:5-0:10"
+					}
+				],
+				"domain": "0:5-0:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:10-0:17",
+						"removal": "0:8-0:17"
+					}
+				],
+				"domain": "0:10-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/argument/argument.formal.iteration",
+		"languageId": "r",
+		"facet": "argument.formal.iteration",
+		"code": "foo <- function(aaa, bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:16-0:24"
+					}
+				],
+				"domain": "0:0-0:28"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/argument/argument.formal.lambda.iteration",
+		"languageId": "r",
+		"facet": "argument.formal.lambda.iteration",
+		"code": "function(aaa, bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:9-0:17"
+					}
+				],
+				"domain": "0:0-0:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/argument/argument.formal.lambda.multiLine",
+		"languageId": "r",
+		"facet": "argument.formal.lambda.multiLine",
+		"code": "function(\n    aaa,\n    bbb\n) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/argument/argument.formal.lambda.singleLine",
+		"languageId": "r",
+		"facet": "argument.formal.lambda.singleLine",
+		"code": "function(aaa, bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:9-0:12",
+						"removal": "0:9-0:14"
+					}
+				],
+				"domain": "0:9-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:14-0:17",
+						"removal": "0:12-0:17"
+					}
+				],
+				"domain": "0:14-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/argument/argument.formal.multiLine",
+		"languageId": "r",
+		"facet": "argument.formal.multiLine",
+		"code": "foo <- function(\n    aaa,\n    bbb\n) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/argument/argument.formal.singleLine",
+		"languageId": "r",
+		"facet": "argument.formal.singleLine",
+		"code": "foo <- function(aaa, bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:16-0:19",
+						"removal": "0:16-0:21"
+					}
+				],
+				"domain": "0:16-0:19"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:21-0:24",
+						"removal": "0:19-0:24"
+					}
+				],
+				"domain": "0:21-0:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/argument/argument.actual.iteration",
+		"languageId": "ruby",
+		"facet": "argument.actual.iteration",
+		"code": "foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:12"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/argument/argument.actual.iteration2",
+		"languageId": "ruby",
+		"facet": "argument.actual.iteration",
+		"code": "foo{ |aaa, bbb| }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:14"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/argument/argument.actual.method.iteration",
+		"languageId": "ruby",
+		"facet": "argument.actual.method.iteration",
+		"code": "foo.bar(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/argument/argument.actual.method.multiLine",
+		"languageId": "ruby",
+		"facet": "argument.actual.method.multiLine",
+		"code": "foo.bar(\n    aaa,\n    bbb\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/argument/argument.actual.method.singleLine",
+		"languageId": "ruby",
+		"facet": "argument.actual.method.singleLine",
+		"code": "foo.bar(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:13"
+					}
+				],
+				"domain": "0:8-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:11-0:16"
+					}
+				],
+				"domain": "0:13-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/argument/argument.actual.multiLine",
+		"languageId": "ruby",
+		"facet": "argument.actual.multiLine",
+		"code": "foo(\n    aaa,\n    bbb\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/argument/argument.actual.multiLine2",
+		"languageId": "ruby",
+		"facet": "argument.actual.multiLine",
+		"code": "foo{ |\n    aaa,\n    bbb\n| }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/argument/argument.actual.singleLine",
+		"languageId": "ruby",
+		"facet": "argument.actual.singleLine",
+		"code": "foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:7",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:4-0:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:12",
+						"removal": "0:7-0:12"
+					}
+				],
+				"domain": "0:9-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/argument/argument.actual.singleLine2",
+		"languageId": "ruby",
+		"facet": "argument.actual.singleLine",
+		"code": "foo{ |aaa, bbb| }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:9",
+						"removal": "0:6-0:11"
+					}
+				],
+				"domain": "0:6-0:9"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:14",
+						"removal": "0:9-0:14"
+					}
+				],
+				"domain": "0:11-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/argument/argument.formal.iteration",
+		"languageId": "ruby",
+		"facet": "argument.formal.iteration",
+		"code": "def foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/argument/argument.formal.lambda.iteration",
+		"languageId": "ruby",
+		"facet": "argument.formal.lambda.iteration",
+		"code": "->(aaa, bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:3-0:11"
+					}
+				],
+				"domain": "0:0-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/argument/argument.formal.lambda.multiLine",
+		"languageId": "ruby",
+		"facet": "argument.formal.lambda.multiLine",
+		"code": "->(\n    aaa,\n    bbb\n) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/argument/argument.formal.lambda.singleLine",
+		"languageId": "ruby",
+		"facet": "argument.formal.lambda.singleLine",
+		"code": "->(aaa, bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:3-0:6",
+						"removal": "0:3-0:8"
+					}
+				],
+				"domain": "0:3-0:6"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:6-0:11"
+					}
+				],
+				"domain": "0:8-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/argument/argument.formal.method.iteration",
+		"languageId": "ruby",
+		"facet": "argument.formal.method.iteration",
+		"code": "class Foo\n    def bar(aaa, bbb) end\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:12-1:20"
+					}
+				],
+				"domain": "1:4-1:25"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/argument/argument.formal.method.multiLine",
+		"languageId": "ruby",
+		"facet": "argument.formal.method.multiLine",
+		"code": "class Foo\n    def bar(\n        aaa,\n        bbb\n    ) end\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:11",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:11",
+						"removal": "2:11-3:11"
+					}
+				],
+				"domain": "3:8-3:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/argument/argument.formal.method.singleLine",
+		"languageId": "ruby",
+		"facet": "argument.formal.method.singleLine",
+		"code": "class Foo\n    def bar(aaa, bbb) end\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:12-1:15",
+						"removal": "1:12-1:17"
+					}
+				],
+				"domain": "1:12-1:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:17-1:20",
+						"removal": "1:15-1:20"
+					}
+				],
+				"domain": "1:17-1:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/argument/argument.formal.multiLine",
+		"languageId": "ruby",
+		"facet": "argument.formal.multiLine",
+		"code": "def foo(\n    aaa,\n    bbb\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/argument/argument.formal.singleLine",
+		"languageId": "ruby",
+		"facet": "argument.formal.singleLine",
+		"code": "def foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:13"
+					}
+				],
+				"domain": "0:8-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:11-0:16"
+					}
+				],
+				"domain": "0:13-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/argument/argument.actual.enum.iteration",
+		"languageId": "rust",
+		"facet": "argument.actual.enum.iteration",
+		"code": "enum Foo {\n    Bar(aaa, bbb)\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:16"
+					}
+				],
+				"domain": "1:4-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/argument/argument.actual.enum.multiLine",
+		"languageId": "rust",
+		"facet": "argument.actual.enum.multiLine",
+		"code": "enum Foo {\n    Bar(\n        aaa,\n        bbb\n    )\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:11",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:11",
+						"removal": "2:11-3:11"
+					}
+				],
+				"domain": "3:8-3:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/argument/argument.actual.enum.singleLine",
+		"languageId": "rust",
+		"facet": "argument.actual.enum.singleLine",
+		"code": "enum Foo {\n    Bar(aaa, bbb)\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:11",
+						"removal": "1:8-1:13"
+					}
+				],
+				"domain": "1:8-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:16",
+						"removal": "1:11-1:16"
+					}
+				],
+				"domain": "1:13-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/argument/argument.actual.iteration",
+		"languageId": "rust",
+		"facet": "argument.actual.iteration",
+		"code": "foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:12"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/argument/argument.actual.method.iteration",
+		"languageId": "rust",
+		"facet": "argument.actual.method.iteration",
+		"code": "foo.bar(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/argument/argument.actual.method.multiLine",
+		"languageId": "rust",
+		"facet": "argument.actual.method.multiLine",
+		"code": "foo.bar(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/argument/argument.actual.method.singleLine",
+		"languageId": "rust",
+		"facet": "argument.actual.method.singleLine",
+		"code": "foo.bar(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:13"
+					}
+				],
+				"domain": "0:8-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:11-0:16"
+					}
+				],
+				"domain": "0:13-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/argument/argument.actual.multiLine",
+		"languageId": "rust",
+		"facet": "argument.actual.multiLine",
+		"code": "foo(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/argument/argument.actual.singleLine",
+		"languageId": "rust",
+		"facet": "argument.actual.singleLine",
+		"code": "foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:7",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:4-0:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:12",
+						"removal": "0:7-0:12"
+					}
+				],
+				"domain": "0:9-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/argument/argument.formal.iteration",
+		"languageId": "rust",
+		"facet": "argument.formal.iteration",
+		"code": "fn foo(aaa: i32, bbb: i32) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:25"
+					}
+				],
+				"domain": "0:0-0:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/argument/argument.formal.lambda.iteration",
+		"languageId": "rust",
+		"facet": "argument.formal.lambda.iteration",
+		"code": "|aaa, bbb| {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:9"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/argument/argument.formal.lambda.iteration2",
+		"languageId": "rust",
+		"facet": "argument.formal.lambda.iteration",
+		"code": "|aaa: i32, bbb: i32| {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:19"
+					}
+				],
+				"domain": "0:0-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/argument/argument.formal.lambda.multiLine",
+		"languageId": "rust",
+		"facet": "argument.formal.lambda.multiLine",
+		"code": "|\n    aaa,\n    bbb\n| {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/argument/argument.formal.lambda.multiLine2",
+		"languageId": "rust",
+		"facet": "argument.formal.lambda.multiLine",
+		"code": "|\n    aaa: i32,\n    bbb: i32\n| {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:12",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:12",
+						"removal": "1:12-2:12"
+					}
+				],
+				"domain": "2:4-2:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/argument/argument.formal.lambda.singleLine",
+		"languageId": "rust",
+		"facet": "argument.formal.lambda.singleLine",
+		"code": "|aaa, bbb| {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:4",
+						"removal": "0:1-0:6"
+					}
+				],
+				"domain": "0:1-0:4"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:6-0:9",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:6-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/argument/argument.formal.lambda.singleLine2",
+		"languageId": "rust",
+		"facet": "argument.formal.lambda.singleLine",
+		"code": "|aaa: i32, bbb: i32| {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:9",
+						"removal": "0:1-0:11"
+					}
+				],
+				"domain": "0:1-0:9"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:19",
+						"removal": "0:9-0:19"
+					}
+				],
+				"domain": "0:11-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/argument/argument.formal.method.iteration",
+		"languageId": "rust",
+		"facet": "argument.formal.method.iteration",
+		"code": "impl Foo {\n    fn bar(&self, aaa: i32, bbb: i32) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:11-1:36"
+					}
+				],
+				"domain": "1:4-1:40"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/argument/argument.formal.method.multiLine",
+		"languageId": "rust",
+		"facet": "argument.formal.method.multiLine",
+		"code": "impl Foo {\n    fn bar(\n        &self,\n        aaa: i32,\n        bbb: i32\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:13",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:13"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:16",
+						"removal": "3:8-4:8"
+					}
+				],
+				"domain": "3:8-3:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "4:8-4:16",
+						"removal": "3:16-4:16"
+					}
+				],
+				"domain": "4:8-4:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/argument/argument.formal.method.singleLine",
+		"languageId": "rust",
+		"facet": "argument.formal.method.singleLine",
+		"code": "impl Foo {\n    fn bar(&self, aaa: i32, bbb: i32) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:11-1:16",
+						"removal": "1:11-1:18"
+					}
+				],
+				"domain": "1:11-1:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:18-1:26",
+						"removal": "1:18-1:28"
+					}
+				],
+				"domain": "1:18-1:26"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:28-1:36",
+						"removal": "1:26-1:36"
+					}
+				],
+				"domain": "1:28-1:36"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/argument/argument.formal.multiLine",
+		"languageId": "rust",
+		"facet": "argument.formal.multiLine",
+		"code": "fn foo(\n    aaa: i32,\n    bbb: i32\n) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:12",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:12",
+						"removal": "1:12-2:12"
+					}
+				],
+				"domain": "2:4-2:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/argument/argument.formal.singleLine",
+		"languageId": "rust",
+		"facet": "argument.formal.singleLine",
+		"code": "fn foo(aaa: i32, bbb: i32) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:15",
+						"removal": "0:7-0:17"
+					}
+				],
+				"domain": "0:7-0:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:17-0:25",
+						"removal": "0:15-0:25"
+					}
+				],
+				"domain": "0:17-0:25"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/argument/argument.actual.constructor.iteration",
+		"languageId": "scala",
+		"facet": "argument.actual.constructor.iteration",
+		"code": "new Foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/argument/argument.actual.constructor.multiLine",
+		"languageId": "scala",
+		"facet": "argument.actual.constructor.multiLine",
+		"code": "new Foo(\n  aaa,\n  bbb,\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:2-1:5",
+						"removal": "1:2-2:2"
+					}
+				],
+				"domain": "1:2-1:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:2-2:5",
+						"removal": "1:5-2:5"
+					}
+				],
+				"domain": "2:2-2:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/argument/argument.actual.constructor.singleLine",
+		"languageId": "scala",
+		"facet": "argument.actual.constructor.singleLine",
+		"code": "new Foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:13"
+					}
+				],
+				"domain": "0:8-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:11-0:16"
+					}
+				],
+				"domain": "0:13-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/argument/argument.actual.iteration",
+		"languageId": "scala",
+		"facet": "argument.actual.iteration",
+		"code": "foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:12"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/argument/argument.actual.method.iteration",
+		"languageId": "scala",
+		"facet": "argument.actual.method.iteration",
+		"code": "foo.bar(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/argument/argument.actual.method.multiLine",
+		"languageId": "scala",
+		"facet": "argument.actual.method.multiLine",
+		"code": "foo.bar(\n  aaa,\n  bbb,\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:2-1:5",
+						"removal": "1:2-2:2"
+					}
+				],
+				"domain": "1:2-1:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:2-2:5",
+						"removal": "1:5-2:5"
+					}
+				],
+				"domain": "2:2-2:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/argument/argument.actual.method.singleLine",
+		"languageId": "scala",
+		"facet": "argument.actual.method.singleLine",
+		"code": "foo.bar(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:13"
+					}
+				],
+				"domain": "0:8-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:11-0:16"
+					}
+				],
+				"domain": "0:13-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/argument/argument.actual.multiLine",
+		"languageId": "scala",
+		"facet": "argument.actual.multiLine",
+		"code": "foo(\n  aaa,\n  bbb,\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:2-1:5",
+						"removal": "1:2-2:2"
+					}
+				],
+				"domain": "1:2-1:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:2-2:5",
+						"removal": "1:5-2:5"
+					}
+				],
+				"domain": "2:2-2:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/argument/argument.actual.singleLine",
+		"languageId": "scala",
+		"facet": "argument.actual.singleLine",
+		"code": "foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:7",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:4-0:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:12",
+						"removal": "0:7-0:12"
+					}
+				],
+				"domain": "0:9-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/argument/argument.formal.catch",
+		"languageId": "scala",
+		"facet": "argument.formal.catch",
+		"code": "try {}\ncatch {\n    case e: Exception => 0\n    case e => 0\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:9-2:21",
+						"removal": "2:9-2:22"
+					}
+				],
+				"domain": "2:9-2:21"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:9-3:10",
+						"removal": "3:9-3:11"
+					}
+				],
+				"domain": "3:9-3:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/argument/argument.formal.constructor.iteration",
+		"languageId": "scala",
+		"facet": "argument.formal.constructor.iteration",
+		"code": "class Foo(aaa: Int, bbb: Int)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:28"
+					}
+				],
+				"domain": "0:0-0:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/argument/argument.formal.constructor.multiLine",
+		"languageId": "scala",
+		"facet": "argument.formal.constructor.multiLine",
+		"code": "class Foo(\n  aaa: Int,\n  bbb: Int,\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:2-1:10",
+						"removal": "1:2-2:2"
+					}
+				],
+				"domain": "1:2-1:10"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:2-2:10",
+						"removal": "1:10-2:10"
+					}
+				],
+				"domain": "2:2-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/argument/argument.formal.constructor.singleLine",
+		"languageId": "scala",
+		"facet": "argument.formal.constructor.singleLine",
+		"code": "class Foo(aaa: Int, bbb: Int)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:18",
+						"removal": "0:10-0:20"
+					}
+				],
+				"domain": "0:10-0:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:20-0:28",
+						"removal": "0:18-0:28"
+					}
+				],
+				"domain": "0:20-0:28"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/argument/argument.formal.iteration",
+		"languageId": "scala",
+		"facet": "argument.formal.iteration",
+		"code": "def foo(aaa: Int, bbb: Int) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:26"
+					}
+				],
+				"domain": "0:0-0:30"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/argument/argument.formal.lambda.iteration",
+		"languageId": "scala",
+		"facet": "argument.formal.lambda.iteration",
+		"code": "(aaa: Int, bbb: Int) => {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:19"
+					}
+				],
+				"domain": "0:0-0:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/argument/argument.formal.lambda.multiLine",
+		"languageId": "scala",
+		"facet": "argument.formal.lambda.multiLine",
+		"code": "(\n    aaa: Int,\n    bbb: Int,\n) => {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:12",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:12",
+						"removal": "1:12-2:12"
+					}
+				],
+				"domain": "2:4-2:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/argument/argument.formal.lambda.singleLine",
+		"languageId": "scala",
+		"facet": "argument.formal.lambda.singleLine",
+		"code": "(aaa: Int, bbb: Int) => {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:9",
+						"removal": "0:1-0:11"
+					}
+				],
+				"domain": "0:1-0:9"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:19",
+						"removal": "0:9-0:19"
+					}
+				],
+				"domain": "0:11-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/argument/argument.formal.method.iteration",
+		"languageId": "scala",
+		"facet": "argument.formal.method.iteration",
+		"code": "class Foo {\n    def bar(aaa: Int, bbb: Int) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:12-1:30"
+					}
+				],
+				"domain": "1:4-1:34"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/argument/argument.formal.method.multiLine",
+		"languageId": "scala",
+		"facet": "argument.formal.method.multiLine",
+		"code": "class Foo {\n    def bar(\n        aaa: Int,\n        bbb: Int\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:16",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:16",
+						"removal": "2:16-3:16"
+					}
+				],
+				"domain": "3:8-3:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/argument/argument.formal.method.singleLine",
+		"languageId": "scala",
+		"facet": "argument.formal.method.singleLine",
+		"code": "class Foo {\n    def bar(aaa: Int, bbb: Int) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:12-1:20",
+						"removal": "1:12-1:22"
+					}
+				],
+				"domain": "1:12-1:20"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:22-1:30",
+						"removal": "1:20-1:30"
+					}
+				],
+				"domain": "1:22-1:30"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/argument/argument.formal.multiLine",
+		"languageId": "scala",
+		"facet": "argument.formal.multiLine",
+		"code": "def foo(\n  aaa: Int,\n  bbb: Int,\n) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:2-1:10",
+						"removal": "1:2-2:2"
+					}
+				],
+				"domain": "1:2-1:10"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:2-2:10",
+						"removal": "1:10-2:10"
+					}
+				],
+				"domain": "2:2-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/argument/argument.formal.singleLine",
+		"languageId": "scala",
+		"facet": "argument.formal.singleLine",
+		"code": "def foo(aaa: Int, bbb: Int) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16",
+						"removal": "0:8-0:18"
+					}
+				],
+				"domain": "0:8-0:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:18-0:26",
+						"removal": "0:16-0:26"
+					}
+				],
+				"domain": "0:18-0:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/scm/argument.actual.iteration",
+		"languageId": "scm",
+		"facet": "argument.actual.iteration",
+		"code": "(#foo? @aaa bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:15"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/scm/argument.actual.multiLine",
+		"languageId": "scm",
+		"facet": "argument.actual.multiLine",
+		"code": "(#foo?\n    @aaa\n    bbb\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:8",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "2:0-3:0"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/scm/argument.actual.singleLine",
+		"languageId": "scm",
+		"facet": "argument.actual.singleLine",
+		"code": "(#foo? @aaa bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:11",
+						"removal": "0:7-0:12"
+					}
+				],
+				"domain": "0:7-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:12-0:15",
+						"removal": "0:11-0:15"
+					}
+				],
+				"domain": "0:12-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/scss/argument.actual.iteration",
+		"languageId": "scss",
+		"facet": "argument.actual.iteration",
+		"code": "@mixin foo($aaa, $bbb: 0) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:24"
+					}
+				],
+				"domain": "0:0-0:28"
+			}
+		]
+	},
+	{
+		"name": "scopes/scss/argument.actual.multiLine",
+		"languageId": "scss",
+		"facet": "argument.actual.multiLine",
+		"code": "@mixin foo(\n    $aaa,\n    $bbb: 0\n) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:8",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:11",
+						"removal": "1:8-2:11"
+					}
+				],
+				"domain": "2:4-2:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/scss/argument.actual.singleLine",
+		"languageId": "scss",
+		"facet": "argument.actual.singleLine",
+		"code": "@mixin foo($aaa, $bbb: 0) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:15",
+						"removal": "0:11-0:17"
+					}
+				],
+				"domain": "0:11-0:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:17-0:24",
+						"removal": "0:15-0:24"
+					}
+				],
+				"domain": "0:17-0:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/talon/argument/argument.actual.iteration",
+		"languageId": "talon",
+		"facet": "argument.actual.iteration",
+		"code": "command: user.foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:18-0:26"
+					}
+				],
+				"domain": "0:9-0:27"
+			}
+		]
+	},
+	{
+		"name": "scopes/talon/argument/argument.actual.iteration2",
+		"languageId": "talon",
+		"facet": "argument.actual.iteration",
+		"code": "command: key(enter)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:18"
+					}
+				],
+				"domain": "0:9-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/talon/argument/argument.actual.iteration3",
+		"languageId": "talon",
+		"facet": "argument.actual.iteration",
+		"code": "command: sleep(100ms)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:15-0:20"
+					}
+				],
+				"domain": "0:9-0:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/talon/argument/argument.actual.singleLine",
+		"languageId": "talon",
+		"facet": "argument.actual.singleLine",
+		"code": "command: user.foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:18-0:21",
+						"removal": "0:18-0:23"
+					}
+				],
+				"domain": "0:18-0:21"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:23-0:26",
+						"removal": "0:21-0:26"
+					}
+				],
+				"domain": "0:23-0:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/talon/argument/argument.actual.singleLine2",
+		"languageId": "talon",
+		"facet": "argument.actual.singleLine",
+		"code": "command: key(enter)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:18",
+						"removal": "0:13-0:18"
+					}
+				],
+				"domain": "0:13-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/talon/argument/argument.actual.singleLine3",
+		"languageId": "talon",
+		"facet": "argument.actual.singleLine",
+		"code": "command: sleep(100ms)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:15-0:20",
+						"removal": "0:15-0:20"
+					}
+				],
+				"domain": "0:15-0:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/typescript.core/argument.formal.catch",
+		"languageId": "typescript.core",
+		"facet": "argument.formal.catch",
+		"code": "try {}\ncatch(e: unknown) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:6-1:16",
+						"removal": "1:6-1:16"
+					}
+				],
+				"domain": "1:6-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/typescript.core/argument.formal.constructor.iteration",
+		"languageId": "typescript.core",
+		"facet": "argument.formal.constructor.iteration",
+		"code": "class Foo {\n    constructor(aaa: number);\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:16-1:27"
+					}
+				],
+				"domain": "1:4-1:29"
+			}
+		]
+	}
+]

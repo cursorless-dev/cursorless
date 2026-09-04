@@ -3,6 +3,7 @@ sidebar_label: Cell
 ---
 
 import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/notebookCell.json";
 
 # Cell (Notebook cell)
 
@@ -22,7 +23,7 @@ Default: `cell`
 
 ## Visualization
 
-<ScopeVisualizerProvider>
+<ScopeVisualizerProvider scopeTests={scopeTests}>
 
 <ScopeVisualizerOptions />
 

@@ -3,6 +3,7 @@ sidebar_label: Subsubsection
 ---
 
 import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/subSubSection.json";
 
 # Subsubsection
 
@@ -22,7 +23,7 @@ Default: `subsubsection`
 
 ## Visualization
 
-<ScopeVisualizerProvider>
+<ScopeVisualizerProvider scopeTests={scopeTests}>
 
 <ScopeVisualizerOptions />
 

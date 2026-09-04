@@ -1,0 +1,63 @@
+[
+	{
+		"name": "scopes/javascript.core/pairDelimiter",
+		"languageId": "javascript.core",
+		"facet": "pairDelimiter",
+		"code": "taggedTemplate`hello ${world}`",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:15",
+						"removal": "0:0-0:15"
+					}
+				],
+				"domain": "0:0-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/pairDelimiter",
+		"languageId": "python",
+		"facet": "pairDelimiter",
+		"code": "\"server\"\n'server'\n\"\"\"server\"\"\"\n'''server'''\nr\" r\"\nr' r'\nr\"\"\" r\"\"\"\nr''' r'''",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "4:0-4:2",
+						"removal": "4:0-4:3"
+					}
+				],
+				"domain": "4:0-4:2"
+			},
+			{
+				"targets": [
+					{
+						"content": "5:0-5:2",
+						"removal": "5:0-5:3"
+					}
+				],
+				"domain": "5:0-5:2"
+			},
+			{
+				"targets": [
+					{
+						"content": "6:0-6:4",
+						"removal": "6:0-6:5"
+					}
+				],
+				"domain": "6:0-6:4"
+			},
+			{
+				"targets": [
+					{
+						"content": "7:0-7:4",
+						"removal": "7:0-7:5"
+					}
+				],
+				"domain": "7:0-7:4"
+			}
+		]
+	}
+]

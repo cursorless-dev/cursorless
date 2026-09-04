@@ -1,0 +1,222 @@
+[
+	{
+		"name": "scopes/json/comment.block",
+		"languageId": "json",
+		"facet": "comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/json/comment.line",
+		"languageId": "json",
+		"facet": "comment.line",
+		"code": "// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/json/key.mapPair.iteration",
+		"languageId": "json",
+		"facet": "key.mapPair.iteration",
+		"code": "{\"aaa\": 0, \"bbb\": 1}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:19"
+					}
+				],
+				"domain": "0:1-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/json/key.mapPair",
+		"languageId": "json",
+		"facet": "key.mapPair",
+		"code": "{\"aaa\": 0, \"bbb\": 1}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:6",
+						"removal": "0:1-0:8"
+					}
+				],
+				"domain": "0:1-0:9"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:16",
+						"removal": "0:11-0:18"
+					}
+				],
+				"domain": "0:11-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/json/list",
+		"languageId": "json",
+		"facet": "list",
+		"code": "[aaa, bbb]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/json/map",
+		"languageId": "json",
+		"facet": "map",
+		"code": "{\"aaa\": 0, \"bbb\": 1}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:20",
+						"removal": "0:0-0:20"
+					}
+				],
+				"domain": "0:0-0:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/json/string.singleLine",
+		"languageId": "json",
+		"facet": "string.singleLine",
+		"code": "\"Hello world\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/json/textFragment.comment.block",
+		"languageId": "json",
+		"facet": "textFragment.comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/json/textFragment.comment.line",
+		"languageId": "json",
+		"facet": "textFragment.comment.line",
+		"code": "// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/json/textFragment.string.singleLine",
+		"languageId": "json",
+		"facet": "textFragment.string.singleLine",
+		"code": "\"Hello world\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:12",
+						"removal": "0:1-0:12"
+					}
+				],
+				"domain": "0:1-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/json/value.mapPair.iteration",
+		"languageId": "json",
+		"facet": "value.mapPair.iteration",
+		"code": "{\"aaa\": 0, \"bbb\": 1}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:19"
+					}
+				],
+				"domain": "0:1-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/json/value.mapPair",
+		"languageId": "json",
+		"facet": "value.mapPair",
+		"code": "{\"aaa\": 0, \"bbb\": 1}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:9",
+						"removal": "0:6-0:9"
+					}
+				],
+				"domain": "0:1-0:9"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:18-0:19",
+						"removal": "0:16-0:19"
+					}
+				],
+				"domain": "0:11-0:19"
+			}
+		]
+	}
+]

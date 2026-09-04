@@ -1,0 +1,280 @@
+[
+	{
+		"path": "docs/actions/toggleLineComment.yml",
+		"name": "docs/actions/toggleLineComment",
+		"fixture": {
+			"languageId": "typescript",
+			"command": {
+				"version": 7,
+				"spokenForm": "comment air",
+				"action": {
+					"name": "toggleLineComment",
+					"target": {
+						"type": "primitive",
+						"mark": {
+							"type": "decoratedSymbol",
+							"symbolColor": "default",
+							"character": "a"
+						}
+					}
+				},
+				"usePrePhraseSnapshot": false
+			},
+			"initialState": {
+				"documentContents": "bbb aaa",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 0
+						},
+						"active": {
+							"line": 0,
+							"character": 0
+						}
+					}
+				],
+				"marks": {
+					"default.a": {
+						"start": {
+							"line": 0,
+							"character": 4
+						},
+						"end": {
+							"line": 0,
+							"character": 7
+						}
+					}
+				},
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "a",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 5
+							},
+							"end": {
+								"line": 0,
+								"character": 6
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "b",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 1
+							},
+							"end": {
+								"line": 0,
+								"character": 2
+							}
+						}
+					}
+				]
+			},
+			"finalState": {
+				"documentContents": "// bbb aaa",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 3
+						},
+						"active": {
+							"line": 0,
+							"character": 3
+						}
+					}
+				],
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "b",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "/",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "a",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 8
+							},
+							"end": {
+								"line": 0,
+								"character": 9
+							}
+						}
+					}
+				]
+			}
+		}
+	},
+	{
+		"path": "docs/actions/toggleLineComment2.yml",
+		"name": "docs/actions/toggleLineComment2",
+		"fixture": {
+			"languageId": "typescript",
+			"command": {
+				"version": 7,
+				"spokenForm": "comment air",
+				"action": {
+					"name": "toggleLineComment",
+					"target": {
+						"type": "primitive",
+						"mark": {
+							"type": "decoratedSymbol",
+							"symbolColor": "default",
+							"character": "a"
+						}
+					}
+				},
+				"usePrePhraseSnapshot": false
+			},
+			"initialState": {
+				"documentContents": "// bbb aaa",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 0
+						},
+						"active": {
+							"line": 0,
+							"character": 0
+						}
+					}
+				],
+				"marks": {
+					"default.a": {
+						"start": {
+							"line": 0,
+							"character": 7
+						},
+						"end": {
+							"line": 0,
+							"character": 10
+						}
+					}
+				},
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "a",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 8
+							},
+							"end": {
+								"line": 0,
+								"character": 9
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "/",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "b",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					}
+				]
+			},
+			"finalState": {
+				"documentContents": "bbb aaa",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 0
+						},
+						"active": {
+							"line": 0,
+							"character": 0
+						}
+					}
+				],
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "b",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 1
+							},
+							"end": {
+								"line": 0,
+								"character": 2
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "a",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 5
+							},
+							"end": {
+								"line": 0,
+								"character": 6
+							}
+						}
+					}
+				]
+			}
+		}
+	}
+]

@@ -3,6 +3,7 @@ sidebar_label: Lambda
 ---
 
 import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/anonymousFunction.json";
 
 # Lambda (Anonymous function)
 
@@ -22,7 +23,7 @@ Default: `lambda`
 
 ## Visualization
 
-<ScopeVisualizerProvider>
+<ScopeVisualizerProvider scopeTests={scopeTests}>
 
 <ScopeVisualizerOptions />
 

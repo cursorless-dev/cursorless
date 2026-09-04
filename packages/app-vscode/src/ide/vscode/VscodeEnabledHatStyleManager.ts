@@ -18,6 +18,14 @@ export type ExtendedHatStyleMap = Partial<
   Record<VscodeHatStyleName, ExtendedHatStyleInfo>
 >;
 
+interface Settings {
+  shapeEnablement: Record<HatShape, boolean>;
+  colorEnablement: Record<HatColor, boolean>;
+  shapePenalties: Record<HatShape, number>;
+  colorPenalties: Record<HatColor, number>;
+  maxPenalty: number;
+}
+
 /**
  * Keeps track of the available hat styles, along with their associated color
  * and shape identifiers, and penalties.  Note that this class is not
@@ -52,32 +60,25 @@ export class VscodeEnabledHatStyleManager {
   }
 
   private constructHatStyleMap() {
-    const shapeEnablement = vscode.workspace
-      .getConfiguration("cursorless.hatEnablement")
-      .get<Record<HatShape, boolean>>("shapes")!;
-    const colorEnablement = vscode.workspace
-      .getConfiguration("cursorless.hatEnablement")
-      .get<Record<HatColor, boolean>>("colors")!;
-    const shapePenalties = vscode.workspace
-      .getConfiguration("cursorless.hatPenalties")
-      .get<Record<HatShape, number>>("shapes")!;
-    const colorPenalties = vscode.workspace
-      .getConfiguration("cursorless.hatPenalties")
-      .get<Record<HatColor, number>>("colors")!;
-    const maxPenalty = vscode.workspace
-      .getConfiguration("cursorless")
-      .get<number>("maximumHatStylePenalty")!;
+    const {
+      shapeEnablement,
+      colorEnablement,
+      shapePenalties,
+      colorPenalties,
+      maxPenalty,
+    } =
+      this.extensionContext.extensionMode === vscode.ExtensionMode.Test
+        ? this.getDefaultSettings()
+        : this.getSettings();
 
     shapeEnablement.default = true;
     colorEnablement.default = true;
     shapePenalties.default = 0;
     colorPenalties.default = 0;
 
-    // So that unit tests don't fail locally if you have some colors disabled
-    const activeHatColors =
-      this.extensionContext.extensionMode === vscode.ExtensionMode.Test
-        ? HAT_COLORS.filter((color) => !color.startsWith("user"))
-        : HAT_COLORS.filter((color) => colorEnablement[color]);
+    const activeHatColors = HAT_COLORS.filter(
+      (color) => colorEnablement[color],
+    );
     const activeNonDefaultHatShapes = HAT_NON_DEFAULT_SHAPES.filter(
       (shape) => shapeEnablement[shape],
     );
@@ -101,7 +102,7 @@ export class VscodeEnabledHatStyleManager {
           ]),
         ),
       ),
-    } as ExtendedHatStyleMap;
+    };
 
     if (maxPenalty > 0) {
       this.hatStyleMap = pickBy(
@@ -109,5 +110,86 @@ export class VscodeEnabledHatStyleManager {
         ({ penalty }) => penalty <= maxPenalty,
       );
     }
+  }
+
+  private getSettings(): Settings {
+    const shapeEnablement = vscode.workspace
+      .getConfiguration("cursorless.hatEnablement")
+      .get<Record<HatShape, boolean>>("shapes")!;
+    const colorEnablement = vscode.workspace
+      .getConfiguration("cursorless.hatEnablement")
+      .get<Record<HatColor, boolean>>("colors")!;
+    const shapePenalties = vscode.workspace
+      .getConfiguration("cursorless.hatPenalties")
+      .get<Record<HatShape, number>>("shapes")!;
+    const colorPenalties = vscode.workspace
+      .getConfiguration("cursorless.hatPenalties")
+      .get<Record<HatColor, number>>("colors")!;
+    const maxPenalty = vscode.workspace
+      .getConfiguration("cursorless")
+      .get<number>("maximumHatStylePenalty")!;
+    return {
+      shapeEnablement,
+      colorEnablement,
+      shapePenalties,
+      colorPenalties,
+      maxPenalty,
+    };
+  }
+
+  private getDefaultSettings(): Settings {
+    return {
+      shapeEnablement: {
+        default: true,
+        bolt: false,
+        curve: false,
+        fox: false,
+        frame: false,
+        play: false,
+        wing: false,
+        hole: false,
+        ex: false,
+        crosshairs: false,
+        eye: false,
+      },
+      colorEnablement: {
+        default: true,
+        blue: true,
+        green: true,
+        red: true,
+        pink: true,
+        yellow: true,
+        userColor1: false,
+        userColor2: false,
+        userColor3: false,
+        userColor4: false,
+      },
+      shapePenalties: {
+        default: 1,
+        bolt: 1,
+        curve: 1,
+        fox: 1,
+        frame: 1,
+        play: 1,
+        wing: 1,
+        hole: 1,
+        ex: 1,
+        crosshairs: 1,
+        eye: 1,
+      },
+      colorPenalties: {
+        default: 1,
+        blue: 1,
+        green: 1,
+        red: 1,
+        pink: 1,
+        yellow: 1,
+        userColor1: 1,
+        userColor2: 1,
+        userColor3: 1,
+        userColor4: 1,
+      },
+      maxPenalty: 0,
+    };
   }
 }

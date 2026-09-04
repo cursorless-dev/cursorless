@@ -1,0 +1,268 @@
+[
+	{
+		"path": "docs/actions/nextHomophone.yml",
+		"name": "docs/actions/nextHomophone",
+		"fixture": {
+			"languageId": "typescript",
+			"command": {
+				"version": 7,
+				"spokenForm": "phones sit",
+				"action": {
+					"name": "replace",
+					"replaceWith": [
+						"rite"
+					],
+					"destination": {
+						"type": "primitive",
+						"insertionMode": "to",
+						"target": {
+							"type": "primitive",
+							"mark": {
+								"type": "decoratedSymbol",
+								"symbolColor": "default",
+								"character": "i"
+							}
+						}
+					}
+				},
+				"usePrePhraseSnapshot": false
+			},
+			"spokenFormError": "Action 'replace'",
+			"initialState": {
+				"documentContents": "// right",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 0
+						},
+						"active": {
+							"line": 0,
+							"character": 0
+						}
+					}
+				],
+				"marks": {
+					"default.i": {
+						"start": {
+							"line": 0,
+							"character": 3
+						},
+						"end": {
+							"line": 0,
+							"character": 8
+						}
+					}
+				},
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "i",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "/",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					}
+				]
+			},
+			"finalState": {
+				"documentContents": "// rite",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 0
+						},
+						"active": {
+							"line": 0,
+							"character": 0
+						}
+					}
+				],
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "/",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "i",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					}
+				]
+			}
+		}
+	},
+	{
+		"path": "docs/actions/nextHomophone2.yml",
+		"name": "docs/actions/nextHomophone2",
+		"fixture": {
+			"languageId": "typescript",
+			"command": {
+				"version": 7,
+				"spokenForm": "phones sit",
+				"action": {
+					"name": "replace",
+					"replaceWith": [
+						"write"
+					],
+					"destination": {
+						"type": "primitive",
+						"insertionMode": "to",
+						"target": {
+							"type": "primitive",
+							"mark": {
+								"type": "decoratedSymbol",
+								"symbolColor": "default",
+								"character": "i"
+							}
+						}
+					}
+				},
+				"usePrePhraseSnapshot": false
+			},
+			"spokenFormError": "Action 'replace'",
+			"initialState": {
+				"documentContents": "// rite",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 0
+						},
+						"active": {
+							"line": 0,
+							"character": 0
+						}
+					}
+				],
+				"marks": {
+					"default.i": {
+						"start": {
+							"line": 0,
+							"character": 3
+						},
+						"end": {
+							"line": 0,
+							"character": 7
+						}
+					}
+				},
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "i",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "/",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					}
+				]
+			},
+			"finalState": {
+				"documentContents": "// write",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 0
+						},
+						"active": {
+							"line": 0,
+							"character": 0
+						}
+					}
+				],
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "/",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "i",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 5
+							},
+							"end": {
+								"line": 0,
+								"character": 6
+							}
+						}
+					}
+				]
+			}
+		}
+	}
+]

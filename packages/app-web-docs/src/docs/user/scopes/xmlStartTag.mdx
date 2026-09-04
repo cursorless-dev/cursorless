@@ -3,6 +3,7 @@ sidebar_label: Start tag
 ---
 
 import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/xmlStartTag.json";
 
 # Start tag (XML start tag)
 
@@ -22,7 +23,7 @@ Default: `start tag`
 
 ## Visualization
 
-<ScopeVisualizerProvider>
+<ScopeVisualizerProvider scopeTests={scopeTests}>
 
 <ScopeVisualizerOptions />
 

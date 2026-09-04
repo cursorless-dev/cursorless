@@ -1,0 +1,291 @@
+[
+	{
+		"name": "scopes/c/ifStatement",
+		"languageId": "c",
+		"facet": "ifStatement",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:7",
+						"removal": "0:0-2:7"
+					}
+				],
+				"domain": "0:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/clojure/ifStatement",
+		"languageId": "clojure",
+		"facet": "ifStatement",
+		"code": "(if true\n    aaa\n    bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:8",
+						"removal": "0:0-2:8"
+					}
+				],
+				"domain": "0:0-2:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/ifStatement",
+		"languageId": "csharp",
+		"facet": "ifStatement",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:7",
+						"removal": "0:0-2:7"
+					}
+				],
+				"domain": "0:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/ifStatement",
+		"languageId": "dart",
+		"facet": "ifStatement",
+		"code": "foo() {\n    if (true) {}\n    else if (false) {}\n    else {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-3:11",
+						"removal": "1:0-4:0"
+					}
+				],
+				"domain": "1:4-3:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/ifStatement",
+		"languageId": "go",
+		"facet": "ifStatement",
+		"code": "if true {\n} else if false {\n} else {\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:1",
+						"removal": "0:0-3:1"
+					}
+				],
+				"domain": "0:0-3:1"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/ifStatement",
+		"languageId": "java",
+		"facet": "ifStatement",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:7",
+						"removal": "0:0-2:7"
+					}
+				],
+				"domain": "0:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/ifStatement",
+		"languageId": "javascript.core",
+		"facet": "ifStatement",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:7",
+						"removal": "0:0-2:7"
+					}
+				],
+				"domain": "0:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/ifStatement",
+		"languageId": "kotlin",
+		"facet": "ifStatement",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:7",
+						"removal": "0:0-2:7"
+					}
+				],
+				"domain": "0:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/ifStatement",
+		"languageId": "lua",
+		"facet": "ifStatement",
+		"code": "if true then\nelseif false then\nelse\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:3",
+						"removal": "0:0-3:3"
+					}
+				],
+				"domain": "0:0-3:3"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/ifStatement",
+		"languageId": "php",
+		"facet": "ifStatement",
+		"code": "<?php\nif (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-3:7",
+						"removal": "0:5-3:7"
+					}
+				],
+				"domain": "1:0-3:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/ifStatement",
+		"languageId": "python",
+		"facet": "ifStatement",
+		"code": "if True: pass\nelif False: pass\nelse: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:10",
+						"removal": "0:0-2:10"
+					}
+				],
+				"domain": "0:0-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/ifStatement",
+		"languageId": "r",
+		"facet": "ifStatement",
+		"code": "if (TRUE) {\n} else if (FALSE) {\n} else {\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:1",
+						"removal": "0:0-3:1"
+					}
+				],
+				"domain": "0:0-3:1"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/ifStatement",
+		"languageId": "ruby",
+		"facet": "ifStatement",
+		"code": "if true\nelsif false\nelse\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:3",
+						"removal": "0:0-3:3"
+					}
+				],
+				"domain": "0:0-3:3"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/ifStatement",
+		"languageId": "rust",
+		"facet": "ifStatement",
+		"code": "if true {}\nelse if false {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:7",
+						"removal": "0:0-2:7"
+					}
+				],
+				"domain": "0:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/ifStatement",
+		"languageId": "scala",
+		"facet": "ifStatement",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:7",
+						"removal": "0:0-2:7"
+					}
+				],
+				"domain": "0:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/scss/ifStatement",
+		"languageId": "scss",
+		"facet": "ifStatement",
+		"code": "@if true {}\n@else if false {}\n@else {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:8",
+						"removal": "0:0-2:8"
+					}
+				],
+				"domain": "0:0-2:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/talon/ifStatement",
+		"languageId": "talon",
+		"facet": "ifStatement",
+		"code": "command:\n    if true: print(\"true\")",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:26",
+						"removal": "0:8-1:26"
+					}
+				],
+				"domain": "1:4-1:26"
+			}
+		]
+	}
+]

@@ -1,0 +1,63 @@
+[
+	{
+		"name": "scopes/javascript.core/fieldAccess",
+		"languageId": "javascript.core",
+		"facet": "fieldAccess",
+		"code": "foo.bar(0);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:3",
+						"removal": "0:0-0:3"
+					}
+				],
+				"domain": "0:0-0:3"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:3-0:10",
+						"removal": "0:3-0:10"
+					}
+				],
+				"domain": "0:3-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/fieldAccess",
+		"languageId": "python",
+		"facet": "fieldAccess",
+		"code": "foo.bar.baz",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:3",
+						"removal": "0:0-0:3"
+					}
+				],
+				"domain": "0:0-0:3"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:3-0:7",
+						"removal": "0:3-0:7"
+					}
+				],
+				"domain": "0:3-0:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:7-0:11",
+						"removal": "0:7-0:11"
+					}
+				],
+				"domain": "0:7-0:11"
+			}
+		]
+	}
+]

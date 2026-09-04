@@ -8,11 +8,13 @@
   },
 
   "ignorePatterns": [
-    "/packages/app-web-docs/src/docs/contributing/private-scopes/*.mdx",
     "/packages/app-web-docs/src/docs/user/actions/*.mdx",
-    "/packages/app-web-docs/src/docs/user/languages/*.mdx",
     "/packages/app-web-docs/src/docs/user/modifiers/*.mdx",
     "/packages/app-web-docs/src/docs/user/scopes/*.mdx",
+    "/packages/app-web-docs/src/docs/user/languages/*.mdx",
+    "/packages/app-web-docs/src/docs/user/tutorial/*.mdx",
+    "/packages/app-web-docs/src/docs/contributing/private-scopes/*.mdx",
+    "/packages/app-web-docs/src/docs/**/fixtures/*.json",
     "/packages/app-vscode/src/keyboard/grammar/generated/",
     "/packages/lib-engine/src/customCommandGrammar/generated/",
     "/packages/lib-engine/src/snippets/vendor/",

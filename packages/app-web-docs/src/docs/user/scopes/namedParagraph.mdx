@@ -3,6 +3,7 @@ sidebar_label: Paragraph
 ---
 
 import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/namedParagraph.json";
 
 # Paragraph (Named paragraph)
 
@@ -22,7 +23,7 @@ Default: `paragraph`
 
 ## Visualization
 
-<ScopeVisualizerProvider>
+<ScopeVisualizerProvider scopeTests={scopeTests}>
 
 <ScopeVisualizerOptions />
 

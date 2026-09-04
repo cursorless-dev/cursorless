@@ -1,4 +1,5 @@
 import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/ordinalScope.json";
 
 # Ordinal scope
 
@@ -34,7 +35,7 @@ Cursorless ID: `ordinalScope`
 
 ## Visualization
 
-<RecordedTestVisualizerProvider>
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
 
 <RecordedTestVisualizerOptions />
 

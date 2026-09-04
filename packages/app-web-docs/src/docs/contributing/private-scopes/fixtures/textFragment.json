@@ -1,0 +1,1567 @@
+[
+	{
+		"name": "scopes/c/textFragment.comment.block",
+		"languageId": "c",
+		"facet": "textFragment.comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/textFragment.comment.line",
+		"languageId": "c",
+		"facet": "textFragment.comment.line",
+		"code": "// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/textFragment.string.singleLine",
+		"languageId": "c",
+		"facet": "textFragment.string.singleLine",
+		"code": "\"Hello world\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:12",
+						"removal": "0:1-0:12"
+					}
+				],
+				"domain": "0:1-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/clojure/textFragment.comment.line",
+		"languageId": "clojure",
+		"facet": "textFragment.comment.line",
+		"code": ";; Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/clojure/textFragment.string.multiLine",
+		"languageId": "clojure",
+		"facet": "textFragment.string.multiLine",
+		"code": "\"Hello\nworld\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-1:5",
+						"removal": "0:1-1:5"
+					}
+				],
+				"domain": "0:1-1:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/clojure/textFragment.string.singleLine",
+		"languageId": "clojure",
+		"facet": "textFragment.string.singleLine",
+		"code": "\"Hello world\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:12",
+						"removal": "0:1-0:12"
+					}
+				],
+				"domain": "0:1-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/textFragment.comment.block",
+		"languageId": "csharp",
+		"facet": "textFragment.comment.block",
+		"code": "/* Hello World */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/textFragment.comment.line",
+		"languageId": "csharp",
+		"facet": "textFragment.comment.line",
+		"code": "// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/textFragment.string.multiLine",
+		"languageId": "csharp",
+		"facet": "textFragment.string.multiLine",
+		"code": "@\"Hello\nworld\";",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:2-1:5",
+						"removal": "0:2-1:5"
+					}
+				],
+				"domain": "0:2-1:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/textFragment.string.singleLine",
+		"languageId": "csharp",
+		"facet": "textFragment.string.singleLine",
+		"code": "\"Hello world\";",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:12",
+						"removal": "0:1-0:12"
+					}
+				],
+				"domain": "0:1-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/css/textFragment.comment.block",
+		"languageId": "css",
+		"facet": "textFragment.comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/css/textFragment.string.singleLine",
+		"languageId": "css",
+		"facet": "textFragment.string.singleLine",
+		"code": "* {\n    color: \"red\"\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:12-1:15",
+						"removal": "1:12-1:15"
+					}
+				],
+				"domain": "1:12-1:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/textFragment.comment.block",
+		"languageId": "dart",
+		"facet": "textFragment.comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/textFragment.comment.line",
+		"languageId": "dart",
+		"facet": "textFragment.comment.line",
+		"code": "// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/textFragment.string.multiLine",
+		"languageId": "dart",
+		"facet": "textFragment.string.multiLine",
+		"code": "var foo = \"\"\"Hello\nworld\"\"\";",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-1:5",
+						"removal": "0:13-1:5"
+					}
+				],
+				"domain": "0:13-1:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/textFragment.string.singleLine",
+		"languageId": "dart",
+		"facet": "textFragment.string.singleLine",
+		"code": "var foo = \"Hello world\";",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:22",
+						"removal": "0:11-0:22"
+					}
+				],
+				"domain": "0:11-0:22"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/textFragment.comment.block",
+		"languageId": "go",
+		"facet": "textFragment.comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/textFragment.comment.line",
+		"languageId": "go",
+		"facet": "textFragment.comment.line",
+		"code": "// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/textFragment.string.multiLine",
+		"languageId": "go",
+		"facet": "textFragment.string.multiLine",
+		"code": "`Hello\nworld`",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-1:5",
+						"removal": "0:1-1:5"
+					}
+				],
+				"domain": "0:1-1:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/textFragment.string.singleLine",
+		"languageId": "go",
+		"facet": "textFragment.string.singleLine",
+		"code": "\"Hello world\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:12",
+						"removal": "0:1-0:12"
+					}
+				],
+				"domain": "0:1-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/html/textFragment.comment.block",
+		"languageId": "html",
+		"facet": "textFragment.comment.block",
+		"code": "<!-- Hello world -->",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:20",
+						"removal": "0:0-0:20"
+					}
+				],
+				"domain": "0:0-0:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/html/textFragment.element",
+		"languageId": "html",
+		"facet": "textFragment.element",
+		"code": "<div>Hello world<div>",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:16",
+						"removal": "0:5-0:16"
+					}
+				],
+				"domain": "0:5-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/html/textFragment.string.singleLine",
+		"languageId": "html",
+		"facet": "textFragment.string.singleLine",
+		"code": "<div id=\"foo\"><div>",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:9-0:12",
+						"removal": "0:9-0:12"
+					}
+				],
+				"domain": "0:9-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/textFragment.comment.block",
+		"languageId": "java",
+		"facet": "textFragment.comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/textFragment.comment.block2",
+		"languageId": "java",
+		"facet": "textFragment.comment.block",
+		"code": "/** Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:18",
+						"removal": "0:0-0:18"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/textFragment.comment.line",
+		"languageId": "java",
+		"facet": "textFragment.comment.line",
+		"code": "// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/textFragment.string.multiLine",
+		"languageId": "java",
+		"facet": "textFragment.string.multiLine",
+		"code": "\"\"\"\nHello\nworld\n\"\"\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:3-3:0",
+						"removal": "0:3-3:0"
+					}
+				],
+				"domain": "0:3-3:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/textFragment.string.singleLine",
+		"languageId": "java",
+		"facet": "textFragment.string.singleLine",
+		"code": "\"Hello world\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:12",
+						"removal": "0:1-0:12"
+					}
+				],
+				"domain": "0:1-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/textFragment/textFragment.comment.block",
+		"languageId": "javascript.core",
+		"facet": "textFragment.comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/textFragment/textFragment.comment.block2",
+		"languageId": "javascript.core",
+		"facet": "textFragment.comment.block",
+		"code": "/** Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:18",
+						"removal": "0:0-0:18"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/textFragment/textFragment.comment.line",
+		"languageId": "javascript.core",
+		"facet": "textFragment.comment.line",
+		"code": "// hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/textFragment/textFragment.string.multiLine",
+		"languageId": "javascript.core",
+		"facet": "textFragment.string.multiLine",
+		"code": "`hello\nworld`",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-1:5",
+						"removal": "0:1-1:5"
+					}
+				],
+				"domain": "0:1-1:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/textFragment/textFragment.string.singleLine",
+		"languageId": "javascript.core",
+		"facet": "textFragment.string.singleLine",
+		"code": "\"hello world\"\n'hello world'\n\"hello\\nworld\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:12",
+						"removal": "0:1-0:12"
+					}
+				],
+				"domain": "0:1-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:1-1:12",
+						"removal": "1:1-1:12"
+					}
+				],
+				"domain": "1:1-1:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:1-2:13",
+						"removal": "2:1-2:13"
+					}
+				],
+				"domain": "2:1-2:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.jsx/textFragment.element",
+		"languageId": "javascript.jsx",
+		"facet": "textFragment.element",
+		"code": "<div>Hello world</div>",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:16",
+						"removal": "0:5-0:16"
+					}
+				],
+				"domain": "0:5-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.jsx/textFragment.element2",
+		"languageId": "javascript.jsx",
+		"facet": "textFragment.element",
+		"code": "<div>({foo})</div>",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:12",
+						"removal": "0:5-0:12"
+					}
+				],
+				"domain": "0:5-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/json/textFragment.comment.block",
+		"languageId": "json",
+		"facet": "textFragment.comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/json/textFragment.comment.line",
+		"languageId": "json",
+		"facet": "textFragment.comment.line",
+		"code": "// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/json/textFragment.string.singleLine",
+		"languageId": "json",
+		"facet": "textFragment.string.singleLine",
+		"code": "\"Hello world\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:12",
+						"removal": "0:1-0:12"
+					}
+				],
+				"domain": "0:1-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/textFragment.comment.block",
+		"languageId": "kotlin",
+		"facet": "textFragment.comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/textFragment.comment.block2",
+		"languageId": "kotlin",
+		"facet": "textFragment.comment.block",
+		"code": "/** Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:18",
+						"removal": "0:0-0:18"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/textFragment.comment.line",
+		"languageId": "kotlin",
+		"facet": "textFragment.comment.line",
+		"code": "// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/textFragment.string.multiLine",
+		"languageId": "kotlin",
+		"facet": "textFragment.string.multiLine",
+		"code": "\"\"\"Hello\nworld\"\"\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:3-1:5",
+						"removal": "0:3-1:5"
+					}
+				],
+				"domain": "0:3-1:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/textFragment.string.singleLine",
+		"languageId": "kotlin",
+		"facet": "textFragment.string.singleLine",
+		"code": "\"Hello world\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:12",
+						"removal": "0:1-0:12"
+					}
+				],
+				"domain": "0:1-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/latex/textFragment.comment.block",
+		"languageId": "latex",
+		"facet": "textFragment.comment.block",
+		"code": "\\iffalse Hello world \\fi",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:24",
+						"removal": "0:0-0:24"
+					}
+				],
+				"domain": "0:0-0:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/latex/textFragment.comment.line",
+		"languageId": "latex",
+		"facet": "textFragment.comment.line",
+		"code": "% Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/latex/textFragment.element",
+		"languageId": "latex",
+		"facet": "textFragment.element",
+		"code": "\\begin{quote}\n    Hello\n\\end{quote}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-2:0",
+						"removal": "0:13-2:0"
+					}
+				],
+				"domain": "0:13-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/textFragment.comment.block",
+		"languageId": "lua",
+		"facet": "textFragment.comment.block",
+		"code": "--[[ Hello world ]]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:19",
+						"removal": "0:0-0:19"
+					}
+				],
+				"domain": "0:0-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/textFragment.comment.line",
+		"languageId": "lua",
+		"facet": "textFragment.comment.line",
+		"code": "-- Hello world ",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:15",
+						"removal": "0:0-0:15"
+					}
+				],
+				"domain": "0:0-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/textFragment.string.multiLine",
+		"languageId": "lua",
+		"facet": "textFragment.string.multiLine",
+		"code": "foo = [[Hello\nworld]]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-1:5",
+						"removal": "0:8-1:5"
+					}
+				],
+				"domain": "0:8-1:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/textFragment.string.singleLine",
+		"languageId": "lua",
+		"facet": "textFragment.string.singleLine",
+		"code": "foo = \"Hello world\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:18",
+						"removal": "0:7-0:18"
+					}
+				],
+				"domain": "0:7-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/markdown/textFragment.comment.block",
+		"languageId": "markdown",
+		"facet": "textFragment.comment.block",
+		"code": "<!-- Hello world -->",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:20",
+						"removal": "0:0-0:20"
+					}
+				],
+				"domain": "0:0-0:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/textFragment.comment.block",
+		"languageId": "php",
+		"facet": "textFragment.comment.block",
+		"code": "<?php\n/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:17",
+						"removal": "0:5-1:17"
+					}
+				],
+				"domain": "1:0-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/textFragment.comment.line",
+		"languageId": "php",
+		"facet": "textFragment.comment.line",
+		"code": "<?php\n// hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:14",
+						"removal": "0:5-1:14"
+					}
+				],
+				"domain": "1:0-1:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/textFragment.string.multiLine",
+		"languageId": "php",
+		"facet": "textFragment.string.multiLine",
+		"code": "<?php\n\"hello\nworld\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:1-2:5",
+						"removal": "1:1-2:5"
+					}
+				],
+				"domain": "1:1-2:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/textFragment.string.singleLine",
+		"languageId": "php",
+		"facet": "textFragment.string.singleLine",
+		"code": "<?php\n\"Hello world\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:1-1:12",
+						"removal": "1:1-1:12"
+					}
+				],
+				"domain": "1:1-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/properties/textFragment.comment.line",
+		"languageId": "properties",
+		"facet": "textFragment.comment.line",
+		"code": "# Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/textFragment.comment.line",
+		"languageId": "python",
+		"facet": "textFragment.comment.line",
+		"code": "# Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/textFragment.string.multiLine",
+		"languageId": "python",
+		"facet": "textFragment.string.multiLine",
+		"code": "\"\"\"\nHello\nworld\n\"\"\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:3-3:0",
+						"removal": "0:3-3:0"
+					}
+				],
+				"domain": "0:3-3:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/textFragment.string.singleLine",
+		"languageId": "python",
+		"facet": "textFragment.string.singleLine",
+		"code": "\"Hello world\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:12",
+						"removal": "0:1-0:12"
+					}
+				],
+				"domain": "0:1-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/textFragment.comment.line",
+		"languageId": "r",
+		"facet": "textFragment.comment.line",
+		"code": "# Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/textFragment.string.multiLine",
+		"languageId": "r",
+		"facet": "textFragment.string.multiLine",
+		"code": "\"Hello\nworld\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-1:5",
+						"removal": "0:1-1:5"
+					}
+				],
+				"domain": "0:1-1:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/textFragment.string.singleLine",
+		"languageId": "r",
+		"facet": "textFragment.string.singleLine",
+		"code": "'Hello world'",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:12",
+						"removal": "0:1-0:12"
+					}
+				],
+				"domain": "0:1-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/textFragment.comment.block",
+		"languageId": "ruby",
+		"facet": "textFragment.comment.block",
+		"code": "=begin\nHello world\n=end",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:4",
+						"removal": "0:0-2:4"
+					}
+				],
+				"domain": "0:0-2:4"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/textFragment.comment.line",
+		"languageId": "ruby",
+		"facet": "textFragment.comment.line",
+		"code": "# Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/textFragment.string.multiLine",
+		"languageId": "ruby",
+		"facet": "textFragment.string.multiLine",
+		"code": "\"Hello\nworld\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-1:5",
+						"removal": "0:1-1:5"
+					}
+				],
+				"domain": "0:1-1:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/textFragment.string.singleLine",
+		"languageId": "ruby",
+		"facet": "textFragment.string.singleLine",
+		"code": "\"Hello world\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:12",
+						"removal": "0:1-0:12"
+					}
+				],
+				"domain": "0:1-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/textFragment.comment.block",
+		"languageId": "rust",
+		"facet": "textFragment.comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/textFragment.comment.line",
+		"languageId": "rust",
+		"facet": "textFragment.comment.line",
+		"code": "// Hello world ",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:15",
+						"removal": "0:0-0:15"
+					}
+				],
+				"domain": "0:0-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/textFragment.string.multiLine",
+		"languageId": "rust",
+		"facet": "textFragment.string.multiLine",
+		"code": "\"Hello \nworld\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-1:5",
+						"removal": "0:1-1:5"
+					}
+				],
+				"domain": "0:1-1:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/textFragment.string.singleLine",
+		"languageId": "rust",
+		"facet": "textFragment.string.singleLine",
+		"code": "\"Hello world\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:12",
+						"removal": "0:1-0:12"
+					}
+				],
+				"domain": "0:1-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/textFragment.string.singleLine2",
+		"languageId": "rust",
+		"facet": "textFragment.string.singleLine",
+		"code": "r#\"Hello world\"#",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:3-0:14",
+						"removal": "0:3-0:14"
+					}
+				],
+				"domain": "0:3-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/textFragment.string.singleLine3",
+		"languageId": "rust",
+		"facet": "textFragment.string.singleLine",
+		"code": "r##\"Hello world\"##",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:15",
+						"removal": "0:4-0:15"
+					}
+				],
+				"domain": "0:4-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/textFragment.comment.block",
+		"languageId": "scala",
+		"facet": "textFragment.comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/textFragment.comment.line",
+		"languageId": "scala",
+		"facet": "textFragment.comment.line",
+		"code": "// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/textFragment.string.multiLine",
+		"languageId": "scala",
+		"facet": "textFragment.string.multiLine",
+		"code": "\"\"\"Hello\nworld\"\"\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:8",
+						"removal": "0:0-1:8"
+					}
+				],
+				"domain": "0:0-1:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/textFragment.string.singleLine",
+		"languageId": "scala",
+		"facet": "textFragment.string.singleLine",
+		"code": "\"Hello world\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/scm/textFragment.comment.line",
+		"languageId": "scm",
+		"facet": "textFragment.comment.line",
+		"code": ";; Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/scm/textFragment.string.singleLine",
+		"languageId": "scm",
+		"facet": "textFragment.string.singleLine",
+		"code": "\"hello world\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:12",
+						"removal": "0:1-0:12"
+					}
+				],
+				"domain": "0:1-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/scss/textFragment.comment.line",
+		"languageId": "scss",
+		"facet": "textFragment.comment.line",
+		"code": "// Hello wold",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/talon/textFragment.comment.line",
+		"languageId": "talon",
+		"facet": "textFragment.comment.line",
+		"code": "# Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/talon/textFragment.string.singleLine",
+		"languageId": "talon",
+		"facet": "textFragment.string.singleLine",
+		"code": "command: \"Hello world\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:21",
+						"removal": "0:10-0:21"
+					}
+				],
+				"domain": "0:10-0:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/talon/textFragment.string.singleLine2",
+		"languageId": "talon",
+		"facet": "textFragment.string.singleLine",
+		"code": "command: 'Hello world'",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:21",
+						"removal": "0:10-0:21"
+					}
+				],
+				"domain": "0:10-0:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/talon-list/textFragment.comment.line",
+		"languageId": "talon-list",
+		"facet": "textFragment.comment.line",
+		"code": "# Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/talon-list/textFragment.string.singleLine",
+		"languageId": "talon-list",
+		"facet": "textFragment.string.singleLine",
+		"code": "foo: \"bar\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:9",
+						"removal": "0:6-0:9"
+					}
+				],
+				"domain": "0:6-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/xml/textFragment.comment.block",
+		"languageId": "xml",
+		"facet": "textFragment.comment.block",
+		"code": "<!-- Hello world -->",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:20",
+						"removal": "0:0-0:20"
+					}
+				],
+				"domain": "0:0-0:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/xml/textFragment.element",
+		"languageId": "xml",
+		"facet": "textFragment.element",
+		"code": "<name>Hello world</name>",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:17",
+						"removal": "0:6-0:17"
+					}
+				],
+				"domain": "0:6-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/xml/textFragment.string.singleLine",
+		"languageId": "xml",
+		"facet": "textFragment.string.singleLine",
+		"code": "<name id=\"foo\"></name>",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:13",
+						"removal": "0:10-0:13"
+					}
+				],
+				"domain": "0:10-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/yaml/textFragment.comment.line",
+		"languageId": "yaml",
+		"facet": "textFragment.comment.line",
+		"code": "# Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/yaml/textFragment.string.multiLine",
+		"languageId": "yaml",
+		"facet": "textFragment.string.multiLine",
+		"code": "value: |\n  Hello\n  world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-2:7",
+						"removal": "0:6-2:7"
+					}
+				],
+				"domain": "0:7-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/yaml/textFragment.string.singleLine",
+		"languageId": "yaml",
+		"facet": "textFragment.string.singleLine",
+		"code": "foo: \"Hello world\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:17",
+						"removal": "0:6-0:17"
+					}
+				],
+				"domain": "0:6-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/yaml/textFragment.string.singleLine2",
+		"languageId": "yaml",
+		"facet": "textFragment.string.singleLine",
+		"code": "foo: Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:16",
+						"removal": "0:4-0:16"
+					}
+				],
+				"domain": "0:5-0:16"
+			}
+		]
+	}
+]

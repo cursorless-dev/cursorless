@@ -1,0 +1,28 @@
+[
+	{
+		"name": "scopes/plaintext/nonWhitespaceSequence",
+		"languageId": "plaintext",
+		"facet": "nonWhitespaceSequence",
+		"code": "b.c(?!å_*/\\)|d4 aaa",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:15",
+						"removal": "0:0-0:16"
+					}
+				],
+				"domain": "0:0-0:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:16-0:19",
+						"removal": "0:15-0:19"
+					}
+				],
+				"domain": "0:16-0:19"
+			}
+		]
+	}
+]

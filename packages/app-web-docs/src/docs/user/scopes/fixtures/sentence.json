@@ -1,0 +1,79 @@
+[
+	{
+		"name": "scopes/plaintext/sentence",
+		"languageId": "plaintext",
+		"facet": "sentence",
+		"code": "This is a sentence. So is this.",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:19",
+						"removal": "0:0-0:20"
+					}
+				],
+				"domain": "0:0-0:19"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:20-0:31",
+						"removal": "0:19-0:31"
+					}
+				],
+				"domain": "0:20-0:31"
+			}
+		]
+	},
+	{
+		"name": "scopes/plaintext/sentence2",
+		"languageId": "plaintext",
+		"facet": "sentence",
+		"code": "This is a longer sentence\nspanning multiple lines.",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:24",
+						"removal": "0:0-1:24"
+					}
+				],
+				"domain": "0:0-1:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/plaintext/sentence3",
+		"languageId": "plaintext",
+		"facet": "sentence",
+		"code": "// This is a longer sentence\n// spanning multiple lines.",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:3-1:27",
+						"removal": "0:2-1:27"
+					}
+				],
+				"domain": "0:3-1:27"
+			}
+		]
+	},
+	{
+		"name": "scopes/plaintext/sentence4",
+		"languageId": "plaintext",
+		"facet": "sentence",
+		"code": "/*\n* This is a longer sentence\n* spanning multiple lines.\n*/",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:2-2:26",
+						"removal": "1:1-2:26"
+					}
+				],
+				"domain": "1:2-2:26"
+			}
+		]
+	}
+]

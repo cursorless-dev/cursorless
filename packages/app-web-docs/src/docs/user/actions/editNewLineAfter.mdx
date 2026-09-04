@@ -3,6 +3,7 @@ sidebar_label: Pour
 ---
 
 import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/editNewLineAfter.json";
 
 # Pour (Edit new line/scope after)
 
@@ -26,7 +27,7 @@ Default: `pour`
 
 ## Visualization
 
-<RecordedTestVisualizerProvider>
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
 
 <RecordedTestVisualizerOptions />
 

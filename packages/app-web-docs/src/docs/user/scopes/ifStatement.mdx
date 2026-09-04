@@ -3,6 +3,7 @@ sidebar_label: If state
 ---
 
 import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/ifStatement.json";
 
 # If state (If statement)
 
@@ -22,7 +23,7 @@ Default: `if state`
 
 ## Visualization
 
-<ScopeVisualizerProvider>
+<ScopeVisualizerProvider scopeTests={scopeTests}>
 
 <ScopeVisualizerOptions />
 

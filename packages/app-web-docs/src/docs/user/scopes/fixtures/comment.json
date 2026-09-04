@@ -1,0 +1,767 @@
+[
+	{
+		"name": "scopes/c/comment.block",
+		"languageId": "c",
+		"facet": "comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/comment.line",
+		"languageId": "c",
+		"facet": "comment.line",
+		"code": "// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/clojure/comment.line",
+		"languageId": "clojure",
+		"facet": "comment.line",
+		"code": ";; Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/comment.block",
+		"languageId": "csharp",
+		"facet": "comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/comment.line",
+		"languageId": "csharp",
+		"facet": "comment.line",
+		"code": "// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/css/comment.block",
+		"languageId": "css",
+		"facet": "comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/comment.block",
+		"languageId": "dart",
+		"facet": "comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/comment.line",
+		"languageId": "dart",
+		"facet": "comment.line",
+		"code": "// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/comment.block",
+		"languageId": "go",
+		"facet": "comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/comment.line",
+		"languageId": "go",
+		"facet": "comment.line",
+		"code": "// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/html/comment.block",
+		"languageId": "html",
+		"facet": "comment.block",
+		"code": "<!-- Hello world -->",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:20",
+						"removal": "0:0-0:20"
+					}
+				],
+				"domain": "0:0-0:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/comment.block",
+		"languageId": "java",
+		"facet": "comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/comment.block2",
+		"languageId": "java",
+		"facet": "comment.block",
+		"code": "/** Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:18",
+						"removal": "0:0-0:18"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/comment.line",
+		"languageId": "java",
+		"facet": "comment.line",
+		"code": "// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/comment.block",
+		"languageId": "javascript.core",
+		"facet": "comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/comment.block2",
+		"languageId": "javascript.core",
+		"facet": "comment.block",
+		"code": "/** Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:18",
+						"removal": "0:0-0:18"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/comment.line",
+		"languageId": "javascript.core",
+		"facet": "comment.line",
+		"code": "// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/json/comment.block",
+		"languageId": "json",
+		"facet": "comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/json/comment.line",
+		"languageId": "json",
+		"facet": "comment.line",
+		"code": "// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/comment.block",
+		"languageId": "kotlin",
+		"facet": "comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/comment.block2",
+		"languageId": "kotlin",
+		"facet": "comment.block",
+		"code": "/** Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:18",
+						"removal": "0:0-0:18"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/comment.line",
+		"languageId": "kotlin",
+		"facet": "comment.line",
+		"code": "// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/latex/comment.block",
+		"languageId": "latex",
+		"facet": "comment.block",
+		"code": "\\iffalse Hello world \\fi",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:24",
+						"removal": "0:0-0:24"
+					}
+				],
+				"domain": "0:0-0:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/latex/comment.line",
+		"languageId": "latex",
+		"facet": "comment.line",
+		"code": "% Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/comment.block",
+		"languageId": "lua",
+		"facet": "comment.block",
+		"code": "--[[ Hello world ]]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:19",
+						"removal": "0:0-0:19"
+					}
+				],
+				"domain": "0:0-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/comment.line",
+		"languageId": "lua",
+		"facet": "comment.line",
+		"code": "-- Hello world ",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:15",
+						"removal": "0:0-0:15"
+					}
+				],
+				"domain": "0:0-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/markdown/comment.block",
+		"languageId": "markdown",
+		"facet": "comment.block",
+		"code": "<!-- Hello world -->",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:20",
+						"removal": "0:0-0:20"
+					}
+				],
+				"domain": "0:0-0:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/comment.block",
+		"languageId": "php",
+		"facet": "comment.block",
+		"code": "<?php\n/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:17",
+						"removal": "0:5-1:17"
+					}
+				],
+				"domain": "1:0-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/comment.line",
+		"languageId": "php",
+		"facet": "comment.line",
+		"code": "<?php\n// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:14",
+						"removal": "0:5-1:14"
+					}
+				],
+				"domain": "1:0-1:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/comment.line2",
+		"languageId": "php",
+		"facet": "comment.line",
+		"code": "<?php\n# Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:13",
+						"removal": "0:5-1:13"
+					}
+				],
+				"domain": "1:0-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/properties/comment.line",
+		"languageId": "properties",
+		"facet": "comment.line",
+		"code": "# Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/comment.line",
+		"languageId": "python",
+		"facet": "comment.line",
+		"code": "# Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/comment.line",
+		"languageId": "r",
+		"facet": "comment.line",
+		"code": "# Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/comment.block",
+		"languageId": "ruby",
+		"facet": "comment.block",
+		"code": "=begin\nHello world\n=end",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:4",
+						"removal": "0:0-2:4"
+					}
+				],
+				"domain": "0:0-2:4"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/comment.line",
+		"languageId": "ruby",
+		"facet": "comment.line",
+		"code": "# Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/comment.block",
+		"languageId": "rust",
+		"facet": "comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/comment.line",
+		"languageId": "rust",
+		"facet": "comment.line",
+		"code": "// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/comment.block",
+		"languageId": "scala",
+		"facet": "comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/comment.line",
+		"languageId": "scala",
+		"facet": "comment.line",
+		"code": "// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/scm/comment.line",
+		"languageId": "scm",
+		"facet": "comment.line",
+		"code": ";; Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/scss/comment.line",
+		"languageId": "scss",
+		"facet": "comment.line",
+		"code": "// Hello wold",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/talon/comment.line",
+		"languageId": "talon",
+		"facet": "comment.line",
+		"code": "# Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/talon-list/comment.line",
+		"languageId": "talon-list",
+		"facet": "comment.line",
+		"code": "# Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/xml/comment.block",
+		"languageId": "xml",
+		"facet": "comment.block",
+		"code": "<!-- Hello world -->",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:20",
+						"removal": "0:0-0:20"
+					}
+				],
+				"domain": "0:0-0:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/yaml/comment.line",
+		"languageId": "yaml",
+		"facet": "comment.line",
+		"code": "# Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	}
+]

@@ -3,6 +3,7 @@ sidebar_label: Puff
 ---
 
 import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/insertEmptyLinesAround.json";
 
 # Puff (Insert empty lines/scopes around)
 
@@ -25,7 +26,7 @@ Default: `puff`
 
 ## Visualization
 
-<RecordedTestVisualizerProvider>
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
 
 <RecordedTestVisualizerOptions />
 

@@ -1,0 +1,121 @@
+[
+	{
+		"name": "scopes/css/selector/selector",
+		"languageId": "css",
+		"facet": "selector",
+		"code": "* {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:1",
+						"removal": "0:0-0:2"
+					}
+				],
+				"domain": "0:0-0:4"
+			}
+		]
+	},
+	{
+		"name": "scopes/css/selector/selector2",
+		"languageId": "css",
+		"facet": "selector",
+		"code": "body {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:4",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/css/selector/selector3",
+		"languageId": "css",
+		"facet": "selector",
+		"code": ".foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:4",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/css/selector/selector4",
+		"languageId": "css",
+		"facet": "selector",
+		"code": "#foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:4",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/css/selector/selector5",
+		"languageId": "css",
+		"facet": "selector",
+		"code": "body > div {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:11"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/css/selector/selector6",
+		"languageId": "css",
+		"facet": "selector",
+		"code": "#foo.bar {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:8",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/css/selector/selector7",
+		"languageId": "css",
+		"facet": "selector",
+		"code": "div:hover {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	}
+]

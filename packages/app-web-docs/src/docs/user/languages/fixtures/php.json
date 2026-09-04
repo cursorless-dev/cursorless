@@ -1,0 +1,5299 @@
+[
+	{
+		"name": "scopes/php/anonymousFunction",
+		"languageId": "php",
+		"facet": "anonymousFunction",
+		"code": "<?php\nfunction() {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:13",
+						"removal": "1:0-1:13"
+					}
+				],
+				"domain": "1:0-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/anonymousFunction2",
+		"languageId": "php",
+		"facet": "anonymousFunction",
+		"code": "<?php\nfn() => 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:9",
+						"removal": "1:0-1:9"
+					}
+				],
+				"domain": "1:0-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.actual.constructor.iteration",
+		"languageId": "php",
+		"facet": "argument.actual.constructor.iteration",
+		"code": "<?php\nnew Foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:16"
+					}
+				],
+				"domain": "1:0-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.actual.constructor.multiLine",
+		"languageId": "php",
+		"facet": "argument.actual.constructor.multiLine",
+		"code": "<?php\nnew Foo(\n    aaa,\n    bbb\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "2:4-3:4"
+					}
+				],
+				"domain": "2:4-2:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:4-3:7",
+						"removal": "2:7-3:7"
+					}
+				],
+				"domain": "3:4-3:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.actual.constructor.singleLine",
+		"languageId": "php",
+		"facet": "argument.actual.constructor.singleLine",
+		"code": "<?php\nnew Foo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:11",
+						"removal": "1:8-1:13"
+					}
+				],
+				"domain": "1:8-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:16",
+						"removal": "1:11-1:16"
+					}
+				],
+				"domain": "1:13-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.actual.iteration",
+		"languageId": "php",
+		"facet": "argument.actual.iteration",
+		"code": "<?php\nfoo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:12"
+					}
+				],
+				"domain": "1:0-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.actual.method.iteration",
+		"languageId": "php",
+		"facet": "argument.actual.method.iteration",
+		"code": "<?php\nfoo.bar(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:16"
+					}
+				],
+				"domain": "1:0-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.actual.method.multiLine",
+		"languageId": "php",
+		"facet": "argument.actual.method.multiLine",
+		"code": "<?php\nfoo.bar(\n    aaa,\n    bbb\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "2:4-3:4"
+					}
+				],
+				"domain": "2:4-2:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:4-3:7",
+						"removal": "2:7-3:7"
+					}
+				],
+				"domain": "3:4-3:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.actual.method.singleLine",
+		"languageId": "php",
+		"facet": "argument.actual.method.singleLine",
+		"code": "<?php\nfoo.bar(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:11",
+						"removal": "1:8-1:13"
+					}
+				],
+				"domain": "1:8-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:16",
+						"removal": "1:11-1:16"
+					}
+				],
+				"domain": "1:13-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.actual.multiLine",
+		"languageId": "php",
+		"facet": "argument.actual.multiLine",
+		"code": "<?php\nfoo(\n    aaa,\n    bbb\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "2:4-3:4"
+					}
+				],
+				"domain": "2:4-2:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:4-3:7",
+						"removal": "2:7-3:7"
+					}
+				],
+				"domain": "3:4-3:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.actual.singleLine",
+		"languageId": "php",
+		"facet": "argument.actual.singleLine",
+		"code": "<?php\nfoo(aaa, bbb)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-1:9"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:9-1:12",
+						"removal": "1:7-1:12"
+					}
+				],
+				"domain": "1:9-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.catch",
+		"languageId": "php",
+		"facet": "argument.formal.catch",
+		"code": "<?php\ntry {}\ncatch (Exception $e) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:7-2:19",
+						"removal": "2:7-2:19"
+					}
+				],
+				"domain": "2:7-2:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.constructor.iteration",
+		"languageId": "php",
+		"facet": "argument.formal.constructor.iteration",
+		"code": "<?php\nclass Foo {\n    function __construct($aaa, $bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:25-2:35"
+					}
+				],
+				"domain": "2:4-2:39"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.constructor.multiLine",
+		"languageId": "php",
+		"facet": "argument.formal.constructor.multiLine",
+		"code": "<?php\nclass Foo {\n    function __construct(\n        number $aaa,\n        number $bbb\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "3:8-3:19",
+						"removal": "3:8-4:8"
+					}
+				],
+				"domain": "3:8-3:19"
+			},
+			{
+				"targets": [
+					{
+						"content": "4:8-4:19",
+						"removal": "3:19-4:19"
+					}
+				],
+				"domain": "4:8-4:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.constructor.singleLine",
+		"languageId": "php",
+		"facet": "argument.formal.constructor.singleLine",
+		"code": "<?php\nclass Foo {\n    function __construct(number $aaa, number $bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:25-2:36",
+						"removal": "2:25-2:38"
+					}
+				],
+				"domain": "2:25-2:36"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:38-2:49",
+						"removal": "2:36-2:49"
+					}
+				],
+				"domain": "2:38-2:49"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.iteration",
+		"languageId": "php",
+		"facet": "argument.formal.iteration",
+		"code": "<?php\nfunction foo($aaa, number $bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:13-1:30"
+					}
+				],
+				"domain": "1:0-1:34"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.lambda.iteration",
+		"languageId": "php",
+		"facet": "argument.formal.lambda.iteration",
+		"code": "<?php\nfunction($aaa, $bbb) {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:19"
+					}
+				],
+				"domain": "1:0-1:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.lambda.multiLine",
+		"languageId": "php",
+		"facet": "argument.formal.lambda.multiLine",
+		"code": "<?php\nfunction(\n    $aaa,\n    $bbb\n) {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-2:8",
+						"removal": "2:4-3:4"
+					}
+				],
+				"domain": "2:4-2:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:4-3:8",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "3:4-3:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.lambda.singleLine",
+		"languageId": "php",
+		"facet": "argument.formal.lambda.singleLine",
+		"code": "<?php\nfunction($aaa, $bbb) {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:13",
+						"removal": "1:9-1:15"
+					}
+				],
+				"domain": "1:9-1:13"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:15-1:19",
+						"removal": "1:13-1:19"
+					}
+				],
+				"domain": "1:15-1:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.method.iteration",
+		"languageId": "php",
+		"facet": "argument.formal.method.iteration",
+		"code": "<?php\nclass Foo {\n    function bar($aaa, number $bbb) { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:17-2:34"
+					}
+				],
+				"domain": "2:4-2:39"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.method.multiLine",
+		"languageId": "php",
+		"facet": "argument.formal.method.multiLine",
+		"code": "<?php\nclass Foo {\n    function bar(\n        $aaa,\n        number $bbb\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "3:8-3:12",
+						"removal": "3:8-4:8"
+					}
+				],
+				"domain": "3:8-3:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "4:8-4:19",
+						"removal": "3:12-4:19"
+					}
+				],
+				"domain": "4:8-4:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.method.singleLine",
+		"languageId": "php",
+		"facet": "argument.formal.method.singleLine",
+		"code": "<?php\nclass Foo {\n    function bar($aaa, number $bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:17-2:21",
+						"removal": "2:17-2:23"
+					}
+				],
+				"domain": "2:17-2:21"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:23-2:34",
+						"removal": "2:21-2:34"
+					}
+				],
+				"domain": "2:23-2:34"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.multiLine",
+		"languageId": "php",
+		"facet": "argument.formal.multiLine",
+		"code": "<?php\nfunction foo(\n    $aaa,\n    number $bbb\n) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-2:8",
+						"removal": "2:4-3:4"
+					}
+				],
+				"domain": "2:4-2:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:4-3:15",
+						"removal": "2:8-3:15"
+					}
+				],
+				"domain": "3:4-3:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argument/argument.formal.singleLine",
+		"languageId": "php",
+		"facet": "argument.formal.singleLine",
+		"code": "<?php\nfunction foo($aaa, number $bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:13-1:17",
+						"removal": "1:13-1:19"
+					}
+				],
+				"domain": "1:13-1:17"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:19-1:30",
+						"removal": "1:17-1:30"
+					}
+				],
+				"domain": "1:19-1:30"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argumentList/argumentList.actual.constructor.empty",
+		"languageId": "php",
+		"facet": "argumentList.actual.constructor.empty",
+		"code": "<?php\nnew Foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:8",
+						"removal": "1:8-1:8"
+					}
+				],
+				"domain": "1:0-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argumentList/argumentList.actual.constructor.multiLine",
+		"languageId": "php",
+		"facet": "argumentList.actual.constructor.multiLine",
+		"code": "<?php\nnew Foo(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-3:7",
+						"removal": "1:8-4:0"
+					}
+				],
+				"domain": "1:0-4:1"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argumentList/argumentList.actual.constructor.singleLine",
+		"languageId": "php",
+		"facet": "argumentList.actual.constructor.singleLine",
+		"code": "<?php\nnew Foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:16",
+						"removal": "1:8-1:16"
+					}
+				],
+				"domain": "1:0-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argumentList/argumentList.actual.empty",
+		"languageId": "php",
+		"facet": "argumentList.actual.empty",
+		"code": "<?php\nfoo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:4",
+						"removal": "1:4-1:4"
+					}
+				],
+				"domain": "1:0-1:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argumentList/argumentList.actual.method.empty",
+		"languageId": "php",
+		"facet": "argumentList.actual.method.empty",
+		"code": "<?php\n$foo->bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:10-1:10",
+						"removal": "1:10-1:10"
+					}
+				],
+				"domain": "1:0-1:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argumentList/argumentList.actual.method.multiLine",
+		"languageId": "php",
+		"facet": "argumentList.actual.method.multiLine",
+		"code": "<?php\n$foo->bar(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-3:7",
+						"removal": "1:10-4:0"
+					}
+				],
+				"domain": "1:0-4:1"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argumentList/argumentList.actual.method.singleLine",
+		"languageId": "php",
+		"facet": "argumentList.actual.method.singleLine",
+		"code": "<?php\n$foo->bar(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:10-1:18",
+						"removal": "1:10-1:18"
+					}
+				],
+				"domain": "1:0-1:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argumentList/argumentList.actual.multiLine",
+		"languageId": "php",
+		"facet": "argumentList.actual.multiLine",
+		"code": "<?php\nfoo(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-3:7",
+						"removal": "1:4-4:0"
+					}
+				],
+				"domain": "1:0-4:1"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argumentList/argumentList.actual.singleLine",
+		"languageId": "php",
+		"facet": "argumentList.actual.singleLine",
+		"code": "<?php\nfoo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:12",
+						"removal": "1:4-1:12"
+					}
+				],
+				"domain": "1:0-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argumentList/argumentList.formal.constructor.empty",
+		"languageId": "php",
+		"facet": "argumentList.formal.constructor.empty",
+		"code": "<?php\nclass Foo {\n    function __construct() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:25-2:25",
+						"removal": "2:25-2:25"
+					}
+				],
+				"domain": "2:4-2:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argumentList/argumentList.formal.constructor.multiLine",
+		"languageId": "php",
+		"facet": "argumentList.formal.constructor.multiLine",
+		"code": "<?php\nclass Foo {\n    function __construct(\n        $aaa,\n        $bbb\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "3:8-4:12",
+						"removal": "2:25-5:4"
+					}
+				],
+				"domain": "2:4-5:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argumentList/argumentList.formal.constructor.singleLine",
+		"languageId": "php",
+		"facet": "argumentList.formal.constructor.singleLine",
+		"code": "<?php\nclass Foo {\n    function __construct($aaa, $bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:25-2:35",
+						"removal": "2:25-2:35"
+					}
+				],
+				"domain": "2:4-2:39"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argumentList/argumentList.formal.empty",
+		"languageId": "php",
+		"facet": "argumentList.formal.empty",
+		"code": "<?php\nfunction foo() {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:13-1:13",
+						"removal": "1:13-1:13"
+					}
+				],
+				"domain": "1:0-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argumentList/argumentList.formal.lambda.empty",
+		"languageId": "php",
+		"facet": "argumentList.formal.lambda.empty",
+		"code": "<?php\nfunction() {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:9",
+						"removal": "1:9-1:9"
+					}
+				],
+				"domain": "1:0-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argumentList/argumentList.formal.lambda.empty2",
+		"languageId": "php",
+		"facet": "argumentList.formal.lambda.empty",
+		"code": "<?php\nfn() => 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:3-1:3",
+						"removal": "1:3-1:3"
+					}
+				],
+				"domain": "1:0-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argumentList/argumentList.formal.lambda.multiLine",
+		"languageId": "php",
+		"facet": "argumentList.formal.lambda.multiLine",
+		"code": "<?php\nfunction(\n    $aaa,\n    $bbb\n) {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-3:8",
+						"removal": "1:9-4:0"
+					}
+				],
+				"domain": "1:0-4:4"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argumentList/argumentList.formal.lambda.multiLine2",
+		"languageId": "php",
+		"facet": "argumentList.formal.lambda.multiLine",
+		"code": "<?php\nfn(\n    $aaa,\n    $bbb\n) => 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-3:8",
+						"removal": "1:3-4:0"
+					}
+				],
+				"domain": "1:0-4:6"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argumentList/argumentList.formal.lambda.singleLine",
+		"languageId": "php",
+		"facet": "argumentList.formal.lambda.singleLine",
+		"code": "<?php\nfunction($aaa, $bbb) {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:19",
+						"removal": "1:9-1:19"
+					}
+				],
+				"domain": "1:0-1:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argumentList/argumentList.formal.lambda.singleLine2",
+		"languageId": "php",
+		"facet": "argumentList.formal.lambda.singleLine",
+		"code": "<?php\nfn($aaa, $bbb) => 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:3-1:13",
+						"removal": "1:3-1:13"
+					}
+				],
+				"domain": "1:0-1:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argumentList/argumentList.formal.method.empty",
+		"languageId": "php",
+		"facet": "argumentList.formal.method.empty",
+		"code": "<?php\nclass Foo {\n    function bar() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:17-2:17",
+						"removal": "2:17-2:17"
+					}
+				],
+				"domain": "2:4-2:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argumentList/argumentList.formal.method.multiLine",
+		"languageId": "php",
+		"facet": "argumentList.formal.method.multiLine",
+		"code": "<?php\nclass Foo {\n    function bar(\n        $aaa,\n        $bbb\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "3:8-4:12",
+						"removal": "2:17-5:4"
+					}
+				],
+				"domain": "2:4-5:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argumentList/argumentList.formal.method.singleLine",
+		"languageId": "php",
+		"facet": "argumentList.formal.method.singleLine",
+		"code": "<?php\nclass Foo {\n    function bar($aaa, $bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:17-2:27",
+						"removal": "2:17-2:27"
+					}
+				],
+				"domain": "2:4-2:31"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argumentList/argumentList.formal.multiLine",
+		"languageId": "php",
+		"facet": "argumentList.formal.multiLine",
+		"code": "<?php\nfunction foo(\n    $aaa,\n    $bbb\n) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-3:8",
+						"removal": "1:13-4:0"
+					}
+				],
+				"domain": "1:0-4:4"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/argumentList/argumentList.formal.singleLine",
+		"languageId": "php",
+		"facet": "argumentList.formal.singleLine",
+		"code": "<?php\nfunction foo($aaa, $bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:13-1:23",
+						"removal": "1:13-1:23"
+					}
+				],
+				"domain": "1:0-1:27"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/branch/branch.if.elif.else",
+		"languageId": "php",
+		"facet": "branch.if.elif.else",
+		"code": "<?php\nif (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:12",
+						"removal": "1:0-2:5"
+					}
+				],
+				"domain": "1:0-1:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-2:18",
+						"removal": "2:0-3:0"
+					}
+				],
+				"domain": "2:0-2:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:0-3:7",
+						"removal": "2:18-3:7"
+					}
+				],
+				"domain": "3:0-3:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/branch/branch.if.else",
+		"languageId": "php",
+		"facet": "branch.if.else",
+		"code": "<?php\nif (true) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:12",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:0-1:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-2:7",
+						"removal": "1:12-2:7"
+					}
+				],
+				"domain": "2:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/branch/branch.if.iteration",
+		"languageId": "php",
+		"facet": "branch.if.iteration",
+		"code": "<?php\nif (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-3:7"
+					}
+				],
+				"domain": "1:0-3:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/branch/branch.if",
+		"languageId": "php",
+		"facet": "branch.if",
+		"code": "<?php\nif (true) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:12",
+						"removal": "1:0-1:12"
+					}
+				],
+				"domain": "1:0-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/branch/branch.switchCase.iteration",
+		"languageId": "php",
+		"facet": "branch.switchCase.iteration",
+		"code": "<?php\nswitch ($foo) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:15-1:16"
+					}
+				],
+				"domain": "1:15-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/branch/branch.switchCase",
+		"languageId": "php",
+		"facet": "branch.switchCase",
+		"code": "<?php\nswitch ($foo) {\n    case 0:\n        break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-3:14",
+						"removal": "2:0-4:0"
+					}
+				],
+				"domain": "2:4-3:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/branch/branch.switchCase2",
+		"languageId": "php",
+		"facet": "branch.switchCase",
+		"code": "<?php\nswitch ($foo) {\n    default:\n        break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-3:14",
+						"removal": "2:0-4:0"
+					}
+				],
+				"domain": "2:4-3:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/branch/branch.ternary.iteration",
+		"languageId": "php",
+		"facet": "branch.ternary.iteration",
+		"code": "<?php\ntrue ? 0 : 1",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:12"
+					}
+				],
+				"domain": "1:0-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/branch/branch.ternary",
+		"languageId": "php",
+		"facet": "branch.ternary",
+		"code": "<?php\ntrue ? 0 : 1",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:7-1:8",
+						"removal": "1:7-1:9"
+					}
+				],
+				"domain": "1:7-1:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-1:12",
+						"removal": "1:10-1:12"
+					}
+				],
+				"domain": "1:11-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/branch/branch.try.iteration",
+		"languageId": "php",
+		"facet": "branch.try.iteration",
+		"code": "<?php\ntry {}\ncatch (Exception $e) {}\nfinally {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-3:10"
+					}
+				],
+				"domain": "1:0-3:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/branch/branch.try",
+		"languageId": "php",
+		"facet": "branch.try",
+		"code": "<?php\ntry {}\ncatch (Exception $e) {}\nfinally {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:6",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:0-1:6"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-2:23",
+						"removal": "2:0-3:0"
+					}
+				],
+				"domain": "2:0-2:23"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:0-3:10",
+						"removal": "2:23-3:10"
+					}
+				],
+				"domain": "3:0-3:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/class.iteration.document",
+		"languageId": "php",
+		"facet": "class.iteration.document",
+		"code": "\n<?php\nclass Foo {}\n",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:0"
+					}
+				],
+				"domain": "0:0-3:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/class",
+		"languageId": "php",
+		"facet": "class",
+		"code": "<?php\nclass Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:12",
+						"removal": "0:5-1:12"
+					}
+				],
+				"domain": "1:0-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/comment.block",
+		"languageId": "php",
+		"facet": "comment.block",
+		"code": "<?php\n/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:17",
+						"removal": "0:5-1:17"
+					}
+				],
+				"domain": "1:0-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/comment.line",
+		"languageId": "php",
+		"facet": "comment.line",
+		"code": "<?php\n// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:14",
+						"removal": "0:5-1:14"
+					}
+				],
+				"domain": "1:0-1:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/comment.line2",
+		"languageId": "php",
+		"facet": "comment.line",
+		"code": "<?php\n# Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:13",
+						"removal": "0:5-1:13"
+					}
+				],
+				"domain": "1:0-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/condition/condition.doWhile",
+		"languageId": "php",
+		"facet": "condition.doWhile",
+		"code": "<?php\ndo {} while (true);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:13-1:17",
+						"removal": "1:13-1:17"
+					}
+				],
+				"domain": "1:0-1:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/condition/condition.for",
+		"languageId": "php",
+		"facet": "condition.for",
+		"code": "<?php\nfor ($i = 0; $i < $size; $i++) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:13-1:23",
+						"removal": "1:12-1:23"
+					}
+				],
+				"domain": "1:0-1:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/condition/condition.if",
+		"languageId": "php",
+		"facet": "condition.if",
+		"code": "<?php\nif (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:8",
+						"removal": "1:4-1:8"
+					}
+				],
+				"domain": "1:0-3:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:9-2:14",
+						"removal": "2:9-2:14"
+					}
+				],
+				"domain": "2:0-2:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/condition/condition.switchCase.iteration",
+		"languageId": "php",
+		"facet": "condition.switchCase.iteration",
+		"code": "<?php\nswitch ($foo) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:15-1:16"
+					}
+				],
+				"domain": "1:15-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/condition/condition.switchCase",
+		"languageId": "php",
+		"facet": "condition.switchCase",
+		"code": "<?php\nswitch ($foo) {\n    case 0: break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:9-2:10",
+						"removal": "2:8-2:10"
+					}
+				],
+				"domain": "2:4-2:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/condition/condition.ternary",
+		"languageId": "php",
+		"facet": "condition.ternary",
+		"code": "<?php\ntrue ? 0 : 1",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:4",
+						"removal": "1:0-1:5"
+					}
+				],
+				"domain": "1:0-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/condition/condition.while",
+		"languageId": "php",
+		"facet": "condition.while",
+		"code": "<?php\nwhile (true) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:7-1:11",
+						"removal": "1:7-1:11"
+					}
+				],
+				"domain": "1:0-1:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/disqualifyDelimiter",
+		"languageId": "php",
+		"facet": "disqualifyDelimiter",
+		"code": "<?php\n1 < 2;\n1 > 2;\n1 <= 2;\n1 >= 2;\na << 2;\na >> 2;\na <<= 2;\na >>= 2;\n['a' => 2];\n$a = <<< EOT;\n$a = <<< 'TEXT';\nfoo->bar;\nfoo->bar();\nfoo?->bar;\nfoo?->bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:2-1:3"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "2:2-2:3"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "3:2-3:4"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "4:2-4:4"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "5:2-5:4"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "6:2-6:4"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "7:2-7:4"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "8:2-8:4"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "9:5-9:7"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "10:5-10:8"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "11:5-11:8"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "12:3-12:5"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "13:3-13:5"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "14:3-14:6"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "15:3-15:6"
+					}
+				]
+			}
+		]
+	},
+	{
+		"name": "scopes/php/functionCall/functionCall.chain",
+		"languageId": "php",
+		"facet": "functionCall.chain",
+		"code": "<?php\nfoo()->bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:5",
+						"removal": "1:0-1:5"
+					}
+				],
+				"domain": "1:0-1:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:12",
+						"removal": "1:0-1:12"
+					}
+				],
+				"domain": "1:0-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/functionCall/functionCall.constructor",
+		"languageId": "php",
+		"facet": "functionCall.constructor",
+		"code": "<?php\nnew Foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:9",
+						"removal": "1:0-1:9"
+					}
+				],
+				"domain": "1:0-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/functionCall/functionCall.method",
+		"languageId": "php",
+		"facet": "functionCall.method",
+		"code": "<?php\n$foo->bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:11",
+						"removal": "1:0-1:11"
+					}
+				],
+				"domain": "1:0-1:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/functionCall/functionCall.method2",
+		"languageId": "php",
+		"facet": "functionCall.method",
+		"code": "<?php\n$foo?->bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:12",
+						"removal": "1:0-1:12"
+					}
+				],
+				"domain": "1:0-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/functionCall/functionCall",
+		"languageId": "php",
+		"facet": "functionCall",
+		"code": "<?php\nfoo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:5",
+						"removal": "1:0-1:5"
+					}
+				],
+				"domain": "1:0-1:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/functionCallee/functionCallee.chain",
+		"languageId": "php",
+		"facet": "functionCallee.chain",
+		"code": "<?php\nfoo()->bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:3",
+						"removal": "1:0-1:3"
+					}
+				],
+				"domain": "1:0-1:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:10",
+						"removal": "1:0-1:10"
+					}
+				],
+				"domain": "1:0-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/functionCallee/functionCallee.constructor",
+		"languageId": "php",
+		"facet": "functionCallee.constructor",
+		"code": "<?php\nnew Foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:7",
+						"removal": "1:0-1:7"
+					}
+				],
+				"domain": "1:0-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/functionCallee/functionCallee.method",
+		"languageId": "php",
+		"facet": "functionCallee.method",
+		"code": "<?php\n$foo->bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:9",
+						"removal": "1:0-1:9"
+					}
+				],
+				"domain": "1:0-1:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/functionCallee/functionCallee.method2",
+		"languageId": "php",
+		"facet": "functionCallee.method",
+		"code": "<?php\n$foo?->bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:10",
+						"removal": "1:0-1:10"
+					}
+				],
+				"domain": "1:0-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/functionCallee/functionCallee",
+		"languageId": "php",
+		"facet": "functionCallee",
+		"code": "<?php\nfoo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:3",
+						"removal": "1:0-1:3"
+					}
+				],
+				"domain": "1:0-1:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/ifStatement",
+		"languageId": "php",
+		"facet": "ifStatement",
+		"code": "<?php\nif (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-3:7",
+						"removal": "0:5-3:7"
+					}
+				],
+				"domain": "1:0-3:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.class",
+		"languageId": "php",
+		"facet": "interior.class",
+		"code": "<?php\nclass Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:11-1:12",
+						"removal": "1:11-1:12"
+					}
+				],
+				"domain": "1:11-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.constructor",
+		"languageId": "php",
+		"facet": "interior.constructor",
+		"code": "<?php\nclass Foo {\n    function __construct() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-2:30",
+						"removal": "1:11-3:0"
+					}
+				],
+				"domain": "1:11-3:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:28-2:29",
+						"removal": "2:28-2:29"
+					}
+				],
+				"domain": "2:28-2:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.doWhile",
+		"languageId": "php",
+		"facet": "interior.doWhile",
+		"code": "<?php\ndo { } while (true);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:5",
+						"removal": "1:4-1:5"
+					}
+				],
+				"domain": "1:4-1:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.enum",
+		"languageId": "php",
+		"facet": "interior.enum",
+		"code": "<?php\nenum Foo: int { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:15-1:16",
+						"removal": "1:15-1:16"
+					}
+				],
+				"domain": "1:15-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.for",
+		"languageId": "php",
+		"facet": "interior.for",
+		"code": "<?php\nfor ($i = 0; $i < $size; ++$i) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:32-1:33",
+						"removal": "1:32-1:33"
+					}
+				],
+				"domain": "1:32-1:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.foreach",
+		"languageId": "php",
+		"facet": "interior.foreach",
+		"code": "<?php\nforeach ($values as $v) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:25-1:26",
+						"removal": "1:25-1:26"
+					}
+				],
+				"domain": "1:25-1:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.function",
+		"languageId": "php",
+		"facet": "interior.function",
+		"code": "<?php\nfunction foo() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:16-1:17",
+						"removal": "1:16-1:17"
+					}
+				],
+				"domain": "1:16-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.if",
+		"languageId": "php",
+		"facet": "interior.if",
+		"code": "<?php\nif (true) { }\nelse if (false) { }\nelse { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:11-1:12",
+						"removal": "1:11-1:12"
+					}
+				],
+				"domain": "1:11-1:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:17-2:18",
+						"removal": "2:17-2:18"
+					}
+				],
+				"domain": "2:17-2:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:6-3:7",
+						"removal": "3:6-3:7"
+					}
+				],
+				"domain": "3:6-3:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.interface",
+		"languageId": "php",
+		"facet": "interior.interface",
+		"code": "<?php\ninterface Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:15-1:16",
+						"removal": "1:15-1:16"
+					}
+				],
+				"domain": "1:15-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.lambda",
+		"languageId": "php",
+		"facet": "interior.lambda",
+		"code": "<?php\nfunction() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:12-1:13",
+						"removal": "1:12-1:13"
+					}
+				],
+				"domain": "1:12-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.method",
+		"languageId": "php",
+		"facet": "interior.method",
+		"code": "<?php\nclass Foo {\n    function bar() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-2:22",
+						"removal": "1:11-3:0"
+					}
+				],
+				"domain": "1:11-3:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:20-2:21",
+						"removal": "2:20-2:21"
+					}
+				],
+				"domain": "2:20-2:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.namespace",
+		"languageId": "php",
+		"facet": "interior.namespace",
+		"code": "<?php\nnamespace Foo\\Bar { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:19-1:20",
+						"removal": "1:19-1:20"
+					}
+				],
+				"domain": "1:19-1:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.switch",
+		"languageId": "php",
+		"facet": "interior.switch",
+		"code": "<?php\nswitch ($foo) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:15-1:16",
+						"removal": "1:15-1:16"
+					}
+				],
+				"domain": "1:15-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.switchCase",
+		"languageId": "php",
+		"facet": "interior.switchCase",
+		"code": "<?php\nswitch ($foo) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-7:14",
+						"removal": "1:15-8:0"
+					}
+				],
+				"domain": "1:15-8:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-4:14",
+						"removal": "2:11-4:14"
+					}
+				],
+				"domain": "2:11-4:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "6:8-7:14",
+						"removal": "5:12-7:14"
+					}
+				],
+				"domain": "5:12-7:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.switchCase2",
+		"languageId": "php",
+		"facet": "interior.switchCase",
+		"code": "<?php\nswitch ($foo) {\n    case 0: { }\n    default: { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-3:16",
+						"removal": "1:15-4:0"
+					}
+				],
+				"domain": "1:15-4:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:13-2:14",
+						"removal": "2:13-2:14"
+					}
+				],
+				"domain": "2:13-2:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:14-3:15",
+						"removal": "3:14-3:15"
+					}
+				],
+				"domain": "3:14-3:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.try",
+		"languageId": "php",
+		"facet": "interior.try",
+		"code": "<?php\ntry { }\ncatch (Exception $e) { }\nfinally { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:5-1:6",
+						"removal": "1:5-1:6"
+					}
+				],
+				"domain": "1:5-1:6"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:22-2:23",
+						"removal": "2:22-2:23"
+					}
+				],
+				"domain": "2:22-2:23"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:9-3:10",
+						"removal": "3:9-3:10"
+					}
+				],
+				"domain": "3:9-3:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.while",
+		"languageId": "php",
+		"facet": "interior.while",
+		"code": "<?php\nwhile (true) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:14-1:15",
+						"removal": "1:14-1:15"
+					}
+				],
+				"domain": "1:14-1:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/key/key.mapPair.iteration",
+		"languageId": "php",
+		"facet": "key.mapPair.iteration",
+		"code": "<?php\n[\"aaa\" => 0, \"bbb\" => 1]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:1-1:23"
+					}
+				],
+				"domain": "1:1-1:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/key.mapPair",
+		"languageId": "php",
+		"facet": "key.mapPair",
+		"code": "<?php\n[\"aaa\" => 0, \"bbb\" => 1];",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:1-1:6",
+						"removal": "1:1-1:10"
+					}
+				],
+				"domain": "1:1-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:18",
+						"removal": "1:13-1:22"
+					}
+				],
+				"domain": "1:13-1:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/list",
+		"languageId": "php",
+		"facet": "list",
+		"code": "<?php\n[aaa, bbb]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:10",
+						"removal": "0:5-1:10"
+					}
+				],
+				"domain": "1:0-1:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/map",
+		"languageId": "php",
+		"facet": "map",
+		"code": "<?php\n[\"aaa\" => 0, \"bbb\" => 1]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:24",
+						"removal": "0:5-1:24"
+					}
+				],
+				"domain": "1:0-1:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.argument.actual.iteration",
+		"languageId": "php",
+		"facet": "name.argument.actual.iteration",
+		"code": "<?php\nfoo(aaa: 0, bbb: 1);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:20"
+					}
+				],
+				"domain": "0:0-1:20"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:18"
+					}
+				],
+				"domain": "1:4-1:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.argument.actual",
+		"languageId": "php",
+		"facet": "name.argument.actual",
+		"code": "<?php\nfoo(aaa: 0, bbb: 1);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-1:9"
+					}
+				],
+				"domain": "1:4-1:10"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:12-1:15",
+						"removal": "1:12-1:17"
+					}
+				],
+				"domain": "1:12-1:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.argument.catch",
+		"languageId": "php",
+		"facet": "name.argument.catch",
+		"code": "<?php\ntry {}\ncatch (Exception $e) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:17-2:19",
+						"removal": "2:16-2:19"
+					}
+				],
+				"domain": "2:7-2:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.argument.formal.constructor.iteration",
+		"languageId": "php",
+		"facet": "name.argument.formal.constructor.iteration",
+		"code": "<?php\nclass Foo {\n    function __construct($aaa, $bbb = 0) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:1"
+					}
+				],
+				"domain": "0:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-3:0"
+					}
+				],
+				"domain": "1:11-3:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:25-2:39"
+					}
+				],
+				"domain": "2:25-2:39"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.argument.formal.constructor",
+		"languageId": "php",
+		"facet": "name.argument.formal.constructor",
+		"code": "<?php\nclass Foo {\n    function __construct($aaa, $bbb = 0) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:6-1:9",
+						"removal": "1:6-1:10"
+					}
+				],
+				"domain": "1:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:13-2:24",
+						"removal": "2:13-2:24"
+					}
+				],
+				"domain": "2:4-2:43"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:25-2:29",
+						"removal": "2:25-2:29"
+					}
+				],
+				"domain": "2:25-2:29"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:31-2:35",
+						"removal": "2:31-2:36"
+					}
+				],
+				"domain": "2:31-2:39"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.argument.formal.iteration",
+		"languageId": "php",
+		"facet": "name.argument.formal.iteration",
+		"code": "<?php\nfunction foo(int $aaa, int $bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:35"
+					}
+				],
+				"domain": "0:0-1:35"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:31"
+					}
+				],
+				"domain": "1:13-1:31"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.argument.formal.lambda.iteration",
+		"languageId": "php",
+		"facet": "name.argument.formal.lambda.iteration",
+		"code": "<?php\nfunction($aaa, $bbb = 0) {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:28"
+					}
+				],
+				"domain": "0:0-1:28"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:9-1:23"
+					}
+				],
+				"domain": "1:9-1:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.argument.formal.lambda",
+		"languageId": "php",
+		"facet": "name.argument.formal.lambda",
+		"code": "<?php\nfunction($aaa, $bbb = 0) {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:13",
+						"removal": "1:9-1:13"
+					}
+				],
+				"domain": "1:9-1:13"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:15-1:19",
+						"removal": "1:15-1:20"
+					}
+				],
+				"domain": "1:15-1:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.argument.formal.method.iteration",
+		"languageId": "php",
+		"facet": "name.argument.formal.method.iteration",
+		"code": "<?php\nclass Foo {\n    function bar($aaa, $bbb = 0) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:1"
+					}
+				],
+				"domain": "0:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-3:0"
+					}
+				],
+				"domain": "1:11-3:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:17-2:31"
+					}
+				],
+				"domain": "2:17-2:31"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.argument.formal.method",
+		"languageId": "php",
+		"facet": "name.argument.formal.method",
+		"code": "<?php\nclass Foo {\n    function bar($aaa, $bbb = 0) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:6-1:9",
+						"removal": "1:6-1:10"
+					}
+				],
+				"domain": "1:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:13-2:16",
+						"removal": "2:13-2:16"
+					}
+				],
+				"domain": "2:4-2:35"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:17-2:21",
+						"removal": "2:17-2:21"
+					}
+				],
+				"domain": "2:17-2:21"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:23-2:27",
+						"removal": "2:23-2:28"
+					}
+				],
+				"domain": "2:23-2:31"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.argument.formal",
+		"languageId": "php",
+		"facet": "name.argument.formal",
+		"code": "<?php\nfunction foo(int $aaa, int $bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:12",
+						"removal": "1:9-1:12"
+					}
+				],
+				"domain": "1:0-1:35"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:17-1:21",
+						"removal": "1:16-1:21"
+					}
+				],
+				"domain": "1:13-1:21"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:27-1:31",
+						"removal": "1:26-1:31"
+					}
+				],
+				"domain": "1:23-1:31"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.argument.formal2",
+		"languageId": "php",
+		"facet": "name.argument.formal",
+		"code": "<?php\nfunction foo(array ...$aaa) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:12",
+						"removal": "1:9-1:12"
+					}
+				],
+				"domain": "1:0-1:30"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:22-1:26",
+						"removal": "1:22-1:26"
+					}
+				],
+				"domain": "1:13-1:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.assignment.compound",
+		"languageId": "php",
+		"facet": "name.assignment.compound",
+		"code": "<?php\n$foo += 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:4",
+						"removal": "1:0-1:8"
+					}
+				],
+				"domain": "1:0-1:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.assignment",
+		"languageId": "php",
+		"facet": "name.assignment",
+		"code": "<?php\n$foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:4",
+						"removal": "1:0-1:7"
+					}
+				],
+				"domain": "1:0-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.assignment2",
+		"languageId": "php",
+		"facet": "name.assignment",
+		"code": "<?php\n$foo += 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:4",
+						"removal": "1:0-1:8"
+					}
+				],
+				"domain": "1:0-1:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.class",
+		"languageId": "php",
+		"facet": "name.class",
+		"code": "<?php\nclass Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:6-1:9",
+						"removal": "1:6-1:10"
+					}
+				],
+				"domain": "1:0-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.constructor",
+		"languageId": "php",
+		"facet": "name.constructor",
+		"code": "<?php\nclass Foo {\n    function __construct() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:6-1:9",
+						"removal": "1:6-1:10"
+					}
+				],
+				"domain": "1:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:13-2:24",
+						"removal": "2:13-2:24"
+					}
+				],
+				"domain": "2:4-2:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.enum",
+		"languageId": "php",
+		"facet": "name.enum",
+		"code": "<?php\nenum Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:5-1:8",
+						"removal": "1:5-1:9"
+					}
+				],
+				"domain": "1:0-1:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.field.class",
+		"languageId": "php",
+		"facet": "name.field.class",
+		"code": "<?php\nclass Foo {\n    public number $bar;\n    public $baz = 0;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:6-1:9",
+						"removal": "1:6-1:10"
+					}
+				],
+				"domain": "1:0-4:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:18-2:22",
+						"removal": "2:4-2:22"
+					}
+				],
+				"domain": "2:4-2:23"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:11-3:15",
+						"removal": "3:4-3:18"
+					}
+				],
+				"domain": "3:4-3:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.field.enum",
+		"languageId": "php",
+		"facet": "name.field.enum",
+		"code": "<?php\nenum Foo: int {\n    case Bar = 1;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:5-1:8",
+						"removal": "1:4-1:8"
+					}
+				],
+				"domain": "1:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:9-2:12",
+						"removal": "2:4-2:15"
+					}
+				],
+				"domain": "2:4-2:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.field.interface",
+		"languageId": "php",
+		"facet": "name.field.interface",
+		"code": "<?php\ninterface Foo {\n    public const bar = 1;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:10-1:13",
+						"removal": "1:10-1:14"
+					}
+				],
+				"domain": "1:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:17-2:20",
+						"removal": "2:4-2:23"
+					}
+				],
+				"domain": "2:4-2:25"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.foreach",
+		"languageId": "php",
+		"facet": "name.foreach",
+		"code": "<?php\nforeach ($values as $v) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:20-1:22",
+						"removal": "1:19-1:22"
+					}
+				],
+				"domain": "1:0-1:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.function",
+		"languageId": "php",
+		"facet": "name.function",
+		"code": "<?php\nfunction foo() {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:12",
+						"removal": "1:9-1:12"
+					}
+				],
+				"domain": "1:0-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.interface",
+		"languageId": "php",
+		"facet": "name.interface",
+		"code": "<?php\ninterface Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:10-1:13",
+						"removal": "1:10-1:14"
+					}
+				],
+				"domain": "1:0-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.iteration.block",
+		"languageId": "php",
+		"facet": "name.iteration.block",
+		"code": "<?php\nclass Foo {\n    function bar() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:1"
+					}
+				],
+				"domain": "0:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-3:0"
+					}
+				],
+				"domain": "1:11-3:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:20-2:21"
+					}
+				],
+				"domain": "2:20-2:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.iteration.block2",
+		"languageId": "php",
+		"facet": "name.iteration.block",
+		"code": "<?php\nfunction foo() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:18"
+					}
+				],
+				"domain": "0:0-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:16-1:17"
+					}
+				],
+				"domain": "1:16-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.iteration.block3",
+		"languageId": "php",
+		"facet": "name.iteration.block",
+		"code": "<?php\nif (true) { }\nelse if (false) { }\nelse { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:8"
+					}
+				],
+				"domain": "0:0-3:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-1:12"
+					}
+				],
+				"domain": "1:11-1:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:17-2:18"
+					}
+				],
+				"domain": "2:17-2:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:6-3:7"
+					}
+				],
+				"domain": "3:6-3:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.iteration.block4",
+		"languageId": "php",
+		"facet": "name.iteration.block",
+		"code": "<?php\nwhile (true) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:16"
+					}
+				],
+				"domain": "0:0-1:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:14-1:15"
+					}
+				],
+				"domain": "1:14-1:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.iteration.class",
+		"languageId": "php",
+		"facet": "name.iteration.class",
+		"code": "<?php\nclass Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:13"
+					}
+				],
+				"domain": "0:0-1:13"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-1:12"
+					}
+				],
+				"domain": "1:11-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.iteration.document",
+		"languageId": "php",
+		"facet": "name.iteration.document",
+		"code": "\n<?php\n$foo = 0;\n",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:0"
+					}
+				],
+				"domain": "0:0-3:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.iteration.enum",
+		"languageId": "php",
+		"facet": "name.iteration.enum",
+		"code": "<?php\nenum Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:12"
+					}
+				],
+				"domain": "0:0-1:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:10-1:11"
+					}
+				],
+				"domain": "1:10-1:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.iteration.interface",
+		"languageId": "php",
+		"facet": "name.iteration.interface",
+		"code": "<?php\ninterface Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:17"
+					}
+				],
+				"domain": "0:0-1:17"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:15-1:16"
+					}
+				],
+				"domain": "1:15-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.method.interface",
+		"languageId": "php",
+		"facet": "name.method.interface",
+		"code": "<?php\ninterface Foo {\n    public function bar();\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:10-1:13",
+						"removal": "1:10-1:14"
+					}
+				],
+				"domain": "1:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:20-2:23",
+						"removal": "2:20-2:23"
+					}
+				],
+				"domain": "2:4-2:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.method",
+		"languageId": "php",
+		"facet": "name.method",
+		"code": "<?php\nclass Foo {\n    function bar() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:6-1:9",
+						"removal": "1:6-1:10"
+					}
+				],
+				"domain": "1:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:13-2:16",
+						"removal": "2:13-2:16"
+					}
+				],
+				"domain": "2:4-2:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.namespace",
+		"languageId": "php",
+		"facet": "name.namespace",
+		"code": "<?php\nnamespace Foo\\Bar {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:10-1:17",
+						"removal": "1:10-1:18"
+					}
+				],
+				"domain": "1:0-1:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/name/name.variable.initialized",
+		"languageId": "php",
+		"facet": "name.variable.initialized",
+		"code": "<?php\n$foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:4",
+						"removal": "1:0-1:7"
+					}
+				],
+				"domain": "1:0-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/namedFunction.constructor",
+		"languageId": "php",
+		"facet": "namedFunction.constructor",
+		"code": "<?php\nclass Foo {\n    function __construct() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-2:29",
+						"removal": "2:0-3:0"
+					}
+				],
+				"domain": "2:4-2:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/namedFunction.iteration.class",
+		"languageId": "php",
+		"facet": "namedFunction.iteration.class",
+		"code": "<?php\nclass Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:13"
+					}
+				],
+				"domain": "0:0-1:13"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-1:12"
+					}
+				],
+				"domain": "1:11-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/namedFunction.iteration.document",
+		"languageId": "php",
+		"facet": "namedFunction.iteration.document",
+		"code": "\n<?php\nfunction foo() {}\n",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:0"
+					}
+				],
+				"domain": "0:0-3:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/namedFunction.method",
+		"languageId": "php",
+		"facet": "namedFunction.method",
+		"code": "<?php\nclass Foo {\n    function bar() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-2:21",
+						"removal": "2:0-3:0"
+					}
+				],
+				"domain": "2:4-2:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/namedFunction",
+		"languageId": "php",
+		"facet": "namedFunction",
+		"code": "<?php\nfunction foo() {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:17",
+						"removal": "0:5-1:17"
+					}
+				],
+				"domain": "1:0-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/namedFunction2",
+		"languageId": "php",
+		"facet": "namedFunction",
+		"code": "<?php\n$foo = function() {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:21",
+						"removal": "0:5-1:21"
+					}
+				],
+				"domain": "1:0-1:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/namedFunction3",
+		"languageId": "php",
+		"facet": "namedFunction",
+		"code": "<?php\n$foo = fn() => 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:17",
+						"removal": "0:5-1:17"
+					}
+				],
+				"domain": "1:0-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.assignment.compound",
+		"languageId": "php",
+		"facet": "statement.assignment.compound",
+		"code": "<?php\n$foo += 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:10",
+						"removal": "0:5-1:10"
+					}
+				],
+				"domain": "1:0-1:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.assignment",
+		"languageId": "php",
+		"facet": "statement.assignment",
+		"code": "<?php\n$foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:9",
+						"removal": "0:5-1:9"
+					}
+				],
+				"domain": "1:0-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.break",
+		"languageId": "php",
+		"facet": "statement.break",
+		"code": "<?php\nwhile (true) {\n    break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-3:1",
+						"removal": "0:5-3:1"
+					}
+				],
+				"domain": "1:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:10",
+						"removal": "2:0-3:0"
+					}
+				],
+				"domain": "2:4-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.class",
+		"languageId": "php",
+		"facet": "statement.class",
+		"code": "<?php\nclass Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:12",
+						"removal": "0:5-1:12"
+					}
+				],
+				"domain": "1:0-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.constructor",
+		"languageId": "php",
+		"facet": "statement.constructor",
+		"code": "<?php\nclass Foo {\n    function __construct() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-3:1",
+						"removal": "0:5-3:1"
+					}
+				],
+				"domain": "1:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:29",
+						"removal": "2:0-3:0"
+					}
+				],
+				"domain": "2:4-2:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.continue",
+		"languageId": "php",
+		"facet": "statement.continue",
+		"code": "<?php\nwhile (true) {\n    continue;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-3:1",
+						"removal": "0:5-3:1"
+					}
+				],
+				"domain": "1:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:13",
+						"removal": "2:0-3:0"
+					}
+				],
+				"domain": "2:4-2:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.doWhile",
+		"languageId": "php",
+		"facet": "statement.doWhile",
+		"code": "<?php\ndo {} while (true);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:19",
+						"removal": "0:5-1:19"
+					}
+				],
+				"domain": "1:0-1:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.enum",
+		"languageId": "php",
+		"facet": "statement.enum",
+		"code": "<?php\nenum Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:11",
+						"removal": "0:5-1:11"
+					}
+				],
+				"domain": "1:0-1:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.field.class",
+		"languageId": "php",
+		"facet": "statement.field.class",
+		"code": "<?php\nclass Foo {\n    public $bar;\n    public $baz = 0;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-4:1",
+						"removal": "0:5-4:1"
+					}
+				],
+				"domain": "1:0-4:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:16",
+						"removal": "2:0-3:0"
+					}
+				],
+				"domain": "2:4-2:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:4-3:20",
+						"removal": "3:0-4:0"
+					}
+				],
+				"domain": "3:4-3:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.field.interface",
+		"languageId": "php",
+		"facet": "statement.field.interface",
+		"code": "<?php\ninterface Foo {\n    public const bar = 0;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-3:1",
+						"removal": "0:5-3:1"
+					}
+				],
+				"domain": "1:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:25",
+						"removal": "2:0-3:0"
+					}
+				],
+				"domain": "2:4-2:25"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.field.interface2",
+		"languageId": "php",
+		"facet": "statement.field.interface",
+		"code": "<?php\ninterface Foo {\n    public const int bar = 0;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-3:1",
+						"removal": "0:5-3:1"
+					}
+				],
+				"domain": "1:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:29",
+						"removal": "2:0-3:0"
+					}
+				],
+				"domain": "2:4-2:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.for",
+		"languageId": "php",
+		"facet": "statement.for",
+		"code": "<?php\nfor ($i = 0; $i < $size; $i++) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:33",
+						"removal": "0:5-1:33"
+					}
+				],
+				"domain": "1:0-1:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.foreach",
+		"languageId": "php",
+		"facet": "statement.foreach",
+		"code": "<?php\nforeach ($values as $v) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:26",
+						"removal": "0:5-1:26"
+					}
+				],
+				"domain": "1:0-1:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.function",
+		"languageId": "php",
+		"facet": "statement.function",
+		"code": "<?php\nfunction foo() {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:17",
+						"removal": "0:5-1:17"
+					}
+				],
+				"domain": "1:0-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.functionCall",
+		"languageId": "php",
+		"facet": "statement.functionCall",
+		"code": "<?php\nfoo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:6",
+						"removal": "0:5-1:6"
+					}
+				],
+				"domain": "1:0-1:6"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.if",
+		"languageId": "php",
+		"facet": "statement.if",
+		"code": "<?php\nif (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-3:7",
+						"removal": "0:5-3:7"
+					}
+				],
+				"domain": "1:0-3:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.import",
+		"languageId": "php",
+		"facet": "statement.import",
+		"code": "<?php\nuse foo\\bar;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:12",
+						"removal": "0:5-1:12"
+					}
+				],
+				"domain": "1:0-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.interface",
+		"languageId": "php",
+		"facet": "statement.interface",
+		"code": "<?php\ninterface Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:16",
+						"removal": "0:5-1:16"
+					}
+				],
+				"domain": "1:0-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.iteration.block",
+		"languageId": "php",
+		"facet": "statement.iteration.block",
+		"code": "<?php\nclass Foo {\n    function bar() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:1"
+					}
+				],
+				"domain": "0:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-3:0"
+					}
+				],
+				"domain": "1:11-3:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:20-2:21"
+					}
+				],
+				"domain": "2:20-2:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.iteration.block2",
+		"languageId": "php",
+		"facet": "statement.iteration.block",
+		"code": "<?php\nfunction foo() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:18"
+					}
+				],
+				"domain": "0:0-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:16-1:17"
+					}
+				],
+				"domain": "1:16-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.iteration.block3",
+		"languageId": "php",
+		"facet": "statement.iteration.block",
+		"code": "<?php\nif (true) { }\nelse if (false) { }\nelse { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:8"
+					}
+				],
+				"domain": "0:0-3:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-1:12"
+					}
+				],
+				"domain": "1:11-1:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:17-2:18"
+					}
+				],
+				"domain": "2:17-2:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:6-3:7"
+					}
+				],
+				"domain": "3:6-3:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.iteration.block4",
+		"languageId": "php",
+		"facet": "statement.iteration.block",
+		"code": "<?php\nwhile (true) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:16"
+					}
+				],
+				"domain": "0:0-1:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:14-1:15"
+					}
+				],
+				"domain": "1:14-1:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.iteration.class",
+		"languageId": "php",
+		"facet": "statement.iteration.class",
+		"code": "<?php\nclass Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:13"
+					}
+				],
+				"domain": "0:0-1:13"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-1:12"
+					}
+				],
+				"domain": "1:11-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.iteration.document",
+		"languageId": "php",
+		"facet": "statement.iteration.document",
+		"code": "\n<?php\n$foo = 0;\n",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:0"
+					}
+				],
+				"domain": "0:0-3:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.iteration.interface",
+		"languageId": "php",
+		"facet": "statement.iteration.interface",
+		"code": "<?php\ninterface Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:17"
+					}
+				],
+				"domain": "0:0-1:17"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:15-1:16"
+					}
+				],
+				"domain": "1:15-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.method.interface",
+		"languageId": "php",
+		"facet": "statement.method.interface",
+		"code": "<?php\ninterface Foo {\n    public function bar();\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-3:1",
+						"removal": "0:5-3:1"
+					}
+				],
+				"domain": "1:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:26",
+						"removal": "2:0-3:0"
+					}
+				],
+				"domain": "2:4-2:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.method",
+		"languageId": "php",
+		"facet": "statement.method",
+		"code": "<?php\nclass Foo {\n    function bar() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-3:1",
+						"removal": "0:5-3:1"
+					}
+				],
+				"domain": "1:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:21",
+						"removal": "2:0-3:0"
+					}
+				],
+				"domain": "2:4-2:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.namespace",
+		"languageId": "php",
+		"facet": "statement.namespace",
+		"code": "<?php\nnamespace Foo\\Bar {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:20",
+						"removal": "0:5-1:20"
+					}
+				],
+				"domain": "1:0-1:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.return",
+		"languageId": "php",
+		"facet": "statement.return",
+		"code": "<?php\nfunction foo() {\n    return 0;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-3:1",
+						"removal": "0:5-3:1"
+					}
+				],
+				"domain": "1:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:13",
+						"removal": "2:0-3:0"
+					}
+				],
+				"domain": "2:4-2:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.switch",
+		"languageId": "php",
+		"facet": "statement.switch",
+		"code": "<?php\nswitch ($foo) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:16",
+						"removal": "0:5-1:16"
+					}
+				],
+				"domain": "1:0-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.throw",
+		"languageId": "php",
+		"facet": "statement.throw",
+		"code": "<?php\nthrow $foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:11",
+						"removal": "0:5-1:11"
+					}
+				],
+				"domain": "1:0-1:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.try",
+		"languageId": "php",
+		"facet": "statement.try",
+		"code": "<?php\ntry {}\ncatch (Exception $e) {}\nfinally {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-3:10",
+						"removal": "0:5-3:10"
+					}
+				],
+				"domain": "1:0-3:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.update",
+		"languageId": "php",
+		"facet": "statement.update",
+		"code": "<?php\n$foo++;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:7",
+						"removal": "0:5-1:7"
+					}
+				],
+				"domain": "1:0-1:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.variable.initialized",
+		"languageId": "php",
+		"facet": "statement.variable.initialized",
+		"code": "<?php\n$foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:9",
+						"removal": "0:5-1:9"
+					}
+				],
+				"domain": "1:0-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.while",
+		"languageId": "php",
+		"facet": "statement.while",
+		"code": "<?php\nwhile (true) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:15",
+						"removal": "0:5-1:15"
+					}
+				],
+				"domain": "1:0-1:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/statement/statement.yield",
+		"languageId": "php",
+		"facet": "statement.yield",
+		"code": "<?php\nyield 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:8",
+						"removal": "0:5-1:8"
+					}
+				],
+				"domain": "1:0-1:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/string.multiLine",
+		"languageId": "php",
+		"facet": "string.multiLine",
+		"code": "<?php\n\"Hello\nworld\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-2:6",
+						"removal": "0:5-2:6"
+					}
+				],
+				"domain": "1:0-2:6"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/string.singleLine",
+		"languageId": "php",
+		"facet": "string.singleLine",
+		"code": "<?php\n\"Hello world\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:13",
+						"removal": "0:5-1:13"
+					}
+				],
+				"domain": "1:0-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/textFragment.comment.block",
+		"languageId": "php",
+		"facet": "textFragment.comment.block",
+		"code": "<?php\n/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:17",
+						"removal": "0:5-1:17"
+					}
+				],
+				"domain": "1:0-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/textFragment.comment.line",
+		"languageId": "php",
+		"facet": "textFragment.comment.line",
+		"code": "<?php\n// hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:14",
+						"removal": "0:5-1:14"
+					}
+				],
+				"domain": "1:0-1:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/textFragment.string.multiLine",
+		"languageId": "php",
+		"facet": "textFragment.string.multiLine",
+		"code": "<?php\n\"hello\nworld\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:1-2:5",
+						"removal": "1:1-2:5"
+					}
+				],
+				"domain": "1:1-2:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/textFragment.string.singleLine",
+		"languageId": "php",
+		"facet": "textFragment.string.singleLine",
+		"code": "<?php\n\"Hello world\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:1-1:12",
+						"removal": "1:1-1:12"
+					}
+				],
+				"domain": "1:1-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/type/type.argument.catch",
+		"languageId": "php",
+		"facet": "type.argument.catch",
+		"code": "<?php\ntry {}\ncatch (Exception $e) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:7-2:16",
+						"removal": "2:7-2:17"
+					}
+				],
+				"domain": "2:7-2:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/type/type.argument.formal.constructor.iteration",
+		"languageId": "php",
+		"facet": "type.argument.formal.constructor.iteration",
+		"code": "<?php\nclass Foo {\n    public function __construct(int $aaa, int $bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:1"
+					}
+				],
+				"domain": "0:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-3:0"
+					}
+				],
+				"domain": "1:11-3:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:32-2:50"
+					}
+				],
+				"domain": "2:32-2:50"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/type/type.argument.formal.constructor",
+		"languageId": "php",
+		"facet": "type.argument.formal.constructor",
+		"code": "<?php\nclass Foo {\n    public function __construct(int $aaa, int $bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-3:1",
+						"removal": "0:5-3:1"
+					}
+				],
+				"domain": "1:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:32-2:35",
+						"removal": "2:32-2:36"
+					}
+				],
+				"domain": "2:32-2:40"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:42-2:45",
+						"removal": "2:42-2:46"
+					}
+				],
+				"domain": "2:42-2:50"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/type/type.argument.formal.iteration",
+		"languageId": "php",
+		"facet": "type.argument.formal.iteration",
+		"code": "<?php\nfunction foo(int $aaa, int $bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:35"
+					}
+				],
+				"domain": "0:0-1:35"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:31"
+					}
+				],
+				"domain": "1:13-1:31"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/type/type.argument.formal.lambda.iteration",
+		"languageId": "php",
+		"facet": "type.argument.formal.lambda.iteration",
+		"code": "<?php\nfn(int $aaa, int $bbb) => 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:28"
+					}
+				],
+				"domain": "0:0-1:28"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:3-1:21"
+					}
+				],
+				"domain": "1:3-1:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/type/type.argument.formal.lambda",
+		"languageId": "php",
+		"facet": "type.argument.formal.lambda",
+		"code": "<?php\nfn(int $aaa, int $bbb) => 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:3-1:6",
+						"removal": "1:3-1:7"
+					}
+				],
+				"domain": "1:3-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:16",
+						"removal": "1:13-1:17"
+					}
+				],
+				"domain": "1:13-1:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/type/type.argument.formal.method.iteration",
+		"languageId": "php",
+		"facet": "type.argument.formal.method.iteration",
+		"code": "<?php\nclass Foo {\n    public function bar(int $aaa, int $bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:1"
+					}
+				],
+				"domain": "0:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-3:0"
+					}
+				],
+				"domain": "1:11-3:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:24-2:42"
+					}
+				],
+				"domain": "2:24-2:42"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/type/type.argument.formal.method",
+		"languageId": "php",
+		"facet": "type.argument.formal.method",
+		"code": "<?php\nclass Foo {\n    public function bar(int $aaa, int $bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-3:1",
+						"removal": "0:5-3:1"
+					}
+				],
+				"domain": "1:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:24-2:27",
+						"removal": "2:24-2:28"
+					}
+				],
+				"domain": "2:24-2:32"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:34-2:37",
+						"removal": "2:34-2:38"
+					}
+				],
+				"domain": "2:34-2:42"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/type/type.argument.formal",
+		"languageId": "php",
+		"facet": "type.argument.formal",
+		"code": "<?php\nfunction foo(int $aaa, int $bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:13-1:16",
+						"removal": "1:13-1:17"
+					}
+				],
+				"domain": "1:13-1:21"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:23-1:26",
+						"removal": "1:23-1:27"
+					}
+				],
+				"domain": "1:23-1:31"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/type/type.argument.formal2",
+		"languageId": "php",
+		"facet": "type.argument.formal",
+		"code": "<?php\nfunction foo(array ...$aaa) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:13-1:18",
+						"removal": "1:13-1:19"
+					}
+				],
+				"domain": "1:13-1:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/type/type.cast",
+		"languageId": "php",
+		"facet": "type.cast",
+		"code": "<?php\n(int)$foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:1-1:4",
+						"removal": "1:0-1:5"
+					}
+				],
+				"domain": "1:0-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/type/type.class",
+		"languageId": "php",
+		"facet": "type.class",
+		"code": "<?php\nclass Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:12",
+						"removal": "0:5-1:12"
+					}
+				],
+				"domain": "1:0-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/type/type.enum",
+		"languageId": "php",
+		"facet": "type.enum",
+		"code": "<?php\nenum Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:11",
+						"removal": "0:5-1:11"
+					}
+				],
+				"domain": "1:0-1:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/type/type.field.class",
+		"languageId": "php",
+		"facet": "type.field.class",
+		"code": "<?php\nclass Foo {\n    public string $bar;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-3:1",
+						"removal": "0:5-3:1"
+					}
+				],
+				"domain": "1:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:11-2:17",
+						"removal": "2:11-2:18"
+					}
+				],
+				"domain": "2:4-2:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/type/type.field.interface",
+		"languageId": "php",
+		"facet": "type.field.interface",
+		"code": "<?php\ninterface Foo {\n    public const int bar = 0;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-3:1",
+						"removal": "0:5-3:1"
+					}
+				],
+				"domain": "1:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:17-2:20",
+						"removal": "2:17-2:21"
+					}
+				],
+				"domain": "2:4-2:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/type/type.interface",
+		"languageId": "php",
+		"facet": "type.interface",
+		"code": "<?php\ninterface Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:16",
+						"removal": "0:5-1:16"
+					}
+				],
+				"domain": "1:0-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/type/type.iteration.class",
+		"languageId": "php",
+		"facet": "type.iteration.class",
+		"code": "<?php\nclass Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:13"
+					}
+				],
+				"domain": "0:0-1:13"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-1:12"
+					}
+				],
+				"domain": "1:11-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/type/type.iteration.document",
+		"languageId": "php",
+		"facet": "type.iteration.document",
+		"code": "\n<?php\nclass Foo {}\n",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:0"
+					}
+				],
+				"domain": "0:0-3:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/type/type.iteration.interface",
+		"languageId": "php",
+		"facet": "type.iteration.interface",
+		"code": "<?php\ninterface Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:17"
+					}
+				],
+				"domain": "0:0-1:17"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:15-1:16"
+					}
+				],
+				"domain": "1:15-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/type/type.return.lambda",
+		"languageId": "php",
+		"facet": "type.return.lambda",
+		"code": "<?php\nfunction(): int {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:12-1:15",
+						"removal": "1:10-1:15"
+					}
+				],
+				"domain": "1:0-1:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/type/type.return.lambda2",
+		"languageId": "php",
+		"facet": "type.return.lambda",
+		"code": "<?php\nfn(): int => 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:6-1:9",
+						"removal": "1:4-1:9"
+					}
+				],
+				"domain": "1:0-1:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/type/type.return.method",
+		"languageId": "php",
+		"facet": "type.return.method",
+		"code": "<?php\nclass Foo {\n    public function bar(): int {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-3:1",
+						"removal": "0:5-3:1"
+					}
+				],
+				"domain": "1:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:27-2:30",
+						"removal": "2:25-2:30"
+					}
+				],
+				"domain": "2:4-2:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/type/type.return",
+		"languageId": "php",
+		"facet": "type.return",
+		"code": "<?php\nfunction foo(): int {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:16-1:19",
+						"removal": "1:14-1:19"
+					}
+				],
+				"domain": "1:0-1:22"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.argument.actual.iteration",
+		"languageId": "php",
+		"facet": "value.argument.actual.iteration",
+		"code": "<?php\nfoo(aaa: 0, bbb: 1);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:20"
+					}
+				],
+				"domain": "0:0-1:20"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:18"
+					}
+				],
+				"domain": "1:4-1:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.argument.actual",
+		"languageId": "php",
+		"facet": "value.argument.actual",
+		"code": "<?php\nfoo(aaa: 0, bbb: 1);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:10",
+						"removal": "1:7-1:10"
+					}
+				],
+				"domain": "1:4-1:10"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:17-1:18",
+						"removal": "1:15-1:18"
+					}
+				],
+				"domain": "1:12-1:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.argument.formal.constructor.iteration",
+		"languageId": "php",
+		"facet": "value.argument.formal.constructor.iteration",
+		"code": "<?php\nclass Foo {\n    function __construct($aaa = 0, $bbb = 1) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:1"
+					}
+				],
+				"domain": "0:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-3:0"
+					}
+				],
+				"domain": "1:11-3:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:25-2:43"
+					}
+				],
+				"domain": "2:25-2:43"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.argument.formal.constructor",
+		"languageId": "php",
+		"facet": "value.argument.formal.constructor",
+		"code": "<?php\nclass Foo {\n    function __construct($aaa = 0, $bbb = 1) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:32-2:33",
+						"removal": "2:29-2:33"
+					}
+				],
+				"domain": "2:25-2:33"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:42-2:43",
+						"removal": "2:39-2:43"
+					}
+				],
+				"domain": "2:35-2:43"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.argument.formal.iteration",
+		"languageId": "php",
+		"facet": "value.argument.formal.iteration",
+		"code": "<?php\nfunction foo($aaa = 0, $bbb = 1) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:35"
+					}
+				],
+				"domain": "0:0-1:35"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:31"
+					}
+				],
+				"domain": "1:13-1:31"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.argument.formal.lambda.iteration",
+		"languageId": "php",
+		"facet": "value.argument.formal.lambda.iteration",
+		"code": "<?php\nfunction ($aaa = 0, $bbb = 1) {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:33"
+					}
+				],
+				"domain": "0:0-1:33"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:10-1:28"
+					}
+				],
+				"domain": "1:10-1:28"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.argument.formal.lambda",
+		"languageId": "php",
+		"facet": "value.argument.formal.lambda",
+		"code": "<?php\nfunction ($aaa = 0, $bbb = 1) {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:17-1:18",
+						"removal": "1:14-1:18"
+					}
+				],
+				"domain": "1:10-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:27-1:28",
+						"removal": "1:24-1:28"
+					}
+				],
+				"domain": "1:20-1:28"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.argument.formal.method.iteration",
+		"languageId": "php",
+		"facet": "value.argument.formal.method.iteration",
+		"code": "<?php\nclass Foo {\n    function bar($aaa = 0, $bbb = 1) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:1"
+					}
+				],
+				"domain": "0:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-3:0"
+					}
+				],
+				"domain": "1:11-3:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:17-2:35"
+					}
+				],
+				"domain": "2:17-2:35"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.argument.formal.method",
+		"languageId": "php",
+		"facet": "value.argument.formal.method",
+		"code": "<?php\nclass Foo {\n    function bar($aaa = 0, $bbb = 1) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:24-2:25",
+						"removal": "2:21-2:25"
+					}
+				],
+				"domain": "2:17-2:25"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:34-2:35",
+						"removal": "2:31-2:35"
+					}
+				],
+				"domain": "2:27-2:35"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.argument.formal",
+		"languageId": "php",
+		"facet": "value.argument.formal",
+		"code": "<?php\nfunction foo($aaa = 0, $bbb = 1) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:20-1:21",
+						"removal": "1:17-1:21"
+					}
+				],
+				"domain": "1:13-1:21"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:30-1:31",
+						"removal": "1:27-1:31"
+					}
+				],
+				"domain": "1:23-1:31"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.assignment.compound",
+		"languageId": "php",
+		"facet": "value.assignment.compound",
+		"code": "<?php\n$foo += 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:9",
+						"removal": "1:4-1:9"
+					}
+				],
+				"domain": "1:0-1:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.assignment",
+		"languageId": "php",
+		"facet": "value.assignment",
+		"code": "<?php\n$foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:7-1:8",
+						"removal": "1:4-1:8"
+					}
+				],
+				"domain": "1:0-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.assignment2",
+		"languageId": "php",
+		"facet": "value.assignment",
+		"code": "<?php\n$foo += 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:9",
+						"removal": "1:4-1:9"
+					}
+				],
+				"domain": "1:0-1:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.field.class",
+		"languageId": "php",
+		"facet": "value.field.class",
+		"code": "<?php\nclass Foo {\n    public $bar = 0;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:18-2:19",
+						"removal": "2:15-2:19"
+					}
+				],
+				"domain": "2:4-2:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.field.enum",
+		"languageId": "php",
+		"facet": "value.field.enum",
+		"code": "<?php\nenum Foo {\n    case bar = 0;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:15-2:16",
+						"removal": "2:12-2:16"
+					}
+				],
+				"domain": "2:4-2:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.field.interface",
+		"languageId": "php",
+		"facet": "value.field.interface",
+		"code": "<?php\ninterface Foo {\n    public const bar = 0;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:23-2:24",
+						"removal": "2:20-2:24"
+					}
+				],
+				"domain": "2:4-2:25"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.foreach",
+		"languageId": "php",
+		"facet": "value.foreach",
+		"code": "<?php\nforeach ($values as $v) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:16",
+						"removal": "1:9-1:17"
+					}
+				],
+				"domain": "1:0-1:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.iteration.block",
+		"languageId": "php",
+		"facet": "value.iteration.block",
+		"code": "<?php\nclass Foo {\n    function bar() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:1"
+					}
+				],
+				"domain": "0:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-3:0"
+					}
+				],
+				"domain": "1:11-3:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:20-2:21"
+					}
+				],
+				"domain": "2:20-2:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.iteration.block2",
+		"languageId": "php",
+		"facet": "value.iteration.block",
+		"code": "<?php\nfunction foo() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:18"
+					}
+				],
+				"domain": "0:0-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:16-1:17"
+					}
+				],
+				"domain": "1:16-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.iteration.block3",
+		"languageId": "php",
+		"facet": "value.iteration.block",
+		"code": "<?php\nif (true) { }\nelse if (false) { }\nelse { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:8"
+					}
+				],
+				"domain": "0:0-3:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-1:12"
+					}
+				],
+				"domain": "1:11-1:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:17-2:18"
+					}
+				],
+				"domain": "2:17-2:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:6-3:7"
+					}
+				],
+				"domain": "3:6-3:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.iteration.block4",
+		"languageId": "php",
+		"facet": "value.iteration.block",
+		"code": "<?php\nwhile (true) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:16"
+					}
+				],
+				"domain": "0:0-1:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:14-1:15"
+					}
+				],
+				"domain": "1:14-1:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.iteration.class",
+		"languageId": "php",
+		"facet": "value.iteration.class",
+		"code": "<?php\nclass Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:13"
+					}
+				],
+				"domain": "0:0-1:13"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-1:12"
+					}
+				],
+				"domain": "1:11-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.iteration.document",
+		"languageId": "php",
+		"facet": "value.iteration.document",
+		"code": "\n<?php\n$foo = 0;\n",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:0"
+					}
+				],
+				"domain": "0:0-3:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.iteration.enum",
+		"languageId": "php",
+		"facet": "value.iteration.enum",
+		"code": "<?php\nenum Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:12"
+					}
+				],
+				"domain": "0:0-1:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:10-1:11"
+					}
+				],
+				"domain": "1:10-1:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.mapPair.iteration",
+		"languageId": "php",
+		"facet": "value.mapPair.iteration",
+		"code": "<?php\n[\"aaa\" => 0, \"bbb\" => 1]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:24"
+					}
+				],
+				"domain": "0:0-1:24"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:1-1:23"
+					}
+				],
+				"domain": "1:1-1:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.mapPair",
+		"languageId": "php",
+		"facet": "value.mapPair",
+		"code": "<?php\n[\"aaa\" => 0, \"bbb\" => 1];",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:10-1:11",
+						"removal": "1:6-1:11"
+					}
+				],
+				"domain": "1:1-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:22-1:23",
+						"removal": "1:18-1:23"
+					}
+				],
+				"domain": "1:13-1:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.return.lambda",
+		"languageId": "php",
+		"facet": "value.return.lambda",
+		"code": "<?php\nfn() => 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:9",
+						"removal": "1:7-1:9"
+					}
+				],
+				"domain": "1:0-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.return",
+		"languageId": "php",
+		"facet": "value.return",
+		"code": "<?php\nreturn 2;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:7-1:8",
+						"removal": "1:6-1:8"
+					}
+				],
+				"domain": "1:0-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.switch",
+		"languageId": "php",
+		"facet": "value.switch",
+		"code": "<?php\nswitch ($foo) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:12",
+						"removal": "1:8-1:12"
+					}
+				],
+				"domain": "1:0-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.throw",
+		"languageId": "php",
+		"facet": "value.throw",
+		"code": "<?php\nthrow $foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:6-1:10",
+						"removal": "1:5-1:10"
+					}
+				],
+				"domain": "1:0-1:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.variable",
+		"languageId": "php",
+		"facet": "value.variable",
+		"code": "<?php\n$foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:7-1:8",
+						"removal": "1:4-1:8"
+					}
+				],
+				"domain": "1:0-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/value/value.yield",
+		"languageId": "php",
+		"facet": "value.yield",
+		"code": "<?php\nyield 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:6-1:7",
+						"removal": "1:5-1:7"
+					}
+				],
+				"domain": "1:0-1:8"
+			}
+		]
+	}
+]

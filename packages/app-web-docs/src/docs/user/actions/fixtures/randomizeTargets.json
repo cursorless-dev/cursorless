@@ -1,0 +1,61 @@
+[
+	{
+		"path": "docs/actions/randomizeTargets.yml",
+		"name": "docs/actions/randomizeTargets",
+		"fixture": {
+			"languageId": "typescript",
+			"command": {
+				"version": 7,
+				"spokenForm": "shuffle every item",
+				"action": {
+					"name": "randomizeTargets",
+					"target": {
+						"type": "primitive",
+						"modifiers": [
+							{
+								"type": "everyScope",
+								"scopeType": {
+									"type": "collectionItem"
+								}
+							}
+						]
+					}
+				},
+				"usePrePhraseSnapshot": false
+			},
+			"initialState": {
+				"documentContents": "[1, 2, 3]",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 4
+						},
+						"active": {
+							"line": 0,
+							"character": 4
+						}
+					}
+				],
+				"marks": {},
+				"hatTokenMap": []
+			},
+			"finalState": {
+				"documentContents": "[2, 3, 1]",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 4
+						},
+						"active": {
+							"line": 0,
+							"character": 4
+						}
+					}
+				],
+				"hatTokenMap": []
+			}
+		}
+	}
+]

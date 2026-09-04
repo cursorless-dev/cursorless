@@ -3,6 +3,7 @@ sidebar_label: Short paint
 ---
 
 import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/boundedNonWhitespaceSequence.json";
 
 # Short paint (Bounded non-whitespace sequence)
 
@@ -24,7 +25,7 @@ Default: `short paint`
 
 ## Visualization
 
-<ScopeVisualizerProvider>
+<ScopeVisualizerProvider scopeTests={scopeTests}>
 
 <ScopeVisualizerOptions />
 

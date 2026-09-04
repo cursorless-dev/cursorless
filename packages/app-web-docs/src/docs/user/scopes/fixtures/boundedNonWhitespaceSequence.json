@@ -1,0 +1,211 @@
+[
+	{
+		"name": "scopes/plaintext/boundedNonWhitespaceSequence.iteration",
+		"languageId": "plaintext",
+		"facet": "boundedNonWhitespaceSequence.iteration",
+		"code": "aa(bb)cc dd(ee)ff",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:3-0:5"
+					}
+				],
+				"domain": "0:3-0:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:12-0:14"
+					}
+				],
+				"domain": "0:12-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/plaintext/boundedNonWhitespaceSequence",
+		"languageId": "plaintext",
+		"facet": "boundedNonWhitespaceSequence",
+		"code": "aa(bb)cc dd(ee)ff",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:8",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:3-0:5",
+						"removal": "0:3-0:5"
+					}
+				],
+				"domain": "0:3-0:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:17",
+						"removal": "0:8-0:17"
+					}
+				],
+				"domain": "0:9-0:17"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:12-0:14",
+						"removal": "0:12-0:14"
+					}
+				],
+				"domain": "0:12-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/plaintext/boundedNonWhitespaceSequence2",
+		"languageId": "plaintext",
+		"facet": "boundedNonWhitespaceSequence",
+		"code": "aaa bbb(ccc ddd eee)fff ggg",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:3",
+						"removal": "0:0-0:4"
+					}
+				],
+				"domain": "0:0-0:3"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:4-0:11",
+						"removal": "0:4-0:12"
+					}
+				],
+				"domain": "0:4-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:12"
+					}
+				],
+				"domain": "0:8-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:12-0:15",
+						"removal": "0:12-0:16"
+					}
+				],
+				"domain": "0:12-0:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:16-0:19",
+						"removal": "0:15-0:19"
+					}
+				],
+				"domain": "0:16-0:19"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:16-0:23",
+						"removal": "0:16-0:24"
+					}
+				],
+				"domain": "0:16-0:23"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:24-0:27",
+						"removal": "0:23-0:27"
+					}
+				],
+				"domain": "0:24-0:27"
+			}
+		]
+	},
+	{
+		"name": "scopes/plaintext/boundedNonWhitespaceSequence3",
+		"languageId": "plaintext",
+		"facet": "boundedNonWhitespaceSequence",
+		"code": "(aaa bbb(ccc)ddd eee)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:4",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:4"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:1-0:4",
+						"removal": "0:1-0:5"
+					}
+				],
+				"domain": "0:1-0:4"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:5-0:16",
+						"removal": "0:5-0:17"
+					}
+				],
+				"domain": "0:5-0:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:12",
+						"removal": "0:9-0:12"
+					}
+				],
+				"domain": "0:9-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:17-0:20",
+						"removal": "0:16-0:20"
+					}
+				],
+				"domain": "0:17-0:20"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:17-0:21",
+						"removal": "0:16-0:21"
+					}
+				],
+				"domain": "0:17-0:21"
+			}
+		]
+	}
+]

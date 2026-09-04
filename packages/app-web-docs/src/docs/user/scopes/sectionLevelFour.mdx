@@ -3,6 +3,7 @@ sidebar_label: Four section
 ---
 
 import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/sectionLevelFour.json";
 
 # Four section (Section level four)
 
@@ -23,7 +24,7 @@ Default: `four section`\
 
 ## Visualization
 
-<ScopeVisualizerProvider>
+<ScopeVisualizerProvider scopeTests={scopeTests}>
 
 <ScopeVisualizerOptions />
 

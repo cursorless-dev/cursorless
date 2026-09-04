@@ -143,10 +143,7 @@ export async function runRecordedTest({
 
   // Ensure that the expected hats are present
   await hatTokenMap.allocateHats(
-    serializedMarksToTokenHats(
-      fixture.initialState.marks,
-      spyIde.activeTextEditor!,
-    ),
+    serializedMarksToTokenHats(fixture.initialState.marks, editor),
   );
 
   const initialHatTokenMap =

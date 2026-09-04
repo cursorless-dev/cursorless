@@ -3,6 +3,7 @@ sidebar_label: Element
 ---
 
 import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/xmlElement.json";
 
 # Element (XML element)
 
@@ -22,7 +23,7 @@ Default: `element`
 
 ## Visualization
 
-<ScopeVisualizerProvider>
+<ScopeVisualizerProvider scopeTests={scopeTests}>
 
 <ScopeVisualizerOptions />
 

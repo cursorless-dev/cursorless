@@ -3,6 +3,7 @@ sidebar_label: Tags
 ---
 
 import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/xmlBothTags.json";
 
 # Tags (XML both tags)
 
@@ -22,7 +23,7 @@ Default: `tags`
 
 ## Visualization
 
-<ScopeVisualizerProvider>
+<ScopeVisualizerProvider scopeTests={scopeTests}>
 
 <ScopeVisualizerOptions />
 
