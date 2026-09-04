@@ -45,6 +45,327 @@ initialState:
     default.r:
       start: {line: 12, character: 4}
       end: {line: 12, character: 10}
+  hatTokenMap:
+    - hatStyle: default
+      grapheme: r
+      hatRange:
+        start: {line: 12, character: 8}
+        end: {line: 12, character: 9}
+    - hatStyle: blue
+      grapheme: c
+      hatRange:
+        start: {line: 7, character: 17}
+        end: {line: 7, character: 18}
+    - hatStyle: default
+      grapheme: "\""
+      hatRange:
+        start: {line: 12, character: 17}
+        end: {line: 12, character: 18}
+    - hatStyle: default
+      grapheme: a
+      hatRange:
+        start: {line: 12, character: 14}
+        end: {line: 12, character: 15}
+    - hatStyle: blue
+      grapheme: "\""
+      hatRange:
+        start: {line: 12, character: 11}
+        end: {line: 12, character: 12}
+    - hatStyle: default
+      grapheme: l
+      hatRange:
+        start: {line: 11, character: 17}
+        end: {line: 11, character: 18}
+    - hatStyle: green
+      grapheme: "\""
+      hatRange:
+        start: {line: 11, character: 15}
+        end: {line: 11, character: 16}
+    - hatStyle: red
+      grapheme: "\""
+      hatRange:
+        start: {line: 11, character: 21}
+        end: {line: 11, character: 22}
+    - hatStyle: default
+      grapheme: e
+      hatRange:
+        start: {line: 11, character: 9}
+        end: {line: 11, character: 10}
+    - hatStyle: default
+      grapheme: h
+      hatRange:
+        start: {line: 10, character: 18}
+        end: {line: 10, character: 19}
+    - hatStyle: pink
+      grapheme: "\""
+      hatRange:
+        start: {line: 10, character: 16}
+        end: {line: 10, character: 17}
+    - hatStyle: yellow
+      grapheme: "\""
+      hatRange:
+        start: {line: 10, character: 22}
+        end: {line: 10, character: 23}
+    - hatStyle: default
+      grapheme: "="
+      hatRange:
+        start: {line: 10, character: 13}
+        end: {line: 10, character: 14}
+    - hatStyle: default
+      grapheme: ":"
+      hatRange:
+        start: {line: 10, character: 23}
+        end: {line: 10, character: 24}
+    - hatStyle: default
+      grapheme: o
+      hatRange:
+        start: {line: 10, character: 8}
+        end: {line: 10, character: 9}
+    - hatStyle: default
+      grapheme: f
+      hatRange:
+        start: {line: 10, character: 5}
+        end: {line: 10, character: 6}
+    - hatStyle: default-bolt
+      grapheme: "\""
+      hatRange:
+        start: {line: 15, character: 18}
+        end: {line: 15, character: 19}
+    - hatStyle: default
+      grapheme: )
+      hatRange:
+        start: {line: 15, character: 19}
+        end: {line: 15, character: 20}
+    - hatStyle: default
+      grapheme: t
+      hatRange:
+        start: {line: 9, character: 19}
+        end: {line: 9, character: 20}
+    - hatStyle: default-curve
+      grapheme: "\""
+      hatRange:
+        start: {line: 9, character: 15}
+        end: {line: 9, character: 16}
+    - hatStyle: default-fox
+      grapheme: "\""
+      hatRange:
+        start: {line: 9, character: 21}
+        end: {line: 9, character: 22}
+    - hatStyle: default
+      grapheme: k
+      hatRange:
+        start: {line: 15, character: 17}
+        end: {line: 15, character: 18}
+    - hatStyle: default-frame
+      grapheme: "\""
+      hatRange:
+        start: {line: 15, character: 12}
+        end: {line: 15, character: 13}
+    - hatStyle: default
+      grapheme: (
+      hatRange:
+        start: {line: 15, character: 11}
+        end: {line: 15, character: 12}
+    - hatStyle: default
+      grapheme: u
+      hatRange:
+        start: {line: 9, character: 11}
+        end: {line: 9, character: 12}
+    - hatStyle: default
+      grapheme: _
+      hatRange:
+        start: {line: 15, character: 5}
+        end: {line: 15, character: 6}
+    - hatStyle: default
+      grapheme: c
+      hatRange:
+        start: {line: 8, character: 20}
+        end: {line: 8, character: 21}
+    - hatStyle: default-play
+      grapheme: "\""
+      hatRange:
+        start: {line: 8, character: 16}
+        end: {line: 8, character: 17}
+    - hatStyle: default-wing
+      grapheme: "\""
+      hatRange:
+        start: {line: 8, character: 22}
+        end: {line: 8, character: 23}
+    - hatStyle: blue
+      grapheme: "="
+      hatRange:
+        start: {line: 8, character: 13}
+        end: {line: 8, character: 14}
+    - hatStyle: blue
+      grapheme: ":"
+      hatRange:
+        start: {line: 8, character: 23}
+        end: {line: 8, character: 24}
+    - hatStyle: blue
+      grapheme: o
+      hatRange:
+        start: {line: 8, character: 8}
+        end: {line: 8, character: 9}
+    - hatStyle: default
+      grapheme: i
+      hatRange:
+        start: {line: 8, character: 4}
+        end: {line: 8, character: 5}
+    - hatStyle: blue
+      grapheme: (
+      hatRange:
+        start: {line: 7, character: 16}
+        end: {line: 7, character: 17}
+    - hatStyle: blue
+      grapheme: )
+      hatRange:
+        start: {line: 7, character: 22}
+        end: {line: 7, character: 23}
+    - hatStyle: green
+      grapheme: ":"
+      hatRange:
+        start: {line: 7, character: 23}
+        end: {line: 7, character: 24}
+    - hatStyle: default
+      grapheme: v
+      hatRange:
+        start: {line: 7, character: 6}
+        end: {line: 7, character: 7}
+    - hatStyle: default
+      grapheme: d
+      hatRange:
+        start: {line: 7, character: 0}
+        end: {line: 7, character: 1}
+    - hatStyle: green
+      grapheme: )
+      hatRange:
+        start: {line: 4, character: 19}
+        end: {line: 4, character: 20}
+    - hatStyle: green
+      grapheme: o
+      hatRange:
+        start: {line: 4, character: 15}
+        end: {line: 4, character: 16}
+    - hatStyle: green
+      grapheme: (
+      hatRange:
+        start: {line: 4, character: 13}
+        end: {line: 4, character: 14}
+    - hatStyle: default
+      grapheme: n
+      hatRange:
+        start: {line: 4, character: 11}
+        end: {line: 4, character: 12}
+    - hatStyle: red
+      grapheme: ":"
+      hatRange:
+        start: {line: 3, character: 8}
+        end: {line: 3, character: 9}
+    - hatStyle: default
+      grapheme: s
+      hatRange:
+        start: {line: 3, character: 6}
+        end: {line: 3, character: 7}
+    - hatStyle: blue
+      grapheme: v
+      hatRange:
+        start: {line: 2, character: 16}
+        end: {line: 2, character: 17}
+    - hatStyle: red
+      grapheme: (
+      hatRange:
+        start: {line: 2, character: 13}
+        end: {line: 2, character: 14}
+    - hatStyle: pink
+      grapheme: (
+      hatRange:
+        start: {line: 2, character: 26}
+        end: {line: 2, character: 27}
+    - hatStyle: red
+      grapheme: o
+      hatRange:
+        start: {line: 2, character: 28}
+        end: {line: 2, character: 29}
+    - hatStyle: default
+      grapheme: p
+      hatRange:
+        start: {line: 2, character: 8}
+        end: {line: 2, character: 9}
+    - hatStyle: red
+      grapheme: )
+      hatRange:
+        start: {line: 2, character: 32}
+        end: {line: 2, character: 33}
+    - hatStyle: pink
+      grapheme: )
+      hatRange:
+        start: {line: 2, character: 33}
+        end: {line: 2, character: 34}
+    - hatStyle: pink
+      grapheme: ":"
+      hatRange:
+        start: {line: 1, character: 13}
+        end: {line: 1, character: 14}
+    - hatStyle: green
+      grapheme: v
+      hatRange:
+        start: {line: 1, character: 9}
+        end: {line: 1, character: 10}
+    - hatStyle: blue
+      grapheme: f
+      hatRange:
+        start: {line: 1, character: 5}
+        end: {line: 1, character: 6}
+    - hatStyle: pink
+      grapheme: o
+      hatRange:
+        start: {line: 0, character: 17}
+        end: {line: 0, character: 18}
+    - hatStyle: yellow
+      grapheme: (
+      hatRange:
+        start: {line: 0, character: 15}
+        end: {line: 0, character: 16}
+    - hatStyle: default
+      grapheme: ","
+      hatRange:
+        start: {line: 0, character: 21}
+        end: {line: 0, character: 22}
+    - hatStyle: blue
+      grapheme: n
+      hatRange:
+        start: {line: 0, character: 24}
+        end: {line: 0, character: 25}
+    - hatStyle: green
+      grapheme: "="
+      hatRange:
+        start: {line: 0, character: 29}
+        end: {line: 0, character: 30}
+    - hatStyle: blue
+      grapheme: a
+      hatRange:
+        start: {line: 0, character: 31}
+        end: {line: 0, character: 32}
+    - hatStyle: blue
+      grapheme: _
+      hatRange:
+        start: {line: 0, character: 9}
+        end: {line: 0, character: 10}
+    - hatStyle: yellow
+      grapheme: )
+      hatRange:
+        start: {line: 0, character: 35}
+        end: {line: 0, character: 36}
+    - hatStyle: blue
+      grapheme: e
+      hatRange:
+        start: {line: 0, character: 1}
+        end: {line: 0, character: 2}
+    - hatStyle: yellow
+      grapheme: ":"
+      hatRange:
+        start: {line: 0, character: 36}
+        end: {line: 0, character: 37}
 finalState:
   documentContents: |
     def print_color(color, invert=False):
@@ -66,3 +387,314 @@ finalState:
   selections:
     - anchor: {line: 12, character: 16}
       active: {line: 12, character: 16}
+  hatTokenMap:
+    - hatStyle: yellow
+      grapheme: o
+      hatRange:
+        start: {line: 12, character: 12}
+        end: {line: 12, character: 13}
+    - hatStyle: default
+      grapheme: r
+      hatRange:
+        start: {line: 12, character: 8}
+        end: {line: 12, character: 9}
+    - hatStyle: default
+      grapheme: l
+      hatRange:
+        start: {line: 11, character: 17}
+        end: {line: 11, character: 18}
+    - hatStyle: green
+      grapheme: "\""
+      hatRange:
+        start: {line: 11, character: 15}
+        end: {line: 11, character: 16}
+    - hatStyle: red
+      grapheme: "\""
+      hatRange:
+        start: {line: 11, character: 21}
+        end: {line: 11, character: 22}
+    - hatStyle: default
+      grapheme: e
+      hatRange:
+        start: {line: 11, character: 9}
+        end: {line: 11, character: 10}
+    - hatStyle: pink
+      grapheme: "\""
+      hatRange:
+        start: {line: 10, character: 16}
+        end: {line: 10, character: 17}
+    - hatStyle: default
+      grapheme: h
+      hatRange:
+        start: {line: 10, character: 18}
+        end: {line: 10, character: 19}
+    - hatStyle: default
+      grapheme: "="
+      hatRange:
+        start: {line: 10, character: 13}
+        end: {line: 10, character: 14}
+    - hatStyle: yellow
+      grapheme: "\""
+      hatRange:
+        start: {line: 10, character: 22}
+        end: {line: 10, character: 23}
+    - hatStyle: default
+      grapheme: ":"
+      hatRange:
+        start: {line: 10, character: 23}
+        end: {line: 10, character: 24}
+    - hatStyle: default
+      grapheme: o
+      hatRange:
+        start: {line: 10, character: 8}
+        end: {line: 10, character: 9}
+    - hatStyle: default
+      grapheme: f
+      hatRange:
+        start: {line: 10, character: 5}
+        end: {line: 10, character: 6}
+    - hatStyle: default
+      grapheme: t
+      hatRange:
+        start: {line: 9, character: 19}
+        end: {line: 9, character: 20}
+    - hatStyle: default-curve
+      grapheme: "\""
+      hatRange:
+        start: {line: 9, character: 15}
+        end: {line: 9, character: 16}
+    - hatStyle: default-bolt
+      grapheme: "\""
+      hatRange:
+        start: {line: 15, character: 18}
+        end: {line: 15, character: 19}
+    - hatStyle: default
+      grapheme: k
+      hatRange:
+        start: {line: 15, character: 17}
+        end: {line: 15, character: 18}
+    - hatStyle: default
+      grapheme: )
+      hatRange:
+        start: {line: 15, character: 19}
+        end: {line: 15, character: 20}
+    - hatStyle: default-frame
+      grapheme: "\""
+      hatRange:
+        start: {line: 15, character: 12}
+        end: {line: 15, character: 13}
+    - hatStyle: default-fox
+      grapheme: "\""
+      hatRange:
+        start: {line: 9, character: 21}
+        end: {line: 9, character: 22}
+    - hatStyle: default
+      grapheme: (
+      hatRange:
+        start: {line: 15, character: 11}
+        end: {line: 15, character: 12}
+    - hatStyle: default
+      grapheme: u
+      hatRange:
+        start: {line: 9, character: 11}
+        end: {line: 9, character: 12}
+    - hatStyle: default
+      grapheme: _
+      hatRange:
+        start: {line: 15, character: 5}
+        end: {line: 15, character: 6}
+    - hatStyle: default-play
+      grapheme: "\""
+      hatRange:
+        start: {line: 8, character: 16}
+        end: {line: 8, character: 17}
+    - hatStyle: default
+      grapheme: c
+      hatRange:
+        start: {line: 8, character: 20}
+        end: {line: 8, character: 21}
+    - hatStyle: blue
+      grapheme: "="
+      hatRange:
+        start: {line: 8, character: 13}
+        end: {line: 8, character: 14}
+    - hatStyle: default-wing
+      grapheme: "\""
+      hatRange:
+        start: {line: 8, character: 22}
+        end: {line: 8, character: 23}
+    - hatStyle: blue
+      grapheme: ":"
+      hatRange:
+        start: {line: 8, character: 23}
+        end: {line: 8, character: 24}
+    - hatStyle: blue
+      grapheme: o
+      hatRange:
+        start: {line: 8, character: 8}
+        end: {line: 8, character: 9}
+    - hatStyle: default
+      grapheme: i
+      hatRange:
+        start: {line: 8, character: 4}
+        end: {line: 8, character: 5}
+    - hatStyle: blue
+      grapheme: (
+      hatRange:
+        start: {line: 7, character: 16}
+        end: {line: 7, character: 17}
+    - hatStyle: blue
+      grapheme: c
+      hatRange:
+        start: {line: 7, character: 17}
+        end: {line: 7, character: 18}
+    - hatStyle: blue
+      grapheme: )
+      hatRange:
+        start: {line: 7, character: 22}
+        end: {line: 7, character: 23}
+    - hatStyle: green
+      grapheme: ":"
+      hatRange:
+        start: {line: 7, character: 23}
+        end: {line: 7, character: 24}
+    - hatStyle: default
+      grapheme: v
+      hatRange:
+        start: {line: 7, character: 6}
+        end: {line: 7, character: 7}
+    - hatStyle: default
+      grapheme: d
+      hatRange:
+        start: {line: 7, character: 0}
+        end: {line: 7, character: 1}
+    - hatStyle: green
+      grapheme: o
+      hatRange:
+        start: {line: 4, character: 15}
+        end: {line: 4, character: 16}
+    - hatStyle: green
+      grapheme: (
+      hatRange:
+        start: {line: 4, character: 13}
+        end: {line: 4, character: 14}
+    - hatStyle: green
+      grapheme: )
+      hatRange:
+        start: {line: 4, character: 19}
+        end: {line: 4, character: 20}
+    - hatStyle: default
+      grapheme: n
+      hatRange:
+        start: {line: 4, character: 11}
+        end: {line: 4, character: 12}
+    - hatStyle: red
+      grapheme: ":"
+      hatRange:
+        start: {line: 3, character: 8}
+        end: {line: 3, character: 9}
+    - hatStyle: default
+      grapheme: s
+      hatRange:
+        start: {line: 3, character: 6}
+        end: {line: 3, character: 7}
+    - hatStyle: blue
+      grapheme: v
+      hatRange:
+        start: {line: 2, character: 16}
+        end: {line: 2, character: 17}
+    - hatStyle: red
+      grapheme: (
+      hatRange:
+        start: {line: 2, character: 13}
+        end: {line: 2, character: 14}
+    - hatStyle: default
+      grapheme: p
+      hatRange:
+        start: {line: 2, character: 8}
+        end: {line: 2, character: 9}
+    - hatStyle: pink
+      grapheme: (
+      hatRange:
+        start: {line: 2, character: 26}
+        end: {line: 2, character: 27}
+    - hatStyle: red
+      grapheme: o
+      hatRange:
+        start: {line: 2, character: 28}
+        end: {line: 2, character: 29}
+    - hatStyle: red
+      grapheme: )
+      hatRange:
+        start: {line: 2, character: 32}
+        end: {line: 2, character: 33}
+    - hatStyle: pink
+      grapheme: )
+      hatRange:
+        start: {line: 2, character: 33}
+        end: {line: 2, character: 34}
+    - hatStyle: pink
+      grapheme: ":"
+      hatRange:
+        start: {line: 1, character: 13}
+        end: {line: 1, character: 14}
+    - hatStyle: green
+      grapheme: v
+      hatRange:
+        start: {line: 1, character: 9}
+        end: {line: 1, character: 10}
+    - hatStyle: blue
+      grapheme: f
+      hatRange:
+        start: {line: 1, character: 5}
+        end: {line: 1, character: 6}
+    - hatStyle: pink
+      grapheme: o
+      hatRange:
+        start: {line: 0, character: 17}
+        end: {line: 0, character: 18}
+    - hatStyle: yellow
+      grapheme: (
+      hatRange:
+        start: {line: 0, character: 15}
+        end: {line: 0, character: 16}
+    - hatStyle: default
+      grapheme: ","
+      hatRange:
+        start: {line: 0, character: 21}
+        end: {line: 0, character: 22}
+    - hatStyle: blue
+      grapheme: n
+      hatRange:
+        start: {line: 0, character: 24}
+        end: {line: 0, character: 25}
+    - hatStyle: blue
+      grapheme: _
+      hatRange:
+        start: {line: 0, character: 9}
+        end: {line: 0, character: 10}
+    - hatStyle: green
+      grapheme: "="
+      hatRange:
+        start: {line: 0, character: 29}
+        end: {line: 0, character: 30}
+    - hatStyle: blue
+      grapheme: a
+      hatRange:
+        start: {line: 0, character: 31}
+        end: {line: 0, character: 32}
+    - hatStyle: blue
+      grapheme: e
+      hatRange:
+        start: {line: 0, character: 1}
+        end: {line: 0, character: 2}
+    - hatStyle: yellow
+      grapheme: )
+      hatRange:
+        start: {line: 0, character: 35}
+        end: {line: 0, character: 36}
+    - hatStyle: yellow
+      grapheme: ":"
+      hatRange:
+        start: {line: 0, character: 36}
+        end: {line: 0, character: 37}

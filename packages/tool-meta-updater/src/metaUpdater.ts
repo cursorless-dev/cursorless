@@ -18,8 +18,12 @@ import {
   scopeReferences,
   unsafeKeys,
 } from "@cursorless/lib-common";
-import { getRecordedDocsPaths } from "@cursorless/lib-node-common";
 import type { RecordedTestPath } from "@cursorless/lib-node-common";
+import {
+  FileSystemTutorialContentProvider,
+  getRecordedDocsPaths,
+  getRecordedTestsDirPath,
+} from "@cursorless/lib-node-common";
 import type { Context } from "./Context";
 import { createScopeFixtureGroups } from "./scopeFixtureGroups";
 import { textFormat } from "./textFormat";
@@ -33,6 +37,11 @@ import { updateScopeSupportFacetInfos } from "./updateScopeSupportFacetInfos";
 import { updateSpokenForms } from "./updateSpokenForms";
 import { updateTSConfig } from "./updateTSConfig";
 import { updateTSConfigBase } from "./updateTSConfigBase";
+import {
+  parseTutorialId,
+  updateTutorialMdx,
+  updateTutorialReadmeMdx,
+} from "./updateTutorialMdx";
 import { cleanId } from "./util/cleanId";
 
 export const updater = async (workspaceDir: string) => {
@@ -57,6 +66,10 @@ export const updater = async (workspaceDir: string) => {
   const scopeFixtureGroups = createScopeFixtureGroups(workspaceDir);
   const recordedDocsPaths = getRecordedDocsPaths();
   const languageIds = unsafeKeys(languageReferences);
+  const tutorialContentProvider = new FileSystemTutorialContentProvider(
+    getRecordedTestsDirPath(),
+  );
+  const tutorials = await tutorialContentProvider.loadRawTutorials();
 
   return createUpdateOptions({
     files: {
@@ -66,6 +79,16 @@ export const updater = async (workspaceDir: string) => {
       "resources/fixtures/scope-support-facet-infos.md":
         updateScopeSupportFacetInfos,
       "cursorless-talon/src/spoken_forms.json": updateSpokenForms,
+      [`${userDir}/tutorial/README.mdx`]: updateTutorialReadmeMdx.bind(
+        null,
+        tutorials,
+      ),
+      ...Object.fromEntries(
+        tutorials.map((tutorial) => [
+          `${userDir}/tutorial/${parseTutorialId(tutorial.id).shortId}.mdx`,
+          updateTutorialMdx.bind(null, tutorial, tutorialContentProvider),
+        ]),
+      ),
       ...Object.fromEntries(
         languageIds.map((languageId) => [
           `${userDir}/languages/${languageId}.mdx`,

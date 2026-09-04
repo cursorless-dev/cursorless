@@ -2,8 +2,9 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { LoadContext, Plugin, PluginOptions } from "@docusaurus/types";
 import {
-  getRecordedDocsDirPath,
   getRecordedDocsPaths,
+  getRecordedTestsDirPath,
+  getRecordedTutorialPaths,
   loadFixture,
 } from "@cursorless/lib-node-common";
 import type { RecordedTest } from "../docs/components/types";
@@ -24,8 +25,11 @@ export default function recordedTestsPlugin(
       // oxlint-disable-next-line node/no-process-env
       process.env.CURSORLESS_REPO_ROOT = repoRoot;
 
-      const recordedTestsDir = getRecordedDocsDirPath();
-      const recordedTestPaths = getRecordedDocsPaths();
+      const recordedTestsDir = getRecordedTestsDirPath();
+      const recordedTestPaths = [
+        ...getRecordedDocsPaths(),
+        ...getRecordedTutorialPaths(),
+      ];
 
       return Promise.all(
         recordedTestPaths.map(async (test) => {

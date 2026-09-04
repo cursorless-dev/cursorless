@@ -1,0 +1,73 @@
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+
+# 2. Basic coding
+
+<RecordedTestVisualizerProvider>
+
+<RecordedTestVisualizerOptions />
+
+## Step 1
+
+When editing code, we often think in terms of statements, functions, etc. Let's clone a statement: `"clone state sit"`
+
+<RecordedTestVisualizer fixtureName="tutorial/tutorial-2-basic-coding/cloneStateInk" />
+
+## Step 2
+
+"state" is one of many scopes supported by Cursorless. To see all available scopes, have a look at the Scopes section below, and use the "visualize" command to see them live: `"visualize funk"`
+
+## Step 3
+
+Say `"visualize nothing"` to hide the visualization.
+
+## Step 4
+
+Cursorless tries its best to keep your commands short.
+
+In the following command, we just say "string" once, but Cursorless infers that both targets are strings: `"swap string air with whale"`
+
+<RecordedTestVisualizer fixtureName="tutorial/tutorial-2-basic-coding/swapStringAirWithWhale" />
+
+## Step 5
+
+Great. Let's learn a new action. The "pour" action lets you start editing a new line below any line on your screen: `"pour urge"`
+
+<RecordedTestVisualizer fixtureName="tutorial/tutorial-2-basic-coding/pourUrge" />
+
+## Step 6
+
+Now let's try applying a Cursorless action to the current line: `"dedent this"`
+
+<RecordedTestVisualizer fixtureName="tutorial/tutorial-2-basic-coding/dedentThis" />
+
+## Step 7
+
+Code reuse is a fact of life as a programmer. Cursorless makes this easy with the "bring" command: `"bring state urge"`
+
+<RecordedTestVisualizer fixtureName="tutorial/tutorial-2-basic-coding/bringStateUrge" />
+
+## Step 8
+
+"bring" also works with two targets just like "swap": `"bring blue cap to value red"`
+
+<RecordedTestVisualizer fixtureName="tutorial/tutorial-2-basic-coding/bringBlueCapToValueRisk" />
+
+## Step 9
+
+Cursorless tries its best to use its knowledge of programming languages to leave you with syntactically valid code.
+
+Note how it cleans up the comma here: `"chuck arg blue vest"`
+
+<RecordedTestVisualizer fixtureName="tutorial/tutorial-2-basic-coding/chuckArgueBlueVest" />
+
+## Step 10
+
+We introduced a lot of different scopes today. If you're anything like us, you've already forgotten them all.
+
+The important thing to remember is that you can always say `"cursorless help"` to see a list.
+
+## Step 11
+
+As always, feel free to stick around and play with this file to practice what you've just learned. Happy coding 😊. Say `"tutorial next"` to get back home.
+
+</RecordedTestVisualizerProvider>

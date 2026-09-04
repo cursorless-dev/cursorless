@@ -1,6 +1,6 @@
 ---
 sidebar_group: Getting started
-sidebar_position: 3
+sidebar_position: 4
 ---
 
 # Learning resources
@@ -10,7 +10,7 @@ These resources can help you learn Cursorless, from your first commands through 
 ## Start here
 
 - [Cursorless tutorial videos](https://www.youtube.com/watch?v=5mAzHGM2M0k&list=PLXv2sppxeoQZz49evjy4T0QJRIgc_JPqs) - Learn the basic concepts and commands.
-- [Interactive tutorial](./sidebar.md#tutorial) - Learn Cursorless inside your editor using the Cursorless sidebar.
+- [Cursorless tutorial](./tutorial/README.mdx) - Learn in your browser or follow the same lessons interactively inside VS Code.
 
 ## Learn from examples
 

@@ -37,6 +37,10 @@ export function getRecordedTestsDirPath() {
 export function getRecordedDocsDirPath() {
   return path.join(getFixturesPath(), "recorded", "docs");
 }
+
+export function getRecordedTutorialDirPath() {
+  return path.join(getFixturesPath(), "recorded", "tutorial");
+}
 export function getScopeTestsDirPath() {
   return path.join(getFixturesPath(), "scopes");
 }
@@ -55,6 +59,18 @@ export function getRecordedTestPaths(): RecordedTestPath[] {
 
 export function getRecordedDocsPaths(): RecordedTestPath[] {
   const directory = getRecordedDocsDirPath();
+  const relativeDir = path.dirname(directory);
+
+  return walkFilesSync(directory)
+    .filter((p) => p.endsWith(".yml") || p.endsWith(".yaml"))
+    .map((p) => ({
+      path: p,
+      name: pathToName(relativeDir, p),
+    }));
+}
+
+export function getRecordedTutorialPaths(): RecordedTestPath[] {
+  const directory = getRecordedTutorialDirPath();
   const relativeDir = path.dirname(directory);
 
   return walkFilesSync(directory)
