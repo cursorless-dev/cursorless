@@ -23,7 +23,7 @@ suite("tutorials", () => {
     );
     assert.equal(
       documentationTutorial.steps.at(-1),
-      "And that wraps up unit 1 of the Cursorless tutorial! Continue with [Basic coding](./2-basic-coding.mdx).",
+      "And that wraps up unit 1 of the Cursorless tutorial! Next time, we'll write some code 🙌.",
     );
     assert.equal(
       interactiveTutorial.steps.at(-1),
