@@ -34,7 +34,7 @@ class Actions:
     def private_cursorless_start_tutorial():
         """Start the introductory Cursorless tutorial"""
         actions.user.private_cursorless_run_rpc_command_no_wait(
-            "cursorless.tutorial.start", "1-introduction"
+            "cursorless.tutorial.start", "introduction"
         )
 
     def private_cursorless_tutorial_next():
