@@ -1,12 +1,13 @@
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import type {
-  RawTutorialContent,
+  ResolvedTutorialContent,
   TestCaseFixtureLegacy,
   TutorialContentProvider,
   TutorialId,
 } from "@cursorless/lib-common";
 import { graphemeDefaultSpokenForms } from "@cursorless/lib-common";
 import { recordedTestVisualizerImport } from "./renderRecordedTestVisualizer";
+import { isAppWebDocs } from "./util/isManifest";
 
 const componentRegex = /\{(\w+):([^}]+)\}/gu;
 
@@ -28,18 +29,13 @@ interface TutorialRecordedTest {
 }
 
 export function updateTutorialReadmeMdx(
-  tutorials: RawTutorialContent[],
+  tutorials: ResolvedTutorialContent[],
   _actual: string | null,
   options: FormatPluginFnOptions,
 ): string | null {
-  if (options.manifest.name !== "@cursorless/app-web-docs") {
+  if (!isAppWebDocs(options)) {
     return null;
   }
-
-  const enrichedTutorials = tutorials.map((tutorial) => ({
-    ...tutorial,
-    ...parseTutorialId(tutorial.id),
-  }));
 
   return [
     "# Tutorial",
@@ -48,12 +44,12 @@ export function updateTutorialReadmeMdx(
     "",
     'To follow along interactively, focus VS Code and say `"cursorless tutorial"`.',
     "",
-    ...enrichedTutorials
+    ...tutorials
       .toSorted((a, b) => a.position - b.position)
       .flatMap((tutorial) => [
         `## ${tutorial.position}. ${tutorial.title}`,
         "",
-        `[Start ${tutorial.title}](./${tutorial.shortId}.mdx)`,
+        `[Start ${tutorial.title}](./${tutorial.id}.mdx) - ${tutorial.description}`,
         "",
       ]),
     "## Use the interactive tutorial",
@@ -83,22 +79,23 @@ export function updateTutorialReadmeMdx(
 }
 
 export async function updateTutorialMdx(
-  tutorial: RawTutorialContent,
+  tutorial: ResolvedTutorialContent,
+  nextTutorial: ResolvedTutorialContent | undefined,
   contentProvider: TutorialContentProvider,
   _actual: string | null,
   options: FormatPluginFnOptions,
 ): Promise<string | null> {
-  if (options.manifest.name !== "@cursorless/app-web-docs") {
+  if (!isAppWebDocs(options)) {
     return null;
   }
 
-  const { position, shortId } = parseTutorialId(tutorial.id);
-
   const lines = [
     recordedTestVisualizerImport,
-    `import recordedTests from "./fixtures/${shortId}.json";`,
+    `import recordedTests from "./fixtures/${tutorial.id}.json";`,
     "",
-    `# ${position}. ${tutorial.title}`,
+    `# ${tutorial.position}. ${tutorial.title}`,
+    "",
+    tutorial.description,
     "",
     "<RecordedTestVisualizerProvider recordedTests={recordedTests}>",
     "",
@@ -113,28 +110,29 @@ export async function updateTutorialMdx(
     for (const fixtureName of step.fixtureNames) {
       lines.push(`<RecordedTestVisualizer fixtureName="${fixtureName}" />`, "");
     }
-    if (step.fixtureNames.length === 0) {
-      lines.push(
-        ":::note",
-
-        'This step has no visualisation. To get the full experience try the interactive tutorial in VS Code by saying `"cursorless tutorial"`.',
-        ":::",
-        "",
-      );
-    }
   }
 
   lines.push("</RecordedTestVisualizerProvider>", "");
+
+  if (nextTutorial != null) {
+    lines.push(
+      `## Next tutorial: ${nextTutorial.position}. ${nextTutorial.title}`,
+      "",
+      `[Continue to ${nextTutorial.title}](./${nextTutorial.id}.mdx) - ${nextTutorial.description}`,
+      "",
+    );
+  }
+
   return lines.join("\n");
 }
 
 export async function updateTutorialFixtureData(
-  tutorial: RawTutorialContent,
+  tutorial: ResolvedTutorialContent,
   contentProvider: TutorialContentProvider,
   _actual: unknown,
   options: FormatPluginFnOptions,
 ): Promise<TutorialRecordedTest[] | null> {
-  if (options.manifest.name !== "@cursorless/app-web-docs") {
+  if (!isAppWebDocs(options)) {
     return null;
   }
 
@@ -162,7 +160,7 @@ export async function updateTutorialFixtureData(
 
 async function renderStep(
   contentProvider: TutorialContentProvider,
-  tutorialId: RawTutorialContent["id"],
+  tutorialId: TutorialId,
   rawStep: string,
 ): Promise<RenderedStep> {
   const fixtureNames: string[] = [];
@@ -205,7 +203,7 @@ async function renderStep(
 }
 
 function getTutorialFixtureName(
-  tutorialId: RawTutorialContent["id"],
+  tutorialId: TutorialId,
   argument: string,
 ): string {
   return `tutorial/${tutorialId}/${argument.replace(/\.ya?ml$/u, "")}`;
@@ -234,19 +232,4 @@ function formatSpokenForm(spokenForm: string): string {
 
 function formatTerm(term: string): string {
   return `"${term}"`;
-}
-
-export function parseTutorialId(id: TutorialId) {
-  const match = id.match(/^tutorial-(?<identifier>(?<number>\d+)-.+)$/u);
-  const position = match?.groups?.number;
-  const shortId = match?.groups?.identifier;
-
-  if (position == null || shortId == null) {
-    throw new Error(`Invalid tutorial fixture id: ${id}`);
-  }
-
-  return {
-    position: Number(position),
-    shortId,
-  };
 }

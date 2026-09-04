@@ -9,6 +9,7 @@ import type { ScopeTypeType } from "@cursorless/lib-common";
 import {
   actionReferenceGroups,
   actionReferences,
+  getTutorialsForContext,
   graphemeDefaultSpokenForms,
   languageReferences,
   modifierReferenceGroups,
@@ -43,7 +44,6 @@ import { updateSpokenForms } from "./updateSpokenForms";
 import { updateTSConfig } from "./updateTSConfig";
 import { updateTSConfigBase } from "./updateTSConfigBase";
 import {
-  parseTutorialId,
   updateTutorialFixtureData,
   updateTutorialMdx,
   updateTutorialReadmeMdx,
@@ -76,7 +76,7 @@ export const updater = async (workspaceDir: string) => {
   const tutorialContentProvider = new FileSystemTutorialContentProvider(
     getRecordedTestsDirPath(),
   );
-  const tutorials = await tutorialContentProvider.loadRawTutorials();
+  const tutorials = getTutorialsForContext("documentation");
 
   return createUpdateOptions({
     files: {
@@ -101,15 +101,19 @@ export const updater = async (workspaceDir: string) => {
         tutorials,
       ),
       ...Object.fromEntries(
-        tutorials.flatMap((tutorial) => {
-          const { shortId } = parseTutorialId(tutorial.id);
+        tutorials.flatMap((tutorial, index) => {
           return [
             [
-              `${userDir}/tutorial/${shortId}.mdx`,
-              updateTutorialMdx.bind(null, tutorial, tutorialContentProvider),
+              `${userDir}/tutorial/${tutorial.id}.mdx`,
+              updateTutorialMdx.bind(
+                null,
+                tutorial,
+                tutorials[index + 1],
+                tutorialContentProvider,
+              ),
             ],
             [
-              `${userDir}/tutorial/fixtures/${shortId}.json`,
+              `${userDir}/tutorial/fixtures/${tutorial.id}.json`,
               updateTutorialFixtureData.bind(
                 null,
                 tutorial,

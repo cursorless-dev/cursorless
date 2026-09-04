@@ -1,5 +1,5 @@
 import type {
-  CharacterRange,
+  GeneralizedRange,
   HatTokenMap,
   IDE,
   TestCaseSnapshot,
@@ -7,6 +7,7 @@ import type {
   TutorialState,
 } from "@cursorless/lib-common";
 import {
+  plainObjectToGeneralizedRange,
   plainObjectToRange,
   plainObjectToSelection,
   serializedMarksToTokenHats,
@@ -16,7 +17,7 @@ import type { TutorialContent } from "./types/tutorial.types";
 
 interface HighlightedEditor {
   editor: TextEditor | undefined;
-  highlightRanges: CharacterRange[];
+  highlightRanges: GeneralizedRange[];
 }
 
 /**
@@ -114,9 +115,14 @@ async function applySnapshot(
 
     return {
       editor,
-      highlightRanges: Object.values(snapshot.marks ?? {}).map((range) =>
-        toCharacterRange(plainObjectToRange(range)),
-      ),
+      highlightRanges: [
+        ...Object.values(snapshot.marks ?? {}).map((range) =>
+          toCharacterRange(plainObjectToRange(range)),
+        ),
+        ...(snapshot.highlights ?? []).flatMap((highlight) =>
+          highlight.ranges.map(plainObjectToGeneralizedRange),
+        ),
+      ],
     };
   } catch (error) {
     if (retry) {

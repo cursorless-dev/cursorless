@@ -28,7 +28,7 @@ type Connective =
   | "at"
   | "on";
 
-type ScopeVisualizer =
+export type ScopeVisualizer =
   | "showScopeVisualizer"
   | "hideScopeVisualizer"
   | "removal"

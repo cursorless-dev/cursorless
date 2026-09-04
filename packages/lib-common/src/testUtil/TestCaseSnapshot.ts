@@ -1,5 +1,6 @@
 import type { StoredTargetKey } from "../StoredTargetKey";
 import type {
+  PlainHighlight,
   RangePlainObject,
   SelectionPlainObject,
   SerializedMarks,
@@ -20,6 +21,9 @@ export interface TestCaseSnapshot extends MarkKeys {
   visibleRanges?: RangePlainObject[];
   marks?: SerializedMarks;
   hatTokenMap?: SimpleTokenHat[];
+
+  /** Highlights to establish when this snapshot is used as an initial state. */
+  highlights?: PlainHighlight[];
   timeOffsetSeconds?: number;
 
   /**

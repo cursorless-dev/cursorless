@@ -1,7 +1,7 @@
 import type { CustomSpokenFormGenerator } from "@cursorless/lib-engine";
 import { parseScopeType } from "@cursorless/lib-engine";
 import { getScopeTypeSpokenFormStrict } from "../getScopeTypeSpokenFormStrict";
-import { specialTerms } from "../specialTerms";
+import { getSpokenFormStrict } from "../getSpokenFormStrict";
 import type { StepComponent } from "../types/StepComponent";
 
 /**
@@ -14,11 +14,16 @@ export function parseVisualizeComponent(
   arg: string,
 ): StepComponent {
   const scopeType = parseScopeType(arg);
+  const visualizeSpokenForm = getSpokenFormStrict(
+    customSpokenFormGenerator.scopeVisualizerIdToSpokenForm(
+      "showScopeVisualizer",
+    ),
+  );
 
   return {
     content: {
       type: "command",
-      value: `${specialTerms.visualize} ${getScopeTypeSpokenFormStrict(customSpokenFormGenerator, scopeType)}`,
+      value: `${visualizeSpokenForm} ${getScopeTypeSpokenFormStrict(customSpokenFormGenerator, scopeType)}`,
     },
     trigger: {
       type: "visualize",

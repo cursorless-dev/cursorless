@@ -1,6 +1,7 @@
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import type { PairedDelimiterReference } from "@cursorless/lib-common";
 import { DISABLED_BY_DEFAULT } from "./util/constants";
+import { isAppWebDocs } from "./util/isManifest";
 
 const HEADERS = [
   "Default spoken form",
@@ -16,7 +17,7 @@ export function updatePairedDelimitersMd(
   actual: string | null,
   options: FormatPluginFnOptions,
 ): string | null {
-  if (options.manifest.name !== "@cursorless/app-web-docs") {
+  if (!isAppWebDocs(options)) {
     return null;
   }
 

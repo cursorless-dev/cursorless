@@ -6,6 +6,7 @@ import type {
 } from "@cursorless/lib-common";
 import type { ScopeTestPath } from "@cursorless/lib-node-common";
 import type { ScopeFixtureGroup } from "./scopeFixtureGroups";
+import { isAppWebDocs } from "./util/isManifest";
 
 type FacetValue = ScopeSupportFacet | PlaintextScopeSupportFacet;
 
@@ -33,7 +34,7 @@ export function updateScopeFixtureData(
   _actual: unknown,
   options: FormatPluginFnOptions,
 ): ScopeFixtureData[] | null {
-  if (options.manifest.name !== "@cursorless/app-web-docs") {
+  if (!isAppWebDocs(options)) {
     return null;
   }
 

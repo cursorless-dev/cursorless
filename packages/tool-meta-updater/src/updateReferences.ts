@@ -15,6 +15,7 @@ import { cleanId } from "./util/cleanId";
 import { DISABLED_BY_DEFAULT } from "./util/constants";
 import { formatVariables } from "./util/formatVariables";
 import { injectSpokenForm } from "./util/injectSpokenForm";
+import { isAppWebDocs } from "./util/isManifest";
 
 export function updateReferenceReadmeMd(
   title: string,
@@ -23,7 +24,7 @@ export function updateReferenceReadmeMd(
   actual: string | null,
   options: FormatPluginFnOptions,
 ): string | null {
-  if (options.manifest.name !== "@cursorless/app-web-docs") {
+  if (!isAppWebDocs(options)) {
     return null;
   }
 
@@ -79,7 +80,7 @@ export async function updateReferenceMdx(
   actual: string | null,
   options: FormatPluginFnOptions,
 ): Promise<string | null> {
-  if (options.manifest.name !== "@cursorless/app-web-docs") {
+  if (!isAppWebDocs(options)) {
     return null;
   }
 

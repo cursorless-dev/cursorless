@@ -1,4 +1,5 @@
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
+import { isAppWebDocs } from "./util/isManifest";
 
 const HEADERS = ["Character", "Default spoken form"] as const;
 
@@ -7,7 +8,7 @@ export function updateGraphemeDefaultSpokenFormsMd(
   actual: string | null,
   options: FormatPluginFnOptions,
 ): string | null {
-  if (options.manifest.name !== "@cursorless/app-web-docs") {
+  if (!isAppWebDocs(options)) {
     return null;
   }
 

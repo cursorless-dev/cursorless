@@ -6,6 +6,7 @@ import {
   getRecordedTestsDirPath,
   loadFixture,
 } from "@cursorless/lib-node-common";
+import { isAppWebDocs } from "./util/isManifest";
 
 export const recordedTestVisualizerImport = `import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";`;
 
@@ -20,7 +21,7 @@ export function updateRecordedTestFixtureData(
   _actual: unknown,
   options: FormatPluginFnOptions,
 ): Promise<RecordedTestData[] | null> {
-  if (options.manifest.name !== "@cursorless/app-web-docs") {
+  if (!isAppWebDocs(options)) {
     return Promise.resolve(null);
   }
   if (recordedTestPaths.length === 0) {

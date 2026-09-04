@@ -19,6 +19,7 @@ import {
   clientSupportsFallback,
   getSnapshotForComparison,
   omitByDeep,
+  plainObjectToGeneralizedRange,
   Position,
   rangeToPlainObject,
   Selection,
@@ -144,6 +145,16 @@ export async function runRecordedTest({
   // Ensure that the expected hats are present
   await hatTokenMap.allocateHats(
     serializedMarksToTokenHats(fixture.initialState.marks, editor),
+  );
+
+  await Promise.all(
+    (fixture.initialState.highlights ?? []).map((highlight) =>
+      spyIde.setInitialHighlightRanges(
+        highlight.highlightId,
+        editor,
+        highlight.ranges.map(plainObjectToGeneralizedRange),
+      ),
+    ),
   );
 
   const initialHatTokenMap =

@@ -4,6 +4,12 @@ import type { PackageJson } from "type-fest";
 import { omitByDeep } from "@cursorless/lib-common";
 import type { Context } from "./Context";
 import { getCursorlessVscodeFields } from "./util/getCursorlessVscodeFields";
+import {
+  isAppNeovim,
+  isAppVscode,
+  isAppWebDocs,
+  isTestRunner,
+} from "./util/isManifest";
 
 const LIB_ENTRY_POINT = "./src/index.ts";
 
@@ -30,19 +36,19 @@ export function updatePackageJson(
   const isRoot = packageDir === workspaceDir;
 
   const isLib = !isRoot && !input.private;
-  const isCursorlessVscode = input.name === "@cursorless/app-vscode";
-  const isCursorlessNeovim = input.name === "@cursorless/app-neovim";
-  const isCursorlessOrgDocs = input.name === "@cursorless/app-web-docs";
-  const isCursorlessTestRunner = input.name === "@cursorless/test-runner";
+  const isCursorlessVscode = isAppVscode(options);
+  const isCursorlessNeovim = isAppNeovim(options);
+  const isCursorlessOrgDocs = isAppWebDocs(options);
+  const isCursorlessTestRunner = isTestRunner(options);
 
   if (input.description == null || input.description === "") {
     throw new Error(`No description found in ${packageDir}/package.json`);
   }
 
   const name =
-    isRoot || input.name?.startsWith("@cursorless/")
-      ? input.name
-      : `@cursorless/${input.name}`;
+    isRoot || options.manifest.name?.startsWith("@cursorless/")
+      ? options.manifest.name
+      : `@cursorless/${options.manifest.name}`;
 
   if (isLib) {
     const exports =
