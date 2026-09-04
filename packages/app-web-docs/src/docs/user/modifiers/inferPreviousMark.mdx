@@ -3,6 +3,7 @@ sidebar_label: Its
 ---
 
 import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/inferPreviousMark.json";
 
 # Its (Infer previous mark)
 
@@ -26,7 +27,7 @@ Default: `its`
 
 ## Visualization
 
-<RecordedTestVisualizerProvider>
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
 
 <RecordedTestVisualizerOptions />
 

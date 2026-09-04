@@ -3,6 +3,7 @@ sidebar_label: Key
 ---
 
 import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/collectionKey.json";
 
 # Key (Collection key)
 
@@ -22,7 +23,7 @@ Default: `key`
 
 ## Visualization
 
-<ScopeVisualizerProvider>
+<ScopeVisualizerProvider scopeTests={scopeTests}>
 
 <ScopeVisualizerOptions />
 

@@ -1,0 +1,4991 @@
+[
+	{
+		"name": "scopes/c/interior/interior.class",
+		"languageId": "c",
+		"facet": "interior.class",
+		"code": "struct Foo { };",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13",
+						"removal": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.class2",
+		"languageId": "c",
+		"facet": "interior.class",
+		"code": "union Foo { };",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.class3",
+		"languageId": "c",
+		"facet": "interior.class",
+		"code": "typedef struct { } Foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:16-0:17",
+						"removal": "0:16-0:17"
+					}
+				],
+				"domain": "0:16-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.class4",
+		"languageId": "c",
+		"facet": "interior.class",
+		"code": "typedef union { } Foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:15-0:16",
+						"removal": "0:15-0:16"
+					}
+				],
+				"domain": "0:15-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.doWhile",
+		"languageId": "c",
+		"facet": "interior.doWhile",
+		"code": "do { } while (true);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:5",
+						"removal": "0:4-0:5"
+					}
+				],
+				"domain": "0:4-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.enum",
+		"languageId": "c",
+		"facet": "interior.enum",
+		"code": "enum Foo { };",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:11",
+						"removal": "0:10-0:11"
+					}
+				],
+				"domain": "0:10-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.enum2",
+		"languageId": "c",
+		"facet": "interior.enum",
+		"code": "typedef enum { } Foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15",
+						"removal": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.for",
+		"languageId": "c",
+		"facet": "interior.for",
+		"code": "for (int i = 0; i < size; ++i) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:32-0:33",
+						"removal": "0:32-0:33"
+					}
+				],
+				"domain": "0:32-0:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.function",
+		"languageId": "c",
+		"facet": "interior.function",
+		"code": "void foo() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13",
+						"removal": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.function2",
+		"languageId": "c",
+		"facet": "interior.function",
+		"code": "void Foo::bar() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:17-0:18",
+						"removal": "0:17-0:18"
+					}
+				],
+				"domain": "0:17-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.if",
+		"languageId": "c",
+		"facet": "interior.if",
+		"code": "if (true) { }\nelse if (false) { }\nelse { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:17-1:18",
+						"removal": "1:17-1:18"
+					}
+				],
+				"domain": "1:17-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:6-2:7",
+						"removal": "2:6-2:7"
+					}
+				],
+				"domain": "2:6-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.switch",
+		"languageId": "c",
+		"facet": "interior.switch",
+		"code": "switch (foo) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15",
+						"removal": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.switchCase",
+		"languageId": "c",
+		"facet": "interior.switchCase",
+		"code": "switch (foo) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-6:14",
+						"removal": "0:14-7:0"
+					}
+				],
+				"domain": "0:14-7:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-3:14",
+						"removal": "1:11-3:14"
+					}
+				],
+				"domain": "1:11-3:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "5:8-6:14",
+						"removal": "4:12-6:14"
+					}
+				],
+				"domain": "4:12-6:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.switchCase2",
+		"languageId": "c",
+		"facet": "interior.switchCase",
+		"code": "switch (foo) {\n    case 0: { }\n    default: { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:16",
+						"removal": "0:14-3:0"
+					}
+				],
+				"domain": "0:14-3:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:14",
+						"removal": "1:13-1:14"
+					}
+				],
+				"domain": "1:13-1:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:14-2:15",
+						"removal": "2:14-2:15"
+					}
+				],
+				"domain": "2:14-2:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.while",
+		"languageId": "c",
+		"facet": "interior.while",
+		"code": "while (true) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15",
+						"removal": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/interior/interior.class",
+		"languageId": "cpp",
+		"facet": "interior.class",
+		"code": "class Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/interior/interior.constructor",
+		"languageId": "cpp",
+		"facet": "interior.constructor",
+		"code": "class Foo {\n    Foo() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:13",
+						"removal": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-1:12",
+						"removal": "1:11-1:12"
+					}
+				],
+				"domain": "1:11-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/interior/interior.enum",
+		"languageId": "cpp",
+		"facet": "interior.enum",
+		"code": "enum class Foo { };",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:16-0:17",
+						"removal": "0:16-0:17"
+					}
+				],
+				"domain": "0:16-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/interior/interior.foreach",
+		"languageId": "cpp",
+		"facet": "interior.foreach",
+		"code": "for (int v : values) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:22-0:23",
+						"removal": "0:22-0:23"
+					}
+				],
+				"domain": "0:22-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/interior/interior.lambda",
+		"languageId": "cpp",
+		"facet": "interior.lambda",
+		"code": "[]() { };",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:7",
+						"removal": "0:6-0:7"
+					}
+				],
+				"domain": "0:6-0:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/interior/interior.method",
+		"languageId": "cpp",
+		"facet": "interior.method",
+		"code": "class Foo {\n    void bar() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:18",
+						"removal": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:16-1:17",
+						"removal": "1:16-1:17"
+					}
+				],
+				"domain": "1:16-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/interior/interior.namespace",
+		"languageId": "cpp",
+		"facet": "interior.namespace",
+		"code": "namespace Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:15-0:16",
+						"removal": "0:15-0:16"
+					}
+				],
+				"domain": "0:15-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/interior/interior.try",
+		"languageId": "cpp",
+		"facet": "interior.try",
+		"code": "try { }\ncatch (const std::exception& e) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:6",
+						"removal": "0:5-0:6"
+					}
+				],
+				"domain": "0:5-0:6"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:33-1:34",
+						"removal": "1:33-1:34"
+					}
+				],
+				"domain": "1:33-1:34"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/interior/interior.class",
+		"languageId": "csharp",
+		"facet": "interior.class",
+		"code": "class Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/interior/interior.constructor",
+		"languageId": "csharp",
+		"facet": "interior.constructor",
+		"code": "class Foo {\n    public Foo() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:20",
+						"removal": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:18-1:19",
+						"removal": "1:18-1:19"
+					}
+				],
+				"domain": "1:18-1:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/interior/interior.doWhile",
+		"languageId": "csharp",
+		"facet": "interior.doWhile",
+		"code": "do { } while (true);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:5",
+						"removal": "0:4-0:5"
+					}
+				],
+				"domain": "0:4-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/interior/interior.enum",
+		"languageId": "csharp",
+		"facet": "interior.enum",
+		"code": "enum Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:11",
+						"removal": "0:10-0:11"
+					}
+				],
+				"domain": "0:10-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/interior/interior.for",
+		"languageId": "csharp",
+		"facet": "interior.for",
+		"code": "for (int i = 0; i < size; ++i) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:32-0:33",
+						"removal": "0:32-0:33"
+					}
+				],
+				"domain": "0:32-0:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/interior/interior.foreach",
+		"languageId": "csharp",
+		"facet": "interior.foreach",
+		"code": "foreach (int v in values) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:27-0:28",
+						"removal": "0:27-0:28"
+					}
+				],
+				"domain": "0:27-0:28"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/interior/interior.function",
+		"languageId": "csharp",
+		"facet": "interior.function",
+		"code": "void Foo() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13",
+						"removal": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/interior/interior.if",
+		"languageId": "csharp",
+		"facet": "interior.if",
+		"code": "if (true) { }\nelse if (false) { }\nelse { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:17-1:18",
+						"removal": "1:17-1:18"
+					}
+				],
+				"domain": "1:17-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:6-2:7",
+						"removal": "2:6-2:7"
+					}
+				],
+				"domain": "2:6-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/interior/interior.interface",
+		"languageId": "csharp",
+		"facet": "interior.interface",
+		"code": "interface IFoo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:16-0:17",
+						"removal": "0:16-0:17"
+					}
+				],
+				"domain": "0:16-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/interior/interior.lambda",
+		"languageId": "csharp",
+		"facet": "interior.lambda",
+		"code": "() => { foo; };",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:12",
+						"removal": "0:7-0:13"
+					}
+				],
+				"domain": "0:7-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/interior/interior.method",
+		"languageId": "csharp",
+		"facet": "interior.method",
+		"code": "class Foo {\n    public void Bar() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:25",
+						"removal": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:23-1:24",
+						"removal": "1:23-1:24"
+					}
+				],
+				"domain": "1:23-1:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/interior/interior.namespace",
+		"languageId": "csharp",
+		"facet": "interior.namespace",
+		"code": "namespace Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:15-0:16",
+						"removal": "0:15-0:16"
+					}
+				],
+				"domain": "0:15-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/interior/interior.resource",
+		"languageId": "csharp",
+		"facet": "interior.resource",
+		"code": "using (Foo foo = create()) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:28-0:29",
+						"removal": "0:28-0:29"
+					}
+				],
+				"domain": "0:28-0:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/interior/interior.switch",
+		"languageId": "csharp",
+		"facet": "interior.switch",
+		"code": "switch (foo) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15",
+						"removal": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/interior/interior.switchCase",
+		"languageId": "csharp",
+		"facet": "interior.switchCase",
+		"code": "switch (foo) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-6:14",
+						"removal": "0:14-7:0"
+					}
+				],
+				"domain": "0:14-7:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-3:14",
+						"removal": "1:11-3:14"
+					}
+				],
+				"domain": "1:11-3:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "5:8-6:14",
+						"removal": "4:12-6:14"
+					}
+				],
+				"domain": "4:12-6:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/interior/interior.switchCase2",
+		"languageId": "csharp",
+		"facet": "interior.switchCase",
+		"code": "switch (foo) {\n    case 0: { }\n    default: { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:16",
+						"removal": "0:14-3:0"
+					}
+				],
+				"domain": "0:14-3:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:14",
+						"removal": "1:13-1:14"
+					}
+				],
+				"domain": "1:13-1:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:14-2:15",
+						"removal": "2:14-2:15"
+					}
+				],
+				"domain": "2:14-2:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/interior/interior.try",
+		"languageId": "csharp",
+		"facet": "interior.try",
+		"code": "try { }\ncatch(Exception e) { }\nfinally { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:6",
+						"removal": "0:5-0:6"
+					}
+				],
+				"domain": "0:5-0:6"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:20-1:21",
+						"removal": "1:20-1:21"
+					}
+				],
+				"domain": "1:20-1:21"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:9-2:10",
+						"removal": "2:9-2:10"
+					}
+				],
+				"domain": "2:9-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/interior/interior.while",
+		"languageId": "csharp",
+		"facet": "interior.while",
+		"code": "while (true) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15",
+						"removal": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/interior/interior.class",
+		"languageId": "dart",
+		"facet": "interior.class",
+		"code": "class Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/interior/interior.constructor",
+		"languageId": "dart",
+		"facet": "interior.constructor",
+		"code": "class Foo {\n    Foo() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:13",
+						"removal": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-1:12",
+						"removal": "1:11-1:12"
+					}
+				],
+				"domain": "1:11-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/interior/interior.doWhile",
+		"languageId": "dart",
+		"facet": "interior.doWhile",
+		"code": "void main() {\n    do { } while (true);\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:24",
+						"removal": "0:13-2:0"
+					}
+				],
+				"domain": "0:13-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:8-1:9",
+						"removal": "1:8-1:9"
+					}
+				],
+				"domain": "1:8-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/interior/interior.enum",
+		"languageId": "dart",
+		"facet": "interior.enum",
+		"code": "enum Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:11",
+						"removal": "0:10-0:11"
+					}
+				],
+				"domain": "0:10-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/interior/interior.for",
+		"languageId": "dart",
+		"facet": "interior.for",
+		"code": "void main() {\n    for (var i = 0; i < size; ++i) { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:38",
+						"removal": "0:13-2:0"
+					}
+				],
+				"domain": "0:13-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:36-1:37",
+						"removal": "1:36-1:37"
+					}
+				],
+				"domain": "1:36-1:37"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/interior/interior.foreach",
+		"languageId": "dart",
+		"facet": "interior.foreach",
+		"code": "void main() {\n    for (final v in values) { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:31",
+						"removal": "0:13-2:0"
+					}
+				],
+				"domain": "0:13-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:29-1:30",
+						"removal": "1:29-1:30"
+					}
+				],
+				"domain": "1:29-1:30"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/interior/interior.function",
+		"languageId": "dart",
+		"facet": "interior.function",
+		"code": "void foo() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13",
+						"removal": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/interior/interior.if",
+		"languageId": "dart",
+		"facet": "interior.if",
+		"code": "void main() {\n    if (true) { }\n    else if (false) { }\n    else { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-3:12",
+						"removal": "0:13-4:0"
+					}
+				],
+				"domain": "0:13-4:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:15-1:16",
+						"removal": "1:15-1:16"
+					}
+				],
+				"domain": "1:15-1:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:21-2:22",
+						"removal": "2:21-2:22"
+					}
+				],
+				"domain": "2:21-2:22"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:10-3:11",
+						"removal": "3:10-3:11"
+					}
+				],
+				"domain": "3:10-3:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/interior/interior.lambda",
+		"languageId": "dart",
+		"facet": "interior.lambda",
+		"code": "void main() {\n    var foo = () { };\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:21",
+						"removal": "0:13-2:0"
+					}
+				],
+				"domain": "0:13-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:18-1:19",
+						"removal": "1:18-1:19"
+					}
+				],
+				"domain": "1:18-1:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/interior/interior.method",
+		"languageId": "dart",
+		"facet": "interior.method",
+		"code": "class Foo {\n    void bar() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:18",
+						"removal": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:16-1:17",
+						"removal": "1:16-1:17"
+					}
+				],
+				"domain": "1:16-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/interior/interior.switch",
+		"languageId": "dart",
+		"facet": "interior.switch",
+		"code": "void main() {\n    switch (value) { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:22",
+						"removal": "0:13-2:0"
+					}
+				],
+				"domain": "0:13-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:20-1:21",
+						"removal": "1:20-1:21"
+					}
+				],
+				"domain": "1:20-1:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/interior/interior.switchCase",
+		"languageId": "dart",
+		"facet": "interior.switchCase",
+		"code": "void main() {\n    switch (foo) {\n        case 0:\n            bar;\n            break;\n        default:\n            bar;\n            break;\n    }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-8:5",
+						"removal": "0:13-9:0"
+					}
+				],
+				"domain": "0:13-9:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-7:18",
+						"removal": "1:18-8:4"
+					}
+				],
+				"domain": "1:18-8:4"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:12-4:18",
+						"removal": "2:15-4:18"
+					}
+				],
+				"domain": "2:15-4:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "6:12-7:18",
+						"removal": "5:16-7:18"
+					}
+				],
+				"domain": "5:16-7:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/interior/interior.switchCase2",
+		"languageId": "dart",
+		"facet": "interior.switchCase",
+		"code": "void main() {\n    switch (foo) {\n        case 0: { }\n        default: { }\n    }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-4:5",
+						"removal": "0:13-5:0"
+					}
+				],
+				"domain": "0:13-5:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-3:20",
+						"removal": "1:18-4:4"
+					}
+				],
+				"domain": "1:18-4:4"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:17-2:18",
+						"removal": "2:17-2:18"
+					}
+				],
+				"domain": "2:17-2:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:18-3:19",
+						"removal": "3:18-3:19"
+					}
+				],
+				"domain": "3:18-3:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/interior/interior.try",
+		"languageId": "dart",
+		"facet": "interior.try",
+		"code": "void main() {\n    try { }\n    catch (e) { }\n    finally { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-3:15",
+						"removal": "0:13-4:0"
+					}
+				],
+				"domain": "0:13-4:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:9-1:10",
+						"removal": "1:9-1:10"
+					}
+				],
+				"domain": "1:9-1:10"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:15-2:16",
+						"removal": "2:15-2:16"
+					}
+				],
+				"domain": "2:15-2:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:13-3:14",
+						"removal": "3:13-3:14"
+					}
+				],
+				"domain": "3:13-3:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/interior/interior.while",
+		"languageId": "dart",
+		"facet": "interior.while",
+		"code": "void main() {\n    while (true) { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:20",
+						"removal": "0:13-2:0"
+					}
+				],
+				"domain": "0:13-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:18-1:19",
+						"removal": "1:18-1:19"
+					}
+				],
+				"domain": "1:18-1:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/interior/interior.class",
+		"languageId": "go",
+		"facet": "interior.class",
+		"code": "type Foo struct { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:17-0:18",
+						"removal": "0:17-0:18"
+					}
+				],
+				"domain": "0:17-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/interior/interior.for",
+		"languageId": "go",
+		"facet": "interior.for",
+		"code": "for i := 0; i < size; i++ { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:27-0:28",
+						"removal": "0:27-0:28"
+					}
+				],
+				"domain": "0:27-0:28"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/interior/interior.foreach",
+		"languageId": "go",
+		"facet": "interior.foreach",
+		"code": "for _, v := range values { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:26-0:27",
+						"removal": "0:26-0:27"
+					}
+				],
+				"domain": "0:26-0:27"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/interior/interior.function",
+		"languageId": "go",
+		"facet": "interior.function",
+		"code": "func foo() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13",
+						"removal": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/interior/interior.if",
+		"languageId": "go",
+		"facet": "interior.if",
+		"code": "if true {\n} else if false {\n} else {\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:9-1:0",
+						"removal": "0:9-1:0"
+					}
+				],
+				"domain": "0:9-1:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:17-2:0",
+						"removal": "1:17-2:0"
+					}
+				],
+				"domain": "1:17-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-3:0",
+						"removal": "2:8-3:0"
+					}
+				],
+				"domain": "2:8-3:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/interior/interior.interface",
+		"languageId": "go",
+		"facet": "interior.interface",
+		"code": "type Foo interface { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:20-0:21",
+						"removal": "0:20-0:21"
+					}
+				],
+				"domain": "0:20-0:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/interior/interior.lambda",
+		"languageId": "go",
+		"facet": "interior.lambda",
+		"code": "foo := func() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:15-0:16",
+						"removal": "0:15-0:16"
+					}
+				],
+				"domain": "0:15-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/interior/interior.method",
+		"languageId": "go",
+		"facet": "interior.method",
+		"code": "func (f Foo) bar() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:20-0:21",
+						"removal": "0:20-0:21"
+					}
+				],
+				"domain": "0:20-0:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/interior/interior.switch",
+		"languageId": "go",
+		"facet": "interior.switch",
+		"code": "switch foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13",
+						"removal": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/interior/interior.switch2",
+		"languageId": "go",
+		"facet": "interior.switch",
+		"code": "switch v := x.(type) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:22-0:23",
+						"removal": "0:22-0:23"
+					}
+				],
+				"domain": "0:22-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/interior/interior.switchCase",
+		"languageId": "go",
+		"facet": "interior.switchCase",
+		"code": "switch foo {\n    case 0:\n        bar;\n        break\n    default:\n        bar;\n        break\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-6:13",
+						"removal": "0:12-7:0"
+					}
+				],
+				"domain": "0:12-7:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-3:13",
+						"removal": "1:11-3:13"
+					}
+				],
+				"domain": "1:11-3:13"
+			},
+			{
+				"targets": [
+					{
+						"content": "5:8-6:13",
+						"removal": "4:12-6:13"
+					}
+				],
+				"domain": "4:12-6:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/interior/interior.switchCase2",
+		"languageId": "go",
+		"facet": "interior.switchCase",
+		"code": "switch foo {\n    case 0: { }\n    default: { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:16",
+						"removal": "0:12-3:0"
+					}
+				],
+				"domain": "0:12-3:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:14",
+						"removal": "1:13-1:14"
+					}
+				],
+				"domain": "1:13-1:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:14-2:15",
+						"removal": "2:14-2:15"
+					}
+				],
+				"domain": "2:14-2:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/html/interior.element",
+		"languageId": "html",
+		"facet": "interior.element",
+		"code": "<div> </div>",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:6",
+						"removal": "0:5-0:6"
+					}
+				],
+				"domain": "0:5-0:6"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.class",
+		"languageId": "java",
+		"facet": "interior.class",
+		"code": "public class Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:18-0:19",
+						"removal": "0:18-0:19"
+					}
+				],
+				"domain": "0:18-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.constructor",
+		"languageId": "java",
+		"facet": "interior.constructor",
+		"code": "public class Foo {\n    public Foo() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:20",
+						"removal": "0:18-2:0"
+					}
+				],
+				"domain": "0:18-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:18-1:19",
+						"removal": "1:18-1:19"
+					}
+				],
+				"domain": "1:18-1:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.doWhile",
+		"languageId": "java",
+		"facet": "interior.doWhile",
+		"code": "do { } while (true);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:5",
+						"removal": "0:4-0:5"
+					}
+				],
+				"domain": "0:4-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.enum",
+		"languageId": "java",
+		"facet": "interior.enum",
+		"code": "public enum Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:17-0:18",
+						"removal": "0:17-0:18"
+					}
+				],
+				"domain": "0:17-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.for",
+		"languageId": "java",
+		"facet": "interior.for",
+		"code": "for (int i = 0; i < size; ++i) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:32-0:33",
+						"removal": "0:32-0:33"
+					}
+				],
+				"domain": "0:32-0:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.foreach",
+		"languageId": "java",
+		"facet": "interior.foreach",
+		"code": "for (int v : values) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:22-0:23",
+						"removal": "0:22-0:23"
+					}
+				],
+				"domain": "0:22-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.if",
+		"languageId": "java",
+		"facet": "interior.if",
+		"code": "if (true) { }\nelse if (false) { }\nelse { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:17-1:18",
+						"removal": "1:17-1:18"
+					}
+				],
+				"domain": "1:17-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:6-2:7",
+						"removal": "2:6-2:7"
+					}
+				],
+				"domain": "2:6-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.interface",
+		"languageId": "java",
+		"facet": "interior.interface",
+		"code": "public interface Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:22-0:23",
+						"removal": "0:22-0:23"
+					}
+				],
+				"domain": "0:22-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.lambda",
+		"languageId": "java",
+		"facet": "interior.lambda",
+		"code": "() -> { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:8",
+						"removal": "0:7-0:8"
+					}
+				],
+				"domain": "0:7-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.method",
+		"languageId": "java",
+		"facet": "interior.method",
+		"code": "public class Foo {\n    public void bar() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:25",
+						"removal": "0:18-2:0"
+					}
+				],
+				"domain": "0:18-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:23-1:24",
+						"removal": "1:23-1:24"
+					}
+				],
+				"domain": "1:23-1:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.resource",
+		"languageId": "java",
+		"facet": "interior.resource",
+		"code": "try (Foo bar = create()) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:26-0:27",
+						"removal": "0:26-0:27"
+					}
+				],
+				"domain": "0:26-0:27"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.static",
+		"languageId": "java",
+		"facet": "interior.static",
+		"code": "class Foo {\n    static { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:14",
+						"removal": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:12-1:13",
+						"removal": "1:12-1:13"
+					}
+				],
+				"domain": "1:12-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.switch",
+		"languageId": "java",
+		"facet": "interior.switch",
+		"code": "switch (value) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:16-0:17",
+						"removal": "0:16-0:17"
+					}
+				],
+				"domain": "0:16-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.switchCase",
+		"languageId": "java",
+		"facet": "interior.switchCase",
+		"code": "switch (foo) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-6:14",
+						"removal": "0:14-7:0"
+					}
+				],
+				"domain": "0:14-7:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-3:14",
+						"removal": "1:11-3:14"
+					}
+				],
+				"domain": "1:11-3:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "5:8-6:14",
+						"removal": "4:12-6:14"
+					}
+				],
+				"domain": "4:12-6:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.switchCase2",
+		"languageId": "java",
+		"facet": "interior.switchCase",
+		"code": "switch (foo) {\n    case 0: { }\n    default: { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:16",
+						"removal": "0:14-3:0"
+					}
+				],
+				"domain": "0:14-3:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:14",
+						"removal": "1:13-1:14"
+					}
+				],
+				"domain": "1:13-1:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:14-2:15",
+						"removal": "2:14-2:15"
+					}
+				],
+				"domain": "2:14-2:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.try",
+		"languageId": "java",
+		"facet": "interior.try",
+		"code": "try { }\ncatch(Exception ex) { }\nfinally { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:6",
+						"removal": "0:5-0:6"
+					}
+				],
+				"domain": "0:5-0:6"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:21-1:22",
+						"removal": "1:21-1:22"
+					}
+				],
+				"domain": "1:21-1:22"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:9-2:10",
+						"removal": "2:9-2:10"
+					}
+				],
+				"domain": "2:9-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/interior/interior.while",
+		"languageId": "java",
+		"facet": "interior.while",
+		"code": "while (true) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15",
+						"removal": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/interior/interior.class",
+		"languageId": "javascript.core",
+		"facet": "interior.class",
+		"code": "class Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/interior/interior.constructor",
+		"languageId": "javascript.core",
+		"facet": "interior.constructor",
+		"code": "class Foo {\n    constructor() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:21",
+						"removal": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:19-1:20",
+						"removal": "1:19-1:20"
+					}
+				],
+				"domain": "1:19-1:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/interior/interior.doWhile",
+		"languageId": "javascript.core",
+		"facet": "interior.doWhile",
+		"code": "do { } while (true);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:5",
+						"removal": "0:4-0:5"
+					}
+				],
+				"domain": "0:4-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/interior/interior.for",
+		"languageId": "javascript.core",
+		"facet": "interior.for",
+		"code": "for (let i = 0; i < size; ++i) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:32-0:33",
+						"removal": "0:32-0:33"
+					}
+				],
+				"domain": "0:32-0:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/interior/interior.foreach",
+		"languageId": "javascript.core",
+		"facet": "interior.foreach",
+		"code": "for (const v of values) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:25-0:26",
+						"removal": "0:25-0:26"
+					}
+				],
+				"domain": "0:25-0:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/interior/interior.foreach2",
+		"languageId": "javascript.core",
+		"facet": "interior.foreach",
+		"code": "for (const k in values) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:25-0:26",
+						"removal": "0:25-0:26"
+					}
+				],
+				"domain": "0:25-0:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/interior/interior.function",
+		"languageId": "javascript.core",
+		"facet": "interior.function",
+		"code": "function foo() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:16-0:17",
+						"removal": "0:16-0:17"
+					}
+				],
+				"domain": "0:16-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/interior/interior.if",
+		"languageId": "javascript.core",
+		"facet": "interior.if",
+		"code": "if (true) { }\nelse if (false) { }\nelse { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:17-1:18",
+						"removal": "1:17-1:18"
+					}
+				],
+				"domain": "1:17-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:6-2:7",
+						"removal": "2:6-2:7"
+					}
+				],
+				"domain": "2:6-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/interior/interior.lambda",
+		"languageId": "javascript.core",
+		"facet": "interior.lambda",
+		"code": "() => { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:8",
+						"removal": "0:7-0:8"
+					}
+				],
+				"domain": "0:7-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/interior/interior.method",
+		"languageId": "javascript.core",
+		"facet": "interior.method",
+		"code": "class Foo {\n    bar() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:13",
+						"removal": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-1:12",
+						"removal": "1:11-1:12"
+					}
+				],
+				"domain": "1:11-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/interior/interior.static",
+		"languageId": "javascript.core",
+		"facet": "interior.static",
+		"code": "class Foo {\n    static { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:14",
+						"removal": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:12-1:13",
+						"removal": "1:12-1:13"
+					}
+				],
+				"domain": "1:12-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/interior/interior.switch",
+		"languageId": "javascript.core",
+		"facet": "interior.switch",
+		"code": "switch (value) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:16-0:17",
+						"removal": "0:16-0:17"
+					}
+				],
+				"domain": "0:16-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/interior/interior.switchCase",
+		"languageId": "javascript.core",
+		"facet": "interior.switchCase",
+		"code": "switch (foo) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-6:14",
+						"removal": "0:14-7:0"
+					}
+				],
+				"domain": "0:14-7:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-3:14",
+						"removal": "1:11-3:14"
+					}
+				],
+				"domain": "1:11-3:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "5:8-6:14",
+						"removal": "4:12-6:14"
+					}
+				],
+				"domain": "4:12-6:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/interior/interior.switchCase2",
+		"languageId": "javascript.core",
+		"facet": "interior.switchCase",
+		"code": "switch (foo) {\n    case 0: { }\n    default: { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:16",
+						"removal": "0:14-3:0"
+					}
+				],
+				"domain": "0:14-3:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:14",
+						"removal": "1:13-1:14"
+					}
+				],
+				"domain": "1:13-1:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:14-2:15",
+						"removal": "2:14-2:15"
+					}
+				],
+				"domain": "2:14-2:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/interior/interior.try",
+		"languageId": "javascript.core",
+		"facet": "interior.try",
+		"code": "try { }\ncatch(e) { }\nfinally { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:6",
+						"removal": "0:5-0:6"
+					}
+				],
+				"domain": "0:5-0:6"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:10-1:11",
+						"removal": "1:10-1:11"
+					}
+				],
+				"domain": "1:10-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:9-2:10",
+						"removal": "2:9-2:10"
+					}
+				],
+				"domain": "2:9-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/interior/interior.while",
+		"languageId": "javascript.core",
+		"facet": "interior.while",
+		"code": "while (true) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15",
+						"removal": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.jsx/interior.element",
+		"languageId": "javascript.jsx",
+		"facet": "interior.element",
+		"code": "<div> </div>",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:6",
+						"removal": "0:5-0:6"
+					}
+				],
+				"domain": "0:5-0:6"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/interior/interior.class",
+		"languageId": "kotlin",
+		"facet": "interior.class",
+		"code": "class Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/interior/interior.constructor",
+		"languageId": "kotlin",
+		"facet": "interior.constructor",
+		"code": "class Foo {\n    constructor() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:21",
+						"removal": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:19-1:20",
+						"removal": "1:19-1:20"
+					}
+				],
+				"domain": "1:19-1:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/interior/interior.doWhile",
+		"languageId": "kotlin",
+		"facet": "interior.doWhile",
+		"code": "do { } while (true)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:5",
+						"removal": "0:4-0:5"
+					}
+				],
+				"domain": "0:4-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/interior/interior.enum",
+		"languageId": "kotlin",
+		"facet": "interior.enum",
+		"code": "enum class Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:16-0:17",
+						"removal": "0:16-0:17"
+					}
+				],
+				"domain": "0:16-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/interior/interior.for",
+		"languageId": "kotlin",
+		"facet": "interior.for",
+		"code": "for (i in 0 until size) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:25-0:26",
+						"removal": "0:25-0:26"
+					}
+				],
+				"domain": "0:25-0:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/interior/interior.foreach",
+		"languageId": "kotlin",
+		"facet": "interior.foreach",
+		"code": "for (v in values) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:19-0:20",
+						"removal": "0:19-0:20"
+					}
+				],
+				"domain": "0:19-0:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/interior/interior.function",
+		"languageId": "kotlin",
+		"facet": "interior.function",
+		"code": "fun bar() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/interior/interior.if",
+		"languageId": "kotlin",
+		"facet": "interior.if",
+		"code": "if (true) { }\nelse if (false) { }\nelse { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:17-1:18",
+						"removal": "1:17-1:18"
+					}
+				],
+				"domain": "1:17-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:6-2:7",
+						"removal": "2:6-2:7"
+					}
+				],
+				"domain": "2:6-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/interior/interior.interface",
+		"languageId": "kotlin",
+		"facet": "interior.interface",
+		"code": "interface Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:15-0:16",
+						"removal": "0:15-0:16"
+					}
+				],
+				"domain": "0:15-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/interior/interior.lambda",
+		"languageId": "kotlin",
+		"facet": "interior.lambda",
+		"code": "{ }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:2",
+						"removal": "0:1-0:2"
+					}
+				],
+				"domain": "0:1-0:2"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/interior/interior.method",
+		"languageId": "kotlin",
+		"facet": "interior.method",
+		"code": "class Foo {\n    fun bar() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:17",
+						"removal": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:15-1:16",
+						"removal": "1:15-1:16"
+					}
+				],
+				"domain": "1:15-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/interior/interior.static",
+		"languageId": "kotlin",
+		"facet": "interior.static",
+		"code": "class Foo {\n    init { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:12",
+						"removal": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:10-1:11",
+						"removal": "1:10-1:11"
+					}
+				],
+				"domain": "1:10-1:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/interior/interior.switch",
+		"languageId": "kotlin",
+		"facet": "interior.switch",
+		"code": "when (value) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15",
+						"removal": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/interior/interior.switchCase",
+		"languageId": "kotlin",
+		"facet": "interior.switchCase",
+		"code": "when (foo) {\n    0 -> bar\n    else -> bar\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:15",
+						"removal": "0:12-3:0"
+					}
+				],
+				"domain": "0:12-3:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:9-1:12",
+						"removal": "1:8-1:12"
+					}
+				],
+				"domain": "1:8-1:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:12-2:15",
+						"removal": "2:11-2:15"
+					}
+				],
+				"domain": "2:11-2:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/interior/interior.switchCase2",
+		"languageId": "kotlin",
+		"facet": "interior.switchCase",
+		"code": "when (foo) {\n    0 -> { }\n    else -> { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:15",
+						"removal": "0:12-3:0"
+					}
+				],
+				"domain": "0:12-3:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:10-1:11",
+						"removal": "1:10-1:11"
+					}
+				],
+				"domain": "1:10-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:13-2:14",
+						"removal": "2:13-2:14"
+					}
+				],
+				"domain": "2:13-2:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/interior/interior.try",
+		"languageId": "kotlin",
+		"facet": "interior.try",
+		"code": "try {\n} catch (ex: Exception) {\n} finally {\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-1:0",
+						"removal": "0:5-1:0"
+					}
+				],
+				"domain": "0:5-1:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:25-2:0",
+						"removal": "1:25-2:0"
+					}
+				],
+				"domain": "1:25-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:11-3:0",
+						"removal": "2:11-3:0"
+					}
+				],
+				"domain": "2:11-3:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/interior/interior.while",
+		"languageId": "kotlin",
+		"facet": "interior.while",
+		"code": "while (true) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15",
+						"removal": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/latex/interior.element",
+		"languageId": "latex",
+		"facet": "interior.element",
+		"code": "\\begin{quote}\n    Hello\n\\end{quote}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:9",
+						"removal": "0:13-2:0"
+					}
+				],
+				"domain": "0:13-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/interior/interior.doWhile",
+		"languageId": "lua",
+		"facet": "interior.doWhile",
+		"code": "repeat\n  a = 1\nuntil true",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:2-1:7",
+						"removal": "0:6-2:0"
+					}
+				],
+				"domain": "0:6-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/interior/interior.for",
+		"languageId": "lua",
+		"facet": "interior.for",
+		"code": "for i = 1, 3 do\n  a = 1\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:2-1:7",
+						"removal": "0:15-2:0"
+					}
+				],
+				"domain": "0:15-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/interior/interior.foreach",
+		"languageId": "lua",
+		"facet": "interior.foreach",
+		"code": "for v in values do\n  a = 1\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:2-1:7",
+						"removal": "0:18-2:0"
+					}
+				],
+				"domain": "0:18-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/interior/interior.function",
+		"languageId": "lua",
+		"facet": "interior.function",
+		"code": "function foo()\n    a = 1\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:9",
+						"removal": "0:14-2:0"
+					}
+				],
+				"domain": "0:14-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/interior/interior.if",
+		"languageId": "lua",
+		"facet": "interior.if",
+		"code": "if true then\n    a = 1\nelseif false then\n    a = 2\nelse\n    a = 3\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:9",
+						"removal": "0:12-2:0"
+					}
+				],
+				"domain": "0:12-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:4-3:9",
+						"removal": "2:17-4:0"
+					}
+				],
+				"domain": "2:17-4:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "5:4-5:9",
+						"removal": "4:4-6:0"
+					}
+				],
+				"domain": "4:4-6:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/interior/interior.lambda",
+		"languageId": "lua",
+		"facet": "interior.lambda",
+		"code": "f = function()\n  a = 1\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:2-1:7",
+						"removal": "0:14-2:0"
+					}
+				],
+				"domain": "0:14-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/interior/interior.method",
+		"languageId": "lua",
+		"facet": "interior.method",
+		"code": "function foo:bar()\n  a = 1\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:2-1:7",
+						"removal": "0:18-2:0"
+					}
+				],
+				"domain": "0:18-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/interior/interior.while",
+		"languageId": "lua",
+		"facet": "interior.while",
+		"code": "while true do\n  a = 1\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:2-1:7",
+						"removal": "0:13-2:0"
+					}
+				],
+				"domain": "0:13-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/markdown/interior.cell",
+		"languageId": "markdown",
+		"facet": "interior.cell",
+		"code": "```ts\nlet foo;\n```\n",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:8",
+						"removal": "0:5-2:0"
+					}
+				],
+				"domain": "0:5-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/markdown/interior.cell2",
+		"languageId": "markdown",
+		"facet": "interior.cell",
+		"code": "```\nHello world\n```\n",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:11",
+						"removal": "0:3-2:0"
+					}
+				],
+				"domain": "0:3-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.class",
+		"languageId": "php",
+		"facet": "interior.class",
+		"code": "<?php\nclass Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:11-1:12",
+						"removal": "1:11-1:12"
+					}
+				],
+				"domain": "1:11-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.constructor",
+		"languageId": "php",
+		"facet": "interior.constructor",
+		"code": "<?php\nclass Foo {\n    function __construct() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-2:30",
+						"removal": "1:11-3:0"
+					}
+				],
+				"domain": "1:11-3:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:28-2:29",
+						"removal": "2:28-2:29"
+					}
+				],
+				"domain": "2:28-2:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.doWhile",
+		"languageId": "php",
+		"facet": "interior.doWhile",
+		"code": "<?php\ndo { } while (true);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:5",
+						"removal": "1:4-1:5"
+					}
+				],
+				"domain": "1:4-1:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.enum",
+		"languageId": "php",
+		"facet": "interior.enum",
+		"code": "<?php\nenum Foo: int { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:15-1:16",
+						"removal": "1:15-1:16"
+					}
+				],
+				"domain": "1:15-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.for",
+		"languageId": "php",
+		"facet": "interior.for",
+		"code": "<?php\nfor ($i = 0; $i < $size; ++$i) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:32-1:33",
+						"removal": "1:32-1:33"
+					}
+				],
+				"domain": "1:32-1:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.foreach",
+		"languageId": "php",
+		"facet": "interior.foreach",
+		"code": "<?php\nforeach ($values as $v) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:25-1:26",
+						"removal": "1:25-1:26"
+					}
+				],
+				"domain": "1:25-1:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.function",
+		"languageId": "php",
+		"facet": "interior.function",
+		"code": "<?php\nfunction foo() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:16-1:17",
+						"removal": "1:16-1:17"
+					}
+				],
+				"domain": "1:16-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.if",
+		"languageId": "php",
+		"facet": "interior.if",
+		"code": "<?php\nif (true) { }\nelse if (false) { }\nelse { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:11-1:12",
+						"removal": "1:11-1:12"
+					}
+				],
+				"domain": "1:11-1:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:17-2:18",
+						"removal": "2:17-2:18"
+					}
+				],
+				"domain": "2:17-2:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:6-3:7",
+						"removal": "3:6-3:7"
+					}
+				],
+				"domain": "3:6-3:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.interface",
+		"languageId": "php",
+		"facet": "interior.interface",
+		"code": "<?php\ninterface Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:15-1:16",
+						"removal": "1:15-1:16"
+					}
+				],
+				"domain": "1:15-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.lambda",
+		"languageId": "php",
+		"facet": "interior.lambda",
+		"code": "<?php\nfunction() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:12-1:13",
+						"removal": "1:12-1:13"
+					}
+				],
+				"domain": "1:12-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.method",
+		"languageId": "php",
+		"facet": "interior.method",
+		"code": "<?php\nclass Foo {\n    function bar() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-2:22",
+						"removal": "1:11-3:0"
+					}
+				],
+				"domain": "1:11-3:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:20-2:21",
+						"removal": "2:20-2:21"
+					}
+				],
+				"domain": "2:20-2:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.namespace",
+		"languageId": "php",
+		"facet": "interior.namespace",
+		"code": "<?php\nnamespace Foo\\Bar { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:19-1:20",
+						"removal": "1:19-1:20"
+					}
+				],
+				"domain": "1:19-1:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.switch",
+		"languageId": "php",
+		"facet": "interior.switch",
+		"code": "<?php\nswitch ($foo) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:15-1:16",
+						"removal": "1:15-1:16"
+					}
+				],
+				"domain": "1:15-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.switchCase",
+		"languageId": "php",
+		"facet": "interior.switchCase",
+		"code": "<?php\nswitch ($foo) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-7:14",
+						"removal": "1:15-8:0"
+					}
+				],
+				"domain": "1:15-8:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-4:14",
+						"removal": "2:11-4:14"
+					}
+				],
+				"domain": "2:11-4:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "6:8-7:14",
+						"removal": "5:12-7:14"
+					}
+				],
+				"domain": "5:12-7:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.switchCase2",
+		"languageId": "php",
+		"facet": "interior.switchCase",
+		"code": "<?php\nswitch ($foo) {\n    case 0: { }\n    default: { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-3:16",
+						"removal": "1:15-4:0"
+					}
+				],
+				"domain": "1:15-4:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:13-2:14",
+						"removal": "2:13-2:14"
+					}
+				],
+				"domain": "2:13-2:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:14-3:15",
+						"removal": "3:14-3:15"
+					}
+				],
+				"domain": "3:14-3:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.try",
+		"languageId": "php",
+		"facet": "interior.try",
+		"code": "<?php\ntry { }\ncatch (Exception $e) { }\nfinally { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:5-1:6",
+						"removal": "1:5-1:6"
+					}
+				],
+				"domain": "1:5-1:6"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:22-2:23",
+						"removal": "2:22-2:23"
+					}
+				],
+				"domain": "2:22-2:23"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:9-3:10",
+						"removal": "3:9-3:10"
+					}
+				],
+				"domain": "3:9-3:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/interior/interior.while",
+		"languageId": "php",
+		"facet": "interior.while",
+		"code": "<?php\nwhile (true) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:14-1:15",
+						"removal": "1:14-1:15"
+					}
+				],
+				"domain": "1:14-1:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/interior/interior.class",
+		"languageId": "python",
+		"facet": "interior.class",
+		"code": "class Foo: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:15",
+						"removal": "0:10-0:15"
+					}
+				],
+				"domain": "0:10-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/interior/interior.constructor",
+		"languageId": "python",
+		"facet": "interior.constructor",
+		"code": "class Foo:\n    def __init__(self): pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:28",
+						"removal": "0:10-1:28"
+					}
+				],
+				"domain": "0:10-1:28"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:24-1:28",
+						"removal": "1:23-1:28"
+					}
+				],
+				"domain": "1:23-1:28"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/interior/interior.foreach",
+		"languageId": "python",
+		"facet": "interior.foreach",
+		"code": "for v in values: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:17-0:21",
+						"removal": "0:16-0:21"
+					}
+				],
+				"domain": "0:16-0:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/interior/interior.function",
+		"languageId": "python",
+		"facet": "interior.function",
+		"code": "def foo(): pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:15",
+						"removal": "0:10-0:15"
+					}
+				],
+				"domain": "0:10-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/interior/interior.if",
+		"languageId": "python",
+		"facet": "interior.if",
+		"code": "if True: pass\nelif False: pass\nelse: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:9-0:13",
+						"removal": "0:8-0:13"
+					}
+				],
+				"domain": "0:8-0:13"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:12-1:16",
+						"removal": "1:11-1:16"
+					}
+				],
+				"domain": "1:11-1:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:6-2:10",
+						"removal": "2:5-2:10"
+					}
+				],
+				"domain": "2:5-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/interior/interior.method",
+		"languageId": "python",
+		"facet": "interior.method",
+		"code": "class Foo:\n    def bar(): pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:19",
+						"removal": "0:10-1:19"
+					}
+				],
+				"domain": "0:10-1:19"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:15-1:19",
+						"removal": "1:14-1:19"
+					}
+				],
+				"domain": "1:14-1:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/interior/interior.resource",
+		"languageId": "python",
+		"facet": "interior.resource",
+		"code": "with file: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:15",
+						"removal": "0:10-0:15"
+					}
+				],
+				"domain": "0:10-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/interior/interior.switch",
+		"languageId": "python",
+		"facet": "interior.switch",
+		"code": "match value:\n    pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:8",
+						"removal": "0:12-1:8"
+					}
+				],
+				"domain": "0:12-1:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/interior/interior.switchCase",
+		"languageId": "python",
+		"facet": "interior.switchCase",
+		"code": "match foo:\n    case 0:\n        bar\n        baz\n    case _:\n        bar\n        baz",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-6:11",
+						"removal": "0:10-6:11"
+					}
+				],
+				"domain": "0:10-6:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-3:11",
+						"removal": "1:11-3:11"
+					}
+				],
+				"domain": "1:11-3:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "5:8-6:11",
+						"removal": "4:11-6:11"
+					}
+				],
+				"domain": "4:11-6:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/interior/interior.try",
+		"languageId": "python",
+		"facet": "interior.try",
+		"code": "try: pass\nexcept: pass\nfinally: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:9",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:4-0:9"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:8-1:12",
+						"removal": "1:7-1:12"
+					}
+				],
+				"domain": "1:7-1:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:9-2:13",
+						"removal": "2:8-2:13"
+					}
+				],
+				"domain": "2:8-2:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/interior/interior.try2",
+		"languageId": "python",
+		"facet": "interior.try",
+		"code": "try: pass\nexcept*: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:9",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:4-0:9"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:9-1:13",
+						"removal": "1:8-1:13"
+					}
+				],
+				"domain": "1:8-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/interior/interior.while",
+		"languageId": "python",
+		"facet": "interior.while",
+		"code": "while True: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:12-0:16",
+						"removal": "0:11-0:16"
+					}
+				],
+				"domain": "0:11-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/interior/interior.foreach",
+		"languageId": "r",
+		"facet": "interior.foreach",
+		"code": "for (v in values) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:19-0:20",
+						"removal": "0:19-0:20"
+					}
+				],
+				"domain": "0:19-0:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/interior/interior.function",
+		"languageId": "r",
+		"facet": "interior.function",
+		"code": "foo <- function() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:19-0:20",
+						"removal": "0:19-0:20"
+					}
+				],
+				"domain": "0:19-0:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/interior/interior.if",
+		"languageId": "r",
+		"facet": "interior.if",
+		"code": "if (TRUE) {\n} else if (FALSE) {\n} else {\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-1:0",
+						"removal": "0:11-1:0"
+					}
+				],
+				"domain": "0:11-1:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:19-2:0",
+						"removal": "1:19-2:0"
+					}
+				],
+				"domain": "1:19-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-3:0",
+						"removal": "2:8-3:0"
+					}
+				],
+				"domain": "2:8-3:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/interior/interior.lambda",
+		"languageId": "r",
+		"facet": "interior.lambda",
+		"code": "function() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13",
+						"removal": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/interior/interior.switchCase",
+		"languageId": "r",
+		"facet": "interior.switchCase",
+		"code": "switch(foo,\n    a = bar,\n    \"_\" = bar\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:11",
+						"removal": "1:7-1:11"
+					}
+				],
+				"domain": "1:7-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:10-2:13",
+						"removal": "2:9-2:13"
+					}
+				],
+				"domain": "2:9-2:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/interior/interior.switchCase2",
+		"languageId": "r",
+		"facet": "interior.switchCase",
+		"code": "switch(foo,\n    a = { },\n    \"_\" = { }\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:10",
+						"removal": "1:9-1:10"
+					}
+				],
+				"domain": "1:9-1:10"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:11-2:12",
+						"removal": "2:11-2:12"
+					}
+				],
+				"domain": "2:11-2:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/interior/interior.try",
+		"languageId": "r",
+		"facet": "interior.try",
+		"code": "tryCatch(\n    expr = { },\n    error = function() { },\n    warning = function() { },\n    finally = { }\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:12-1:13",
+						"removal": "1:12-1:13"
+					}
+				],
+				"domain": "1:12-1:13"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:24-2:25",
+						"removal": "2:24-2:25"
+					}
+				],
+				"domain": "2:24-2:25"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:26-3:27",
+						"removal": "3:26-3:27"
+					}
+				],
+				"domain": "3:26-3:27"
+			},
+			{
+				"targets": [
+					{
+						"content": "4:15-4:16",
+						"removal": "4:15-4:16"
+					}
+				],
+				"domain": "4:15-4:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/interior/interior.while",
+		"languageId": "r",
+		"facet": "interior.while",
+		"code": "while (TRUE) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15",
+						"removal": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/interior/interior.class",
+		"languageId": "ruby",
+		"facet": "interior.class",
+		"code": "class Foo\n    a\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:5",
+						"removal": "0:9-2:0"
+					}
+				],
+				"domain": "0:9-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/interior/interior.foreach",
+		"languageId": "ruby",
+		"facet": "interior.foreach",
+		"code": "for v in values\n    a\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:5",
+						"removal": "0:15-2:0"
+					}
+				],
+				"domain": "0:15-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/interior/interior.function",
+		"languageId": "ruby",
+		"facet": "interior.function",
+		"code": "def foo()\n    a\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:5",
+						"removal": "0:9-2:0"
+					}
+				],
+				"domain": "0:9-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/interior/interior.function2",
+		"languageId": "ruby",
+		"facet": "interior.function",
+		"code": "def foo\n    a\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:5",
+						"removal": "0:7-2:0"
+					}
+				],
+				"domain": "0:7-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/interior/interior.function3",
+		"languageId": "ruby",
+		"facet": "interior.function",
+		"code": "def foo.bar()\n    a\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:5",
+						"removal": "0:13-2:0"
+					}
+				],
+				"domain": "0:13-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/interior/interior.function4",
+		"languageId": "ruby",
+		"facet": "interior.function",
+		"code": "def foo.bar\n    a\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:5",
+						"removal": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/interior/interior.if",
+		"languageId": "ruby",
+		"facet": "interior.if",
+		"code": "if true\n    a\nelsif false\n    a\nelse\n    a\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:5",
+						"removal": "0:7-2:0"
+					}
+				],
+				"domain": "0:7-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:4-3:5",
+						"removal": "2:11-4:0"
+					}
+				],
+				"domain": "2:11-4:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "5:4-5:5",
+						"removal": "4:4-5:5"
+					}
+				],
+				"domain": "4:4-5:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/interior/interior.if2",
+		"languageId": "ruby",
+		"facet": "interior.if",
+		"code": "if true\n    a\nelse\n    a\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:5",
+						"removal": "0:7-2:0"
+					}
+				],
+				"domain": "0:7-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:4-3:5",
+						"removal": "2:4-3:5"
+					}
+				],
+				"domain": "2:4-3:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/interior/interior.if3",
+		"languageId": "ruby",
+		"facet": "interior.if",
+		"code": "if true\n    a\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:5",
+						"removal": "0:7-2:0"
+					}
+				],
+				"domain": "0:7-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/interior/interior.lambda",
+		"languageId": "ruby",
+		"facet": "interior.lambda",
+		"code": "->() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:7",
+						"removal": "0:6-0:7"
+					}
+				],
+				"domain": "0:6-0:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/interior/interior.method",
+		"languageId": "ruby",
+		"facet": "interior.method",
+		"code": "class Foo\n    def bar()\n        a\n    end\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-3:7",
+						"removal": "0:9-4:0"
+					}
+				],
+				"domain": "0:9-4:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-2:9",
+						"removal": "1:13-3:4"
+					}
+				],
+				"domain": "1:13-3:4"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/interior/interior.switch",
+		"languageId": "ruby",
+		"facet": "interior.switch",
+		"code": "case foo\nwhen 0\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:6",
+						"removal": "0:8-2:0"
+					}
+				],
+				"domain": "0:8-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/interior/interior.switch2",
+		"languageId": "ruby",
+		"facet": "interior.switch",
+		"code": "case foo\nin 0\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:4",
+						"removal": "0:8-2:0"
+					}
+				],
+				"domain": "0:8-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/interior/interior.switchCase",
+		"languageId": "ruby",
+		"facet": "interior.switchCase",
+		"code": "case foo\nwhen 0\n    bar\n    baz\nelse\n    bar\n    baz\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-6:7",
+						"removal": "0:8-7:0"
+					}
+				],
+				"domain": "0:8-7:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-3:7",
+						"removal": "1:6-3:7"
+					}
+				],
+				"domain": "1:6-3:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "5:4-6:7",
+						"removal": "4:4-6:7"
+					}
+				],
+				"domain": "4:4-6:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/interior/interior.switchCase2",
+		"languageId": "ruby",
+		"facet": "interior.switchCase",
+		"code": "case foo\nin 0\n    bar\n    baz\nelse\n    bar\n    baz\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-6:7",
+						"removal": "0:8-7:0"
+					}
+				],
+				"domain": "0:8-7:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-3:7",
+						"removal": "1:4-3:7"
+					}
+				],
+				"domain": "1:4-3:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "5:4-6:7",
+						"removal": "4:4-6:7"
+					}
+				],
+				"domain": "4:4-6:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/interior/interior.try",
+		"languageId": "ruby",
+		"facet": "interior.try",
+		"code": "begin\n    a\nrescue\n    a\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:5",
+						"removal": "0:5-2:0"
+					}
+				],
+				"domain": "0:5-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:4-3:5",
+						"removal": "2:6-4:0"
+					}
+				],
+				"domain": "2:6-4:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/interior/interior.while",
+		"languageId": "ruby",
+		"facet": "interior.while",
+		"code": "while true\n    a\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:5",
+						"removal": "0:10-2:0"
+					}
+				],
+				"domain": "0:10-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/interior/interior.class",
+		"languageId": "rust",
+		"facet": "interior.class",
+		"code": "impl Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:11",
+						"removal": "0:10-0:11"
+					}
+				],
+				"domain": "0:10-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/interior/interior.class2",
+		"languageId": "rust",
+		"facet": "interior.class",
+		"code": "struct Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13",
+						"removal": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/interior/interior.class3",
+		"languageId": "rust",
+		"facet": "interior.class",
+		"code": "trait Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/interior/interior.enum",
+		"languageId": "rust",
+		"facet": "interior.enum",
+		"code": "enum Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:11",
+						"removal": "0:10-0:11"
+					}
+				],
+				"domain": "0:10-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/interior/interior.foreach",
+		"languageId": "rust",
+		"facet": "interior.foreach",
+		"code": "for v in values { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:17-0:18",
+						"removal": "0:17-0:18"
+					}
+				],
+				"domain": "0:17-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/interior/interior.function",
+		"languageId": "rust",
+		"facet": "interior.function",
+		"code": "fn foo() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:11",
+						"removal": "0:10-0:11"
+					}
+				],
+				"domain": "0:10-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/interior/interior.if",
+		"languageId": "rust",
+		"facet": "interior.if",
+		"code": "if true { }\nelse if false { }\nelse { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:9-0:10",
+						"removal": "0:9-0:10"
+					}
+				],
+				"domain": "0:9-0:10"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:15-1:16",
+						"removal": "1:15-1:16"
+					}
+				],
+				"domain": "1:15-1:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:6-2:7",
+						"removal": "2:6-2:7"
+					}
+				],
+				"domain": "2:6-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/interior/interior.lambda",
+		"languageId": "rust",
+		"facet": "interior.lambda",
+		"code": "|| { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:5",
+						"removal": "0:4-0:5"
+					}
+				],
+				"domain": "0:4-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/interior/interior.method",
+		"languageId": "rust",
+		"facet": "interior.method",
+		"code": "impl Foo {\n    fn bar() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:16",
+						"removal": "0:10-2:0"
+					}
+				],
+				"domain": "0:10-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:14-1:15",
+						"removal": "1:14-1:15"
+					}
+				],
+				"domain": "1:14-1:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/interior/interior.namespace",
+		"languageId": "rust",
+		"facet": "interior.namespace",
+		"code": "mod foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:9-0:10",
+						"removal": "0:9-0:10"
+					}
+				],
+				"domain": "0:9-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/interior/interior.switch",
+		"languageId": "rust",
+		"facet": "interior.switch",
+		"code": "match foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/interior/interior.switchCase",
+		"languageId": "rust",
+		"facet": "interior.switchCase",
+		"code": "match foo {\n    0 => bar\n    _ => bar\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:12",
+						"removal": "0:11-3:0"
+					}
+				],
+				"domain": "0:11-3:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:9-1:12",
+						"removal": "1:8-1:12"
+					}
+				],
+				"domain": "1:8-1:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:9-2:12",
+						"removal": "2:8-2:12"
+					}
+				],
+				"domain": "2:8-2:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/interior/interior.switchCase2",
+		"languageId": "rust",
+		"facet": "interior.switchCase",
+		"code": "match foo {\n    0 => { }\n    _ => { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:12",
+						"removal": "0:11-3:0"
+					}
+				],
+				"domain": "0:11-3:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:10-1:11",
+						"removal": "1:10-1:11"
+					}
+				],
+				"domain": "1:10-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:10-2:11",
+						"removal": "2:10-2:11"
+					}
+				],
+				"domain": "2:10-2:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/interior/interior.while",
+		"languageId": "rust",
+		"facet": "interior.while",
+		"code": "while true { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13",
+						"removal": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/interior/interior.class",
+		"languageId": "scala",
+		"facet": "interior.class",
+		"code": "class Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/interior/interior.doWhile",
+		"languageId": "scala",
+		"facet": "interior.doWhile",
+		"code": "do { } while (true)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:5",
+						"removal": "0:4-0:5"
+					}
+				],
+				"domain": "0:4-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/interior/interior.enum",
+		"languageId": "scala",
+		"facet": "interior.enum",
+		"code": "enum Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:11",
+						"removal": "0:10-0:11"
+					}
+				],
+				"domain": "0:10-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/interior/interior.foreach",
+		"languageId": "scala",
+		"facet": "interior.foreach",
+		"code": "for (v <- values) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:19-0:20",
+						"removal": "0:19-0:20"
+					}
+				],
+				"domain": "0:19-0:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/interior/interior.function",
+		"languageId": "scala",
+		"facet": "interior.function",
+		"code": "def foo() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/interior/interior.if",
+		"languageId": "scala",
+		"facet": "interior.if",
+		"code": "if (true) { }\nelse if (false) { }\nelse { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:17-1:18",
+						"removal": "1:17-1:18"
+					}
+				],
+				"domain": "1:17-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:6-2:7",
+						"removal": "2:6-2:7"
+					}
+				],
+				"domain": "2:6-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/interior/interior.interface",
+		"languageId": "scala",
+		"facet": "interior.interface",
+		"code": "trait Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/interior/interior.lambda",
+		"languageId": "scala",
+		"facet": "interior.lambda",
+		"code": "() => { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:8",
+						"removal": "0:7-0:8"
+					}
+				],
+				"domain": "0:7-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/interior/interior.method",
+		"languageId": "scala",
+		"facet": "interior.method",
+		"code": "class Foo {\n    def bar() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:17",
+						"removal": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:15-1:16",
+						"removal": "1:15-1:16"
+					}
+				],
+				"domain": "1:15-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/interior/interior.namespace",
+		"languageId": "scala",
+		"facet": "interior.namespace",
+		"code": "package foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:14",
+						"removal": "0:13-0:14"
+					}
+				],
+				"domain": "0:13-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/interior/interior.switch",
+		"languageId": "scala",
+		"facet": "interior.switch",
+		"code": "foo match { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/interior/interior.switchCase",
+		"languageId": "scala",
+		"facet": "interior.switchCase",
+		"code": "foo match {\n    case 0 =>\n        foo\n        bar\n    case _ =>\n        foo\n        bar\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-6:11",
+						"removal": "0:11-7:0"
+					}
+				],
+				"domain": "0:11-7:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-3:11",
+						"removal": "1:13-3:11"
+					}
+				],
+				"domain": "1:13-3:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "5:8-6:11",
+						"removal": "4:13-6:11"
+					}
+				],
+				"domain": "4:13-6:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/interior/interior.switchCase2",
+		"languageId": "scala",
+		"facet": "interior.switchCase",
+		"code": "foo match {\n    case 0 => { }\n    case _ => { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:17",
+						"removal": "0:11-3:0"
+					}
+				],
+				"domain": "0:11-3:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:15-1:16",
+						"removal": "1:15-1:16"
+					}
+				],
+				"domain": "1:15-1:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:15-2:16",
+						"removal": "2:15-2:16"
+					}
+				],
+				"domain": "2:15-2:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/interior/interior.try",
+		"languageId": "scala",
+		"facet": "interior.try",
+		"code": "try { }\ncatch { }\nfinally { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:6",
+						"removal": "0:5-0:6"
+					}
+				],
+				"domain": "0:5-0:6"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:7-1:8",
+						"removal": "1:7-1:8"
+					}
+				],
+				"domain": "1:7-1:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:9-2:10",
+						"removal": "2:9-2:10"
+					}
+				],
+				"domain": "2:9-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/interior/interior.while",
+		"languageId": "scala",
+		"facet": "interior.while",
+		"code": "while (true) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15",
+						"removal": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/scss/interior.function",
+		"languageId": "scss",
+		"facet": "interior.function",
+		"code": "@function foo() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:17-0:18",
+						"removal": "0:17-0:18"
+					}
+				],
+				"domain": "0:17-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/scss/interior.if",
+		"languageId": "scss",
+		"facet": "interior.if",
+		"code": "@if true { }\n@else if false { }\n@else { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:11",
+						"removal": "0:10-0:11"
+					}
+				],
+				"domain": "0:10-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:16-1:17",
+						"removal": "1:16-1:17"
+					}
+				],
+				"domain": "1:16-1:17"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:7-2:8",
+						"removal": "2:7-2:8"
+					}
+				],
+				"domain": "2:7-2:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/talon/interior.command",
+		"languageId": "talon",
+		"facet": "interior.command",
+		"code": "foo:\n    bar = 0",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:11",
+						"removal": "0:4-1:11"
+					}
+				],
+				"domain": "0:4-1:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/talon/interior.foreach",
+		"languageId": "talon",
+		"facet": "interior.foreach",
+		"code": "command:\n    for v in values: print(v)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:29",
+						"removal": "0:8-1:29"
+					}
+				],
+				"domain": "0:8-1:29"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:21-1:29",
+						"removal": "1:21-1:29"
+					}
+				],
+				"domain": "1:21-1:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/talon/interior.if",
+		"languageId": "talon",
+		"facet": "interior.if",
+		"code": "command:\n    if true: print(\"true\")",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:26",
+						"removal": "0:8-1:26"
+					}
+				],
+				"domain": "0:8-1:26"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:26",
+						"removal": "1:13-1:26"
+					}
+				],
+				"domain": "1:13-1:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/typescript.core/interior.enum",
+		"languageId": "typescript.core",
+		"facet": "interior.enum",
+		"code": "enum Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:11",
+						"removal": "0:10-0:11"
+					}
+				],
+				"domain": "0:10-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/typescript.core/interior.interface",
+		"languageId": "typescript.core",
+		"facet": "interior.interface",
+		"code": "interface Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:15-0:16",
+						"removal": "0:15-0:16"
+					}
+				],
+				"domain": "0:15-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/xml/interior.element",
+		"languageId": "xml",
+		"facet": "interior.element",
+		"code": "<name> </name>",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:7",
+						"removal": "0:6-0:7"
+					}
+				],
+				"domain": "0:6-0:7"
+			}
+		]
+	}
+]

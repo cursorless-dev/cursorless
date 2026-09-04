@@ -1,0 +1,343 @@
+[
+	{
+		"name": "scopes/clojure/map",
+		"languageId": "clojure",
+		"facet": "map",
+		"code": "{:aaa 0 :bbb 1}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:15",
+						"removal": "0:0-0:15"
+					}
+				],
+				"domain": "0:0-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/clojure/map2",
+		"languageId": "clojure",
+		"facet": "map",
+		"code": "'{:aaa 0 :bbb 1}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:16",
+						"removal": "0:0-0:16"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/map",
+		"languageId": "csharp",
+		"facet": "map",
+		"code": "new Foo {aaa = 0, bbb = 1};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:26",
+						"removal": "0:7-0:26"
+					}
+				],
+				"domain": "0:8-0:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/css/map",
+		"languageId": "css",
+		"facet": "map",
+		"code": "* {\n    color: red;\n    padding: 1rem;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:2-3:1",
+						"removal": "0:1-3:1"
+					}
+				],
+				"domain": "0:2-3:1"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/map",
+		"languageId": "dart",
+		"facet": "map",
+		"code": "final foo = {\"aaa\": 0, \"bbb\": 1};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:12-0:32",
+						"removal": "0:11-0:32"
+					}
+				],
+				"domain": "0:12-0:32"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/map2",
+		"languageId": "dart",
+		"facet": "map",
+		"code": "void mai9n() {\n    final {\"aaa\": bar, \"bbb\": baz} = foo;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:10-1:34",
+						"removal": "1:10-1:35"
+					}
+				],
+				"domain": "1:10-1:34"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/map",
+		"languageId": "go",
+		"facet": "map",
+		"code": "T{\"aaa\": 0, \"bbb\": 1}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:21",
+						"removal": "0:1-0:21"
+					}
+				],
+				"domain": "0:1-0:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/map2",
+		"languageId": "go",
+		"facet": "map",
+		"code": "T{aaa, bbb: 0}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:14",
+						"removal": "0:1-0:14"
+					}
+				],
+				"domain": "0:1-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/map3",
+		"languageId": "go",
+		"facet": "map",
+		"code": "T{}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:3",
+						"removal": "0:1-0:3"
+					}
+				],
+				"domain": "0:1-0:3"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/map",
+		"languageId": "javascript.core",
+		"facet": "map",
+		"code": "{aaa: 0, bbb: 1}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:16",
+						"removal": "0:0-0:16"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/map2",
+		"languageId": "javascript.core",
+		"facet": "map",
+		"code": "const {foo = 0, bar: BAR} = baz;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:25",
+						"removal": "0:6-0:26"
+					}
+				],
+				"domain": "0:6-0:25"
+			}
+		]
+	},
+	{
+		"name": "scopes/json/map",
+		"languageId": "json",
+		"facet": "map",
+		"code": "{\"aaa\": 0, \"bbb\": 1}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:20",
+						"removal": "0:0-0:20"
+					}
+				],
+				"domain": "0:0-0:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/jsonl/map",
+		"languageId": "jsonl",
+		"facet": "map",
+		"code": "{\"aaa\": 0}\n{\"bbb\": 1}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-1:0"
+					}
+				],
+				"domain": "0:0-0:10"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:10",
+						"removal": "0:10-1:10"
+					}
+				],
+				"domain": "1:0-1:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/map",
+		"languageId": "lua",
+		"facet": "map",
+		"code": "{ aaa = 0, bbb = 1 }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:20",
+						"removal": "0:0-0:20"
+					}
+				],
+				"domain": "0:0-0:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/map",
+		"languageId": "php",
+		"facet": "map",
+		"code": "<?php\n[\"aaa\" => 0, \"bbb\" => 1]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:24",
+						"removal": "0:5-1:24"
+					}
+				],
+				"domain": "1:0-1:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/map",
+		"languageId": "python",
+		"facet": "map",
+		"code": "{aaa: 0, bbb: 1}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:16",
+						"removal": "0:0-0:16"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/map",
+		"languageId": "ruby",
+		"facet": "map",
+		"code": "{aaa: 0, bbb: 1}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:16",
+						"removal": "0:0-0:16"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/map",
+		"languageId": "rust",
+		"facet": "map",
+		"code": "let Foo {bar: BAR, baz: BAZ} = bongo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:28",
+						"removal": "0:8-0:29"
+					}
+				],
+				"domain": "0:8-0:28"
+			}
+		]
+	},
+	{
+		"name": "scopes/yaml/map",
+		"languageId": "yaml",
+		"facet": "map",
+		"code": "foo:\n  aaa: 0\n  bbb: 1",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:8",
+						"removal": "0:0-2:8"
+					}
+				],
+				"domain": "0:0-2:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:2-2:8",
+						"removal": "0:4-2:8"
+					}
+				],
+				"domain": "1:2-2:8"
+			}
+		]
+	}
+]

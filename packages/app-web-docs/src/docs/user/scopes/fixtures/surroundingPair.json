@@ -1,0 +1,163 @@
+[
+	{
+		"name": "scopes/plaintext/surroundingPair/surroundingPair.iteration",
+		"languageId": "plaintext",
+		"facet": "surroundingPair.iteration",
+		"code": "\n( )\n",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:3"
+					}
+				],
+				"domain": "1:0-1:3"
+			}
+		]
+	},
+	{
+		"name": "scopes/plaintext/surroundingPair/surroundingPair.iteration2",
+		"languageId": "plaintext",
+		"facet": "surroundingPair.iteration",
+		"code": "\nHello world\n",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:11"
+					}
+				],
+				"domain": "1:0-1:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/plaintext/surroundingPair/surroundingPair",
+		"languageId": "plaintext",
+		"facet": "surroundingPair",
+		"code": "( )",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:3",
+						"removal": "0:0-0:3"
+					}
+				],
+				"domain": "0:0-0:3"
+			}
+		]
+	},
+	{
+		"name": "scopes/plaintext/surroundingPair/surroundingPair2",
+		"languageId": "plaintext",
+		"facet": "surroundingPair",
+		"code": "\"\n\"Hello world\"\n\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:13",
+						"removal": "1:0-1:13"
+					}
+				],
+				"domain": "1:0-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/plaintext/surroundingPair/surroundingPair3",
+		"languageId": "plaintext",
+		"facet": "surroundingPair",
+		"code": "(()) ()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:4",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:4"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:1-0:3",
+						"removal": "0:1-0:3"
+					}
+				],
+				"domain": "0:1-0:3"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:5-0:7",
+						"removal": "0:4-0:7"
+					}
+				],
+				"domain": "0:5-0:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/plaintext/surroundingPair/surroundingPair4",
+		"languageId": "plaintext",
+		"facet": "surroundingPair",
+		"code": "(a < b)\n(c > d)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:7",
+						"removal": "0:0-0:7"
+					}
+				],
+				"domain": "0:0-0:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:7",
+						"removal": "1:0-1:7"
+					}
+				],
+				"domain": "1:0-1:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/plaintext/surroundingPair/surroundingPair5",
+		"languageId": "plaintext",
+		"facet": "surroundingPair",
+		"code": "(  [  )  ]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:7",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/plaintext/surroundingPair/surroundingPair6",
+		"languageId": "plaintext",
+		"facet": "surroundingPair",
+		"code": "([)]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:3",
+						"removal": "0:0-0:3"
+					}
+				],
+				"domain": "0:0-0:3"
+			}
+		]
+	}
+]

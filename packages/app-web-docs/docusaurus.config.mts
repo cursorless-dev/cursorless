@@ -165,11 +165,7 @@ const config: Config = {
     ],
   ],
 
-  plugins: [
-    "docusaurus-plugin-sass",
-    "./src/plugins/recorded-tests-plugin.ts",
-    "./src/plugins/scope-tests-plugin.ts",
-  ],
+  plugins: ["docusaurus-plugin-sass"],
 
   themeConfig: {
     navbar: {

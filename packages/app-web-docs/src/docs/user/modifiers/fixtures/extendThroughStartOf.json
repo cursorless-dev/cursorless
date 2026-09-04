@@ -1,0 +1,144 @@
+[
+	{
+		"path": "docs/modifiers/extendThroughStartOf.yml",
+		"name": "docs/modifiers/extendThroughStartOf",
+		"fixture": {
+			"languageId": "typescript",
+			"command": {
+				"version": 7,
+				"spokenForm": "take head",
+				"action": {
+					"name": "setSelection",
+					"target": {
+						"type": "primitive",
+						"modifiers": [
+							{
+								"type": "extendThroughStartOf"
+							}
+						]
+					}
+				},
+				"usePrePhraseSnapshot": false
+			},
+			"initialState": {
+				"documentContents": "// Hello  world",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 9
+						},
+						"active": {
+							"line": 0,
+							"character": 9
+						}
+					}
+				],
+				"marks": {},
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "o",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 11
+							},
+							"end": {
+								"line": 0,
+								"character": 12
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "e",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "/",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					}
+				]
+			},
+			"finalState": {
+				"documentContents": "// Hello  world",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 9
+						},
+						"active": {
+							"line": 0,
+							"character": 0
+						}
+					}
+				],
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "/",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "e",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "o",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 11
+							},
+							"end": {
+								"line": 0,
+								"character": 12
+							}
+						}
+					}
+				]
+			}
+		}
+	}
+]

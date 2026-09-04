@@ -1,0 +1,1420 @@
+[
+	{
+		"name": "scopes/c/functionCall.chain",
+		"languageId": "c",
+		"facet": "functionCall.chain",
+		"code": "foo().bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:0-0:11"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/functionCall.method",
+		"languageId": "c",
+		"facet": "functionCall.method",
+		"code": "foo.bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/functionCall",
+		"languageId": "c",
+		"facet": "functionCall",
+		"code": "foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/clojure/functionCall",
+		"languageId": "clojure",
+		"facet": "functionCall",
+		"code": "(foo)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/functionCall.constructor",
+		"languageId": "cpp",
+		"facet": "functionCall.constructor",
+		"code": "new Foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/functionCall.generic",
+		"languageId": "cpp",
+		"facet": "functionCall.generic",
+		"code": "foo<Bar>();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/functionCall.method",
+		"languageId": "cpp",
+		"facet": "functionCall.method",
+		"code": "foo::bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/functionCall.chain",
+		"languageId": "csharp",
+		"facet": "functionCall.chain",
+		"code": "Foo().Bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:0-0:11"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/functionCall.constructor",
+		"languageId": "csharp",
+		"facet": "functionCall.constructor",
+		"code": "new Foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/functionCall.generic",
+		"languageId": "csharp",
+		"facet": "functionCall.generic",
+		"code": "foo<Bar>();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/functionCall.method",
+		"languageId": "csharp",
+		"facet": "functionCall.method",
+		"code": "Foo.Bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/functionCall",
+		"languageId": "csharp",
+		"facet": "functionCall",
+		"code": "Foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/css/functionCall",
+		"languageId": "css",
+		"facet": "functionCall",
+		"code": "* {\n    transform: translate(-50%, -50%);\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:15-1:36",
+						"removal": "1:14-1:36"
+					}
+				],
+				"domain": "1:15-1:36"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/functionCall/functionCall.chain",
+		"languageId": "dart",
+		"facet": "functionCall.chain",
+		"code": "var foo = bar().baz();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:15",
+						"removal": "0:10-0:15"
+					}
+				],
+				"domain": "0:10-0:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:10-0:21",
+						"removal": "0:9-0:21"
+					}
+				],
+				"domain": "0:10-0:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/functionCall/functionCall.constructor",
+		"languageId": "dart",
+		"facet": "functionCall.constructor",
+		"code": "var foo = Bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:15",
+						"removal": "0:9-0:15"
+					}
+				],
+				"domain": "0:10-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/functionCall/functionCall.enum",
+		"languageId": "dart",
+		"facet": "functionCall.enum",
+		"code": "enum Foo {\n    bar();\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:9",
+						"removal": "1:0-1:9"
+					}
+				],
+				"domain": "1:4-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/functionCall/functionCall.generic",
+		"languageId": "dart",
+		"facet": "functionCall.generic",
+		"code": "var foo = bar<int>();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:20",
+						"removal": "0:9-0:20"
+					}
+				],
+				"domain": "0:10-0:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/functionCall/functionCall.method",
+		"languageId": "dart",
+		"facet": "functionCall.method",
+		"code": "var foo = bar.baz();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:19",
+						"removal": "0:9-0:19"
+					}
+				],
+				"domain": "0:10-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/functionCall/functionCall",
+		"languageId": "dart",
+		"facet": "functionCall",
+		"code": "var foo = bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:15",
+						"removal": "0:9-0:15"
+					}
+				],
+				"domain": "0:10-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/functionCall.chain",
+		"languageId": "go",
+		"facet": "functionCall.chain",
+		"code": "foo().bar()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:0-0:11"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/functionCall.generic",
+		"languageId": "go",
+		"facet": "functionCall.generic",
+		"code": "foo[Bar]()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/functionCall.method",
+		"languageId": "go",
+		"facet": "functionCall.method",
+		"code": "foo.bar()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/functionCall",
+		"languageId": "go",
+		"facet": "functionCall",
+		"code": "foo()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/functionCall/functionCall.chain",
+		"languageId": "java",
+		"facet": "functionCall.chain",
+		"code": "foo().bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:0-0:11"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/functionCall/functionCall.constructor",
+		"languageId": "java",
+		"facet": "functionCall.constructor",
+		"code": "new Foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/functionCall/functionCall.enum",
+		"languageId": "java",
+		"facet": "functionCall.enum",
+		"code": "enum Foo {\n    bar();\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:9",
+						"removal": "1:0-1:9"
+					}
+				],
+				"domain": "1:4-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/functionCall/functionCall.generic",
+		"languageId": "java",
+		"facet": "functionCall.generic",
+		"code": "new foo<Bar>();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/functionCall/functionCall.method",
+		"languageId": "java",
+		"facet": "functionCall.method",
+		"code": "foo.bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/functionCall/functionCall",
+		"languageId": "java",
+		"facet": "functionCall",
+		"code": "foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/functionCall.chain",
+		"languageId": "javascript.core",
+		"facet": "functionCall.chain",
+		"code": "foo().bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:0-0:11"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/functionCall.constructor",
+		"languageId": "javascript.core",
+		"facet": "functionCall.constructor",
+		"code": "new Foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/functionCall.method",
+		"languageId": "javascript.core",
+		"facet": "functionCall.method",
+		"code": "foo.bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/functionCall",
+		"languageId": "javascript.core",
+		"facet": "functionCall",
+		"code": "foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/functionCall/functionCall.chain",
+		"languageId": "kotlin",
+		"facet": "functionCall.chain",
+		"code": "foo().bar()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:0-0:11"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/functionCall/functionCall.constructor",
+		"languageId": "kotlin",
+		"facet": "functionCall.constructor",
+		"code": "Foo()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/functionCall/functionCall.constructor2",
+		"languageId": "kotlin",
+		"facet": "functionCall.constructor",
+		"code": "class Foo: Bar()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:16",
+						"removal": "0:10-0:16"
+					}
+				],
+				"domain": "0:11-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/functionCall/functionCall.constructor3",
+		"languageId": "kotlin",
+		"facet": "functionCall.constructor",
+		"code": "class Foo {\n    constructor(): this()\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:19-1:25",
+						"removal": "1:18-1:25"
+					}
+				],
+				"domain": "1:19-1:25"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/functionCall/functionCall.enum",
+		"languageId": "kotlin",
+		"facet": "functionCall.enum",
+		"code": "enum class Foo {\n    bar()\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:9",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/functionCall/functionCall.generic",
+		"languageId": "kotlin",
+		"facet": "functionCall.generic",
+		"code": "foo<Bar>()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/functionCall/functionCall.method",
+		"languageId": "kotlin",
+		"facet": "functionCall.method",
+		"code": "foo.bar()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/functionCall/functionCall",
+		"languageId": "kotlin",
+		"facet": "functionCall",
+		"code": "foo()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/latex/functionCall",
+		"languageId": "latex",
+		"facet": "functionCall",
+		"code": "\\foo{aaa}{bbb}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/functionCall/functionCall.chain",
+		"languageId": "lua",
+		"facet": "functionCall.chain",
+		"code": "foo().bar()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:0-0:11"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/functionCall/functionCall.chain2",
+		"languageId": "lua",
+		"facet": "functionCall.chain",
+		"code": "foo():bar()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:0-0:11"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/functionCall/functionCall.method",
+		"languageId": "lua",
+		"facet": "functionCall.method",
+		"code": "foo.bar()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/functionCall/functionCall.method2",
+		"languageId": "lua",
+		"facet": "functionCall.method",
+		"code": "foo:bar()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/functionCall/functionCall",
+		"languageId": "lua",
+		"facet": "functionCall",
+		"code": "foo()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/functionCall/functionCall.chain",
+		"languageId": "php",
+		"facet": "functionCall.chain",
+		"code": "<?php\nfoo()->bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:5",
+						"removal": "1:0-1:5"
+					}
+				],
+				"domain": "1:0-1:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:12",
+						"removal": "1:0-1:12"
+					}
+				],
+				"domain": "1:0-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/functionCall/functionCall.constructor",
+		"languageId": "php",
+		"facet": "functionCall.constructor",
+		"code": "<?php\nnew Foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:9",
+						"removal": "1:0-1:9"
+					}
+				],
+				"domain": "1:0-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/functionCall/functionCall.method",
+		"languageId": "php",
+		"facet": "functionCall.method",
+		"code": "<?php\n$foo->bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:11",
+						"removal": "1:0-1:11"
+					}
+				],
+				"domain": "1:0-1:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/functionCall/functionCall.method2",
+		"languageId": "php",
+		"facet": "functionCall.method",
+		"code": "<?php\n$foo?->bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:12",
+						"removal": "1:0-1:12"
+					}
+				],
+				"domain": "1:0-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/functionCall/functionCall",
+		"languageId": "php",
+		"facet": "functionCall",
+		"code": "<?php\nfoo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:5",
+						"removal": "1:0-1:5"
+					}
+				],
+				"domain": "1:0-1:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/functionCall.chain",
+		"languageId": "python",
+		"facet": "functionCall.chain",
+		"code": "foo().bar()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:0-0:11"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/functionCall.constructor",
+		"languageId": "python",
+		"facet": "functionCall.constructor",
+		"code": "Foo()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/functionCall.method",
+		"languageId": "python",
+		"facet": "functionCall.method",
+		"code": "foo.bar()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/functionCall",
+		"languageId": "python",
+		"facet": "functionCall",
+		"code": "foo()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/functionCall.method",
+		"languageId": "r",
+		"facet": "functionCall.method",
+		"code": "foo::bar()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/functionCall",
+		"languageId": "r",
+		"facet": "functionCall",
+		"code": "foo()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/functionCall/functionCall.chain",
+		"languageId": "ruby",
+		"facet": "functionCall.chain",
+		"code": "foo().bar()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:0-0:11"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/functionCall/functionCall.method",
+		"languageId": "ruby",
+		"facet": "functionCall.method",
+		"code": "foo.bar()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/functionCall/functionCall",
+		"languageId": "ruby",
+		"facet": "functionCall",
+		"code": "foo()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/functionCall.chain",
+		"languageId": "rust",
+		"facet": "functionCall.chain",
+		"code": "foo().bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:0-0:11"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/functionCall.enum",
+		"languageId": "rust",
+		"facet": "functionCall.enum",
+		"code": "enum Foo {\n    Bar()\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:9",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/functionCall.generic",
+		"languageId": "rust",
+		"facet": "functionCall.generic",
+		"code": "foo::<Bar>();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-0:12"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/functionCall.method",
+		"languageId": "rust",
+		"facet": "functionCall.method",
+		"code": "foo.bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/functionCall",
+		"languageId": "rust",
+		"facet": "functionCall",
+		"code": "foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/functionCall.chain",
+		"languageId": "scala",
+		"facet": "functionCall.chain",
+		"code": "foo().bar()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:0-0:11"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/functionCall.constructor",
+		"languageId": "scala",
+		"facet": "functionCall.constructor",
+		"code": "new Foo()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/functionCall.generic",
+		"languageId": "scala",
+		"facet": "functionCall.generic",
+		"code": "foo[Bar]()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/functionCall.method",
+		"languageId": "scala",
+		"facet": "functionCall.method",
+		"code": "foo.bar()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/functionCall",
+		"languageId": "scala",
+		"facet": "functionCall",
+		"code": "foo()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/scm/functionCall",
+		"languageId": "scm",
+		"facet": "functionCall",
+		"code": "(#foo!)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:7",
+						"removal": "0:0-0:7"
+					}
+				],
+				"domain": "0:0-0:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/talon/functionCall.method",
+		"languageId": "talon",
+		"facet": "functionCall.method",
+		"code": "foo:\n    bar.baz()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:13",
+						"removal": "0:4-1:13"
+					}
+				],
+				"domain": "1:4-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/talon/functionCall",
+		"languageId": "talon",
+		"facet": "functionCall",
+		"code": "foo: \n    bar()",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:9",
+						"removal": "0:5-1:9"
+					}
+				],
+				"domain": "1:4-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/talon/functionCall2",
+		"languageId": "talon",
+		"facet": "functionCall",
+		"code": "foo:\n    key(enter)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:14",
+						"removal": "0:4-1:14"
+					}
+				],
+				"domain": "1:4-1:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/typescript.core/functionCall.generic",
+		"languageId": "typescript.core",
+		"facet": "functionCall.generic",
+		"code": "foo<Bar>();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	}
+]

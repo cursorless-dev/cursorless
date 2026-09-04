@@ -3,6 +3,7 @@ sidebar_label: Append post
 ---
 
 import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/addSelectionAfter.json";
 
 # Append post (Add selection after)
 
@@ -22,7 +23,7 @@ Default: `append post`
 
 ## Visualization
 
-<RecordedTestVisualizerProvider>
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
 
 <RecordedTestVisualizerOptions />
 

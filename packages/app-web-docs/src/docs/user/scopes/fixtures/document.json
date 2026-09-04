@@ -1,0 +1,19 @@
+[
+	{
+		"name": "scopes/plaintext/document",
+		"languageId": "plaintext",
+		"facet": "document",
+		"code": "\nHello world\n",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:0",
+						"removal": "0:0-2:0"
+					}
+				],
+				"domain": "0:0-2:0"
+			}
+		]
+	}
+]

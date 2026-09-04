@@ -1,0 +1,70 @@
+[
+	{
+		"name": "scopes/html/element",
+		"languageId": "html",
+		"facet": "element",
+		"code": "<div></div>",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:0-0:11"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.jsx/element",
+		"languageId": "javascript.jsx",
+		"facet": "element",
+		"code": "<div></div>",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:0-0:11"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/latex/element",
+		"languageId": "latex",
+		"facet": "element",
+		"code": "\\begin{quote}\n    Hello\n\\end{quote}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:11",
+						"removal": "0:0-2:11"
+					}
+				],
+				"domain": "0:0-2:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/xml/element",
+		"languageId": "xml",
+		"facet": "element",
+		"code": "<name></name>",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	}
+]

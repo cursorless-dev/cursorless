@@ -1,0 +1,70 @@
+[
+	{
+		"name": "scopes/plaintext/url",
+		"languageId": "plaintext",
+		"facet": "url",
+		"code": "https://www.cursorless.org",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:26",
+						"removal": "0:0-0:26"
+					}
+				],
+				"domain": "0:0-0:26"
+			}
+		]
+	},
+	{
+		"name": "scopes/plaintext/url2",
+		"languageId": "plaintext",
+		"facet": "url",
+		"code": "http://www.cursorless.org",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:25",
+						"removal": "0:0-0:25"
+					}
+				],
+				"domain": "0:0-0:25"
+			}
+		]
+	},
+	{
+		"name": "scopes/plaintext/url3",
+		"languageId": "plaintext",
+		"facet": "url",
+		"code": "https://cursorless.org",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:22",
+						"removal": "0:0-0:22"
+					}
+				],
+				"domain": "0:0-0:22"
+			}
+		]
+	},
+	{
+		"name": "scopes/plaintext/url4",
+		"languageId": "plaintext",
+		"facet": "url",
+		"code": "www.cursorless.org",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:18",
+						"removal": "0:0-0:18"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	}
+]

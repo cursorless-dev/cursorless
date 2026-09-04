@@ -3,6 +3,7 @@ sidebar_label: Carve
 ---
 
 import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/cutToClipboard.json";
 
 # Carve (Cut to clipboard)
 
@@ -22,7 +23,7 @@ Default: `carve`
 
 ## Visualization
 
-<RecordedTestVisualizerProvider>
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
 
 <RecordedTestVisualizerOptions />
 

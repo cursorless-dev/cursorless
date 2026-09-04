@@ -96,7 +96,7 @@ export async function updateTutorialMdx(
 
   const lines = [
     recordedTestVisualizerImport,
-    `import recordedTests from "./${shortId}.fixtures.json";`,
+    `import recordedTests from "./fixtures/${shortId}.json";`,
     "",
     `# ${position}. ${tutorial.title}`,
     "",

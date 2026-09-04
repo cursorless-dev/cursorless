@@ -3,6 +3,7 @@ sidebar_label: Subparagraph
 ---
 
 import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/subParagraph.json";
 
 # Subparagraph
 
@@ -22,7 +23,7 @@ Default: `subparagraph`
 
 ## Visualization
 
-<ScopeVisualizerProvider>
+<ScopeVisualizerProvider scopeTests={scopeTests}>
 
 <ScopeVisualizerOptions />
 

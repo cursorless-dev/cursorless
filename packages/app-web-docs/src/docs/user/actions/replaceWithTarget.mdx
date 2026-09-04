@@ -3,6 +3,7 @@ sidebar_label: Bring
 ---
 
 import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/replaceWithTarget.json";
 
 # Bring (Replace with target)
 
@@ -24,7 +25,7 @@ Default: `bring`
 
 ## Visualization
 
-<RecordedTestVisualizerProvider>
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
 
 <RecordedTestVisualizerOptions />
 

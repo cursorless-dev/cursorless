@@ -1,0 +1,1582 @@
+[
+	{
+		"path": "docs/modifiers/ordinalScope.yml",
+		"name": "docs/modifiers/ordinalScope",
+		"fixture": {
+			"languageId": "typescript",
+			"command": {
+				"version": 7,
+				"spokenForm": "take first item",
+				"action": {
+					"name": "setSelection",
+					"target": {
+						"type": "primitive",
+						"modifiers": [
+							{
+								"type": "ordinalScope",
+								"scopeType": {
+									"type": "collectionItem"
+								},
+								"start": 0,
+								"length": 1
+							}
+						]
+					}
+				},
+				"usePrePhraseSnapshot": false
+			},
+			"initialState": {
+				"documentContents": "[1, 2, 3]",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 4
+						},
+						"active": {
+							"line": 0,
+							"character": 4
+						}
+					}
+				],
+				"marks": {},
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "2",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": ",",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 5
+							},
+							"end": {
+								"line": 0,
+								"character": 6
+							}
+						}
+					},
+					{
+						"hatStyle": "blue",
+						"grapheme": ",",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 2
+							},
+							"end": {
+								"line": 0,
+								"character": 3
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "1",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 1
+							},
+							"end": {
+								"line": 0,
+								"character": 2
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "3",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 7
+							},
+							"end": {
+								"line": 0,
+								"character": 8
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "[",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "]",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 8
+							},
+							"end": {
+								"line": 0,
+								"character": 9
+							}
+						}
+					}
+				]
+			},
+			"finalState": {
+				"documentContents": "[1, 2, 3]",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 1
+						},
+						"active": {
+							"line": 0,
+							"character": 2
+						}
+					}
+				],
+				"hatTokenMap": [
+					{
+						"hatStyle": "blue",
+						"grapheme": ",",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 2
+							},
+							"end": {
+								"line": 0,
+								"character": 3
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "1",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 1
+							},
+							"end": {
+								"line": 0,
+								"character": 2
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "[",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "2",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": ",",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 5
+							},
+							"end": {
+								"line": 0,
+								"character": 6
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "3",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 7
+							},
+							"end": {
+								"line": 0,
+								"character": 8
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "]",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 8
+							},
+							"end": {
+								"line": 0,
+								"character": 9
+							}
+						}
+					}
+				]
+			}
+		}
+	},
+	{
+		"path": "docs/modifiers/ordinalScope2.yml",
+		"name": "docs/modifiers/ordinalScope2",
+		"fixture": {
+			"languageId": "typescript",
+			"command": {
+				"version": 7,
+				"spokenForm": "take last item",
+				"action": {
+					"name": "setSelection",
+					"target": {
+						"type": "primitive",
+						"modifiers": [
+							{
+								"type": "ordinalScope",
+								"scopeType": {
+									"type": "collectionItem"
+								},
+								"start": -1,
+								"length": 1
+							}
+						]
+					}
+				},
+				"usePrePhraseSnapshot": false
+			},
+			"initialState": {
+				"documentContents": "[1, 2, 3]",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 4
+						},
+						"active": {
+							"line": 0,
+							"character": 4
+						}
+					}
+				],
+				"marks": {},
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "2",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": ",",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 5
+							},
+							"end": {
+								"line": 0,
+								"character": 6
+							}
+						}
+					},
+					{
+						"hatStyle": "blue",
+						"grapheme": ",",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 2
+							},
+							"end": {
+								"line": 0,
+								"character": 3
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "1",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 1
+							},
+							"end": {
+								"line": 0,
+								"character": 2
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "3",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 7
+							},
+							"end": {
+								"line": 0,
+								"character": 8
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "[",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "]",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 8
+							},
+							"end": {
+								"line": 0,
+								"character": 9
+							}
+						}
+					}
+				]
+			},
+			"finalState": {
+				"documentContents": "[1, 2, 3]",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 7
+						},
+						"active": {
+							"line": 0,
+							"character": 8
+						}
+					}
+				],
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "]",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 8
+							},
+							"end": {
+								"line": 0,
+								"character": 9
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "3",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 7
+							},
+							"end": {
+								"line": 0,
+								"character": 8
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": ",",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 5
+							},
+							"end": {
+								"line": 0,
+								"character": 6
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "2",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					},
+					{
+						"hatStyle": "blue",
+						"grapheme": ",",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 2
+							},
+							"end": {
+								"line": 0,
+								"character": 3
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "1",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 1
+							},
+							"end": {
+								"line": 0,
+								"character": 2
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "[",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					}
+				]
+			}
+		}
+	},
+	{
+		"path": "docs/modifiers/ordinalScope3.yml",
+		"name": "docs/modifiers/ordinalScope3",
+		"fixture": {
+			"languageId": "typescript",
+			"command": {
+				"version": 7,
+				"spokenForm": "take first two items",
+				"action": {
+					"name": "setSelection",
+					"target": {
+						"type": "primitive",
+						"modifiers": [
+							{
+								"type": "ordinalScope",
+								"scopeType": {
+									"type": "collectionItem"
+								},
+								"start": 0,
+								"length": 2
+							}
+						]
+					}
+				},
+				"usePrePhraseSnapshot": false
+			},
+			"initialState": {
+				"documentContents": "[1, 2, 3]",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 4
+						},
+						"active": {
+							"line": 0,
+							"character": 4
+						}
+					}
+				],
+				"marks": {},
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "2",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": ",",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 5
+							},
+							"end": {
+								"line": 0,
+								"character": 6
+							}
+						}
+					},
+					{
+						"hatStyle": "blue",
+						"grapheme": ",",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 2
+							},
+							"end": {
+								"line": 0,
+								"character": 3
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "1",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 1
+							},
+							"end": {
+								"line": 0,
+								"character": 2
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "3",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 7
+							},
+							"end": {
+								"line": 0,
+								"character": 8
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "[",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "]",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 8
+							},
+							"end": {
+								"line": 0,
+								"character": 9
+							}
+						}
+					}
+				]
+			},
+			"finalState": {
+				"documentContents": "[1, 2, 3]",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 1
+						},
+						"active": {
+							"line": 0,
+							"character": 5
+						}
+					}
+				],
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": ",",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 5
+							},
+							"end": {
+								"line": 0,
+								"character": 6
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "2",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "3",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 7
+							},
+							"end": {
+								"line": 0,
+								"character": 8
+							}
+						}
+					},
+					{
+						"hatStyle": "blue",
+						"grapheme": ",",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 2
+							},
+							"end": {
+								"line": 0,
+								"character": 3
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "]",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 8
+							},
+							"end": {
+								"line": 0,
+								"character": 9
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "1",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 1
+							},
+							"end": {
+								"line": 0,
+								"character": 2
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "[",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					}
+				]
+			}
+		}
+	},
+	{
+		"path": "docs/modifiers/ordinalScope4.yml",
+		"name": "docs/modifiers/ordinalScope4",
+		"fixture": {
+			"languageId": "typescript",
+			"command": {
+				"version": 7,
+				"spokenForm": "take last two items",
+				"action": {
+					"name": "setSelection",
+					"target": {
+						"type": "primitive",
+						"modifiers": [
+							{
+								"type": "ordinalScope",
+								"scopeType": {
+									"type": "collectionItem"
+								},
+								"start": -2,
+								"length": 2
+							}
+						]
+					}
+				},
+				"usePrePhraseSnapshot": false
+			},
+			"initialState": {
+				"documentContents": "[1, 2, 3]",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 4
+						},
+						"active": {
+							"line": 0,
+							"character": 4
+						}
+					}
+				],
+				"marks": {},
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "2",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": ",",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 5
+							},
+							"end": {
+								"line": 0,
+								"character": 6
+							}
+						}
+					},
+					{
+						"hatStyle": "blue",
+						"grapheme": ",",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 2
+							},
+							"end": {
+								"line": 0,
+								"character": 3
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "1",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 1
+							},
+							"end": {
+								"line": 0,
+								"character": 2
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "3",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 7
+							},
+							"end": {
+								"line": 0,
+								"character": 8
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "[",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "]",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 8
+							},
+							"end": {
+								"line": 0,
+								"character": 9
+							}
+						}
+					}
+				]
+			},
+			"finalState": {
+				"documentContents": "[1, 2, 3]",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 4
+						},
+						"active": {
+							"line": 0,
+							"character": 8
+						}
+					}
+				],
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "]",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 8
+							},
+							"end": {
+								"line": 0,
+								"character": 9
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "3",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 7
+							},
+							"end": {
+								"line": 0,
+								"character": 8
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": ",",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 5
+							},
+							"end": {
+								"line": 0,
+								"character": 6
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "2",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					},
+					{
+						"hatStyle": "blue",
+						"grapheme": ",",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 2
+							},
+							"end": {
+								"line": 0,
+								"character": 3
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "1",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 1
+							},
+							"end": {
+								"line": 0,
+								"character": 2
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "[",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					}
+				]
+			}
+		}
+	},
+	{
+		"path": "docs/modifiers/ordinalScope5.yml",
+		"name": "docs/modifiers/ordinalScope5",
+		"fixture": {
+			"languageId": "typescript",
+			"command": {
+				"version": 7,
+				"spokenForm": "take first past second item",
+				"action": {
+					"name": "setSelection",
+					"target": {
+						"type": "primitive",
+						"modifiers": [
+							{
+								"type": "range",
+								"anchor": {
+									"type": "ordinalScope",
+									"scopeType": {
+										"type": "collectionItem"
+									},
+									"start": 0,
+									"length": 1
+								},
+								"active": {
+									"type": "ordinalScope",
+									"scopeType": {
+										"type": "collectionItem"
+									},
+									"start": 1,
+									"length": 1
+								},
+								"excludeAnchor": false,
+								"excludeActive": false
+							}
+						]
+					}
+				},
+				"usePrePhraseSnapshot": false
+			},
+			"initialState": {
+				"documentContents": "[1, 2, 3]",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 4
+						},
+						"active": {
+							"line": 0,
+							"character": 4
+						}
+					}
+				],
+				"marks": {},
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "2",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": ",",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 5
+							},
+							"end": {
+								"line": 0,
+								"character": 6
+							}
+						}
+					},
+					{
+						"hatStyle": "blue",
+						"grapheme": ",",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 2
+							},
+							"end": {
+								"line": 0,
+								"character": 3
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "1",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 1
+							},
+							"end": {
+								"line": 0,
+								"character": 2
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "3",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 7
+							},
+							"end": {
+								"line": 0,
+								"character": 8
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "[",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "]",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 8
+							},
+							"end": {
+								"line": 0,
+								"character": 9
+							}
+						}
+					}
+				]
+			},
+			"finalState": {
+				"documentContents": "[1, 2, 3]",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 1
+						},
+						"active": {
+							"line": 0,
+							"character": 5
+						}
+					}
+				],
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": ",",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 5
+							},
+							"end": {
+								"line": 0,
+								"character": 6
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "2",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "3",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 7
+							},
+							"end": {
+								"line": 0,
+								"character": 8
+							}
+						}
+					},
+					{
+						"hatStyle": "blue",
+						"grapheme": ",",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 2
+							},
+							"end": {
+								"line": 0,
+								"character": 3
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "]",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 8
+							},
+							"end": {
+								"line": 0,
+								"character": 9
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "1",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 1
+							},
+							"end": {
+								"line": 0,
+								"character": 2
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "[",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					}
+				]
+			}
+		}
+	},
+	{
+		"path": "docs/modifiers/ordinalScope6.yml",
+		"name": "docs/modifiers/ordinalScope6",
+		"fixture": {
+			"languageId": "typescript",
+			"command": {
+				"version": 7,
+				"spokenForm": "take second past third item",
+				"action": {
+					"name": "setSelection",
+					"target": {
+						"type": "primitive",
+						"modifiers": [
+							{
+								"type": "range",
+								"anchor": {
+									"type": "ordinalScope",
+									"scopeType": {
+										"type": "collectionItem"
+									},
+									"start": 1,
+									"length": 1
+								},
+								"active": {
+									"type": "ordinalScope",
+									"scopeType": {
+										"type": "collectionItem"
+									},
+									"start": 2,
+									"length": 1
+								},
+								"excludeAnchor": false,
+								"excludeActive": false
+							}
+						]
+					}
+				},
+				"usePrePhraseSnapshot": false
+			},
+			"initialState": {
+				"documentContents": "[1, 2, 3]",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 4
+						},
+						"active": {
+							"line": 0,
+							"character": 4
+						}
+					}
+				],
+				"marks": {},
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "2",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": ",",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 5
+							},
+							"end": {
+								"line": 0,
+								"character": 6
+							}
+						}
+					},
+					{
+						"hatStyle": "blue",
+						"grapheme": ",",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 2
+							},
+							"end": {
+								"line": 0,
+								"character": 3
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "1",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 1
+							},
+							"end": {
+								"line": 0,
+								"character": 2
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "3",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 7
+							},
+							"end": {
+								"line": 0,
+								"character": 8
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "[",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "]",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 8
+							},
+							"end": {
+								"line": 0,
+								"character": 9
+							}
+						}
+					}
+				]
+			},
+			"finalState": {
+				"documentContents": "[1, 2, 3]",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 4
+						},
+						"active": {
+							"line": 0,
+							"character": 8
+						}
+					}
+				],
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "]",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 8
+							},
+							"end": {
+								"line": 0,
+								"character": 9
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "3",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 7
+							},
+							"end": {
+								"line": 0,
+								"character": 8
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": ",",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 5
+							},
+							"end": {
+								"line": 0,
+								"character": 6
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "2",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					},
+					{
+						"hatStyle": "blue",
+						"grapheme": ",",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 2
+							},
+							"end": {
+								"line": 0,
+								"character": 3
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "1",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 1
+							},
+							"end": {
+								"line": 0,
+								"character": 2
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "[",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					}
+				]
+			}
+		}
+	}
+]

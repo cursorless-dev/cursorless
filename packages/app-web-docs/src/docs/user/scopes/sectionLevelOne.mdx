@@ -3,6 +3,7 @@ sidebar_label: One section
 ---
 
 import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/sectionLevelOne.json";
 
 # One section (Section level one)
 
@@ -23,7 +24,7 @@ Default: `one section`\
 
 ## Visualization
 
-<ScopeVisualizerProvider>
+<ScopeVisualizerProvider scopeTests={scopeTests}>
 
 <ScopeVisualizerOptions />
 

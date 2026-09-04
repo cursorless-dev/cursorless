@@ -1,0 +1,192 @@
+[
+	{
+		"path": "docs/modifiers/keepEmptyFilter.yml",
+		"name": "docs/modifiers/keepEmptyFilter",
+		"fixture": {
+			"languageId": "typescript",
+			"command": {
+				"version": 7,
+				"spokenForm": "take empty",
+				"action": {
+					"name": "setSelection",
+					"target": {
+						"type": "primitive",
+						"modifiers": [
+							{
+								"type": "keepEmptyFilter"
+							}
+						]
+					}
+				},
+				"usePrePhraseSnapshot": false
+			},
+			"initialState": {
+				"documentContents": "// Hello\n\n// world",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 0
+						},
+						"active": {
+							"line": 0,
+							"character": 8
+						}
+					},
+					{
+						"anchor": {
+							"line": 1,
+							"character": 0
+						},
+						"active": {
+							"line": 1,
+							"character": 0
+						}
+					},
+					{
+						"anchor": {
+							"line": 2,
+							"character": 0
+						},
+						"active": {
+							"line": 2,
+							"character": 8
+						}
+					}
+				],
+				"marks": {},
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "e",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "/",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "r",
+						"hatRange": {
+							"start": {
+								"line": 2,
+								"character": 5
+							},
+							"end": {
+								"line": 2,
+								"character": 6
+							}
+						}
+					},
+					{
+						"hatStyle": "blue",
+						"grapheme": "/",
+						"hatRange": {
+							"start": {
+								"line": 2,
+								"character": 0
+							},
+							"end": {
+								"line": 2,
+								"character": 1
+							}
+						}
+					}
+				]
+			},
+			"finalState": {
+				"documentContents": "// Hello\n\n// world",
+				"selections": [
+					{
+						"anchor": {
+							"line": 1,
+							"character": 0
+						},
+						"active": {
+							"line": 1,
+							"character": 0
+						}
+					}
+				],
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "/",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					},
+					{
+						"hatStyle": "blue",
+						"grapheme": "/",
+						"hatRange": {
+							"start": {
+								"line": 2,
+								"character": 0
+							},
+							"end": {
+								"line": 2,
+								"character": 1
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "e",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "r",
+						"hatRange": {
+							"start": {
+								"line": 2,
+								"character": 5
+							},
+							"end": {
+								"line": 2,
+								"character": 6
+							}
+						}
+					}
+				]
+			}
+		}
+	}
+]

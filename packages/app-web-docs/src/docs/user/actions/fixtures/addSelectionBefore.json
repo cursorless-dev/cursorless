@@ -1,0 +1,165 @@
+[
+	{
+		"path": "docs/actions/addSelectionBefore.yml",
+		"name": "docs/actions/addSelectionBefore",
+		"fixture": {
+			"languageId": "typescript",
+			"command": {
+				"version": 7,
+				"spokenForm": "append pre air",
+				"action": {
+					"name": "addSelectionBefore",
+					"target": {
+						"type": "primitive",
+						"mark": {
+							"type": "decoratedSymbol",
+							"symbolColor": "default",
+							"character": "a"
+						}
+					}
+				},
+				"usePrePhraseSnapshot": false
+			},
+			"initialState": {
+				"documentContents": "// bbb aaa",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 3
+						},
+						"active": {
+							"line": 0,
+							"character": 6
+						}
+					}
+				],
+				"marks": {
+					"default.a": {
+						"start": {
+							"line": 0,
+							"character": 7
+						},
+						"end": {
+							"line": 0,
+							"character": 10
+						}
+					}
+				},
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "a",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 8
+							},
+							"end": {
+								"line": 0,
+								"character": 9
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "b",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "/",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					}
+				]
+			},
+			"finalState": {
+				"documentContents": "// bbb aaa",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 3
+						},
+						"active": {
+							"line": 0,
+							"character": 6
+						}
+					},
+					{
+						"anchor": {
+							"line": 0,
+							"character": 7
+						},
+						"active": {
+							"line": 0,
+							"character": 7
+						}
+					}
+				],
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "a",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 8
+							},
+							"end": {
+								"line": 0,
+								"character": 9
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "b",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "/",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					}
+				]
+			}
+		}
+	}
+]

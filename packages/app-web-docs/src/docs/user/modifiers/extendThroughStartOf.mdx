@@ -3,6 +3,7 @@ sidebar_label: Head
 ---
 
 import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/extendThroughStartOf.json";
 
 # Head (Extend through start of)
 
@@ -26,7 +27,7 @@ Default: `head`
 
 ## Visualization
 
-<RecordedTestVisualizerProvider>
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
 
 <RecordedTestVisualizerOptions />
 

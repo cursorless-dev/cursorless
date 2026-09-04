@@ -3,6 +3,7 @@ sidebar_label: Wrap
 ---
 
 import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/wrapWithPairedDelimiter.json";
 
 # Wrap (Wrap with paired delimiter/snippet)
 
@@ -26,7 +27,7 @@ Default: `wrap`
 
 ## Visualization
 
-<RecordedTestVisualizerProvider>
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
 
 <RecordedTestVisualizerOptions />
 

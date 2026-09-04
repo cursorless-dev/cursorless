@@ -1,0 +1,6534 @@
+[
+	{
+		"name": "scopes/c/argument/argument.actual.iteration",
+		"languageId": "c",
+		"facet": "argument.actual.iteration",
+		"code": "foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:12"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/argument/argument.actual.method.iteration",
+		"languageId": "c",
+		"facet": "argument.actual.method.iteration",
+		"code": "foo.bar(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/argument/argument.actual.method.multiLine",
+		"languageId": "c",
+		"facet": "argument.actual.method.multiLine",
+		"code": "foo.bar(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/argument/argument.actual.method.singleLine",
+		"languageId": "c",
+		"facet": "argument.actual.method.singleLine",
+		"code": "foo.bar(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:13"
+					}
+				],
+				"domain": "0:8-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:11-0:16"
+					}
+				],
+				"domain": "0:13-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/argument/argument.actual.multiLine",
+		"languageId": "c",
+		"facet": "argument.actual.multiLine",
+		"code": "foo(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/argument/argument.actual.singleLine",
+		"languageId": "c",
+		"facet": "argument.actual.singleLine",
+		"code": "foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:7",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:4-0:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:12",
+						"removal": "0:7-0:12"
+					}
+				],
+				"domain": "0:9-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/argument/argument.formal.iteration",
+		"languageId": "c",
+		"facet": "argument.formal.iteration",
+		"code": "void foo(int aaa, int bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:9-0:25"
+					}
+				],
+				"domain": "0:0-0:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/argument/argument.formal.multiLine",
+		"languageId": "c",
+		"facet": "argument.formal.multiLine",
+		"code": "void foo(\n    int aaa,\n    int bbb\n) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:11",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:11",
+						"removal": "1:11-2:11"
+					}
+				],
+				"domain": "2:4-2:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/argument/argument.formal.singleLine",
+		"languageId": "c",
+		"facet": "argument.formal.singleLine",
+		"code": "void foo(int aaa, int bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:9-0:16",
+						"removal": "0:9-0:18"
+					}
+				],
+				"domain": "0:9-0:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:18-0:25",
+						"removal": "0:16-0:25"
+					}
+				],
+				"domain": "0:18-0:25"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/argumentList/argumentList.actual.empty",
+		"languageId": "c",
+		"facet": "argumentList.actual.empty",
+		"code": "foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:4",
+						"removal": "0:4-0:4"
+					}
+				],
+				"domain": "0:0-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/argumentList/argumentList.actual.method.empty",
+		"languageId": "c",
+		"facet": "argumentList.actual.method.empty",
+		"code": "foo.bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:8",
+						"removal": "0:8-0:8"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/argumentList/argumentList.actual.method.multiLine",
+		"languageId": "c",
+		"facet": "argumentList.actual.method.multiLine",
+		"code": "foo.bar(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:7",
+						"removal": "0:8-3:0"
+					}
+				],
+				"domain": "0:0-3:1"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/argumentList/argumentList.actual.method.singleLine",
+		"languageId": "c",
+		"facet": "argumentList.actual.method.singleLine",
+		"code": "foo.bar(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16",
+						"removal": "0:8-0:16"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/argumentList/argumentList.actual.multiLine",
+		"languageId": "c",
+		"facet": "argumentList.actual.multiLine",
+		"code": "foo(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:7",
+						"removal": "0:4-3:0"
+					}
+				],
+				"domain": "0:0-3:1"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/argumentList/argumentList.actual.singleLine",
+		"languageId": "c",
+		"facet": "argumentList.actual.singleLine",
+		"code": "foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:12",
+						"removal": "0:4-0:12"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/argumentList/argumentList.formal.empty",
+		"languageId": "c",
+		"facet": "argumentList.formal.empty",
+		"code": "void foo() {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:9-0:9",
+						"removal": "0:9-0:9"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/argumentList/argumentList.formal.multiLine",
+		"languageId": "c",
+		"facet": "argumentList.formal.multiLine",
+		"code": "void foo(\n    int aaa,\n    int bbb\n) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:11",
+						"removal": "0:9-3:0"
+					}
+				],
+				"domain": "0:0-3:4"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/argumentList/argumentList.formal.singleLine",
+		"languageId": "c",
+		"facet": "argumentList.formal.singleLine",
+		"code": "void foo(int aaa, int bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:9-0:25",
+						"removal": "0:9-0:25"
+					}
+				],
+				"domain": "0:0-0:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/branch/branch.if.elif.else",
+		"languageId": "c",
+		"facet": "branch.if.elif.else",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-1:5"
+					}
+				],
+				"domain": "0:0-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:18",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:0-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-2:7",
+						"removal": "1:18-2:7"
+					}
+				],
+				"domain": "2:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/branch/branch.if.else",
+		"languageId": "c",
+		"facet": "branch.if.else",
+		"code": "if (true) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-1:0"
+					}
+				],
+				"domain": "0:0-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:7",
+						"removal": "0:12-1:7"
+					}
+				],
+				"domain": "1:0-1:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/branch/branch.if.iteration",
+		"languageId": "c",
+		"facet": "branch.if.iteration",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:7"
+					}
+				],
+				"domain": "0:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/branch/branch.if",
+		"languageId": "c",
+		"facet": "branch.if",
+		"code": "if (true) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-0:12"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/branch/branch.switchCase.iteration",
+		"languageId": "c",
+		"facet": "branch.switchCase.iteration",
+		"code": "switch (foo) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/branch/branch.switchCase",
+		"languageId": "c",
+		"facet": "branch.switchCase",
+		"code": "switch (foo) {\n    case 0:\n        break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:14",
+						"removal": "1:0-3:0"
+					}
+				],
+				"domain": "1:4-2:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/branch/branch.switchCase2",
+		"languageId": "c",
+		"facet": "branch.switchCase",
+		"code": "switch (foo) {\n    default: {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:15",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/branch/branch.ternary.iteration",
+		"languageId": "c",
+		"facet": "branch.ternary.iteration",
+		"code": "true ? 0 : 1;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/branch/branch.ternary",
+		"languageId": "c",
+		"facet": "branch.ternary",
+		"code": "true ? 0 : 1;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:8",
+						"removal": "0:7-0:9"
+					}
+				],
+				"domain": "0:7-0:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:10-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/class/class.iteration.document",
+		"languageId": "c",
+		"facet": "class.iteration.document",
+		"code": "\nstruct Foo {};\n",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:0"
+					}
+				],
+				"domain": "0:0-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/class/class",
+		"languageId": "c",
+		"facet": "class",
+		"code": "struct Foo {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/class/class2",
+		"languageId": "c",
+		"facet": "class",
+		"code": "union Foo {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/class/class3",
+		"languageId": "c",
+		"facet": "class",
+		"code": "enum Foo {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-0:12"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/class/class4",
+		"languageId": "c",
+		"facet": "class",
+		"code": "typedef struct {} Foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:22",
+						"removal": "0:0-0:22"
+					}
+				],
+				"domain": "0:0-0:22"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/class/class5",
+		"languageId": "c",
+		"facet": "class",
+		"code": "typedef union {} Foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:21",
+						"removal": "0:0-0:21"
+					}
+				],
+				"domain": "0:0-0:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/class/class6",
+		"languageId": "c",
+		"facet": "class",
+		"code": "typedef enum {} Foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:20",
+						"removal": "0:0-0:20"
+					}
+				],
+				"domain": "0:0-0:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/collectionItem.unenclosed.iteration",
+		"languageId": "c",
+		"facet": "collectionItem.unenclosed.iteration",
+		"code": "int foo, bar;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:12"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/collectionItem.unenclosed.multiLine",
+		"languageId": "c",
+		"facet": "collectionItem.unenclosed.multiLine",
+		"code": "int foo,\n    bar;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:7",
+						"removal": "0:0-0:8"
+					}
+				],
+				"domain": "0:0-0:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:4-0:7",
+						"removal": "0:4-1:4"
+					}
+				],
+				"domain": "0:4-0:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "0:7-1:7"
+					}
+				],
+				"domain": "1:4-1:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/collectionItem.unenclosed.singleLine",
+		"languageId": "c",
+		"facet": "collectionItem.unenclosed.singleLine",
+		"code": "int foo, bar;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:7",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:4-0:7",
+						"removal": "0:4-0:9"
+					}
+				],
+				"domain": "0:4-0:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:12",
+						"removal": "0:7-0:12"
+					}
+				],
+				"domain": "0:9-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:13",
+						"removal": "0:7-0:13"
+					}
+				],
+				"domain": "0:9-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/comment.block",
+		"languageId": "c",
+		"facet": "comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/comment.line",
+		"languageId": "c",
+		"facet": "comment.line",
+		"code": "// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/condition/condition.doWhile",
+		"languageId": "c",
+		"facet": "condition.doWhile",
+		"code": "do {} while (true);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:17",
+						"removal": "0:13-0:17"
+					}
+				],
+				"domain": "0:0-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/condition/condition.for",
+		"languageId": "c",
+		"facet": "condition.for",
+		"code": "for (int i = 0; i < size; i++) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:16-0:24",
+						"removal": "0:15-0:24"
+					}
+				],
+				"domain": "0:0-0:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/condition/condition.if",
+		"languageId": "c",
+		"facet": "condition.if",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:8",
+						"removal": "0:4-0:8"
+					}
+				],
+				"domain": "0:0-2:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:9-1:14",
+						"removal": "1:9-1:14"
+					}
+				],
+				"domain": "1:0-1:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/condition/condition.switchCase.iteration",
+		"languageId": "c",
+		"facet": "condition.switchCase.iteration",
+		"code": "switch (foo) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/condition/condition.switchCase",
+		"languageId": "c",
+		"facet": "condition.switchCase",
+		"code": "switch (foo) {\n    case 0: break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:9-1:10",
+						"removal": "1:8-1:10"
+					}
+				],
+				"domain": "1:4-1:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/condition/condition.ternary",
+		"languageId": "c",
+		"facet": "condition.ternary",
+		"code": "true ? 0 : 1",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:4",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/condition/condition.while",
+		"languageId": "c",
+		"facet": "condition.while",
+		"code": "while (true) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:11",
+						"removal": "0:7-0:11"
+					}
+				],
+				"domain": "0:0-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/disqualifyDelimiter",
+		"languageId": "c",
+		"facet": "disqualifyDelimiter",
+		"code": "1 < 2;\n1 > 2;\n1 <= 2;\n1 >= 2;\na << 2;\na >> 2;\na <<= 2;\na >>= 2;\nfoo->bar;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:2-0:3"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "1:2-1:3"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "2:2-2:4"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "3:2-3:4"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "4:2-4:4"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "5:2-5:4"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "6:2-6:5"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "7:2-7:5"
+					}
+				]
+			},
+			{
+				"targets": [
+					{
+						"content": "8:3-8:5"
+					}
+				]
+			}
+		]
+	},
+	{
+		"name": "scopes/c/functionCall.chain",
+		"languageId": "c",
+		"facet": "functionCall.chain",
+		"code": "foo().bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:0-0:11"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/functionCall.method",
+		"languageId": "c",
+		"facet": "functionCall.method",
+		"code": "foo.bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/functionCall",
+		"languageId": "c",
+		"facet": "functionCall",
+		"code": "foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/functionCallee.chain",
+		"languageId": "c",
+		"facet": "functionCallee.chain",
+		"code": "foo().bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:3",
+						"removal": "0:0-0:3"
+					}
+				],
+				"domain": "0:0-0:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/functionCallee.method",
+		"languageId": "c",
+		"facet": "functionCallee.method",
+		"code": "foo.bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:7",
+						"removal": "0:0-0:7"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/functionCallee",
+		"languageId": "c",
+		"facet": "functionCallee",
+		"code": "foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:3",
+						"removal": "0:0-0:3"
+					}
+				],
+				"domain": "0:0-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/ifStatement",
+		"languageId": "c",
+		"facet": "ifStatement",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:7",
+						"removal": "0:0-2:7"
+					}
+				],
+				"domain": "0:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.class",
+		"languageId": "c",
+		"facet": "interior.class",
+		"code": "struct Foo { };",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13",
+						"removal": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.class2",
+		"languageId": "c",
+		"facet": "interior.class",
+		"code": "union Foo { };",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.class3",
+		"languageId": "c",
+		"facet": "interior.class",
+		"code": "typedef struct { } Foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:16-0:17",
+						"removal": "0:16-0:17"
+					}
+				],
+				"domain": "0:16-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.class4",
+		"languageId": "c",
+		"facet": "interior.class",
+		"code": "typedef union { } Foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:15-0:16",
+						"removal": "0:15-0:16"
+					}
+				],
+				"domain": "0:15-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.doWhile",
+		"languageId": "c",
+		"facet": "interior.doWhile",
+		"code": "do { } while (true);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:5",
+						"removal": "0:4-0:5"
+					}
+				],
+				"domain": "0:4-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.enum",
+		"languageId": "c",
+		"facet": "interior.enum",
+		"code": "enum Foo { };",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:11",
+						"removal": "0:10-0:11"
+					}
+				],
+				"domain": "0:10-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.enum2",
+		"languageId": "c",
+		"facet": "interior.enum",
+		"code": "typedef enum { } Foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15",
+						"removal": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.for",
+		"languageId": "c",
+		"facet": "interior.for",
+		"code": "for (int i = 0; i < size; ++i) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:32-0:33",
+						"removal": "0:32-0:33"
+					}
+				],
+				"domain": "0:32-0:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.function",
+		"languageId": "c",
+		"facet": "interior.function",
+		"code": "void foo() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13",
+						"removal": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.function2",
+		"languageId": "c",
+		"facet": "interior.function",
+		"code": "void Foo::bar() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:17-0:18",
+						"removal": "0:17-0:18"
+					}
+				],
+				"domain": "0:17-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.if",
+		"languageId": "c",
+		"facet": "interior.if",
+		"code": "if (true) { }\nelse if (false) { }\nelse { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:17-1:18",
+						"removal": "1:17-1:18"
+					}
+				],
+				"domain": "1:17-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:6-2:7",
+						"removal": "2:6-2:7"
+					}
+				],
+				"domain": "2:6-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.switch",
+		"languageId": "c",
+		"facet": "interior.switch",
+		"code": "switch (foo) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15",
+						"removal": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.switchCase",
+		"languageId": "c",
+		"facet": "interior.switchCase",
+		"code": "switch (foo) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-6:14",
+						"removal": "0:14-7:0"
+					}
+				],
+				"domain": "0:14-7:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-3:14",
+						"removal": "1:11-3:14"
+					}
+				],
+				"domain": "1:11-3:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "5:8-6:14",
+						"removal": "4:12-6:14"
+					}
+				],
+				"domain": "4:12-6:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.switchCase2",
+		"languageId": "c",
+		"facet": "interior.switchCase",
+		"code": "switch (foo) {\n    case 0: { }\n    default: { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:16",
+						"removal": "0:14-3:0"
+					}
+				],
+				"domain": "0:14-3:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:14",
+						"removal": "1:13-1:14"
+					}
+				],
+				"domain": "1:13-1:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:14-2:15",
+						"removal": "2:14-2:15"
+					}
+				],
+				"domain": "2:14-2:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/interior/interior.while",
+		"languageId": "c",
+		"facet": "interior.while",
+		"code": "while (true) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15",
+						"removal": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/list",
+		"languageId": "c",
+		"facet": "list",
+		"code": "int foo[2] = {aaa, bbb};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:23",
+						"removal": "0:12-0:23"
+					}
+				],
+				"domain": "0:13-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.argument.formal.iteration",
+		"languageId": "c",
+		"facet": "name.argument.formal.iteration",
+		"code": "void foo(int aaa, int bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:29"
+					}
+				],
+				"domain": "0:0-0:29"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:25"
+					}
+				],
+				"domain": "0:9-0:25"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.argument.formal.iteration2",
+		"languageId": "c",
+		"facet": "name.argument.formal.iteration",
+		"code": "void foo(int aaa, int bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:27"
+					}
+				],
+				"domain": "0:0-0:27"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:25"
+					}
+				],
+				"domain": "0:9-0:25"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.argument.formal",
+		"languageId": "c",
+		"facet": "name.argument.formal",
+		"code": "void foo(int aaa, int bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:8",
+						"removal": "0:5-0:8"
+					}
+				],
+				"domain": "0:0-0:29"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:12-0:16"
+					}
+				],
+				"domain": "0:9-0:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:22-0:25",
+						"removal": "0:21-0:25"
+					}
+				],
+				"domain": "0:18-0:25"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.argument.formal2",
+		"languageId": "c",
+		"facet": "name.argument.formal",
+		"code": "void foo(int aaa, int bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:8",
+						"removal": "0:5-0:8"
+					}
+				],
+				"domain": "0:0-0:27"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:12-0:16"
+					}
+				],
+				"domain": "0:9-0:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:22-0:25",
+						"removal": "0:21-0:25"
+					}
+				],
+				"domain": "0:18-0:25"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.assignment.compound",
+		"languageId": "c",
+		"facet": "name.assignment.compound",
+		"code": "foo += 0",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:3",
+						"removal": "0:0-0:7"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.assignment",
+		"languageId": "c",
+		"facet": "name.assignment",
+		"code": "foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:3",
+						"removal": "0:0-0:6"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.assignment2",
+		"languageId": "c",
+		"facet": "name.assignment",
+		"code": "foo += 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:3",
+						"removal": "0:0-0:7"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.class",
+		"languageId": "c",
+		"facet": "name.class",
+		"code": "struct Foo {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:10",
+						"removal": "0:7-0:11"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.class2",
+		"languageId": "c",
+		"facet": "name.class",
+		"code": "union Foo {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:9",
+						"removal": "0:6-0:10"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.class3",
+		"languageId": "c",
+		"facet": "name.class",
+		"code": "enum Foo {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:8",
+						"removal": "0:5-0:9"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.class4",
+		"languageId": "c",
+		"facet": "name.class",
+		"code": "typedef struct {} Foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:18-0:21",
+						"removal": "0:17-0:21"
+					}
+				],
+				"domain": "0:0-0:22"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.class5",
+		"languageId": "c",
+		"facet": "name.class",
+		"code": "typedef union {} Foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:17-0:20",
+						"removal": "0:16-0:20"
+					}
+				],
+				"domain": "0:0-0:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.class6",
+		"languageId": "c",
+		"facet": "name.class",
+		"code": "typedef enum {} Foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:16-0:19",
+						"removal": "0:15-0:19"
+					}
+				],
+				"domain": "0:0-0:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.constant",
+		"languageId": "c",
+		"facet": "name.constant",
+		"code": "const int foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:13",
+						"removal": "0:0-0:16"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.enum",
+		"languageId": "c",
+		"facet": "name.enum",
+		"code": "enum Foo {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:8",
+						"removal": "0:5-0:9"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.enum2",
+		"languageId": "c",
+		"facet": "name.enum",
+		"code": "typedef enum {} Foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:16-0:19",
+						"removal": "0:15-0:19"
+					}
+				],
+				"domain": "0:0-0:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.field.class",
+		"languageId": "c",
+		"facet": "name.field.class",
+		"code": "struct foo {\n    int bar;\n};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:10",
+						"removal": "0:7-0:11"
+					}
+				],
+				"domain": "0:0-2:2"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:8-1:11",
+						"removal": "1:4-1:12"
+					}
+				],
+				"domain": "1:4-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.field.class2",
+		"languageId": "c",
+		"facet": "name.field.class",
+		"code": "union foo {\n    int bar;\n};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:9",
+						"removal": "0:6-0:10"
+					}
+				],
+				"domain": "0:0-2:2"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:8-1:11",
+						"removal": "1:4-1:12"
+					}
+				],
+				"domain": "1:4-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.field.enum",
+		"languageId": "c",
+		"facet": "name.field.enum",
+		"code": "enum Foo {\n    bar = 0,\n    baz = 1,\n    bongo\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:8",
+						"removal": "0:5-0:9"
+					}
+				],
+				"domain": "0:0-4:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-1:10"
+					}
+				],
+				"domain": "1:4-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "2:4-2:10"
+					}
+				],
+				"domain": "2:4-2:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:4-3:9",
+						"removal": "3:0-4:0"
+					}
+				],
+				"domain": "3:4-3:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.function",
+		"languageId": "c",
+		"facet": "name.function",
+		"code": "void foo() {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:8",
+						"removal": "0:5-0:8"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.function2",
+		"languageId": "c",
+		"facet": "name.function",
+		"code": "void foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:8",
+						"removal": "0:5-0:8"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.function3",
+		"languageId": "c",
+		"facet": "name.function",
+		"code": "void Foo::bar() {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:13",
+						"removal": "0:10-0:13"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.function4",
+		"languageId": "c",
+		"facet": "name.function",
+		"code": "void Foo::bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:13",
+						"removal": "0:10-0:13"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.iteration.block2",
+		"languageId": "c",
+		"facet": "name.iteration.block",
+		"code": "void foo() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.iteration.block3",
+		"languageId": "c",
+		"facet": "name.iteration.block",
+		"code": "if (true) { }\nelse if (false) { }\nelse { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:8"
+					}
+				],
+				"domain": "0:0-2:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:17-1:18"
+					}
+				],
+				"domain": "1:17-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:6-2:7"
+					}
+				],
+				"domain": "2:6-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.iteration.block4",
+		"languageId": "c",
+		"facet": "name.iteration.block",
+		"code": "while (true) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:16"
+					}
+				],
+				"domain": "0:0-0:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.iteration.class",
+		"languageId": "c",
+		"facet": "name.iteration.class",
+		"code": "struct Foo { };",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:15"
+					}
+				],
+				"domain": "0:0-0:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.iteration.class2",
+		"languageId": "c",
+		"facet": "name.iteration.class",
+		"code": "union Foo { };",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.iteration.class3",
+		"languageId": "c",
+		"facet": "name.iteration.class",
+		"code": "typedef struct { } Foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:23"
+					}
+				],
+				"domain": "0:0-0:23"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:16-0:17"
+					}
+				],
+				"domain": "0:16-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.iteration.class4",
+		"languageId": "c",
+		"facet": "name.iteration.class",
+		"code": "typedef union { } Foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:22"
+					}
+				],
+				"domain": "0:0-0:22"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:15-0:16"
+					}
+				],
+				"domain": "0:15-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.iteration.document",
+		"languageId": "c",
+		"facet": "name.iteration.document",
+		"code": "\nint foo;\n",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:0"
+					}
+				],
+				"domain": "0:0-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.iteration.enum",
+		"languageId": "c",
+		"facet": "name.iteration.enum",
+		"code": "enum Foo { };",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:10-0:11"
+					}
+				],
+				"domain": "0:10-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.typeAlias",
+		"languageId": "c",
+		"facet": "name.typeAlias",
+		"code": "typedef int foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:12-0:15",
+						"removal": "0:11-0:15"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.variable.initialized",
+		"languageId": "c",
+		"facet": "name.variable.initialized",
+		"code": "int foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:7",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/name/name.variable.uninitialized",
+		"languageId": "c",
+		"facet": "name.variable.uninitialized",
+		"code": "int foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:7",
+						"removal": "0:0-0:8"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/namedFunction/namedFunction.iteration.document",
+		"languageId": "c",
+		"facet": "namedFunction.iteration.document",
+		"code": "\nvoid foo() {}\n",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:0"
+					}
+				],
+				"domain": "0:0-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/namedFunction/namedFunction",
+		"languageId": "c",
+		"facet": "namedFunction",
+		"code": "void foo() {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/namedFunction/namedFunction2",
+		"languageId": "c",
+		"facet": "namedFunction",
+		"code": "void foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:0-0:11"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/namedFunction/namedFunction3",
+		"languageId": "c",
+		"facet": "namedFunction",
+		"code": "void Foo::bar() {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:18",
+						"removal": "0:0-0:18"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/namedFunction/namedFunction4",
+		"languageId": "c",
+		"facet": "namedFunction",
+		"code": "void Foo::bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:16",
+						"removal": "0:0-0:16"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.assignment.compound",
+		"languageId": "c",
+		"facet": "statement.assignment.compound",
+		"code": "foo += 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.assignment",
+		"languageId": "c",
+		"facet": "statement.assignment",
+		"code": "foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:8",
+						"removal": "0:0-0:8"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.break",
+		"languageId": "c",
+		"facet": "statement.break",
+		"code": "while (true) {\n    break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1",
+						"removal": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:10",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.class",
+		"languageId": "c",
+		"facet": "statement.class",
+		"code": "struct Foo {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.class2",
+		"languageId": "c",
+		"facet": "statement.class",
+		"code": "union Foo {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.class3",
+		"languageId": "c",
+		"facet": "statement.class",
+		"code": "typedef struct {} Foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:22",
+						"removal": "0:0-0:22"
+					}
+				],
+				"domain": "0:0-0:22"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.class4",
+		"languageId": "c",
+		"facet": "statement.class",
+		"code": "typedef union {} Foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:21",
+						"removal": "0:0-0:21"
+					}
+				],
+				"domain": "0:0-0:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.constant",
+		"languageId": "c",
+		"facet": "statement.constant",
+		"code": "const int foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:18",
+						"removal": "0:0-0:18"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.continue",
+		"languageId": "c",
+		"facet": "statement.continue",
+		"code": "while (true) {\n    continue;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1",
+						"removal": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:13",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.doWhile",
+		"languageId": "c",
+		"facet": "statement.doWhile",
+		"code": "do {} while (true);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:19",
+						"removal": "0:0-0:19"
+					}
+				],
+				"domain": "0:0-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.enum",
+		"languageId": "c",
+		"facet": "statement.enum",
+		"code": "enum Foo {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-0:12"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.field.class",
+		"languageId": "c",
+		"facet": "statement.field.class",
+		"code": "struct foo {\n    int bar;\n};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:2",
+						"removal": "0:0-2:2"
+					}
+				],
+				"domain": "0:0-2:2"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:12",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.field.class2",
+		"languageId": "c",
+		"facet": "statement.field.class",
+		"code": "union foo {\n    int bar;\n};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:2",
+						"removal": "0:0-2:2"
+					}
+				],
+				"domain": "0:0-2:2"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:12",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.for",
+		"languageId": "c",
+		"facet": "statement.for",
+		"code": "for (int i = 0; i < size; i++) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:33",
+						"removal": "0:0-0:33"
+					}
+				],
+				"domain": "0:0-0:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.function",
+		"languageId": "c",
+		"facet": "statement.function",
+		"code": "void foo() {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.function2",
+		"languageId": "c",
+		"facet": "statement.function",
+		"code": "void foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:0-0:11"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.function3",
+		"languageId": "c",
+		"facet": "statement.function",
+		"code": "void Foo::bar() {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:18",
+						"removal": "0:0-0:18"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.function4",
+		"languageId": "c",
+		"facet": "statement.function",
+		"code": "void Foo::bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:16",
+						"removal": "0:0-0:16"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.functionCall",
+		"languageId": "c",
+		"facet": "statement.functionCall",
+		"code": "foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:6",
+						"removal": "0:0-0:6"
+					}
+				],
+				"domain": "0:0-0:6"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.if",
+		"languageId": "c",
+		"facet": "statement.if",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:7",
+						"removal": "0:0-2:7"
+					}
+				],
+				"domain": "0:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.import",
+		"languageId": "c",
+		"facet": "statement.import",
+		"code": "#include <stdio.h>",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:18",
+						"removal": "0:0-0:18"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.iteration.block2",
+		"languageId": "c",
+		"facet": "statement.iteration.block",
+		"code": "void foo() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.iteration.block3",
+		"languageId": "c",
+		"facet": "statement.iteration.block",
+		"code": "if (true) { }\nelse if (false) { }\nelse { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:8"
+					}
+				],
+				"domain": "0:0-2:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:17-1:18"
+					}
+				],
+				"domain": "1:17-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:6-2:7"
+					}
+				],
+				"domain": "2:6-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.iteration.block4",
+		"languageId": "c",
+		"facet": "statement.iteration.block",
+		"code": "while (true) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:16"
+					}
+				],
+				"domain": "0:0-0:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.iteration.class",
+		"languageId": "c",
+		"facet": "statement.iteration.class",
+		"code": "struct Foo { };",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:15"
+					}
+				],
+				"domain": "0:0-0:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.iteration.class2",
+		"languageId": "c",
+		"facet": "statement.iteration.class",
+		"code": "union Foo { };",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.iteration.class3",
+		"languageId": "c",
+		"facet": "statement.iteration.class",
+		"code": "typedef struct { } Foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:23"
+					}
+				],
+				"domain": "0:0-0:23"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:16-0:17"
+					}
+				],
+				"domain": "0:16-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.iteration.class4",
+		"languageId": "c",
+		"facet": "statement.iteration.class",
+		"code": "typedef union { } Foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:22"
+					}
+				],
+				"domain": "0:0-0:22"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:15-0:16"
+					}
+				],
+				"domain": "0:15-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.iteration.document",
+		"languageId": "c",
+		"facet": "statement.iteration.document",
+		"code": "\nint foo;\n",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:0"
+					}
+				],
+				"domain": "0:0-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.return",
+		"languageId": "c",
+		"facet": "statement.return",
+		"code": "int foo() {\n    return 0;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1",
+						"removal": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:13",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.switch",
+		"languageId": "c",
+		"facet": "statement.switch",
+		"code": "switch (foo) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:15",
+						"removal": "0:0-0:15"
+					}
+				],
+				"domain": "0:0-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.typeAlias",
+		"languageId": "c",
+		"facet": "statement.typeAlias",
+		"code": "typedef int foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:16",
+						"removal": "0:0-0:16"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.update",
+		"languageId": "c",
+		"facet": "statement.update",
+		"code": "foo++;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:6",
+						"removal": "0:0-0:6"
+					}
+				],
+				"domain": "0:0-0:6"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.variable.initialized",
+		"languageId": "c",
+		"facet": "statement.variable.initialized",
+		"code": "int foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-0:12"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.variable.uninitialized",
+		"languageId": "c",
+		"facet": "statement.variable.uninitialized",
+		"code": "int foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:8",
+						"removal": "0:0-0:8"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/statement/statement.while",
+		"languageId": "c",
+		"facet": "statement.while",
+		"code": "while (true) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:15",
+						"removal": "0:0-0:15"
+					}
+				],
+				"domain": "0:0-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/string.singleLine",
+		"languageId": "c",
+		"facet": "string.singleLine",
+		"code": "\"Hello world\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/textFragment.comment.block",
+		"languageId": "c",
+		"facet": "textFragment.comment.block",
+		"code": "/* Hello world */",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:17",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/textFragment.comment.line",
+		"languageId": "c",
+		"facet": "textFragment.comment.line",
+		"code": "// Hello world",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/textFragment.string.singleLine",
+		"languageId": "c",
+		"facet": "textFragment.string.singleLine",
+		"code": "\"Hello world\"",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:12",
+						"removal": "0:1-0:12"
+					}
+				],
+				"domain": "0:1-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/type/type.alias",
+		"languageId": "c",
+		"facet": "type.alias",
+		"code": "typedef int foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:16",
+						"removal": "0:0-0:16"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/type/type.argument.formal.iteration",
+		"languageId": "c",
+		"facet": "type.argument.formal.iteration",
+		"code": "void foo(int aaa, int bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:29"
+					}
+				],
+				"domain": "0:0-0:29"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:25"
+					}
+				],
+				"domain": "0:9-0:25"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/type/type.argument.formal",
+		"languageId": "c",
+		"facet": "type.argument.formal",
+		"code": "void foo(int aaa, int bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:4",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:29"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:12",
+						"removal": "0:9-0:13"
+					}
+				],
+				"domain": "0:9-0:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:18-0:21",
+						"removal": "0:18-0:22"
+					}
+				],
+				"domain": "0:18-0:25"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/type/type.cast",
+		"languageId": "c",
+		"facet": "type.cast",
+		"code": "(int)foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:4",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/type/type.class",
+		"languageId": "c",
+		"facet": "type.class",
+		"code": "struct Foo {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14",
+						"removal": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/type/type.class2",
+		"languageId": "c",
+		"facet": "type.class",
+		"code": "typedef struct {} Foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:22",
+						"removal": "0:0-0:22"
+					}
+				],
+				"domain": "0:0-0:22"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/type/type.class3",
+		"languageId": "c",
+		"facet": "type.class",
+		"code": "union Foo {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/type/type.class4",
+		"languageId": "c",
+		"facet": "type.class",
+		"code": "typedef union {} Foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:21",
+						"removal": "0:0-0:21"
+					}
+				],
+				"domain": "0:0-0:21"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/type/type.constant",
+		"languageId": "c",
+		"facet": "type.constant",
+		"code": "const int foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:9",
+						"removal": "0:6-0:10"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/type/type.enum",
+		"languageId": "c",
+		"facet": "type.enum",
+		"code": "enum Foo {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-0:12"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/type/type.enum2",
+		"languageId": "c",
+		"facet": "type.enum",
+		"code": "typedef enum {} Foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:20",
+						"removal": "0:0-0:20"
+					}
+				],
+				"domain": "0:0-0:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/type/type.field.class",
+		"languageId": "c",
+		"facet": "type.field.class",
+		"code": "struct foo {\n    int bar;\n};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:2",
+						"removal": "0:0-2:2"
+					}
+				],
+				"domain": "0:0-2:2"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-1:8"
+					}
+				],
+				"domain": "1:4-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/type/type.field.class2",
+		"languageId": "c",
+		"facet": "type.field.class",
+		"code": "union foo {\n    int bar;\n};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:2",
+						"removal": "0:0-2:2"
+					}
+				],
+				"domain": "0:0-2:2"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-1:8"
+					}
+				],
+				"domain": "1:4-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/type/type.iteration.block2",
+		"languageId": "c",
+		"facet": "type.iteration.block",
+		"code": "void foo() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/type/type.iteration.block3",
+		"languageId": "c",
+		"facet": "type.iteration.block",
+		"code": "if (true) { }\nelse if (false) { }\nelse { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:8"
+					}
+				],
+				"domain": "0:0-2:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:17-1:18"
+					}
+				],
+				"domain": "1:17-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:6-2:7"
+					}
+				],
+				"domain": "2:6-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/type/type.iteration.block4",
+		"languageId": "c",
+		"facet": "type.iteration.block",
+		"code": "while (true) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:16"
+					}
+				],
+				"domain": "0:0-0:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/type/type.iteration.class",
+		"languageId": "c",
+		"facet": "type.iteration.class",
+		"code": "struct Foo { };",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:15"
+					}
+				],
+				"domain": "0:0-0:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/type/type.iteration.class2",
+		"languageId": "c",
+		"facet": "type.iteration.class",
+		"code": "union Foo { };",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/type/type.iteration.class3",
+		"languageId": "c",
+		"facet": "type.iteration.class",
+		"code": "typedef struct { } Foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:23"
+					}
+				],
+				"domain": "0:0-0:23"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:16-0:17"
+					}
+				],
+				"domain": "0:16-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/type/type.iteration.class4",
+		"languageId": "c",
+		"facet": "type.iteration.class",
+		"code": "typedef union { } Foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:22"
+					}
+				],
+				"domain": "0:0-0:22"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:15-0:16"
+					}
+				],
+				"domain": "0:15-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/type/type.iteration.document",
+		"languageId": "c",
+		"facet": "type.iteration.document",
+		"code": "\nint foo;\n",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:0"
+					}
+				],
+				"domain": "0:0-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/type/type.return",
+		"languageId": "c",
+		"facet": "type.return",
+		"code": "int foo() {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:3",
+						"removal": "0:0-0:4"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/type/type.variable.initialized",
+		"languageId": "c",
+		"facet": "type.variable.initialized",
+		"code": "int foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:3",
+						"removal": "0:0-0:4"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/type/type.variable.uninitialized",
+		"languageId": "c",
+		"facet": "type.variable.uninitialized",
+		"code": "int foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:3",
+						"removal": "0:0-0:4"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/value/value.assignment.compound",
+		"languageId": "c",
+		"facet": "value.assignment.compound",
+		"code": "foo += 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:8",
+						"removal": "0:3-0:8"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/value/value.assignment",
+		"languageId": "c",
+		"facet": "value.assignment",
+		"code": "foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:7",
+						"removal": "0:3-0:7"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/value/value.assignment2",
+		"languageId": "c",
+		"facet": "value.assignment",
+		"code": "foo += 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:8",
+						"removal": "0:3-0:8"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/value/value.constant",
+		"languageId": "c",
+		"facet": "value.constant",
+		"code": "const int foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:16-0:17",
+						"removal": "0:13-0:17"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/value/value.field.enum",
+		"languageId": "c",
+		"facet": "value.field.enum",
+		"code": "enum Foo {\n    bar = 0,\n    baz = 1,\n    bongo\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:10-1:11",
+						"removal": "1:7-1:11"
+					}
+				],
+				"domain": "1:4-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:10-2:11",
+						"removal": "2:7-2:11"
+					}
+				],
+				"domain": "2:4-2:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/value/value.iteration.block2",
+		"languageId": "c",
+		"facet": "value.iteration.block",
+		"code": "void foo() { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/value/value.iteration.block3",
+		"languageId": "c",
+		"facet": "value.iteration.block",
+		"code": "if (true) { }\nelse if (false) { }\nelse { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:8"
+					}
+				],
+				"domain": "0:0-2:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:17-1:18"
+					}
+				],
+				"domain": "1:17-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:6-2:7"
+					}
+				],
+				"domain": "2:6-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/value/value.iteration.block4",
+		"languageId": "c",
+		"facet": "value.iteration.block",
+		"code": "while (true) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:16"
+					}
+				],
+				"domain": "0:0-0:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/value/value.iteration.class",
+		"languageId": "c",
+		"facet": "value.iteration.class",
+		"code": "struct Foo { };\n\ntypedef struct { } Bar;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:23"
+					}
+				],
+				"domain": "0:0-2:23"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:16-2:17"
+					}
+				],
+				"domain": "2:16-2:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/value/value.iteration.class2",
+		"languageId": "c",
+		"facet": "value.iteration.class",
+		"code": "union Foo { };\n\ntypedef union { } Bar;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:22"
+					}
+				],
+				"domain": "0:0-2:22"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:15-2:16"
+					}
+				],
+				"domain": "2:15-2:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/value/value.iteration.document",
+		"languageId": "c",
+		"facet": "value.iteration.document",
+		"code": "\nint foo;\n",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:0"
+					}
+				],
+				"domain": "0:0-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/value/value.iteration.enum",
+		"languageId": "c",
+		"facet": "value.iteration.enum",
+		"code": "enum Foo { };",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:10-0:11"
+					}
+				],
+				"domain": "0:10-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/value/value.return",
+		"languageId": "c",
+		"facet": "value.return",
+		"code": "int foo() {\n    return 0;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:11-1:12",
+						"removal": "1:10-1:12"
+					}
+				],
+				"domain": "1:4-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/value/value.switch",
+		"languageId": "c",
+		"facet": "value.switch",
+		"code": "switch (foo) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:11"
+					}
+				],
+				"domain": "0:0-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/value/value.typeAlias",
+		"languageId": "c",
+		"facet": "value.typeAlias",
+		"code": "typedef int foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:12"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/value/value.variable",
+		"languageId": "c",
+		"facet": "value.variable",
+		"code": "int foo = 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:11",
+						"removal": "0:7-0:11"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/anonymousFunction",
+		"languageId": "cpp",
+		"facet": "anonymousFunction",
+		"code": "[]() {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:7",
+						"removal": "0:0-0:7"
+					}
+				],
+				"domain": "0:0-0:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/anonymousFunction2",
+		"languageId": "cpp",
+		"facet": "anonymousFunction",
+		"code": "[] {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.actual.constructor.iteration",
+		"languageId": "cpp",
+		"facet": "argument.actual.constructor.iteration",
+		"code": "new Foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.actual.constructor.multiLine",
+		"languageId": "cpp",
+		"facet": "argument.actual.constructor.multiLine",
+		"code": "new Foo(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:7"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "1:7-2:7"
+					}
+				],
+				"domain": "2:4-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.actual.constructor.singleLine",
+		"languageId": "cpp",
+		"facet": "argument.actual.constructor.singleLine",
+		"code": "new Foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:8-0:13"
+					}
+				],
+				"domain": "0:8-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:11-0:16"
+					}
+				],
+				"domain": "0:13-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.formal.catch",
+		"languageId": "cpp",
+		"facet": "argument.formal.catch",
+		"code": "try {}\ncatch (const std::exception e) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:7-1:29",
+						"removal": "1:7-1:29"
+					}
+				],
+				"domain": "1:7-1:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.formal.constructor.iteration",
+		"languageId": "cpp",
+		"facet": "argument.formal.constructor.iteration",
+		"code": "class Foo {\n    Foo(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:24"
+					}
+				],
+				"domain": "1:4-1:28"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.formal.constructor.multiLine",
+		"languageId": "cpp",
+		"facet": "argument.formal.constructor.multiLine",
+		"code": "class Foo {\n    Foo(\n        int aaa,\n        int bbb\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:15",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:15",
+						"removal": "2:15-3:15"
+					}
+				],
+				"domain": "3:8-3:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.formal.constructor.singleLine",
+		"languageId": "cpp",
+		"facet": "argument.formal.constructor.singleLine",
+		"code": "class Foo {\n    Foo(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:15",
+						"removal": "1:8-1:17"
+					}
+				],
+				"domain": "1:8-1:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:17-1:24",
+						"removal": "1:15-1:24"
+					}
+				],
+				"domain": "1:17-1:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.formal.lambda.iteration",
+		"languageId": "cpp",
+		"facet": "argument.formal.lambda.iteration",
+		"code": "[](int aaa, int bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:3-0:19"
+					}
+				],
+				"domain": "0:0-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.formal.lambda.multiLine",
+		"languageId": "cpp",
+		"facet": "argument.formal.lambda.multiLine",
+		"code": "[](\n    int aaa,\n    int bbb\n) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:11",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:11",
+						"removal": "1:11-2:11"
+					}
+				],
+				"domain": "2:4-2:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.formal.lambda.singleLine",
+		"languageId": "cpp",
+		"facet": "argument.formal.lambda.singleLine",
+		"code": "[](int aaa, int bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:3-0:10",
+						"removal": "0:3-0:12"
+					}
+				],
+				"domain": "0:3-0:10"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:12-0:19",
+						"removal": "0:10-0:19"
+					}
+				],
+				"domain": "0:12-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.formal.method.iteration",
+		"languageId": "cpp",
+		"facet": "argument.formal.method.iteration",
+		"code": "class Foo {\n    void bar(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:13-1:29"
+					}
+				],
+				"domain": "1:4-1:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.formal.method.multiLine",
+		"languageId": "cpp",
+		"facet": "argument.formal.method.multiLine",
+		"code": "class Foo {\n    void bar(\n        int aaa,\n        int bbb\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:15",
+						"removal": "2:8-3:8"
+					}
+				],
+				"domain": "2:8-2:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:8-3:15",
+						"removal": "2:15-3:15"
+					}
+				],
+				"domain": "3:8-3:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argument/argument.formal.method.singleLine",
+		"languageId": "cpp",
+		"facet": "argument.formal.method.singleLine",
+		"code": "class Foo {\n    void bar(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:13-1:20",
+						"removal": "1:13-1:22"
+					}
+				],
+				"domain": "1:13-1:20"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:22-1:29",
+						"removal": "1:20-1:29"
+					}
+				],
+				"domain": "1:22-1:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argumentList/argumentList.actual.constructor.empty",
+		"languageId": "cpp",
+		"facet": "argumentList.actual.constructor.empty",
+		"code": "new Foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:8",
+						"removal": "0:8-0:8"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argumentList/argumentList.actual.constructor.multiLine",
+		"languageId": "cpp",
+		"facet": "argumentList.actual.constructor.multiLine",
+		"code": "new Foo(\n    aaa,\n    bbb\n);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:7",
+						"removal": "0:8-3:0"
+					}
+				],
+				"domain": "0:0-3:1"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argumentList/argumentList.actual.constructor.singleLine",
+		"languageId": "cpp",
+		"facet": "argumentList.actual.constructor.singleLine",
+		"code": "new Foo(aaa, bbb);",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:16",
+						"removal": "0:8-0:16"
+					}
+				],
+				"domain": "0:0-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argumentList/argumentList.formal.constructor.empty",
+		"languageId": "cpp",
+		"facet": "argumentList.formal.constructor.empty",
+		"code": "class Foo {\n    Foo() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:8",
+						"removal": "1:8-1:8"
+					}
+				],
+				"domain": "1:4-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argumentList/argumentList.formal.constructor.multiLine",
+		"languageId": "cpp",
+		"facet": "argumentList.formal.constructor.multiLine",
+		"code": "class Foo {\n    Foo(\n        int aaa,\n        int bbb\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-3:15",
+						"removal": "1:8-4:4"
+					}
+				],
+				"domain": "1:4-4:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argumentList/argumentList.formal.constructor.singleLine",
+		"languageId": "cpp",
+		"facet": "argumentList.formal.constructor.singleLine",
+		"code": "class Foo {\n    Foo(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:8-1:24",
+						"removal": "1:8-1:24"
+					}
+				],
+				"domain": "1:4-1:28"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argumentList/argumentList.formal.lambda.empty",
+		"languageId": "cpp",
+		"facet": "argumentList.formal.lambda.empty",
+		"code": "[]() {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:3-0:3",
+						"removal": "0:3-0:3"
+					}
+				],
+				"domain": "0:0-0:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argumentList/argumentList.formal.lambda.multiLine",
+		"languageId": "cpp",
+		"facet": "argumentList.formal.lambda.multiLine",
+		"code": "[](\n    int aaa,\n    int bbb\n) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:11",
+						"removal": "0:3-3:0"
+					}
+				],
+				"domain": "0:0-3:4"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argumentList/argumentList.formal.lambda.singleLine",
+		"languageId": "cpp",
+		"facet": "argumentList.formal.lambda.singleLine",
+		"code": "[](int aaa, int bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:3-0:19",
+						"removal": "0:3-0:19"
+					}
+				],
+				"domain": "0:0-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argumentList/argumentList.formal.method.empty",
+		"languageId": "cpp",
+		"facet": "argumentList.formal.method.empty",
+		"code": "class Foo {\n    void bar() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:13-1:13",
+						"removal": "1:13-1:13"
+					}
+				],
+				"domain": "1:4-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argumentList/argumentList.formal.method.multiLine",
+		"languageId": "cpp",
+		"facet": "argumentList.formal.method.multiLine",
+		"code": "class Foo {\n    void bar(\n        int aaa,\n        int bbb\n    ) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-3:15",
+						"removal": "1:13-4:4"
+					}
+				],
+				"domain": "1:4-4:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/argumentList/argumentList.formal.method.singleLine",
+		"languageId": "cpp",
+		"facet": "argumentList.formal.method.singleLine",
+		"code": "class Foo {\n    void bar(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:13-1:29",
+						"removal": "1:13-1:29"
+					}
+				],
+				"domain": "1:4-1:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/attribute",
+		"languageId": "cpp",
+		"facet": "attribute",
+		"code": "[[foo]]",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:2-0:5",
+						"removal": "0:2-0:5"
+					}
+				],
+				"domain": "0:2-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/branch.try.iteration",
+		"languageId": "cpp",
+		"facet": "branch.try.iteration",
+		"code": "try {}\ncatch (const std::exception e) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:33"
+					}
+				],
+				"domain": "0:0-1:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/branch.try",
+		"languageId": "cpp",
+		"facet": "branch.try",
+		"code": "try {}\ncatch (const std::exception e) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:6",
+						"removal": "0:0-1:0"
+					}
+				],
+				"domain": "0:0-0:6"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:33",
+						"removal": "0:6-1:33"
+					}
+				],
+				"domain": "1:0-1:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/class",
+		"languageId": "cpp",
+		"facet": "class",
+		"code": "class Foo {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/disqualifyDelimiter",
+		"languageId": "cpp",
+		"facet": "disqualifyDelimiter",
+		"code": "auto max() -> int;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:13"
+					}
+				]
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/functionCall.constructor",
+		"languageId": "cpp",
+		"facet": "functionCall.constructor",
+		"code": "new Foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/functionCall.generic",
+		"languageId": "cpp",
+		"facet": "functionCall.generic",
+		"code": "foo<Bar>();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/functionCall.method",
+		"languageId": "cpp",
+		"facet": "functionCall.method",
+		"code": "foo::bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/functionCallee.constructor",
+		"languageId": "cpp",
+		"facet": "functionCallee.constructor",
+		"code": "new Foo();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:7",
+						"removal": "0:0-0:7"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/functionCallee.generic",
+		"languageId": "cpp",
+		"facet": "functionCallee.generic",
+		"code": "foo<Bar>();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:8",
+						"removal": "0:0-0:8"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/functionCallee.method",
+		"languageId": "cpp",
+		"facet": "functionCallee.method",
+		"code": "foo::bar();",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:8",
+						"removal": "0:0-0:8"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/interior/interior.class",
+		"languageId": "cpp",
+		"facet": "interior.class",
+		"code": "class Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/interior/interior.constructor",
+		"languageId": "cpp",
+		"facet": "interior.constructor",
+		"code": "class Foo {\n    Foo() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:13",
+						"removal": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-1:12",
+						"removal": "1:11-1:12"
+					}
+				],
+				"domain": "1:11-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/interior/interior.enum",
+		"languageId": "cpp",
+		"facet": "interior.enum",
+		"code": "enum class Foo { };",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:16-0:17",
+						"removal": "0:16-0:17"
+					}
+				],
+				"domain": "0:16-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/interior/interior.foreach",
+		"languageId": "cpp",
+		"facet": "interior.foreach",
+		"code": "for (int v : values) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:22-0:23",
+						"removal": "0:22-0:23"
+					}
+				],
+				"domain": "0:22-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/interior/interior.lambda",
+		"languageId": "cpp",
+		"facet": "interior.lambda",
+		"code": "[]() { };",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:7",
+						"removal": "0:6-0:7"
+					}
+				],
+				"domain": "0:6-0:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/interior/interior.method",
+		"languageId": "cpp",
+		"facet": "interior.method",
+		"code": "class Foo {\n    void bar() { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:18",
+						"removal": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:16-1:17",
+						"removal": "1:16-1:17"
+					}
+				],
+				"domain": "1:16-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/interior/interior.namespace",
+		"languageId": "cpp",
+		"facet": "interior.namespace",
+		"code": "namespace Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:15-0:16",
+						"removal": "0:15-0:16"
+					}
+				],
+				"domain": "0:15-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/interior/interior.try",
+		"languageId": "cpp",
+		"facet": "interior.try",
+		"code": "try { }\ncatch (const std::exception& e) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:6",
+						"removal": "0:5-0:6"
+					}
+				],
+				"domain": "0:5-0:6"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:33-1:34",
+						"removal": "1:33-1:34"
+					}
+				],
+				"domain": "1:33-1:34"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/name/name.argument.catch",
+		"languageId": "cpp",
+		"facet": "name.argument.catch",
+		"code": "try {}\ncatch (const std::exception e) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:28-1:29",
+						"removal": "1:27-1:29"
+					}
+				],
+				"domain": "1:7-1:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/name/name.argument.formal.constructor.iteration",
+		"languageId": "cpp",
+		"facet": "name.argument.formal.constructor.iteration",
+		"code": "class Foo {\n    Foo(int aaa, int bbb = 0) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:8-1:28"
+					}
+				],
+				"domain": "1:8-1:28"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/name/name.argument.formal.constructor",
+		"languageId": "cpp",
+		"facet": "name.argument.formal.constructor",
+		"code": "class Foo {\n    Foo(int aaa, int bbb = 0) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:9",
+						"removal": "0:6-0:10"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-1:7"
+					}
+				],
+				"domain": "1:4-1:32"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:12-1:15",
+						"removal": "1:11-1:15"
+					}
+				],
+				"domain": "1:8-1:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:21-1:24",
+						"removal": "1:21-1:25"
+					}
+				],
+				"domain": "1:17-1:28"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/name/name.argument.formal.iteration",
+		"languageId": "cpp",
+		"facet": "name.argument.formal.iteration",
+		"code": "void foo(int aaa, int bbb = 1) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:33"
+					}
+				],
+				"domain": "0:0-0:33"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:29"
+					}
+				],
+				"domain": "0:9-0:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/name/name.argument.formal.lambda.iteration",
+		"languageId": "cpp",
+		"facet": "name.argument.formal.lambda.iteration",
+		"code": "[](int aaa, int bbb = 0) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:27"
+					}
+				],
+				"domain": "0:0-0:27"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:3-0:23"
+					}
+				],
+				"domain": "0:3-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/name/name.argument.formal.lambda",
+		"languageId": "cpp",
+		"facet": "name.argument.formal.lambda",
+		"code": "[](int aaa, int bbb = 0) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:10",
+						"removal": "0:6-0:10"
+					}
+				],
+				"domain": "0:3-0:10"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:16-0:19",
+						"removal": "0:16-0:20"
+					}
+				],
+				"domain": "0:12-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/name/name.argument.formal.method.iteration",
+		"languageId": "cpp",
+		"facet": "name.argument.formal.method.iteration",
+		"code": "class Foo {\n    void bar(int aaa, int bbb = 0) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:33"
+					}
+				],
+				"domain": "1:13-1:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/name/name.argument.formal.method",
+		"languageId": "cpp",
+		"facet": "name.argument.formal.method",
+		"code": "class Foo {\n    void bar(int aaa, int bbb = 0) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:9",
+						"removal": "0:6-0:10"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:9-1:12",
+						"removal": "1:9-1:12"
+					}
+				],
+				"domain": "1:4-1:37"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:17-1:20",
+						"removal": "1:16-1:20"
+					}
+				],
+				"domain": "1:13-1:20"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:26-1:29",
+						"removal": "1:26-1:30"
+					}
+				],
+				"domain": "1:22-1:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/name/name.argument.formal",
+		"languageId": "cpp",
+		"facet": "name.argument.formal",
+		"code": "void foo(int aaa, int bbb = 0) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:8",
+						"removal": "0:5-0:8"
+					}
+				],
+				"domain": "0:0-0:33"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:13-0:16",
+						"removal": "0:12-0:16"
+					}
+				],
+				"domain": "0:9-0:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:22-0:25",
+						"removal": "0:22-0:26"
+					}
+				],
+				"domain": "0:18-0:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/name/name.class",
+		"languageId": "cpp",
+		"facet": "name.class",
+		"code": "class Foo {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:9",
+						"removal": "0:6-0:10"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/name/name.class2",
+		"languageId": "cpp",
+		"facet": "name.class",
+		"code": "void Foo::bar() {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:13",
+						"removal": "0:10-0:13"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/name/name.constructor",
+		"languageId": "cpp",
+		"facet": "name.constructor",
+		"code": "class Foo {\n    Foo() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:9",
+						"removal": "0:6-0:10"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-1:7"
+					}
+				],
+				"domain": "1:4-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/name/name.constructor2",
+		"languageId": "cpp",
+		"facet": "name.constructor",
+		"code": "class Foo {\n    ~Foo() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:9",
+						"removal": "0:6-0:10"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:8",
+						"removal": "1:4-1:8"
+					}
+				],
+				"domain": "1:4-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/name/name.enum",
+		"languageId": "cpp",
+		"facet": "name.enum",
+		"code": "enum class Foo {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:14",
+						"removal": "0:11-0:15"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/name/name.field.class",
+		"languageId": "cpp",
+		"facet": "name.field.class",
+		"code": "class Foo {\n    int bar;\n    int baz = 1;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:9",
+						"removal": "0:6-0:10"
+					}
+				],
+				"domain": "0:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:8-1:11",
+						"removal": "1:4-1:12"
+					}
+				],
+				"domain": "1:4-1:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:8-2:11",
+						"removal": "2:4-2:14"
+					}
+				],
+				"domain": "2:4-2:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/name/name.field.enum",
+		"languageId": "cpp",
+		"facet": "name.field.enum",
+		"code": "enum class Foo {\n    bar = 0,\n    baz = 1,\n    bongo\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:14",
+						"removal": "0:11-0:15"
+					}
+				],
+				"domain": "0:0-4:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-1:10"
+					}
+				],
+				"domain": "1:4-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "2:4-2:10"
+					}
+				],
+				"domain": "2:4-2:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:4-3:9",
+						"removal": "3:0-4:0"
+					}
+				],
+				"domain": "3:4-3:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/name/name.foreach",
+		"languageId": "cpp",
+		"facet": "name.foreach",
+		"code": "for (int v : values) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:9-0:10",
+						"removal": "0:9-0:11"
+					}
+				],
+				"domain": "0:0-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/name/name.iteration.class",
+		"languageId": "cpp",
+		"facet": "name.iteration.class",
+		"code": "class Foo { };",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/name/name.iteration.enum",
+		"languageId": "cpp",
+		"facet": "name.iteration.enum",
+		"code": "enum class Foo { };",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:19"
+					}
+				],
+				"domain": "0:0-0:19"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:16-0:17"
+					}
+				],
+				"domain": "0:16-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/name/name.method",
+		"languageId": "cpp",
+		"facet": "name.method",
+		"code": "class Foo {\n    void foo() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:9",
+						"removal": "0:6-0:10"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:9-1:12",
+						"removal": "1:9-1:12"
+					}
+				],
+				"domain": "1:4-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/name/name.namespace",
+		"languageId": "cpp",
+		"facet": "name.namespace",
+		"code": "namespace Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:13",
+						"removal": "0:10-0:14"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/name/name.typeAlias",
+		"languageId": "cpp",
+		"facet": "name.typeAlias",
+		"code": "using Foo = Bar;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:9",
+						"removal": "0:0-0:12"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/namedFunction.constructor",
+		"languageId": "cpp",
+		"facet": "namedFunction.constructor",
+		"code": "class Foo {\n    Foo() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:12",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/namedFunction.constructor2",
+		"languageId": "cpp",
+		"facet": "namedFunction.constructor",
+		"code": "class Foo {\n    ~Foo() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:13",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/namedFunction.iteration.class",
+		"languageId": "cpp",
+		"facet": "namedFunction.iteration.class",
+		"code": "class Foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/namedFunction.method",
+		"languageId": "cpp",
+		"facet": "namedFunction.method",
+		"code": "class Foo {\n    void bar() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:17",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/statement/statement.class",
+		"languageId": "cpp",
+		"facet": "statement.class",
+		"code": "class Foo {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/statement/statement.constructor",
+		"languageId": "cpp",
+		"facet": "statement.constructor",
+		"code": "class Foo {\n    Foo() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1",
+						"removal": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:12",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/statement/statement.constructor2",
+		"languageId": "cpp",
+		"facet": "statement.constructor",
+		"code": "class Foo {\n    ~Foo() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1",
+						"removal": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:13",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/statement/statement.enum",
+		"languageId": "cpp",
+		"facet": "statement.enum",
+		"code": "enum class Foo {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:18",
+						"removal": "0:0-0:18"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/statement/statement.foreach",
+		"languageId": "cpp",
+		"facet": "statement.foreach",
+		"code": "for (int v : values) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:23",
+						"removal": "0:0-0:23"
+					}
+				],
+				"domain": "0:0-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/statement/statement.iteration.class",
+		"languageId": "cpp",
+		"facet": "statement.iteration.class",
+		"code": "class Foo { };",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/statement/statement.method",
+		"languageId": "cpp",
+		"facet": "statement.method",
+		"code": "class Foo {\n    void bar() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1",
+						"removal": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:17",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/statement/statement.namespace",
+		"languageId": "cpp",
+		"facet": "statement.namespace",
+		"code": "namespace Foo {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:16",
+						"removal": "0:0-0:16"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/statement/statement.throw",
+		"languageId": "cpp",
+		"facet": "statement.throw",
+		"code": "throw foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/statement/statement.try",
+		"languageId": "cpp",
+		"facet": "statement.try",
+		"code": "try {}\ncatch (const std::exception e) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:33",
+						"removal": "0:0-1:33"
+					}
+				],
+				"domain": "0:0-1:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/statement/statement.typeAlias",
+		"languageId": "cpp",
+		"facet": "statement.typeAlias",
+		"code": "using Foo = Bar;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:16",
+						"removal": "0:0-0:16"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/type/type.alias",
+		"languageId": "cpp",
+		"facet": "type.alias",
+		"code": "using Foo = Bar;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:16",
+						"removal": "0:0-0:16"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/type/type.argument.catch",
+		"languageId": "cpp",
+		"facet": "type.argument.catch",
+		"code": "try {}\ncatch (const std::exception e) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:13-1:27",
+						"removal": "1:13-1:28"
+					}
+				],
+				"domain": "1:7-1:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/type/type.argument.formal.constructor.iteration",
+		"languageId": "cpp",
+		"facet": "type.argument.formal.constructor.iteration",
+		"code": "class Foo {\n    Foo(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:8-1:24"
+					}
+				],
+				"domain": "1:8-1:24"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/type/type.argument.formal.constructor",
+		"languageId": "cpp",
+		"facet": "type.argument.formal.constructor",
+		"code": "class Foo {\n    Foo(int aaa, int bbb = 0) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1",
+						"removal": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:8-1:11",
+						"removal": "1:8-1:12"
+					}
+				],
+				"domain": "1:8-1:15"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:17-1:20",
+						"removal": "1:17-1:21"
+					}
+				],
+				"domain": "1:17-1:28"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/type/type.argument.formal.lambda.iteration",
+		"languageId": "cpp",
+		"facet": "type.argument.formal.lambda.iteration",
+		"code": "[](int aaa, int bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:23"
+					}
+				],
+				"domain": "0:0-0:23"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:3-0:19"
+					}
+				],
+				"domain": "0:3-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/type/type.argument.formal.lambda",
+		"languageId": "cpp",
+		"facet": "type.argument.formal.lambda",
+		"code": "[](int aaa, int bbb) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:3-0:6",
+						"removal": "0:3-0:7"
+					}
+				],
+				"domain": "0:3-0:10"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:12-0:15",
+						"removal": "0:12-0:16"
+					}
+				],
+				"domain": "0:12-0:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/type/type.argument.formal.method.iteration",
+		"languageId": "cpp",
+		"facet": "type.argument.formal.method.iteration",
+		"code": "class Foo {\n    void bar(int aaa, int bbb) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:29"
+					}
+				],
+				"domain": "1:13-1:29"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/type/type.argument.formal.method",
+		"languageId": "cpp",
+		"facet": "type.argument.formal.method",
+		"code": "class Foo {\n    void bar(int aaa, int bbb = 0) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1",
+						"removal": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:8",
+						"removal": "1:4-1:9"
+					}
+				],
+				"domain": "1:4-1:37"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:16",
+						"removal": "1:13-1:17"
+					}
+				],
+				"domain": "1:13-1:20"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:22-1:25",
+						"removal": "1:22-1:26"
+					}
+				],
+				"domain": "1:22-1:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/type/type.class",
+		"languageId": "cpp",
+		"facet": "type.class",
+		"code": "class Foo {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/type/type.enum",
+		"languageId": "cpp",
+		"facet": "type.enum",
+		"code": "enum class Foo {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:18",
+						"removal": "0:0-0:18"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/type/type.field.class",
+		"languageId": "cpp",
+		"facet": "type.field.class",
+		"code": "class Foo {\n    int bar;\n    int baz = 0;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:1",
+						"removal": "0:0-3:1"
+					}
+				],
+				"domain": "0:0-3:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-1:8"
+					}
+				],
+				"domain": "1:4-1:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:7",
+						"removal": "2:4-2:8"
+					}
+				],
+				"domain": "2:4-2:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/type/type.foreach",
+		"languageId": "cpp",
+		"facet": "type.foreach",
+		"code": "for (int v: values) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:8",
+						"removal": "0:5-0:9"
+					}
+				],
+				"domain": "0:0-0:22"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/type/type.iteration.class",
+		"languageId": "cpp",
+		"facet": "type.iteration.class",
+		"code": "class Foo { };",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/type/type.return.lambda",
+		"languageId": "cpp",
+		"facet": "type.return.lambda",
+		"code": "[]() -> int {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:11",
+						"removal": "0:4-0:11"
+					}
+				],
+				"domain": "0:0-0:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/type/type.return.method",
+		"languageId": "cpp",
+		"facet": "type.return.method",
+		"code": "class Foo {\n    int bar() {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1",
+						"removal": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:4-1:8"
+					}
+				],
+				"domain": "1:4-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/type/type.typeArgument.iteration",
+		"languageId": "cpp",
+		"facet": "type.typeArgument.iteration",
+		"code": "Map<string, int> foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:21"
+					}
+				],
+				"domain": "0:0-0:21"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:4-0:15"
+					}
+				],
+				"domain": "0:4-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/type/type.typeArgument",
+		"languageId": "cpp",
+		"facet": "type.typeArgument",
+		"code": "Map<string, int> foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:16",
+						"removal": "0:0-0:17"
+					}
+				],
+				"domain": "0:0-0:21"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:4-0:10",
+						"removal": "0:4-0:12"
+					}
+				],
+				"domain": "0:4-0:10"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:12-0:15",
+						"removal": "0:10-0:15"
+					}
+				],
+				"domain": "0:12-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/value/value.argument.formal.constructor.iteration",
+		"languageId": "cpp",
+		"facet": "value.argument.formal.constructor.iteration",
+		"code": "class Foo {\n    Foo(int aaa = 0, int bbb = 1) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:8-1:32"
+					}
+				],
+				"domain": "1:8-1:32"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/value/value.argument.formal.constructor",
+		"languageId": "cpp",
+		"facet": "value.argument.formal.constructor",
+		"code": "class Foo {\n    Foo(int aaa = 0, int bbb = 1) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:18-1:19",
+						"removal": "1:15-1:19"
+					}
+				],
+				"domain": "1:8-1:19"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:31-1:32",
+						"removal": "1:28-1:32"
+					}
+				],
+				"domain": "1:21-1:32"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/value/value.argument.formal.iteration",
+		"languageId": "cpp",
+		"facet": "value.argument.formal.iteration",
+		"code": "void foo(int aaa = 0, int bbb = 1) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:37"
+					}
+				],
+				"domain": "0:0-0:37"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:9-0:33"
+					}
+				],
+				"domain": "0:9-0:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/value/value.argument.formal.lambda.iteration",
+		"languageId": "cpp",
+		"facet": "value.argument.formal.lambda.iteration",
+		"code": "[](int aaa = 0, int bbb = 1) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:31"
+					}
+				],
+				"domain": "0:0-0:31"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:3-0:27"
+					}
+				],
+				"domain": "0:3-0:27"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/value/value.argument.formal.lambda",
+		"languageId": "cpp",
+		"facet": "value.argument.formal.lambda",
+		"code": "[](int aaa = 0, int bbb = 1) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:14",
+						"removal": "0:10-0:14"
+					}
+				],
+				"domain": "0:3-0:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:26-0:27",
+						"removal": "0:23-0:27"
+					}
+				],
+				"domain": "0:16-0:27"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/value/value.argument.formal.method.iteration",
+		"languageId": "cpp",
+		"facet": "value.argument.formal.method.iteration",
+		"code": "class Foo {\n    void bar(int aaa = 0, int bbb = 1) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:1"
+					}
+				],
+				"domain": "0:0-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-2:0"
+					}
+				],
+				"domain": "0:11-2:0"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:13-1:37"
+					}
+				],
+				"domain": "1:13-1:37"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/value/value.argument.formal.method",
+		"languageId": "cpp",
+		"facet": "value.argument.formal.method",
+		"code": "class Foo {\n    void bar(int aaa = 0, int bbb = 1) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:23-1:24",
+						"removal": "1:20-1:24"
+					}
+				],
+				"domain": "1:13-1:24"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:36-1:37",
+						"removal": "1:33-1:37"
+					}
+				],
+				"domain": "1:26-1:37"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/value/value.argument.formal",
+		"languageId": "cpp",
+		"facet": "value.argument.formal",
+		"code": "void foo(int aaa = 0, int bbb = 1) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:19-0:20",
+						"removal": "0:16-0:20"
+					}
+				],
+				"domain": "0:9-0:20"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:32-0:33",
+						"removal": "0:29-0:33"
+					}
+				],
+				"domain": "0:22-0:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/value/value.assignment.compound",
+		"languageId": "cpp",
+		"facet": "value.assignment.compound",
+		"code": "foo += 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:8",
+						"removal": "0:3-0:8"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/value/value.field.class",
+		"languageId": "cpp",
+		"facet": "value.field.class",
+		"code": "class Foo {\n    int bar = 1;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:14-1:15",
+						"removal": "1:11-1:15"
+					}
+				],
+				"domain": "1:4-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/value/value.field.enum",
+		"languageId": "cpp",
+		"facet": "value.field.enum",
+		"code": "enum class Foo {\n    bar = 0,\n    baz = 1,\n    bongo\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:10-1:11",
+						"removal": "1:7-1:11"
+					}
+				],
+				"domain": "1:4-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:10-2:11",
+						"removal": "2:7-2:11"
+					}
+				],
+				"domain": "2:4-2:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/value/value.foreach",
+		"languageId": "cpp",
+		"facet": "value.foreach",
+		"code": "for (int v : values) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:13-0:19",
+						"removal": "0:12-0:19"
+					}
+				],
+				"domain": "0:0-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/value/value.iteration.class",
+		"languageId": "cpp",
+		"facet": "value.iteration.class",
+		"code": "class Foo { };",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:14"
+					}
+				],
+				"domain": "0:0-0:14"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/value/value.iteration.enum",
+		"languageId": "cpp",
+		"facet": "value.iteration.enum",
+		"code": "enum class Foo { };",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:19"
+					}
+				],
+				"domain": "0:0-0:19"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:16-0:17"
+					}
+				],
+				"domain": "0:16-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/value/value.throw",
+		"languageId": "cpp",
+		"facet": "value.throw",
+		"code": "throw foo;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:6-0:9",
+						"removal": "0:5-0:9"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/value/value.typeAlias",
+		"languageId": "cpp",
+		"facet": "value.typeAlias",
+		"code": "using Foo = Bar;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:12-0:15",
+						"removal": "0:9-0:15"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	}
+]

@@ -3,6 +3,7 @@ sidebar_label: Funk
 ---
 
 import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/namedFunction.json";
 
 # Funk (Named function)
 
@@ -22,7 +23,7 @@ Default: `funk`
 
 ## Visualization
 
-<ScopeVisualizerProvider>
+<ScopeVisualizerProvider scopeTests={scopeTests}>
 
 <ScopeVisualizerOptions />
 

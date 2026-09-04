@@ -3,6 +3,7 @@ sidebar_label: Item
 ---
 
 import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/collectionItem.json";
 
 # Item (Collection item)
 
@@ -22,7 +23,7 @@ Default: `item`
 
 ## Visualization
 
-<ScopeVisualizerProvider>
+<ScopeVisualizerProvider scopeTests={scopeTests}>
 
 <ScopeVisualizerOptions />
 

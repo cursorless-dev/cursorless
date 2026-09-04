@@ -3,6 +3,7 @@ sidebar_label: Arg list
 ---
 
 import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/argumentList.json";
 
 # Arg list (Argument list)
 
@@ -22,7 +23,7 @@ Default: `arg list`
 
 ## Visualization
 
-<ScopeVisualizerProvider>
+<ScopeVisualizerProvider scopeTests={scopeTests}>
 
 <ScopeVisualizerOptions />
 

@@ -3,6 +3,7 @@ sidebar_label: Sub
 ---
 
 import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/word.json";
 
 # Sub (Sub token word)
 
@@ -26,7 +27,7 @@ Legacy: `word`
 
 ## Visualization
 
-<ScopeVisualizerProvider>
+<ScopeVisualizerProvider scopeTests={scopeTests}>
 
 <ScopeVisualizerOptions />
 

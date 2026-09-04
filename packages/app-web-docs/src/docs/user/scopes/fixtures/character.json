@@ -1,0 +1,73 @@
+[
+	{
+		"name": "scopes/plaintext/character",
+		"languageId": "plaintext",
+		"facet": "character",
+		"code": "foo bar",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:1",
+						"removal": "0:0-0:1"
+					}
+				],
+				"domain": "0:0-0:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:1-0:2",
+						"removal": "0:1-0:2"
+					}
+				],
+				"domain": "0:1-0:2"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:2-0:3",
+						"removal": "0:2-0:3"
+					}
+				],
+				"domain": "0:2-0:3"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:3-0:4",
+						"removal": "0:3-0:4"
+					}
+				],
+				"domain": "0:3-0:4"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:4-0:5",
+						"removal": "0:4-0:5"
+					}
+				],
+				"domain": "0:4-0:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:5-0:6",
+						"removal": "0:5-0:6"
+					}
+				],
+				"domain": "0:5-0:6"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:6-0:7",
+						"removal": "0:6-0:7"
+					}
+				],
+				"domain": "0:6-0:7"
+			}
+		]
+	}
+]

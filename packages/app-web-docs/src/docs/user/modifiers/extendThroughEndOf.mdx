@@ -3,6 +3,7 @@ sidebar_label: Tail
 ---
 
 import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/extendThroughEndOf.json";
 
 # Tail (Extend through end of)
 
@@ -26,7 +27,7 @@ Default: `tail`
 
 ## Visualization
 
-<RecordedTestVisualizerProvider>
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
 
 <RecordedTestVisualizerOptions />
 

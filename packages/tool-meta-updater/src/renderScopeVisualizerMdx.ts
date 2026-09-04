@@ -13,7 +13,7 @@ export function renderLanguageScopeVisualizer(
   const publicScopes = groups.filter((scope) => !scope.private);
   const internalScopes = groups.filter((scope) => scope.private);
   const lines = [
-    "<ScopeVisualizerProvider>",
+    "<ScopeVisualizerProvider scopeTests={scopeTests}>",
     "",
     "Below are visualizations of all our scope tests for this language. These were created primarily for testing purposes rather than as documentation. There are quite a few, and they may feel a bit overwhelming from a documentation standpoint.",
     "",
@@ -57,7 +57,12 @@ export function renderScopeVisualizer(
   }
 
   const scope = groups[0];
-  const lines = ["## Visualization", "", "<ScopeVisualizerProvider>", ""];
+  const lines = [
+    "## Visualization",
+    "",
+    "<ScopeVisualizerProvider scopeTests={scopeTests}>",
+    "",
+  ];
 
   if (scope.private) {
     lines.push(

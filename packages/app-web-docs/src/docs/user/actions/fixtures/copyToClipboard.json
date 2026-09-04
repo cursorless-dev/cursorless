@@ -1,0 +1,120 @@
+[
+	{
+		"path": "docs/actions/copyToClipboard.yml",
+		"name": "docs/actions/copyToClipboard",
+		"fixture": {
+			"languageId": "typescript",
+			"command": {
+				"version": 7,
+				"spokenForm": "copy line",
+				"action": {
+					"name": "copyToClipboard",
+					"target": {
+						"type": "primitive",
+						"modifiers": [
+							{
+								"type": "containingScope",
+								"scopeType": {
+									"type": "line"
+								}
+							}
+						]
+					}
+				},
+				"usePrePhraseSnapshot": false
+			},
+			"initialState": {
+				"documentContents": "Hello there",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 0
+						},
+						"active": {
+							"line": 0,
+							"character": 0
+						}
+					}
+				],
+				"marks": {},
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "e",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 1
+							},
+							"end": {
+								"line": 0,
+								"character": 2
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "r",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 9
+							},
+							"end": {
+								"line": 0,
+								"character": 10
+							}
+						}
+					}
+				]
+			},
+			"finalState": {
+				"documentContents": "Hello there",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 0
+						},
+						"active": {
+							"line": 0,
+							"character": 0
+						}
+					}
+				],
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "e",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 1
+							},
+							"end": {
+								"line": 0,
+								"character": 2
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "r",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 9
+							},
+							"end": {
+								"line": 0,
+								"character": 10
+							}
+						}
+					}
+				],
+				"clipboard": "Hello there"
+			}
+		}
+	}
+]

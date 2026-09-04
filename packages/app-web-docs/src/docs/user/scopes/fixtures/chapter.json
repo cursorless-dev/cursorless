@@ -1,0 +1,19 @@
+[
+	{
+		"name": "scopes/latex/chapter",
+		"languageId": "latex",
+		"facet": "chapter",
+		"code": "\\chapter{Introduction}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:22",
+						"removal": "0:0-0:22"
+					}
+				],
+				"domain": "0:0-0:22"
+			}
+		]
+	}
+]

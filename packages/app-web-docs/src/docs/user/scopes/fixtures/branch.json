@@ -1,0 +1,3177 @@
+[
+	{
+		"name": "scopes/c/branch/branch.if.elif.else",
+		"languageId": "c",
+		"facet": "branch.if.elif.else",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-1:5"
+					}
+				],
+				"domain": "0:0-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:18",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:0-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-2:7",
+						"removal": "1:18-2:7"
+					}
+				],
+				"domain": "2:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/branch/branch.if.else",
+		"languageId": "c",
+		"facet": "branch.if.else",
+		"code": "if (true) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-1:0"
+					}
+				],
+				"domain": "0:0-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:7",
+						"removal": "0:12-1:7"
+					}
+				],
+				"domain": "1:0-1:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/branch/branch.if.iteration",
+		"languageId": "c",
+		"facet": "branch.if.iteration",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:7"
+					}
+				],
+				"domain": "0:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/branch/branch.if",
+		"languageId": "c",
+		"facet": "branch.if",
+		"code": "if (true) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-0:12"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/branch/branch.switchCase.iteration",
+		"languageId": "c",
+		"facet": "branch.switchCase.iteration",
+		"code": "switch (foo) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/branch/branch.switchCase",
+		"languageId": "c",
+		"facet": "branch.switchCase",
+		"code": "switch (foo) {\n    case 0:\n        break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:14",
+						"removal": "1:0-3:0"
+					}
+				],
+				"domain": "1:4-2:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/branch/branch.switchCase2",
+		"languageId": "c",
+		"facet": "branch.switchCase",
+		"code": "switch (foo) {\n    default: {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:15",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/branch/branch.ternary.iteration",
+		"languageId": "c",
+		"facet": "branch.ternary.iteration",
+		"code": "true ? 0 : 1;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/c/branch/branch.ternary",
+		"languageId": "c",
+		"facet": "branch.ternary",
+		"code": "true ? 0 : 1;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:8",
+						"removal": "0:7-0:9"
+					}
+				],
+				"domain": "0:7-0:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:10-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/branch.try.iteration",
+		"languageId": "cpp",
+		"facet": "branch.try.iteration",
+		"code": "try {}\ncatch (const std::exception e) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:33"
+					}
+				],
+				"domain": "0:0-1:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/branch.try",
+		"languageId": "cpp",
+		"facet": "branch.try",
+		"code": "try {}\ncatch (const std::exception e) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:6",
+						"removal": "0:0-1:0"
+					}
+				],
+				"domain": "0:0-0:6"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:33",
+						"removal": "0:6-1:33"
+					}
+				],
+				"domain": "1:0-1:33"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/branch/branch.if.elif.else",
+		"languageId": "csharp",
+		"facet": "branch.if.elif.else",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-1:5"
+					}
+				],
+				"domain": "0:0-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:18",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:0-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-2:7",
+						"removal": "1:18-2:7"
+					}
+				],
+				"domain": "2:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/branch/branch.if.else",
+		"languageId": "csharp",
+		"facet": "branch.if.else",
+		"code": "if (true) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-1:0"
+					}
+				],
+				"domain": "0:0-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:7",
+						"removal": "0:12-1:7"
+					}
+				],
+				"domain": "1:0-1:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/branch/branch.if.iteration",
+		"languageId": "csharp",
+		"facet": "branch.if.iteration",
+		"code": "if () {}\nelse if  () {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:7"
+					}
+				],
+				"domain": "0:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/branch/branch.if",
+		"languageId": "csharp",
+		"facet": "branch.if",
+		"code": "if (true) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-0:12"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/branch/branch.switchCase.iteration",
+		"languageId": "csharp",
+		"facet": "branch.switchCase.iteration",
+		"code": "switch (foo) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/branch/branch.switchCase",
+		"languageId": "csharp",
+		"facet": "branch.switchCase",
+		"code": "switch (foo) {\n    case 0:\n        break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:14",
+						"removal": "1:0-3:0"
+					}
+				],
+				"domain": "1:4-2:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/branch/branch.switchCase2",
+		"languageId": "csharp",
+		"facet": "branch.switchCase",
+		"code": "switch (foo) {\n    default: {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:15",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/branch/branch.ternary.iteration",
+		"languageId": "csharp",
+		"facet": "branch.ternary.iteration",
+		"code": "true ? 0 : 1;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/branch/branch.ternary",
+		"languageId": "csharp",
+		"facet": "branch.ternary",
+		"code": "true ? 0 : 1;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:8",
+						"removal": "0:7-0:9"
+					}
+				],
+				"domain": "0:7-0:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:10-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/branch/branch.try.iteration",
+		"languageId": "csharp",
+		"facet": "branch.try.iteration",
+		"code": "try {}\ncatch(Exception e) {}\nfinally {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:10"
+					}
+				],
+				"domain": "0:0-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/branch/branch.try",
+		"languageId": "csharp",
+		"facet": "branch.try",
+		"code": "try {}\ncatch(Exception e) {}\nfinally {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:6",
+						"removal": "0:0-1:0"
+					}
+				],
+				"domain": "0:0-0:6"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:21",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:0-1:21"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-2:10",
+						"removal": "1:21-2:10"
+					}
+				],
+				"domain": "2:0-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/branch/branch.if.elif.else",
+		"languageId": "dart",
+		"facet": "branch.if.elif.else",
+		"code": "void main() {\n    if (true) {}\n    else if (false) {}\n    else {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:16",
+						"removal": "1:4-2:9"
+					}
+				],
+				"domain": "1:4-1:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:22",
+						"removal": "2:4-3:4"
+					}
+				],
+				"domain": "2:4-2:22"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:4-3:11",
+						"removal": "3:0-4:0"
+					}
+				],
+				"domain": "3:4-3:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/branch/branch.if.else",
+		"languageId": "dart",
+		"facet": "branch.if.else",
+		"code": "void main() {\n    if (true) {}\n    else {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:16",
+						"removal": "1:4-2:4"
+					}
+				],
+				"domain": "1:4-1:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:11",
+						"removal": "2:0-3:0"
+					}
+				],
+				"domain": "2:4-2:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/branch/branch.if.iteration",
+		"languageId": "dart",
+		"facet": "branch.if.iteration",
+		"code": "void main() {\n    if (true) {}\n    else if (false) {}\n    else {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-3:11"
+					}
+				],
+				"domain": "1:4-3:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/branch/branch.if",
+		"languageId": "dart",
+		"facet": "branch.if",
+		"code": "void main() {\n    if (true) {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:16",
+						"removal": "1:4-1:16"
+					}
+				],
+				"domain": "1:4-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/branch/branch.switchCase.iteration",
+		"languageId": "dart",
+		"facet": "branch.switchCase.iteration",
+		"code": "void main() {\n    switch (foo) { }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:18-1:19"
+					}
+				],
+				"domain": "1:18-1:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/branch/branch.switchCase",
+		"languageId": "dart",
+		"facet": "branch.switchCase",
+		"code": "void main() {\n    switch (foo) {\n        case 0:\n            break;\n    }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-3:18",
+						"removal": "2:0-4:0"
+					}
+				],
+				"domain": "2:8-3:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/branch/branch.switchCase2",
+		"languageId": "dart",
+		"facet": "branch.switchCase",
+		"code": "void main() {\n    switch (foo) {\n        default: {}\n    }\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:8-2:19",
+						"removal": "2:0-3:0"
+					}
+				],
+				"domain": "2:8-2:19"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/branch/branch.ternary.iteration",
+		"languageId": "dart",
+		"facet": "branch.ternary.iteration",
+		"code": "void main() {\n    true ? 0 : 1;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:16"
+					}
+				],
+				"domain": "1:4-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/branch/branch.ternary",
+		"languageId": "dart",
+		"facet": "branch.ternary",
+		"code": "void main() {\n    true ? 0 : 1;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:11-1:12",
+						"removal": "1:11-1:13"
+					}
+				],
+				"domain": "1:11-1:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:15-1:16",
+						"removal": "1:14-1:16"
+					}
+				],
+				"domain": "1:15-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/branch/branch.try.iteration",
+		"languageId": "dart",
+		"facet": "branch.try.iteration",
+		"code": "void main() {\n    try {}\n    catch (e) {}\n    finally {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-3:14"
+					}
+				],
+				"domain": "1:4-3:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/branch/branch.try",
+		"languageId": "dart",
+		"facet": "branch.try",
+		"code": "void main() {\n    try {}\n    catch (e) {}\n    finally {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:10",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:10"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:16",
+						"removal": "2:0-3:0"
+					}
+				],
+				"domain": "2:4-2:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:4-3:14",
+						"removal": "3:0-4:0"
+					}
+				],
+				"domain": "3:4-3:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/branch/branch.if.elif.else",
+		"languageId": "go",
+		"facet": "branch.if.elif.else",
+		"code": "if true {\n} else if false {\n} else {\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:1",
+						"removal": "0:0-1:7"
+					}
+				],
+				"domain": "0:0-1:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:2-2:1",
+						"removal": "1:2-2:2"
+					}
+				],
+				"domain": "1:2-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:2-3:1",
+						"removal": "2:1-3:1"
+					}
+				],
+				"domain": "2:2-3:1"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/branch/branch.if.else",
+		"languageId": "go",
+		"facet": "branch.if.else",
+		"code": "if true {\n} else {\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:1",
+						"removal": "0:0-1:2"
+					}
+				],
+				"domain": "0:0-1:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:2-2:1",
+						"removal": "1:1-2:1"
+					}
+				],
+				"domain": "1:2-2:1"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/branch/branch.if.iteration",
+		"languageId": "go",
+		"facet": "branch.if.iteration",
+		"code": "if true {\n} else if false {\n} else {\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:1"
+					}
+				],
+				"domain": "0:0-3:1"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/branch/branch.if",
+		"languageId": "go",
+		"facet": "branch.if",
+		"code": "if true {\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:1",
+						"removal": "0:0-1:1"
+					}
+				],
+				"domain": "0:0-1:1"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/branch/branch.switchCase.iteration",
+		"languageId": "go",
+		"facet": "branch.switchCase.iteration",
+		"code": "switch foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/branch/branch.switchCase.iteration2",
+		"languageId": "go",
+		"facet": "branch.switchCase.iteration",
+		"code": "switch v := x.(type) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:22-0:23"
+					}
+				],
+				"domain": "0:22-0:23"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/branch/branch.switchCase",
+		"languageId": "go",
+		"facet": "branch.switchCase",
+		"code": "switch (foo) {\n    case 0:\n        break\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:13",
+						"removal": "1:0-3:0"
+					}
+				],
+				"domain": "1:4-2:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/branch/branch.switchCase2",
+		"languageId": "go",
+		"facet": "branch.switchCase",
+		"code": "switch (foo) {\n    default: {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:15",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/branch/branch.if.elif.else",
+		"languageId": "java",
+		"facet": "branch.if.elif.else",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-1:5"
+					}
+				],
+				"domain": "0:0-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:18",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:0-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-2:7",
+						"removal": "1:18-2:7"
+					}
+				],
+				"domain": "2:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/branch/branch.if.else",
+		"languageId": "java",
+		"facet": "branch.if.else",
+		"code": "if (true) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-1:0"
+					}
+				],
+				"domain": "0:0-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:7",
+						"removal": "0:12-1:7"
+					}
+				],
+				"domain": "1:0-1:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/branch/branch.if.iteration",
+		"languageId": "java",
+		"facet": "branch.if.iteration",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:7"
+					}
+				],
+				"domain": "0:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/branch/branch.if",
+		"languageId": "java",
+		"facet": "branch.if",
+		"code": "if (true) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-0:12"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/branch/branch.switchCase.iteration",
+		"languageId": "java",
+		"facet": "branch.switchCase.iteration",
+		"code": "switch (foo) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/branch/branch.switchCase",
+		"languageId": "java",
+		"facet": "branch.switchCase",
+		"code": "switch (foo) {\n    case 0:\n        break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:14",
+						"removal": "1:0-3:0"
+					}
+				],
+				"domain": "1:4-2:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/branch/branch.switchCase2",
+		"languageId": "java",
+		"facet": "branch.switchCase",
+		"code": "switch (foo) {\n    default: {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:15",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/branch/branch.ternary.iteration",
+		"languageId": "java",
+		"facet": "branch.ternary.iteration",
+		"code": "true ? 0 : 1;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/branch/branch.ternary",
+		"languageId": "java",
+		"facet": "branch.ternary",
+		"code": "true ? 0 : 1;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:8",
+						"removal": "0:7-0:9"
+					}
+				],
+				"domain": "0:7-0:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:10-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/branch/branch.try.iteration",
+		"languageId": "java",
+		"facet": "branch.try.iteration",
+		"code": "try {}\ncatch(Exception e) {}\nfinally {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:10"
+					}
+				],
+				"domain": "0:0-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/branch/branch.try",
+		"languageId": "java",
+		"facet": "branch.try",
+		"code": "try {}\ncatch(Exception e) {}\nfinally {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:6",
+						"removal": "0:0-1:0"
+					}
+				],
+				"domain": "0:0-0:6"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:21",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:0-1:21"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-2:10",
+						"removal": "1:21-2:10"
+					}
+				],
+				"domain": "2:0-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/branch/branch.if.elif.else",
+		"languageId": "javascript.core",
+		"facet": "branch.if.elif.else",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-1:5"
+					}
+				],
+				"domain": "0:0-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:18",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:0-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-2:7",
+						"removal": "1:18-2:7"
+					}
+				],
+				"domain": "2:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/branch/branch.if.else",
+		"languageId": "javascript.core",
+		"facet": "branch.if.else",
+		"code": "if (true) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-1:0"
+					}
+				],
+				"domain": "0:0-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:7",
+						"removal": "0:12-1:7"
+					}
+				],
+				"domain": "1:0-1:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/branch/branch.if.iteration",
+		"languageId": "javascript.core",
+		"facet": "branch.if.iteration",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:7"
+					}
+				],
+				"domain": "0:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/branch/branch.if",
+		"languageId": "javascript.core",
+		"facet": "branch.if",
+		"code": "if (true) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-0:12"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/branch/branch.switchCase.iteration",
+		"languageId": "javascript.core",
+		"facet": "branch.switchCase.iteration",
+		"code": "switch (foo) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:14-0:15"
+					}
+				],
+				"domain": "0:14-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/branch/branch.switchCase",
+		"languageId": "javascript.core",
+		"facet": "branch.switchCase",
+		"code": "switch (foo) {\n    case 0:\n        break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:14",
+						"removal": "1:0-3:0"
+					}
+				],
+				"domain": "1:4-2:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/branch/branch.switchCase2",
+		"languageId": "javascript.core",
+		"facet": "branch.switchCase",
+		"code": "switch (foo) {\n    default: {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:15",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/branch/branch.ternary.iteration",
+		"languageId": "javascript.core",
+		"facet": "branch.ternary.iteration",
+		"code": "true ? 0 : 1",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/branch/branch.ternary",
+		"languageId": "javascript.core",
+		"facet": "branch.ternary",
+		"code": "true ? 0 : 1",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:8",
+						"removal": "0:7-0:9"
+					}
+				],
+				"domain": "0:7-0:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:10-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/branch/branch.try.iteration",
+		"languageId": "javascript.core",
+		"facet": "branch.try.iteration",
+		"code": "try {}\ncatch(e) {}\nfinally {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:10"
+					}
+				],
+				"domain": "0:0-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/branch/branch.try",
+		"languageId": "javascript.core",
+		"facet": "branch.try",
+		"code": "try {}\ncatch(e) {}\nfinally {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:6",
+						"removal": "0:0-1:0"
+					}
+				],
+				"domain": "0:0-0:6"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:11",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:0-1:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-2:10",
+						"removal": "1:11-2:10"
+					}
+				],
+				"domain": "2:0-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/branch/branch.if.elif.else",
+		"languageId": "kotlin",
+		"facet": "branch.if.elif.else",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-1:5"
+					}
+				],
+				"domain": "0:0-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:18",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:0-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-2:7",
+						"removal": "1:18-2:7"
+					}
+				],
+				"domain": "2:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/branch/branch.if.else",
+		"languageId": "kotlin",
+		"facet": "branch.if.else",
+		"code": "if (true) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-1:0"
+					}
+				],
+				"domain": "0:0-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:7",
+						"removal": "0:12-1:7"
+					}
+				],
+				"domain": "1:0-1:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/branch/branch.if.iteration",
+		"languageId": "kotlin",
+		"facet": "branch.if.iteration",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:7"
+					}
+				],
+				"domain": "0:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/branch/branch.if",
+		"languageId": "kotlin",
+		"facet": "branch.if",
+		"code": "if (true) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-0:12"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/branch/branch.switchCase.iteration",
+		"languageId": "kotlin",
+		"facet": "branch.switchCase.iteration",
+		"code": "when (foo) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:12-0:13"
+					}
+				],
+				"domain": "0:12-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/branch/branch.switchCase",
+		"languageId": "kotlin",
+		"facet": "branch.switchCase",
+		"code": "when (foo) {\n    0 ->\n        break\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:13",
+						"removal": "1:0-3:0"
+					}
+				],
+				"domain": "1:4-2:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/branch/branch.switchCase2",
+		"languageId": "kotlin",
+		"facet": "branch.switchCase",
+		"code": "when (foo) {\n    else -> {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:14",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/branch/branch.ternary.iteration",
+		"languageId": "kotlin",
+		"facet": "branch.ternary.iteration",
+		"code": "if (true) 0 else 1",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:18"
+					}
+				],
+				"domain": "0:0-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/branch/branch.ternary",
+		"languageId": "kotlin",
+		"facet": "branch.ternary",
+		"code": "if (true) 0 else 1",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:0-0:12"
+					}
+				],
+				"domain": "0:0-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:12-0:18",
+						"removal": "0:11-0:18"
+					}
+				],
+				"domain": "0:12-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/branch/branch.try.iteration",
+		"languageId": "kotlin",
+		"facet": "branch.try.iteration",
+		"code": "try {\n} catch (ex: Exception) {\n} finally {\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:1"
+					}
+				],
+				"domain": "0:0-3:1"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/branch/branch.try",
+		"languageId": "kotlin",
+		"facet": "branch.try",
+		"code": "try {\n} catch (ex: Exception) {\n} finally {\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:1",
+						"removal": "0:0-1:2"
+					}
+				],
+				"domain": "0:0-1:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:2-2:1",
+						"removal": "1:2-2:2"
+					}
+				],
+				"domain": "1:2-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:2-3:1",
+						"removal": "2:1-3:1"
+					}
+				],
+				"domain": "2:2-3:1"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/branch/branch.if.elif.else",
+		"languageId": "lua",
+		"facet": "branch.if.elif.else",
+		"code": "if true then\n    a = 1\nelseif false then\n    a = 2\nelse\n    a = 3\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:9",
+						"removal": "0:0-2:4"
+					}
+				],
+				"domain": "0:0-1:9"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-3:9",
+						"removal": "2:0-4:0"
+					}
+				],
+				"domain": "2:0-3:9"
+			},
+			{
+				"targets": [
+					{
+						"content": "4:0-5:9",
+						"removal": "4:0-6:0"
+					}
+				],
+				"domain": "4:0-5:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/branch/branch.if.else",
+		"languageId": "lua",
+		"facet": "branch.if.else",
+		"code": "if true then\n    a = 1\nelse\n    a = 2\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:9",
+						"removal": "0:0-2:0"
+					}
+				],
+				"domain": "0:0-1:9"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-3:9",
+						"removal": "2:0-4:0"
+					}
+				],
+				"domain": "2:0-3:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/branch/branch.if.iteration",
+		"languageId": "lua",
+		"facet": "branch.if.iteration",
+		"code": "if true then\n    a = 1\nelseif false then\n    a = 2\nelse\n    a = 3\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-6:3"
+					}
+				],
+				"domain": "0:0-6:3"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/branch/branch.if",
+		"languageId": "lua",
+		"facet": "branch.if",
+		"code": "if true then\n    a = 1\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:9",
+						"removal": "0:0-2:3"
+					}
+				],
+				"domain": "0:0-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/branch/branch.if.elif.else",
+		"languageId": "php",
+		"facet": "branch.if.elif.else",
+		"code": "<?php\nif (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:12",
+						"removal": "1:0-2:5"
+					}
+				],
+				"domain": "1:0-1:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-2:18",
+						"removal": "2:0-3:0"
+					}
+				],
+				"domain": "2:0-2:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:0-3:7",
+						"removal": "2:18-3:7"
+					}
+				],
+				"domain": "3:0-3:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/branch/branch.if.else",
+		"languageId": "php",
+		"facet": "branch.if.else",
+		"code": "<?php\nif (true) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:12",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:0-1:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-2:7",
+						"removal": "1:12-2:7"
+					}
+				],
+				"domain": "2:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/branch/branch.if.iteration",
+		"languageId": "php",
+		"facet": "branch.if.iteration",
+		"code": "<?php\nif (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-3:7"
+					}
+				],
+				"domain": "1:0-3:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/branch/branch.if",
+		"languageId": "php",
+		"facet": "branch.if",
+		"code": "<?php\nif (true) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:12",
+						"removal": "1:0-1:12"
+					}
+				],
+				"domain": "1:0-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/branch/branch.switchCase.iteration",
+		"languageId": "php",
+		"facet": "branch.switchCase.iteration",
+		"code": "<?php\nswitch ($foo) { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:15-1:16"
+					}
+				],
+				"domain": "1:15-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/branch/branch.switchCase",
+		"languageId": "php",
+		"facet": "branch.switchCase",
+		"code": "<?php\nswitch ($foo) {\n    case 0:\n        break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-3:14",
+						"removal": "2:0-4:0"
+					}
+				],
+				"domain": "2:4-3:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/branch/branch.switchCase2",
+		"languageId": "php",
+		"facet": "branch.switchCase",
+		"code": "<?php\nswitch ($foo) {\n    default:\n        break;\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "2:4-3:14",
+						"removal": "2:0-4:0"
+					}
+				],
+				"domain": "2:4-3:14"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/branch/branch.ternary.iteration",
+		"languageId": "php",
+		"facet": "branch.ternary.iteration",
+		"code": "<?php\ntrue ? 0 : 1",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:12"
+					}
+				],
+				"domain": "1:0-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/branch/branch.ternary",
+		"languageId": "php",
+		"facet": "branch.ternary",
+		"code": "<?php\ntrue ? 0 : 1",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:7-1:8",
+						"removal": "1:7-1:9"
+					}
+				],
+				"domain": "1:7-1:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:11-1:12",
+						"removal": "1:10-1:12"
+					}
+				],
+				"domain": "1:11-1:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/branch/branch.try.iteration",
+		"languageId": "php",
+		"facet": "branch.try.iteration",
+		"code": "<?php\ntry {}\ncatch (Exception $e) {}\nfinally {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-3:10"
+					}
+				],
+				"domain": "1:0-3:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/branch/branch.try",
+		"languageId": "php",
+		"facet": "branch.try",
+		"code": "<?php\ntry {}\ncatch (Exception $e) {}\nfinally {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:6",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:0-1:6"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-2:23",
+						"removal": "2:0-3:0"
+					}
+				],
+				"domain": "2:0-2:23"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:0-3:10",
+						"removal": "2:23-3:10"
+					}
+				],
+				"domain": "3:0-3:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/branch/branch.if.elif.else",
+		"languageId": "python",
+		"facet": "branch.if.elif.else",
+		"code": "if True: pass\nelif False: pass\nelse: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-1:2"
+					}
+				],
+				"domain": "0:0-0:13"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:16",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:0-1:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-2:10",
+						"removal": "1:16-2:10"
+					}
+				],
+				"domain": "2:0-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/branch/branch.if.else",
+		"languageId": "python",
+		"facet": "branch.if.else",
+		"code": "if True: pass\nelse: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-1:0"
+					}
+				],
+				"domain": "0:0-0:13"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:10",
+						"removal": "0:13-1:10"
+					}
+				],
+				"domain": "1:0-1:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/branch/branch.if.iteration",
+		"languageId": "python",
+		"facet": "branch.if.iteration",
+		"code": "if True: pass\nelif False: pass\nelse: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:10"
+					}
+				],
+				"domain": "0:0-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/branch/branch.if",
+		"languageId": "python",
+		"facet": "branch.if",
+		"code": "if True: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/branch/branch.loop.iteration",
+		"languageId": "python",
+		"facet": "branch.loop.iteration",
+		"code": "while True: pass\nelse: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:10"
+					}
+				],
+				"domain": "0:0-1:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/branch/branch.loop.iteration2",
+		"languageId": "python",
+		"facet": "branch.loop.iteration",
+		"code": "for v in values: pass\nelse: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:10"
+					}
+				],
+				"domain": "0:0-1:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/branch/branch.loop",
+		"languageId": "python",
+		"facet": "branch.loop",
+		"code": "while True: pass\nelse: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:16",
+						"removal": "0:0-1:0"
+					}
+				],
+				"domain": "0:0-0:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:10",
+						"removal": "0:16-1:10"
+					}
+				],
+				"domain": "1:0-1:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/branch/branch.loop2",
+		"languageId": "python",
+		"facet": "branch.loop",
+		"code": "for v in values: pass\nelse: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:21",
+						"removal": "0:0-1:0"
+					}
+				],
+				"domain": "0:0-0:21"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:10",
+						"removal": "0:21-1:10"
+					}
+				],
+				"domain": "1:0-1:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/branch/branch.switchCase.iteration",
+		"languageId": "python",
+		"facet": "branch.switchCase.iteration",
+		"code": "match foo:\n    pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-1:8"
+					}
+				],
+				"domain": "0:10-1:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/branch/branch.switchCase",
+		"languageId": "python",
+		"facet": "branch.switchCase",
+		"code": "match foo:\n    case 0:\n        pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:12",
+						"removal": "0:10-2:12"
+					}
+				],
+				"domain": "1:4-2:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/branch/branch.switchCase2",
+		"languageId": "python",
+		"facet": "branch.switchCase",
+		"code": "match foo:\n    case _:\n        pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-2:12",
+						"removal": "0:10-2:12"
+					}
+				],
+				"domain": "1:4-2:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/branch/branch.ternary.iteration",
+		"languageId": "python",
+		"facet": "branch.ternary.iteration",
+		"code": "0 if True else 1",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:16"
+					}
+				],
+				"domain": "0:0-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/branch/branch.ternary",
+		"languageId": "python",
+		"facet": "branch.ternary",
+		"code": "0 if True else 1",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:1",
+						"removal": "0:0-0:2"
+					}
+				],
+				"domain": "0:0-0:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:15-0:16",
+						"removal": "0:14-0:16"
+					}
+				],
+				"domain": "0:15-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/branch/branch.try.iteration",
+		"languageId": "python",
+		"facet": "branch.try.iteration",
+		"code": "try: pass\nexcept: pass\nfinally: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:13"
+					}
+				],
+				"domain": "0:0-2:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/branch/branch.try",
+		"languageId": "python",
+		"facet": "branch.try",
+		"code": "try: pass\nexcept: pass\nfinally: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-1:0"
+					}
+				],
+				"domain": "0:0-0:9"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:12",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:0-1:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-2:13",
+						"removal": "1:12-2:13"
+					}
+				],
+				"domain": "2:0-2:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/branch/branch.try2",
+		"languageId": "python",
+		"facet": "branch.try",
+		"code": "try: pass\nexcept Exception as e: pass\nelse: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-1:0"
+					}
+				],
+				"domain": "0:0-0:9"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:27",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:0-1:27"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-2:10",
+						"removal": "1:27-2:10"
+					}
+				],
+				"domain": "2:0-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/branch/branch.if.elif.else",
+		"languageId": "r",
+		"facet": "branch.if.elif.else",
+		"code": "if (TRUE) {\n} else if (FALSE) {\n} else {\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:1",
+						"removal": "0:0-1:7"
+					}
+				],
+				"domain": "0:0-1:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:2-2:1",
+						"removal": "1:2-2:2"
+					}
+				],
+				"domain": "1:2-2:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:2-3:1",
+						"removal": "2:1-3:1"
+					}
+				],
+				"domain": "2:2-3:1"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/branch/branch.if.else",
+		"languageId": "r",
+		"facet": "branch.if.else",
+		"code": "if (TRUE) {\n} else {\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:1",
+						"removal": "0:0-1:2"
+					}
+				],
+				"domain": "0:0-1:1"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:2-2:1",
+						"removal": "1:1-2:1"
+					}
+				],
+				"domain": "1:2-2:1"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/branch/branch.if.iteration",
+		"languageId": "r",
+		"facet": "branch.if.iteration",
+		"code": "if (TRUE) {\n} else if (FALSE) {\n} else {\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-3:1"
+					}
+				],
+				"domain": "0:0-3:1"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/branch/branch.if",
+		"languageId": "r",
+		"facet": "branch.if",
+		"code": "if (TRUE) {\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:1",
+						"removal": "0:0-1:1"
+					}
+				],
+				"domain": "0:0-1:1"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/branch/branch.switchCase.iteration",
+		"languageId": "r",
+		"facet": "branch.switchCase.iteration",
+		"code": "switch( )",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:8"
+					}
+				],
+				"domain": "0:7-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/branch/branch.switchCase",
+		"languageId": "r",
+		"facet": "branch.switchCase",
+		"code": "switch(foo,\n    a = 0,\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:9",
+						"removal": "1:0-1:9"
+					}
+				],
+				"domain": "1:4-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/branch/branch.switchCase2",
+		"languageId": "r",
+		"facet": "branch.switchCase",
+		"code": "switch(foo,\n    a = {},\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:10",
+						"removal": "1:0-1:10"
+					}
+				],
+				"domain": "1:4-1:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/branch/branch.switchCase3",
+		"languageId": "r",
+		"facet": "branch.switchCase",
+		"code": "switch(foo,\n    \"_\"\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:7",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/branch/branch.try.iteration",
+		"languageId": "r",
+		"facet": "branch.try.iteration",
+		"code": "tryCatch( )",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:9-0:10"
+					}
+				],
+				"domain": "0:9-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/branch/branch.try",
+		"languageId": "r",
+		"facet": "branch.try",
+		"code": "tryCatch(\n    expr = {},\n    error = function() {},\n    warning = function() {},\n    finally = {}\n)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:13",
+						"removal": "1:0-1:13"
+					}
+				],
+				"domain": "1:4-1:13"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:4-2:25",
+						"removal": "2:0-2:25"
+					}
+				],
+				"domain": "2:4-2:25"
+			},
+			{
+				"targets": [
+					{
+						"content": "3:4-3:27",
+						"removal": "3:0-3:27"
+					}
+				],
+				"domain": "3:4-3:27"
+			},
+			{
+				"targets": [
+					{
+						"content": "4:4-4:16",
+						"removal": "4:0-5:0"
+					}
+				],
+				"domain": "4:4-4:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/branch/branch.if.elif.else",
+		"languageId": "ruby",
+		"facet": "branch.if.elif.else",
+		"code": "if true\n    a\nelsif false\n    a\nelse\n    a\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:5",
+						"removal": "0:0-2:3"
+					}
+				],
+				"domain": "0:0-1:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-3:5",
+						"removal": "2:0-4:0"
+					}
+				],
+				"domain": "2:0-3:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "4:0-5:5",
+						"removal": "4:0-6:0"
+					}
+				],
+				"domain": "4:0-5:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/branch/branch.if.else",
+		"languageId": "ruby",
+		"facet": "branch.if.else",
+		"code": "if true\n    a\nelse\n    a\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:5",
+						"removal": "0:0-2:0"
+					}
+				],
+				"domain": "0:0-1:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-3:5",
+						"removal": "2:0-4:0"
+					}
+				],
+				"domain": "2:0-3:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/branch/branch.if.iteration",
+		"languageId": "ruby",
+		"facet": "branch.if.iteration",
+		"code": "if true\n    a\nelsif false\n    a\nelse\n    a\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-6:3"
+					}
+				],
+				"domain": "0:0-6:3"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/branch/branch.if",
+		"languageId": "ruby",
+		"facet": "branch.if",
+		"code": "if true\n    a\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:5",
+						"removal": "0:0-2:3"
+					}
+				],
+				"domain": "0:0-1:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/branch/branch.switchCase.iteration",
+		"languageId": "ruby",
+		"facet": "branch.switchCase.iteration",
+		"code": "case foo\nwhen 0\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-2:0"
+					}
+				],
+				"domain": "0:8-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/branch/branch.switchCase.iteration2",
+		"languageId": "ruby",
+		"facet": "branch.switchCase.iteration",
+		"code": "case foo\nin 0\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-2:0"
+					}
+				],
+				"domain": "0:8-2:0"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/branch/branch.switchCase",
+		"languageId": "ruby",
+		"facet": "branch.switchCase",
+		"code": "case foo\nwhen 0\n    puts 0\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-2:10",
+						"removal": "1:0-3:0"
+					}
+				],
+				"domain": "1:0-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/branch/branch.switchCase2",
+		"languageId": "ruby",
+		"facet": "branch.switchCase",
+		"code": "case foo\nin 0\n    puts 0\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-2:10",
+						"removal": "1:0-3:0"
+					}
+				],
+				"domain": "1:0-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/branch/branch.switchCase3",
+		"languageId": "ruby",
+		"facet": "branch.switchCase",
+		"code": "case foo\nelse\n    puts 0\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-2:10",
+						"removal": "1:0-3:0"
+					}
+				],
+				"domain": "1:0-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/branch/branch.ternary.iteration",
+		"languageId": "ruby",
+		"facet": "branch.ternary.iteration",
+		"code": "true ? 0 : 1",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/branch/branch.ternary",
+		"languageId": "ruby",
+		"facet": "branch.ternary",
+		"code": "true ? 0 : 1",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:8",
+						"removal": "0:7-0:9"
+					}
+				],
+				"domain": "0:7-0:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12",
+						"removal": "0:10-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/branch/branch.try.iteration",
+		"languageId": "ruby",
+		"facet": "branch.try.iteration",
+		"code": "begin\n    a\nrescue\n    a\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-4:3"
+					}
+				],
+				"domain": "0:0-4:3"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/branch/branch.try",
+		"languageId": "ruby",
+		"facet": "branch.try",
+		"code": "begin\n    a\nrescue\n    a\nend",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-1:5",
+						"removal": "0:0-1:5"
+					}
+				],
+				"domain": "0:0-1:5"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-3:5",
+						"removal": "2:0-4:0"
+					}
+				],
+				"domain": "2:0-3:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/branch/branch.if.elif.else",
+		"languageId": "rust",
+		"facet": "branch.if.elif.else",
+		"code": "if true {}\nelse if false {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-1:5"
+					}
+				],
+				"domain": "0:0-0:10"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:16",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:0-1:16"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-2:7",
+						"removal": "1:16-2:7"
+					}
+				],
+				"domain": "2:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/branch/branch.if.else",
+		"languageId": "rust",
+		"facet": "branch.if.else",
+		"code": "if true {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:7",
+						"removal": "0:10-1:7"
+					}
+				],
+				"domain": "1:0-1:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/branch/branch.if.iteration",
+		"languageId": "rust",
+		"facet": "branch.if.iteration",
+		"code": "if true {}\nelse if false {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:7"
+					}
+				],
+				"domain": "0:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/branch/branch.if",
+		"languageId": "rust",
+		"facet": "branch.if",
+		"code": "if true {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:10",
+						"removal": "0:0-0:10"
+					}
+				],
+				"domain": "0:0-0:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/branch/branch.switchCase.iteration",
+		"languageId": "rust",
+		"facet": "branch.switchCase.iteration",
+		"code": "match foo { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/branch/branch.switchCase",
+		"languageId": "rust",
+		"facet": "branch.switchCase",
+		"code": "match foo {\n    0 => \"0\",\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:13",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/branch/branch.switchCase2",
+		"languageId": "rust",
+		"facet": "branch.switchCase",
+		"code": "match foo {\n    _ => \"_\",\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:13",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/branch/branch.if.elif.else",
+		"languageId": "scala",
+		"facet": "branch.if.elif.else",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-1:5"
+					}
+				],
+				"domain": "0:0-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:18",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:0-1:18"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-2:7",
+						"removal": "1:18-2:7"
+					}
+				],
+				"domain": "2:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/branch/branch.if.else",
+		"languageId": "scala",
+		"facet": "branch.if.else",
+		"code": "if (true) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-1:0"
+					}
+				],
+				"domain": "0:0-0:12"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:7",
+						"removal": "0:12-1:7"
+					}
+				],
+				"domain": "1:0-1:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/branch/branch.if.iteration",
+		"languageId": "scala",
+		"facet": "branch.if.iteration",
+		"code": "if (true) {}\nelse if (false) {}\nelse {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:7"
+					}
+				],
+				"domain": "0:0-2:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/branch/branch.if",
+		"languageId": "scala",
+		"facet": "branch.if",
+		"code": "if (true) {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-0:12"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/branch/branch.switchCase.iteration",
+		"languageId": "scala",
+		"facet": "branch.switchCase.iteration",
+		"code": "foo match { }",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:11-0:12"
+					}
+				],
+				"domain": "0:11-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/branch/branch.switchCase",
+		"languageId": "scala",
+		"facet": "branch.switchCase",
+		"code": "foo match {\n    case 0 => 0\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:15",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/branch/branch.switchCase2",
+		"languageId": "scala",
+		"facet": "branch.switchCase",
+		"code": "foo match {\n    case _ => {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-1:16",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:4-1:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/branch/branch.try.iteration",
+		"languageId": "scala",
+		"facet": "branch.try.iteration",
+		"code": "try {}\ncatch {}\nfinally {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-2:10"
+					}
+				],
+				"domain": "0:0-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/branch/branch.try",
+		"languageId": "scala",
+		"facet": "branch.try",
+		"code": "try {}\ncatch {}\nfinally {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:6",
+						"removal": "0:0-1:0"
+					}
+				],
+				"domain": "0:0-0:6"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:8",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:0-1:8"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-2:10",
+						"removal": "1:8-2:10"
+					}
+				],
+				"domain": "2:0-2:10"
+			}
+		]
+	},
+	{
+		"name": "scopes/scss/branch.if.elif.else",
+		"languageId": "scss",
+		"facet": "branch.if.elif.else",
+		"code": "@if true {}\n@else if false {}\n@else {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:1-1:6"
+					}
+				],
+				"domain": "0:0-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:17",
+						"removal": "1:0-2:0"
+					}
+				],
+				"domain": "1:0-1:17"
+			},
+			{
+				"targets": [
+					{
+						"content": "2:0-2:8",
+						"removal": "1:17-2:8"
+					}
+				],
+				"domain": "2:0-2:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/scss/branch.if.else",
+		"languageId": "scss",
+		"facet": "branch.if.else",
+		"code": "@if true {}\n@else {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:0-1:0"
+					}
+				],
+				"domain": "0:0-0:11"
+			},
+			{
+				"targets": [
+					{
+						"content": "1:0-1:8",
+						"removal": "0:11-1:8"
+					}
+				],
+				"domain": "1:0-1:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/scss/branch.if.iteration",
+		"languageId": "scss",
+		"facet": "branch.if.iteration",
+		"code": "* {\n    @if true {}\n    @else if false {}\n    @else {}\n}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:4-3:12"
+					}
+				],
+				"domain": "1:4-3:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/scss/branch.if",
+		"languageId": "scss",
+		"facet": "branch.if",
+		"code": "@if true {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:0-0:11"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	}
+]

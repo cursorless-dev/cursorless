@@ -3,6 +3,7 @@ sidebar_label: Shuffle
 ---
 
 import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/randomizeTargets.json";
 
 # Shuffle (Randomize targets)
 
@@ -26,7 +27,7 @@ Default: `shuffle`
 
 ## Visualization
 
-<RecordedTestVisualizerProvider>
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
 
 <RecordedTestVisualizerOptions />
 

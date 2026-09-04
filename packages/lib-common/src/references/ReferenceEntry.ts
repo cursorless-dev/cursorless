@@ -18,6 +18,7 @@ export interface ReferenceEntry<T extends string> extends SpokenFormReference {
 export interface ReferenceGroup<T extends string> {
   id: T;
   name: string;
+  description?: string;
 }
 
 interface GroupDefinition<T extends string> {

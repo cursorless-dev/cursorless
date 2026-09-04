@@ -1,4 +1,3 @@
-import { usePluginData } from "@docusaurus/useGlobalData";
 import type { Dispatch, JSX, ReactNode, SetStateAction } from "react";
 import { createContext, useContext, useMemo, useState } from "react";
 import type { DecorationItem } from "shiki";
@@ -28,17 +27,13 @@ const RecordedTestVisualizerContext = createContext<
 
 interface ProviderProps {
   children: ReactNode;
-  recordedTests?: RecordedTest[];
+  recordedTests: RecordedTest[];
 }
 
 export function RecordedTestVisualizerProvider({
   children,
-  recordedTests: providedRecordedTests,
+  recordedTests,
 }: ProviderProps): JSX.Element {
-  const globalRecordedTests = usePluginData(
-    "recorded-tests-plugin",
-  ) as RecordedTest[];
-  const recordedTests = providedRecordedTests ?? globalRecordedTests;
   const [renderWhitespace, setRenderWhitespace] = useState(true);
   const fixtures = useMemo(
     () =>
@@ -63,7 +58,7 @@ export function RecordedTestVisualizerProvider({
   );
 }
 
-export function RecordedTestVisualizerOptions() {
+export function RecordedTestVisualizerOptions(): JSX.Element {
   const { renderWhitespace, setRenderWhitespace } = useRecordedTestVisualizer();
 
   return (

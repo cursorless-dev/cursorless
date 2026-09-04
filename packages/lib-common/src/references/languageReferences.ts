@@ -1,8 +1,45 @@
 interface LanguageReference {
   name: string;
+  shortName?: string;
 }
 
-export const languageReferences = {
+export type LanguageId =
+  | "c"
+  | "cpp"
+  | "csharp"
+  | "clojure"
+  | "css"
+  | "dart"
+  | "go"
+  | "html"
+  | "java"
+  | "javascript"
+  | "javascriptreact"
+  | "json"
+  | "jsonc"
+  | "jsonl"
+  | "kotlin"
+  | "latex"
+  | "lua"
+  | "markdown"
+  | "php"
+  | "plaintext"
+  | "properties"
+  | "python"
+  | "r"
+  | "ruby"
+  | "rust"
+  | "scala"
+  | "scm"
+  | "scss"
+  | "talon"
+  | "talon-list"
+  | "typescript"
+  | "typescriptreact"
+  | "xml"
+  | "yaml";
+
+export const languageReferences: Record<LanguageId, LanguageReference> = {
   c: {
     name: "C",
   },
@@ -41,9 +78,11 @@ export const languageReferences = {
   },
   jsonc: {
     name: "JSON with comments (JSONC)",
+    shortName: "JSONC",
   },
   jsonl: {
     name: "JSON lines (JSONL)",
+    shortName: "JSONL",
   },
   kotlin: {
     name: "Kotlin",
@@ -83,6 +122,7 @@ export const languageReferences = {
   },
   scm: {
     name: "Tree-sitter query (SCM)",
+    shortName: "Tree-sitter query",
   },
   scss: {
     name: "SCSS",
@@ -105,9 +145,7 @@ export const languageReferences = {
   yaml: {
     name: "YAML",
   },
-} as const satisfies Record<string, LanguageReference>;
-
-export type LanguageId = keyof typeof languageReferences;
+} as const;
 
 export function isLanguageId(value: string): value is LanguageId {
   return Object.hasOwn(languageReferences, value);

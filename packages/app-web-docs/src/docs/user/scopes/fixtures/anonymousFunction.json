@@ -1,0 +1,529 @@
+[
+	{
+		"name": "scopes/clojure/anonymousFunction",
+		"languageId": "clojure",
+		"facet": "anonymousFunction",
+		"code": "(fn [] 0)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/clojure/anonymousFunction2",
+		"languageId": "clojure",
+		"facet": "anonymousFunction",
+		"code": "#(* % 2)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:8",
+						"removal": "0:0-0:8"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/anonymousFunction",
+		"languageId": "cpp",
+		"facet": "anonymousFunction",
+		"code": "[]() {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:7",
+						"removal": "0:0-0:7"
+					}
+				],
+				"domain": "0:0-0:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/cpp/anonymousFunction2",
+		"languageId": "cpp",
+		"facet": "anonymousFunction",
+		"code": "[] {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/anonymousFunction",
+		"languageId": "csharp",
+		"facet": "anonymousFunction",
+		"code": "() => {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:8",
+						"removal": "0:0-0:8"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/csharp/anonymousFunction2",
+		"languageId": "csharp",
+		"facet": "anonymousFunction",
+		"code": "() => 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:7",
+						"removal": "0:0-0:7"
+					}
+				],
+				"domain": "0:0-0:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/anonymousFunction",
+		"languageId": "dart",
+		"facet": "anonymousFunction",
+		"code": "var foo = () {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:15",
+						"removal": "0:9-0:15"
+					}
+				],
+				"domain": "0:10-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/dart/anonymousFunction2",
+		"languageId": "dart",
+		"facet": "anonymousFunction",
+		"code": "var foo = () => 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:10-0:17",
+						"removal": "0:9-0:17"
+					}
+				],
+				"domain": "0:10-0:17"
+			}
+		]
+	},
+	{
+		"name": "scopes/go/anonymousFunction",
+		"languageId": "go",
+		"facet": "anonymousFunction",
+		"code": "foo := func() {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:7-0:16",
+						"removal": "0:6-0:16"
+					}
+				],
+				"domain": "0:7-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/anonymousFunction",
+		"languageId": "java",
+		"facet": "anonymousFunction",
+		"code": "() -> {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:8",
+						"removal": "0:0-0:8"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/java/anonymousFunction2",
+		"languageId": "java",
+		"facet": "anonymousFunction",
+		"code": "() -> 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:7",
+						"removal": "0:0-0:7"
+					}
+				],
+				"domain": "0:0-0:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/anonymousFunction",
+		"languageId": "javascript.core",
+		"facet": "anonymousFunction",
+		"code": "function() {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/anonymousFunction2",
+		"languageId": "javascript.core",
+		"facet": "anonymousFunction",
+		"code": "function *() {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:15",
+						"removal": "0:0-0:15"
+					}
+				],
+				"domain": "0:0-0:15"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/anonymousFunction3",
+		"languageId": "javascript.core",
+		"facet": "anonymousFunction",
+		"code": "() => {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:8",
+						"removal": "0:0-0:8"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/javascript.core/anonymousFunction4",
+		"languageId": "javascript.core",
+		"facet": "anonymousFunction",
+		"code": "() => 0",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:7",
+						"removal": "0:0-0:7"
+					}
+				],
+				"domain": "0:0-0:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/anonymousFunction",
+		"languageId": "kotlin",
+		"facet": "anonymousFunction",
+		"code": "fun() {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:8",
+						"removal": "0:0-0:8"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/kotlin/anonymousFunction2",
+		"languageId": "kotlin",
+		"facet": "anonymousFunction",
+		"code": "{x -> 0}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:8",
+						"removal": "0:0-0:8"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/lua/anonymousFunction",
+		"languageId": "lua",
+		"facet": "anonymousFunction",
+		"code": "f = function() end",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:4-0:18",
+						"removal": "0:3-0:18"
+					}
+				],
+				"domain": "0:4-0:18"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/anonymousFunction",
+		"languageId": "php",
+		"facet": "anonymousFunction",
+		"code": "<?php\nfunction() {};",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:13",
+						"removal": "1:0-1:13"
+					}
+				],
+				"domain": "1:0-1:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/php/anonymousFunction2",
+		"languageId": "php",
+		"facet": "anonymousFunction",
+		"code": "<?php\nfn() => 0;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "1:0-1:9",
+						"removal": "1:0-1:9"
+					}
+				],
+				"domain": "1:0-1:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/anonymousFunction",
+		"languageId": "python",
+		"facet": "anonymousFunction",
+		"code": "lambda: pass",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:12",
+						"removal": "0:0-0:12"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/python/anonymousFunction2",
+		"languageId": "python",
+		"facet": "anonymousFunction",
+		"code": "lambda x: x",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:0-0:11"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/anonymousFunction",
+		"languageId": "r",
+		"facet": "anonymousFunction",
+		"code": "function() {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:13",
+						"removal": "0:0-0:13"
+					}
+				],
+				"domain": "0:0-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/r/anonymousFunction2",
+		"languageId": "r",
+		"facet": "anonymousFunction",
+		"code": "(function() 0)",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:1-0:13",
+						"removal": "0:1-0:13"
+					}
+				],
+				"domain": "0:1-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/anonymousFunction",
+		"languageId": "ruby",
+		"facet": "anonymousFunction",
+		"code": "->() {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:7",
+						"removal": "0:0-0:7"
+					}
+				],
+				"domain": "0:0-0:7"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/anonymousFunction2",
+		"languageId": "ruby",
+		"facet": "anonymousFunction",
+		"code": "-> {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/ruby/anonymousFunction3",
+		"languageId": "ruby",
+		"facet": "anonymousFunction",
+		"code": "values.each do |v| end",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:12-0:22",
+						"removal": "0:11-0:22"
+					}
+				],
+				"domain": "0:12-0:22"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/anonymousFunction",
+		"languageId": "rust",
+		"facet": "anonymousFunction",
+		"code": "|| {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:5"
+			}
+		]
+	},
+	{
+		"name": "scopes/rust/anonymousFunction2",
+		"languageId": "rust",
+		"facet": "anonymousFunction",
+		"code": "|x| x * x;",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:9",
+						"removal": "0:0-0:9"
+					}
+				],
+				"domain": "0:0-0:9"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/anonymousFunction",
+		"languageId": "scala",
+		"facet": "anonymousFunction",
+		"code": "() => {}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:8",
+						"removal": "0:0-0:8"
+					}
+				],
+				"domain": "0:0-0:8"
+			}
+		]
+	},
+	{
+		"name": "scopes/scala/anonymousFunction2",
+		"languageId": "scala",
+		"facet": "anonymousFunction",
+		"code": "() => 0",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:7",
+						"removal": "0:0-0:7"
+					}
+				],
+				"domain": "0:0-0:7"
+			}
+		]
+	}
+]

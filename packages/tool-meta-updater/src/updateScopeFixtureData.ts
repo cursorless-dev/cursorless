@@ -1,0 +1,181 @@
+import fs from "node:fs";
+import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
+import type {
+  PlaintextScopeSupportFacet,
+  ScopeSupportFacet,
+} from "@cursorless/lib-common";
+import type { ScopeTestPath } from "@cursorless/lib-node-common";
+import type { ScopeFixtureGroup } from "./scopeFixtureGroups";
+
+type FacetValue = ScopeSupportFacet | PlaintextScopeSupportFacet;
+
+interface TargetData {
+  content: string;
+  removal?: string;
+}
+
+interface ScopeData {
+  domain?: string;
+  targets: TargetData[];
+}
+
+interface ScopeFixtureData {
+  name: string;
+  languageId: string;
+  facet: FacetValue;
+  code: string;
+  scopes: ScopeData[];
+}
+
+export function updateScopeFixtureData(
+  scopeTestPaths: ScopeTestPath[],
+  groups: ScopeFixtureGroup[],
+  _actual: unknown,
+  options: FormatPluginFnOptions,
+): ScopeFixtureData[] | null {
+  if (options.manifest.name !== "@cursorless/app-web-docs") {
+    return null;
+  }
+
+  const fixtureNames = new Set(
+    groups.flatMap((group) =>
+      group.facets.flatMap((facet) =>
+        facet.fixtures.map((fixture) => fixture.name),
+      ),
+    ),
+  );
+
+  return scopeTestPaths
+    .filter((test) => fixtureNames.has(test.name))
+    .map(parseTest);
+}
+
+function parseTest(test: ScopeTestPath): ScopeFixtureData {
+  const fixture = fs.readFileSync(test.path, "utf8").replaceAll("\r\n", "\n");
+  const delimiterIndex = fixture.match(/^---$/mu)?.index;
+
+  if (delimiterIndex == null) {
+    throw new Error(`Can't find delimiter '---' in scope fixture ${test.path}`);
+  }
+
+  const code = fixture.slice(0, delimiterIndex - 1);
+  const lines = fixture.slice(delimiterIndex + 4).split(/\n/u);
+  const scopes: ScopeData[] = [];
+  const unprocessedTypes: string[] = [];
+  let currentScopeIndex = "1";
+  let currentTargetIndex = "1";
+  let currentTarget: TargetData = { content: "" };
+  let currentScope: ScopeData = { targets: [currentTarget] };
+
+  function processLine(type: string, value: string) {
+    switch (type) {
+      case "Domain":
+        currentScope.domain = value;
+        break;
+      case "Content":
+        currentTarget.content = value;
+        break;
+      case "Removal":
+        currentTarget.removal = value;
+        break;
+      case "Insertion delimiter":
+      case "Leading delimiter":
+      case "Leading delimiter: Content":
+      case "Leading delimiter: Removal":
+      case "Trailing delimiter":
+      case "Trailing delimiter: Content":
+      case "Trailing delimiter: Removal":
+      case "Interior":
+      case "Interior: Content":
+      case "Interior: Removal":
+      case "Boundary L":
+      case "Boundary L: Content":
+      case "Boundary L: Removal":
+      case "Boundary R":
+      case "Boundary R: Content":
+      case "Boundary R: Removal":
+        break;
+      default:
+        throw new Error(`Unknown type '${type}' in scope fixture ${test.path}`);
+    }
+  }
+
+  for (const line of lines) {
+    const parsedLine = parseLine(line);
+    if (parsedLine == null) {
+      continue;
+    }
+
+    const { scopeIndex, targetIndex, type, value } = parsedLine;
+    if (scopeIndex !== currentScopeIndex) {
+      scopes.push(currentScope);
+      currentScopeIndex = scopeIndex;
+      currentTargetIndex = "1";
+      currentTarget = { content: "" };
+      currentScope = { targets: [currentTarget] };
+    } else if (targetIndex != null && targetIndex !== currentTargetIndex) {
+      currentTargetIndex = targetIndex;
+      currentTarget = { content: "" };
+      currentScope.targets.push(currentTarget);
+    }
+
+    if (value == null) {
+      unprocessedTypes.push(type);
+      continue;
+    }
+
+    for (const unprocessedType of unprocessedTypes) {
+      processLine(unprocessedType, value);
+    }
+    unprocessedTypes.length = 0;
+    processLine(type, value);
+  }
+
+  scopes.push(currentScope);
+
+  if (scopes.some((scope) => scope.targets.some((target) => !target.content))) {
+    throw new Error(
+      `Scope fixture ${test.path} contains targets without content.`,
+    );
+  }
+  if (scopes.some((scope) => scope.targets.length === 0)) {
+    throw new Error(`Scope fixture ${test.path} contains empty scopes.`);
+  }
+
+  return {
+    name: test.name,
+    languageId: test.languageId,
+    facet: test.facet,
+    code,
+    scopes,
+  };
+}
+
+function parseLine(line: string) {
+  if (line[0] !== "[") {
+    return null;
+  }
+
+  const header = line.slice(1, line.indexOf("]"));
+  const { scopeIndex, targetIndex, type } = (() => {
+    if (header[0] === "#") {
+      const spaceIndex = header.indexOf(" ");
+      const fullIndex = header.slice(1, spaceIndex);
+      const [scopeIndex, targetIndex] = fullIndex.split(".");
+      return {
+        scopeIndex,
+        targetIndex,
+        type: header.slice(spaceIndex + 1),
+      };
+    }
+    return {
+      scopeIndex: "1",
+      targetIndex: undefined,
+      type: header,
+    };
+  })();
+
+  const rawValue = line.slice(line.indexOf("=") + 1).trim();
+  const value = rawValue.length > 0 ? rawValue : undefined;
+  return { scopeIndex, targetIndex, type, value };
+}

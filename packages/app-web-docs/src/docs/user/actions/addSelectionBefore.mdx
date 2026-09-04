@@ -3,6 +3,7 @@ sidebar_label: Append pre
 ---
 
 import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/addSelectionBefore.json";
 
 # Append pre (Add selection before)
 
@@ -22,7 +23,7 @@ Default: `append pre`
 
 ## Visualization
 
-<RecordedTestVisualizerProvider>
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
 
 <RecordedTestVisualizerOptions />
 

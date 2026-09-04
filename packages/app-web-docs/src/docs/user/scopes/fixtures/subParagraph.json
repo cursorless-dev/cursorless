@@ -1,0 +1,19 @@
+[
+	{
+		"name": "scopes/latex/subParagraph",
+		"languageId": "latex",
+		"facet": "subParagraph",
+		"code": "\\subparagraph{Introduction}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:27",
+						"removal": "0:0-0:27"
+					}
+				],
+				"domain": "0:0-0:27"
+			}
+		]
+	}
+]

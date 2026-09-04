@@ -1,0 +1,244 @@
+[
+	{
+		"name": "scopes/html/attribute",
+		"languageId": "html",
+		"facet": "attribute",
+		"code": "<div id=\"foo\"></div>",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:13",
+						"removal": "0:4-0:13"
+					}
+				],
+				"domain": "0:5-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/html/comment.block",
+		"languageId": "html",
+		"facet": "comment.block",
+		"code": "<!-- Hello world -->",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:20",
+						"removal": "0:0-0:20"
+					}
+				],
+				"domain": "0:0-0:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/html/element",
+		"languageId": "html",
+		"facet": "element",
+		"code": "<div></div>",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:11",
+						"removal": "0:0-0:11"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/html/endTag",
+		"languageId": "html",
+		"facet": "endTag",
+		"code": "<div></div>",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:11",
+						"removal": "0:5-0:11"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/html/interior.element",
+		"languageId": "html",
+		"facet": "interior.element",
+		"code": "<div> </div>",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:6",
+						"removal": "0:5-0:6"
+					}
+				],
+				"domain": "0:5-0:6"
+			}
+		]
+	},
+	{
+		"name": "scopes/html/key.attribute",
+		"languageId": "html",
+		"facet": "key.attribute",
+		"code": "<div id=\"foo\"></div>",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:7",
+						"removal": "0:5-0:8"
+					}
+				],
+				"domain": "0:5-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/html/key.attribute2",
+		"languageId": "html",
+		"facet": "key.attribute",
+		"code": "<div disabled></div>",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:13",
+						"removal": "0:4-0:13"
+					}
+				],
+				"domain": "0:5-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/html/startTag",
+		"languageId": "html",
+		"facet": "startTag",
+		"code": "<div></div>",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:5"
+					}
+				],
+				"domain": "0:0-0:11"
+			}
+		]
+	},
+	{
+		"name": "scopes/html/string.singleLine",
+		"languageId": "html",
+		"facet": "string.singleLine",
+		"code": "<div id=\"foo\"><div>",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:13",
+						"removal": "0:8-0:13"
+					}
+				],
+				"domain": "0:8-0:13"
+			}
+		]
+	},
+	{
+		"name": "scopes/html/tags",
+		"languageId": "html",
+		"facet": "tags",
+		"code": "<div> </div>",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:5",
+						"removal": "0:0-0:6"
+					},
+					{
+						"content": "0:6-0:12",
+						"removal": "0:5-0:12"
+					}
+				],
+				"domain": "0:0-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/html/textFragment.comment.block",
+		"languageId": "html",
+		"facet": "textFragment.comment.block",
+		"code": "<!-- Hello world -->",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:20",
+						"removal": "0:0-0:20"
+					}
+				],
+				"domain": "0:0-0:20"
+			}
+		]
+	},
+	{
+		"name": "scopes/html/textFragment.element",
+		"languageId": "html",
+		"facet": "textFragment.element",
+		"code": "<div>Hello world<div>",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:5-0:16",
+						"removal": "0:5-0:16"
+					}
+				],
+				"domain": "0:5-0:16"
+			}
+		]
+	},
+	{
+		"name": "scopes/html/textFragment.string.singleLine",
+		"languageId": "html",
+		"facet": "textFragment.string.singleLine",
+		"code": "<div id=\"foo\"><div>",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:9-0:12",
+						"removal": "0:9-0:12"
+					}
+				],
+				"domain": "0:9-0:12"
+			}
+		]
+	},
+	{
+		"name": "scopes/html/value.attribute",
+		"languageId": "html",
+		"facet": "value.attribute",
+		"code": "<div id=\"foo\"></div>",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:8-0:13",
+						"removal": "0:7-0:13"
+					}
+				],
+				"domain": "0:5-0:13"
+			}
+		]
+	}
+]

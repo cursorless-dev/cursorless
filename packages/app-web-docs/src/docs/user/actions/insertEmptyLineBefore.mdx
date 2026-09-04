@@ -3,6 +3,7 @@ sidebar_label: Drop
 ---
 
 import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/insertEmptyLineBefore.json";
 
 # Drop (Insert empty line/scope before)
 
@@ -25,7 +26,7 @@ Default: `drop`
 
 ## Visualization
 
-<RecordedTestVisualizerProvider>
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
 
 <RecordedTestVisualizerOptions />
 

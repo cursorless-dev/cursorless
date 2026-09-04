@@ -3,6 +3,7 @@ sidebar_label: Regex
 ---
 
 import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/regularExpression.json";
 
 # Regex (Regular expression)
 
@@ -22,7 +23,7 @@ Default: `regex`
 
 ## Visualization
 
-<ScopeVisualizerProvider>
+<ScopeVisualizerProvider scopeTests={scopeTests}>
 
 <ScopeVisualizerOptions />
 

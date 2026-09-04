@@ -1,0 +1,19 @@
+[
+	{
+		"name": "scopes/latex/part",
+		"languageId": "latex",
+		"facet": "part",
+		"code": "\\part{Introduction}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:19",
+						"removal": "0:0-0:19"
+					}
+				],
+				"domain": "0:0-0:19"
+			}
+		]
+	}
+]

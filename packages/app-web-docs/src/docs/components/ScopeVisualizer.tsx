@@ -1,5 +1,4 @@
-import { usePluginData } from "@docusaurus/useGlobalData";
-import type { Dispatch, ReactNode, SetStateAction } from "react";
+import type { Dispatch, JSX, ReactNode, SetStateAction } from "react";
 import { createContext, useContext, useMemo, useState } from "react";
 import { generateDecorations } from "./calculateHighlights";
 import { Code } from "./Code";
@@ -18,8 +17,15 @@ const ScopeVisualizerContext = createContext<
   ScopeVisualizerContextValue | undefined
 >(undefined);
 
-export function ScopeVisualizerProvider({ children }: { children: ReactNode }) {
-  const scopeTests = usePluginData("scope-tests-plugin") as Fixture[];
+interface ProviderProps {
+  children: ReactNode;
+  scopeTests: Fixture[];
+}
+
+export function ScopeVisualizerProvider({
+  children,
+  scopeTests,
+}: ProviderProps): JSX.Element {
   const [rangeType, setRangeType] = useState<RangeType>("content");
   const [renderWhitespace, setRenderWhitespace] = useState(true);
   const fixtures = useMemo(
@@ -44,7 +50,7 @@ export function ScopeVisualizerProvider({ children }: { children: ReactNode }) {
   );
 }
 
-export function ScopeVisualizerOptions() {
+export function ScopeVisualizerOptions(): JSX.Element {
   const { rangeType, renderWhitespace, setRangeType, setRenderWhitespace } =
     useScopeVisualizer();
 
@@ -75,12 +81,15 @@ export function ScopeVisualizerOptions() {
   );
 }
 
-interface ScopeProps {
+interface ScopeVisualizerProps {
   fixtureName: string;
   languageId?: string;
 }
 
-export function ScopeVisualizer({ fixtureName, languageId }: ScopeProps) {
+export function ScopeVisualizer({
+  fixtureName,
+  languageId,
+}: ScopeVisualizerProps): JSX.Element {
   const { fixtures, rangeType, renderWhitespace } = useScopeVisualizer();
   const fixture = fixtures.get(fixtureName);
 

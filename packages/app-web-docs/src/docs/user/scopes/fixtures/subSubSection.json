@@ -1,0 +1,19 @@
+[
+	{
+		"name": "scopes/latex/subSubSection",
+		"languageId": "latex",
+		"facet": "subSubSection",
+		"code": "\\subsubsection{Introduction}",
+		"scopes": [
+			{
+				"targets": [
+					{
+						"content": "0:0-0:28",
+						"removal": "0:0-0:28"
+					}
+				],
+				"domain": "0:0-0:28"
+			}
+		]
+	}
+]

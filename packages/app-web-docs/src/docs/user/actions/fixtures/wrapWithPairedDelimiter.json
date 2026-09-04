@@ -1,0 +1,511 @@
+[
+	{
+		"path": "docs/actions/wrapWithPairedDelimiter.yml",
+		"name": "docs/actions/wrapWithPairedDelimiter",
+		"fixture": {
+			"languageId": "typescript",
+			"command": {
+				"version": 7,
+				"spokenForm": "round wrap air",
+				"action": {
+					"name": "wrapWithPairedDelimiter",
+					"left": "(",
+					"right": ")",
+					"target": {
+						"type": "primitive",
+						"mark": {
+							"type": "decoratedSymbol",
+							"symbolColor": "default",
+							"character": "a"
+						}
+					}
+				},
+				"usePrePhraseSnapshot": false
+			},
+			"initialState": {
+				"documentContents": "// bbb aaa",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 0
+						},
+						"active": {
+							"line": 0,
+							"character": 0
+						}
+					}
+				],
+				"marks": {
+					"default.a": {
+						"start": {
+							"line": 0,
+							"character": 7
+						},
+						"end": {
+							"line": 0,
+							"character": 10
+						}
+					}
+				},
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "a",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 8
+							},
+							"end": {
+								"line": 0,
+								"character": 9
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "/",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "b",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					}
+				]
+			},
+			"finalState": {
+				"documentContents": "// bbb (aaa)",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 0
+						},
+						"active": {
+							"line": 0,
+							"character": 0
+						}
+					}
+				],
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "/",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 0
+							},
+							"end": {
+								"line": 0,
+								"character": 1
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "b",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "(",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 7
+							},
+							"end": {
+								"line": 0,
+								"character": 8
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "a",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 9
+							},
+							"end": {
+								"line": 0,
+								"character": 10
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": ")",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 11
+							},
+							"end": {
+								"line": 0,
+								"character": 12
+							}
+						}
+					}
+				]
+			}
+		}
+	},
+	{
+		"path": "docs/actions/wrapWithPairedDelimiter2.yml",
+		"name": "docs/actions/wrapWithPairedDelimiter2",
+		"fixture": {
+			"languageId": "typescript",
+			"command": {
+				"version": 7,
+				"spokenForm": "if wrap air",
+				"action": {
+					"name": "wrapWithSnippet",
+					"snippetDescription": {
+						"type": "list",
+						"fallbackLanguage": "typescript",
+						"snippets": [
+							{
+								"type": "custom",
+								"body": "if ($1) {\n\t$0\n}",
+								"variableName": "0",
+								"scopeType": {
+									"type": "statement"
+								},
+								"languages": [
+									"c",
+									"cpp",
+									"csharp",
+									"java",
+									"javascript",
+									"typescript",
+									"javascriptreact",
+									"typescriptreact"
+								]
+							},
+							{
+								"type": "custom",
+								"body": "if $1:\n\t$0",
+								"variableName": "0",
+								"scopeType": {
+									"type": "statement"
+								},
+								"languages": [
+									"python"
+								]
+							},
+							{
+								"type": "custom",
+								"body": "if $1 then\n\t$0\nend",
+								"variableName": "0",
+								"scopeType": {
+									"type": "statement"
+								},
+								"languages": [
+									"lua"
+								]
+							}
+						]
+					},
+					"target": {
+						"type": "primitive",
+						"mark": {
+							"type": "decoratedSymbol",
+							"symbolColor": "default",
+							"character": "a"
+						}
+					}
+				},
+				"usePrePhraseSnapshot": false
+			},
+			"spokenFormError": "list wrap with snippet",
+			"initialState": {
+				"documentContents": "const aaa = 0;",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 0
+						},
+						"active": {
+							"line": 0,
+							"character": 0
+						}
+					}
+				],
+				"marks": {
+					"default.a": {
+						"start": {
+							"line": 0,
+							"character": 6
+						},
+						"end": {
+							"line": 0,
+							"character": 9
+						}
+					}
+				},
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": "a",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 7
+							},
+							"end": {
+								"line": 0,
+								"character": 8
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "o",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 1
+							},
+							"end": {
+								"line": 0,
+								"character": 2
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "=",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 10
+							},
+							"end": {
+								"line": 0,
+								"character": 11
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "0",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 12
+							},
+							"end": {
+								"line": 0,
+								"character": 13
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": ";",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 13
+							},
+							"end": {
+								"line": 0,
+								"character": 14
+							}
+						}
+					}
+				]
+			},
+			"finalState": {
+				"documentContents": "if () {\n    const aaa = 0;\n}",
+				"selections": [
+					{
+						"anchor": {
+							"line": 0,
+							"character": 4
+						},
+						"active": {
+							"line": 0,
+							"character": 4
+						}
+					}
+				],
+				"hatTokenMap": [
+					{
+						"hatStyle": "default",
+						"grapheme": ")",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 4
+							},
+							"end": {
+								"line": 0,
+								"character": 5
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "(",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 3
+							},
+							"end": {
+								"line": 0,
+								"character": 4
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "{",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 6
+							},
+							"end": {
+								"line": 0,
+								"character": 7
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "f",
+						"hatRange": {
+							"start": {
+								"line": 0,
+								"character": 1
+							},
+							"end": {
+								"line": 0,
+								"character": 2
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "o",
+						"hatRange": {
+							"start": {
+								"line": 1,
+								"character": 5
+							},
+							"end": {
+								"line": 1,
+								"character": 6
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "a",
+						"hatRange": {
+							"start": {
+								"line": 1,
+								"character": 11
+							},
+							"end": {
+								"line": 1,
+								"character": 12
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "=",
+						"hatRange": {
+							"start": {
+								"line": 1,
+								"character": 14
+							},
+							"end": {
+								"line": 1,
+								"character": 15
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "0",
+						"hatRange": {
+							"start": {
+								"line": 1,
+								"character": 16
+							},
+							"end": {
+								"line": 1,
+								"character": 17
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": ";",
+						"hatRange": {
+							"start": {
+								"line": 1,
+								"character": 17
+							},
+							"end": {
+								"line": 1,
+								"character": 18
+							}
+						}
+					},
+					{
+						"hatStyle": "default",
+						"grapheme": "}",
+						"hatRange": {
+							"start": {
+								"line": 2,
+								"character": 0
+							},
+							"end": {
+								"line": 2,
+								"character": 1
+							}
+						}
+					}
+				]
+			}
+		}
+	}
+]

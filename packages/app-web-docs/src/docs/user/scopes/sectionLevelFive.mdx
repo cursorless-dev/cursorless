@@ -3,6 +3,7 @@ sidebar_label: Five section
 ---
 
 import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/sectionLevelFive.json";
 
 # Five section (Section level five)
 
@@ -23,7 +24,7 @@ Default: `five section`\
 
 ## Visualization
 
-<ScopeVisualizerProvider>
+<ScopeVisualizerProvider scopeTests={scopeTests}>
 
 <ScopeVisualizerOptions />
 
