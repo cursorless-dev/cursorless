@@ -1,7 +1,7 @@
 [
 	{
-		"path": "tutorial/1-introduction/takeCap.yml",
-		"name": "tutorial/1-introduction/takeCap",
+		"path": "tutorial/introduction/takeCap.yml",
+		"name": "tutorial/introduction/takeCap",
 		"fixture": {
 			"languageId": "plaintext",
 			"command": {
@@ -629,8 +629,8 @@
 		}
 	},
 	{
-		"path": "tutorial/1-introduction/takeBlueSun.yml",
-		"name": "tutorial/1-introduction/takeBlueSun",
+		"path": "tutorial/introduction/takeBlueSun.yml",
+		"name": "tutorial/introduction/takeBlueSun",
 		"fixture": {
 			"languageId": "plaintext",
 			"command": {
@@ -1258,8 +1258,8 @@
 		}
 	},
 	{
-		"path": "tutorial/1-introduction/takeHarpPastDrum.yml",
-		"name": "tutorial/1-introduction/takeHarpPastDrum",
+		"path": "tutorial/introduction/takeHarpPastDrum.yml",
+		"name": "tutorial/introduction/takeHarpPastDrum",
 		"fixture": {
 			"languageId": "plaintext",
 			"command": {
@@ -1910,8 +1910,8 @@
 		}
 	},
 	{
-		"path": "tutorial/1-introduction/takeNearAndSun.yml",
-		"name": "tutorial/1-introduction/takeNearAndSun",
+		"path": "tutorial/introduction/takeNearAndSun.yml",
+		"name": "tutorial/introduction/takeNearAndSun",
 		"fixture": {
 			"languageId": "plaintext",
 			"command": {
@@ -2572,8 +2572,8 @@
 		}
 	},
 	{
-		"path": "tutorial/1-introduction/chuckTrap.yml",
-		"name": "tutorial/1-introduction/chuckTrap",
+		"path": "tutorial/introduction/chuckTrap.yml",
+		"name": "tutorial/introduction/chuckTrap",
 		"fixture": {
 			"languageId": "plaintext",
 			"command": {
@@ -3207,8 +3207,8 @@
 		}
 	},
 	{
-		"path": "tutorial/1-introduction/chuckLineOdd.yml",
-		"name": "tutorial/1-introduction/chuckLineOdd",
+		"path": "tutorial/introduction/chuckLineOdd.yml",
+		"name": "tutorial/introduction/chuckLineOdd",
 		"fixture": {
 			"languageId": "plaintext",
 			"command": {
@@ -3752,8 +3752,8 @@
 		}
 	},
 	{
-		"path": "tutorial/1-introduction/takeLine.yml",
-		"name": "tutorial/1-introduction/takeLine",
+		"path": "tutorial/introduction/takeLine.yml",
+		"name": "tutorial/introduction/takeLine",
 		"fixture": {
 			"languageId": "plaintext",
 			"command": {
@@ -4187,8 +4187,8 @@
 		}
 	},
 	{
-		"path": "tutorial/1-introduction/preUrge.yml",
-		"name": "tutorial/1-introduction/preUrge",
+		"path": "tutorial/introduction/preUrge.yml",
+		"name": "tutorial/introduction/preUrge",
 		"fixture": {
 			"languageId": "plaintext",
 			"command": {
@@ -4620,8 +4620,8 @@
 		}
 	},
 	{
-		"path": "tutorial/1-introduction/postAir.yml",
-		"name": "tutorial/1-introduction/postAir",
+		"path": "tutorial/introduction/postAir.yml",
+		"name": "tutorial/introduction/postAir",
 		"fixture": {
 			"languageId": "plaintext",
 			"command": {
@@ -5053,8 +5053,8 @@
 		}
 	},
 	{
-		"path": "tutorial/1-introduction/changeSit.yml",
-		"name": "tutorial/1-introduction/changeSit",
+		"path": "tutorial/introduction/changeSit.yml",
+		"name": "tutorial/introduction/changeSit",
 		"fixture": {
 			"languageId": "plaintext",
 			"command": {

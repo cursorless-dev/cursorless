@@ -1,7 +1,7 @@
 import type { RawTutorialContent } from "./tutorial.types";
 
-export const tutorial2BasicCoding: RawTutorialContent = {
-  id: "2-basic-coding",
+export const tutorialBasicCoding: RawTutorialContent = {
+  id: "basic-coding",
   title: "Basic coding",
   description:
     "This tutorial will teach you the basics of coding with Cursorless.",

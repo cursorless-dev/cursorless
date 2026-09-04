@@ -5,11 +5,22 @@ suite("tutorials", () => {
   test("filters tutorials by context", () => {
     assert.deepEqual(
       getTutorialsForContext("documentation").map(({ id }) => id),
-      ["1-introduction", "2-basic-coding"],
+      ["introduction", "basic-coding"],
     );
     assert.deepEqual(
       getTutorialsForContext("interactive").map(({ id }) => id),
-      ["1-introduction", "2-basic-coding", "3-visualization"],
+      ["introduction", "basic-coding", "visualization"],
+    );
+  });
+
+  test("assigns positions from tutorial order", () => {
+    assert.deepEqual(
+      getTutorialsForContext("interactive").map(({ position }) => position),
+      [1, 2, 3],
+    );
+    assert.deepEqual(
+      getTutorialsForContext("documentation").map(({ position }) => position),
+      [1, 2],
     );
   });
 
