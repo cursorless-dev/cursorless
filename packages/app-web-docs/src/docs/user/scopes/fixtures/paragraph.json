@@ -1,28 +1,28 @@
 [
-	{
-		"name": "scopes/plaintext/paragraph",
-		"languageId": "plaintext",
-		"facet": "paragraph",
-		"code": "\naaa\nbbb\n\nccc\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:0-2:3",
-						"removal": "1:0-4:0"
-					}
-				],
-				"domain": "1:0-2:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "4:0-4:3",
-						"removal": "3:0-5:0"
-					}
-				],
-				"domain": "4:0-4:3"
-			}
-		]
-	}
+  {
+    "name": "scopes/plaintext/paragraph",
+    "languageId": "plaintext",
+    "facet": "paragraph",
+    "code": "\naaa\nbbb\n\nccc\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:0-2:3",
+            "removal": "1:0-4:0"
+          }
+        ],
+        "domain": "1:0-2:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "4:0-4:3",
+            "removal": "3:0-5:0"
+          }
+        ],
+        "domain": "4:0-4:3"
+      }
+    ]
+  }
 ]

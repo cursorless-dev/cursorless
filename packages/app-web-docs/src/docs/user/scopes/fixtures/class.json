@@ -1,839 +1,839 @@
 [
-	{
-		"name": "scopes/c/class/class.iteration.document",
-		"languageId": "c",
-		"facet": "class.iteration.document",
-		"code": "\nstruct Foo {};\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/c/class/class",
-		"languageId": "c",
-		"facet": "class",
-		"code": "struct Foo {};",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:14",
-						"removal": "0:0-0:14"
-					}
-				],
-				"domain": "0:0-0:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/c/class/class2",
-		"languageId": "c",
-		"facet": "class",
-		"code": "union Foo {};",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/c/class/class3",
-		"languageId": "c",
-		"facet": "class",
-		"code": "enum Foo {};",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12",
-						"removal": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/c/class/class4",
-		"languageId": "c",
-		"facet": "class",
-		"code": "typedef struct {} Foo;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:22",
-						"removal": "0:0-0:22"
-					}
-				],
-				"domain": "0:0-0:22"
-			}
-		]
-	},
-	{
-		"name": "scopes/c/class/class5",
-		"languageId": "c",
-		"facet": "class",
-		"code": "typedef union {} Foo;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:21",
-						"removal": "0:0-0:21"
-					}
-				],
-				"domain": "0:0-0:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/c/class/class6",
-		"languageId": "c",
-		"facet": "class",
-		"code": "typedef enum {} Foo;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:20",
-						"removal": "0:0-0:20"
-					}
-				],
-				"domain": "0:0-0:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/cpp/class",
-		"languageId": "cpp",
-		"facet": "class",
-		"code": "class Foo {};",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/csharp/class.iteration.class",
-		"languageId": "csharp",
-		"facet": "class.iteration.class",
-		"code": "public class Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:20"
-					}
-				],
-				"domain": "0:0-0:20"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:18-0:19"
-					}
-				],
-				"domain": "0:18-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/csharp/class.iteration.document",
-		"languageId": "csharp",
-		"facet": "class.iteration.document",
-		"code": "\nclass Foo {}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/csharp/class",
-		"languageId": "csharp",
-		"facet": "class",
-		"code": "public class Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:19",
-						"removal": "0:0-0:19"
-					}
-				],
-				"domain": "0:0-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/dart/class.iteration.document",
-		"languageId": "dart",
-		"facet": "class.iteration.document",
-		"code": "\nclass Foo {}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/dart/class",
-		"languageId": "dart",
-		"facet": "class",
-		"code": "class Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12",
-						"removal": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/go/class.iteration.document",
-		"languageId": "go",
-		"facet": "class.iteration.document",
-		"code": "\ntype Foo struct {}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/go/class",
-		"languageId": "go",
-		"facet": "class",
-		"code": "type Foo struct {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:18",
-						"removal": "0:0-0:18"
-					}
-				],
-				"domain": "0:0-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/class.iteration.class",
-		"languageId": "java",
-		"facet": "class.iteration.class",
-		"code": "public class Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:20"
-					}
-				],
-				"domain": "0:0-0:20"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:18-0:19"
-					}
-				],
-				"domain": "0:18-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/class.iteration.document",
-		"languageId": "java",
-		"facet": "class.iteration.document",
-		"code": "\nclass Foo {}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/class",
-		"languageId": "java",
-		"facet": "class",
-		"code": "public class Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:19",
-						"removal": "0:0-0:19"
-					}
-				],
-				"domain": "0:0-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/class2",
-		"languageId": "java",
-		"facet": "class",
-		"code": "@bar\npublic class Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:19",
-						"removal": "0:0-1:19"
-					}
-				],
-				"domain": "0:0-1:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/class.iteration.document",
-		"languageId": "javascript.core",
-		"facet": "class.iteration.document",
-		"code": "\nint foo;\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/class",
-		"languageId": "javascript.core",
-		"facet": "class",
-		"code": "class Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12",
-						"removal": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/class2",
-		"languageId": "javascript.core",
-		"facet": "class",
-		"code": "export class Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:19",
-						"removal": "0:0-0:19"
-					}
-				],
-				"domain": "0:0-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/class3",
-		"languageId": "javascript.core",
-		"facet": "class",
-		"code": "@bar\nclass Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:12",
-						"removal": "0:0-1:12"
-					}
-				],
-				"domain": "0:0-1:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/class.iteration.class",
-		"languageId": "kotlin",
-		"facet": "class.iteration.class",
-		"code": "class Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:11-0:12"
-					}
-				],
-				"domain": "0:11-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/class.iteration.document",
-		"languageId": "kotlin",
-		"facet": "class.iteration.document",
-		"code": "\nclass Foo {}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/class",
-		"languageId": "kotlin",
-		"facet": "class",
-		"code": "class Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12",
-						"removal": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/class2",
-		"languageId": "kotlin",
-		"facet": "class",
-		"code": "@bar\nclass Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:12",
-						"removal": "0:0-1:12"
-					}
-				],
-				"domain": "0:0-1:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/class3",
-		"languageId": "kotlin",
-		"facet": "class",
-		"code": "object Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/class4",
-		"languageId": "kotlin",
-		"facet": "class",
-		"code": "class Foo {\n    companion object Bar {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:1",
-						"removal": "0:0-2:1"
-					}
-				],
-				"domain": "0:0-2:1"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:27",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:27"
-			}
-		]
-	},
-	{
-		"name": "scopes/php/class.iteration.document",
-		"languageId": "php",
-		"facet": "class.iteration.document",
-		"code": "\n<?php\nclass Foo {}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-3:0"
-					}
-				],
-				"domain": "0:0-3:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/php/class",
-		"languageId": "php",
-		"facet": "class",
-		"code": "<?php\nclass Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:0-1:12",
-						"removal": "0:5-1:12"
-					}
-				],
-				"domain": "1:0-1:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/python/class.iteration.class",
-		"languageId": "python",
-		"facet": "class.iteration.class",
-		"code": "class Foo: pass",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:15"
-					}
-				],
-				"domain": "0:0-0:15"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:10-0:15"
-					}
-				],
-				"domain": "0:10-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/python/class.iteration.document",
-		"languageId": "python",
-		"facet": "class.iteration.document",
-		"code": "\nclass Foo: pass\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:10-1:15"
-					}
-				],
-				"domain": "1:10-1:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/python/class",
-		"languageId": "python",
-		"facet": "class",
-		"code": "class Foo: pass",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:15",
-						"removal": "0:0-0:15"
-					}
-				],
-				"domain": "0:0-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/python/class2",
-		"languageId": "python",
-		"facet": "class",
-		"code": "@bar\nclass Foo: pass",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:15",
-						"removal": "0:0-1:15"
-					}
-				],
-				"domain": "0:0-1:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/ruby/class.iteration.class",
-		"languageId": "ruby",
-		"facet": "class.iteration.class",
-		"code": "class Foo\n    a\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:3"
-					}
-				],
-				"domain": "0:0-2:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-2:0"
-					}
-				],
-				"domain": "0:9-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/ruby/class.iteration.document",
-		"languageId": "ruby",
-		"facet": "class.iteration.document",
-		"code": "\nclass Foo end\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:9-1:10"
-					}
-				],
-				"domain": "1:9-1:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/ruby/class",
-		"languageId": "ruby",
-		"facet": "class",
-		"code": "class Foo end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/class.iteration.document",
-		"languageId": "rust",
-		"facet": "class.iteration.document",
-		"code": "\nstruct Foo {}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/class",
-		"languageId": "rust",
-		"facet": "class",
-		"code": "impl Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:11",
-						"removal": "0:0-0:11"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/scala/class.iteration.class",
-		"languageId": "scala",
-		"facet": "class.iteration.class",
-		"code": "class Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:11-0:12"
-					}
-				],
-				"domain": "0:11-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/scala/class.iteration.document",
-		"languageId": "scala",
-		"facet": "class.iteration.document",
-		"code": "\nclass Foo {}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/scala/class",
-		"languageId": "scala",
-		"facet": "class",
-		"code": "class Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12",
-						"removal": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/typescript.core/class",
-		"languageId": "typescript.core",
-		"facet": "class",
-		"code": "abstract class Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:21",
-						"removal": "0:0-0:21"
-					}
-				],
-				"domain": "0:0-0:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/typescript.core/class2",
-		"languageId": "typescript.core",
-		"facet": "class",
-		"code": "export abstract class Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:28",
-						"removal": "0:0-0:28"
-					}
-				],
-				"domain": "0:0-0:28"
-			}
-		]
-	},
-	{
-		"name": "scopes/typescript.core/class3",
-		"languageId": "typescript.core",
-		"facet": "class",
-		"code": "@bar\nabstract class Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:21",
-						"removal": "0:0-1:21"
-					}
-				],
-				"domain": "0:0-1:21"
-			}
-		]
-	}
+  {
+    "name": "scopes/c/class/class.iteration.document",
+    "languageId": "c",
+    "facet": "class.iteration.document",
+    "code": "\nstruct Foo {};\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/c/class/class",
+    "languageId": "c",
+    "facet": "class",
+    "code": "struct Foo {};",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14",
+            "removal": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/c/class/class2",
+    "languageId": "c",
+    "facet": "class",
+    "code": "union Foo {};",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/c/class/class3",
+    "languageId": "c",
+    "facet": "class",
+    "code": "enum Foo {};",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12",
+            "removal": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/c/class/class4",
+    "languageId": "c",
+    "facet": "class",
+    "code": "typedef struct {} Foo;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:22",
+            "removal": "0:0-0:22"
+          }
+        ],
+        "domain": "0:0-0:22"
+      }
+    ]
+  },
+  {
+    "name": "scopes/c/class/class5",
+    "languageId": "c",
+    "facet": "class",
+    "code": "typedef union {} Foo;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:21",
+            "removal": "0:0-0:21"
+          }
+        ],
+        "domain": "0:0-0:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/c/class/class6",
+    "languageId": "c",
+    "facet": "class",
+    "code": "typedef enum {} Foo;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:20",
+            "removal": "0:0-0:20"
+          }
+        ],
+        "domain": "0:0-0:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/cpp/class",
+    "languageId": "cpp",
+    "facet": "class",
+    "code": "class Foo {};",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/csharp/class.iteration.class",
+    "languageId": "csharp",
+    "facet": "class.iteration.class",
+    "code": "public class Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:20"
+          }
+        ],
+        "domain": "0:0-0:20"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:18-0:19"
+          }
+        ],
+        "domain": "0:18-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/csharp/class.iteration.document",
+    "languageId": "csharp",
+    "facet": "class.iteration.document",
+    "code": "\nclass Foo {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/csharp/class",
+    "languageId": "csharp",
+    "facet": "class",
+    "code": "public class Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:19",
+            "removal": "0:0-0:19"
+          }
+        ],
+        "domain": "0:0-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/dart/class.iteration.document",
+    "languageId": "dart",
+    "facet": "class.iteration.document",
+    "code": "\nclass Foo {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/dart/class",
+    "languageId": "dart",
+    "facet": "class",
+    "code": "class Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12",
+            "removal": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/go/class.iteration.document",
+    "languageId": "go",
+    "facet": "class.iteration.document",
+    "code": "\ntype Foo struct {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/go/class",
+    "languageId": "go",
+    "facet": "class",
+    "code": "type Foo struct {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:18",
+            "removal": "0:0-0:18"
+          }
+        ],
+        "domain": "0:0-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/class.iteration.class",
+    "languageId": "java",
+    "facet": "class.iteration.class",
+    "code": "public class Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:20"
+          }
+        ],
+        "domain": "0:0-0:20"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:18-0:19"
+          }
+        ],
+        "domain": "0:18-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/class.iteration.document",
+    "languageId": "java",
+    "facet": "class.iteration.document",
+    "code": "\nclass Foo {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/class",
+    "languageId": "java",
+    "facet": "class",
+    "code": "public class Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:19",
+            "removal": "0:0-0:19"
+          }
+        ],
+        "domain": "0:0-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/class2",
+    "languageId": "java",
+    "facet": "class",
+    "code": "@bar\npublic class Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:19",
+            "removal": "0:0-1:19"
+          }
+        ],
+        "domain": "0:0-1:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/class.iteration.document",
+    "languageId": "javascript.core",
+    "facet": "class.iteration.document",
+    "code": "\nint foo;\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/class",
+    "languageId": "javascript.core",
+    "facet": "class",
+    "code": "class Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12",
+            "removal": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/class2",
+    "languageId": "javascript.core",
+    "facet": "class",
+    "code": "export class Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:19",
+            "removal": "0:0-0:19"
+          }
+        ],
+        "domain": "0:0-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/class3",
+    "languageId": "javascript.core",
+    "facet": "class",
+    "code": "@bar\nclass Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:12",
+            "removal": "0:0-1:12"
+          }
+        ],
+        "domain": "0:0-1:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/class.iteration.class",
+    "languageId": "kotlin",
+    "facet": "class.iteration.class",
+    "code": "class Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/class.iteration.document",
+    "languageId": "kotlin",
+    "facet": "class.iteration.document",
+    "code": "\nclass Foo {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/class",
+    "languageId": "kotlin",
+    "facet": "class",
+    "code": "class Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12",
+            "removal": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/class2",
+    "languageId": "kotlin",
+    "facet": "class",
+    "code": "@bar\nclass Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:12",
+            "removal": "0:0-1:12"
+          }
+        ],
+        "domain": "0:0-1:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/class3",
+    "languageId": "kotlin",
+    "facet": "class",
+    "code": "object Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/class4",
+    "languageId": "kotlin",
+    "facet": "class",
+    "code": "class Foo {\n    companion object Bar {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1",
+            "removal": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:27",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:27"
+      }
+    ]
+  },
+  {
+    "name": "scopes/php/class.iteration.document",
+    "languageId": "php",
+    "facet": "class.iteration.document",
+    "code": "\n<?php\nclass Foo {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:0"
+          }
+        ],
+        "domain": "0:0-3:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/php/class",
+    "languageId": "php",
+    "facet": "class",
+    "code": "<?php\nclass Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:0-1:12",
+            "removal": "0:5-1:12"
+          }
+        ],
+        "domain": "1:0-1:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/python/class.iteration.class",
+    "languageId": "python",
+    "facet": "class.iteration.class",
+    "code": "class Foo: pass",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-0:15"
+          }
+        ],
+        "domain": "0:10-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/python/class.iteration.document",
+    "languageId": "python",
+    "facet": "class.iteration.document",
+    "code": "\nclass Foo: pass\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:10-1:15"
+          }
+        ],
+        "domain": "1:10-1:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/python/class",
+    "languageId": "python",
+    "facet": "class",
+    "code": "class Foo: pass",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/python/class2",
+    "languageId": "python",
+    "facet": "class",
+    "code": "@bar\nclass Foo: pass",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:15",
+            "removal": "0:0-1:15"
+          }
+        ],
+        "domain": "0:0-1:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/ruby/class.iteration.class",
+    "languageId": "ruby",
+    "facet": "class.iteration.class",
+    "code": "class Foo\n    a\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:3"
+          }
+        ],
+        "domain": "0:0-2:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-2:0"
+          }
+        ],
+        "domain": "0:9-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/ruby/class.iteration.document",
+    "languageId": "ruby",
+    "facet": "class.iteration.document",
+    "code": "\nclass Foo end\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:9-1:10"
+          }
+        ],
+        "domain": "1:9-1:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/ruby/class",
+    "languageId": "ruby",
+    "facet": "class",
+    "code": "class Foo end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/class.iteration.document",
+    "languageId": "rust",
+    "facet": "class.iteration.document",
+    "code": "\nstruct Foo {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/class",
+    "languageId": "rust",
+    "facet": "class",
+    "code": "impl Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scala/class.iteration.class",
+    "languageId": "scala",
+    "facet": "class.iteration.class",
+    "code": "class Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scala/class.iteration.document",
+    "languageId": "scala",
+    "facet": "class.iteration.document",
+    "code": "\nclass Foo {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scala/class",
+    "languageId": "scala",
+    "facet": "class",
+    "code": "class Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12",
+            "removal": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/typescript.core/class",
+    "languageId": "typescript.core",
+    "facet": "class",
+    "code": "abstract class Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:21",
+            "removal": "0:0-0:21"
+          }
+        ],
+        "domain": "0:0-0:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/typescript.core/class2",
+    "languageId": "typescript.core",
+    "facet": "class",
+    "code": "export abstract class Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:28",
+            "removal": "0:0-0:28"
+          }
+        ],
+        "domain": "0:0-0:28"
+      }
+    ]
+  },
+  {
+    "name": "scopes/typescript.core/class3",
+    "languageId": "typescript.core",
+    "facet": "class",
+    "code": "@bar\nabstract class Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:21",
+            "removal": "0:0-1:21"
+          }
+        ],
+        "domain": "0:0-1:21"
+      }
+    ]
+  }
 ]

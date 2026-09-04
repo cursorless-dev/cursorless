@@ -1,235 +1,235 @@
 [
-	{
-		"name": "scopes/properties/comment.line",
-		"languageId": "properties",
-		"facet": "comment.line",
-		"code": "# Hello world",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/properties/key.mapPair.iteration",
-		"languageId": "properties",
-		"facet": "key.mapPair.iteration",
-		"code": "\nfoo=0\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/properties/key.mapPair",
-		"languageId": "properties",
-		"facet": "key.mapPair",
-		"code": "foo = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:6"
-					}
-				],
-				"domain": "0:0-0:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/properties/key.mapPair2",
-		"languageId": "properties",
-		"facet": "key.mapPair",
-		"code": "foo.bar=0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:8"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/properties/name.iteration.document",
-		"languageId": "properties",
-		"facet": "name.iteration.document",
-		"code": "\nfoo=0\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/properties/name.variable.initialized",
-		"languageId": "properties",
-		"facet": "name.variable.initialized",
-		"code": "foo = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:6"
-					}
-				],
-				"domain": "0:0-0:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/properties/name.variable.initialized2",
-		"languageId": "properties",
-		"facet": "name.variable.initialized",
-		"code": "foo.bar=0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:8"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/properties/statement.iteration.document",
-		"languageId": "properties",
-		"facet": "statement.iteration.document",
-		"code": "\nfoo=0\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/properties/statement.variable.initialized",
-		"languageId": "properties",
-		"facet": "statement.variable.initialized",
-		"code": "foo = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/properties/textFragment.comment.line",
-		"languageId": "properties",
-		"facet": "textFragment.comment.line",
-		"code": "# Hello world",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/properties/value.iteration.document",
-		"languageId": "properties",
-		"facet": "value.iteration.document",
-		"code": "\nfoo=0\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/properties/value.mapPair.iteration",
-		"languageId": "properties",
-		"facet": "value.mapPair.iteration",
-		"code": "\nfoo=0\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/properties/value.mapPair",
-		"languageId": "properties",
-		"facet": "value.mapPair",
-		"code": "foo = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:7",
-						"removal": "0:3-0:7"
-					}
-				],
-				"domain": "0:0-0:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/properties/value.variable",
-		"languageId": "properties",
-		"facet": "value.variable",
-		"code": "foo = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:7",
-						"removal": "0:3-0:7"
-					}
-				],
-				"domain": "0:0-0:7"
-			}
-		]
-	}
+  {
+    "name": "scopes/properties/comment.line",
+    "languageId": "properties",
+    "facet": "comment.line",
+    "code": "# Hello world",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/properties/key.mapPair.iteration",
+    "languageId": "properties",
+    "facet": "key.mapPair.iteration",
+    "code": "\nfoo=0\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/properties/key.mapPair",
+    "languageId": "properties",
+    "facet": "key.mapPair",
+    "code": "foo = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:6"
+          }
+        ],
+        "domain": "0:0-0:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/properties/key.mapPair2",
+    "languageId": "properties",
+    "facet": "key.mapPair",
+    "code": "foo.bar=0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/properties/name.iteration.document",
+    "languageId": "properties",
+    "facet": "name.iteration.document",
+    "code": "\nfoo=0\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/properties/name.variable.initialized",
+    "languageId": "properties",
+    "facet": "name.variable.initialized",
+    "code": "foo = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:6"
+          }
+        ],
+        "domain": "0:0-0:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/properties/name.variable.initialized2",
+    "languageId": "properties",
+    "facet": "name.variable.initialized",
+    "code": "foo.bar=0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/properties/statement.iteration.document",
+    "languageId": "properties",
+    "facet": "statement.iteration.document",
+    "code": "\nfoo=0\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/properties/statement.variable.initialized",
+    "languageId": "properties",
+    "facet": "statement.variable.initialized",
+    "code": "foo = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/properties/textFragment.comment.line",
+    "languageId": "properties",
+    "facet": "textFragment.comment.line",
+    "code": "# Hello world",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/properties/value.iteration.document",
+    "languageId": "properties",
+    "facet": "value.iteration.document",
+    "code": "\nfoo=0\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/properties/value.mapPair.iteration",
+    "languageId": "properties",
+    "facet": "value.mapPair.iteration",
+    "code": "\nfoo=0\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/properties/value.mapPair",
+    "languageId": "properties",
+    "facet": "value.mapPair",
+    "code": "foo = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:7",
+            "removal": "0:3-0:7"
+          }
+        ],
+        "domain": "0:0-0:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/properties/value.variable",
+    "languageId": "properties",
+    "facet": "value.variable",
+    "code": "foo = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:7",
+            "removal": "0:3-0:7"
+          }
+        ],
+        "domain": "0:0-0:7"
+      }
+    ]
+  }
 ]

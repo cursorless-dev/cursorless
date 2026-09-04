@@ -1,2463 +1,2463 @@
 [
-	{
-		"name": "scopes/c/collectionItem.unenclosed.iteration",
-		"languageId": "c",
-		"facet": "collectionItem.unenclosed.iteration",
-		"code": "int foo, bar;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:12"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/c/collectionItem.unenclosed.multiLine",
-		"languageId": "c",
-		"facet": "collectionItem.unenclosed.multiLine",
-		"code": "int foo,\n    bar;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:8"
-					}
-				],
-				"domain": "0:0-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:4-0:7",
-						"removal": "0:4-1:4"
-					}
-				],
-				"domain": "0:4-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "0:7-1:7"
-					}
-				],
-				"domain": "1:4-1:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/c/collectionItem.unenclosed.singleLine",
-		"languageId": "c",
-		"facet": "collectionItem.unenclosed.singleLine",
-		"code": "int foo, bar;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:4-0:7",
-						"removal": "0:4-0:9"
-					}
-				],
-				"domain": "0:4-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-0:12",
-						"removal": "0:7-0:12"
-					}
-				],
-				"domain": "0:9-0:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-0:13",
-						"removal": "0:7-0:13"
-					}
-				],
-				"domain": "0:9-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/csharp/collectionItem.unenclosed.iteration",
-		"languageId": "csharp",
-		"facet": "collectionItem.unenclosed.iteration",
-		"code": "int foo, bar;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:12"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/csharp/collectionItem.unenclosed.iteration2",
-		"languageId": "csharp",
-		"facet": "collectionItem.unenclosed.iteration",
-		"code": "class Foo {\n    private int bar, baz;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:25"
-					}
-				],
-				"domain": "0:11-2:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:25"
-					}
-				],
-				"domain": "1:0-1:25"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:16-1:24"
-					}
-				],
-				"domain": "1:4-1:25"
-			}
-		]
-	},
-	{
-		"name": "scopes/csharp/collectionItem.unenclosed.multiLine",
-		"languageId": "csharp",
-		"facet": "collectionItem.unenclosed.multiLine",
-		"code": "int foo,\n    bar;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:8"
-					}
-				],
-				"domain": "0:0-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:4-0:7",
-						"removal": "0:4-1:4"
-					}
-				],
-				"domain": "0:4-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "0:7-1:7"
-					}
-				],
-				"domain": "1:4-1:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/csharp/collectionItem.unenclosed.multiLine2",
-		"languageId": "csharp",
-		"facet": "collectionItem.unenclosed.multiLine",
-		"code": "class Foo {\n    private int bar,\n        baz;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:19",
-						"removal": "1:4-2:8"
-					}
-				],
-				"domain": "1:4-1:19"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:16-1:19",
-						"removal": "1:16-2:8"
-					}
-				],
-				"domain": "1:16-1:19"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:8-2:11",
-						"removal": "1:19-2:11"
-					}
-				],
-				"domain": "2:8-2:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:8-2:12",
-						"removal": "1:19-2:12"
-					}
-				],
-				"domain": "2:8-2:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/csharp/collectionItem.unenclosed.singleLine",
-		"languageId": "csharp",
-		"facet": "collectionItem.unenclosed.singleLine",
-		"code": "int foo, bar;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:4-0:7",
-						"removal": "0:4-0:9"
-					}
-				],
-				"domain": "0:4-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-0:12",
-						"removal": "0:7-0:12"
-					}
-				],
-				"domain": "0:9-0:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-0:13",
-						"removal": "0:7-0:13"
-					}
-				],
-				"domain": "0:9-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/csharp/collectionItem.unenclosed.singleLine2",
-		"languageId": "csharp",
-		"facet": "collectionItem.unenclosed.singleLine",
-		"code": "class Foo {\n    private int bar, baz;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:19",
-						"removal": "1:4-1:21"
-					}
-				],
-				"domain": "1:4-1:19"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:16-1:19",
-						"removal": "1:16-1:21"
-					}
-				],
-				"domain": "1:16-1:19"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:21-1:24",
-						"removal": "1:19-1:24"
-					}
-				],
-				"domain": "1:21-1:24"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:21-1:25",
-						"removal": "1:19-1:25"
-					}
-				],
-				"domain": "1:21-1:25"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/collectionItem.unenclosed.iteration",
-		"languageId": "css",
-		"facet": "collectionItem.unenclosed.iteration",
-		"code": "* {\n    color: red;\n    padding: 1rem;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-2:18"
-					}
-				],
-				"domain": "0:3-3:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/collectionItem.unenclosed.multiLine",
-		"languageId": "css",
-		"facet": "collectionItem.unenclosed.multiLine",
-		"code": "* {\n    color: red;\n    padding: 1rem;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:15",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:15"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-2:18",
-						"removal": "1:0-3:0"
-					}
-				],
-				"domain": "1:4-2:18"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:18",
-						"removal": "2:0-3:0"
-					}
-				],
-				"domain": "2:4-2:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/dart/collectionItem.unenclosed.iteration",
-		"languageId": "dart",
-		"facet": "collectionItem.unenclosed.iteration",
-		"code": "var foo, bar;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:12"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/dart/collectionItem.unenclosed.multiLine",
-		"languageId": "dart",
-		"facet": "collectionItem.unenclosed.multiLine",
-		"code": "var foo,\n        bar;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:8"
-					}
-				],
-				"domain": "0:0-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:4-0:7",
-						"removal": "0:4-1:8"
-					}
-				],
-				"domain": "0:4-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:8-1:11",
-						"removal": "0:7-1:11"
-					}
-				],
-				"domain": "1:8-1:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/dart/collectionItem.unenclosed.singleLine",
-		"languageId": "dart",
-		"facet": "collectionItem.unenclosed.singleLine",
-		"code": "var foo, bar;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:4-0:7",
-						"removal": "0:4-0:9"
-					}
-				],
-				"domain": "0:4-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-0:12",
-						"removal": "0:7-0:12"
-					}
-				],
-				"domain": "0:9-0:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-0:13",
-						"removal": "0:7-0:13"
-					}
-				],
-				"domain": "0:9-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/go/collectionItem.unenclosed.iteration",
-		"languageId": "go",
-		"facet": "collectionItem.unenclosed.iteration",
-		"code": "foo, bar := 1, 2",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:8"
-					}
-				],
-				"domain": "0:0-0:8"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:0-0:16"
-					}
-				],
-				"domain": "0:0-0:16"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:12-0:16"
-					}
-				],
-				"domain": "0:12-0:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/go/collectionItem.unenclosed.multiLine",
-		"languageId": "go",
-		"facet": "collectionItem.unenclosed.multiLine",
-		"code": "foo,\n    baz := 1, 2",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-1:4"
-					}
-				],
-				"domain": "0:0-0:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "0:3-1:7"
-					}
-				],
-				"domain": "1:4-1:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:12",
-						"removal": "1:4-1:14"
-					}
-				],
-				"domain": "1:4-1:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:11-1:12",
-						"removal": "1:11-1:14"
-					}
-				],
-				"domain": "1:11-1:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:14-1:15",
-						"removal": "1:12-1:15"
-					}
-				],
-				"domain": "1:14-1:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/go/collectionItem.unenclosed.singleLine",
-		"languageId": "go",
-		"facet": "collectionItem.unenclosed.singleLine",
-		"code": "foo, bar := 1, 2",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:5"
-					}
-				],
-				"domain": "0:0-0:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:5-0:8",
-						"removal": "0:3-0:8"
-					}
-				],
-				"domain": "0:5-0:8"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:5-0:13",
-						"removal": "0:5-0:15"
-					}
-				],
-				"domain": "0:5-0:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:12-0:13",
-						"removal": "0:12-0:15"
-					}
-				],
-				"domain": "0:12-0:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:15-0:16",
-						"removal": "0:13-0:16"
-					}
-				],
-				"domain": "0:15-0:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/collectionItem.unenclosed.iteration",
-		"languageId": "java",
-		"facet": "collectionItem.unenclosed.iteration",
-		"code": "public class Foo {\n    int aaa, bbb;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:17"
-					}
-				],
-				"domain": "0:18-2:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:17"
-					}
-				],
-				"domain": "1:0-1:17"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:8-1:16"
-					}
-				],
-				"domain": "1:4-1:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/collectionItem.unenclosed.iteration2",
-		"languageId": "java",
-		"facet": "collectionItem.unenclosed.iteration",
-		"code": "class Foo {\n    void bar() {\n        int aaa, bbb;\n    }\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-3:5"
-					}
-				],
-				"domain": "0:11-4:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:8-2:21"
-					}
-				],
-				"domain": "1:16-3:4"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:8-2:21"
-					}
-				],
-				"domain": "2:0-2:21"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:12-2:20"
-					}
-				],
-				"domain": "2:8-2:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/collectionItem.unenclosed.iteration3",
-		"languageId": "java",
-		"facet": "collectionItem.unenclosed.iteration",
-		"code": "class Foo {\n    void bar() throws AException, BException {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:47"
-					}
-				],
-				"domain": "0:11-2:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:47"
-					}
-				],
-				"domain": "1:0-1:47"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:22-1:44"
-					}
-				],
-				"domain": "1:15-1:44"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/collectionItem.unenclosed.multiLine",
-		"languageId": "java",
-		"facet": "collectionItem.unenclosed.multiLine",
-		"code": "class Foo {\n    int aaa,\n        bbb;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:11",
-						"removal": "1:4-2:8"
-					}
-				],
-				"domain": "1:4-1:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:8-1:11",
-						"removal": "1:8-2:8"
-					}
-				],
-				"domain": "1:8-1:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:8-2:11",
-						"removal": "1:11-2:11"
-					}
-				],
-				"domain": "2:8-2:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:8-2:12",
-						"removal": "1:11-2:12"
-					}
-				],
-				"domain": "2:8-2:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/collectionItem.unenclosed.multiLine2",
-		"languageId": "java",
-		"facet": "collectionItem.unenclosed.multiLine",
-		"code": "class Foo {\n    void bar() {\n        int aaa,\n            bbb;\n    }\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-4:5",
-						"removal": "1:0-5:0"
-					}
-				],
-				"domain": "1:4-4:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:8-2:15",
-						"removal": "2:8-3:12"
-					}
-				],
-				"domain": "2:8-2:15"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:12-2:15",
-						"removal": "2:12-3:12"
-					}
-				],
-				"domain": "2:12-2:15"
-			},
-			{
-				"targets": [
-					{
-						"content": "3:12-3:15",
-						"removal": "2:15-3:15"
-					}
-				],
-				"domain": "3:12-3:15"
-			},
-			{
-				"targets": [
-					{
-						"content": "3:12-3:16",
-						"removal": "2:15-3:16"
-					}
-				],
-				"domain": "3:12-3:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/collectionItem.unenclosed.multiLine3",
-		"languageId": "java",
-		"facet": "collectionItem.unenclosed.multiLine",
-		"code": "class Foo {\n    void bar() throws AException,\n        BException {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:32",
-						"removal": "1:4-2:8"
-					}
-				],
-				"domain": "1:4-1:32"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:22-1:32",
-						"removal": "1:22-2:8"
-					}
-				],
-				"domain": "1:22-1:32"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:8-2:18",
-						"removal": "1:32-2:18"
-					}
-				],
-				"domain": "2:8-2:18"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:8-2:21",
-						"removal": "1:32-2:21"
-					}
-				],
-				"domain": "2:8-2:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/collectionItem.unenclosed.singleLine",
-		"languageId": "java",
-		"facet": "collectionItem.unenclosed.singleLine",
-		"code": "class Foo {\n    int aaa, bbb;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:11",
-						"removal": "1:4-1:13"
-					}
-				],
-				"domain": "1:4-1:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:8-1:11",
-						"removal": "1:8-1:13"
-					}
-				],
-				"domain": "1:8-1:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:13-1:16",
-						"removal": "1:11-1:16"
-					}
-				],
-				"domain": "1:13-1:16"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:13-1:17",
-						"removal": "1:11-1:17"
-					}
-				],
-				"domain": "1:13-1:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/collectionItem.unenclosed.singleLine2",
-		"languageId": "java",
-		"facet": "collectionItem.unenclosed.singleLine",
-		"code": "class Foo {\n    void bar() {\n        int aaa, bbb;\n    }\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-3:5",
-						"removal": "1:0-4:0"
-					}
-				],
-				"domain": "1:4-3:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:8-2:15",
-						"removal": "2:8-2:17"
-					}
-				],
-				"domain": "2:8-2:15"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:12-2:15",
-						"removal": "2:12-2:17"
-					}
-				],
-				"domain": "2:12-2:15"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:17-2:20",
-						"removal": "2:15-2:20"
-					}
-				],
-				"domain": "2:17-2:20"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:17-2:21",
-						"removal": "2:15-2:21"
-					}
-				],
-				"domain": "2:17-2:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/collectionItem.unenclosed.singleLine3",
-		"languageId": "java",
-		"facet": "collectionItem.unenclosed.singleLine",
-		"code": "class Foo {\n    void bar() throws AException, BException {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:32",
-						"removal": "1:4-1:34"
-					}
-				],
-				"domain": "1:4-1:32"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:22-1:32",
-						"removal": "1:22-1:34"
-					}
-				],
-				"domain": "1:22-1:32"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:34-1:44",
-						"removal": "1:32-1:44"
-					}
-				],
-				"domain": "1:34-1:44"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:34-1:47",
-						"removal": "1:32-1:47"
-					}
-				],
-				"domain": "1:34-1:47"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/collectionItem.unenclosed.iteration",
-		"languageId": "javascript.core",
-		"facet": "collectionItem.unenclosed.iteration",
-		"code": "let foo, bar;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:12"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/collectionItem.unenclosed.multiLine",
-		"languageId": "javascript.core",
-		"facet": "collectionItem.unenclosed.multiLine",
-		"code": "let foo,\n    bar;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:8"
-					}
-				],
-				"domain": "0:0-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:4-0:7",
-						"removal": "0:4-1:4"
-					}
-				],
-				"domain": "0:4-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "0:7-1:7"
-					}
-				],
-				"domain": "1:4-1:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/collectionItem.unenclosed.singleLine",
-		"languageId": "javascript.core",
-		"facet": "collectionItem.unenclosed.singleLine",
-		"code": "let foo, bar;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:4-0:7",
-						"removal": "0:4-0:9"
-					}
-				],
-				"domain": "0:4-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-0:12",
-						"removal": "0:7-0:12"
-					}
-				],
-				"domain": "0:9-0:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-0:13",
-						"removal": "0:7-0:13"
-					}
-				],
-				"domain": "0:9-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/collectionItem.unenclosed.iteration",
-		"languageId": "latex",
-		"facet": "collectionItem.unenclosed.iteration",
-		"code": "\\begin{itemize}\n  \\item one\n  \\item two\n\\end{itemize}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:15-3:0"
-					}
-				],
-				"domain": "0:0-3:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:7-0:14"
-					}
-				],
-				"domain": "0:7-0:14"
-			},
-			{
-				"targets": [
-					{
-						"content": "3:5-3:12"
-					}
-				],
-				"domain": "3:5-3:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/collectionItem.unenclosed.multiLine",
-		"languageId": "latex",
-		"facet": "collectionItem.unenclosed.multiLine",
-		"code": "\\begin{itemize}\n  \\item one\n  \\item two\n\\end{itemize}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:7-0:14",
-						"removal": "0:7-0:14"
-					}
-				],
-				"domain": "0:7-0:14"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:8-1:11",
-						"removal": "1:2-1:11"
-					}
-				],
-				"domain": "1:8-1:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:8-2:11",
-						"removal": "2:2-2:11"
-					}
-				],
-				"domain": "2:8-2:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "3:5-3:12",
-						"removal": "3:5-3:12"
-					}
-				],
-				"domain": "3:5-3:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/collectionItem.unenclosed.iteration",
-		"languageId": "lua",
-		"facet": "collectionItem.unenclosed.iteration",
-		"code": "local a, b, c = 1, 2, 3",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:23"
-					}
-				],
-				"domain": "0:0-0:23"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:6-0:13"
-					}
-				],
-				"domain": "0:6-0:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:16-0:23"
-					}
-				],
-				"domain": "0:16-0:23"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/collectionItem.unenclosed.multiLine",
-		"languageId": "lua",
-		"facet": "collectionItem.unenclosed.multiLine",
-		"code": "local a,\n  b,\n  c =\n  1,\n  2,\n  3",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:8"
-					}
-				],
-				"domain": "0:0-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:6-0:7",
-						"removal": "0:6-1:2"
-					}
-				],
-				"domain": "0:6-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-1:3",
-						"removal": "1:2-2:2"
-					}
-				],
-				"domain": "1:2-1:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:2-2:3",
-						"removal": "1:3-2:3"
-					}
-				],
-				"domain": "2:2-2:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "3:2-3:3",
-						"removal": "3:2-4:2"
-					}
-				],
-				"domain": "3:2-3:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "4:2-4:3",
-						"removal": "4:2-5:2"
-					}
-				],
-				"domain": "4:2-4:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "5:2-5:3",
-						"removal": "4:3-5:3"
-					}
-				],
-				"domain": "5:2-5:3"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/collectionItem.unenclosed.singleLine",
-		"languageId": "lua",
-		"facet": "collectionItem.unenclosed.singleLine",
-		"code": "local a, b, c = 1, 2, 3",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:6-0:7",
-						"removal": "0:6-0:9"
-					}
-				],
-				"domain": "0:6-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-0:10",
-						"removal": "0:9-0:12"
-					}
-				],
-				"domain": "0:9-0:10"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:12-0:13",
-						"removal": "0:10-0:13"
-					}
-				],
-				"domain": "0:12-0:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:12-0:17",
-						"removal": "0:12-0:19"
-					}
-				],
-				"domain": "0:12-0:17"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:16-0:17",
-						"removal": "0:16-0:19"
-					}
-				],
-				"domain": "0:16-0:17"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:19-0:20",
-						"removal": "0:19-0:22"
-					}
-				],
-				"domain": "0:19-0:20"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:22-0:23",
-						"removal": "0:20-0:23"
-					}
-				],
-				"domain": "0:22-0:23"
-			}
-		]
-	},
-	{
-		"name": "scopes/markdown/collectionItem.unenclosed.iteration",
-		"languageId": "markdown",
-		"facet": "collectionItem.unenclosed.iteration",
-		"code": "- This is the first level of a list.\n  - This is the second level of a list.\n- This is the first level of a list again.",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:42"
-					}
-				],
-				"domain": "0:0-2:42"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-2:0"
-					}
-				],
-				"domain": "1:2-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/markdown/collectionItem.unenclosed.multiLine",
-		"languageId": "markdown",
-		"facet": "collectionItem.unenclosed.multiLine",
-		"code": "- This is the first level of a list.\n  - This is the second level of a list.\n- This is the first level of a list again.",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-1:39",
-						"removal": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-1:39"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:39",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:2-1:39"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:2-2:42",
-						"removal": "2:0-2:42"
-					}
-				],
-				"domain": "2:0-2:42"
-			}
-		]
-	},
-	{
-		"name": "scopes/plaintext/collectionItem/collectionItem.textual.iteration",
-		"languageId": "plaintext",
-		"facet": "collectionItem.textual.iteration",
-		"code": "(1, 2, 3)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:8"
-					}
-				],
-				"domain": "0:1-0:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/plaintext/collectionItem/collectionItem.textual.iteration2",
-		"languageId": "plaintext",
-		"facet": "collectionItem.textual.iteration",
-		"code": "[1, 2, 3]",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:8"
-					}
-				],
-				"domain": "0:1-0:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/plaintext/collectionItem/collectionItem.textual.iteration3",
-		"languageId": "plaintext",
-		"facet": "collectionItem.textual.iteration",
-		"code": "{1, 2, 3}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:8"
-					}
-				],
-				"domain": "0:1-0:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/plaintext/collectionItem/collectionItem.textual.iteration4",
-		"languageId": "plaintext",
-		"facet": "collectionItem.textual.iteration",
-		"code": "<1, 2, 3>",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:8"
-					}
-				],
-				"domain": "0:1-0:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/plaintext/collectionItem/collectionItem.textual.iteration5",
-		"languageId": "plaintext",
-		"facet": "collectionItem.textual.iteration",
-		"code": "( 1, 2, 3 )",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-0:9"
-					}
-				],
-				"domain": "0:1-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/plaintext/collectionItem/collectionItem.textual.iteration6",
-		"languageId": "plaintext",
-		"facet": "collectionItem.textual.iteration",
-		"code": "[\n    1,\n    2,\n    3,\n]",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-3:6"
-					}
-				],
-				"domain": "0:1-4:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:6"
-					}
-				],
-				"domain": "1:0-1:6"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:6"
-					}
-				],
-				"domain": "2:0-2:6"
-			},
-			{
-				"targets": [
-					{
-						"content": "3:4-3:6"
-					}
-				],
-				"domain": "3:0-3:6"
-			}
-		]
-	},
-	{
-		"name": "scopes/plaintext/collectionItem/collectionItem.textual.iteration7",
-		"languageId": "plaintext",
-		"facet": "collectionItem.textual.iteration",
-		"code": "{\n    a: 1,\n    b: 2,\n    c: 3,\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-3:9"
-					}
-				],
-				"domain": "0:1-4:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:9"
-					}
-				],
-				"domain": "1:0-1:9"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:9"
-					}
-				],
-				"domain": "2:0-2:9"
-			},
-			{
-				"targets": [
-					{
-						"content": "3:4-3:9"
-					}
-				],
-				"domain": "3:0-3:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/plaintext/collectionItem/collectionItem.textual",
-		"languageId": "plaintext",
-		"facet": "collectionItem.textual",
-		"code": "(1, 2, 3)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:2",
-						"removal": "0:1-0:4"
-					}
-				],
-				"domain": "0:1-0:2"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:4-0:5",
-						"removal": "0:4-0:7"
-					}
-				],
-				"domain": "0:4-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:7-0:8",
-						"removal": "0:5-0:8"
-					}
-				],
-				"domain": "0:7-0:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/plaintext/collectionItem/collectionItem.textual10",
-		"languageId": "plaintext",
-		"facet": "collectionItem.textual",
-		"code": "aaa, ( bbb, ccc )",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:5"
-					}
-				],
-				"domain": "0:0-0:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:5-0:17",
-						"removal": "0:3-0:17"
-					}
-				],
-				"domain": "0:5-0:17"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:7-0:10",
-						"removal": "0:7-0:12"
-					}
-				],
-				"domain": "0:7-0:10"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:12-0:15",
-						"removal": "0:10-0:15"
-					}
-				],
-				"domain": "0:12-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/plaintext/collectionItem/collectionItem.textual11",
-		"languageId": "plaintext",
-		"facet": "collectionItem.textual",
-		"code": "[\n    1,\n\n    2,\n]",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:5",
-						"removal": "1:4-3:4"
-					}
-				],
-				"domain": "1:4-1:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "3:4-3:5",
-						"removal": "1:5-3:5"
-					}
-				],
-				"domain": "3:4-3:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/plaintext/collectionItem/collectionItem.textual12",
-		"languageId": "plaintext",
-		"facet": "collectionItem.textual",
-		"code": "[\n\n    1\n\n]",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "2:4-2:5",
-						"removal": "2:0-4:0"
-					}
-				],
-				"domain": "2:4-2:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/plaintext/collectionItem/collectionItem.textual13",
-		"languageId": "plaintext",
-		"facet": "collectionItem.textual",
-		"code": "(aaa)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:4",
-						"removal": "0:1-0:4"
-					}
-				],
-				"domain": "0:1-0:4"
-			}
-		]
-	},
-	{
-		"name": "scopes/plaintext/collectionItem/collectionItem.textual14",
-		"languageId": "plaintext",
-		"facet": "collectionItem.textual",
-		"code": "( aaa )",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-0:5",
-						"removal": "0:2-0:6"
-					}
-				],
-				"domain": "0:2-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/plaintext/collectionItem/collectionItem.textual15",
-		"languageId": "plaintext",
-		"facet": "collectionItem.textual",
-		"code": "{\n    language: {},\n    choices: {\n        disabled: true,\n        items: {\n            colWidth: [2, 10]\n        }\n    },\n    versions: {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:16",
-						"removal": "1:4-2:4"
-					}
-				],
-				"domain": "1:4-1:16"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-7:5",
-						"removal": "2:4-8:4"
-					}
-				],
-				"domain": "2:4-7:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "3:8-3:22",
-						"removal": "3:8-4:8"
-					}
-				],
-				"domain": "3:8-3:22"
-			},
-			{
-				"targets": [
-					{
-						"content": "4:8-6:9",
-						"removal": "3:22-6:9"
-					}
-				],
-				"domain": "4:8-6:9"
-			},
-			{
-				"targets": [
-					{
-						"content": "5:12-5:29",
-						"removal": "5:0-6:0"
-					}
-				],
-				"domain": "5:12-5:29"
-			},
-			{
-				"targets": [
-					{
-						"content": "5:23-5:24",
-						"removal": "5:23-5:26"
-					}
-				],
-				"domain": "5:23-5:24"
-			},
-			{
-				"targets": [
-					{
-						"content": "5:26-5:28",
-						"removal": "5:24-5:28"
-					}
-				],
-				"domain": "5:26-5:28"
-			},
-			{
-				"targets": [
-					{
-						"content": "8:4-8:16",
-						"removal": "7:5-8:16"
-					}
-				],
-				"domain": "8:4-8:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/plaintext/collectionItem/collectionItem.textual2",
-		"languageId": "plaintext",
-		"facet": "collectionItem.textual",
-		"code": "[1, 2, 3]",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:2",
-						"removal": "0:1-0:4"
-					}
-				],
-				"domain": "0:1-0:2"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:4-0:5",
-						"removal": "0:4-0:7"
-					}
-				],
-				"domain": "0:4-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:7-0:8",
-						"removal": "0:5-0:8"
-					}
-				],
-				"domain": "0:7-0:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/plaintext/collectionItem/collectionItem.textual3",
-		"languageId": "plaintext",
-		"facet": "collectionItem.textual",
-		"code": "{1, 2, 3}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:2",
-						"removal": "0:1-0:4"
-					}
-				],
-				"domain": "0:1-0:2"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:4-0:5",
-						"removal": "0:4-0:7"
-					}
-				],
-				"domain": "0:4-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:7-0:8",
-						"removal": "0:5-0:8"
-					}
-				],
-				"domain": "0:7-0:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/plaintext/collectionItem/collectionItem.textual4",
-		"languageId": "plaintext",
-		"facet": "collectionItem.textual",
-		"code": "<1, 2, 3>",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:2",
-						"removal": "0:1-0:4"
-					}
-				],
-				"domain": "0:1-0:2"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:4-0:5",
-						"removal": "0:4-0:7"
-					}
-				],
-				"domain": "0:4-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:7-0:8",
-						"removal": "0:5-0:8"
-					}
-				],
-				"domain": "0:7-0:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/plaintext/collectionItem/collectionItem.textual5",
-		"languageId": "plaintext",
-		"facet": "collectionItem.textual",
-		"code": "( 1, 2, 3 )",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-0:3",
-						"removal": "0:2-0:5"
-					}
-				],
-				"domain": "0:2-0:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:5-0:6",
-						"removal": "0:5-0:8"
-					}
-				],
-				"domain": "0:5-0:6"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:8-0:9",
-						"removal": "0:6-0:9"
-					}
-				],
-				"domain": "0:8-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/plaintext/collectionItem/collectionItem.textual6",
-		"languageId": "plaintext",
-		"facet": "collectionItem.textual",
-		"code": "[\n    1,\n    2,\n    3,\n]",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:5",
-						"removal": "1:4-2:4"
-					}
-				],
-				"domain": "1:4-1:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:5",
-						"removal": "2:4-3:4"
-					}
-				],
-				"domain": "2:4-2:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "3:4-3:5",
-						"removal": "2:5-3:5"
-					}
-				],
-				"domain": "3:4-3:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/plaintext/collectionItem/collectionItem.textual7",
-		"languageId": "plaintext",
-		"facet": "collectionItem.textual",
-		"code": "{\n    a: 1,\n    b: 2,\n    c: 3,\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:8",
-						"removal": "1:4-2:4"
-					}
-				],
-				"domain": "1:4-1:8"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:8",
-						"removal": "2:4-3:4"
-					}
-				],
-				"domain": "2:4-2:8"
-			},
-			{
-				"targets": [
-					{
-						"content": "3:4-3:8",
-						"removal": "2:8-3:8"
-					}
-				],
-				"domain": "3:4-3:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/plaintext/collectionItem/collectionItem.textual8",
-		"languageId": "plaintext",
-		"facet": "collectionItem.textual",
-		"code": "[1, \"2, 3\"]",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:2",
-						"removal": "0:1-0:4"
-					}
-				],
-				"domain": "0:1-0:2"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:4-0:10",
-						"removal": "0:2-0:10"
-					}
-				],
-				"domain": "0:4-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/plaintext/collectionItem/collectionItem.textual9",
-		"languageId": "plaintext",
-		"facet": "collectionItem.textual",
-		"code": "aaa, bbb",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:5"
-					}
-				],
-				"domain": "0:0-0:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:5-0:8",
-						"removal": "0:3-0:8"
-					}
-				],
-				"domain": "0:5-0:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/python/collectionItem/collectionItem.unenclosed.iteration",
-		"languageId": "python",
-		"facet": "collectionItem.unenclosed.iteration",
-		"code": "import foo, bar",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:7-0:15"
-					}
-				],
-				"domain": "0:0-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/python/collectionItem/collectionItem.unenclosed.iteration2",
-		"languageId": "python",
-		"facet": "collectionItem.unenclosed.iteration",
-		"code": "from foo import bar, baz",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:16-0:24"
-					}
-				],
-				"domain": "0:0-0:24"
-			}
-		]
-	},
-	{
-		"name": "scopes/python/collectionItem/collectionItem.unenclosed.iteration3",
-		"languageId": "python",
-		"facet": "collectionItem.unenclosed.iteration",
-		"code": "def foo():\n    global bar, baz",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:19"
-					}
-				],
-				"domain": "1:0-1:19"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:11-1:19"
-					}
-				],
-				"domain": "1:4-1:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/python/collectionItem/collectionItem.unenclosed.iteration4",
-		"languageId": "python",
-		"facet": "collectionItem.unenclosed.iteration",
-		"code": "for key, value in map.items():\n    pass",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:30"
-					}
-				],
-				"domain": "0:0-0:30"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:4-0:14"
-					}
-				],
-				"domain": "0:4-0:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/python/collectionItem/collectionItem.unenclosed.singleLine",
-		"languageId": "python",
-		"facet": "collectionItem.unenclosed.singleLine",
-		"code": "import foo, bar",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:10",
-						"removal": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:10"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:7-0:10",
-						"removal": "0:7-0:12"
-					}
-				],
-				"domain": "0:7-0:10"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:12-0:15",
-						"removal": "0:10-0:15"
-					}
-				],
-				"domain": "0:12-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/python/collectionItem/collectionItem.unenclosed.singleLine2",
-		"languageId": "python",
-		"facet": "collectionItem.unenclosed.singleLine",
-		"code": "from foo import bar, baz",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:19",
-						"removal": "0:0-0:21"
-					}
-				],
-				"domain": "0:0-0:19"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:16-0:19",
-						"removal": "0:16-0:21"
-					}
-				],
-				"domain": "0:16-0:19"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:21-0:24",
-						"removal": "0:19-0:24"
-					}
-				],
-				"domain": "0:21-0:24"
-			}
-		]
-	},
-	{
-		"name": "scopes/python/collectionItem/collectionItem.unenclosed.singleLine3",
-		"languageId": "python",
-		"facet": "collectionItem.unenclosed.singleLine",
-		"code": "def foo():\n    global bar, baz",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:14",
-						"removal": "1:4-1:16"
-					}
-				],
-				"domain": "1:4-1:14"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:11-1:14",
-						"removal": "1:11-1:16"
-					}
-				],
-				"domain": "1:11-1:14"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:16-1:19",
-						"removal": "1:14-1:19"
-					}
-				],
-				"domain": "1:16-1:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/python/collectionItem/collectionItem.unenclosed.singleLine4",
-		"languageId": "python",
-		"facet": "collectionItem.unenclosed.singleLine",
-		"code": "for key, value in map.items():\n    pass",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:4-0:7",
-						"removal": "0:4-0:9"
-					}
-				],
-				"domain": "0:4-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-0:14",
-						"removal": "0:7-0:14"
-					}
-				],
-				"domain": "0:9-0:14"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-0:30",
-						"removal": "0:7-0:30"
-					}
-				],
-				"domain": "0:9-0:30"
-			}
-		]
-	},
-	{
-		"name": "scopes/scala/collectionItem/collectionItem.unenclosed.iteration",
-		"languageId": "scala",
-		"facet": "collectionItem.unenclosed.iteration",
-		"code": "var a, b, c = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:11"
-					}
-				],
-				"domain": "0:0-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/scala/collectionItem/collectionItem.unenclosed.multiLine",
-		"languageId": "scala",
-		"facet": "collectionItem.unenclosed.multiLine",
-		"code": "var a,\n    b,\n    c = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:5",
-						"removal": "0:0-0:6"
-					}
-				],
-				"domain": "0:0-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:4-0:5",
-						"removal": "0:4-1:4"
-					}
-				],
-				"domain": "0:4-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:5",
-						"removal": "1:4-2:4"
-					}
-				],
-				"domain": "1:4-1:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:5",
-						"removal": "1:5-2:5"
-					}
-				],
-				"domain": "2:4-2:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/scala/collectionItem/collectionItem.unenclosed.singleLine",
-		"languageId": "scala",
-		"facet": "collectionItem.unenclosed.singleLine",
-		"code": "var a, b, c = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:5",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:4-0:5",
-						"removal": "0:4-0:7"
-					}
-				],
-				"domain": "0:4-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:7-0:8",
-						"removal": "0:7-0:10"
-					}
-				],
-				"domain": "0:7-0:8"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:10-0:11",
-						"removal": "0:8-0:11"
-					}
-				],
-				"domain": "0:10-0:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:10-0:15",
-						"removal": "0:8-0:15"
-					}
-				],
-				"domain": "0:10-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/yaml/collectionItem.unenclosed.iteration",
-		"languageId": "yaml",
-		"facet": "collectionItem.unenclosed.iteration",
-		"code": "items:\n  - 1\n  - 2\n  - 3",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-3:5"
-					}
-				],
-				"domain": "0:0-3:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-3:5"
-					}
-				],
-				"domain": "1:2-3:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/yaml/collectionItem.unenclosed.multiLine",
-		"languageId": "yaml",
-		"facet": "collectionItem.unenclosed.multiLine",
-		"code": "items:\n  - 1\n  - 2\n  - 3",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-3:5",
-						"removal": "0:0-3:5"
-					}
-				],
-				"domain": "0:0-3:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:5",
-						"removal": "1:2-2:2"
-					}
-				],
-				"domain": "1:2-1:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:5",
-						"removal": "2:2-3:2"
-					}
-				],
-				"domain": "2:2-2:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "3:4-3:5",
-						"removal": "2:5-3:5"
-					}
-				],
-				"domain": "3:2-3:5"
-			}
-		]
-	}
+  {
+    "name": "scopes/c/collectionItem.unenclosed.iteration",
+    "languageId": "c",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "int foo, bar;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:12"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/c/collectionItem.unenclosed.multiLine",
+    "languageId": "c",
+    "facet": "collectionItem.unenclosed.multiLine",
+    "code": "int foo,\n    bar;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:4-0:7",
+            "removal": "0:4-1:4"
+          }
+        ],
+        "domain": "0:4-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "0:7-1:7"
+          }
+        ],
+        "domain": "1:4-1:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/c/collectionItem.unenclosed.singleLine",
+    "languageId": "c",
+    "facet": "collectionItem.unenclosed.singleLine",
+    "code": "int foo, bar;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:4-0:7",
+            "removal": "0:4-0:9"
+          }
+        ],
+        "domain": "0:4-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:12",
+            "removal": "0:7-0:12"
+          }
+        ],
+        "domain": "0:9-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:13",
+            "removal": "0:7-0:13"
+          }
+        ],
+        "domain": "0:9-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/csharp/collectionItem.unenclosed.iteration",
+    "languageId": "csharp",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "int foo, bar;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:12"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/csharp/collectionItem.unenclosed.iteration2",
+    "languageId": "csharp",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "class Foo {\n    private int bar, baz;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:25"
+          }
+        ],
+        "domain": "0:11-2:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:25"
+          }
+        ],
+        "domain": "1:0-1:25"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:16-1:24"
+          }
+        ],
+        "domain": "1:4-1:25"
+      }
+    ]
+  },
+  {
+    "name": "scopes/csharp/collectionItem.unenclosed.multiLine",
+    "languageId": "csharp",
+    "facet": "collectionItem.unenclosed.multiLine",
+    "code": "int foo,\n    bar;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:4-0:7",
+            "removal": "0:4-1:4"
+          }
+        ],
+        "domain": "0:4-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "0:7-1:7"
+          }
+        ],
+        "domain": "1:4-1:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/csharp/collectionItem.unenclosed.multiLine2",
+    "languageId": "csharp",
+    "facet": "collectionItem.unenclosed.multiLine",
+    "code": "class Foo {\n    private int bar,\n        baz;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:19",
+            "removal": "1:4-2:8"
+          }
+        ],
+        "domain": "1:4-1:19"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:16-1:19",
+            "removal": "1:16-2:8"
+          }
+        ],
+        "domain": "1:16-1:19"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:8-2:11",
+            "removal": "1:19-2:11"
+          }
+        ],
+        "domain": "2:8-2:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:8-2:12",
+            "removal": "1:19-2:12"
+          }
+        ],
+        "domain": "2:8-2:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/csharp/collectionItem.unenclosed.singleLine",
+    "languageId": "csharp",
+    "facet": "collectionItem.unenclosed.singleLine",
+    "code": "int foo, bar;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:4-0:7",
+            "removal": "0:4-0:9"
+          }
+        ],
+        "domain": "0:4-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:12",
+            "removal": "0:7-0:12"
+          }
+        ],
+        "domain": "0:9-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:13",
+            "removal": "0:7-0:13"
+          }
+        ],
+        "domain": "0:9-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/csharp/collectionItem.unenclosed.singleLine2",
+    "languageId": "csharp",
+    "facet": "collectionItem.unenclosed.singleLine",
+    "code": "class Foo {\n    private int bar, baz;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:19",
+            "removal": "1:4-1:21"
+          }
+        ],
+        "domain": "1:4-1:19"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:16-1:19",
+            "removal": "1:16-1:21"
+          }
+        ],
+        "domain": "1:16-1:19"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:21-1:24",
+            "removal": "1:19-1:24"
+          }
+        ],
+        "domain": "1:21-1:24"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:21-1:25",
+            "removal": "1:19-1:25"
+          }
+        ],
+        "domain": "1:21-1:25"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/collectionItem.unenclosed.iteration",
+    "languageId": "css",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "* {\n    color: red;\n    padding: 1rem;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-2:18"
+          }
+        ],
+        "domain": "0:3-3:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/collectionItem.unenclosed.multiLine",
+    "languageId": "css",
+    "facet": "collectionItem.unenclosed.multiLine",
+    "code": "* {\n    color: red;\n    padding: 1rem;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:15",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:15"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-2:18",
+            "removal": "1:0-3:0"
+          }
+        ],
+        "domain": "1:4-2:18"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:18",
+            "removal": "2:0-3:0"
+          }
+        ],
+        "domain": "2:4-2:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/dart/collectionItem.unenclosed.iteration",
+    "languageId": "dart",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "var foo, bar;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:12"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/dart/collectionItem.unenclosed.multiLine",
+    "languageId": "dart",
+    "facet": "collectionItem.unenclosed.multiLine",
+    "code": "var foo,\n        bar;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:4-0:7",
+            "removal": "0:4-1:8"
+          }
+        ],
+        "domain": "0:4-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:8-1:11",
+            "removal": "0:7-1:11"
+          }
+        ],
+        "domain": "1:8-1:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/dart/collectionItem.unenclosed.singleLine",
+    "languageId": "dart",
+    "facet": "collectionItem.unenclosed.singleLine",
+    "code": "var foo, bar;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:4-0:7",
+            "removal": "0:4-0:9"
+          }
+        ],
+        "domain": "0:4-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:12",
+            "removal": "0:7-0:12"
+          }
+        ],
+        "domain": "0:9-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:13",
+            "removal": "0:7-0:13"
+          }
+        ],
+        "domain": "0:9-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/go/collectionItem.unenclosed.iteration",
+    "languageId": "go",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "foo, bar := 1, 2",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:8"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-0:16"
+          }
+        ],
+        "domain": "0:0-0:16"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-0:16"
+          }
+        ],
+        "domain": "0:12-0:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/go/collectionItem.unenclosed.multiLine",
+    "languageId": "go",
+    "facet": "collectionItem.unenclosed.multiLine",
+    "code": "foo,\n    baz := 1, 2",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-1:4"
+          }
+        ],
+        "domain": "0:0-0:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "0:3-1:7"
+          }
+        ],
+        "domain": "1:4-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:12",
+            "removal": "1:4-1:14"
+          }
+        ],
+        "domain": "1:4-1:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:11-1:12",
+            "removal": "1:11-1:14"
+          }
+        ],
+        "domain": "1:11-1:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:14-1:15",
+            "removal": "1:12-1:15"
+          }
+        ],
+        "domain": "1:14-1:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/go/collectionItem.unenclosed.singleLine",
+    "languageId": "go",
+    "facet": "collectionItem.unenclosed.singleLine",
+    "code": "foo, bar := 1, 2",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:5-0:8",
+            "removal": "0:3-0:8"
+          }
+        ],
+        "domain": "0:5-0:8"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:5-0:13",
+            "removal": "0:5-0:15"
+          }
+        ],
+        "domain": "0:5-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13",
+            "removal": "0:12-0:15"
+          }
+        ],
+        "domain": "0:12-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:15-0:16",
+            "removal": "0:13-0:16"
+          }
+        ],
+        "domain": "0:15-0:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/collectionItem.unenclosed.iteration",
+    "languageId": "java",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "public class Foo {\n    int aaa, bbb;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:17"
+          }
+        ],
+        "domain": "0:18-2:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:17"
+          }
+        ],
+        "domain": "1:0-1:17"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:8-1:16"
+          }
+        ],
+        "domain": "1:4-1:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/collectionItem.unenclosed.iteration2",
+    "languageId": "java",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "class Foo {\n    void bar() {\n        int aaa, bbb;\n    }\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-3:5"
+          }
+        ],
+        "domain": "0:11-4:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:8-2:21"
+          }
+        ],
+        "domain": "1:16-3:4"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:8-2:21"
+          }
+        ],
+        "domain": "2:0-2:21"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:12-2:20"
+          }
+        ],
+        "domain": "2:8-2:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/collectionItem.unenclosed.iteration3",
+    "languageId": "java",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "class Foo {\n    void bar() throws AException, BException {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:47"
+          }
+        ],
+        "domain": "0:11-2:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:47"
+          }
+        ],
+        "domain": "1:0-1:47"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:22-1:44"
+          }
+        ],
+        "domain": "1:15-1:44"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/collectionItem.unenclosed.multiLine",
+    "languageId": "java",
+    "facet": "collectionItem.unenclosed.multiLine",
+    "code": "class Foo {\n    int aaa,\n        bbb;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:11",
+            "removal": "1:4-2:8"
+          }
+        ],
+        "domain": "1:4-1:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:8-1:11",
+            "removal": "1:8-2:8"
+          }
+        ],
+        "domain": "1:8-1:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:8-2:11",
+            "removal": "1:11-2:11"
+          }
+        ],
+        "domain": "2:8-2:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:8-2:12",
+            "removal": "1:11-2:12"
+          }
+        ],
+        "domain": "2:8-2:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/collectionItem.unenclosed.multiLine2",
+    "languageId": "java",
+    "facet": "collectionItem.unenclosed.multiLine",
+    "code": "class Foo {\n    void bar() {\n        int aaa,\n            bbb;\n    }\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-4:5",
+            "removal": "1:0-5:0"
+          }
+        ],
+        "domain": "1:4-4:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:8-2:15",
+            "removal": "2:8-3:12"
+          }
+        ],
+        "domain": "2:8-2:15"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:12-2:15",
+            "removal": "2:12-3:12"
+          }
+        ],
+        "domain": "2:12-2:15"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:12-3:15",
+            "removal": "2:15-3:15"
+          }
+        ],
+        "domain": "3:12-3:15"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:12-3:16",
+            "removal": "2:15-3:16"
+          }
+        ],
+        "domain": "3:12-3:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/collectionItem.unenclosed.multiLine3",
+    "languageId": "java",
+    "facet": "collectionItem.unenclosed.multiLine",
+    "code": "class Foo {\n    void bar() throws AException,\n        BException {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:32",
+            "removal": "1:4-2:8"
+          }
+        ],
+        "domain": "1:4-1:32"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:22-1:32",
+            "removal": "1:22-2:8"
+          }
+        ],
+        "domain": "1:22-1:32"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:8-2:18",
+            "removal": "1:32-2:18"
+          }
+        ],
+        "domain": "2:8-2:18"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:8-2:21",
+            "removal": "1:32-2:21"
+          }
+        ],
+        "domain": "2:8-2:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/collectionItem.unenclosed.singleLine",
+    "languageId": "java",
+    "facet": "collectionItem.unenclosed.singleLine",
+    "code": "class Foo {\n    int aaa, bbb;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:11",
+            "removal": "1:4-1:13"
+          }
+        ],
+        "domain": "1:4-1:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:8-1:11",
+            "removal": "1:8-1:13"
+          }
+        ],
+        "domain": "1:8-1:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:13-1:16",
+            "removal": "1:11-1:16"
+          }
+        ],
+        "domain": "1:13-1:16"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:13-1:17",
+            "removal": "1:11-1:17"
+          }
+        ],
+        "domain": "1:13-1:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/collectionItem.unenclosed.singleLine2",
+    "languageId": "java",
+    "facet": "collectionItem.unenclosed.singleLine",
+    "code": "class Foo {\n    void bar() {\n        int aaa, bbb;\n    }\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-3:5",
+            "removal": "1:0-4:0"
+          }
+        ],
+        "domain": "1:4-3:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:8-2:15",
+            "removal": "2:8-2:17"
+          }
+        ],
+        "domain": "2:8-2:15"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:12-2:15",
+            "removal": "2:12-2:17"
+          }
+        ],
+        "domain": "2:12-2:15"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:17-2:20",
+            "removal": "2:15-2:20"
+          }
+        ],
+        "domain": "2:17-2:20"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:17-2:21",
+            "removal": "2:15-2:21"
+          }
+        ],
+        "domain": "2:17-2:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/collectionItem.unenclosed.singleLine3",
+    "languageId": "java",
+    "facet": "collectionItem.unenclosed.singleLine",
+    "code": "class Foo {\n    void bar() throws AException, BException {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:32",
+            "removal": "1:4-1:34"
+          }
+        ],
+        "domain": "1:4-1:32"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:22-1:32",
+            "removal": "1:22-1:34"
+          }
+        ],
+        "domain": "1:22-1:32"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:34-1:44",
+            "removal": "1:32-1:44"
+          }
+        ],
+        "domain": "1:34-1:44"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:34-1:47",
+            "removal": "1:32-1:47"
+          }
+        ],
+        "domain": "1:34-1:47"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/collectionItem.unenclosed.iteration",
+    "languageId": "javascript.core",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "let foo, bar;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:12"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/collectionItem.unenclosed.multiLine",
+    "languageId": "javascript.core",
+    "facet": "collectionItem.unenclosed.multiLine",
+    "code": "let foo,\n    bar;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:4-0:7",
+            "removal": "0:4-1:4"
+          }
+        ],
+        "domain": "0:4-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "0:7-1:7"
+          }
+        ],
+        "domain": "1:4-1:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/collectionItem.unenclosed.singleLine",
+    "languageId": "javascript.core",
+    "facet": "collectionItem.unenclosed.singleLine",
+    "code": "let foo, bar;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:4-0:7",
+            "removal": "0:4-0:9"
+          }
+        ],
+        "domain": "0:4-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:12",
+            "removal": "0:7-0:12"
+          }
+        ],
+        "domain": "0:9-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:13",
+            "removal": "0:7-0:13"
+          }
+        ],
+        "domain": "0:9-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/collectionItem.unenclosed.iteration",
+    "languageId": "latex",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "\\begin{itemize}\n  \\item one\n  \\item two\n\\end{itemize}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:15-3:0"
+          }
+        ],
+        "domain": "0:0-3:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:7-0:14"
+          }
+        ],
+        "domain": "0:7-0:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:5-3:12"
+          }
+        ],
+        "domain": "3:5-3:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/collectionItem.unenclosed.multiLine",
+    "languageId": "latex",
+    "facet": "collectionItem.unenclosed.multiLine",
+    "code": "\\begin{itemize}\n  \\item one\n  \\item two\n\\end{itemize}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:14",
+            "removal": "0:7-0:14"
+          }
+        ],
+        "domain": "0:7-0:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:8-1:11",
+            "removal": "1:2-1:11"
+          }
+        ],
+        "domain": "1:8-1:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:8-2:11",
+            "removal": "2:2-2:11"
+          }
+        ],
+        "domain": "2:8-2:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:5-3:12",
+            "removal": "3:5-3:12"
+          }
+        ],
+        "domain": "3:5-3:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/collectionItem.unenclosed.iteration",
+    "languageId": "lua",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "local a, b, c = 1, 2, 3",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:23"
+          }
+        ],
+        "domain": "0:0-0:23"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:6-0:13"
+          }
+        ],
+        "domain": "0:6-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:16-0:23"
+          }
+        ],
+        "domain": "0:16-0:23"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/collectionItem.unenclosed.multiLine",
+    "languageId": "lua",
+    "facet": "collectionItem.unenclosed.multiLine",
+    "code": "local a,\n  b,\n  c =\n  1,\n  2,\n  3",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:6-0:7",
+            "removal": "0:6-1:2"
+          }
+        ],
+        "domain": "0:6-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-1:3",
+            "removal": "1:2-2:2"
+          }
+        ],
+        "domain": "1:2-1:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-2:3",
+            "removal": "1:3-2:3"
+          }
+        ],
+        "domain": "2:2-2:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:2-3:3",
+            "removal": "3:2-4:2"
+          }
+        ],
+        "domain": "3:2-3:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "4:2-4:3",
+            "removal": "4:2-5:2"
+          }
+        ],
+        "domain": "4:2-4:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "5:2-5:3",
+            "removal": "4:3-5:3"
+          }
+        ],
+        "domain": "5:2-5:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/collectionItem.unenclosed.singleLine",
+    "languageId": "lua",
+    "facet": "collectionItem.unenclosed.singleLine",
+    "code": "local a, b, c = 1, 2, 3",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:6-0:7",
+            "removal": "0:6-0:9"
+          }
+        ],
+        "domain": "0:6-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:10",
+            "removal": "0:9-0:12"
+          }
+        ],
+        "domain": "0:9-0:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13",
+            "removal": "0:10-0:13"
+          }
+        ],
+        "domain": "0:12-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-0:17",
+            "removal": "0:12-0:19"
+          }
+        ],
+        "domain": "0:12-0:17"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:16-0:17",
+            "removal": "0:16-0:19"
+          }
+        ],
+        "domain": "0:16-0:17"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:19-0:20",
+            "removal": "0:19-0:22"
+          }
+        ],
+        "domain": "0:19-0:20"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:22-0:23",
+            "removal": "0:20-0:23"
+          }
+        ],
+        "domain": "0:22-0:23"
+      }
+    ]
+  },
+  {
+    "name": "scopes/markdown/collectionItem.unenclosed.iteration",
+    "languageId": "markdown",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "- This is the first level of a list.\n  - This is the second level of a list.\n- This is the first level of a list again.",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:42"
+          }
+        ],
+        "domain": "0:0-2:42"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-2:0"
+          }
+        ],
+        "domain": "1:2-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/markdown/collectionItem.unenclosed.multiLine",
+    "languageId": "markdown",
+    "facet": "collectionItem.unenclosed.multiLine",
+    "code": "- This is the first level of a list.\n  - This is the second level of a list.\n- This is the first level of a list again.",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-1:39",
+            "removal": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-1:39"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:39",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:2-1:39"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-2:42",
+            "removal": "2:0-2:42"
+          }
+        ],
+        "domain": "2:0-2:42"
+      }
+    ]
+  },
+  {
+    "name": "scopes/plaintext/collectionItem/collectionItem.textual.iteration",
+    "languageId": "plaintext",
+    "facet": "collectionItem.textual.iteration",
+    "code": "(1, 2, 3)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:8"
+          }
+        ],
+        "domain": "0:1-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/plaintext/collectionItem/collectionItem.textual.iteration2",
+    "languageId": "plaintext",
+    "facet": "collectionItem.textual.iteration",
+    "code": "[1, 2, 3]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:8"
+          }
+        ],
+        "domain": "0:1-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/plaintext/collectionItem/collectionItem.textual.iteration3",
+    "languageId": "plaintext",
+    "facet": "collectionItem.textual.iteration",
+    "code": "{1, 2, 3}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:8"
+          }
+        ],
+        "domain": "0:1-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/plaintext/collectionItem/collectionItem.textual.iteration4",
+    "languageId": "plaintext",
+    "facet": "collectionItem.textual.iteration",
+    "code": "<1, 2, 3>",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:8"
+          }
+        ],
+        "domain": "0:1-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/plaintext/collectionItem/collectionItem.textual.iteration5",
+    "languageId": "plaintext",
+    "facet": "collectionItem.textual.iteration",
+    "code": "( 1, 2, 3 )",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:9"
+          }
+        ],
+        "domain": "0:1-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/plaintext/collectionItem/collectionItem.textual.iteration6",
+    "languageId": "plaintext",
+    "facet": "collectionItem.textual.iteration",
+    "code": "[\n    1,\n    2,\n    3,\n]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-3:6"
+          }
+        ],
+        "domain": "0:1-4:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:6"
+          }
+        ],
+        "domain": "1:0-1:6"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:6"
+          }
+        ],
+        "domain": "2:0-2:6"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:4-3:6"
+          }
+        ],
+        "domain": "3:0-3:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/plaintext/collectionItem/collectionItem.textual.iteration7",
+    "languageId": "plaintext",
+    "facet": "collectionItem.textual.iteration",
+    "code": "{\n    a: 1,\n    b: 2,\n    c: 3,\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-3:9"
+          }
+        ],
+        "domain": "0:1-4:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:9"
+          }
+        ],
+        "domain": "1:0-1:9"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:9"
+          }
+        ],
+        "domain": "2:0-2:9"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:4-3:9"
+          }
+        ],
+        "domain": "3:0-3:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/plaintext/collectionItem/collectionItem.textual",
+    "languageId": "plaintext",
+    "facet": "collectionItem.textual",
+    "code": "(1, 2, 3)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:2",
+            "removal": "0:1-0:4"
+          }
+        ],
+        "domain": "0:1-0:2"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:4-0:5",
+            "removal": "0:4-0:7"
+          }
+        ],
+        "domain": "0:4-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:7-0:8",
+            "removal": "0:5-0:8"
+          }
+        ],
+        "domain": "0:7-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/plaintext/collectionItem/collectionItem.textual10",
+    "languageId": "plaintext",
+    "facet": "collectionItem.textual",
+    "code": "aaa, ( bbb, ccc )",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:5-0:17",
+            "removal": "0:3-0:17"
+          }
+        ],
+        "domain": "0:5-0:17"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:7-0:10",
+            "removal": "0:7-0:12"
+          }
+        ],
+        "domain": "0:7-0:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-0:15",
+            "removal": "0:10-0:15"
+          }
+        ],
+        "domain": "0:12-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/plaintext/collectionItem/collectionItem.textual11",
+    "languageId": "plaintext",
+    "facet": "collectionItem.textual",
+    "code": "[\n    1,\n\n    2,\n]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:5",
+            "removal": "1:4-3:4"
+          }
+        ],
+        "domain": "1:4-1:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:4-3:5",
+            "removal": "1:5-3:5"
+          }
+        ],
+        "domain": "3:4-3:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/plaintext/collectionItem/collectionItem.textual12",
+    "languageId": "plaintext",
+    "facet": "collectionItem.textual",
+    "code": "[\n\n    1\n\n]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "2:4-2:5",
+            "removal": "2:0-4:0"
+          }
+        ],
+        "domain": "2:4-2:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/plaintext/collectionItem/collectionItem.textual13",
+    "languageId": "plaintext",
+    "facet": "collectionItem.textual",
+    "code": "(aaa)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:4",
+            "removal": "0:1-0:4"
+          }
+        ],
+        "domain": "0:1-0:4"
+      }
+    ]
+  },
+  {
+    "name": "scopes/plaintext/collectionItem/collectionItem.textual14",
+    "languageId": "plaintext",
+    "facet": "collectionItem.textual",
+    "code": "( aaa )",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:5",
+            "removal": "0:2-0:6"
+          }
+        ],
+        "domain": "0:2-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/plaintext/collectionItem/collectionItem.textual15",
+    "languageId": "plaintext",
+    "facet": "collectionItem.textual",
+    "code": "{\n    language: {},\n    choices: {\n        disabled: true,\n        items: {\n            colWidth: [2, 10]\n        }\n    },\n    versions: {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:16",
+            "removal": "1:4-2:4"
+          }
+        ],
+        "domain": "1:4-1:16"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-7:5",
+            "removal": "2:4-8:4"
+          }
+        ],
+        "domain": "2:4-7:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:8-3:22",
+            "removal": "3:8-4:8"
+          }
+        ],
+        "domain": "3:8-3:22"
+      },
+      {
+        "targets": [
+          {
+            "content": "4:8-6:9",
+            "removal": "3:22-6:9"
+          }
+        ],
+        "domain": "4:8-6:9"
+      },
+      {
+        "targets": [
+          {
+            "content": "5:12-5:29",
+            "removal": "5:0-6:0"
+          }
+        ],
+        "domain": "5:12-5:29"
+      },
+      {
+        "targets": [
+          {
+            "content": "5:23-5:24",
+            "removal": "5:23-5:26"
+          }
+        ],
+        "domain": "5:23-5:24"
+      },
+      {
+        "targets": [
+          {
+            "content": "5:26-5:28",
+            "removal": "5:24-5:28"
+          }
+        ],
+        "domain": "5:26-5:28"
+      },
+      {
+        "targets": [
+          {
+            "content": "8:4-8:16",
+            "removal": "7:5-8:16"
+          }
+        ],
+        "domain": "8:4-8:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/plaintext/collectionItem/collectionItem.textual2",
+    "languageId": "plaintext",
+    "facet": "collectionItem.textual",
+    "code": "[1, 2, 3]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:2",
+            "removal": "0:1-0:4"
+          }
+        ],
+        "domain": "0:1-0:2"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:4-0:5",
+            "removal": "0:4-0:7"
+          }
+        ],
+        "domain": "0:4-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:7-0:8",
+            "removal": "0:5-0:8"
+          }
+        ],
+        "domain": "0:7-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/plaintext/collectionItem/collectionItem.textual3",
+    "languageId": "plaintext",
+    "facet": "collectionItem.textual",
+    "code": "{1, 2, 3}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:2",
+            "removal": "0:1-0:4"
+          }
+        ],
+        "domain": "0:1-0:2"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:4-0:5",
+            "removal": "0:4-0:7"
+          }
+        ],
+        "domain": "0:4-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:7-0:8",
+            "removal": "0:5-0:8"
+          }
+        ],
+        "domain": "0:7-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/plaintext/collectionItem/collectionItem.textual4",
+    "languageId": "plaintext",
+    "facet": "collectionItem.textual",
+    "code": "<1, 2, 3>",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:2",
+            "removal": "0:1-0:4"
+          }
+        ],
+        "domain": "0:1-0:2"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:4-0:5",
+            "removal": "0:4-0:7"
+          }
+        ],
+        "domain": "0:4-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:7-0:8",
+            "removal": "0:5-0:8"
+          }
+        ],
+        "domain": "0:7-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/plaintext/collectionItem/collectionItem.textual5",
+    "languageId": "plaintext",
+    "facet": "collectionItem.textual",
+    "code": "( 1, 2, 3 )",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:3",
+            "removal": "0:2-0:5"
+          }
+        ],
+        "domain": "0:2-0:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:5-0:6",
+            "removal": "0:5-0:8"
+          }
+        ],
+        "domain": "0:5-0:6"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:8-0:9",
+            "removal": "0:6-0:9"
+          }
+        ],
+        "domain": "0:8-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/plaintext/collectionItem/collectionItem.textual6",
+    "languageId": "plaintext",
+    "facet": "collectionItem.textual",
+    "code": "[\n    1,\n    2,\n    3,\n]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:5",
+            "removal": "1:4-2:4"
+          }
+        ],
+        "domain": "1:4-1:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:5",
+            "removal": "2:4-3:4"
+          }
+        ],
+        "domain": "2:4-2:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:4-3:5",
+            "removal": "2:5-3:5"
+          }
+        ],
+        "domain": "3:4-3:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/plaintext/collectionItem/collectionItem.textual7",
+    "languageId": "plaintext",
+    "facet": "collectionItem.textual",
+    "code": "{\n    a: 1,\n    b: 2,\n    c: 3,\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:8",
+            "removal": "1:4-2:4"
+          }
+        ],
+        "domain": "1:4-1:8"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:8",
+            "removal": "2:4-3:4"
+          }
+        ],
+        "domain": "2:4-2:8"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:4-3:8",
+            "removal": "2:8-3:8"
+          }
+        ],
+        "domain": "3:4-3:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/plaintext/collectionItem/collectionItem.textual8",
+    "languageId": "plaintext",
+    "facet": "collectionItem.textual",
+    "code": "[1, \"2, 3\"]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:2",
+            "removal": "0:1-0:4"
+          }
+        ],
+        "domain": "0:1-0:2"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:4-0:10",
+            "removal": "0:2-0:10"
+          }
+        ],
+        "domain": "0:4-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/plaintext/collectionItem/collectionItem.textual9",
+    "languageId": "plaintext",
+    "facet": "collectionItem.textual",
+    "code": "aaa, bbb",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:5-0:8",
+            "removal": "0:3-0:8"
+          }
+        ],
+        "domain": "0:5-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/python/collectionItem/collectionItem.unenclosed.iteration",
+    "languageId": "python",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "import foo, bar",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/python/collectionItem/collectionItem.unenclosed.iteration2",
+    "languageId": "python",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "from foo import bar, baz",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:16-0:24"
+          }
+        ],
+        "domain": "0:0-0:24"
+      }
+    ]
+  },
+  {
+    "name": "scopes/python/collectionItem/collectionItem.unenclosed.iteration3",
+    "languageId": "python",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "def foo():\n    global bar, baz",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:19"
+          }
+        ],
+        "domain": "1:0-1:19"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:11-1:19"
+          }
+        ],
+        "domain": "1:4-1:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/python/collectionItem/collectionItem.unenclosed.iteration4",
+    "languageId": "python",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "for key, value in map.items():\n    pass",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:30"
+          }
+        ],
+        "domain": "0:0-0:30"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:4-0:14"
+          }
+        ],
+        "domain": "0:4-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/python/collectionItem/collectionItem.unenclosed.singleLine",
+    "languageId": "python",
+    "facet": "collectionItem.unenclosed.singleLine",
+    "code": "import foo, bar",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:7-0:10",
+            "removal": "0:7-0:12"
+          }
+        ],
+        "domain": "0:7-0:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-0:15",
+            "removal": "0:10-0:15"
+          }
+        ],
+        "domain": "0:12-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/python/collectionItem/collectionItem.unenclosed.singleLine2",
+    "languageId": "python",
+    "facet": "collectionItem.unenclosed.singleLine",
+    "code": "from foo import bar, baz",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:19",
+            "removal": "0:0-0:21"
+          }
+        ],
+        "domain": "0:0-0:19"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:16-0:19",
+            "removal": "0:16-0:21"
+          }
+        ],
+        "domain": "0:16-0:19"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:21-0:24",
+            "removal": "0:19-0:24"
+          }
+        ],
+        "domain": "0:21-0:24"
+      }
+    ]
+  },
+  {
+    "name": "scopes/python/collectionItem/collectionItem.unenclosed.singleLine3",
+    "languageId": "python",
+    "facet": "collectionItem.unenclosed.singleLine",
+    "code": "def foo():\n    global bar, baz",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:14",
+            "removal": "1:4-1:16"
+          }
+        ],
+        "domain": "1:4-1:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:11-1:14",
+            "removal": "1:11-1:16"
+          }
+        ],
+        "domain": "1:11-1:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:16-1:19",
+            "removal": "1:14-1:19"
+          }
+        ],
+        "domain": "1:16-1:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/python/collectionItem/collectionItem.unenclosed.singleLine4",
+    "languageId": "python",
+    "facet": "collectionItem.unenclosed.singleLine",
+    "code": "for key, value in map.items():\n    pass",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:4-0:7",
+            "removal": "0:4-0:9"
+          }
+        ],
+        "domain": "0:4-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:14",
+            "removal": "0:7-0:14"
+          }
+        ],
+        "domain": "0:9-0:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:30",
+            "removal": "0:7-0:30"
+          }
+        ],
+        "domain": "0:9-0:30"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scala/collectionItem/collectionItem.unenclosed.iteration",
+    "languageId": "scala",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "var a, b, c = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:11"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scala/collectionItem/collectionItem.unenclosed.multiLine",
+    "languageId": "scala",
+    "facet": "collectionItem.unenclosed.multiLine",
+    "code": "var a,\n    b,\n    c = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:5",
+            "removal": "0:0-0:6"
+          }
+        ],
+        "domain": "0:0-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:4-0:5",
+            "removal": "0:4-1:4"
+          }
+        ],
+        "domain": "0:4-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:5",
+            "removal": "1:4-2:4"
+          }
+        ],
+        "domain": "1:4-1:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:5",
+            "removal": "1:5-2:5"
+          }
+        ],
+        "domain": "2:4-2:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scala/collectionItem/collectionItem.unenclosed.singleLine",
+    "languageId": "scala",
+    "facet": "collectionItem.unenclosed.singleLine",
+    "code": "var a, b, c = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:5",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:4-0:5",
+            "removal": "0:4-0:7"
+          }
+        ],
+        "domain": "0:4-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:7-0:8",
+            "removal": "0:7-0:10"
+          }
+        ],
+        "domain": "0:7-0:8"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11",
+            "removal": "0:8-0:11"
+          }
+        ],
+        "domain": "0:10-0:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-0:15",
+            "removal": "0:8-0:15"
+          }
+        ],
+        "domain": "0:10-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/yaml/collectionItem.unenclosed.iteration",
+    "languageId": "yaml",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "items:\n  - 1\n  - 2\n  - 3",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:5"
+          }
+        ],
+        "domain": "0:0-3:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-3:5"
+          }
+        ],
+        "domain": "1:2-3:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/yaml/collectionItem.unenclosed.multiLine",
+    "languageId": "yaml",
+    "facet": "collectionItem.unenclosed.multiLine",
+    "code": "items:\n  - 1\n  - 2\n  - 3",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:5",
+            "removal": "0:0-3:5"
+          }
+        ],
+        "domain": "0:0-3:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:5",
+            "removal": "1:2-2:2"
+          }
+        ],
+        "domain": "1:2-1:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:5",
+            "removal": "2:2-3:2"
+          }
+        ],
+        "domain": "2:2-2:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:4-3:5",
+            "removal": "2:5-3:5"
+          }
+        ],
+        "domain": "3:2-3:5"
+      }
+    ]
+  }
 ]

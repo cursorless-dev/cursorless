@@ -1,19 +1,19 @@
 [
-	{
-		"name": "scopes/latex/namedParagraph",
-		"languageId": "latex",
-		"facet": "namedParagraph",
-		"code": "\\paragraph{Introduction}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:24",
-						"removal": "0:0-0:24"
-					}
-				],
-				"domain": "0:0-0:24"
-			}
-		]
-	}
+  {
+    "name": "scopes/latex/namedParagraph",
+    "languageId": "latex",
+    "facet": "namedParagraph",
+    "code": "\\paragraph{Introduction}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:24",
+            "removal": "0:0-0:24"
+          }
+        ],
+        "domain": "0:0-0:24"
+      }
+    ]
+  }
 ]

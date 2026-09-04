@@ -1,716 +1,716 @@
 [
-	{
-		"name": "scopes/c/string.singleLine",
-		"languageId": "c",
-		"facet": "string.singleLine",
-		"code": "\"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/string.multiLine",
-		"languageId": "clojure",
-		"facet": "string.multiLine",
-		"code": "\"Hello\nworld\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:6",
-						"removal": "0:0-1:6"
-					}
-				],
-				"domain": "0:0-1:6"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/string.singleLine",
-		"languageId": "clojure",
-		"facet": "string.singleLine",
-		"code": "\"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/csharp/string.multiLine",
-		"languageId": "csharp",
-		"facet": "string.multiLine",
-		"code": "@\"Hello\nworld\";",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:6",
-						"removal": "0:0-1:6"
-					}
-				],
-				"domain": "0:0-1:6"
-			}
-		]
-	},
-	{
-		"name": "scopes/csharp/string.singleLine",
-		"languageId": "csharp",
-		"facet": "string.singleLine",
-		"code": "\"Hello world\";",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/string.singleLine",
-		"languageId": "css",
-		"facet": "string.singleLine",
-		"code": "* {\n    color: \"red\"\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:11-1:16",
-						"removal": "1:10-1:16"
-					}
-				],
-				"domain": "1:11-1:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/dart/string.multiLine",
-		"languageId": "dart",
-		"facet": "string.multiLine",
-		"code": "var foo = \"\"\"Hello\nworld\"\"\";",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:10-1:8",
-						"removal": "0:9-1:8"
-					}
-				],
-				"domain": "0:10-1:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/dart/string.singleLine",
-		"languageId": "dart",
-		"facet": "string.singleLine",
-		"code": "var foo = \"Hello world\";",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:10-0:23",
-						"removal": "0:9-0:23"
-					}
-				],
-				"domain": "0:10-0:23"
-			}
-		]
-	},
-	{
-		"name": "scopes/go/string.multiLine",
-		"languageId": "go",
-		"facet": "string.multiLine",
-		"code": "`Hello\nworld`",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:6",
-						"removal": "0:0-1:6"
-					}
-				],
-				"domain": "0:0-1:6"
-			}
-		]
-	},
-	{
-		"name": "scopes/go/string.singleLine",
-		"languageId": "go",
-		"facet": "string.singleLine",
-		"code": "\"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/html/string.singleLine",
-		"languageId": "html",
-		"facet": "string.singleLine",
-		"code": "<div id=\"foo\"><div>",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:8-0:13",
-						"removal": "0:8-0:13"
-					}
-				],
-				"domain": "0:8-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/string.multiLine",
-		"languageId": "java",
-		"facet": "string.multiLine",
-		"code": "\"\"\"\nHello\nworld\n\"\"\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-3:3",
-						"removal": "0:0-3:3"
-					}
-				],
-				"domain": "0:0-3:3"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/string.singleLine",
-		"languageId": "java",
-		"facet": "string.singleLine",
-		"code": "\"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/string.multiLine",
-		"languageId": "javascript.core",
-		"facet": "string.multiLine",
-		"code": "`Hello\nworld`",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:6",
-						"removal": "0:0-1:6"
-					}
-				],
-				"domain": "0:0-1:6"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/string.singleLine",
-		"languageId": "javascript.core",
-		"facet": "string.singleLine",
-		"code": "\"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/json/string.singleLine",
-		"languageId": "json",
-		"facet": "string.singleLine",
-		"code": "\"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/string.multiLine",
-		"languageId": "kotlin",
-		"facet": "string.multiLine",
-		"code": "\"\"\"Hello\nworld\"\"\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:8",
-						"removal": "0:0-1:8"
-					}
-				],
-				"domain": "0:0-1:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/string.singleLine",
-		"languageId": "kotlin",
-		"facet": "string.singleLine",
-		"code": "\"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/string.multiLine",
-		"languageId": "lua",
-		"facet": "string.multiLine",
-		"code": "foo = [[Hello\nworld]]",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-1:7",
-						"removal": "0:5-1:7"
-					}
-				],
-				"domain": "0:6-1:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/string.singleLine",
-		"languageId": "lua",
-		"facet": "string.singleLine",
-		"code": "foo = \"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:19",
-						"removal": "0:5-0:19"
-					}
-				],
-				"domain": "0:6-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/php/string.multiLine",
-		"languageId": "php",
-		"facet": "string.multiLine",
-		"code": "<?php\n\"Hello\nworld\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:0-2:6",
-						"removal": "0:5-2:6"
-					}
-				],
-				"domain": "1:0-2:6"
-			}
-		]
-	},
-	{
-		"name": "scopes/php/string.singleLine",
-		"languageId": "php",
-		"facet": "string.singleLine",
-		"code": "<?php\n\"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:0-1:13",
-						"removal": "0:5-1:13"
-					}
-				],
-				"domain": "1:0-1:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/python/string.multiLine",
-		"languageId": "python",
-		"facet": "string.multiLine",
-		"code": "\"\"\"\nHello\nworld\n\"\"\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-3:3",
-						"removal": "0:0-3:3"
-					}
-				],
-				"domain": "0:0-3:3"
-			}
-		]
-	},
-	{
-		"name": "scopes/python/string.singleLine",
-		"languageId": "python",
-		"facet": "string.singleLine",
-		"code": "\"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/string.multiLine",
-		"languageId": "r",
-		"facet": "string.multiLine",
-		"code": "\"Hello\nworld\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:6",
-						"removal": "0:0-1:6"
-					}
-				],
-				"domain": "0:0-1:6"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/string.singleLine",
-		"languageId": "r",
-		"facet": "string.singleLine",
-		"code": "'Hello world'",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/ruby/string.multiLine",
-		"languageId": "ruby",
-		"facet": "string.multiLine",
-		"code": "\"Hello\nworld\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:6",
-						"removal": "0:0-1:6"
-					}
-				],
-				"domain": "0:0-1:6"
-			}
-		]
-	},
-	{
-		"name": "scopes/ruby/string.singleLine",
-		"languageId": "ruby",
-		"facet": "string.singleLine",
-		"code": "\"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/string.multiLine",
-		"languageId": "rust",
-		"facet": "string.multiLine",
-		"code": "\"Hello\nworld\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:6",
-						"removal": "0:0-1:6"
-					}
-				],
-				"domain": "0:0-1:6"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/string.singleLine",
-		"languageId": "rust",
-		"facet": "string.singleLine",
-		"code": "\"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/string.singleLine2",
-		"languageId": "rust",
-		"facet": "string.singleLine",
-		"code": "r#\"Hello world\"#",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:16",
-						"removal": "0:0-0:16"
-					}
-				],
-				"domain": "0:0-0:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/string.singleLine3",
-		"languageId": "rust",
-		"facet": "string.singleLine",
-		"code": "r##\"Hello world\"##",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:18",
-						"removal": "0:0-0:18"
-					}
-				],
-				"domain": "0:0-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/scala/string.multiLine",
-		"languageId": "scala",
-		"facet": "string.multiLine",
-		"code": "\"\"\"Hello\nworld\"\"\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:8",
-						"removal": "0:0-1:8"
-					}
-				],
-				"domain": "0:0-1:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/scala/string.singleLine",
-		"languageId": "scala",
-		"facet": "string.singleLine",
-		"code": "\"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/scm/string.singleLine",
-		"languageId": "scm",
-		"facet": "string.singleLine",
-		"code": "\"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/string.singleLine",
-		"languageId": "talon",
-		"facet": "string.singleLine",
-		"code": "command: \"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:22",
-						"removal": "0:8-0:22"
-					}
-				],
-				"domain": "0:9-0:22"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/string.singleLine2",
-		"languageId": "talon",
-		"facet": "string.singleLine",
-		"code": "command: 'Hello world'",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:22",
-						"removal": "0:8-0:22"
-					}
-				],
-				"domain": "0:9-0:22"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon-list/string.singleLine",
-		"languageId": "talon-list",
-		"facet": "string.singleLine",
-		"code": "foo: \"bar\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:5-0:10",
-						"removal": "0:4-0:10"
-					}
-				],
-				"domain": "0:5-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/xml/string.singleLine",
-		"languageId": "xml",
-		"facet": "string.singleLine",
-		"code": "<name id=\"foo\"></name>",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:14",
-						"removal": "0:9-0:14"
-					}
-				],
-				"domain": "0:9-0:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/yaml/string.multiLine",
-		"languageId": "yaml",
-		"facet": "string.multiLine",
-		"code": "value: |\n  Hello\n  world",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:7-2:7",
-						"removal": "0:6-2:7"
-					}
-				],
-				"domain": "0:7-2:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/yaml/string.singleLine",
-		"languageId": "yaml",
-		"facet": "string.singleLine",
-		"code": "foo: \"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:5-0:18",
-						"removal": "0:4-0:18"
-					}
-				],
-				"domain": "0:5-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/yaml/string.singleLine2",
-		"languageId": "yaml",
-		"facet": "string.singleLine",
-		"code": "foo: Hello world",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:5-0:16",
-						"removal": "0:4-0:16"
-					}
-				],
-				"domain": "0:5-0:16"
-			}
-		]
-	}
+  {
+    "name": "scopes/c/string.singleLine",
+    "languageId": "c",
+    "facet": "string.singleLine",
+    "code": "\"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/string.multiLine",
+    "languageId": "clojure",
+    "facet": "string.multiLine",
+    "code": "\"Hello\nworld\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:6",
+            "removal": "0:0-1:6"
+          }
+        ],
+        "domain": "0:0-1:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/string.singleLine",
+    "languageId": "clojure",
+    "facet": "string.singleLine",
+    "code": "\"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/csharp/string.multiLine",
+    "languageId": "csharp",
+    "facet": "string.multiLine",
+    "code": "@\"Hello\nworld\";",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:6",
+            "removal": "0:0-1:6"
+          }
+        ],
+        "domain": "0:0-1:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/csharp/string.singleLine",
+    "languageId": "csharp",
+    "facet": "string.singleLine",
+    "code": "\"Hello world\";",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/string.singleLine",
+    "languageId": "css",
+    "facet": "string.singleLine",
+    "code": "* {\n    color: \"red\"\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:11-1:16",
+            "removal": "1:10-1:16"
+          }
+        ],
+        "domain": "1:11-1:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/dart/string.multiLine",
+    "languageId": "dart",
+    "facet": "string.multiLine",
+    "code": "var foo = \"\"\"Hello\nworld\"\"\";",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:10-1:8",
+            "removal": "0:9-1:8"
+          }
+        ],
+        "domain": "0:10-1:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/dart/string.singleLine",
+    "languageId": "dart",
+    "facet": "string.singleLine",
+    "code": "var foo = \"Hello world\";",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:10-0:23",
+            "removal": "0:9-0:23"
+          }
+        ],
+        "domain": "0:10-0:23"
+      }
+    ]
+  },
+  {
+    "name": "scopes/go/string.multiLine",
+    "languageId": "go",
+    "facet": "string.multiLine",
+    "code": "`Hello\nworld`",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:6",
+            "removal": "0:0-1:6"
+          }
+        ],
+        "domain": "0:0-1:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/go/string.singleLine",
+    "languageId": "go",
+    "facet": "string.singleLine",
+    "code": "\"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/html/string.singleLine",
+    "languageId": "html",
+    "facet": "string.singleLine",
+    "code": "<div id=\"foo\"><div>",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-0:13",
+            "removal": "0:8-0:13"
+          }
+        ],
+        "domain": "0:8-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/string.multiLine",
+    "languageId": "java",
+    "facet": "string.multiLine",
+    "code": "\"\"\"\nHello\nworld\n\"\"\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:3",
+            "removal": "0:0-3:3"
+          }
+        ],
+        "domain": "0:0-3:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/string.singleLine",
+    "languageId": "java",
+    "facet": "string.singleLine",
+    "code": "\"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/string.multiLine",
+    "languageId": "javascript.core",
+    "facet": "string.multiLine",
+    "code": "`Hello\nworld`",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:6",
+            "removal": "0:0-1:6"
+          }
+        ],
+        "domain": "0:0-1:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/string.singleLine",
+    "languageId": "javascript.core",
+    "facet": "string.singleLine",
+    "code": "\"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/json/string.singleLine",
+    "languageId": "json",
+    "facet": "string.singleLine",
+    "code": "\"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/string.multiLine",
+    "languageId": "kotlin",
+    "facet": "string.multiLine",
+    "code": "\"\"\"Hello\nworld\"\"\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:8",
+            "removal": "0:0-1:8"
+          }
+        ],
+        "domain": "0:0-1:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/string.singleLine",
+    "languageId": "kotlin",
+    "facet": "string.singleLine",
+    "code": "\"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/string.multiLine",
+    "languageId": "lua",
+    "facet": "string.multiLine",
+    "code": "foo = [[Hello\nworld]]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-1:7",
+            "removal": "0:5-1:7"
+          }
+        ],
+        "domain": "0:6-1:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/string.singleLine",
+    "languageId": "lua",
+    "facet": "string.singleLine",
+    "code": "foo = \"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:19",
+            "removal": "0:5-0:19"
+          }
+        ],
+        "domain": "0:6-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/php/string.multiLine",
+    "languageId": "php",
+    "facet": "string.multiLine",
+    "code": "<?php\n\"Hello\nworld\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:0-2:6",
+            "removal": "0:5-2:6"
+          }
+        ],
+        "domain": "1:0-2:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/php/string.singleLine",
+    "languageId": "php",
+    "facet": "string.singleLine",
+    "code": "<?php\n\"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:0-1:13",
+            "removal": "0:5-1:13"
+          }
+        ],
+        "domain": "1:0-1:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/python/string.multiLine",
+    "languageId": "python",
+    "facet": "string.multiLine",
+    "code": "\"\"\"\nHello\nworld\n\"\"\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:3",
+            "removal": "0:0-3:3"
+          }
+        ],
+        "domain": "0:0-3:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/python/string.singleLine",
+    "languageId": "python",
+    "facet": "string.singleLine",
+    "code": "\"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/string.multiLine",
+    "languageId": "r",
+    "facet": "string.multiLine",
+    "code": "\"Hello\nworld\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:6",
+            "removal": "0:0-1:6"
+          }
+        ],
+        "domain": "0:0-1:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/string.singleLine",
+    "languageId": "r",
+    "facet": "string.singleLine",
+    "code": "'Hello world'",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/ruby/string.multiLine",
+    "languageId": "ruby",
+    "facet": "string.multiLine",
+    "code": "\"Hello\nworld\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:6",
+            "removal": "0:0-1:6"
+          }
+        ],
+        "domain": "0:0-1:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/ruby/string.singleLine",
+    "languageId": "ruby",
+    "facet": "string.singleLine",
+    "code": "\"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/string.multiLine",
+    "languageId": "rust",
+    "facet": "string.multiLine",
+    "code": "\"Hello\nworld\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:6",
+            "removal": "0:0-1:6"
+          }
+        ],
+        "domain": "0:0-1:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/string.singleLine",
+    "languageId": "rust",
+    "facet": "string.singleLine",
+    "code": "\"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/string.singleLine2",
+    "languageId": "rust",
+    "facet": "string.singleLine",
+    "code": "r#\"Hello world\"#",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:16",
+            "removal": "0:0-0:16"
+          }
+        ],
+        "domain": "0:0-0:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/string.singleLine3",
+    "languageId": "rust",
+    "facet": "string.singleLine",
+    "code": "r##\"Hello world\"##",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:18",
+            "removal": "0:0-0:18"
+          }
+        ],
+        "domain": "0:0-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scala/string.multiLine",
+    "languageId": "scala",
+    "facet": "string.multiLine",
+    "code": "\"\"\"Hello\nworld\"\"\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:8",
+            "removal": "0:0-1:8"
+          }
+        ],
+        "domain": "0:0-1:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scala/string.singleLine",
+    "languageId": "scala",
+    "facet": "string.singleLine",
+    "code": "\"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scm/string.singleLine",
+    "languageId": "scm",
+    "facet": "string.singleLine",
+    "code": "\"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/string.singleLine",
+    "languageId": "talon",
+    "facet": "string.singleLine",
+    "code": "command: \"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:22",
+            "removal": "0:8-0:22"
+          }
+        ],
+        "domain": "0:9-0:22"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/string.singleLine2",
+    "languageId": "talon",
+    "facet": "string.singleLine",
+    "code": "command: 'Hello world'",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:22",
+            "removal": "0:8-0:22"
+          }
+        ],
+        "domain": "0:9-0:22"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon-list/string.singleLine",
+    "languageId": "talon-list",
+    "facet": "string.singleLine",
+    "code": "foo: \"bar\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:10",
+            "removal": "0:4-0:10"
+          }
+        ],
+        "domain": "0:5-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/xml/string.singleLine",
+    "languageId": "xml",
+    "facet": "string.singleLine",
+    "code": "<name id=\"foo\"></name>",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:14",
+            "removal": "0:9-0:14"
+          }
+        ],
+        "domain": "0:9-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/yaml/string.multiLine",
+    "languageId": "yaml",
+    "facet": "string.multiLine",
+    "code": "value: |\n  Hello\n  world",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-2:7",
+            "removal": "0:6-2:7"
+          }
+        ],
+        "domain": "0:7-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/yaml/string.singleLine",
+    "languageId": "yaml",
+    "facet": "string.singleLine",
+    "code": "foo: \"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:18",
+            "removal": "0:4-0:18"
+          }
+        ],
+        "domain": "0:5-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/yaml/string.singleLine2",
+    "languageId": "yaml",
+    "facet": "string.singleLine",
+    "code": "foo: Hello world",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:16",
+            "removal": "0:4-0:16"
+          }
+        ],
+        "domain": "0:5-0:16"
+      }
+    ]
+  }
 ]

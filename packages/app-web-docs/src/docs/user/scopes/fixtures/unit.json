@@ -1,171 +1,171 @@
 [
-	{
-		"name": "scopes/css/unit/unit",
-		"languageId": "css",
-		"facet": "unit",
-		"code": "* {\n    padding: 25px 50px 75px 100px;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:15-1:17",
-						"removal": "1:15-1:17"
-					},
-					{
-						"content": "1:20-1:22",
-						"removal": "1:20-1:22"
-					},
-					{
-						"content": "1:25-1:27",
-						"removal": "1:25-1:27"
-					},
-					{
-						"content": "1:31-1:33",
-						"removal": "1:31-1:33"
-					}
-				],
-				"domain": "1:4-1:34"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:15-1:17",
-						"removal": "1:15-1:17"
-					}
-				],
-				"domain": "1:13-1:17"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:20-1:22",
-						"removal": "1:20-1:22"
-					}
-				],
-				"domain": "1:18-1:22"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:25-1:27",
-						"removal": "1:25-1:27"
-					}
-				],
-				"domain": "1:23-1:27"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:31-1:33",
-						"removal": "1:31-1:33"
-					}
-				],
-				"domain": "1:28-1:33"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/unit/unit2",
-		"languageId": "css",
-		"facet": "unit",
-		"code": "* {\n    padding: 10px;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:15-1:17",
-						"removal": "1:15-1:17"
-					}
-				],
-				"domain": "1:4-1:18"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:15-1:17",
-						"removal": "1:15-1:17"
-					}
-				],
-				"domain": "1:13-1:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/unit/unit3",
-		"languageId": "css",
-		"facet": "unit",
-		"code": "* {\n    padding: 1rem;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:14-1:17",
-						"removal": "1:14-1:17"
-					}
-				],
-				"domain": "1:4-1:18"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:14-1:17",
-						"removal": "1:14-1:17"
-					}
-				],
-				"domain": "1:13-1:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/unit/unit4",
-		"languageId": "css",
-		"facet": "unit",
-		"code": "* {\n    padding: 1em;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:14-1:16",
-						"removal": "1:14-1:16"
-					}
-				],
-				"domain": "1:4-1:17"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:14-1:16",
-						"removal": "1:14-1:16"
-					}
-				],
-				"domain": "1:13-1:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/unit/unit5",
-		"languageId": "css",
-		"facet": "unit",
-		"code": "* {\n    padding: 50%;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:15-1:16",
-						"removal": "1:15-1:16"
-					}
-				],
-				"domain": "1:4-1:17"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:15-1:16",
-						"removal": "1:15-1:16"
-					}
-				],
-				"domain": "1:13-1:16"
-			}
-		]
-	}
+  {
+    "name": "scopes/css/unit/unit",
+    "languageId": "css",
+    "facet": "unit",
+    "code": "* {\n    padding: 25px 50px 75px 100px;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:15-1:17",
+            "removal": "1:15-1:17"
+          },
+          {
+            "content": "1:20-1:22",
+            "removal": "1:20-1:22"
+          },
+          {
+            "content": "1:25-1:27",
+            "removal": "1:25-1:27"
+          },
+          {
+            "content": "1:31-1:33",
+            "removal": "1:31-1:33"
+          }
+        ],
+        "domain": "1:4-1:34"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:15-1:17",
+            "removal": "1:15-1:17"
+          }
+        ],
+        "domain": "1:13-1:17"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:20-1:22",
+            "removal": "1:20-1:22"
+          }
+        ],
+        "domain": "1:18-1:22"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:25-1:27",
+            "removal": "1:25-1:27"
+          }
+        ],
+        "domain": "1:23-1:27"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:31-1:33",
+            "removal": "1:31-1:33"
+          }
+        ],
+        "domain": "1:28-1:33"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/unit/unit2",
+    "languageId": "css",
+    "facet": "unit",
+    "code": "* {\n    padding: 10px;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:15-1:17",
+            "removal": "1:15-1:17"
+          }
+        ],
+        "domain": "1:4-1:18"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:15-1:17",
+            "removal": "1:15-1:17"
+          }
+        ],
+        "domain": "1:13-1:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/unit/unit3",
+    "languageId": "css",
+    "facet": "unit",
+    "code": "* {\n    padding: 1rem;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:14-1:17",
+            "removal": "1:14-1:17"
+          }
+        ],
+        "domain": "1:4-1:18"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:14-1:17",
+            "removal": "1:14-1:17"
+          }
+        ],
+        "domain": "1:13-1:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/unit/unit4",
+    "languageId": "css",
+    "facet": "unit",
+    "code": "* {\n    padding: 1em;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:14-1:16",
+            "removal": "1:14-1:16"
+          }
+        ],
+        "domain": "1:4-1:17"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:14-1:16",
+            "removal": "1:14-1:16"
+          }
+        ],
+        "domain": "1:13-1:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/unit/unit5",
+    "languageId": "css",
+    "facet": "unit",
+    "code": "* {\n    padding: 50%;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:15-1:16",
+            "removal": "1:15-1:16"
+          }
+        ],
+        "domain": "1:4-1:17"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:15-1:16",
+            "removal": "1:15-1:16"
+          }
+        ],
+        "domain": "1:13-1:16"
+      }
+    ]
+  }
 ]

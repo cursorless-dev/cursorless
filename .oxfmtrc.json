@@ -14,7 +14,6 @@
     "/packages/app-web-docs/src/docs/user/languages/*.mdx",
     "/packages/app-web-docs/src/docs/user/tutorial/*.mdx",
     "/packages/app-web-docs/src/docs/contributing/private-scopes/*.mdx",
-    "/packages/app-web-docs/src/docs/**/fixtures/*.json",
     "/packages/app-vscode/src/keyboard/grammar/generated/",
     "/packages/lib-engine/src/customCommandGrammar/generated/",
     "/packages/lib-engine/src/snippets/vendor/",

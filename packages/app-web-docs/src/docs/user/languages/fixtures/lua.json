@@ -1,2693 +1,2693 @@
 [
-	{
-		"name": "scopes/lua/anonymousFunction",
-		"languageId": "lua",
-		"facet": "anonymousFunction",
-		"code": "f = function() end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:18",
-						"removal": "0:3-0:18"
-					}
-				],
-				"domain": "0:4-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argument/argument.actual.iteration",
-		"languageId": "lua",
-		"facet": "argument.actual.iteration",
-		"code": "foo(aaa, bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:12"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argument/argument.actual.method.iteration",
-		"languageId": "lua",
-		"facet": "argument.actual.method.iteration",
-		"code": "foo:bar(aaa, bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:8-0:16"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argument/argument.actual.method.multiLine",
-		"languageId": "lua",
-		"facet": "argument.actual.method.multiLine",
-		"code": "foo:bar(\n    aaa,\n    bbb\n)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:4-2:4"
-					}
-				],
-				"domain": "1:4-1:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:7",
-						"removal": "1:7-2:7"
-					}
-				],
-				"domain": "2:4-2:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argument/argument.actual.method.singleLine",
-		"languageId": "lua",
-		"facet": "argument.actual.method.singleLine",
-		"code": "foo:bar(aaa, bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:8-0:11",
-						"removal": "0:8-0:13"
-					}
-				],
-				"domain": "0:8-0:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:13-0:16",
-						"removal": "0:11-0:16"
-					}
-				],
-				"domain": "0:13-0:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argument/argument.actual.multiLine",
-		"languageId": "lua",
-		"facet": "argument.actual.multiLine",
-		"code": "foo(\n    aaa,\n    bbb\n)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:4-2:4"
-					}
-				],
-				"domain": "1:4-1:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:7",
-						"removal": "1:7-2:7"
-					}
-				],
-				"domain": "2:4-2:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argument/argument.actual.singleLine",
-		"languageId": "lua",
-		"facet": "argument.actual.singleLine",
-		"code": "foo(aaa, bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:7",
-						"removal": "0:4-0:9"
-					}
-				],
-				"domain": "0:4-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-0:12",
-						"removal": "0:7-0:12"
-					}
-				],
-				"domain": "0:9-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argument/argument.formal.iteration",
-		"languageId": "lua",
-		"facet": "argument.formal.iteration",
-		"code": "function foo(aaa, bbb) end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:13-0:21"
-					}
-				],
-				"domain": "0:0-0:26"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argument/argument.formal.lambda.iteration",
-		"languageId": "lua",
-		"facet": "argument.formal.lambda.iteration",
-		"code": "f = function(aaa, bbb) end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:13-0:21"
-					}
-				],
-				"domain": "0:4-0:26"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argument/argument.formal.lambda.multiLine",
-		"languageId": "lua",
-		"facet": "argument.formal.lambda.multiLine",
-		"code": "f = function(\n    aaa,\n    bbb\n) end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:4-2:4"
-					}
-				],
-				"domain": "1:4-1:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:7",
-						"removal": "1:7-2:7"
-					}
-				],
-				"domain": "2:4-2:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argument/argument.formal.lambda.singleLine",
-		"languageId": "lua",
-		"facet": "argument.formal.lambda.singleLine",
-		"code": "f = function(aaa, bbb) end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:13-0:16",
-						"removal": "0:13-0:18"
-					}
-				],
-				"domain": "0:13-0:16"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:18-0:21",
-						"removal": "0:16-0:21"
-					}
-				],
-				"domain": "0:18-0:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argument/argument.formal.method.iteration",
-		"languageId": "lua",
-		"facet": "argument.formal.method.iteration",
-		"code": "function foo:bar(aaa, bbb) end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:17-0:25"
-					}
-				],
-				"domain": "0:0-0:30"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argument/argument.formal.method.multiLine",
-		"languageId": "lua",
-		"facet": "argument.formal.method.multiLine",
-		"code": "function foo:bar(\n    aaa,\n    bbb\n) end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:4-2:4"
-					}
-				],
-				"domain": "1:4-1:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:7",
-						"removal": "1:7-2:7"
-					}
-				],
-				"domain": "2:4-2:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argument/argument.formal.method.singleLine",
-		"languageId": "lua",
-		"facet": "argument.formal.method.singleLine",
-		"code": "function foo:bar(aaa, bbb) end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:17-0:20",
-						"removal": "0:17-0:22"
-					}
-				],
-				"domain": "0:17-0:20"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:22-0:25",
-						"removal": "0:20-0:25"
-					}
-				],
-				"domain": "0:22-0:25"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argument/argument.formal.multiLine",
-		"languageId": "lua",
-		"facet": "argument.formal.multiLine",
-		"code": "function foo(\n    aaa,\n    bbb\n)\n  return a + b\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:4-2:4"
-					}
-				],
-				"domain": "1:4-1:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:7",
-						"removal": "1:7-2:7"
-					}
-				],
-				"domain": "2:4-2:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argument/argument.formal.singleLine",
-		"languageId": "lua",
-		"facet": "argument.formal.singleLine",
-		"code": "function foo(aaa, bbb) end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:13-0:16",
-						"removal": "0:13-0:18"
-					}
-				],
-				"domain": "0:13-0:16"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:18-0:21",
-						"removal": "0:16-0:21"
-					}
-				],
-				"domain": "0:18-0:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argumentList/argumentList.actual.empty",
-		"languageId": "lua",
-		"facet": "argumentList.actual.empty",
-		"code": "foo()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:4",
-						"removal": "0:4-0:4"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argumentList/argumentList.actual.method.empty",
-		"languageId": "lua",
-		"facet": "argumentList.actual.method.empty",
-		"code": "foo:bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:8-0:8",
-						"removal": "0:8-0:8"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argumentList/argumentList.actual.method.multiLine",
-		"languageId": "lua",
-		"facet": "argumentList.actual.method.multiLine",
-		"code": "foo:bar(\n    aaa,\n    bbb\n)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-2:7",
-						"removal": "0:8-3:0"
-					}
-				],
-				"domain": "0:0-3:1"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argumentList/argumentList.actual.method.singleLine",
-		"languageId": "lua",
-		"facet": "argumentList.actual.method.singleLine",
-		"code": "foo:bar(aaa, bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:8-0:16",
-						"removal": "0:8-0:16"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argumentList/argumentList.actual.multiLine",
-		"languageId": "lua",
-		"facet": "argumentList.actual.multiLine",
-		"code": "foo(\n    aaa,\n    bbb\n)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-2:7",
-						"removal": "0:4-3:0"
-					}
-				],
-				"domain": "0:0-3:1"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argumentList/argumentList.actual.singleLine",
-		"languageId": "lua",
-		"facet": "argumentList.actual.singleLine",
-		"code": "foo(aaa, bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:12",
-						"removal": "0:4-0:12"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argumentList/argumentList.formal.empty",
-		"languageId": "lua",
-		"facet": "argumentList.formal.empty",
-		"code": "function foo() end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:13-0:13",
-						"removal": "0:13-0:13"
-					}
-				],
-				"domain": "0:0-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argumentList/argumentList.formal.lambda.empty",
-		"languageId": "lua",
-		"facet": "argumentList.formal.lambda.empty",
-		"code": "f = function() end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:13-0:13",
-						"removal": "0:13-0:13"
-					}
-				],
-				"domain": "0:4-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argumentList/argumentList.formal.lambda.multiLine",
-		"languageId": "lua",
-		"facet": "argumentList.formal.lambda.multiLine",
-		"code": "f = function(\n    aaa,\n    bbb\n) end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-2:7",
-						"removal": "0:13-3:0"
-					}
-				],
-				"domain": "0:4-3:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argumentList/argumentList.formal.lambda.singleLine",
-		"languageId": "lua",
-		"facet": "argumentList.formal.lambda.singleLine",
-		"code": "f = function(aaa, bbb) end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:13-0:21",
-						"removal": "0:13-0:21"
-					}
-				],
-				"domain": "0:4-0:26"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argumentList/argumentList.formal.method.empty",
-		"languageId": "lua",
-		"facet": "argumentList.formal.method.empty",
-		"code": "function foo:bar() end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:17-0:17",
-						"removal": "0:17-0:17"
-					}
-				],
-				"domain": "0:0-0:22"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argumentList/argumentList.formal.method.multiLine",
-		"languageId": "lua",
-		"facet": "argumentList.formal.method.multiLine",
-		"code": "function foo:bar(\n    aaa,\n    bbb\n) end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-2:7",
-						"removal": "0:17-3:0"
-					}
-				],
-				"domain": "0:0-3:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argumentList/argumentList.formal.method.singleLine",
-		"languageId": "lua",
-		"facet": "argumentList.formal.method.singleLine",
-		"code": "function foo:bar(aaa, bbb) end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:17-0:25",
-						"removal": "0:17-0:25"
-					}
-				],
-				"domain": "0:0-0:30"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argumentList/argumentList.formal.multiLine",
-		"languageId": "lua",
-		"facet": "argumentList.formal.multiLine",
-		"code": "function foo(\n    aaa,\n    bbb\n) end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-2:7",
-						"removal": "0:13-3:0"
-					}
-				],
-				"domain": "0:0-3:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/argumentList/argumentList.formal.singleLine",
-		"languageId": "lua",
-		"facet": "argumentList.formal.singleLine",
-		"code": "function foo(aaa, bbb) end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:13-0:21",
-						"removal": "0:13-0:21"
-					}
-				],
-				"domain": "0:0-0:26"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/branch/branch.if.elif.else",
-		"languageId": "lua",
-		"facet": "branch.if.elif.else",
-		"code": "if true then\n    a = 1\nelseif false then\n    a = 2\nelse\n    a = 3\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:9",
-						"removal": "0:0-2:4"
-					}
-				],
-				"domain": "0:0-1:9"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:0-3:9",
-						"removal": "2:0-4:0"
-					}
-				],
-				"domain": "2:0-3:9"
-			},
-			{
-				"targets": [
-					{
-						"content": "4:0-5:9",
-						"removal": "4:0-6:0"
-					}
-				],
-				"domain": "4:0-5:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/branch/branch.if.else",
-		"languageId": "lua",
-		"facet": "branch.if.else",
-		"code": "if true then\n    a = 1\nelse\n    a = 2\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:9",
-						"removal": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-1:9"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:0-3:9",
-						"removal": "2:0-4:0"
-					}
-				],
-				"domain": "2:0-3:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/branch/branch.if.iteration",
-		"languageId": "lua",
-		"facet": "branch.if.iteration",
-		"code": "if true then\n    a = 1\nelseif false then\n    a = 2\nelse\n    a = 3\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-6:3"
-					}
-				],
-				"domain": "0:0-6:3"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/branch/branch.if",
-		"languageId": "lua",
-		"facet": "branch.if",
-		"code": "if true then\n    a = 1\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:9",
-						"removal": "0:0-2:3"
-					}
-				],
-				"domain": "0:0-1:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/collectionItem.unenclosed.iteration",
-		"languageId": "lua",
-		"facet": "collectionItem.unenclosed.iteration",
-		"code": "local a, b, c = 1, 2, 3",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:23"
-					}
-				],
-				"domain": "0:0-0:23"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:6-0:13"
-					}
-				],
-				"domain": "0:6-0:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:16-0:23"
-					}
-				],
-				"domain": "0:16-0:23"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/collectionItem.unenclosed.multiLine",
-		"languageId": "lua",
-		"facet": "collectionItem.unenclosed.multiLine",
-		"code": "local a,\n  b,\n  c =\n  1,\n  2,\n  3",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:8"
-					}
-				],
-				"domain": "0:0-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:6-0:7",
-						"removal": "0:6-1:2"
-					}
-				],
-				"domain": "0:6-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-1:3",
-						"removal": "1:2-2:2"
-					}
-				],
-				"domain": "1:2-1:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:2-2:3",
-						"removal": "1:3-2:3"
-					}
-				],
-				"domain": "2:2-2:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "3:2-3:3",
-						"removal": "3:2-4:2"
-					}
-				],
-				"domain": "3:2-3:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "4:2-4:3",
-						"removal": "4:2-5:2"
-					}
-				],
-				"domain": "4:2-4:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "5:2-5:3",
-						"removal": "4:3-5:3"
-					}
-				],
-				"domain": "5:2-5:3"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/collectionItem.unenclosed.singleLine",
-		"languageId": "lua",
-		"facet": "collectionItem.unenclosed.singleLine",
-		"code": "local a, b, c = 1, 2, 3",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:6-0:7",
-						"removal": "0:6-0:9"
-					}
-				],
-				"domain": "0:6-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-0:10",
-						"removal": "0:9-0:12"
-					}
-				],
-				"domain": "0:9-0:10"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:12-0:13",
-						"removal": "0:10-0:13"
-					}
-				],
-				"domain": "0:12-0:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:12-0:17",
-						"removal": "0:12-0:19"
-					}
-				],
-				"domain": "0:12-0:17"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:16-0:17",
-						"removal": "0:16-0:19"
-					}
-				],
-				"domain": "0:16-0:17"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:19-0:20",
-						"removal": "0:19-0:22"
-					}
-				],
-				"domain": "0:19-0:20"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:22-0:23",
-						"removal": "0:20-0:23"
-					}
-				],
-				"domain": "0:22-0:23"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/comment.block",
-		"languageId": "lua",
-		"facet": "comment.block",
-		"code": "--[[ Hello world ]]",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:19",
-						"removal": "0:0-0:19"
-					}
-				],
-				"domain": "0:0-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/comment.line",
-		"languageId": "lua",
-		"facet": "comment.line",
-		"code": "-- Hello world ",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:15",
-						"removal": "0:0-0:15"
-					}
-				],
-				"domain": "0:0-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/condition.doWhile",
-		"languageId": "lua",
-		"facet": "condition.doWhile",
-		"code": "repeat until true",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:13-0:17",
-						"removal": "0:12-0:17"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/condition.for",
-		"languageId": "lua",
-		"facet": "condition.for",
-		"code": "for i = 1, 3 do end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:12",
-						"removal": "0:4-0:13"
-					}
-				],
-				"domain": "0:0-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/condition.if",
-		"languageId": "lua",
-		"facet": "condition.if",
-		"code": "if true then\n    a = 1\nelseif false then\n    a = 1\nelse\n    a = 1\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:3-0:7",
-						"removal": "0:3-0:8"
-					}
-				],
-				"domain": "0:0-6:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:7-2:12",
-						"removal": "2:7-2:13"
-					}
-				],
-				"domain": "2:0-3:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/condition.while",
-		"languageId": "lua",
-		"facet": "condition.while",
-		"code": "while true do end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:10",
-						"removal": "0:6-0:11"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/disqualifyDelimiter",
-		"languageId": "lua",
-		"facet": "disqualifyDelimiter",
-		"code": "a = 1 < 2\na = 1 > 2\na = 1 <= 2\na = 1 >= 2\na = 1 << 2\na = 1 >> 2",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:7"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "1:6-1:7"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "2:6-2:8"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "3:6-3:8"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "4:6-4:8"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "5:6-5:8"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/functionCall/functionCall.chain",
-		"languageId": "lua",
-		"facet": "functionCall.chain",
-		"code": "foo().bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:5",
-						"removal": "0:0-0:5"
-					}
-				],
-				"domain": "0:0-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:0-0:11",
-						"removal": "0:0-0:11"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/functionCall/functionCall.chain2",
-		"languageId": "lua",
-		"facet": "functionCall.chain",
-		"code": "foo():bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:5",
-						"removal": "0:0-0:5"
-					}
-				],
-				"domain": "0:0-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:0-0:11",
-						"removal": "0:0-0:11"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/functionCall/functionCall.method",
-		"languageId": "lua",
-		"facet": "functionCall.method",
-		"code": "foo.bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/functionCall/functionCall.method2",
-		"languageId": "lua",
-		"facet": "functionCall.method",
-		"code": "foo:bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/functionCall/functionCall",
-		"languageId": "lua",
-		"facet": "functionCall",
-		"code": "foo()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:5",
-						"removal": "0:0-0:5"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/functionCallee/functionCallee.chain",
-		"languageId": "lua",
-		"facet": "functionCallee.chain",
-		"code": "foo().bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/functionCallee/functionCallee.chain2",
-		"languageId": "lua",
-		"facet": "functionCallee.chain",
-		"code": "foo():bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/functionCallee/functionCallee.method",
-		"languageId": "lua",
-		"facet": "functionCallee.method",
-		"code": "foo.bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/functionCallee/functionCallee.method2",
-		"languageId": "lua",
-		"facet": "functionCallee.method",
-		"code": "foo:bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/functionCallee/functionCallee",
-		"languageId": "lua",
-		"facet": "functionCallee",
-		"code": "foo()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/ifStatement",
-		"languageId": "lua",
-		"facet": "ifStatement",
-		"code": "if true then\nelseif false then\nelse\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-3:3",
-						"removal": "0:0-3:3"
-					}
-				],
-				"domain": "0:0-3:3"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/interior/interior.doWhile",
-		"languageId": "lua",
-		"facet": "interior.doWhile",
-		"code": "repeat\n  a = 1\nuntil true",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:2-1:7",
-						"removal": "0:6-2:0"
-					}
-				],
-				"domain": "0:6-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/interior/interior.for",
-		"languageId": "lua",
-		"facet": "interior.for",
-		"code": "for i = 1, 3 do\n  a = 1\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:2-1:7",
-						"removal": "0:15-2:0"
-					}
-				],
-				"domain": "0:15-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/interior/interior.foreach",
-		"languageId": "lua",
-		"facet": "interior.foreach",
-		"code": "for v in values do\n  a = 1\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:2-1:7",
-						"removal": "0:18-2:0"
-					}
-				],
-				"domain": "0:18-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/interior/interior.function",
-		"languageId": "lua",
-		"facet": "interior.function",
-		"code": "function foo()\n    a = 1\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:9",
-						"removal": "0:14-2:0"
-					}
-				],
-				"domain": "0:14-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/interior/interior.if",
-		"languageId": "lua",
-		"facet": "interior.if",
-		"code": "if true then\n    a = 1\nelseif false then\n    a = 2\nelse\n    a = 3\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:9",
-						"removal": "0:12-2:0"
-					}
-				],
-				"domain": "0:12-2:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "3:4-3:9",
-						"removal": "2:17-4:0"
-					}
-				],
-				"domain": "2:17-4:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "5:4-5:9",
-						"removal": "4:4-6:0"
-					}
-				],
-				"domain": "4:4-6:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/interior/interior.lambda",
-		"languageId": "lua",
-		"facet": "interior.lambda",
-		"code": "f = function()\n  a = 1\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:2-1:7",
-						"removal": "0:14-2:0"
-					}
-				],
-				"domain": "0:14-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/interior/interior.method",
-		"languageId": "lua",
-		"facet": "interior.method",
-		"code": "function foo:bar()\n  a = 1\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:2-1:7",
-						"removal": "0:18-2:0"
-					}
-				],
-				"domain": "0:18-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/interior/interior.while",
-		"languageId": "lua",
-		"facet": "interior.while",
-		"code": "while true do\n  a = 1\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:2-1:7",
-						"removal": "0:13-2:0"
-					}
-				],
-				"domain": "0:13-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/key.mapPair.iteration",
-		"languageId": "lua",
-		"facet": "key.mapPair.iteration",
-		"code": "{ aaa = 1, bbb = 2 }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:19"
-					}
-				],
-				"domain": "0:1-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/key.mapPair",
-		"languageId": "lua",
-		"facet": "key.mapPair",
-		"code": "{ aaa = 1, bbb = 2 }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-0:5",
-						"removal": "0:2-0:8"
-					}
-				],
-				"domain": "0:2-0:9"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:11-0:14",
-						"removal": "0:11-0:17"
-					}
-				],
-				"domain": "0:11-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/list",
-		"languageId": "lua",
-		"facet": "list",
-		"code": "{aaa, bbb}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:10",
-						"removal": "0:0-0:10"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/map",
-		"languageId": "lua",
-		"facet": "map",
-		"code": "{ aaa = 0, bbb = 1 }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:20",
-						"removal": "0:0-0:20"
-					}
-				],
-				"domain": "0:0-0:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/name/name.argument.formal.iteration",
-		"languageId": "lua",
-		"facet": "name.argument.formal.iteration",
-		"code": "function foo(aaa, bbb) end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:26"
-					}
-				],
-				"domain": "0:0-0:26"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:13-0:21"
-					}
-				],
-				"domain": "0:13-0:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/name/name.argument.formal.lambda.iteration",
-		"languageId": "lua",
-		"facet": "name.argument.formal.lambda.iteration",
-		"code": "f = function(aaa, bbb) end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:26"
-					}
-				],
-				"domain": "0:0-0:26"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:13-0:21"
-					}
-				],
-				"domain": "0:13-0:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/name/name.argument.formal.lambda",
-		"languageId": "lua",
-		"facet": "name.argument.formal.lambda",
-		"code": "f = function(aaa, bbb) end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:1",
-						"removal": "0:0-0:4"
-					}
-				],
-				"domain": "0:0-0:26"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:13-0:16",
-						"removal": "0:13-0:16"
-					}
-				],
-				"domain": "0:13-0:16"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:18-0:21",
-						"removal": "0:17-0:21"
-					}
-				],
-				"domain": "0:18-0:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/name/name.argument.formal.method.iteration",
-		"languageId": "lua",
-		"facet": "name.argument.formal.method.iteration",
-		"code": "function foo:bar(aaa, bbb) end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:30"
-					}
-				],
-				"domain": "0:0-0:30"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:17-0:25"
-					}
-				],
-				"domain": "0:17-0:25"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/name/name.argument.formal.method",
-		"languageId": "lua",
-		"facet": "name.argument.formal.method",
-		"code": "function foo:bar(aaa, bbb) end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:16",
-						"removal": "0:9-0:16"
-					}
-				],
-				"domain": "0:0-0:30"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:17-0:20",
-						"removal": "0:17-0:20"
-					}
-				],
-				"domain": "0:17-0:20"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:22-0:25",
-						"removal": "0:21-0:25"
-					}
-				],
-				"domain": "0:22-0:25"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/name/name.argument.formal",
-		"languageId": "lua",
-		"facet": "name.argument.formal",
-		"code": "function foo(aaa, bbb) end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:12",
-						"removal": "0:9-0:12"
-					}
-				],
-				"domain": "0:0-0:26"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:13-0:16",
-						"removal": "0:13-0:16"
-					}
-				],
-				"domain": "0:13-0:16"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:18-0:21",
-						"removal": "0:17-0:21"
-					}
-				],
-				"domain": "0:18-0:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/name/name.assignment.destructuring",
-		"languageId": "lua",
-		"facet": "name.assignment.destructuring",
-		"code": "foo, bar = baz",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:8",
-						"removal": "0:0-0:11"
-					}
-				],
-				"domain": "0:0-0:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/name/name.assignment",
-		"languageId": "lua",
-		"facet": "name.assignment",
-		"code": "foo = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:6"
-					}
-				],
-				"domain": "0:0-0:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/name/name.assignment2",
-		"languageId": "lua",
-		"facet": "name.assignment",
-		"code": "foo, bar = 0, 1",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:8",
-						"removal": "0:0-0:11"
-					}
-				],
-				"domain": "0:0-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/name/name.foreach",
-		"languageId": "lua",
-		"facet": "name.foreach",
-		"code": "for v in values do end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:5",
-						"removal": "0:4-0:6"
-					}
-				],
-				"domain": "0:0-0:22"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/name/name.function",
-		"languageId": "lua",
-		"facet": "name.function",
-		"code": "function foo() end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:12",
-						"removal": "0:9-0:12"
-					}
-				],
-				"domain": "0:0-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/name/name.iteration.block",
-		"languageId": "lua",
-		"facet": "name.iteration.block",
-		"code": "function foo()\n    a = 0\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:3"
-					}
-				],
-				"domain": "0:0-2:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:9"
-					}
-				],
-				"domain": "1:4-1:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/name/name.iteration.block2",
-		"languageId": "lua",
-		"facet": "name.iteration.block",
-		"code": "if true then\n    a = 0\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:3"
-					}
-				],
-				"domain": "0:0-2:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:9"
-					}
-				],
-				"domain": "1:4-1:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/name/name.iteration.block3",
-		"languageId": "lua",
-		"facet": "name.iteration.block",
-		"code": "while true do\n    a = 0\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:3"
-					}
-				],
-				"domain": "0:0-2:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:9"
-					}
-				],
-				"domain": "1:4-1:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/name/name.iteration.document",
-		"languageId": "lua",
-		"facet": "name.iteration.document",
-		"code": "\nfoo = 0\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/name/name.method",
-		"languageId": "lua",
-		"facet": "name.method",
-		"code": "function foo:bar() end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:16",
-						"removal": "0:9-0:16"
-					}
-				],
-				"domain": "0:0-0:22"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/name/name.variable.destructuring",
-		"languageId": "lua",
-		"facet": "name.variable.destructuring",
-		"code": "local foo, bar = baz",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:14",
-						"removal": "0:0-0:17"
-					}
-				],
-				"domain": "0:0-0:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/name/name.variable.initialized",
-		"languageId": "lua",
-		"facet": "name.variable.initialized",
-		"code": "local foo = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:9",
-						"removal": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/name/name.variable.uninitialized",
-		"languageId": "lua",
-		"facet": "name.variable.uninitialized",
-		"code": "local foo",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:9",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/namedFunction.iteration.document",
-		"languageId": "lua",
-		"facet": "namedFunction.iteration.document",
-		"code": "\nfunction foo() end\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/namedFunction.method",
-		"languageId": "lua",
-		"facet": "namedFunction.method",
-		"code": "function foo:bar() end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:22",
-						"removal": "0:0-0:22"
-					}
-				],
-				"domain": "0:0-0:22"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/namedFunction",
-		"languageId": "lua",
-		"facet": "namedFunction",
-		"code": "function foo() end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:18",
-						"removal": "0:0-0:18"
-					}
-				],
-				"domain": "0:0-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/statement/statement.assignment.destructuring",
-		"languageId": "lua",
-		"facet": "statement.assignment.destructuring",
-		"code": "foo, bar = baz",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:14",
-						"removal": "0:0-0:14"
-					}
-				],
-				"domain": "0:0-0:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/statement/statement.assignment",
-		"languageId": "lua",
-		"facet": "statement.assignment",
-		"code": "foo = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/statement/statement.break",
-		"languageId": "lua",
-		"facet": "statement.break",
-		"code": "while true do\n  break\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:3",
-						"removal": "0:0-2:3"
-					}
-				],
-				"domain": "0:0-2:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-1:7",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:2-1:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/statement/statement.doWhile",
-		"languageId": "lua",
-		"facet": "statement.doWhile",
-		"code": "repeat until true",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:17",
-						"removal": "0:0-0:17"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/statement/statement.for",
-		"languageId": "lua",
-		"facet": "statement.for",
-		"code": "for i = 1, 3 do end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:19",
-						"removal": "0:0-0:19"
-					}
-				],
-				"domain": "0:0-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/statement/statement.foreach",
-		"languageId": "lua",
-		"facet": "statement.foreach",
-		"code": "for v in values do end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:22",
-						"removal": "0:0-0:22"
-					}
-				],
-				"domain": "0:0-0:22"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/statement/statement.function",
-		"languageId": "lua",
-		"facet": "statement.function",
-		"code": "function foo() end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:18",
-						"removal": "0:0-0:18"
-					}
-				],
-				"domain": "0:0-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/statement/statement.functionCall",
-		"languageId": "lua",
-		"facet": "statement.functionCall",
-		"code": "foo()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:5",
-						"removal": "0:0-0:5"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/statement/statement.if",
-		"languageId": "lua",
-		"facet": "statement.if",
-		"code": "if true then\nelseif false then\nelse\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-3:3",
-						"removal": "0:0-3:3"
-					}
-				],
-				"domain": "0:0-3:3"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/statement/statement.iteration.block",
-		"languageId": "lua",
-		"facet": "statement.iteration.block",
-		"code": "function foo()\n    a = 0\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:3"
-					}
-				],
-				"domain": "0:0-2:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:9"
-					}
-				],
-				"domain": "1:4-1:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/statement/statement.iteration.block2",
-		"languageId": "lua",
-		"facet": "statement.iteration.block",
-		"code": "if true then\n    a = 0\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:3"
-					}
-				],
-				"domain": "0:0-2:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:9"
-					}
-				],
-				"domain": "1:4-1:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/statement/statement.iteration.block3",
-		"languageId": "lua",
-		"facet": "statement.iteration.block",
-		"code": "while true do\n    a = 0\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:3"
-					}
-				],
-				"domain": "0:0-2:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:9"
-					}
-				],
-				"domain": "1:4-1:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/statement/statement.iteration.document",
-		"languageId": "lua",
-		"facet": "statement.iteration.document",
-		"code": "\nfoo = 0\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/statement/statement.method",
-		"languageId": "lua",
-		"facet": "statement.method",
-		"code": "function foo:bar() end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:22",
-						"removal": "0:0-0:22"
-					}
-				],
-				"domain": "0:0-0:22"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/statement/statement.return",
-		"languageId": "lua",
-		"facet": "statement.return",
-		"code": "function foo()\n    return 0\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:3",
-						"removal": "0:0-2:3"
-					}
-				],
-				"domain": "0:0-2:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:12",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/statement/statement.variable.destructuring",
-		"languageId": "lua",
-		"facet": "statement.variable.destructuring",
-		"code": "local foo, bar = baz",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:20",
-						"removal": "0:0-0:20"
-					}
-				],
-				"domain": "0:0-0:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/statement/statement.variable.initialized",
-		"languageId": "lua",
-		"facet": "statement.variable.initialized",
-		"code": "local foo = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/statement/statement.variable.uninitialized",
-		"languageId": "lua",
-		"facet": "statement.variable.uninitialized",
-		"code": "local foo",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/statement/statement.while",
-		"languageId": "lua",
-		"facet": "statement.while",
-		"code": "while true do end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:17",
-						"removal": "0:0-0:17"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/string.multiLine",
-		"languageId": "lua",
-		"facet": "string.multiLine",
-		"code": "foo = [[Hello\nworld]]",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-1:7",
-						"removal": "0:5-1:7"
-					}
-				],
-				"domain": "0:6-1:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/string.singleLine",
-		"languageId": "lua",
-		"facet": "string.singleLine",
-		"code": "foo = \"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:19",
-						"removal": "0:5-0:19"
-					}
-				],
-				"domain": "0:6-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/textFragment.comment.block",
-		"languageId": "lua",
-		"facet": "textFragment.comment.block",
-		"code": "--[[ Hello world ]]",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:19",
-						"removal": "0:0-0:19"
-					}
-				],
-				"domain": "0:0-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/textFragment.comment.line",
-		"languageId": "lua",
-		"facet": "textFragment.comment.line",
-		"code": "-- Hello world ",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:15",
-						"removal": "0:0-0:15"
-					}
-				],
-				"domain": "0:0-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/textFragment.string.multiLine",
-		"languageId": "lua",
-		"facet": "textFragment.string.multiLine",
-		"code": "foo = [[Hello\nworld]]",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:8-1:5",
-						"removal": "0:8-1:5"
-					}
-				],
-				"domain": "0:8-1:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/textFragment.string.singleLine",
-		"languageId": "lua",
-		"facet": "textFragment.string.singleLine",
-		"code": "foo = \"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:7-0:18",
-						"removal": "0:7-0:18"
-					}
-				],
-				"domain": "0:7-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/value/value.assignment.destructuring",
-		"languageId": "lua",
-		"facet": "value.assignment.destructuring",
-		"code": "foo, bar = baz()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:11-0:16",
-						"removal": "0:8-0:16"
-					}
-				],
-				"domain": "0:0-0:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/value/value.assignment",
-		"languageId": "lua",
-		"facet": "value.assignment",
-		"code": "foo = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:7",
-						"removal": "0:3-0:7"
-					}
-				],
-				"domain": "0:0-0:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/value/value.assignment2",
-		"languageId": "lua",
-		"facet": "value.assignment",
-		"code": "foo, bar = 0, 1\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:11-0:15",
-						"removal": "0:8-0:15"
-					}
-				],
-				"domain": "0:0-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/value/value.foreach",
-		"languageId": "lua",
-		"facet": "value.foreach",
-		"code": "for v in values do end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:15",
-						"removal": "0:9-0:16"
-					}
-				],
-				"domain": "0:0-0:22"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/value/value.iteration.block",
-		"languageId": "lua",
-		"facet": "value.iteration.block",
-		"code": "function foo()\n    a = 0\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:3"
-					}
-				],
-				"domain": "0:0-2:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:9"
-					}
-				],
-				"domain": "1:4-1:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/value/value.iteration.block2",
-		"languageId": "lua",
-		"facet": "value.iteration.block",
-		"code": "if true then\n    a = 0\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:3"
-					}
-				],
-				"domain": "0:0-2:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:9"
-					}
-				],
-				"domain": "1:4-1:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/value/value.iteration.block3",
-		"languageId": "lua",
-		"facet": "value.iteration.block",
-		"code": "while true do\n    a = 0\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:3"
-					}
-				],
-				"domain": "0:0-2:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:9"
-					}
-				],
-				"domain": "1:4-1:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/value/value.iteration.document",
-		"languageId": "lua",
-		"facet": "value.iteration.document",
-		"code": "\nfoo = 0\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/value/value.mapPair.iteration",
-		"languageId": "lua",
-		"facet": "value.mapPair.iteration",
-		"code": "{ aaa = 1, bbb = 2 }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:20"
-					}
-				],
-				"domain": "0:0-0:20"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:1-0:19"
-					}
-				],
-				"domain": "0:1-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/value/value.mapPair",
-		"languageId": "lua",
-		"facet": "value.mapPair",
-		"code": "{ aaa = 1, bbb = 2 }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:8-0:9",
-						"removal": "0:5-0:9"
-					}
-				],
-				"domain": "0:2-0:9"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:17-0:18",
-						"removal": "0:14-0:18"
-					}
-				],
-				"domain": "0:11-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/value/value.return",
-		"languageId": "lua",
-		"facet": "value.return",
-		"code": "function foo()\n  return 0\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:9-1:10",
-						"removal": "1:8-1:10"
-					}
-				],
-				"domain": "1:2-1:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/value/value.variable.destructuring",
-		"languageId": "lua",
-		"facet": "value.variable.destructuring",
-		"code": "local foo, bar = baz",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:17-0:20",
-						"removal": "0:14-0:20"
-					}
-				],
-				"domain": "0:0-0:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/value/value.variable",
-		"languageId": "lua",
-		"facet": "value.variable",
-		"code": "local foo = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:12-0:13",
-						"removal": "0:9-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	}
+  {
+    "name": "scopes/lua/anonymousFunction",
+    "languageId": "lua",
+    "facet": "anonymousFunction",
+    "code": "f = function() end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:18",
+            "removal": "0:3-0:18"
+          }
+        ],
+        "domain": "0:4-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argument/argument.actual.iteration",
+    "languageId": "lua",
+    "facet": "argument.actual.iteration",
+    "code": "foo(aaa, bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:12"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argument/argument.actual.method.iteration",
+    "languageId": "lua",
+    "facet": "argument.actual.method.iteration",
+    "code": "foo:bar(aaa, bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-0:16"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argument/argument.actual.method.multiLine",
+    "languageId": "lua",
+    "facet": "argument.actual.method.multiLine",
+    "code": "foo:bar(\n    aaa,\n    bbb\n)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-2:4"
+          }
+        ],
+        "domain": "1:4-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:7",
+            "removal": "1:7-2:7"
+          }
+        ],
+        "domain": "2:4-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argument/argument.actual.method.singleLine",
+    "languageId": "lua",
+    "facet": "argument.actual.method.singleLine",
+    "code": "foo:bar(aaa, bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-0:11",
+            "removal": "0:8-0:13"
+          }
+        ],
+        "domain": "0:8-0:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:13-0:16",
+            "removal": "0:11-0:16"
+          }
+        ],
+        "domain": "0:13-0:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argument/argument.actual.multiLine",
+    "languageId": "lua",
+    "facet": "argument.actual.multiLine",
+    "code": "foo(\n    aaa,\n    bbb\n)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-2:4"
+          }
+        ],
+        "domain": "1:4-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:7",
+            "removal": "1:7-2:7"
+          }
+        ],
+        "domain": "2:4-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argument/argument.actual.singleLine",
+    "languageId": "lua",
+    "facet": "argument.actual.singleLine",
+    "code": "foo(aaa, bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:7",
+            "removal": "0:4-0:9"
+          }
+        ],
+        "domain": "0:4-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:12",
+            "removal": "0:7-0:12"
+          }
+        ],
+        "domain": "0:9-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argument/argument.formal.iteration",
+    "languageId": "lua",
+    "facet": "argument.formal.iteration",
+    "code": "function foo(aaa, bbb) end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:13-0:21"
+          }
+        ],
+        "domain": "0:0-0:26"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argument/argument.formal.lambda.iteration",
+    "languageId": "lua",
+    "facet": "argument.formal.lambda.iteration",
+    "code": "f = function(aaa, bbb) end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:13-0:21"
+          }
+        ],
+        "domain": "0:4-0:26"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argument/argument.formal.lambda.multiLine",
+    "languageId": "lua",
+    "facet": "argument.formal.lambda.multiLine",
+    "code": "f = function(\n    aaa,\n    bbb\n) end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-2:4"
+          }
+        ],
+        "domain": "1:4-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:7",
+            "removal": "1:7-2:7"
+          }
+        ],
+        "domain": "2:4-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argument/argument.formal.lambda.singleLine",
+    "languageId": "lua",
+    "facet": "argument.formal.lambda.singleLine",
+    "code": "f = function(aaa, bbb) end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:13-0:16",
+            "removal": "0:13-0:18"
+          }
+        ],
+        "domain": "0:13-0:16"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:18-0:21",
+            "removal": "0:16-0:21"
+          }
+        ],
+        "domain": "0:18-0:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argument/argument.formal.method.iteration",
+    "languageId": "lua",
+    "facet": "argument.formal.method.iteration",
+    "code": "function foo:bar(aaa, bbb) end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:17-0:25"
+          }
+        ],
+        "domain": "0:0-0:30"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argument/argument.formal.method.multiLine",
+    "languageId": "lua",
+    "facet": "argument.formal.method.multiLine",
+    "code": "function foo:bar(\n    aaa,\n    bbb\n) end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-2:4"
+          }
+        ],
+        "domain": "1:4-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:7",
+            "removal": "1:7-2:7"
+          }
+        ],
+        "domain": "2:4-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argument/argument.formal.method.singleLine",
+    "languageId": "lua",
+    "facet": "argument.formal.method.singleLine",
+    "code": "function foo:bar(aaa, bbb) end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:17-0:20",
+            "removal": "0:17-0:22"
+          }
+        ],
+        "domain": "0:17-0:20"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:22-0:25",
+            "removal": "0:20-0:25"
+          }
+        ],
+        "domain": "0:22-0:25"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argument/argument.formal.multiLine",
+    "languageId": "lua",
+    "facet": "argument.formal.multiLine",
+    "code": "function foo(\n    aaa,\n    bbb\n)\n  return a + b\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-2:4"
+          }
+        ],
+        "domain": "1:4-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:7",
+            "removal": "1:7-2:7"
+          }
+        ],
+        "domain": "2:4-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argument/argument.formal.singleLine",
+    "languageId": "lua",
+    "facet": "argument.formal.singleLine",
+    "code": "function foo(aaa, bbb) end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:13-0:16",
+            "removal": "0:13-0:18"
+          }
+        ],
+        "domain": "0:13-0:16"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:18-0:21",
+            "removal": "0:16-0:21"
+          }
+        ],
+        "domain": "0:18-0:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argumentList/argumentList.actual.empty",
+    "languageId": "lua",
+    "facet": "argumentList.actual.empty",
+    "code": "foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:4",
+            "removal": "0:4-0:4"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argumentList/argumentList.actual.method.empty",
+    "languageId": "lua",
+    "facet": "argumentList.actual.method.empty",
+    "code": "foo:bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-0:8",
+            "removal": "0:8-0:8"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argumentList/argumentList.actual.method.multiLine",
+    "languageId": "lua",
+    "facet": "argumentList.actual.method.multiLine",
+    "code": "foo:bar(\n    aaa,\n    bbb\n)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-2:7",
+            "removal": "0:8-3:0"
+          }
+        ],
+        "domain": "0:0-3:1"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argumentList/argumentList.actual.method.singleLine",
+    "languageId": "lua",
+    "facet": "argumentList.actual.method.singleLine",
+    "code": "foo:bar(aaa, bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-0:16",
+            "removal": "0:8-0:16"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argumentList/argumentList.actual.multiLine",
+    "languageId": "lua",
+    "facet": "argumentList.actual.multiLine",
+    "code": "foo(\n    aaa,\n    bbb\n)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-2:7",
+            "removal": "0:4-3:0"
+          }
+        ],
+        "domain": "0:0-3:1"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argumentList/argumentList.actual.singleLine",
+    "languageId": "lua",
+    "facet": "argumentList.actual.singleLine",
+    "code": "foo(aaa, bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:12",
+            "removal": "0:4-0:12"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argumentList/argumentList.formal.empty",
+    "languageId": "lua",
+    "facet": "argumentList.formal.empty",
+    "code": "function foo() end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:13-0:13",
+            "removal": "0:13-0:13"
+          }
+        ],
+        "domain": "0:0-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argumentList/argumentList.formal.lambda.empty",
+    "languageId": "lua",
+    "facet": "argumentList.formal.lambda.empty",
+    "code": "f = function() end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:13-0:13",
+            "removal": "0:13-0:13"
+          }
+        ],
+        "domain": "0:4-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argumentList/argumentList.formal.lambda.multiLine",
+    "languageId": "lua",
+    "facet": "argumentList.formal.lambda.multiLine",
+    "code": "f = function(\n    aaa,\n    bbb\n) end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-2:7",
+            "removal": "0:13-3:0"
+          }
+        ],
+        "domain": "0:4-3:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argumentList/argumentList.formal.lambda.singleLine",
+    "languageId": "lua",
+    "facet": "argumentList.formal.lambda.singleLine",
+    "code": "f = function(aaa, bbb) end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:13-0:21",
+            "removal": "0:13-0:21"
+          }
+        ],
+        "domain": "0:4-0:26"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argumentList/argumentList.formal.method.empty",
+    "languageId": "lua",
+    "facet": "argumentList.formal.method.empty",
+    "code": "function foo:bar() end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:17-0:17",
+            "removal": "0:17-0:17"
+          }
+        ],
+        "domain": "0:0-0:22"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argumentList/argumentList.formal.method.multiLine",
+    "languageId": "lua",
+    "facet": "argumentList.formal.method.multiLine",
+    "code": "function foo:bar(\n    aaa,\n    bbb\n) end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-2:7",
+            "removal": "0:17-3:0"
+          }
+        ],
+        "domain": "0:0-3:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argumentList/argumentList.formal.method.singleLine",
+    "languageId": "lua",
+    "facet": "argumentList.formal.method.singleLine",
+    "code": "function foo:bar(aaa, bbb) end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:17-0:25",
+            "removal": "0:17-0:25"
+          }
+        ],
+        "domain": "0:0-0:30"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argumentList/argumentList.formal.multiLine",
+    "languageId": "lua",
+    "facet": "argumentList.formal.multiLine",
+    "code": "function foo(\n    aaa,\n    bbb\n) end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-2:7",
+            "removal": "0:13-3:0"
+          }
+        ],
+        "domain": "0:0-3:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/argumentList/argumentList.formal.singleLine",
+    "languageId": "lua",
+    "facet": "argumentList.formal.singleLine",
+    "code": "function foo(aaa, bbb) end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:13-0:21",
+            "removal": "0:13-0:21"
+          }
+        ],
+        "domain": "0:0-0:26"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/branch/branch.if.elif.else",
+    "languageId": "lua",
+    "facet": "branch.if.elif.else",
+    "code": "if true then\n    a = 1\nelseif false then\n    a = 2\nelse\n    a = 3\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:9",
+            "removal": "0:0-2:4"
+          }
+        ],
+        "domain": "0:0-1:9"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:0-3:9",
+            "removal": "2:0-4:0"
+          }
+        ],
+        "domain": "2:0-3:9"
+      },
+      {
+        "targets": [
+          {
+            "content": "4:0-5:9",
+            "removal": "4:0-6:0"
+          }
+        ],
+        "domain": "4:0-5:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/branch/branch.if.else",
+    "languageId": "lua",
+    "facet": "branch.if.else",
+    "code": "if true then\n    a = 1\nelse\n    a = 2\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:9",
+            "removal": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-1:9"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:0-3:9",
+            "removal": "2:0-4:0"
+          }
+        ],
+        "domain": "2:0-3:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/branch/branch.if.iteration",
+    "languageId": "lua",
+    "facet": "branch.if.iteration",
+    "code": "if true then\n    a = 1\nelseif false then\n    a = 2\nelse\n    a = 3\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-6:3"
+          }
+        ],
+        "domain": "0:0-6:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/branch/branch.if",
+    "languageId": "lua",
+    "facet": "branch.if",
+    "code": "if true then\n    a = 1\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:9",
+            "removal": "0:0-2:3"
+          }
+        ],
+        "domain": "0:0-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/collectionItem.unenclosed.iteration",
+    "languageId": "lua",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "local a, b, c = 1, 2, 3",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:23"
+          }
+        ],
+        "domain": "0:0-0:23"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:6-0:13"
+          }
+        ],
+        "domain": "0:6-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:16-0:23"
+          }
+        ],
+        "domain": "0:16-0:23"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/collectionItem.unenclosed.multiLine",
+    "languageId": "lua",
+    "facet": "collectionItem.unenclosed.multiLine",
+    "code": "local a,\n  b,\n  c =\n  1,\n  2,\n  3",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:6-0:7",
+            "removal": "0:6-1:2"
+          }
+        ],
+        "domain": "0:6-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-1:3",
+            "removal": "1:2-2:2"
+          }
+        ],
+        "domain": "1:2-1:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-2:3",
+            "removal": "1:3-2:3"
+          }
+        ],
+        "domain": "2:2-2:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:2-3:3",
+            "removal": "3:2-4:2"
+          }
+        ],
+        "domain": "3:2-3:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "4:2-4:3",
+            "removal": "4:2-5:2"
+          }
+        ],
+        "domain": "4:2-4:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "5:2-5:3",
+            "removal": "4:3-5:3"
+          }
+        ],
+        "domain": "5:2-5:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/collectionItem.unenclosed.singleLine",
+    "languageId": "lua",
+    "facet": "collectionItem.unenclosed.singleLine",
+    "code": "local a, b, c = 1, 2, 3",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:6-0:7",
+            "removal": "0:6-0:9"
+          }
+        ],
+        "domain": "0:6-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:10",
+            "removal": "0:9-0:12"
+          }
+        ],
+        "domain": "0:9-0:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13",
+            "removal": "0:10-0:13"
+          }
+        ],
+        "domain": "0:12-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-0:17",
+            "removal": "0:12-0:19"
+          }
+        ],
+        "domain": "0:12-0:17"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:16-0:17",
+            "removal": "0:16-0:19"
+          }
+        ],
+        "domain": "0:16-0:17"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:19-0:20",
+            "removal": "0:19-0:22"
+          }
+        ],
+        "domain": "0:19-0:20"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:22-0:23",
+            "removal": "0:20-0:23"
+          }
+        ],
+        "domain": "0:22-0:23"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/comment.block",
+    "languageId": "lua",
+    "facet": "comment.block",
+    "code": "--[[ Hello world ]]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:19",
+            "removal": "0:0-0:19"
+          }
+        ],
+        "domain": "0:0-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/comment.line",
+    "languageId": "lua",
+    "facet": "comment.line",
+    "code": "-- Hello world ",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/condition.doWhile",
+    "languageId": "lua",
+    "facet": "condition.doWhile",
+    "code": "repeat until true",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:13-0:17",
+            "removal": "0:12-0:17"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/condition.for",
+    "languageId": "lua",
+    "facet": "condition.for",
+    "code": "for i = 1, 3 do end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:12",
+            "removal": "0:4-0:13"
+          }
+        ],
+        "domain": "0:0-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/condition.if",
+    "languageId": "lua",
+    "facet": "condition.if",
+    "code": "if true then\n    a = 1\nelseif false then\n    a = 1\nelse\n    a = 1\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:3-0:7",
+            "removal": "0:3-0:8"
+          }
+        ],
+        "domain": "0:0-6:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:7-2:12",
+            "removal": "2:7-2:13"
+          }
+        ],
+        "domain": "2:0-3:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/condition.while",
+    "languageId": "lua",
+    "facet": "condition.while",
+    "code": "while true do end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:10",
+            "removal": "0:6-0:11"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/disqualifyDelimiter",
+    "languageId": "lua",
+    "facet": "disqualifyDelimiter",
+    "code": "a = 1 < 2\na = 1 > 2\na = 1 <= 2\na = 1 >= 2\na = 1 << 2\na = 1 >> 2",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:7"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "1:6-1:7"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "2:6-2:8"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "3:6-3:8"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "4:6-4:8"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "5:6-5:8"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/functionCall/functionCall.chain",
+    "languageId": "lua",
+    "facet": "functionCall.chain",
+    "code": "foo().bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:5",
+            "removal": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/functionCall/functionCall.chain2",
+    "languageId": "lua",
+    "facet": "functionCall.chain",
+    "code": "foo():bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:5",
+            "removal": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/functionCall/functionCall.method",
+    "languageId": "lua",
+    "facet": "functionCall.method",
+    "code": "foo.bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/functionCall/functionCall.method2",
+    "languageId": "lua",
+    "facet": "functionCall.method",
+    "code": "foo:bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/functionCall/functionCall",
+    "languageId": "lua",
+    "facet": "functionCall",
+    "code": "foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:5",
+            "removal": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/functionCallee/functionCallee.chain",
+    "languageId": "lua",
+    "facet": "functionCallee.chain",
+    "code": "foo().bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/functionCallee/functionCallee.chain2",
+    "languageId": "lua",
+    "facet": "functionCallee.chain",
+    "code": "foo():bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/functionCallee/functionCallee.method",
+    "languageId": "lua",
+    "facet": "functionCallee.method",
+    "code": "foo.bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/functionCallee/functionCallee.method2",
+    "languageId": "lua",
+    "facet": "functionCallee.method",
+    "code": "foo:bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/functionCallee/functionCallee",
+    "languageId": "lua",
+    "facet": "functionCallee",
+    "code": "foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/ifStatement",
+    "languageId": "lua",
+    "facet": "ifStatement",
+    "code": "if true then\nelseif false then\nelse\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:3",
+            "removal": "0:0-3:3"
+          }
+        ],
+        "domain": "0:0-3:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/interior/interior.doWhile",
+    "languageId": "lua",
+    "facet": "interior.doWhile",
+    "code": "repeat\n  a = 1\nuntil true",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-1:7",
+            "removal": "0:6-2:0"
+          }
+        ],
+        "domain": "0:6-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/interior/interior.for",
+    "languageId": "lua",
+    "facet": "interior.for",
+    "code": "for i = 1, 3 do\n  a = 1\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-1:7",
+            "removal": "0:15-2:0"
+          }
+        ],
+        "domain": "0:15-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/interior/interior.foreach",
+    "languageId": "lua",
+    "facet": "interior.foreach",
+    "code": "for v in values do\n  a = 1\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-1:7",
+            "removal": "0:18-2:0"
+          }
+        ],
+        "domain": "0:18-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/interior/interior.function",
+    "languageId": "lua",
+    "facet": "interior.function",
+    "code": "function foo()\n    a = 1\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:9",
+            "removal": "0:14-2:0"
+          }
+        ],
+        "domain": "0:14-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/interior/interior.if",
+    "languageId": "lua",
+    "facet": "interior.if",
+    "code": "if true then\n    a = 1\nelseif false then\n    a = 2\nelse\n    a = 3\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:9",
+            "removal": "0:12-2:0"
+          }
+        ],
+        "domain": "0:12-2:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:4-3:9",
+            "removal": "2:17-4:0"
+          }
+        ],
+        "domain": "2:17-4:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "5:4-5:9",
+            "removal": "4:4-6:0"
+          }
+        ],
+        "domain": "4:4-6:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/interior/interior.lambda",
+    "languageId": "lua",
+    "facet": "interior.lambda",
+    "code": "f = function()\n  a = 1\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-1:7",
+            "removal": "0:14-2:0"
+          }
+        ],
+        "domain": "0:14-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/interior/interior.method",
+    "languageId": "lua",
+    "facet": "interior.method",
+    "code": "function foo:bar()\n  a = 1\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-1:7",
+            "removal": "0:18-2:0"
+          }
+        ],
+        "domain": "0:18-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/interior/interior.while",
+    "languageId": "lua",
+    "facet": "interior.while",
+    "code": "while true do\n  a = 1\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-1:7",
+            "removal": "0:13-2:0"
+          }
+        ],
+        "domain": "0:13-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/key.mapPair.iteration",
+    "languageId": "lua",
+    "facet": "key.mapPair.iteration",
+    "code": "{ aaa = 1, bbb = 2 }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:19"
+          }
+        ],
+        "domain": "0:1-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/key.mapPair",
+    "languageId": "lua",
+    "facet": "key.mapPair",
+    "code": "{ aaa = 1, bbb = 2 }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:5",
+            "removal": "0:2-0:8"
+          }
+        ],
+        "domain": "0:2-0:9"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-0:14",
+            "removal": "0:11-0:17"
+          }
+        ],
+        "domain": "0:11-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/list",
+    "languageId": "lua",
+    "facet": "list",
+    "code": "{aaa, bbb}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/map",
+    "languageId": "lua",
+    "facet": "map",
+    "code": "{ aaa = 0, bbb = 1 }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:20",
+            "removal": "0:0-0:20"
+          }
+        ],
+        "domain": "0:0-0:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/name/name.argument.formal.iteration",
+    "languageId": "lua",
+    "facet": "name.argument.formal.iteration",
+    "code": "function foo(aaa, bbb) end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:26"
+          }
+        ],
+        "domain": "0:0-0:26"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:13-0:21"
+          }
+        ],
+        "domain": "0:13-0:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/name/name.argument.formal.lambda.iteration",
+    "languageId": "lua",
+    "facet": "name.argument.formal.lambda.iteration",
+    "code": "f = function(aaa, bbb) end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:26"
+          }
+        ],
+        "domain": "0:0-0:26"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:13-0:21"
+          }
+        ],
+        "domain": "0:13-0:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/name/name.argument.formal.lambda",
+    "languageId": "lua",
+    "facet": "name.argument.formal.lambda",
+    "code": "f = function(aaa, bbb) end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:1",
+            "removal": "0:0-0:4"
+          }
+        ],
+        "domain": "0:0-0:26"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:13-0:16",
+            "removal": "0:13-0:16"
+          }
+        ],
+        "domain": "0:13-0:16"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:18-0:21",
+            "removal": "0:17-0:21"
+          }
+        ],
+        "domain": "0:18-0:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/name/name.argument.formal.method.iteration",
+    "languageId": "lua",
+    "facet": "name.argument.formal.method.iteration",
+    "code": "function foo:bar(aaa, bbb) end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:30"
+          }
+        ],
+        "domain": "0:0-0:30"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:17-0:25"
+          }
+        ],
+        "domain": "0:17-0:25"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/name/name.argument.formal.method",
+    "languageId": "lua",
+    "facet": "name.argument.formal.method",
+    "code": "function foo:bar(aaa, bbb) end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:16",
+            "removal": "0:9-0:16"
+          }
+        ],
+        "domain": "0:0-0:30"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:17-0:20",
+            "removal": "0:17-0:20"
+          }
+        ],
+        "domain": "0:17-0:20"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:22-0:25",
+            "removal": "0:21-0:25"
+          }
+        ],
+        "domain": "0:22-0:25"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/name/name.argument.formal",
+    "languageId": "lua",
+    "facet": "name.argument.formal",
+    "code": "function foo(aaa, bbb) end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:12",
+            "removal": "0:9-0:12"
+          }
+        ],
+        "domain": "0:0-0:26"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:13-0:16",
+            "removal": "0:13-0:16"
+          }
+        ],
+        "domain": "0:13-0:16"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:18-0:21",
+            "removal": "0:17-0:21"
+          }
+        ],
+        "domain": "0:18-0:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/name/name.assignment.destructuring",
+    "languageId": "lua",
+    "facet": "name.assignment.destructuring",
+    "code": "foo, bar = baz",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:8",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/name/name.assignment",
+    "languageId": "lua",
+    "facet": "name.assignment",
+    "code": "foo = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:6"
+          }
+        ],
+        "domain": "0:0-0:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/name/name.assignment2",
+    "languageId": "lua",
+    "facet": "name.assignment",
+    "code": "foo, bar = 0, 1",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:8",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/name/name.foreach",
+    "languageId": "lua",
+    "facet": "name.foreach",
+    "code": "for v in values do end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:5",
+            "removal": "0:4-0:6"
+          }
+        ],
+        "domain": "0:0-0:22"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/name/name.function",
+    "languageId": "lua",
+    "facet": "name.function",
+    "code": "function foo() end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:12",
+            "removal": "0:9-0:12"
+          }
+        ],
+        "domain": "0:0-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/name/name.iteration.block",
+    "languageId": "lua",
+    "facet": "name.iteration.block",
+    "code": "function foo()\n    a = 0\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:3"
+          }
+        ],
+        "domain": "0:0-2:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:9"
+          }
+        ],
+        "domain": "1:4-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/name/name.iteration.block2",
+    "languageId": "lua",
+    "facet": "name.iteration.block",
+    "code": "if true then\n    a = 0\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:3"
+          }
+        ],
+        "domain": "0:0-2:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:9"
+          }
+        ],
+        "domain": "1:4-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/name/name.iteration.block3",
+    "languageId": "lua",
+    "facet": "name.iteration.block",
+    "code": "while true do\n    a = 0\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:3"
+          }
+        ],
+        "domain": "0:0-2:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:9"
+          }
+        ],
+        "domain": "1:4-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/name/name.iteration.document",
+    "languageId": "lua",
+    "facet": "name.iteration.document",
+    "code": "\nfoo = 0\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/name/name.method",
+    "languageId": "lua",
+    "facet": "name.method",
+    "code": "function foo:bar() end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:16",
+            "removal": "0:9-0:16"
+          }
+        ],
+        "domain": "0:0-0:22"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/name/name.variable.destructuring",
+    "languageId": "lua",
+    "facet": "name.variable.destructuring",
+    "code": "local foo, bar = baz",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:14",
+            "removal": "0:0-0:17"
+          }
+        ],
+        "domain": "0:0-0:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/name/name.variable.initialized",
+    "languageId": "lua",
+    "facet": "name.variable.initialized",
+    "code": "local foo = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:9",
+            "removal": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/name/name.variable.uninitialized",
+    "languageId": "lua",
+    "facet": "name.variable.uninitialized",
+    "code": "local foo",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/namedFunction.iteration.document",
+    "languageId": "lua",
+    "facet": "namedFunction.iteration.document",
+    "code": "\nfunction foo() end\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/namedFunction.method",
+    "languageId": "lua",
+    "facet": "namedFunction.method",
+    "code": "function foo:bar() end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:22",
+            "removal": "0:0-0:22"
+          }
+        ],
+        "domain": "0:0-0:22"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/namedFunction",
+    "languageId": "lua",
+    "facet": "namedFunction",
+    "code": "function foo() end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:18",
+            "removal": "0:0-0:18"
+          }
+        ],
+        "domain": "0:0-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/statement/statement.assignment.destructuring",
+    "languageId": "lua",
+    "facet": "statement.assignment.destructuring",
+    "code": "foo, bar = baz",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14",
+            "removal": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/statement/statement.assignment",
+    "languageId": "lua",
+    "facet": "statement.assignment",
+    "code": "foo = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/statement/statement.break",
+    "languageId": "lua",
+    "facet": "statement.break",
+    "code": "while true do\n  break\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:3",
+            "removal": "0:0-2:3"
+          }
+        ],
+        "domain": "0:0-2:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-1:7",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:2-1:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/statement/statement.doWhile",
+    "languageId": "lua",
+    "facet": "statement.doWhile",
+    "code": "repeat until true",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:17",
+            "removal": "0:0-0:17"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/statement/statement.for",
+    "languageId": "lua",
+    "facet": "statement.for",
+    "code": "for i = 1, 3 do end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:19",
+            "removal": "0:0-0:19"
+          }
+        ],
+        "domain": "0:0-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/statement/statement.foreach",
+    "languageId": "lua",
+    "facet": "statement.foreach",
+    "code": "for v in values do end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:22",
+            "removal": "0:0-0:22"
+          }
+        ],
+        "domain": "0:0-0:22"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/statement/statement.function",
+    "languageId": "lua",
+    "facet": "statement.function",
+    "code": "function foo() end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:18",
+            "removal": "0:0-0:18"
+          }
+        ],
+        "domain": "0:0-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/statement/statement.functionCall",
+    "languageId": "lua",
+    "facet": "statement.functionCall",
+    "code": "foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:5",
+            "removal": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/statement/statement.if",
+    "languageId": "lua",
+    "facet": "statement.if",
+    "code": "if true then\nelseif false then\nelse\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:3",
+            "removal": "0:0-3:3"
+          }
+        ],
+        "domain": "0:0-3:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/statement/statement.iteration.block",
+    "languageId": "lua",
+    "facet": "statement.iteration.block",
+    "code": "function foo()\n    a = 0\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:3"
+          }
+        ],
+        "domain": "0:0-2:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:9"
+          }
+        ],
+        "domain": "1:4-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/statement/statement.iteration.block2",
+    "languageId": "lua",
+    "facet": "statement.iteration.block",
+    "code": "if true then\n    a = 0\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:3"
+          }
+        ],
+        "domain": "0:0-2:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:9"
+          }
+        ],
+        "domain": "1:4-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/statement/statement.iteration.block3",
+    "languageId": "lua",
+    "facet": "statement.iteration.block",
+    "code": "while true do\n    a = 0\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:3"
+          }
+        ],
+        "domain": "0:0-2:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:9"
+          }
+        ],
+        "domain": "1:4-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/statement/statement.iteration.document",
+    "languageId": "lua",
+    "facet": "statement.iteration.document",
+    "code": "\nfoo = 0\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/statement/statement.method",
+    "languageId": "lua",
+    "facet": "statement.method",
+    "code": "function foo:bar() end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:22",
+            "removal": "0:0-0:22"
+          }
+        ],
+        "domain": "0:0-0:22"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/statement/statement.return",
+    "languageId": "lua",
+    "facet": "statement.return",
+    "code": "function foo()\n    return 0\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:3",
+            "removal": "0:0-2:3"
+          }
+        ],
+        "domain": "0:0-2:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:12",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/statement/statement.variable.destructuring",
+    "languageId": "lua",
+    "facet": "statement.variable.destructuring",
+    "code": "local foo, bar = baz",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:20",
+            "removal": "0:0-0:20"
+          }
+        ],
+        "domain": "0:0-0:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/statement/statement.variable.initialized",
+    "languageId": "lua",
+    "facet": "statement.variable.initialized",
+    "code": "local foo = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/statement/statement.variable.uninitialized",
+    "languageId": "lua",
+    "facet": "statement.variable.uninitialized",
+    "code": "local foo",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/statement/statement.while",
+    "languageId": "lua",
+    "facet": "statement.while",
+    "code": "while true do end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:17",
+            "removal": "0:0-0:17"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/string.multiLine",
+    "languageId": "lua",
+    "facet": "string.multiLine",
+    "code": "foo = [[Hello\nworld]]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-1:7",
+            "removal": "0:5-1:7"
+          }
+        ],
+        "domain": "0:6-1:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/string.singleLine",
+    "languageId": "lua",
+    "facet": "string.singleLine",
+    "code": "foo = \"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:19",
+            "removal": "0:5-0:19"
+          }
+        ],
+        "domain": "0:6-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/textFragment.comment.block",
+    "languageId": "lua",
+    "facet": "textFragment.comment.block",
+    "code": "--[[ Hello world ]]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:19",
+            "removal": "0:0-0:19"
+          }
+        ],
+        "domain": "0:0-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/textFragment.comment.line",
+    "languageId": "lua",
+    "facet": "textFragment.comment.line",
+    "code": "-- Hello world ",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/textFragment.string.multiLine",
+    "languageId": "lua",
+    "facet": "textFragment.string.multiLine",
+    "code": "foo = [[Hello\nworld]]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-1:5",
+            "removal": "0:8-1:5"
+          }
+        ],
+        "domain": "0:8-1:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/textFragment.string.singleLine",
+    "languageId": "lua",
+    "facet": "textFragment.string.singleLine",
+    "code": "foo = \"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:18",
+            "removal": "0:7-0:18"
+          }
+        ],
+        "domain": "0:7-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/value/value.assignment.destructuring",
+    "languageId": "lua",
+    "facet": "value.assignment.destructuring",
+    "code": "foo, bar = baz()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:11-0:16",
+            "removal": "0:8-0:16"
+          }
+        ],
+        "domain": "0:0-0:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/value/value.assignment",
+    "languageId": "lua",
+    "facet": "value.assignment",
+    "code": "foo = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:7",
+            "removal": "0:3-0:7"
+          }
+        ],
+        "domain": "0:0-0:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/value/value.assignment2",
+    "languageId": "lua",
+    "facet": "value.assignment",
+    "code": "foo, bar = 0, 1\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:11-0:15",
+            "removal": "0:8-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/value/value.foreach",
+    "languageId": "lua",
+    "facet": "value.foreach",
+    "code": "for v in values do end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:15",
+            "removal": "0:9-0:16"
+          }
+        ],
+        "domain": "0:0-0:22"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/value/value.iteration.block",
+    "languageId": "lua",
+    "facet": "value.iteration.block",
+    "code": "function foo()\n    a = 0\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:3"
+          }
+        ],
+        "domain": "0:0-2:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:9"
+          }
+        ],
+        "domain": "1:4-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/value/value.iteration.block2",
+    "languageId": "lua",
+    "facet": "value.iteration.block",
+    "code": "if true then\n    a = 0\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:3"
+          }
+        ],
+        "domain": "0:0-2:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:9"
+          }
+        ],
+        "domain": "1:4-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/value/value.iteration.block3",
+    "languageId": "lua",
+    "facet": "value.iteration.block",
+    "code": "while true do\n    a = 0\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:3"
+          }
+        ],
+        "domain": "0:0-2:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:9"
+          }
+        ],
+        "domain": "1:4-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/value/value.iteration.document",
+    "languageId": "lua",
+    "facet": "value.iteration.document",
+    "code": "\nfoo = 0\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/value/value.mapPair.iteration",
+    "languageId": "lua",
+    "facet": "value.mapPair.iteration",
+    "code": "{ aaa = 1, bbb = 2 }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:20"
+          }
+        ],
+        "domain": "0:0-0:20"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:1-0:19"
+          }
+        ],
+        "domain": "0:1-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/value/value.mapPair",
+    "languageId": "lua",
+    "facet": "value.mapPair",
+    "code": "{ aaa = 1, bbb = 2 }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-0:9",
+            "removal": "0:5-0:9"
+          }
+        ],
+        "domain": "0:2-0:9"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:17-0:18",
+            "removal": "0:14-0:18"
+          }
+        ],
+        "domain": "0:11-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/value/value.return",
+    "languageId": "lua",
+    "facet": "value.return",
+    "code": "function foo()\n  return 0\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:9-1:10",
+            "removal": "1:8-1:10"
+          }
+        ],
+        "domain": "1:2-1:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/value/value.variable.destructuring",
+    "languageId": "lua",
+    "facet": "value.variable.destructuring",
+    "code": "local foo, bar = baz",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:17-0:20",
+            "removal": "0:14-0:20"
+          }
+        ],
+        "domain": "0:0-0:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/value/value.variable",
+    "languageId": "lua",
+    "facet": "value.variable",
+    "code": "local foo = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13",
+            "removal": "0:9-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  }
 ]

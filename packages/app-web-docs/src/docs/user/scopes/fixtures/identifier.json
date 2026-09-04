@@ -1,28 +1,28 @@
 [
-	{
-		"name": "scopes/plaintext/identifier",
-		"languageId": "plaintext",
-		"facet": "identifier",
-		"code": "foo.bar_1()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:4-0:9",
-						"removal": "0:4-0:9"
-					}
-				],
-				"domain": "0:4-0:9"
-			}
-		]
-	}
+  {
+    "name": "scopes/plaintext/identifier",
+    "languageId": "plaintext",
+    "facet": "identifier",
+    "code": "foo.bar_1()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:4-0:9",
+            "removal": "0:4-0:9"
+          }
+        ],
+        "domain": "0:4-0:9"
+      }
+    ]
+  }
 ]

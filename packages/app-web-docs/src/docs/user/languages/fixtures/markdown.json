@@ -1,381 +1,381 @@
 [
-	{
-		"name": "scopes/markdown/collectionItem.unenclosed.iteration",
-		"languageId": "markdown",
-		"facet": "collectionItem.unenclosed.iteration",
-		"code": "- This is the first level of a list.\n  - This is the second level of a list.\n- This is the first level of a list again.",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:42"
-					}
-				],
-				"domain": "0:0-2:42"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-2:0"
-					}
-				],
-				"domain": "1:2-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/markdown/collectionItem.unenclosed.multiLine",
-		"languageId": "markdown",
-		"facet": "collectionItem.unenclosed.multiLine",
-		"code": "- This is the first level of a list.\n  - This is the second level of a list.\n- This is the first level of a list again.",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-1:39",
-						"removal": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-1:39"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:39",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:2-1:39"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:2-2:42",
-						"removal": "2:0-2:42"
-					}
-				],
-				"domain": "2:0-2:42"
-			}
-		]
-	},
-	{
-		"name": "scopes/markdown/comment.block",
-		"languageId": "markdown",
-		"facet": "comment.block",
-		"code": "<!-- Hello world -->",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:20",
-						"removal": "0:0-0:20"
-					}
-				],
-				"domain": "0:0-0:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/markdown/interior.cell",
-		"languageId": "markdown",
-		"facet": "interior.cell",
-		"code": "```ts\nlet foo;\n```\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:0-1:8",
-						"removal": "0:5-2:0"
-					}
-				],
-				"domain": "0:5-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/markdown/interior.cell2",
-		"languageId": "markdown",
-		"facet": "interior.cell",
-		"code": "```\nHello world\n```\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:0-1:11",
-						"removal": "0:3-2:0"
-					}
-				],
-				"domain": "0:3-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/markdown/list",
-		"languageId": "markdown",
-		"facet": "list",
-		"code": "* aaa\n* bbb",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:5",
-						"removal": "0:0-1:5"
-					}
-				],
-				"domain": "0:0-1:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/markdown/notebookCell",
-		"languageId": "markdown",
-		"facet": "notebookCell",
-		"code": "```ts\nlet foo;\n```\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:3",
-						"removal": "0:0-3:0"
-					}
-				],
-				"domain": "0:0-2:3"
-			}
-		]
-	},
-	{
-		"name": "scopes/markdown/notebookCell2",
-		"languageId": "markdown",
-		"facet": "notebookCell",
-		"code": "```\nHello world\n```\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:3",
-						"removal": "0:0-3:0"
-					}
-				],
-				"domain": "0:0-2:3"
-			}
-		]
-	},
-	{
-		"name": "scopes/markdown/section.iteration.document",
-		"languageId": "markdown",
-		"facet": "section.iteration.document",
-		"code": "\n# h1\nAaa\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-3:0"
-					}
-				],
-				"domain": "0:0-3:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:0-2:3"
-					}
-				],
-				"domain": "2:0-2:3"
-			}
-		]
-	},
-	{
-		"name": "scopes/markdown/section.iteration.parent",
-		"languageId": "markdown",
-		"facet": "section.iteration.parent",
-		"code": "# h1\nAaa\n\n## h2.1\nBbb\n\n## h2.2\nCcc",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-7:3"
-					}
-				],
-				"domain": "0:0-7:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:0-7:3"
-					}
-				],
-				"domain": "1:0-7:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "4:0-4:3"
-					}
-				],
-				"domain": "4:0-4:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "7:0-7:3"
-					}
-				],
-				"domain": "7:0-7:3"
-			}
-		]
-	},
-	{
-		"name": "scopes/markdown/section",
-		"languageId": "markdown",
-		"facet": "section",
-		"code": "# H1\n\nSub 1\n\n## H2\n\nSub 2\n\n# H1.2",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-6:5",
-						"removal": "0:0-8:0"
-					}
-				],
-				"domain": "0:0-6:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "4:0-6:5",
-						"removal": "4:0-8:0"
-					}
-				],
-				"domain": "4:0-6:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "8:0-8:6",
-						"removal": "8:0-8:6"
-					}
-				],
-				"domain": "8:0-8:6"
-			}
-		]
-	},
-	{
-		"name": "scopes/markdown/sectionLevelFive",
-		"languageId": "markdown",
-		"facet": "sectionLevelFive",
-		"code": "##### H5\n\nSub",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:3",
-						"removal": "0:0-2:3"
-					}
-				],
-				"domain": "0:0-2:3"
-			}
-		]
-	},
-	{
-		"name": "scopes/markdown/sectionLevelFour",
-		"languageId": "markdown",
-		"facet": "sectionLevelFour",
-		"code": "#### H4\n\nSub",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:3",
-						"removal": "0:0-2:3"
-					}
-				],
-				"domain": "0:0-2:3"
-			}
-		]
-	},
-	{
-		"name": "scopes/markdown/sectionLevelOne",
-		"languageId": "markdown",
-		"facet": "sectionLevelOne",
-		"code": "# H1\n\nSub",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:3",
-						"removal": "0:0-2:3"
-					}
-				],
-				"domain": "0:0-2:3"
-			}
-		]
-	},
-	{
-		"name": "scopes/markdown/sectionLevelSix",
-		"languageId": "markdown",
-		"facet": "sectionLevelSix",
-		"code": "###### H6\n\nSub",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:3",
-						"removal": "0:0-2:3"
-					}
-				],
-				"domain": "0:0-2:3"
-			}
-		]
-	},
-	{
-		"name": "scopes/markdown/sectionLevelThree",
-		"languageId": "markdown",
-		"facet": "sectionLevelThree",
-		"code": "### H3\n\nSub",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:3",
-						"removal": "0:0-2:3"
-					}
-				],
-				"domain": "0:0-2:3"
-			}
-		]
-	},
-	{
-		"name": "scopes/markdown/sectionLevelTwo",
-		"languageId": "markdown",
-		"facet": "sectionLevelTwo",
-		"code": "## H2\n\nSub",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:3",
-						"removal": "0:0-2:3"
-					}
-				],
-				"domain": "0:0-2:3"
-			}
-		]
-	},
-	{
-		"name": "scopes/markdown/textFragment.comment.block",
-		"languageId": "markdown",
-		"facet": "textFragment.comment.block",
-		"code": "<!-- Hello world -->",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:20",
-						"removal": "0:0-0:20"
-					}
-				],
-				"domain": "0:0-0:20"
-			}
-		]
-	}
+  {
+    "name": "scopes/markdown/collectionItem.unenclosed.iteration",
+    "languageId": "markdown",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "- This is the first level of a list.\n  - This is the second level of a list.\n- This is the first level of a list again.",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:42"
+          }
+        ],
+        "domain": "0:0-2:42"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-2:0"
+          }
+        ],
+        "domain": "1:2-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/markdown/collectionItem.unenclosed.multiLine",
+    "languageId": "markdown",
+    "facet": "collectionItem.unenclosed.multiLine",
+    "code": "- This is the first level of a list.\n  - This is the second level of a list.\n- This is the first level of a list again.",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-1:39",
+            "removal": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-1:39"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:39",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:2-1:39"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-2:42",
+            "removal": "2:0-2:42"
+          }
+        ],
+        "domain": "2:0-2:42"
+      }
+    ]
+  },
+  {
+    "name": "scopes/markdown/comment.block",
+    "languageId": "markdown",
+    "facet": "comment.block",
+    "code": "<!-- Hello world -->",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:20",
+            "removal": "0:0-0:20"
+          }
+        ],
+        "domain": "0:0-0:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/markdown/interior.cell",
+    "languageId": "markdown",
+    "facet": "interior.cell",
+    "code": "```ts\nlet foo;\n```\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:0-1:8",
+            "removal": "0:5-2:0"
+          }
+        ],
+        "domain": "0:5-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/markdown/interior.cell2",
+    "languageId": "markdown",
+    "facet": "interior.cell",
+    "code": "```\nHello world\n```\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:0-1:11",
+            "removal": "0:3-2:0"
+          }
+        ],
+        "domain": "0:3-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/markdown/list",
+    "languageId": "markdown",
+    "facet": "list",
+    "code": "* aaa\n* bbb",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:5",
+            "removal": "0:0-1:5"
+          }
+        ],
+        "domain": "0:0-1:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/markdown/notebookCell",
+    "languageId": "markdown",
+    "facet": "notebookCell",
+    "code": "```ts\nlet foo;\n```\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:3",
+            "removal": "0:0-3:0"
+          }
+        ],
+        "domain": "0:0-2:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/markdown/notebookCell2",
+    "languageId": "markdown",
+    "facet": "notebookCell",
+    "code": "```\nHello world\n```\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:3",
+            "removal": "0:0-3:0"
+          }
+        ],
+        "domain": "0:0-2:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/markdown/section.iteration.document",
+    "languageId": "markdown",
+    "facet": "section.iteration.document",
+    "code": "\n# h1\nAaa\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:0"
+          }
+        ],
+        "domain": "0:0-3:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:0-2:3"
+          }
+        ],
+        "domain": "2:0-2:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/markdown/section.iteration.parent",
+    "languageId": "markdown",
+    "facet": "section.iteration.parent",
+    "code": "# h1\nAaa\n\n## h2.1\nBbb\n\n## h2.2\nCcc",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-7:3"
+          }
+        ],
+        "domain": "0:0-7:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:0-7:3"
+          }
+        ],
+        "domain": "1:0-7:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "4:0-4:3"
+          }
+        ],
+        "domain": "4:0-4:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "7:0-7:3"
+          }
+        ],
+        "domain": "7:0-7:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/markdown/section",
+    "languageId": "markdown",
+    "facet": "section",
+    "code": "# H1\n\nSub 1\n\n## H2\n\nSub 2\n\n# H1.2",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-6:5",
+            "removal": "0:0-8:0"
+          }
+        ],
+        "domain": "0:0-6:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "4:0-6:5",
+            "removal": "4:0-8:0"
+          }
+        ],
+        "domain": "4:0-6:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "8:0-8:6",
+            "removal": "8:0-8:6"
+          }
+        ],
+        "domain": "8:0-8:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/markdown/sectionLevelFive",
+    "languageId": "markdown",
+    "facet": "sectionLevelFive",
+    "code": "##### H5\n\nSub",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:3",
+            "removal": "0:0-2:3"
+          }
+        ],
+        "domain": "0:0-2:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/markdown/sectionLevelFour",
+    "languageId": "markdown",
+    "facet": "sectionLevelFour",
+    "code": "#### H4\n\nSub",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:3",
+            "removal": "0:0-2:3"
+          }
+        ],
+        "domain": "0:0-2:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/markdown/sectionLevelOne",
+    "languageId": "markdown",
+    "facet": "sectionLevelOne",
+    "code": "# H1\n\nSub",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:3",
+            "removal": "0:0-2:3"
+          }
+        ],
+        "domain": "0:0-2:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/markdown/sectionLevelSix",
+    "languageId": "markdown",
+    "facet": "sectionLevelSix",
+    "code": "###### H6\n\nSub",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:3",
+            "removal": "0:0-2:3"
+          }
+        ],
+        "domain": "0:0-2:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/markdown/sectionLevelThree",
+    "languageId": "markdown",
+    "facet": "sectionLevelThree",
+    "code": "### H3\n\nSub",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:3",
+            "removal": "0:0-2:3"
+          }
+        ],
+        "domain": "0:0-2:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/markdown/sectionLevelTwo",
+    "languageId": "markdown",
+    "facet": "sectionLevelTwo",
+    "code": "## H2\n\nSub",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:3",
+            "removal": "0:0-2:3"
+          }
+        ],
+        "domain": "0:0-2:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/markdown/textFragment.comment.block",
+    "languageId": "markdown",
+    "facet": "textFragment.comment.block",
+    "code": "<!-- Hello world -->",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:20",
+            "removal": "0:0-0:20"
+          }
+        ],
+        "domain": "0:0-0:20"
+      }
+    ]
+  }
 ]

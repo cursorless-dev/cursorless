@@ -1,70 +1,70 @@
 [
-	{
-		"name": "scopes/html/startTag",
-		"languageId": "html",
-		"facet": "startTag",
-		"code": "<div></div>",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:5",
-						"removal": "0:0-0:5"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.jsx/startTag",
-		"languageId": "javascript.jsx",
-		"facet": "startTag",
-		"code": "<div></div>",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:5",
-						"removal": "0:0-0:5"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/startTag",
-		"languageId": "latex",
-		"facet": "startTag",
-		"code": "\\begin{quote}\n    Hello\n\\end{quote}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-1:0"
-					}
-				],
-				"domain": "0:0-2:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/xml/startTag",
-		"languageId": "xml",
-		"facet": "startTag",
-		"code": "<name></name>",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:6",
-						"removal": "0:0-0:6"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	}
+  {
+    "name": "scopes/html/startTag",
+    "languageId": "html",
+    "facet": "startTag",
+    "code": "<div></div>",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:5",
+            "removal": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.jsx/startTag",
+    "languageId": "javascript.jsx",
+    "facet": "startTag",
+    "code": "<div></div>",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:5",
+            "removal": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/startTag",
+    "languageId": "latex",
+    "facet": "startTag",
+    "code": "\\begin{quote}\n    Hello\n\\end{quote}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-1:0"
+          }
+        ],
+        "domain": "0:0-2:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/xml/startTag",
+    "languageId": "xml",
+    "facet": "startTag",
+    "code": "<name></name>",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:6",
+            "removal": "0:0-0:6"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  }
 ]

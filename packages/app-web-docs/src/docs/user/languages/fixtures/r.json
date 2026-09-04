@@ -1,2371 +1,2371 @@
 [
-	{
-		"name": "scopes/r/anonymousFunction",
-		"languageId": "r",
-		"facet": "anonymousFunction",
-		"code": "function() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/anonymousFunction2",
-		"languageId": "r",
-		"facet": "anonymousFunction",
-		"code": "(function() 0)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:13",
-						"removal": "0:1-0:13"
-					}
-				],
-				"domain": "0:1-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/argument/argument.actual.iteration",
-		"languageId": "r",
-		"facet": "argument.actual.iteration",
-		"code": "foo(aaa, bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:12"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/argument/argument.actual.method.iteration",
-		"languageId": "r",
-		"facet": "argument.actual.method.iteration",
-		"code": "foo.bar(aaa, bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:8-0:16"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/argument/argument.actual.method.multiLine",
-		"languageId": "r",
-		"facet": "argument.actual.method.multiLine",
-		"code": "foo.bar(\n    aaa,\n    bbb\n)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:4-2:4"
-					}
-				],
-				"domain": "1:4-1:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:7",
-						"removal": "1:7-2:7"
-					}
-				],
-				"domain": "2:4-2:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/argument/argument.actual.method.singleLine",
-		"languageId": "r",
-		"facet": "argument.actual.method.singleLine",
-		"code": "foo.bar(aaa, bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:8-0:11",
-						"removal": "0:8-0:13"
-					}
-				],
-				"domain": "0:8-0:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:13-0:16",
-						"removal": "0:11-0:16"
-					}
-				],
-				"domain": "0:13-0:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/argument/argument.actual.multiLine",
-		"languageId": "r",
-		"facet": "argument.actual.multiLine",
-		"code": "foo(\n    aaa,\n    bbb\n)\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:4-2:4"
-					}
-				],
-				"domain": "1:4-1:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:7",
-						"removal": "1:7-2:7"
-					}
-				],
-				"domain": "2:4-2:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/argument/argument.actual.singleLine",
-		"languageId": "r",
-		"facet": "argument.actual.singleLine",
-		"code": "func(aaa, bbb = 0)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:5-0:8",
-						"removal": "0:5-0:10"
-					}
-				],
-				"domain": "0:5-0:8"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:10-0:17",
-						"removal": "0:8-0:17"
-					}
-				],
-				"domain": "0:10-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/argument/argument.formal.iteration",
-		"languageId": "r",
-		"facet": "argument.formal.iteration",
-		"code": "foo <- function(aaa, bbb) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:16-0:24"
-					}
-				],
-				"domain": "0:0-0:28"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/argument/argument.formal.lambda.iteration",
-		"languageId": "r",
-		"facet": "argument.formal.lambda.iteration",
-		"code": "function(aaa, bbb) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:17"
-					}
-				],
-				"domain": "0:0-0:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/argument/argument.formal.lambda.multiLine",
-		"languageId": "r",
-		"facet": "argument.formal.lambda.multiLine",
-		"code": "function(\n    aaa,\n    bbb\n) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:4-2:4"
-					}
-				],
-				"domain": "1:4-1:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:7",
-						"removal": "1:7-2:7"
-					}
-				],
-				"domain": "2:4-2:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/argument/argument.formal.lambda.singleLine",
-		"languageId": "r",
-		"facet": "argument.formal.lambda.singleLine",
-		"code": "function(aaa, bbb) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:12",
-						"removal": "0:9-0:14"
-					}
-				],
-				"domain": "0:9-0:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:14-0:17",
-						"removal": "0:12-0:17"
-					}
-				],
-				"domain": "0:14-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/argument/argument.formal.multiLine",
-		"languageId": "r",
-		"facet": "argument.formal.multiLine",
-		"code": "foo <- function(\n    aaa,\n    bbb\n) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:4-2:4"
-					}
-				],
-				"domain": "1:4-1:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:7",
-						"removal": "1:7-2:7"
-					}
-				],
-				"domain": "2:4-2:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/argument/argument.formal.singleLine",
-		"languageId": "r",
-		"facet": "argument.formal.singleLine",
-		"code": "foo <- function(aaa, bbb) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:16-0:19",
-						"removal": "0:16-0:21"
-					}
-				],
-				"domain": "0:16-0:19"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:21-0:24",
-						"removal": "0:19-0:24"
-					}
-				],
-				"domain": "0:21-0:24"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/argumentList/argumentList.actual.empty",
-		"languageId": "r",
-		"facet": "argumentList.actual.empty",
-		"code": "foo()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:4",
-						"removal": "0:4-0:4"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/argumentList/argumentList.actual.method.empty",
-		"languageId": "r",
-		"facet": "argumentList.actual.method.empty",
-		"code": "foo.bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:8-0:8",
-						"removal": "0:8-0:8"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/argumentList/argumentList.actual.method.multiLine",
-		"languageId": "r",
-		"facet": "argumentList.actual.method.multiLine",
-		"code": "foo.bar(\n    aaa,\n    bbb\n)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-2:7",
-						"removal": "0:8-3:0"
-					}
-				],
-				"domain": "0:0-3:1"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/argumentList/argumentList.actual.method.singleLine",
-		"languageId": "r",
-		"facet": "argumentList.actual.method.singleLine",
-		"code": "foo.bar(aaa, bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:8-0:16",
-						"removal": "0:8-0:16"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/argumentList/argumentList.actual.multiLine",
-		"languageId": "r",
-		"facet": "argumentList.actual.multiLine",
-		"code": "foo(\n    aaa,\n    bbb\n)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-2:7",
-						"removal": "0:4-3:0"
-					}
-				],
-				"domain": "0:0-3:1"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/argumentList/argumentList.actual.singleLine",
-		"languageId": "r",
-		"facet": "argumentList.actual.singleLine",
-		"code": "foo(aaa, bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:12",
-						"removal": "0:4-0:12"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/argumentList/argumentList.formal.empty",
-		"languageId": "r",
-		"facet": "argumentList.formal.empty",
-		"code": "foo <- function() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:16-0:16",
-						"removal": "0:16-0:16"
-					}
-				],
-				"domain": "0:0-0:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/argumentList/argumentList.formal.lambda.empty",
-		"languageId": "r",
-		"facet": "argumentList.formal.lambda.empty",
-		"code": "function() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:9",
-						"removal": "0:9-0:9"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/argumentList/argumentList.formal.lambda.multiLine",
-		"languageId": "r",
-		"facet": "argumentList.formal.lambda.multiLine",
-		"code": "function(\n    aaa,\n    bbb\n) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-2:7",
-						"removal": "0:9-3:0"
-					}
-				],
-				"domain": "0:0-3:4"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/argumentList/argumentList.formal.lambda.singleLine",
-		"languageId": "r",
-		"facet": "argumentList.formal.lambda.singleLine",
-		"code": "function(aaa, bbb) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:17",
-						"removal": "0:9-0:17"
-					}
-				],
-				"domain": "0:0-0:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/argumentList/argumentList.formal.multiLine",
-		"languageId": "r",
-		"facet": "argumentList.formal.multiLine",
-		"code": "abc <- function(\n    aaa,\n    bbb\n){}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-2:7",
-						"removal": "0:16-3:0"
-					}
-				],
-				"domain": "0:0-3:3"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/argumentList/argumentList.formal.singleLine",
-		"languageId": "r",
-		"facet": "argumentList.formal.singleLine",
-		"code": "foo <- function(aaa, bbb) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:16-0:24",
-						"removal": "0:16-0:24"
-					}
-				],
-				"domain": "0:0-0:28"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/branch/branch.if.elif.else",
-		"languageId": "r",
-		"facet": "branch.if.elif.else",
-		"code": "if (TRUE) {\n} else if (FALSE) {\n} else {\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:1",
-						"removal": "0:0-1:7"
-					}
-				],
-				"domain": "0:0-1:1"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-2:1",
-						"removal": "1:2-2:2"
-					}
-				],
-				"domain": "1:2-2:1"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:2-3:1",
-						"removal": "2:1-3:1"
-					}
-				],
-				"domain": "2:2-3:1"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/branch/branch.if.else",
-		"languageId": "r",
-		"facet": "branch.if.else",
-		"code": "if (TRUE) {\n} else {\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:1",
-						"removal": "0:0-1:2"
-					}
-				],
-				"domain": "0:0-1:1"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-2:1",
-						"removal": "1:1-2:1"
-					}
-				],
-				"domain": "1:2-2:1"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/branch/branch.if.iteration",
-		"languageId": "r",
-		"facet": "branch.if.iteration",
-		"code": "if (TRUE) {\n} else if (FALSE) {\n} else {\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-3:1"
-					}
-				],
-				"domain": "0:0-3:1"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/branch/branch.if",
-		"languageId": "r",
-		"facet": "branch.if",
-		"code": "if (TRUE) {\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:1",
-						"removal": "0:0-1:1"
-					}
-				],
-				"domain": "0:0-1:1"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/branch/branch.switchCase.iteration",
-		"languageId": "r",
-		"facet": "branch.switchCase.iteration",
-		"code": "switch( )",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:7-0:8"
-					}
-				],
-				"domain": "0:7-0:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/branch/branch.switchCase",
-		"languageId": "r",
-		"facet": "branch.switchCase",
-		"code": "switch(foo,\n    a = 0,\n)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:9",
-						"removal": "1:0-1:9"
-					}
-				],
-				"domain": "1:4-1:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/branch/branch.switchCase2",
-		"languageId": "r",
-		"facet": "branch.switchCase",
-		"code": "switch(foo,\n    a = {},\n)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:10",
-						"removal": "1:0-1:10"
-					}
-				],
-				"domain": "1:4-1:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/branch/branch.switchCase3",
-		"languageId": "r",
-		"facet": "branch.switchCase",
-		"code": "switch(foo,\n    \"_\"\n)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/branch/branch.try.iteration",
-		"languageId": "r",
-		"facet": "branch.try.iteration",
-		"code": "tryCatch( )",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:10"
-					}
-				],
-				"domain": "0:9-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/branch/branch.try",
-		"languageId": "r",
-		"facet": "branch.try",
-		"code": "tryCatch(\n    expr = {},\n    error = function() {},\n    warning = function() {},\n    finally = {}\n)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:13",
-						"removal": "1:0-1:13"
-					}
-				],
-				"domain": "1:4-1:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:25",
-						"removal": "2:0-2:25"
-					}
-				],
-				"domain": "2:4-2:25"
-			},
-			{
-				"targets": [
-					{
-						"content": "3:4-3:27",
-						"removal": "3:0-3:27"
-					}
-				],
-				"domain": "3:4-3:27"
-			},
-			{
-				"targets": [
-					{
-						"content": "4:4-4:16",
-						"removal": "4:0-5:0"
-					}
-				],
-				"domain": "4:4-4:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/comment.line",
-		"languageId": "r",
-		"facet": "comment.line",
-		"code": "# Hello world",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/condition.if",
-		"languageId": "r",
-		"facet": "condition.if",
-		"code": "if (TRUE) {\n} else if (FALSE) {\n} else {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:8",
-						"removal": "0:4-0:8"
-					}
-				],
-				"domain": "0:0-2:9"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:11-1:16",
-						"removal": "1:11-1:16"
-					}
-				],
-				"domain": "1:2-2:1"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/condition.switchCase.iteration",
-		"languageId": "r",
-		"facet": "condition.switchCase.iteration",
-		"code": "switch( )",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:7-0:8"
-					}
-				],
-				"domain": "0:7-0:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/condition.switchCase",
-		"languageId": "r",
-		"facet": "condition.switchCase",
-		"code": "switch(foo,\n    a = 0\n)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:5",
-						"removal": "1:4-1:6"
-					}
-				],
-				"domain": "1:4-1:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/condition.switchCase2",
-		"languageId": "r",
-		"facet": "condition.switchCase",
-		"code": "switch(foo,\n    \"_\"\n)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/condition.while",
-		"languageId": "r",
-		"facet": "condition.while",
-		"code": "while (TRUE) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:7-0:11",
-						"removal": "0:7-0:11"
-					}
-				],
-				"domain": "0:0-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/disqualifyDelimiter",
-		"languageId": "r",
-		"facet": "disqualifyDelimiter",
-		"code": "1 < 2\n1 > 2\n1 <= 2\n1 >= 2\na <- 2\na -> 2\na <<- 2\na ->> 2\na |> 2",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-0:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-1:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "2:2-2:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "3:2-3:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "4:2-4:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "5:2-5:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "6:2-6:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "7:2-7:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "8:2-8:4"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/r/functionCall.method",
-		"languageId": "r",
-		"facet": "functionCall.method",
-		"code": "foo::bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:10",
-						"removal": "0:0-0:10"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/functionCall",
-		"languageId": "r",
-		"facet": "functionCall",
-		"code": "foo()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:5",
-						"removal": "0:0-0:5"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/functionCallee.method",
-		"languageId": "r",
-		"facet": "functionCallee.method",
-		"code": "foo::bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:8",
-						"removal": "0:0-0:8"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/functionCallee",
-		"languageId": "r",
-		"facet": "functionCallee",
-		"code": "foo()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/ifStatement",
-		"languageId": "r",
-		"facet": "ifStatement",
-		"code": "if (TRUE) {\n} else if (FALSE) {\n} else {\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-3:1",
-						"removal": "0:0-3:1"
-					}
-				],
-				"domain": "0:0-3:1"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/interior/interior.foreach",
-		"languageId": "r",
-		"facet": "interior.foreach",
-		"code": "for (v in values) { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:19-0:20",
-						"removal": "0:19-0:20"
-					}
-				],
-				"domain": "0:19-0:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/interior/interior.function",
-		"languageId": "r",
-		"facet": "interior.function",
-		"code": "foo <- function() { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:19-0:20",
-						"removal": "0:19-0:20"
-					}
-				],
-				"domain": "0:19-0:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/interior/interior.if",
-		"languageId": "r",
-		"facet": "interior.if",
-		"code": "if (TRUE) {\n} else if (FALSE) {\n} else {\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:11-1:0",
-						"removal": "0:11-1:0"
-					}
-				],
-				"domain": "0:11-1:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:19-2:0",
-						"removal": "1:19-2:0"
-					}
-				],
-				"domain": "1:19-2:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:8-3:0",
-						"removal": "2:8-3:0"
-					}
-				],
-				"domain": "2:8-3:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/interior/interior.lambda",
-		"languageId": "r",
-		"facet": "interior.lambda",
-		"code": "function() { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:12-0:13",
-						"removal": "0:12-0:13"
-					}
-				],
-				"domain": "0:12-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/interior/interior.switchCase",
-		"languageId": "r",
-		"facet": "interior.switchCase",
-		"code": "switch(foo,\n    a = bar,\n    \"_\" = bar\n)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:8-1:11",
-						"removal": "1:7-1:11"
-					}
-				],
-				"domain": "1:7-1:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:10-2:13",
-						"removal": "2:9-2:13"
-					}
-				],
-				"domain": "2:9-2:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/interior/interior.switchCase2",
-		"languageId": "r",
-		"facet": "interior.switchCase",
-		"code": "switch(foo,\n    a = { },\n    \"_\" = { }\n)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:9-1:10",
-						"removal": "1:9-1:10"
-					}
-				],
-				"domain": "1:9-1:10"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:11-2:12",
-						"removal": "2:11-2:12"
-					}
-				],
-				"domain": "2:11-2:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/interior/interior.try",
-		"languageId": "r",
-		"facet": "interior.try",
-		"code": "tryCatch(\n    expr = { },\n    error = function() { },\n    warning = function() { },\n    finally = { }\n)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:12-1:13",
-						"removal": "1:12-1:13"
-					}
-				],
-				"domain": "1:12-1:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:24-2:25",
-						"removal": "2:24-2:25"
-					}
-				],
-				"domain": "2:24-2:25"
-			},
-			{
-				"targets": [
-					{
-						"content": "3:26-3:27",
-						"removal": "3:26-3:27"
-					}
-				],
-				"domain": "3:26-3:27"
-			},
-			{
-				"targets": [
-					{
-						"content": "4:15-4:16",
-						"removal": "4:15-4:16"
-					}
-				],
-				"domain": "4:15-4:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/interior/interior.while",
-		"languageId": "r",
-		"facet": "interior.while",
-		"code": "while (TRUE) { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:14-0:15",
-						"removal": "0:14-0:15"
-					}
-				],
-				"domain": "0:14-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/list",
-		"languageId": "r",
-		"facet": "list",
-		"code": "list(aaa, bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:14",
-						"removal": "0:0-0:14"
-					}
-				],
-				"domain": "0:0-0:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/name/name.argument.actual.iteration",
-		"languageId": "r",
-		"facet": "name.argument.actual.iteration",
-		"code": "foo(aaa = 0, bbb = 1)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:21"
-					}
-				],
-				"domain": "0:0-0:21"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:4-0:20"
-					}
-				],
-				"domain": "0:4-0:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/name/name.argument.actual",
-		"languageId": "r",
-		"facet": "name.argument.actual",
-		"code": "foo(aaa = 0, bbb = 1)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:7",
-						"removal": "0:4-0:10"
-					}
-				],
-				"domain": "0:4-0:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:13-0:16",
-						"removal": "0:13-0:19"
-					}
-				],
-				"domain": "0:13-0:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/name/name.argument.formal.iteration",
-		"languageId": "r",
-		"facet": "name.argument.formal.iteration",
-		"code": "function(aaa, bbb = 0) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:25"
-					}
-				],
-				"domain": "0:0-0:25"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-0:21"
-					}
-				],
-				"domain": "0:9-0:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/name/name.argument.formal.lambda.iteration",
-		"languageId": "r",
-		"facet": "name.argument.formal.lambda.iteration",
-		"code": "function(aaa, bbb = 0) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:25"
-					}
-				],
-				"domain": "0:0-0:25"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-0:21"
-					}
-				],
-				"domain": "0:9-0:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/name/name.argument.formal.lambda",
-		"languageId": "r",
-		"facet": "name.argument.formal.lambda",
-		"code": "function(aaa, bbb = 0) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:12",
-						"removal": "0:9-0:12"
-					}
-				],
-				"domain": "0:9-0:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:14-0:17",
-						"removal": "0:14-0:20"
-					}
-				],
-				"domain": "0:14-0:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/name/name.argument.formal",
-		"languageId": "r",
-		"facet": "name.argument.formal",
-		"code": "function(aaa, bbb = 0) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:12",
-						"removal": "0:9-0:12"
-					}
-				],
-				"domain": "0:9-0:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:14-0:17",
-						"removal": "0:14-0:20"
-					}
-				],
-				"domain": "0:14-0:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/name/name.assignment",
-		"languageId": "r",
-		"facet": "name.assignment",
-		"code": "foo <- 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/name/name.assignment2",
-		"languageId": "r",
-		"facet": "name.assignment",
-		"code": "foo = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:6"
-					}
-				],
-				"domain": "0:0-0:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/name/name.foreach",
-		"languageId": "r",
-		"facet": "name.foreach",
-		"code": "for (v in values) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:5-0:6",
-						"removal": "0:5-0:7"
-					}
-				],
-				"domain": "0:0-0:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/name/name.function",
-		"languageId": "r",
-		"facet": "name.function",
-		"code": "foo <- function() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/name/name.iteration.block",
-		"languageId": "r",
-		"facet": "name.iteration.block",
-		"code": "function() { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:14"
-					}
-				],
-				"domain": "0:0-0:14"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:12-0:13"
-					}
-				],
-				"domain": "0:12-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/name/name.iteration.block2",
-		"languageId": "r",
-		"facet": "name.iteration.block",
-		"code": "if (TRUE) {\n} else if (FALSE) {\n} else { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:10"
-					}
-				],
-				"domain": "0:0-2:10"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:11-1:0"
-					}
-				],
-				"domain": "0:11-1:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:19-2:0"
-					}
-				],
-				"domain": "1:19-2:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:8-2:9"
-					}
-				],
-				"domain": "2:8-2:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/name/name.iteration.block3",
-		"languageId": "r",
-		"facet": "name.iteration.block",
-		"code": "while (TRUE) { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:16"
-					}
-				],
-				"domain": "0:0-0:16"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:14-0:15"
-					}
-				],
-				"domain": "0:14-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/name/name.iteration.document",
-		"languageId": "r",
-		"facet": "name.iteration.document",
-		"code": "\nfoo <- 0\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/name/name.variable.initialized",
-		"languageId": "r",
-		"facet": "name.variable.initialized",
-		"code": "foo <- 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/namedFunction.iteration.document",
-		"languageId": "r",
-		"facet": "namedFunction.iteration.document",
-		"code": "\nfoo <- function() {}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/namedFunction",
-		"languageId": "r",
-		"facet": "namedFunction",
-		"code": "foo <- function() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:20",
-						"removal": "0:0-0:20"
-					}
-				],
-				"domain": "0:0-0:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/statement/statement.assignment",
-		"languageId": "r",
-		"facet": "statement.assignment",
-		"code": "foo <- 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:8",
-						"removal": "0:0-0:8"
-					}
-				],
-				"domain": "0:0-0:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/statement/statement.assignment2",
-		"languageId": "r",
-		"facet": "statement.assignment",
-		"code": "foo = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/statement/statement.break",
-		"languageId": "r",
-		"facet": "statement.break",
-		"code": "while (TRUE) {\n    break\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:1",
-						"removal": "0:0-2:1"
-					}
-				],
-				"domain": "0:0-2:1"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:9",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/statement/statement.continue",
-		"languageId": "r",
-		"facet": "statement.continue",
-		"code": "while (TRUE) {\n    next\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:1",
-						"removal": "0:0-2:1"
-					}
-				],
-				"domain": "0:0-2:1"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:8",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/statement/statement.foreach",
-		"languageId": "r",
-		"facet": "statement.foreach",
-		"code": "for (v in values) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:20",
-						"removal": "0:0-0:20"
-					}
-				],
-				"domain": "0:0-0:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/statement/statement.function",
-		"languageId": "r",
-		"facet": "statement.function",
-		"code": "foo <- function() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:20",
-						"removal": "0:0-0:20"
-					}
-				],
-				"domain": "0:0-0:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/statement/statement.functionCall",
-		"languageId": "r",
-		"facet": "statement.functionCall",
-		"code": "foo()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:5",
-						"removal": "0:0-0:5"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/statement/statement.if",
-		"languageId": "r",
-		"facet": "statement.if",
-		"code": "if (TRUE) {\n} else if (FALSE) {\n} else {\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-3:1",
-						"removal": "0:0-3:1"
-					}
-				],
-				"domain": "0:0-3:1"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/statement/statement.iteration.block",
-		"languageId": "r",
-		"facet": "statement.iteration.block",
-		"code": "function() { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:14"
-					}
-				],
-				"domain": "0:0-0:14"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:12-0:13"
-					}
-				],
-				"domain": "0:12-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/statement/statement.iteration.block2",
-		"languageId": "r",
-		"facet": "statement.iteration.block",
-		"code": "if (TRUE) {\n} else if (FALSE) {\n} else { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:10"
-					}
-				],
-				"domain": "0:0-2:10"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:11-1:0"
-					}
-				],
-				"domain": "0:11-1:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:19-2:0"
-					}
-				],
-				"domain": "1:19-2:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:8-2:9"
-					}
-				],
-				"domain": "2:8-2:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/statement/statement.iteration.block3",
-		"languageId": "r",
-		"facet": "statement.iteration.block",
-		"code": "while (TRUE) { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:16"
-					}
-				],
-				"domain": "0:0-0:16"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:14-0:15"
-					}
-				],
-				"domain": "0:14-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/statement/statement.iteration.document",
-		"languageId": "r",
-		"facet": "statement.iteration.document",
-		"code": "\nfoo <- 0\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/statement/statement.return",
-		"languageId": "r",
-		"facet": "statement.return",
-		"code": "function() {\n    return(0)\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:13",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/statement/statement.switch",
-		"languageId": "r",
-		"facet": "statement.switch",
-		"code": "switch(foo)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:11",
-						"removal": "0:0-0:11"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/statement/statement.try",
-		"languageId": "r",
-		"facet": "statement.try",
-		"code": "tryCatch()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:10",
-						"removal": "0:0-0:10"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/statement/statement.variable.initialized",
-		"languageId": "r",
-		"facet": "statement.variable.initialized",
-		"code": "foo <- 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:8",
-						"removal": "0:0-0:8"
-					}
-				],
-				"domain": "0:0-0:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/statement/statement.while",
-		"languageId": "r",
-		"facet": "statement.while",
-		"code": "while (TRUE) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:15",
-						"removal": "0:0-0:15"
-					}
-				],
-				"domain": "0:0-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/string.multiLine",
-		"languageId": "r",
-		"facet": "string.multiLine",
-		"code": "\"Hello\nworld\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:6",
-						"removal": "0:0-1:6"
-					}
-				],
-				"domain": "0:0-1:6"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/string.singleLine",
-		"languageId": "r",
-		"facet": "string.singleLine",
-		"code": "'Hello world'",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/textFragment.comment.line",
-		"languageId": "r",
-		"facet": "textFragment.comment.line",
-		"code": "# Hello world",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/textFragment.string.multiLine",
-		"languageId": "r",
-		"facet": "textFragment.string.multiLine",
-		"code": "\"Hello\nworld\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-1:5",
-						"removal": "0:1-1:5"
-					}
-				],
-				"domain": "0:1-1:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/textFragment.string.singleLine",
-		"languageId": "r",
-		"facet": "textFragment.string.singleLine",
-		"code": "'Hello world'",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:12",
-						"removal": "0:1-0:12"
-					}
-				],
-				"domain": "0:1-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/value/value.argument.actual.iteration",
-		"languageId": "r",
-		"facet": "value.argument.actual.iteration",
-		"code": "foo(aaa = 0, bbb = 1)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:21"
-					}
-				],
-				"domain": "0:0-0:21"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:4-0:20"
-					}
-				],
-				"domain": "0:4-0:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/value/value.argument.actual",
-		"languageId": "r",
-		"facet": "value.argument.actual",
-		"code": "foo(aaa = 0, bbb = 1)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:10-0:11",
-						"removal": "0:7-0:11"
-					}
-				],
-				"domain": "0:4-0:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:19-0:20",
-						"removal": "0:16-0:20"
-					}
-				],
-				"domain": "0:13-0:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/value/value.argument.formal.iteration",
-		"languageId": "r",
-		"facet": "value.argument.formal.iteration",
-		"code": "function(aaa = 0, bbb = 1) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:29"
-					}
-				],
-				"domain": "0:0-0:29"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-0:25"
-					}
-				],
-				"domain": "0:9-0:25"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/value/value.argument.formal.lambda.iteration",
-		"languageId": "r",
-		"facet": "value.argument.formal.lambda.iteration",
-		"code": "function(aaa = 0, bbb = 1) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:29"
-					}
-				],
-				"domain": "0:0-0:29"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-0:25"
-					}
-				],
-				"domain": "0:9-0:25"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/value/value.argument.formal.lambda",
-		"languageId": "r",
-		"facet": "value.argument.formal.lambda",
-		"code": "function(aaa = 0, bbb = 1) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:15-0:16",
-						"removal": "0:12-0:16"
-					}
-				],
-				"domain": "0:9-0:16"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:24-0:25",
-						"removal": "0:21-0:25"
-					}
-				],
-				"domain": "0:18-0:25"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/value/value.argument.formal",
-		"languageId": "r",
-		"facet": "value.argument.formal",
-		"code": "function(aaa = 0, bbb = 1) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:15-0:16",
-						"removal": "0:12-0:16"
-					}
-				],
-				"domain": "0:9-0:16"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:24-0:25",
-						"removal": "0:21-0:25"
-					}
-				],
-				"domain": "0:18-0:25"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/value/value.assignment",
-		"languageId": "r",
-		"facet": "value.assignment",
-		"code": "foo <- 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:7-0:8",
-						"removal": "0:3-0:8"
-					}
-				],
-				"domain": "0:0-0:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/value/value.assignment2",
-		"languageId": "r",
-		"facet": "value.assignment",
-		"code": "foo = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:7",
-						"removal": "0:3-0:7"
-					}
-				],
-				"domain": "0:0-0:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/value/value.foreach",
-		"languageId": "r",
-		"facet": "value.foreach",
-		"code": "for (v in values) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:10-0:16",
-						"removal": "0:9-0:16"
-					}
-				],
-				"domain": "0:0-0:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/value/value.iteration.block",
-		"languageId": "r",
-		"facet": "value.iteration.block",
-		"code": "function() { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:14"
-					}
-				],
-				"domain": "0:0-0:14"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:12-0:13"
-					}
-				],
-				"domain": "0:12-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/value/value.iteration.block2",
-		"languageId": "r",
-		"facet": "value.iteration.block",
-		"code": "if (TRUE) {\n} else if (FALSE) {\n} else { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:10"
-					}
-				],
-				"domain": "0:0-2:10"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:11-1:0"
-					}
-				],
-				"domain": "0:11-1:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:19-2:0"
-					}
-				],
-				"domain": "1:19-2:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:8-2:9"
-					}
-				],
-				"domain": "2:8-2:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/value/value.iteration.block3",
-		"languageId": "r",
-		"facet": "value.iteration.block",
-		"code": "while (TRUE) { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:16"
-					}
-				],
-				"domain": "0:0-0:16"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:14-0:15"
-					}
-				],
-				"domain": "0:14-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/value/value.iteration.document",
-		"languageId": "r",
-		"facet": "value.iteration.document",
-		"code": "\nfoo <- 0\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/value/value.return",
-		"languageId": "r",
-		"facet": "value.return",
-		"code": "function() {\n    return(0)\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:11-1:12",
-						"removal": "1:11-1:12"
-					}
-				],
-				"domain": "1:4-1:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/value/value.switch",
-		"languageId": "r",
-		"facet": "value.switch",
-		"code": "switch(foo)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:7-0:10",
-						"removal": "0:7-0:10"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/value/value.variable",
-		"languageId": "r",
-		"facet": "value.variable",
-		"code": "foo <- 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:7-0:8",
-						"removal": "0:3-0:8"
-					}
-				],
-				"domain": "0:0-0:8"
-			}
-		]
-	}
+  {
+    "name": "scopes/r/anonymousFunction",
+    "languageId": "r",
+    "facet": "anonymousFunction",
+    "code": "function() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/anonymousFunction2",
+    "languageId": "r",
+    "facet": "anonymousFunction",
+    "code": "(function() 0)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:13",
+            "removal": "0:1-0:13"
+          }
+        ],
+        "domain": "0:1-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/argument/argument.actual.iteration",
+    "languageId": "r",
+    "facet": "argument.actual.iteration",
+    "code": "foo(aaa, bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:12"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/argument/argument.actual.method.iteration",
+    "languageId": "r",
+    "facet": "argument.actual.method.iteration",
+    "code": "foo.bar(aaa, bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-0:16"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/argument/argument.actual.method.multiLine",
+    "languageId": "r",
+    "facet": "argument.actual.method.multiLine",
+    "code": "foo.bar(\n    aaa,\n    bbb\n)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-2:4"
+          }
+        ],
+        "domain": "1:4-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:7",
+            "removal": "1:7-2:7"
+          }
+        ],
+        "domain": "2:4-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/argument/argument.actual.method.singleLine",
+    "languageId": "r",
+    "facet": "argument.actual.method.singleLine",
+    "code": "foo.bar(aaa, bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-0:11",
+            "removal": "0:8-0:13"
+          }
+        ],
+        "domain": "0:8-0:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:13-0:16",
+            "removal": "0:11-0:16"
+          }
+        ],
+        "domain": "0:13-0:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/argument/argument.actual.multiLine",
+    "languageId": "r",
+    "facet": "argument.actual.multiLine",
+    "code": "foo(\n    aaa,\n    bbb\n)\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-2:4"
+          }
+        ],
+        "domain": "1:4-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:7",
+            "removal": "1:7-2:7"
+          }
+        ],
+        "domain": "2:4-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/argument/argument.actual.singleLine",
+    "languageId": "r",
+    "facet": "argument.actual.singleLine",
+    "code": "func(aaa, bbb = 0)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:8",
+            "removal": "0:5-0:10"
+          }
+        ],
+        "domain": "0:5-0:8"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-0:17",
+            "removal": "0:8-0:17"
+          }
+        ],
+        "domain": "0:10-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/argument/argument.formal.iteration",
+    "languageId": "r",
+    "facet": "argument.formal.iteration",
+    "code": "foo <- function(aaa, bbb) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:16-0:24"
+          }
+        ],
+        "domain": "0:0-0:28"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/argument/argument.formal.lambda.iteration",
+    "languageId": "r",
+    "facet": "argument.formal.lambda.iteration",
+    "code": "function(aaa, bbb) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:17"
+          }
+        ],
+        "domain": "0:0-0:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/argument/argument.formal.lambda.multiLine",
+    "languageId": "r",
+    "facet": "argument.formal.lambda.multiLine",
+    "code": "function(\n    aaa,\n    bbb\n) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-2:4"
+          }
+        ],
+        "domain": "1:4-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:7",
+            "removal": "1:7-2:7"
+          }
+        ],
+        "domain": "2:4-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/argument/argument.formal.lambda.singleLine",
+    "languageId": "r",
+    "facet": "argument.formal.lambda.singleLine",
+    "code": "function(aaa, bbb) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:12",
+            "removal": "0:9-0:14"
+          }
+        ],
+        "domain": "0:9-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:14-0:17",
+            "removal": "0:12-0:17"
+          }
+        ],
+        "domain": "0:14-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/argument/argument.formal.multiLine",
+    "languageId": "r",
+    "facet": "argument.formal.multiLine",
+    "code": "foo <- function(\n    aaa,\n    bbb\n) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-2:4"
+          }
+        ],
+        "domain": "1:4-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:7",
+            "removal": "1:7-2:7"
+          }
+        ],
+        "domain": "2:4-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/argument/argument.formal.singleLine",
+    "languageId": "r",
+    "facet": "argument.formal.singleLine",
+    "code": "foo <- function(aaa, bbb) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:16-0:19",
+            "removal": "0:16-0:21"
+          }
+        ],
+        "domain": "0:16-0:19"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:21-0:24",
+            "removal": "0:19-0:24"
+          }
+        ],
+        "domain": "0:21-0:24"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/argumentList/argumentList.actual.empty",
+    "languageId": "r",
+    "facet": "argumentList.actual.empty",
+    "code": "foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:4",
+            "removal": "0:4-0:4"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/argumentList/argumentList.actual.method.empty",
+    "languageId": "r",
+    "facet": "argumentList.actual.method.empty",
+    "code": "foo.bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-0:8",
+            "removal": "0:8-0:8"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/argumentList/argumentList.actual.method.multiLine",
+    "languageId": "r",
+    "facet": "argumentList.actual.method.multiLine",
+    "code": "foo.bar(\n    aaa,\n    bbb\n)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-2:7",
+            "removal": "0:8-3:0"
+          }
+        ],
+        "domain": "0:0-3:1"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/argumentList/argumentList.actual.method.singleLine",
+    "languageId": "r",
+    "facet": "argumentList.actual.method.singleLine",
+    "code": "foo.bar(aaa, bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-0:16",
+            "removal": "0:8-0:16"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/argumentList/argumentList.actual.multiLine",
+    "languageId": "r",
+    "facet": "argumentList.actual.multiLine",
+    "code": "foo(\n    aaa,\n    bbb\n)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-2:7",
+            "removal": "0:4-3:0"
+          }
+        ],
+        "domain": "0:0-3:1"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/argumentList/argumentList.actual.singleLine",
+    "languageId": "r",
+    "facet": "argumentList.actual.singleLine",
+    "code": "foo(aaa, bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:12",
+            "removal": "0:4-0:12"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/argumentList/argumentList.formal.empty",
+    "languageId": "r",
+    "facet": "argumentList.formal.empty",
+    "code": "foo <- function() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:16-0:16",
+            "removal": "0:16-0:16"
+          }
+        ],
+        "domain": "0:0-0:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/argumentList/argumentList.formal.lambda.empty",
+    "languageId": "r",
+    "facet": "argumentList.formal.lambda.empty",
+    "code": "function() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:9",
+            "removal": "0:9-0:9"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/argumentList/argumentList.formal.lambda.multiLine",
+    "languageId": "r",
+    "facet": "argumentList.formal.lambda.multiLine",
+    "code": "function(\n    aaa,\n    bbb\n) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-2:7",
+            "removal": "0:9-3:0"
+          }
+        ],
+        "domain": "0:0-3:4"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/argumentList/argumentList.formal.lambda.singleLine",
+    "languageId": "r",
+    "facet": "argumentList.formal.lambda.singleLine",
+    "code": "function(aaa, bbb) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:17",
+            "removal": "0:9-0:17"
+          }
+        ],
+        "domain": "0:0-0:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/argumentList/argumentList.formal.multiLine",
+    "languageId": "r",
+    "facet": "argumentList.formal.multiLine",
+    "code": "abc <- function(\n    aaa,\n    bbb\n){}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-2:7",
+            "removal": "0:16-3:0"
+          }
+        ],
+        "domain": "0:0-3:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/argumentList/argumentList.formal.singleLine",
+    "languageId": "r",
+    "facet": "argumentList.formal.singleLine",
+    "code": "foo <- function(aaa, bbb) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:16-0:24",
+            "removal": "0:16-0:24"
+          }
+        ],
+        "domain": "0:0-0:28"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/branch/branch.if.elif.else",
+    "languageId": "r",
+    "facet": "branch.if.elif.else",
+    "code": "if (TRUE) {\n} else if (FALSE) {\n} else {\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:1",
+            "removal": "0:0-1:7"
+          }
+        ],
+        "domain": "0:0-1:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-2:1",
+            "removal": "1:2-2:2"
+          }
+        ],
+        "domain": "1:2-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-3:1",
+            "removal": "2:1-3:1"
+          }
+        ],
+        "domain": "2:2-3:1"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/branch/branch.if.else",
+    "languageId": "r",
+    "facet": "branch.if.else",
+    "code": "if (TRUE) {\n} else {\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:1",
+            "removal": "0:0-1:2"
+          }
+        ],
+        "domain": "0:0-1:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-2:1",
+            "removal": "1:1-2:1"
+          }
+        ],
+        "domain": "1:2-2:1"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/branch/branch.if.iteration",
+    "languageId": "r",
+    "facet": "branch.if.iteration",
+    "code": "if (TRUE) {\n} else if (FALSE) {\n} else {\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:1"
+          }
+        ],
+        "domain": "0:0-3:1"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/branch/branch.if",
+    "languageId": "r",
+    "facet": "branch.if",
+    "code": "if (TRUE) {\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:1",
+            "removal": "0:0-1:1"
+          }
+        ],
+        "domain": "0:0-1:1"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/branch/branch.switchCase.iteration",
+    "languageId": "r",
+    "facet": "branch.switchCase.iteration",
+    "code": "switch( )",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:8"
+          }
+        ],
+        "domain": "0:7-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/branch/branch.switchCase",
+    "languageId": "r",
+    "facet": "branch.switchCase",
+    "code": "switch(foo,\n    a = 0,\n)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:9",
+            "removal": "1:0-1:9"
+          }
+        ],
+        "domain": "1:4-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/branch/branch.switchCase2",
+    "languageId": "r",
+    "facet": "branch.switchCase",
+    "code": "switch(foo,\n    a = {},\n)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:10",
+            "removal": "1:0-1:10"
+          }
+        ],
+        "domain": "1:4-1:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/branch/branch.switchCase3",
+    "languageId": "r",
+    "facet": "branch.switchCase",
+    "code": "switch(foo,\n    \"_\"\n)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/branch/branch.try.iteration",
+    "languageId": "r",
+    "facet": "branch.try.iteration",
+    "code": "tryCatch( )",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:10"
+          }
+        ],
+        "domain": "0:9-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/branch/branch.try",
+    "languageId": "r",
+    "facet": "branch.try",
+    "code": "tryCatch(\n    expr = {},\n    error = function() {},\n    warning = function() {},\n    finally = {}\n)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:13",
+            "removal": "1:0-1:13"
+          }
+        ],
+        "domain": "1:4-1:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:25",
+            "removal": "2:0-2:25"
+          }
+        ],
+        "domain": "2:4-2:25"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:4-3:27",
+            "removal": "3:0-3:27"
+          }
+        ],
+        "domain": "3:4-3:27"
+      },
+      {
+        "targets": [
+          {
+            "content": "4:4-4:16",
+            "removal": "4:0-5:0"
+          }
+        ],
+        "domain": "4:4-4:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/comment.line",
+    "languageId": "r",
+    "facet": "comment.line",
+    "code": "# Hello world",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/condition.if",
+    "languageId": "r",
+    "facet": "condition.if",
+    "code": "if (TRUE) {\n} else if (FALSE) {\n} else {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:8",
+            "removal": "0:4-0:8"
+          }
+        ],
+        "domain": "0:0-2:9"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:11-1:16",
+            "removal": "1:11-1:16"
+          }
+        ],
+        "domain": "1:2-2:1"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/condition.switchCase.iteration",
+    "languageId": "r",
+    "facet": "condition.switchCase.iteration",
+    "code": "switch( )",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:8"
+          }
+        ],
+        "domain": "0:7-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/condition.switchCase",
+    "languageId": "r",
+    "facet": "condition.switchCase",
+    "code": "switch(foo,\n    a = 0\n)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:5",
+            "removal": "1:4-1:6"
+          }
+        ],
+        "domain": "1:4-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/condition.switchCase2",
+    "languageId": "r",
+    "facet": "condition.switchCase",
+    "code": "switch(foo,\n    \"_\"\n)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/condition.while",
+    "languageId": "r",
+    "facet": "condition.while",
+    "code": "while (TRUE) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:11",
+            "removal": "0:7-0:11"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/disqualifyDelimiter",
+    "languageId": "r",
+    "facet": "disqualifyDelimiter",
+    "code": "1 < 2\n1 > 2\n1 <= 2\n1 >= 2\na <- 2\na -> 2\na <<- 2\na ->> 2\na |> 2",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-1:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-2:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "3:2-3:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "4:2-4:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "5:2-5:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "6:2-6:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "7:2-7:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "8:2-8:4"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/functionCall.method",
+    "languageId": "r",
+    "facet": "functionCall.method",
+    "code": "foo::bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/functionCall",
+    "languageId": "r",
+    "facet": "functionCall",
+    "code": "foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:5",
+            "removal": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/functionCallee.method",
+    "languageId": "r",
+    "facet": "functionCallee.method",
+    "code": "foo::bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:8",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/functionCallee",
+    "languageId": "r",
+    "facet": "functionCallee",
+    "code": "foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/ifStatement",
+    "languageId": "r",
+    "facet": "ifStatement",
+    "code": "if (TRUE) {\n} else if (FALSE) {\n} else {\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:1",
+            "removal": "0:0-3:1"
+          }
+        ],
+        "domain": "0:0-3:1"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/interior/interior.foreach",
+    "languageId": "r",
+    "facet": "interior.foreach",
+    "code": "for (v in values) { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:19-0:20",
+            "removal": "0:19-0:20"
+          }
+        ],
+        "domain": "0:19-0:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/interior/interior.function",
+    "languageId": "r",
+    "facet": "interior.function",
+    "code": "foo <- function() { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:19-0:20",
+            "removal": "0:19-0:20"
+          }
+        ],
+        "domain": "0:19-0:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/interior/interior.if",
+    "languageId": "r",
+    "facet": "interior.if",
+    "code": "if (TRUE) {\n} else if (FALSE) {\n} else {\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:11-1:0",
+            "removal": "0:11-1:0"
+          }
+        ],
+        "domain": "0:11-1:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:19-2:0",
+            "removal": "1:19-2:0"
+          }
+        ],
+        "domain": "1:19-2:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:8-3:0",
+            "removal": "2:8-3:0"
+          }
+        ],
+        "domain": "2:8-3:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/interior/interior.lambda",
+    "languageId": "r",
+    "facet": "interior.lambda",
+    "code": "function() { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13",
+            "removal": "0:12-0:13"
+          }
+        ],
+        "domain": "0:12-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/interior/interior.switchCase",
+    "languageId": "r",
+    "facet": "interior.switchCase",
+    "code": "switch(foo,\n    a = bar,\n    \"_\" = bar\n)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:8-1:11",
+            "removal": "1:7-1:11"
+          }
+        ],
+        "domain": "1:7-1:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:10-2:13",
+            "removal": "2:9-2:13"
+          }
+        ],
+        "domain": "2:9-2:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/interior/interior.switchCase2",
+    "languageId": "r",
+    "facet": "interior.switchCase",
+    "code": "switch(foo,\n    a = { },\n    \"_\" = { }\n)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:9-1:10",
+            "removal": "1:9-1:10"
+          }
+        ],
+        "domain": "1:9-1:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:11-2:12",
+            "removal": "2:11-2:12"
+          }
+        ],
+        "domain": "2:11-2:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/interior/interior.try",
+    "languageId": "r",
+    "facet": "interior.try",
+    "code": "tryCatch(\n    expr = { },\n    error = function() { },\n    warning = function() { },\n    finally = { }\n)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:12-1:13",
+            "removal": "1:12-1:13"
+          }
+        ],
+        "domain": "1:12-1:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:24-2:25",
+            "removal": "2:24-2:25"
+          }
+        ],
+        "domain": "2:24-2:25"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:26-3:27",
+            "removal": "3:26-3:27"
+          }
+        ],
+        "domain": "3:26-3:27"
+      },
+      {
+        "targets": [
+          {
+            "content": "4:15-4:16",
+            "removal": "4:15-4:16"
+          }
+        ],
+        "domain": "4:15-4:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/interior/interior.while",
+    "languageId": "r",
+    "facet": "interior.while",
+    "code": "while (TRUE) { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:14-0:15",
+            "removal": "0:14-0:15"
+          }
+        ],
+        "domain": "0:14-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/list",
+    "languageId": "r",
+    "facet": "list",
+    "code": "list(aaa, bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14",
+            "removal": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/name/name.argument.actual.iteration",
+    "languageId": "r",
+    "facet": "name.argument.actual.iteration",
+    "code": "foo(aaa = 0, bbb = 1)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:21"
+          }
+        ],
+        "domain": "0:0-0:21"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:4-0:20"
+          }
+        ],
+        "domain": "0:4-0:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/name/name.argument.actual",
+    "languageId": "r",
+    "facet": "name.argument.actual",
+    "code": "foo(aaa = 0, bbb = 1)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:7",
+            "removal": "0:4-0:10"
+          }
+        ],
+        "domain": "0:4-0:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:13-0:16",
+            "removal": "0:13-0:19"
+          }
+        ],
+        "domain": "0:13-0:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/name/name.argument.formal.iteration",
+    "languageId": "r",
+    "facet": "name.argument.formal.iteration",
+    "code": "function(aaa, bbb = 0) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:25"
+          }
+        ],
+        "domain": "0:0-0:25"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:21"
+          }
+        ],
+        "domain": "0:9-0:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/name/name.argument.formal.lambda.iteration",
+    "languageId": "r",
+    "facet": "name.argument.formal.lambda.iteration",
+    "code": "function(aaa, bbb = 0) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:25"
+          }
+        ],
+        "domain": "0:0-0:25"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:21"
+          }
+        ],
+        "domain": "0:9-0:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/name/name.argument.formal.lambda",
+    "languageId": "r",
+    "facet": "name.argument.formal.lambda",
+    "code": "function(aaa, bbb = 0) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:12",
+            "removal": "0:9-0:12"
+          }
+        ],
+        "domain": "0:9-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:14-0:17",
+            "removal": "0:14-0:20"
+          }
+        ],
+        "domain": "0:14-0:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/name/name.argument.formal",
+    "languageId": "r",
+    "facet": "name.argument.formal",
+    "code": "function(aaa, bbb = 0) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:12",
+            "removal": "0:9-0:12"
+          }
+        ],
+        "domain": "0:9-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:14-0:17",
+            "removal": "0:14-0:20"
+          }
+        ],
+        "domain": "0:14-0:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/name/name.assignment",
+    "languageId": "r",
+    "facet": "name.assignment",
+    "code": "foo <- 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/name/name.assignment2",
+    "languageId": "r",
+    "facet": "name.assignment",
+    "code": "foo = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:6"
+          }
+        ],
+        "domain": "0:0-0:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/name/name.foreach",
+    "languageId": "r",
+    "facet": "name.foreach",
+    "code": "for (v in values) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:6",
+            "removal": "0:5-0:7"
+          }
+        ],
+        "domain": "0:0-0:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/name/name.function",
+    "languageId": "r",
+    "facet": "name.function",
+    "code": "foo <- function() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/name/name.iteration.block",
+    "languageId": "r",
+    "facet": "name.iteration.block",
+    "code": "function() { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13"
+          }
+        ],
+        "domain": "0:12-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/name/name.iteration.block2",
+    "languageId": "r",
+    "facet": "name.iteration.block",
+    "code": "if (TRUE) {\n} else if (FALSE) {\n} else { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:10"
+          }
+        ],
+        "domain": "0:0-2:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-1:0"
+          }
+        ],
+        "domain": "0:11-1:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:19-2:0"
+          }
+        ],
+        "domain": "1:19-2:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:8-2:9"
+          }
+        ],
+        "domain": "2:8-2:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/name/name.iteration.block3",
+    "languageId": "r",
+    "facet": "name.iteration.block",
+    "code": "while (TRUE) { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:16"
+          }
+        ],
+        "domain": "0:0-0:16"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:14-0:15"
+          }
+        ],
+        "domain": "0:14-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/name/name.iteration.document",
+    "languageId": "r",
+    "facet": "name.iteration.document",
+    "code": "\nfoo <- 0\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/name/name.variable.initialized",
+    "languageId": "r",
+    "facet": "name.variable.initialized",
+    "code": "foo <- 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/namedFunction.iteration.document",
+    "languageId": "r",
+    "facet": "namedFunction.iteration.document",
+    "code": "\nfoo <- function() {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/namedFunction",
+    "languageId": "r",
+    "facet": "namedFunction",
+    "code": "foo <- function() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:20",
+            "removal": "0:0-0:20"
+          }
+        ],
+        "domain": "0:0-0:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/statement/statement.assignment",
+    "languageId": "r",
+    "facet": "statement.assignment",
+    "code": "foo <- 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:8",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/statement/statement.assignment2",
+    "languageId": "r",
+    "facet": "statement.assignment",
+    "code": "foo = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/statement/statement.break",
+    "languageId": "r",
+    "facet": "statement.break",
+    "code": "while (TRUE) {\n    break\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1",
+            "removal": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:9",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/statement/statement.continue",
+    "languageId": "r",
+    "facet": "statement.continue",
+    "code": "while (TRUE) {\n    next\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1",
+            "removal": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:8",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/statement/statement.foreach",
+    "languageId": "r",
+    "facet": "statement.foreach",
+    "code": "for (v in values) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:20",
+            "removal": "0:0-0:20"
+          }
+        ],
+        "domain": "0:0-0:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/statement/statement.function",
+    "languageId": "r",
+    "facet": "statement.function",
+    "code": "foo <- function() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:20",
+            "removal": "0:0-0:20"
+          }
+        ],
+        "domain": "0:0-0:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/statement/statement.functionCall",
+    "languageId": "r",
+    "facet": "statement.functionCall",
+    "code": "foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:5",
+            "removal": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/statement/statement.if",
+    "languageId": "r",
+    "facet": "statement.if",
+    "code": "if (TRUE) {\n} else if (FALSE) {\n} else {\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:1",
+            "removal": "0:0-3:1"
+          }
+        ],
+        "domain": "0:0-3:1"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/statement/statement.iteration.block",
+    "languageId": "r",
+    "facet": "statement.iteration.block",
+    "code": "function() { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13"
+          }
+        ],
+        "domain": "0:12-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/statement/statement.iteration.block2",
+    "languageId": "r",
+    "facet": "statement.iteration.block",
+    "code": "if (TRUE) {\n} else if (FALSE) {\n} else { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:10"
+          }
+        ],
+        "domain": "0:0-2:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-1:0"
+          }
+        ],
+        "domain": "0:11-1:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:19-2:0"
+          }
+        ],
+        "domain": "1:19-2:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:8-2:9"
+          }
+        ],
+        "domain": "2:8-2:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/statement/statement.iteration.block3",
+    "languageId": "r",
+    "facet": "statement.iteration.block",
+    "code": "while (TRUE) { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:16"
+          }
+        ],
+        "domain": "0:0-0:16"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:14-0:15"
+          }
+        ],
+        "domain": "0:14-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/statement/statement.iteration.document",
+    "languageId": "r",
+    "facet": "statement.iteration.document",
+    "code": "\nfoo <- 0\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/statement/statement.return",
+    "languageId": "r",
+    "facet": "statement.return",
+    "code": "function() {\n    return(0)\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:13",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/statement/statement.switch",
+    "languageId": "r",
+    "facet": "statement.switch",
+    "code": "switch(foo)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/statement/statement.try",
+    "languageId": "r",
+    "facet": "statement.try",
+    "code": "tryCatch()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/statement/statement.variable.initialized",
+    "languageId": "r",
+    "facet": "statement.variable.initialized",
+    "code": "foo <- 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:8",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/statement/statement.while",
+    "languageId": "r",
+    "facet": "statement.while",
+    "code": "while (TRUE) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/string.multiLine",
+    "languageId": "r",
+    "facet": "string.multiLine",
+    "code": "\"Hello\nworld\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:6",
+            "removal": "0:0-1:6"
+          }
+        ],
+        "domain": "0:0-1:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/string.singleLine",
+    "languageId": "r",
+    "facet": "string.singleLine",
+    "code": "'Hello world'",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/textFragment.comment.line",
+    "languageId": "r",
+    "facet": "textFragment.comment.line",
+    "code": "# Hello world",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/textFragment.string.multiLine",
+    "languageId": "r",
+    "facet": "textFragment.string.multiLine",
+    "code": "\"Hello\nworld\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-1:5",
+            "removal": "0:1-1:5"
+          }
+        ],
+        "domain": "0:1-1:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/textFragment.string.singleLine",
+    "languageId": "r",
+    "facet": "textFragment.string.singleLine",
+    "code": "'Hello world'",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:12",
+            "removal": "0:1-0:12"
+          }
+        ],
+        "domain": "0:1-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/value/value.argument.actual.iteration",
+    "languageId": "r",
+    "facet": "value.argument.actual.iteration",
+    "code": "foo(aaa = 0, bbb = 1)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:21"
+          }
+        ],
+        "domain": "0:0-0:21"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:4-0:20"
+          }
+        ],
+        "domain": "0:4-0:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/value/value.argument.actual",
+    "languageId": "r",
+    "facet": "value.argument.actual",
+    "code": "foo(aaa = 0, bbb = 1)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11",
+            "removal": "0:7-0:11"
+          }
+        ],
+        "domain": "0:4-0:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:19-0:20",
+            "removal": "0:16-0:20"
+          }
+        ],
+        "domain": "0:13-0:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/value/value.argument.formal.iteration",
+    "languageId": "r",
+    "facet": "value.argument.formal.iteration",
+    "code": "function(aaa = 0, bbb = 1) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:29"
+          }
+        ],
+        "domain": "0:0-0:29"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:25"
+          }
+        ],
+        "domain": "0:9-0:25"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/value/value.argument.formal.lambda.iteration",
+    "languageId": "r",
+    "facet": "value.argument.formal.lambda.iteration",
+    "code": "function(aaa = 0, bbb = 1) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:29"
+          }
+        ],
+        "domain": "0:0-0:29"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:25"
+          }
+        ],
+        "domain": "0:9-0:25"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/value/value.argument.formal.lambda",
+    "languageId": "r",
+    "facet": "value.argument.formal.lambda",
+    "code": "function(aaa = 0, bbb = 1) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:15-0:16",
+            "removal": "0:12-0:16"
+          }
+        ],
+        "domain": "0:9-0:16"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:24-0:25",
+            "removal": "0:21-0:25"
+          }
+        ],
+        "domain": "0:18-0:25"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/value/value.argument.formal",
+    "languageId": "r",
+    "facet": "value.argument.formal",
+    "code": "function(aaa = 0, bbb = 1) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:15-0:16",
+            "removal": "0:12-0:16"
+          }
+        ],
+        "domain": "0:9-0:16"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:24-0:25",
+            "removal": "0:21-0:25"
+          }
+        ],
+        "domain": "0:18-0:25"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/value/value.assignment",
+    "languageId": "r",
+    "facet": "value.assignment",
+    "code": "foo <- 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:8",
+            "removal": "0:3-0:8"
+          }
+        ],
+        "domain": "0:0-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/value/value.assignment2",
+    "languageId": "r",
+    "facet": "value.assignment",
+    "code": "foo = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:7",
+            "removal": "0:3-0:7"
+          }
+        ],
+        "domain": "0:0-0:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/value/value.foreach",
+    "languageId": "r",
+    "facet": "value.foreach",
+    "code": "for (v in values) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:10-0:16",
+            "removal": "0:9-0:16"
+          }
+        ],
+        "domain": "0:0-0:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/value/value.iteration.block",
+    "languageId": "r",
+    "facet": "value.iteration.block",
+    "code": "function() { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13"
+          }
+        ],
+        "domain": "0:12-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/value/value.iteration.block2",
+    "languageId": "r",
+    "facet": "value.iteration.block",
+    "code": "if (TRUE) {\n} else if (FALSE) {\n} else { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:10"
+          }
+        ],
+        "domain": "0:0-2:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-1:0"
+          }
+        ],
+        "domain": "0:11-1:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:19-2:0"
+          }
+        ],
+        "domain": "1:19-2:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:8-2:9"
+          }
+        ],
+        "domain": "2:8-2:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/value/value.iteration.block3",
+    "languageId": "r",
+    "facet": "value.iteration.block",
+    "code": "while (TRUE) { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:16"
+          }
+        ],
+        "domain": "0:0-0:16"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:14-0:15"
+          }
+        ],
+        "domain": "0:14-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/value/value.iteration.document",
+    "languageId": "r",
+    "facet": "value.iteration.document",
+    "code": "\nfoo <- 0\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/value/value.return",
+    "languageId": "r",
+    "facet": "value.return",
+    "code": "function() {\n    return(0)\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:11-1:12",
+            "removal": "1:11-1:12"
+          }
+        ],
+        "domain": "1:4-1:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/value/value.switch",
+    "languageId": "r",
+    "facet": "value.switch",
+    "code": "switch(foo)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:10",
+            "removal": "0:7-0:10"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/value/value.variable",
+    "languageId": "r",
+    "facet": "value.variable",
+    "code": "foo <- 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:8",
+            "removal": "0:3-0:8"
+          }
+        ],
+        "domain": "0:0-0:8"
+      }
+    ]
+  }
 ]

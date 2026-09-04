@@ -1,19 +1,19 @@
 [
-	{
-		"name": "scopes/plaintext/interior.surroundingPair",
-		"languageId": "plaintext",
-		"facet": "interior.surroundingPair",
-		"code": "( text )",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-0:6",
-						"removal": "0:1-0:7"
-					}
-				],
-				"domain": "0:1-0:7"
-			}
-		]
-	}
+  {
+    "name": "scopes/plaintext/interior.surroundingPair",
+    "languageId": "plaintext",
+    "facet": "interior.surroundingPair",
+    "code": "( text )",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:6",
+            "removal": "0:1-0:7"
+          }
+        ],
+        "domain": "0:1-0:7"
+      }
+    ]
+  }
 ]

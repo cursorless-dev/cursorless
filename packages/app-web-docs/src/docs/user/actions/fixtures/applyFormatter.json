@@ -1,379 +1,373 @@
 [
-	{
-		"path": "docs/actions/applyFormatter.yml",
-		"name": "docs/actions/applyFormatter",
-		"fixture": {
-			"languageId": "typescript",
-			"command": {
-				"version": 7,
-				"spokenForm": "format camel at bat",
-				"action": {
-					"name": "replace",
-					"replaceWith": [
-						"bbbAaa"
-					],
-					"destination": {
-						"type": "primitive",
-						"insertionMode": "to",
-						"target": {
-							"type": "primitive",
-							"mark": {
-								"type": "decoratedSymbol",
-								"symbolColor": "default",
-								"character": "b"
-							}
-						}
-					}
-				},
-				"usePrePhraseSnapshot": false
-			},
-			"spokenFormError": "Action 'replace'",
-			"initialState": {
-				"documentContents": "// bbb_aaa",
-				"selections": [
-					{
-						"anchor": {
-							"line": 0,
-							"character": 0
-						},
-						"active": {
-							"line": 0,
-							"character": 0
-						}
-					}
-				],
-				"marks": {
-					"default.b": {
-						"start": {
-							"line": 0,
-							"character": 3
-						},
-						"end": {
-							"line": 0,
-							"character": 10
-						}
-					}
-				},
-				"hatTokenMap": [
-					{
-						"hatStyle": "default",
-						"grapheme": "b",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 4
-							},
-							"end": {
-								"line": 0,
-								"character": 5
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "/",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 0
-							},
-							"end": {
-								"line": 0,
-								"character": 1
-							}
-						}
-					}
-				]
-			},
-			"finalState": {
-				"documentContents": "// bbbAaa",
-				"selections": [
-					{
-						"anchor": {
-							"line": 0,
-							"character": 0
-						},
-						"active": {
-							"line": 0,
-							"character": 0
-						}
-					}
-				],
-				"hatTokenMap": [
-					{
-						"hatStyle": "default",
-						"grapheme": "/",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 0
-							},
-							"end": {
-								"line": 0,
-								"character": 1
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "b",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 4
-							},
-							"end": {
-								"line": 0,
-								"character": 5
-							}
-						}
-					}
-				]
-			}
-		}
-	},
-	{
-		"path": "docs/actions/applyFormatter2.yml",
-		"name": "docs/actions/applyFormatter2",
-		"fixture": {
-			"languageId": "typescript",
-			"command": {
-				"version": 7,
-				"spokenForm": "format snake at bat",
-				"action": {
-					"name": "replace",
-					"replaceWith": [
-						"bbb_aaa"
-					],
-					"destination": {
-						"type": "primitive",
-						"insertionMode": "to",
-						"target": {
-							"type": "primitive",
-							"mark": {
-								"type": "decoratedSymbol",
-								"symbolColor": "default",
-								"character": "b"
-							}
-						}
-					}
-				},
-				"usePrePhraseSnapshot": false
-			},
-			"spokenFormError": "Action 'replace'",
-			"initialState": {
-				"documentContents": "// bbbAaa",
-				"selections": [
-					{
-						"anchor": {
-							"line": 0,
-							"character": 0
-						},
-						"active": {
-							"line": 0,
-							"character": 0
-						}
-					}
-				],
-				"marks": {
-					"default.b": {
-						"start": {
-							"line": 0,
-							"character": 3
-						},
-						"end": {
-							"line": 0,
-							"character": 9
-						}
-					}
-				},
-				"hatTokenMap": [
-					{
-						"hatStyle": "default",
-						"grapheme": "b",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 4
-							},
-							"end": {
-								"line": 0,
-								"character": 5
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "/",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 0
-							},
-							"end": {
-								"line": 0,
-								"character": 1
-							}
-						}
-					}
-				]
-			},
-			"finalState": {
-				"documentContents": "// bbb_aaa",
-				"selections": [
-					{
-						"anchor": {
-							"line": 0,
-							"character": 0
-						},
-						"active": {
-							"line": 0,
-							"character": 0
-						}
-					}
-				],
-				"hatTokenMap": [
-					{
-						"hatStyle": "default",
-						"grapheme": "/",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 0
-							},
-							"end": {
-								"line": 0,
-								"character": 1
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "b",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 4
-							},
-							"end": {
-								"line": 0,
-								"character": 5
-							}
-						}
-					}
-				]
-			}
-		}
-	},
-	{
-		"path": "docs/actions/applyFormatter3.yml",
-		"name": "docs/actions/applyFormatter3",
-		"fixture": {
-			"languageId": "typescript",
-			"command": {
-				"version": 7,
-				"spokenForm": "format camel at line",
-				"action": {
-					"name": "replace",
-					"replaceWith": [
-						"aaaBbb"
-					],
-					"destination": {
-						"type": "primitive",
-						"insertionMode": "to",
-						"target": {
-							"type": "primitive",
-							"modifiers": [
-								{
-									"type": "containingScope",
-									"scopeType": {
-										"type": "line"
-									}
-								}
-							]
-						}
-					}
-				},
-				"usePrePhraseSnapshot": false
-			},
-			"spokenFormError": "Action 'replace'",
-			"initialState": {
-				"documentContents": "aaa bbb",
-				"selections": [
-					{
-						"anchor": {
-							"line": 0,
-							"character": 0
-						},
-						"active": {
-							"line": 0,
-							"character": 0
-						}
-					}
-				],
-				"marks": {},
-				"hatTokenMap": [
-					{
-						"hatStyle": "default",
-						"grapheme": "a",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 1
-							},
-							"end": {
-								"line": 0,
-								"character": 2
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "b",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 5
-							},
-							"end": {
-								"line": 0,
-								"character": 6
-							}
-						}
-					}
-				]
-			},
-			"finalState": {
-				"documentContents": "aaaBbb",
-				"selections": [
-					{
-						"anchor": {
-							"line": 0,
-							"character": 0
-						},
-						"active": {
-							"line": 0,
-							"character": 0
-						}
-					}
-				],
-				"hatTokenMap": [
-					{
-						"hatStyle": "default",
-						"grapheme": "a",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 1
-							},
-							"end": {
-								"line": 0,
-								"character": 2
-							}
-						}
-					}
-				]
-			}
-		}
-	}
+  {
+    "path": "docs/actions/applyFormatter.yml",
+    "name": "docs/actions/applyFormatter",
+    "fixture": {
+      "languageId": "typescript",
+      "command": {
+        "version": 7,
+        "spokenForm": "format camel at bat",
+        "action": {
+          "name": "replace",
+          "replaceWith": ["bbbAaa"],
+          "destination": {
+            "type": "primitive",
+            "insertionMode": "to",
+            "target": {
+              "type": "primitive",
+              "mark": {
+                "type": "decoratedSymbol",
+                "symbolColor": "default",
+                "character": "b"
+              }
+            }
+          }
+        },
+        "usePrePhraseSnapshot": false
+      },
+      "spokenFormError": "Action 'replace'",
+      "initialState": {
+        "documentContents": "// bbb_aaa",
+        "selections": [
+          {
+            "anchor": {
+              "line": 0,
+              "character": 0
+            },
+            "active": {
+              "line": 0,
+              "character": 0
+            }
+          }
+        ],
+        "marks": {
+          "default.b": {
+            "start": {
+              "line": 0,
+              "character": 3
+            },
+            "end": {
+              "line": 0,
+              "character": 10
+            }
+          }
+        },
+        "hatTokenMap": [
+          {
+            "hatStyle": "default",
+            "grapheme": "b",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 4
+              },
+              "end": {
+                "line": 0,
+                "character": 5
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "/",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 0
+              },
+              "end": {
+                "line": 0,
+                "character": 1
+              }
+            }
+          }
+        ]
+      },
+      "finalState": {
+        "documentContents": "// bbbAaa",
+        "selections": [
+          {
+            "anchor": {
+              "line": 0,
+              "character": 0
+            },
+            "active": {
+              "line": 0,
+              "character": 0
+            }
+          }
+        ],
+        "hatTokenMap": [
+          {
+            "hatStyle": "default",
+            "grapheme": "/",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 0
+              },
+              "end": {
+                "line": 0,
+                "character": 1
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "b",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 4
+              },
+              "end": {
+                "line": 0,
+                "character": 5
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "path": "docs/actions/applyFormatter2.yml",
+    "name": "docs/actions/applyFormatter2",
+    "fixture": {
+      "languageId": "typescript",
+      "command": {
+        "version": 7,
+        "spokenForm": "format snake at bat",
+        "action": {
+          "name": "replace",
+          "replaceWith": ["bbb_aaa"],
+          "destination": {
+            "type": "primitive",
+            "insertionMode": "to",
+            "target": {
+              "type": "primitive",
+              "mark": {
+                "type": "decoratedSymbol",
+                "symbolColor": "default",
+                "character": "b"
+              }
+            }
+          }
+        },
+        "usePrePhraseSnapshot": false
+      },
+      "spokenFormError": "Action 'replace'",
+      "initialState": {
+        "documentContents": "// bbbAaa",
+        "selections": [
+          {
+            "anchor": {
+              "line": 0,
+              "character": 0
+            },
+            "active": {
+              "line": 0,
+              "character": 0
+            }
+          }
+        ],
+        "marks": {
+          "default.b": {
+            "start": {
+              "line": 0,
+              "character": 3
+            },
+            "end": {
+              "line": 0,
+              "character": 9
+            }
+          }
+        },
+        "hatTokenMap": [
+          {
+            "hatStyle": "default",
+            "grapheme": "b",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 4
+              },
+              "end": {
+                "line": 0,
+                "character": 5
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "/",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 0
+              },
+              "end": {
+                "line": 0,
+                "character": 1
+              }
+            }
+          }
+        ]
+      },
+      "finalState": {
+        "documentContents": "// bbb_aaa",
+        "selections": [
+          {
+            "anchor": {
+              "line": 0,
+              "character": 0
+            },
+            "active": {
+              "line": 0,
+              "character": 0
+            }
+          }
+        ],
+        "hatTokenMap": [
+          {
+            "hatStyle": "default",
+            "grapheme": "/",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 0
+              },
+              "end": {
+                "line": 0,
+                "character": 1
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "b",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 4
+              },
+              "end": {
+                "line": 0,
+                "character": 5
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "path": "docs/actions/applyFormatter3.yml",
+    "name": "docs/actions/applyFormatter3",
+    "fixture": {
+      "languageId": "typescript",
+      "command": {
+        "version": 7,
+        "spokenForm": "format camel at line",
+        "action": {
+          "name": "replace",
+          "replaceWith": ["aaaBbb"],
+          "destination": {
+            "type": "primitive",
+            "insertionMode": "to",
+            "target": {
+              "type": "primitive",
+              "modifiers": [
+                {
+                  "type": "containingScope",
+                  "scopeType": {
+                    "type": "line"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "usePrePhraseSnapshot": false
+      },
+      "spokenFormError": "Action 'replace'",
+      "initialState": {
+        "documentContents": "aaa bbb",
+        "selections": [
+          {
+            "anchor": {
+              "line": 0,
+              "character": 0
+            },
+            "active": {
+              "line": 0,
+              "character": 0
+            }
+          }
+        ],
+        "marks": {},
+        "hatTokenMap": [
+          {
+            "hatStyle": "default",
+            "grapheme": "a",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 1
+              },
+              "end": {
+                "line": 0,
+                "character": 2
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "b",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 5
+              },
+              "end": {
+                "line": 0,
+                "character": 6
+              }
+            }
+          }
+        ]
+      },
+      "finalState": {
+        "documentContents": "aaaBbb",
+        "selections": [
+          {
+            "anchor": {
+              "line": 0,
+              "character": 0
+            },
+            "active": {
+              "line": 0,
+              "character": 0
+            }
+          }
+        ],
+        "hatTokenMap": [
+          {
+            "hatStyle": "default",
+            "grapheme": "a",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 1
+              },
+              "end": {
+                "line": 0,
+                "character": 2
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
 ]

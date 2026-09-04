@@ -1,413 +1,413 @@
 [
-	{
-		"name": "scopes/yaml/collectionItem.unenclosed.iteration",
-		"languageId": "yaml",
-		"facet": "collectionItem.unenclosed.iteration",
-		"code": "items:\n  - 1\n  - 2\n  - 3",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-3:5"
-					}
-				],
-				"domain": "0:0-3:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-3:5"
-					}
-				],
-				"domain": "1:2-3:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/yaml/collectionItem.unenclosed.multiLine",
-		"languageId": "yaml",
-		"facet": "collectionItem.unenclosed.multiLine",
-		"code": "items:\n  - 1\n  - 2\n  - 3",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-3:5",
-						"removal": "0:0-3:5"
-					}
-				],
-				"domain": "0:0-3:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:5",
-						"removal": "1:2-2:2"
-					}
-				],
-				"domain": "1:2-1:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:5",
-						"removal": "2:2-3:2"
-					}
-				],
-				"domain": "2:2-2:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "3:4-3:5",
-						"removal": "2:5-3:5"
-					}
-				],
-				"domain": "3:2-3:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/yaml/comment.line",
-		"languageId": "yaml",
-		"facet": "comment.line",
-		"code": "# Hello world",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/yaml/disqualifyDelimiter",
-		"languageId": "yaml",
-		"facet": "disqualifyDelimiter",
-		"code": "a: >\na: >-\na: >+",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:3-0:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "1:3-1:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "2:3-2:5"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/yaml/key.mapPair.iteration",
-		"languageId": "yaml",
-		"facet": "key.mapPair.iteration",
-		"code": "foo:\n  aaa: 0\n  bbb: 1",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:8"
-					}
-				],
-				"domain": "0:0-2:8"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-2:8"
-					}
-				],
-				"domain": "1:2-2:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/yaml/key.mapPair",
-		"languageId": "yaml",
-		"facet": "key.mapPair",
-		"code": "foo:\n  aaa: 0\n  bbb: 1",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-1:2"
-					}
-				],
-				"domain": "0:0-2:8"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-1:5",
-						"removal": "1:2-1:7"
-					}
-				],
-				"domain": "1:2-1:8"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:2-2:5",
-						"removal": "2:2-2:7"
-					}
-				],
-				"domain": "2:2-2:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/yaml/list",
-		"languageId": "yaml",
-		"facet": "list",
-		"code": "foo: [aaa, bbb]",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:5-0:15",
-						"removal": "0:4-0:15"
-					}
-				],
-				"domain": "0:5-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/yaml/list2",
-		"languageId": "yaml",
-		"facet": "list",
-		"code": "foo:\n  - aaa\n  - bbb",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:2-2:7",
-						"removal": "0:4-2:7"
-					}
-				],
-				"domain": "1:2-2:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/yaml/map",
-		"languageId": "yaml",
-		"facet": "map",
-		"code": "foo:\n  aaa: 0\n  bbb: 1",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:8",
-						"removal": "0:0-2:8"
-					}
-				],
-				"domain": "0:0-2:8"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-2:8",
-						"removal": "0:4-2:8"
-					}
-				],
-				"domain": "1:2-2:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/yaml/string.multiLine",
-		"languageId": "yaml",
-		"facet": "string.multiLine",
-		"code": "value: |\n  Hello\n  world",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:7-2:7",
-						"removal": "0:6-2:7"
-					}
-				],
-				"domain": "0:7-2:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/yaml/string.singleLine",
-		"languageId": "yaml",
-		"facet": "string.singleLine",
-		"code": "foo: \"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:5-0:18",
-						"removal": "0:4-0:18"
-					}
-				],
-				"domain": "0:5-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/yaml/string.singleLine2",
-		"languageId": "yaml",
-		"facet": "string.singleLine",
-		"code": "foo: Hello world",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:5-0:16",
-						"removal": "0:4-0:16"
-					}
-				],
-				"domain": "0:5-0:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/yaml/textFragment.comment.line",
-		"languageId": "yaml",
-		"facet": "textFragment.comment.line",
-		"code": "# Hello world",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/yaml/textFragment.string.multiLine",
-		"languageId": "yaml",
-		"facet": "textFragment.string.multiLine",
-		"code": "value: |\n  Hello\n  world",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:7-2:7",
-						"removal": "0:6-2:7"
-					}
-				],
-				"domain": "0:7-2:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/yaml/textFragment.string.singleLine",
-		"languageId": "yaml",
-		"facet": "textFragment.string.singleLine",
-		"code": "foo: \"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:17",
-						"removal": "0:6-0:17"
-					}
-				],
-				"domain": "0:6-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/yaml/textFragment.string.singleLine2",
-		"languageId": "yaml",
-		"facet": "textFragment.string.singleLine",
-		"code": "foo: Hello world",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:5-0:16",
-						"removal": "0:4-0:16"
-					}
-				],
-				"domain": "0:5-0:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/yaml/value.mapPair.iteration",
-		"languageId": "yaml",
-		"facet": "value.mapPair.iteration",
-		"code": "foo:\n  aaa: 0\n  bbb: 1",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:8"
-					}
-				],
-				"domain": "0:0-2:8"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-2:8"
-					}
-				],
-				"domain": "1:2-2:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/yaml/value.mapPair",
-		"languageId": "yaml",
-		"facet": "value.mapPair",
-		"code": "foo:\n  aaa: 0\n  bbb: 1",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:2-2:8",
-						"removal": "0:3-2:8"
-					}
-				],
-				"domain": "0:0-2:8"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:7-1:8",
-						"removal": "1:5-1:8"
-					}
-				],
-				"domain": "1:2-1:8"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:7-2:8",
-						"removal": "2:5-2:8"
-					}
-				],
-				"domain": "2:2-2:8"
-			}
-		]
-	}
+  {
+    "name": "scopes/yaml/collectionItem.unenclosed.iteration",
+    "languageId": "yaml",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "items:\n  - 1\n  - 2\n  - 3",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:5"
+          }
+        ],
+        "domain": "0:0-3:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-3:5"
+          }
+        ],
+        "domain": "1:2-3:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/yaml/collectionItem.unenclosed.multiLine",
+    "languageId": "yaml",
+    "facet": "collectionItem.unenclosed.multiLine",
+    "code": "items:\n  - 1\n  - 2\n  - 3",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:5",
+            "removal": "0:0-3:5"
+          }
+        ],
+        "domain": "0:0-3:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:5",
+            "removal": "1:2-2:2"
+          }
+        ],
+        "domain": "1:2-1:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:5",
+            "removal": "2:2-3:2"
+          }
+        ],
+        "domain": "2:2-2:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:4-3:5",
+            "removal": "2:5-3:5"
+          }
+        ],
+        "domain": "3:2-3:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/yaml/comment.line",
+    "languageId": "yaml",
+    "facet": "comment.line",
+    "code": "# Hello world",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/yaml/disqualifyDelimiter",
+    "languageId": "yaml",
+    "facet": "disqualifyDelimiter",
+    "code": "a: >\na: >-\na: >+",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:3-0:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "1:3-1:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "2:3-2:5"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/yaml/key.mapPair.iteration",
+    "languageId": "yaml",
+    "facet": "key.mapPair.iteration",
+    "code": "foo:\n  aaa: 0\n  bbb: 1",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:8"
+          }
+        ],
+        "domain": "0:0-2:8"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-2:8"
+          }
+        ],
+        "domain": "1:2-2:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/yaml/key.mapPair",
+    "languageId": "yaml",
+    "facet": "key.mapPair",
+    "code": "foo:\n  aaa: 0\n  bbb: 1",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-1:2"
+          }
+        ],
+        "domain": "0:0-2:8"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-1:5",
+            "removal": "1:2-1:7"
+          }
+        ],
+        "domain": "1:2-1:8"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-2:5",
+            "removal": "2:2-2:7"
+          }
+        ],
+        "domain": "2:2-2:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/yaml/list",
+    "languageId": "yaml",
+    "facet": "list",
+    "code": "foo: [aaa, bbb]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:15",
+            "removal": "0:4-0:15"
+          }
+        ],
+        "domain": "0:5-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/yaml/list2",
+    "languageId": "yaml",
+    "facet": "list",
+    "code": "foo:\n  - aaa\n  - bbb",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-2:7",
+            "removal": "0:4-2:7"
+          }
+        ],
+        "domain": "1:2-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/yaml/map",
+    "languageId": "yaml",
+    "facet": "map",
+    "code": "foo:\n  aaa: 0\n  bbb: 1",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:8",
+            "removal": "0:0-2:8"
+          }
+        ],
+        "domain": "0:0-2:8"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-2:8",
+            "removal": "0:4-2:8"
+          }
+        ],
+        "domain": "1:2-2:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/yaml/string.multiLine",
+    "languageId": "yaml",
+    "facet": "string.multiLine",
+    "code": "value: |\n  Hello\n  world",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-2:7",
+            "removal": "0:6-2:7"
+          }
+        ],
+        "domain": "0:7-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/yaml/string.singleLine",
+    "languageId": "yaml",
+    "facet": "string.singleLine",
+    "code": "foo: \"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:18",
+            "removal": "0:4-0:18"
+          }
+        ],
+        "domain": "0:5-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/yaml/string.singleLine2",
+    "languageId": "yaml",
+    "facet": "string.singleLine",
+    "code": "foo: Hello world",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:16",
+            "removal": "0:4-0:16"
+          }
+        ],
+        "domain": "0:5-0:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/yaml/textFragment.comment.line",
+    "languageId": "yaml",
+    "facet": "textFragment.comment.line",
+    "code": "# Hello world",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/yaml/textFragment.string.multiLine",
+    "languageId": "yaml",
+    "facet": "textFragment.string.multiLine",
+    "code": "value: |\n  Hello\n  world",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-2:7",
+            "removal": "0:6-2:7"
+          }
+        ],
+        "domain": "0:7-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/yaml/textFragment.string.singleLine",
+    "languageId": "yaml",
+    "facet": "textFragment.string.singleLine",
+    "code": "foo: \"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:17",
+            "removal": "0:6-0:17"
+          }
+        ],
+        "domain": "0:6-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/yaml/textFragment.string.singleLine2",
+    "languageId": "yaml",
+    "facet": "textFragment.string.singleLine",
+    "code": "foo: Hello world",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:16",
+            "removal": "0:4-0:16"
+          }
+        ],
+        "domain": "0:5-0:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/yaml/value.mapPair.iteration",
+    "languageId": "yaml",
+    "facet": "value.mapPair.iteration",
+    "code": "foo:\n  aaa: 0\n  bbb: 1",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:8"
+          }
+        ],
+        "domain": "0:0-2:8"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-2:8"
+          }
+        ],
+        "domain": "1:2-2:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/yaml/value.mapPair",
+    "languageId": "yaml",
+    "facet": "value.mapPair",
+    "code": "foo:\n  aaa: 0\n  bbb: 1",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-2:8",
+            "removal": "0:3-2:8"
+          }
+        ],
+        "domain": "0:0-2:8"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:7-1:8",
+            "removal": "1:5-1:8"
+          }
+        ],
+        "domain": "1:2-1:8"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:7-2:8",
+            "removal": "2:5-2:8"
+          }
+        ],
+        "domain": "2:2-2:8"
+      }
+    ]
+  }
 ]

@@ -1,257 +1,257 @@
 [
-	{
-		"name": "scopes/scm/argument.actual.iteration",
-		"languageId": "scm",
-		"facet": "argument.actual.iteration",
-		"code": "(#foo? @aaa bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:7-0:15"
-					}
-				],
-				"domain": "0:0-0:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/scm/argument.actual.multiLine",
-		"languageId": "scm",
-		"facet": "argument.actual.multiLine",
-		"code": "(#foo?\n    @aaa\n    bbb\n)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:8",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:8"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:7",
-						"removal": "2:0-3:0"
-					}
-				],
-				"domain": "2:4-2:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/scm/argument.actual.singleLine",
-		"languageId": "scm",
-		"facet": "argument.actual.singleLine",
-		"code": "(#foo? @aaa bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:7-0:11",
-						"removal": "0:7-0:12"
-					}
-				],
-				"domain": "0:7-0:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:12-0:15",
-						"removal": "0:11-0:15"
-					}
-				],
-				"domain": "0:12-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/scm/argumentList.actual.empty",
-		"languageId": "scm",
-		"facet": "argumentList.actual.empty",
-		"code": "(#foo?)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:6",
-						"removal": "0:6-0:6"
-					}
-				],
-				"domain": "0:0-0:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/scm/argumentList.actual.multiLine",
-		"languageId": "scm",
-		"facet": "argumentList.actual.multiLine",
-		"code": "(#foo?\n    @aaa\n    bbb\n)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-2:7",
-						"removal": "1:0-3:0"
-					}
-				],
-				"domain": "0:0-3:1"
-			}
-		]
-	},
-	{
-		"name": "scopes/scm/argumentList.actual.singleLine",
-		"languageId": "scm",
-		"facet": "argumentList.actual.singleLine",
-		"code": "(#foo? @aaa bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:7-0:15",
-						"removal": "0:6-0:15"
-					}
-				],
-				"domain": "0:0-0:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/scm/comment.line",
-		"languageId": "scm",
-		"facet": "comment.line",
-		"code": ";; Hello world",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:14",
-						"removal": "0:0-0:14"
-					}
-				],
-				"domain": "0:0-0:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/scm/functionCall",
-		"languageId": "scm",
-		"facet": "functionCall",
-		"code": "(#foo!)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/scm/functionCallee",
-		"languageId": "scm",
-		"facet": "functionCallee",
-		"code": "(#foo!)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-0:6",
-						"removal": "0:2-0:6"
-					}
-				],
-				"domain": "0:0-0:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/scm/list",
-		"languageId": "scm",
-		"facet": "list",
-		"code": "[(aaa) (bbb)]",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/scm/statement.misc",
-		"languageId": "scm",
-		"facet": "statement.misc",
-		"code": "(foo) @bar",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:10",
-						"removal": "0:0-0:10"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/scm/string.singleLine",
-		"languageId": "scm",
-		"facet": "string.singleLine",
-		"code": "\"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/scm/textFragment.comment.line",
-		"languageId": "scm",
-		"facet": "textFragment.comment.line",
-		"code": ";; Hello world",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:14",
-						"removal": "0:0-0:14"
-					}
-				],
-				"domain": "0:0-0:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/scm/textFragment.string.singleLine",
-		"languageId": "scm",
-		"facet": "textFragment.string.singleLine",
-		"code": "\"hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:12",
-						"removal": "0:1-0:12"
-					}
-				],
-				"domain": "0:1-0:12"
-			}
-		]
-	}
+  {
+    "name": "scopes/scm/argument.actual.iteration",
+    "languageId": "scm",
+    "facet": "argument.actual.iteration",
+    "code": "(#foo? @aaa bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:15"
+          }
+        ],
+        "domain": "0:0-0:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scm/argument.actual.multiLine",
+    "languageId": "scm",
+    "facet": "argument.actual.multiLine",
+    "code": "(#foo?\n    @aaa\n    bbb\n)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:8",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:8"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:7",
+            "removal": "2:0-3:0"
+          }
+        ],
+        "domain": "2:4-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scm/argument.actual.singleLine",
+    "languageId": "scm",
+    "facet": "argument.actual.singleLine",
+    "code": "(#foo? @aaa bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:11",
+            "removal": "0:7-0:12"
+          }
+        ],
+        "domain": "0:7-0:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-0:15",
+            "removal": "0:11-0:15"
+          }
+        ],
+        "domain": "0:12-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scm/argumentList.actual.empty",
+    "languageId": "scm",
+    "facet": "argumentList.actual.empty",
+    "code": "(#foo?)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:6",
+            "removal": "0:6-0:6"
+          }
+        ],
+        "domain": "0:0-0:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scm/argumentList.actual.multiLine",
+    "languageId": "scm",
+    "facet": "argumentList.actual.multiLine",
+    "code": "(#foo?\n    @aaa\n    bbb\n)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-2:7",
+            "removal": "1:0-3:0"
+          }
+        ],
+        "domain": "0:0-3:1"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scm/argumentList.actual.singleLine",
+    "languageId": "scm",
+    "facet": "argumentList.actual.singleLine",
+    "code": "(#foo? @aaa bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:15",
+            "removal": "0:6-0:15"
+          }
+        ],
+        "domain": "0:0-0:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scm/comment.line",
+    "languageId": "scm",
+    "facet": "comment.line",
+    "code": ";; Hello world",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14",
+            "removal": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scm/functionCall",
+    "languageId": "scm",
+    "facet": "functionCall",
+    "code": "(#foo!)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scm/functionCallee",
+    "languageId": "scm",
+    "facet": "functionCallee",
+    "code": "(#foo!)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:6",
+            "removal": "0:2-0:6"
+          }
+        ],
+        "domain": "0:0-0:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scm/list",
+    "languageId": "scm",
+    "facet": "list",
+    "code": "[(aaa) (bbb)]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scm/statement.misc",
+    "languageId": "scm",
+    "facet": "statement.misc",
+    "code": "(foo) @bar",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scm/string.singleLine",
+    "languageId": "scm",
+    "facet": "string.singleLine",
+    "code": "\"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scm/textFragment.comment.line",
+    "languageId": "scm",
+    "facet": "textFragment.comment.line",
+    "code": ";; Hello world",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14",
+            "removal": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scm/textFragment.string.singleLine",
+    "languageId": "scm",
+    "facet": "textFragment.string.singleLine",
+    "code": "\"hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:12",
+            "removal": "0:1-0:12"
+          }
+        ],
+        "domain": "0:1-0:12"
+      }
+    ]
+  }
 ]

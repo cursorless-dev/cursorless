@@ -1,87 +1,87 @@
 [
-	{
-		"name": "scopes/cpp/attribute",
-		"languageId": "cpp",
-		"facet": "attribute",
-		"code": "[[foo]]",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-0:5",
-						"removal": "0:2-0:5"
-					}
-				],
-				"domain": "0:2-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/csharp/attribute",
-		"languageId": "csharp",
-		"facet": "attribute",
-		"code": "[Foo]\nvoid Bar() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:4",
-						"removal": "0:1-0:4"
-					}
-				],
-				"domain": "0:1-0:4"
-			}
-		]
-	},
-	{
-		"name": "scopes/html/attribute",
-		"languageId": "html",
-		"facet": "attribute",
-		"code": "<div id=\"foo\"></div>",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:5-0:13",
-						"removal": "0:4-0:13"
-					}
-				],
-				"domain": "0:5-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.jsx/attribute",
-		"languageId": "javascript.jsx",
-		"facet": "attribute",
-		"code": "<div id=\"foo\"></div>",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:5-0:13",
-						"removal": "0:4-0:13"
-					}
-				],
-				"domain": "0:5-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/xml/attribute",
-		"languageId": "xml",
-		"facet": "attribute",
-		"code": "<name id=\"foo\"></name>",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:14",
-						"removal": "0:5-0:14"
-					}
-				],
-				"domain": "0:6-0:14"
-			}
-		]
-	}
+  {
+    "name": "scopes/cpp/attribute",
+    "languageId": "cpp",
+    "facet": "attribute",
+    "code": "[[foo]]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:5",
+            "removal": "0:2-0:5"
+          }
+        ],
+        "domain": "0:2-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/csharp/attribute",
+    "languageId": "csharp",
+    "facet": "attribute",
+    "code": "[Foo]\nvoid Bar() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:4",
+            "removal": "0:1-0:4"
+          }
+        ],
+        "domain": "0:1-0:4"
+      }
+    ]
+  },
+  {
+    "name": "scopes/html/attribute",
+    "languageId": "html",
+    "facet": "attribute",
+    "code": "<div id=\"foo\"></div>",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:13",
+            "removal": "0:4-0:13"
+          }
+        ],
+        "domain": "0:5-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.jsx/attribute",
+    "languageId": "javascript.jsx",
+    "facet": "attribute",
+    "code": "<div id=\"foo\"></div>",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:13",
+            "removal": "0:4-0:13"
+          }
+        ],
+        "domain": "0:5-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/xml/attribute",
+    "languageId": "xml",
+    "facet": "attribute",
+    "code": "<name id=\"foo\"></name>",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:14",
+            "removal": "0:5-0:14"
+          }
+        ],
+        "domain": "0:6-0:14"
+      }
+    ]
+  }
 ]

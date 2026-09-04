@@ -1,562 +1,562 @@
 [
-	{
-		"name": "scopes/latex/argument.actual.iteration",
-		"languageId": "latex",
-		"facet": "argument.actual.iteration",
-		"code": "\\foo{aaa}{bbb}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:14"
-					}
-				],
-				"domain": "0:0-0:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/argument.actual.multiLine",
-		"languageId": "latex",
-		"facet": "argument.actual.multiLine",
-		"code": "\\foo\n    {aaa}\n    {bbb}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:5-1:8",
-						"removal": "1:4-1:9"
-					}
-				],
-				"domain": "1:5-1:8"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:5-2:8",
-						"removal": "2:4-2:9"
-					}
-				],
-				"domain": "2:5-2:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/argument.actual.singleLine",
-		"languageId": "latex",
-		"facet": "argument.actual.singleLine",
-		"code": "\\foo{aaa}{bbb}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:5-0:8",
-						"removal": "0:4-0:9"
-					}
-				],
-				"domain": "0:5-0:8"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:10-0:13",
-						"removal": "0:9-0:14"
-					}
-				],
-				"domain": "0:10-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/chapter",
-		"languageId": "latex",
-		"facet": "chapter",
-		"code": "\\chapter{Introduction}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:22",
-						"removal": "0:0-0:22"
-					}
-				],
-				"domain": "0:0-0:22"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/collectionItem.unenclosed.iteration",
-		"languageId": "latex",
-		"facet": "collectionItem.unenclosed.iteration",
-		"code": "\\begin{itemize}\n  \\item one\n  \\item two\n\\end{itemize}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:15-3:0"
-					}
-				],
-				"domain": "0:0-3:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:7-0:14"
-					}
-				],
-				"domain": "0:7-0:14"
-			},
-			{
-				"targets": [
-					{
-						"content": "3:5-3:12"
-					}
-				],
-				"domain": "3:5-3:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/collectionItem.unenclosed.multiLine",
-		"languageId": "latex",
-		"facet": "collectionItem.unenclosed.multiLine",
-		"code": "\\begin{itemize}\n  \\item one\n  \\item two\n\\end{itemize}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:7-0:14",
-						"removal": "0:7-0:14"
-					}
-				],
-				"domain": "0:7-0:14"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:8-1:11",
-						"removal": "1:2-1:11"
-					}
-				],
-				"domain": "1:8-1:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:8-2:11",
-						"removal": "2:2-2:11"
-					}
-				],
-				"domain": "2:8-2:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "3:5-3:12",
-						"removal": "3:5-3:12"
-					}
-				],
-				"domain": "3:5-3:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/comment.block",
-		"languageId": "latex",
-		"facet": "comment.block",
-		"code": "\\iffalse Hello world \\fi",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:24",
-						"removal": "0:0-0:24"
-					}
-				],
-				"domain": "0:0-0:24"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/comment.line",
-		"languageId": "latex",
-		"facet": "comment.line",
-		"code": "% Hello world",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/disqualifyDelimiter",
-		"languageId": "latex",
-		"facet": "disqualifyDelimiter",
-		"code": "1 < 2\n1 > 2",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-0:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-1:3"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/element",
-		"languageId": "latex",
-		"facet": "element",
-		"code": "\\begin{quote}\n    Hello\n\\end{quote}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:11",
-						"removal": "0:0-2:11"
-					}
-				],
-				"domain": "0:0-2:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/endTag",
-		"languageId": "latex",
-		"facet": "endTag",
-		"code": "\\begin{quote}\n    Hello\n\\end{quote}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "2:0-2:11",
-						"removal": "1:9-2:11"
-					}
-				],
-				"domain": "0:0-2:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/environment",
-		"languageId": "latex",
-		"facet": "environment",
-		"code": "\\begin{quote}\n    Hello world\n\\end{quote}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:11",
-						"removal": "0:0-2:11"
-					}
-				],
-				"domain": "0:0-2:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/functionCall",
-		"languageId": "latex",
-		"facet": "functionCall",
-		"code": "\\foo{aaa}{bbb}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:14",
-						"removal": "0:0-0:14"
-					}
-				],
-				"domain": "0:0-0:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/functionCallee",
-		"languageId": "latex",
-		"facet": "functionCallee",
-		"code": "\\foo{aaa}{bbb}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:4",
-						"removal": "0:0-0:4"
-					}
-				],
-				"domain": "0:0-0:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/interior.element",
-		"languageId": "latex",
-		"facet": "interior.element",
-		"code": "\\begin{quote}\n    Hello\n\\end{quote}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:9",
-						"removal": "0:13-2:0"
-					}
-				],
-				"domain": "0:13-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/list",
-		"languageId": "latex",
-		"facet": "list",
-		"code": "\\begin{itemize}\n  \\item aaa\n  \\item bbb\n\\end{itemize}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-3:13",
-						"removal": "0:0-3:13"
-					}
-				],
-				"domain": "0:0-3:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/namedParagraph",
-		"languageId": "latex",
-		"facet": "namedParagraph",
-		"code": "\\paragraph{Introduction}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:24",
-						"removal": "0:0-0:24"
-					}
-				],
-				"domain": "0:0-0:24"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/part",
-		"languageId": "latex",
-		"facet": "part",
-		"code": "\\part{Introduction}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:19",
-						"removal": "0:0-0:19"
-					}
-				],
-				"domain": "0:0-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/section.iteration.document",
-		"languageId": "latex",
-		"facet": "section.iteration.document",
-		"code": "\n\\section{One}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/section",
-		"languageId": "latex",
-		"facet": "section",
-		"code": "\\section{Introduction}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:22",
-						"removal": "0:0-0:22"
-					}
-				],
-				"domain": "0:0-0:22"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/startTag",
-		"languageId": "latex",
-		"facet": "startTag",
-		"code": "\\begin{quote}\n    Hello\n\\end{quote}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-1:0"
-					}
-				],
-				"domain": "0:0-2:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/statement.functionCall",
-		"languageId": "latex",
-		"facet": "statement.functionCall",
-		"code": "\\foo{aaa}{bbb}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:14",
-						"removal": "0:0-0:14"
-					}
-				],
-				"domain": "0:0-0:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/subParagraph",
-		"languageId": "latex",
-		"facet": "subParagraph",
-		"code": "\\subparagraph{Introduction}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:27",
-						"removal": "0:0-0:27"
-					}
-				],
-				"domain": "0:0-0:27"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/subSection",
-		"languageId": "latex",
-		"facet": "subSection",
-		"code": "\\subsection{Introduction}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:25",
-						"removal": "0:0-0:25"
-					}
-				],
-				"domain": "0:0-0:25"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/subSubSection",
-		"languageId": "latex",
-		"facet": "subSubSection",
-		"code": "\\subsubsection{Introduction}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:28",
-						"removal": "0:0-0:28"
-					}
-				],
-				"domain": "0:0-0:28"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/tags",
-		"languageId": "latex",
-		"facet": "tags",
-		"code": "\\begin{quote}\n    Hello\n\\end{quote}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-1:0"
-					},
-					{
-						"content": "2:0-2:11",
-						"removal": "1:9-2:11"
-					}
-				],
-				"domain": "0:0-2:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/textFragment.comment.block",
-		"languageId": "latex",
-		"facet": "textFragment.comment.block",
-		"code": "\\iffalse Hello world \\fi",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:24",
-						"removal": "0:0-0:24"
-					}
-				],
-				"domain": "0:0-0:24"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/textFragment.comment.line",
-		"languageId": "latex",
-		"facet": "textFragment.comment.line",
-		"code": "% Hello world",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/textFragment.element",
-		"languageId": "latex",
-		"facet": "textFragment.element",
-		"code": "\\begin{quote}\n    Hello\n\\end{quote}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:13-2:0",
-						"removal": "0:13-2:0"
-					}
-				],
-				"domain": "0:13-2:0"
-			}
-		]
-	}
+  {
+    "name": "scopes/latex/argument.actual.iteration",
+    "languageId": "latex",
+    "facet": "argument.actual.iteration",
+    "code": "\\foo{aaa}{bbb}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/argument.actual.multiLine",
+    "languageId": "latex",
+    "facet": "argument.actual.multiLine",
+    "code": "\\foo\n    {aaa}\n    {bbb}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:5-1:8",
+            "removal": "1:4-1:9"
+          }
+        ],
+        "domain": "1:5-1:8"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:5-2:8",
+            "removal": "2:4-2:9"
+          }
+        ],
+        "domain": "2:5-2:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/argument.actual.singleLine",
+    "languageId": "latex",
+    "facet": "argument.actual.singleLine",
+    "code": "\\foo{aaa}{bbb}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:8",
+            "removal": "0:4-0:9"
+          }
+        ],
+        "domain": "0:5-0:8"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-0:13",
+            "removal": "0:9-0:14"
+          }
+        ],
+        "domain": "0:10-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/chapter",
+    "languageId": "latex",
+    "facet": "chapter",
+    "code": "\\chapter{Introduction}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:22",
+            "removal": "0:0-0:22"
+          }
+        ],
+        "domain": "0:0-0:22"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/collectionItem.unenclosed.iteration",
+    "languageId": "latex",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "\\begin{itemize}\n  \\item one\n  \\item two\n\\end{itemize}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:15-3:0"
+          }
+        ],
+        "domain": "0:0-3:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:7-0:14"
+          }
+        ],
+        "domain": "0:7-0:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:5-3:12"
+          }
+        ],
+        "domain": "3:5-3:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/collectionItem.unenclosed.multiLine",
+    "languageId": "latex",
+    "facet": "collectionItem.unenclosed.multiLine",
+    "code": "\\begin{itemize}\n  \\item one\n  \\item two\n\\end{itemize}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:14",
+            "removal": "0:7-0:14"
+          }
+        ],
+        "domain": "0:7-0:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:8-1:11",
+            "removal": "1:2-1:11"
+          }
+        ],
+        "domain": "1:8-1:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:8-2:11",
+            "removal": "2:2-2:11"
+          }
+        ],
+        "domain": "2:8-2:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:5-3:12",
+            "removal": "3:5-3:12"
+          }
+        ],
+        "domain": "3:5-3:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/comment.block",
+    "languageId": "latex",
+    "facet": "comment.block",
+    "code": "\\iffalse Hello world \\fi",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:24",
+            "removal": "0:0-0:24"
+          }
+        ],
+        "domain": "0:0-0:24"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/comment.line",
+    "languageId": "latex",
+    "facet": "comment.line",
+    "code": "% Hello world",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/disqualifyDelimiter",
+    "languageId": "latex",
+    "facet": "disqualifyDelimiter",
+    "code": "1 < 2\n1 > 2",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-1:3"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/element",
+    "languageId": "latex",
+    "facet": "element",
+    "code": "\\begin{quote}\n    Hello\n\\end{quote}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:11",
+            "removal": "0:0-2:11"
+          }
+        ],
+        "domain": "0:0-2:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/endTag",
+    "languageId": "latex",
+    "facet": "endTag",
+    "code": "\\begin{quote}\n    Hello\n\\end{quote}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "2:0-2:11",
+            "removal": "1:9-2:11"
+          }
+        ],
+        "domain": "0:0-2:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/environment",
+    "languageId": "latex",
+    "facet": "environment",
+    "code": "\\begin{quote}\n    Hello world\n\\end{quote}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:11",
+            "removal": "0:0-2:11"
+          }
+        ],
+        "domain": "0:0-2:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/functionCall",
+    "languageId": "latex",
+    "facet": "functionCall",
+    "code": "\\foo{aaa}{bbb}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14",
+            "removal": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/functionCallee",
+    "languageId": "latex",
+    "facet": "functionCallee",
+    "code": "\\foo{aaa}{bbb}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:4",
+            "removal": "0:0-0:4"
+          }
+        ],
+        "domain": "0:0-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/interior.element",
+    "languageId": "latex",
+    "facet": "interior.element",
+    "code": "\\begin{quote}\n    Hello\n\\end{quote}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:9",
+            "removal": "0:13-2:0"
+          }
+        ],
+        "domain": "0:13-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/list",
+    "languageId": "latex",
+    "facet": "list",
+    "code": "\\begin{itemize}\n  \\item aaa\n  \\item bbb\n\\end{itemize}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:13",
+            "removal": "0:0-3:13"
+          }
+        ],
+        "domain": "0:0-3:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/namedParagraph",
+    "languageId": "latex",
+    "facet": "namedParagraph",
+    "code": "\\paragraph{Introduction}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:24",
+            "removal": "0:0-0:24"
+          }
+        ],
+        "domain": "0:0-0:24"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/part",
+    "languageId": "latex",
+    "facet": "part",
+    "code": "\\part{Introduction}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:19",
+            "removal": "0:0-0:19"
+          }
+        ],
+        "domain": "0:0-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/section.iteration.document",
+    "languageId": "latex",
+    "facet": "section.iteration.document",
+    "code": "\n\\section{One}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/section",
+    "languageId": "latex",
+    "facet": "section",
+    "code": "\\section{Introduction}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:22",
+            "removal": "0:0-0:22"
+          }
+        ],
+        "domain": "0:0-0:22"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/startTag",
+    "languageId": "latex",
+    "facet": "startTag",
+    "code": "\\begin{quote}\n    Hello\n\\end{quote}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-1:0"
+          }
+        ],
+        "domain": "0:0-2:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/statement.functionCall",
+    "languageId": "latex",
+    "facet": "statement.functionCall",
+    "code": "\\foo{aaa}{bbb}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14",
+            "removal": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/subParagraph",
+    "languageId": "latex",
+    "facet": "subParagraph",
+    "code": "\\subparagraph{Introduction}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:27",
+            "removal": "0:0-0:27"
+          }
+        ],
+        "domain": "0:0-0:27"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/subSection",
+    "languageId": "latex",
+    "facet": "subSection",
+    "code": "\\subsection{Introduction}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:25",
+            "removal": "0:0-0:25"
+          }
+        ],
+        "domain": "0:0-0:25"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/subSubSection",
+    "languageId": "latex",
+    "facet": "subSubSection",
+    "code": "\\subsubsection{Introduction}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:28",
+            "removal": "0:0-0:28"
+          }
+        ],
+        "domain": "0:0-0:28"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/tags",
+    "languageId": "latex",
+    "facet": "tags",
+    "code": "\\begin{quote}\n    Hello\n\\end{quote}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-1:0"
+          },
+          {
+            "content": "2:0-2:11",
+            "removal": "1:9-2:11"
+          }
+        ],
+        "domain": "0:0-2:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/textFragment.comment.block",
+    "languageId": "latex",
+    "facet": "textFragment.comment.block",
+    "code": "\\iffalse Hello world \\fi",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:24",
+            "removal": "0:0-0:24"
+          }
+        ],
+        "domain": "0:0-0:24"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/textFragment.comment.line",
+    "languageId": "latex",
+    "facet": "textFragment.comment.line",
+    "code": "% Hello world",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/textFragment.element",
+    "languageId": "latex",
+    "facet": "textFragment.element",
+    "code": "\\begin{quote}\n    Hello\n\\end{quote}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:13-2:0",
+            "removal": "0:13-2:0"
+          }
+        ],
+        "domain": "0:13-2:0"
+      }
+    ]
+  }
 ]
