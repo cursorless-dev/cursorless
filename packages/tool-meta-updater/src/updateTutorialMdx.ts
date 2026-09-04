@@ -44,14 +44,12 @@ export function updateTutorialReadmeMdx(
     "",
     'To follow along interactively, focus VS Code and say `"cursorless tutorial"`.',
     "",
-    ...tutorials
-      .toSorted((a, b) => a.position - b.position)
-      .flatMap((tutorial) => [
-        `## ${tutorial.position}. ${tutorial.title}`,
-        "",
-        `[Start ${tutorial.title}](./${tutorial.id}.mdx) - ${tutorial.description}`,
-        "",
-      ]),
+    ...tutorials.flatMap((tutorial) => [
+      `## ${tutorial.position}. ${tutorial.title}`,
+      "",
+      `[Start ${tutorial.title}](./${tutorial.id}.mdx) - ${tutorial.description}`,
+      "",
+    ]),
     "## Use the interactive tutorial",
     "",
     "The VS Code sidebar includes an interactive version of these tutorials. Each step shows a command to say and usually advances automatically when you complete it. It uses your custom spoken forms and saves your progress so that you can continue where you left off.",

@@ -1,7 +1,7 @@
 import type { RawTutorialContent } from "./tutorial.types";
 
-export const tutorial3Visualization: RawTutorialContent = {
-  id: "3-visualization",
+export const tutorialVisualization: RawTutorialContent = {
+  id: "visualization",
   title: "Visualization",
   description:
     "This tutorial will teach you how to visualize different scopes in Cursorless.",

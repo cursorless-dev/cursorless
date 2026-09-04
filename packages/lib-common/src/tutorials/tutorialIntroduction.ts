@@ -3,8 +3,8 @@ import type { RawTutorialContent } from "./tutorial.types";
 const wrapsUp =
   "And that wraps up unit 1 of the Cursorless tutorial! Next time, we'll write some code 🙌.";
 
-export const tutorial1Introduction: RawTutorialContent = {
-  id: "1-introduction",
+export const tutorialIntroduction: RawTutorialContent = {
+  id: "introduction",
   title: "Introduction",
   description: "This tutorial will teach you the basics of Cursorless.",
   steps: [

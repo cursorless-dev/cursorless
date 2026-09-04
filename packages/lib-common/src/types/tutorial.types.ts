@@ -1,7 +1,4 @@
-export type TutorialId =
-  | "1-introduction"
-  | "2-basic-coding"
-  | "3-visualization";
+export type TutorialId = "introduction" | "basic-coding" | "visualization";
 
 interface BaseTutorialInfo {
   id: TutorialId;
