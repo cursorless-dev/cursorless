@@ -1,6 +1,6 @@
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import type {
-  RawTutorialContent,
+  ResolvedTutorialContent,
   TestCaseFixtureLegacy,
   TutorialContentProvider,
   TutorialId,
@@ -29,18 +29,13 @@ interface TutorialRecordedTest {
 }
 
 export function updateTutorialReadmeMdx(
-  tutorials: RawTutorialContent[],
+  tutorials: ResolvedTutorialContent[],
   _actual: string | null,
   options: FormatPluginFnOptions,
 ): string | null {
   if (!isAppWebDocs(options)) {
     return null;
   }
-
-  const enrichedTutorials = tutorials.map((tutorial) => ({
-    ...tutorial,
-    position: parseTutorialPosition(tutorial.id),
-  }));
 
   return [
     "# Tutorial",
@@ -49,7 +44,7 @@ export function updateTutorialReadmeMdx(
     "",
     'To follow along interactively, focus VS Code and say `"cursorless tutorial"`.',
     "",
-    ...enrichedTutorials
+    ...tutorials
       .toSorted((a, b) => a.position - b.position)
       .flatMap((tutorial) => [
         `## ${tutorial.position}. ${tutorial.title}`,
@@ -84,7 +79,8 @@ export function updateTutorialReadmeMdx(
 }
 
 export async function updateTutorialMdx(
-  tutorial: RawTutorialContent,
+  tutorial: ResolvedTutorialContent,
+  nextTutorial: ResolvedTutorialContent | undefined,
   contentProvider: TutorialContentProvider,
   _actual: string | null,
   options: FormatPluginFnOptions,
@@ -93,12 +89,11 @@ export async function updateTutorialMdx(
     return null;
   }
 
-  const position = parseTutorialPosition(tutorial.id);
   const lines = [
     recordedTestVisualizerImport,
     `import recordedTests from "./fixtures/${tutorial.id}.json";`,
     "",
-    `# ${position}. ${tutorial.title}`,
+    `# ${tutorial.position}. ${tutorial.title}`,
     "",
     tutorial.description,
     "",
@@ -118,11 +113,21 @@ export async function updateTutorialMdx(
   }
 
   lines.push("</RecordedTestVisualizerProvider>", "");
+
+  if (nextTutorial != null) {
+    lines.push(
+      `## Next tutorial: ${nextTutorial.position}. ${nextTutorial.title}`,
+      "",
+      `[Continue to ${nextTutorial.title}](./${nextTutorial.id}.mdx) - ${nextTutorial.description}`,
+      "",
+    );
+  }
+
   return lines.join("\n");
 }
 
 export async function updateTutorialFixtureData(
-  tutorial: RawTutorialContent,
+  tutorial: ResolvedTutorialContent,
   contentProvider: TutorialContentProvider,
   _actual: unknown,
   options: FormatPluginFnOptions,
@@ -155,7 +160,7 @@ export async function updateTutorialFixtureData(
 
 async function renderStep(
   contentProvider: TutorialContentProvider,
-  tutorialId: RawTutorialContent["id"],
+  tutorialId: TutorialId,
   rawStep: string,
 ): Promise<RenderedStep> {
   const fixtureNames: string[] = [];
@@ -198,7 +203,7 @@ async function renderStep(
 }
 
 function getTutorialFixtureName(
-  tutorialId: RawTutorialContent["id"],
+  tutorialId: TutorialId,
   argument: string,
 ): string {
   return `tutorial/${tutorialId}/${argument.replace(/\.ya?ml$/u, "")}`;
@@ -227,15 +232,4 @@ function formatSpokenForm(spokenForm: string): string {
 
 function formatTerm(term: string): string {
   return `"${term}"`;
-}
-
-function parseTutorialPosition(id: TutorialId) {
-  const match = id.match(/^(?<position>\d+)-.+$/u);
-  const position = match?.groups?.position;
-
-  if (position == null) {
-    throw new Error(`Invalid tutorial fixture id: ${id}`);
-  }
-
-  return Number(position);
 }

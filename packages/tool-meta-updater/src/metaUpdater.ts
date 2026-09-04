@@ -101,11 +101,16 @@ export const updater = async (workspaceDir: string) => {
         tutorials,
       ),
       ...Object.fromEntries(
-        tutorials.flatMap((tutorial) => {
+        tutorials.flatMap((tutorial, index) => {
           return [
             [
               `${userDir}/tutorial/${tutorial.id}.mdx`,
-              updateTutorialMdx.bind(null, tutorial, tutorialContentProvider),
+              updateTutorialMdx.bind(
+                null,
+                tutorial,
+                tutorials[index + 1],
+                tutorialContentProvider,
+              ),
             ],
             [
               `${userDir}/tutorial/fixtures/${tutorial.id}.json`,

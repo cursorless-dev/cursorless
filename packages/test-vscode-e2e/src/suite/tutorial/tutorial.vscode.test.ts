@@ -30,7 +30,7 @@ suite("tutorial", function () {
   );
 });
 
-const INTRODUCTION_TUTORIAL_ID = "tutorial-1-introduction";
+const INTRODUCTION_TUTORIAL_ID = "1-introduction";
 
 async function runBasicTutorialTest(spyIde: SpyIDE) {
   const { hatTokenMap, takeSnapshot, getTutorialWebviewEventLog, vscodeApi } =
@@ -100,7 +100,7 @@ async function runBasicTutorialTest(spyIde: SpyIDE) {
       data: {
         type: "doingTutorial",
         hasErrors: false,
-        id: "tutorial-1-introduction",
+        id: "1-introduction",
         stepNumber: 0,
         stepContent: [
           [
@@ -184,19 +184,19 @@ async function runBasicTutorialTest(spyIde: SpyIDE) {
         type: "pickingTutorial",
         tutorials: [
           {
-            id: "tutorial-1-introduction",
+            id: "1-introduction",
             title: "Introduction",
             stepCount: 11,
             currentStep: 1,
           },
           {
-            id: "tutorial-2-basic-coding",
+            id: "2-basic-coding",
             title: "Basic coding",
             stepCount: 9,
             currentStep: 0,
           },
           {
-            id: "tutorial-3-visualization",
+            id: "3-visualization",
             title: "Visualization",
             stepCount: 6,
             currentStep: 0,

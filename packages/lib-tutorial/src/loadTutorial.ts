@@ -1,7 +1,7 @@
 import type {
   Hats,
   KeyValueStore,
-  RawTutorialContent,
+  ResolvedTutorialContent,
   TutorialContentProvider,
   TutorialId,
   TutorialState,
@@ -16,7 +16,7 @@ export async function loadTutorial(
   contentProvider: TutorialContentProvider,
   tutorialId: TutorialId,
   customSpokenFormGenerator: CustomSpokenFormGenerator,
-  rawContent: RawTutorialContent,
+  rawContent: ResolvedTutorialContent,
   keyValueStore: KeyValueStore,
   hats: Hats,
 ) {

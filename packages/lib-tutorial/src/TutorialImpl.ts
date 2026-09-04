@@ -6,7 +6,7 @@ import type {
   Hats,
   HatTokenMap,
   IDE,
-  RawTutorialContent,
+  ResolvedTutorialContent,
   ReadOnlyHatMap,
   ScopeType,
   TextEditor,
@@ -61,7 +61,7 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
 
   private disposables: Disposable[] = [];
 
-  private rawTutorials: RawTutorialContent[];
+  private rawTutorials: ResolvedTutorialContent[];
 
   constructor(
     private ide: IDE,

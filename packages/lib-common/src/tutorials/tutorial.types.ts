@@ -7,5 +7,17 @@ export interface RawTutorialContent {
   title: string;
   description: string;
   excludeIn?: TutorialContext[];
+  steps: (StepContent | ContextStep)[];
+}
+
+type StepContent = string | string[];
+
+type ContextStep = Record<TutorialContext, StepContent>;
+
+export interface ResolvedTutorialContent extends Omit<
+  RawTutorialContent,
+  "steps"
+> {
+  position: number;
   steps: string[];
 }
