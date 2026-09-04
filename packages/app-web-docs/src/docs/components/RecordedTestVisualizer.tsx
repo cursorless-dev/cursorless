@@ -26,14 +26,19 @@ const RecordedTestVisualizerContext = createContext<
   RecordedTestVisualizerContextValue | undefined
 >(undefined);
 
+interface ProviderProps {
+  children: ReactNode;
+  recordedTests?: RecordedTest[];
+}
+
 export function RecordedTestVisualizerProvider({
   children,
-}: {
-  children: ReactNode;
-}) {
-  const recordedTests = usePluginData(
+  recordedTests: providedRecordedTests,
+}: ProviderProps): JSX.Element {
+  const globalRecordedTests = usePluginData(
     "recorded-tests-plugin",
   ) as RecordedTest[];
+  const recordedTests = providedRecordedTests ?? globalRecordedTests;
   const [renderWhitespace, setRenderWhitespace] = useState(true);
   const fixtures = useMemo(
     () =>

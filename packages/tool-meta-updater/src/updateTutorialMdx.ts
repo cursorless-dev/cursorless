@@ -1,6 +1,7 @@
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import type {
   RawTutorialContent,
+  TestCaseFixtureLegacy,
   TutorialContentProvider,
   TutorialId,
 } from "@cursorless/lib-common";
@@ -18,6 +19,12 @@ const specialCommands: Record<string, string> = {
 interface RenderedStep {
   content: string;
   fixtureNames: string[];
+}
+
+interface TutorialRecordedTest {
+  path: string;
+  name: string;
+  fixture: TestCaseFixtureLegacy;
 }
 
 export function updateTutorialReadmeMdx(
@@ -85,14 +92,15 @@ export async function updateTutorialMdx(
     return null;
   }
 
-  const { position } = parseTutorialId(tutorial.id);
+  const { position, shortId } = parseTutorialId(tutorial.id);
 
   const lines = [
     recordedTestVisualizerImport,
+    `import recordedTests from "./${shortId}.fixtures.json";`,
     "",
     `# ${position}. ${tutorial.title}`,
     "",
-    "<RecordedTestVisualizerProvider>",
+    "<RecordedTestVisualizerProvider recordedTests={recordedTests}>",
     "",
     "<RecordedTestVisualizerOptions />",
     "",
@@ -109,6 +117,38 @@ export async function updateTutorialMdx(
 
   lines.push("</RecordedTestVisualizerProvider>", "");
   return lines.join("\n");
+}
+
+export async function updateTutorialFixtureData(
+  tutorial: RawTutorialContent,
+  contentProvider: TutorialContentProvider,
+  _actual: unknown,
+  options: FormatPluginFnOptions,
+): Promise<TutorialRecordedTest[] | null> {
+  if (options.manifest.name !== "@cursorless/app-web-docs") {
+    return null;
+  }
+
+  const fixtureArguments = new Set<string>();
+  for (const rawStep of tutorial.steps) {
+    componentRegex.lastIndex = 0;
+    for (const match of rawStep.matchAll(componentRegex)) {
+      const [, type, argument] = match;
+      if (type === "command") {
+        fixtureArguments.add(argument);
+      }
+    }
+  }
+
+  const recordedTests = await Promise.all(
+    [...fixtureArguments].map(async (argument) => ({
+      path: `tutorial/${tutorial.id}/${argument}`,
+      name: getTutorialFixtureName(tutorial.id, argument),
+      fixture: await contentProvider.loadFixture(tutorial.id, argument),
+    })),
+  );
+
+  return recordedTests;
 }
 
 async function renderStep(
@@ -139,9 +179,7 @@ async function renderStep(
           );
         }
         fragments.push(formatSpokenForm(spokenForm));
-        fixtureNames.push(
-          `tutorial/${tutorialId}/${argument.replace(/\.ya?ml$/u, "")}`,
-        );
+        fixtureNames.push(getTutorialFixtureName(tutorialId, argument));
       } else {
         fragments.push(formatComponent(type, argument));
       }
@@ -155,6 +193,13 @@ async function renderStep(
     content: paragraphs.join("\n\n"),
     fixtureNames,
   };
+}
+
+function getTutorialFixtureName(
+  tutorialId: RawTutorialContent["id"],
+  argument: string,
+): string {
+  return `tutorial/${tutorialId}/${argument.replace(/\.ya?ml$/u, "")}`;
 }
 
 function formatComponent(type: string, argument: string): string {

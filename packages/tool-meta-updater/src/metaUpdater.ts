@@ -39,6 +39,7 @@ import { updateTSConfig } from "./updateTSConfig";
 import { updateTSConfigBase } from "./updateTSConfigBase";
 import {
   parseTutorialId,
+  updateTutorialFixtureData,
   updateTutorialMdx,
   updateTutorialReadmeMdx,
 } from "./updateTutorialMdx";
@@ -84,10 +85,23 @@ export const updater = async (workspaceDir: string) => {
         tutorials,
       ),
       ...Object.fromEntries(
-        tutorials.map((tutorial) => [
-          `${userDir}/tutorial/${parseTutorialId(tutorial.id).shortId}.mdx`,
-          updateTutorialMdx.bind(null, tutorial, tutorialContentProvider),
-        ]),
+        tutorials.flatMap((tutorial) => {
+          const { shortId } = parseTutorialId(tutorial.id);
+          return [
+            [
+              `${userDir}/tutorial/${shortId}.mdx`,
+              updateTutorialMdx.bind(null, tutorial, tutorialContentProvider),
+            ] as const,
+            [
+              `${userDir}/tutorial/${shortId}.fixtures.json`,
+              updateTutorialFixtureData.bind(
+                null,
+                tutorial,
+                tutorialContentProvider,
+              ),
+            ] as const,
+          ];
+        }),
       ),
       ...Object.fromEntries(
         languageIds.map((languageId) => [
