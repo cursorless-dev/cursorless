@@ -40,8 +40,60 @@ initialState:
     default.d:
       start: {line: 0, character: 15}
       end: {line: 0, character: 18}
+  hatTokenMap:
+    - hatStyle: default
+      grapheme: a
+      hatRange:
+        start: {line: 0, character: 4}
+        end: {line: 0, character: 5}
+    - hatStyle: default
+      grapheme: b
+      hatRange:
+        start: {line: 0, character: 8}
+        end: {line: 0, character: 9}
+    - hatStyle: default
+      grapheme: c
+      hatRange:
+        start: {line: 0, character: 12}
+        end: {line: 0, character: 13}
+    - hatStyle: default
+      grapheme: d
+      hatRange:
+        start: {line: 0, character: 16}
+        end: {line: 0, character: 17}
+    - hatStyle: default
+      grapheme: /
+      hatRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 1}
 finalState:
   documentContents: // aaa bbb aaa bbb
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+  hatTokenMap:
+    - hatStyle: default
+      grapheme: /
+      hatRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 1}
+    - hatStyle: default
+      grapheme: a
+      hatRange:
+        start: {line: 0, character: 4}
+        end: {line: 0, character: 5}
+    - hatStyle: default
+      grapheme: b
+      hatRange:
+        start: {line: 0, character: 8}
+        end: {line: 0, character: 9}
+    - hatStyle: blue
+      grapheme: a
+      hatRange:
+        start: {line: 0, character: 12}
+        end: {line: 0, character: 13}
+    - hatStyle: blue
+      grapheme: b
+      hatRange:
+        start: {line: 0, character: 16}
+        end: {line: 0, character: 17}

@@ -57,11 +57,14 @@ async function runBasicTutorialTest(spyIde: SpyIDE) {
   );
 
   const checkStepSetup = async (fixture: TestCaseFixtureLegacy) => {
+    const readableHatTokenMap = await hatTokenMap.getReadableMap(false);
+    const getFinalHatTokenMap = () => Promise.resolve(readableHatTokenMap);
     assert.deepEqual(
       await getSnapshotForComparison(
         fixture.initialState,
-        await hatTokenMap.getReadableMap(false),
+        readableHatTokenMap,
         spyIde,
+        getFinalHatTokenMap,
         takeSnapshot,
       ),
       fixture.initialState,

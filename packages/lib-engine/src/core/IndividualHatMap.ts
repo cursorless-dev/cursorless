@@ -3,6 +3,7 @@ import type {
   IDE,
   ReadOnlyHatMap,
   TextDocument,
+  TextEditor,
   Token,
   TokenHat,
 } from "@cursorless/lib-common";
@@ -29,8 +30,17 @@ export class IndividualHatMap implements ReadOnlyHatMap {
 
   private _tokenHats: readonly TokenHat[] = [];
 
-  get tokenHats() {
+  /**
+   * Returns the previous allocation for use while computing its replacement.
+   * Unlike the read-only-map API, this internal accessor permits stale hats.
+   */
+  getStaleTokenHats(): readonly TokenHat[] {
     return this._tokenHats;
+  }
+
+  getTokenHats(editor: TextEditor): readonly Readonly<TokenHat>[] {
+    this.checkExpired();
+    return this._tokenHats.filter((hat) => hat.token.editor.isEqual(editor));
   }
 
   constructor(

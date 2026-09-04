@@ -66,6 +66,7 @@ export class TestCaseRecorder {
   /** We use this variable to capture editor settings and then restore them */
   private originalTextEditorOptions: TextEditorOptions = {};
   private captureFinalThatMark: boolean = false;
+  private captureHatTokenMap: boolean = false;
   private spyIde: SpyIDE | undefined;
   private originalIde: IDE | undefined;
   private spokenFormGenerator = new SpokenFormGenerator(defaultSpokenFormMap);
@@ -135,6 +136,8 @@ export class TestCaseRecorder {
     usePrePhraseSnapshot: boolean,
   ) {
     let marks: SerializedMarks | undefined;
+    let hatTokenMap: ReadOnlyHatMap | undefined;
+
     if (targetedMarks.length > 0) {
       const keys = targetedMarks.map(({ character, symbolColor }) =>
         getKey(symbolColor, character),
@@ -142,8 +145,15 @@ export class TestCaseRecorder {
       const readableHatMap =
         await this.hatTokenMap.getReadableMap(usePrePhraseSnapshot);
       marks = marksToPlainObject(extractTargetedMarks(keys, readableHatMap));
+      if (this.captureHatTokenMap) {
+        hatTokenMap = readableHatMap;
+      }
     } else {
       marks = undefined;
+      if (this.captureHatTokenMap) {
+        hatTokenMap =
+          await this.hatTokenMap.getReadableMap(usePrePhraseSnapshot);
+      }
     }
 
     const snapshot = await takeSnapshot(
@@ -153,6 +163,7 @@ export class TestCaseRecorder {
       this.ide.activeTextEditor!,
       this.ide,
       marks,
+      hatTokenMap,
       this.active ? { startTimestamp: this.startTimestamp } : undefined,
       metadata,
     );
@@ -215,6 +226,7 @@ export class TestCaseRecorder {
       showCalibrationDisplay = false,
       recordErrors: isErrorTest = false,
       captureFinalThatMark = false,
+      captureHatTokenMap = false,
     } = config;
 
     this.active = true;
@@ -224,6 +236,7 @@ export class TestCaseRecorder {
     );
     this.isHatTokenMapTest = isHatTokenMapTest;
     this.captureFinalThatMark = captureFinalThatMark;
+    this.captureHatTokenMap = captureHatTokenMap;
     this.isDecorationsTest = isDecorationsTest;
     this.isSilent = isSilent;
     this.extraSnapshotFields = extraSnapshotFields;
@@ -319,6 +332,7 @@ export class TestCaseRecorder {
         this.isDecorationsTest,
         this.startTimestamp!,
         this.captureFinalThatMark,
+        this.captureHatTokenMap,
         this.extraSnapshotFields,
         spokenForm.type === "error" ? spokenForm.reason : undefined,
       );
@@ -348,7 +362,12 @@ export class TestCaseRecorder {
       return;
     }
 
-    await this.testCase.recordFinalState(returnValue);
+    const getFinalHatTokenMap = async () => {
+      await this.hatTokenMap.allocateHats();
+      return this.hatTokenMap.getReadableMap(false);
+    };
+
+    await this.testCase.recordFinalState(returnValue, getFinalHatTokenMap);
 
     if (this.testCase.awaitingFinalMarkInfo) {
       // We don't finish the test case here in the case of a navigation map
@@ -357,7 +376,7 @@ export class TestCaseRecorder {
       return;
     }
 
-    await this.finishTestCase();
+    this.finishTestCase();
   }
 
   finishTestCase(): void {

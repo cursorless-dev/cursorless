@@ -3,12 +3,16 @@ import type { Dispatch, JSX, ReactNode, SetStateAction } from "react";
 import { createContext, useContext, useMemo, useState } from "react";
 import type { DecorationItem } from "shiki";
 import type {
-  SelectionPlainObject,
-  SerializedMarks,
+  Position,
+  Selection,
   TestCaseSnapshot,
 } from "@cursorless/lib-common";
-import { plainObjectToSelection, splitKey } from "@cursorless/lib-common";
+import {
+  plainObjectToRange,
+  plainObjectToSelection,
+} from "@cursorless/lib-common";
 import { Code } from "./Code";
+import { highlightColors } from "./highlightColors";
 import type { RecordedTest } from "./types";
 
 interface RecordedTestVisualizerContextValue {
@@ -98,12 +102,17 @@ export function RecordedTestVisualizer({
     url: `https://github.com/cursorless-dev/cursorless/blob/main/resources/fixtures/recorded/docs/${path}`,
   };
 
+  const renderHats =
+    fixture.initialState.marks != null &&
+    Object.keys(fixture.initialState.marks).length > 0;
+
   return (
     <div className="row">
       <div className="col">
         Input
         <CodeState
           renderWhitespace={renderWhitespace}
+          renderHats={renderHats}
           languageId={languageId}
           link={link}
           state={initialState}
@@ -113,6 +122,7 @@ export function RecordedTestVisualizer({
         Output
         <CodeState
           renderWhitespace={renderWhitespace}
+          renderHats={renderHats}
           languageId={languageId}
           link={link}
           state={finalState}
@@ -124,6 +134,7 @@ export function RecordedTestVisualizer({
 
 interface CodeStateProps {
   renderWhitespace: boolean;
+  renderHats: boolean;
   languageId: string;
   link: {
     name: string;
@@ -134,16 +145,14 @@ interface CodeStateProps {
 
 function CodeState({
   renderWhitespace,
+  renderHats,
   languageId,
   link,
   state,
 }: CodeStateProps): JSX.Element {
   const decorations = useMemo(
-    () => [
-      ...state.selections.map(toDecoration),
-      ...toMarkDecorations(state.marks, state.documentContents),
-    ],
-    [state.selections, state.marks, state.documentContents],
+    () => toDecorations(state, renderHats),
+    [state, renderHats],
   );
   return (
     <>
@@ -166,9 +175,7 @@ function CodeState({
   );
 }
 
-function toDecoration(plainSelection: SelectionPlainObject): DecorationItem {
-  const selection = plainObjectToSelection(plainSelection);
-
+function toDecoration(selection: Selection): DecorationItem {
   const cursorClassName = selection.isReversed
     ? "code-cursor-before"
     : "code-cursor-after";
@@ -187,50 +194,81 @@ function toDecoration(plainSelection: SelectionPlainObject): DecorationItem {
   };
 }
 
-/**
- * Converts serialized token marks to Shiki decorations around the first
- * occurrence of each mark's decorated character within its token.
- */
-function toMarkDecorations(
-  marks: SerializedMarks | undefined,
-  documentContents: string,
+function toDecorations(
+  state: TestCaseSnapshot,
+  renderHats: boolean,
 ): DecorationItem[] {
-  if (marks == null) {
+  const selections = state.selections.map(plainObjectToSelection);
+  const hatRanges = renderHats
+    ? (state.hatTokenMap ?? []).map(({ hatRange }) =>
+        plainObjectToRange(hatRange),
+      )
+    : [];
+
+  // Shiki rejects intersecting decorations. A zero-width cursor at the end of
+  // a hat range intersects the hat decoration, so render both on one wrapper.
+  // We only merge at the end because code-cursor-after recreates that exact
+  // boundary without competing with the hat's ::before pseudo-element.
+  const mergedCursorPositions = selections
+    .filter(
+      (selection) =>
+        selection.isEmpty &&
+        hatRanges.some(({ end }) => end.isEqual(selection.active)),
+    )
+    .map(({ active }) => active);
+
+  return [
+    // Omit cursors that the corresponding hat decoration will render instead.
+    ...selections
+      .filter(
+        (selection) =>
+          !selection.isEmpty ||
+          !mergedCursorPositions.some((position) =>
+            position.isEqual(selection.active),
+          ),
+      )
+      .map(toDecoration),
+    ...toHatDecorations(state, renderHats, mergedCursorPositions),
+  ];
+}
+
+function toHatDecorations(
+  state: TestCaseSnapshot,
+  renderHats: boolean,
+  mergedCursorPositions: readonly Position[],
+): DecorationItem[] {
+  if (!renderHats || state.hatTokenMap == null) {
     return [];
   }
 
-  const lines = documentContents.split(/\r?\n/u);
+  const markRanges = Object.values(state.marks ?? {}).map(plainObjectToRange);
 
-  return Object.entries(marks).map(([key, range]) => {
-    if (range.start.line !== range.end.line) {
-      throw new Error(`Mark ${key} spans multiple lines`);
+  return state.hatTokenMap.map(({ hatStyle, hatRange }) => {
+    const range = plainObjectToRange(hatRange);
+    const properties: DecorationItem["properties"] = {
+      className: ["code-hat", `code-hat-${hatStyle}`],
+    };
+
+    const isReferenced = markRanges.some((markRange) =>
+      markRange.contains(range),
+    );
+
+    if (isReferenced) {
+      properties.className?.push("code-hat-referenced");
+      properties.style = `--code-hat-referenced-color: ${highlightColors.content.background};`;
     }
 
-    const line = lines[range.start.line];
-
-    if (line == null) {
-      throw new Error(`Mark ${key} is outside the document`);
-    }
-
-    const { hatStyle, character } = splitKey(key);
-    const tokenText = line.slice(range.start.character, range.end.character);
-    const characterOffset = tokenText.indexOf(character);
-    const characterStart = range.start.character + characterOffset;
-
-    if (characterOffset === -1) {
-      throw new Error(`Mark ${key} does not occur in its token`);
+    if (mergedCursorPositions.some((position) => position.isEqual(range.end))) {
+      // The hat uses ::before and the cursor uses ::after, allowing both
+      // visuals to share this wrapper without overlapping Shiki decorations.
+      properties.className?.push("code-cursor-after");
     }
 
     return {
-      start: { line: range.start.line, character: characterStart },
-      end: {
-        line: range.start.line,
-        character: characterStart + character.length,
-      },
+      start: hatRange.start,
+      end: hatRange.end,
       alwaysWrap: true,
-      properties: {
-        className: ["code-hat", `code-hat-${hatStyle}`],
-      },
+      properties,
     };
   });
 }

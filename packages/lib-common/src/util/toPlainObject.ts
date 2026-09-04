@@ -1,10 +1,12 @@
 import type { FlashStyle } from "../ide/types/FlashDescriptor";
+import type { HatStyleName } from "../ide/types/hatStyles.types";
 import type {
   CharacterRange,
   GeneralizedRange,
   LineRange,
 } from "../types/GeneralizedRange";
 import { isLineRange } from "../types/GeneralizedRange";
+import type { TokenHat } from "../types/HatTokenMap";
 import type { Selection } from "../types/Selection";
 import type { Token } from "../types/Token";
 
@@ -92,6 +94,12 @@ interface SimpleRange {
   end: SimplePosition;
 }
 
+export interface SimpleTokenHat {
+  hatStyle: HatStyleName;
+  grapheme: string;
+  hatRange: SimpleRange;
+}
+
 export function rangeToPlainObject(range: SimpleRange): RangePlainObject {
   return {
     start: positionToPlainObject(range.start),
@@ -138,5 +146,13 @@ export function characterRangeToPlainObject(
     type: "character",
     start: positionToPlainObject(range.start),
     end: positionToPlainObject(range.end),
+  };
+}
+
+export function tokenHatToPlainObject(hat: TokenHat): SimpleTokenHat {
+  return {
+    hatStyle: hat.hatStyle,
+    grapheme: hat.grapheme,
+    hatRange: rangeToPlainObject(hat.hatRange),
   };
 }

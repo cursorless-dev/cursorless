@@ -40,6 +40,32 @@ initialState:
     default.a:
       start: {line: 0, character: 6}
       end: {line: 0, character: 9}
+  hatTokenMap:
+    - hatStyle: default
+      grapheme: a
+      hatRange:
+        start: {line: 0, character: 7}
+        end: {line: 0, character: 8}
+    - hatStyle: default
+      grapheme: o
+      hatRange:
+        start: {line: 0, character: 1}
+        end: {line: 0, character: 2}
+    - hatStyle: default
+      grapheme: "="
+      hatRange:
+        start: {line: 0, character: 10}
+        end: {line: 0, character: 11}
+    - hatStyle: default
+      grapheme: "0"
+      hatRange:
+        start: {line: 0, character: 12}
+        end: {line: 0, character: 13}
+    - hatStyle: default
+      grapheme: ;
+      hatRange:
+        start: {line: 0, character: 13}
+        end: {line: 0, character: 14}
 finalState:
   documentContents: |-
     const aaa = 0;
@@ -49,3 +75,54 @@ finalState:
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
+  hatTokenMap:
+    - hatStyle: default
+      grapheme: )
+      hatRange:
+        start: {line: 1, character: 4}
+        end: {line: 1, character: 5}
+    - hatStyle: default
+      grapheme: (
+      hatRange:
+        start: {line: 1, character: 3}
+        end: {line: 1, character: 4}
+    - hatStyle: default
+      grapheme: "{"
+      hatRange:
+        start: {line: 1, character: 6}
+        end: {line: 1, character: 7}
+    - hatStyle: default
+      grapheme: f
+      hatRange:
+        start: {line: 1, character: 1}
+        end: {line: 1, character: 2}
+    - hatStyle: default
+      grapheme: a
+      hatRange:
+        start: {line: 0, character: 7}
+        end: {line: 0, character: 8}
+    - hatStyle: default
+      grapheme: o
+      hatRange:
+        start: {line: 0, character: 1}
+        end: {line: 0, character: 2}
+    - hatStyle: default
+      grapheme: "="
+      hatRange:
+        start: {line: 0, character: 10}
+        end: {line: 0, character: 11}
+    - hatStyle: default
+      grapheme: "0"
+      hatRange:
+        start: {line: 0, character: 12}
+        end: {line: 0, character: 13}
+    - hatStyle: default
+      grapheme: ;
+      hatRange:
+        start: {line: 0, character: 13}
+        end: {line: 0, character: 14}
+    - hatStyle: default
+      grapheme: "}"
+      hatRange:
+        start: {line: 3, character: 0}
+        end: {line: 3, character: 1}
