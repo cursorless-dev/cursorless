@@ -101,8 +101,10 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
    * @param scopeType The scope type that was visualized
    */
   scopeTypeVisualized(scopeType: ScopeType | undefined): void {
-    if (this.state_.type === "doingTutorial") {
-      const currentStep = this.currentTutorial!.steps[this.state_.stepNumber];
+    const state = this.state_;
+
+    if (state.type === "doingTutorial" && !state.hasErrors) {
+      const currentStep = this.currentTutorial!.steps[state.stepNumber];
       if (
         currentStep.trigger?.type === "visualize" &&
         isEqual(currentStep.trigger.scopeType, scopeType)
@@ -213,8 +215,10 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
   }
 
   documentationOpened() {
-    if (this.state_.type === "doingTutorial") {
-      const currentStep = this.currentTutorial!.steps[this.state_.stepNumber];
+    const state = this.state_;
+
+    if (state.type === "doingTutorial" && !state.hasErrors) {
+      const currentStep = this.currentTutorial!.steps[state.stepNumber];
       if (currentStep.trigger?.type === "help") {
         void this.next();
       }
@@ -340,22 +344,31 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
   }
 
   private async checkPreconditions() {
-    if (this.state_.type === "doingTutorial") {
-      const currentStep = this.currentTutorial!.steps[this.state_.stepNumber];
+    const state = this.state_;
 
-      const preConditionsMet = await arePreconditionsMet(
-        this.ide.activeTextEditor,
-        this.editor,
-        this.hatTokenMap,
-        currentStep,
-      );
-      if (preConditionsMet !== this.state_.preConditionsMet) {
-        this.setState({
-          ...this.state_,
-          preConditionsMet,
-        });
-        await this.ensureHighlights();
-      }
+    if (state.type !== "doingTutorial" || state.hasErrors) {
+      return;
+    }
+
+    const currentStep = this.currentTutorial!.steps[state.stepNumber];
+
+    const preConditionsMet = await arePreconditionsMet(
+      this.ide.activeTextEditor,
+      this.editor,
+      this.hatTokenMap,
+      currentStep,
+    );
+
+    if (this.state_ !== state) {
+      return;
+    }
+
+    if (preConditionsMet !== state.preConditionsMet) {
+      this.setState({
+        ...state,
+        preConditionsMet,
+      });
+      await this.ensureHighlights();
     }
   }
 }

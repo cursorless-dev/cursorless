@@ -1,7 +1,7 @@
 [
 	{
-		"path": "tutorial/tutorial-2-basic-coding/cloneStateInk.yml",
-		"name": "tutorial/tutorial-2-basic-coding/cloneStateInk",
+		"path": "tutorial/2-basic-coding/cloneStateInk.yml",
+		"name": "tutorial/2-basic-coding/cloneStateInk",
 		"fixture": {
 			"languageId": "python",
 			"command": {
@@ -1547,8 +1547,8 @@
 		}
 	},
 	{
-		"path": "tutorial/tutorial-2-basic-coding/swapStringAirWithWhale.yml",
-		"name": "tutorial/tutorial-2-basic-coding/swapStringAirWithWhale",
+		"path": "tutorial/2-basic-coding/swapStringAirWithWhale.yml",
+		"name": "tutorial/2-basic-coding/swapStringAirWithWhale",
 		"fixture": {
 			"languageId": "python",
 			"command": {
@@ -3211,8 +3211,8 @@
 		}
 	},
 	{
-		"path": "tutorial/tutorial-2-basic-coding/pourUrge.yml",
-		"name": "tutorial/tutorial-2-basic-coding/pourUrge",
+		"path": "tutorial/2-basic-coding/pourUrge.yml",
+		"name": "tutorial/2-basic-coding/pourUrge",
 		"fixture": {
 			"languageId": "python",
 			"command": {
@@ -4848,8 +4848,8 @@
 		}
 	},
 	{
-		"path": "tutorial/tutorial-2-basic-coding/dedentThis.yml",
-		"name": "tutorial/tutorial-2-basic-coding/dedentThis",
+		"path": "tutorial/2-basic-coding/dedentThis.yml",
+		"name": "tutorial/2-basic-coding/dedentThis",
 		"fixture": {
 			"languageId": "python",
 			"command": {
@@ -6472,8 +6472,8 @@
 		}
 	},
 	{
-		"path": "tutorial/tutorial-2-basic-coding/bringStateUrge.yml",
-		"name": "tutorial/tutorial-2-basic-coding/bringStateUrge",
+		"path": "tutorial/2-basic-coding/bringStateUrge.yml",
+		"name": "tutorial/2-basic-coding/bringStateUrge",
 		"fixture": {
 			"languageId": "python",
 			"command": {
@@ -8148,8 +8148,8 @@
 		}
 	},
 	{
-		"path": "tutorial/tutorial-2-basic-coding/bringBlueCapToValueRisk.yml",
-		"name": "tutorial/tutorial-2-basic-coding/bringBlueCapToValueRisk",
+		"path": "tutorial/2-basic-coding/bringBlueCapToValueRisk.yml",
+		"name": "tutorial/2-basic-coding/bringBlueCapToValueRisk",
 		"fixture": {
 			"languageId": "python",
 			"command": {
@@ -9871,8 +9871,8 @@
 		}
 	},
 	{
-		"path": "tutorial/tutorial-2-basic-coding/chuckArgueBlueVest.yml",
-		"name": "tutorial/tutorial-2-basic-coding/chuckArgueBlueVest",
+		"path": "tutorial/2-basic-coding/chuckArgueBlueVest.yml",
+		"name": "tutorial/2-basic-coding/chuckArgueBlueVest",
 		"fixture": {
 			"languageId": "python",
 			"command": {

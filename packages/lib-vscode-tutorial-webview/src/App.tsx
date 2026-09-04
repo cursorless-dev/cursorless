@@ -66,6 +66,7 @@ export function App({ vscode }: Props) {
         return (
           <div>
             <h1 className="has-error">Error</h1>
+            <p>{state.errorMessage}</p>
             {state.requiresTalonUpdate && (
               <p>
                 Please{" "}

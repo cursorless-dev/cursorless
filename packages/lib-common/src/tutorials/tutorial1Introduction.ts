@@ -1,8 +1,9 @@
 import type { RawTutorialContent } from "./tutorial.types";
 
-export const tutorial1Basics: RawTutorialContent = {
-  id: "tutorial-1-basics",
+export const tutorial1Introduction: RawTutorialContent = {
+  id: "1-introduction",
   title: "Introduction",
+  description: "This tutorial will teach you the basics of Cursorless.",
   steps: [
     "Say {command:takeCap.yml}",
     "Well done! 🙌 You just used the code word for 'c', {grapheme:c}, to refer to the word with a gray hat over the 'c'.\nWhen a hat is not gray, we say its color: say {command:takeBlueSun.yml}",

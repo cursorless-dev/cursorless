@@ -1,7 +1,7 @@
 export type TutorialId =
-  | "tutorial-1-basics"
-  | "tutorial-2-basic-coding"
-  | "tutorial-3-visualization";
+  | "1-introduction"
+  | "2-basic-coding"
+  | "3-visualization";
 
 interface BaseTutorialInfo {
   id: TutorialId;
@@ -67,6 +67,7 @@ export interface ActiveTutorialNoErrorsState extends ActiveTutorialState {
 
 export interface ActiveTutorialErrorsState extends ActiveTutorialState {
   hasErrors: true;
+  errorMessage: string;
   requiresTalonUpdate: boolean;
 }
 

@@ -39,7 +39,7 @@ export function updateTutorialReadmeMdx(
 
   const enrichedTutorials = tutorials.map((tutorial) => ({
     ...tutorial,
-    ...parseTutorialId(tutorial.id),
+    position: parseTutorialPosition(tutorial.id),
   }));
 
   return [
@@ -54,7 +54,7 @@ export function updateTutorialReadmeMdx(
       .flatMap((tutorial) => [
         `## ${tutorial.position}. ${tutorial.title}`,
         "",
-        `[Start ${tutorial.title}](./${tutorial.shortId}.mdx)`,
+        `[Start ${tutorial.title}](./${tutorial.id}.mdx) - ${tutorial.description}`,
         "",
       ]),
     "## Use the interactive tutorial",
@@ -93,12 +93,14 @@ export async function updateTutorialMdx(
     return null;
   }
 
-  const { position, shortId } = parseTutorialId(tutorial.id);
+  const position = parseTutorialPosition(tutorial.id);
   const lines = [
     recordedTestVisualizerImport,
-    `import recordedTests from "./fixtures/${shortId}.json";`,
+    `import recordedTests from "./fixtures/${tutorial.id}.json";`,
     "",
     `# ${position}. ${tutorial.title}`,
+    "",
+    tutorial.description,
     "",
     "<RecordedTestVisualizerProvider recordedTests={recordedTests}>",
     "",
@@ -227,17 +229,13 @@ function formatTerm(term: string): string {
   return `"${term}"`;
 }
 
-export function parseTutorialId(id: TutorialId) {
-  const match = id.match(/^tutorial-(?<identifier>(?<number>\d+)-.+)$/u);
-  const position = match?.groups?.number;
-  const shortId = match?.groups?.identifier;
+function parseTutorialPosition(id: TutorialId) {
+  const match = id.match(/^(?<position>\d+)-.+$/u);
+  const position = match?.groups?.position;
 
-  if (position == null || shortId == null) {
+  if (position == null) {
     throw new Error(`Invalid tutorial fixture id: ${id}`);
   }
 
-  return {
-    position: Number(position),
-    shortId,
-  };
+  return Number(position);
 }

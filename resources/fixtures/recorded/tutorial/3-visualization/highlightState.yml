@@ -22,7 +22,7 @@ finalState:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   thatMark:
-    - type: LineTarget
+    - type: ScopeTypeTarget
       contentRange:
         start: {line: 0, character: 0}
         end: {line: 0, character: 18}
@@ -31,4 +31,6 @@ finalState:
 ide:
   highlights:
     - ranges:
-        - {type: line, start: 0, end: 0}
+        - type: character
+          start: {line: 0, character: 0}
+          end: {line: 0, character: 18}

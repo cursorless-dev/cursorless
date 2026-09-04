@@ -44,7 +44,6 @@ import { updateSpokenForms } from "./updateSpokenForms";
 import { updateTSConfig } from "./updateTSConfig";
 import { updateTSConfigBase } from "./updateTSConfigBase";
 import {
-  parseTutorialId,
   updateTutorialFixtureData,
   updateTutorialMdx,
   updateTutorialReadmeMdx,
@@ -103,14 +102,13 @@ export const updater = async (workspaceDir: string) => {
       ),
       ...Object.fromEntries(
         tutorials.flatMap((tutorial) => {
-          const { shortId } = parseTutorialId(tutorial.id);
           return [
             [
-              `${userDir}/tutorial/${shortId}.mdx`,
+              `${userDir}/tutorial/${tutorial.id}.mdx`,
               updateTutorialMdx.bind(null, tutorial, tutorialContentProvider),
             ],
             [
-              `${userDir}/tutorial/fixtures/${shortId}.json`,
+              `${userDir}/tutorial/fixtures/${tutorial.id}.json`,
               updateTutorialFixtureData.bind(
                 null,
                 tutorial,

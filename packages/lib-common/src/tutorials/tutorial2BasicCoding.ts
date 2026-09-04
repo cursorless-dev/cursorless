@@ -1,8 +1,10 @@
 import type { RawTutorialContent } from "./tutorial.types";
 
 export const tutorial2BasicCoding: RawTutorialContent = {
-  id: "tutorial-2-basic-coding",
+  id: "2-basic-coding",
   title: "Basic coding",
+  description:
+    "This tutorial will teach you the basics of coding with Cursorless.",
   steps: [
     "When editing code, we often think in terms of statements, functions, etc. Let's clone a statement: {command:cloneStateInk.yml}",
     "Cursorless tries its best to keep your commands short.\nIn the following command, we just say {scopeType:string} once, but Cursorless infers that both targets are strings: {command:swapStringAirWithWhale.yml}",
