@@ -1,19 +1,19 @@
 [
-	{
-		"name": "scopes/markdown/sectionLevelFive",
-		"languageId": "markdown",
-		"facet": "sectionLevelFive",
-		"code": "##### H5\n\nSub",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:3",
-						"removal": "0:0-2:3"
-					}
-				],
-				"domain": "0:0-2:3"
-			}
-		]
-	}
+  {
+    "name": "scopes/markdown/sectionLevelFive",
+    "languageId": "markdown",
+    "facet": "sectionLevelFive",
+    "code": "##### H5\n\nSub",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:3",
+            "removal": "0:0-2:3"
+          }
+        ],
+        "domain": "0:0-2:3"
+      }
+    ]
+  }
 ]

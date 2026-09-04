@@ -1,496 +1,496 @@
 [
-	{
-		"name": "scopes/clojure/anonymousFunction",
-		"languageId": "clojure",
-		"facet": "anonymousFunction",
-		"code": "(fn [] 0)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/anonymousFunction2",
-		"languageId": "clojure",
-		"facet": "anonymousFunction",
-		"code": "#(* % 2)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:8",
-						"removal": "0:0-0:8"
-					}
-				],
-				"domain": "0:0-0:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/argument.actual.iteration",
-		"languageId": "clojure",
-		"facet": "argument.actual.iteration",
-		"code": "(foo aaa bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:12"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/argument.actual.multiLine",
-		"languageId": "clojure",
-		"facet": "argument.actual.multiLine",
-		"code": "(foo\n    aaa\n    bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:7",
-						"removal": "2:0-2:7"
-					}
-				],
-				"domain": "2:4-2:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/argument.actual.singleLine",
-		"languageId": "clojure",
-		"facet": "argument.actual.singleLine",
-		"code": "(foo aaa bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:5-0:8",
-						"removal": "0:5-0:9"
-					}
-				],
-				"domain": "0:5-0:8"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-0:12",
-						"removal": "0:8-0:12"
-					}
-				],
-				"domain": "0:9-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/argumentList.actual.empty",
-		"languageId": "clojure",
-		"facet": "argumentList.actual.empty",
-		"code": "()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:1",
-						"removal": "0:1-0:1"
-					}
-				],
-				"domain": "0:0-0:2"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/argumentList.actual.multiLine",
-		"languageId": "clojure",
-		"facet": "argumentList.actual.multiLine",
-		"code": "(foo\n    aaa\n    bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-2:7",
-						"removal": "0:1-2:7"
-					}
-				],
-				"domain": "0:0-2:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/argumentList.actual.singleLine",
-		"languageId": "clojure",
-		"facet": "argumentList.actual.singleLine",
-		"code": "(foo aaa bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:12",
-						"removal": "0:1-0:12"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/comment.line",
-		"languageId": "clojure",
-		"facet": "comment.line",
-		"code": ";; Hello world",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:14",
-						"removal": "0:0-0:14"
-					}
-				],
-				"domain": "0:0-0:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/condition.if",
-		"languageId": "clojure",
-		"facet": "condition.if",
-		"code": "(if true\n    aaa\n    bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:8",
-						"removal": "0:3-0:8"
-					}
-				],
-				"domain": "0:0-2:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/disqualifyDelimiter",
-		"languageId": "clojure",
-		"facet": "disqualifyDelimiter",
-		"code": "(< 1 2)\n(> 1 2)\n(<= 1 2)\n(>= 1 2)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:2"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "1:1-1:2"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "2:1-2:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "3:1-3:3"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/functionCall",
-		"languageId": "clojure",
-		"facet": "functionCall",
-		"code": "(foo)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:5",
-						"removal": "0:0-0:5"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/functionCallee",
-		"languageId": "clojure",
-		"facet": "functionCallee",
-		"code": "(foo)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:4",
-						"removal": "0:1-0:4"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/ifStatement",
-		"languageId": "clojure",
-		"facet": "ifStatement",
-		"code": "(if true\n    aaa\n    bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:8",
-						"removal": "0:0-2:8"
-					}
-				],
-				"domain": "0:0-2:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/list",
-		"languageId": "clojure",
-		"facet": "list",
-		"code": "[aaa bbb]",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/list2",
-		"languageId": "clojure",
-		"facet": "list",
-		"code": "'[aaa bbb]",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:10",
-						"removal": "0:0-0:10"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/list3",
-		"languageId": "clojure",
-		"facet": "list",
-		"code": "'(aaa bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:10",
-						"removal": "0:0-0:10"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/map",
-		"languageId": "clojure",
-		"facet": "map",
-		"code": "{:aaa 0 :bbb 1}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:15",
-						"removal": "0:0-0:15"
-					}
-				],
-				"domain": "0:0-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/map2",
-		"languageId": "clojure",
-		"facet": "map",
-		"code": "'{:aaa 0 :bbb 1}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:16",
-						"removal": "0:0-0:16"
-					}
-				],
-				"domain": "0:0-0:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/name.function",
-		"languageId": "clojure",
-		"facet": "name.function",
-		"code": "(defn foo [] 0)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:9",
-						"removal": "0:6-0:10"
-					}
-				],
-				"domain": "0:0-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/namedFunction.iteration.document",
-		"languageId": "clojure",
-		"facet": "namedFunction.iteration.document",
-		"code": "\n(defn foo [] 0)\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/namedFunction",
-		"languageId": "clojure",
-		"facet": "namedFunction",
-		"code": "(defn foo [] 0)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:15",
-						"removal": "0:0-0:15"
-					}
-				],
-				"domain": "0:0-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/string.multiLine",
-		"languageId": "clojure",
-		"facet": "string.multiLine",
-		"code": "\"Hello\nworld\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:6",
-						"removal": "0:0-1:6"
-					}
-				],
-				"domain": "0:0-1:6"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/string.singleLine",
-		"languageId": "clojure",
-		"facet": "string.singleLine",
-		"code": "\"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/textFragment.comment.line",
-		"languageId": "clojure",
-		"facet": "textFragment.comment.line",
-		"code": ";; Hello world",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:14",
-						"removal": "0:0-0:14"
-					}
-				],
-				"domain": "0:0-0:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/textFragment.string.multiLine",
-		"languageId": "clojure",
-		"facet": "textFragment.string.multiLine",
-		"code": "\"Hello\nworld\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-1:5",
-						"removal": "0:1-1:5"
-					}
-				],
-				"domain": "0:1-1:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/textFragment.string.singleLine",
-		"languageId": "clojure",
-		"facet": "textFragment.string.singleLine",
-		"code": "\"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:12",
-						"removal": "0:1-0:12"
-					}
-				],
-				"domain": "0:1-0:12"
-			}
-		]
-	}
+  {
+    "name": "scopes/clojure/anonymousFunction",
+    "languageId": "clojure",
+    "facet": "anonymousFunction",
+    "code": "(fn [] 0)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/anonymousFunction2",
+    "languageId": "clojure",
+    "facet": "anonymousFunction",
+    "code": "#(* % 2)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:8",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/argument.actual.iteration",
+    "languageId": "clojure",
+    "facet": "argument.actual.iteration",
+    "code": "(foo aaa bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:12"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/argument.actual.multiLine",
+    "languageId": "clojure",
+    "facet": "argument.actual.multiLine",
+    "code": "(foo\n    aaa\n    bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:7",
+            "removal": "2:0-2:7"
+          }
+        ],
+        "domain": "2:4-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/argument.actual.singleLine",
+    "languageId": "clojure",
+    "facet": "argument.actual.singleLine",
+    "code": "(foo aaa bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:8",
+            "removal": "0:5-0:9"
+          }
+        ],
+        "domain": "0:5-0:8"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:12",
+            "removal": "0:8-0:12"
+          }
+        ],
+        "domain": "0:9-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/argumentList.actual.empty",
+    "languageId": "clojure",
+    "facet": "argumentList.actual.empty",
+    "code": "()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:1",
+            "removal": "0:1-0:1"
+          }
+        ],
+        "domain": "0:0-0:2"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/argumentList.actual.multiLine",
+    "languageId": "clojure",
+    "facet": "argumentList.actual.multiLine",
+    "code": "(foo\n    aaa\n    bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-2:7",
+            "removal": "0:1-2:7"
+          }
+        ],
+        "domain": "0:0-2:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/argumentList.actual.singleLine",
+    "languageId": "clojure",
+    "facet": "argumentList.actual.singleLine",
+    "code": "(foo aaa bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:12",
+            "removal": "0:1-0:12"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/comment.line",
+    "languageId": "clojure",
+    "facet": "comment.line",
+    "code": ";; Hello world",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14",
+            "removal": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/condition.if",
+    "languageId": "clojure",
+    "facet": "condition.if",
+    "code": "(if true\n    aaa\n    bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:8",
+            "removal": "0:3-0:8"
+          }
+        ],
+        "domain": "0:0-2:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/disqualifyDelimiter",
+    "languageId": "clojure",
+    "facet": "disqualifyDelimiter",
+    "code": "(< 1 2)\n(> 1 2)\n(<= 1 2)\n(>= 1 2)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:2"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "1:1-1:2"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "2:1-2:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "3:1-3:3"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/functionCall",
+    "languageId": "clojure",
+    "facet": "functionCall",
+    "code": "(foo)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:5",
+            "removal": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/functionCallee",
+    "languageId": "clojure",
+    "facet": "functionCallee",
+    "code": "(foo)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:4",
+            "removal": "0:1-0:4"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/ifStatement",
+    "languageId": "clojure",
+    "facet": "ifStatement",
+    "code": "(if true\n    aaa\n    bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:8",
+            "removal": "0:0-2:8"
+          }
+        ],
+        "domain": "0:0-2:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/list",
+    "languageId": "clojure",
+    "facet": "list",
+    "code": "[aaa bbb]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/list2",
+    "languageId": "clojure",
+    "facet": "list",
+    "code": "'[aaa bbb]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/list3",
+    "languageId": "clojure",
+    "facet": "list",
+    "code": "'(aaa bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/map",
+    "languageId": "clojure",
+    "facet": "map",
+    "code": "{:aaa 0 :bbb 1}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/map2",
+    "languageId": "clojure",
+    "facet": "map",
+    "code": "'{:aaa 0 :bbb 1}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:16",
+            "removal": "0:0-0:16"
+          }
+        ],
+        "domain": "0:0-0:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/name.function",
+    "languageId": "clojure",
+    "facet": "name.function",
+    "code": "(defn foo [] 0)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:9",
+            "removal": "0:6-0:10"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/namedFunction.iteration.document",
+    "languageId": "clojure",
+    "facet": "namedFunction.iteration.document",
+    "code": "\n(defn foo [] 0)\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/namedFunction",
+    "languageId": "clojure",
+    "facet": "namedFunction",
+    "code": "(defn foo [] 0)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/string.multiLine",
+    "languageId": "clojure",
+    "facet": "string.multiLine",
+    "code": "\"Hello\nworld\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:6",
+            "removal": "0:0-1:6"
+          }
+        ],
+        "domain": "0:0-1:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/string.singleLine",
+    "languageId": "clojure",
+    "facet": "string.singleLine",
+    "code": "\"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/textFragment.comment.line",
+    "languageId": "clojure",
+    "facet": "textFragment.comment.line",
+    "code": ";; Hello world",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14",
+            "removal": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/textFragment.string.multiLine",
+    "languageId": "clojure",
+    "facet": "textFragment.string.multiLine",
+    "code": "\"Hello\nworld\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-1:5",
+            "removal": "0:1-1:5"
+          }
+        ],
+        "domain": "0:1-1:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/textFragment.string.singleLine",
+    "languageId": "clojure",
+    "facet": "textFragment.string.singleLine",
+    "code": "\"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:12",
+            "removal": "0:1-0:12"
+          }
+        ],
+        "domain": "0:1-0:12"
+      }
+    ]
+  }
 ]

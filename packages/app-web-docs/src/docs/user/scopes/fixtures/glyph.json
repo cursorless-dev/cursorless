@@ -1,72 +1,72 @@
 [
-	{
-		"name": "scopes/plaintext/glyph.a",
-		"languageId": "plaintext",
-		"facet": "glyph.a",
-		"code": "a b a c a",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:1",
-						"removal": "0:0-0:2"
-					}
-				],
-				"domain": "0:0-0:1"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:4-0:5",
-						"removal": "0:4-0:6"
-					}
-				],
-				"domain": "0:4-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:8-0:9",
-						"removal": "0:7-0:9"
-					}
-				],
-				"domain": "0:8-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/plaintext/glyph.dollar",
-		"languageId": "plaintext",
-		"facet": "glyph.dollar",
-		"code": "$ b $ c $",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:1",
-						"removal": "0:0-0:2"
-					}
-				],
-				"domain": "0:0-0:1"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:4-0:5",
-						"removal": "0:4-0:6"
-					}
-				],
-				"domain": "0:4-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:8-0:9",
-						"removal": "0:7-0:9"
-					}
-				],
-				"domain": "0:8-0:9"
-			}
-		]
-	}
+  {
+    "name": "scopes/plaintext/glyph.a",
+    "languageId": "plaintext",
+    "facet": "glyph.a",
+    "code": "a b a c a",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:1",
+            "removal": "0:0-0:2"
+          }
+        ],
+        "domain": "0:0-0:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:4-0:5",
+            "removal": "0:4-0:6"
+          }
+        ],
+        "domain": "0:4-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:8-0:9",
+            "removal": "0:7-0:9"
+          }
+        ],
+        "domain": "0:8-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/plaintext/glyph.dollar",
+    "languageId": "plaintext",
+    "facet": "glyph.dollar",
+    "code": "$ b $ c $",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:1",
+            "removal": "0:0-0:2"
+          }
+        ],
+        "domain": "0:0-0:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:4-0:5",
+            "removal": "0:4-0:6"
+          }
+        ],
+        "domain": "0:4-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:8-0:9",
+            "removal": "0:7-0:9"
+          }
+        ],
+        "domain": "0:8-0:9"
+      }
+    ]
+  }
 ]

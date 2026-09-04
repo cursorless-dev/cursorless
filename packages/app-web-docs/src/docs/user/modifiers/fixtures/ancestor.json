@@ -1,966 +1,966 @@
 [
-	{
-		"path": "docs/modifiers/ancestor.yml",
-		"name": "docs/modifiers/ancestor",
-		"fixture": {
-			"languageId": "typescript",
-			"command": {
-				"version": 7,
-				"spokenForm": "take grand item",
-				"action": {
-					"name": "setSelection",
-					"target": {
-						"type": "primitive",
-						"modifiers": [
-							{
-								"type": "containingScope",
-								"scopeType": {
-									"type": "collectionItem"
-								},
-								"ancestorIndex": 1
-							}
-						]
-					}
-				},
-				"usePrePhraseSnapshot": false
-			},
-			"initialState": {
-				"documentContents": "[0, [1, [2], 3], 4]",
-				"selections": [
-					{
-						"anchor": {
-							"line": 0,
-							"character": 9
-						},
-						"active": {
-							"line": 0,
-							"character": 9
-						}
-					}
-				],
-				"marks": {},
-				"hatTokenMap": [
-					{
-						"hatStyle": "default",
-						"grapheme": "2",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 9
-							},
-							"end": {
-								"line": 0,
-								"character": 10
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "[",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 8
-							},
-							"end": {
-								"line": 0,
-								"character": 9
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "]",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 10
-							},
-							"end": {
-								"line": 0,
-								"character": 11
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": ",",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 11
-							},
-							"end": {
-								"line": 0,
-								"character": 12
-							}
-						}
-					},
-					{
-						"hatStyle": "blue",
-						"grapheme": ",",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 6
-							},
-							"end": {
-								"line": 0,
-								"character": 7
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "1",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 5
-							},
-							"end": {
-								"line": 0,
-								"character": 6
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "3",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 13
-							},
-							"end": {
-								"line": 0,
-								"character": 14
-							}
-						}
-					},
-					{
-						"hatStyle": "blue",
-						"grapheme": "[",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 4
-							},
-							"end": {
-								"line": 0,
-								"character": 5
-							}
-						}
-					},
-					{
-						"hatStyle": "blue",
-						"grapheme": "]",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 14
-							},
-							"end": {
-								"line": 0,
-								"character": 15
-							}
-						}
-					},
-					{
-						"hatStyle": "green",
-						"grapheme": ",",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 15
-							},
-							"end": {
-								"line": 0,
-								"character": 16
-							}
-						}
-					},
-					{
-						"hatStyle": "red",
-						"grapheme": ",",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 2
-							},
-							"end": {
-								"line": 0,
-								"character": 3
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "0",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 1
-							},
-							"end": {
-								"line": 0,
-								"character": 2
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "4",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 17
-							},
-							"end": {
-								"line": 0,
-								"character": 18
-							}
-						}
-					},
-					{
-						"hatStyle": "green",
-						"grapheme": "[",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 0
-							},
-							"end": {
-								"line": 0,
-								"character": 1
-							}
-						}
-					},
-					{
-						"hatStyle": "green",
-						"grapheme": "]",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 18
-							},
-							"end": {
-								"line": 0,
-								"character": 19
-							}
-						}
-					}
-				]
-			},
-			"finalState": {
-				"documentContents": "[0, [1, [2], 3], 4]",
-				"selections": [
-					{
-						"anchor": {
-							"line": 0,
-							"character": 8
-						},
-						"active": {
-							"line": 0,
-							"character": 11
-						}
-					}
-				],
-				"hatTokenMap": [
-					{
-						"hatStyle": "default",
-						"grapheme": ",",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 11
-							},
-							"end": {
-								"line": 0,
-								"character": 12
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "]",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 10
-							},
-							"end": {
-								"line": 0,
-								"character": 11
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "2",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 9
-							},
-							"end": {
-								"line": 0,
-								"character": 10
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "3",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 13
-							},
-							"end": {
-								"line": 0,
-								"character": 14
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "[",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 8
-							},
-							"end": {
-								"line": 0,
-								"character": 9
-							}
-						}
-					},
-					{
-						"hatStyle": "blue",
-						"grapheme": "]",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 14
-							},
-							"end": {
-								"line": 0,
-								"character": 15
-							}
-						}
-					},
-					{
-						"hatStyle": "green",
-						"grapheme": ",",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 15
-							},
-							"end": {
-								"line": 0,
-								"character": 16
-							}
-						}
-					},
-					{
-						"hatStyle": "blue",
-						"grapheme": ",",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 6
-							},
-							"end": {
-								"line": 0,
-								"character": 7
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "1",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 5
-							},
-							"end": {
-								"line": 0,
-								"character": 6
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "4",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 17
-							},
-							"end": {
-								"line": 0,
-								"character": 18
-							}
-						}
-					},
-					{
-						"hatStyle": "blue",
-						"grapheme": "[",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 4
-							},
-							"end": {
-								"line": 0,
-								"character": 5
-							}
-						}
-					},
-					{
-						"hatStyle": "green",
-						"grapheme": "]",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 18
-							},
-							"end": {
-								"line": 0,
-								"character": 19
-							}
-						}
-					},
-					{
-						"hatStyle": "red",
-						"grapheme": ",",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 2
-							},
-							"end": {
-								"line": 0,
-								"character": 3
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "0",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 1
-							},
-							"end": {
-								"line": 0,
-								"character": 2
-							}
-						}
-					},
-					{
-						"hatStyle": "green",
-						"grapheme": "[",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 0
-							},
-							"end": {
-								"line": 0,
-								"character": 1
-							}
-						}
-					}
-				]
-			}
-		}
-	},
-	{
-		"path": "docs/modifiers/ancestor2.yml",
-		"name": "docs/modifiers/ancestor2",
-		"fixture": {
-			"languageId": "typescript",
-			"command": {
-				"version": 7,
-				"spokenForm": "take grand grand item",
-				"action": {
-					"name": "setSelection",
-					"target": {
-						"type": "primitive",
-						"modifiers": [
-							{
-								"type": "containingScope",
-								"scopeType": {
-									"type": "collectionItem"
-								},
-								"ancestorIndex": 2
-							}
-						]
-					}
-				},
-				"usePrePhraseSnapshot": false
-			},
-			"initialState": {
-				"documentContents": "[0, [1, [2], 3], 4]",
-				"selections": [
-					{
-						"anchor": {
-							"line": 0,
-							"character": 9
-						},
-						"active": {
-							"line": 0,
-							"character": 9
-						}
-					}
-				],
-				"marks": {},
-				"hatTokenMap": [
-					{
-						"hatStyle": "default",
-						"grapheme": "2",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 9
-							},
-							"end": {
-								"line": 0,
-								"character": 10
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "[",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 8
-							},
-							"end": {
-								"line": 0,
-								"character": 9
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "]",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 10
-							},
-							"end": {
-								"line": 0,
-								"character": 11
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": ",",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 11
-							},
-							"end": {
-								"line": 0,
-								"character": 12
-							}
-						}
-					},
-					{
-						"hatStyle": "blue",
-						"grapheme": ",",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 6
-							},
-							"end": {
-								"line": 0,
-								"character": 7
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "1",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 5
-							},
-							"end": {
-								"line": 0,
-								"character": 6
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "3",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 13
-							},
-							"end": {
-								"line": 0,
-								"character": 14
-							}
-						}
-					},
-					{
-						"hatStyle": "blue",
-						"grapheme": "[",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 4
-							},
-							"end": {
-								"line": 0,
-								"character": 5
-							}
-						}
-					},
-					{
-						"hatStyle": "blue",
-						"grapheme": "]",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 14
-							},
-							"end": {
-								"line": 0,
-								"character": 15
-							}
-						}
-					},
-					{
-						"hatStyle": "green",
-						"grapheme": ",",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 15
-							},
-							"end": {
-								"line": 0,
-								"character": 16
-							}
-						}
-					},
-					{
-						"hatStyle": "red",
-						"grapheme": ",",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 2
-							},
-							"end": {
-								"line": 0,
-								"character": 3
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "0",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 1
-							},
-							"end": {
-								"line": 0,
-								"character": 2
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "4",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 17
-							},
-							"end": {
-								"line": 0,
-								"character": 18
-							}
-						}
-					},
-					{
-						"hatStyle": "green",
-						"grapheme": "[",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 0
-							},
-							"end": {
-								"line": 0,
-								"character": 1
-							}
-						}
-					},
-					{
-						"hatStyle": "green",
-						"grapheme": "]",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 18
-							},
-							"end": {
-								"line": 0,
-								"character": 19
-							}
-						}
-					}
-				]
-			},
-			"finalState": {
-				"documentContents": "[0, [1, [2], 3], 4]",
-				"selections": [
-					{
-						"anchor": {
-							"line": 0,
-							"character": 4
-						},
-						"active": {
-							"line": 0,
-							"character": 15
-						}
-					}
-				],
-				"hatTokenMap": [
-					{
-						"hatStyle": "green",
-						"grapheme": ",",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 15
-							},
-							"end": {
-								"line": 0,
-								"character": 16
-							}
-						}
-					},
-					{
-						"hatStyle": "blue",
-						"grapheme": "]",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 14
-							},
-							"end": {
-								"line": 0,
-								"character": 15
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "3",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 13
-							},
-							"end": {
-								"line": 0,
-								"character": 14
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "4",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 17
-							},
-							"end": {
-								"line": 0,
-								"character": 18
-							}
-						}
-					},
-					{
-						"hatStyle": "green",
-						"grapheme": "]",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 18
-							},
-							"end": {
-								"line": 0,
-								"character": 19
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": ",",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 11
-							},
-							"end": {
-								"line": 0,
-								"character": 12
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "]",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 10
-							},
-							"end": {
-								"line": 0,
-								"character": 11
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "2",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 9
-							},
-							"end": {
-								"line": 0,
-								"character": 10
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "[",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 8
-							},
-							"end": {
-								"line": 0,
-								"character": 9
-							}
-						}
-					},
-					{
-						"hatStyle": "blue",
-						"grapheme": ",",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 6
-							},
-							"end": {
-								"line": 0,
-								"character": 7
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "1",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 5
-							},
-							"end": {
-								"line": 0,
-								"character": 6
-							}
-						}
-					},
-					{
-						"hatStyle": "blue",
-						"grapheme": "[",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 4
-							},
-							"end": {
-								"line": 0,
-								"character": 5
-							}
-						}
-					},
-					{
-						"hatStyle": "red",
-						"grapheme": ",",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 2
-							},
-							"end": {
-								"line": 0,
-								"character": 3
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "0",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 1
-							},
-							"end": {
-								"line": 0,
-								"character": 2
-							}
-						}
-					},
-					{
-						"hatStyle": "green",
-						"grapheme": "[",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 0
-							},
-							"end": {
-								"line": 0,
-								"character": 1
-							}
-						}
-					}
-				]
-			}
-		}
-	}
+  {
+    "path": "docs/modifiers/ancestor.yml",
+    "name": "docs/modifiers/ancestor",
+    "fixture": {
+      "languageId": "typescript",
+      "command": {
+        "version": 7,
+        "spokenForm": "take grand item",
+        "action": {
+          "name": "setSelection",
+          "target": {
+            "type": "primitive",
+            "modifiers": [
+              {
+                "type": "containingScope",
+                "scopeType": {
+                  "type": "collectionItem"
+                },
+                "ancestorIndex": 1
+              }
+            ]
+          }
+        },
+        "usePrePhraseSnapshot": false
+      },
+      "initialState": {
+        "documentContents": "[0, [1, [2], 3], 4]",
+        "selections": [
+          {
+            "anchor": {
+              "line": 0,
+              "character": 9
+            },
+            "active": {
+              "line": 0,
+              "character": 9
+            }
+          }
+        ],
+        "marks": {},
+        "hatTokenMap": [
+          {
+            "hatStyle": "default",
+            "grapheme": "2",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 9
+              },
+              "end": {
+                "line": 0,
+                "character": 10
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "[",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 8
+              },
+              "end": {
+                "line": 0,
+                "character": 9
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "]",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 10
+              },
+              "end": {
+                "line": 0,
+                "character": 11
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": ",",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 11
+              },
+              "end": {
+                "line": 0,
+                "character": 12
+              }
+            }
+          },
+          {
+            "hatStyle": "blue",
+            "grapheme": ",",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 6
+              },
+              "end": {
+                "line": 0,
+                "character": 7
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "1",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 5
+              },
+              "end": {
+                "line": 0,
+                "character": 6
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "3",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 13
+              },
+              "end": {
+                "line": 0,
+                "character": 14
+              }
+            }
+          },
+          {
+            "hatStyle": "blue",
+            "grapheme": "[",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 4
+              },
+              "end": {
+                "line": 0,
+                "character": 5
+              }
+            }
+          },
+          {
+            "hatStyle": "blue",
+            "grapheme": "]",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 14
+              },
+              "end": {
+                "line": 0,
+                "character": 15
+              }
+            }
+          },
+          {
+            "hatStyle": "green",
+            "grapheme": ",",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 15
+              },
+              "end": {
+                "line": 0,
+                "character": 16
+              }
+            }
+          },
+          {
+            "hatStyle": "red",
+            "grapheme": ",",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 2
+              },
+              "end": {
+                "line": 0,
+                "character": 3
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "0",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 1
+              },
+              "end": {
+                "line": 0,
+                "character": 2
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "4",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 17
+              },
+              "end": {
+                "line": 0,
+                "character": 18
+              }
+            }
+          },
+          {
+            "hatStyle": "green",
+            "grapheme": "[",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 0
+              },
+              "end": {
+                "line": 0,
+                "character": 1
+              }
+            }
+          },
+          {
+            "hatStyle": "green",
+            "grapheme": "]",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 18
+              },
+              "end": {
+                "line": 0,
+                "character": 19
+              }
+            }
+          }
+        ]
+      },
+      "finalState": {
+        "documentContents": "[0, [1, [2], 3], 4]",
+        "selections": [
+          {
+            "anchor": {
+              "line": 0,
+              "character": 8
+            },
+            "active": {
+              "line": 0,
+              "character": 11
+            }
+          }
+        ],
+        "hatTokenMap": [
+          {
+            "hatStyle": "default",
+            "grapheme": ",",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 11
+              },
+              "end": {
+                "line": 0,
+                "character": 12
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "]",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 10
+              },
+              "end": {
+                "line": 0,
+                "character": 11
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "2",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 9
+              },
+              "end": {
+                "line": 0,
+                "character": 10
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "3",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 13
+              },
+              "end": {
+                "line": 0,
+                "character": 14
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "[",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 8
+              },
+              "end": {
+                "line": 0,
+                "character": 9
+              }
+            }
+          },
+          {
+            "hatStyle": "blue",
+            "grapheme": "]",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 14
+              },
+              "end": {
+                "line": 0,
+                "character": 15
+              }
+            }
+          },
+          {
+            "hatStyle": "green",
+            "grapheme": ",",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 15
+              },
+              "end": {
+                "line": 0,
+                "character": 16
+              }
+            }
+          },
+          {
+            "hatStyle": "blue",
+            "grapheme": ",",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 6
+              },
+              "end": {
+                "line": 0,
+                "character": 7
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "1",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 5
+              },
+              "end": {
+                "line": 0,
+                "character": 6
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "4",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 17
+              },
+              "end": {
+                "line": 0,
+                "character": 18
+              }
+            }
+          },
+          {
+            "hatStyle": "blue",
+            "grapheme": "[",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 4
+              },
+              "end": {
+                "line": 0,
+                "character": 5
+              }
+            }
+          },
+          {
+            "hatStyle": "green",
+            "grapheme": "]",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 18
+              },
+              "end": {
+                "line": 0,
+                "character": 19
+              }
+            }
+          },
+          {
+            "hatStyle": "red",
+            "grapheme": ",",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 2
+              },
+              "end": {
+                "line": 0,
+                "character": 3
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "0",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 1
+              },
+              "end": {
+                "line": 0,
+                "character": 2
+              }
+            }
+          },
+          {
+            "hatStyle": "green",
+            "grapheme": "[",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 0
+              },
+              "end": {
+                "line": 0,
+                "character": 1
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "path": "docs/modifiers/ancestor2.yml",
+    "name": "docs/modifiers/ancestor2",
+    "fixture": {
+      "languageId": "typescript",
+      "command": {
+        "version": 7,
+        "spokenForm": "take grand grand item",
+        "action": {
+          "name": "setSelection",
+          "target": {
+            "type": "primitive",
+            "modifiers": [
+              {
+                "type": "containingScope",
+                "scopeType": {
+                  "type": "collectionItem"
+                },
+                "ancestorIndex": 2
+              }
+            ]
+          }
+        },
+        "usePrePhraseSnapshot": false
+      },
+      "initialState": {
+        "documentContents": "[0, [1, [2], 3], 4]",
+        "selections": [
+          {
+            "anchor": {
+              "line": 0,
+              "character": 9
+            },
+            "active": {
+              "line": 0,
+              "character": 9
+            }
+          }
+        ],
+        "marks": {},
+        "hatTokenMap": [
+          {
+            "hatStyle": "default",
+            "grapheme": "2",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 9
+              },
+              "end": {
+                "line": 0,
+                "character": 10
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "[",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 8
+              },
+              "end": {
+                "line": 0,
+                "character": 9
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "]",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 10
+              },
+              "end": {
+                "line": 0,
+                "character": 11
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": ",",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 11
+              },
+              "end": {
+                "line": 0,
+                "character": 12
+              }
+            }
+          },
+          {
+            "hatStyle": "blue",
+            "grapheme": ",",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 6
+              },
+              "end": {
+                "line": 0,
+                "character": 7
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "1",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 5
+              },
+              "end": {
+                "line": 0,
+                "character": 6
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "3",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 13
+              },
+              "end": {
+                "line": 0,
+                "character": 14
+              }
+            }
+          },
+          {
+            "hatStyle": "blue",
+            "grapheme": "[",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 4
+              },
+              "end": {
+                "line": 0,
+                "character": 5
+              }
+            }
+          },
+          {
+            "hatStyle": "blue",
+            "grapheme": "]",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 14
+              },
+              "end": {
+                "line": 0,
+                "character": 15
+              }
+            }
+          },
+          {
+            "hatStyle": "green",
+            "grapheme": ",",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 15
+              },
+              "end": {
+                "line": 0,
+                "character": 16
+              }
+            }
+          },
+          {
+            "hatStyle": "red",
+            "grapheme": ",",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 2
+              },
+              "end": {
+                "line": 0,
+                "character": 3
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "0",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 1
+              },
+              "end": {
+                "line": 0,
+                "character": 2
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "4",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 17
+              },
+              "end": {
+                "line": 0,
+                "character": 18
+              }
+            }
+          },
+          {
+            "hatStyle": "green",
+            "grapheme": "[",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 0
+              },
+              "end": {
+                "line": 0,
+                "character": 1
+              }
+            }
+          },
+          {
+            "hatStyle": "green",
+            "grapheme": "]",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 18
+              },
+              "end": {
+                "line": 0,
+                "character": 19
+              }
+            }
+          }
+        ]
+      },
+      "finalState": {
+        "documentContents": "[0, [1, [2], 3], 4]",
+        "selections": [
+          {
+            "anchor": {
+              "line": 0,
+              "character": 4
+            },
+            "active": {
+              "line": 0,
+              "character": 15
+            }
+          }
+        ],
+        "hatTokenMap": [
+          {
+            "hatStyle": "green",
+            "grapheme": ",",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 15
+              },
+              "end": {
+                "line": 0,
+                "character": 16
+              }
+            }
+          },
+          {
+            "hatStyle": "blue",
+            "grapheme": "]",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 14
+              },
+              "end": {
+                "line": 0,
+                "character": 15
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "3",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 13
+              },
+              "end": {
+                "line": 0,
+                "character": 14
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "4",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 17
+              },
+              "end": {
+                "line": 0,
+                "character": 18
+              }
+            }
+          },
+          {
+            "hatStyle": "green",
+            "grapheme": "]",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 18
+              },
+              "end": {
+                "line": 0,
+                "character": 19
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": ",",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 11
+              },
+              "end": {
+                "line": 0,
+                "character": 12
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "]",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 10
+              },
+              "end": {
+                "line": 0,
+                "character": 11
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "2",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 9
+              },
+              "end": {
+                "line": 0,
+                "character": 10
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "[",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 8
+              },
+              "end": {
+                "line": 0,
+                "character": 9
+              }
+            }
+          },
+          {
+            "hatStyle": "blue",
+            "grapheme": ",",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 6
+              },
+              "end": {
+                "line": 0,
+                "character": 7
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "1",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 5
+              },
+              "end": {
+                "line": 0,
+                "character": 6
+              }
+            }
+          },
+          {
+            "hatStyle": "blue",
+            "grapheme": "[",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 4
+              },
+              "end": {
+                "line": 0,
+                "character": 5
+              }
+            }
+          },
+          {
+            "hatStyle": "red",
+            "grapheme": ",",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 2
+              },
+              "end": {
+                "line": 0,
+                "character": 3
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "0",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 1
+              },
+              "end": {
+                "line": 0,
+                "character": 2
+              }
+            }
+          },
+          {
+            "hatStyle": "green",
+            "grapheme": "[",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 0
+              },
+              "end": {
+                "line": 0,
+                "character": 1
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
 ]

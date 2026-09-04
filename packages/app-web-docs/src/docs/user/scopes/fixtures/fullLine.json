@@ -1,63 +1,63 @@
 [
-	{
-		"name": "scopes/plaintext/fullLine",
-		"languageId": "plaintext",
-		"facet": "fullLine",
-		"code": "    Hello world  ",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:17",
-						"removal": "0:0-0:17"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/plaintext/fullLine2",
-		"languageId": "plaintext",
-		"facet": "fullLine",
-		"code": "\nHello\n world \n  ",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:0",
-						"removal": "0:0-1:0"
-					}
-				],
-				"domain": "0:0-0:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:0-1:5",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:0-1:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:0-2:7",
-						"removal": "2:0-3:0"
-					}
-				],
-				"domain": "2:0-2:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "3:0-3:2",
-						"removal": "2:7-3:2"
-					}
-				],
-				"domain": "3:0-3:2"
-			}
-		]
-	}
+  {
+    "name": "scopes/plaintext/fullLine",
+    "languageId": "plaintext",
+    "facet": "fullLine",
+    "code": "    Hello world  ",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:17",
+            "removal": "0:0-0:17"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/plaintext/fullLine2",
+    "languageId": "plaintext",
+    "facet": "fullLine",
+    "code": "\nHello\n world \n  ",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:0",
+            "removal": "0:0-1:0"
+          }
+        ],
+        "domain": "0:0-0:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:0-1:5",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:0-1:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:0-2:7",
+            "removal": "2:0-3:0"
+          }
+        ],
+        "domain": "2:0-2:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:0-3:2",
+            "removal": "2:7-3:2"
+          }
+        ],
+        "domain": "3:0-3:2"
+      }
+    ]
+  }
 ]

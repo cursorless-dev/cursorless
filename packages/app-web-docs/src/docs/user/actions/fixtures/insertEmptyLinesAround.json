@@ -1,316 +1,316 @@
 [
-	{
-		"path": "docs/actions/insertEmptyLinesAround.yml",
-		"name": "docs/actions/insertEmptyLinesAround",
-		"fixture": {
-			"languageId": "typescript",
-			"command": {
-				"version": 7,
-				"spokenForm": "puff air",
-				"action": {
-					"name": "insertEmptyLinesAround",
-					"target": {
-						"type": "primitive",
-						"mark": {
-							"type": "decoratedSymbol",
-							"symbolColor": "default",
-							"character": "a"
-						}
-					}
-				},
-				"usePrePhraseSnapshot": false
-			},
-			"initialState": {
-				"documentContents": "// bbb aaa",
-				"selections": [
-					{
-						"anchor": {
-							"line": 0,
-							"character": 0
-						},
-						"active": {
-							"line": 0,
-							"character": 0
-						}
-					}
-				],
-				"marks": {
-					"default.a": {
-						"start": {
-							"line": 0,
-							"character": 7
-						},
-						"end": {
-							"line": 0,
-							"character": 10
-						}
-					}
-				},
-				"hatTokenMap": [
-					{
-						"hatStyle": "default",
-						"grapheme": "a",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 8
-							},
-							"end": {
-								"line": 0,
-								"character": 9
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "/",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 0
-							},
-							"end": {
-								"line": 0,
-								"character": 1
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "b",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 4
-							},
-							"end": {
-								"line": 0,
-								"character": 5
-							}
-						}
-					}
-				]
-			},
-			"finalState": {
-				"documentContents": "\n// bbb aaa\n",
-				"selections": [
-					{
-						"anchor": {
-							"line": 1,
-							"character": 0
-						},
-						"active": {
-							"line": 1,
-							"character": 0
-						}
-					}
-				],
-				"hatTokenMap": [
-					{
-						"hatStyle": "default",
-						"grapheme": "/",
-						"hatRange": {
-							"start": {
-								"line": 1,
-								"character": 0
-							},
-							"end": {
-								"line": 1,
-								"character": 1
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "b",
-						"hatRange": {
-							"start": {
-								"line": 1,
-								"character": 4
-							},
-							"end": {
-								"line": 1,
-								"character": 5
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "a",
-						"hatRange": {
-							"start": {
-								"line": 1,
-								"character": 8
-							},
-							"end": {
-								"line": 1,
-								"character": 9
-							}
-						}
-					}
-				]
-			}
-		}
-	},
-	{
-		"path": "docs/actions/insertEmptyLinesAround2.yml",
-		"name": "docs/actions/insertEmptyLinesAround2",
-		"fixture": {
-			"languageId": "typescript",
-			"command": {
-				"version": 7,
-				"spokenForm": "puff token bat",
-				"action": {
-					"name": "insertEmptyLinesAround",
-					"target": {
-						"type": "primitive",
-						"mark": {
-							"type": "decoratedSymbol",
-							"symbolColor": "default",
-							"character": "b"
-						},
-						"modifiers": [
-							{
-								"type": "containingScope",
-								"scopeType": {
-									"type": "token"
-								}
-							}
-						]
-					}
-				},
-				"usePrePhraseSnapshot": false
-			},
-			"initialState": {
-				"documentContents": "// bbb aaa",
-				"selections": [
-					{
-						"anchor": {
-							"line": 0,
-							"character": 0
-						},
-						"active": {
-							"line": 0,
-							"character": 0
-						}
-					}
-				],
-				"marks": {
-					"default.b": {
-						"start": {
-							"line": 0,
-							"character": 3
-						},
-						"end": {
-							"line": 0,
-							"character": 6
-						}
-					}
-				},
-				"hatTokenMap": [
-					{
-						"hatStyle": "default",
-						"grapheme": "b",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 4
-							},
-							"end": {
-								"line": 0,
-								"character": 5
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "/",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 0
-							},
-							"end": {
-								"line": 0,
-								"character": 1
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "a",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 8
-							},
-							"end": {
-								"line": 0,
-								"character": 9
-							}
-						}
-					}
-				]
-			},
-			"finalState": {
-				"documentContents": "//  bbb  aaa",
-				"selections": [
-					{
-						"anchor": {
-							"line": 0,
-							"character": 0
-						},
-						"active": {
-							"line": 0,
-							"character": 0
-						}
-					}
-				],
-				"hatTokenMap": [
-					{
-						"hatStyle": "default",
-						"grapheme": "/",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 0
-							},
-							"end": {
-								"line": 0,
-								"character": 1
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "b",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 5
-							},
-							"end": {
-								"line": 0,
-								"character": 6
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "a",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 10
-							},
-							"end": {
-								"line": 0,
-								"character": 11
-							}
-						}
-					}
-				]
-			}
-		}
-	}
+  {
+    "path": "docs/actions/insertEmptyLinesAround.yml",
+    "name": "docs/actions/insertEmptyLinesAround",
+    "fixture": {
+      "languageId": "typescript",
+      "command": {
+        "version": 7,
+        "spokenForm": "puff air",
+        "action": {
+          "name": "insertEmptyLinesAround",
+          "target": {
+            "type": "primitive",
+            "mark": {
+              "type": "decoratedSymbol",
+              "symbolColor": "default",
+              "character": "a"
+            }
+          }
+        },
+        "usePrePhraseSnapshot": false
+      },
+      "initialState": {
+        "documentContents": "// bbb aaa",
+        "selections": [
+          {
+            "anchor": {
+              "line": 0,
+              "character": 0
+            },
+            "active": {
+              "line": 0,
+              "character": 0
+            }
+          }
+        ],
+        "marks": {
+          "default.a": {
+            "start": {
+              "line": 0,
+              "character": 7
+            },
+            "end": {
+              "line": 0,
+              "character": 10
+            }
+          }
+        },
+        "hatTokenMap": [
+          {
+            "hatStyle": "default",
+            "grapheme": "a",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 8
+              },
+              "end": {
+                "line": 0,
+                "character": 9
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "/",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 0
+              },
+              "end": {
+                "line": 0,
+                "character": 1
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "b",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 4
+              },
+              "end": {
+                "line": 0,
+                "character": 5
+              }
+            }
+          }
+        ]
+      },
+      "finalState": {
+        "documentContents": "\n// bbb aaa\n",
+        "selections": [
+          {
+            "anchor": {
+              "line": 1,
+              "character": 0
+            },
+            "active": {
+              "line": 1,
+              "character": 0
+            }
+          }
+        ],
+        "hatTokenMap": [
+          {
+            "hatStyle": "default",
+            "grapheme": "/",
+            "hatRange": {
+              "start": {
+                "line": 1,
+                "character": 0
+              },
+              "end": {
+                "line": 1,
+                "character": 1
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "b",
+            "hatRange": {
+              "start": {
+                "line": 1,
+                "character": 4
+              },
+              "end": {
+                "line": 1,
+                "character": 5
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "a",
+            "hatRange": {
+              "start": {
+                "line": 1,
+                "character": 8
+              },
+              "end": {
+                "line": 1,
+                "character": 9
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "path": "docs/actions/insertEmptyLinesAround2.yml",
+    "name": "docs/actions/insertEmptyLinesAround2",
+    "fixture": {
+      "languageId": "typescript",
+      "command": {
+        "version": 7,
+        "spokenForm": "puff token bat",
+        "action": {
+          "name": "insertEmptyLinesAround",
+          "target": {
+            "type": "primitive",
+            "mark": {
+              "type": "decoratedSymbol",
+              "symbolColor": "default",
+              "character": "b"
+            },
+            "modifiers": [
+              {
+                "type": "containingScope",
+                "scopeType": {
+                  "type": "token"
+                }
+              }
+            ]
+          }
+        },
+        "usePrePhraseSnapshot": false
+      },
+      "initialState": {
+        "documentContents": "// bbb aaa",
+        "selections": [
+          {
+            "anchor": {
+              "line": 0,
+              "character": 0
+            },
+            "active": {
+              "line": 0,
+              "character": 0
+            }
+          }
+        ],
+        "marks": {
+          "default.b": {
+            "start": {
+              "line": 0,
+              "character": 3
+            },
+            "end": {
+              "line": 0,
+              "character": 6
+            }
+          }
+        },
+        "hatTokenMap": [
+          {
+            "hatStyle": "default",
+            "grapheme": "b",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 4
+              },
+              "end": {
+                "line": 0,
+                "character": 5
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "/",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 0
+              },
+              "end": {
+                "line": 0,
+                "character": 1
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "a",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 8
+              },
+              "end": {
+                "line": 0,
+                "character": 9
+              }
+            }
+          }
+        ]
+      },
+      "finalState": {
+        "documentContents": "//  bbb  aaa",
+        "selections": [
+          {
+            "anchor": {
+              "line": 0,
+              "character": 0
+            },
+            "active": {
+              "line": 0,
+              "character": 0
+            }
+          }
+        ],
+        "hatTokenMap": [
+          {
+            "hatStyle": "default",
+            "grapheme": "/",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 0
+              },
+              "end": {
+                "line": 0,
+                "character": 1
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "b",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 5
+              },
+              "end": {
+                "line": 0,
+                "character": 6
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "a",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 10
+              },
+              "end": {
+                "line": 0,
+                "character": 11
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
 ]

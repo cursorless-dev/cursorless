@@ -1,86 +1,86 @@
 [
-	{
-		"name": "scopes/html/tags",
-		"languageId": "html",
-		"facet": "tags",
-		"code": "<div> </div>",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:5",
-						"removal": "0:0-0:6"
-					},
-					{
-						"content": "0:6-0:12",
-						"removal": "0:5-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.jsx/tags",
-		"languageId": "javascript.jsx",
-		"facet": "tags",
-		"code": "<div> </div>",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:5",
-						"removal": "0:0-0:6"
-					},
-					{
-						"content": "0:6-0:12",
-						"removal": "0:5-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/tags",
-		"languageId": "latex",
-		"facet": "tags",
-		"code": "\\begin{quote}\n    Hello\n\\end{quote}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-1:0"
-					},
-					{
-						"content": "2:0-2:11",
-						"removal": "1:9-2:11"
-					}
-				],
-				"domain": "0:0-2:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/xml/tags",
-		"languageId": "xml",
-		"facet": "tags",
-		"code": "<name> </name>",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:6",
-						"removal": "0:0-0:7"
-					},
-					{
-						"content": "0:7-0:14",
-						"removal": "0:6-0:14"
-					}
-				],
-				"domain": "0:0-0:14"
-			}
-		]
-	}
+  {
+    "name": "scopes/html/tags",
+    "languageId": "html",
+    "facet": "tags",
+    "code": "<div> </div>",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:5",
+            "removal": "0:0-0:6"
+          },
+          {
+            "content": "0:6-0:12",
+            "removal": "0:5-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.jsx/tags",
+    "languageId": "javascript.jsx",
+    "facet": "tags",
+    "code": "<div> </div>",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:5",
+            "removal": "0:0-0:6"
+          },
+          {
+            "content": "0:6-0:12",
+            "removal": "0:5-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/tags",
+    "languageId": "latex",
+    "facet": "tags",
+    "code": "\\begin{quote}\n    Hello\n\\end{quote}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-1:0"
+          },
+          {
+            "content": "2:0-2:11",
+            "removal": "1:9-2:11"
+          }
+        ],
+        "domain": "0:0-2:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/xml/tags",
+    "languageId": "xml",
+    "facet": "tags",
+    "code": "<name> </name>",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:6",
+            "removal": "0:0-0:7"
+          },
+          {
+            "content": "0:7-0:14",
+            "removal": "0:6-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      }
+    ]
+  }
 ]

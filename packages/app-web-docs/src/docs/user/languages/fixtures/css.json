@@ -1,878 +1,878 @@
 [
-	{
-		"name": "scopes/css/argument/argument.actual.iteration",
-		"languageId": "css",
-		"facet": "argument.actual.iteration",
-		"code": "* {\n    width: calc(100% - 50px);\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:16-1:27"
-					}
-				],
-				"domain": "1:11-1:28"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/argument/argument.actual.iteration2",
-		"languageId": "css",
-		"facet": "argument.actual.iteration",
-		"code": "* {\n    background: repeating-linear-gradient(red, orange 50px);\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:42-1:58"
-					}
-				],
-				"domain": "1:16-1:59"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/argument/argument.actual.multiLine",
-		"languageId": "css",
-		"facet": "argument.actual.multiLine",
-		"code": "* {\n    clip-path: polygon(\n        50% 0%,\n        60% 40%\n    );\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "2:8-2:14",
-						"removal": "2:8-3:8"
-					}
-				],
-				"domain": "2:8-2:14"
-			},
-			{
-				"targets": [
-					{
-						"content": "3:8-3:15",
-						"removal": "2:14-3:15"
-					}
-				],
-				"domain": "3:8-3:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/argument/argument.actual.singleLine",
-		"languageId": "css",
-		"facet": "argument.actual.singleLine",
-		"code": "* {\n    width: calc(100% - 50px);\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:16-1:27",
-						"removal": "1:16-1:27"
-					}
-				],
-				"domain": "1:16-1:27"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/argument/argument.actual.singleLine2",
-		"languageId": "css",
-		"facet": "argument.actual.singleLine",
-		"code": "* {\n    background: repeating-linear-gradient(red, orange 50px);\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:42-1:45",
-						"removal": "1:42-1:47"
-					}
-				],
-				"domain": "1:42-1:45"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:47-1:58",
-						"removal": "1:45-1:58"
-					}
-				],
-				"domain": "1:47-1:58"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/argument/argument.actual.singleLine3",
-		"languageId": "css",
-		"facet": "argument.actual.singleLine",
-		"code": "* {\n    clip-path: ellipse(115px 55px at 50% 40%);\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:23-1:33",
-						"removal": "1:23-1:37"
-					}
-				],
-				"domain": "1:23-1:33"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:37-1:44",
-						"removal": "1:33-1:44"
-					}
-				],
-				"domain": "1:37-1:44"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/argument/argument.actual.singleLine4",
-		"languageId": "css",
-		"facet": "argument.actual.singleLine",
-		"code": "* {\n    clip-path: polygon(50% 0%, 60% 40%, 100% 50%);\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:23-1:29",
-						"removal": "1:23-1:31"
-					}
-				],
-				"domain": "1:23-1:29"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:31-1:38",
-						"removal": "1:31-1:40"
-					}
-				],
-				"domain": "1:31-1:38"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:40-1:48",
-						"removal": "1:38-1:48"
-					}
-				],
-				"domain": "1:40-1:48"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/argumentList.actual.empty",
-		"languageId": "css",
-		"facet": "argumentList.actual.empty",
-		"code": "* {\n    width: calc();\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:16-1:16",
-						"removal": "1:16-1:16"
-					}
-				],
-				"domain": "1:11-1:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/argumentList.actual.multiLine",
-		"languageId": "css",
-		"facet": "argumentList.actual.multiLine",
-		"code": "* {\n    clip-path: polygon(\n        50% 0%,\n        60% 40%\n    );\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "2:8-3:15",
-						"removal": "1:23-4:4"
-					}
-				],
-				"domain": "1:15-4:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/argumentList.actual.singleLine",
-		"languageId": "css",
-		"facet": "argumentList.actual.singleLine",
-		"code": "* {\n    width: calc(100% - 50px);\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:16-1:27",
-						"removal": "1:16-1:27"
-					}
-				],
-				"domain": "1:11-1:28"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/collectionItem.unenclosed.iteration",
-		"languageId": "css",
-		"facet": "collectionItem.unenclosed.iteration",
-		"code": "* {\n    color: red;\n    padding: 1rem;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-2:18"
-					}
-				],
-				"domain": "0:3-3:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/collectionItem.unenclosed.multiLine",
-		"languageId": "css",
-		"facet": "collectionItem.unenclosed.multiLine",
-		"code": "* {\n    color: red;\n    padding: 1rem;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:15",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:15"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-2:18",
-						"removal": "1:0-3:0"
-					}
-				],
-				"domain": "1:4-2:18"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:18",
-						"removal": "2:0-3:0"
-					}
-				],
-				"domain": "2:4-2:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/comment.block",
-		"languageId": "css",
-		"facet": "comment.block",
-		"code": "/* Hello world */",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:17",
-						"removal": "0:0-0:17"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/disqualifyDelimiter",
-		"languageId": "css",
-		"facet": "disqualifyDelimiter",
-		"code": "div > div {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:5"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/css/functionCall",
-		"languageId": "css",
-		"facet": "functionCall",
-		"code": "* {\n    transform: translate(-50%, -50%);\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:15-1:36",
-						"removal": "1:14-1:36"
-					}
-				],
-				"domain": "1:15-1:36"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/functionCallee",
-		"languageId": "css",
-		"facet": "functionCallee",
-		"code": "* {\n    transform: translate(-50%, -50%);\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:15-1:24",
-						"removal": "1:15-1:24"
-					}
-				],
-				"domain": "1:15-1:36"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/key.mapPair.iteration",
-		"languageId": "css",
-		"facet": "key.mapPair.iteration",
-		"code": "* {\n    color: red;\n    padding: 1rem;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-3:1"
-					}
-				],
-				"domain": "0:0-3:1"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:3-3:0"
-					}
-				],
-				"domain": "0:3-3:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/key.mapPair",
-		"languageId": "css",
-		"facet": "key.mapPair",
-		"code": "* {\n    color: red;\n    padding: 1rem;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:9",
-						"removal": "1:4-1:11"
-					}
-				],
-				"domain": "1:4-1:15"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:11",
-						"removal": "2:4-2:13"
-					}
-				],
-				"domain": "2:4-2:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/map",
-		"languageId": "css",
-		"facet": "map",
-		"code": "* {\n    color: red;\n    padding: 1rem;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-3:1",
-						"removal": "0:1-3:1"
-					}
-				],
-				"domain": "0:2-3:1"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/name.iteration.block",
-		"languageId": "css",
-		"facet": "name.iteration.block",
-		"code": "* { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:5"
-					}
-				],
-				"domain": "0:0-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:3-0:4"
-					}
-				],
-				"domain": "0:3-0:4"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/name.iteration.document",
-		"languageId": "css",
-		"facet": "name.iteration.document",
-		"code": "\n* {}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/selector/selector",
-		"languageId": "css",
-		"facet": "selector",
-		"code": "* {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:1",
-						"removal": "0:0-0:2"
-					}
-				],
-				"domain": "0:0-0:4"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/selector/selector2",
-		"languageId": "css",
-		"facet": "selector",
-		"code": "body {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:4",
-						"removal": "0:0-0:5"
-					}
-				],
-				"domain": "0:0-0:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/selector/selector3",
-		"languageId": "css",
-		"facet": "selector",
-		"code": ".foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:4",
-						"removal": "0:0-0:5"
-					}
-				],
-				"domain": "0:0-0:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/selector/selector4",
-		"languageId": "css",
-		"facet": "selector",
-		"code": "#foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:4",
-						"removal": "0:0-0:5"
-					}
-				],
-				"domain": "0:0-0:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/selector/selector5",
-		"languageId": "css",
-		"facet": "selector",
-		"code": "body > div {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:10",
-						"removal": "0:0-0:11"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/selector/selector6",
-		"languageId": "css",
-		"facet": "selector",
-		"code": "#foo.bar {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:8",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/selector/selector7",
-		"languageId": "css",
-		"facet": "selector",
-		"code": "div:hover {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-0:10"
-					}
-				],
-				"domain": "0:0-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/statement.iteration.document",
-		"languageId": "css",
-		"facet": "statement.iteration.document",
-		"code": "\n* {}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/statement.misc",
-		"languageId": "css",
-		"facet": "statement.misc",
-		"code": "* {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:4",
-						"removal": "0:0-0:4"
-					}
-				],
-				"domain": "0:0-0:4"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/string.singleLine",
-		"languageId": "css",
-		"facet": "string.singleLine",
-		"code": "* {\n    color: \"red\"\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:11-1:16",
-						"removal": "1:10-1:16"
-					}
-				],
-				"domain": "1:11-1:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/textFragment.comment.block",
-		"languageId": "css",
-		"facet": "textFragment.comment.block",
-		"code": "/* Hello world */",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:17",
-						"removal": "0:0-0:17"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/textFragment.string.singleLine",
-		"languageId": "css",
-		"facet": "textFragment.string.singleLine",
-		"code": "* {\n    color: \"red\"\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:12-1:15",
-						"removal": "1:12-1:15"
-					}
-				],
-				"domain": "1:12-1:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/unit/unit",
-		"languageId": "css",
-		"facet": "unit",
-		"code": "* {\n    padding: 25px 50px 75px 100px;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:15-1:17",
-						"removal": "1:15-1:17"
-					},
-					{
-						"content": "1:20-1:22",
-						"removal": "1:20-1:22"
-					},
-					{
-						"content": "1:25-1:27",
-						"removal": "1:25-1:27"
-					},
-					{
-						"content": "1:31-1:33",
-						"removal": "1:31-1:33"
-					}
-				],
-				"domain": "1:4-1:34"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:15-1:17",
-						"removal": "1:15-1:17"
-					}
-				],
-				"domain": "1:13-1:17"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:20-1:22",
-						"removal": "1:20-1:22"
-					}
-				],
-				"domain": "1:18-1:22"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:25-1:27",
-						"removal": "1:25-1:27"
-					}
-				],
-				"domain": "1:23-1:27"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:31-1:33",
-						"removal": "1:31-1:33"
-					}
-				],
-				"domain": "1:28-1:33"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/unit/unit2",
-		"languageId": "css",
-		"facet": "unit",
-		"code": "* {\n    padding: 10px;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:15-1:17",
-						"removal": "1:15-1:17"
-					}
-				],
-				"domain": "1:4-1:18"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:15-1:17",
-						"removal": "1:15-1:17"
-					}
-				],
-				"domain": "1:13-1:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/unit/unit3",
-		"languageId": "css",
-		"facet": "unit",
-		"code": "* {\n    padding: 1rem;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:14-1:17",
-						"removal": "1:14-1:17"
-					}
-				],
-				"domain": "1:4-1:18"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:14-1:17",
-						"removal": "1:14-1:17"
-					}
-				],
-				"domain": "1:13-1:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/unit/unit4",
-		"languageId": "css",
-		"facet": "unit",
-		"code": "* {\n    padding: 1em;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:14-1:16",
-						"removal": "1:14-1:16"
-					}
-				],
-				"domain": "1:4-1:17"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:14-1:16",
-						"removal": "1:14-1:16"
-					}
-				],
-				"domain": "1:13-1:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/unit/unit5",
-		"languageId": "css",
-		"facet": "unit",
-		"code": "* {\n    padding: 50%;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:15-1:16",
-						"removal": "1:15-1:16"
-					}
-				],
-				"domain": "1:4-1:17"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:15-1:16",
-						"removal": "1:15-1:16"
-					}
-				],
-				"domain": "1:13-1:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/value.mapPair.iteration",
-		"languageId": "css",
-		"facet": "value.mapPair.iteration",
-		"code": "* {\n    color: red;\n    padding: 1rem;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-3:1"
-					}
-				],
-				"domain": "0:0-3:1"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:3-3:0"
-					}
-				],
-				"domain": "0:3-3:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/value.mapPair",
-		"languageId": "css",
-		"facet": "value.mapPair",
-		"code": "* {\n    color: red;\n    padding: 1rem;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:11-1:14",
-						"removal": "1:9-1:14"
-					}
-				],
-				"domain": "1:4-1:15"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:13-2:17",
-						"removal": "2:11-2:17"
-					}
-				],
-				"domain": "2:4-2:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/value.mapPair2",
-		"languageId": "css",
-		"facet": "value.mapPair",
-		"code": "* {\n    margin: 1px 2px 3px 4px;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:12-1:27",
-						"removal": "1:10-1:27"
-					}
-				],
-				"domain": "1:4-1:28"
-			}
-		]
-	}
+  {
+    "name": "scopes/css/argument/argument.actual.iteration",
+    "languageId": "css",
+    "facet": "argument.actual.iteration",
+    "code": "* {\n    width: calc(100% - 50px);\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:16-1:27"
+          }
+        ],
+        "domain": "1:11-1:28"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/argument/argument.actual.iteration2",
+    "languageId": "css",
+    "facet": "argument.actual.iteration",
+    "code": "* {\n    background: repeating-linear-gradient(red, orange 50px);\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:42-1:58"
+          }
+        ],
+        "domain": "1:16-1:59"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/argument/argument.actual.multiLine",
+    "languageId": "css",
+    "facet": "argument.actual.multiLine",
+    "code": "* {\n    clip-path: polygon(\n        50% 0%,\n        60% 40%\n    );\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "2:8-2:14",
+            "removal": "2:8-3:8"
+          }
+        ],
+        "domain": "2:8-2:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:8-3:15",
+            "removal": "2:14-3:15"
+          }
+        ],
+        "domain": "3:8-3:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/argument/argument.actual.singleLine",
+    "languageId": "css",
+    "facet": "argument.actual.singleLine",
+    "code": "* {\n    width: calc(100% - 50px);\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:16-1:27",
+            "removal": "1:16-1:27"
+          }
+        ],
+        "domain": "1:16-1:27"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/argument/argument.actual.singleLine2",
+    "languageId": "css",
+    "facet": "argument.actual.singleLine",
+    "code": "* {\n    background: repeating-linear-gradient(red, orange 50px);\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:42-1:45",
+            "removal": "1:42-1:47"
+          }
+        ],
+        "domain": "1:42-1:45"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:47-1:58",
+            "removal": "1:45-1:58"
+          }
+        ],
+        "domain": "1:47-1:58"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/argument/argument.actual.singleLine3",
+    "languageId": "css",
+    "facet": "argument.actual.singleLine",
+    "code": "* {\n    clip-path: ellipse(115px 55px at 50% 40%);\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:23-1:33",
+            "removal": "1:23-1:37"
+          }
+        ],
+        "domain": "1:23-1:33"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:37-1:44",
+            "removal": "1:33-1:44"
+          }
+        ],
+        "domain": "1:37-1:44"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/argument/argument.actual.singleLine4",
+    "languageId": "css",
+    "facet": "argument.actual.singleLine",
+    "code": "* {\n    clip-path: polygon(50% 0%, 60% 40%, 100% 50%);\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:23-1:29",
+            "removal": "1:23-1:31"
+          }
+        ],
+        "domain": "1:23-1:29"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:31-1:38",
+            "removal": "1:31-1:40"
+          }
+        ],
+        "domain": "1:31-1:38"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:40-1:48",
+            "removal": "1:38-1:48"
+          }
+        ],
+        "domain": "1:40-1:48"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/argumentList.actual.empty",
+    "languageId": "css",
+    "facet": "argumentList.actual.empty",
+    "code": "* {\n    width: calc();\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:16-1:16",
+            "removal": "1:16-1:16"
+          }
+        ],
+        "domain": "1:11-1:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/argumentList.actual.multiLine",
+    "languageId": "css",
+    "facet": "argumentList.actual.multiLine",
+    "code": "* {\n    clip-path: polygon(\n        50% 0%,\n        60% 40%\n    );\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "2:8-3:15",
+            "removal": "1:23-4:4"
+          }
+        ],
+        "domain": "1:15-4:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/argumentList.actual.singleLine",
+    "languageId": "css",
+    "facet": "argumentList.actual.singleLine",
+    "code": "* {\n    width: calc(100% - 50px);\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:16-1:27",
+            "removal": "1:16-1:27"
+          }
+        ],
+        "domain": "1:11-1:28"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/collectionItem.unenclosed.iteration",
+    "languageId": "css",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "* {\n    color: red;\n    padding: 1rem;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-2:18"
+          }
+        ],
+        "domain": "0:3-3:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/collectionItem.unenclosed.multiLine",
+    "languageId": "css",
+    "facet": "collectionItem.unenclosed.multiLine",
+    "code": "* {\n    color: red;\n    padding: 1rem;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:15",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:15"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-2:18",
+            "removal": "1:0-3:0"
+          }
+        ],
+        "domain": "1:4-2:18"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:18",
+            "removal": "2:0-3:0"
+          }
+        ],
+        "domain": "2:4-2:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/comment.block",
+    "languageId": "css",
+    "facet": "comment.block",
+    "code": "/* Hello world */",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:17",
+            "removal": "0:0-0:17"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/disqualifyDelimiter",
+    "languageId": "css",
+    "facet": "disqualifyDelimiter",
+    "code": "div > div {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:5"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/functionCall",
+    "languageId": "css",
+    "facet": "functionCall",
+    "code": "* {\n    transform: translate(-50%, -50%);\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:15-1:36",
+            "removal": "1:14-1:36"
+          }
+        ],
+        "domain": "1:15-1:36"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/functionCallee",
+    "languageId": "css",
+    "facet": "functionCallee",
+    "code": "* {\n    transform: translate(-50%, -50%);\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:15-1:24",
+            "removal": "1:15-1:24"
+          }
+        ],
+        "domain": "1:15-1:36"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/key.mapPair.iteration",
+    "languageId": "css",
+    "facet": "key.mapPair.iteration",
+    "code": "* {\n    color: red;\n    padding: 1rem;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:1"
+          }
+        ],
+        "domain": "0:0-3:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:3-3:0"
+          }
+        ],
+        "domain": "0:3-3:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/key.mapPair",
+    "languageId": "css",
+    "facet": "key.mapPair",
+    "code": "* {\n    color: red;\n    padding: 1rem;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:9",
+            "removal": "1:4-1:11"
+          }
+        ],
+        "domain": "1:4-1:15"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:11",
+            "removal": "2:4-2:13"
+          }
+        ],
+        "domain": "2:4-2:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/map",
+    "languageId": "css",
+    "facet": "map",
+    "code": "* {\n    color: red;\n    padding: 1rem;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-3:1",
+            "removal": "0:1-3:1"
+          }
+        ],
+        "domain": "0:2-3:1"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/name.iteration.block",
+    "languageId": "css",
+    "facet": "name.iteration.block",
+    "code": "* { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:3-0:4"
+          }
+        ],
+        "domain": "0:3-0:4"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/name.iteration.document",
+    "languageId": "css",
+    "facet": "name.iteration.document",
+    "code": "\n* {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/selector/selector",
+    "languageId": "css",
+    "facet": "selector",
+    "code": "* {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:1",
+            "removal": "0:0-0:2"
+          }
+        ],
+        "domain": "0:0-0:4"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/selector/selector2",
+    "languageId": "css",
+    "facet": "selector",
+    "code": "body {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:4",
+            "removal": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/selector/selector3",
+    "languageId": "css",
+    "facet": "selector",
+    "code": ".foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:4",
+            "removal": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/selector/selector4",
+    "languageId": "css",
+    "facet": "selector",
+    "code": "#foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:4",
+            "removal": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/selector/selector5",
+    "languageId": "css",
+    "facet": "selector",
+    "code": "body > div {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/selector/selector6",
+    "languageId": "css",
+    "facet": "selector",
+    "code": "#foo.bar {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:8",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/selector/selector7",
+    "languageId": "css",
+    "facet": "selector",
+    "code": "div:hover {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/statement.iteration.document",
+    "languageId": "css",
+    "facet": "statement.iteration.document",
+    "code": "\n* {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/statement.misc",
+    "languageId": "css",
+    "facet": "statement.misc",
+    "code": "* {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:4",
+            "removal": "0:0-0:4"
+          }
+        ],
+        "domain": "0:0-0:4"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/string.singleLine",
+    "languageId": "css",
+    "facet": "string.singleLine",
+    "code": "* {\n    color: \"red\"\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:11-1:16",
+            "removal": "1:10-1:16"
+          }
+        ],
+        "domain": "1:11-1:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/textFragment.comment.block",
+    "languageId": "css",
+    "facet": "textFragment.comment.block",
+    "code": "/* Hello world */",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:17",
+            "removal": "0:0-0:17"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/textFragment.string.singleLine",
+    "languageId": "css",
+    "facet": "textFragment.string.singleLine",
+    "code": "* {\n    color: \"red\"\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:12-1:15",
+            "removal": "1:12-1:15"
+          }
+        ],
+        "domain": "1:12-1:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/unit/unit",
+    "languageId": "css",
+    "facet": "unit",
+    "code": "* {\n    padding: 25px 50px 75px 100px;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:15-1:17",
+            "removal": "1:15-1:17"
+          },
+          {
+            "content": "1:20-1:22",
+            "removal": "1:20-1:22"
+          },
+          {
+            "content": "1:25-1:27",
+            "removal": "1:25-1:27"
+          },
+          {
+            "content": "1:31-1:33",
+            "removal": "1:31-1:33"
+          }
+        ],
+        "domain": "1:4-1:34"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:15-1:17",
+            "removal": "1:15-1:17"
+          }
+        ],
+        "domain": "1:13-1:17"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:20-1:22",
+            "removal": "1:20-1:22"
+          }
+        ],
+        "domain": "1:18-1:22"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:25-1:27",
+            "removal": "1:25-1:27"
+          }
+        ],
+        "domain": "1:23-1:27"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:31-1:33",
+            "removal": "1:31-1:33"
+          }
+        ],
+        "domain": "1:28-1:33"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/unit/unit2",
+    "languageId": "css",
+    "facet": "unit",
+    "code": "* {\n    padding: 10px;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:15-1:17",
+            "removal": "1:15-1:17"
+          }
+        ],
+        "domain": "1:4-1:18"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:15-1:17",
+            "removal": "1:15-1:17"
+          }
+        ],
+        "domain": "1:13-1:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/unit/unit3",
+    "languageId": "css",
+    "facet": "unit",
+    "code": "* {\n    padding: 1rem;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:14-1:17",
+            "removal": "1:14-1:17"
+          }
+        ],
+        "domain": "1:4-1:18"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:14-1:17",
+            "removal": "1:14-1:17"
+          }
+        ],
+        "domain": "1:13-1:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/unit/unit4",
+    "languageId": "css",
+    "facet": "unit",
+    "code": "* {\n    padding: 1em;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:14-1:16",
+            "removal": "1:14-1:16"
+          }
+        ],
+        "domain": "1:4-1:17"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:14-1:16",
+            "removal": "1:14-1:16"
+          }
+        ],
+        "domain": "1:13-1:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/unit/unit5",
+    "languageId": "css",
+    "facet": "unit",
+    "code": "* {\n    padding: 50%;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:15-1:16",
+            "removal": "1:15-1:16"
+          }
+        ],
+        "domain": "1:4-1:17"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:15-1:16",
+            "removal": "1:15-1:16"
+          }
+        ],
+        "domain": "1:13-1:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/value.mapPair.iteration",
+    "languageId": "css",
+    "facet": "value.mapPair.iteration",
+    "code": "* {\n    color: red;\n    padding: 1rem;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:1"
+          }
+        ],
+        "domain": "0:0-3:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:3-3:0"
+          }
+        ],
+        "domain": "0:3-3:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/value.mapPair",
+    "languageId": "css",
+    "facet": "value.mapPair",
+    "code": "* {\n    color: red;\n    padding: 1rem;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:11-1:14",
+            "removal": "1:9-1:14"
+          }
+        ],
+        "domain": "1:4-1:15"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:13-2:17",
+            "removal": "2:11-2:17"
+          }
+        ],
+        "domain": "2:4-2:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/value.mapPair2",
+    "languageId": "css",
+    "facet": "value.mapPair",
+    "code": "* {\n    margin: 1px 2px 3px 4px;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:12-1:27",
+            "removal": "1:10-1:27"
+          }
+        ],
+        "domain": "1:4-1:28"
+      }
+    ]
+  }
 ]

@@ -1,1420 +1,1420 @@
 [
-	{
-		"name": "scopes/c/functionCallee.chain",
-		"languageId": "c",
-		"facet": "functionCallee.chain",
-		"code": "foo().bar();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/c/functionCallee.method",
-		"languageId": "c",
-		"facet": "functionCallee.method",
-		"code": "foo.bar();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/c/functionCallee",
-		"languageId": "c",
-		"facet": "functionCallee",
-		"code": "foo();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/functionCallee",
-		"languageId": "clojure",
-		"facet": "functionCallee",
-		"code": "(foo)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:4",
-						"removal": "0:1-0:4"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/cpp/functionCallee.constructor",
-		"languageId": "cpp",
-		"facet": "functionCallee.constructor",
-		"code": "new Foo();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/cpp/functionCallee.generic",
-		"languageId": "cpp",
-		"facet": "functionCallee.generic",
-		"code": "foo<Bar>();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:8",
-						"removal": "0:0-0:8"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/cpp/functionCallee.method",
-		"languageId": "cpp",
-		"facet": "functionCallee.method",
-		"code": "foo::bar();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:8",
-						"removal": "0:0-0:8"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/csharp/functionCallee.chain",
-		"languageId": "csharp",
-		"facet": "functionCallee.chain",
-		"code": "Foo().Bar();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/csharp/functionCallee.constructor",
-		"languageId": "csharp",
-		"facet": "functionCallee.constructor",
-		"code": "new Foo();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/csharp/functionCallee.generic",
-		"languageId": "csharp",
-		"facet": "functionCallee.generic",
-		"code": "foo<Bar>();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:8",
-						"removal": "0:0-0:8"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/csharp/functionCallee.method",
-		"languageId": "csharp",
-		"facet": "functionCallee.method",
-		"code": "Foo.Bar();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/csharp/functionCallee",
-		"languageId": "csharp",
-		"facet": "functionCallee",
-		"code": "Foo();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/css/functionCallee",
-		"languageId": "css",
-		"facet": "functionCallee",
-		"code": "* {\n    transform: translate(-50%, -50%);\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:15-1:24",
-						"removal": "1:15-1:24"
-					}
-				],
-				"domain": "1:15-1:36"
-			}
-		]
-	},
-	{
-		"name": "scopes/dart/functionCallee/functionCallee.chain",
-		"languageId": "dart",
-		"facet": "functionCallee.chain",
-		"code": "var foo = bar().baz();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:10-0:13",
-						"removal": "0:10-0:13"
-					}
-				],
-				"domain": "0:10-0:15"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:10-0:19",
-						"removal": "0:10-0:19"
-					}
-				],
-				"domain": "0:10-0:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/dart/functionCallee/functionCallee.constructor",
-		"languageId": "dart",
-		"facet": "functionCallee.constructor",
-		"code": "var foo = Bar();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:10-0:13",
-						"removal": "0:10-0:13"
-					}
-				],
-				"domain": "0:10-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/dart/functionCallee/functionCallee.enum",
-		"languageId": "dart",
-		"facet": "functionCallee.enum",
-		"code": "enum Foo {\n    bar();\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:4-1:7"
-					}
-				],
-				"domain": "1:4-1:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/dart/functionCallee/functionCallee.generic",
-		"languageId": "dart",
-		"facet": "functionCallee.generic",
-		"code": "var foo = bar<int>();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:10-0:18",
-						"removal": "0:10-0:18"
-					}
-				],
-				"domain": "0:10-0:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/dart/functionCallee/functionCallee.method",
-		"languageId": "dart",
-		"facet": "functionCallee.method",
-		"code": "var foo = bar.baz();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:10-0:17",
-						"removal": "0:10-0:17"
-					}
-				],
-				"domain": "0:10-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/dart/functionCallee/functionCallee",
-		"languageId": "dart",
-		"facet": "functionCallee",
-		"code": "var foo = bar();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:10-0:13",
-						"removal": "0:10-0:13"
-					}
-				],
-				"domain": "0:10-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/go/functionCallee.chain",
-		"languageId": "go",
-		"facet": "functionCallee.chain",
-		"code": "foo().bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/go/functionCallee.generic",
-		"languageId": "go",
-		"facet": "functionCallee.generic",
-		"code": "foo[Bar]()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:8",
-						"removal": "0:0-0:8"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/go/functionCallee.method",
-		"languageId": "go",
-		"facet": "functionCallee.method",
-		"code": "foo.bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/go/functionCallee",
-		"languageId": "go",
-		"facet": "functionCallee",
-		"code": "foo()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/functionCallee/functionCallee.chain",
-		"languageId": "java",
-		"facet": "functionCallee.chain",
-		"code": "foo().bar();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/functionCallee/functionCallee.constructor",
-		"languageId": "java",
-		"facet": "functionCallee.constructor",
-		"code": "new Foo();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/functionCallee/functionCallee.enum",
-		"languageId": "java",
-		"facet": "functionCallee.enum",
-		"code": "enum Foo {\n    bar();\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:4-1:7"
-					}
-				],
-				"domain": "1:4-1:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/functionCallee/functionCallee.generic",
-		"languageId": "java",
-		"facet": "functionCallee.generic",
-		"code": "new foo<Bar>();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12",
-						"removal": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/functionCallee/functionCallee.method",
-		"languageId": "java",
-		"facet": "functionCallee.method",
-		"code": "foo.bar();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/functionCallee/functionCallee",
-		"languageId": "java",
-		"facet": "functionCallee",
-		"code": "foo();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/functionCallee.chain",
-		"languageId": "javascript.core",
-		"facet": "functionCallee.chain",
-		"code": "foo().bar();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/functionCallee.constructor",
-		"languageId": "javascript.core",
-		"facet": "functionCallee.constructor",
-		"code": "new Foo();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/functionCallee.method",
-		"languageId": "javascript.core",
-		"facet": "functionCallee.method",
-		"code": "foo.bar();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/functionCallee",
-		"languageId": "javascript.core",
-		"facet": "functionCallee",
-		"code": "foo();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/functionCallee/functionCallee.chain",
-		"languageId": "kotlin",
-		"facet": "functionCallee.chain",
-		"code": "foo().bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/functionCallee/functionCallee.constructor",
-		"languageId": "kotlin",
-		"facet": "functionCallee.constructor",
-		"code": "Foo()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/functionCallee/functionCallee.constructor2",
-		"languageId": "kotlin",
-		"facet": "functionCallee.constructor",
-		"code": "class Foo: Bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:11-0:14",
-						"removal": "0:11-0:14"
-					}
-				],
-				"domain": "0:11-0:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/functionCallee/functionCallee.constructor3",
-		"languageId": "kotlin",
-		"facet": "functionCallee.constructor",
-		"code": "class Foo {\n    constructor(): this()\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:19-1:23",
-						"removal": "1:19-1:23"
-					}
-				],
-				"domain": "1:19-1:25"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/functionCallee/functionCallee.enum",
-		"languageId": "kotlin",
-		"facet": "functionCallee.enum",
-		"code": "enum class Foo {\n    bar()\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:4-1:7"
-					}
-				],
-				"domain": "1:4-1:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/functionCallee/functionCallee.generic",
-		"languageId": "kotlin",
-		"facet": "functionCallee.generic",
-		"code": "foo<Bar>()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:8",
-						"removal": "0:0-0:8"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/functionCallee/functionCallee.method",
-		"languageId": "kotlin",
-		"facet": "functionCallee.method",
-		"code": "foo.bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/functionCallee/functionCallee",
-		"languageId": "kotlin",
-		"facet": "functionCallee",
-		"code": "foo()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/functionCallee",
-		"languageId": "latex",
-		"facet": "functionCallee",
-		"code": "\\foo{aaa}{bbb}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:4",
-						"removal": "0:0-0:4"
-					}
-				],
-				"domain": "0:0-0:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/functionCallee/functionCallee.chain",
-		"languageId": "lua",
-		"facet": "functionCallee.chain",
-		"code": "foo().bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/functionCallee/functionCallee.chain2",
-		"languageId": "lua",
-		"facet": "functionCallee.chain",
-		"code": "foo():bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/functionCallee/functionCallee.method",
-		"languageId": "lua",
-		"facet": "functionCallee.method",
-		"code": "foo.bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/functionCallee/functionCallee.method2",
-		"languageId": "lua",
-		"facet": "functionCallee.method",
-		"code": "foo:bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/functionCallee/functionCallee",
-		"languageId": "lua",
-		"facet": "functionCallee",
-		"code": "foo()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/php/functionCallee/functionCallee.chain",
-		"languageId": "php",
-		"facet": "functionCallee.chain",
-		"code": "<?php\nfoo()->bar();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:0-1:3",
-						"removal": "1:0-1:3"
-					}
-				],
-				"domain": "1:0-1:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:0-1:10",
-						"removal": "1:0-1:10"
-					}
-				],
-				"domain": "1:0-1:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/php/functionCallee/functionCallee.constructor",
-		"languageId": "php",
-		"facet": "functionCallee.constructor",
-		"code": "<?php\nnew Foo();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:0-1:7",
-						"removal": "1:0-1:7"
-					}
-				],
-				"domain": "1:0-1:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/php/functionCallee/functionCallee.method",
-		"languageId": "php",
-		"facet": "functionCallee.method",
-		"code": "<?php\n$foo->bar();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:0-1:9",
-						"removal": "1:0-1:9"
-					}
-				],
-				"domain": "1:0-1:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/php/functionCallee/functionCallee.method2",
-		"languageId": "php",
-		"facet": "functionCallee.method",
-		"code": "<?php\n$foo?->bar();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:0-1:10",
-						"removal": "1:0-1:10"
-					}
-				],
-				"domain": "1:0-1:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/php/functionCallee/functionCallee",
-		"languageId": "php",
-		"facet": "functionCallee",
-		"code": "<?php\nfoo();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:0-1:3",
-						"removal": "1:0-1:3"
-					}
-				],
-				"domain": "1:0-1:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/python/functionCallee.chain",
-		"languageId": "python",
-		"facet": "functionCallee.chain",
-		"code": "foo().bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/python/functionCallee.constructor",
-		"languageId": "python",
-		"facet": "functionCallee.constructor",
-		"code": "Foo()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/python/functionCallee.method",
-		"languageId": "python",
-		"facet": "functionCallee.method",
-		"code": "foo.bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/python/functionCallee",
-		"languageId": "python",
-		"facet": "functionCallee",
-		"code": "foo()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/functionCallee.method",
-		"languageId": "r",
-		"facet": "functionCallee.method",
-		"code": "foo::bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:8",
-						"removal": "0:0-0:8"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/functionCallee",
-		"languageId": "r",
-		"facet": "functionCallee",
-		"code": "foo()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/ruby/functionCallee/functionCallee.chain",
-		"languageId": "ruby",
-		"facet": "functionCallee.chain",
-		"code": "foo().bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/ruby/functionCallee/functionCallee.method",
-		"languageId": "ruby",
-		"facet": "functionCallee.method",
-		"code": "foo.bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/ruby/functionCallee/functionCallee",
-		"languageId": "ruby",
-		"facet": "functionCallee",
-		"code": "foo()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/functionCallee.chain",
-		"languageId": "rust",
-		"facet": "functionCallee.chain",
-		"code": "foo().bar();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/functionCallee.enum",
-		"languageId": "rust",
-		"facet": "functionCallee.enum",
-		"code": "enum Foo {\n    Bar()\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:4-1:7"
-					}
-				],
-				"domain": "1:4-1:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/functionCallee.generic",
-		"languageId": "rust",
-		"facet": "functionCallee.generic",
-		"code": "foo::<Bar>();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:10",
-						"removal": "0:0-0:10"
-					}
-				],
-				"domain": "0:0-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/functionCallee.method",
-		"languageId": "rust",
-		"facet": "functionCallee.method",
-		"code": "foo.bar();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/functionCallee",
-		"languageId": "rust",
-		"facet": "functionCallee",
-		"code": "foo();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/scala/functionCallee.chain",
-		"languageId": "scala",
-		"facet": "functionCallee.chain",
-		"code": "foo().bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/scala/functionCallee.constructor",
-		"languageId": "scala",
-		"facet": "functionCallee.constructor",
-		"code": "new Foo()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/scala/functionCallee.generic",
-		"languageId": "scala",
-		"facet": "functionCallee.generic",
-		"code": "foo[Bar]()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:8",
-						"removal": "0:0-0:8"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/scala/functionCallee.method",
-		"languageId": "scala",
-		"facet": "functionCallee.method",
-		"code": "foo.bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/scala/functionCallee",
-		"languageId": "scala",
-		"facet": "functionCallee",
-		"code": "foo()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/scm/functionCallee",
-		"languageId": "scm",
-		"facet": "functionCallee",
-		"code": "(#foo!)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-0:6",
-						"removal": "0:2-0:6"
-					}
-				],
-				"domain": "0:0-0:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/functionCallee.method",
-		"languageId": "talon",
-		"facet": "functionCallee.method",
-		"code": "foo:\n    bar.baz()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:11",
-						"removal": "1:4-1:11"
-					}
-				],
-				"domain": "1:4-1:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/functionCallee",
-		"languageId": "talon",
-		"facet": "functionCallee",
-		"code": "foo:\n    bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:4-1:7"
-					}
-				],
-				"domain": "1:4-1:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/functionCallee2",
-		"languageId": "talon",
-		"facet": "functionCallee",
-		"code": "foo:\n    key(enter)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:4-1:7"
-					}
-				],
-				"domain": "1:4-1:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/typescript.core/functionCallee.generic",
-		"languageId": "typescript.core",
-		"facet": "functionCallee.generic",
-		"code": "foo<Bar>();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:8",
-						"removal": "0:0-0:8"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	}
+  {
+    "name": "scopes/c/functionCallee.chain",
+    "languageId": "c",
+    "facet": "functionCallee.chain",
+    "code": "foo().bar();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/c/functionCallee.method",
+    "languageId": "c",
+    "facet": "functionCallee.method",
+    "code": "foo.bar();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/c/functionCallee",
+    "languageId": "c",
+    "facet": "functionCallee",
+    "code": "foo();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/functionCallee",
+    "languageId": "clojure",
+    "facet": "functionCallee",
+    "code": "(foo)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:4",
+            "removal": "0:1-0:4"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/cpp/functionCallee.constructor",
+    "languageId": "cpp",
+    "facet": "functionCallee.constructor",
+    "code": "new Foo();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/cpp/functionCallee.generic",
+    "languageId": "cpp",
+    "facet": "functionCallee.generic",
+    "code": "foo<Bar>();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:8",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/cpp/functionCallee.method",
+    "languageId": "cpp",
+    "facet": "functionCallee.method",
+    "code": "foo::bar();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:8",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/csharp/functionCallee.chain",
+    "languageId": "csharp",
+    "facet": "functionCallee.chain",
+    "code": "Foo().Bar();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/csharp/functionCallee.constructor",
+    "languageId": "csharp",
+    "facet": "functionCallee.constructor",
+    "code": "new Foo();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/csharp/functionCallee.generic",
+    "languageId": "csharp",
+    "facet": "functionCallee.generic",
+    "code": "foo<Bar>();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:8",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/csharp/functionCallee.method",
+    "languageId": "csharp",
+    "facet": "functionCallee.method",
+    "code": "Foo.Bar();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/csharp/functionCallee",
+    "languageId": "csharp",
+    "facet": "functionCallee",
+    "code": "Foo();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/functionCallee",
+    "languageId": "css",
+    "facet": "functionCallee",
+    "code": "* {\n    transform: translate(-50%, -50%);\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:15-1:24",
+            "removal": "1:15-1:24"
+          }
+        ],
+        "domain": "1:15-1:36"
+      }
+    ]
+  },
+  {
+    "name": "scopes/dart/functionCallee/functionCallee.chain",
+    "languageId": "dart",
+    "facet": "functionCallee.chain",
+    "code": "var foo = bar().baz();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:10-0:13",
+            "removal": "0:10-0:13"
+          }
+        ],
+        "domain": "0:10-0:15"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-0:19",
+            "removal": "0:10-0:19"
+          }
+        ],
+        "domain": "0:10-0:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/dart/functionCallee/functionCallee.constructor",
+    "languageId": "dart",
+    "facet": "functionCallee.constructor",
+    "code": "var foo = Bar();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:10-0:13",
+            "removal": "0:10-0:13"
+          }
+        ],
+        "domain": "0:10-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/dart/functionCallee/functionCallee.enum",
+    "languageId": "dart",
+    "facet": "functionCallee.enum",
+    "code": "enum Foo {\n    bar();\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-1:7"
+          }
+        ],
+        "domain": "1:4-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/dart/functionCallee/functionCallee.generic",
+    "languageId": "dart",
+    "facet": "functionCallee.generic",
+    "code": "var foo = bar<int>();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:10-0:18",
+            "removal": "0:10-0:18"
+          }
+        ],
+        "domain": "0:10-0:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/dart/functionCallee/functionCallee.method",
+    "languageId": "dart",
+    "facet": "functionCallee.method",
+    "code": "var foo = bar.baz();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:10-0:17",
+            "removal": "0:10-0:17"
+          }
+        ],
+        "domain": "0:10-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/dart/functionCallee/functionCallee",
+    "languageId": "dart",
+    "facet": "functionCallee",
+    "code": "var foo = bar();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:10-0:13",
+            "removal": "0:10-0:13"
+          }
+        ],
+        "domain": "0:10-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/go/functionCallee.chain",
+    "languageId": "go",
+    "facet": "functionCallee.chain",
+    "code": "foo().bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/go/functionCallee.generic",
+    "languageId": "go",
+    "facet": "functionCallee.generic",
+    "code": "foo[Bar]()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:8",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/go/functionCallee.method",
+    "languageId": "go",
+    "facet": "functionCallee.method",
+    "code": "foo.bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/go/functionCallee",
+    "languageId": "go",
+    "facet": "functionCallee",
+    "code": "foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/functionCallee/functionCallee.chain",
+    "languageId": "java",
+    "facet": "functionCallee.chain",
+    "code": "foo().bar();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/functionCallee/functionCallee.constructor",
+    "languageId": "java",
+    "facet": "functionCallee.constructor",
+    "code": "new Foo();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/functionCallee/functionCallee.enum",
+    "languageId": "java",
+    "facet": "functionCallee.enum",
+    "code": "enum Foo {\n    bar();\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-1:7"
+          }
+        ],
+        "domain": "1:4-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/functionCallee/functionCallee.generic",
+    "languageId": "java",
+    "facet": "functionCallee.generic",
+    "code": "new foo<Bar>();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12",
+            "removal": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/functionCallee/functionCallee.method",
+    "languageId": "java",
+    "facet": "functionCallee.method",
+    "code": "foo.bar();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/functionCallee/functionCallee",
+    "languageId": "java",
+    "facet": "functionCallee",
+    "code": "foo();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/functionCallee.chain",
+    "languageId": "javascript.core",
+    "facet": "functionCallee.chain",
+    "code": "foo().bar();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/functionCallee.constructor",
+    "languageId": "javascript.core",
+    "facet": "functionCallee.constructor",
+    "code": "new Foo();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/functionCallee.method",
+    "languageId": "javascript.core",
+    "facet": "functionCallee.method",
+    "code": "foo.bar();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/functionCallee",
+    "languageId": "javascript.core",
+    "facet": "functionCallee",
+    "code": "foo();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/functionCallee/functionCallee.chain",
+    "languageId": "kotlin",
+    "facet": "functionCallee.chain",
+    "code": "foo().bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/functionCallee/functionCallee.constructor",
+    "languageId": "kotlin",
+    "facet": "functionCallee.constructor",
+    "code": "Foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/functionCallee/functionCallee.constructor2",
+    "languageId": "kotlin",
+    "facet": "functionCallee.constructor",
+    "code": "class Foo: Bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:11-0:14",
+            "removal": "0:11-0:14"
+          }
+        ],
+        "domain": "0:11-0:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/functionCallee/functionCallee.constructor3",
+    "languageId": "kotlin",
+    "facet": "functionCallee.constructor",
+    "code": "class Foo {\n    constructor(): this()\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:19-1:23",
+            "removal": "1:19-1:23"
+          }
+        ],
+        "domain": "1:19-1:25"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/functionCallee/functionCallee.enum",
+    "languageId": "kotlin",
+    "facet": "functionCallee.enum",
+    "code": "enum class Foo {\n    bar()\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-1:7"
+          }
+        ],
+        "domain": "1:4-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/functionCallee/functionCallee.generic",
+    "languageId": "kotlin",
+    "facet": "functionCallee.generic",
+    "code": "foo<Bar>()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:8",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/functionCallee/functionCallee.method",
+    "languageId": "kotlin",
+    "facet": "functionCallee.method",
+    "code": "foo.bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/functionCallee/functionCallee",
+    "languageId": "kotlin",
+    "facet": "functionCallee",
+    "code": "foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/functionCallee",
+    "languageId": "latex",
+    "facet": "functionCallee",
+    "code": "\\foo{aaa}{bbb}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:4",
+            "removal": "0:0-0:4"
+          }
+        ],
+        "domain": "0:0-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/functionCallee/functionCallee.chain",
+    "languageId": "lua",
+    "facet": "functionCallee.chain",
+    "code": "foo().bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/functionCallee/functionCallee.chain2",
+    "languageId": "lua",
+    "facet": "functionCallee.chain",
+    "code": "foo():bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/functionCallee/functionCallee.method",
+    "languageId": "lua",
+    "facet": "functionCallee.method",
+    "code": "foo.bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/functionCallee/functionCallee.method2",
+    "languageId": "lua",
+    "facet": "functionCallee.method",
+    "code": "foo:bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/functionCallee/functionCallee",
+    "languageId": "lua",
+    "facet": "functionCallee",
+    "code": "foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/php/functionCallee/functionCallee.chain",
+    "languageId": "php",
+    "facet": "functionCallee.chain",
+    "code": "<?php\nfoo()->bar();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:0-1:3",
+            "removal": "1:0-1:3"
+          }
+        ],
+        "domain": "1:0-1:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:0-1:10",
+            "removal": "1:0-1:10"
+          }
+        ],
+        "domain": "1:0-1:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/php/functionCallee/functionCallee.constructor",
+    "languageId": "php",
+    "facet": "functionCallee.constructor",
+    "code": "<?php\nnew Foo();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:0-1:7",
+            "removal": "1:0-1:7"
+          }
+        ],
+        "domain": "1:0-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/php/functionCallee/functionCallee.method",
+    "languageId": "php",
+    "facet": "functionCallee.method",
+    "code": "<?php\n$foo->bar();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:0-1:9",
+            "removal": "1:0-1:9"
+          }
+        ],
+        "domain": "1:0-1:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/php/functionCallee/functionCallee.method2",
+    "languageId": "php",
+    "facet": "functionCallee.method",
+    "code": "<?php\n$foo?->bar();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:0-1:10",
+            "removal": "1:0-1:10"
+          }
+        ],
+        "domain": "1:0-1:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/php/functionCallee/functionCallee",
+    "languageId": "php",
+    "facet": "functionCallee",
+    "code": "<?php\nfoo();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:0-1:3",
+            "removal": "1:0-1:3"
+          }
+        ],
+        "domain": "1:0-1:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/python/functionCallee.chain",
+    "languageId": "python",
+    "facet": "functionCallee.chain",
+    "code": "foo().bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/python/functionCallee.constructor",
+    "languageId": "python",
+    "facet": "functionCallee.constructor",
+    "code": "Foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/python/functionCallee.method",
+    "languageId": "python",
+    "facet": "functionCallee.method",
+    "code": "foo.bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/python/functionCallee",
+    "languageId": "python",
+    "facet": "functionCallee",
+    "code": "foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/functionCallee.method",
+    "languageId": "r",
+    "facet": "functionCallee.method",
+    "code": "foo::bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:8",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/functionCallee",
+    "languageId": "r",
+    "facet": "functionCallee",
+    "code": "foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/ruby/functionCallee/functionCallee.chain",
+    "languageId": "ruby",
+    "facet": "functionCallee.chain",
+    "code": "foo().bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/ruby/functionCallee/functionCallee.method",
+    "languageId": "ruby",
+    "facet": "functionCallee.method",
+    "code": "foo.bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/ruby/functionCallee/functionCallee",
+    "languageId": "ruby",
+    "facet": "functionCallee",
+    "code": "foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/functionCallee.chain",
+    "languageId": "rust",
+    "facet": "functionCallee.chain",
+    "code": "foo().bar();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/functionCallee.enum",
+    "languageId": "rust",
+    "facet": "functionCallee.enum",
+    "code": "enum Foo {\n    Bar()\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-1:7"
+          }
+        ],
+        "domain": "1:4-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/functionCallee.generic",
+    "languageId": "rust",
+    "facet": "functionCallee.generic",
+    "code": "foo::<Bar>();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/functionCallee.method",
+    "languageId": "rust",
+    "facet": "functionCallee.method",
+    "code": "foo.bar();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/functionCallee",
+    "languageId": "rust",
+    "facet": "functionCallee",
+    "code": "foo();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scala/functionCallee.chain",
+    "languageId": "scala",
+    "facet": "functionCallee.chain",
+    "code": "foo().bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scala/functionCallee.constructor",
+    "languageId": "scala",
+    "facet": "functionCallee.constructor",
+    "code": "new Foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scala/functionCallee.generic",
+    "languageId": "scala",
+    "facet": "functionCallee.generic",
+    "code": "foo[Bar]()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:8",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scala/functionCallee.method",
+    "languageId": "scala",
+    "facet": "functionCallee.method",
+    "code": "foo.bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scala/functionCallee",
+    "languageId": "scala",
+    "facet": "functionCallee",
+    "code": "foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scm/functionCallee",
+    "languageId": "scm",
+    "facet": "functionCallee",
+    "code": "(#foo!)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:6",
+            "removal": "0:2-0:6"
+          }
+        ],
+        "domain": "0:0-0:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/functionCallee.method",
+    "languageId": "talon",
+    "facet": "functionCallee.method",
+    "code": "foo:\n    bar.baz()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:11",
+            "removal": "1:4-1:11"
+          }
+        ],
+        "domain": "1:4-1:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/functionCallee",
+    "languageId": "talon",
+    "facet": "functionCallee",
+    "code": "foo:\n    bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-1:7"
+          }
+        ],
+        "domain": "1:4-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/functionCallee2",
+    "languageId": "talon",
+    "facet": "functionCallee",
+    "code": "foo:\n    key(enter)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-1:7"
+          }
+        ],
+        "domain": "1:4-1:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/typescript.core/functionCallee.generic",
+    "languageId": "typescript.core",
+    "facet": "functionCallee.generic",
+    "code": "foo<Bar>();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:8",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  }
 ]

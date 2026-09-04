@@ -1,227 +1,227 @@
 [
-	{
-		"name": "scopes/xml/attribute",
-		"languageId": "xml",
-		"facet": "attribute",
-		"code": "<name id=\"foo\"></name>",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:14",
-						"removal": "0:5-0:14"
-					}
-				],
-				"domain": "0:6-0:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/xml/comment.block",
-		"languageId": "xml",
-		"facet": "comment.block",
-		"code": "<!-- Hello world -->",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:20",
-						"removal": "0:0-0:20"
-					}
-				],
-				"domain": "0:0-0:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/xml/element",
-		"languageId": "xml",
-		"facet": "element",
-		"code": "<name></name>",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/xml/endTag",
-		"languageId": "xml",
-		"facet": "endTag",
-		"code": "<name></name>",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:13",
-						"removal": "0:6-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/xml/interior.element",
-		"languageId": "xml",
-		"facet": "interior.element",
-		"code": "<name> </name>",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:7",
-						"removal": "0:6-0:7"
-					}
-				],
-				"domain": "0:6-0:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/xml/key.attribute",
-		"languageId": "xml",
-		"facet": "key.attribute",
-		"code": "<name id=\"foo\"></name>",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:8",
-						"removal": "0:6-0:9"
-					}
-				],
-				"domain": "0:6-0:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/xml/startTag",
-		"languageId": "xml",
-		"facet": "startTag",
-		"code": "<name></name>",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:6",
-						"removal": "0:0-0:6"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/xml/string.singleLine",
-		"languageId": "xml",
-		"facet": "string.singleLine",
-		"code": "<name id=\"foo\"></name>",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:14",
-						"removal": "0:9-0:14"
-					}
-				],
-				"domain": "0:9-0:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/xml/tags",
-		"languageId": "xml",
-		"facet": "tags",
-		"code": "<name> </name>",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:6",
-						"removal": "0:0-0:7"
-					},
-					{
-						"content": "0:7-0:14",
-						"removal": "0:6-0:14"
-					}
-				],
-				"domain": "0:0-0:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/xml/textFragment.comment.block",
-		"languageId": "xml",
-		"facet": "textFragment.comment.block",
-		"code": "<!-- Hello world -->",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:20",
-						"removal": "0:0-0:20"
-					}
-				],
-				"domain": "0:0-0:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/xml/textFragment.element",
-		"languageId": "xml",
-		"facet": "textFragment.element",
-		"code": "<name>Hello world</name>",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:17",
-						"removal": "0:6-0:17"
-					}
-				],
-				"domain": "0:6-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/xml/textFragment.string.singleLine",
-		"languageId": "xml",
-		"facet": "textFragment.string.singleLine",
-		"code": "<name id=\"foo\"></name>",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:10-0:13",
-						"removal": "0:10-0:13"
-					}
-				],
-				"domain": "0:10-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/xml/value.attribute",
-		"languageId": "xml",
-		"facet": "value.attribute",
-		"code": "<name id=\"foo\"></name>",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:14",
-						"removal": "0:8-0:14"
-					}
-				],
-				"domain": "0:6-0:14"
-			}
-		]
-	}
+  {
+    "name": "scopes/xml/attribute",
+    "languageId": "xml",
+    "facet": "attribute",
+    "code": "<name id=\"foo\"></name>",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:14",
+            "removal": "0:5-0:14"
+          }
+        ],
+        "domain": "0:6-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/xml/comment.block",
+    "languageId": "xml",
+    "facet": "comment.block",
+    "code": "<!-- Hello world -->",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:20",
+            "removal": "0:0-0:20"
+          }
+        ],
+        "domain": "0:0-0:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/xml/element",
+    "languageId": "xml",
+    "facet": "element",
+    "code": "<name></name>",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/xml/endTag",
+    "languageId": "xml",
+    "facet": "endTag",
+    "code": "<name></name>",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:13",
+            "removal": "0:6-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/xml/interior.element",
+    "languageId": "xml",
+    "facet": "interior.element",
+    "code": "<name> </name>",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:7",
+            "removal": "0:6-0:7"
+          }
+        ],
+        "domain": "0:6-0:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/xml/key.attribute",
+    "languageId": "xml",
+    "facet": "key.attribute",
+    "code": "<name id=\"foo\"></name>",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:8",
+            "removal": "0:6-0:9"
+          }
+        ],
+        "domain": "0:6-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/xml/startTag",
+    "languageId": "xml",
+    "facet": "startTag",
+    "code": "<name></name>",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:6",
+            "removal": "0:0-0:6"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/xml/string.singleLine",
+    "languageId": "xml",
+    "facet": "string.singleLine",
+    "code": "<name id=\"foo\"></name>",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:14",
+            "removal": "0:9-0:14"
+          }
+        ],
+        "domain": "0:9-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/xml/tags",
+    "languageId": "xml",
+    "facet": "tags",
+    "code": "<name> </name>",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:6",
+            "removal": "0:0-0:7"
+          },
+          {
+            "content": "0:7-0:14",
+            "removal": "0:6-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/xml/textFragment.comment.block",
+    "languageId": "xml",
+    "facet": "textFragment.comment.block",
+    "code": "<!-- Hello world -->",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:20",
+            "removal": "0:0-0:20"
+          }
+        ],
+        "domain": "0:0-0:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/xml/textFragment.element",
+    "languageId": "xml",
+    "facet": "textFragment.element",
+    "code": "<name>Hello world</name>",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:17",
+            "removal": "0:6-0:17"
+          }
+        ],
+        "domain": "0:6-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/xml/textFragment.string.singleLine",
+    "languageId": "xml",
+    "facet": "textFragment.string.singleLine",
+    "code": "<name id=\"foo\"></name>",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:10-0:13",
+            "removal": "0:10-0:13"
+          }
+        ],
+        "domain": "0:10-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/xml/value.attribute",
+    "languageId": "xml",
+    "facet": "value.attribute",
+    "code": "<name id=\"foo\"></name>",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:14",
+            "removal": "0:8-0:14"
+          }
+        ],
+        "domain": "0:6-0:14"
+      }
+    ]
+  }
 ]

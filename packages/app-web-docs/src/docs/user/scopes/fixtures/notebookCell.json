@@ -1,36 +1,36 @@
 [
-	{
-		"name": "scopes/markdown/notebookCell",
-		"languageId": "markdown",
-		"facet": "notebookCell",
-		"code": "```ts\nlet foo;\n```\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:3",
-						"removal": "0:0-3:0"
-					}
-				],
-				"domain": "0:0-2:3"
-			}
-		]
-	},
-	{
-		"name": "scopes/markdown/notebookCell2",
-		"languageId": "markdown",
-		"facet": "notebookCell",
-		"code": "```\nHello world\n```\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:3",
-						"removal": "0:0-3:0"
-					}
-				],
-				"domain": "0:0-2:3"
-			}
-		]
-	}
+  {
+    "name": "scopes/markdown/notebookCell",
+    "languageId": "markdown",
+    "facet": "notebookCell",
+    "code": "```ts\nlet foo;\n```\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:3",
+            "removal": "0:0-3:0"
+          }
+        ],
+        "domain": "0:0-2:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/markdown/notebookCell2",
+    "languageId": "markdown",
+    "facet": "notebookCell",
+    "code": "```\nHello world\n```\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:3",
+            "removal": "0:0-3:0"
+          }
+        ],
+        "domain": "0:0-2:3"
+      }
+    ]
+  }
 ]

@@ -1,91 +1,91 @@
 [
-	{
-		"path": "docs/actions/cutToClipboard.yml",
-		"name": "docs/actions/cutToClipboard",
-		"fixture": {
-			"languageId": "typescript",
-			"command": {
-				"version": 7,
-				"spokenForm": "carve line",
-				"action": {
-					"name": "cutToClipboard",
-					"target": {
-						"type": "primitive",
-						"modifiers": [
-							{
-								"type": "containingScope",
-								"scopeType": {
-									"type": "line"
-								}
-							}
-						]
-					}
-				},
-				"usePrePhraseSnapshot": false
-			},
-			"initialState": {
-				"documentContents": "Hello there",
-				"selections": [
-					{
-						"anchor": {
-							"line": 0,
-							"character": 0
-						},
-						"active": {
-							"line": 0,
-							"character": 0
-						}
-					}
-				],
-				"marks": {},
-				"hatTokenMap": [
-					{
-						"hatStyle": "default",
-						"grapheme": "e",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 1
-							},
-							"end": {
-								"line": 0,
-								"character": 2
-							}
-						}
-					},
-					{
-						"hatStyle": "default",
-						"grapheme": "r",
-						"hatRange": {
-							"start": {
-								"line": 0,
-								"character": 9
-							},
-							"end": {
-								"line": 0,
-								"character": 10
-							}
-						}
-					}
-				]
-			},
-			"finalState": {
-				"documentContents": "",
-				"selections": [
-					{
-						"anchor": {
-							"line": 0,
-							"character": 0
-						},
-						"active": {
-							"line": 0,
-							"character": 0
-						}
-					}
-				],
-				"hatTokenMap": [],
-				"clipboard": "Hello there"
-			}
-		}
-	}
+  {
+    "path": "docs/actions/cutToClipboard.yml",
+    "name": "docs/actions/cutToClipboard",
+    "fixture": {
+      "languageId": "typescript",
+      "command": {
+        "version": 7,
+        "spokenForm": "carve line",
+        "action": {
+          "name": "cutToClipboard",
+          "target": {
+            "type": "primitive",
+            "modifiers": [
+              {
+                "type": "containingScope",
+                "scopeType": {
+                  "type": "line"
+                }
+              }
+            ]
+          }
+        },
+        "usePrePhraseSnapshot": false
+      },
+      "initialState": {
+        "documentContents": "Hello there",
+        "selections": [
+          {
+            "anchor": {
+              "line": 0,
+              "character": 0
+            },
+            "active": {
+              "line": 0,
+              "character": 0
+            }
+          }
+        ],
+        "marks": {},
+        "hatTokenMap": [
+          {
+            "hatStyle": "default",
+            "grapheme": "e",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 1
+              },
+              "end": {
+                "line": 0,
+                "character": 2
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "r",
+            "hatRange": {
+              "start": {
+                "line": 0,
+                "character": 9
+              },
+              "end": {
+                "line": 0,
+                "character": 10
+              }
+            }
+          }
+        ]
+      },
+      "finalState": {
+        "documentContents": "",
+        "selections": [
+          {
+            "anchor": {
+              "line": 0,
+              "character": 0
+            },
+            "active": {
+              "line": 0,
+              "character": 0
+            }
+          }
+        ],
+        "hatTokenMap": [],
+        "clipboard": "Hello there"
+      }
+    }
+  }
 ]

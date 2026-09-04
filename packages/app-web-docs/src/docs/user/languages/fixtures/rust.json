@@ -1,4523 +1,4523 @@
 [
-	{
-		"name": "scopes/rust/anonymousFunction",
-		"languageId": "rust",
-		"facet": "anonymousFunction",
-		"code": "|| {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:5",
-						"removal": "0:0-0:5"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/anonymousFunction2",
-		"languageId": "rust",
-		"facet": "anonymousFunction",
-		"code": "|x| x * x;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argument/argument.actual.enum.iteration",
-		"languageId": "rust",
-		"facet": "argument.actual.enum.iteration",
-		"code": "enum Foo {\n    Bar(aaa, bbb)\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:8-1:16"
-					}
-				],
-				"domain": "1:4-1:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argument/argument.actual.enum.multiLine",
-		"languageId": "rust",
-		"facet": "argument.actual.enum.multiLine",
-		"code": "enum Foo {\n    Bar(\n        aaa,\n        bbb\n    )\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "2:8-2:11",
-						"removal": "2:8-3:8"
-					}
-				],
-				"domain": "2:8-2:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "3:8-3:11",
-						"removal": "2:11-3:11"
-					}
-				],
-				"domain": "3:8-3:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argument/argument.actual.enum.singleLine",
-		"languageId": "rust",
-		"facet": "argument.actual.enum.singleLine",
-		"code": "enum Foo {\n    Bar(aaa, bbb)\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:8-1:11",
-						"removal": "1:8-1:13"
-					}
-				],
-				"domain": "1:8-1:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:13-1:16",
-						"removal": "1:11-1:16"
-					}
-				],
-				"domain": "1:13-1:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argument/argument.actual.iteration",
-		"languageId": "rust",
-		"facet": "argument.actual.iteration",
-		"code": "foo(aaa, bbb);",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:12"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argument/argument.actual.method.iteration",
-		"languageId": "rust",
-		"facet": "argument.actual.method.iteration",
-		"code": "foo.bar(aaa, bbb);",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:8-0:16"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argument/argument.actual.method.multiLine",
-		"languageId": "rust",
-		"facet": "argument.actual.method.multiLine",
-		"code": "foo.bar(\n    aaa,\n    bbb\n);",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:4-2:4"
-					}
-				],
-				"domain": "1:4-1:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:7",
-						"removal": "1:7-2:7"
-					}
-				],
-				"domain": "2:4-2:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argument/argument.actual.method.singleLine",
-		"languageId": "rust",
-		"facet": "argument.actual.method.singleLine",
-		"code": "foo.bar(aaa, bbb);",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:8-0:11",
-						"removal": "0:8-0:13"
-					}
-				],
-				"domain": "0:8-0:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:13-0:16",
-						"removal": "0:11-0:16"
-					}
-				],
-				"domain": "0:13-0:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argument/argument.actual.multiLine",
-		"languageId": "rust",
-		"facet": "argument.actual.multiLine",
-		"code": "foo(\n    aaa,\n    bbb\n);",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:4-2:4"
-					}
-				],
-				"domain": "1:4-1:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:7",
-						"removal": "1:7-2:7"
-					}
-				],
-				"domain": "2:4-2:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argument/argument.actual.singleLine",
-		"languageId": "rust",
-		"facet": "argument.actual.singleLine",
-		"code": "foo(aaa, bbb);",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:7",
-						"removal": "0:4-0:9"
-					}
-				],
-				"domain": "0:4-0:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-0:12",
-						"removal": "0:7-0:12"
-					}
-				],
-				"domain": "0:9-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argument/argument.formal.iteration",
-		"languageId": "rust",
-		"facet": "argument.formal.iteration",
-		"code": "fn foo(aaa: i32, bbb: i32) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:7-0:25"
-					}
-				],
-				"domain": "0:0-0:29"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argument/argument.formal.lambda.iteration",
-		"languageId": "rust",
-		"facet": "argument.formal.lambda.iteration",
-		"code": "|aaa, bbb| {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:9"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argument/argument.formal.lambda.iteration2",
-		"languageId": "rust",
-		"facet": "argument.formal.lambda.iteration",
-		"code": "|aaa: i32, bbb: i32| {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:19"
-					}
-				],
-				"domain": "0:0-0:23"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argument/argument.formal.lambda.multiLine",
-		"languageId": "rust",
-		"facet": "argument.formal.lambda.multiLine",
-		"code": "|\n    aaa,\n    bbb\n| {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:4-2:4"
-					}
-				],
-				"domain": "1:4-1:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:7",
-						"removal": "1:7-2:7"
-					}
-				],
-				"domain": "2:4-2:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argument/argument.formal.lambda.multiLine2",
-		"languageId": "rust",
-		"facet": "argument.formal.lambda.multiLine",
-		"code": "|\n    aaa: i32,\n    bbb: i32\n| {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:12",
-						"removal": "1:4-2:4"
-					}
-				],
-				"domain": "1:4-1:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:12",
-						"removal": "1:12-2:12"
-					}
-				],
-				"domain": "2:4-2:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argument/argument.formal.lambda.singleLine",
-		"languageId": "rust",
-		"facet": "argument.formal.lambda.singleLine",
-		"code": "|aaa, bbb| {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:4",
-						"removal": "0:1-0:6"
-					}
-				],
-				"domain": "0:1-0:4"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:6-0:9",
-						"removal": "0:4-0:9"
-					}
-				],
-				"domain": "0:6-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argument/argument.formal.lambda.singleLine2",
-		"languageId": "rust",
-		"facet": "argument.formal.lambda.singleLine",
-		"code": "|aaa: i32, bbb: i32| {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:9",
-						"removal": "0:1-0:11"
-					}
-				],
-				"domain": "0:1-0:9"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:11-0:19",
-						"removal": "0:9-0:19"
-					}
-				],
-				"domain": "0:11-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argument/argument.formal.method.iteration",
-		"languageId": "rust",
-		"facet": "argument.formal.method.iteration",
-		"code": "impl Foo {\n    fn bar(&self, aaa: i32, bbb: i32) {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:11-1:36"
-					}
-				],
-				"domain": "1:4-1:40"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argument/argument.formal.method.multiLine",
-		"languageId": "rust",
-		"facet": "argument.formal.method.multiLine",
-		"code": "impl Foo {\n    fn bar(\n        &self,\n        aaa: i32,\n        bbb: i32\n    ) {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "2:8-2:13",
-						"removal": "2:8-3:8"
-					}
-				],
-				"domain": "2:8-2:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "3:8-3:16",
-						"removal": "3:8-4:8"
-					}
-				],
-				"domain": "3:8-3:16"
-			},
-			{
-				"targets": [
-					{
-						"content": "4:8-4:16",
-						"removal": "3:16-4:16"
-					}
-				],
-				"domain": "4:8-4:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argument/argument.formal.method.singleLine",
-		"languageId": "rust",
-		"facet": "argument.formal.method.singleLine",
-		"code": "impl Foo {\n    fn bar(&self, aaa: i32, bbb: i32) {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:11-1:16",
-						"removal": "1:11-1:18"
-					}
-				],
-				"domain": "1:11-1:16"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:18-1:26",
-						"removal": "1:18-1:28"
-					}
-				],
-				"domain": "1:18-1:26"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:28-1:36",
-						"removal": "1:26-1:36"
-					}
-				],
-				"domain": "1:28-1:36"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argument/argument.formal.multiLine",
-		"languageId": "rust",
-		"facet": "argument.formal.multiLine",
-		"code": "fn foo(\n    aaa: i32,\n    bbb: i32\n) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:12",
-						"removal": "1:4-2:4"
-					}
-				],
-				"domain": "1:4-1:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:12",
-						"removal": "1:12-2:12"
-					}
-				],
-				"domain": "2:4-2:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argument/argument.formal.singleLine",
-		"languageId": "rust",
-		"facet": "argument.formal.singleLine",
-		"code": "fn foo(aaa: i32, bbb: i32) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:7-0:15",
-						"removal": "0:7-0:17"
-					}
-				],
-				"domain": "0:7-0:15"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:17-0:25",
-						"removal": "0:15-0:25"
-					}
-				],
-				"domain": "0:17-0:25"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argumentList/argumentList.actual.empty",
-		"languageId": "rust",
-		"facet": "argumentList.actual.empty",
-		"code": "foo();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:4",
-						"removal": "0:4-0:4"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argumentList/argumentList.actual.enum.empty",
-		"languageId": "rust",
-		"facet": "argumentList.actual.enum.empty",
-		"code": "enum Foo {\n    Bar()\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:8-1:8",
-						"removal": "1:8-1:8"
-					}
-				],
-				"domain": "1:4-1:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argumentList/argumentList.actual.enum.multiLine",
-		"languageId": "rust",
-		"facet": "argumentList.actual.enum.multiLine",
-		"code": "enum Foo {\n    Bar(\n        aaa,\n        bbb\n    )\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:8-4:4",
-						"removal": "1:8-4:4"
-					}
-				],
-				"domain": "1:4-4:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argumentList/argumentList.actual.enum.singleLine",
-		"languageId": "rust",
-		"facet": "argumentList.actual.enum.singleLine",
-		"code": "enum Foo {\n    Bar(aaa, bbb)\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:8-1:16",
-						"removal": "1:8-1:16"
-					}
-				],
-				"domain": "1:4-1:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argumentList/argumentList.actual.method.empty",
-		"languageId": "rust",
-		"facet": "argumentList.actual.method.empty",
-		"code": "foo.bar();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:8-0:8",
-						"removal": "0:8-0:8"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argumentList/argumentList.actual.method.multiLine",
-		"languageId": "rust",
-		"facet": "argumentList.actual.method.multiLine",
-		"code": "foo.bar(\n    aaa,\n    bbb\n);",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-2:7",
-						"removal": "0:8-3:0"
-					}
-				],
-				"domain": "0:0-3:1"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argumentList/argumentList.actual.method.singleLine",
-		"languageId": "rust",
-		"facet": "argumentList.actual.method.singleLine",
-		"code": "foo.bar(aaa, bbb);",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:8-0:16",
-						"removal": "0:8-0:16"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argumentList/argumentList.actual.multiLine",
-		"languageId": "rust",
-		"facet": "argumentList.actual.multiLine",
-		"code": "foo(\n    aaa,\n    bbb\n);",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-2:7",
-						"removal": "0:4-3:0"
-					}
-				],
-				"domain": "0:0-3:1"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argumentList/argumentList.actual.singleLine",
-		"languageId": "rust",
-		"facet": "argumentList.actual.singleLine",
-		"code": "foo(aaa, bbb);",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:12",
-						"removal": "0:4-0:12"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argumentList/argumentList.formal.empty",
-		"languageId": "rust",
-		"facet": "argumentList.formal.empty",
-		"code": "fn foo() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:7-0:7",
-						"removal": "0:7-0:7"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argumentList/argumentList.formal.lambda.empty",
-		"languageId": "rust",
-		"facet": "argumentList.formal.lambda.empty",
-		"code": "|| {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:1",
-						"removal": "0:1-0:1"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argumentList/argumentList.formal.lambda.multiLine",
-		"languageId": "rust",
-		"facet": "argumentList.formal.lambda.multiLine",
-		"code": "|\n    aaa: i32,\n    bbb: i32,\n|{}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-2:13",
-						"removal": "0:1-3:0"
-					}
-				],
-				"domain": "0:0-3:3"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argumentList/argumentList.formal.lambda.singleLine",
-		"languageId": "rust",
-		"facet": "argumentList.formal.lambda.singleLine",
-		"code": "|aaa: i32, bbb: i32| {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:19",
-						"removal": "0:1-0:19"
-					}
-				],
-				"domain": "0:0-0:23"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argumentList/argumentList.formal.method.empty",
-		"languageId": "rust",
-		"facet": "argumentList.formal.method.empty",
-		"code": "impl Foo {\n    fn bar() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:11-1:11",
-						"removal": "1:11-1:11"
-					}
-				],
-				"domain": "1:4-1:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argumentList/argumentList.formal.method.multiLine",
-		"languageId": "rust",
-		"facet": "argumentList.formal.method.multiLine",
-		"code": "impl Foo {\n    fn bar(\n        &self,\n        aaa: i32,\n        bbb: i32\n    ) {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "2:8-4:16",
-						"removal": "1:11-5:4"
-					}
-				],
-				"domain": "1:4-5:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argumentList/argumentList.formal.method.singleLine",
-		"languageId": "rust",
-		"facet": "argumentList.formal.method.singleLine",
-		"code": "impl Foo {\n    fn bar(&self, aaa: i32, bbb: i32) {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:11-1:36",
-						"removal": "1:11-1:36"
-					}
-				],
-				"domain": "1:4-1:40"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argumentList/argumentList.formal.multiLine",
-		"languageId": "rust",
-		"facet": "argumentList.formal.multiLine",
-		"code": "fn foo(\n    aaa: i32,\n    bbb: i32,\n) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-2:13",
-						"removal": "0:7-3:0"
-					}
-				],
-				"domain": "0:0-3:4"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/argumentList/argumentList.formal.singleLine",
-		"languageId": "rust",
-		"facet": "argumentList.formal.singleLine",
-		"code": "fn foo(aaa: i32, bbb: i32) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:7-0:25",
-						"removal": "0:7-0:25"
-					}
-				],
-				"domain": "0:0-0:29"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/branch/branch.if.elif.else",
-		"languageId": "rust",
-		"facet": "branch.if.elif.else",
-		"code": "if true {}\nelse if false {}\nelse {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:10",
-						"removal": "0:0-1:5"
-					}
-				],
-				"domain": "0:0-0:10"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:0-1:16",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:0-1:16"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:0-2:7",
-						"removal": "1:16-2:7"
-					}
-				],
-				"domain": "2:0-2:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/branch/branch.if.else",
-		"languageId": "rust",
-		"facet": "branch.if.else",
-		"code": "if true {}\nelse {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:10",
-						"removal": "0:0-0:10"
-					}
-				],
-				"domain": "0:0-0:10"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:0-1:7",
-						"removal": "0:10-1:7"
-					}
-				],
-				"domain": "1:0-1:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/branch/branch.if.iteration",
-		"languageId": "rust",
-		"facet": "branch.if.iteration",
-		"code": "if true {}\nelse if false {}\nelse {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:7"
-					}
-				],
-				"domain": "0:0-2:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/branch/branch.if",
-		"languageId": "rust",
-		"facet": "branch.if",
-		"code": "if true {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:10",
-						"removal": "0:0-0:10"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/branch/branch.switchCase.iteration",
-		"languageId": "rust",
-		"facet": "branch.switchCase.iteration",
-		"code": "match foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:11-0:12"
-					}
-				],
-				"domain": "0:11-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/branch/branch.switchCase",
-		"languageId": "rust",
-		"facet": "branch.switchCase",
-		"code": "match foo {\n    0 => \"0\",\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:13",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/branch/branch.switchCase2",
-		"languageId": "rust",
-		"facet": "branch.switchCase",
-		"code": "match foo {\n    _ => \"_\",\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:13",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/class.iteration.document",
-		"languageId": "rust",
-		"facet": "class.iteration.document",
-		"code": "\nstruct Foo {}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/class",
-		"languageId": "rust",
-		"facet": "class",
-		"code": "impl Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:11",
-						"removal": "0:0-0:11"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/comment.block",
-		"languageId": "rust",
-		"facet": "comment.block",
-		"code": "/* Hello world */",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:17",
-						"removal": "0:0-0:17"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/comment.line",
-		"languageId": "rust",
-		"facet": "comment.line",
-		"code": "// Hello world",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:14",
-						"removal": "0:0-0:14"
-					}
-				],
-				"domain": "0:0-0:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/condition.if",
-		"languageId": "rust",
-		"facet": "condition.if",
-		"code": "if true {}\nelse if false {}\nelse {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:3-0:7",
-						"removal": "0:3-0:8"
-					}
-				],
-				"domain": "0:0-2:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:8-1:13",
-						"removal": "1:8-1:14"
-					}
-				],
-				"domain": "1:0-1:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/condition.switchCase.iteration",
-		"languageId": "rust",
-		"facet": "condition.switchCase.iteration",
-		"code": "match foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:11-0:12"
-					}
-				],
-				"domain": "0:11-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/condition.switchCase",
-		"languageId": "rust",
-		"facet": "condition.switchCase",
-		"code": "match foo {\n    0 => 0\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:5",
-						"removal": "1:4-1:6"
-					}
-				],
-				"domain": "1:4-1:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/condition.switchCase2",
-		"languageId": "rust",
-		"facet": "condition.switchCase",
-		"code": "match foo {\n    _ => 0\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:5",
-						"removal": "1:4-1:6"
-					}
-				],
-				"domain": "1:4-1:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/condition.while",
-		"languageId": "rust",
-		"facet": "condition.while",
-		"code": "while true {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:10",
-						"removal": "0:6-0:11"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/disqualifyDelimiter",
-		"languageId": "rust",
-		"facet": "disqualifyDelimiter",
-		"code": "1 < 2;\n1 > 2;\n1 <= 2;\n1 >= 2;\na << 2;\na >> 2;\na <<= 2;\na >>= 2;\nfn foo() -> i32 {}\nmatch number {\n    0 => \"fail\"\n}\nmacro_rules! my_expr {\n    ($x:expr) => {};\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-0:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-1:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "2:2-2:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "3:2-3:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "4:2-4:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "5:2-5:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "6:2-6:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "7:2-7:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "8:9-8:11"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "10:6-10:8"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "13:14-13:16"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/functionCall.chain",
-		"languageId": "rust",
-		"facet": "functionCall.chain",
-		"code": "foo().bar();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:5",
-						"removal": "0:0-0:5"
-					}
-				],
-				"domain": "0:0-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:0-0:11",
-						"removal": "0:0-0:11"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/functionCall.enum",
-		"languageId": "rust",
-		"facet": "functionCall.enum",
-		"code": "enum Foo {\n    Bar()\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:9",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/functionCall.generic",
-		"languageId": "rust",
-		"facet": "functionCall.generic",
-		"code": "foo::<Bar>();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12",
-						"removal": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/functionCall.method",
-		"languageId": "rust",
-		"facet": "functionCall.method",
-		"code": "foo.bar();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/functionCall",
-		"languageId": "rust",
-		"facet": "functionCall",
-		"code": "foo();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:5",
-						"removal": "0:0-0:5"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/functionCallee.chain",
-		"languageId": "rust",
-		"facet": "functionCallee.chain",
-		"code": "foo().bar();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/functionCallee.enum",
-		"languageId": "rust",
-		"facet": "functionCallee.enum",
-		"code": "enum Foo {\n    Bar()\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:4-1:7"
-					}
-				],
-				"domain": "1:4-1:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/functionCallee.generic",
-		"languageId": "rust",
-		"facet": "functionCallee.generic",
-		"code": "foo::<Bar>();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:10",
-						"removal": "0:0-0:10"
-					}
-				],
-				"domain": "0:0-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/functionCallee.method",
-		"languageId": "rust",
-		"facet": "functionCallee.method",
-		"code": "foo.bar();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/functionCallee",
-		"languageId": "rust",
-		"facet": "functionCallee",
-		"code": "foo();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/ifStatement",
-		"languageId": "rust",
-		"facet": "ifStatement",
-		"code": "if true {}\nelse if false {}\nelse {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:7",
-						"removal": "0:0-2:7"
-					}
-				],
-				"domain": "0:0-2:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/interior/interior.class",
-		"languageId": "rust",
-		"facet": "interior.class",
-		"code": "impl Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:10-0:11",
-						"removal": "0:10-0:11"
-					}
-				],
-				"domain": "0:10-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/interior/interior.class2",
-		"languageId": "rust",
-		"facet": "interior.class",
-		"code": "struct Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:12-0:13",
-						"removal": "0:12-0:13"
-					}
-				],
-				"domain": "0:12-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/interior/interior.class3",
-		"languageId": "rust",
-		"facet": "interior.class",
-		"code": "trait Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:11-0:12",
-						"removal": "0:11-0:12"
-					}
-				],
-				"domain": "0:11-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/interior/interior.enum",
-		"languageId": "rust",
-		"facet": "interior.enum",
-		"code": "enum Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:10-0:11",
-						"removal": "0:10-0:11"
-					}
-				],
-				"domain": "0:10-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/interior/interior.foreach",
-		"languageId": "rust",
-		"facet": "interior.foreach",
-		"code": "for v in values { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:17-0:18",
-						"removal": "0:17-0:18"
-					}
-				],
-				"domain": "0:17-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/interior/interior.function",
-		"languageId": "rust",
-		"facet": "interior.function",
-		"code": "fn foo() { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:10-0:11",
-						"removal": "0:10-0:11"
-					}
-				],
-				"domain": "0:10-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/interior/interior.if",
-		"languageId": "rust",
-		"facet": "interior.if",
-		"code": "if true { }\nelse if false { }\nelse { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:10",
-						"removal": "0:9-0:10"
-					}
-				],
-				"domain": "0:9-0:10"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:15-1:16",
-						"removal": "1:15-1:16"
-					}
-				],
-				"domain": "1:15-1:16"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:6-2:7",
-						"removal": "2:6-2:7"
-					}
-				],
-				"domain": "2:6-2:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/interior/interior.lambda",
-		"languageId": "rust",
-		"facet": "interior.lambda",
-		"code": "|| { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:5",
-						"removal": "0:4-0:5"
-					}
-				],
-				"domain": "0:4-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/interior/interior.method",
-		"languageId": "rust",
-		"facet": "interior.method",
-		"code": "impl Foo {\n    fn bar() { }\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:16",
-						"removal": "0:10-2:0"
-					}
-				],
-				"domain": "0:10-2:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:14-1:15",
-						"removal": "1:14-1:15"
-					}
-				],
-				"domain": "1:14-1:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/interior/interior.namespace",
-		"languageId": "rust",
-		"facet": "interior.namespace",
-		"code": "mod foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:10",
-						"removal": "0:9-0:10"
-					}
-				],
-				"domain": "0:9-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/interior/interior.switch",
-		"languageId": "rust",
-		"facet": "interior.switch",
-		"code": "match foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:11-0:12",
-						"removal": "0:11-0:12"
-					}
-				],
-				"domain": "0:11-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/interior/interior.switchCase",
-		"languageId": "rust",
-		"facet": "interior.switchCase",
-		"code": "match foo {\n    0 => bar\n    _ => bar\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-2:12",
-						"removal": "0:11-3:0"
-					}
-				],
-				"domain": "0:11-3:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:9-1:12",
-						"removal": "1:8-1:12"
-					}
-				],
-				"domain": "1:8-1:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:9-2:12",
-						"removal": "2:8-2:12"
-					}
-				],
-				"domain": "2:8-2:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/interior/interior.switchCase2",
-		"languageId": "rust",
-		"facet": "interior.switchCase",
-		"code": "match foo {\n    0 => { }\n    _ => { }\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-2:12",
-						"removal": "0:11-3:0"
-					}
-				],
-				"domain": "0:11-3:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:10-1:11",
-						"removal": "1:10-1:11"
-					}
-				],
-				"domain": "1:10-1:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:10-2:11",
-						"removal": "2:10-2:11"
-					}
-				],
-				"domain": "2:10-2:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/interior/interior.while",
-		"languageId": "rust",
-		"facet": "interior.while",
-		"code": "while true { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:12-0:13",
-						"removal": "0:12-0:13"
-					}
-				],
-				"domain": "0:12-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/key.mapPair.iteration",
-		"languageId": "rust",
-		"facet": "key.mapPair.iteration",
-		"code": "let Foo {bar: BAR, baz: BAZ} = bongo;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:27"
-					}
-				],
-				"domain": "0:9-0:27"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/key.mapPair",
-		"languageId": "rust",
-		"facet": "key.mapPair",
-		"code": "let Foo {bar: BAR, baz: BAZ} = bongo;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:12",
-						"removal": "0:9-0:14"
-					}
-				],
-				"domain": "0:9-0:17"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:19-0:22",
-						"removal": "0:19-0:24"
-					}
-				],
-				"domain": "0:19-0:27"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/list",
-		"languageId": "rust",
-		"facet": "list",
-		"code": "[aaa, bbb]",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:10",
-						"removal": "0:0-0:10"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/list2",
-		"languageId": "rust",
-		"facet": "list",
-		"code": "(aaa, bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:10",
-						"removal": "0:0-0:10"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/map",
-		"languageId": "rust",
-		"facet": "map",
-		"code": "let Foo {bar: BAR, baz: BAZ} = bongo;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:8-0:28",
-						"removal": "0:8-0:29"
-					}
-				],
-				"domain": "0:8-0:28"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.argument.formal.iteration",
-		"languageId": "rust",
-		"facet": "name.argument.formal.iteration",
-		"code": "fn foo(aaa: i32, bbb: i32) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:29"
-					}
-				],
-				"domain": "0:0-0:29"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:7-0:25"
-					}
-				],
-				"domain": "0:7-0:25"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.argument.formal.lambda.iteration",
-		"languageId": "rust",
-		"facet": "name.argument.formal.lambda.iteration",
-		"code": "|aaa: i32, bbb: i32| {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:23"
-					}
-				],
-				"domain": "0:0-0:23"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:1-0:19"
-					}
-				],
-				"domain": "0:1-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.argument.formal.lambda",
-		"languageId": "rust",
-		"facet": "name.argument.formal.lambda",
-		"code": "|aaa: i32, bbb: i32| {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:4",
-						"removal": "0:1-0:4"
-					}
-				],
-				"domain": "0:1-0:9"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:11-0:14",
-						"removal": "0:10-0:14"
-					}
-				],
-				"domain": "0:11-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.argument.formal.method.iteration",
-		"languageId": "rust",
-		"facet": "name.argument.formal.method.iteration",
-		"code": "impl Foo {\n    fn bar(&self, aaa: i32, bbb: i32) {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:1"
-					}
-				],
-				"domain": "0:0-2:1"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:10-2:0"
-					}
-				],
-				"domain": "0:10-2:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:11-1:36"
-					}
-				],
-				"domain": "1:11-1:36"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.argument.formal.method",
-		"languageId": "rust",
-		"facet": "name.argument.formal.method",
-		"code": "impl Foo {\n    fn bar(&self, aaa: i32, bbb: i32) {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:5-0:8",
-						"removal": "0:5-0:9"
-					}
-				],
-				"domain": "0:0-2:1"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:7-1:10",
-						"removal": "1:7-1:10"
-					}
-				],
-				"domain": "1:4-1:40"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:18-1:21",
-						"removal": "1:17-1:21"
-					}
-				],
-				"domain": "1:18-1:26"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:28-1:31",
-						"removal": "1:27-1:31"
-					}
-				],
-				"domain": "1:28-1:36"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.argument.formal",
-		"languageId": "rust",
-		"facet": "name.argument.formal",
-		"code": "fn foo(aaa: i32, bbb: i32) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:3-0:6",
-						"removal": "0:3-0:6"
-					}
-				],
-				"domain": "0:0-0:29"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:7-0:10",
-						"removal": "0:7-0:10"
-					}
-				],
-				"domain": "0:7-0:15"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:17-0:20",
-						"removal": "0:16-0:20"
-					}
-				],
-				"domain": "0:17-0:25"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.assignment.compound",
-		"languageId": "rust",
-		"facet": "name.assignment.compound",
-		"code": "foo += 0;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.assignment.destructuring",
-		"languageId": "rust",
-		"facet": "name.assignment.destructuring",
-		"code": "(foo, bar) = baz;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:10",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.assignment",
-		"languageId": "rust",
-		"facet": "name.assignment",
-		"code": "foo = 0;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:6"
-					}
-				],
-				"domain": "0:0-0:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.class",
-		"languageId": "rust",
-		"facet": "name.class",
-		"code": "impl Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:5-0:8",
-						"removal": "0:5-0:9"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.class2",
-		"languageId": "rust",
-		"facet": "name.class",
-		"code": "impl Foo for Bar {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:5-0:8",
-						"removal": "0:5-0:9"
-					}
-				],
-				"domain": "0:0-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.constant",
-		"languageId": "rust",
-		"facet": "name.constant",
-		"code": "const foo: i32 = 0;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:9",
-						"removal": "0:0-0:17"
-					}
-				],
-				"domain": "0:0-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.enum",
-		"languageId": "rust",
-		"facet": "name.enum",
-		"code": "enum Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:5-0:8",
-						"removal": "0:5-0:9"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.field.class",
-		"languageId": "rust",
-		"facet": "name.field.class",
-		"code": "struct Foo {\n    bar: i32\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:7-0:10",
-						"removal": "0:7-0:11"
-					}
-				],
-				"domain": "0:0-2:1"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:4-1:12"
-					}
-				],
-				"domain": "1:4-1:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.field.enum",
-		"languageId": "rust",
-		"facet": "name.field.enum",
-		"code": "enum Foo {\n    Bar,\n    Baz()\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:5-0:8",
-						"removal": "0:5-0:9"
-					}
-				],
-				"domain": "0:0-3:1"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:0-1:7"
-					}
-				],
-				"domain": "1:4-1:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:4-2:7",
-						"removal": "2:4-2:7"
-					}
-				],
-				"domain": "2:4-2:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.foreach",
-		"languageId": "rust",
-		"facet": "name.foreach",
-		"code": "for v in values {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:5",
-						"removal": "0:4-0:6"
-					}
-				],
-				"domain": "0:0-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.function",
-		"languageId": "rust",
-		"facet": "name.function",
-		"code": "fn foo() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:3-0:6",
-						"removal": "0:3-0:6"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.iteration.block",
-		"languageId": "rust",
-		"facet": "name.iteration.block",
-		"code": "fn foo() { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:10-0:11"
-					}
-				],
-				"domain": "0:10-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.iteration.block2",
-		"languageId": "rust",
-		"facet": "name.iteration.block",
-		"code": "if true { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:11"
-					}
-				],
-				"domain": "0:0-0:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-0:10"
-					}
-				],
-				"domain": "0:9-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.iteration.block3",
-		"languageId": "rust",
-		"facet": "name.iteration.block",
-		"code": "while true { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:14"
-					}
-				],
-				"domain": "0:0-0:14"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:12-0:13"
-					}
-				],
-				"domain": "0:12-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.iteration.class",
-		"languageId": "rust",
-		"facet": "name.iteration.class",
-		"code": "impl Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:10-0:11"
-					}
-				],
-				"domain": "0:10-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.iteration.class2",
-		"languageId": "rust",
-		"facet": "name.iteration.class",
-		"code": "struct Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:14"
-					}
-				],
-				"domain": "0:0-0:14"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:12-0:13"
-					}
-				],
-				"domain": "0:12-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.iteration.class3",
-		"languageId": "rust",
-		"facet": "name.iteration.class",
-		"code": "trait Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:11-0:12"
-					}
-				],
-				"domain": "0:11-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.iteration.document",
-		"languageId": "rust",
-		"facet": "name.iteration.document",
-		"code": "\nimpl Foo {}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.iteration.enum",
-		"languageId": "rust",
-		"facet": "name.iteration.enum",
-		"code": "enum Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:10-0:11"
-					}
-				],
-				"domain": "0:10-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.method",
-		"languageId": "rust",
-		"facet": "name.method",
-		"code": "impl Foo {\n    fn bar() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:5-0:8",
-						"removal": "0:5-0:9"
-					}
-				],
-				"domain": "0:0-2:1"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:7-1:10",
-						"removal": "1:7-1:10"
-					}
-				],
-				"domain": "1:4-1:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.namespace",
-		"languageId": "rust",
-		"facet": "name.namespace",
-		"code": "mod foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:7",
-						"removal": "0:4-0:8"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.typeAlias",
-		"languageId": "rust",
-		"facet": "name.typeAlias",
-		"code": "type Foo = Bar;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:5-0:8",
-						"removal": "0:0-0:11"
-					}
-				],
-				"domain": "0:0-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.variable.destructuring",
-		"languageId": "rust",
-		"facet": "name.variable.destructuring",
-		"code": "let Foo {bar, baz} = bongo;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:18",
-						"removal": "0:0-0:21"
-					}
-				],
-				"domain": "0:0-0:27"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.variable.initialized",
-		"languageId": "rust",
-		"facet": "name.variable.initialized",
-		"code": "let foo = 0;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:7",
-						"removal": "0:0-0:10"
-					}
-				],
-				"domain": "0:0-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/name.variable.uninitialized",
-		"languageId": "rust",
-		"facet": "name.variable.uninitialized",
-		"code": "let foo: i32;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:7",
-						"removal": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/namedFunction.iteration.class",
-		"languageId": "rust",
-		"facet": "namedFunction.iteration.class",
-		"code": "impl Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:10-0:11"
-					}
-				],
-				"domain": "0:10-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/namedFunction.iteration.class",
-		"languageId": "rust",
-		"facet": "namedFunction.iteration.class",
-		"code": "impl Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:10-0:11"
-					}
-				],
-				"domain": "0:10-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/namedFunction.iteration.document",
-		"languageId": "rust",
-		"facet": "namedFunction.iteration.document",
-		"code": "\nfn foo() {}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/namedFunction.method",
-		"languageId": "rust",
-		"facet": "namedFunction.method",
-		"code": "impl Foo {\n    fn bar() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:15",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/namedFunction",
-		"languageId": "rust",
-		"facet": "namedFunction",
-		"code": "fn foo() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:11",
-						"removal": "0:0-0:11"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.assignment.compound",
-		"languageId": "rust",
-		"facet": "statement.assignment.compound",
-		"code": "foo += 0;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.assignment.destructuring",
-		"languageId": "rust",
-		"facet": "statement.assignment.destructuring",
-		"code": "(foo, bar) = baz;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:17",
-						"removal": "0:0-0:17"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.assignment",
-		"languageId": "rust",
-		"facet": "statement.assignment",
-		"code": "foo = 0;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:8",
-						"removal": "0:0-0:8"
-					}
-				],
-				"domain": "0:0-0:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.break",
-		"languageId": "rust",
-		"facet": "statement.break",
-		"code": "break;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:6",
-						"removal": "0:0-0:6"
-					}
-				],
-				"domain": "0:0-0:6"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.class",
-		"languageId": "rust",
-		"facet": "statement.class",
-		"code": "impl Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:11",
-						"removal": "0:0-0:11"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.class2",
-		"languageId": "rust",
-		"facet": "statement.class",
-		"code": "struct Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.class3",
-		"languageId": "rust",
-		"facet": "statement.class",
-		"code": "trait Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12",
-						"removal": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.constant",
-		"languageId": "rust",
-		"facet": "statement.constant",
-		"code": "const foo: i32 = 0;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:19",
-						"removal": "0:0-0:19"
-					}
-				],
-				"domain": "0:0-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.continue",
-		"languageId": "rust",
-		"facet": "statement.continue",
-		"code": "continue;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-0:9"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.enum",
-		"languageId": "rust",
-		"facet": "statement.enum",
-		"code": "enum Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:11",
-						"removal": "0:0-0:11"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.field.class",
-		"languageId": "rust",
-		"facet": "statement.field.class",
-		"code": "struct Foo {\n    bar: i32\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:1",
-						"removal": "0:0-2:1"
-					}
-				],
-				"domain": "0:0-2:1"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:12",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.foreach",
-		"languageId": "rust",
-		"facet": "statement.foreach",
-		"code": "for v in values {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:18",
-						"removal": "0:0-0:18"
-					}
-				],
-				"domain": "0:0-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.function",
-		"languageId": "rust",
-		"facet": "statement.function",
-		"code": "fn foo() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:11",
-						"removal": "0:0-0:11"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.functionCall",
-		"languageId": "rust",
-		"facet": "statement.functionCall",
-		"code": "foo();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:6",
-						"removal": "0:0-0:6"
-					}
-				],
-				"domain": "0:0-0:6"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.if",
-		"languageId": "rust",
-		"facet": "statement.if",
-		"code": "if true {}\nelse if false {}\nelse {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:7",
-						"removal": "0:0-2:7"
-					}
-				],
-				"domain": "0:0-2:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.import",
-		"languageId": "rust",
-		"facet": "statement.import",
-		"code": "use foo::bar;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.iteration.block",
-		"languageId": "rust",
-		"facet": "statement.iteration.block",
-		"code": "fn foo() { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:10-0:11"
-					}
-				],
-				"domain": "0:10-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.iteration.block2",
-		"languageId": "rust",
-		"facet": "statement.iteration.block",
-		"code": "if true { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:11"
-					}
-				],
-				"domain": "0:0-0:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-0:10"
-					}
-				],
-				"domain": "0:9-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.iteration.block3",
-		"languageId": "rust",
-		"facet": "statement.iteration.block",
-		"code": "while true { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:14"
-					}
-				],
-				"domain": "0:0-0:14"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:12-0:13"
-					}
-				],
-				"domain": "0:12-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.iteration.class",
-		"languageId": "rust",
-		"facet": "statement.iteration.class",
-		"code": "impl Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:10-0:11"
-					}
-				],
-				"domain": "0:10-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.iteration.class2",
-		"languageId": "rust",
-		"facet": "statement.iteration.class",
-		"code": "struct Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:14"
-					}
-				],
-				"domain": "0:0-0:14"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:12-0:13"
-					}
-				],
-				"domain": "0:12-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.iteration.class3",
-		"languageId": "rust",
-		"facet": "statement.iteration.class",
-		"code": "trait Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:11-0:12"
-					}
-				],
-				"domain": "0:11-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.iteration.document",
-		"languageId": "rust",
-		"facet": "statement.iteration.document",
-		"code": "\nlet foo = 0;\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.method",
-		"languageId": "rust",
-		"facet": "statement.method",
-		"code": "impl Foo {\n    fn bar() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:1",
-						"removal": "0:0-2:1"
-					}
-				],
-				"domain": "0:0-2:1"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:15",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.namespace",
-		"languageId": "rust",
-		"facet": "statement.namespace",
-		"code": "mod foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:10",
-						"removal": "0:0-0:10"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.package",
-		"languageId": "rust",
-		"facet": "statement.package",
-		"code": "package foo.bar",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:15",
-						"removal": "0:0-0:15"
-					}
-				],
-				"domain": "0:0-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.return",
-		"languageId": "rust",
-		"facet": "statement.return",
-		"code": "fn foo() {\n    return 0;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:1",
-						"removal": "0:0-2:1"
-					}
-				],
-				"domain": "0:0-2:1"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:13",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.switch",
-		"languageId": "rust",
-		"facet": "statement.switch",
-		"code": "match foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12",
-						"removal": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.typeAlias",
-		"languageId": "rust",
-		"facet": "statement.typeAlias",
-		"code": "type Foo = Bar;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:15",
-						"removal": "0:0-0:15"
-					}
-				],
-				"domain": "0:0-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.update",
-		"languageId": "rust",
-		"facet": "statement.update",
-		"code": "foo++;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:6",
-						"removal": "0:0-0:6"
-					}
-				],
-				"domain": "0:0-0:6"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.update2",
-		"languageId": "rust",
-		"facet": "statement.update",
-		"code": "--foo;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:6",
-						"removal": "0:0-0:6"
-					}
-				],
-				"domain": "0:0-0:6"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.variable.destructuring",
-		"languageId": "rust",
-		"facet": "statement.variable.destructuring",
-		"code": "let Foo {bar, baz} = bongo;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:27",
-						"removal": "0:0-0:27"
-					}
-				],
-				"domain": "0:0-0:27"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.variable.initialized",
-		"languageId": "rust",
-		"facet": "statement.variable.initialized",
-		"code": "let foo = 0;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12",
-						"removal": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.variable.uninitialized",
-		"languageId": "rust",
-		"facet": "statement.variable.uninitialized",
-		"code": "let foo: i32;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/statement/statement.while",
-		"languageId": "rust",
-		"facet": "statement.while",
-		"code": "while true {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/string.multiLine",
-		"languageId": "rust",
-		"facet": "string.multiLine",
-		"code": "\"Hello\nworld\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:6",
-						"removal": "0:0-1:6"
-					}
-				],
-				"domain": "0:0-1:6"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/string.singleLine",
-		"languageId": "rust",
-		"facet": "string.singleLine",
-		"code": "\"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/string.singleLine2",
-		"languageId": "rust",
-		"facet": "string.singleLine",
-		"code": "r#\"Hello world\"#",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:16",
-						"removal": "0:0-0:16"
-					}
-				],
-				"domain": "0:0-0:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/string.singleLine3",
-		"languageId": "rust",
-		"facet": "string.singleLine",
-		"code": "r##\"Hello world\"##",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:18",
-						"removal": "0:0-0:18"
-					}
-				],
-				"domain": "0:0-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/textFragment.comment.block",
-		"languageId": "rust",
-		"facet": "textFragment.comment.block",
-		"code": "/* Hello world */",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:17",
-						"removal": "0:0-0:17"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/textFragment.comment.line",
-		"languageId": "rust",
-		"facet": "textFragment.comment.line",
-		"code": "// Hello world ",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:15",
-						"removal": "0:0-0:15"
-					}
-				],
-				"domain": "0:0-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/textFragment.string.multiLine",
-		"languageId": "rust",
-		"facet": "textFragment.string.multiLine",
-		"code": "\"Hello \nworld\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-1:5",
-						"removal": "0:1-1:5"
-					}
-				],
-				"domain": "0:1-1:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/textFragment.string.singleLine",
-		"languageId": "rust",
-		"facet": "textFragment.string.singleLine",
-		"code": "\"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:12",
-						"removal": "0:1-0:12"
-					}
-				],
-				"domain": "0:1-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/textFragment.string.singleLine2",
-		"languageId": "rust",
-		"facet": "textFragment.string.singleLine",
-		"code": "r#\"Hello world\"#",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:3-0:14",
-						"removal": "0:3-0:14"
-					}
-				],
-				"domain": "0:3-0:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/textFragment.string.singleLine3",
-		"languageId": "rust",
-		"facet": "textFragment.string.singleLine",
-		"code": "r##\"Hello world\"##",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:15",
-						"removal": "0:4-0:15"
-					}
-				],
-				"domain": "0:4-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.alias",
-		"languageId": "rust",
-		"facet": "type.alias",
-		"code": "type Foo = Bar;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:15",
-						"removal": "0:0-0:15"
-					}
-				],
-				"domain": "0:0-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.argument.formal.iteration",
-		"languageId": "rust",
-		"facet": "type.argument.formal.iteration",
-		"code": "fn foo(aaa: i32, bbb: i32) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:29"
-					}
-				],
-				"domain": "0:0-0:29"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:7-0:25"
-					}
-				],
-				"domain": "0:7-0:25"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.argument.formal.lambda.iteration",
-		"languageId": "rust",
-		"facet": "type.argument.formal.lambda.iteration",
-		"code": "|aaa: i32, bbb: i32| {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:23"
-					}
-				],
-				"domain": "0:0-0:23"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:1-0:19"
-					}
-				],
-				"domain": "0:1-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.argument.formal.lambda",
-		"languageId": "rust",
-		"facet": "type.argument.formal.lambda",
-		"code": "|aaa: i32, bbb: i32| {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:9",
-						"removal": "0:4-0:9"
-					}
-				],
-				"domain": "0:1-0:9"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:16-0:19",
-						"removal": "0:14-0:19"
-					}
-				],
-				"domain": "0:11-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.argument.formal.method.iteration",
-		"languageId": "rust",
-		"facet": "type.argument.formal.method.iteration",
-		"code": "impl Foo {\n    fn bar(&self, aaa: i32, bbb: i32) {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:1"
-					}
-				],
-				"domain": "0:0-2:1"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:10-2:0"
-					}
-				],
-				"domain": "0:10-2:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:11-1:36"
-					}
-				],
-				"domain": "1:11-1:36"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.argument.formal.method",
-		"languageId": "rust",
-		"facet": "type.argument.formal.method",
-		"code": "impl Foo {\n    fn bar(&self, aaa: i32, bbb: i32) {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:1",
-						"removal": "0:0-2:1"
-					}
-				],
-				"domain": "0:0-2:1"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:23-1:26",
-						"removal": "1:21-1:26"
-					}
-				],
-				"domain": "1:18-1:26"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:33-1:36",
-						"removal": "1:31-1:36"
-					}
-				],
-				"domain": "1:28-1:36"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.argument.formal",
-		"languageId": "rust",
-		"facet": "type.argument.formal",
-		"code": "fn foo(aaa: i32, bbb: i32) {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:12-0:15",
-						"removal": "0:10-0:15"
-					}
-				],
-				"domain": "0:7-0:15"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:22-0:25",
-						"removal": "0:20-0:25"
-					}
-				],
-				"domain": "0:17-0:25"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.cast",
-		"languageId": "rust",
-		"facet": "type.cast",
-		"code": "foo as i32",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:7-0:10",
-						"removal": "0:3-0:10"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.class",
-		"languageId": "rust",
-		"facet": "type.class",
-		"code": "impl Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:11",
-						"removal": "0:0-0:11"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.class2",
-		"languageId": "rust",
-		"facet": "type.class",
-		"code": "struct Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.class3",
-		"languageId": "rust",
-		"facet": "type.class",
-		"code": "trait Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12",
-						"removal": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.class4",
-		"languageId": "rust",
-		"facet": "type.class",
-		"code": "impl Foo for Bar {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:19",
-						"removal": "0:0-0:19"
-					}
-				],
-				"domain": "0:0-0:19"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:13-0:16",
-						"removal": "0:13-0:17"
-					}
-				],
-				"domain": "0:13-0:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.constant",
-		"languageId": "rust",
-		"facet": "type.constant",
-		"code": "const foo: i32 = 0;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:11-0:14",
-						"removal": "0:9-0:14"
-					}
-				],
-				"domain": "0:0-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.enum",
-		"languageId": "rust",
-		"facet": "type.enum",
-		"code": "enum Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:11",
-						"removal": "0:0-0:11"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.field.class",
-		"languageId": "rust",
-		"facet": "type.field.class",
-		"code": "struct Foo {\n    bar: i32\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:1",
-						"removal": "0:0-2:1"
-					}
-				],
-				"domain": "0:0-2:1"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:9-1:12",
-						"removal": "1:7-1:12"
-					}
-				],
-				"domain": "1:4-1:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.iteration.block",
-		"languageId": "rust",
-		"facet": "type.iteration.block",
-		"code": "fn foo() { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:10-0:11"
-					}
-				],
-				"domain": "0:10-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.iteration.block2",
-		"languageId": "rust",
-		"facet": "type.iteration.block",
-		"code": "if true { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:11"
-					}
-				],
-				"domain": "0:0-0:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-0:10"
-					}
-				],
-				"domain": "0:9-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.iteration.block3",
-		"languageId": "rust",
-		"facet": "type.iteration.block",
-		"code": "while true { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:14"
-					}
-				],
-				"domain": "0:0-0:14"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:12-0:13"
-					}
-				],
-				"domain": "0:12-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.iteration.class",
-		"languageId": "rust",
-		"facet": "type.iteration.class",
-		"code": "impl Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:10-0:11"
-					}
-				],
-				"domain": "0:10-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.iteration.class2",
-		"languageId": "rust",
-		"facet": "type.iteration.class",
-		"code": "struct Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:14"
-					}
-				],
-				"domain": "0:0-0:14"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:12-0:13"
-					}
-				],
-				"domain": "0:12-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.iteration.class3",
-		"languageId": "rust",
-		"facet": "type.iteration.class",
-		"code": "trait Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:11-0:12"
-					}
-				],
-				"domain": "0:11-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.iteration.document",
-		"languageId": "rust",
-		"facet": "type.iteration.document",
-		"code": "\nlet foo: i32 = 0;\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.return.lambda",
-		"languageId": "rust",
-		"facet": "type.return.lambda",
-		"code": "|| -> i32 {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:9",
-						"removal": "0:2-0:9"
-					}
-				],
-				"domain": "0:0-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.return.method",
-		"languageId": "rust",
-		"facet": "type.return.method",
-		"code": "impl Foo {\n    fn foo() -> i32 {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:1",
-						"removal": "0:0-2:1"
-					}
-				],
-				"domain": "0:0-2:1"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:16-1:19",
-						"removal": "1:12-1:19"
-					}
-				],
-				"domain": "1:4-1:22"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.return",
-		"languageId": "rust",
-		"facet": "type.return",
-		"code": "fn foo() -> i32 {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:12-0:15",
-						"removal": "0:8-0:15"
-					}
-				],
-				"domain": "0:0-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.typeArgument.iteration",
-		"languageId": "rust",
-		"facet": "type.typeArgument.iteration",
-		"code": "let foo: Foo<i32, u64>;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:23"
-					}
-				],
-				"domain": "0:0-0:23"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:13-0:21"
-					}
-				],
-				"domain": "0:13-0:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.typeArgument",
-		"languageId": "rust",
-		"facet": "type.typeArgument",
-		"code": "let foo: Foo<i32, u64>;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:22",
-						"removal": "0:7-0:22"
-					}
-				],
-				"domain": "0:0-0:23"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:13-0:16",
-						"removal": "0:13-0:18"
-					}
-				],
-				"domain": "0:13-0:16"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:18-0:21",
-						"removal": "0:16-0:21"
-					}
-				],
-				"domain": "0:18-0:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.variable.initialized",
-		"languageId": "rust",
-		"facet": "type.variable.initialized",
-		"code": "let foo: i32 = 0;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:12",
-						"removal": "0:7-0:12"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/type/type.variable.uninitialized",
-		"languageId": "rust",
-		"facet": "type.variable.uninitialized",
-		"code": "let foo: i32;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:12",
-						"removal": "0:7-0:12"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/value/value.assignment.compound",
-		"languageId": "rust",
-		"facet": "value.assignment.compound",
-		"code": "foo += 0;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:7-0:8",
-						"removal": "0:3-0:8"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/value/value.assignment.destructuring",
-		"languageId": "rust",
-		"facet": "value.assignment.destructuring",
-		"code": "(foo, bar) = baz;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:13-0:16",
-						"removal": "0:10-0:16"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/value/value.assignment",
-		"languageId": "rust",
-		"facet": "value.assignment",
-		"code": "foo = 0;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:7",
-						"removal": "0:3-0:7"
-					}
-				],
-				"domain": "0:0-0:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/value/value.constant",
-		"languageId": "rust",
-		"facet": "value.constant",
-		"code": "const foo: i32 = 0;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:17-0:18",
-						"removal": "0:14-0:18"
-					}
-				],
-				"domain": "0:0-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/value/value.foreach",
-		"languageId": "rust",
-		"facet": "value.foreach",
-		"code": "for v in values {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:15",
-						"removal": "0:9-0:16"
-					}
-				],
-				"domain": "0:0-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/value/value.iteration.block",
-		"languageId": "rust",
-		"facet": "value.iteration.block",
-		"code": "fn foo() { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:10-0:11"
-					}
-				],
-				"domain": "0:10-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/value/value.iteration.block2",
-		"languageId": "rust",
-		"facet": "value.iteration.block",
-		"code": "if true { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:11"
-					}
-				],
-				"domain": "0:0-0:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-0:10"
-					}
-				],
-				"domain": "0:9-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/value/value.iteration.block3",
-		"languageId": "rust",
-		"facet": "value.iteration.block",
-		"code": "while true { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:14"
-					}
-				],
-				"domain": "0:0-0:14"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:12-0:13"
-					}
-				],
-				"domain": "0:12-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/value/value.iteration.class",
-		"languageId": "rust",
-		"facet": "value.iteration.class",
-		"code": "impl Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:10-0:11"
-					}
-				],
-				"domain": "0:10-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/value/value.iteration.class2",
-		"languageId": "rust",
-		"facet": "value.iteration.class",
-		"code": "struct Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:14"
-					}
-				],
-				"domain": "0:0-0:14"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:12-0:13"
-					}
-				],
-				"domain": "0:12-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/value/value.iteration.class3",
-		"languageId": "rust",
-		"facet": "value.iteration.class",
-		"code": "trait Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:11-0:12"
-					}
-				],
-				"domain": "0:11-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/value/value.iteration.document",
-		"languageId": "rust",
-		"facet": "value.iteration.document",
-		"code": "\nlet foo = 0;\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/value/value.mapPair.iteration",
-		"languageId": "rust",
-		"facet": "value.mapPair.iteration",
-		"code": "let Foo {bar: BAR, baz: BAZ} = bongo;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:37"
-					}
-				],
-				"domain": "0:0-0:37"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-0:27"
-					}
-				],
-				"domain": "0:9-0:27"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/value/value.mapPair",
-		"languageId": "rust",
-		"facet": "value.mapPair",
-		"code": "let Foo {bar: BAR, baz: BAZ} = bongo;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:31-0:36",
-						"removal": "0:28-0:36"
-					}
-				],
-				"domain": "0:0-0:37"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:14-0:17",
-						"removal": "0:12-0:17"
-					}
-				],
-				"domain": "0:9-0:17"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:24-0:27",
-						"removal": "0:22-0:27"
-					}
-				],
-				"domain": "0:19-0:27"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/value/value.return.lambda",
-		"languageId": "rust",
-		"facet": "value.return.lambda",
-		"code": "|x| 0;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:5",
-						"removal": "0:3-0:5"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/value/value.return",
-		"languageId": "rust",
-		"facet": "value.return",
-		"code": "fn foo() {\n    return 0;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:11-1:12",
-						"removal": "1:10-1:12"
-					}
-				],
-				"domain": "1:4-1:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/value/value.switch",
-		"languageId": "rust",
-		"facet": "value.switch",
-		"code": "match foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:9",
-						"removal": "0:6-0:10"
-					}
-				],
-				"domain": "0:0-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/value/value.typeAlias",
-		"languageId": "rust",
-		"facet": "value.typeAlias",
-		"code": "type Foo = Bar;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:11-0:14",
-						"removal": "0:8-0:14"
-					}
-				],
-				"domain": "0:0-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/value/value.variable.destructuring",
-		"languageId": "rust",
-		"facet": "value.variable.destructuring",
-		"code": "let Foo {bar, baz} = bongo;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:21-0:26",
-						"removal": "0:18-0:26"
-					}
-				],
-				"domain": "0:0-0:27"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/value/value.variable",
-		"languageId": "rust",
-		"facet": "value.variable",
-		"code": "let foo = 0;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:10-0:11",
-						"removal": "0:7-0:11"
-					}
-				],
-				"domain": "0:0-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/value/value.variable2",
-		"languageId": "rust",
-		"facet": "value.variable",
-		"code": "let foo: i32 = 0;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:15-0:16",
-						"removal": "0:12-0:16"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	}
+  {
+    "name": "scopes/rust/anonymousFunction",
+    "languageId": "rust",
+    "facet": "anonymousFunction",
+    "code": "|| {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:5",
+            "removal": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/anonymousFunction2",
+    "languageId": "rust",
+    "facet": "anonymousFunction",
+    "code": "|x| x * x;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argument/argument.actual.enum.iteration",
+    "languageId": "rust",
+    "facet": "argument.actual.enum.iteration",
+    "code": "enum Foo {\n    Bar(aaa, bbb)\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:8-1:16"
+          }
+        ],
+        "domain": "1:4-1:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argument/argument.actual.enum.multiLine",
+    "languageId": "rust",
+    "facet": "argument.actual.enum.multiLine",
+    "code": "enum Foo {\n    Bar(\n        aaa,\n        bbb\n    )\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "2:8-2:11",
+            "removal": "2:8-3:8"
+          }
+        ],
+        "domain": "2:8-2:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:8-3:11",
+            "removal": "2:11-3:11"
+          }
+        ],
+        "domain": "3:8-3:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argument/argument.actual.enum.singleLine",
+    "languageId": "rust",
+    "facet": "argument.actual.enum.singleLine",
+    "code": "enum Foo {\n    Bar(aaa, bbb)\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:8-1:11",
+            "removal": "1:8-1:13"
+          }
+        ],
+        "domain": "1:8-1:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:13-1:16",
+            "removal": "1:11-1:16"
+          }
+        ],
+        "domain": "1:13-1:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argument/argument.actual.iteration",
+    "languageId": "rust",
+    "facet": "argument.actual.iteration",
+    "code": "foo(aaa, bbb);",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:12"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argument/argument.actual.method.iteration",
+    "languageId": "rust",
+    "facet": "argument.actual.method.iteration",
+    "code": "foo.bar(aaa, bbb);",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-0:16"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argument/argument.actual.method.multiLine",
+    "languageId": "rust",
+    "facet": "argument.actual.method.multiLine",
+    "code": "foo.bar(\n    aaa,\n    bbb\n);",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-2:4"
+          }
+        ],
+        "domain": "1:4-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:7",
+            "removal": "1:7-2:7"
+          }
+        ],
+        "domain": "2:4-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argument/argument.actual.method.singleLine",
+    "languageId": "rust",
+    "facet": "argument.actual.method.singleLine",
+    "code": "foo.bar(aaa, bbb);",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-0:11",
+            "removal": "0:8-0:13"
+          }
+        ],
+        "domain": "0:8-0:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:13-0:16",
+            "removal": "0:11-0:16"
+          }
+        ],
+        "domain": "0:13-0:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argument/argument.actual.multiLine",
+    "languageId": "rust",
+    "facet": "argument.actual.multiLine",
+    "code": "foo(\n    aaa,\n    bbb\n);",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-2:4"
+          }
+        ],
+        "domain": "1:4-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:7",
+            "removal": "1:7-2:7"
+          }
+        ],
+        "domain": "2:4-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argument/argument.actual.singleLine",
+    "languageId": "rust",
+    "facet": "argument.actual.singleLine",
+    "code": "foo(aaa, bbb);",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:7",
+            "removal": "0:4-0:9"
+          }
+        ],
+        "domain": "0:4-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:12",
+            "removal": "0:7-0:12"
+          }
+        ],
+        "domain": "0:9-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argument/argument.formal.iteration",
+    "languageId": "rust",
+    "facet": "argument.formal.iteration",
+    "code": "fn foo(aaa: i32, bbb: i32) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:25"
+          }
+        ],
+        "domain": "0:0-0:29"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argument/argument.formal.lambda.iteration",
+    "languageId": "rust",
+    "facet": "argument.formal.lambda.iteration",
+    "code": "|aaa, bbb| {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:9"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argument/argument.formal.lambda.iteration2",
+    "languageId": "rust",
+    "facet": "argument.formal.lambda.iteration",
+    "code": "|aaa: i32, bbb: i32| {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:19"
+          }
+        ],
+        "domain": "0:0-0:23"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argument/argument.formal.lambda.multiLine",
+    "languageId": "rust",
+    "facet": "argument.formal.lambda.multiLine",
+    "code": "|\n    aaa,\n    bbb\n| {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-2:4"
+          }
+        ],
+        "domain": "1:4-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:7",
+            "removal": "1:7-2:7"
+          }
+        ],
+        "domain": "2:4-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argument/argument.formal.lambda.multiLine2",
+    "languageId": "rust",
+    "facet": "argument.formal.lambda.multiLine",
+    "code": "|\n    aaa: i32,\n    bbb: i32\n| {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:12",
+            "removal": "1:4-2:4"
+          }
+        ],
+        "domain": "1:4-1:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:12",
+            "removal": "1:12-2:12"
+          }
+        ],
+        "domain": "2:4-2:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argument/argument.formal.lambda.singleLine",
+    "languageId": "rust",
+    "facet": "argument.formal.lambda.singleLine",
+    "code": "|aaa, bbb| {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:4",
+            "removal": "0:1-0:6"
+          }
+        ],
+        "domain": "0:1-0:4"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:6-0:9",
+            "removal": "0:4-0:9"
+          }
+        ],
+        "domain": "0:6-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argument/argument.formal.lambda.singleLine2",
+    "languageId": "rust",
+    "facet": "argument.formal.lambda.singleLine",
+    "code": "|aaa: i32, bbb: i32| {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:9",
+            "removal": "0:1-0:11"
+          }
+        ],
+        "domain": "0:1-0:9"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-0:19",
+            "removal": "0:9-0:19"
+          }
+        ],
+        "domain": "0:11-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argument/argument.formal.method.iteration",
+    "languageId": "rust",
+    "facet": "argument.formal.method.iteration",
+    "code": "impl Foo {\n    fn bar(&self, aaa: i32, bbb: i32) {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:11-1:36"
+          }
+        ],
+        "domain": "1:4-1:40"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argument/argument.formal.method.multiLine",
+    "languageId": "rust",
+    "facet": "argument.formal.method.multiLine",
+    "code": "impl Foo {\n    fn bar(\n        &self,\n        aaa: i32,\n        bbb: i32\n    ) {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "2:8-2:13",
+            "removal": "2:8-3:8"
+          }
+        ],
+        "domain": "2:8-2:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:8-3:16",
+            "removal": "3:8-4:8"
+          }
+        ],
+        "domain": "3:8-3:16"
+      },
+      {
+        "targets": [
+          {
+            "content": "4:8-4:16",
+            "removal": "3:16-4:16"
+          }
+        ],
+        "domain": "4:8-4:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argument/argument.formal.method.singleLine",
+    "languageId": "rust",
+    "facet": "argument.formal.method.singleLine",
+    "code": "impl Foo {\n    fn bar(&self, aaa: i32, bbb: i32) {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:11-1:16",
+            "removal": "1:11-1:18"
+          }
+        ],
+        "domain": "1:11-1:16"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:18-1:26",
+            "removal": "1:18-1:28"
+          }
+        ],
+        "domain": "1:18-1:26"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:28-1:36",
+            "removal": "1:26-1:36"
+          }
+        ],
+        "domain": "1:28-1:36"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argument/argument.formal.multiLine",
+    "languageId": "rust",
+    "facet": "argument.formal.multiLine",
+    "code": "fn foo(\n    aaa: i32,\n    bbb: i32\n) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:12",
+            "removal": "1:4-2:4"
+          }
+        ],
+        "domain": "1:4-1:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:12",
+            "removal": "1:12-2:12"
+          }
+        ],
+        "domain": "2:4-2:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argument/argument.formal.singleLine",
+    "languageId": "rust",
+    "facet": "argument.formal.singleLine",
+    "code": "fn foo(aaa: i32, bbb: i32) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:15",
+            "removal": "0:7-0:17"
+          }
+        ],
+        "domain": "0:7-0:15"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:17-0:25",
+            "removal": "0:15-0:25"
+          }
+        ],
+        "domain": "0:17-0:25"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argumentList/argumentList.actual.empty",
+    "languageId": "rust",
+    "facet": "argumentList.actual.empty",
+    "code": "foo();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:4",
+            "removal": "0:4-0:4"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argumentList/argumentList.actual.enum.empty",
+    "languageId": "rust",
+    "facet": "argumentList.actual.enum.empty",
+    "code": "enum Foo {\n    Bar()\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:8-1:8",
+            "removal": "1:8-1:8"
+          }
+        ],
+        "domain": "1:4-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argumentList/argumentList.actual.enum.multiLine",
+    "languageId": "rust",
+    "facet": "argumentList.actual.enum.multiLine",
+    "code": "enum Foo {\n    Bar(\n        aaa,\n        bbb\n    )\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:8-4:4",
+            "removal": "1:8-4:4"
+          }
+        ],
+        "domain": "1:4-4:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argumentList/argumentList.actual.enum.singleLine",
+    "languageId": "rust",
+    "facet": "argumentList.actual.enum.singleLine",
+    "code": "enum Foo {\n    Bar(aaa, bbb)\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:8-1:16",
+            "removal": "1:8-1:16"
+          }
+        ],
+        "domain": "1:4-1:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argumentList/argumentList.actual.method.empty",
+    "languageId": "rust",
+    "facet": "argumentList.actual.method.empty",
+    "code": "foo.bar();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-0:8",
+            "removal": "0:8-0:8"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argumentList/argumentList.actual.method.multiLine",
+    "languageId": "rust",
+    "facet": "argumentList.actual.method.multiLine",
+    "code": "foo.bar(\n    aaa,\n    bbb\n);",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-2:7",
+            "removal": "0:8-3:0"
+          }
+        ],
+        "domain": "0:0-3:1"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argumentList/argumentList.actual.method.singleLine",
+    "languageId": "rust",
+    "facet": "argumentList.actual.method.singleLine",
+    "code": "foo.bar(aaa, bbb);",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-0:16",
+            "removal": "0:8-0:16"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argumentList/argumentList.actual.multiLine",
+    "languageId": "rust",
+    "facet": "argumentList.actual.multiLine",
+    "code": "foo(\n    aaa,\n    bbb\n);",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-2:7",
+            "removal": "0:4-3:0"
+          }
+        ],
+        "domain": "0:0-3:1"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argumentList/argumentList.actual.singleLine",
+    "languageId": "rust",
+    "facet": "argumentList.actual.singleLine",
+    "code": "foo(aaa, bbb);",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:12",
+            "removal": "0:4-0:12"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argumentList/argumentList.formal.empty",
+    "languageId": "rust",
+    "facet": "argumentList.formal.empty",
+    "code": "fn foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:7",
+            "removal": "0:7-0:7"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argumentList/argumentList.formal.lambda.empty",
+    "languageId": "rust",
+    "facet": "argumentList.formal.lambda.empty",
+    "code": "|| {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:1",
+            "removal": "0:1-0:1"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argumentList/argumentList.formal.lambda.multiLine",
+    "languageId": "rust",
+    "facet": "argumentList.formal.lambda.multiLine",
+    "code": "|\n    aaa: i32,\n    bbb: i32,\n|{}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-2:13",
+            "removal": "0:1-3:0"
+          }
+        ],
+        "domain": "0:0-3:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argumentList/argumentList.formal.lambda.singleLine",
+    "languageId": "rust",
+    "facet": "argumentList.formal.lambda.singleLine",
+    "code": "|aaa: i32, bbb: i32| {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:19",
+            "removal": "0:1-0:19"
+          }
+        ],
+        "domain": "0:0-0:23"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argumentList/argumentList.formal.method.empty",
+    "languageId": "rust",
+    "facet": "argumentList.formal.method.empty",
+    "code": "impl Foo {\n    fn bar() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:11-1:11",
+            "removal": "1:11-1:11"
+          }
+        ],
+        "domain": "1:4-1:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argumentList/argumentList.formal.method.multiLine",
+    "languageId": "rust",
+    "facet": "argumentList.formal.method.multiLine",
+    "code": "impl Foo {\n    fn bar(\n        &self,\n        aaa: i32,\n        bbb: i32\n    ) {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "2:8-4:16",
+            "removal": "1:11-5:4"
+          }
+        ],
+        "domain": "1:4-5:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argumentList/argumentList.formal.method.singleLine",
+    "languageId": "rust",
+    "facet": "argumentList.formal.method.singleLine",
+    "code": "impl Foo {\n    fn bar(&self, aaa: i32, bbb: i32) {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:11-1:36",
+            "removal": "1:11-1:36"
+          }
+        ],
+        "domain": "1:4-1:40"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argumentList/argumentList.formal.multiLine",
+    "languageId": "rust",
+    "facet": "argumentList.formal.multiLine",
+    "code": "fn foo(\n    aaa: i32,\n    bbb: i32,\n) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-2:13",
+            "removal": "0:7-3:0"
+          }
+        ],
+        "domain": "0:0-3:4"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/argumentList/argumentList.formal.singleLine",
+    "languageId": "rust",
+    "facet": "argumentList.formal.singleLine",
+    "code": "fn foo(aaa: i32, bbb: i32) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:25",
+            "removal": "0:7-0:25"
+          }
+        ],
+        "domain": "0:0-0:29"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/branch/branch.if.elif.else",
+    "languageId": "rust",
+    "facet": "branch.if.elif.else",
+    "code": "if true {}\nelse if false {}\nelse {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-1:5"
+          }
+        ],
+        "domain": "0:0-0:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:0-1:16",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:0-1:16"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:0-2:7",
+            "removal": "1:16-2:7"
+          }
+        ],
+        "domain": "2:0-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/branch/branch.if.else",
+    "languageId": "rust",
+    "facet": "branch.if.else",
+    "code": "if true {}\nelse {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:0-1:7",
+            "removal": "0:10-1:7"
+          }
+        ],
+        "domain": "1:0-1:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/branch/branch.if.iteration",
+    "languageId": "rust",
+    "facet": "branch.if.iteration",
+    "code": "if true {}\nelse if false {}\nelse {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:7"
+          }
+        ],
+        "domain": "0:0-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/branch/branch.if",
+    "languageId": "rust",
+    "facet": "branch.if",
+    "code": "if true {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/branch/branch.switchCase.iteration",
+    "languageId": "rust",
+    "facet": "branch.switchCase.iteration",
+    "code": "match foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/branch/branch.switchCase",
+    "languageId": "rust",
+    "facet": "branch.switchCase",
+    "code": "match foo {\n    0 => \"0\",\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:13",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/branch/branch.switchCase2",
+    "languageId": "rust",
+    "facet": "branch.switchCase",
+    "code": "match foo {\n    _ => \"_\",\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:13",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/class.iteration.document",
+    "languageId": "rust",
+    "facet": "class.iteration.document",
+    "code": "\nstruct Foo {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/class",
+    "languageId": "rust",
+    "facet": "class",
+    "code": "impl Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/comment.block",
+    "languageId": "rust",
+    "facet": "comment.block",
+    "code": "/* Hello world */",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:17",
+            "removal": "0:0-0:17"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/comment.line",
+    "languageId": "rust",
+    "facet": "comment.line",
+    "code": "// Hello world",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14",
+            "removal": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/condition.if",
+    "languageId": "rust",
+    "facet": "condition.if",
+    "code": "if true {}\nelse if false {}\nelse {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:3-0:7",
+            "removal": "0:3-0:8"
+          }
+        ],
+        "domain": "0:0-2:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:8-1:13",
+            "removal": "1:8-1:14"
+          }
+        ],
+        "domain": "1:0-1:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/condition.switchCase.iteration",
+    "languageId": "rust",
+    "facet": "condition.switchCase.iteration",
+    "code": "match foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/condition.switchCase",
+    "languageId": "rust",
+    "facet": "condition.switchCase",
+    "code": "match foo {\n    0 => 0\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:5",
+            "removal": "1:4-1:6"
+          }
+        ],
+        "domain": "1:4-1:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/condition.switchCase2",
+    "languageId": "rust",
+    "facet": "condition.switchCase",
+    "code": "match foo {\n    _ => 0\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:5",
+            "removal": "1:4-1:6"
+          }
+        ],
+        "domain": "1:4-1:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/condition.while",
+    "languageId": "rust",
+    "facet": "condition.while",
+    "code": "while true {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:10",
+            "removal": "0:6-0:11"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/disqualifyDelimiter",
+    "languageId": "rust",
+    "facet": "disqualifyDelimiter",
+    "code": "1 < 2;\n1 > 2;\n1 <= 2;\n1 >= 2;\na << 2;\na >> 2;\na <<= 2;\na >>= 2;\nfn foo() -> i32 {}\nmatch number {\n    0 => \"fail\"\n}\nmacro_rules! my_expr {\n    ($x:expr) => {};\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-1:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-2:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "3:2-3:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "4:2-4:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "5:2-5:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "6:2-6:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "7:2-7:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "8:9-8:11"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "10:6-10:8"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "13:14-13:16"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/functionCall.chain",
+    "languageId": "rust",
+    "facet": "functionCall.chain",
+    "code": "foo().bar();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:5",
+            "removal": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/functionCall.enum",
+    "languageId": "rust",
+    "facet": "functionCall.enum",
+    "code": "enum Foo {\n    Bar()\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:9",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/functionCall.generic",
+    "languageId": "rust",
+    "facet": "functionCall.generic",
+    "code": "foo::<Bar>();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12",
+            "removal": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/functionCall.method",
+    "languageId": "rust",
+    "facet": "functionCall.method",
+    "code": "foo.bar();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/functionCall",
+    "languageId": "rust",
+    "facet": "functionCall",
+    "code": "foo();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:5",
+            "removal": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/functionCallee.chain",
+    "languageId": "rust",
+    "facet": "functionCallee.chain",
+    "code": "foo().bar();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/functionCallee.enum",
+    "languageId": "rust",
+    "facet": "functionCallee.enum",
+    "code": "enum Foo {\n    Bar()\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-1:7"
+          }
+        ],
+        "domain": "1:4-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/functionCallee.generic",
+    "languageId": "rust",
+    "facet": "functionCallee.generic",
+    "code": "foo::<Bar>();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/functionCallee.method",
+    "languageId": "rust",
+    "facet": "functionCallee.method",
+    "code": "foo.bar();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/functionCallee",
+    "languageId": "rust",
+    "facet": "functionCallee",
+    "code": "foo();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/ifStatement",
+    "languageId": "rust",
+    "facet": "ifStatement",
+    "code": "if true {}\nelse if false {}\nelse {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:7",
+            "removal": "0:0-2:7"
+          }
+        ],
+        "domain": "0:0-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/interior/interior.class",
+    "languageId": "rust",
+    "facet": "interior.class",
+    "code": "impl Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11",
+            "removal": "0:10-0:11"
+          }
+        ],
+        "domain": "0:10-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/interior/interior.class2",
+    "languageId": "rust",
+    "facet": "interior.class",
+    "code": "struct Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13",
+            "removal": "0:12-0:13"
+          }
+        ],
+        "domain": "0:12-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/interior/interior.class3",
+    "languageId": "rust",
+    "facet": "interior.class",
+    "code": "trait Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12",
+            "removal": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/interior/interior.enum",
+    "languageId": "rust",
+    "facet": "interior.enum",
+    "code": "enum Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11",
+            "removal": "0:10-0:11"
+          }
+        ],
+        "domain": "0:10-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/interior/interior.foreach",
+    "languageId": "rust",
+    "facet": "interior.foreach",
+    "code": "for v in values { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:17-0:18",
+            "removal": "0:17-0:18"
+          }
+        ],
+        "domain": "0:17-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/interior/interior.function",
+    "languageId": "rust",
+    "facet": "interior.function",
+    "code": "fn foo() { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11",
+            "removal": "0:10-0:11"
+          }
+        ],
+        "domain": "0:10-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/interior/interior.if",
+    "languageId": "rust",
+    "facet": "interior.if",
+    "code": "if true { }\nelse if false { }\nelse { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:10",
+            "removal": "0:9-0:10"
+          }
+        ],
+        "domain": "0:9-0:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:15-1:16",
+            "removal": "1:15-1:16"
+          }
+        ],
+        "domain": "1:15-1:16"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:6-2:7",
+            "removal": "2:6-2:7"
+          }
+        ],
+        "domain": "2:6-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/interior/interior.lambda",
+    "languageId": "rust",
+    "facet": "interior.lambda",
+    "code": "|| { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:5",
+            "removal": "0:4-0:5"
+          }
+        ],
+        "domain": "0:4-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/interior/interior.method",
+    "languageId": "rust",
+    "facet": "interior.method",
+    "code": "impl Foo {\n    fn bar() { }\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:16",
+            "removal": "0:10-2:0"
+          }
+        ],
+        "domain": "0:10-2:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:14-1:15",
+            "removal": "1:14-1:15"
+          }
+        ],
+        "domain": "1:14-1:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/interior/interior.namespace",
+    "languageId": "rust",
+    "facet": "interior.namespace",
+    "code": "mod foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:10",
+            "removal": "0:9-0:10"
+          }
+        ],
+        "domain": "0:9-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/interior/interior.switch",
+    "languageId": "rust",
+    "facet": "interior.switch",
+    "code": "match foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12",
+            "removal": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/interior/interior.switchCase",
+    "languageId": "rust",
+    "facet": "interior.switchCase",
+    "code": "match foo {\n    0 => bar\n    _ => bar\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-2:12",
+            "removal": "0:11-3:0"
+          }
+        ],
+        "domain": "0:11-3:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:9-1:12",
+            "removal": "1:8-1:12"
+          }
+        ],
+        "domain": "1:8-1:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:9-2:12",
+            "removal": "2:8-2:12"
+          }
+        ],
+        "domain": "2:8-2:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/interior/interior.switchCase2",
+    "languageId": "rust",
+    "facet": "interior.switchCase",
+    "code": "match foo {\n    0 => { }\n    _ => { }\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-2:12",
+            "removal": "0:11-3:0"
+          }
+        ],
+        "domain": "0:11-3:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:10-1:11",
+            "removal": "1:10-1:11"
+          }
+        ],
+        "domain": "1:10-1:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:10-2:11",
+            "removal": "2:10-2:11"
+          }
+        ],
+        "domain": "2:10-2:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/interior/interior.while",
+    "languageId": "rust",
+    "facet": "interior.while",
+    "code": "while true { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13",
+            "removal": "0:12-0:13"
+          }
+        ],
+        "domain": "0:12-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/key.mapPair.iteration",
+    "languageId": "rust",
+    "facet": "key.mapPair.iteration",
+    "code": "let Foo {bar: BAR, baz: BAZ} = bongo;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:27"
+          }
+        ],
+        "domain": "0:9-0:27"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/key.mapPair",
+    "languageId": "rust",
+    "facet": "key.mapPair",
+    "code": "let Foo {bar: BAR, baz: BAZ} = bongo;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:12",
+            "removal": "0:9-0:14"
+          }
+        ],
+        "domain": "0:9-0:17"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:19-0:22",
+            "removal": "0:19-0:24"
+          }
+        ],
+        "domain": "0:19-0:27"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/list",
+    "languageId": "rust",
+    "facet": "list",
+    "code": "[aaa, bbb]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/list2",
+    "languageId": "rust",
+    "facet": "list",
+    "code": "(aaa, bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/map",
+    "languageId": "rust",
+    "facet": "map",
+    "code": "let Foo {bar: BAR, baz: BAZ} = bongo;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-0:28",
+            "removal": "0:8-0:29"
+          }
+        ],
+        "domain": "0:8-0:28"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.argument.formal.iteration",
+    "languageId": "rust",
+    "facet": "name.argument.formal.iteration",
+    "code": "fn foo(aaa: i32, bbb: i32) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:29"
+          }
+        ],
+        "domain": "0:0-0:29"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:7-0:25"
+          }
+        ],
+        "domain": "0:7-0:25"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.argument.formal.lambda.iteration",
+    "languageId": "rust",
+    "facet": "name.argument.formal.lambda.iteration",
+    "code": "|aaa: i32, bbb: i32| {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:23"
+          }
+        ],
+        "domain": "0:0-0:23"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:1-0:19"
+          }
+        ],
+        "domain": "0:1-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.argument.formal.lambda",
+    "languageId": "rust",
+    "facet": "name.argument.formal.lambda",
+    "code": "|aaa: i32, bbb: i32| {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:4",
+            "removal": "0:1-0:4"
+          }
+        ],
+        "domain": "0:1-0:9"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-0:14",
+            "removal": "0:10-0:14"
+          }
+        ],
+        "domain": "0:11-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.argument.formal.method.iteration",
+    "languageId": "rust",
+    "facet": "name.argument.formal.method.iteration",
+    "code": "impl Foo {\n    fn bar(&self, aaa: i32, bbb: i32) {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-2:0"
+          }
+        ],
+        "domain": "0:10-2:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:11-1:36"
+          }
+        ],
+        "domain": "1:11-1:36"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.argument.formal.method",
+    "languageId": "rust",
+    "facet": "name.argument.formal.method",
+    "code": "impl Foo {\n    fn bar(&self, aaa: i32, bbb: i32) {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:8",
+            "removal": "0:5-0:9"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:7-1:10",
+            "removal": "1:7-1:10"
+          }
+        ],
+        "domain": "1:4-1:40"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:18-1:21",
+            "removal": "1:17-1:21"
+          }
+        ],
+        "domain": "1:18-1:26"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:28-1:31",
+            "removal": "1:27-1:31"
+          }
+        ],
+        "domain": "1:28-1:36"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.argument.formal",
+    "languageId": "rust",
+    "facet": "name.argument.formal",
+    "code": "fn foo(aaa: i32, bbb: i32) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:3-0:6",
+            "removal": "0:3-0:6"
+          }
+        ],
+        "domain": "0:0-0:29"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:7-0:10",
+            "removal": "0:7-0:10"
+          }
+        ],
+        "domain": "0:7-0:15"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:17-0:20",
+            "removal": "0:16-0:20"
+          }
+        ],
+        "domain": "0:17-0:25"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.assignment.compound",
+    "languageId": "rust",
+    "facet": "name.assignment.compound",
+    "code": "foo += 0;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.assignment.destructuring",
+    "languageId": "rust",
+    "facet": "name.assignment.destructuring",
+    "code": "(foo, bar) = baz;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.assignment",
+    "languageId": "rust",
+    "facet": "name.assignment",
+    "code": "foo = 0;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:6"
+          }
+        ],
+        "domain": "0:0-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.class",
+    "languageId": "rust",
+    "facet": "name.class",
+    "code": "impl Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:8",
+            "removal": "0:5-0:9"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.class2",
+    "languageId": "rust",
+    "facet": "name.class",
+    "code": "impl Foo for Bar {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:8",
+            "removal": "0:5-0:9"
+          }
+        ],
+        "domain": "0:0-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.constant",
+    "languageId": "rust",
+    "facet": "name.constant",
+    "code": "const foo: i32 = 0;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:9",
+            "removal": "0:0-0:17"
+          }
+        ],
+        "domain": "0:0-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.enum",
+    "languageId": "rust",
+    "facet": "name.enum",
+    "code": "enum Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:8",
+            "removal": "0:5-0:9"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.field.class",
+    "languageId": "rust",
+    "facet": "name.field.class",
+    "code": "struct Foo {\n    bar: i32\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:10",
+            "removal": "0:7-0:11"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-1:12"
+          }
+        ],
+        "domain": "1:4-1:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.field.enum",
+    "languageId": "rust",
+    "facet": "name.field.enum",
+    "code": "enum Foo {\n    Bar,\n    Baz()\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:8",
+            "removal": "0:5-0:9"
+          }
+        ],
+        "domain": "0:0-3:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:0-1:7"
+          }
+        ],
+        "domain": "1:4-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:7",
+            "removal": "2:4-2:7"
+          }
+        ],
+        "domain": "2:4-2:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.foreach",
+    "languageId": "rust",
+    "facet": "name.foreach",
+    "code": "for v in values {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:5",
+            "removal": "0:4-0:6"
+          }
+        ],
+        "domain": "0:0-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.function",
+    "languageId": "rust",
+    "facet": "name.function",
+    "code": "fn foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:3-0:6",
+            "removal": "0:3-0:6"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.iteration.block",
+    "languageId": "rust",
+    "facet": "name.iteration.block",
+    "code": "fn foo() { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11"
+          }
+        ],
+        "domain": "0:10-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.iteration.block2",
+    "languageId": "rust",
+    "facet": "name.iteration.block",
+    "code": "if true { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:10"
+          }
+        ],
+        "domain": "0:9-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.iteration.block3",
+    "languageId": "rust",
+    "facet": "name.iteration.block",
+    "code": "while true { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13"
+          }
+        ],
+        "domain": "0:12-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.iteration.class",
+    "languageId": "rust",
+    "facet": "name.iteration.class",
+    "code": "impl Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11"
+          }
+        ],
+        "domain": "0:10-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.iteration.class2",
+    "languageId": "rust",
+    "facet": "name.iteration.class",
+    "code": "struct Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13"
+          }
+        ],
+        "domain": "0:12-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.iteration.class3",
+    "languageId": "rust",
+    "facet": "name.iteration.class",
+    "code": "trait Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.iteration.document",
+    "languageId": "rust",
+    "facet": "name.iteration.document",
+    "code": "\nimpl Foo {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.iteration.enum",
+    "languageId": "rust",
+    "facet": "name.iteration.enum",
+    "code": "enum Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11"
+          }
+        ],
+        "domain": "0:10-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.method",
+    "languageId": "rust",
+    "facet": "name.method",
+    "code": "impl Foo {\n    fn bar() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:8",
+            "removal": "0:5-0:9"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:7-1:10",
+            "removal": "1:7-1:10"
+          }
+        ],
+        "domain": "1:4-1:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.namespace",
+    "languageId": "rust",
+    "facet": "name.namespace",
+    "code": "mod foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:7",
+            "removal": "0:4-0:8"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.typeAlias",
+    "languageId": "rust",
+    "facet": "name.typeAlias",
+    "code": "type Foo = Bar;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:8",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.variable.destructuring",
+    "languageId": "rust",
+    "facet": "name.variable.destructuring",
+    "code": "let Foo {bar, baz} = bongo;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:18",
+            "removal": "0:0-0:21"
+          }
+        ],
+        "domain": "0:0-0:27"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.variable.initialized",
+    "languageId": "rust",
+    "facet": "name.variable.initialized",
+    "code": "let foo = 0;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:7",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/name.variable.uninitialized",
+    "languageId": "rust",
+    "facet": "name.variable.uninitialized",
+    "code": "let foo: i32;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:7",
+            "removal": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/namedFunction.iteration.class",
+    "languageId": "rust",
+    "facet": "namedFunction.iteration.class",
+    "code": "impl Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11"
+          }
+        ],
+        "domain": "0:10-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/namedFunction.iteration.class",
+    "languageId": "rust",
+    "facet": "namedFunction.iteration.class",
+    "code": "impl Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11"
+          }
+        ],
+        "domain": "0:10-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/namedFunction.iteration.document",
+    "languageId": "rust",
+    "facet": "namedFunction.iteration.document",
+    "code": "\nfn foo() {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/namedFunction.method",
+    "languageId": "rust",
+    "facet": "namedFunction.method",
+    "code": "impl Foo {\n    fn bar() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:15",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/namedFunction",
+    "languageId": "rust",
+    "facet": "namedFunction",
+    "code": "fn foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.assignment.compound",
+    "languageId": "rust",
+    "facet": "statement.assignment.compound",
+    "code": "foo += 0;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.assignment.destructuring",
+    "languageId": "rust",
+    "facet": "statement.assignment.destructuring",
+    "code": "(foo, bar) = baz;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:17",
+            "removal": "0:0-0:17"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.assignment",
+    "languageId": "rust",
+    "facet": "statement.assignment",
+    "code": "foo = 0;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:8",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.break",
+    "languageId": "rust",
+    "facet": "statement.break",
+    "code": "break;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:6",
+            "removal": "0:0-0:6"
+          }
+        ],
+        "domain": "0:0-0:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.class",
+    "languageId": "rust",
+    "facet": "statement.class",
+    "code": "impl Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.class2",
+    "languageId": "rust",
+    "facet": "statement.class",
+    "code": "struct Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.class3",
+    "languageId": "rust",
+    "facet": "statement.class",
+    "code": "trait Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12",
+            "removal": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.constant",
+    "languageId": "rust",
+    "facet": "statement.constant",
+    "code": "const foo: i32 = 0;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:19",
+            "removal": "0:0-0:19"
+          }
+        ],
+        "domain": "0:0-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.continue",
+    "languageId": "rust",
+    "facet": "statement.continue",
+    "code": "continue;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.enum",
+    "languageId": "rust",
+    "facet": "statement.enum",
+    "code": "enum Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.field.class",
+    "languageId": "rust",
+    "facet": "statement.field.class",
+    "code": "struct Foo {\n    bar: i32\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1",
+            "removal": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:12",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.foreach",
+    "languageId": "rust",
+    "facet": "statement.foreach",
+    "code": "for v in values {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:18",
+            "removal": "0:0-0:18"
+          }
+        ],
+        "domain": "0:0-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.function",
+    "languageId": "rust",
+    "facet": "statement.function",
+    "code": "fn foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.functionCall",
+    "languageId": "rust",
+    "facet": "statement.functionCall",
+    "code": "foo();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:6",
+            "removal": "0:0-0:6"
+          }
+        ],
+        "domain": "0:0-0:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.if",
+    "languageId": "rust",
+    "facet": "statement.if",
+    "code": "if true {}\nelse if false {}\nelse {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:7",
+            "removal": "0:0-2:7"
+          }
+        ],
+        "domain": "0:0-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.import",
+    "languageId": "rust",
+    "facet": "statement.import",
+    "code": "use foo::bar;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.iteration.block",
+    "languageId": "rust",
+    "facet": "statement.iteration.block",
+    "code": "fn foo() { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11"
+          }
+        ],
+        "domain": "0:10-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.iteration.block2",
+    "languageId": "rust",
+    "facet": "statement.iteration.block",
+    "code": "if true { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:10"
+          }
+        ],
+        "domain": "0:9-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.iteration.block3",
+    "languageId": "rust",
+    "facet": "statement.iteration.block",
+    "code": "while true { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13"
+          }
+        ],
+        "domain": "0:12-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.iteration.class",
+    "languageId": "rust",
+    "facet": "statement.iteration.class",
+    "code": "impl Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11"
+          }
+        ],
+        "domain": "0:10-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.iteration.class2",
+    "languageId": "rust",
+    "facet": "statement.iteration.class",
+    "code": "struct Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13"
+          }
+        ],
+        "domain": "0:12-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.iteration.class3",
+    "languageId": "rust",
+    "facet": "statement.iteration.class",
+    "code": "trait Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.iteration.document",
+    "languageId": "rust",
+    "facet": "statement.iteration.document",
+    "code": "\nlet foo = 0;\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.method",
+    "languageId": "rust",
+    "facet": "statement.method",
+    "code": "impl Foo {\n    fn bar() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1",
+            "removal": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:15",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.namespace",
+    "languageId": "rust",
+    "facet": "statement.namespace",
+    "code": "mod foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.package",
+    "languageId": "rust",
+    "facet": "statement.package",
+    "code": "package foo.bar",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.return",
+    "languageId": "rust",
+    "facet": "statement.return",
+    "code": "fn foo() {\n    return 0;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1",
+            "removal": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:13",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.switch",
+    "languageId": "rust",
+    "facet": "statement.switch",
+    "code": "match foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12",
+            "removal": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.typeAlias",
+    "languageId": "rust",
+    "facet": "statement.typeAlias",
+    "code": "type Foo = Bar;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.update",
+    "languageId": "rust",
+    "facet": "statement.update",
+    "code": "foo++;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:6",
+            "removal": "0:0-0:6"
+          }
+        ],
+        "domain": "0:0-0:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.update2",
+    "languageId": "rust",
+    "facet": "statement.update",
+    "code": "--foo;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:6",
+            "removal": "0:0-0:6"
+          }
+        ],
+        "domain": "0:0-0:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.variable.destructuring",
+    "languageId": "rust",
+    "facet": "statement.variable.destructuring",
+    "code": "let Foo {bar, baz} = bongo;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:27",
+            "removal": "0:0-0:27"
+          }
+        ],
+        "domain": "0:0-0:27"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.variable.initialized",
+    "languageId": "rust",
+    "facet": "statement.variable.initialized",
+    "code": "let foo = 0;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12",
+            "removal": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.variable.uninitialized",
+    "languageId": "rust",
+    "facet": "statement.variable.uninitialized",
+    "code": "let foo: i32;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/statement/statement.while",
+    "languageId": "rust",
+    "facet": "statement.while",
+    "code": "while true {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/string.multiLine",
+    "languageId": "rust",
+    "facet": "string.multiLine",
+    "code": "\"Hello\nworld\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:6",
+            "removal": "0:0-1:6"
+          }
+        ],
+        "domain": "0:0-1:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/string.singleLine",
+    "languageId": "rust",
+    "facet": "string.singleLine",
+    "code": "\"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/string.singleLine2",
+    "languageId": "rust",
+    "facet": "string.singleLine",
+    "code": "r#\"Hello world\"#",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:16",
+            "removal": "0:0-0:16"
+          }
+        ],
+        "domain": "0:0-0:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/string.singleLine3",
+    "languageId": "rust",
+    "facet": "string.singleLine",
+    "code": "r##\"Hello world\"##",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:18",
+            "removal": "0:0-0:18"
+          }
+        ],
+        "domain": "0:0-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/textFragment.comment.block",
+    "languageId": "rust",
+    "facet": "textFragment.comment.block",
+    "code": "/* Hello world */",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:17",
+            "removal": "0:0-0:17"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/textFragment.comment.line",
+    "languageId": "rust",
+    "facet": "textFragment.comment.line",
+    "code": "// Hello world ",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/textFragment.string.multiLine",
+    "languageId": "rust",
+    "facet": "textFragment.string.multiLine",
+    "code": "\"Hello \nworld\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-1:5",
+            "removal": "0:1-1:5"
+          }
+        ],
+        "domain": "0:1-1:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/textFragment.string.singleLine",
+    "languageId": "rust",
+    "facet": "textFragment.string.singleLine",
+    "code": "\"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:12",
+            "removal": "0:1-0:12"
+          }
+        ],
+        "domain": "0:1-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/textFragment.string.singleLine2",
+    "languageId": "rust",
+    "facet": "textFragment.string.singleLine",
+    "code": "r#\"Hello world\"#",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:3-0:14",
+            "removal": "0:3-0:14"
+          }
+        ],
+        "domain": "0:3-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/textFragment.string.singleLine3",
+    "languageId": "rust",
+    "facet": "textFragment.string.singleLine",
+    "code": "r##\"Hello world\"##",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:15",
+            "removal": "0:4-0:15"
+          }
+        ],
+        "domain": "0:4-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.alias",
+    "languageId": "rust",
+    "facet": "type.alias",
+    "code": "type Foo = Bar;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.argument.formal.iteration",
+    "languageId": "rust",
+    "facet": "type.argument.formal.iteration",
+    "code": "fn foo(aaa: i32, bbb: i32) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:29"
+          }
+        ],
+        "domain": "0:0-0:29"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:7-0:25"
+          }
+        ],
+        "domain": "0:7-0:25"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.argument.formal.lambda.iteration",
+    "languageId": "rust",
+    "facet": "type.argument.formal.lambda.iteration",
+    "code": "|aaa: i32, bbb: i32| {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:23"
+          }
+        ],
+        "domain": "0:0-0:23"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:1-0:19"
+          }
+        ],
+        "domain": "0:1-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.argument.formal.lambda",
+    "languageId": "rust",
+    "facet": "type.argument.formal.lambda",
+    "code": "|aaa: i32, bbb: i32| {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:9",
+            "removal": "0:4-0:9"
+          }
+        ],
+        "domain": "0:1-0:9"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:16-0:19",
+            "removal": "0:14-0:19"
+          }
+        ],
+        "domain": "0:11-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.argument.formal.method.iteration",
+    "languageId": "rust",
+    "facet": "type.argument.formal.method.iteration",
+    "code": "impl Foo {\n    fn bar(&self, aaa: i32, bbb: i32) {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-2:0"
+          }
+        ],
+        "domain": "0:10-2:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:11-1:36"
+          }
+        ],
+        "domain": "1:11-1:36"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.argument.formal.method",
+    "languageId": "rust",
+    "facet": "type.argument.formal.method",
+    "code": "impl Foo {\n    fn bar(&self, aaa: i32, bbb: i32) {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1",
+            "removal": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:23-1:26",
+            "removal": "1:21-1:26"
+          }
+        ],
+        "domain": "1:18-1:26"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:33-1:36",
+            "removal": "1:31-1:36"
+          }
+        ],
+        "domain": "1:28-1:36"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.argument.formal",
+    "languageId": "rust",
+    "facet": "type.argument.formal",
+    "code": "fn foo(aaa: i32, bbb: i32) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:12-0:15",
+            "removal": "0:10-0:15"
+          }
+        ],
+        "domain": "0:7-0:15"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:22-0:25",
+            "removal": "0:20-0:25"
+          }
+        ],
+        "domain": "0:17-0:25"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.cast",
+    "languageId": "rust",
+    "facet": "type.cast",
+    "code": "foo as i32",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:10",
+            "removal": "0:3-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.class",
+    "languageId": "rust",
+    "facet": "type.class",
+    "code": "impl Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.class2",
+    "languageId": "rust",
+    "facet": "type.class",
+    "code": "struct Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.class3",
+    "languageId": "rust",
+    "facet": "type.class",
+    "code": "trait Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12",
+            "removal": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.class4",
+    "languageId": "rust",
+    "facet": "type.class",
+    "code": "impl Foo for Bar {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:19",
+            "removal": "0:0-0:19"
+          }
+        ],
+        "domain": "0:0-0:19"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:13-0:16",
+            "removal": "0:13-0:17"
+          }
+        ],
+        "domain": "0:13-0:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.constant",
+    "languageId": "rust",
+    "facet": "type.constant",
+    "code": "const foo: i32 = 0;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:11-0:14",
+            "removal": "0:9-0:14"
+          }
+        ],
+        "domain": "0:0-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.enum",
+    "languageId": "rust",
+    "facet": "type.enum",
+    "code": "enum Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.field.class",
+    "languageId": "rust",
+    "facet": "type.field.class",
+    "code": "struct Foo {\n    bar: i32\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1",
+            "removal": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:9-1:12",
+            "removal": "1:7-1:12"
+          }
+        ],
+        "domain": "1:4-1:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.iteration.block",
+    "languageId": "rust",
+    "facet": "type.iteration.block",
+    "code": "fn foo() { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11"
+          }
+        ],
+        "domain": "0:10-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.iteration.block2",
+    "languageId": "rust",
+    "facet": "type.iteration.block",
+    "code": "if true { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:10"
+          }
+        ],
+        "domain": "0:9-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.iteration.block3",
+    "languageId": "rust",
+    "facet": "type.iteration.block",
+    "code": "while true { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13"
+          }
+        ],
+        "domain": "0:12-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.iteration.class",
+    "languageId": "rust",
+    "facet": "type.iteration.class",
+    "code": "impl Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11"
+          }
+        ],
+        "domain": "0:10-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.iteration.class2",
+    "languageId": "rust",
+    "facet": "type.iteration.class",
+    "code": "struct Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13"
+          }
+        ],
+        "domain": "0:12-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.iteration.class3",
+    "languageId": "rust",
+    "facet": "type.iteration.class",
+    "code": "trait Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.iteration.document",
+    "languageId": "rust",
+    "facet": "type.iteration.document",
+    "code": "\nlet foo: i32 = 0;\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.return.lambda",
+    "languageId": "rust",
+    "facet": "type.return.lambda",
+    "code": "|| -> i32 {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:9",
+            "removal": "0:2-0:9"
+          }
+        ],
+        "domain": "0:0-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.return.method",
+    "languageId": "rust",
+    "facet": "type.return.method",
+    "code": "impl Foo {\n    fn foo() -> i32 {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1",
+            "removal": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:16-1:19",
+            "removal": "1:12-1:19"
+          }
+        ],
+        "domain": "1:4-1:22"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.return",
+    "languageId": "rust",
+    "facet": "type.return",
+    "code": "fn foo() -> i32 {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:12-0:15",
+            "removal": "0:8-0:15"
+          }
+        ],
+        "domain": "0:0-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.typeArgument.iteration",
+    "languageId": "rust",
+    "facet": "type.typeArgument.iteration",
+    "code": "let foo: Foo<i32, u64>;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:23"
+          }
+        ],
+        "domain": "0:0-0:23"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:13-0:21"
+          }
+        ],
+        "domain": "0:13-0:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.typeArgument",
+    "languageId": "rust",
+    "facet": "type.typeArgument",
+    "code": "let foo: Foo<i32, u64>;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:22",
+            "removal": "0:7-0:22"
+          }
+        ],
+        "domain": "0:0-0:23"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:13-0:16",
+            "removal": "0:13-0:18"
+          }
+        ],
+        "domain": "0:13-0:16"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:18-0:21",
+            "removal": "0:16-0:21"
+          }
+        ],
+        "domain": "0:18-0:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.variable.initialized",
+    "languageId": "rust",
+    "facet": "type.variable.initialized",
+    "code": "let foo: i32 = 0;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:12",
+            "removal": "0:7-0:12"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/type/type.variable.uninitialized",
+    "languageId": "rust",
+    "facet": "type.variable.uninitialized",
+    "code": "let foo: i32;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:12",
+            "removal": "0:7-0:12"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/value/value.assignment.compound",
+    "languageId": "rust",
+    "facet": "value.assignment.compound",
+    "code": "foo += 0;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:8",
+            "removal": "0:3-0:8"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/value/value.assignment.destructuring",
+    "languageId": "rust",
+    "facet": "value.assignment.destructuring",
+    "code": "(foo, bar) = baz;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:13-0:16",
+            "removal": "0:10-0:16"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/value/value.assignment",
+    "languageId": "rust",
+    "facet": "value.assignment",
+    "code": "foo = 0;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:7",
+            "removal": "0:3-0:7"
+          }
+        ],
+        "domain": "0:0-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/value/value.constant",
+    "languageId": "rust",
+    "facet": "value.constant",
+    "code": "const foo: i32 = 0;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:17-0:18",
+            "removal": "0:14-0:18"
+          }
+        ],
+        "domain": "0:0-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/value/value.foreach",
+    "languageId": "rust",
+    "facet": "value.foreach",
+    "code": "for v in values {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:15",
+            "removal": "0:9-0:16"
+          }
+        ],
+        "domain": "0:0-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/value/value.iteration.block",
+    "languageId": "rust",
+    "facet": "value.iteration.block",
+    "code": "fn foo() { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11"
+          }
+        ],
+        "domain": "0:10-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/value/value.iteration.block2",
+    "languageId": "rust",
+    "facet": "value.iteration.block",
+    "code": "if true { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:10"
+          }
+        ],
+        "domain": "0:9-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/value/value.iteration.block3",
+    "languageId": "rust",
+    "facet": "value.iteration.block",
+    "code": "while true { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13"
+          }
+        ],
+        "domain": "0:12-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/value/value.iteration.class",
+    "languageId": "rust",
+    "facet": "value.iteration.class",
+    "code": "impl Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11"
+          }
+        ],
+        "domain": "0:10-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/value/value.iteration.class2",
+    "languageId": "rust",
+    "facet": "value.iteration.class",
+    "code": "struct Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13"
+          }
+        ],
+        "domain": "0:12-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/value/value.iteration.class3",
+    "languageId": "rust",
+    "facet": "value.iteration.class",
+    "code": "trait Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/value/value.iteration.document",
+    "languageId": "rust",
+    "facet": "value.iteration.document",
+    "code": "\nlet foo = 0;\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/value/value.mapPair.iteration",
+    "languageId": "rust",
+    "facet": "value.mapPair.iteration",
+    "code": "let Foo {bar: BAR, baz: BAZ} = bongo;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:37"
+          }
+        ],
+        "domain": "0:0-0:37"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:27"
+          }
+        ],
+        "domain": "0:9-0:27"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/value/value.mapPair",
+    "languageId": "rust",
+    "facet": "value.mapPair",
+    "code": "let Foo {bar: BAR, baz: BAZ} = bongo;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:31-0:36",
+            "removal": "0:28-0:36"
+          }
+        ],
+        "domain": "0:0-0:37"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:14-0:17",
+            "removal": "0:12-0:17"
+          }
+        ],
+        "domain": "0:9-0:17"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:24-0:27",
+            "removal": "0:22-0:27"
+          }
+        ],
+        "domain": "0:19-0:27"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/value/value.return.lambda",
+    "languageId": "rust",
+    "facet": "value.return.lambda",
+    "code": "|x| 0;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:5",
+            "removal": "0:3-0:5"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/value/value.return",
+    "languageId": "rust",
+    "facet": "value.return",
+    "code": "fn foo() {\n    return 0;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:11-1:12",
+            "removal": "1:10-1:12"
+          }
+        ],
+        "domain": "1:4-1:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/value/value.switch",
+    "languageId": "rust",
+    "facet": "value.switch",
+    "code": "match foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:9",
+            "removal": "0:6-0:10"
+          }
+        ],
+        "domain": "0:0-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/value/value.typeAlias",
+    "languageId": "rust",
+    "facet": "value.typeAlias",
+    "code": "type Foo = Bar;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:11-0:14",
+            "removal": "0:8-0:14"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/value/value.variable.destructuring",
+    "languageId": "rust",
+    "facet": "value.variable.destructuring",
+    "code": "let Foo {bar, baz} = bongo;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:21-0:26",
+            "removal": "0:18-0:26"
+          }
+        ],
+        "domain": "0:0-0:27"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/value/value.variable",
+    "languageId": "rust",
+    "facet": "value.variable",
+    "code": "let foo = 0;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11",
+            "removal": "0:7-0:11"
+          }
+        ],
+        "domain": "0:0-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/value/value.variable2",
+    "languageId": "rust",
+    "facet": "value.variable",
+    "code": "let foo: i32 = 0;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:15-0:16",
+            "removal": "0:12-0:16"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  }
 ]

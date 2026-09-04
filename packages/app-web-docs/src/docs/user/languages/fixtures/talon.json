@@ -1,1472 +1,1472 @@
 [
-	{
-		"name": "scopes/talon/argument/argument.actual.iteration",
-		"languageId": "talon",
-		"facet": "argument.actual.iteration",
-		"code": "command: user.foo(aaa, bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:18-0:26"
-					}
-				],
-				"domain": "0:9-0:27"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/argument/argument.actual.iteration2",
-		"languageId": "talon",
-		"facet": "argument.actual.iteration",
-		"code": "command: key(enter)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:13-0:18"
-					}
-				],
-				"domain": "0:9-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/argument/argument.actual.iteration3",
-		"languageId": "talon",
-		"facet": "argument.actual.iteration",
-		"code": "command: sleep(100ms)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:15-0:20"
-					}
-				],
-				"domain": "0:9-0:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/argument/argument.actual.singleLine",
-		"languageId": "talon",
-		"facet": "argument.actual.singleLine",
-		"code": "command: user.foo(aaa, bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:18-0:21",
-						"removal": "0:18-0:23"
-					}
-				],
-				"domain": "0:18-0:21"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:23-0:26",
-						"removal": "0:21-0:26"
-					}
-				],
-				"domain": "0:23-0:26"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/argument/argument.actual.singleLine2",
-		"languageId": "talon",
-		"facet": "argument.actual.singleLine",
-		"code": "command: key(enter)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:13-0:18",
-						"removal": "0:13-0:18"
-					}
-				],
-				"domain": "0:13-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/argument/argument.actual.singleLine3",
-		"languageId": "talon",
-		"facet": "argument.actual.singleLine",
-		"code": "command: sleep(100ms)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:15-0:20",
-						"removal": "0:15-0:20"
-					}
-				],
-				"domain": "0:15-0:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/argumentList/argumentList.actual.empty",
-		"languageId": "talon",
-		"facet": "argumentList.actual.empty",
-		"code": "command: foo()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:13-0:13",
-						"removal": "0:13-0:13"
-					}
-				],
-				"domain": "0:9-0:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/argumentList/argumentList.actual.method.empty",
-		"languageId": "talon",
-		"facet": "argumentList.actual.method.empty",
-		"code": "command: user.foo()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:18-0:18",
-						"removal": "0:18-0:18"
-					}
-				],
-				"domain": "0:9-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/argumentList/argumentList.actual.method.singleLine",
-		"languageId": "talon",
-		"facet": "argumentList.actual.method.singleLine",
-		"code": "command: user.foo(aaa, bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:18-0:26",
-						"removal": "0:18-0:26"
-					}
-				],
-				"domain": "0:9-0:27"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/argumentList/argumentList.actual.singleLine",
-		"languageId": "talon",
-		"facet": "argumentList.actual.singleLine",
-		"code": "command: foo(aaa, bbb)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:13-0:21",
-						"removal": "0:13-0:21"
-					}
-				],
-				"domain": "0:9-0:22"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/argumentList/argumentList.actual.singleLine2",
-		"languageId": "talon",
-		"facet": "argumentList.actual.singleLine",
-		"code": "command: key(enter)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:13-0:18",
-						"removal": "0:13-0:18"
-					}
-				],
-				"domain": "0:9-0:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/argumentList/argumentList.actual.singleLine3",
-		"languageId": "talon",
-		"facet": "argumentList.actual.singleLine",
-		"code": "command: sleep(100ms)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:15-0:20",
-						"removal": "0:15-0:20"
-					}
-				],
-				"domain": "0:9-0:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/command",
-		"languageId": "talon",
-		"facet": "command",
-		"code": "foo: \"bar\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:10",
-						"removal": "0:0-0:10"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/command2",
-		"languageId": "talon",
-		"facet": "command",
-		"code": "press {user.key}: key(key)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:26",
-						"removal": "0:0-0:26"
-					}
-				],
-				"domain": "0:0-0:26"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/comment.line",
-		"languageId": "talon",
-		"facet": "comment.line",
-		"code": "# Hello world",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/condition.if",
-		"languageId": "talon",
-		"facet": "condition.if",
-		"code": "command:\n    if true: print(\"true\")",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:7-1:11",
-						"removal": "1:6-1:11"
-					}
-				],
-				"domain": "1:4-1:26"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/functionCall.method",
-		"languageId": "talon",
-		"facet": "functionCall.method",
-		"code": "foo:\n    bar.baz()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:13",
-						"removal": "0:4-1:13"
-					}
-				],
-				"domain": "1:4-1:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/functionCall",
-		"languageId": "talon",
-		"facet": "functionCall",
-		"code": "foo: \n    bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:9",
-						"removal": "0:5-1:9"
-					}
-				],
-				"domain": "1:4-1:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/functionCall2",
-		"languageId": "talon",
-		"facet": "functionCall",
-		"code": "foo:\n    key(enter)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:14",
-						"removal": "0:4-1:14"
-					}
-				],
-				"domain": "1:4-1:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/functionCallee.method",
-		"languageId": "talon",
-		"facet": "functionCallee.method",
-		"code": "foo:\n    bar.baz()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:11",
-						"removal": "1:4-1:11"
-					}
-				],
-				"domain": "1:4-1:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/functionCallee",
-		"languageId": "talon",
-		"facet": "functionCallee",
-		"code": "foo:\n    bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:4-1:7"
-					}
-				],
-				"domain": "1:4-1:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/functionCallee2",
-		"languageId": "talon",
-		"facet": "functionCallee",
-		"code": "foo:\n    key(enter)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:4-1:7"
-					}
-				],
-				"domain": "1:4-1:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/ifStatement",
-		"languageId": "talon",
-		"facet": "ifStatement",
-		"code": "command:\n    if true: print(\"true\")",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:26",
-						"removal": "0:8-1:26"
-					}
-				],
-				"domain": "1:4-1:26"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/interior.command",
-		"languageId": "talon",
-		"facet": "interior.command",
-		"code": "foo:\n    bar = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:11",
-						"removal": "0:4-1:11"
-					}
-				],
-				"domain": "0:4-1:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/interior.foreach",
-		"languageId": "talon",
-		"facet": "interior.foreach",
-		"code": "command:\n    for v in values: print(v)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:29",
-						"removal": "0:8-1:29"
-					}
-				],
-				"domain": "0:8-1:29"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:21-1:29",
-						"removal": "1:21-1:29"
-					}
-				],
-				"domain": "1:21-1:29"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/interior.if",
-		"languageId": "talon",
-		"facet": "interior.if",
-		"code": "command:\n    if true: print(\"true\")",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:26",
-						"removal": "0:8-1:26"
-					}
-				],
-				"domain": "0:8-1:26"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:13-1:26",
-						"removal": "1:13-1:26"
-					}
-				],
-				"domain": "1:13-1:26"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/key/key.mapPair.iteration",
-		"languageId": "talon",
-		"facet": "key.mapPair.iteration",
-		"code": "not mode: command\ntag: browser\n-",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:12"
-					}
-				],
-				"domain": "0:0-1:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:0-2:1"
-					}
-				],
-				"domain": "0:0-2:1"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/key/key.mapPair.iteration2",
-		"languageId": "talon",
-		"facet": "key.mapPair.iteration",
-		"code": "aaa: \"0\"\nbbb: \"1\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:8"
-					}
-				],
-				"domain": "0:0-1:8"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:5-0:8"
-					}
-				],
-				"domain": "0:5-0:8"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:5-1:8"
-					}
-				],
-				"domain": "1:5-1:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/key/key.mapPair.iteration3",
-		"languageId": "talon",
-		"facet": "key.mapPair.iteration",
-		"code": "settings():\n    aaa = 0\n    bbb = 1",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:11"
-					}
-				],
-				"domain": "0:0-2:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-2:11"
-					}
-				],
-				"domain": "1:4-2:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/key/key.mapPair",
-		"languageId": "talon",
-		"facet": "key.mapPair",
-		"code": "not mode: command\ntag: browser\n-",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:8",
-						"removal": "0:0-0:10"
-					}
-				],
-				"domain": "0:0-0:17"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:0-1:3",
-						"removal": "1:0-1:5"
-					}
-				],
-				"domain": "1:0-1:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/key/key.mapPair2",
-		"languageId": "talon",
-		"facet": "key.mapPair",
-		"code": "aaa: \"0\"\nbbb: \"1\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:5"
-					}
-				],
-				"domain": "0:0-0:8"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:0-1:3",
-						"removal": "1:0-1:5"
-					}
-				],
-				"domain": "1:0-1:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/name/name.assignment",
-		"languageId": "talon",
-		"facet": "name.assignment",
-		"code": "command:\n    foo = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-1:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:4-1:10"
-					}
-				],
-				"domain": "1:4-1:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/name/name.command",
-		"languageId": "talon",
-		"facet": "name.command",
-		"code": "foo: \"bar\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:3",
-						"removal": "0:0-0:3"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/name/name.command2",
-		"languageId": "talon",
-		"facet": "name.command",
-		"code": "not mode: command\n-",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:8",
-						"removal": "0:3-0:8"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/name/name.command3",
-		"languageId": "talon",
-		"facet": "name.command",
-		"code": "settings():\n    foo = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:10",
-						"removal": "0:0-0:10"
-					}
-				],
-				"domain": "0:0-1:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:4-1:10"
-					}
-				],
-				"domain": "1:4-1:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/name/name.foreach",
-		"languageId": "talon",
-		"facet": "name.foreach",
-		"code": "command:\n    for v in values: print(v)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-1:29"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:8-1:9",
-						"removal": "1:8-1:10"
-					}
-				],
-				"domain": "1:4-1:29"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/name/name.iteration.block",
-		"languageId": "talon",
-		"facet": "name.iteration.block",
-		"code": "foo: \"bar\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:10"
-					}
-				],
-				"domain": "0:0-0:10"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:5-0:10"
-					}
-				],
-				"domain": "0:5-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/name/name.iteration.block2",
-		"languageId": "talon",
-		"facet": "name.iteration.block",
-		"code": "settings():\n    foo = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:11"
-					}
-				],
-				"domain": "0:0-1:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:11"
-					}
-				],
-				"domain": "1:4-1:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/name/name.iteration.block3",
-		"languageId": "talon",
-		"facet": "name.iteration.block",
-		"code": "mode: command\n-\n\ntag(): browser",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:0-3:14"
-					}
-				],
-				"domain": "0:0-3:14"
-			},
-			{
-				"targets": [
-					{
-						"content": "3:0-3:14"
-					}
-				],
-				"domain": "3:0-3:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/name/name.iteration.document",
-		"languageId": "talon",
-		"facet": "name.iteration.document",
-		"code": "\nmode: command\n-\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-3:0"
-					}
-				],
-				"domain": "0:0-3:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:0-1:13"
-					}
-				],
-				"domain": "1:0-1:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/name/name.variable.initialized",
-		"languageId": "talon",
-		"facet": "name.variable.initialized",
-		"code": "command:\n    foo = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:7",
-						"removal": "0:0-0:7"
-					}
-				],
-				"domain": "0:0-1:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:7",
-						"removal": "1:4-1:10"
-					}
-				],
-				"domain": "1:4-1:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/statement.assignment",
-		"languageId": "talon",
-		"facet": "statement.assignment",
-		"code": "foo:\n    bar = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:11",
-						"removal": "0:0-1:11"
-					}
-				],
-				"domain": "0:0-1:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:11",
-						"removal": "0:4-1:11"
-					}
-				],
-				"domain": "1:4-1:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/statement.command",
-		"languageId": "talon",
-		"facet": "statement.command",
-		"code": "foo: \"bar\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:10",
-						"removal": "0:0-0:10"
-					}
-				],
-				"domain": "0:0-0:10"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:5-0:10",
-						"removal": "0:4-0:10"
-					}
-				],
-				"domain": "0:5-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/statement.foreach",
-		"languageId": "talon",
-		"facet": "statement.foreach",
-		"code": "command:\n    for v in values: print(v)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:29",
-						"removal": "0:0-1:29"
-					}
-				],
-				"domain": "0:0-1:29"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:29",
-						"removal": "0:8-1:29"
-					}
-				],
-				"domain": "1:4-1:29"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:21-1:29",
-						"removal": "1:20-1:29"
-					}
-				],
-				"domain": "1:21-1:29"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/statement.functionCall",
-		"languageId": "talon",
-		"facet": "statement.functionCall",
-		"code": "foo:\n    bar()",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:9",
-						"removal": "0:0-1:9"
-					}
-				],
-				"domain": "0:0-1:9"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:9",
-						"removal": "0:4-1:9"
-					}
-				],
-				"domain": "1:4-1:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/statement.if",
-		"languageId": "talon",
-		"facet": "statement.if",
-		"code": "command:\n    if true: print(\"true\")",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:26",
-						"removal": "0:0-1:26"
-					}
-				],
-				"domain": "0:0-1:26"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:26",
-						"removal": "0:8-1:26"
-					}
-				],
-				"domain": "1:4-1:26"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:13-1:26",
-						"removal": "1:12-1:26"
-					}
-				],
-				"domain": "1:13-1:26"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/statement.iteration.block",
-		"languageId": "talon",
-		"facet": "statement.iteration.block",
-		"code": "foo:\n    bar = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:11"
-					}
-				],
-				"domain": "0:0-1:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:11"
-					}
-				],
-				"domain": "1:4-1:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/statement.iteration.document",
-		"languageId": "talon",
-		"facet": "statement.iteration.document",
-		"code": "\ntag(): browser\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/statement.variable.initialized",
-		"languageId": "talon",
-		"facet": "statement.variable.initialized",
-		"code": "foo:\n    bar = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:11",
-						"removal": "0:0-1:11"
-					}
-				],
-				"domain": "0:0-1:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:11",
-						"removal": "0:4-1:11"
-					}
-				],
-				"domain": "1:4-1:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/string.singleLine",
-		"languageId": "talon",
-		"facet": "string.singleLine",
-		"code": "command: \"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:22",
-						"removal": "0:8-0:22"
-					}
-				],
-				"domain": "0:9-0:22"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/string.singleLine2",
-		"languageId": "talon",
-		"facet": "string.singleLine",
-		"code": "command: 'Hello world'",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:22",
-						"removal": "0:8-0:22"
-					}
-				],
-				"domain": "0:9-0:22"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/textFragment.comment.line",
-		"languageId": "talon",
-		"facet": "textFragment.comment.line",
-		"code": "# Hello world",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/textFragment.string.singleLine",
-		"languageId": "talon",
-		"facet": "textFragment.string.singleLine",
-		"code": "command: \"Hello world\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:10-0:21",
-						"removal": "0:10-0:21"
-					}
-				],
-				"domain": "0:10-0:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/textFragment.string.singleLine2",
-		"languageId": "talon",
-		"facet": "textFragment.string.singleLine",
-		"code": "command: 'Hello world'",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:10-0:21",
-						"removal": "0:10-0:21"
-					}
-				],
-				"domain": "0:10-0:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/value/value.assignment",
-		"languageId": "talon",
-		"facet": "value.assignment",
-		"code": "command:\n    foo = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:11",
-						"removal": "0:7-1:11"
-					}
-				],
-				"domain": "0:0-1:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:10-1:11",
-						"removal": "1:7-1:11"
-					}
-				],
-				"domain": "1:4-1:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/value/value.command",
-		"languageId": "talon",
-		"facet": "value.command",
-		"code": "foo: \"bar\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:5-0:10",
-						"removal": "0:3-0:10"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/value/value.foreach",
-		"languageId": "talon",
-		"facet": "value.foreach",
-		"code": "command:\n    for v in values: print(v)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:29",
-						"removal": "0:7-1:29"
-					}
-				],
-				"domain": "0:0-1:29"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:13-1:19",
-						"removal": "1:12-1:19"
-					}
-				],
-				"domain": "1:4-1:29"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/value/value.iteration.block",
-		"languageId": "talon",
-		"facet": "value.iteration.block",
-		"code": "foo: \"bar\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:10"
-					}
-				],
-				"domain": "0:0-0:10"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:5-0:10"
-					}
-				],
-				"domain": "0:5-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/value/value.iteration.block2",
-		"languageId": "talon",
-		"facet": "value.iteration.block",
-		"code": "settings():\n    foo = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:11"
-					}
-				],
-				"domain": "0:0-1:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-1:11"
-					}
-				],
-				"domain": "1:4-1:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/value/value.iteration.block3",
-		"languageId": "talon",
-		"facet": "value.iteration.block",
-		"code": "mode: command\n-\n\ntag(): browser",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:0-3:14"
-					}
-				],
-				"domain": "0:0-3:14"
-			},
-			{
-				"targets": [
-					{
-						"content": "3:0-3:14"
-					}
-				],
-				"domain": "3:0-3:14"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/value/value.iteration.document",
-		"languageId": "talon",
-		"facet": "value.iteration.document",
-		"code": "\nmode: command\n-\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-3:0"
-					}
-				],
-				"domain": "0:0-3:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:0-1:13"
-					}
-				],
-				"domain": "1:0-1:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/value/value.mapPair.iteration",
-		"languageId": "talon",
-		"facet": "value.mapPair.iteration",
-		"code": "not mode: command\ntag: browser\n-",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:12"
-					}
-				],
-				"domain": "0:0-1:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:0-2:1"
-					}
-				],
-				"domain": "0:0-2:1"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/value/value.mapPair.iteration2",
-		"languageId": "talon",
-		"facet": "value.mapPair.iteration",
-		"code": "aaa: \"0\"\nbbb: \"1\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:8"
-					}
-				],
-				"domain": "0:0-1:8"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:5-0:8"
-					}
-				],
-				"domain": "0:5-0:8"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:5-1:8"
-					}
-				],
-				"domain": "1:5-1:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/value/value.mapPair.iteration3",
-		"languageId": "talon",
-		"facet": "value.mapPair.iteration",
-		"code": "settings():\n    aaa = 0\n    bbb = 1",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:11"
-					}
-				],
-				"domain": "0:0-2:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:4-2:11"
-					}
-				],
-				"domain": "1:4-2:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/value/value.mapPair",
-		"languageId": "talon",
-		"facet": "value.mapPair",
-		"code": "not mode: command\ntag: browser\n-",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:10-0:17",
-						"removal": "0:8-0:17"
-					}
-				],
-				"domain": "0:0-0:17"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:5-1:12",
-						"removal": "1:3-1:12"
-					}
-				],
-				"domain": "1:0-1:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/value/value.mapPair2",
-		"languageId": "talon",
-		"facet": "value.mapPair",
-		"code": "aaa: \"0\"\nbbb: \"1\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:5-0:8",
-						"removal": "0:3-0:8"
-					}
-				],
-				"domain": "0:0-0:8"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:5-1:8",
-						"removal": "1:3-1:8"
-					}
-				],
-				"domain": "1:0-1:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/talon/value/value.variable",
-		"languageId": "talon",
-		"facet": "value.variable",
-		"code": "command:\n    foo = 0",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:11",
-						"removal": "0:7-1:11"
-					}
-				],
-				"domain": "0:0-1:11"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:10-1:11",
-						"removal": "1:7-1:11"
-					}
-				],
-				"domain": "1:4-1:11"
-			}
-		]
-	}
+  {
+    "name": "scopes/talon/argument/argument.actual.iteration",
+    "languageId": "talon",
+    "facet": "argument.actual.iteration",
+    "code": "command: user.foo(aaa, bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:18-0:26"
+          }
+        ],
+        "domain": "0:9-0:27"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/argument/argument.actual.iteration2",
+    "languageId": "talon",
+    "facet": "argument.actual.iteration",
+    "code": "command: key(enter)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:13-0:18"
+          }
+        ],
+        "domain": "0:9-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/argument/argument.actual.iteration3",
+    "languageId": "talon",
+    "facet": "argument.actual.iteration",
+    "code": "command: sleep(100ms)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:15-0:20"
+          }
+        ],
+        "domain": "0:9-0:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/argument/argument.actual.singleLine",
+    "languageId": "talon",
+    "facet": "argument.actual.singleLine",
+    "code": "command: user.foo(aaa, bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:18-0:21",
+            "removal": "0:18-0:23"
+          }
+        ],
+        "domain": "0:18-0:21"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:23-0:26",
+            "removal": "0:21-0:26"
+          }
+        ],
+        "domain": "0:23-0:26"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/argument/argument.actual.singleLine2",
+    "languageId": "talon",
+    "facet": "argument.actual.singleLine",
+    "code": "command: key(enter)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:13-0:18",
+            "removal": "0:13-0:18"
+          }
+        ],
+        "domain": "0:13-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/argument/argument.actual.singleLine3",
+    "languageId": "talon",
+    "facet": "argument.actual.singleLine",
+    "code": "command: sleep(100ms)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:15-0:20",
+            "removal": "0:15-0:20"
+          }
+        ],
+        "domain": "0:15-0:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/argumentList/argumentList.actual.empty",
+    "languageId": "talon",
+    "facet": "argumentList.actual.empty",
+    "code": "command: foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:13-0:13",
+            "removal": "0:13-0:13"
+          }
+        ],
+        "domain": "0:9-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/argumentList/argumentList.actual.method.empty",
+    "languageId": "talon",
+    "facet": "argumentList.actual.method.empty",
+    "code": "command: user.foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:18-0:18",
+            "removal": "0:18-0:18"
+          }
+        ],
+        "domain": "0:9-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/argumentList/argumentList.actual.method.singleLine",
+    "languageId": "talon",
+    "facet": "argumentList.actual.method.singleLine",
+    "code": "command: user.foo(aaa, bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:18-0:26",
+            "removal": "0:18-0:26"
+          }
+        ],
+        "domain": "0:9-0:27"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/argumentList/argumentList.actual.singleLine",
+    "languageId": "talon",
+    "facet": "argumentList.actual.singleLine",
+    "code": "command: foo(aaa, bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:13-0:21",
+            "removal": "0:13-0:21"
+          }
+        ],
+        "domain": "0:9-0:22"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/argumentList/argumentList.actual.singleLine2",
+    "languageId": "talon",
+    "facet": "argumentList.actual.singleLine",
+    "code": "command: key(enter)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:13-0:18",
+            "removal": "0:13-0:18"
+          }
+        ],
+        "domain": "0:9-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/argumentList/argumentList.actual.singleLine3",
+    "languageId": "talon",
+    "facet": "argumentList.actual.singleLine",
+    "code": "command: sleep(100ms)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:15-0:20",
+            "removal": "0:15-0:20"
+          }
+        ],
+        "domain": "0:9-0:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/command",
+    "languageId": "talon",
+    "facet": "command",
+    "code": "foo: \"bar\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/command2",
+    "languageId": "talon",
+    "facet": "command",
+    "code": "press {user.key}: key(key)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:26",
+            "removal": "0:0-0:26"
+          }
+        ],
+        "domain": "0:0-0:26"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/comment.line",
+    "languageId": "talon",
+    "facet": "comment.line",
+    "code": "# Hello world",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/condition.if",
+    "languageId": "talon",
+    "facet": "condition.if",
+    "code": "command:\n    if true: print(\"true\")",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:7-1:11",
+            "removal": "1:6-1:11"
+          }
+        ],
+        "domain": "1:4-1:26"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/functionCall.method",
+    "languageId": "talon",
+    "facet": "functionCall.method",
+    "code": "foo:\n    bar.baz()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:13",
+            "removal": "0:4-1:13"
+          }
+        ],
+        "domain": "1:4-1:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/functionCall",
+    "languageId": "talon",
+    "facet": "functionCall",
+    "code": "foo: \n    bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:9",
+            "removal": "0:5-1:9"
+          }
+        ],
+        "domain": "1:4-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/functionCall2",
+    "languageId": "talon",
+    "facet": "functionCall",
+    "code": "foo:\n    key(enter)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:14",
+            "removal": "0:4-1:14"
+          }
+        ],
+        "domain": "1:4-1:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/functionCallee.method",
+    "languageId": "talon",
+    "facet": "functionCallee.method",
+    "code": "foo:\n    bar.baz()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:11",
+            "removal": "1:4-1:11"
+          }
+        ],
+        "domain": "1:4-1:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/functionCallee",
+    "languageId": "talon",
+    "facet": "functionCallee",
+    "code": "foo:\n    bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-1:7"
+          }
+        ],
+        "domain": "1:4-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/functionCallee2",
+    "languageId": "talon",
+    "facet": "functionCallee",
+    "code": "foo:\n    key(enter)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-1:7"
+          }
+        ],
+        "domain": "1:4-1:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/ifStatement",
+    "languageId": "talon",
+    "facet": "ifStatement",
+    "code": "command:\n    if true: print(\"true\")",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:26",
+            "removal": "0:8-1:26"
+          }
+        ],
+        "domain": "1:4-1:26"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/interior.command",
+    "languageId": "talon",
+    "facet": "interior.command",
+    "code": "foo:\n    bar = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:11",
+            "removal": "0:4-1:11"
+          }
+        ],
+        "domain": "0:4-1:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/interior.foreach",
+    "languageId": "talon",
+    "facet": "interior.foreach",
+    "code": "command:\n    for v in values: print(v)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:29",
+            "removal": "0:8-1:29"
+          }
+        ],
+        "domain": "0:8-1:29"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:21-1:29",
+            "removal": "1:21-1:29"
+          }
+        ],
+        "domain": "1:21-1:29"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/interior.if",
+    "languageId": "talon",
+    "facet": "interior.if",
+    "code": "command:\n    if true: print(\"true\")",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:26",
+            "removal": "0:8-1:26"
+          }
+        ],
+        "domain": "0:8-1:26"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:13-1:26",
+            "removal": "1:13-1:26"
+          }
+        ],
+        "domain": "1:13-1:26"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/key/key.mapPair.iteration",
+    "languageId": "talon",
+    "facet": "key.mapPair.iteration",
+    "code": "not mode: command\ntag: browser\n-",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:12"
+          }
+        ],
+        "domain": "0:0-1:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/key/key.mapPair.iteration2",
+    "languageId": "talon",
+    "facet": "key.mapPair.iteration",
+    "code": "aaa: \"0\"\nbbb: \"1\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:8"
+          }
+        ],
+        "domain": "0:0-1:8"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:5-0:8"
+          }
+        ],
+        "domain": "0:5-0:8"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:5-1:8"
+          }
+        ],
+        "domain": "1:5-1:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/key/key.mapPair.iteration3",
+    "languageId": "talon",
+    "facet": "key.mapPair.iteration",
+    "code": "settings():\n    aaa = 0\n    bbb = 1",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:11"
+          }
+        ],
+        "domain": "0:0-2:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-2:11"
+          }
+        ],
+        "domain": "1:4-2:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/key/key.mapPair",
+    "languageId": "talon",
+    "facet": "key.mapPair",
+    "code": "not mode: command\ntag: browser\n-",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:8",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:17"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:0-1:3",
+            "removal": "1:0-1:5"
+          }
+        ],
+        "domain": "1:0-1:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/key/key.mapPair2",
+    "languageId": "talon",
+    "facet": "key.mapPair",
+    "code": "aaa: \"0\"\nbbb: \"1\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:8"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:0-1:3",
+            "removal": "1:0-1:5"
+          }
+        ],
+        "domain": "1:0-1:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/name/name.assignment",
+    "languageId": "talon",
+    "facet": "name.assignment",
+    "code": "command:\n    foo = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-1:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-1:10"
+          }
+        ],
+        "domain": "1:4-1:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/name/name.command",
+    "languageId": "talon",
+    "facet": "name.command",
+    "code": "foo: \"bar\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/name/name.command2",
+    "languageId": "talon",
+    "facet": "name.command",
+    "code": "not mode: command\n-",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:8",
+            "removal": "0:3-0:8"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/name/name.command3",
+    "languageId": "talon",
+    "facet": "name.command",
+    "code": "settings():\n    foo = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-1:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-1:10"
+          }
+        ],
+        "domain": "1:4-1:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/name/name.foreach",
+    "languageId": "talon",
+    "facet": "name.foreach",
+    "code": "command:\n    for v in values: print(v)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-1:29"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:8-1:9",
+            "removal": "1:8-1:10"
+          }
+        ],
+        "domain": "1:4-1:29"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/name/name.iteration.block",
+    "languageId": "talon",
+    "facet": "name.iteration.block",
+    "code": "foo: \"bar\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:5-0:10"
+          }
+        ],
+        "domain": "0:5-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/name/name.iteration.block2",
+    "languageId": "talon",
+    "facet": "name.iteration.block",
+    "code": "settings():\n    foo = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:11"
+          }
+        ],
+        "domain": "0:0-1:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:11"
+          }
+        ],
+        "domain": "1:4-1:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/name/name.iteration.block3",
+    "languageId": "talon",
+    "facet": "name.iteration.block",
+    "code": "mode: command\n-\n\ntag(): browser",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-3:14"
+          }
+        ],
+        "domain": "0:0-3:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:0-3:14"
+          }
+        ],
+        "domain": "3:0-3:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/name/name.iteration.document",
+    "languageId": "talon",
+    "facet": "name.iteration.document",
+    "code": "\nmode: command\n-\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:0"
+          }
+        ],
+        "domain": "0:0-3:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:0-1:13"
+          }
+        ],
+        "domain": "1:0-1:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/name/name.variable.initialized",
+    "languageId": "talon",
+    "facet": "name.variable.initialized",
+    "code": "command:\n    foo = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-1:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-1:10"
+          }
+        ],
+        "domain": "1:4-1:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/statement.assignment",
+    "languageId": "talon",
+    "facet": "statement.assignment",
+    "code": "foo:\n    bar = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:11",
+            "removal": "0:0-1:11"
+          }
+        ],
+        "domain": "0:0-1:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:11",
+            "removal": "0:4-1:11"
+          }
+        ],
+        "domain": "1:4-1:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/statement.command",
+    "languageId": "talon",
+    "facet": "statement.command",
+    "code": "foo: \"bar\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:5-0:10",
+            "removal": "0:4-0:10"
+          }
+        ],
+        "domain": "0:5-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/statement.foreach",
+    "languageId": "talon",
+    "facet": "statement.foreach",
+    "code": "command:\n    for v in values: print(v)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:29",
+            "removal": "0:0-1:29"
+          }
+        ],
+        "domain": "0:0-1:29"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:29",
+            "removal": "0:8-1:29"
+          }
+        ],
+        "domain": "1:4-1:29"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:21-1:29",
+            "removal": "1:20-1:29"
+          }
+        ],
+        "domain": "1:21-1:29"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/statement.functionCall",
+    "languageId": "talon",
+    "facet": "statement.functionCall",
+    "code": "foo:\n    bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:9",
+            "removal": "0:0-1:9"
+          }
+        ],
+        "domain": "0:0-1:9"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:9",
+            "removal": "0:4-1:9"
+          }
+        ],
+        "domain": "1:4-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/statement.if",
+    "languageId": "talon",
+    "facet": "statement.if",
+    "code": "command:\n    if true: print(\"true\")",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:26",
+            "removal": "0:0-1:26"
+          }
+        ],
+        "domain": "0:0-1:26"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:26",
+            "removal": "0:8-1:26"
+          }
+        ],
+        "domain": "1:4-1:26"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:13-1:26",
+            "removal": "1:12-1:26"
+          }
+        ],
+        "domain": "1:13-1:26"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/statement.iteration.block",
+    "languageId": "talon",
+    "facet": "statement.iteration.block",
+    "code": "foo:\n    bar = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:11"
+          }
+        ],
+        "domain": "0:0-1:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:11"
+          }
+        ],
+        "domain": "1:4-1:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/statement.iteration.document",
+    "languageId": "talon",
+    "facet": "statement.iteration.document",
+    "code": "\ntag(): browser\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/statement.variable.initialized",
+    "languageId": "talon",
+    "facet": "statement.variable.initialized",
+    "code": "foo:\n    bar = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:11",
+            "removal": "0:0-1:11"
+          }
+        ],
+        "domain": "0:0-1:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:11",
+            "removal": "0:4-1:11"
+          }
+        ],
+        "domain": "1:4-1:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/string.singleLine",
+    "languageId": "talon",
+    "facet": "string.singleLine",
+    "code": "command: \"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:22",
+            "removal": "0:8-0:22"
+          }
+        ],
+        "domain": "0:9-0:22"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/string.singleLine2",
+    "languageId": "talon",
+    "facet": "string.singleLine",
+    "code": "command: 'Hello world'",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:22",
+            "removal": "0:8-0:22"
+          }
+        ],
+        "domain": "0:9-0:22"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/textFragment.comment.line",
+    "languageId": "talon",
+    "facet": "textFragment.comment.line",
+    "code": "# Hello world",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/textFragment.string.singleLine",
+    "languageId": "talon",
+    "facet": "textFragment.string.singleLine",
+    "code": "command: \"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:10-0:21",
+            "removal": "0:10-0:21"
+          }
+        ],
+        "domain": "0:10-0:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/textFragment.string.singleLine2",
+    "languageId": "talon",
+    "facet": "textFragment.string.singleLine",
+    "code": "command: 'Hello world'",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:10-0:21",
+            "removal": "0:10-0:21"
+          }
+        ],
+        "domain": "0:10-0:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/value/value.assignment",
+    "languageId": "talon",
+    "facet": "value.assignment",
+    "code": "command:\n    foo = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:11",
+            "removal": "0:7-1:11"
+          }
+        ],
+        "domain": "0:0-1:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:10-1:11",
+            "removal": "1:7-1:11"
+          }
+        ],
+        "domain": "1:4-1:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/value/value.command",
+    "languageId": "talon",
+    "facet": "value.command",
+    "code": "foo: \"bar\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:10",
+            "removal": "0:3-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/value/value.foreach",
+    "languageId": "talon",
+    "facet": "value.foreach",
+    "code": "command:\n    for v in values: print(v)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:29",
+            "removal": "0:7-1:29"
+          }
+        ],
+        "domain": "0:0-1:29"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:13-1:19",
+            "removal": "1:12-1:19"
+          }
+        ],
+        "domain": "1:4-1:29"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/value/value.iteration.block",
+    "languageId": "talon",
+    "facet": "value.iteration.block",
+    "code": "foo: \"bar\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:5-0:10"
+          }
+        ],
+        "domain": "0:5-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/value/value.iteration.block2",
+    "languageId": "talon",
+    "facet": "value.iteration.block",
+    "code": "settings():\n    foo = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:11"
+          }
+        ],
+        "domain": "0:0-1:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:11"
+          }
+        ],
+        "domain": "1:4-1:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/value/value.iteration.block3",
+    "languageId": "talon",
+    "facet": "value.iteration.block",
+    "code": "mode: command\n-\n\ntag(): browser",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-3:14"
+          }
+        ],
+        "domain": "0:0-3:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:0-3:14"
+          }
+        ],
+        "domain": "3:0-3:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/value/value.iteration.document",
+    "languageId": "talon",
+    "facet": "value.iteration.document",
+    "code": "\nmode: command\n-\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:0"
+          }
+        ],
+        "domain": "0:0-3:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:0-1:13"
+          }
+        ],
+        "domain": "1:0-1:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/value/value.mapPair.iteration",
+    "languageId": "talon",
+    "facet": "value.mapPair.iteration",
+    "code": "not mode: command\ntag: browser\n-",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:12"
+          }
+        ],
+        "domain": "0:0-1:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/value/value.mapPair.iteration2",
+    "languageId": "talon",
+    "facet": "value.mapPair.iteration",
+    "code": "aaa: \"0\"\nbbb: \"1\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:8"
+          }
+        ],
+        "domain": "0:0-1:8"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:5-0:8"
+          }
+        ],
+        "domain": "0:5-0:8"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:5-1:8"
+          }
+        ],
+        "domain": "1:5-1:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/value/value.mapPair.iteration3",
+    "languageId": "talon",
+    "facet": "value.mapPair.iteration",
+    "code": "settings():\n    aaa = 0\n    bbb = 1",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:11"
+          }
+        ],
+        "domain": "0:0-2:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-2:11"
+          }
+        ],
+        "domain": "1:4-2:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/value/value.mapPair",
+    "languageId": "talon",
+    "facet": "value.mapPair",
+    "code": "not mode: command\ntag: browser\n-",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:10-0:17",
+            "removal": "0:8-0:17"
+          }
+        ],
+        "domain": "0:0-0:17"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:5-1:12",
+            "removal": "1:3-1:12"
+          }
+        ],
+        "domain": "1:0-1:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/value/value.mapPair2",
+    "languageId": "talon",
+    "facet": "value.mapPair",
+    "code": "aaa: \"0\"\nbbb: \"1\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:8",
+            "removal": "0:3-0:8"
+          }
+        ],
+        "domain": "0:0-0:8"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:5-1:8",
+            "removal": "1:3-1:8"
+          }
+        ],
+        "domain": "1:0-1:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/talon/value/value.variable",
+    "languageId": "talon",
+    "facet": "value.variable",
+    "code": "command:\n    foo = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:11",
+            "removal": "0:7-1:11"
+          }
+        ],
+        "domain": "0:0-1:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:10-1:11",
+            "removal": "1:7-1:11"
+          }
+        ],
+        "domain": "1:4-1:11"
+      }
+    ]
+  }
 ]

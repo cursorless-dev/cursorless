@@ -1,1981 +1,1981 @@
 [
-	{
-		"name": "scopes/c/namedFunction/namedFunction.iteration.document",
-		"languageId": "c",
-		"facet": "namedFunction.iteration.document",
-		"code": "\nvoid foo() {}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/c/namedFunction/namedFunction",
-		"languageId": "c",
-		"facet": "namedFunction",
-		"code": "void foo() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/c/namedFunction/namedFunction2",
-		"languageId": "c",
-		"facet": "namedFunction",
-		"code": "void foo();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:11",
-						"removal": "0:0-0:11"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/c/namedFunction/namedFunction3",
-		"languageId": "c",
-		"facet": "namedFunction",
-		"code": "void Foo::bar() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:18",
-						"removal": "0:0-0:18"
-					}
-				],
-				"domain": "0:0-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/c/namedFunction/namedFunction4",
-		"languageId": "c",
-		"facet": "namedFunction",
-		"code": "void Foo::bar();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:16",
-						"removal": "0:0-0:16"
-					}
-				],
-				"domain": "0:0-0:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/namedFunction.iteration.document",
-		"languageId": "clojure",
-		"facet": "namedFunction.iteration.document",
-		"code": "\n(defn foo [] 0)\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/namedFunction",
-		"languageId": "clojure",
-		"facet": "namedFunction",
-		"code": "(defn foo [] 0)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:15",
-						"removal": "0:0-0:15"
-					}
-				],
-				"domain": "0:0-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/cpp/namedFunction.constructor",
-		"languageId": "cpp",
-		"facet": "namedFunction.constructor",
-		"code": "class Foo {\n    Foo() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:12",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/cpp/namedFunction.constructor2",
-		"languageId": "cpp",
-		"facet": "namedFunction.constructor",
-		"code": "class Foo {\n    ~Foo() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:13",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/cpp/namedFunction.iteration.class",
-		"languageId": "cpp",
-		"facet": "namedFunction.iteration.class",
-		"code": "class Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:11-0:12"
-					}
-				],
-				"domain": "0:11-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/cpp/namedFunction.method",
-		"languageId": "cpp",
-		"facet": "namedFunction.method",
-		"code": "class Foo {\n    void bar() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:17",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/csharp/namedFunction/namedFunction.constructor",
-		"languageId": "csharp",
-		"facet": "namedFunction.constructor",
-		"code": "class Foo {\n    public Foo() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:19",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/csharp/namedFunction/namedFunction.iteration.class",
-		"languageId": "csharp",
-		"facet": "namedFunction.iteration.class",
-		"code": "class Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:11-0:12"
-					}
-				],
-				"domain": "0:11-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/csharp/namedFunction/namedFunction.iteration.document",
-		"languageId": "csharp",
-		"facet": "namedFunction.iteration.document",
-		"code": "\nvoid Foo() {}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/csharp/namedFunction/namedFunction.method",
-		"languageId": "csharp",
-		"facet": "namedFunction.method",
-		"code": "class Foo {\n    public void Bar() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:24",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:24"
-			}
-		]
-	},
-	{
-		"name": "scopes/csharp/namedFunction/namedFunction",
-		"languageId": "csharp",
-		"facet": "namedFunction",
-		"code": "void Foo() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/dart/namedFunction.constructor",
-		"languageId": "dart",
-		"facet": "namedFunction.constructor",
-		"code": "class Foo {\n    Foo() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:12",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/dart/namedFunction.iteration.class",
-		"languageId": "dart",
-		"facet": "namedFunction.iteration.class",
-		"code": "class Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:11-0:12"
-					}
-				],
-				"domain": "0:11-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/dart/namedFunction.iteration.document",
-		"languageId": "dart",
-		"facet": "namedFunction.iteration.document",
-		"code": "\nvoid foo() {}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/dart/namedFunction.method",
-		"languageId": "dart",
-		"facet": "namedFunction.method",
-		"code": "class Foo {\n    void bar() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:17",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/dart/namedFunction",
-		"languageId": "dart",
-		"facet": "namedFunction",
-		"code": "void foo() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/go/namedFunction.iteration.class",
-		"languageId": "go",
-		"facet": "namedFunction.iteration.class",
-		"code": "type Foo struct { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:19"
-					}
-				],
-				"domain": "0:0-0:19"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:17-0:18"
-					}
-				],
-				"domain": "0:17-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/go/namedFunction.iteration.document",
-		"languageId": "go",
-		"facet": "namedFunction.iteration.document",
-		"code": "\nfunc foo() {}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/go/namedFunction.method",
-		"languageId": "go",
-		"facet": "namedFunction.method",
-		"code": "func (f Foo) bar() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:21",
-						"removal": "0:0-0:21"
-					}
-				],
-				"domain": "0:0-0:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/go/namedFunction",
-		"languageId": "go",
-		"facet": "namedFunction",
-		"code": "func foo() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/go/namedFunction2",
-		"languageId": "go",
-		"facet": "namedFunction",
-		"code": "const foo = func() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:21",
-						"removal": "0:0-0:21"
-					}
-				],
-				"domain": "0:0-0:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/go/namedFunction3",
-		"languageId": "go",
-		"facet": "namedFunction",
-		"code": "foo := func() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:16",
-						"removal": "0:0-0:16"
-					}
-				],
-				"domain": "0:0-0:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/go/namedFunction4",
-		"languageId": "go",
-		"facet": "namedFunction",
-		"code": "foo = func() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:15",
-						"removal": "0:0-0:15"
-					}
-				],
-				"domain": "0:0-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/namedFunction.constructor",
-		"languageId": "java",
-		"facet": "namedFunction.constructor",
-		"code": "public class Foo {\n    public Foo() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:19",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/namedFunction.constructor2",
-		"languageId": "java",
-		"facet": "namedFunction.constructor",
-		"code": "public class Foo {\n    @bar\n    public Foo() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-2:19",
-						"removal": "1:0-3:0"
-					}
-				],
-				"domain": "1:4-2:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/namedFunction.iteration.class",
-		"languageId": "java",
-		"facet": "namedFunction.iteration.class",
-		"code": "class Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:11-0:12"
-					}
-				],
-				"domain": "0:11-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/namedFunction.method",
-		"languageId": "java",
-		"facet": "namedFunction.method",
-		"code": "public class Foo {\n    public void bar() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:24",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:24"
-			}
-		]
-	},
-	{
-		"name": "scopes/java/namedFunction.method2",
-		"languageId": "java",
-		"facet": "namedFunction.method",
-		"code": "public class Foo {\n    @An\n    public void bar() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-2:24",
-						"removal": "1:0-3:0"
-					}
-				],
-				"domain": "1:4-2:24"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction.constructor",
-		"languageId": "javascript.core",
-		"facet": "namedFunction.constructor",
-		"code": "class Foo {\n    constructor() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:20",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction.iteration.class",
-		"languageId": "javascript.core",
-		"facet": "namedFunction.iteration.class",
-		"code": "class Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:11-0:12"
-					}
-				],
-				"domain": "0:11-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction.iteration.document",
-		"languageId": "javascript.core",
-		"facet": "namedFunction.iteration.document",
-		"code": "\nfunction foo() {}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction.method",
-		"languageId": "javascript.core",
-		"facet": "namedFunction.method",
-		"code": "class Foo {\n    bar() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:12",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction.method2",
-		"languageId": "javascript.core",
-		"facet": "namedFunction.method",
-		"code": "class Foo {\n    @An\n    bar() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-2:12",
-						"removal": "1:0-3:0"
-					}
-				],
-				"domain": "1:4-2:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction.method3",
-		"languageId": "javascript.core",
-		"facet": "namedFunction.method",
-		"code": "class Foo {\n    bar = () => {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:18",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction.method4",
-		"languageId": "javascript.core",
-		"facet": "namedFunction.method",
-		"code": "class Foo {\n    @An\n    bar = () => {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-2:18",
-						"removal": "1:0-3:0"
-					}
-				],
-				"domain": "1:4-2:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction.method5",
-		"languageId": "javascript.core",
-		"facet": "namedFunction.method",
-		"code": "const foo = {\n    bar() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:12",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction.method6",
-		"languageId": "javascript.core",
-		"facet": "namedFunction.method",
-		"code": "const foo = {\n    bar: function() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:22",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:22"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction.method7",
-		"languageId": "javascript.core",
-		"facet": "namedFunction.method",
-		"code": "const foo = {\n    bar: function *() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:24",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:24"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction.method8",
-		"languageId": "javascript.core",
-		"facet": "namedFunction.method",
-		"code": "const foo = {\n    bar: () => {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:17",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction",
-		"languageId": "javascript.core",
-		"facet": "namedFunction",
-		"code": "function foo() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:17",
-						"removal": "0:0-0:17"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction10",
-		"languageId": "javascript.core",
-		"facet": "namedFunction",
-		"code": "export const foo = () => {};",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:28",
-						"removal": "0:0-0:28"
-					}
-				],
-				"domain": "0:0-0:28"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction11",
-		"languageId": "javascript.core",
-		"facet": "namedFunction",
-		"code": "export default function() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:28",
-						"removal": "0:0-0:28"
-					}
-				],
-				"domain": "0:0-0:28"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction12",
-		"languageId": "javascript.core",
-		"facet": "namedFunction",
-		"code": "export default function *() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:30",
-						"removal": "0:0-0:30"
-					}
-				],
-				"domain": "0:0-0:30"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction13",
-		"languageId": "javascript.core",
-		"facet": "namedFunction",
-		"code": "export default () => {};",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:24",
-						"removal": "0:0-0:24"
-					}
-				],
-				"domain": "0:0-0:24"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction14",
-		"languageId": "javascript.core",
-		"facet": "namedFunction",
-		"code": "const foo = function bar() {};",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:12-0:29",
-						"removal": "0:11-0:29"
-					}
-				],
-				"domain": "0:12-0:29"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction15",
-		"languageId": "javascript.core",
-		"facet": "namedFunction",
-		"code": "const foo = function *bar() {};",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:12-0:30",
-						"removal": "0:11-0:30"
-					}
-				],
-				"domain": "0:12-0:30"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction2",
-		"languageId": "javascript.core",
-		"facet": "namedFunction",
-		"code": "function *foo() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:18",
-						"removal": "0:0-0:18"
-					}
-				],
-				"domain": "0:0-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction3",
-		"languageId": "javascript.core",
-		"facet": "namedFunction",
-		"code": "const foo = function() {};",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:26",
-						"removal": "0:0-0:26"
-					}
-				],
-				"domain": "0:0-0:26"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction4",
-		"languageId": "javascript.core",
-		"facet": "namedFunction",
-		"code": "const foo = function *() {};",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:28",
-						"removal": "0:0-0:28"
-					}
-				],
-				"domain": "0:0-0:28"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction5",
-		"languageId": "javascript.core",
-		"facet": "namedFunction",
-		"code": "const foo = () => {};",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:21",
-						"removal": "0:0-0:21"
-					}
-				],
-				"domain": "0:0-0:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction6",
-		"languageId": "javascript.core",
-		"facet": "namedFunction",
-		"code": "export function foo() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:24",
-						"removal": "0:0-0:24"
-					}
-				],
-				"domain": "0:0-0:24"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction7",
-		"languageId": "javascript.core",
-		"facet": "namedFunction",
-		"code": "export function *foo() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:25",
-						"removal": "0:0-0:25"
-					}
-				],
-				"domain": "0:0-0:25"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction8",
-		"languageId": "javascript.core",
-		"facet": "namedFunction",
-		"code": "export const foo = function() {};",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:33",
-						"removal": "0:0-0:33"
-					}
-				],
-				"domain": "0:0-0:33"
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/namedFunction/namedFunction9",
-		"languageId": "javascript.core",
-		"facet": "namedFunction",
-		"code": "export const foo = function *() {};",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:35",
-						"removal": "0:0-0:35"
-					}
-				],
-				"domain": "0:0-0:35"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/namedFunction/namedFunction.constructor",
-		"languageId": "kotlin",
-		"facet": "namedFunction.constructor",
-		"code": "class Foo {\n    constructor() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:20",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/namedFunction/namedFunction.constructor2",
-		"languageId": "kotlin",
-		"facet": "namedFunction.constructor",
-		"code": "class Foo {\n    @bar\n    constructor() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-2:20",
-						"removal": "1:0-3:0"
-					}
-				],
-				"domain": "1:4-2:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/namedFunction/namedFunction.iteration.class",
-		"languageId": "kotlin",
-		"facet": "namedFunction.iteration.class",
-		"code": "class Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:11-0:12"
-					}
-				],
-				"domain": "0:11-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/namedFunction/namedFunction.iteration.document",
-		"languageId": "kotlin",
-		"facet": "namedFunction.iteration.document",
-		"code": "\nfun foo() {}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/namedFunction/namedFunction.method",
-		"languageId": "kotlin",
-		"facet": "namedFunction.method",
-		"code": "class Foo {\n    fun bar() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:16",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/namedFunction/namedFunction.method2",
-		"languageId": "kotlin",
-		"facet": "namedFunction.method",
-		"code": "class Foo {\n    @An\n    fun bar() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-2:16",
-						"removal": "1:0-3:0"
-					}
-				],
-				"domain": "1:4-2:16"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/namedFunction/namedFunction.method3",
-		"languageId": "kotlin",
-		"facet": "namedFunction.method",
-		"code": "class Foo {\n    get(): Int {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:17",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/namedFunction/namedFunction.method4",
-		"languageId": "kotlin",
-		"facet": "namedFunction.method",
-		"code": "class Foo {\n    set(aaa: Int) {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:20",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/namedFunction/namedFunction",
-		"languageId": "kotlin",
-		"facet": "namedFunction",
-		"code": "fun bar() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12",
-						"removal": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/namedFunction/namedFunction2",
-		"languageId": "kotlin",
-		"facet": "namedFunction",
-		"code": "@baz\nfun bar() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:12",
-						"removal": "0:0-1:12"
-					}
-				],
-				"domain": "0:0-1:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/namedFunction.iteration.document",
-		"languageId": "lua",
-		"facet": "namedFunction.iteration.document",
-		"code": "\nfunction foo() end\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/namedFunction.method",
-		"languageId": "lua",
-		"facet": "namedFunction.method",
-		"code": "function foo:bar() end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:22",
-						"removal": "0:0-0:22"
-					}
-				],
-				"domain": "0:0-0:22"
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/namedFunction",
-		"languageId": "lua",
-		"facet": "namedFunction",
-		"code": "function foo() end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:18",
-						"removal": "0:0-0:18"
-					}
-				],
-				"domain": "0:0-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/php/namedFunction.constructor",
-		"languageId": "php",
-		"facet": "namedFunction.constructor",
-		"code": "<?php\nclass Foo {\n    function __construct() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "2:4-2:29",
-						"removal": "2:0-3:0"
-					}
-				],
-				"domain": "2:4-2:29"
-			}
-		]
-	},
-	{
-		"name": "scopes/php/namedFunction.iteration.class",
-		"languageId": "php",
-		"facet": "namedFunction.iteration.class",
-		"code": "<?php\nclass Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:13"
-					}
-				],
-				"domain": "0:0-1:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:11-1:12"
-					}
-				],
-				"domain": "1:11-1:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/php/namedFunction.iteration.document",
-		"languageId": "php",
-		"facet": "namedFunction.iteration.document",
-		"code": "\n<?php\nfunction foo() {}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-3:0"
-					}
-				],
-				"domain": "0:0-3:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/php/namedFunction.method",
-		"languageId": "php",
-		"facet": "namedFunction.method",
-		"code": "<?php\nclass Foo {\n    function bar() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "2:4-2:21",
-						"removal": "2:0-3:0"
-					}
-				],
-				"domain": "2:4-2:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/php/namedFunction",
-		"languageId": "php",
-		"facet": "namedFunction",
-		"code": "<?php\nfunction foo() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:0-1:17",
-						"removal": "0:5-1:17"
-					}
-				],
-				"domain": "1:0-1:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/php/namedFunction2",
-		"languageId": "php",
-		"facet": "namedFunction",
-		"code": "<?php\n$foo = function() {};",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:0-1:21",
-						"removal": "0:5-1:21"
-					}
-				],
-				"domain": "1:0-1:21"
-			}
-		]
-	},
-	{
-		"name": "scopes/php/namedFunction3",
-		"languageId": "php",
-		"facet": "namedFunction",
-		"code": "<?php\n$foo = fn() => 0;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:0-1:17",
-						"removal": "0:5-1:17"
-					}
-				],
-				"domain": "1:0-1:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/python/namedFunction/namedFunction.constructor",
-		"languageId": "python",
-		"facet": "namedFunction.constructor",
-		"code": "class Foo:\n    def __init__(self): pass",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:28",
-						"removal": "0:10-1:28"
-					}
-				],
-				"domain": "1:4-1:28"
-			}
-		]
-	},
-	{
-		"name": "scopes/python/namedFunction/namedFunction.iteration.class",
-		"languageId": "python",
-		"facet": "namedFunction.iteration.class",
-		"code": "class Foo: pass",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:15"
-					}
-				],
-				"domain": "0:0-0:15"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:11-0:15"
-					}
-				],
-				"domain": "0:11-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/python/namedFunction/namedFunction.iteration.document",
-		"languageId": "python",
-		"facet": "namedFunction.iteration.document",
-		"code": "\ndef foo(): pass\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/python/namedFunction/namedFunction.method",
-		"languageId": "python",
-		"facet": "namedFunction.method",
-		"code": "class Foo:\n    def bar(): pass",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:19",
-						"removal": "0:10-1:19"
-					}
-				],
-				"domain": "1:4-1:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/python/namedFunction/namedFunction",
-		"languageId": "python",
-		"facet": "namedFunction",
-		"code": "def foo(): pass",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:15",
-						"removal": "0:0-0:15"
-					}
-				],
-				"domain": "0:0-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/python/namedFunction/namedFunction2",
-		"languageId": "python",
-		"facet": "namedFunction",
-		"code": "@bar\ndef foo(): pass",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:15",
-						"removal": "0:0-1:15"
-					}
-				],
-				"domain": "0:0-1:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/namedFunction.iteration.document",
-		"languageId": "r",
-		"facet": "namedFunction.iteration.document",
-		"code": "\nfoo <- function() {}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/r/namedFunction",
-		"languageId": "r",
-		"facet": "namedFunction",
-		"code": "foo <- function() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:20",
-						"removal": "0:0-0:20"
-					}
-				],
-				"domain": "0:0-0:20"
-			}
-		]
-	},
-	{
-		"name": "scopes/ruby/namedFunction.iteration.class",
-		"languageId": "ruby",
-		"facet": "namedFunction.iteration.class",
-		"code": "class Foo\n    a\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:3"
-					}
-				],
-				"domain": "0:0-2:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:9-2:0"
-					}
-				],
-				"domain": "0:9-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/ruby/namedFunction.iteration.document",
-		"languageId": "ruby",
-		"facet": "namedFunction.iteration.document",
-		"code": "\ndef foo() end\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/ruby/namedFunction.method",
-		"languageId": "ruby",
-		"facet": "namedFunction.method",
-		"code": "class Foo\n    def bar() end\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:17",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/ruby/namedFunction",
-		"languageId": "ruby",
-		"facet": "namedFunction",
-		"code": "def foo() end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/ruby/namedFunction2",
-		"languageId": "ruby",
-		"facet": "namedFunction",
-		"code": "def foo\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:3",
-						"removal": "0:0-1:3"
-					}
-				],
-				"domain": "0:0-1:3"
-			}
-		]
-	},
-	{
-		"name": "scopes/ruby/namedFunction3",
-		"languageId": "ruby",
-		"facet": "namedFunction",
-		"code": "def foo.bar() end",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:17",
-						"removal": "0:0-0:17"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/ruby/namedFunction4",
-		"languageId": "ruby",
-		"facet": "namedFunction",
-		"code": "def foo.bar\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-1:3",
-						"removal": "0:0-1:3"
-					}
-				],
-				"domain": "0:0-1:3"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/name/namedFunction.iteration.class",
-		"languageId": "rust",
-		"facet": "namedFunction.iteration.class",
-		"code": "impl Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:10-0:11"
-					}
-				],
-				"domain": "0:10-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/namedFunction.iteration.class",
-		"languageId": "rust",
-		"facet": "namedFunction.iteration.class",
-		"code": "impl Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:10-0:11"
-					}
-				],
-				"domain": "0:10-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/namedFunction.iteration.document",
-		"languageId": "rust",
-		"facet": "namedFunction.iteration.document",
-		"code": "\nfn foo() {}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/namedFunction.method",
-		"languageId": "rust",
-		"facet": "namedFunction.method",
-		"code": "impl Foo {\n    fn bar() {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:15",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/namedFunction",
-		"languageId": "rust",
-		"facet": "namedFunction",
-		"code": "fn foo() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:11",
-						"removal": "0:0-0:11"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/scala/namedFunction.iteration.class",
-		"languageId": "scala",
-		"facet": "namedFunction.iteration.class",
-		"code": "class Foo { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:11-0:12"
-					}
-				],
-				"domain": "0:11-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/scala/namedFunction.iteration.document",
-		"languageId": "scala",
-		"facet": "namedFunction.iteration.document",
-		"code": "\ndef foo(): Int = 0\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/scala/namedFunction.method",
-		"languageId": "scala",
-		"facet": "namedFunction.method",
-		"code": "class Foo {\n    def bar(): Int = 1\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:22",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:22"
-			}
-		]
-	},
-	{
-		"name": "scopes/scala/namedFunction",
-		"languageId": "scala",
-		"facet": "namedFunction",
-		"code": "def foo(): Int = 1",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:18",
-						"removal": "0:0-0:18"
-					}
-				],
-				"domain": "0:0-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/scss/namedFunction.iteration.class",
-		"languageId": "scss",
-		"facet": "namedFunction.iteration.class",
-		"code": "* { }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:5"
-					}
-				],
-				"domain": "0:0-0:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:3-0:4"
-					}
-				],
-				"domain": "0:3-0:4"
-			}
-		]
-	},
-	{
-		"name": "scopes/scss/namedFunction.iteration.document",
-		"languageId": "scss",
-		"facet": "namedFunction.iteration.document",
-		"code": "\n* {}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/scss/namedFunction",
-		"languageId": "scss",
-		"facet": "namedFunction",
-		"code": "@function foo() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:18",
-						"removal": "0:0-0:18"
-					}
-				],
-				"domain": "0:0-0:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/scss/namedFunction2",
-		"languageId": "scss",
-		"facet": "namedFunction",
-		"code": "@mixin foo() {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:15",
-						"removal": "0:0-0:15"
-					}
-				],
-				"domain": "0:0-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/typescript.core/namedFunction/namedFunction.constructor",
-		"languageId": "typescript.core",
-		"facet": "namedFunction.constructor",
-		"code": "class Foo {\n    constructor();\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:18",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:18"
-			}
-		]
-	},
-	{
-		"name": "scopes/typescript.core/namedFunction/namedFunction.method",
-		"languageId": "typescript.core",
-		"facet": "namedFunction.method",
-		"code": "class Foo {\n    bar();\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:10",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/typescript.core/namedFunction/namedFunction.method2",
-		"languageId": "typescript.core",
-		"facet": "namedFunction.method",
-		"code": "class Foo {\n    abstract bar();\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:4-1:19",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:4-1:19"
-			}
-		]
-	},
-	{
-		"name": "scopes/typescript.core/namedFunction/namedFunction",
-		"languageId": "typescript.core",
-		"facet": "namedFunction",
-		"code": "function foo();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:15",
-						"removal": "0:0-0:15"
-					}
-				],
-				"domain": "0:0-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/typescript.core/namedFunction/namedFunction2",
-		"languageId": "typescript.core",
-		"facet": "namedFunction",
-		"code": "export function foo();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:22",
-						"removal": "0:0-0:22"
-					}
-				],
-				"domain": "0:0-0:22"
-			}
-		]
-	}
+  {
+    "name": "scopes/c/namedFunction/namedFunction.iteration.document",
+    "languageId": "c",
+    "facet": "namedFunction.iteration.document",
+    "code": "\nvoid foo() {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/c/namedFunction/namedFunction",
+    "languageId": "c",
+    "facet": "namedFunction",
+    "code": "void foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/c/namedFunction/namedFunction2",
+    "languageId": "c",
+    "facet": "namedFunction",
+    "code": "void foo();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/c/namedFunction/namedFunction3",
+    "languageId": "c",
+    "facet": "namedFunction",
+    "code": "void Foo::bar() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:18",
+            "removal": "0:0-0:18"
+          }
+        ],
+        "domain": "0:0-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/c/namedFunction/namedFunction4",
+    "languageId": "c",
+    "facet": "namedFunction",
+    "code": "void Foo::bar();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:16",
+            "removal": "0:0-0:16"
+          }
+        ],
+        "domain": "0:0-0:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/namedFunction.iteration.document",
+    "languageId": "clojure",
+    "facet": "namedFunction.iteration.document",
+    "code": "\n(defn foo [] 0)\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/namedFunction",
+    "languageId": "clojure",
+    "facet": "namedFunction",
+    "code": "(defn foo [] 0)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/cpp/namedFunction.constructor",
+    "languageId": "cpp",
+    "facet": "namedFunction.constructor",
+    "code": "class Foo {\n    Foo() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:12",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/cpp/namedFunction.constructor2",
+    "languageId": "cpp",
+    "facet": "namedFunction.constructor",
+    "code": "class Foo {\n    ~Foo() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:13",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/cpp/namedFunction.iteration.class",
+    "languageId": "cpp",
+    "facet": "namedFunction.iteration.class",
+    "code": "class Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/cpp/namedFunction.method",
+    "languageId": "cpp",
+    "facet": "namedFunction.method",
+    "code": "class Foo {\n    void bar() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:17",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/csharp/namedFunction/namedFunction.constructor",
+    "languageId": "csharp",
+    "facet": "namedFunction.constructor",
+    "code": "class Foo {\n    public Foo() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:19",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/csharp/namedFunction/namedFunction.iteration.class",
+    "languageId": "csharp",
+    "facet": "namedFunction.iteration.class",
+    "code": "class Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/csharp/namedFunction/namedFunction.iteration.document",
+    "languageId": "csharp",
+    "facet": "namedFunction.iteration.document",
+    "code": "\nvoid Foo() {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/csharp/namedFunction/namedFunction.method",
+    "languageId": "csharp",
+    "facet": "namedFunction.method",
+    "code": "class Foo {\n    public void Bar() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:24",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:24"
+      }
+    ]
+  },
+  {
+    "name": "scopes/csharp/namedFunction/namedFunction",
+    "languageId": "csharp",
+    "facet": "namedFunction",
+    "code": "void Foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/dart/namedFunction.constructor",
+    "languageId": "dart",
+    "facet": "namedFunction.constructor",
+    "code": "class Foo {\n    Foo() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:12",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/dart/namedFunction.iteration.class",
+    "languageId": "dart",
+    "facet": "namedFunction.iteration.class",
+    "code": "class Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/dart/namedFunction.iteration.document",
+    "languageId": "dart",
+    "facet": "namedFunction.iteration.document",
+    "code": "\nvoid foo() {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/dart/namedFunction.method",
+    "languageId": "dart",
+    "facet": "namedFunction.method",
+    "code": "class Foo {\n    void bar() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:17",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/dart/namedFunction",
+    "languageId": "dart",
+    "facet": "namedFunction",
+    "code": "void foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/go/namedFunction.iteration.class",
+    "languageId": "go",
+    "facet": "namedFunction.iteration.class",
+    "code": "type Foo struct { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:19"
+          }
+        ],
+        "domain": "0:0-0:19"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:17-0:18"
+          }
+        ],
+        "domain": "0:17-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/go/namedFunction.iteration.document",
+    "languageId": "go",
+    "facet": "namedFunction.iteration.document",
+    "code": "\nfunc foo() {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/go/namedFunction.method",
+    "languageId": "go",
+    "facet": "namedFunction.method",
+    "code": "func (f Foo) bar() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:21",
+            "removal": "0:0-0:21"
+          }
+        ],
+        "domain": "0:0-0:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/go/namedFunction",
+    "languageId": "go",
+    "facet": "namedFunction",
+    "code": "func foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/go/namedFunction2",
+    "languageId": "go",
+    "facet": "namedFunction",
+    "code": "const foo = func() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:21",
+            "removal": "0:0-0:21"
+          }
+        ],
+        "domain": "0:0-0:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/go/namedFunction3",
+    "languageId": "go",
+    "facet": "namedFunction",
+    "code": "foo := func() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:16",
+            "removal": "0:0-0:16"
+          }
+        ],
+        "domain": "0:0-0:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/go/namedFunction4",
+    "languageId": "go",
+    "facet": "namedFunction",
+    "code": "foo = func() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/namedFunction.constructor",
+    "languageId": "java",
+    "facet": "namedFunction.constructor",
+    "code": "public class Foo {\n    public Foo() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:19",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/namedFunction.constructor2",
+    "languageId": "java",
+    "facet": "namedFunction.constructor",
+    "code": "public class Foo {\n    @bar\n    public Foo() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-2:19",
+            "removal": "1:0-3:0"
+          }
+        ],
+        "domain": "1:4-2:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/namedFunction.iteration.class",
+    "languageId": "java",
+    "facet": "namedFunction.iteration.class",
+    "code": "class Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/namedFunction.method",
+    "languageId": "java",
+    "facet": "namedFunction.method",
+    "code": "public class Foo {\n    public void bar() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:24",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:24"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/namedFunction.method2",
+    "languageId": "java",
+    "facet": "namedFunction.method",
+    "code": "public class Foo {\n    @An\n    public void bar() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-2:24",
+            "removal": "1:0-3:0"
+          }
+        ],
+        "domain": "1:4-2:24"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction.constructor",
+    "languageId": "javascript.core",
+    "facet": "namedFunction.constructor",
+    "code": "class Foo {\n    constructor() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:20",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction.iteration.class",
+    "languageId": "javascript.core",
+    "facet": "namedFunction.iteration.class",
+    "code": "class Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction.iteration.document",
+    "languageId": "javascript.core",
+    "facet": "namedFunction.iteration.document",
+    "code": "\nfunction foo() {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction.method",
+    "languageId": "javascript.core",
+    "facet": "namedFunction.method",
+    "code": "class Foo {\n    bar() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:12",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction.method2",
+    "languageId": "javascript.core",
+    "facet": "namedFunction.method",
+    "code": "class Foo {\n    @An\n    bar() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-2:12",
+            "removal": "1:0-3:0"
+          }
+        ],
+        "domain": "1:4-2:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction.method3",
+    "languageId": "javascript.core",
+    "facet": "namedFunction.method",
+    "code": "class Foo {\n    bar = () => {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:18",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction.method4",
+    "languageId": "javascript.core",
+    "facet": "namedFunction.method",
+    "code": "class Foo {\n    @An\n    bar = () => {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-2:18",
+            "removal": "1:0-3:0"
+          }
+        ],
+        "domain": "1:4-2:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction.method5",
+    "languageId": "javascript.core",
+    "facet": "namedFunction.method",
+    "code": "const foo = {\n    bar() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:12",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction.method6",
+    "languageId": "javascript.core",
+    "facet": "namedFunction.method",
+    "code": "const foo = {\n    bar: function() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:22",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:22"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction.method7",
+    "languageId": "javascript.core",
+    "facet": "namedFunction.method",
+    "code": "const foo = {\n    bar: function *() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:24",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:24"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction.method8",
+    "languageId": "javascript.core",
+    "facet": "namedFunction.method",
+    "code": "const foo = {\n    bar: () => {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:17",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction",
+    "languageId": "javascript.core",
+    "facet": "namedFunction",
+    "code": "function foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:17",
+            "removal": "0:0-0:17"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction10",
+    "languageId": "javascript.core",
+    "facet": "namedFunction",
+    "code": "export const foo = () => {};",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:28",
+            "removal": "0:0-0:28"
+          }
+        ],
+        "domain": "0:0-0:28"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction11",
+    "languageId": "javascript.core",
+    "facet": "namedFunction",
+    "code": "export default function() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:28",
+            "removal": "0:0-0:28"
+          }
+        ],
+        "domain": "0:0-0:28"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction12",
+    "languageId": "javascript.core",
+    "facet": "namedFunction",
+    "code": "export default function *() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:30",
+            "removal": "0:0-0:30"
+          }
+        ],
+        "domain": "0:0-0:30"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction13",
+    "languageId": "javascript.core",
+    "facet": "namedFunction",
+    "code": "export default () => {};",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:24",
+            "removal": "0:0-0:24"
+          }
+        ],
+        "domain": "0:0-0:24"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction14",
+    "languageId": "javascript.core",
+    "facet": "namedFunction",
+    "code": "const foo = function bar() {};",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:12-0:29",
+            "removal": "0:11-0:29"
+          }
+        ],
+        "domain": "0:12-0:29"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction15",
+    "languageId": "javascript.core",
+    "facet": "namedFunction",
+    "code": "const foo = function *bar() {};",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:12-0:30",
+            "removal": "0:11-0:30"
+          }
+        ],
+        "domain": "0:12-0:30"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction2",
+    "languageId": "javascript.core",
+    "facet": "namedFunction",
+    "code": "function *foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:18",
+            "removal": "0:0-0:18"
+          }
+        ],
+        "domain": "0:0-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction3",
+    "languageId": "javascript.core",
+    "facet": "namedFunction",
+    "code": "const foo = function() {};",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:26",
+            "removal": "0:0-0:26"
+          }
+        ],
+        "domain": "0:0-0:26"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction4",
+    "languageId": "javascript.core",
+    "facet": "namedFunction",
+    "code": "const foo = function *() {};",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:28",
+            "removal": "0:0-0:28"
+          }
+        ],
+        "domain": "0:0-0:28"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction5",
+    "languageId": "javascript.core",
+    "facet": "namedFunction",
+    "code": "const foo = () => {};",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:21",
+            "removal": "0:0-0:21"
+          }
+        ],
+        "domain": "0:0-0:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction6",
+    "languageId": "javascript.core",
+    "facet": "namedFunction",
+    "code": "export function foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:24",
+            "removal": "0:0-0:24"
+          }
+        ],
+        "domain": "0:0-0:24"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction7",
+    "languageId": "javascript.core",
+    "facet": "namedFunction",
+    "code": "export function *foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:25",
+            "removal": "0:0-0:25"
+          }
+        ],
+        "domain": "0:0-0:25"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction8",
+    "languageId": "javascript.core",
+    "facet": "namedFunction",
+    "code": "export const foo = function() {};",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:33",
+            "removal": "0:0-0:33"
+          }
+        ],
+        "domain": "0:0-0:33"
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/namedFunction/namedFunction9",
+    "languageId": "javascript.core",
+    "facet": "namedFunction",
+    "code": "export const foo = function *() {};",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:35",
+            "removal": "0:0-0:35"
+          }
+        ],
+        "domain": "0:0-0:35"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/namedFunction/namedFunction.constructor",
+    "languageId": "kotlin",
+    "facet": "namedFunction.constructor",
+    "code": "class Foo {\n    constructor() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:20",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/namedFunction/namedFunction.constructor2",
+    "languageId": "kotlin",
+    "facet": "namedFunction.constructor",
+    "code": "class Foo {\n    @bar\n    constructor() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-2:20",
+            "removal": "1:0-3:0"
+          }
+        ],
+        "domain": "1:4-2:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/namedFunction/namedFunction.iteration.class",
+    "languageId": "kotlin",
+    "facet": "namedFunction.iteration.class",
+    "code": "class Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/namedFunction/namedFunction.iteration.document",
+    "languageId": "kotlin",
+    "facet": "namedFunction.iteration.document",
+    "code": "\nfun foo() {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/namedFunction/namedFunction.method",
+    "languageId": "kotlin",
+    "facet": "namedFunction.method",
+    "code": "class Foo {\n    fun bar() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:16",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/namedFunction/namedFunction.method2",
+    "languageId": "kotlin",
+    "facet": "namedFunction.method",
+    "code": "class Foo {\n    @An\n    fun bar() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-2:16",
+            "removal": "1:0-3:0"
+          }
+        ],
+        "domain": "1:4-2:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/namedFunction/namedFunction.method3",
+    "languageId": "kotlin",
+    "facet": "namedFunction.method",
+    "code": "class Foo {\n    get(): Int {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:17",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/namedFunction/namedFunction.method4",
+    "languageId": "kotlin",
+    "facet": "namedFunction.method",
+    "code": "class Foo {\n    set(aaa: Int) {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:20",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/namedFunction/namedFunction",
+    "languageId": "kotlin",
+    "facet": "namedFunction",
+    "code": "fun bar() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12",
+            "removal": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/namedFunction/namedFunction2",
+    "languageId": "kotlin",
+    "facet": "namedFunction",
+    "code": "@baz\nfun bar() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:12",
+            "removal": "0:0-1:12"
+          }
+        ],
+        "domain": "0:0-1:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/namedFunction.iteration.document",
+    "languageId": "lua",
+    "facet": "namedFunction.iteration.document",
+    "code": "\nfunction foo() end\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/namedFunction.method",
+    "languageId": "lua",
+    "facet": "namedFunction.method",
+    "code": "function foo:bar() end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:22",
+            "removal": "0:0-0:22"
+          }
+        ],
+        "domain": "0:0-0:22"
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/namedFunction",
+    "languageId": "lua",
+    "facet": "namedFunction",
+    "code": "function foo() end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:18",
+            "removal": "0:0-0:18"
+          }
+        ],
+        "domain": "0:0-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/php/namedFunction.constructor",
+    "languageId": "php",
+    "facet": "namedFunction.constructor",
+    "code": "<?php\nclass Foo {\n    function __construct() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "2:4-2:29",
+            "removal": "2:0-3:0"
+          }
+        ],
+        "domain": "2:4-2:29"
+      }
+    ]
+  },
+  {
+    "name": "scopes/php/namedFunction.iteration.class",
+    "languageId": "php",
+    "facet": "namedFunction.iteration.class",
+    "code": "<?php\nclass Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:13"
+          }
+        ],
+        "domain": "0:0-1:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:11-1:12"
+          }
+        ],
+        "domain": "1:11-1:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/php/namedFunction.iteration.document",
+    "languageId": "php",
+    "facet": "namedFunction.iteration.document",
+    "code": "\n<?php\nfunction foo() {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:0"
+          }
+        ],
+        "domain": "0:0-3:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/php/namedFunction.method",
+    "languageId": "php",
+    "facet": "namedFunction.method",
+    "code": "<?php\nclass Foo {\n    function bar() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "2:4-2:21",
+            "removal": "2:0-3:0"
+          }
+        ],
+        "domain": "2:4-2:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/php/namedFunction",
+    "languageId": "php",
+    "facet": "namedFunction",
+    "code": "<?php\nfunction foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:0-1:17",
+            "removal": "0:5-1:17"
+          }
+        ],
+        "domain": "1:0-1:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/php/namedFunction2",
+    "languageId": "php",
+    "facet": "namedFunction",
+    "code": "<?php\n$foo = function() {};",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:0-1:21",
+            "removal": "0:5-1:21"
+          }
+        ],
+        "domain": "1:0-1:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/php/namedFunction3",
+    "languageId": "php",
+    "facet": "namedFunction",
+    "code": "<?php\n$foo = fn() => 0;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:0-1:17",
+            "removal": "0:5-1:17"
+          }
+        ],
+        "domain": "1:0-1:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/python/namedFunction/namedFunction.constructor",
+    "languageId": "python",
+    "facet": "namedFunction.constructor",
+    "code": "class Foo:\n    def __init__(self): pass",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:28",
+            "removal": "0:10-1:28"
+          }
+        ],
+        "domain": "1:4-1:28"
+      }
+    ]
+  },
+  {
+    "name": "scopes/python/namedFunction/namedFunction.iteration.class",
+    "languageId": "python",
+    "facet": "namedFunction.iteration.class",
+    "code": "class Foo: pass",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-0:15"
+          }
+        ],
+        "domain": "0:11-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/python/namedFunction/namedFunction.iteration.document",
+    "languageId": "python",
+    "facet": "namedFunction.iteration.document",
+    "code": "\ndef foo(): pass\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/python/namedFunction/namedFunction.method",
+    "languageId": "python",
+    "facet": "namedFunction.method",
+    "code": "class Foo:\n    def bar(): pass",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:19",
+            "removal": "0:10-1:19"
+          }
+        ],
+        "domain": "1:4-1:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/python/namedFunction/namedFunction",
+    "languageId": "python",
+    "facet": "namedFunction",
+    "code": "def foo(): pass",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/python/namedFunction/namedFunction2",
+    "languageId": "python",
+    "facet": "namedFunction",
+    "code": "@bar\ndef foo(): pass",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:15",
+            "removal": "0:0-1:15"
+          }
+        ],
+        "domain": "0:0-1:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/namedFunction.iteration.document",
+    "languageId": "r",
+    "facet": "namedFunction.iteration.document",
+    "code": "\nfoo <- function() {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/namedFunction",
+    "languageId": "r",
+    "facet": "namedFunction",
+    "code": "foo <- function() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:20",
+            "removal": "0:0-0:20"
+          }
+        ],
+        "domain": "0:0-0:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/ruby/namedFunction.iteration.class",
+    "languageId": "ruby",
+    "facet": "namedFunction.iteration.class",
+    "code": "class Foo\n    a\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:3"
+          }
+        ],
+        "domain": "0:0-2:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-2:0"
+          }
+        ],
+        "domain": "0:9-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/ruby/namedFunction.iteration.document",
+    "languageId": "ruby",
+    "facet": "namedFunction.iteration.document",
+    "code": "\ndef foo() end\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/ruby/namedFunction.method",
+    "languageId": "ruby",
+    "facet": "namedFunction.method",
+    "code": "class Foo\n    def bar() end\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:17",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/ruby/namedFunction",
+    "languageId": "ruby",
+    "facet": "namedFunction",
+    "code": "def foo() end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/ruby/namedFunction2",
+    "languageId": "ruby",
+    "facet": "namedFunction",
+    "code": "def foo\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:3",
+            "removal": "0:0-1:3"
+          }
+        ],
+        "domain": "0:0-1:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/ruby/namedFunction3",
+    "languageId": "ruby",
+    "facet": "namedFunction",
+    "code": "def foo.bar() end",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:17",
+            "removal": "0:0-0:17"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/ruby/namedFunction4",
+    "languageId": "ruby",
+    "facet": "namedFunction",
+    "code": "def foo.bar\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:3",
+            "removal": "0:0-1:3"
+          }
+        ],
+        "domain": "0:0-1:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/name/namedFunction.iteration.class",
+    "languageId": "rust",
+    "facet": "namedFunction.iteration.class",
+    "code": "impl Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11"
+          }
+        ],
+        "domain": "0:10-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/namedFunction.iteration.class",
+    "languageId": "rust",
+    "facet": "namedFunction.iteration.class",
+    "code": "impl Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11"
+          }
+        ],
+        "domain": "0:10-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/namedFunction.iteration.document",
+    "languageId": "rust",
+    "facet": "namedFunction.iteration.document",
+    "code": "\nfn foo() {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/namedFunction.method",
+    "languageId": "rust",
+    "facet": "namedFunction.method",
+    "code": "impl Foo {\n    fn bar() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:15",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/namedFunction",
+    "languageId": "rust",
+    "facet": "namedFunction",
+    "code": "fn foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scala/namedFunction.iteration.class",
+    "languageId": "scala",
+    "facet": "namedFunction.iteration.class",
+    "code": "class Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scala/namedFunction.iteration.document",
+    "languageId": "scala",
+    "facet": "namedFunction.iteration.document",
+    "code": "\ndef foo(): Int = 0\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scala/namedFunction.method",
+    "languageId": "scala",
+    "facet": "namedFunction.method",
+    "code": "class Foo {\n    def bar(): Int = 1\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:22",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:22"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scala/namedFunction",
+    "languageId": "scala",
+    "facet": "namedFunction",
+    "code": "def foo(): Int = 1",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:18",
+            "removal": "0:0-0:18"
+          }
+        ],
+        "domain": "0:0-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scss/namedFunction.iteration.class",
+    "languageId": "scss",
+    "facet": "namedFunction.iteration.class",
+    "code": "* { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:3-0:4"
+          }
+        ],
+        "domain": "0:3-0:4"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scss/namedFunction.iteration.document",
+    "languageId": "scss",
+    "facet": "namedFunction.iteration.document",
+    "code": "\n* {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scss/namedFunction",
+    "languageId": "scss",
+    "facet": "namedFunction",
+    "code": "@function foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:18",
+            "removal": "0:0-0:18"
+          }
+        ],
+        "domain": "0:0-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/scss/namedFunction2",
+    "languageId": "scss",
+    "facet": "namedFunction",
+    "code": "@mixin foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/typescript.core/namedFunction/namedFunction.constructor",
+    "languageId": "typescript.core",
+    "facet": "namedFunction.constructor",
+    "code": "class Foo {\n    constructor();\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:18",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/typescript.core/namedFunction/namedFunction.method",
+    "languageId": "typescript.core",
+    "facet": "namedFunction.method",
+    "code": "class Foo {\n    bar();\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:10",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/typescript.core/namedFunction/namedFunction.method2",
+    "languageId": "typescript.core",
+    "facet": "namedFunction.method",
+    "code": "class Foo {\n    abstract bar();\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:19",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/typescript.core/namedFunction/namedFunction",
+    "languageId": "typescript.core",
+    "facet": "namedFunction",
+    "code": "function foo();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/typescript.core/namedFunction/namedFunction2",
+    "languageId": "typescript.core",
+    "facet": "namedFunction",
+    "code": "export function foo();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:22",
+            "removal": "0:0-0:22"
+          }
+        ],
+        "domain": "0:0-0:22"
+      }
+    ]
+  }
 ]

@@ -1,19 +1,19 @@
 [
-	{
-		"name": "scopes/latex/environment",
-		"languageId": "latex",
-		"facet": "environment",
-		"code": "\\begin{quote}\n    Hello world\n\\end{quote}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:11",
-						"removal": "0:0-2:11"
-					}
-				],
-				"domain": "0:0-2:11"
-			}
-		]
-	}
+  {
+    "name": "scopes/latex/environment",
+    "languageId": "latex",
+    "facet": "environment",
+    "code": "\\begin{quote}\n    Hello world\n\\end{quote}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:11",
+            "removal": "0:0-2:11"
+          }
+        ],
+        "domain": "0:0-2:11"
+      }
+    ]
+  }
 ]

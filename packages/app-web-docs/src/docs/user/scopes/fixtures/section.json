@@ -1,134 +1,134 @@
 [
-	{
-		"name": "scopes/latex/section.iteration.document",
-		"languageId": "latex",
-		"facet": "section.iteration.document",
-		"code": "\n\\section{One}\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:0"
-					}
-				],
-				"domain": "0:0-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/section",
-		"languageId": "latex",
-		"facet": "section",
-		"code": "\\section{Introduction}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:22",
-						"removal": "0:0-0:22"
-					}
-				],
-				"domain": "0:0-0:22"
-			}
-		]
-	},
-	{
-		"name": "scopes/markdown/section.iteration.document",
-		"languageId": "markdown",
-		"facet": "section.iteration.document",
-		"code": "\n# h1\nAaa\n",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-3:0"
-					}
-				],
-				"domain": "0:0-3:0"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:0-2:3"
-					}
-				],
-				"domain": "2:0-2:3"
-			}
-		]
-	},
-	{
-		"name": "scopes/markdown/section.iteration.parent",
-		"languageId": "markdown",
-		"facet": "section.iteration.parent",
-		"code": "# h1\nAaa\n\n## h2.1\nBbb\n\n## h2.2\nCcc",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-7:3"
-					}
-				],
-				"domain": "0:0-7:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:0-7:3"
-					}
-				],
-				"domain": "1:0-7:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "4:0-4:3"
-					}
-				],
-				"domain": "4:0-4:3"
-			},
-			{
-				"targets": [
-					{
-						"content": "7:0-7:3"
-					}
-				],
-				"domain": "7:0-7:3"
-			}
-		]
-	},
-	{
-		"name": "scopes/markdown/section",
-		"languageId": "markdown",
-		"facet": "section",
-		"code": "# H1\n\nSub 1\n\n## H2\n\nSub 2\n\n# H1.2",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-6:5",
-						"removal": "0:0-8:0"
-					}
-				],
-				"domain": "0:0-6:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "4:0-6:5",
-						"removal": "4:0-8:0"
-					}
-				],
-				"domain": "4:0-6:5"
-			},
-			{
-				"targets": [
-					{
-						"content": "8:0-8:6",
-						"removal": "8:0-8:6"
-					}
-				],
-				"domain": "8:0-8:6"
-			}
-		]
-	}
+  {
+    "name": "scopes/latex/section.iteration.document",
+    "languageId": "latex",
+    "facet": "section.iteration.document",
+    "code": "\n\\section{One}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/section",
+    "languageId": "latex",
+    "facet": "section",
+    "code": "\\section{Introduction}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:22",
+            "removal": "0:0-0:22"
+          }
+        ],
+        "domain": "0:0-0:22"
+      }
+    ]
+  },
+  {
+    "name": "scopes/markdown/section.iteration.document",
+    "languageId": "markdown",
+    "facet": "section.iteration.document",
+    "code": "\n# h1\nAaa\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:0"
+          }
+        ],
+        "domain": "0:0-3:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:0-2:3"
+          }
+        ],
+        "domain": "2:0-2:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/markdown/section.iteration.parent",
+    "languageId": "markdown",
+    "facet": "section.iteration.parent",
+    "code": "# h1\nAaa\n\n## h2.1\nBbb\n\n## h2.2\nCcc",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-7:3"
+          }
+        ],
+        "domain": "0:0-7:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:0-7:3"
+          }
+        ],
+        "domain": "1:0-7:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "4:0-4:3"
+          }
+        ],
+        "domain": "4:0-4:3"
+      },
+      {
+        "targets": [
+          {
+            "content": "7:0-7:3"
+          }
+        ],
+        "domain": "7:0-7:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/markdown/section",
+    "languageId": "markdown",
+    "facet": "section",
+    "code": "# H1\n\nSub 1\n\n## H2\n\nSub 2\n\n# H1.2",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-6:5",
+            "removal": "0:0-8:0"
+          }
+        ],
+        "domain": "0:0-6:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "4:0-6:5",
+            "removal": "4:0-8:0"
+          }
+        ],
+        "domain": "4:0-6:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "8:0-8:6",
+            "removal": "8:0-8:6"
+          }
+        ],
+        "domain": "8:0-8:6"
+      }
+    ]
+  }
 ]

@@ -1,1297 +1,1297 @@
 [
-	{
-		"name": "scopes/c/disqualifyDelimiter",
-		"languageId": "c",
-		"facet": "disqualifyDelimiter",
-		"code": "1 < 2;\n1 > 2;\n1 <= 2;\n1 >= 2;\na << 2;\na >> 2;\na <<= 2;\na >>= 2;\nfoo->bar;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-0:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-1:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "2:2-2:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "3:2-3:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "4:2-4:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "5:2-5:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "6:2-6:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "7:2-7:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "8:3-8:5"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/clojure/disqualifyDelimiter",
-		"languageId": "clojure",
-		"facet": "disqualifyDelimiter",
-		"code": "(< 1 2)\n(> 1 2)\n(<= 1 2)\n(>= 1 2)",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:2"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "1:1-1:2"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "2:1-2:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "3:1-3:3"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/cpp/disqualifyDelimiter",
-		"languageId": "cpp",
-		"facet": "disqualifyDelimiter",
-		"code": "auto max() -> int;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:11-0:13"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/csharp/disqualifyDelimiter",
-		"languageId": "csharp",
-		"facet": "disqualifyDelimiter",
-		"code": "1 < 2;\n1 > 2;\n1 <= 2;\n1 >= 2;\na << 2;\na >> 2;\na <<= 2;\na >>= 2;\n() => 2;\nfoo->bar;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-0:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-1:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "2:2-2:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "3:2-3:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "4:2-4:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "5:2-5:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "6:2-6:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "7:2-7:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "8:3-8:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "9:3-9:5"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/css/disqualifyDelimiter",
-		"languageId": "css",
-		"facet": "disqualifyDelimiter",
-		"code": "div > div {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:5"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/dart/disqualifyDelimiter",
-		"languageId": "dart",
-		"facet": "disqualifyDelimiter",
-		"code": "void main() {\n    1 < 2;\n    1 > 2;\n    1 <= 2;\n    1 >= 2;\n    a << 2;\n    a >> 2;\n    a <<= 2;\n    a >>= 2;\n    a >>> 2;\n    a >>>= 2;\n    () => 2;\n}\nclass Foo {\n    int get bar => 0;\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:6-1:7"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "2:6-2:7"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "3:6-3:8"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "4:6-4:8"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "5:6-5:8"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "6:6-6:8"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "7:6-7:9"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "8:6-8:9"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "9:6-9:9"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "10:6-10:10"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "11:7-11:9"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "14:16-14:18"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/go/disqualifyDelimiter",
-		"languageId": "go",
-		"facet": "disqualifyDelimiter",
-		"code": "1 < 2\n1 > 2\n1 <= 2\n1 >= 2\na << 2\na >> 2\na <<= 2\na >>= 2\nch <- 2\nmsg := <- ch",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-0:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-1:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "2:2-2:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "3:2-3:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "4:2-4:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "5:2-5:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "6:2-6:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "7:2-7:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "8:3-8:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "9:7-9:9"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/java/disqualifyDelimiter",
-		"languageId": "java",
-		"facet": "disqualifyDelimiter",
-		"code": "1 < 2;\n1 > 2;\n1 <= 2;\n1 >= 2;\na << 2;\na >> 2;\na <<= 2;\na >>= 2;\na >>> 2;\na >>>= 2;\n() -> 2;\nswitch (foo) {\n    case a -> 2\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-0:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-1:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "2:2-2:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "3:2-3:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "4:2-4:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "5:2-5:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "6:2-6:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "7:2-7:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "8:2-8:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "9:2-9:6"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "10:3-10:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "12:11-12:13"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/javascript.core/disqualifyDelimiter",
-		"languageId": "javascript.core",
-		"facet": "disqualifyDelimiter",
-		"code": "1 < 2;\n1 > 2;\n1 <= 2;\n1 >= 2;\na << 2;\na >> 2;\na <<= 2;\na >>= 2;\na >>> 2;\na >>>= 2;\n() => 2;",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-0:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-1:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "2:2-2:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "3:2-3:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "4:2-4:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "5:2-5:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "6:2-6:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "7:2-7:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "8:2-8:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "9:2-9:6"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "10:3-10:5"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/kotlin/disqualifyDelimiter",
-		"languageId": "kotlin",
-		"facet": "disqualifyDelimiter",
-		"code": "1 < 2\n1 > 2\n1 <= 2\n1 >= 2\n{a -> 2}\nwhen (foo) {\n    a -> 2\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-0:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-1:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "2:2-2:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "3:2-3:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "4:3-4:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "6:6-6:8"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/latex/disqualifyDelimiter",
-		"languageId": "latex",
-		"facet": "disqualifyDelimiter",
-		"code": "1 < 2\n1 > 2",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-0:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-1:3"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/lua/disqualifyDelimiter",
-		"languageId": "lua",
-		"facet": "disqualifyDelimiter",
-		"code": "a = 1 < 2\na = 1 > 2\na = 1 <= 2\na = 1 >= 2\na = 1 << 2\na = 1 >> 2",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:7"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "1:6-1:7"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "2:6-2:8"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "3:6-3:8"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "4:6-4:8"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "5:6-5:8"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/php/disqualifyDelimiter",
-		"languageId": "php",
-		"facet": "disqualifyDelimiter",
-		"code": "<?php\n1 < 2;\n1 > 2;\n1 <= 2;\n1 >= 2;\na << 2;\na >> 2;\na <<= 2;\na >>= 2;\n['a' => 2];\n$a = <<< EOT;\n$a = <<< 'TEXT';\nfoo->bar;\nfoo->bar();\nfoo?->bar;\nfoo?->bar();",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:2-1:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "2:2-2:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "3:2-3:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "4:2-4:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "5:2-5:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "6:2-6:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "7:2-7:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "8:2-8:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "9:5-9:7"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "10:5-10:8"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "11:5-11:8"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "12:3-12:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "13:3-13:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "14:3-14:6"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "15:3-15:6"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/python/disqualifyDelimiter",
-		"languageId": "python",
-		"facet": "disqualifyDelimiter",
-		"code": "1 < 2\n1 > 2\n1 <= 2\n1 >= 2\na << 2\na >> 2\na <<= 2\na >>= 2\ndef foo() -> int: pass",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-0:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-1:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "2:2-2:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "3:2-3:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "4:2-4:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "5:2-5:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "6:2-6:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "7:2-7:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "8:10-8:12"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/r/disqualifyDelimiter",
-		"languageId": "r",
-		"facet": "disqualifyDelimiter",
-		"code": "1 < 2\n1 > 2\n1 <= 2\n1 >= 2\na <- 2\na -> 2\na <<- 2\na ->> 2\na |> 2",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-0:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-1:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "2:2-2:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "3:2-3:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "4:2-4:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "5:2-5:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "6:2-6:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "7:2-7:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "8:2-8:4"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/ruby/disqualifyDelimiter",
-		"languageId": "ruby",
-		"facet": "disqualifyDelimiter",
-		"code": "1 < 2\n1 > 2\n1 <= 2\n1 >= 2\na << 2\na >> 2\na <<= 2\na >>= 2\na = { :b => 2 }\ncase foo\n    when a then => 2\nend",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-0:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-1:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "2:2-2:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "3:2-3:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "4:2-4:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "5:2-5:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "6:2-6:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "7:2-7:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "8:9-8:11"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "10:16-10:18"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/rust/disqualifyDelimiter",
-		"languageId": "rust",
-		"facet": "disqualifyDelimiter",
-		"code": "1 < 2;\n1 > 2;\n1 <= 2;\n1 >= 2;\na << 2;\na >> 2;\na <<= 2;\na >>= 2;\nfn foo() -> i32 {}\nmatch number {\n    0 => \"fail\"\n}\nmacro_rules! my_expr {\n    ($x:expr) => {};\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-0:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-1:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "2:2-2:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "3:2-3:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "4:2-4:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "5:2-5:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "6:2-6:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "7:2-7:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "8:9-8:11"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "10:6-10:8"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "13:14-13:16"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/scala/disqualifyDelimiter",
-		"languageId": "scala",
-		"facet": "disqualifyDelimiter",
-		"code": "1 < 2\n1 > 2\n1 <= 2\n1 >= 2\na << 2\na >> 2\na <<= 2\na >>= 2\n() => 2\nvar a: () => Int\nfor (a <- b) {}\ndef function[T <% Int] = {}\ndef method[T <: Int] = {}\ndef method[T >: Int] = {}\nfoo match {\n    case a => 2\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:2-0:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "1:2-1:3"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "2:2-2:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "3:2-3:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "4:2-4:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "5:2-5:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "6:2-6:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "7:2-7:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "8:3-8:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "9:10-9:12"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "10:7-10:9"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "11:15-11:17"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "12:13-12:15"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "13:13-13:15"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "15:11-15:13"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/scss/disqualifyDelimiter",
-		"languageId": "scss",
-		"facet": "disqualifyDelimiter",
-		"code": "* {\n    @if 1 < 2 {}\n    @if 1 > 2 {}\n    @if 1 <= 2 {}\n    @if 1 >= 2 {}\n}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "1:10-1:11"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "2:10-2:11"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "3:10-3:12"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "4:10-4:12"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/typescript.core/disqualifyDelimiter",
-		"languageId": "typescript.core",
-		"facet": "disqualifyDelimiter",
-		"code": "Promise<() => number>",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:11-0:13"
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "scopes/yaml/disqualifyDelimiter",
-		"languageId": "yaml",
-		"facet": "disqualifyDelimiter",
-		"code": "a: >\na: >-\na: >+",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:3-0:4"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "1:3-1:5"
-					}
-				]
-			},
-			{
-				"targets": [
-					{
-						"content": "2:3-2:5"
-					}
-				]
-			}
-		]
-	}
+  {
+    "name": "scopes/c/disqualifyDelimiter",
+    "languageId": "c",
+    "facet": "disqualifyDelimiter",
+    "code": "1 < 2;\n1 > 2;\n1 <= 2;\n1 >= 2;\na << 2;\na >> 2;\na <<= 2;\na >>= 2;\nfoo->bar;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-1:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-2:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "3:2-3:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "4:2-4:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "5:2-5:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "6:2-6:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "7:2-7:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "8:3-8:5"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/disqualifyDelimiter",
+    "languageId": "clojure",
+    "facet": "disqualifyDelimiter",
+    "code": "(< 1 2)\n(> 1 2)\n(<= 1 2)\n(>= 1 2)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:2"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "1:1-1:2"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "2:1-2:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "3:1-3:3"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/cpp/disqualifyDelimiter",
+    "languageId": "cpp",
+    "facet": "disqualifyDelimiter",
+    "code": "auto max() -> int;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:11-0:13"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/csharp/disqualifyDelimiter",
+    "languageId": "csharp",
+    "facet": "disqualifyDelimiter",
+    "code": "1 < 2;\n1 > 2;\n1 <= 2;\n1 >= 2;\na << 2;\na >> 2;\na <<= 2;\na >>= 2;\n() => 2;\nfoo->bar;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-1:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-2:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "3:2-3:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "4:2-4:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "5:2-5:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "6:2-6:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "7:2-7:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "8:3-8:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "9:3-9:5"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/css/disqualifyDelimiter",
+    "languageId": "css",
+    "facet": "disqualifyDelimiter",
+    "code": "div > div {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:5"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/dart/disqualifyDelimiter",
+    "languageId": "dart",
+    "facet": "disqualifyDelimiter",
+    "code": "void main() {\n    1 < 2;\n    1 > 2;\n    1 <= 2;\n    1 >= 2;\n    a << 2;\n    a >> 2;\n    a <<= 2;\n    a >>= 2;\n    a >>> 2;\n    a >>>= 2;\n    () => 2;\n}\nclass Foo {\n    int get bar => 0;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:6-1:7"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "2:6-2:7"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "3:6-3:8"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "4:6-4:8"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "5:6-5:8"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "6:6-6:8"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "7:6-7:9"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "8:6-8:9"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "9:6-9:9"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "10:6-10:10"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "11:7-11:9"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "14:16-14:18"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/go/disqualifyDelimiter",
+    "languageId": "go",
+    "facet": "disqualifyDelimiter",
+    "code": "1 < 2\n1 > 2\n1 <= 2\n1 >= 2\na << 2\na >> 2\na <<= 2\na >>= 2\nch <- 2\nmsg := <- ch",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-1:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-2:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "3:2-3:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "4:2-4:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "5:2-5:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "6:2-6:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "7:2-7:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "8:3-8:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "9:7-9:9"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/disqualifyDelimiter",
+    "languageId": "java",
+    "facet": "disqualifyDelimiter",
+    "code": "1 < 2;\n1 > 2;\n1 <= 2;\n1 >= 2;\na << 2;\na >> 2;\na <<= 2;\na >>= 2;\na >>> 2;\na >>>= 2;\n() -> 2;\nswitch (foo) {\n    case a -> 2\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-1:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-2:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "3:2-3:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "4:2-4:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "5:2-5:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "6:2-6:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "7:2-7:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "8:2-8:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "9:2-9:6"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "10:3-10:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "12:11-12:13"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/javascript.core/disqualifyDelimiter",
+    "languageId": "javascript.core",
+    "facet": "disqualifyDelimiter",
+    "code": "1 < 2;\n1 > 2;\n1 <= 2;\n1 >= 2;\na << 2;\na >> 2;\na <<= 2;\na >>= 2;\na >>> 2;\na >>>= 2;\n() => 2;",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-1:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-2:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "3:2-3:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "4:2-4:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "5:2-5:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "6:2-6:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "7:2-7:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "8:2-8:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "9:2-9:6"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "10:3-10:5"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/kotlin/disqualifyDelimiter",
+    "languageId": "kotlin",
+    "facet": "disqualifyDelimiter",
+    "code": "1 < 2\n1 > 2\n1 <= 2\n1 >= 2\n{a -> 2}\nwhen (foo) {\n    a -> 2\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-1:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-2:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "3:2-3:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "4:3-4:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "6:6-6:8"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/latex/disqualifyDelimiter",
+    "languageId": "latex",
+    "facet": "disqualifyDelimiter",
+    "code": "1 < 2\n1 > 2",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-1:3"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/lua/disqualifyDelimiter",
+    "languageId": "lua",
+    "facet": "disqualifyDelimiter",
+    "code": "a = 1 < 2\na = 1 > 2\na = 1 <= 2\na = 1 >= 2\na = 1 << 2\na = 1 >> 2",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:7"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "1:6-1:7"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "2:6-2:8"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "3:6-3:8"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "4:6-4:8"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "5:6-5:8"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/php/disqualifyDelimiter",
+    "languageId": "php",
+    "facet": "disqualifyDelimiter",
+    "code": "<?php\n1 < 2;\n1 > 2;\n1 <= 2;\n1 >= 2;\na << 2;\na >> 2;\na <<= 2;\na >>= 2;\n['a' => 2];\n$a = <<< EOT;\n$a = <<< 'TEXT';\nfoo->bar;\nfoo->bar();\nfoo?->bar;\nfoo?->bar();",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-1:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-2:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "3:2-3:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "4:2-4:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "5:2-5:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "6:2-6:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "7:2-7:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "8:2-8:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "9:5-9:7"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "10:5-10:8"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "11:5-11:8"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "12:3-12:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "13:3-13:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "14:3-14:6"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "15:3-15:6"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/python/disqualifyDelimiter",
+    "languageId": "python",
+    "facet": "disqualifyDelimiter",
+    "code": "1 < 2\n1 > 2\n1 <= 2\n1 >= 2\na << 2\na >> 2\na <<= 2\na >>= 2\ndef foo() -> int: pass",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-1:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-2:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "3:2-3:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "4:2-4:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "5:2-5:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "6:2-6:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "7:2-7:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "8:10-8:12"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/r/disqualifyDelimiter",
+    "languageId": "r",
+    "facet": "disqualifyDelimiter",
+    "code": "1 < 2\n1 > 2\n1 <= 2\n1 >= 2\na <- 2\na -> 2\na <<- 2\na ->> 2\na |> 2",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-1:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-2:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "3:2-3:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "4:2-4:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "5:2-5:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "6:2-6:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "7:2-7:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "8:2-8:4"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/ruby/disqualifyDelimiter",
+    "languageId": "ruby",
+    "facet": "disqualifyDelimiter",
+    "code": "1 < 2\n1 > 2\n1 <= 2\n1 >= 2\na << 2\na >> 2\na <<= 2\na >>= 2\na = { :b => 2 }\ncase foo\n    when a then => 2\nend",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-1:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-2:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "3:2-3:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "4:2-4:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "5:2-5:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "6:2-6:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "7:2-7:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "8:9-8:11"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "10:16-10:18"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/rust/disqualifyDelimiter",
+    "languageId": "rust",
+    "facet": "disqualifyDelimiter",
+    "code": "1 < 2;\n1 > 2;\n1 <= 2;\n1 >= 2;\na << 2;\na >> 2;\na <<= 2;\na >>= 2;\nfn foo() -> i32 {}\nmatch number {\n    0 => \"fail\"\n}\nmacro_rules! my_expr {\n    ($x:expr) => {};\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-1:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-2:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "3:2-3:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "4:2-4:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "5:2-5:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "6:2-6:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "7:2-7:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "8:9-8:11"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "10:6-10:8"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "13:14-13:16"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/scala/disqualifyDelimiter",
+    "languageId": "scala",
+    "facet": "disqualifyDelimiter",
+    "code": "1 < 2\n1 > 2\n1 <= 2\n1 >= 2\na << 2\na >> 2\na <<= 2\na >>= 2\n() => 2\nvar a: () => Int\nfor (a <- b) {}\ndef function[T <% Int] = {}\ndef method[T <: Int] = {}\ndef method[T >: Int] = {}\nfoo match {\n    case a => 2\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-1:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-2:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "3:2-3:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "4:2-4:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "5:2-5:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "6:2-6:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "7:2-7:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "8:3-8:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "9:10-9:12"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "10:7-10:9"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "11:15-11:17"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "12:13-12:15"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "13:13-13:15"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "15:11-15:13"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/scss/disqualifyDelimiter",
+    "languageId": "scss",
+    "facet": "disqualifyDelimiter",
+    "code": "* {\n    @if 1 < 2 {}\n    @if 1 > 2 {}\n    @if 1 <= 2 {}\n    @if 1 >= 2 {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:10-1:11"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "2:10-2:11"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "3:10-3:12"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "4:10-4:12"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/typescript.core/disqualifyDelimiter",
+    "languageId": "typescript.core",
+    "facet": "disqualifyDelimiter",
+    "code": "Promise<() => number>",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:11-0:13"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scopes/yaml/disqualifyDelimiter",
+    "languageId": "yaml",
+    "facet": "disqualifyDelimiter",
+    "code": "a: >\na: >-\na: >+",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:3-0:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "1:3-1:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "2:3-2:5"
+          }
+        ]
+      }
+    ]
+  }
 ]
