@@ -5,7 +5,7 @@ sidebar_position: 1
 
 # Cursorless
 
-Welcome to Cursorless! If you're new, start with the [learning resources](./learning-resources.md) or the [how-to guides](./how-to.md).
+Welcome to Cursorless! If you're new, start with the [tutorial](./tutorial/README.mdx) or the [learning resources](./learning-resources.md).
 
 This guide assumes you've already [installed Cursorless](./installation.md).
 
