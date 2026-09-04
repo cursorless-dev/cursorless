@@ -6,13 +6,14 @@ import {
   scopeVisualizerImport,
 } from "./renderScopeVisualizerMdx";
 import type { ScopeFixtureGroup } from "./scopeFixtureGroups";
+import { isAppWebDocs } from "./util/isManifest";
 
 export function updateLanguagesReadmeMd(
   languageIds: LanguageId[],
   _actual: string | null,
   options: FormatPluginFnOptions,
 ): string | null {
-  if (options.manifest.name !== "@cursorless/app-web-docs") {
+  if (!isAppWebDocs(options)) {
     return null;
   }
 
@@ -37,7 +38,7 @@ export function updateLanguageMdx(
   actual: string | null,
   options: FormatPluginFnOptions,
 ): string | null {
-  if (options.manifest.name !== "@cursorless/app-web-docs") {
+  if (!isAppWebDocs(options)) {
     return null;
   }
 

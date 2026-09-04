@@ -9,6 +9,7 @@ import type { ScopeTypeType } from "@cursorless/lib-common";
 import {
   actionReferenceGroups,
   actionReferences,
+  getTutorialsForContext,
   graphemeDefaultSpokenForms,
   languageReferences,
   modifierReferenceGroups,
@@ -76,7 +77,7 @@ export const updater = async (workspaceDir: string) => {
   const tutorialContentProvider = new FileSystemTutorialContentProvider(
     getRecordedTestsDirPath(),
   );
-  const tutorials = await tutorialContentProvider.loadRawTutorials();
+  const tutorials = getTutorialsForContext("documentation");
 
   return createUpdateOptions({
     files: {

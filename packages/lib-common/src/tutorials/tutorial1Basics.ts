@@ -1,7 +1,9 @@
-{
-  "title": "Introduction",
-  "version": 0,
-  "steps": [
+import type { RawTutorialContent } from "./tutorial.types";
+
+export const tutorial1Basics: RawTutorialContent = {
+  id: "tutorial-1-basics",
+  title: "Introduction",
+  steps: [
     "Say {command:takeCap.yml}",
     "Well done! 🙌 You just used the code word for 'c', {grapheme:c}, to refer to the word with a gray hat over the 'c'.\nWhen a hat is not gray, we say its color: say {command:takeBlueSun.yml}",
     "Selecting a single token is great, but often we need something bigger.\nSay {command:takeHarpPastDrum.yml} to select a range.",
@@ -12,6 +14,6 @@
     "You now know how to select and delete; let's give you a couple more actions to play with: say {action:pre} to place the cursor before a target, as in {command:preUrge.yml}",
     "Say {action:post} to place the cursor after a target: {command:postAir.yml}",
     "Say {action:change} to delete a word and move your cursor to where it used to be: {command:changeSit.yml}",
-    "And that wraps up unit 1 of the Cursorless tutorial! Next time, we'll write some code 🙌.\nFeel free to keep playing with this document, then say {special:next} to continue."
-  ]
-}
+    "And that wraps up unit 1 of the Cursorless tutorial! Next time, we'll write some code 🙌.\nFeel free to keep playing with this document, then say {special:next} to continue.",
+  ],
+};

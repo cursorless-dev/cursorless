@@ -1,8 +1,8 @@
 import { produce } from "immer";
 import { isEqual } from "lodash-es";
 import type {
-  CharacterRange,
   Disposable,
+  GeneralizedRange,
   Hats,
   HatTokenMap,
   IDE,
@@ -14,7 +14,11 @@ import type {
   TutorialId,
   TutorialState,
 } from "@cursorless/lib-common";
-import { Debouncer, Notifier } from "@cursorless/lib-common";
+import {
+  Debouncer,
+  getTutorialsForContext,
+  Notifier,
+} from "@cursorless/lib-common";
 import type {
   CommandRunner,
   CommandRunnerDecorator,
@@ -40,7 +44,7 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
    * if any. We store these so that we can remove them when user has gone off
    * the tutorial path and then restore them when they come back.
    */
-  private highlightRanges: CharacterRange[] = [];
+  private highlightRanges: GeneralizedRange[] = [];
 
   /**
    * The current state of the tutorial, as exposed by {@link Tutorial.state}.
@@ -57,11 +61,7 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
 
   private disposables: Disposable[] = [];
 
-  /**
-   * The raw tutorials that are available to the user. These are the tutorials
-   * that are loaded from disk and have not been parsed yet.
-   */
-  private rawTutorials!: RawTutorialContent[];
+  private rawTutorials: RawTutorialContent[];
 
   constructor(
     private ide: IDE,
@@ -73,12 +73,11 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
     const debouncer = new Debouncer(() => this.checkPreconditions(), 100);
     const runDebouncer = () => debouncer.run();
 
-    void (async () => {
-      await this.loadTutorials();
-      if (this.state_.type === "loading") {
-        this.setState(this.getPickingTutorialState());
-      }
-    })();
+    this.rawTutorials = getTutorialsForContext("interactive");
+
+    if (this.state_.type === "loading") {
+      this.setState(this.getPickingTutorialState());
+    }
 
     this.disposables.push(
       this.ide.onDidChangeActiveTextEditor(runDebouncer),
@@ -113,10 +112,6 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
     }
   }
 
-  async loadTutorials() {
-    this.rawTutorials = await this.contentProvider.loadRawTutorials();
-  }
-
   /**
    * @returns A {@link TutorialState} object to use when the user is picking a
    * tutorial to start.
@@ -129,7 +124,6 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
       tutorials: this.rawTutorials.map((rawContent) => ({
         id: rawContent.id,
         title: rawContent.title,
-        version: rawContent.version,
         stepCount: rawContent.steps.length,
         currentStep: tutorialProgress[rawContent.id]?.currentStep ?? 0,
       })),
@@ -300,7 +294,6 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
         produce(this.ide.keyValueStore.get("tutorialProgress"), (draft) => {
           draft[state.id] = {
             currentStep: state.stepNumber,
-            version: this.currentTutorial!.version,
           };
         }),
       );

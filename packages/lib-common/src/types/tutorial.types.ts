@@ -1,4 +1,7 @@
-export type TutorialId = "tutorial-1-basics" | "tutorial-2-basic-coding";
+export type TutorialId =
+  | "tutorial-1-basics"
+  | "tutorial-2-basic-coding"
+  | "tutorial-3-visualization";
 
 interface BaseTutorialInfo {
   id: TutorialId;
@@ -6,7 +9,6 @@ interface BaseTutorialInfo {
 }
 
 export interface TutorialInfo extends BaseTutorialInfo {
-  version: number;
   stepCount: number;
   currentStep: number;
 }

@@ -31,6 +31,11 @@ suite("CustomSpokenFormGeneratorImpl", () => {
                 id: "currentSelection",
                 spokenForms: ["this"],
               },
+              {
+                type: "scopeVisualizer",
+                id: "showScopeVisualizer",
+                spokenForms: ["inspect scopes"],
+              },
             ],
           });
         },
@@ -51,6 +56,13 @@ suite("CustomSpokenFormGeneratorImpl", () => {
         {
           type: "success",
           spokenForms: ["foo alabaster"],
+        },
+      );
+      assert.deepEqual(
+        generator.scopeVisualizerIdToSpokenForm("showScopeVisualizer"),
+        {
+          type: "success",
+          spokenForms: ["inspect scopes"],
         },
       );
       assert.deepEqual(

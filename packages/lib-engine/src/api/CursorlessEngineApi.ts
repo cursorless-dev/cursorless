@@ -9,6 +9,7 @@ import type {
   ReadOnlyHatMap,
   ScopeProvider,
   ScopeType,
+  ScopeVisualizer,
   SpokenForm,
 } from "@cursorless/lib-common";
 import type { CommandRunner } from "../CommandRunner";
@@ -40,6 +41,7 @@ export interface CustomSpokenFormGenerator {
 
   commandToSpokenForm(command: CommandComplete): SpokenForm;
   scopeTypeToSpokenForm(scopeType: ScopeType): SpokenForm;
+  scopeVisualizerIdToSpokenForm(id: ScopeVisualizer): SpokenForm;
   actionIdToSpokenForm(actionId: ActionType): SpokenForm;
   graphemeToSpokenForm(grapheme: string): SpokenForm;
 }

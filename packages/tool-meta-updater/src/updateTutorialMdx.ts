@@ -7,6 +7,7 @@ import type {
 } from "@cursorless/lib-common";
 import { graphemeDefaultSpokenForms } from "@cursorless/lib-common";
 import { recordedTestVisualizerImport } from "./renderRecordedTestVisualizer";
+import { isAppWebDocs } from "./util/isManifest";
 
 const componentRegex = /\{(\w+):([^}]+)\}/gu;
 
@@ -32,7 +33,7 @@ export function updateTutorialReadmeMdx(
   _actual: string | null,
   options: FormatPluginFnOptions,
 ): string | null {
-  if (options.manifest.name !== "@cursorless/app-web-docs") {
+  if (!isAppWebDocs(options)) {
     return null;
   }
 
@@ -88,12 +89,11 @@ export async function updateTutorialMdx(
   _actual: string | null,
   options: FormatPluginFnOptions,
 ): Promise<string | null> {
-  if (options.manifest.name !== "@cursorless/app-web-docs") {
+  if (!isAppWebDocs(options)) {
     return null;
   }
 
   const { position, shortId } = parseTutorialId(tutorial.id);
-
   const lines = [
     recordedTestVisualizerImport,
     `import recordedTests from "./fixtures/${shortId}.json";`,
@@ -113,15 +113,6 @@ export async function updateTutorialMdx(
     for (const fixtureName of step.fixtureNames) {
       lines.push(`<RecordedTestVisualizer fixtureName="${fixtureName}" />`, "");
     }
-    if (step.fixtureNames.length === 0) {
-      lines.push(
-        ":::note",
-
-        'This step has no visualisation. To get the full experience try the interactive tutorial in VS Code by saying `"cursorless tutorial"`.',
-        ":::",
-        "",
-      );
-    }
   }
 
   lines.push("</RecordedTestVisualizerProvider>", "");
@@ -134,7 +125,7 @@ export async function updateTutorialFixtureData(
   _actual: unknown,
   options: FormatPluginFnOptions,
 ): Promise<TutorialRecordedTest[] | null> {
-  if (options.manifest.name !== "@cursorless/app-web-docs") {
+  if (!isAppWebDocs(options)) {
     return null;
   }
 

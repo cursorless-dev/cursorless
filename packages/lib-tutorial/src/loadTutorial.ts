@@ -32,7 +32,6 @@ export async function loadTutorial(
   try {
     tutorialContent = {
       title: rawContent.title,
-      version: rawContent.version,
       steps: await Promise.all(rawContent.steps.map(parser.parseTutorialStep)),
     };
 
@@ -57,7 +56,6 @@ export async function loadTutorial(
     tutorialContent = {
       title: rawContent.title,
       steps: [],
-      version: rawContent.version,
     };
     state = {
       type: "doingTutorial",

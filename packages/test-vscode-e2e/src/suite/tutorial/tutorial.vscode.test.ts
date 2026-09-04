@@ -186,15 +186,19 @@ async function runBasicTutorialTest(spyIde: SpyIDE) {
           {
             id: "tutorial-1-basics",
             title: "Introduction",
-            version: 0,
             stepCount: 11,
             currentStep: 1,
           },
           {
             id: "tutorial-2-basic-coding",
             title: "Basic coding",
-            version: 0,
-            stepCount: 11,
+            stepCount: 9,
+            currentStep: 0,
+          },
+          {
+            id: "tutorial-3-visualization",
+            title: "Visualization",
+            stepCount: 6,
             currentStep: 0,
           },
         ],
