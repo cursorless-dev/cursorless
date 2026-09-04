@@ -113,6 +113,15 @@ export async function updateTutorialMdx(
     for (const fixtureName of step.fixtureNames) {
       lines.push(`<RecordedTestVisualizer fixtureName="${fixtureName}" />`, "");
     }
+    if (step.fixtureNames.length === 0) {
+      lines.push(
+        ":::note",
+
+        'This step has no visualisation. To get the full experience try the interactive tutorial in VS Code by saying `"cursorless tutorial"`.',
+        ":::",
+        "",
+      );
+    }
   }
 
   lines.push("</RecordedTestVisualizerProvider>", "");
