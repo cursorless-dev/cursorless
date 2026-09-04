@@ -160,3 +160,22 @@
 .code-hat-yellow::before {
   background-color: #e5c02c;
 }
+
+/* Code hat referenced */
+
+.code-hat-referenced::before {
+  animation: code-hat-referenced-pulse 2s ease-in-out infinite;
+}
+
+@keyframes code-hat-referenced-pulse {
+  50% {
+    background-color: var(--code-hat-referenced-color);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .code-hat-referenced::before {
+    background-color: var(--code-hat-referenced-color);
+    animation: none;
+  }
+}

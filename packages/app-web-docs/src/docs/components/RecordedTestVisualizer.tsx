@@ -3,11 +3,16 @@ import type { Dispatch, JSX, ReactNode, SetStateAction } from "react";
 import { createContext, useContext, useMemo, useState } from "react";
 import type { DecorationItem } from "shiki";
 import type {
-  SelectionPlainObject,
+  Position,
+  Selection,
   TestCaseSnapshot,
 } from "@cursorless/lib-common";
-import { plainObjectToSelection } from "@cursorless/lib-common";
+import {
+  plainObjectToRange,
+  plainObjectToSelection,
+} from "@cursorless/lib-common";
 import { Code } from "./Code";
+import { highlightColors } from "./highlightColors";
 import type { RecordedTest } from "./types";
 
 interface RecordedTestVisualizerContextValue {
@@ -97,12 +102,17 @@ export function RecordedTestVisualizer({
     url: `https://github.com/cursorless-dev/cursorless/blob/main/resources/fixtures/recorded/docs/${path}`,
   };
 
+  const renderHats =
+    fixture.initialState.marks != null &&
+    Object.keys(fixture.initialState.marks).length > 0;
+
   return (
     <div className="row">
       <div className="col">
         Input
         <CodeState
           renderWhitespace={renderWhitespace}
+          renderHats={renderHats}
           languageId={languageId}
           link={link}
           state={initialState}
@@ -112,6 +122,7 @@ export function RecordedTestVisualizer({
         Output
         <CodeState
           renderWhitespace={renderWhitespace}
+          renderHats={renderHats}
           languageId={languageId}
           link={link}
           state={finalState}
@@ -123,6 +134,7 @@ export function RecordedTestVisualizer({
 
 interface CodeStateProps {
   renderWhitespace: boolean;
+  renderHats: boolean;
   languageId: string;
   link: {
     name: string;
@@ -133,13 +145,14 @@ interface CodeStateProps {
 
 function CodeState({
   renderWhitespace,
+  renderHats,
   languageId,
   link,
   state,
 }: CodeStateProps): JSX.Element {
   const decorations = useMemo(
-    () => [...state.selections.map(toDecoration), ...toHatDecorations(state)],
-    [state],
+    () => toDecorations(state, renderHats),
+    [state, renderHats],
   );
   return (
     <>
@@ -162,9 +175,7 @@ function CodeState({
   );
 }
 
-function toDecoration(plainSelection: SelectionPlainObject): DecorationItem {
-  const selection = plainObjectToSelection(plainSelection);
-
+function toDecoration(selection: Selection): DecorationItem {
   const cursorClassName = selection.isReversed
     ? "code-cursor-before"
     : "code-cursor-after";
@@ -183,19 +194,83 @@ function toDecoration(plainSelection: SelectionPlainObject): DecorationItem {
   };
 }
 
-function toHatDecorations(state: TestCaseSnapshot): DecorationItem[] {
-  if (state.hatTokenMap == null) {
+function toDecorations(
+  state: TestCaseSnapshot,
+  renderHats: boolean,
+): DecorationItem[] {
+  const selections = state.selections.map(plainObjectToSelection);
+  const hatRanges = renderHats
+    ? (state.hatTokenMap ?? []).map(({ hatRange }) =>
+        plainObjectToRange(hatRange),
+      )
+    : [];
+
+  // Shiki rejects intersecting decorations. A zero-width cursor at the end of
+  // a hat range intersects the hat decoration, so render both on one wrapper.
+  // We only merge at the end because code-cursor-after recreates that exact
+  // boundary without competing with the hat's ::before pseudo-element.
+  const mergedCursorPositions = selections
+    .filter(
+      (selection) =>
+        selection.isEmpty &&
+        hatRanges.some(({ end }) => end.isEqual(selection.active)),
+    )
+    .map(({ active }) => active);
+
+  return [
+    // Omit cursors that the corresponding hat decoration will render instead.
+    ...selections
+      .filter(
+        (selection) =>
+          !selection.isEmpty ||
+          !mergedCursorPositions.some((position) =>
+            position.isEqual(selection.active),
+          ),
+      )
+      .map(toDecoration),
+    ...toHatDecorations(state, renderHats, mergedCursorPositions),
+  ];
+}
+
+function toHatDecorations(
+  state: TestCaseSnapshot,
+  renderHats: boolean,
+  mergedCursorPositions: readonly Position[],
+): DecorationItem[] {
+  if (!renderHats || state.hatTokenMap == null) {
     return [];
   }
 
-  return state.hatTokenMap.map(({ hatStyle, hatRange }) => ({
-    start: hatRange.start,
-    end: hatRange.end,
-    alwaysWrap: true,
-    properties: {
+  const markRanges = Object.values(state.marks ?? {}).map(plainObjectToRange);
+
+  return state.hatTokenMap.map(({ hatStyle, hatRange }) => {
+    const range = plainObjectToRange(hatRange);
+    const properties: DecorationItem["properties"] = {
       className: ["code-hat", `code-hat-${hatStyle}`],
-    },
-  }));
+    };
+
+    const isReferenced = markRanges.some((markRange) =>
+      markRange.contains(range),
+    );
+
+    if (isReferenced) {
+      properties.className?.push("code-hat-referenced");
+      properties.style = `--code-hat-referenced-color: ${highlightColors.content.background};`;
+    }
+
+    if (mergedCursorPositions.some((position) => position.isEqual(range.end))) {
+      // The hat uses ::before and the cursor uses ::after, allowing both
+      // visuals to share this wrapper without overlapping Shiki decorations.
+      properties.className?.push("code-cursor-after");
+    }
+
+    return {
+      start: hatRange.start,
+      end: hatRange.end,
+      alwaysWrap: true,
+      properties,
+    };
+  });
 }
 
 function useRecordedTestVisualizer(): RecordedTestVisualizerContextValue {
