@@ -70,7 +70,7 @@ export class HatAllocator {
           tokenGraphemeSplitter: this.tokenGraphemeSplitter,
           enabledHatStyles: this.hats.enabledHatStyles,
           forceTokenHats: normalizedForceTokenHats,
-          oldTokenHats: activeMap.tokenHats,
+          oldTokenHats: activeMap.getStaleTokenHats(),
           hatStability: this.ide.configuration.getOwnConfiguration(
             "experimental.hatStability",
           ),

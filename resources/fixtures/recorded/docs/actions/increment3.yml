@@ -16,8 +16,40 @@ initialState:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
+  hatTokenMap:
+    - hatStyle: default
+      grapheme: /
+      hatRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 1}
+    - hatStyle: default
+      grapheme: "5"
+      hatRange:
+        start: {line: 0, character: 3}
+        end: {line: 0, character: 4}
+    - hatStyle: default
+      grapheme: a
+      hatRange:
+        start: {line: 0, character: 6}
+        end: {line: 0, character: 7}
 finalState:
   documentContents: // 6 aaa11
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+  hatTokenMap:
+    - hatStyle: default
+      grapheme: /
+      hatRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 1}
+    - hatStyle: default
+      grapheme: "6"
+      hatRange:
+        start: {line: 0, character: 3}
+        end: {line: 0, character: 4}
+    - hatStyle: default
+      grapheme: a
+      hatRange:
+        start: {line: 0, character: 6}
+        end: {line: 0, character: 7}

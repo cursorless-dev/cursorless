@@ -26,6 +26,13 @@ export async function renderRecordedTestVisualizer(
       throw new Error(`Fixture ${path.name} has no spoken form`);
     }
 
+    if (
+      fixture.initialState.hatTokenMap == null ||
+      fixture.finalState?.hatTokenMap == null
+    ) {
+      throw new Error(`Fixture ${path.name} is missing hatTokenMap`);
+    }
+
     lines.push(
       `### \`"${fixture.command.spokenForm}"\``,
       "",

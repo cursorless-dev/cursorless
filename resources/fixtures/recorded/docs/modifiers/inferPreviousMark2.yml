@@ -28,6 +28,32 @@ initialState:
     default.a:
       start: {line: 1, character: 6}
       end: {line: 1, character: 9}
+  hatTokenMap:
+    - hatStyle: default
+      grapheme: a
+      hatRange:
+        start: {line: 1, character: 7}
+        end: {line: 1, character: 8}
+    - hatStyle: default
+      grapheme: o
+      hatRange:
+        start: {line: 1, character: 1}
+        end: {line: 1, character: 2}
+    - hatStyle: default
+      grapheme: "="
+      hatRange:
+        start: {line: 1, character: 10}
+        end: {line: 1, character: 11}
+    - hatStyle: default
+      grapheme: "0"
+      hatRange:
+        start: {line: 1, character: 12}
+        end: {line: 1, character: 13}
+    - hatStyle: default
+      grapheme: ;
+      hatRange:
+        start: {line: 1, character: 13}
+        end: {line: 1, character: 14}
 finalState:
   documentContents: |-
 
@@ -35,3 +61,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+  hatTokenMap:
+    - hatStyle: default
+      grapheme: a
+      hatRange:
+        start: {line: 1, character: 1}
+        end: {line: 1, character: 2}

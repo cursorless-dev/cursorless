@@ -6,7 +6,7 @@ import type {
   LineRange,
 } from "../types/GeneralizedRange";
 import { isLineRange } from "../types/GeneralizedRange";
-import type { ReadOnlyHatMap } from "../types/HatTokenMap";
+import type { TokenHat } from "../types/HatTokenMap";
 import type { Selection } from "../types/Selection";
 import type { Token } from "../types/Token";
 
@@ -149,12 +149,10 @@ export function characterRangeToPlainObject(
   };
 }
 
-export function tokenHatToPlainObject(
-  hatMap: ReadOnlyHatMap,
-): SimpleTokenHat[] {
-  return hatMap.getTokenHats().map((hat) => ({
+export function tokenHatToPlainObject(hat: TokenHat): SimpleTokenHat {
+  return {
     hatStyle: hat.hatStyle,
     grapheme: hat.grapheme,
     hatRange: rangeToPlainObject(hat.hatRange),
-  }));
+  };
 }

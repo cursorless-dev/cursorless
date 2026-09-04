@@ -1,5 +1,6 @@
 import type { HatStyleName } from "../ide/types/hatStyles.types";
 import type { Range } from "./Range";
+import type { TextEditor } from "./TextEditor";
 import type { Token } from "./Token";
 
 /**
@@ -18,8 +19,7 @@ export interface TokenHat {
 }
 
 export interface ReadOnlyHatMap {
-  /** Returns the complete read-only hat assignments in this map. */
-  getTokenHats(): readonly Readonly<TokenHat>[];
+  getTokenHats(editor: TextEditor): readonly Readonly<TokenHat>[];
   getEntries(): readonly [string, Token][];
   getToken(hatStyle: HatStyleName, character: string): Token | undefined;
 }

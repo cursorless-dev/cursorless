@@ -16,8 +16,10 @@ initialState:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
   marks: {}
+  hatTokenMap: []
 finalState:
   documentContents: "[2, 3, 1]"
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
+  hatTokenMap: []

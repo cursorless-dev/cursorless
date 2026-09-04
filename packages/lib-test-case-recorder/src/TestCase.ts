@@ -176,7 +176,10 @@ export class TestCase {
     );
   }
 
-  async recordFinalState(returnValue: CommandResponse) {
+  async recordFinalState(
+    returnValue: CommandResponse,
+    getFinalHatTokenMap: () => Promise<ReadOnlyHatMap>,
+  ) {
     const excludeFields = this.getExcludedFields(false);
 
     if ("returnValue" in returnValue) {
@@ -186,14 +189,19 @@ export class TestCase {
       this.fallback = returnValue.fallback;
     }
 
+    const marks = this.isHatTokenMapTest ? this.getMarks() : undefined;
+    const hatTokenMap = this.captureHatTokenMap
+      ? await getFinalHatTokenMap()
+      : undefined;
+
     this.finalState = await takeSnapshot(
       this.storedTargets,
       excludeFields,
       this.extraSnapshotFields,
       this.spyIde.activeTextEditor!,
       this.spyIde,
-      this.isHatTokenMapTest ? this.getMarks() : undefined,
-      this.captureHatTokenMap ? this.hatTokenMap : undefined,
+      marks,
+      hatTokenMap,
       { startTimestamp: this.startTimestamp },
     );
     this.recordSpyIdeValues();

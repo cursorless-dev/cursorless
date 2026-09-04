@@ -38,7 +38,9 @@ export async function takeSnapshot(
   }
 
   if (hatTokenMap != null) {
-    snapshot.hatTokenMap = tokenHatToPlainObject(hatTokenMap);
+    snapshot.hatTokenMap = hatTokenMap
+      .getTokenHats(editor)
+      .map(tokenHatToPlainObject);
   }
 
   if (metadata != null) {

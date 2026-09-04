@@ -362,7 +362,12 @@ export class TestCaseRecorder {
       return;
     }
 
-    await this.testCase.recordFinalState(returnValue);
+    const getFinalHatTokenMap = async () => {
+      await this.hatTokenMap.allocateHats();
+      return this.hatTokenMap.getReadableMap(false);
+    };
+
+    await this.testCase.recordFinalState(returnValue, getFinalHatTokenMap);
 
     if (this.testCase.awaitingFinalMarkInfo) {
       // We don't finish the test case here in the case of a navigation map
@@ -371,7 +376,7 @@ export class TestCaseRecorder {
       return;
     }
 
-    await this.finishTestCase();
+    this.finishTestCase();
   }
 
   finishTestCase(): void {
