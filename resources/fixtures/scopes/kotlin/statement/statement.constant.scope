@@ -1,0 +1,10 @@
+val foo = 0
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:11
+  >-----------<
+0| val foo = 0
+
+[Insertion delimiter] = "\n"

@@ -1,0 +1,39 @@
+fun foo(vararg aaa: Int, vararg bbb: Int = 0) {}
+---
+
+[#1 Content] = 0:20-0:23
+                      >---<
+0| fun foo(vararg aaa: Int, vararg bbb: Int = 0) {}
+
+[#1 Removal] = 0:18-0:23
+                    >-----<
+0| fun foo(vararg aaa: Int, vararg bbb: Int = 0) {}
+
+[#1 Leading delimiter] = 0:18-0:20
+                    >--<
+0| fun foo(vararg aaa: Int, vararg bbb: Int = 0) {}
+
+[#1 Domain] = 0:8-0:23
+          >---------------<
+0| fun foo(vararg aaa: Int, vararg bbb: Int = 0) {}
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 0:37-0:40
+                                       >---<
+0| fun foo(vararg aaa: Int, vararg bbb: Int = 0) {}
+
+[#2 Removal] = 0:35-0:40
+                                     >-----<
+0| fun foo(vararg aaa: Int, vararg bbb: Int = 0) {}
+
+[#2 Leading delimiter] = 0:35-0:37
+                                     >--<
+0| fun foo(vararg aaa: Int, vararg bbb: Int = 0) {}
+
+[#2 Domain] = 0:25-0:44
+                           >-------------------<
+0| fun foo(vararg aaa: Int, vararg bbb: Int = 0) {}
+
+[#2 Insertion delimiter] = " "

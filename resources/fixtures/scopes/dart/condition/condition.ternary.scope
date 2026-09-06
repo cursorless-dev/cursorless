@@ -1,0 +1,26 @@
+void main() {
+    true ? 0 : 1;
+}
+---
+
+[Content] = 1:4-1:8
+      >----<
+1|     true ? 0 : 1;
+
+[Removal] = 1:4-1:9
+      >-----<
+1|     true ? 0 : 1;
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     true ? 0 : 1;
+
+[Trailing delimiter] = 1:8-1:9
+          >-<
+1|     true ? 0 : 1;
+
+[Domain] = 1:4-1:16
+      >------------<
+1|     true ? 0 : 1;
+
+[Insertion delimiter] = " "

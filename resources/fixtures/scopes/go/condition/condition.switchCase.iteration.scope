@@ -1,0 +1,7 @@
+switch foo { }
+---
+
+[Content] =
+[Domain] = 0:12-0:13
+              >-<
+0| switch foo { }

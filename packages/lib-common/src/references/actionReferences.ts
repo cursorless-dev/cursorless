@@ -1,0 +1,1511 @@
+import type { ActionType } from "../types/command/ActionDescriptor";
+import type { ActionReferenceGroupId } from "./actionReferenceGroups";
+import {
+  FORMATTER_CAMEL,
+  LINE,
+  REMOVE,
+  SET_SELECTION,
+  SNIPPET_IF,
+  TARGET,
+  TARGET_2,
+  TARGET_2_DESC,
+  TARGET_DESC,
+  TARGET_NUMBER,
+  TARGET_NUMBER_DESC,
+  VAR_DESTINATION,
+  VAR_FORMATTER,
+  VAR_PAIR,
+  VAR_SCOPE,
+  VAR_SNIPPET,
+  VAR_SPOKEN_FORM,
+  VAR_TARGET,
+  VAR_TARGET_1,
+  VAR_TARGET_2,
+} from "./constants";
+import {
+  modifierExtraReferences,
+  modifierReferences,
+} from "./modifierReferences";
+import { pairedDelimiterReferences } from "./pairedDelimiterReferences";
+import type { ReferenceEntry } from "./ReferenceEntry";
+import { scopeReferences } from "./scopeReferences";
+import {
+  connectiveDefaultSpokenForms,
+  insertionModeDefaultSpokenForms,
+} from "./spokenForms/connectiveDefaultSpokenForms";
+import { markDefaultSpokenForms } from "./spokenForms/markDefaultSpokenForms";
+
+const DEFAULT_PATTERN = `${VAR_SPOKEN_FORM} ${VAR_TARGET}`;
+const DEFAULT_COMMAND = `${VAR_SPOKEN_FORM} ${TARGET}`;
+
+const CURLY = pairedDelimiterReferences.curlyBrackets.defaultSpokenForm;
+const SQUARE = pairedDelimiterReferences.squareBrackets.defaultSpokenForm;
+const ITEM = scopeReferences.collectionItem.defaultSpokenForm;
+const VALUE = scopeReferences.value.defaultSpokenForm;
+const INSTANCE = scopeReferences.instance.defaultSpokenForm;
+const FUNCTION = scopeReferences.namedFunction.defaultSpokenForm;
+const TOKEN = scopeReferences.token.defaultSpokenForm;
+const EVERY = modifierReferences.everyScope.defaultSpokenForm;
+const NEXT = modifierExtraReferences.next.defaultSpokenForm;
+const WITH = connectiveDefaultSpokenForms.swapConnective;
+const AT = connectiveDefaultSpokenForms.at;
+const ON = connectiveDefaultSpokenForms.on;
+const SLICE = connectiveDefaultSpokenForms.verticalRange;
+const CURRENT_SELECTION = markDefaultSpokenForms.cursor;
+const AFTER = insertionModeDefaultSpokenForms.after;
+const TO = insertionModeDefaultSpokenForms.to;
+
+const MULTI_TARGET_CURSOR_DESCRIPTION =
+  "When used with a list target, this action creates one cursor for each target.";
+const CLONE_SELECTION_DESCRIPTION =
+  "After insertion, each selection moves to its newly created copy.";
+const SCOPE_INSERTION_DESCRIPTION =
+  "Scope defaults to line. When used with a provided scope target, this action inserts the delimiters or spacing required for a new instance of that scope.";
+const REORDER_DESCRIPTION =
+  "This action changes the order of multiple target contents. The targets can come from a list or range target, or from existing multiple selections.";
+const PAIRED_DELIMITER_DESCRIPTION =
+  "See [paired delimiters](../paired-delimiters.md) for the available pairs.";
+
+export const talonSideActionNames = [
+  "applyFormatter",
+  "nextHomophone",
+] as const;
+
+export type TalonSideActionType = (typeof talonSideActionNames)[number];
+
+export const actionReferences = {
+  // Group: cursor
+  setSelection: {
+    name: "Select",
+    defaultSpokenForm: SET_SELECTION,
+    group: { id: "cursor", index: 0 },
+    description: MULTI_TARGET_CURSOR_DESCRIPTION,
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Select ${VAR_TARGET}.`,
+        cheatsheet: "Select",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Selects the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  setSelectionBefore: {
+    name: "Set selection before",
+    defaultSpokenForm: "pre",
+    group: { id: "cursor", index: 1 },
+    description: MULTI_TARGET_CURSOR_DESCRIPTION,
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Set empty selection before ${VAR_TARGET}.`,
+        cheatsheet: "Set selection before",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Places the cursor before the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  setSelectionAfter: {
+    name: "Set selection after",
+    defaultSpokenForm: "post",
+    group: { id: "cursor", index: 2 },
+    description: MULTI_TARGET_CURSOR_DESCRIPTION,
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Set empty selection after ${VAR_TARGET}.`,
+        cheatsheet: "Set selection after",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Places the cursor after the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  addSelection: {
+    name: "Add selection",
+    defaultSpokenForm: "append",
+    group: { id: "cursor", index: 3 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Adds ${VAR_TARGET} to the current selection set.`,
+        cheatsheet: "Add selection",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Adds the ${TARGET_DESC} to the current selections.`,
+      },
+    ],
+  },
+  addSelectionBefore: {
+    name: "Add selection before",
+    defaultSpokenForm: "append pre",
+    group: { id: "cursor", index: 4 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Adds empty selection before ${VAR_TARGET} to the current selection set.`,
+        cheatsheet: "Add selection before",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Adds an empty selection before the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  addSelectionAfter: {
+    name: "Add selection after",
+    defaultSpokenForm: "append post",
+    group: { id: "cursor", index: 5 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Adds empty selection after ${VAR_TARGET} to the current selection set.`,
+        cheatsheet: "Add selection after",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Adds an empty selection after the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  deselect: {
+    name: "Deselect",
+    defaultSpokenForm: "give",
+    group: { id: "cursor", index: 6 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Deselect ${VAR_TARGET}.`,
+        cheatsheet: "Deselect",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Removes the ${TARGET_DESC} from the current selections.`,
+      },
+    ],
+  },
+
+  // Group: change
+  clearAndSetSelection: {
+    name: "Change",
+    defaultSpokenForm: "change",
+    group: { id: "change", index: 0 },
+    legacySpokenForms: ["clear"],
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Change ${VAR_TARGET} by clearing it and leaving the cursor in its place.`,
+        cheatsheet: "Change",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Changes the ${TARGET_DESC} by clearing it and leaving the cursor in its place.`,
+      },
+    ],
+  },
+  remove: {
+    name: "Remove",
+    defaultSpokenForm: REMOVE,
+    group: { id: "change", index: 1 },
+    description:
+      "This action can be used to remove a target without moving the cursor.",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Remove ${VAR_TARGET}.`,
+        cheatsheet: "Remove",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Removes the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+
+  // Group: clipboard
+  cutToClipboard: {
+    name: "Cut to clipboard",
+    defaultSpokenForm: "carve",
+    group: { id: "clipboard", index: 0 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Cut ${VAR_TARGET} to clipboard.`,
+        cheatsheet: "Cut to clipboard",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Cuts the ${TARGET_DESC} to the clipboard.`,
+      },
+    ],
+  },
+  copyToClipboard: {
+    name: "Copy to clipboard",
+    defaultSpokenForm: "copy",
+    group: { id: "clipboard", index: 1 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Copy ${VAR_TARGET} to clipboard.`,
+        cheatsheet: "Copy to clipboard",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Copies the ${TARGET_DESC} to the clipboard.`,
+      },
+    ],
+  },
+  pasteFromClipboard: {
+    name: "Paste from clipboard",
+    defaultSpokenForm: "paste",
+    group: { id: "clipboard", index: 2 },
+    syntaxes: [
+      {
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_DESTINATION}`,
+        description: `Paste from clipboard at ${VAR_DESTINATION}.`,
+        cheatsheet: `Paste from clipboard at ${VAR_DESTINATION}`,
+      },
+    ],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${AFTER} ${TARGET}`,
+        description: `Pastes the clipboard contents after the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+
+  // Group: insert
+  insertCopyAfter: {
+    name: "Insert copy after",
+    defaultSpokenForm: "clone",
+    group: { id: "insert", index: 0 },
+    description: CLONE_SELECTION_DESCRIPTION,
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Insert copy after ${VAR_TARGET}.`,
+        cheatsheet: "Insert copy after",
+      },
+    ],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${FUNCTION} ${TARGET}`,
+        description: `Inserts a copy of the function containing the ${TARGET_DESC} after itself.`,
+      },
+    ],
+  },
+  insertCopyBefore: {
+    name: "Insert copy before",
+    defaultSpokenForm: "clone up",
+    group: { id: "insert", index: 1 },
+    description: CLONE_SELECTION_DESCRIPTION,
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Insert copy before ${VAR_TARGET}.`,
+        cheatsheet: "Insert copy before",
+      },
+    ],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${FUNCTION} ${TARGET}`,
+        description: `Inserts a copy of the function containing the ${TARGET_DESC} before itself.`,
+      },
+    ],
+  },
+  replaceWithTarget: {
+    name: "Replace with target",
+    defaultSpokenForm: "bring",
+    group: { id: "insert", index: 2 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Insert copy of ${VAR_TARGET} at selection.`,
+        cheatsheet: `Insert copy of ${VAR_TARGET} at selection`,
+      },
+      {
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_TARGET} ${VAR_DESTINATION}`,
+        description: `Copy ${VAR_TARGET} to ${VAR_DESTINATION}.`,
+        cheatsheet: `Copy ${VAR_TARGET} to ${VAR_DESTINATION}`,
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Inserts a copy of the ${TARGET_DESC} at the current selection.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${TARGET} ${TO} ${TARGET_2}`,
+        description: `Replaces the ${TARGET_2_DESC} with a copy of the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  callAsFunction: {
+    name: "Call as function",
+    defaultSpokenForm: "call",
+    group: { id: "insert", index: 3 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Insert call to ${VAR_TARGET} on selection.`,
+        cheatsheet: `Insert call to ${VAR_TARGET} on selection`,
+      },
+      {
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_TARGET_1} ${ON} ${VAR_TARGET_2}`,
+        description: `Insert call to ${VAR_TARGET_1} on ${VAR_TARGET_2}.`,
+        cheatsheet: `Insert call to ${VAR_TARGET_1} on ${VAR_TARGET_2}`,
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Inserts a call to the ${TARGET_DESC} at the current selection.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${TARGET} ${ON} ${TARGET_2}`,
+        description: `Inserts a call to the ${TARGET_DESC} on the ${TARGET_2_DESC}.`,
+      },
+    ],
+  },
+
+  // Group: swap
+  swapTargets: {
+    name: "Swap targets",
+    defaultSpokenForm: "swap",
+    group: { id: "swap", index: 0 },
+    description:
+      "When both operands contain multiple targets, their targets are paired by position and swapped.",
+    syntaxes: [
+      {
+        pattern: `${VAR_SPOKEN_FORM} ${WITH} ${VAR_TARGET}`,
+        description: `Swap selection with ${VAR_TARGET}.`,
+        cheatsheet: `Swap selection with ${VAR_TARGET}`,
+      },
+      {
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_TARGET_1} ${WITH} ${VAR_TARGET_2}`,
+        description: `Swap ${VAR_TARGET_1} with ${VAR_TARGET_2}.`,
+        cheatsheet: `Swap ${VAR_TARGET_1} with ${VAR_TARGET_2}`,
+      },
+    ],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${WITH} ${TARGET}`,
+        description: `Swaps the current selection with the ${TARGET_DESC}.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${TARGET} ${WITH} ${TARGET_2}`,
+        description: `Swaps the ${TARGET_DESC} and the ${TARGET_2_DESC}.`,
+      },
+    ],
+  },
+
+  // Group: move
+  moveToTarget: {
+    name: "Move to target",
+    defaultSpokenForm: "move",
+    group: { id: "move", index: 0 },
+    description:
+      "A target destination is replaced, while a position destination such as `before` or `after` inserts there. The source is removed from its original location in either case.",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Move ${VAR_TARGET} to selection.`,
+        cheatsheet: `Move ${VAR_TARGET} to selection`,
+      },
+      {
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_TARGET} ${VAR_DESTINATION}`,
+        description: `Move ${VAR_TARGET} to ${VAR_DESTINATION}.`,
+        cheatsheet: `Move ${VAR_TARGET} to ${VAR_DESTINATION}`,
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Moves the ${TARGET_DESC} to the current selection.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${TARGET} ${AFTER} ${TARGET_2}`,
+        description: `Moves the ${TARGET_DESC} to after the ${TARGET_2_DESC}.`,
+      },
+    ],
+  },
+
+  // Group: indentation
+  indentLine: {
+    name: "Indent line",
+    defaultSpokenForm: "indent",
+    group: { id: "indentation", index: 0 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Indent line containing ${VAR_TARGET}.`,
+        cheatsheet: "Indent line",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Indents the line containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  outdentLine: {
+    name: "Outdent line",
+    defaultSpokenForm: "dedent",
+    group: { id: "indentation", index: 1 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Outdent line containing ${VAR_TARGET}.`,
+        cheatsheet: "Outdent line",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Decreases the indentation of the line containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+
+  // Group: emptyLines
+  editNewLineBefore: {
+    name: "Edit new line/scope before",
+    defaultSpokenForm: "drink",
+    group: { id: "emptyLines", index: 0 },
+    description: SCOPE_INSERTION_DESCRIPTION,
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Edit new line before ${VAR_TARGET}.`,
+        cheatsheet: "Edit new line before",
+      },
+      {
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_SCOPE} ${VAR_TARGET}`,
+        description: `Edit new ${VAR_SCOPE} before ${VAR_TARGET}.`,
+        cheatsheet: `Edit new ${VAR_SCOPE} before`,
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Inserts a new line above the ${TARGET_DESC} and moves the cursor to it.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
+        description: `Inserts the delimiters for a new collection item before the item containing the ${TARGET_DESC} and moves the cursor there.`,
+      },
+    ],
+  },
+  editNewLineAfter: {
+    name: "Edit new line/scope after",
+    defaultSpokenForm: "pour",
+    group: { id: "emptyLines", index: 1 },
+    description: SCOPE_INSERTION_DESCRIPTION,
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Edit new line after ${VAR_TARGET}.`,
+        cheatsheet: "Edit new line after",
+      },
+      {
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_SCOPE} ${VAR_TARGET}`,
+        description: `Edit new ${VAR_SCOPE} after ${VAR_TARGET}.`,
+        cheatsheet: `Edit new ${VAR_SCOPE} after`,
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Inserts a new line below the ${TARGET_DESC} and moves the cursor to it.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
+        description: `Inserts the delimiters for a new collection item after the item containing the ${TARGET_DESC} and moves the cursor there.`,
+      },
+    ],
+  },
+  insertEmptyLineBefore: {
+    name: "Insert empty line/scope before",
+    defaultSpokenForm: "drop",
+    group: { id: "emptyLines", index: 2 },
+    description: SCOPE_INSERTION_DESCRIPTION,
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Insert empty line/scope before ${VAR_TARGET}.`,
+        cheatsheet: "Insert empty line/scope before",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Inserts an empty line above the ${TARGET_DESC} without moving the cursor.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
+        description: `Inserts the required delimiter before the collection item containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  insertEmptyLineAfter: {
+    name: "Insert empty line/scope after",
+    defaultSpokenForm: "float",
+    group: { id: "emptyLines", index: 3 },
+    description: SCOPE_INSERTION_DESCRIPTION,
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Insert empty line/scope after ${VAR_TARGET}.`,
+        cheatsheet: "Insert empty line/scope after",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Inserts an empty line below the ${TARGET_DESC} without moving the cursor.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${ITEM} ${TARGET}`,
+        description: `Inserts the required delimiter after the collection item containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  insertEmptyLinesAround: {
+    name: "Insert empty lines/scopes around",
+    defaultSpokenForm: "puff",
+    group: { id: "emptyLines", index: 4 },
+    description: SCOPE_INSERTION_DESCRIPTION,
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Insert empty lines/scopes around ${VAR_TARGET}.`,
+        cheatsheet: "Insert empty lines/scopes around",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Inserts empty lines around the line containing the ${TARGET_DESC} without moving the cursor.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${TOKEN} ${TARGET}`,
+        description: `Inserts spaces around the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+
+  // Group: reorder
+  reverseTargets: {
+    name: "Reverse targets",
+    defaultSpokenForm: "reverse",
+    group: { id: "reorder", index: 0 },
+    description: REORDER_DESCRIPTION,
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Reverse ${VAR_TARGET}s.`,
+        cheatsheet: "Reverse targets",
+      },
+    ],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${EVERY} ${ITEM} ${TARGET}`,
+        description: `Reverses the collection items associated with the ${TARGET_DESC}.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${LINE} ${TARGET} ${SLICE} ${TARGET_2}`,
+        description: `Reverses the lines from the ${TARGET_DESC} through the ${TARGET_2_DESC}.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${CURRENT_SELECTION}`,
+        description: "Reverses the current selections.",
+      },
+    ],
+  },
+  randomizeTargets: {
+    name: "Randomize targets",
+    defaultSpokenForm: "shuffle",
+    group: { id: "reorder", index: 1 },
+    description: REORDER_DESCRIPTION,
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Randomize ${VAR_TARGET}s.`,
+        cheatsheet: "Randomize targets",
+      },
+    ],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${EVERY} ${ITEM} ${TARGET}`,
+        description: `Randomizes the collection items associated with the ${TARGET_DESC}.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${LINE} ${TARGET} ${SLICE} ${TARGET_2}`,
+        description: `Randomizes the lines from the ${TARGET_DESC} through the ${TARGET_2_DESC}.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${CURRENT_SELECTION}`,
+        description: "Randomizes the current selections.",
+      },
+    ],
+  },
+  sortTargets: {
+    name: "Sort targets",
+    defaultSpokenForm: "sort",
+    group: { id: "reorder", index: 2 },
+    description: REORDER_DESCRIPTION,
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Sort ${VAR_TARGET}s.`,
+        cheatsheet: "Sort targets",
+      },
+    ],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${EVERY} ${ITEM} ${TARGET}`,
+        description: `Sorts the collection items associated with the ${TARGET_DESC}.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${LINE} ${TARGET} ${SLICE} ${TARGET_2}`,
+        description: `Sorts the lines from the ${TARGET_DESC} through the ${TARGET_2_DESC}.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${CURRENT_SELECTION}`,
+        description: "Sorts the current selections.",
+      },
+    ],
+  },
+
+  // Group: wrap
+  wrapWithPairedDelimiter: {
+    name: "Wrap with paired delimiter/snippet",
+    defaultSpokenForm: "wrap",
+    group: { id: "wrap", index: 0 },
+    description: PAIRED_DELIMITER_DESCRIPTION,
+    syntaxes: [
+      {
+        pattern: `${VAR_PAIR} ${VAR_SPOKEN_FORM} ${VAR_TARGET}`,
+        description: `Wrap ${VAR_TARGET} with ${VAR_PAIR}.`,
+        cheatsheet: `Wrap ${VAR_TARGET} with ${VAR_PAIR}`,
+      },
+      {
+        pattern: `${VAR_SNIPPET} ${VAR_SPOKEN_FORM} ${VAR_TARGET}`,
+        description: `Wrap ${VAR_TARGET} with ${VAR_SNIPPET}.`,
+        cheatsheet: `Wrap ${VAR_TARGET} with ${VAR_SNIPPET}`,
+      },
+    ],
+    examples: [
+      {
+        command: `${SQUARE} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Wraps the ${TARGET_DESC} in square brackets.`,
+      },
+      {
+        command: `${SNIPPET_IF} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Wraps the ${TARGET_DESC} in an if-statement snippet.`,
+      },
+    ],
+  },
+  rewrapWithPairedDelimiter: {
+    name: "Rewrap with paired delimiter",
+    csv_id: "rewrap",
+    defaultSpokenForm: "repack",
+    group: { id: "wrap", index: 1 },
+    description: PAIRED_DELIMITER_DESCRIPTION,
+    syntaxes: [
+      {
+        pattern: `${VAR_PAIR} ${VAR_SPOKEN_FORM} ${VAR_TARGET}`,
+        description: `Rewrap ${VAR_TARGET} with ${VAR_PAIR}.`,
+        cheatsheet: `Rewrap ${VAR_TARGET} with ${VAR_PAIR}`,
+      },
+    ],
+    examples: [
+      {
+        command: `${CURLY} ${VAR_SPOKEN_FORM} ${TARGET}`,
+        description: `Replaces the paired delimiters around the ${TARGET_DESC} with curly brackets.`,
+      },
+    ],
+  },
+
+  // Group: numbers
+  increment: {
+    name: "Increment",
+    defaultSpokenForm: "increment",
+    group: { id: "numbers", index: 0 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Increment number at ${VAR_TARGET}.`,
+        cheatsheet: "Increment number",
+      },
+    ],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${TARGET_NUMBER}`,
+        description: `Increments the ${TARGET_NUMBER_DESC}.`,
+      },
+    ],
+  },
+  decrement: {
+    name: "Decrement",
+    defaultSpokenForm: "decrement",
+    group: { id: "numbers", index: 1 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Decrement number at ${VAR_TARGET}.`,
+        cheatsheet: "Decrement number",
+      },
+    ],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${TARGET_NUMBER}`,
+        description: `Decrements the number at the ${TARGET_NUMBER_DESC}.`,
+      },
+    ],
+  },
+
+  // Group: refactor
+  rename: {
+    name: "Rename",
+    defaultSpokenForm: "rename",
+    group: { id: "refactor", index: 0 },
+    description: "Uses the editor's rename operation.",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Rename ${VAR_TARGET}.`,
+        cheatsheet: "Rename",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Starts renaming the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  extractVariable: {
+    name: "Extract variable",
+    defaultSpokenForm: "extract",
+    group: { id: "refactor", index: 1 },
+    description: "Uses the editor's extract-variable refactoring.",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Extract variable from ${VAR_TARGET}.`,
+        cheatsheet: "Extract variable",
+      },
+    ],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${VALUE} ${TARGET}`,
+        description: `Extracts the value containing the ${TARGET_DESC} into a variable.`,
+      },
+    ],
+  },
+  showQuickFix: {
+    name: "Show quick fix",
+    defaultSpokenForm: "quick fix",
+    description: "Shows the editor's quick fix menu.",
+    group: { id: "refactor", index: 2 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Show quick fix for ${VAR_TARGET}.`,
+        cheatsheet: "Show quick fix",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Shows quick fixes for the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+
+  // Group: joinBreak
+  joinLines: {
+    name: "Join lines",
+    defaultSpokenForm: "join",
+    group: { id: "joinBreak", index: 0 },
+    description:
+      "When the target spans multiple lines, joins all of those lines; otherwise joins the target's line with the following line.",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Join lines at ${VAR_TARGET}.`,
+        cheatsheet: "Join lines",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Joins the line containing the ${TARGET_DESC} with the following line.`,
+      },
+    ],
+  },
+  breakLine: {
+    name: "Break line",
+    defaultSpokenForm: "break",
+    group: { id: "joinBreak", index: 1 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Breaks the line before ${VAR_TARGET}.`,
+        cheatsheet: "Breaks the line",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Breaks the line before the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+
+  // Group: snippets
+  generateSnippet: {
+    name: "Generate snippet",
+    defaultSpokenForm: "snip make",
+    group: { id: "snippets", index: 0 },
+    legacySpokenForms: ["snippet make"],
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Generate snippet from ${VAR_TARGET}.`,
+        cheatsheet: "Generate snippet",
+      },
+    ],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${FUNCTION} ${TARGET}`,
+        description: `Generates a snippet from the function containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  insertSnippet: {
+    name: "Insert snippet",
+    defaultSpokenForm: "snip",
+    group: { id: "snippets", index: 1 },
+    syntaxes: [
+      {
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_SNIPPET} ${VAR_DESTINATION}`,
+        description: `Insert snippet at ${VAR_DESTINATION}.`,
+        cheatsheet: `Insert snippet at ${VAR_DESTINATION}`,
+      },
+    ],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${SNIPPET_IF} ${AFTER} ${TARGET}`,
+        description: `Inserts an if-statement snippet after the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+
+  // Group: scroll
+  scrollToTop: {
+    name: "Scroll to top",
+    defaultSpokenForm: "crown",
+    group: { id: "scroll", index: 0 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Scroll ${VAR_TARGET} to top of the viewport.`,
+        cheatsheet: "Scroll to top",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Scrolls the ${TARGET_DESC} to the top of the viewport.`,
+      },
+    ],
+  },
+  scrollToCenter: {
+    name: "Scroll to center",
+    defaultSpokenForm: "center",
+    group: { id: "scroll", index: 1 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Scroll ${VAR_TARGET} to center of the viewport.`,
+        cheatsheet: "Scroll to center",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Scrolls the ${TARGET_DESC} to the center of the viewport.`,
+      },
+    ],
+  },
+  scrollToBottom: {
+    name: "Scroll to bottom",
+    defaultSpokenForm: "bottom",
+    group: { id: "scroll", index: 2 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Scroll ${VAR_TARGET} to bottom of the viewport.`,
+        cheatsheet: "Scroll to bottom",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Scrolls the ${TARGET_DESC} to the bottom of the viewport.`,
+      },
+    ],
+  },
+
+  // Group: folding
+  foldRegion: {
+    name: "Fold region",
+    defaultSpokenForm: "fold",
+    group: { id: "folding", index: 0 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Fold region at ${VAR_TARGET}.`,
+        cheatsheet: "Fold region",
+      },
+    ],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${FUNCTION} ${TARGET}`,
+        description: `Folds the function containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  unfoldRegion: {
+    name: "Unfold region",
+    defaultSpokenForm: "unfold",
+    group: { id: "folding", index: 1 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Unfold region at ${VAR_TARGET}.`,
+        cheatsheet: "Unfold region",
+      },
+    ],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${FUNCTION} ${TARGET}`,
+        description: `Unfolds the function containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+
+  // Group: homophones
+  nextHomophone: {
+    name: "Next homophone",
+    defaultSpokenForm: "phones",
+    group: { id: "homophones", index: 0 },
+    description:
+      "Cycles through words that sound alike, such as changing `where` to `wear`.",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Cycle to next homophone for ${VAR_TARGET}.`,
+        cheatsheet: "Cycle to next homophone",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Replaces the ${TARGET_DESC} with its next homophone.`,
+      },
+    ],
+  },
+
+  // Group: format
+  applyFormatter: {
+    name: "Apply formatter",
+    defaultSpokenForm: "format",
+    group: { id: "format", index: 0 },
+    syntaxes: [
+      {
+        pattern: `${VAR_SPOKEN_FORM} ${VAR_FORMATTER} ${AT} ${VAR_TARGET}`,
+        description: `Reformat ${VAR_TARGET} as ${VAR_FORMATTER}.`,
+        cheatsheet: `Reformat ${VAR_TARGET} as ${VAR_FORMATTER}`,
+      },
+    ],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${FORMATTER_CAMEL} ${AT} ${TARGET}`,
+        description: `Reformats the ${TARGET_DESC} as camel case.`,
+      },
+    ],
+  },
+
+  // Group: instanceReference
+  "experimental.setInstanceReference": {
+    name: "Set instance reference",
+    defaultSpokenForm: "from",
+    group: { id: "instanceReference", index: 0 },
+    description: `Sets the instance reference. This restricts the next instance search to a target. With \`"every instance"\`, the target defines the region to search; with \`"next instance"\`, it defines the position where the search begins.
+
+Older Cursorless installations may have \`"from"\` disabled. Remove the leading \`-\` from its entry in \`experimental/experimental_actions.csv\` to enable it; see the [settings CSV documentation](../customization.md).`,
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Set instance reference to ${VAR_TARGET}.`,
+        cheatsheet: "Set instance reference",
+      },
+    ],
+    examples: [
+      {
+        command: `${VAR_SPOKEN_FORM} ${FUNCTION} ${TARGET} ${SET_SELECTION} ${EVERY} ${INSTANCE} ${TARGET_2}`,
+        description: `Selects every instance of the ${TARGET_2_DESC} within the function containing the ${TARGET_DESC}.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${TARGET} ${SET_SELECTION} ${NEXT} ${INSTANCE} ${TARGET_2}`,
+        description: `Selects the next instance of the ${TARGET_2_DESC}, searching from the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+
+  // Group: comment
+  toggleLineComment: {
+    name: "Toggle line comment",
+    defaultSpokenForm: "comment",
+    group: { id: "comment", index: 0 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Toggle line comment at ${VAR_TARGET}.`,
+        cheatsheet: "Toggle line comment",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Toggles the comment on the line containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+
+  // Group: breakpoint
+  toggleLineBreakpoint: {
+    name: "Toggle line/scope breakpoint",
+    defaultSpokenForm: "break point",
+    group: { id: "breakpoint", index: 0 },
+    description: "Scope defaults to line.",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Toggle breakpoint on line containing ${VAR_TARGET}.`,
+        cheatsheet: "Toggle line breakpoint",
+      },
+      {
+        pattern: `${VAR_SPOKEN_FORM} ${TOKEN} ${VAR_TARGET}`,
+        description: `Toggle inline breakpoint at ${VAR_TARGET}.`,
+        cheatsheet: "Toggle inline breakpoint",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Toggles a breakpoint on the line containing the ${TARGET_DESC}.`,
+      },
+      {
+        command: `${VAR_SPOKEN_FORM} ${TOKEN} ${TARGET}`,
+        description: `Toggles an inline breakpoint at the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+
+  // Group: navigation
+  revealDefinition: {
+    name: "Reveal definition",
+    defaultSpokenForm: "define",
+    group: { id: "navigation", index: 0 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Reveal definition of ${VAR_TARGET}.`,
+        cheatsheet: "Reveal definition",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Opens the definition of the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  revealTypeDefinition: {
+    name: "Reveal type definition",
+    defaultSpokenForm: "type deaf",
+    group: { id: "navigation", index: 1 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Reveal type definition of ${VAR_TARGET}.`,
+        cheatsheet: "Reveal type definition",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Opens the type definition of the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  showReferences: {
+    name: "Show references",
+    defaultSpokenForm: "reference",
+    group: { id: "navigation", index: 2 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Show references for ${VAR_TARGET}.`,
+        cheatsheet: "Show references",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Shows references to the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  showHover: {
+    name: "Show hover",
+    defaultSpokenForm: "hover",
+    group: { id: "navigation", index: 3 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Show hover for ${VAR_TARGET}.`,
+        cheatsheet: "Show hover",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Shows hover information for the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  findInDocument: {
+    name: "Find in document",
+    defaultSpokenForm: "scout",
+    group: { id: "navigation", index: 4 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Find ${VAR_TARGET} in document.`,
+        cheatsheet: "Find in document",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Searches the current document for the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  findInWorkspace: {
+    name: "Find in workspace",
+    defaultSpokenForm: "scout all",
+    group: { id: "navigation", index: 5 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Find ${VAR_TARGET} in workspace.`,
+        cheatsheet: "Find in workspace",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Searches the workspace for the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  followLink: {
+    name: "Follow link",
+    defaultSpokenForm: "follow",
+    group: { id: "navigation", index: 6 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Follow link at ${VAR_TARGET}.`,
+        cheatsheet: "Follow link",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Opens the link containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  followLinkAside: {
+    name: "Follow link aside",
+    defaultSpokenForm: "follow split",
+    group: { id: "navigation", index: 7 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Follow link at ${VAR_TARGET} aside (e.g. in a split view).`,
+        cheatsheet: "Follow link aside",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Opens the link containing the ${TARGET_DESC} in a split view.`,
+      },
+    ],
+  },
+  showDebugHover: {
+    name: "Show debug hover",
+    defaultSpokenForm: "inspect",
+    group: { id: "navigation", index: 8 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Show debug hover for ${VAR_TARGET}.`,
+        cheatsheet: "Show debug hover",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Shows debug information for the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+
+  // Group: git
+  gitAccept: {
+    name: "Git accept",
+    defaultSpokenForm: "git accept",
+    group: { id: "git", index: 0 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Accept Git change at ${VAR_TARGET}.`,
+        cheatsheet: "Git accept",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Accepts the Git change on the line containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  gitRevert: {
+    name: "Git revert",
+    defaultSpokenForm: "git revert",
+    group: { id: "git", index: 1 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Revert Git change at ${VAR_TARGET}.`,
+        cheatsheet: "Git revert",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Reverts the Git change on the line containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  gitStage: {
+    name: "Git stage",
+    defaultSpokenForm: "git stage",
+    group: { id: "git", index: 2 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Stage Git change at ${VAR_TARGET}.`,
+        cheatsheet: "Git stage",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Stages the Git change on the line containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  gitUnstage: {
+    name: "Git unstage",
+    defaultSpokenForm: "git unstage",
+    group: { id: "git", index: 3 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Unstage Git change at ${VAR_TARGET}.`,
+        cheatsheet: "Git unstage",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Unstages the Git change on the line containing the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+
+  // Group: visual
+  flashTargets: {
+    name: "Flash target",
+    defaultSpokenForm: "flash",
+    group: { id: "visual", index: 0 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Flash ${VAR_TARGET}.`,
+        cheatsheet: "Flash target",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Briefly flashes the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  highlight: {
+    name: "Highlight",
+    defaultSpokenForm: "highlight",
+    group: { id: "visual", index: 1 },
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Highlight ${VAR_TARGET}.`,
+        cheatsheet: "Highlight",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Highlights the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+
+  // Group: private
+  "private.showParseTree": {
+    name: "Show parse tree",
+    defaultSpokenForm: "parse tree",
+    group: { id: "private", index: 0 },
+    visibility: "private",
+    syntaxes: [
+      {
+        pattern: DEFAULT_PATTERN,
+        description: `Show parse tree for ${VAR_TARGET}.`,
+        cheatsheet: "Show parse tree",
+      },
+    ],
+    examples: [
+      {
+        command: DEFAULT_COMMAND,
+        description: `Shows the parse tree for the ${TARGET_DESC}.`,
+      },
+    ],
+  },
+  parsed: {
+    name: "Parsed",
+    defaultSpokenForm: "parsed",
+    visibility: "private",
+    group: { id: "private", index: 1 },
+    syntaxes: [],
+    examples: [],
+  },
+  "private.getTargets": {
+    name: "Get targets",
+    defaultSpokenForm: "get targets",
+    group: { id: "private", index: 2 },
+    visibility: "private",
+    syntaxes: [],
+    examples: [],
+  },
+  "private.setKeyboardTarget": {
+    name: "Set keyboard target",
+    defaultSpokenForm: "set keyboard target",
+    group: { id: "private", index: 3 },
+    visibility: "private",
+    syntaxes: [],
+    examples: [],
+  },
+  executeCommand: {
+    name: "Execute command",
+    defaultSpokenForm: "execute command",
+    group: { id: "private", index: 4 },
+    visibility: "private",
+    syntaxes: [],
+    examples: [],
+  },
+  editNew: {
+    name: "Edit new",
+    defaultSpokenForm: "edit new",
+    group: { id: "private", index: 5 },
+    visibility: "private",
+    syntaxes: [],
+    examples: [],
+  },
+  getText: {
+    name: "Get text",
+    defaultSpokenForm: "get text",
+    group: { id: "private", index: 6 },
+    visibility: "private",
+    syntaxes: [],
+    examples: [],
+  },
+  replace: {
+    name: "Replace",
+    defaultSpokenForm: "replace",
+    group: { id: "private", index: 7 },
+    visibility: "private",
+    syntaxes: [],
+    examples: [],
+  },
+  wrapWithSnippet: {
+    name: "Wrap with snippet",
+    defaultSpokenForm: "wrap",
+    group: { id: "private", index: 8 },
+    visibility: "private",
+    syntaxes: [],
+    examples: [],
+  },
+} as const satisfies Record<
+  ActionType | TalonSideActionType,
+  ReferenceEntry<ActionReferenceGroupId>
+>;

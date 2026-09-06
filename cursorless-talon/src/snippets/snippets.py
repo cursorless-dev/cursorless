@@ -35,9 +35,10 @@ mod.list("cursorless_insert_snippet_action", desc="Cursorless insert snippet act
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def cursorless_insert_snippet(
-        body: str,  # pyright: ignore [reportGeneralTypeIssues]
-        destination: CursorlessDestination = ImplicitDestination(),
+        body: str,
+        destination: Optional[CursorlessDestination] = None,
         scope_type: Optional[Union[str, list[str]]] = None,
     ):
         """Cursorless: Insert custom snippet <body>"""
@@ -47,11 +48,12 @@ class Actions:
             languages=None,
             substitutions=None,
         )
-        action = InsertSnippetAction(snippet, destination)
+        action = InsertSnippetAction(snippet, destination or ImplicitDestination())
         actions.user.private_cursorless_command_and_wait(action)
 
+    @staticmethod
     def cursorless_wrap_with_snippet(
-        body: str,  # pyright: ignore [reportGeneralTypeIssues]
+        body: str,
         target: CursorlessTarget,
         variable_name: Optional[str] = None,
         scope: Optional[str] = None,
@@ -68,8 +70,9 @@ class Actions:
 
     # These actions use a single custom snippets since a language mode is forced
 
+    @staticmethod
     def private_cursorless_insert_community_snippet(
-        name: str,  # pyright: ignore [reportGeneralTypeIssues]
+        name: str,
         destination: CursorlessDestination,
     ):
         """Cursorless: Insert community snippet <name>"""
@@ -79,8 +82,9 @@ class Actions:
         )
         actions.user.private_cursorless_command_and_wait(action)
 
+    @staticmethod
     def private_cursorless_wrap_with_community_snippet(
-        name: str,  # pyright: ignore [reportGeneralTypeIssues]
+        name: str,
         target: CursorlessTarget,
     ):
         """Cursorless: Wrap target with community snippet <name>"""
@@ -97,8 +101,9 @@ class UserActions:
     # (note that this is the default mode of action, as most of the time the user will not
     # have a forced language mode)
 
+    @staticmethod
     def insert_snippet_by_name(
-        name: str,  # pyright: ignore [reportGeneralTypeIssues]
+        name: str,
         # Don't add optional: we need to match the type in community
         substitutions: dict[str, str] = None,  # type: ignore
     ):
@@ -108,8 +113,9 @@ class UserActions:
         )
         actions.user.private_cursorless_command_and_wait(action)
 
+    @staticmethod
     def private_cursorless_insert_community_snippet(
-        name: str,  # pyright: ignore [reportGeneralTypeIssues]
+        name: str,
         destination: CursorlessDestination,
     ):
         action = InsertSnippetAction(
@@ -118,8 +124,9 @@ class UserActions:
         )
         actions.user.private_cursorless_command_and_wait(action)
 
+    @staticmethod
     def private_cursorless_wrap_with_community_snippet(
-        name: str,  # pyright: ignore [reportGeneralTypeIssues]
+        name: str,
         target: CursorlessTarget,
     ):
         action = WrapperSnippetAction(

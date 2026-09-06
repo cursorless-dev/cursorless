@@ -1,0 +1,41 @@
+class Foo
+    def bar(aaa = 0, bbb = 1) end
+end
+---
+
+[#1 Content] = 1:18-1:19
+                    >-<
+1|     def bar(aaa = 0, bbb = 1) end
+
+[#1 Removal] = 1:15-1:19
+                 >----<
+1|     def bar(aaa = 0, bbb = 1) end
+
+[#1 Leading delimiter] = 1:15-1:18
+                 >---<
+1|     def bar(aaa = 0, bbb = 1) end
+
+[#1 Domain] = 1:12-1:19
+              >-------<
+1|     def bar(aaa = 0, bbb = 1) end
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:27-1:28
+                             >-<
+1|     def bar(aaa = 0, bbb = 1) end
+
+[#2 Removal] = 1:24-1:28
+                          >----<
+1|     def bar(aaa = 0, bbb = 1) end
+
+[#2 Leading delimiter] = 1:24-1:27
+                          >---<
+1|     def bar(aaa = 0, bbb = 1) end
+
+[#2 Domain] = 1:21-1:28
+                       >-------<
+1|     def bar(aaa = 0, bbb = 1) end
+
+[#2 Insertion delimiter] = " "

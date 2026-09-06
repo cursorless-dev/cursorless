@@ -1,0 +1,39 @@
+---
+sidebar_label: Four section
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/sectionLevelFour.json";
+
+# Four section (Section level four)
+
+Cursorless ID: `sectionLevelFour`
+
+## Spoken form
+
+Default: `four section`\
+**Disabled by default**
+
+## Syntax
+
+- four section - Level-four heading and its content.
+
+## Examples
+
+- `"take four section blue air"` - Selects the section level four containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Section level four
+
+<i>A level four section</i>
+
+##### Markdown
+
+<ScopeVisualizer fixtureName="scopes/markdown/sectionLevelFour" />
+
+</ScopeVisualizerProvider>

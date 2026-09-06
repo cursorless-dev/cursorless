@@ -1,0 +1,29 @@
+<?php
+class Foo {
+    function bar($aaa, $bbb = 0) {}
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-3:1
+  >-----
+0| <?php
+1| class Foo {
+2|     function bar($aaa, $bbb = 0) {}
+3| }
+   -<
+
+
+[#2 Content] =
+[#2 Domain] = 1:11-3:0
+             >
+1| class Foo {
+2|     function bar($aaa, $bbb = 0) {}
+3| }
+   <
+
+
+[#3 Content] =
+[#3 Domain] = 2:17-2:31
+                   >--------------<
+2|     function bar($aaa, $bbb = 0) {}

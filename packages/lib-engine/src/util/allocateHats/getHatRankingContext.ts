@@ -1,0 +1,66 @@
+import type { HatStyleName, Token, TokenHat } from "@cursorless/lib-common";
+import { CompositeKeyMap } from "@cursorless/lib-common";
+import type { TokenGraphemeSplitter } from "../../tokenGraphemeSplitter";
+import type { RankedToken } from "./getRankedTokens";
+
+export interface RankingContext {
+  /**
+   * Maps from a hat candidate (grapheme+style combination) to the score of the
+   * token that used the given hat in the previous hat allocation.
+   */
+  hatOldTokenRanks: CompositeKeyMap<
+    {
+      grapheme: string;
+      hatStyle: HatStyleName;
+    },
+    number
+  >;
+
+  /**
+   * Maps from a grapheme to the list of ranks of the tokens in which the
+   * given grapheme appears.
+   */
+  graphemeTokenRanks: {
+    [key: string]: number[];
+  };
+}
+
+export function getHatRankingContext(
+  tokens: RankedToken[],
+  oldTokenHatMap: CompositeKeyMap<Token, TokenHat>,
+  tokenGraphemeSplitter: TokenGraphemeSplitter,
+): RankingContext {
+  const graphemeTokenRanks: {
+    [key: string]: number[];
+  } = {};
+
+  const hatOldTokenRanks = new CompositeKeyMap<
+    { grapheme: string; hatStyle: HatStyleName },
+    number
+  >(({ grapheme, hatStyle }) => [grapheme, hatStyle]);
+
+  for (const { token, rank } of tokens) {
+    const existingTokenHat = oldTokenHatMap.get(token);
+    if (existingTokenHat != null) {
+      hatOldTokenRanks.set(existingTokenHat, rank);
+    }
+    const graphemes = tokenGraphemeSplitter.getTokenGraphemes(token.text);
+    for (const grapheme of graphemes) {
+      let tokenRanksForGrapheme: number[];
+
+      if (grapheme.text in graphemeTokenRanks) {
+        tokenRanksForGrapheme = graphemeTokenRanks[grapheme.text];
+      } else {
+        tokenRanksForGrapheme = [];
+        graphemeTokenRanks[grapheme.text] = tokenRanksForGrapheme;
+      }
+
+      tokenRanksForGrapheme.push(rank);
+    }
+  }
+
+  return {
+    hatOldTokenRanks,
+    graphemeTokenRanks,
+  };
+}

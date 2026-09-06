@@ -1,0 +1,38 @@
+---
+sidebar_label: Shuffle
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/randomizeTargets.json";
+
+# Shuffle (Randomize targets)
+
+This action changes the order of multiple target contents. The targets can come from a list or range target, or from existing multiple selections.
+
+Cursorless ID: `randomizeTargets`
+
+## Spoken form
+
+Default: `shuffle`
+
+## Syntax
+
+- shuffle `<target>` - Randomize `<target>`s.
+
+## Examples
+
+- `"shuffle every item blue air"` - Randomizes the collection items associated with the token containing letter `a` with a blue hat.
+- `"shuffle line blue air slice green bat"` - Randomizes the lines from the token containing letter `a` with a blue hat through the token containing letter `b` with a green hat.
+- `"shuffle this"` - Randomizes the current selections.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"shuffle every item"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/randomizeTargets" />
+
+</RecordedTestVisualizerProvider>

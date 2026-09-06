@@ -1,0 +1,106 @@
+import assert from "node:assert/strict";
+import { promises as fsp } from "node:fs";
+import {
+  serializeTestFixture,
+  shouldUpdateFixtures,
+} from "@cursorless/lib-common";
+import { getRecordedTestPaths, loadFixture } from "@cursorless/lib-node-common";
+import { SpokenFormGenerator } from ".";
+import { canonicalizeAndValidateCommand } from "../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
+import { defaultSpokenFormInfoMap } from "../spokenForms/defaultSpokenFormMap";
+import type { SpokenFormMap } from "../spokenForms/SpokenFormMap";
+import { mapSpokenForms } from "../spokenForms/SpokenFormMap";
+import { getHatMapCommand } from "./getHatMapCommand";
+
+/**
+ * A spoken form map to use for testing. Just uses default spoken forms, but
+ * enables spoken forms that are disabled by default.
+ */
+const spokenFormMap: SpokenFormMap = mapSpokenForms(
+  defaultSpokenFormInfoMap,
+  ({ defaultSpokenForms, visibility }) => {
+    const isPrivate = visibility === "private";
+    return {
+      spokenForms: isPrivate ? [] : defaultSpokenForms,
+      isCustom: false,
+      defaultSpokenForms,
+      requiresTalonUpdate: false,
+      isPrivate,
+    };
+  },
+);
+
+suite("Generate spoken forms", () => {
+  for (const { name, path } of getRecordedTestPaths()) {
+    test(name, () => runTest(path));
+  }
+
+  test("generate spoken form for custom regex", () => {
+    const generator = new SpokenFormGenerator({
+      ...spokenFormMap,
+      customRegex: {
+        foo: {
+          spokenForms: ["bar"],
+          isCustom: true,
+          defaultSpokenForms: [],
+          requiresTalonUpdate: false,
+          isPrivate: false,
+        },
+      },
+    });
+
+    const spokenForm = generator.processScopeType({
+      type: "customRegex",
+      regex: "foo",
+    });
+
+    assert.ok(spokenForm.type === "success");
+    assert.deepEqual(spokenForm.spokenForms, ["bar"]);
+  });
+});
+
+async function runTest(file: string) {
+  const fixture = await loadFixture(file);
+  const generator = new SpokenFormGenerator(spokenFormMap);
+
+  const generatedSpokenForm = generator.processCommand(
+    canonicalizeAndValidateCommand(fixture.command),
+  );
+
+  if (generatedSpokenForm.type === "success") {
+    assert.ok(generatedSpokenForm.spokenForms.length === 1);
+  }
+
+  if (fixture.marksToCheck != null && generatedSpokenForm.type === "success") {
+    // If the test has marks to check (eg a hat token map test), it will end in
+    // "take <mark>" as a way to indicate which mark to check
+    const hatMapSpokenForm = generator.processCommand(
+      getHatMapCommand(fixture.marksToCheck),
+    );
+    assert.ok(hatMapSpokenForm.type === "success");
+    assert.ok(hatMapSpokenForm.spokenForms.length === 1);
+    generatedSpokenForm.spokenForms[0] += ` ${hatMapSpokenForm.spokenForms[0]}`;
+  }
+
+  if (shouldUpdateFixtures()) {
+    if (generatedSpokenForm.type === "success") {
+      fixture.command.spokenForm = generatedSpokenForm.spokenForms[0];
+      fixture.spokenFormError = undefined;
+    } else {
+      fixture.spokenFormError = generatedSpokenForm.reason;
+      // Leave spoken form itself in case it's helpful
+    }
+
+    await fsp.writeFile(file, serializeTestFixture(fixture));
+  } else if (generatedSpokenForm.type === "success") {
+    assert.equal(
+      fixture.command.spokenForm,
+      generatedSpokenForm.spokenForms[0],
+    );
+    assert.equal(fixture.spokenFormError, undefined);
+  } else {
+    assert.equal(fixture.spokenFormError, generatedSpokenForm.reason);
+    // Don't care what the spoken form is in the test case if we don't know
+    // how to generate it
+  }
+}

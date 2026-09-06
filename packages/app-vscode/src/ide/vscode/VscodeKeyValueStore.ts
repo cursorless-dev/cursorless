@@ -1,0 +1,34 @@
+import type { ExtensionContext } from "vscode";
+import type {
+  KeyValueStore,
+  KeyValueStoreData,
+  KeyValueStoreKey,
+} from "@cursorless/lib-common";
+import { KEY_VALUE_STORE_DEFAULTS } from "@cursorless/lib-common";
+import { VERSION_KEY } from "../../ReleaseNotes";
+import { DONT_SHOW_TALON_UPDATE_MESSAGE_KEY } from "../../ScopeTreeProvider";
+
+export class VscodeKeyValueStore implements KeyValueStore {
+  constructor(private extensionContext: ExtensionContext) {
+    // Mark all keys for synchronization
+    extensionContext.globalState.setKeysForSync([
+      ...Object.keys(KEY_VALUE_STORE_DEFAULTS),
+      VERSION_KEY,
+      DONT_SHOW_TALON_UPDATE_MESSAGE_KEY,
+    ]);
+  }
+
+  get<K extends KeyValueStoreKey>(key: K): KeyValueStoreData[K] {
+    return this.extensionContext.globalState.get(
+      key,
+      KEY_VALUE_STORE_DEFAULTS[key],
+    );
+  }
+
+  async set<K extends KeyValueStoreKey>(
+    key: K,
+    value: KeyValueStoreData[K],
+  ): Promise<void> {
+    return await this.extensionContext.globalState.update(key, value);
+  }
+}

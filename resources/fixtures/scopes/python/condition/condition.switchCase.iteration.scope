@@ -1,0 +1,10 @@
+match foo:
+    pass
+---
+
+[Content] =
+[Domain] = 0:10-1:8
+            >
+0| match foo:
+1|     pass
+   --------<

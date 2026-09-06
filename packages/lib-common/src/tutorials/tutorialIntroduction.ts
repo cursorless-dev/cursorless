@@ -1,0 +1,32 @@
+import type { RawTutorialContent } from "./tutorial.types";
+
+const wrapsUp =
+  "And that wraps up unit 1 of the Cursorless tutorial! Next time, we'll write some code 🙌.";
+
+export const tutorialIntroduction: RawTutorialContent = {
+  id: "introduction",
+  title: "Introduction",
+  description: "This tutorial will teach you the basics of Cursorless.",
+  steps: [
+    "Say {command:takeCap.yml}",
+    [
+      "Well done! 🙌 You just used the code word for 'c', {grapheme:c}, to refer to the word with a gray hat over the 'c'.",
+      "When a hat is not gray, we say its color: say {command:takeBlueSun.yml}",
+    ],
+    "Selecting a single token is great, but often we need something bigger.\nSay {command:takeHarpPastDrum.yml} to select a range.",
+    "Despite its name, one of the most powerful aspects of Cursorless is the ability to use more than one cursor.\nLet's try that: {command:takeNearAndSun.yml}",
+    "But let's show that Cursorless can live up to its name: we can say {command:chuckTrap.yml} to delete a word without ever moving our cursor.",
+    "Tokens are great, but they're just one way to think of a document.\nLet's try working with lines: {command:chuckLineOdd.yml}",
+    "We can also use {scopeType:line} to refer to the line containing our cursor: {command:takeLine.yml}",
+    "You now know how to select and delete; let's give you a couple more actions to play with: say {action:pre} to place the cursor before a target, as in {command:preUrge.yml}",
+    "Say {action:post} to place the cursor after a target: {command:postAir.yml}",
+    "Say {action:change} to delete a word and move your cursor to where it used to be: {command:changeSit.yml}",
+    {
+      interactive: [
+        wrapsUp,
+        "Feel free to keep playing with this document, then say {special:next} to continue.",
+      ],
+      documentation: wrapsUp,
+    },
+  ],
+};

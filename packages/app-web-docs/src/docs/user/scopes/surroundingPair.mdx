@@ -1,0 +1,54 @@
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/surroundingPair.json";
+
+# Surrounding pair
+
+Expands the input to the nearest containing [paired delimiters](../paired-delimiters.md) and their contents. Use the [interior-only](../modifiers/interiorOnly.mdx) or [exclude-interior](../modifiers/excludeInterior.mdx) modifiers to select only the contents or only the delimiters.
+
+When an opening and closing delimiter use the same character and no parse-tree information is available, Cursorless treats the first occurrence on each line as an opening delimiter and alternates subsequent occurrences between closing and opening delimiters.
+
+Cursorless ID: `surroundingPair`
+
+## Syntax
+
+- `<pair>` - Surrounding matching delimiter pair and its contents.
+
+## Examples
+
+- `"take round blue air"` - Selects the parentheses containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Surrounding pair
+
+<i>A delimiter pair, such as parentheses or quotes</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/surroundingPair/surroundingPair" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/surroundingPair/surroundingPair2" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/surroundingPair/surroundingPair3" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/surroundingPair/surroundingPair4" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/surroundingPair/surroundingPair5" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/surroundingPair/surroundingPair6" />
+
+### Surrounding pair (iteration)
+
+<i>The iteration scope for delimiter pairs</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/surroundingPair/surroundingPair.iteration" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/surroundingPair/surroundingPair.iteration2" />
+
+</ScopeVisualizerProvider>

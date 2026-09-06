@@ -1,0 +1,175 @@
+import assert from "node:assert/strict";
+import crypto from "node:crypto";
+import { mkdir, readFile, readdir, rm } from "node:fs/promises";
+import os from "node:os";
+import path from "node:path";
+import vscode from "vscode";
+import type { HatTokenMap, SimpleActionName } from "@cursorless/lib-common";
+import { LATEST_VERSION } from "@cursorless/lib-common";
+import {
+  getFixturePath,
+  getRecordedTestsDirPath,
+} from "@cursorless/lib-node-common";
+import {
+  getReusableEditor,
+  getTestHelpers,
+  runCursorlessCommand,
+} from "@cursorless/lib-vscode-common";
+import { endToEndTestSetup } from "../endToEndTestSetup";
+
+/*
+ * All tests in this file are running against the latest version of the command
+ * and needs to be manually updated on every command migration.
+ * This includes the file: resources/fixtures/recorded/testCaseRecorder/takeHarp
+ */
+
+// Ensure that the test case recorder works
+suite("testCaseRecorder", function () {
+  endToEndTestSetup(this);
+
+  test("no args", testCaseRecorderNoArgs);
+  test("path arg", testCaseRecorderPathArg);
+  test("graceful error", testCaseRecorderGracefulError);
+});
+
+async function testCaseRecorderNoArgs() {
+  const {
+    hatTokenMap,
+    ide: { fakeIde },
+  } = await getTestHelpers();
+  const dirName = crypto.randomBytes(16).toString("hex");
+  fakeIde.setQuickPickReturnValue(dirName);
+  const tmpdir = path.join(getRecordedTestsDirPath(), dirName);
+
+  try {
+    await runAndCheckTestCaseRecorder(hatTokenMap, tmpdir);
+  } finally {
+    fakeIde.setQuickPickReturnValue(undefined);
+    await rm(tmpdir, { recursive: true, force: true });
+  }
+}
+
+async function testCaseRecorderPathArg() {
+  const { hatTokenMap } = await getTestHelpers();
+  const tmpdir = path.join(os.tmpdir(), crypto.randomBytes(16).toString("hex"));
+  await mkdir(tmpdir, { recursive: true });
+
+  try {
+    await runAndCheckTestCaseRecorder(hatTokenMap, tmpdir, {
+      directory: tmpdir,
+    });
+  } finally {
+    await rm(tmpdir, { recursive: true, force: true });
+  }
+}
+
+async function testCaseRecorderGracefulError() {
+  const { hatTokenMap } = await getTestHelpers();
+  const tmpdir = path.join(os.tmpdir(), crypto.randomBytes(16).toString("hex"));
+  await mkdir(tmpdir, { recursive: true });
+
+  try {
+    await startRecording({
+      directory: tmpdir,
+    });
+
+    try {
+      await runCursorlessCommand({
+        version: LATEST_VERSION,
+        spokenForm: "bad command",
+        usePrePhraseSnapshot: false,
+        action: {
+          name: "badActionName" as SimpleActionName,
+          target: {
+            type: "primitive",
+            mark: {
+              type: "cursor",
+            },
+          },
+        },
+      });
+    } catch {
+      // Ignore error
+    }
+
+    await initalizeEditor(hatTokenMap);
+    await takeEach();
+    await stopRecording();
+    await checkRecordedTest(tmpdir);
+  } finally {
+    await rm(tmpdir, { recursive: true, force: true });
+  }
+}
+
+async function runAndCheckTestCaseRecorder(
+  hatTokenMap: HatTokenMap,
+  tmpdir: string,
+  ...extraArgs: unknown[]
+) {
+  await initalizeEditor(hatTokenMap);
+  await startRecording(...extraArgs);
+  await takeEach();
+  await stopRecording();
+  await checkRecordedTest(tmpdir);
+}
+
+async function initalizeEditor(hatTokenMap: HatTokenMap) {
+  const editor = await getReusableEditor("hello world");
+
+  editor.selections = [new vscode.Selection(0, 11, 0, 11)];
+
+  await hatTokenMap.allocateHats();
+}
+
+async function startRecording(...extraArgs: unknown[]) {
+  await vscode.commands.executeCommand(
+    "cursorless.recordTestCase",
+    ...extraArgs,
+  );
+}
+
+async function stopRecording() {
+  await vscode.commands.executeCommand("cursorless.recordTestCase");
+}
+
+async function takeEach() {
+  await runCursorlessCommand({
+    version: LATEST_VERSION,
+    spokenForm: "take each",
+    usePrePhraseSnapshot: false,
+    action: {
+      name: "setSelection",
+      target: {
+        type: "primitive",
+        mark: {
+          type: "decoratedSymbol",
+          symbolColor: "default",
+          character: "e",
+        },
+      },
+    },
+  });
+}
+
+async function checkRecordedTest(tmpdir: string) {
+  const paths = await readdir(tmpdir);
+  assert.equal(paths.length, 1);
+
+  const actualRecordedTestPath = paths[0];
+  assert.equal(path.basename(actualRecordedTestPath), "takeEach.yml");
+
+  const content = await readFile(
+    getFixturePath("recorded/testCaseRecorder/takeEach.yml"),
+    "utf8",
+  );
+  const expected = content
+    // We use this to ensure that the test works on Windows. Depending on user
+    // / CI git config, the file might be checked out with CRLF line endings
+    .replaceAll("\r\n", "\n");
+  const actualRecordedTest = await readFile(
+    path.join(tmpdir, actualRecordedTestPath),
+    "utf8",
+  );
+
+  assert.equal(actualRecordedTest, expected);
+}

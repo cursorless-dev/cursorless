@@ -1,0 +1,33 @@
+func (f Foo) bar(
+    aaa int,
+    bbb string,
+) {}
+---
+
+[Content] = 1:4-2:15
+      >--------
+1|     aaa int,
+2|     bbb string,
+   ---------------<
+
+[Removal] = 0:17-3:0
+                   >
+0| func (f Foo) bar(
+1|     aaa int,
+2|     bbb string,
+3| ) {}
+   <
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     aaa int,
+
+[Domain] = 0:0-3:4
+  >-----------------
+0| func (f Foo) bar(
+1|     aaa int,
+2|     bbb string,
+3| ) {}
+   ----<
+
+[Insertion delimiter] = ",\n"

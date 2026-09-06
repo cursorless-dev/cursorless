@@ -1,0 +1,32 @@
+<?php
+if (true) { }
+else if (false) { }
+else { }
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-3:8
+  >-----
+0| <?php
+1| if (true) { }
+2| else if (false) { }
+3| else { }
+   --------<
+
+
+[#2 Content] =
+[#2 Domain] = 1:11-1:12
+             >-<
+1| if (true) { }
+
+
+[#3 Content] =
+[#3 Domain] = 2:17-2:18
+                   >-<
+2| else if (false) { }
+
+
+[#4 Content] =
+[#4 Domain] = 3:6-3:7
+        >-<
+3| else { }

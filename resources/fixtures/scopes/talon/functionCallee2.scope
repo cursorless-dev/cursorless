@@ -1,0 +1,18 @@
+foo:
+    key(enter)
+---
+
+[Content] =
+[Removal] = 1:4-1:7
+      >---<
+1|     key(enter)
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     key(enter)
+
+[Domain] = 1:4-1:14
+      >----------<
+1|     key(enter)
+
+[Insertion delimiter] = " "

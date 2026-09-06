@@ -1,0 +1,42 @@
+trait Foo {
+    val bar = 0
+    var baz: Int = 0
+}
+---
+
+[#1 Content] = 1:14-1:15
+                >-<
+1|     val bar = 0
+
+[#1 Removal] = 1:11-1:15
+             >----<
+1|     val bar = 0
+
+[#1 Leading delimiter] = 1:11-1:14
+             >---<
+1|     val bar = 0
+
+[#1 Domain] = 1:4-1:15
+      >-----------<
+1|     val bar = 0
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 2:19-2:20
+                     >-<
+2|     var baz: Int = 0
+
+[#2 Removal] = 2:16-2:20
+                  >----<
+2|     var baz: Int = 0
+
+[#2 Leading delimiter] = 2:16-2:19
+                  >---<
+2|     var baz: Int = 0
+
+[#2 Domain] = 2:4-2:20
+      >----------------<
+2|     var baz: Int = 0
+
+[#2 Insertion delimiter] = " "

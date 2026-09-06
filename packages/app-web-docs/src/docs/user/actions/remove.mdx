@@ -1,0 +1,36 @@
+---
+sidebar_label: Chuck
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/remove.json";
+
+# Chuck (Remove)
+
+This action can be used to remove a target without moving the cursor.
+
+Cursorless ID: `remove`
+
+## Spoken form
+
+Default: `chuck`
+
+## Syntax
+
+- chuck `<target>` - Remove `<target>`.
+
+## Examples
+
+- `"chuck blue air"` - Removes the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"chuck air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/remove" />
+
+</RecordedTestVisualizerProvider>

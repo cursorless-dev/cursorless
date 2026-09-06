@@ -1,0 +1,109 @@
+// oxlint-disable react/no-array-index-key
+import type { WebviewApi } from "vscode-webview";
+import type { ActiveTutorialNoErrorsState } from "@cursorless/lib-common";
+import { ArrowLeftIcon } from "./ArrowLeftIcon";
+import { ArrowRightIcon } from "./ArrowRightIcon";
+import { CloseIcon } from "./CloseIcon";
+import { Command } from "./Command";
+import { ProgressBar } from "./ProgressBar";
+
+interface Props {
+  state: ActiveTutorialNoErrorsState;
+  vscode: WebviewApi<undefined>;
+}
+
+export function TutorialStep({ state, vscode }: Props) {
+  const renderProgress = () => {
+    return (
+      <div className="mt-2 mb-2 d-flex align-items-center gap-1">
+        <ProgressBar
+          currentStep={state.stepNumber}
+          stepCount={state.stepCount}
+        />
+        <button
+          type="button"
+          className="btn btn-link p-0 d-inline-flex"
+          onClick={() =>
+            vscode.postMessage({
+              type: "list",
+            })
+          }
+        >
+          <CloseIcon />
+        </button>
+      </div>
+    );
+  };
+
+  const renderStepContent = () => {
+    if (!state.preConditionsMet) {
+      return (
+        <>
+          <div>Whoops! Looks like you&apos;ve stepped off the beaten path.</div>
+          <div className="mt-1">
+            Feel free to keep playing, then say{" "}
+            <Command spokenForm="tutorial resume" /> to resume the tutorial.
+          </div>
+        </>
+      );
+    }
+
+    return (
+      <>
+        {state.stepContent.map((paragraph, i) => (
+          <div key={i} className="mt-1">
+            {paragraph.map((fragment, j) => {
+              switch (fragment.type) {
+                case "string":
+                  return <span key={j}>{fragment.value}</span>;
+                case "command":
+                  return <Command key={j} spokenForm={fragment.value} />;
+                case "term":
+                  return <span key={j}>&quot;{fragment.value}&quot;</span>;
+                default: {
+                  const _exhaustiveCheck: never = fragment;
+                  return null;
+                }
+              }
+            })}
+          </div>
+        ))}
+
+        <div className="mt-2 d-flex w-100 align-items-center justify-content-between">
+          <button
+            type="button"
+            className="btn btn-link p-0 d-inline-flex"
+            onClick={() =>
+              vscode.postMessage({
+                type: "previous",
+              })
+            }
+          >
+            <ArrowLeftIcon size={12} />
+          </button>
+          <span className="tutorial-step-counter">
+            {state.stepNumber + 1} / {state.stepCount}{" "}
+          </span>
+          <button
+            type="button"
+            className="btn btn-link p-0 d-inline-flex"
+            onClick={() =>
+              vscode.postMessage({
+                type: "next",
+              })
+            }
+          >
+            <ArrowRightIcon size={12} />
+          </button>
+        </div>
+      </>
+    );
+  };
+
+  return (
+    <>
+      {renderProgress()}
+      {renderStepContent()}
+    </>
+  );
+}

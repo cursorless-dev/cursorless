@@ -1,0 +1,52 @@
+---
+sidebar_label: Short paint
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/boundedNonWhitespaceSequence.json";
+
+# Short paint (Bounded non-whitespace sequence)
+
+Like `"paint"`, but expansion also stops at a delimiter pair that surrounds the input target. Delimiter pairs that do not surround the original target do not stop expansion.
+
+Cursorless ID: `boundedNonWhitespaceSequence`
+
+## Spoken form
+
+Default: `short paint`
+
+## Syntax
+
+- short paint - Non-whitespace sequence bounded by surrounding pair delimiters.
+
+## Examples
+
+- `"take short paint blue air"` - Selects the bounded non-whitespace sequence containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Bounded non whitespace sequence
+
+<i>A sequence of non-whitespace characters bounded by matching pair</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedNonWhitespaceSequence" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedNonWhitespaceSequence2" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedNonWhitespaceSequence3" />
+
+### Bounded non whitespace sequence (iteration)
+
+<i>Iteration scope for bounded non-whitespace sequence</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedNonWhitespaceSequence.iteration" />
+
+</ScopeVisualizerProvider>

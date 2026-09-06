@@ -1,0 +1,35 @@
+languageId: cpp
+command:
+  version: 7
+  spokenForm: change value
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    int main() {
+      switch (i) {
+        default:
+          break;
+      }
+    }
+  selections:
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}
+  marks: {}
+finalState:
+  documentContents: |
+    int main() {
+      switch () {
+        default:
+          break;
+      }
+    }
+  selections:
+    - anchor: {line: 1, character: 10}
+      active: {line: 1, character: 10}

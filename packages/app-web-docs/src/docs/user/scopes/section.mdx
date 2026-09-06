@@ -1,0 +1,62 @@
+---
+sidebar_label: Section
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/section.json";
+
+# Section
+
+Cursorless ID: `section`
+
+## Spoken form
+
+Default: `section`
+
+## Syntax
+
+- section - Heading and its content through the next heading of the same or higher level.
+
+## Examples
+
+- `"take section blue air"` - Selects the section containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Section
+
+<i>A document section</i>
+
+##### LaTeX
+
+<ScopeVisualizer fixtureName="scopes/latex/section" />
+
+##### Markdown
+
+<ScopeVisualizer fixtureName="scopes/markdown/section" />
+
+### Section (iteration document)
+
+<i>Iteration scope for sections: the entire document including leading and trailing empty lines.</i>
+
+##### LaTeX
+
+<ScopeVisualizer fixtureName="scopes/latex/section.iteration.document" />
+
+##### Markdown
+
+<ScopeVisualizer fixtureName="scopes/markdown/section.iteration.document" />
+
+### Section (iteration parent)
+
+<i>Iteration scope for sections: the parent section.</i>
+
+##### Markdown
+
+<ScopeVisualizer fixtureName="scopes/markdown/section.iteration.parent" />
+
+</ScopeVisualizerProvider>

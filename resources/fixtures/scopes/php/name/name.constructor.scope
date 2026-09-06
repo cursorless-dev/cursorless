@@ -1,0 +1,46 @@
+<?php
+class Foo {
+    function __construct() {}
+}
+---
+
+[#1 Content] = 1:6-1:9
+        >---<
+1| class Foo {
+
+[#1 Removal] = 1:6-1:10
+        >----<
+1| class Foo {
+
+[#1 Leading delimiter] = 1:5-1:6
+       >-<
+1| class Foo {
+
+[#1 Trailing delimiter] = 1:9-1:10
+           >-<
+1| class Foo {
+
+[#1 Domain] = 1:0-3:1
+  >-----------
+1| class Foo {
+2|     function __construct() {}
+3| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] = 2:13-2:24
+               >-----------<
+2|     function __construct() {}
+
+[#2 Leading delimiter] = 2:12-2:13
+              >-<
+2|     function __construct() {}
+
+[#2 Domain] = 2:4-2:29
+      >-------------------------<
+2|     function __construct() {}
+
+[#2 Insertion delimiter] = " "

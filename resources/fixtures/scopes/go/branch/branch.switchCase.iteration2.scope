@@ -1,0 +1,7 @@
+switch v := x.(type) { }
+---
+
+[Content] =
+[Domain] = 0:22-0:23
+                        >-<
+0| switch v := x.(type) { }

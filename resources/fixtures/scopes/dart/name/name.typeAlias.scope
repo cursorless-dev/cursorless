@@ -1,0 +1,24 @@
+typedef Foo = int;
+---
+
+[Content] = 0:8-0:11
+          >---<
+0| typedef Foo = int;
+
+[Removal] = 0:0-0:14
+  >--------------<
+0| typedef Foo = int;
+
+[Leading delimiter] = 0:7-0:8
+         >-<
+0| typedef Foo = int;
+
+[Trailing delimiter] = 0:11-0:12
+             >-<
+0| typedef Foo = int;
+
+[Domain] = 0:0-0:18
+  >------------------<
+0| typedef Foo = int;
+
+[Insertion delimiter] = " "

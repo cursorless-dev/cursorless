@@ -1,0 +1,114 @@
+import assert from "node:assert/strict";
+import vscode from "vscode";
+import {
+  HatStability,
+  LATEST_VERSION,
+  selectionToPlainObject,
+} from "@cursorless/lib-common";
+import {
+  fromVscodeSelection,
+  getReusableEditor,
+  getTestHelpers,
+  runCursorlessCommand,
+} from "@cursorless/lib-vscode-common";
+import { endToEndTestSetup } from "../endToEndTestSetup";
+import { mockPrePhraseGetVersion } from "../mockPrePhraseGetVersion";
+import { setupFake } from "./setupFake";
+
+/**
+ * The selections we expect when the pre-phrase snapshot is used
+ */
+const snapshotExpectedSelections = [new vscode.Selection(0, 0, 0, 1)];
+
+/**
+ * The selections we expect when the pre-phrase snapshot is not used
+ */
+const noSnapshotExpectedSelections = [new vscode.Selection(1, 0, 1, 1)];
+
+suite("Pre-phrase snapshots", function () {
+  endToEndTestSetup(this);
+
+  suiteSetup(async () => {
+    const { ide } = await getTestHelpers();
+    setupFake(ide, HatStability.greedy);
+  });
+
+  test("Pre-phrase snapshot; single phrase", () =>
+    runTest(true, false, snapshotExpectedSelections));
+
+  test("Pre-phrase snapshot; multiple phrase", () =>
+    runTest(true, true, noSnapshotExpectedSelections));
+  test("No snapshot; single phrase", () =>
+    runTest(false, false, noSnapshotExpectedSelections));
+  test("No snapshot; multiple phrase", () =>
+    runTest(false, true, noSnapshotExpectedSelections));
+});
+
+async function runTest(
+  usePrePhraseSnapshot: boolean,
+  multiplePhrases: boolean,
+  expectedSelections: vscode.Selection[],
+) {
+  const { hatTokenMap, commandServerApi } = await getTestHelpers();
+
+  const editor = await getReusableEditor("a\n");
+
+  editor.selections = [new vscode.Selection(1, 0, 1, 0)];
+
+  let prePhraseVersion = "version1";
+  mockPrePhraseGetVersion(commandServerApi, () =>
+    Promise.resolve(prePhraseVersion),
+  );
+
+  await hatTokenMap.allocateHats();
+  prePhraseVersion = "version2";
+
+  await runCursorlessCommand({
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
+    spokenForm: "whatever",
+    action: {
+      name: "replaceWithTarget",
+      source: {
+        type: "primitive",
+        mark: {
+          type: "decoratedSymbol",
+          symbolColor: "default",
+          character: "a",
+        },
+      },
+      destination: {
+        type: "implicit",
+      },
+    },
+  });
+
+  await hatTokenMap.allocateHats();
+
+  if (multiplePhrases) {
+    // If test is simulating separate phrases, we simulate pre-phrase signal being sent
+    prePhraseVersion = "version3";
+  }
+
+  await runCursorlessCommand({
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot,
+    spokenForm: "whatever",
+    action: {
+      name: "setSelection",
+      target: {
+        type: "primitive",
+        mark: {
+          type: "decoratedSymbol",
+          symbolColor: "default",
+          character: "a",
+        },
+      },
+    },
+  });
+
+  assert.deepEqual(
+    editor.selections.map(fromVscodeSelection).map(selectionToPlainObject),
+    expectedSelections.map(fromVscodeSelection).map(selectionToPlainObject),
+  );
+}
