@@ -10,6 +10,10 @@ tag: user.cursorless
     user.run_rpc_command("cursorless.recordTestCase")
 {user.cursorless_homophone} record one:
     user.run_rpc_command("cursorless.recordOneTestCaseThenPause")
+{user.cursorless_homophone} record scope:
+    user.run_rpc_command("cursorless.recordScopeTests.showUnimplementedFacets")
+{user.cursorless_homophone} save scope:
+    user.run_rpc_command("cursorless.recordScopeTests.saveActiveDocument")
 {user.cursorless_homophone} pause:
     user.run_rpc_command("cursorless.pauseRecording")
 {user.cursorless_homophone} resume:
@@ -25,10 +29,7 @@ tag: user.cursorless
     user.private_cursorless_record_that_mark_test()
 {user.cursorless_homophone} record silent: user.cursorless_record_silent_test()
 
-{user.cursorless_homophone} update cheatsheet:
-    user.private_cursorless_cheat_sheet_update_json()
-
-test snippet make <user.cursorless_target>:
+test snip make <user.cursorless_target>:
     user.private_cursorless_make_snippet_test(cursorless_target)
 
 parse tree <user.cursorless_target>:

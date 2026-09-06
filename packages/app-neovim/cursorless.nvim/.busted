@@ -1,0 +1,10 @@
+return {
+    _all = {
+        lua = './test/nvim-shim.sh',
+        output = "TAP",
+        ["defer-print"] = false,
+    },
+    unit = {
+        ROOT = {'./test/unit/'},
+    },
+  }

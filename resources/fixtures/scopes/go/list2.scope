@@ -1,0 +1,10 @@
+T{aaa, bbb: 0}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:1-0:14
+   >-------------<
+0| T{aaa, bbb: 0}
+
+[Insertion delimiter] = " "

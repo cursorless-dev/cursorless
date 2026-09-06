@@ -1,0 +1,47 @@
+---
+sidebar_label: Glyph
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/glyph.json";
+
+# Glyph
+
+Cursorless ID: `glyph`
+
+## Spoken form
+
+Default: `glyph`
+
+## Syntax
+
+- glyph `<character>` - Instance of single character `<character>`.
+
+## Examples
+
+- `"take next glyph air"` - Selects the next `a`.
+- `"take every glyph dollar"` - Selects every `$`.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Glyph: A
+
+<i>A single `a` glyph</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/glyph.a" />
+
+### Glyph: Dollar
+
+<i>A single `$` glyph</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/glyph.dollar" />
+
+</ScopeVisualizerProvider>

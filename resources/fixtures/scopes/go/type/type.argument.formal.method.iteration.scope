@@ -1,0 +1,13 @@
+func (f Foo) bar(aaa int, bbb string) {}
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:40
+  >----------------------------------------<
+0| func (f Foo) bar(aaa int, bbb string) {}
+
+
+[#2 Content] =
+[#2 Domain] = 0:17-0:36
+                   >-------------------<
+0| func (f Foo) bar(aaa int, bbb string) {}

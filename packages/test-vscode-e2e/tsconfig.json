@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["node", "mocha"]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.json",
+    "../../resources/typings/**/*.d.ts"
+  ]
+}

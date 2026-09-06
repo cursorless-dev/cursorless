@@ -1,0 +1,23 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change name
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "fun main() {\n    var name: String\n\tname = \"Kotlin\"\n}"
+  selections:
+    - anchor: {line: 2, character: 16}
+      active: {line: 2, character: 16}
+  marks: {}
+finalState:
+  documentContents: "fun main() {\n    var name: String\n\t = \"Kotlin\"\n}"
+  selections:
+    - anchor: {line: 2, character: 1}
+      active: {line: 2, character: 1}

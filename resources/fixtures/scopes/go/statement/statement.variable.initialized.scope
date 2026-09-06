@@ -1,0 +1,10 @@
+var foo int = 0
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:15
+  >---------------<
+0| var foo int = 0
+
+[Insertion delimiter] = "\n"

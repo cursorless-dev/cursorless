@@ -1,0 +1,10 @@
+void Foo() { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:12-0:13
+              >-<
+0| void Foo() { }
+
+[Insertion delimiter] = " "

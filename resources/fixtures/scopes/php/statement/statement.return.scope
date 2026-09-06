@@ -1,0 +1,41 @@
+<?php
+function foo() {
+    return 0;
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 1:0-3:1
+  >----------------
+1| function foo() {
+2|     return 0;
+3| }
+   -<
+
+[#1 Removal] = 0:5-3:1
+       >
+0| <?php
+1| function foo() {
+2|     return 0;
+3| }
+   -<
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 2:4-2:13
+      >---------<
+2|     return 0;
+
+[#2 Removal] = 2:0-3:0
+  >-------------
+2|     return 0;
+3| }
+   <
+
+[#2 Leading delimiter] = 2:0-2:4
+  >----<
+2|     return 0;
+
+[#2 Insertion delimiter] = "\n"

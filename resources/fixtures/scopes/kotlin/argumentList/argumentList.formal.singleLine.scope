@@ -1,0 +1,13 @@
+fun foo(aaa: Int, bbb: Int) {}
+---
+
+[Content] =
+[Removal] = 0:8-0:26
+          >------------------<
+0| fun foo(aaa: Int, bbb: Int) {}
+
+[Domain] = 0:0-0:30
+  >------------------------------<
+0| fun foo(aaa: Int, bbb: Int) {}
+
+[Insertion delimiter] = ", "

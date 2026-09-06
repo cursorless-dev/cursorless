@@ -1,0 +1,42 @@
+---
+sidebar_label: Paste
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/pasteFromClipboard.json";
+
+# Paste (Paste from clipboard)
+
+Cursorless ID: `pasteFromClipboard`
+
+## Spoken form
+
+Default: `paste`
+
+## Syntax
+
+- paste `<destination>` - Paste from clipboard at `<destination>`.
+
+## Examples
+
+- `"paste after blue air"` - Pastes the clipboard contents after the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"paste to air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/pasteFromClipboard" />
+
+### `"paste before air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/pasteFromClipboard2" />
+
+### `"paste after air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/pasteFromClipboard3" />
+
+</RecordedTestVisualizerProvider>

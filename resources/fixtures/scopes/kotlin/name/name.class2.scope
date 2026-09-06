@@ -1,0 +1,24 @@
+object Foo {}
+---
+
+[Content] = 0:7-0:10
+         >---<
+0| object Foo {}
+
+[Removal] = 0:7-0:11
+         >----<
+0| object Foo {}
+
+[Leading delimiter] = 0:6-0:7
+        >-<
+0| object Foo {}
+
+[Trailing delimiter] = 0:10-0:11
+            >-<
+0| object Foo {}
+
+[Domain] = 0:0-0:13
+  >-------------<
+0| object Foo {}
+
+[Insertion delimiter] = " "

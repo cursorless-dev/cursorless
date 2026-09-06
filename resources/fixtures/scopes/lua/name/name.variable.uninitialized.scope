@@ -1,0 +1,17 @@
+local foo
+---
+
+[Content] = 0:6-0:9
+        >---<
+0| local foo
+
+[Removal] =
+[Domain] = 0:0-0:9
+  >---------<
+0| local foo
+
+[Leading delimiter] = 0:5-0:6
+       >-<
+0| local foo
+
+[Insertion delimiter] = " "

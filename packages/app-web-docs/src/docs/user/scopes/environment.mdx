@@ -1,0 +1,38 @@
+---
+sidebar_label: Environment
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/environment.json";
+
+# Environment
+
+Cursorless ID: `environment`
+
+## Spoken form
+
+Default: `environment`
+
+## Syntax
+
+- environment - Named document environment and its contents.
+
+## Examples
+
+- `"take environment blue air"` - Selects the environment containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Environment
+
+<i>An environment, eg in LaTeX</i>
+
+##### LaTeX
+
+<ScopeVisualizer fixtureName="scopes/latex/environment" />
+
+</ScopeVisualizerProvider>

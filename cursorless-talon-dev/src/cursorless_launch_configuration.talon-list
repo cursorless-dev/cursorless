@@ -1,0 +1,13 @@
+list: user.cursorless_launch_configuration
+app: vscode
+win.title: /cursorless/
+-
+
+extension: "Run extension"
+test: "Extension tests"
+test subset: "Extension tests (subset)"
+
+# Other launch config you may want to activate:
+
+# update fixtures: "Update test fixtures"
+# update fixtures subset: "Update test fixtures (subset)"

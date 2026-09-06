@@ -1,44 +1,18 @@
-out
-dist
-node_modules
-.vscode-test/
+# Workspace
+/.vscode-test/
+
+# Packages
+/packages/*/out/
+/packages/*/dist/
+/packages/app-web-docs/.docusaurus/
+/packages/app-neovim/cursorless.nvim/node/cursorless-neovim/
+/packages/app-neovim/cursorless.nvim/node/test-runner/
+/packages/*/tsconfig.tsbuildinfo
+/packages/test-runner/testSubsetGrep.properties
+/packages/test-runner/failedTests.properties
+
+# Anywhere
+node_modules/
 *.vsix
-/package-lock.json
-*.DS_Store
-
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-.pnp
-.pnp.js
-
-# testing
-coverage
-
-# next.js
-.next/
-
-# production
-build
-
-# misc
-*.pem
-
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-
-# local env files
-.env*.local
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-
-# test subset config
-packages/test-harness/testSubsetGrep.properties
+.DS_Store
+.luacheckcache

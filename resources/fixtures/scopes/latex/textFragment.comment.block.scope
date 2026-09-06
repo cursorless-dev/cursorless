@@ -1,0 +1,10 @@
+\iffalse Hello world \fi
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:24
+  >------------------------<
+0| \iffalse Hello world \fi
+
+[Insertion delimiter] = " "

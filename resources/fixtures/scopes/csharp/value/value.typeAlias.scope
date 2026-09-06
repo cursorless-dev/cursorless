@@ -1,0 +1,20 @@
+using Foo = Bar;
+---
+
+[Content] = 0:12-0:15
+              >---<
+0| using Foo = Bar;
+
+[Removal] = 0:9-0:15
+           >------<
+0| using Foo = Bar;
+
+[Leading delimiter] = 0:9-0:12
+           >---<
+0| using Foo = Bar;
+
+[Domain] = 0:0-0:16
+  >----------------<
+0| using Foo = Bar;
+
+[Insertion delimiter] = " "

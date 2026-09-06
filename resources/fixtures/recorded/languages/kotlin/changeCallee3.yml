@@ -1,0 +1,29 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change callee
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCallee}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    class Test(x: Int, y: Int) {
+        constructor() : this(0, 0)
+    }
+  selections:
+    - anchor: {line: 1, character: 30}
+      active: {line: 1, character: 30}
+  marks: {}
+finalState:
+  documentContents: |-
+    class Test(x: Int, y: Int) {
+        constructor() : (0, 0)
+    }
+  selections:
+    - anchor: {line: 1, character: 20}
+      active: {line: 1, character: 20}

@@ -1,0 +1,41 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change class
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: class}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    class HelloWorld {
+      fun a() {}
+
+      fun b() {}
+    }
+
+    object GoodbyeWorld {
+      fun a() {}
+
+      fun b() {}
+    }
+  selections:
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
+  marks: {}
+finalState:
+  documentContents: |-
+
+
+    object GoodbyeWorld {
+      fun a() {}
+
+      fun b() {}
+    }
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

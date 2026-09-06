@@ -1,0 +1,13 @@
+* aaa
+* bbb
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-1:5
+  >-----
+0| * aaa
+1| * bbb
+   -----<
+
+[Insertion delimiter] = " "

@@ -1,1 +1,6 @@
-*       @pokey @AndreasArvidsson
+* @cursorless-dev/code-owners
+
+*neovim* @cursorless-dev/code-owners @saidelike @fidgetingbits
+*Neovim* @cursorless-dev/code-owners @saidelike @fidgetingbits
+*nvim* @cursorless-dev/code-owners @saidelike @fidgetingbits
+*Nvim* @cursorless-dev/code-owners @saidelike @fidgetingbits

@@ -1,0 +1,17 @@
+foo = "Hello world"
+---
+
+[Content] =
+[Domain] = 0:6-0:19
+        >-------------<
+0| foo = "Hello world"
+
+[Removal] = 0:5-0:19
+       >--------------<
+0| foo = "Hello world"
+
+[Leading delimiter] = 0:5-0:6
+       >-<
+0| foo = "Hello world"
+
+[Insertion delimiter] = " "

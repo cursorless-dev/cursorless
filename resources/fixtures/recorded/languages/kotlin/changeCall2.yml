@@ -1,0 +1,33 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change call
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCall}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    class A : B() {}
+
+    class C(param: Int) : D(param)
+
+    class D : SomeInterface
+  selections:
+    - anchor: {line: 2, character: 25}
+      active: {line: 2, character: 25}
+  marks: {}
+finalState:
+  documentContents: |-
+    class A : B() {}
+
+    class C(param: Int) : 
+
+    class D : SomeInterface
+  selections:
+    - anchor: {line: 2, character: 22}
+      active: {line: 2, character: 22}

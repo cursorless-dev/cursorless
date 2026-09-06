@@ -1,0 +1,50 @@
+---
+sidebar_label: Tags
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/xmlBothTags.json";
+
+# Tags (XML both tags)
+
+Cursorless ID: `xmlBothTags`
+
+## Spoken form
+
+Default: `tags`
+
+## Syntax
+
+- tags - Opening and closing XML, HTML, or JSX tags, or LaTeX `begin` and `end` commands.
+
+## Examples
+
+- `"take tags blue air"` - Selects both tags of the XML element containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Tags
+
+<i>Both tags in a xml element</i>
+
+##### HTML
+
+<ScopeVisualizer fixtureName="scopes/html/tags" />
+
+##### JavaScript React
+
+<ScopeVisualizer fixtureName="scopes/javascript.jsx/tags" />
+
+##### LaTeX
+
+<ScopeVisualizer fixtureName="scopes/latex/tags" />
+
+##### XML
+
+<ScopeVisualizer fixtureName="scopes/xml/tags" />
+
+</ScopeVisualizerProvider>

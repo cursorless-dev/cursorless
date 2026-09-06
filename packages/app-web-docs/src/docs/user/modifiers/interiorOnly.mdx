@@ -1,0 +1,34 @@
+---
+sidebar_label: Inside
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/interiorOnly.json";
+
+# Inside (Interior only)
+
+Cursorless ID: `interiorOnly`
+
+## Spoken form
+
+Default: `inside`
+
+## Syntax
+
+- inside - Interior only.
+
+## Examples
+
+- `"take inside round blue air"` - Selects the contents of the parentheses containing the token containing letter `a` with a blue hat, excluding the parentheses.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"take inside"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/interiorOnly" />
+
+</RecordedTestVisualizerProvider>

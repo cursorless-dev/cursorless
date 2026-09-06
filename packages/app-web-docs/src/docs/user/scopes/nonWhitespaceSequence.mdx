@@ -1,0 +1,40 @@
+---
+sidebar_label: Paint
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/nonWhitespaceSequence.json";
+
+# Paint (Non-whitespace sequence)
+
+Expands forward and backward from the input through adjacent non-whitespace characters.
+
+Cursorless ID: `nonWhitespaceSequence`
+
+## Spoken form
+
+Default: `paint`
+
+## Syntax
+
+- paint - Non-whitespace sequence.
+
+## Examples
+
+- `"take paint blue air"` - Selects the non-whitespace sequence containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Non whitespace sequence
+
+<i>A sequence of non-whitespace characters</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/nonWhitespaceSequence" />
+
+</ScopeVisualizerProvider>

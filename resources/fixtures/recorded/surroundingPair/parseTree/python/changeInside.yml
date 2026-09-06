@@ -1,0 +1,22 @@
+languageId: python
+command:
+  version: 7
+  spokenForm: change inside
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: interiorOnly}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: r'command server'
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
+  marks: {}
+finalState:
+  documentContents: r''
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}

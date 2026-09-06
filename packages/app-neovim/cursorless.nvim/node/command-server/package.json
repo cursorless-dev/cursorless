@@ -1,0 +1,13 @@
+{
+  "name": "command-server",
+  "description": "Exposes a file-based RPC API for running VSCode commands",
+  "publisher": "saidelike",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hands-free-vim/command-server"
+  },
+  "version": "0.9.1",
+  "main": "./index/index.cjs",
+  "private": true
+}

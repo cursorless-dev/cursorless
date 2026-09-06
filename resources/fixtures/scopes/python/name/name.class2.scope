@@ -1,0 +1,23 @@
+@bar
+class Foo: pass
+---
+
+[Content] = 1:6-1:9
+        >---<
+1| class Foo: pass
+
+[Removal] = 1:5-1:9
+       >----<
+1| class Foo: pass
+
+[Leading delimiter] = 1:5-1:6
+       >-<
+1| class Foo: pass
+
+[Domain] = 0:0-1:15
+  >----
+0| @bar
+1| class Foo: pass
+   ---------------<
+
+[Insertion delimiter] = " "

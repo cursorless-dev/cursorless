@@ -1,0 +1,16 @@
+<?php
+interface Foo {}
+---
+
+[Content] =
+[Domain] = 1:0-1:16
+  >----------------<
+1| interface Foo {}
+
+[Removal] = 0:5-1:16
+       >
+0| <?php
+1| interface Foo {}
+   ----------------<
+
+[Insertion delimiter] = "\n"

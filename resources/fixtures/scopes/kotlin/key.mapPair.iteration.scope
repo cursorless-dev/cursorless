@@ -1,0 +1,7 @@
+mapOf(aaa to 0, bbb to 1)
+---
+
+[Content] =
+[Domain] = 0:6-0:24
+        >------------------<
+0| mapOf(aaa to 0, bbb to 1)
