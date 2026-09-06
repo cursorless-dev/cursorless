@@ -27,6 +27,12 @@
       "path": "./packages/lib-common"
     },
     {
+      "path": "./packages/cursorless-jetbrains"
+    },
+    {
+      "path": "./packages/cursorless-neovim"
+    },
+    {
       "path": "./packages/lib-engine"
     },
     {
