@@ -1,0 +1,18 @@
+
+class Foo end
+
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-2:0
+  >
+0|
+1| class Foo end
+2|
+   <
+
+
+[#2 Content] =
+[#2 Domain] = 1:9-1:10
+           >-<
+1| class Foo end

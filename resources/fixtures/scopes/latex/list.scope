@@ -1,0 +1,17 @@
+\begin{itemize}
+  \item aaa
+  \item bbb
+\end{itemize}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-3:13
+  >---------------
+0| \begin{itemize}
+1|   \item aaa
+2|   \item bbb
+3| \end{itemize}
+   -------------<
+
+[Insertion delimiter] = " "

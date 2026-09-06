@@ -1,0 +1,35 @@
+class Foo
+    def bar(
+        aaa,
+        bbb
+    ) end
+end
+---
+
+[Content] = 2:8-3:11
+          >----
+2|         aaa,
+3|         bbb
+   -----------<
+
+[Removal] = 1:12-4:4
+              >
+1|     def bar(
+2|         aaa,
+3|         bbb
+4|     ) end
+   ----<
+
+[Leading delimiter] = 2:0-2:8
+  >--------<
+2|         aaa,
+
+[Domain] = 1:4-4:9
+      >--------
+1|     def bar(
+2|         aaa,
+3|         bbb
+4|     ) end
+   ---------<
+
+[Insertion delimiter] = ",\n"

@@ -1,0 +1,21 @@
+<?php
+function(): int {};
+---
+
+[Content] = 1:12-1:15
+              >---<
+1| function(): int {};
+
+[Removal] = 1:10-1:15
+            >-----<
+1| function(): int {};
+
+[Leading delimiter] = 1:10-1:12
+            >--<
+1| function(): int {};
+
+[Domain] = 1:0-1:18
+  >------------------<
+1| function(): int {};
+
+[Insertion delimiter] = " "

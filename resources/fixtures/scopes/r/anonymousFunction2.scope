@@ -1,0 +1,10 @@
+(function() 0)
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:1-0:13
+   >------------<
+0| (function() 0)
+
+[Insertion delimiter] = "\n"

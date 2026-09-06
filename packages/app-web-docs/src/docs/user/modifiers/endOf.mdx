@@ -1,0 +1,34 @@
+---
+sidebar_label: End of
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/endOf.json";
+
+# End of
+
+Cursorless ID: `endOf`
+
+## Spoken form
+
+Default: `end of`
+
+## Syntax
+
+- end of - Empty position at end of target.
+
+## Examples
+
+- `"take end of blue air"` - Places the cursor at the end of the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"take end of token"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/endOf" />
+
+</RecordedTestVisualizerProvider>

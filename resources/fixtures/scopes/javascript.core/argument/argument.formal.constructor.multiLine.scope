@@ -1,0 +1,46 @@
+class Foo {
+    constructor(
+        aaa,
+        bbb
+    ) {}
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 2:8-2:11
+          >---<
+2|         aaa,
+
+[#1 Removal] = 2:8-3:8
+          >----
+2|         aaa,
+3|         bbb
+   --------<
+
+[#1 Trailing delimiter] = 2:11-3:8
+             >-
+2|         aaa,
+3|         bbb
+   --------<
+
+[#1 Insertion delimiter] = ",\n"
+
+
+[#2 Content] =
+[#2 Domain] = 3:8-3:11
+          >---<
+3|         bbb
+
+[#2 Removal] = 2:11-3:11
+             >-
+2|         aaa,
+3|         bbb
+   -----------<
+
+[#2 Leading delimiter] = 2:11-3:8
+             >-
+2|         aaa,
+3|         bbb
+   --------<
+
+[#2 Insertion delimiter] = ",\n"

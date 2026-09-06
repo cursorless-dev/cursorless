@@ -1,0 +1,11 @@
+<?php
+foo.bar(aaa, bbb);
+---
+
+[Content] = 1:8-1:16
+          >--------<
+1| foo.bar(aaa, bbb);
+
+[Domain] = 1:0-1:17
+  >-----------------<
+1| foo.bar(aaa, bbb);

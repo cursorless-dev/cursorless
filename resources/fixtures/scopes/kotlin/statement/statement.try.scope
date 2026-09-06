@@ -1,0 +1,17 @@
+try {
+} catch (ex: Exception) {
+} finally {
+}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-3:1
+  >-----
+0| try {
+1| } catch (ex: Exception) {
+2| } finally {
+3| }
+   -<
+
+[Insertion delimiter] = "\n"

@@ -1,0 +1,34 @@
+---
+sidebar_label: Start of
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/startOf.json";
+
+# Start of
+
+Cursorless ID: `startOf`
+
+## Spoken form
+
+Default: `start of`
+
+## Syntax
+
+- start of - Empty position at start of target.
+
+## Examples
+
+- `"take start of blue air"` - Places the cursor at the start of the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"take start of token"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/startOf" />
+
+</RecordedTestVisualizerProvider>

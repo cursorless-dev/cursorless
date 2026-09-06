@@ -1,0 +1,12 @@
+
+func foo() {}
+
+---
+
+[Content] =
+[Domain] = 0:0-2:0
+  >
+0|
+1| func foo() {}
+2|
+   <

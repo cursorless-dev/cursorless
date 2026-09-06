@@ -1,0 +1,14 @@
+{
+  "name": "@cursorless/lib-neovim-registry",
+  "version": "1.0.0",
+  "description": "Registry to share apis and commands between packages for neovim",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc",
+    "clean": "rm -rf ./out ./dist ./tsconfig.tsbuildinfo"
+  }
+}

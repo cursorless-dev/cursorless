@@ -1,0 +1,12 @@
+case foo
+when 0
+end
+---
+
+[Content] =
+[Domain] = 0:8-2:0
+          >
+0| case foo
+1| when 0
+2| end
+   <

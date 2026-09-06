@@ -1,0 +1,26 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: change blue special
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: blue, character: �}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    😄🙃🙁
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    blue.�:
+      start: {line: 0, character: 2}
+      end: {line: 0, character: 4}
+finalState:
+  documentContents: |
+    😄🙁
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}

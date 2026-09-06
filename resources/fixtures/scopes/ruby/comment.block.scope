@@ -1,0 +1,15 @@
+=begin
+Hello world
+=end
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-2:4
+  >------
+0| =begin
+1| Hello world
+2| =end
+   ----<
+
+[Insertion delimiter] = "\n"

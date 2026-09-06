@@ -1,0 +1,32 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: funk wrap token
+  action:
+    name: wrapWithSnippet
+    snippetDescription:
+      type: custom
+      variableName: body
+      scopeType: {type: statement}
+      body: "function $name($parameterList) {\n\t$body\n}"
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: token}
+  usePrePhraseSnapshot: true
+spokenFormError: custom wrap with snippet
+initialState:
+  documentContents: const whatever = "hello";
+  selections:
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
+  marks: {}
+finalState:
+  documentContents: |-
+    const whatever = "function () {
+        hello
+    }";
+  selections:
+    - anchor: {line: 0, character: 27}
+      active: {line: 0, character: 27}

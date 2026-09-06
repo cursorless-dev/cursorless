@@ -36,9 +36,8 @@ def cursorless_swap_targets(m) -> SwapTargets:
 
 @mod.action_class
 class Actions:
-    def private_cursorless_swap(
-        targets: SwapTargets,  # pyright: ignore [reportGeneralTypeIssues]
-    ):
+    @staticmethod
+    def private_cursorless_swap(targets: SwapTargets):
         """Execute Cursorless swap action"""
         actions.user.private_cursorless_command_and_wait(
             {

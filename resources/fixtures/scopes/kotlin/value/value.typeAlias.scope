@@ -1,0 +1,20 @@
+typealias Foo = Bar
+---
+
+[Content] = 0:16-0:19
+                  >---<
+0| typealias Foo = Bar
+
+[Removal] = 0:13-0:19
+               >------<
+0| typealias Foo = Bar
+
+[Leading delimiter] = 0:13-0:16
+               >---<
+0| typealias Foo = Bar
+
+[Domain] = 0:0-0:19
+  >-------------------<
+0| typealias Foo = Bar
+
+[Insertion delimiter] = " "

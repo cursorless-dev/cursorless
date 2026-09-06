@@ -1,0 +1,24 @@
+while true end
+---
+
+[Content] = 0:6-0:10
+        >----<
+0| while true end
+
+[Removal] = 0:6-0:11
+        >-----<
+0| while true end
+
+[Leading delimiter] = 0:5-0:6
+       >-<
+0| while true end
+
+[Trailing delimiter] = 0:10-0:11
+            >-<
+0| while true end
+
+[Domain] = 0:0-0:14
+  >--------------<
+0| while true end
+
+[Insertion delimiter] = " "

@@ -1,0 +1,33 @@
+function foo:bar(aaa, bbb) end
+---
+
+[#1 Content] =
+[#1 Domain] = 0:17-0:20
+                   >---<
+0| function foo:bar(aaa, bbb) end
+
+[#1 Removal] = 0:17-0:22
+                   >-----<
+0| function foo:bar(aaa, bbb) end
+
+[#1 Trailing delimiter] = 0:20-0:22
+                      >--<
+0| function foo:bar(aaa, bbb) end
+
+[#1 Insertion delimiter] = ", "
+
+
+[#2 Content] =
+[#2 Domain] = 0:22-0:25
+                        >---<
+0| function foo:bar(aaa, bbb) end
+
+[#2 Removal] = 0:20-0:25
+                      >-----<
+0| function foo:bar(aaa, bbb) end
+
+[#2 Leading delimiter] = 0:20-0:22
+                      >--<
+0| function foo:bar(aaa, bbb) end
+
+[#2 Insertion delimiter] = ", "

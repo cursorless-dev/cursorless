@@ -1,0 +1,191 @@
+import { stat, unlink, writeFile } from "node:fs/promises";
+import { fake } from "sinon";
+import type { ScopeTypeInfo } from "@cursorless/lib-common";
+import { DOCS_URL, sleep } from "@cursorless/lib-common";
+import { getTestHelpers } from "@cursorless/lib-vscode-common";
+import { assertCalledWithScopeInfo } from "./assertCalledWithScopeInfo";
+
+/**
+ * Tests that the scope provider correctly reports custom spoken forms
+ */
+export async function runCustomSpokenFormScopeInfoTest() {
+  const { scopeProvider, cursorlessTalonStateJsonPath } =
+    await getTestHelpers();
+  const faked = fake<[scopeInfos: ScopeTypeInfo[]], void>();
+
+  const disposable = scopeProvider.onDidChangeScopeInfo(faked);
+
+  try {
+    await assertCalledWithScopeInfo(
+      faked,
+      roundStandard,
+      namedFunctionStandard,
+      lambdaStandard,
+      statementStandard,
+      squareStandard,
+    );
+
+    await writeFile(
+      cursorlessTalonStateJsonPath,
+      JSON.stringify(spokenFormJsonContents),
+    );
+    await assertCalledWithScopeInfo(
+      faked,
+      roundCustom,
+      namedFunctionCustom,
+      lambdaCustom,
+      statementMissing,
+      squareMissing,
+    );
+
+    await unlink(cursorlessTalonStateJsonPath);
+    await assertCalledWithScopeInfo(
+      faked,
+      roundStandard,
+      namedFunctionStandard,
+      lambdaStandard,
+      statementStandard,
+      squareStandard,
+    );
+  } finally {
+    disposable.dispose();
+
+    // Delete cursorlessTalonStateJsonPath if it exists
+    try {
+      await stat(cursorlessTalonStateJsonPath);
+      await unlink(cursorlessTalonStateJsonPath);
+      // Sleep to ensure that the scope support provider has time to update
+      // before the next test starts
+      await sleep(400);
+    } catch {
+      // Do nothing
+    }
+  }
+}
+
+const spokenFormJsonContents = {
+  version: 0,
+  spokenForms: [
+    {
+      type: "pairedDelimiter",
+      id: "parentheses",
+      spokenForms: ["custom round", "alternate custom round"],
+    },
+    {
+      type: "simpleScopeTypeType",
+      id: "namedFunction",
+      spokenForms: ["custom funk"],
+    },
+    {
+      type: "simpleScopeTypeType",
+      id: "anonymousFunction",
+      spokenForms: [],
+    },
+  ],
+};
+
+const roundStandard: ScopeTypeInfo = {
+  humanReadableName: "Matching pair of parentheses",
+  isLanguageSpecific: false,
+  scopeType: { type: "surroundingPair", delimiter: "parentheses" },
+  spokenForm: {
+    spokenForms: ["round"],
+    type: "success",
+  },
+};
+
+const roundCustom: ScopeTypeInfo = {
+  humanReadableName: "Matching pair of parentheses",
+  isLanguageSpecific: false,
+  scopeType: { type: "surroundingPair", delimiter: "parentheses" },
+  spokenForm: {
+    spokenForms: ["custom round", "alternate custom round"],
+    type: "success",
+  },
+};
+
+const squareStandard: ScopeTypeInfo = {
+  humanReadableName: "Matching pair of square brackets",
+  isLanguageSpecific: false,
+  scopeType: { type: "surroundingPair", delimiter: "squareBrackets" },
+  spokenForm: {
+    spokenForms: ["box"],
+    type: "success",
+  },
+};
+
+const squareMissing: ScopeTypeInfo = {
+  humanReadableName: "Matching pair of square brackets",
+  isLanguageSpecific: false,
+  scopeType: { type: "surroundingPair", delimiter: "squareBrackets" },
+  spokenForm: {
+    isPrivate: false,
+    reason: `paired delimiter with id squareBrackets; please update cursorless-talon to the latest version (see ${DOCS_URL}/user/updating)`,
+    requiresTalonUpdate: true,
+    type: "error",
+  },
+};
+
+const namedFunctionStandard: ScopeTypeInfo = {
+  humanReadableName: "Named function",
+  isLanguageSpecific: true,
+  scopeType: { type: "namedFunction" },
+  spokenForm: {
+    spokenForms: ["funk"],
+    type: "success",
+  },
+};
+
+const namedFunctionCustom: ScopeTypeInfo = {
+  humanReadableName: "Named function",
+  isLanguageSpecific: true,
+  scopeType: { type: "namedFunction" },
+  spokenForm: {
+    spokenForms: ["custom funk"],
+    type: "success",
+  },
+};
+
+const lambdaStandard: ScopeTypeInfo = {
+  humanReadableName: "Anonymous function",
+  isLanguageSpecific: true,
+  scopeType: { type: "anonymousFunction" },
+  spokenForm: {
+    spokenForms: ["lambda"],
+    type: "success",
+  },
+};
+
+const lambdaCustom: ScopeTypeInfo = {
+  humanReadableName: "Anonymous function",
+  isLanguageSpecific: true,
+  scopeType: { type: "anonymousFunction" },
+  spokenForm: {
+    isPrivate: false,
+    reason: `simple scope type type with id anonymousFunction; please see ${DOCS_URL}/user/customization for more information`,
+    requiresTalonUpdate: false,
+    type: "error",
+  },
+};
+
+const statementStandard: ScopeTypeInfo = {
+  humanReadableName: "Statement",
+  isLanguageSpecific: true,
+  scopeType: { type: "statement" },
+  spokenForm: {
+    spokenForms: ["state"],
+    type: "success",
+  },
+};
+
+const statementMissing: ScopeTypeInfo = {
+  humanReadableName: "Statement",
+  isLanguageSpecific: true,
+  scopeType: { type: "statement" },
+  spokenForm: {
+    isPrivate: false,
+    reason: `simple scope type type with id statement; please update cursorless-talon to the latest version (see ${DOCS_URL}/user/updating)`,
+    requiresTalonUpdate: true,
+    type: "error",
+  },
+};

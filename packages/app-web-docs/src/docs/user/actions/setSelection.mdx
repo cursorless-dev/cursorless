@@ -1,0 +1,36 @@
+---
+sidebar_label: Take
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/setSelection.json";
+
+# Take (Select)
+
+When used with a list target, this action creates one cursor for each target.
+
+Cursorless ID: `setSelection`
+
+## Spoken form
+
+Default: `take`
+
+## Syntax
+
+- take `<target>` - Select `<target>`.
+
+## Examples
+
+- `"take blue air"` - Selects the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"take air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/setSelection" />
+
+</RecordedTestVisualizerProvider>

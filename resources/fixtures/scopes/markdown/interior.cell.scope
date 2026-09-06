@@ -1,0 +1,19 @@
+```ts
+let foo;
+```
+
+---
+
+[Content] = 1:0-1:8
+  >--------<
+1| let foo;
+
+[Removal] =
+[Domain] = 0:5-2:0
+       >
+0| ```ts
+1| let foo;
+2| ```
+   <
+
+[Insertion delimiter] = " "

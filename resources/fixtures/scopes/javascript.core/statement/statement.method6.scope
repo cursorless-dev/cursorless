@@ -1,0 +1,15 @@
+const foo = {
+    bar: function() {}
+}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-2:1
+  >-------------
+0| const foo = {
+1|     bar: function() {}
+2| }
+   -<
+
+[Insertion delimiter] = "\n"

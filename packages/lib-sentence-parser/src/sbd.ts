@@ -1,0 +1,258 @@
+// oxlint-disable max-depth
+import {
+  isBoundaryChar,
+  isCommonAbbreviation,
+  isConcatenated,
+  isCustomAbbreviation,
+  isDottedAbbreviation,
+  isNameAbbreviation,
+  isNumber,
+  isPhoneNr,
+  isSentenceStarter,
+  isTimeAbbreviation,
+  isURL,
+  setAbbreviations,
+} from "./Match";
+
+const newline_placeholder = " @~@ ";
+const newline_placeholder_t = newline_placeholder.trim();
+
+const whiteSpaceCheck = /\S/u;
+const addNewLineBoundaries = /\n+|[-#=_+*]{4,}/gu;
+const splitIntoWords = /\S+|\n/gu;
+
+export interface SentenceParserOptions {
+  newlineBoundaries?: boolean;
+  preserveWhitespace?: boolean;
+  abbreviations?: string[];
+}
+
+const defaultOptions: SentenceParserOptions = {
+  newlineBoundaries: false,
+  preserveWhitespace: false,
+  abbreviations: undefined,
+};
+
+// Split the entry into sentences.
+export function getSentences(
+  inputText: string,
+  userOptions?: SentenceParserOptions,
+) {
+  if (!inputText) {
+    return [];
+  }
+
+  let text = inputText;
+
+  if (!whiteSpaceCheck.test(text)) {
+    // whitespace-only string has no sentences
+    return [];
+  }
+
+  const options: SentenceParserOptions = {
+    ...defaultOptions,
+    ...userOptions,
+  };
+
+  setAbbreviations(options.abbreviations);
+
+  if (options.newlineBoundaries) {
+    text = text.replace(addNewLineBoundaries, newline_placeholder);
+  }
+
+  // Split the text into words
+  let words: string[];
+  let tokens: string[];
+
+  // Split the text into words
+  if (options.preserveWhitespace) {
+    // <br> tags are the odd man out, as whitespace is allowed inside the tag
+    tokens = text.split(/(<br\s*\/?>|\S+|\n+)/u);
+
+    // every other token is a word
+    words = tokens.filter((token, ii) => {
+      return ii % 2;
+    });
+  } else {
+    // - see http://blog.tompawlak.org/split-string-into-tokens-javascript
+    words = text.trim().match(splitIntoWords) ?? [];
+  }
+
+  let wordCount = 0;
+  let index;
+  let temp: string[] | false;
+  let sentences = [];
+  let current = [];
+
+  // If given text is only whitespace (or nothing of \S+)
+  if (!words || words.length === 0) {
+    return [];
+  }
+
+  for (let i = 0, L = words.length; i < L; i++) {
+    wordCount++;
+
+    // Add the word to current sentence
+    current.push(words[i]);
+
+    // Sub-sentences, reset counter
+    if (words[i].includes(",")) {
+      wordCount = 0;
+    }
+
+    if (
+      isBoundaryChar(words[i]) ||
+      words[i].endsWith("?") ||
+      words[i].endsWith("!") ||
+      words[i] === newline_placeholder_t
+    ) {
+      if (options.newlineBoundaries && words[i] === newline_placeholder_t) {
+        current.pop();
+      }
+
+      sentences.push(current);
+
+      wordCount = 0;
+      current = [];
+
+      continue;
+    }
+
+    if (words[i].endsWith('"') || words[i].endsWith("”")) {
+      words[i] = words[i].slice(0, -1);
+    }
+
+    // A dot might indicate the end sentences
+    // Exception: The next sentence starts with a word (non abbreviation)
+    //            that has a capital letter.
+    if (words[i].endsWith(".")) {
+      // Check if there is a next word
+      // This probably needs to be improved with machine learning
+      if (i + 1 < L) {
+        // Single character abbr.
+        if (words[i].length === 2 && !/^\d/u.test(words[i])) {
+          continue;
+        }
+
+        // Common abbr. that often do not end sentences
+        if (isCommonAbbreviation(words[i])) {
+          continue;
+        }
+
+        // Next word starts with capital word, but current sentence is
+        // quite short
+        if (isSentenceStarter(words[i + 1])) {
+          if (isTimeAbbreviation(words[i], words[i + 1])) {
+            continue;
+          }
+
+          // Dealing with names at the start of sentences
+          if (isNameAbbreviation(wordCount, words.slice(i, 6))) {
+            continue;
+          }
+
+          if (isNumber(words[i + 1])) {
+            if (isCustomAbbreviation(words[i])) {
+              continue;
+            }
+          }
+        } else {
+          // Skip ellipsis
+          if (words[i].endsWith("..")) {
+            continue;
+          }
+
+          //// Skip abbreviations
+          // Short words + dot or a dot after each letter
+          if (isDottedAbbreviation(words[i])) {
+            continue;
+          }
+
+          if (isNameAbbreviation(wordCount, words.slice(i, 5))) {
+            continue;
+          }
+        }
+      }
+
+      sentences.push(current);
+      current = [];
+      wordCount = 0;
+
+      continue;
+    }
+
+    // Check if the word has a dot in it
+    if ((index = words[i].indexOf(".")) > -1) {
+      if (isNumber(words[i], index)) {
+        continue;
+      }
+
+      // Custom dotted abbreviations (like K.L.M or I.C.T)
+      if (isDottedAbbreviation(words[i])) {
+        continue;
+      }
+
+      // Skip urls / emails and the like
+      if (isURL(words[i]) || isPhoneNr(words[i])) {
+        continue;
+      }
+    }
+
+    if ((temp = isConcatenated(words[i]))) {
+      current.pop();
+      current.push(temp[0]);
+      sentences.push(current);
+
+      current = [];
+      wordCount = 0;
+      current.push(temp[1]);
+    }
+  }
+
+  if (current.length > 0) {
+    sentences.push(current);
+  }
+
+  // Clear "empty" sentences
+  sentences = sentences.filter((s) => {
+    return s.length > 0;
+  });
+
+  const result = [sentences[0]];
+
+  for (const sentence of sentences.slice(1)) {
+    const lastSentence = result[result.length - 1];
+
+    // Single words, could be "enumeration lists"
+    if (lastSentence.length === 1 && /^.{1,2}[.]$/u.test(lastSentence[0])) {
+      // Check if there is a next sentence
+      // It should not be another list item
+      if (!/[.]/u.test(sentence[0])) {
+        result.pop();
+        result.push(lastSentence.concat(sentence));
+        continue;
+      }
+    }
+
+    result.push(sentence);
+  }
+
+  // join tokens back together
+  return result.map((sentence, ii) => {
+    if (options.preserveWhitespace && !options.newlineBoundaries) {
+      // tokens looks like so: [leading-space token, non-space token, space
+      // token, non-space token, space token... ]. In other words, the first
+      // item is the leading space (or the empty string), and the rest of
+      // the tokens are [non-space, space] token pairs.
+      let tokenCount = sentence.length * 2;
+
+      if (ii === 0) {
+        tokenCount += 1;
+      }
+
+      return tokens.splice(0, tokenCount).join("");
+    }
+
+    return sentence.join(" ");
+  });
+}

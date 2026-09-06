@@ -1,0 +1,52 @@
+Map<string, int> foo;
+---
+
+[#1 Content] = 0:0-0:16
+  >----------------<
+0| Map<string, int> foo;
+
+[#1 Removal] = 0:0-0:17
+  >-----------------<
+0| Map<string, int> foo;
+
+[#1 Trailing delimiter] = 0:16-0:17
+                  >-<
+0| Map<string, int> foo;
+
+[#1 Domain] = 0:0-0:21
+  >---------------------<
+0| Map<string, int> foo;
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Domain] = 0:4-0:10
+      >------<
+0| Map<string, int> foo;
+
+[#2 Removal] = 0:4-0:12
+      >--------<
+0| Map<string, int> foo;
+
+[#2 Trailing delimiter] = 0:10-0:12
+            >--<
+0| Map<string, int> foo;
+
+[#2 Insertion delimiter] = ", "
+
+
+[#3 Content] =
+[#3 Domain] = 0:12-0:15
+              >---<
+0| Map<string, int> foo;
+
+[#3 Removal] = 0:10-0:15
+            >-----<
+0| Map<string, int> foo;
+
+[#3 Leading delimiter] = 0:10-0:12
+            >--<
+0| Map<string, int> foo;
+
+[#3 Insertion delimiter] = ", "

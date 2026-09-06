@@ -1,0 +1,40 @@
+---
+sidebar_label: Phones
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/nextHomophone.json";
+
+# Phones (Next homophone)
+
+Cycles through words that sound alike, such as changing `where` to `wear`.
+
+Cursorless ID: `nextHomophone`
+
+## Spoken form
+
+Default: `phones`
+
+## Syntax
+
+- phones `<target>` - Cycle to next homophone for `<target>`.
+
+## Examples
+
+- `"phones blue air"` - Replaces the token containing letter `a` with a blue hat with its next homophone.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"phones sit"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/nextHomophone" />
+
+### `"phones sit"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/nextHomophone2" />
+
+</RecordedTestVisualizerProvider>

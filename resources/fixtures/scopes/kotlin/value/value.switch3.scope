@@ -1,0 +1,20 @@
+when (val foo: Int = 0) {}
+---
+
+[Content] = 0:21-0:22
+                       >-<
+0| when (val foo: Int = 0) {}
+
+[Removal] = 0:18-0:22
+                    >----<
+0| when (val foo: Int = 0) {}
+
+[Leading delimiter] = 0:18-0:21
+                    >---<
+0| when (val foo: Int = 0) {}
+
+[Domain] = 0:0-0:26
+  >--------------------------<
+0| when (val foo: Int = 0) {}
+
+[Insertion delimiter] = " "

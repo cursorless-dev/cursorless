@@ -1,0 +1,39 @@
+---
+sidebar_label: Bounds
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/excludeInterior.json";
+
+# Bounds (Exclude interior)
+
+Cursorless ID: `excludeInterior`
+
+## Spoken form
+
+Default: `bounds`
+
+## Syntax
+
+- bounds - Bounding paired delimiters.
+
+## Examples
+
+- `"take bounds round blue air"` - Selects only the parentheses containing the token containing letter `a` with a blue hat.
+- `"chuck bounds blue air"` - Removes the boundaries containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"take bounds"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/excludeInterior" />
+
+### `"chuck bounds air"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/excludeInterior2" />
+
+</RecordedTestVisualizerProvider>

@@ -1,0 +1,22 @@
+<?php
+class Foo {
+    function __construct() {}
+}
+---
+
+[Content] =
+[Domain] = 2:4-2:29
+      >-------------------------<
+2|     function __construct() {}
+
+[Removal] = 2:0-3:0
+  >-----------------------------
+2|     function __construct() {}
+3| }
+   <
+
+[Leading delimiter] = 2:0-2:4
+  >----<
+2|     function __construct() {}
+
+[Insertion delimiter] = "\n\n"

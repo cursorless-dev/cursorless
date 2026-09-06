@@ -1,0 +1,13 @@
+func(aaa int, bbb string) {}
+---
+
+[Content] =
+[Removal] = 0:5-0:24
+       >-------------------<
+0| func(aaa int, bbb string) {}
+
+[Domain] = 0:0-0:28
+  >----------------------------<
+0| func(aaa int, bbb string) {}
+
+[Insertion delimiter] = ", "

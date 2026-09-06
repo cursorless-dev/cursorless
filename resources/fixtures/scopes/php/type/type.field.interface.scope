@@ -1,0 +1,46 @@
+<?php
+interface Foo {
+    public const int bar = 0;
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 1:0-3:1
+  >---------------
+1| interface Foo {
+2|     public const int bar = 0;
+3| }
+   -<
+
+[#1 Removal] = 0:5-3:1
+       >
+0| <?php
+1| interface Foo {
+2|     public const int bar = 0;
+3| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 2:17-2:20
+                   >---<
+2|     public const int bar = 0;
+
+[#2 Removal] = 2:17-2:21
+                   >----<
+2|     public const int bar = 0;
+
+[#2 Leading delimiter] = 2:16-2:17
+                  >-<
+2|     public const int bar = 0;
+
+[#2 Trailing delimiter] = 2:20-2:21
+                      >-<
+2|     public const int bar = 0;
+
+[#2 Domain] = 2:4-2:29
+      >-------------------------<
+2|     public const int bar = 0;
+
+[#2 Insertion delimiter] = " "

@@ -1,0 +1,10 @@
+command: key(enter)
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:13-0:18
+               >-----<
+0| command: key(enter)
+
+[Insertion delimiter] = " "

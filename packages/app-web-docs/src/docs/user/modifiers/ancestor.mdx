@@ -1,0 +1,41 @@
+---
+sidebar_label: Grand
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/ancestor.json";
+
+# Grand (Ancestor)
+
+Selects the parent of a containing scope. Repeat `"grand"` to walk up more than one parent level.
+
+Cursorless ID: `ancestor`
+
+## Spoken form
+
+Default: `grand`
+
+## Syntax
+
+- grand `<scope>` - Parent of the containing instance of `<scope>`.
+
+## Examples
+
+- `"take grand state blue air"` - Selects the parent statement of the statement containing the token containing letter `a` with a blue hat.
+- `"take grand grand state blue air"` - Selects the grandparent statement of the statement containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"take grand item"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/ancestor" />
+
+### `"take grand grand item"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/ancestor2" />
+
+</RecordedTestVisualizerProvider>

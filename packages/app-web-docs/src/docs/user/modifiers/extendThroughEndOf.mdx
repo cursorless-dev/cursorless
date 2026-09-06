@@ -1,0 +1,38 @@
+---
+sidebar_label: Tail
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/extendThroughEndOf.json";
+
+# Tail (Extend through end of)
+
+Extends a target through the end of its line. Inside a surrounding pair, it stops at the end of the pair's interior; use an explicit scope such as `"tail line"` to override that boundary.
+
+Cursorless ID: `extendThroughEndOf`
+
+## Spoken form
+
+Default: `tail`
+
+## Syntax
+
+- tail - Extend through end of line/pair.
+- tail `<modifier>` - Extend through end of `<modifier>`.
+
+## Examples
+
+- `"take tail blue air"` - Selects from the token containing letter `a` with a blue hat through the end of its line or surrounding pair.
+- `"take tail state blue air"` - Selects from the token containing letter `a` with a blue hat through the end of its containing statement.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"take tail"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/extendThroughEndOf" />
+
+</RecordedTestVisualizerProvider>

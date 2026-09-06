@@ -1,0 +1,10 @@
+package foo {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:14
+  >--------------<
+0| package foo {}
+
+[Insertion delimiter] = "\n"

@@ -1,0 +1,20 @@
+for (v <- values) {}
+---
+
+[Content] = 0:10-0:16
+            >------<
+0| for (v <- values) {}
+
+[Removal] = 0:9-0:16
+           >-------<
+0| for (v <- values) {}
+
+[Leading delimiter] = 0:9-0:10
+           >-<
+0| for (v <- values) {}
+
+[Domain] = 0:0-0:20
+  >--------------------<
+0| for (v <- values) {}
+
+[Insertion delimiter] = " "

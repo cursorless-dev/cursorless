@@ -1,0 +1,17 @@
+command: 'Hello world'
+---
+
+[Content] =
+[Domain] = 0:9-0:22
+           >-------------<
+0| command: 'Hello world'
+
+[Removal] = 0:8-0:22
+          >--------------<
+0| command: 'Hello world'
+
+[Leading delimiter] = 0:8-0:9
+          >-<
+0| command: 'Hello world'
+
+[Insertion delimiter] = " "

@@ -1,0 +1,49 @@
+def foo(aaa, bbb = 0) end
+---
+
+[#1 Content] =
+[#1 Removal] = 0:4-0:7
+      >---<
+0| def foo(aaa, bbb = 0) end
+
+[#1 Leading delimiter] = 0:3-0:4
+     >-<
+0| def foo(aaa, bbb = 0) end
+
+[#1 Domain] = 0:0-0:25
+  >-------------------------<
+0| def foo(aaa, bbb = 0) end
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] =
+[#2 Domain] = 0:8-0:11
+          >---<
+0| def foo(aaa, bbb = 0) end
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] = 0:13-0:16
+               >---<
+0| def foo(aaa, bbb = 0) end
+
+[#3 Removal] = 0:13-0:17
+               >----<
+0| def foo(aaa, bbb = 0) end
+
+[#3 Leading delimiter] = 0:12-0:13
+              >-<
+0| def foo(aaa, bbb = 0) end
+
+[#3 Trailing delimiter] = 0:16-0:17
+                  >-<
+0| def foo(aaa, bbb = 0) end
+
+[#3 Domain] = 0:13-0:20
+               >-------<
+0| def foo(aaa, bbb = 0) end
+
+[#3 Insertion delimiter] = " "

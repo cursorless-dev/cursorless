@@ -1,0 +1,20 @@
+throw foo
+---
+
+[Content] = 0:6-0:9
+        >---<
+0| throw foo
+
+[Removal] = 0:5-0:9
+       >----<
+0| throw foo
+
+[Leading delimiter] = 0:5-0:6
+       >-<
+0| throw foo
+
+[Domain] = 0:0-0:9
+  >---------<
+0| throw foo
+
+[Insertion delimiter] = " "

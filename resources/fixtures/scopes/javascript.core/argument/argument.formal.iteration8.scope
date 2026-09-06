@@ -1,0 +1,10 @@
+export const foo = function(aaa, bbb) {};
+---
+
+[Content] = 0:28-0:36
+                              >--------<
+0| export const foo = function(aaa, bbb) {};
+
+[Domain] = 0:0-0:41
+  >-----------------------------------------<
+0| export const foo = function(aaa, bbb) {};

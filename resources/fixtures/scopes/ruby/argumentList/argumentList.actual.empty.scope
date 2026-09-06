@@ -1,0 +1,13 @@
+foo()
+---
+
+[Content] =
+[Removal] = 0:4-0:4
+      ><
+0| foo()
+
+[Domain] = 0:0-0:5
+  >-----<
+0| foo()
+
+[Insertion delimiter] = ""

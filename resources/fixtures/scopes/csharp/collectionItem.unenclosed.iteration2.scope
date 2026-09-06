@@ -1,0 +1,33 @@
+class Foo {
+    private int bar, baz;
+}
+---
+
+[#1 Content] = 1:4-1:25
+      >---------------------<
+1|     private int bar, baz;
+
+[#1 Domain] = 0:11-2:0
+             >
+0| class Foo {
+1|     private int bar, baz;
+2| }
+   <
+
+
+[#2 Content] = 1:4-1:25
+      >---------------------<
+1|     private int bar, baz;
+
+[#2 Domain] = 1:0-1:25
+  >-------------------------<
+1|     private int bar, baz;
+
+
+[#3 Content] = 1:16-1:24
+                  >--------<
+1|     private int bar, baz;
+
+[#3 Domain] = 1:4-1:25
+      >---------------------<
+1|     private int bar, baz;

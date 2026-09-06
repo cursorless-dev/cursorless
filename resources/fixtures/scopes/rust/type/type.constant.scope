@@ -1,0 +1,20 @@
+const foo: i32 = 0;
+---
+
+[Content] = 0:11-0:14
+             >---<
+0| const foo: i32 = 0;
+
+[Removal] = 0:9-0:14
+           >-----<
+0| const foo: i32 = 0;
+
+[Leading delimiter] = 0:9-0:11
+           >--<
+0| const foo: i32 = 0;
+
+[Domain] = 0:0-0:19
+  >-------------------<
+0| const foo: i32 = 0;
+
+[Insertion delimiter] = " "

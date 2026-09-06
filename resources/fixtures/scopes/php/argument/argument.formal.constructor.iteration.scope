@@ -1,0 +1,13 @@
+<?php
+class Foo {
+    function __construct($aaa, $bbb) {}
+}
+---
+
+[Content] = 2:25-2:35
+                           >----------<
+2|     function __construct($aaa, $bbb) {}
+
+[Domain] = 2:4-2:39
+      >-----------------------------------<
+2|     function __construct($aaa, $bbb) {}

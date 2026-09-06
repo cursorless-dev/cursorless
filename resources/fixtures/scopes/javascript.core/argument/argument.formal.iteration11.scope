@@ -1,0 +1,10 @@
+export default function(aaa, bbb) {}
+---
+
+[Content] = 0:24-0:32
+                          >--------<
+0| export default function(aaa, bbb) {}
+
+[Domain] = 0:0-0:36
+  >------------------------------------<
+0| export default function(aaa, bbb) {}

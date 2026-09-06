@@ -1,0 +1,44 @@
+---
+sidebar_label: Link
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/url.json";
+
+# Link (URL)
+
+Cursorless ID: `url`
+
+## Spoken form
+
+Default: `link`
+
+## Syntax
+
+- link - URL / Web address.
+
+## Examples
+
+- `"take link blue air"` - Selects the url containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Url
+
+<i>A url</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/url" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/url2" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/url3" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/url4" />
+
+</ScopeVisualizerProvider>

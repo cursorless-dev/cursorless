@@ -1,0 +1,15 @@
+\begin{quote}
+    Hello world
+\end{quote}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-2:11
+  >-------------
+0| \begin{quote}
+1|     Hello world
+2| \end{quote}
+   -----------<
+
+[Insertion delimiter] = "\n"

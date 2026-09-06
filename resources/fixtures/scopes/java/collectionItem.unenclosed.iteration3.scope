@@ -1,0 +1,33 @@
+class Foo {
+    void bar() throws AException, BException {}
+}
+---
+
+[#1 Content] = 1:4-1:47
+      >-------------------------------------------<
+1|     void bar() throws AException, BException {}
+
+[#1 Domain] = 0:11-2:0
+             >
+0| class Foo {
+1|     void bar() throws AException, BException {}
+2| }
+   <
+
+
+[#2 Content] = 1:4-1:47
+      >-------------------------------------------<
+1|     void bar() throws AException, BException {}
+
+[#2 Domain] = 1:0-1:47
+  >-----------------------------------------------<
+1|     void bar() throws AException, BException {}
+
+
+[#3 Content] = 1:22-1:44
+                        >----------------------<
+1|     void bar() throws AException, BException {}
+
+[#3 Domain] = 1:15-1:44
+                 >-----------------------------<
+1|     void bar() throws AException, BException {}
