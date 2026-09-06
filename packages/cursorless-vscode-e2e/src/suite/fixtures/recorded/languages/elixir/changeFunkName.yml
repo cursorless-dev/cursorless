@@ -1,0 +1,29 @@
+languageId: elixir
+command:
+  version: 6
+  spokenForm: change funk name
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionName}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    def elixir(x, something) do
+      x = 5
+    end
+  selections:
+    - anchor: {line: 1, character: 5}
+      active: {line: 1, character: 5}
+  marks: {}
+finalState:
+  documentContents: |-
+    def (x, something) do
+      x = 5
+    end
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
