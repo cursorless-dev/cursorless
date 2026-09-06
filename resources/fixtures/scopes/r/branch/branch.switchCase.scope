@@ -1,0 +1,19 @@
+switch(foo,
+    a = 0,
+)
+---
+
+[Content] =
+[Domain] = 1:4-1:9
+      >-----<
+1|     a = 0,
+
+[Removal] = 1:0-1:9
+  >---------<
+1|     a = 0,
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     a = 0,
+
+[Insertion delimiter] = "\n"

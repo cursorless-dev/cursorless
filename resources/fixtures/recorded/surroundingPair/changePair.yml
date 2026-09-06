@@ -1,0 +1,25 @@
+languageId: typescriptreact
+command:
+  version: 7
+  spokenForm: change pair
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: any}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    <div bbb={() => null}>hello &</div>
+  selections:
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}
+  marks: {}
+finalState:
+  documentContents: |
+    <div bbb=>hello &</div>
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

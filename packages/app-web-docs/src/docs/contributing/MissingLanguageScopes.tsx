@@ -1,0 +1,128 @@
+import React, { useState } from "react";
+import type {
+  LanguageScopeSupportId,
+  ScopeSupportFacet,
+} from "@cursorless/lib-common";
+import {
+  languageScopeSupport,
+  scopeSupportFacetInfos,
+  ScopeSupportFacetLevel,
+  scopeSupportFacets,
+  serializeScopeType,
+  unsafeKeys,
+} from "@cursorless/lib-common";
+
+export function MissingLanguageScopes(): React.JSX.Element {
+  const [showPrivate, setShowPrivate] = useState(false);
+  const languageIds = unsafeKeys(languageScopeSupport).toSorted();
+
+  return (
+    <>
+      <label className="ms-1">
+        <input
+          type="checkbox"
+          className="me-1"
+          checked={showPrivate}
+          onChange={(e) => setShowPrivate(e.currentTarget.checked)}
+        />
+        Show private scopes
+      </label>
+
+      {languageIds.map((languageId) => (
+        <Language
+          key={languageId}
+          languageId={languageId}
+          showPrivate={showPrivate}
+        />
+      ))}
+    </>
+  );
+}
+
+function Language({
+  languageId,
+  showPrivate,
+}: {
+  languageId: LanguageScopeSupportId;
+  showPrivate: boolean;
+}): React.JSX.Element | null {
+  const scopeSupport = languageScopeSupport[languageId] ?? {};
+
+  let unsupportedFacets = scopeSupportFacets
+    .filter(
+      (facet) => scopeSupport[facet] === ScopeSupportFacetLevel.unsupported,
+    )
+    .toSorted();
+  let unspecifiedFacets = scopeSupportFacets
+    .filter((facet) => scopeSupport[facet] == null)
+    .toSorted();
+
+  if (!showPrivate) {
+    unsupportedFacets = unsupportedFacets.filter((f) => !isPrivate(f));
+    unspecifiedFacets = unspecifiedFacets.filter((f) => !isPrivate(f));
+  }
+
+  if (unsupportedFacets.length === 0 && unspecifiedFacets.length === 0) {
+    return null;
+  }
+
+  return (
+    <>
+      <h3>
+        {languageId}
+
+        <small className="ms-2">
+          <a href={`../../user/languages/${languageId}`}>link</a>
+        </small>
+      </h3>
+
+      <RenderFacets title="Unsupported" facets={unsupportedFacets} />
+      <RenderFacets title="Unspecified" facets={unspecifiedFacets} />
+    </>
+  );
+}
+
+function RenderFacets({
+  title,
+  facets,
+}: {
+  title: string;
+  facets: string[];
+}): React.JSX.Element | null {
+  const [open, setOpen] = useState(facets.length < 10);
+
+  if (facets.length === 0) {
+    return null;
+  }
+
+  const renderBody = () => {
+    if (!open) {
+      return null;
+    }
+
+    return (
+      <div className="card-body">
+        <ul>
+          {facets.map((scope) => {
+            return <li key={scope}>{scope}</li>;
+          })}
+        </ul>
+      </div>
+    );
+  };
+
+  return (
+    <div className={`card${open ? " open" : ""}`}>
+      <div className="card-header pointer" onClick={() => setOpen(!open)}>
+        {title} ({facets.length})
+      </div>
+
+      {renderBody()}
+    </div>
+  );
+}
+
+function isPrivate(facet: ScopeSupportFacet): boolean {
+  const scopeType = serializeScopeType(scopeSupportFacetInfos[facet].scopeType);
+  return scopeType.startsWith("private.");
+}

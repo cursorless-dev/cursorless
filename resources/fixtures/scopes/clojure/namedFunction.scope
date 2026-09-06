@@ -1,0 +1,10 @@
+(defn foo [] 0)
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:15
+  >---------------<
+0| (defn foo [] 0)
+
+[Insertion delimiter] = "\n\n"

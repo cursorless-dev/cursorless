@@ -1,0 +1,13 @@
+@bar
+abstract class Foo {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-1:21
+  >----
+0| @bar
+1| abstract class Foo {}
+   ---------------------<
+
+[Insertion delimiter] = "\n\n"

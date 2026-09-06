@@ -1,0 +1,15 @@
+(if true
+    aaa
+    bbb)
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-2:8
+  >--------
+0| (if true
+1|     aaa
+2|     bbb)
+   --------<
+
+[Insertion delimiter] = "\n"

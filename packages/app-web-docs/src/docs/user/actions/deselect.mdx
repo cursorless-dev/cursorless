@@ -1,0 +1,34 @@
+---
+sidebar_label: Give
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/deselect.json";
+
+# Give (Deselect)
+
+Cursorless ID: `deselect`
+
+## Spoken form
+
+Default: `give`
+
+## Syntax
+
+- give `<target>` - Deselect `<target>`.
+
+## Examples
+
+- `"give blue air"` - Removes the token containing letter `a` with a blue hat from the current selections.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"give air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/deselect" />
+
+</RecordedTestVisualizerProvider>

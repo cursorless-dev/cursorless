@@ -1,0 +1,12 @@
+
+(defn foo [] 0)
+
+---
+
+[Content] =
+[Domain] = 0:0-2:0
+  >
+0|
+1| (defn foo [] 0)
+2|
+   <

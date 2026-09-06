@@ -1,0 +1,10 @@
+typedef enum { } Foo;
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:14-0:15
+                >-<
+0| typedef enum { } Foo;
+
+[Insertion delimiter] = " "

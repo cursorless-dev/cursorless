@@ -1,0 +1,31 @@
+<?php
+try { }
+catch (Exception $e) { }
+finally { }
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 1:5-1:6
+       >-<
+1| try { }
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] =
+[#2 Domain] = 2:22-2:23
+                        >-<
+2| catch (Exception $e) { }
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] =
+[#3 Removal] =
+[#3 Domain] = 3:9-3:10
+           >-<
+3| finally { }
+
+[#3 Insertion delimiter] = " "

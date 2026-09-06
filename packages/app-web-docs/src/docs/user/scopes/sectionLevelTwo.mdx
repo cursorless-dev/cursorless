@@ -1,0 +1,39 @@
+---
+sidebar_label: Two section
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/sectionLevelTwo.json";
+
+# Two section (Section level two)
+
+Cursorless ID: `sectionLevelTwo`
+
+## Spoken form
+
+Default: `two section`\
+**Disabled by default**
+
+## Syntax
+
+- two section - Level-two heading and its content.
+
+## Examples
+
+- `"take two section blue air"` - Selects the section level two containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Section level two
+
+<i>A level two section</i>
+
+##### Markdown
+
+<ScopeVisualizer fixtureName="scopes/markdown/sectionLevelTwo" />
+
+</ScopeVisualizerProvider>

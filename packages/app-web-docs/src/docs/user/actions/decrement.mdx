@@ -1,0 +1,42 @@
+---
+sidebar_label: Decrement
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/decrement.json";
+
+# Decrement
+
+Cursorless ID: `decrement`
+
+## Spoken form
+
+Default: `decrement`
+
+## Syntax
+
+- decrement `<target>` - Decrement number at `<target>`.
+
+## Examples
+
+- `"decrement blue five"` - Decrements the number at the token containing number `5` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"decrement five"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/decrement" />
+
+### `"decrement air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/decrement2" />
+
+### `"decrement line"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/decrement3" />
+
+</RecordedTestVisualizerProvider>

@@ -1,8 +1,0 @@
-<?php
-function myFunc(string $str, int $value) { }
----
-
-[Range] =
-[Domain] = 1:16-1:39
-                  >-----------------------<
-1| function myFunc(string $str, int $value) { }

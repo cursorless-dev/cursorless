@@ -1,0 +1,11 @@
+<?php
+$foo?->bar();
+---
+
+[Content] =
+[Removal] =
+[Domain] = 1:0-1:12
+  >------------<
+1| $foo?->bar();
+
+[Insertion delimiter] = " "

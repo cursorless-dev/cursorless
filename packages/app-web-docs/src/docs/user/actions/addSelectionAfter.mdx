@@ -1,0 +1,34 @@
+---
+sidebar_label: Append post
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/addSelectionAfter.json";
+
+# Append post (Add selection after)
+
+Cursorless ID: `addSelectionAfter`
+
+## Spoken form
+
+Default: `append post`
+
+## Syntax
+
+- append post `<target>` - Adds empty selection after `<target>` to the current selection set.
+
+## Examples
+
+- `"append post blue air"` - Adds an empty selection after the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"append post air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/addSelectionAfter" />
+
+</RecordedTestVisualizerProvider>

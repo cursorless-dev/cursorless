@@ -1,0 +1,24 @@
+foo:
+  - aaa
+  - bbb
+---
+
+[Content] =
+[Domain] = 1:2-2:7
+    >-----
+1|   - aaa
+2|   - bbb
+   -------<
+
+[Removal] = 0:4-2:7
+      >
+0| foo:
+1|   - aaa
+2|   - bbb
+   -------<
+
+[Leading delimiter] = 1:0-1:2
+  >--<
+1|   - aaa
+
+[Insertion delimiter] = " "

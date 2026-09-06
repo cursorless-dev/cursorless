@@ -1,0 +1,16 @@
+<?php
+"Hello world"
+---
+
+[Content] =
+[Domain] = 1:0-1:13
+  >-------------<
+1| "Hello world"
+
+[Removal] = 0:5-1:13
+       >
+0| <?php
+1| "Hello world"
+   -------------<
+
+[Insertion delimiter] = " "

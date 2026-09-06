@@ -1,0 +1,10 @@
+command: sleep(100ms)
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:15-0:20
+                 >-----<
+0| command: sleep(100ms)
+
+[Insertion delimiter] = " "

@@ -1,0 +1,34 @@
+<?php
+foo(
+    aaa,
+    bbb
+);
+---
+
+[Content] = 2:4-3:7
+      >----
+2|     aaa,
+3|     bbb
+   -------<
+
+[Removal] = 1:4-4:0
+      >
+1| foo(
+2|     aaa,
+3|     bbb
+4| );
+   <
+
+[Leading delimiter] = 2:0-2:4
+  >----<
+2|     aaa,
+
+[Domain] = 1:0-4:1
+  >----
+1| foo(
+2|     aaa,
+3|     bbb
+4| );
+   -<
+
+[Insertion delimiter] = ",\n"

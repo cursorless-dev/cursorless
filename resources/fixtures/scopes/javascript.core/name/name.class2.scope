@@ -1,0 +1,24 @@
+export class Foo {}
+---
+
+[Content] = 0:13-0:16
+               >---<
+0| export class Foo {}
+
+[Removal] = 0:13-0:17
+               >----<
+0| export class Foo {}
+
+[Leading delimiter] = 0:12-0:13
+              >-<
+0| export class Foo {}
+
+[Trailing delimiter] = 0:16-0:17
+                  >-<
+0| export class Foo {}
+
+[Domain] = 0:0-0:19
+  >-------------------<
+0| export class Foo {}
+
+[Insertion delimiter] = " "

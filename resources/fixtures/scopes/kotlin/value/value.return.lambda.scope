@@ -1,0 +1,20 @@
+{x -> 0}
+---
+
+[Content] = 0:6-0:7
+        >-<
+0| {x -> 0}
+
+[Removal] = 0:5-0:7
+       >--<
+0| {x -> 0}
+
+[Leading delimiter] = 0:5-0:6
+       >-<
+0| {x -> 0}
+
+[Domain] = 0:0-0:8
+  >--------<
+0| {x -> 0}
+
+[Insertion delimiter] = " "

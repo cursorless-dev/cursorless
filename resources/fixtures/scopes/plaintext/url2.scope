@@ -1,0 +1,10 @@
+http://www.cursorless.org
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:25
+  >-------------------------<
+0| http://www.cursorless.org
+
+[Insertion delimiter] = " "

@@ -1,0 +1,55 @@
+trait Foo {
+    val bar: Int
+    var baz: Int
+}
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-3:1
+  >-----------
+0| trait Foo {
+1|     val bar: Int
+2|     var baz: Int
+3| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:13-1:16
+               >---<
+1|     val bar: Int
+
+[#2 Removal] = 1:11-1:16
+             >-----<
+1|     val bar: Int
+
+[#2 Leading delimiter] = 1:11-1:13
+             >--<
+1|     val bar: Int
+
+[#2 Domain] = 1:4-1:16
+      >------------<
+1|     val bar: Int
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] = 2:13-2:16
+               >---<
+2|     var baz: Int
+
+[#3 Removal] = 2:11-2:16
+             >-----<
+2|     var baz: Int
+
+[#3 Leading delimiter] = 2:11-2:13
+             >--<
+2|     var baz: Int
+
+[#3 Domain] = 2:4-2:16
+      >------------<
+2|     var baz: Int
+
+[#3 Insertion delimiter] = " "

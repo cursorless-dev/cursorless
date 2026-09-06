@@ -1,0 +1,10 @@
+type Foo struct {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:18
+  >------------------<
+0| type Foo struct {}
+
+[Insertion delimiter] = "\n"

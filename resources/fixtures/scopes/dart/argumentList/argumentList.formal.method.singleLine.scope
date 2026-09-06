@@ -1,0 +1,15 @@
+class Foo {
+    void bar(aaa, bbb) {}
+}
+---
+
+[Content] =
+[Removal] = 1:13-1:21
+               >--------<
+1|     void bar(aaa, bbb) {}
+
+[Domain] = 1:4-1:25
+      >---------------------<
+1|     void bar(aaa, bbb) {}
+
+[Insertion delimiter] = ", "

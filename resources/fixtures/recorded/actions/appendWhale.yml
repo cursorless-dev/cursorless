@@ -1,0 +1,33 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: append whale
+  action:
+    name: addSelection
+    target:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: hello world
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.w:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 11}
+finalState:
+  documentContents: hello world
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 11}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 6}
+        end: {line: 0, character: 11}
+      isReversed: false
+      hasExplicitRange: false

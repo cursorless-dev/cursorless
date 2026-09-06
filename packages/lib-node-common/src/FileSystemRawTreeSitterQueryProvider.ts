@@ -1,0 +1,49 @@
+import path from "node:path";
+import { Notifier } from "@cursorless/lib-common";
+import type {
+  Disposable,
+  FileSystem,
+  IDE,
+  RawTreeSitterQueryProvider,
+} from "@cursorless/lib-common";
+import { getCursorlessRepoRoot } from "./getCursorlessRepoRoot";
+
+export class FileSystemRawTreeSitterQueryProvider implements RawTreeSitterQueryProvider {
+  private queryDir: string;
+  private notifier: Notifier = new Notifier();
+  private disposables: Disposable[] = [];
+
+  constructor(
+    ide: IDE,
+    private fileSystem: FileSystem,
+  ) {
+    const queriesPath = "resources/queries";
+    // Use the repo root as the root for development mode, so that we can make
+    // hot-reloading work for the queries
+    this.queryDir =
+      ide.runMode === "development"
+        ? path.join(getCursorlessRepoRoot(), queriesPath)
+        : queriesPath;
+
+    if (ide.runMode === "development") {
+      this.disposables.push(
+        fileSystem.watchDir(this.queryDir, () => {
+          this.notifier.notifyListeners();
+        }),
+      );
+    }
+  }
+
+  onChanges = this.notifier.registerListener;
+
+  readQuery(filename: string): Promise<string | undefined> {
+    const queryPath = path.join(this.queryDir, filename);
+    return this.fileSystem.readBundledFile(queryPath);
+  }
+
+  dispose() {
+    for (const disposable of this.disposables) {
+      disposable.dispose();
+    }
+  }
+}

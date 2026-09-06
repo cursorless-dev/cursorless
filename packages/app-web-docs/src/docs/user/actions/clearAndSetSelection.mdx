@@ -1,0 +1,35 @@
+---
+sidebar_label: Change
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/clearAndSetSelection.json";
+
+# Change
+
+Cursorless ID: `clearAndSetSelection`
+
+## Spoken form
+
+Default: `change`\
+Legacy: `clear`
+
+## Syntax
+
+- change `<target>` - Change `<target>` by clearing it and leaving the cursor in its place.
+
+## Examples
+
+- `"change blue air"` - Changes the token containing letter `a` with a blue hat by clearing it and leaving the cursor in its place.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"change air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/clearAndSetSelection" />
+
+</RecordedTestVisualizerProvider>

@@ -1,0 +1,42 @@
+tryCatch(
+    expr = { },
+    error = function() { },
+    warning = function() { },
+    finally = { }
+)
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 1:12-1:13
+              >-<
+1|     expr = { },
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] =
+[#2 Domain] = 2:24-2:25
+                          >-<
+2|     error = function() { },
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] =
+[#3 Removal] =
+[#3 Domain] = 3:26-3:27
+                            >-<
+3|     warning = function() { },
+
+[#3 Insertion delimiter] = " "
+
+
+[#4 Content] =
+[#4 Removal] =
+[#4 Domain] = 4:15-4:16
+                 >-<
+4|     finally = { }
+
+[#4 Insertion delimiter] = " "

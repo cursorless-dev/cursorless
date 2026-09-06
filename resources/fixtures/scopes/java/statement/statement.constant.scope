@@ -1,0 +1,10 @@
+final int foo = 0;
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:18
+  >------------------<
+0| final int foo = 0;
+
+[Insertion delimiter] = "\n"

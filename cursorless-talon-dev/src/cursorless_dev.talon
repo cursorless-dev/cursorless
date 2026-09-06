@@ -29,10 +29,7 @@ tag: user.cursorless
     user.private_cursorless_record_that_mark_test()
 {user.cursorless_homophone} record silent: user.cursorless_record_silent_test()
 
-{user.cursorless_homophone} update cheatsheet:
-    user.private_cursorless_cheat_sheet_update_json()
-
-test snippet make <user.cursorless_target>:
+test snip make <user.cursorless_target>:
     user.private_cursorless_make_snippet_test(cursorless_target)
 
 parse tree <user.cursorless_target>:

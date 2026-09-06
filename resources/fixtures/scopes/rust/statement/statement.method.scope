@@ -1,0 +1,33 @@
+impl Foo {
+    fn bar() {}
+}
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-2:1
+  >----------
+0| impl Foo {
+1|     fn bar() {}
+2| }
+   -<
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 1:4-1:15
+      >-----------<
+1|     fn bar() {}
+
+[#2 Removal] = 1:0-2:0
+  >---------------
+1|     fn bar() {}
+2| }
+   <
+
+[#2 Leading delimiter] = 1:0-1:4
+  >----<
+1|     fn bar() {}
+
+[#2 Insertion delimiter] = "\n"

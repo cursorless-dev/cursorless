@@ -1,0 +1,13 @@
+type Foo interface { }
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:22
+  >----------------------<
+0| type Foo interface { }
+
+
+[#2 Content] =
+[#2 Domain] = 0:20-0:21
+                      >-<
+0| type Foo interface { }

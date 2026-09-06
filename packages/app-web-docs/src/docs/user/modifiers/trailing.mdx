@@ -1,0 +1,38 @@
+---
+sidebar_label: Trailing
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/trailing.json";
+
+# Trailing
+
+Cursorless ID: `trailing`
+
+## Spoken form
+
+Default: `trailing`
+
+## Syntax
+
+- trailing - Trailing delimiter range.
+
+## Examples
+
+- `"take trailing item blue air"` - Selects the trailing delimiter of the item containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"take trailing"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/trailing" />
+
+### `"take trailing item"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/trailing2" />
+
+</RecordedTestVisualizerProvider>

@@ -1,0 +1,39 @@
+---
+sidebar_label: Five section
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/sectionLevelFive.json";
+
+# Five section (Section level five)
+
+Cursorless ID: `sectionLevelFive`
+
+## Spoken form
+
+Default: `five section`\
+**Disabled by default**
+
+## Syntax
+
+- five section - Level-five heading and its content.
+
+## Examples
+
+- `"take five section blue air"` - Selects the section level five containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Section level five
+
+<i>A level five section</i>
+
+##### Markdown
+
+<ScopeVisualizer fixtureName="scopes/markdown/sectionLevelFive" />
+
+</ScopeVisualizerProvider>

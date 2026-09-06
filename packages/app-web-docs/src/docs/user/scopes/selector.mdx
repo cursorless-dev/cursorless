@@ -1,0 +1,50 @@
+---
+sidebar_label: Selector
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/selector.json";
+
+# Selector
+
+Cursorless ID: `selector`
+
+## Spoken form
+
+Default: `selector`
+
+## Syntax
+
+- selector - CSS selector.
+
+## Examples
+
+- `"take selector blue air"` - Selects the selector containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Selector
+
+<i>A selector in a css rule set</i>
+
+##### CSS
+
+<ScopeVisualizer fixtureName="scopes/css/selector/selector" />
+
+<ScopeVisualizer fixtureName="scopes/css/selector/selector2" />
+
+<ScopeVisualizer fixtureName="scopes/css/selector/selector3" />
+
+<ScopeVisualizer fixtureName="scopes/css/selector/selector4" />
+
+<ScopeVisualizer fixtureName="scopes/css/selector/selector5" />
+
+<ScopeVisualizer fixtureName="scopes/css/selector/selector6" />
+
+<ScopeVisualizer fixtureName="scopes/css/selector/selector7" />
+
+</ScopeVisualizerProvider>

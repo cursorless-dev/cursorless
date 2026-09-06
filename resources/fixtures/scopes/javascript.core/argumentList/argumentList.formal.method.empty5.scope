@@ -1,0 +1,15 @@
+const foo = {
+    bar() {}
+}
+---
+
+[Content] =
+[Removal] = 1:8-1:8
+          ><
+1|     bar() {}
+
+[Domain] = 1:4-1:12
+      >--------<
+1|     bar() {}
+
+[Insertion delimiter] = ""

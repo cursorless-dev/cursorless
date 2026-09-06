@@ -1,0 +1,21 @@
+class Foo {
+    constructor();
+}
+---
+
+[Content] =
+[Domain] = 1:4-1:18
+      >--------------<
+1|     constructor();
+
+[Removal] = 1:0-2:0
+  >------------------
+1|     constructor();
+2| }
+   <
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     constructor();
+
+[Insertion delimiter] = "\n\n"

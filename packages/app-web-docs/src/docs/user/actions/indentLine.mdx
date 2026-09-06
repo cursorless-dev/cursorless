@@ -1,0 +1,34 @@
+---
+sidebar_label: Indent
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/indentLine.json";
+
+# Indent (Indent line)
+
+Cursorless ID: `indentLine`
+
+## Spoken form
+
+Default: `indent`
+
+## Syntax
+
+- indent `<target>` - Indent line containing `<target>`.
+
+## Examples
+
+- `"indent blue air"` - Indents the line containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"indent air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/indentLine" />
+
+</RecordedTestVisualizerProvider>

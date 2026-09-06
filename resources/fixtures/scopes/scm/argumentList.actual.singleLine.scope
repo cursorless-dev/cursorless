@@ -1,0 +1,20 @@
+(#foo? @aaa bbb)
+---
+
+[Content] = 0:7-0:15
+         >--------<
+0| (#foo? @aaa bbb)
+
+[Removal] = 0:6-0:15
+        >---------<
+0| (#foo? @aaa bbb)
+
+[Leading delimiter] = 0:6-0:7
+        >-<
+0| (#foo? @aaa bbb)
+
+[Domain] = 0:0-0:16
+  >----------------<
+0| (#foo? @aaa bbb)
+
+[Insertion delimiter] = " "

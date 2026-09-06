@@ -1,0 +1,16 @@
+<?php
+class Foo { }
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-1:13
+  >-----
+0| <?php
+1| class Foo { }
+   -------------<
+
+
+[#2 Content] =
+[#2 Domain] = 1:11-1:12
+             >-<
+1| class Foo { }

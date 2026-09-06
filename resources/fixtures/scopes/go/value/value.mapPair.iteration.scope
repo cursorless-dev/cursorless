@@ -1,0 +1,13 @@
+map[string]int{"aaa": 1, "bbb": 2}
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:34
+  >----------------------------------<
+0| map[string]int{"aaa": 1, "bbb": 2}
+
+
+[#2 Content] =
+[#2 Domain] = 0:15-0:33
+                 >------------------<
+0| map[string]int{"aaa": 1, "bbb": 2}
