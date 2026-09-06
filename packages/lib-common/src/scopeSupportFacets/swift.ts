@@ -25,6 +25,7 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "name.foreach": supported,
   "value.foreach": supported,
   "type.foreach": supported,
+  "interior.foreach": unsupported,
 
   // while loop
   "statement.while": unsupported,
@@ -61,6 +62,9 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "value.throw": unsupported,
   "statement.break": unsupported,
   "statement.continue": unsupported,
+  "type.return": unsupported,
+  "type.return.method": unsupported,
+  "type.return.lambda": unsupported,
 
   // enum
   "statement.enum": supported,
@@ -74,10 +78,14 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   class: supported,
   "statement.class": supported,
   "name.class": supported,
+  "interior.class": unsupported,
+  "type.class": unsupported,
 
   // protocol (equivalent to interfaces in other languages)
   "statement.interface": supported,
   "name.interface": supported,
+  "interior.interface": unsupported,
+  "type.interface": unsupported,
 
   // "standard" functions & methods
   namedFunction: unsupported,
@@ -86,11 +94,14 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.method": unsupported,
   "name.function": unsupported,
   "name.method": unsupported,
+  "interior.function": unsupported,
+  "interior.method": unsupported,
 
   // constructors
   "namedFunction.constructor": unsupported,
   "statement.constructor": unsupported,
   "name.constructor": unsupported,
+  "interior.constructor": unsupported,
 
   // protocol method declarations
   "statement.method.interface": unsupported,
@@ -195,6 +206,14 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "value.field.class": unsupported,
   "value.field.interface": unsupported,
   "value.field.enum": unsupported,
+  "value.variable": unsupported,
+  "value.variable.destructuring": unsupported,
+
+  "type.constant": unsupported,
+  "type.variable.uninitialized": unsupported,
+  "type.variable.initialized": unsupported,
+  "type.field.class": unsupported,
+  "type.field.interface": unsupported,
 
   // assignments
   "statement.assignment": unsupported,
@@ -203,6 +222,10 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "name.assignment": unsupported,
   "name.assignment.destructuring": unsupported,
   "name.assignment.compound": unsupported,
+
+  "value.assignment": unsupported,
+  "value.assignment.destructuring": unsupported,
+  "value.assignment.compound": unsupported,
 
   // comments
   "comment.line": supported,
@@ -237,7 +260,7 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "name.iteration.interface": supported,
   "type.iteration.interface": supported,
 
-  // per-block iteration -- todo: do classlikes, functions, protocols, branches, etc. count as blocks?
+  // per-block iteration -- todo: do classlikes, functions, protocols, etc. count as blocks? Or are only if states/branches/loops/etc. included here?
   "statement.iteration.block": unsupported,
   "name.iteration.block": unsupported,
   "value.iteration.block": unsupported,
@@ -253,14 +276,61 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   list: unsupported,
   "key.mapPair": unsupported,
   "key.mapPair.iteration": unsupported,
+  "value.mapPair": unsupported,
+  "value.mapPair.iteration": unsupported,
+
+  // argument names
+  "name.argument.actual": unsupported,
+  "name.argument.actual.iteration": unsupported,
+  "name.argument.formal": unsupported,
+  "name.argument.formal.iteration": unsupported,
+  "name.argument.formal.method": unsupported,
+  "name.argument.formal.method.iteration": unsupported,
+  "name.argument.formal.lambda": unsupported,
+  "name.argument.formal.lambda.iteration": unsupported,
+  "name.argument.formal.constructor": unsupported,
+  "name.argument.formal.constructor.iteration": unsupported,
+  "name.argument.catch": unsupported,
+
+  // argument values
+  "value.argument.actual": unsupported,
+  "value.argument.actual.iteration": unsupported,
+  "value.argument.formal": unsupported,
+  "value.argument.formal.iteration": unsupported,
+  "value.argument.formal.method": unsupported,
+  "value.argument.formal.method.iteration": unsupported,
+  "value.argument.formal.constructor": unsupported,
+  "value.argument.formal.constructor.iteration": unsupported,
+  "value.argument.formal.lambda": unsupported,
+  "value.argument.formal.lambda.iteration": unsupported,
+
+  // argument types
+  "type.argument.formal": unsupported,
+  "type.argument.formal.iteration": unsupported,
+  "type.argument.formal.method": unsupported,
+  "type.argument.formal.method.iteration": unsupported,
+  "type.argument.formal.lambda": unsupported,
+  "type.argument.formal.lambda.iteration": unsupported,
+  "type.argument.formal.constructor": unsupported,
+  "type.argument.formal.constructor.iteration": unsupported,
+  "type.argument.catch": unsupported,
 
   // misc
   regularExpression: unsupported,
   disqualifyDelimiter: unsupported,
   pairDelimiter: unsupported,
+
   "name.typeAlias": unsupported,
+  "value.typeAlias": unsupported,
+
   "statement.typeAlias": unsupported,
   "statement.misc": unsupported,
+
+  "type.typeArgument": unsupported,
+  "type.typeArgument.iteration": unsupported,
+  "type.alias": unsupported,
+  "type.cast": unsupported,
+
   // todo: do static variables/constants fulfill the scope facet "statement.static", or is that only for static blocks?
   // "statement.static": unsupported,
 
@@ -319,67 +389,4 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.yield": notApplicable,
   "value.yield": notApplicable,
   "interior.static": notApplicable,
-
-  // TODO: reorganize these!!!
-  "name.argument.actual": notApplicable,
-  "name.argument.actual.iteration": notApplicable,
-  "name.argument.formal": notApplicable,
-  "name.argument.formal.iteration": notApplicable,
-  "name.argument.formal.method": notApplicable,
-  "name.argument.formal.method.iteration": notApplicable,
-  "name.argument.formal.lambda": notApplicable,
-  "name.argument.formal.lambda.iteration": notApplicable,
-  "name.argument.formal.constructor": notApplicable,
-  "name.argument.formal.constructor.iteration": notApplicable,
-  "name.argument.catch": notApplicable,
-
-  "value.variable": notApplicable,
-  "value.variable.destructuring": notApplicable,
-  "value.assignment": notApplicable,
-  "value.assignment.destructuring": notApplicable,
-  "value.assignment.compound": notApplicable,
-  "value.mapPair": notApplicable,
-  "value.mapPair.iteration": notApplicable,
-  "value.typeAlias": notApplicable,
-  "value.argument.actual": notApplicable,
-  "value.argument.actual.iteration": notApplicable,
-  "value.argument.formal": notApplicable,
-  "value.argument.formal.iteration": notApplicable,
-  "value.argument.formal.method": notApplicable,
-  "value.argument.formal.method.iteration": notApplicable,
-  "value.argument.formal.constructor": notApplicable,
-  "value.argument.formal.constructor.iteration": notApplicable,
-  "value.argument.formal.lambda": notApplicable,
-  "value.argument.formal.lambda.iteration": notApplicable,
-
-  "type.variable.uninitialized": notApplicable,
-  "type.variable.initialized": notApplicable,
-  "type.constant": notApplicable,
-  "type.return": notApplicable,
-  "type.return.method": notApplicable,
-  "type.return.lambda": notApplicable,
-  "type.field.class": notApplicable,
-  "type.field.interface": notApplicable,
-  "type.alias": notApplicable,
-  "type.cast": notApplicable,
-  "type.class": notApplicable,
-  "type.interface": notApplicable,
-  "type.typeArgument": notApplicable,
-  "type.typeArgument.iteration": notApplicable,
-  "type.argument.formal": notApplicable,
-  "type.argument.formal.iteration": notApplicable,
-  "type.argument.formal.method": notApplicable,
-  "type.argument.formal.method.iteration": notApplicable,
-  "type.argument.formal.lambda": notApplicable,
-  "type.argument.formal.lambda.iteration": notApplicable,
-  "type.argument.formal.constructor": notApplicable,
-  "type.argument.formal.constructor.iteration": notApplicable,
-  "type.argument.catch": notApplicable,
-
-  "interior.class": notApplicable,
-  "interior.interface": notApplicable,
-  "interior.function": notApplicable,
-  "interior.constructor": notApplicable,
-  "interior.method": notApplicable,
-  "interior.foreach": notApplicable,
 };
