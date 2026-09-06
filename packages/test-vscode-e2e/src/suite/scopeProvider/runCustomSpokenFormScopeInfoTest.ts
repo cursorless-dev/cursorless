@@ -120,14 +120,14 @@ const squareMissing: ScopeTypeInfo = {
   scopeType: { type: "surroundingPair", delimiter: "squareBrackets" },
   spokenForm: {
     isPrivate: false,
-    reason: `paired delimiter with id squareBrackets; please update talon to the latest version (see ${DOCS_URL}/user/updating)`,
+    reason: `paired delimiter with id squareBrackets; please update cursorless-talon to the latest version (see ${DOCS_URL}/user/updating)`,
     requiresTalonUpdate: true,
     type: "error",
   },
 };
 
 const namedFunctionStandard: ScopeTypeInfo = {
-  humanReadableName: "named function",
+  humanReadableName: "Named function",
   isLanguageSpecific: true,
   scopeType: { type: "namedFunction" },
   spokenForm: {
@@ -137,7 +137,7 @@ const namedFunctionStandard: ScopeTypeInfo = {
 };
 
 const namedFunctionCustom: ScopeTypeInfo = {
-  humanReadableName: "named function",
+  humanReadableName: "Named function",
   isLanguageSpecific: true,
   scopeType: { type: "namedFunction" },
   spokenForm: {
@@ -147,7 +147,7 @@ const namedFunctionCustom: ScopeTypeInfo = {
 };
 
 const lambdaStandard: ScopeTypeInfo = {
-  humanReadableName: "anonymous function",
+  humanReadableName: "Anonymous function",
   isLanguageSpecific: true,
   scopeType: { type: "anonymousFunction" },
   spokenForm: {
@@ -157,7 +157,7 @@ const lambdaStandard: ScopeTypeInfo = {
 };
 
 const lambdaCustom: ScopeTypeInfo = {
-  humanReadableName: "anonymous function",
+  humanReadableName: "Anonymous function",
   isLanguageSpecific: true,
   scopeType: { type: "anonymousFunction" },
   spokenForm: {
@@ -169,7 +169,7 @@ const lambdaCustom: ScopeTypeInfo = {
 };
 
 const statementStandard: ScopeTypeInfo = {
-  humanReadableName: "statement",
+  humanReadableName: "Statement",
   isLanguageSpecific: true,
   scopeType: { type: "statement" },
   spokenForm: {
@@ -179,12 +179,12 @@ const statementStandard: ScopeTypeInfo = {
 };
 
 const statementMissing: ScopeTypeInfo = {
-  humanReadableName: "statement",
+  humanReadableName: "Statement",
   isLanguageSpecific: true,
   scopeType: { type: "statement" },
   spokenForm: {
     isPrivate: false,
-    reason: `simple scope type type with id statement; please update talon to the latest version (see ${DOCS_URL}/user/updating)`,
+    reason: `simple scope type type with id statement; please update cursorless-talon to the latest version (see ${DOCS_URL}/user/updating)`,
     requiresTalonUpdate: true,
     type: "error",
   },

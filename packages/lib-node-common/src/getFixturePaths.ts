@@ -6,6 +6,18 @@ import type {
 import { getCursorlessRepoRoot } from "./getCursorlessRepoRoot";
 import { walkFilesSync } from "./walkSync";
 
+export interface RecordedTestPath {
+  path: string;
+  name: string;
+}
+
+export interface ScopeTestPath {
+  path: string;
+  name: string;
+  languageId: string;
+  facet: ScopeSupportFacet | PlaintextScopeSupportFacet;
+}
+
 export function getFixturesPath() {
   return path.join(getCursorlessRepoRoot(), "resources", "fixtures");
 }
@@ -22,11 +34,18 @@ export function getRecordedTestsDirPath() {
   return path.join(getFixturesPath(), "recorded");
 }
 
+export function getRecordedDocsDirPath() {
+  return path.join(getFixturesPath(), "recorded", "docs");
+}
+
+export function getRecordedTutorialDirPath() {
+  return path.join(getFixturesPath(), "recorded", "tutorial");
+}
 export function getScopeTestsDirPath() {
   return path.join(getFixturesPath(), "scopes");
 }
 
-export function getRecordedTestPaths() {
+export function getRecordedTestPaths(): RecordedTestPath[] {
   const directory = getRecordedTestsDirPath();
   const relativeDir = path.dirname(directory);
 
@@ -38,11 +57,28 @@ export function getRecordedTestPaths() {
     }));
 }
 
-export interface ScopeTestPath {
-  path: string;
-  name: string;
-  languageId: string;
-  facet: ScopeSupportFacet | PlaintextScopeSupportFacet;
+export function getRecordedDocsPaths(): RecordedTestPath[] {
+  const directory = getRecordedDocsDirPath();
+  const relativeDir = path.dirname(directory);
+
+  return walkFilesSync(directory)
+    .filter((p) => p.endsWith(".yml") || p.endsWith(".yaml"))
+    .map((p) => ({
+      path: p,
+      name: pathToName(relativeDir, p),
+    }));
+}
+
+export function getRecordedTutorialPaths(): RecordedTestPath[] {
+  const directory = getRecordedTutorialDirPath();
+  const relativeDir = path.dirname(directory);
+
+  return walkFilesSync(directory)
+    .filter((p) => p.endsWith(".yml") || p.endsWith(".yaml"))
+    .map((p) => ({
+      path: p,
+      name: pathToName(relativeDir, p),
+    }));
 }
 
 export function getScopeTestPaths(): ScopeTestPath[] {

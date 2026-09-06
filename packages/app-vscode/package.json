@@ -178,11 +178,6 @@
         "enablement": "false"
       },
       {
-        "command": "cursorless.internal.updateCheatsheetDefaults",
-        "title": "Cursorless: Update the default values of the cheatsheet payload used on the website and for local development. Be sure to run this on stock community and cursorless.",
-        "enablement": "false"
-      },
-      {
         "command": "cursorless.private.logQuickActions",
         "title": "Cursorless: Log the quick actions available at the current cursor position",
         "enablement": "false"
@@ -738,7 +733,7 @@
           "additionalProperties": false
         },
         "cursorless.hatEnablement.shapes": {
-          "markdownDescription": "Which shapes to enable.  See the [docs](https://www.cursorless.org/docs/#shapes) if you're not sure which shape name corresponds to which hat shape.",
+          "markdownDescription": "Which shapes to enable.  See the [docs](https://www.cursorless.org/docs/user/targets#shapes) if you're not sure which shape name corresponds to which hat shape.",
           "type": "object",
           "order": 3,
           "properties": {
@@ -1219,7 +1214,7 @@
           }
         },
         "cursorless.experimental.hatStability": {
-          "markdownDescription": "As you scroll, edit, and move your cursor, this setting determines how much Cursorless will move hats around to ensure that the best hats are near the cursor.  See https://www.cursorless.org/docs/user/hatAssignment/",
+          "markdownDescription": "As you scroll, edit, and move your cursor, this setting determines how much Cursorless will move hats around to ensure that the best hats are near the cursor.  See https://www.cursorless.org/docs/user/hat-assignment/",
           "type": "string",
           "default": "balanced",
           "enum": [

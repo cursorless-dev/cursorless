@@ -6,13 +6,6 @@ import type {
   RelativeScopeModifier,
   ScopeType,
 } from "@cursorless/lib-common";
-import { connectives } from "./defaultSpokenForms/connectives";
-import {
-  hatColorToSpokenForm,
-  hatShapeToSpokenForm,
-  lineDirections,
-  marks,
-} from "./defaultSpokenForms/marks";
 import {
   numberToSpokenForm,
   ordinalToSpokenForm,
@@ -140,6 +133,7 @@ export class PrimitiveTargetSpokenFormGenerator {
               : ordinalToSpokenForm(modifier.anchor.start + 1);
           const active = this.handleModifier(modifier.active);
           const connective = getRangeConnective(
+            this.spokenFormMap,
             modifier.excludeAnchor,
             modifier.excludeActive,
           );
@@ -167,8 +161,8 @@ export class PrimitiveTargetSpokenFormGenerator {
     if (modifier.length === 1) {
       const direction =
         modifier.direction === "forward"
-          ? connectives.forward
-          : connectives.backward;
+          ? this.spokenFormMap.modifierExtra.forward
+          : this.spokenFormMap.modifierExtra.backward;
 
       // token forward/backward
       return [isEvery, scope, direction];
@@ -184,7 +178,12 @@ export class PrimitiveTargetSpokenFormGenerator {
     }
 
     // two tokens backward
-    return [isEvery, length, scopePlural, connectives.backward];
+    return [
+      isEvery,
+      length,
+      scopePlural,
+      this.spokenFormMap.modifierExtra.backward,
+    ];
   }
 
   private handleRelativeScopeExclusive(
@@ -193,8 +192,8 @@ export class PrimitiveTargetSpokenFormGenerator {
     const scope = this.handleScopeType(modifier.scopeType);
     const direction =
       modifier.direction === "forward"
-        ? connectives.next
-        : connectives.previous;
+        ? this.spokenFormMap.modifierExtra.next
+        : this.spokenFormMap.modifierExtra.previous;
     const isEvery = modifier.isEvery
       ? this.spokenFormMap.simpleModifier.everyScope
       : [];
@@ -271,18 +270,30 @@ export class PrimitiveTargetSpokenFormGenerator {
         const [color, shape] = mark.symbolColor.split("-");
         const components: SpokenFormComponent[] = [];
         if (color !== "default") {
-          components.push(hatColorToSpokenForm(color));
+          const result = this.spokenFormMap.hatColor[color];
+          if (result == null) {
+            throw new Error(`Unknown hat color '${color}'`);
+          }
+          components.push(result);
         }
         if (shape != null) {
-          components.push(hatShapeToSpokenForm(shape));
+          const result = this.spokenFormMap.hatShape[shape];
+          if (result == null) {
+            throw new Error(`Unknown hat shape '${shape}'`);
+          }
+          components.push(result);
         }
-        components.push(
-          getSpokenFormStrict(
-            this.spokenFormMap.grapheme,
-            "grapheme",
-            mark.character,
-          ),
-        );
+        if (mark.character === "\uFFFD") {
+          components.push(this.spokenFormMap.specialMark.unknownSymbol);
+        } else {
+          components.push(
+            getSpokenFormStrict(
+              this.spokenFormMap.grapheme,
+              "grapheme",
+              mark.character,
+            ),
+          );
+        }
         return components;
       }
 
@@ -303,6 +314,7 @@ export class PrimitiveTargetSpokenFormGenerator {
           );
           if (typeAnchor === typeActive) {
             const connective = getRangeConnective(
+              this.spokenFormMap,
               mark.excludeAnchor,
               mark.excludeActive,
             );
@@ -314,24 +326,35 @@ export class PrimitiveTargetSpokenFormGenerator {
         // a spoken form for these; we may deprecate this construct entirely
         throw new Error(`Mark '${mark.type}' is not fully implemented`);
       }
+
+      case "cursor":
+        return this.spokenFormMap.specialMark.currentSelection;
+      case "that":
+        return this.spokenFormMap.specialMark.previousTarget;
+      case "source":
+        return this.spokenFormMap.specialMark.previousSource;
+      case "nothing":
+        return this.spokenFormMap.specialMark.nothing;
+
       case "explicit":
       case "keyboard":
       case "target":
         throw new NoSpokenFormError(`Mark '${mark.type}'`);
 
-      default:
-        return [marks[mark.type]];
+      // No default
     }
   }
 
-  private handleLineNumberMark(mark: LineNumberMark): [string, string] {
+  private handleLineNumberMark(
+    mark: LineNumberMark,
+  ): [SpokenFormComponent, string] {
     switch (mark.lineNumberType) {
       case "absolute":
         throw new NoSpokenFormError("Absolute line numbers");
       case "modulo100": {
         // row/ five
         return [
-          lineDirections.modulo100,
+          this.spokenFormMap.specialMark.lineNumberModulo100,
           numberToSpokenForm(mark.lineNumber + 1),
         ];
       }
@@ -339,8 +362,8 @@ export class PrimitiveTargetSpokenFormGenerator {
         // up/down five
         return [
           mark.lineNumber < 0
-            ? lineDirections.relativeUp
-            : lineDirections.relativeDown,
+            ? this.spokenFormMap.specialMark.lineNumberRelativeUp
+            : this.spokenFormMap.specialMark.lineNumberRelativeDown,
           numberToSpokenForm(Math.abs(mark.lineNumber)),
         ];
       }

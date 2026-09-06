@@ -6,6 +6,7 @@ import type {
   HatTokenMap,
   IDE,
   NormalizedIDE,
+  ReadOnlyHatMap,
   ScopeProvider,
   SerializedMarks,
   StoredTargetKey,
@@ -64,6 +65,7 @@ export function constructTestHelpers(
       editor: TextEditor,
       ide: IDE,
       marks: SerializedMarks | undefined,
+      hatTokenMap: ReadOnlyHatMap | undefined,
     ): Promise<TestCaseSnapshot> {
       return takeSnapshot(
         storedTargets,
@@ -72,6 +74,7 @@ export function constructTestHelpers(
         editor,
         ide,
         marks,
+        hatTokenMap,
         undefined,
         undefined,
       );

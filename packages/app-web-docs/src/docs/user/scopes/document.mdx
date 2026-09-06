@@ -1,0 +1,40 @@
+---
+sidebar_label: File
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/document.json";
+
+# File (Document)
+
+The entire document, from the first to the last character.
+
+Cursorless ID: `document`
+
+## Spoken form
+
+Default: `file`
+
+## Syntax
+
+- file - Entire document.
+
+## Examples
+
+- `"take file blue air"` - Selects the document containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Document
+
+<i>The entire document</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/document" />
+
+</ScopeVisualizerProvider>

@@ -1,6 +1,6 @@
 # Test runner
 
-This package contains the machinery used to test Cursorless, both in CI and locally, across various contexts (eg VSCode, Talon, Neovim, unit tests). Note that it does not actually contain any tests itself; those are either embedded in `.test.ts` files either next to the code they're testing or in standalone `*-e2e` packages.
+This package contains the machinery used to test Cursorless, both in CI and locally, across various contexts (eg VS Code, Talon, Neovim, unit tests). Note that it does not actually contain any tests itself; those are either embedded in `.test.ts` files either next to the code they're testing or in standalone `*-e2e` packages.
 
 This package bundles tests into `.mjs` files and includes scripts used to run tests.
 

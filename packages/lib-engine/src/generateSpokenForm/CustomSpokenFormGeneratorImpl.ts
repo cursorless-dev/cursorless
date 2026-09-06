@@ -5,6 +5,7 @@ import type {
   IDE,
   Listener,
   ScopeType,
+  ScopeVisualizer,
   TalonSpokenForms,
 } from "@cursorless/lib-common";
 import type { CustomSpokenFormGenerator } from "../api/CursorlessEngineApi";
@@ -54,6 +55,13 @@ export class CustomSpokenFormGeneratorImpl implements CustomSpokenFormGenerator 
 
   scopeTypeToSpokenForm(scopeType: ScopeType) {
     return this.spokenFormGenerator.processScopeType(scopeType);
+  }
+
+  scopeVisualizerIdToSpokenForm(id: ScopeVisualizer) {
+    return this.spokenFormGenerator.getSpokenFormForSingleTerm(
+      "scopeVisualizer",
+      id,
+    );
   }
 
   actionIdToSpokenForm(actionId: ActionType) {

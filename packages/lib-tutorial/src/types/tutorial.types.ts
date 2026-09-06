@@ -15,11 +15,6 @@ export interface TutorialContent {
   title: string;
 
   /**
-   * The version of the tutorial
-   */
-  version: number;
-
-  /**
    * The steps of the current tutorial
    */
   steps: Array<TutorialStep>;

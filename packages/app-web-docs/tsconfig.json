@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig.web.json",
   "compilerOptions": {
+    "allowImportingTsExtensions": true,
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "skipLibCheck": true,

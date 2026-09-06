@@ -352,6 +352,20 @@ export const rubyScopeSupport: LanguageScopeSupportFacetMap = {
   "condition.for": notApplicable,
   "interior.for": notApplicable,
 
+  // Document
+  chapter: notApplicable,
+  subSection: notApplicable,
+  subSubSection: notApplicable,
+  sectionLevelOne: notApplicable,
+  sectionLevelTwo: notApplicable,
+  sectionLevelThree: notApplicable,
+  sectionLevelFour: notApplicable,
+  sectionLevelFive: notApplicable,
+  sectionLevelSix: notApplicable,
+  namedParagraph: notApplicable,
+  subParagraph: notApplicable,
+  part: notApplicable,
+
   // Misc
   "statement.package": notApplicable,
   "statement.import": notApplicable,

@@ -1,25 +1,33 @@
 import type { PartialRangeType } from "@cursorless/lib-common";
-import { connectives } from "./defaultSpokenForms/connectives";
-import { NoSpokenFormError } from "./NoSpokenFormError";
+import type { SpokenFormComponentMap } from "./getSpokenFormComponentMap";
+import type { SpokenFormComponent } from "./SpokenFormComponent";
 
 export function getRangeConnective(
+  spokenFormMap: SpokenFormComponentMap,
   excludeAnchor: boolean,
   excludeActive: boolean,
   type?: PartialRangeType,
-): string {
-  const prefix = type === "vertical" ? `${connectives.verticalRange} ` : "";
+): SpokenFormComponent {
+  const prefix =
+    type === "vertical" ? spokenFormMap.connective.verticalRange : undefined;
   if (excludeAnchor && excludeActive) {
-    return prefix + connectives.rangeExclusive;
+    return prefix != null
+      ? [prefix, spokenFormMap.connective.rangeExclusive]
+      : spokenFormMap.connective.rangeExclusive;
   }
   if (excludeAnchor) {
-    throw new NoSpokenFormError("Range exclude anchor");
+    return prefix != null
+      ? [prefix, spokenFormMap.connective.rangeExcludingStart]
+      : spokenFormMap.connective.rangeExcludingStart;
   }
   if (excludeActive) {
-    return prefix + connectives.rangeExcludingEnd;
+    return prefix != null
+      ? [prefix, spokenFormMap.connective.rangeExcludingEnd]
+      : spokenFormMap.connective.rangeExcludingEnd;
   }
   if (type === "vertical") {
     // "slice", but could have been "slice past"
-    return connectives.verticalRange;
+    return spokenFormMap.connective.verticalRange;
   }
-  return connectives.rangeInclusive;
+  return spokenFormMap.connective.rangeInclusive;
 }

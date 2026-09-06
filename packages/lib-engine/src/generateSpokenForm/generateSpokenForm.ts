@@ -11,7 +11,6 @@ import type {
 } from "@cursorless/lib-common";
 import { camelCaseToAllDown, DOCS_URL } from "@cursorless/lib-common";
 import type { SpokenFormMap } from "../spokenForms/SpokenFormMap";
-import { connectives } from "./defaultSpokenForms/connectives";
 import { surroundingPairDelimitersToSpokenForm } from "./defaultSpokenForms/modifiers";
 import {
   insertionSnippetToSpokenForm,
@@ -136,7 +135,7 @@ export class SpokenFormGenerator {
         return [
           this.spokenFormMap.action[action.name],
           this.handleTarget(action.target1),
-          connectives.swapConnective,
+          this.spokenFormMap.connective.swapConnective,
           this.handleTarget(action.target2),
         ];
 
@@ -150,7 +149,7 @@ export class SpokenFormGenerator {
         return [
           this.spokenFormMap.action[action.name],
           this.handleTarget(action.callee),
-          "on",
+          this.spokenFormMap.connective.on,
           this.handleTarget(action.argument),
         ];
 
@@ -224,13 +223,17 @@ export class SpokenFormGenerator {
         return target.elements.map((element, i) =>
           i === 0
             ? this.handleTarget(element)
-            : [connectives.listConnective, this.handleTarget(element)],
+            : [
+                this.spokenFormMap.connective.listConnective,
+                this.handleTarget(element),
+              ],
         );
 
       case "range": {
         const anchor = this.handleTarget(target.anchor);
         const active = this.handleTarget(target.active);
         const connective = getRangeConnective(
+          this.spokenFormMap,
           target.excludeAnchor,
           target.excludeActive,
           target.rangeType,
@@ -260,7 +263,10 @@ export class SpokenFormGenerator {
         return destination.destinations.map((destination, i) =>
           i === 0
             ? this.handleDestination(destination)
-            : [connectives.listConnective, this.handleDestination(destination)],
+            : [
+                this.spokenFormMap.connective.listConnective,
+                this.handleDestination(destination),
+              ],
         );
 
       case "primitive":
@@ -276,14 +282,16 @@ export class SpokenFormGenerator {
     }
   }
 
-  private handleInsertionMode(insertionMode: InsertionMode): string {
+  private handleInsertionMode(
+    insertionMode: InsertionMode,
+  ): SpokenFormComponent {
     switch (insertionMode) {
       case "to":
-        return connectives.sourceDestinationConnective;
+        return this.spokenFormMap.insertionMode.to;
       case "before":
-        return connectives.before;
+        return this.spokenFormMap.insertionMode.before;
       case "after":
-        return connectives.after;
+        return this.spokenFormMap.insertionMode.after;
       // No default
     }
   }
@@ -315,7 +323,7 @@ function constructSpokenForms(component: SpokenFormComponent): string[] {
       helpInfo =
         "this is a private spoken form currently only for internal experimentation";
     } else if (component.spokenForms.requiresTalonUpdate) {
-      helpInfo = `please update talon to the latest version (see ${DOCS_URL}/user/updating)`;
+      helpInfo = `please update cursorless-talon to the latest version (see ${DOCS_URL}/user/updating)`;
     } else {
       helpInfo = `please see ${DOCS_URL}/user/customization for more information`;
     }

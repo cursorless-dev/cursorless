@@ -1,3 +1,4 @@
+import { afterEach, describe, expect, it } from "@jest/globals";
 import { render } from "preact";
 import { act } from "preact/test-utils";
 import { Cheatsheet } from "../lib/Cheatsheet";

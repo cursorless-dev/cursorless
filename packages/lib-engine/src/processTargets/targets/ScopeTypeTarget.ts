@@ -3,6 +3,7 @@ import type {
   Range,
   SimpleScopeTypeType,
 } from "@cursorless/lib-common";
+import { getDefaultInsertionDelimiter } from "@cursorless/lib-common";
 import type { Target } from "../../typings/target.types";
 import { toGeneralizedRange } from "../../util/targetUtils";
 import type { CommonTargetParameters } from "./BaseTarget";
@@ -43,7 +44,7 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
     this.prefixRange = parameters.prefixRange;
     this.insertionDelimiter =
       parameters.insertionDelimiter ??
-      getInsertionDelimiter(parameters.scopeTypeType);
+      getDefaultInsertionDelimiter(parameters.scopeTypeType);
     this.hasDelimiterRange_ =
       this.leadingDelimiterRange_ != null ||
       this.trailingDelimiterRange_ != null;
@@ -133,39 +134,5 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
       leadingDelimiterRange: this.leadingDelimiterRange_,
       trailingDelimiterRange: this.trailingDelimiterRange_,
     };
-  }
-}
-
-function getInsertionDelimiter(scopeType: SimpleScopeTypeType): string {
-  switch (scopeType) {
-    case "class":
-    case "namedFunction":
-    case "section":
-    case "sectionLevelOne":
-    case "sectionLevelTwo":
-    case "sectionLevelThree":
-    case "sectionLevelFour":
-    case "sectionLevelFive":
-    case "sectionLevelSix":
-    case "part":
-    case "chapter":
-    case "subSection":
-    case "subSubSection":
-    case "namedParagraph":
-    case "subParagraph":
-      return "\n\n";
-
-    case "anonymousFunction":
-    case "statement":
-    case "ifStatement":
-    case "comment":
-    case "xmlElement":
-    case "collectionItem":
-    case "branch":
-    case "environment":
-      return "\n";
-
-    default:
-      return " ";
   }
 }

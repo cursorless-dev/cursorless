@@ -7,14 +7,12 @@ import { FontMeasurementsImpl } from "./ide/vscode/hats/FontMeasurementsImpl";
 import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
 import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
-import { vscodeApi } from "./vscodeApi";
 
 export async function createVscodeIde(context: ExtensionContext) {
   const vscodeIDE = new VscodeIDE(context);
 
   const hats = new VscodeHats(
     vscodeIDE,
-    vscodeApi,
     context,
     vscodeIDE.runMode === "test"
       ? new FakeFontMeasurements()

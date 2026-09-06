@@ -7,8 +7,11 @@ import type {
 import { CURSORLESS_COMMAND_ID } from "@cursorless/lib-common";
 import type { CommandApi, StoredTargetMap } from "@cursorless/lib-engine";
 import { analyzeCommandHistory } from "@cursorless/lib-engine";
-import { showCheatsheet, updateDefaults } from "@cursorless/lib-node-common";
-import type { CheatSheetCommandArg } from "@cursorless/lib-node-common";
+import type {
+  CheatSheetCommandArg,
+  FileSystemTalonSpokenForms,
+} from "@cursorless/lib-node-common";
+import { showCheatsheet } from "@cursorless/lib-node-common";
 import type {
   ScopeTestRecorder,
   TestCaseRecorder,
@@ -42,6 +45,7 @@ export function registerCommands(
   tutorial: VscodeTutorial,
   installationDependencies: InstallationDependencies,
   storedTargets: StoredTargetMap,
+  talonSpokenForms: FileSystemTalonSpokenForms,
 ): void {
   const runCommandWrapper = async (run: () => Promise<unknown>) => {
     try {
@@ -68,9 +72,9 @@ export function registerCommands(
     },
 
     // Cheatsheet commands
-    "cursorless.showCheatsheet": (arg: CheatSheetCommandArg) =>
-      showCheatsheet(vscodeIde, arg),
-    "cursorless.internal.updateCheatsheetDefaults": updateDefaults,
+    "cursorless.showCheatsheet": (arg: CheatSheetCommandArg) => {
+      return showCheatsheet(vscodeIde, talonSpokenForms, arg);
+    },
 
     // Testcase recorder commands
     "cursorless.recordTestCase": testCaseRecorder.toggle,

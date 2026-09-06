@@ -14,7 +14,8 @@ import type {
  *
  * @param finalState The final state of the test case; we only use this to
  * decide which fields we care about
- * @param readableHatMap The hat map for extractin the marks
+ * @param initialHatTokenMap The hat map for extractin the marks
+ * @param getFinalHatTokenMap Gets the hat map after the command has run
  * @param spyIde The spy IDE
  * @param takeSnapshot A function that takes a snapshot of the current state of
  * the editor
@@ -23,8 +24,9 @@ import type {
  */
 export async function getSnapshotForComparison(
   finalState: TestCaseSnapshot | undefined,
-  readableHatMap: ReadOnlyHatMap,
+  initialHatTokenMap: ReadOnlyHatMap,
   spyIde: SpyIDE,
+  getFinalHatTokenMap: () => Promise<ReadOnlyHatMap>,
   takeSnapshot: TestHelpers["takeSnapshot"],
 ): Promise<Exclude<TestCaseSnapshot, "visibleRanges">> {
   const excludeFields: ExcludableSnapshotField[] = [];
@@ -33,8 +35,14 @@ export async function getSnapshotForComparison(
     finalState?.marks == null
       ? undefined
       : marksToPlainObject(
-          extractTargetedMarks(Object.keys(finalState.marks), readableHatMap),
+          extractTargetedMarks(
+            Object.keys(finalState.marks),
+            initialHatTokenMap,
+          ),
         );
+
+  const finalHatTokenMap =
+    finalState?.hatTokenMap == null ? undefined : await getFinalHatTokenMap();
 
   if (finalState?.clipboard == null) {
     excludeFields.push("clipboard");
@@ -61,6 +69,7 @@ export async function getSnapshotForComparison(
     editor,
     spyIde,
     marks,
+    finalHatTokenMap,
   );
 
   return resultState;

@@ -32,7 +32,7 @@ In the near term, we're planning to work on the following:
 - [Interactive tutorials that run within your editor](https://github.com/cursorless-dev/cursorless/issues/934)
 - [Bookmarking targets to allow more complex commands, even across multiple files](https://github.com/cursorless-dev/cursorless/issues/46)
 - [A way to highlight newly released features](https://github.com/cursorless-dev/cursorless/issues/491)
-- [A phrase-level undo command in VSCode](https://github.com/cursorless-dev/cursorless/issues/317)
+- [A phrase-level undo command in VS Code](https://github.com/cursorless-dev/cursorless/issues/317)
 - [Better support for custom user grammars built on top of the Cursorless engine](https://github.com/cursorless-dev/cursorless/issues/494)
 - Changes that will enable more fluent chaining, such as [modifying the target of a bring in a single phrase](https://github.com/cursorless-dev/cursorless/issues/414)
 - [Videos](https://github.com/cursorless-dev/cursorless/discussions/506)!

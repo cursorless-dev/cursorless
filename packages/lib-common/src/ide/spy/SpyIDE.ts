@@ -56,4 +56,13 @@ export class SpyIDE extends PassthroughIDE {
     });
     return super.setHighlightRanges(highlightId, editor, ranges);
   }
+
+  setInitialHighlightRanges(
+    highlightId: string | undefined,
+    editor: TextEditor,
+    ranges: GeneralizedRange[],
+  ): Promise<void> {
+    // Establish test preconditions without recording them as command output.
+    return super.setHighlightRanges(highlightId, editor, ranges);
+  }
 }

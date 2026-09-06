@@ -1,13 +1,19 @@
+---
+sidebar_group: Project
+sidebar_group_position: 8
+sidebar_position: 1
+---
+
 # Updating
 
 Cursorless consists of two components:
 
-- A VSCode extension, and
+- A VS Code extension, and
 - A set of Talon files to define the spoken commands
 
-## Updating the VSCode extension
+## Updating the VS Code extension
 
-The VSCode extension will update automatically, unless for some reason you have auto-updating disabled, in which case you will have to [update the extension manually](https://code.visualstudio.com/docs/editor/extension-marketplace#_update-an-extension-manually).
+The VS Code extension will update automatically, unless for some reason you have auto-updating disabled, in which case you will have to [update the extension manually](https://code.visualstudio.com/docs/editor/extension-marketplace#_update-an-extension-manually).
 
 ## Updating the Talon side
 

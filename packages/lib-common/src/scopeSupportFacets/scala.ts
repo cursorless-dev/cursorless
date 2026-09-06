@@ -344,6 +344,20 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.actual.enum.singleLine": notApplicable,
   "argumentList.actual.enum.multiLine": notApplicable,
 
+  // Document
+  chapter: notApplicable,
+  subSection: notApplicable,
+  subSubSection: notApplicable,
+  sectionLevelOne: notApplicable,
+  sectionLevelTwo: notApplicable,
+  sectionLevelThree: notApplicable,
+  sectionLevelFour: notApplicable,
+  sectionLevelFive: notApplicable,
+  sectionLevelSix: notApplicable,
+  namedParagraph: notApplicable,
+  subParagraph: notApplicable,
+  part: notApplicable,
+
   // Miscellaneous
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,

@@ -70,7 +70,6 @@ export function registerCommands(
 
     // Cheatsheet commands
     "cursorless.showCheatsheet": dummyCommandHandler,
-    "cursorless.internal.updateCheatsheetDefaults": dummyCommandHandler,
 
     // Testcase recorder commands
     "cursorless.recordTestCase": dummyCommandHandler,

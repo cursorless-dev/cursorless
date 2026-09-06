@@ -17,8 +17,15 @@ export const latexScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.element": supported,
   "textFragment.element": supported,
 
+  // Document
   section: supported,
   "section.iteration.document": supported,
+  chapter: supported,
+  subSection: supported,
+  subSubSection: supported,
+  namedParagraph: supported,
+  subParagraph: supported,
+  part: supported,
 
   list: supported,
   "collectionItem.unenclosed.multiLine": supported,
@@ -352,6 +359,14 @@ export const latexScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.actual.empty": notApplicable,
   "argumentList.actual.singleLine": notApplicable,
   "argumentList.actual.multiLine": notApplicable,
+
+  // Document
+  sectionLevelOne: notApplicable,
+  sectionLevelTwo: notApplicable,
+  sectionLevelThree: notApplicable,
+  sectionLevelFour: notApplicable,
+  sectionLevelFive: notApplicable,
+  sectionLevelSix: notApplicable,
 
   // Miscellaneous
   fieldAccess: notApplicable,

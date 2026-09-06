@@ -7,6 +7,9 @@ export class DisabledHatTokenMap implements HatTokenMap {
 
   getReadableMap() {
     return Promise.resolve({
+      getTokenHats() {
+        return [];
+      },
       getEntries() {
         return [];
       },

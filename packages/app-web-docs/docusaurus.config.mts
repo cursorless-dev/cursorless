@@ -6,6 +6,7 @@ import type { Root } from "mdast";
 import { themes } from "prism-react-renderer";
 import type { Transformer } from "unified";
 import { visit } from "unist-util-visit";
+import { sidebarItemsGenerator } from "./sidebarItemsGenerator.ts";
 
 // oxlint-disable-next-line unicorn/prefer-import-meta-properties
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -152,6 +153,7 @@ const config: Config = {
           editUrl:
             "https://github.com/cursorless-dev/cursorless/edit/main/packages/app-web-docs/",
           sidebarPath: require.resolve("./sidebar.js"),
+          sidebarItemsGenerator,
           beforeDefaultRemarkPlugins: [
             remarkPluginFixLinksToRepositoryArtifacts,
           ],
@@ -163,7 +165,7 @@ const config: Config = {
     ],
   ],
 
-  plugins: ["docusaurus-plugin-sass", "./src/plugins/scope-tests-plugin.ts"],
+  plugins: ["docusaurus-plugin-sass"],
 
   themeConfig: {
     navbar: {
@@ -172,7 +174,7 @@ const config: Config = {
         alt: "Cursorless",
         src: "logo.svg",
         srcDark: "logo-dark.svg",
-        href: "https://www.cursorless.org/",
+        href: "https://www.cursorless.org",
         target: "_self",
       },
       items: [
@@ -189,6 +191,12 @@ const config: Config = {
           to: "contributing/",
           sidebarId: "contributing",
           label: "For contributors",
+        },
+        {
+          href: "https://github.com/sponsors/cursorless-dev",
+          position: "right",
+          className: "header-sponsor-link",
+          "aria-label": "Sponsor Cursorless",
         },
         {
           href: "https://github.com/cursorless-dev/cursorless",

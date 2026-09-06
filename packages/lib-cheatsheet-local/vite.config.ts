@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import type { UserConfig } from "vite";
 import purgeCss from "vite-plugin-purgecss";
 import { viteSingleFile } from "vite-plugin-singlefile";
-import defaultCheatsheetInfo from "@cursorless/lib-cheatsheet/defaultSpokenForms";
+import { getDefaultCheatsheetInfo } from "@cursorless/lib-common";
 import {
   purgeCssOptions,
   viteHtmlParams,
@@ -24,7 +24,7 @@ export default defineConfig((): UserConfig => {
       purgeCss(purgeCssOptions),
       viteSingleFile(),
       viteHtmlParams({
-        FAKE_CHEATSHEET_INFO: JSON.stringify(defaultCheatsheetInfo),
+        FAKE_CHEATSHEET_INFO: JSON.stringify(getDefaultCheatsheetInfo()),
       }),
     ],
   };

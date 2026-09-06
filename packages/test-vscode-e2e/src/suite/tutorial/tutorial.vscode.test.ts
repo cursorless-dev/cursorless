@@ -30,7 +30,7 @@ suite("tutorial", function () {
   );
 });
 
-const BASICS_TUTORIAL_ID = "tutorial-1-basics";
+const INTRODUCTION_TUTORIAL_ID = "introduction";
 
 async function runBasicTutorialTest(spyIde: SpyIDE) {
   const { hatTokenMap, takeSnapshot, getTutorialWebviewEventLog, vscodeApi } =
@@ -47,7 +47,7 @@ async function runBasicTutorialTest(spyIde: SpyIDE) {
   const tutorialDirectory = path.join(
     getRecordedTestsDirPath(),
     "tutorial",
-    BASICS_TUTORIAL_ID,
+    INTRODUCTION_TUTORIAL_ID,
   );
 
   const fixtures = await Promise.all(
@@ -57,14 +57,21 @@ async function runBasicTutorialTest(spyIde: SpyIDE) {
   );
 
   const checkStepSetup = async (fixture: TestCaseFixtureLegacy) => {
+    const expectedInitialState = { ...fixture.initialState };
+    // Tutorial setup only forces the named hats used by the step. The rest of
+    // the recorded hat map depends on the allocator's previous state.
+    delete expectedInitialState.hatTokenMap;
+    const readableHatTokenMap = await hatTokenMap.getReadableMap(false);
+    const getFinalHatTokenMap = () => Promise.resolve(readableHatTokenMap);
     assert.deepEqual(
       await getSnapshotForComparison(
-        fixture.initialState,
-        await hatTokenMap.getReadableMap(false),
+        expectedInitialState,
+        readableHatTokenMap,
         spyIde,
+        getFinalHatTokenMap,
         takeSnapshot,
       ),
-      fixture.initialState,
+      expectedInitialState,
       "Unexpected final state",
     );
   };
@@ -72,7 +79,7 @@ async function runBasicTutorialTest(spyIde: SpyIDE) {
   // Test starting tutorial
   await commands.executeCommand(
     "cursorless.tutorial.start",
-    BASICS_TUTORIAL_ID,
+    INTRODUCTION_TUTORIAL_ID,
   );
   await checkStepSetup(fixtures[0]);
 
@@ -93,7 +100,7 @@ async function runBasicTutorialTest(spyIde: SpyIDE) {
       data: {
         type: "doingTutorial",
         hasErrors: false,
-        id: "tutorial-1-basics",
+        id: "introduction",
         stepNumber: 0,
         stepContent: [
           [
@@ -177,17 +184,21 @@ async function runBasicTutorialTest(spyIde: SpyIDE) {
         type: "pickingTutorial",
         tutorials: [
           {
-            id: "tutorial-1-basics",
+            id: "introduction",
             title: "Introduction",
-            version: 0,
             stepCount: 11,
             currentStep: 1,
           },
           {
-            id: "tutorial-2-basic-coding",
+            id: "basic-coding",
             title: "Basic coding",
-            version: 0,
-            stepCount: 11,
+            stepCount: 9,
+            currentStep: 0,
+          },
+          {
+            id: "visualization",
+            title: "Visualization",
+            stepCount: 6,
             currentStep: 0,
           },
         ],

@@ -1,11 +1,12 @@
 import type {
   Hats,
   KeyValueStore,
-  RawTutorialContent,
+  ResolvedTutorialContent,
   TutorialContentProvider,
   TutorialId,
   TutorialState,
 } from "@cursorless/lib-common";
+import { getErrorMessage } from "@cursorless/lib-common";
 import type { CustomSpokenFormGenerator } from "@cursorless/lib-engine";
 import { TutorialError } from "./TutorialError";
 import { TutorialStepParser } from "./TutorialStepParser";
@@ -15,7 +16,7 @@ export async function loadTutorial(
   contentProvider: TutorialContentProvider,
   tutorialId: TutorialId,
   customSpokenFormGenerator: CustomSpokenFormGenerator,
-  rawContent: RawTutorialContent,
+  rawContent: ResolvedTutorialContent,
   keyValueStore: KeyValueStore,
   hats: Hats,
 ) {
@@ -32,8 +33,22 @@ export async function loadTutorial(
   try {
     tutorialContent = {
       title: rawContent.title,
-      version: rawContent.version,
-      steps: await Promise.all(rawContent.steps.map(parser.parseTutorialStep)),
+      steps: await Promise.all(
+        rawContent.steps.map(async (step, index) => {
+          try {
+            return await parser.parseTutorialStep(step);
+          } catch (error) {
+            if (error instanceof TutorialError) {
+              throw error;
+            }
+
+            throw new Error(
+              `Failed to parse tutorial "${tutorialId}" step ${index + 1}: ${getErrorMessage(error)}`,
+              { cause: error },
+            );
+          }
+        }),
+      ),
     };
 
     let stepNumber =
@@ -57,7 +72,6 @@ export async function loadTutorial(
     tutorialContent = {
       title: rawContent.title,
       steps: [],
-      version: rawContent.version,
     };
     state = {
       type: "doingTutorial",
@@ -66,6 +80,7 @@ export async function loadTutorial(
       stepNumber: 0,
       title: tutorialContent.title,
       preConditionsMet: true,
+      errorMessage: getErrorMessage(error),
       requiresTalonUpdate:
         error instanceof TutorialError && error.requiresTalonUpdate,
     };

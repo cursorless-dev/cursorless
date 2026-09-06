@@ -243,7 +243,7 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
 
   fieldAccess: unsupported,
 
-  /* NOT APPLunICABLE */
+  /* NOT APPLICABLE */
 
   // XML/HTML facets
   element: notApplicable,
@@ -333,6 +333,20 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.typeAlias": notApplicable,
   "name.typeAlias": notApplicable,
   "value.typeAlias": notApplicable,
+
+  // Document
+  chapter: notApplicable,
+  subSection: notApplicable,
+  subSubSection: notApplicable,
+  sectionLevelOne: notApplicable,
+  sectionLevelTwo: notApplicable,
+  sectionLevelThree: notApplicable,
+  sectionLevelFour: notApplicable,
+  sectionLevelFive: notApplicable,
+  sectionLevelSix: notApplicable,
+  namedParagraph: notApplicable,
+  subParagraph: notApplicable,
+  part: notApplicable,
 
   // Miscellaneous
   "statement.misc": notApplicable,

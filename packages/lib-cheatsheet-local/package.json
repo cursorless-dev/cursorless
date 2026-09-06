@@ -21,7 +21,7 @@
     "preact": "^10.29.8"
   },
   "devDependencies": {
-    "@types/jest": "^30.0.0",
+    "@jest/globals": "^30.4.1",
     "@types/node": "^24.13.3",
     "jest": "^30.4.2",
     "typescript": "^6.0.3",

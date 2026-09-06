@@ -8,6 +8,7 @@ import type {
 } from "@cursorless/lib-common";
 import {
   isPseudoScopeType,
+  scopeReferences,
   simpleScopeTypeTypes,
   surroundingPairNames,
 } from "@cursorless/lib-common";
@@ -97,95 +98,11 @@ export class ScopeInfoProvider {
       spokenForm:
         this.customSpokenFormGenerator.scopeTypeToSpokenForm(scopeType),
       humanReadableName: scopeTypeToString(scopeType),
-      isLanguageSpecific: isLanguageSpecific(scopeType),
+      isLanguageSpecific: scopeReferences[scopeType.type].isLanguageSpecific,
     };
   }
 
   dispose() {
     this.disposable.dispose();
-  }
-}
-
-/**
- * @param scopeType The scope type to check
- * @returns A boolean indicating whether the given scope type is defined on a
- * per-language basis.
- */
-function isLanguageSpecific(scopeType: ScopeType): boolean {
-  switch (scopeType.type) {
-    case "string":
-    case "argumentOrParameter":
-    case "argumentList":
-    case "anonymousFunction":
-    case "attribute":
-    case "branch":
-    case "class":
-    case "className":
-    case "collectionItem":
-    case "collectionKey":
-    case "command":
-    case "comment":
-    case "private.fieldAccess":
-    case "functionCall":
-    case "functionCallee":
-    case "functionName":
-    case "ifStatement":
-    case "instance":
-    case "interior":
-    case "list":
-    case "map":
-    case "name":
-    case "namedFunction":
-    case "regularExpression":
-    case "statement":
-    case "type":
-    case "value":
-    case "condition":
-    case "section":
-    case "sectionLevelOne":
-    case "sectionLevelTwo":
-    case "sectionLevelThree":
-    case "sectionLevelFour":
-    case "sectionLevelFive":
-    case "sectionLevelSix":
-    case "selector":
-    case "unit":
-    case "xmlBothTags":
-    case "xmlElement":
-    case "xmlEndTag":
-    case "xmlStartTag":
-    case "part":
-    case "chapter":
-    case "subSection":
-    case "subSubSection":
-    case "namedParagraph":
-    case "subParagraph":
-    case "environment":
-    case "textFragment":
-    case "disqualifyDelimiter":
-    case "pairDelimiter":
-      return true;
-
-    case "character":
-    case "word":
-    case "token":
-    case "identifier":
-    case "line":
-    case "fullLine":
-    case "sentence":
-    case "paragraph":
-    case "boundedParagraph":
-    case "document":
-    case "nonWhitespaceSequence":
-    case "boundedNonWhitespaceSequence":
-    case "url":
-    case "notebookCell":
-    case "surroundingPair":
-    case "surroundingPairInterior":
-    case "customRegex":
-    case "glyph":
-      return false;
-
-    // No default
   }
 }

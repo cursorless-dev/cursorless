@@ -7,7 +7,6 @@ export * from "./core/Snippets";
 export * from "./core/StoredTargets";
 export * from "./cursorlessEngine";
 export * from "./customCommandGrammar/parseCommand";
-export * from "./generateSpokenForm/defaultSpokenForms/surroundingPairsDelimiters";
 export * from "./generateSpokenForm/generateSpokenForm";
 export * from "./languages/TreeSitterQuery/TreeSitterQueryCache";
 export * from "./processTargets/modifiers/scopeHandlers/ScopeHandlerCache";

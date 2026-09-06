@@ -5,7 +5,7 @@ import { isEqual } from "lodash-es";
 import normalizePath from "normalize-path";
 import type { TsConfigJson } from "type-fest";
 import type { Context } from "./Context";
-import { toPosixPath } from "./toPosixPath";
+import { toPosixPath } from "./util/toPosixPath";
 
 const baseName = "tsconfig.base.json";
 const webJsonName = "tsconfig.web.json";

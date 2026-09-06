@@ -33,7 +33,7 @@ packages/test-runner/src/config/init.lua
 
 This is supported on Windows, Linux and OSX.
 
-It starts by running the `Neovim: Test` launch config from `.vscode/launch.json`. This dictates VSCode to attach to the `node` process that is spawned by `nvim` (more on this later). Note that it will only attach when the dependencies have been solved, which is indicated by the `"Neovim: Build extension and tests"` task:
+It starts by running the `Neovim: Test` launch config from `.vscode/launch.json`. This dictates VS Code to attach to the `node` process that is spawned by `nvim` (more on this later). Note that it will only attach when the dependencies have been solved, which is indicated by the `"Neovim: Build extension and tests"` task:
 
 ```json
     {
@@ -65,7 +65,7 @@ This effectively runs a series of dependency tasks from `.vscode/tasks.json`:
 
 Most of the tasks deal with building the Cursorless code except `"Neovim: Launch neovim (test)"` and `"Neovim: Show logs"` which are self explanatory.
 
-The `Neovim: Launch neovim (test)` task effectively starts `nvim` as a detached process. It is important because it means VSCode won't wait for `nvim` to exit before considering the task as finished. For example, for Windows it executes the `debug-neovim.bat` script :
+The `Neovim: Launch neovim (test)` task effectively starts `nvim` as a detached process. It is important because it means VS Code won't wait for `nvim` to exit before considering the task as finished. For example, for Windows it executes the `debug-neovim.bat` script :
 
 ```json
     {
@@ -159,9 +159,9 @@ local function load_extensions()
 
 However, because `nvim` was started with `"NVIM_NODE_HOST_DEBUG": "1"`, when `node` is spawned, `node` will hang and wait for a debugger to attach (`--inspect-brk`). Consequently, `nvim` won't finish loading yet (i.e. it won't finish loading `init.lua`).
 
-This is handy because it allows VSCode to finish all the tasks required for building the Cursorless neovim package (`app-neovim`, exposed to Neovim under `node/cursorless-neovim`) and the test runner package (`test-runner`, exposed under `node/test-runner`), which will finally trigger VSCode to attach to the `node` process.
+This is handy because it allows VS Code to finish all the tasks required for building the Cursorless neovim package (`app-neovim`, exposed to Neovim under `node/cursorless-neovim`) and the test runner package (`test-runner`, exposed under `node/test-runner`), which will finally trigger VS Code to attach to the `node` process.
 
-When VSCode attaches to the `node` process, `CursorlessLoadExtension()` is called to load the Cursorless neovim plugin and `TestRunnerRun()` is called to start the tests.
+When VS Code attaches to the `node` process, `CursorlessLoadExtension()` is called to load the Cursorless neovim plugin and `TestRunnerRun()` is called to start the tests.
 
 This ends up calling `TestRunnerRun()` from `packages/test-runner/src/index.ts` which calls `run()`:
 

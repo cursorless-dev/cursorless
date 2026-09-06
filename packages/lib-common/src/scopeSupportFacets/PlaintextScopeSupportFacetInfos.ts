@@ -98,15 +98,25 @@ export const plaintextScopeSupportFacetInfos: Record<
   },
   "collectionItem.textual": {
     description: "A text based collection item",
-    scopeType: {
-      type: "collectionItem",
-    },
+    scopeType: "collectionItem",
   },
   "collectionItem.textual.iteration": {
     description: "Iteration scope for text based collection items",
-    scopeType: {
-      type: "collectionItem",
-    },
+    scopeType: "collectionItem",
     isIteration: true,
+  },
+  "glyph.a": {
+    description: "A single `a` glyph",
+    scopeType: {
+      type: "glyph",
+      character: "a",
+    },
+  },
+  "glyph.dollar": {
+    description: "A single `$` glyph",
+    scopeType: {
+      type: "glyph",
+      character: "$",
+    },
   },
 };

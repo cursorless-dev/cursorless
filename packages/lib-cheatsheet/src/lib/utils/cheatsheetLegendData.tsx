@@ -23,7 +23,7 @@ export const cheatsheetLegendData: CheatsheetLegend = [
   {
     term: "target",
     definition: "Cursorless target",
-    link: "https://www.cursorless.org/docs/#targets",
+    link: "https://www.cursorless.org/docs/user/targets",
     id: "target",
   },
   {

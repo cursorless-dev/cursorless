@@ -2,7 +2,6 @@ import type { TutorialId } from "../../types/tutorial.types";
 
 interface SingleTutorialProgress {
   currentStep: number;
-  version: number;
 }
 
 export type TutorialProgress = Partial<

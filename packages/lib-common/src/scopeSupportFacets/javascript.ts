@@ -260,6 +260,20 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.loop": notApplicable,
   "branch.loop.iteration": notApplicable,
 
+  // Document
+  chapter: notApplicable,
+  subSection: notApplicable,
+  subSubSection: notApplicable,
+  sectionLevelOne: notApplicable,
+  sectionLevelTwo: notApplicable,
+  sectionLevelThree: notApplicable,
+  sectionLevelFour: notApplicable,
+  sectionLevelFive: notApplicable,
+  sectionLevelSix: notApplicable,
+  namedParagraph: notApplicable,
+  subParagraph: notApplicable,
+  part: notApplicable,
+
   // Miscellaneous
   environment: notApplicable,
   selector: notApplicable,
@@ -284,6 +298,8 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
 
   // These are defined here because we don't want typescript to import them and
   // accidentally forget to add support for them.
+
+  /* NOT APPLICABLE */
 
   // Type
   "type.argument.formal": notApplicable,

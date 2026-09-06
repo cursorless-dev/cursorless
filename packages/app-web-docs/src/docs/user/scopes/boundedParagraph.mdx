@@ -1,0 +1,58 @@
+---
+sidebar_label: Short block
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/boundedParagraph.json";
+
+# Short block (Bounded paragraph)
+
+Like `"block"`, but also stops at the boundary of a surrounding delimiter pair, so the selection does not escape the pair containing the input target.
+
+Cursorless ID: `boundedParagraph`
+
+## Spoken form
+
+Default: `short block`
+
+## Syntax
+
+- short block - Paragraph bounded by surrounding pair delimiters.
+
+## Examples
+
+- `"take short block blue air"` - Selects the bounded paragraph containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Bounded paragraph
+
+<i>A single paragraph(contiguous block of lines) in the document bounded by matching pair</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedParagraph/boundedParagraph" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedParagraph/boundedParagraph2" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedParagraph/boundedParagraph3" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedParagraph/boundedParagraph4" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedParagraph/boundedParagraph5" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedParagraph/boundedParagraph6" />
+
+### Bounded paragraph (iteration)
+
+<i>Iteration scope for bounded paragraph</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/boundedParagraph/boundedParagraph.iteration" />
+
+</ScopeVisualizerProvider>

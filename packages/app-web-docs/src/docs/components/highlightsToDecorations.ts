@@ -10,17 +10,19 @@ import type { BorderRadius, Highlight, Style } from "./types";
 export function highlightsToDecorations(
   highlights: Highlight[],
 ): DecorationItem[] {
-  return highlights.map((highlight): DecorationItem => {
-    const { start, end } = highlight.range;
-    return {
-      start,
-      end,
-      alwaysWrap: true,
-      properties: {
-        style: getStyleString(highlight.style),
-      },
-    };
-  });
+  return highlights.map(highlightToDecoration);
+}
+
+export function highlightToDecoration(highlight: Highlight): DecorationItem {
+  const { start, end } = highlight.range;
+  return {
+    start,
+    end,
+    alwaysWrap: true,
+    properties: {
+      style: getStyleString(highlight.style),
+    },
+  };
 }
 
 function getStyleString(style: Style): string {

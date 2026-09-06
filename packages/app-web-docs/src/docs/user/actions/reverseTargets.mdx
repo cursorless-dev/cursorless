@@ -1,0 +1,38 @@
+---
+sidebar_label: Reverse
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/reverseTargets.json";
+
+# Reverse (Reverse targets)
+
+This action changes the order of multiple target contents. The targets can come from a list or range target, or from existing multiple selections.
+
+Cursorless ID: `reverseTargets`
+
+## Spoken form
+
+Default: `reverse`
+
+## Syntax
+
+- reverse `<target>` - Reverse `<target>`s.
+
+## Examples
+
+- `"reverse every item blue air"` - Reverses the collection items associated with the token containing letter `a` with a blue hat.
+- `"reverse line blue air slice green bat"` - Reverses the lines from the token containing letter `a` with a blue hat through the token containing letter `b` with a green hat.
+- `"reverse this"` - Reverses the current selections.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"reverse every item"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/reverseTargets" />
+
+</RecordedTestVisualizerProvider>

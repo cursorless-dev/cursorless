@@ -1,0 +1,46 @@
+---
+sidebar_label: Unit
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/unit.json";
+
+# Unit
+
+Cursorless ID: `unit`
+
+## Spoken form
+
+Default: `unit`
+
+## Syntax
+
+- unit - Unit suffix in a measurement, such as `px` in `100px`.
+
+## Examples
+
+- `"take unit blue air"` - Selects the unit containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Unit
+
+<i>A unit in a css rule set</i>
+
+##### CSS
+
+<ScopeVisualizer fixtureName="scopes/css/unit/unit" />
+
+<ScopeVisualizer fixtureName="scopes/css/unit/unit2" />
+
+<ScopeVisualizer fixtureName="scopes/css/unit/unit3" />
+
+<ScopeVisualizer fixtureName="scopes/css/unit/unit4" />
+
+<ScopeVisualizer fixtureName="scopes/css/unit/unit5" />
+
+</ScopeVisualizerProvider>

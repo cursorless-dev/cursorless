@@ -1,0 +1,38 @@
+---
+sidebar_label: Paragraph
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/namedParagraph.json";
+
+# Paragraph (Named paragraph)
+
+Cursorless ID: `namedParagraph`
+
+## Spoken form
+
+Default: `paragraph`
+
+## Syntax
+
+- paragraph - Named document paragraph and its contents.
+
+## Examples
+
+- `"take paragraph blue air"` - Selects the named paragraph containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Named paragraph
+
+<i>A named paragraph</i>
+
+##### LaTeX
+
+<ScopeVisualizer fixtureName="scopes/latex/namedParagraph" />
+
+</ScopeVisualizerProvider>

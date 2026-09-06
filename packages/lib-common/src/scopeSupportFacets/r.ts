@@ -368,6 +368,20 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.package": notApplicable,
   "statement.import": notApplicable,
 
+  // Document
+  chapter: notApplicable,
+  subSection: notApplicable,
+  subSubSection: notApplicable,
+  sectionLevelOne: notApplicable,
+  sectionLevelTwo: notApplicable,
+  sectionLevelThree: notApplicable,
+  sectionLevelFour: notApplicable,
+  sectionLevelFive: notApplicable,
+  sectionLevelSix: notApplicable,
+  namedParagraph: notApplicable,
+  subParagraph: notApplicable,
+  part: notApplicable,
+
   // Miscellaneous
   "comment.block": notApplicable,
   "textFragment.comment.block": notApplicable,

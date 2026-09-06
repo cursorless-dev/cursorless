@@ -1,0 +1,34 @@
+---
+sidebar_label: Carve
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/cutToClipboard.json";
+
+# Carve (Cut to clipboard)
+
+Cursorless ID: `cutToClipboard`
+
+## Spoken form
+
+Default: `carve`
+
+## Syntax
+
+- carve `<target>` - Cut `<target>` to clipboard.
+
+## Examples
+
+- `"carve blue air"` - Cuts the token containing letter `a` with a blue hat to the clipboard.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"carve line"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/cutToClipboard" />
+
+</RecordedTestVisualizerProvider>

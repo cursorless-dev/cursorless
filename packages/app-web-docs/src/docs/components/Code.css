@@ -71,3 +71,98 @@
     background-color: #444;
   }
 }
+
+/* Code selection */
+.code-selection {
+  background-color: #264f78;
+}
+
+/* Code cursor */
+
+.code-cursor-before,
+.code-cursor-after {
+  position: relative;
+}
+
+.code-cursor-before::before,
+.code-cursor-after::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  pointer-events: none;
+  opacity: 1;
+  animation: code-cursor-blink 1s step-end infinite;
+}
+
+.code-cursor-before::before {
+  left: -1px;
+  border-left: 2px solid #aeafad;
+}
+
+.code-cursor-after::after {
+  right: -1px;
+  border-right: 2px solid #aeafad;
+}
+
+@keyframes code-cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .code-cursor-before::before,
+  .code-cursor-after::after {
+    animation: none;
+  }
+}
+
+/* Code hat */
+
+.code-hat {
+  position: relative;
+}
+
+.code-hat::before {
+  content: "";
+  position: absolute;
+  top: 0.15em;
+  left: 50%;
+  width: 0.3em;
+  height: 0.3em;
+  border-radius: 50%;
+  transform: translate(-50%, -100%);
+  pointer-events: none;
+}
+
+.code-hat-default::before {
+  background-color: #b9b6cd;
+}
+
+.code-hat-blue::before {
+  background-color: #089ad3;
+}
+
+.code-hat-green::before {
+  background-color: #36b33f;
+}
+
+.code-hat-red::before {
+  background-color: #e02d28;
+}
+
+.code-hat-pink::before {
+  background-color: #e06caa;
+}
+
+.code-hat-yellow::before {
+  background-color: #e5c02c;
+}
+
+/* Code mark referenced */
+
+.code-mark {
+  background-color: var(--code-mark-color);
+}

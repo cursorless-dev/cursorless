@@ -45,7 +45,10 @@ suite("TalonJS: Recorded test cases", async function () {
 });
 
 async function shouldSkipTest(path: string, name: string): Promise<boolean> {
-  if (name.startsWith("recorded/hatTokenMap")) {
+  if (
+    name.startsWith("recorded/hatTokenMap/") ||
+    name.startsWith("recorded/tutorial/")
+  ) {
     return true;
   }
 

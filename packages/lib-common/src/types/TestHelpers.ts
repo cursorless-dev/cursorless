@@ -6,7 +6,7 @@ import type {
   TestCaseSnapshot,
 } from "../testUtil/TestCaseSnapshot";
 import type { SerializedMarks, TargetPlainObject } from "../util/toPlainObject";
-import type { HatTokenMap } from "./HatTokenMap";
+import type { HatTokenMap, ReadOnlyHatMap } from "./HatTokenMap";
 import type { TextEditor } from "./TextEditor";
 
 export interface TestHelpers {
@@ -20,6 +20,7 @@ export interface TestHelpers {
     editor: TextEditor,
     ide: IDE,
     marks: SerializedMarks | undefined,
+    hatTokenMap: ReadOnlyHatMap | undefined,
   ): Promise<TestCaseSnapshot>;
 
   setStoredTarget(

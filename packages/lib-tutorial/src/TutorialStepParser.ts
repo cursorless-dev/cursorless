@@ -8,7 +8,6 @@ import type {
 import type { CustomSpokenFormGenerator } from "@cursorless/lib-engine";
 import { parseScopeType } from "@cursorless/lib-engine";
 import { getScopeTypeSpokenFormStrict } from "./getScopeTypeSpokenFormStrict";
-import { specialTerms } from "./specialTerms";
 import { ActionComponentParser } from "./stepComponentParsers/ActionComponentParser";
 import { CursorlessCommandComponentParser } from "./stepComponentParsers/CursorlessCommandComponentParser";
 import { GraphemeComponentParser } from "./stepComponentParsers/GraphemeComponentParser";
@@ -59,17 +58,10 @@ export class TutorialStepParser {
 
     this.componentParsers = {
       command: (arg) => cursorlessCommandParser.parse(arg),
-      special: (arg) => Promise.resolve(parseSpecialComponent(arg)),
+      special: (arg) =>
+        Promise.resolve(parseSpecialComponent(customSpokenFormGenerator, arg)),
       action: (arg) => actionParser.parse(arg),
       grapheme: (arg) => graphemeParser.parse(arg),
-
-      term: (arg) =>
-        Promise.resolve({
-          content: {
-            type: "term",
-            value: specialTerms[arg as keyof typeof specialTerms],
-          },
-        }),
 
       scopeType: (arg) =>
         Promise.resolve({

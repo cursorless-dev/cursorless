@@ -4,14 +4,6 @@ import type { VscodeApi } from "@cursorless/lib-vscode-common";
 import type { KeyMap, SectionName, TokenType } from "./TokenTypeHelpers";
 import type { SectionTypes, TokenTypeValueMap } from "./TokenTypes";
 
-const LEGACY_PLURAL_SECTION_NAMES: Record<string, string> = {
-  action: "actions",
-  color: "colors",
-  shape: "shapes",
-  vscodeCommand: "vscodeCommands",
-  scope: "scopes",
-};
-
 /**
  * Maps from the raw cursor style config value to the corresponding
  * TextEditorCursorStyle enum value.
@@ -56,22 +48,7 @@ export class KeyboardConfig {
         .getConfiguration("cursorless.experimental.keyboard.modal.keybindings")
         .get<KeyMap<SectionTypes[S]>>(sectionName);
 
-    let section = getSection(sectionName);
-
-    if (section == null || Object.keys(section).length === 0) {
-      const legacySectionName = LEGACY_PLURAL_SECTION_NAMES[sectionName];
-
-      if (legacySectionName != null) {
-        section = getSection(legacySectionName);
-        if (section != null && Object.keys(section).length > 0) {
-          void this.vscodeApi.window.showWarningMessage(
-            `The config section "cursorless.experimental.keyboard.modal.keybindings.${legacySectionName}" is deprecated. Please rename it to "cursorless.experimental.keyboard.modal.keybindings.${sectionName}".`,
-          );
-        }
-      }
-    }
-
-    return section ?? {};
+    return getSection(sectionName) ?? {};
   }
 
   /**

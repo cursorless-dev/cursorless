@@ -55,6 +55,7 @@ export class TestCase {
     private isDecorationsTest: boolean,
     private startTimestamp: bigint,
     private captureFinalThatMark: boolean,
+    private captureHatTokenMap: boolean,
     private extraSnapshotFields?: ExtraSnapshotField[],
     public readonly spokenFormError?: string,
   ) {
@@ -169,11 +170,16 @@ export class TestCase {
       this.spyIde.activeTextEditor!,
       this.spyIde,
       this.getMarks(),
+      this.captureHatTokenMap ? this.hatTokenMap : undefined,
       { startTimestamp: this.startTimestamp },
+      undefined,
     );
   }
 
-  async recordFinalState(returnValue: CommandResponse) {
+  async recordFinalState(
+    returnValue: CommandResponse,
+    getFinalHatTokenMap: () => Promise<ReadOnlyHatMap>,
+  ) {
     const excludeFields = this.getExcludedFields(false);
 
     if ("returnValue" in returnValue) {
@@ -183,13 +189,19 @@ export class TestCase {
       this.fallback = returnValue.fallback;
     }
 
+    const marks = this.isHatTokenMapTest ? this.getMarks() : undefined;
+    const hatTokenMap = this.captureHatTokenMap
+      ? await getFinalHatTokenMap()
+      : undefined;
+
     this.finalState = await takeSnapshot(
       this.storedTargets,
       excludeFields,
       this.extraSnapshotFields,
       this.spyIde.activeTextEditor!,
       this.spyIde,
-      this.isHatTokenMapTest ? this.getMarks() : undefined,
+      marks,
+      hatTokenMap,
       { startTimestamp: this.startTimestamp },
     );
     this.recordSpyIdeValues();

@@ -3,14 +3,16 @@ import type {
   PlaintextScopeSupportFacet,
   ScopeSupportFacet,
   Range,
+  TestCaseFixtureLegacy,
 } from "@cursorless/lib-common";
 
 export type RangeType = "content" | "removal" | "blend";
 export type FacetValue = ScopeSupportFacet | PlaintextScopeSupportFacet;
 
-export interface ScopeTests {
-  imports: Record<string, string[]>;
-  fixtures: Fixture[];
+export interface RecordedTest {
+  path: string;
+  name: string;
+  fixture: TestCaseFixtureLegacy;
 }
 
 export interface Fixture {

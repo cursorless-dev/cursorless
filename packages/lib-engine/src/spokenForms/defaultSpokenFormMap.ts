@@ -1,7 +1,10 @@
-import type { DefaultSpokenFormInfoMap } from "./defaultSpokenFormMap.types";
-import { defaultSpokenFormMapCore } from "./defaultSpokenFormMapCore";
-import type { SpokenFormMap } from "./SpokenFormMap";
+import { defaultSpokenFormMapCore } from "@cursorless/lib-common";
+import type { DefaultSpokenFormMapEntry } from "@cursorless/lib-common";
+import type { SpokenFormMap, SpokenFormMappingType } from "./SpokenFormMap";
 import { mapSpokenForms } from "./SpokenFormMap";
+
+export type DefaultSpokenFormInfoMap =
+  SpokenFormMappingType<DefaultSpokenFormMapEntry>;
 
 /**
  * This map contains information about the default spoken forms for all our
@@ -14,8 +17,6 @@ export const defaultSpokenFormInfoMap: DefaultSpokenFormInfoMap =
     typeof value === "string"
       ? {
           defaultSpokenForms: [value],
-          isDisabledByDefault: false,
-          isPrivate: false,
         }
       : value,
   );
@@ -26,11 +27,14 @@ export const defaultSpokenFormInfoMap: DefaultSpokenFormInfoMap =
  */
 export const defaultSpokenFormMap: SpokenFormMap = mapSpokenForms(
   defaultSpokenFormInfoMap,
-  ({ defaultSpokenForms, isDisabledByDefault, isPrivate }) => ({
-    spokenForms: isDisabledByDefault ? [] : defaultSpokenForms,
-    isCustom: false,
-    defaultSpokenForms,
-    requiresTalonUpdate: false,
-    isPrivate,
-  }),
+  ({ defaultSpokenForms, visibility }) => {
+    const isPrivate = visibility === "private";
+    return {
+      spokenForms: visibility == null ? defaultSpokenForms : [],
+      isCustom: false,
+      defaultSpokenForms,
+      requiresTalonUpdate: false,
+      isPrivate,
+    };
+  },
 );

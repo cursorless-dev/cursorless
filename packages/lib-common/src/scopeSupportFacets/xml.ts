@@ -350,6 +350,20 @@ export const xmlScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.iteration.document": notApplicable,
   "statement.iteration.block": notApplicable,
 
+  // Document
+  chapter: notApplicable,
+  subSection: notApplicable,
+  subSubSection: notApplicable,
+  sectionLevelOne: notApplicable,
+  sectionLevelTwo: notApplicable,
+  sectionLevelThree: notApplicable,
+  sectionLevelFour: notApplicable,
+  sectionLevelFive: notApplicable,
+  sectionLevelSix: notApplicable,
+  namedParagraph: notApplicable,
+  subParagraph: notApplicable,
+  part: notApplicable,
+
   // Miscellaneous
   environment: notApplicable,
   fieldAccess: notApplicable,

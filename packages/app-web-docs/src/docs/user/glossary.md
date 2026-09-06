@@ -1,3 +1,8 @@
+---
+sidebar_group: Project
+sidebar_position: 2
+---
+
 # Glossary
 
 Here we provide definitions for several commonly used Cursorless terms.

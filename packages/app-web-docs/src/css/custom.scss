@@ -25,3 +25,9 @@
 .pointer {
   cursor: pointer;
 }
+
+// Make active menu option more visible in Docusaurus
+/* stylelint-disable-next-line selector-class-pattern */
+.navbar__item.navbar__link--active {
+  box-shadow: inset 0 -3px 0 currentcolor;
+}

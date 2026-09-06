@@ -7,7 +7,6 @@ import type {
 import { KEY_VALUE_STORE_DEFAULTS } from "@cursorless/lib-common";
 import { VERSION_KEY } from "../../ReleaseNotes";
 import { DONT_SHOW_TALON_UPDATE_MESSAGE_KEY } from "../../ScopeTreeProvider";
-import { PERFORMED_PR_1868_SHAPE_UPDATE_INIT_KEY } from "./hats/performPr1868ShapeUpdateInit";
 
 export class VscodeKeyValueStore implements KeyValueStore {
   constructor(private extensionContext: ExtensionContext) {
@@ -15,7 +14,6 @@ export class VscodeKeyValueStore implements KeyValueStore {
     extensionContext.globalState.setKeysForSync([
       ...Object.keys(KEY_VALUE_STORE_DEFAULTS),
       VERSION_KEY,
-      PERFORMED_PR_1868_SHAPE_UPDATE_INIT_KEY,
       DONT_SHOW_TALON_UPDATE_MESSAGE_KEY,
     ]);
   }

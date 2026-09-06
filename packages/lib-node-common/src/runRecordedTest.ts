@@ -9,6 +9,7 @@ import type {
   ReadOnlyHatMap,
   SelectionPlainObject,
   SerializedMarks,
+  SimpleTokenHat,
   SpyIDE,
   TestCaseFixtureLegacy,
   TestHelpers,
@@ -18,6 +19,7 @@ import {
   clientSupportsFallback,
   getSnapshotForComparison,
   omitByDeep,
+  plainObjectToGeneralizedRange,
   Position,
   rangeToPlainObject,
   Selection,
@@ -27,6 +29,7 @@ import {
   splitKey,
   spyIDERecordedValuesToPlainObject,
   storedTargetKeys,
+  tokenHatToPlainObject,
 } from "@cursorless/lib-common";
 import { loadFixture } from "./loadFixture";
 
@@ -141,16 +144,25 @@ export async function runRecordedTest({
 
   // Ensure that the expected hats are present
   await hatTokenMap.allocateHats(
-    serializedMarksToTokenHats(
-      fixture.initialState.marks,
-      spyIde.activeTextEditor!,
+    serializedMarksToTokenHats(fixture.initialState.marks, editor),
+  );
+
+  await Promise.all(
+    (fixture.initialState.highlights ?? []).map((highlight) =>
+      spyIde.setInitialHighlightRanges(
+        highlight.highlightId,
+        editor,
+        highlight.ranges.map(plainObjectToGeneralizedRange),
+      ),
     ),
   );
 
-  const readableHatMap = await hatTokenMap.getReadableMap(usePrePhraseSnapshot);
+  const initialHatTokenMap =
+    await hatTokenMap.getReadableMap(usePrePhraseSnapshot);
 
   // Assert that recorded decorations are present
-  checkMarks(fixture.initialState.marks, readableHatMap);
+  checkMarks(fixture.initialState.marks, initialHatTokenMap);
+  checkHats(editor, fixture.initialState.hatTokenMap, initialHatTokenMap);
 
   let returnValue: unknown;
   let fallback: Fallback | undefined;
@@ -199,10 +211,16 @@ export async function runRecordedTest({
     await sleepWithBackoff(fixture.postCommandSleepTimeMs);
   }
 
+  const getFinalHatTokenMap = async () => {
+    await hatTokenMap.allocateHats();
+    return hatTokenMap.getReadableMap(false);
+  };
+
   const resultState = await getSnapshotForComparison(
     fixture.finalState,
-    readableHatMap,
+    initialHatTokenMap,
     spyIde,
+    getFinalHatTokenMap,
     takeSnapshot,
   );
 
@@ -265,4 +283,17 @@ function checkMarks(
     );
     assert.deepEqual(rangeToPlainObject(currentToken.range), token);
   }
+}
+
+function checkHats(
+  editor: TextEditor,
+  hats: SimpleTokenHat[] | undefined,
+  hatTokenMap: ReadOnlyHatMap,
+) {
+  if (hats == null) {
+    return;
+  }
+
+  const expected = hatTokenMap.getTokenHats(editor).map(tokenHatToPlainObject);
+  assert.deepEqual(expected, hats, "Unexpected hats");
 }

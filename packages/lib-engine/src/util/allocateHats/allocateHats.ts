@@ -41,7 +41,7 @@ interface AllocateHatsOptions {
  * a hat to each one in turn, deciding whether to keep old hat, steal a hat from
  * another token, or use a freely available hat.
  *
- * See [hat assignment](/docs/user/hatAssignment) for more info.
+ * See [hat assignment](/docs/user/hat-assignment) for more info.
  *
  * @param tokenGraphemeSplitter Splits tokens into graphemes
  * @param enabledHatStyles A list of all enabled hat styles

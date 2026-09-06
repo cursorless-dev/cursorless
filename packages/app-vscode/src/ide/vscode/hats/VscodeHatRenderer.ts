@@ -2,14 +2,9 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { isEqual } from "lodash-es";
 import vscode from "vscode";
-import type {
-  Listener,
-  Messages,
-  PathChangeListener,
-} from "@cursorless/lib-common";
+import type { Listener, PathChangeListener } from "@cursorless/lib-common";
 import { getErrorMessage, Notifier } from "@cursorless/lib-common";
 import { walkFiles } from "@cursorless/lib-node-common";
-import type { VscodeApi } from "@cursorless/lib-vscode-common";
 import type { HatShape, VscodeHatStyleName } from "../hatStyles.types";
 import { HAT_SHAPES } from "../hatStyles.types";
 import { vscodeGetConfigurationString } from "../VscodeConfiguration";
@@ -19,7 +14,6 @@ import type {
 } from "../VscodeEnabledHatStyleManager";
 import type { FontMeasurements } from "./FontMeasurements";
 import { getHatThemeColors } from "./getHatThemeColors";
-import { performPr1868ShapeUpdateInit } from "./performPr1868ShapeUpdateInit";
 import type { IndividualHatAdjustmentMap } from "./shapeAdjustments";
 import {
   DEFAULT_HAT_HEIGHT_EM,
@@ -72,9 +66,7 @@ export class VscodeHatRenderer {
   private decoder = new TextDecoder("utf-8");
 
   constructor(
-    private vscodeApi: VscodeApi,
     private extensionContext: vscode.ExtensionContext,
-    private messages: Messages,
     private enabledHatStyles: VscodeEnabledHatStyleManager,
     private fontMeasurements: FontMeasurements,
   ) {
@@ -205,16 +197,6 @@ export class VscodeHatRenderer {
     const userIndividualAdjustments = vscode.workspace
       .getConfiguration("cursorless")
       .get<IndividualHatAdjustmentMap>("individualHatAdjustments")!;
-
-    void performPr1868ShapeUpdateInit(
-      this.extensionContext,
-      this.vscodeApi,
-      this.messages,
-      this.enabledHatStyles.hatStyleMap,
-      userSizeAdjustment,
-      userVerticalOffset,
-      userIndividualAdjustments,
-    );
 
     const hatSvgMap = Object.fromEntries(
       await Promise.all(

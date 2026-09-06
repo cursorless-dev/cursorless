@@ -1,16 +1,20 @@
 import React, { useState } from "react";
-import type { ScopeSupportFacet } from "@cursorless/lib-common";
+import type {
+  LanguageScopeSupportId,
+  ScopeSupportFacet,
+} from "@cursorless/lib-common";
 import {
   languageScopeSupport,
   scopeSupportFacetInfos,
   ScopeSupportFacetLevel,
   scopeSupportFacets,
   serializeScopeType,
+  unsafeKeys,
 } from "@cursorless/lib-common";
 
 export function MissingLanguageScopes(): React.JSX.Element {
   const [showPrivate, setShowPrivate] = useState(false);
-  const languageIds = Object.keys(languageScopeSupport).toSorted();
+  const languageIds = unsafeKeys(languageScopeSupport).toSorted();
 
   return (
     <>
@@ -39,7 +43,7 @@ function Language({
   languageId,
   showPrivate,
 }: {
-  languageId: string;
+  languageId: LanguageScopeSupportId;
   showPrivate: boolean;
 }): React.JSX.Element | null {
   const scopeSupport = languageScopeSupport[languageId] ?? {};
