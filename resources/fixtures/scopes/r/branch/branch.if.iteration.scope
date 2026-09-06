@@ -1,0 +1,14 @@
+if (TRUE) {
+} else if (FALSE) {
+} else {
+}
+---
+
+[Content] =
+[Domain] = 0:0-3:1
+  >-----------
+0| if (TRUE) {
+1| } else if (FALSE) {
+2| } else {
+3| }
+   -<

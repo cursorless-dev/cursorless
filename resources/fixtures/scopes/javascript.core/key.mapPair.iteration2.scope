@@ -1,0 +1,7 @@
+const {foo = 0, bar: BAR} = baz;
+---
+
+[Content] =
+[Domain] = 0:7-0:24
+         >-----------------<
+0| const {foo = 0, bar: BAR} = baz;

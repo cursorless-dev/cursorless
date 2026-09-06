@@ -1,0 +1,10 @@
+%i[aaa bbb]
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:11
+  >-----------<
+0| %i[aaa bbb]
+
+[Insertion delimiter] = " "

@@ -1,0 +1,40 @@
+---
+sidebar_label: Full line
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/fullLine.json";
+
+# Full line
+
+Cursorless ID: `fullLine`
+
+## Spoken form
+
+Default: `full line`
+
+## Syntax
+
+- full line - Full line, including indentation.
+
+## Examples
+
+- `"take full line blue air"` - Selects the full line containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Full line
+
+<i>A single full line in the document. Includes leading and trailing whitespace.</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/fullLine" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/fullLine2" />
+
+</ScopeVisualizerProvider>

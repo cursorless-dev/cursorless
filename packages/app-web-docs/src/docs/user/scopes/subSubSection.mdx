@@ -1,0 +1,38 @@
+---
+sidebar_label: Subsubsection
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/subSubSection.json";
+
+# Subsubsection
+
+Cursorless ID: `subSubSection`
+
+## Spoken form
+
+Default: `subsubsection`
+
+## Syntax
+
+- subsubsection - Document subsubsection and its contents.
+
+## Examples
+
+- `"take subsubsection blue air"` - Selects the subsubsection containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Sub sub section
+
+<i>A document subsubsection</i>
+
+##### LaTeX
+
+<ScopeVisualizer fixtureName="scopes/latex/subSubSection" />
+
+</ScopeVisualizerProvider>

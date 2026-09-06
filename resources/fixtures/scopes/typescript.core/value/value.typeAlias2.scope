@@ -1,0 +1,20 @@
+export type For = Bar;
+---
+
+[Content] = 0:18-0:21
+                    >---<
+0| export type For = Bar;
+
+[Removal] = 0:15-0:21
+                 >------<
+0| export type For = Bar;
+
+[Leading delimiter] = 0:15-0:18
+                 >---<
+0| export type For = Bar;
+
+[Domain] = 0:0-0:22
+  >----------------------<
+0| export type For = Bar;
+
+[Insertion delimiter] = " "

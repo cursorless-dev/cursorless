@@ -1,0 +1,22 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: change inside
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: interiorOnly}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: Promise<() => number>;
+  selections:
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}
+  marks: {}
+finalState:
+  documentContents: Promise<>;
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

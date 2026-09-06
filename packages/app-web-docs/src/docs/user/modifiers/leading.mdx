@@ -1,0 +1,38 @@
+---
+sidebar_label: Leading
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/leading.json";
+
+# Leading
+
+Cursorless ID: `leading`
+
+## Spoken form
+
+Default: `leading`
+
+## Syntax
+
+- leading - Leading delimiter range.
+
+## Examples
+
+- `"take leading item blue air"` - Selects the leading delimiter of the item containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"take leading"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/leading" />
+
+### `"take leading item"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/leading2" />
+
+</RecordedTestVisualizerProvider>

@@ -1,0 +1,15 @@
+enum Foo {
+    Bar(aaa, bbb)
+}
+---
+
+[Content] =
+[Removal] = 1:8-1:16
+          >--------<
+1|     Bar(aaa, bbb)
+
+[Domain] = 1:4-1:17
+      >-------------<
+1|     Bar(aaa, bbb)
+
+[Insertion delimiter] = ", "

@@ -1,0 +1,20 @@
+export const foo = () => {};
+---
+
+[Content] = 0:13-0:16
+               >---<
+0| export const foo = () => {};
+
+[Removal] = 0:13-0:19
+               >------<
+0| export const foo = () => {};
+
+[Trailing delimiter] = 0:16-0:19
+                  >---<
+0| export const foo = () => {};
+
+[Domain] = 0:0-0:28
+  >----------------------------<
+0| export const foo = () => {};
+
+[Insertion delimiter] = " "

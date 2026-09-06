@@ -14,8 +14,9 @@ mod.list("cursorless_reformat_action", desc="Cursorless reformat action")
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def cursorless_reformat(
-        target: CursorlessExplicitTarget,  # pyright: ignore [reportGeneralTypeIssues]
+        target: CursorlessExplicitTarget,
         formatters: str,
     ):
         """Execute Cursorless reformat action. Reformat target with formatter"""

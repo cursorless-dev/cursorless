@@ -1,0 +1,53 @@
+public class Foo {
+    private int bar;
+    private int baz = 0;
+}
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-3:1
+  >------------------
+0| public class Foo {
+1|     private int bar;
+2|     private int baz = 0;
+3| }
+   -<
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 1:4-1:20
+      >----------------<
+1|     private int bar;
+
+[#2 Removal] = 1:0-2:0
+  >--------------------
+1|     private int bar;
+2|     private int baz = 0;
+   <
+
+[#2 Leading delimiter] = 1:0-1:4
+  >----<
+1|     private int bar;
+
+[#2 Insertion delimiter] = "\n"
+
+
+[#3 Content] =
+[#3 Domain] = 2:4-2:24
+      >--------------------<
+2|     private int baz = 0;
+
+[#3 Removal] = 2:0-3:0
+  >------------------------
+2|     private int baz = 0;
+3| }
+   <
+
+[#3 Leading delimiter] = 2:0-2:4
+  >----<
+2|     private int baz = 0;
+
+[#3 Insertion delimiter] = "\n"

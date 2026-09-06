@@ -1,0 +1,10 @@
+\chapter{Introduction}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:22
+  >----------------------<
+0| \chapter{Introduction}
+
+[Insertion delimiter] = "\n\n"

@@ -1,0 +1,24 @@
+public interface Foo {}
+---
+
+[Content] = 0:17-0:20
+                   >---<
+0| public interface Foo {}
+
+[Removal] = 0:17-0:21
+                   >----<
+0| public interface Foo {}
+
+[Leading delimiter] = 0:16-0:17
+                  >-<
+0| public interface Foo {}
+
+[Trailing delimiter] = 0:20-0:21
+                      >-<
+0| public interface Foo {}
+
+[Domain] = 0:0-0:23
+  >-----------------------<
+0| public interface Foo {}
+
+[Insertion delimiter] = " "

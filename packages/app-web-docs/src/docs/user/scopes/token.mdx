@@ -1,0 +1,40 @@
+---
+sidebar_label: Token
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/token.json";
+
+# Token
+
+Expands the input to the nearest containing token. Without an explicit mark, it uses the token adjacent to the cursor or containing the current selection.
+
+Cursorless ID: `token`
+
+## Spoken form
+
+Default: `token`
+
+## Syntax
+
+- token - Token such as a word, number, or operator.
+
+## Examples
+
+- `"take token blue air"` - Selects the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Token
+
+<i>A single token in the document</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/token" />
+
+</ScopeVisualizerProvider>

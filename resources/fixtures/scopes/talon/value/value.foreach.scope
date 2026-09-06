@@ -1,0 +1,46 @@
+command:
+    for v in values: print(v)
+---
+
+[#1 Content] = 1:4-1:29
+      >-------------------------<
+1|     for v in values: print(v)
+
+[#1 Removal] = 0:7-1:29
+         >-
+0| command:
+1|     for v in values: print(v)
+   -----------------------------<
+
+[#1 Leading delimiter] = 0:7-1:4
+         >-
+0| command:
+1|     for v in values: print(v)
+   ----<
+
+[#1 Domain] = 0:0-1:29
+  >--------
+0| command:
+1|     for v in values: print(v)
+   -----------------------------<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:13-1:19
+               >------<
+1|     for v in values: print(v)
+
+[#2 Removal] = 1:12-1:19
+              >-------<
+1|     for v in values: print(v)
+
+[#2 Leading delimiter] = 1:12-1:13
+              >-<
+1|     for v in values: print(v)
+
+[#2 Domain] = 1:4-1:29
+      >-------------------------<
+1|     for v in values: print(v)
+
+[#2 Insertion delimiter] = " "

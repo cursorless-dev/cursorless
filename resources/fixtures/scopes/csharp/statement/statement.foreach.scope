@@ -1,0 +1,10 @@
+foreach (int v in values) {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:28
+  >----------------------------<
+0| foreach (int v in values) {}
+
+[Insertion delimiter] = "\n"

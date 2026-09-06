@@ -1,0 +1,44 @@
+---
+sidebar_label: Call
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/callAsFunction.json";
+
+# Call (Call as function)
+
+Cursorless ID: `callAsFunction`
+
+## Spoken form
+
+Default: `call`
+
+## Syntax
+
+- call `<target>` - Insert call to `<target>` on selection.
+- call `<target 1>` on `<target 2>` - Insert call to `<target 1>` on `<target 2>`.
+
+## Examples
+
+- `"call blue air"` - Inserts a call to the token containing letter `a` with a blue hat at the current selection.
+- `"call blue air on green bat"` - Inserts a call to the token containing letter `a` with a blue hat on the token containing letter `b` with a green hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"call air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/callAsFunction" />
+
+### `"call air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/callAsFunction2" />
+
+### `"call air on bat"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/callAsFunction3" />
+
+</RecordedTestVisualizerProvider>

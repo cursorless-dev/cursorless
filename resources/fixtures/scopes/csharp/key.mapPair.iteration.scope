@@ -1,0 +1,7 @@
+new Foo {aaa = 0, bbb = 1};
+---
+
+[Content] =
+[Domain] = 0:9-0:25
+           >----------------<
+0| new Foo {aaa = 0, bbb = 1};

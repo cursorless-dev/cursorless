@@ -1,0 +1,39 @@
+---
+sidebar_label: Three section
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/sectionLevelThree.json";
+
+# Three section (Section level three)
+
+Cursorless ID: `sectionLevelThree`
+
+## Spoken form
+
+Default: `three section`\
+**Disabled by default**
+
+## Syntax
+
+- three section - Level-three heading and its content.
+
+## Examples
+
+- `"take three section blue air"` - Selects the section level three containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Section level three
+
+<i>A level three section</i>
+
+##### Markdown
+
+<ScopeVisualizer fixtureName="scopes/markdown/sectionLevelThree" />
+
+</ScopeVisualizerProvider>

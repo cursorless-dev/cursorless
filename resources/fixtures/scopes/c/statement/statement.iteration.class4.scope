@@ -1,0 +1,13 @@
+typedef union { } Foo;
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:22
+  >----------------------<
+0| typedef union { } Foo;
+
+
+[#2 Content] =
+[#2 Domain] = 0:15-0:16
+                 >-<
+0| typedef union { } Foo;

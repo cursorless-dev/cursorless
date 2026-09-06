@@ -1,0 +1,10 @@
+typedef int foo;
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:16
+  >----------------<
+0| typedef int foo;
+
+[Insertion delimiter] = " "

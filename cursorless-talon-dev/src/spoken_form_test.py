@@ -39,30 +39,31 @@ commands_run = []
 
 mockedGetValue = ""
 
-community_snippets_tag_name = "user.cursorless_use_community_snippets"
-
 
 @ctx.action_class("user")
 class UserActions:
     def did_emit_pre_phrase_signal():
         return True
 
+    @staticmethod
     def private_cursorless_run_rpc_command_and_wait(
-        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        command_id: str,
         arg1: Any,
         arg2: Any = None,
     ):
         commands_run.append(arg1)
 
+    @staticmethod
     def private_cursorless_run_rpc_command_no_wait(
-        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        command_id: str,
         arg1: Any,
         arg2: Any = None,
     ):
         commands_run.append(arg1)
 
+    @staticmethod
     def private_cursorless_run_rpc_command_get(
-        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        command_id: str,
         arg1: Any,
         arg2: Any = None,
     ) -> Any:
@@ -72,7 +73,8 @@ class UserActions:
 
 @mod.action_class
 class Actions:
-    def private_cursorless_spoken_form_test_mode(enable: bool):  # pyright: ignore [reportGeneralTypeIssues]
+    @staticmethod
+    def private_cursorless_spoken_form_test_mode(enable: bool):
         """Enable/disable Cursorless spoken form test mode"""
         global saved_modes, saved_microphone
 
@@ -99,22 +101,9 @@ class Actions:
                 "Cursorless spoken form tests are done. Talon microphone is re-enabled."
             )
 
-    def private_cursorless_use_community_snippets(enable: bool):  # pyright: ignore [reportGeneralTypeIssues]
-        """Enable/disable cursorless community snippets in test mode"""
-        if enable:
-            tags = set(ctx.tags)
-            tags.add(community_snippets_tag_name)
-            ctx.tags = list(tags)
-        else:
-            tags = set(ctx.tags)
-            tags.remove(community_snippets_tag_name)
-            ctx.tags = list(tags)
-        # Note: Test harness hangs if we don't print anything because it's
-        # waiting for stdout
-        print(f"Set community snippet enablement to {enable}")
-
+    @staticmethod
     def private_cursorless_spoken_form_test(
-        phrase: str,  # pyright: ignore [reportGeneralTypeIssues]
+        phrase: str,
         mockedGetValue_: Optional[str],
     ):
         """Run Cursorless spoken form test"""

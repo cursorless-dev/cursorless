@@ -1,0 +1,27 @@
+void main() {
+    switch (foo) {
+        case 0:
+            break;
+    }
+}
+---
+
+[Content] =
+[Domain] = 2:8-3:18
+          >-------
+2|         case 0:
+3|             break;
+   ------------------<
+
+[Removal] = 2:0-4:0
+  >---------------
+2|         case 0:
+3|             break;
+4|     }
+   <
+
+[Leading delimiter] = 2:0-2:8
+  >--------<
+2|         case 0:
+
+[Insertion delimiter] = "\n"

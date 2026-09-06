@@ -1,0 +1,50 @@
+---
+sidebar_label: Element
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/xmlElement.json";
+
+# Element (XML element)
+
+Cursorless ID: `xmlElement`
+
+## Spoken form
+
+Default: `element`
+
+## Syntax
+
+- element - Complete XML, HTML, or JSX element, or a LaTeX environment.
+
+## Examples
+
+- `"take element blue air"` - Selects the XML element containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Element
+
+<i>A xml/html element. Also used for LaTeX environments</i>
+
+##### HTML
+
+<ScopeVisualizer fixtureName="scopes/html/element" />
+
+##### JavaScript React
+
+<ScopeVisualizer fixtureName="scopes/javascript.jsx/element" />
+
+##### LaTeX
+
+<ScopeVisualizer fixtureName="scopes/latex/element" />
+
+##### XML
+
+<ScopeVisualizer fixtureName="scopes/xml/element" />
+
+</ScopeVisualizerProvider>

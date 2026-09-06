@@ -1,0 +1,21 @@
+<?php
+function foo(array ...$aaa) {}
+---
+
+[Content] = 1:13-1:18
+               >-----<
+1| function foo(array ...$aaa) {}
+
+[Removal] = 1:13-1:19
+               >------<
+1| function foo(array ...$aaa) {}
+
+[Trailing delimiter] = 1:18-1:19
+                    >-<
+1| function foo(array ...$aaa) {}
+
+[Domain] = 1:13-1:26
+               >-------------<
+1| function foo(array ...$aaa) {}
+
+[Insertion delimiter] = " "

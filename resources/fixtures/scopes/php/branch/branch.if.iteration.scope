@@ -1,0 +1,13 @@
+<?php
+if (true) {}
+else if (false) {}
+else {}
+---
+
+[Content] =
+[Domain] = 1:0-3:7
+  >------------
+1| if (true) {}
+2| else if (false) {}
+3| else {}
+   -------<

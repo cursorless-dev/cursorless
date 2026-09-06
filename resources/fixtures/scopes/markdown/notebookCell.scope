@@ -1,0 +1,23 @@
+```ts
+let foo;
+```
+
+---
+
+[Content] =
+[Domain] = 0:0-2:3
+  >-----
+0| ```ts
+1| let foo;
+2| ```
+   ---<
+
+[Removal] = 0:0-3:0
+  >-----
+0| ```ts
+1| let foo;
+2| ```
+3|
+   <
+
+[Insertion delimiter] = "\n\n"

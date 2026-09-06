@@ -1,0 +1,10 @@
+while true { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:12-0:13
+              >-<
+0| while true { }
+
+[Insertion delimiter] = " "

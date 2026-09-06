@@ -1,0 +1,10 @@
+fun bar(aaa: Int, bbb: Int) {}
+---
+
+[Content] = 0:8-0:26
+          >------------------<
+0| fun bar(aaa: Int, bbb: Int) {}
+
+[Domain] = 0:0-0:30
+  >------------------------------<
+0| fun bar(aaa: Int, bbb: Int) {}

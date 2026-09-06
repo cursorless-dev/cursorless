@@ -1,0 +1,10 @@
+list(aaa, bbb)
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:14
+  >--------------<
+0| list(aaa, bbb)
+
+[Insertion delimiter] = " "

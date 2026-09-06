@@ -1,5 +1,6 @@
 name: Run Tests
 permissions: read-all
+
 on:
   push:
     branches:
@@ -10,8 +11,42 @@ on:
     branches: [main]
   workflow_dispatch:
 
+env:
+  CURSORLESS_REPO_ROOT: ${{ github.workspace }}
+  TEMP_DIR: ${{ github.workspace }}/temp
+  NODE_OPTIONS: "--max-old-space-size=4096"
+
 jobs:
-  test:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: ./.github/actions/setup-node
+
+      - name: Lint
+        run: pnpm --color lint
+
+      - name: Forbid TODO
+        run: ./resources/scripts/forbid-todo.sh
+
+  build-website:
+    name: Build Website
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: ./.github/actions/setup-node
+
+      - name: Build website
+        run: bash -x resources/scripts/build-and-assemble-website.sh
+
+  test-main:
     name: Test
     strategy:
       fail-fast: false
@@ -24,78 +59,131 @@ jobs:
     runs-on: ${{ matrix.os }}
     env:
       APP_VERSION: ${{ matrix.app_version }}
-      NEOVIM_VERSION: ${{ matrix.app_version == 'stable' && 'stable' || 'v0.10.0' }}
       VSCODE_CRASH_DIR: ${{ github.workspace }}/artifacts/dumps
       VSCODE_LOGS_DIR: ${{ github.workspace }}/artifacts/logs
-      CURSORLESS_REPO_ROOT: ${{ github.workspace }}
-      TEMP_DIR: ${{ github.workspace }}/temp
-      NODE_OPTIONS: "--max-old-space-size=4096"
     steps:
-      - uses: actions/checkout@v4
-      - run: corepack enable
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-          cache: pnpm
-      - run: mkdir -p "${{ env.VSCODE_CRASH_DIR }}" "${{ env.VSCODE_LOGS_DIR }}" "${{ env.TEMP_DIR }}"
+      - name: Git config
+        run: git config --global core.autocrlf false
+
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: ./.github/actions/setup-node
+
+      - name: Creating log directories
+        run: mkdir -p "${{ env.VSCODE_CRASH_DIR }}" "${{ env.VSCODE_LOGS_DIR }}" "${{ env.TEMP_DIR }}"
         shell: bash
-      - run: pnpm --color install
-      - run: pnpm --color compile
-      - run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
-      - run: xvfb-run -a pnpm --color test
+
+      - name: Build
+        run: pnpm --color -F '!@cursorless/app-web' -F '!@cursorless/app-web-docs' build
+
+      - name: Run unit tests (Linux)
+        run: xvfb-run -a pnpm --color test
         if: runner.os == 'Linux'
-      - run: pnpm --color test
+
+      - name: Run unit tests (Win,Mac)
+        run: pnpm --color test
         if: runner.os != 'Linux'
-      - run: xvfb-run -a pnpm -F @cursorless/test-harness test:talonJs
-        if: runner.os == 'Linux' && matrix.vscode_version == 'stable'
-      - run: pnpm -F @cursorless/test-harness test:talonJs
-        if: runner.os != 'Linux' && matrix.vscode_version == 'stable'
-      - run: xvfb-run -a pnpm -F @cursorless/cursorless-everywhere-talon-e2e test:quickjs
-        if: runner.os == 'Linux' && matrix.vscode_version == 'stable'
-      - run: pnpm -F @cursorless/cursorless-everywhere-talon-e2e test:quickjs
-        if: runner.os != 'Linux' && matrix.vscode_version == 'stable'
-      - run: bash -x scripts/install-neovim-dependencies.sh
-      - uses: rhysd/action-setup-vim@v1
-        id: vim
-        with:
-          version: ${{ env.NEOVIM_VERSION }}
-          neovim: true
-      - name: Run neovim tests
-        run: xvfb-run -a pnpm -F @cursorless/test-harness test:neovim
+
+      - name: Run VSCode tests (Linux)
+        run: xvfb-run -a pnpm -F @cursorless/test-runner test:vscode
         if: runner.os == 'Linux'
-        env:
-          NEOVIM_PATH: ${{ steps.vim.outputs.executable }}
-      - uses: ./.github/actions/test-neovim-lua/
+
+      - name: Run VSCode tests (Win,Mac)
+        run: pnpm -F @cursorless/test-runner test:vscode
+        if: runner.os != 'Linux'
+
+      - name: Run Talon-JS tests (Linux)
+        run: xvfb-run -a pnpm -F @cursorless/test-runner test:talonjs
         if: runner.os == 'Linux' && matrix.app_version == 'stable'
-      - uses: ./.github/actions/lint-lua-ls/
+
+      - name: Run Talon-JS tests (Win,Mac)
+        run: pnpm -F @cursorless/test-runner test:talonjs
+        if: runner.os != 'Linux'
+
+      - name: Run QuickJS tests (Linux)
+        run: xvfb-run -a pnpm -F @cursorless/test-talon-e2e test:quickjs
         if: runner.os == 'Linux' && matrix.app_version == 'stable'
-      - name: Create vscode dist that can be installed locally
-        run: pnpm -F @cursorless/cursorless-vscode populate-dist --local-install
+
+      - name: Run QuickJS tests (Win)
+        run: pnpm -F @cursorless/test-talon-e2e test:quickjs
+        if: runner.os == 'Windows'
+
+      # QuickJS tests are currently broken on Mac, so we disable them for now.
+      # - name: Run QuickJS tests (Win,Mac)
+      #   run: pnpm -F @cursorless/test-talon-e2e test:quickjs
+      #   if: runner.os != 'Linux'
+
+      - name: Create VSCode dist that can be installed locally
+        run: pnpm -F @cursorless/app-vscode populate-dist --local-install
         if: runner.os == 'Linux' && matrix.app_version == 'stable'
+
       - name: Test create vsix
         id: createVsix
-        uses: HaaLeo/publish-vscode-extension@v1
+        uses: HaaLeo/publish-vscode-extension@v2
         with:
           pat: none
-          packagePath: packages/cursorless-vscode/dist
+          packagePath: packages/app-vscode/dist
           dryRun: true
-      - run: mv ${{ steps.createVsix.outputs.vsixPath }} cursorless-development.vsix
+
+      - name: Rename vsix (Linux)
+        run: mv ${{ steps.createVsix.outputs.vsixPath }} cursorless-development.vsix
         if: runner.os == 'Linux' && matrix.app_version == 'stable'
-      - name: Upload vsix
-        uses: actions/upload-artifact@v4
+
+      - name: Upload vsix (Linux)
+        uses: actions/upload-artifact@v7
         if: runner.os == 'Linux' && matrix.app_version == 'stable'
         with:
           name: vsix
           path: cursorless-development.vsix
+
       - name: Archive logs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: logs
+          name: logs-${{ matrix.os }}-${{ matrix.app_version }}
           path: ${{ env.VSCODE_LOGS_DIR }}
         if: failure()
+
       - name: Archive dumps
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: dumps
+          name: dumps-${{ matrix.os }}-${{ matrix.app_version }}
           path: ${{ env.VSCODE_CRASH_DIR }}
         if: failure()
+
+  test-neovim:
+    name: Test Neovim
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git config
+        run: git config --global core.autocrlf false
+
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: ./.github/actions/setup-node
+
+      - name: Build
+        run: pnpm --color -F '!@cursorless/app-web' -F '!@cursorless/app-web-docs' build
+
+      - name: Install neovim dependencies
+        run: bash -x resources/scripts/install-neovim-dependencies.sh
+
+      - name: Setup neovim
+        uses: rhysd/action-setup-vim@v1
+        id: vim
+        with:
+          neovim: true
+
+      - name: Run neovim tests
+        run: xvfb-run -a pnpm -F @cursorless/test-runner test:neovim
+        env:
+          NEOVIM_PATH: ${{ steps.vim.outputs.executable }}
+
+      - name: Run neovim lua tests
+        uses: ./.github/actions/test-neovim-lua
+
+      - name: Run neovim lua lint
+        uses: ./.github/actions/lint-lua-ls

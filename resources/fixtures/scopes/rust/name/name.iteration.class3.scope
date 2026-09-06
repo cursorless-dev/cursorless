@@ -1,0 +1,13 @@
+trait Foo { }
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:13
+  >-------------<
+0| trait Foo { }
+
+
+[#2 Content] =
+[#2 Domain] = 0:11-0:12
+             >-<
+0| trait Foo { }

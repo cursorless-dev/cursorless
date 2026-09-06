@@ -1,0 +1,24 @@
+switch v := x.(type) {}
+---
+
+[Content] = 0:7-0:20
+         >-------------<
+0| switch v := x.(type) {}
+
+[Removal] = 0:7-0:21
+         >--------------<
+0| switch v := x.(type) {}
+
+[Leading delimiter] = 0:6-0:7
+        >-<
+0| switch v := x.(type) {}
+
+[Trailing delimiter] = 0:20-0:21
+                      >-<
+0| switch v := x.(type) {}
+
+[Domain] = 0:0-0:23
+  >-----------------------<
+0| switch v := x.(type) {}
+
+[Insertion delimiter] = " "

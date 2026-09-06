@@ -1,0 +1,20 @@
+fn foo() -> i32 {}
+---
+
+[Content] = 0:12-0:15
+              >---<
+0| fn foo() -> i32 {}
+
+[Removal] = 0:8-0:15
+          >-------<
+0| fn foo() -> i32 {}
+
+[Leading delimiter] = 0:8-0:12
+          >----<
+0| fn foo() -> i32 {}
+
+[Domain] = 0:0-0:18
+  >------------------<
+0| fn foo() -> i32 {}
+
+[Insertion delimiter] = " "

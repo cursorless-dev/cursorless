@@ -1,0 +1,39 @@
+def foo(aaa: Int, bbb: Int) {}
+---
+
+[#1 Content] = 0:13-0:16
+               >---<
+0| def foo(aaa: Int, bbb: Int) {}
+
+[#1 Removal] = 0:11-0:16
+             >-----<
+0| def foo(aaa: Int, bbb: Int) {}
+
+[#1 Leading delimiter] = 0:11-0:13
+             >--<
+0| def foo(aaa: Int, bbb: Int) {}
+
+[#1 Domain] = 0:8-0:16
+          >--------<
+0| def foo(aaa: Int, bbb: Int) {}
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 0:23-0:26
+                         >---<
+0| def foo(aaa: Int, bbb: Int) {}
+
+[#2 Removal] = 0:21-0:26
+                       >-----<
+0| def foo(aaa: Int, bbb: Int) {}
+
+[#2 Leading delimiter] = 0:21-0:23
+                       >--<
+0| def foo(aaa: Int, bbb: Int) {}
+
+[#2 Domain] = 0:18-0:26
+                    >--------<
+0| def foo(aaa: Int, bbb: Int) {}
+
+[#2 Insertion delimiter] = " "

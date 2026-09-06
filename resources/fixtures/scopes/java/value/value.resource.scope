@@ -1,0 +1,20 @@
+try (Foo foo = create()) {}
+---
+
+[Content] = 0:15-0:23
+                 >--------<
+0| try (Foo foo = create()) {}
+
+[Removal] = 0:14-0:23
+                >---------<
+0| try (Foo foo = create()) {}
+
+[Leading delimiter] = 0:14-0:15
+                >-<
+0| try (Foo foo = create()) {}
+
+[Domain] = 0:0-0:27
+  >---------------------------<
+0| try (Foo foo = create()) {}
+
+[Insertion delimiter] = " "

@@ -1,0 +1,182 @@
+{
+    language: {},
+    choices: {
+        disabled: true,
+        items: {
+            colWidth: [2, 10]
+        }
+    },
+    versions: {}
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 1:4-1:16
+      >------------<
+1|     language: {},
+
+[#1 Removal] = 1:4-2:4
+      >-------------
+1|     language: {},
+2|     choices: {
+   ----<
+
+[#1 Trailing delimiter] = 1:16-2:4
+                  >-
+1|     language: {},
+2|     choices: {
+   ----<
+
+[#1 Insertion delimiter] = ",\n"
+
+
+[#2 Content] =
+[#2 Domain] = 2:4-7:5
+      >----------
+2|     choices: {
+3|         disabled: true,
+4|         items: {
+5|             colWidth: [2, 10]
+6|         }
+7|     },
+   -----<
+
+[#2 Removal] = 2:4-8:4
+      >----------
+2|     choices: {
+3|         disabled: true,
+4|         items: {
+5|             colWidth: [2, 10]
+6|         }
+7|     },
+8|     versions: {}
+   ----<
+
+[#2 Leading delimiter] = 1:16-2:4
+                  >-
+1|     language: {},
+2|     choices: {
+   ----<
+
+[#2 Trailing delimiter] = 7:5-8:4
+       >-
+7|     },
+8|     versions: {}
+   ----<
+
+[#2 Insertion delimiter] = ",\n"
+
+
+[#3 Content] =
+[#3 Domain] = 3:8-3:22
+          >--------------<
+3|         disabled: true,
+
+[#3 Removal] = 3:8-4:8
+          >---------------
+3|         disabled: true,
+4|         items: {
+   --------<
+
+[#3 Trailing delimiter] = 3:22-4:8
+                        >-
+3|         disabled: true,
+4|         items: {
+   --------<
+
+[#3 Insertion delimiter] = ",\n"
+
+
+[#4 Content] =
+[#4 Domain] = 4:8-6:9
+          >--------
+4|         items: {
+5|             colWidth: [2, 10]
+6|         }
+   ---------<
+
+[#4 Removal] = 3:22-6:9
+                        >-
+3|         disabled: true,
+4|         items: {
+5|             colWidth: [2, 10]
+6|         }
+   ---------<
+
+[#4 Leading delimiter] = 3:22-4:8
+                        >-
+3|         disabled: true,
+4|         items: {
+   --------<
+
+[#4 Insertion delimiter] = ",\n"
+
+
+[#5 Content] =
+[#5 Domain] = 5:12-5:29
+              >-----------------<
+5|             colWidth: [2, 10]
+
+[#5 Removal] = 5:0-6:0
+  >-----------------------------
+5|             colWidth: [2, 10]
+6|         }
+   <
+
+[#5 Leading delimiter] = 5:0-5:12
+  >------------<
+5|             colWidth: [2, 10]
+
+[#5 Insertion delimiter] = ",\n"
+
+
+[#6 Content] =
+[#6 Domain] = 5:23-5:24
+                         >-<
+5|             colWidth: [2, 10]
+
+[#6 Removal] = 5:23-5:26
+                         >---<
+5|             colWidth: [2, 10]
+
+[#6 Trailing delimiter] = 5:24-5:26
+                          >--<
+5|             colWidth: [2, 10]
+
+[#6 Insertion delimiter] = ", "
+
+
+[#7 Content] =
+[#7 Domain] = 5:26-5:28
+                            >--<
+5|             colWidth: [2, 10]
+
+[#7 Removal] = 5:24-5:28
+                          >----<
+5|             colWidth: [2, 10]
+
+[#7 Leading delimiter] = 5:24-5:26
+                          >--<
+5|             colWidth: [2, 10]
+
+[#7 Insertion delimiter] = ", "
+
+
+[#8 Content] =
+[#8 Domain] = 8:4-8:16
+      >------------<
+8|     versions: {}
+
+[#8 Removal] = 7:5-8:16
+       >-
+7|     },
+8|     versions: {}
+   ----------------<
+
+[#8 Leading delimiter] = 7:5-8:4
+       >-
+7|     },
+8|     versions: {}
+   ----<
+
+[#8 Insertion delimiter] = ",\n"

@@ -1,0 +1,26 @@
+{
+  "name": "@cursorless/lib-node-common",
+  "version": "1.0.0",
+  "description": "Package containing node utilities",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc",
+    "clean": "rm -rf ./out ./dist ./tsconfig.tsbuildinfo"
+  },
+  "dependencies": {
+    "@cursorless/lib-common": "workspace:*",
+    "fast-glob": "^3.3.3",
+    "immer": "^11.1.18",
+    "lodash-es": "^4.18.1",
+    "node-html-parser": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/lodash-es": "^4.17.12",
+    "js-yaml": "^5.3.0"
+  }
+}

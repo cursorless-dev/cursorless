@@ -1,0 +1,374 @@
+import { produce } from "immer";
+import { isEqual } from "lodash-es";
+import type {
+  Disposable,
+  GeneralizedRange,
+  Hats,
+  HatTokenMap,
+  IDE,
+  ResolvedTutorialContent,
+  ReadOnlyHatMap,
+  ScopeType,
+  TextEditor,
+  TutorialContentProvider,
+  TutorialId,
+  TutorialState,
+} from "@cursorless/lib-common";
+import {
+  Debouncer,
+  getTutorialsForContext,
+  Notifier,
+} from "@cursorless/lib-common";
+import type {
+  CommandRunner,
+  CommandRunnerDecorator,
+  CustomSpokenFormGenerator,
+} from "@cursorless/lib-engine";
+import { arePreconditionsMet } from "./arePreconditionsMet";
+import { loadTutorial } from "./loadTutorial";
+import { setupStep } from "./setupStep";
+import type { Tutorial } from "./Tutorial";
+import { tutorialWrapCommandRunner } from "./tutorialWrapCommandRunner";
+import type { TutorialContent } from "./types/tutorial.types";
+
+const HIGHLIGHT_COLOR = "highlight0";
+
+export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
+  /**
+   * The current editor that is being used to display the tutorial, if any.
+   */
+  private editor?: TextEditor;
+
+  /**
+   * The current highlight ranges that are being used to display the tutorial,
+   * if any. We store these so that we can remove them when user has gone off
+   * the tutorial path and then restore them when they come back.
+   */
+  private highlightRanges: GeneralizedRange[] = [];
+
+  /**
+   * The current state of the tutorial, as exposed by {@link Tutorial.state}.
+   */
+  private state_: TutorialState = { type: "loading" };
+
+  /**
+   * If {@link state_} is "doingTutorial", this will be the fully parsed current
+   * tutorial, including information about triggers, etc.
+   */
+  private currentTutorial: TutorialContent | undefined;
+
+  private notifier: Notifier<[TutorialState]> = new Notifier();
+
+  private disposables: Disposable[] = [];
+
+  private rawTutorials: ResolvedTutorialContent[];
+
+  constructor(
+    private ide: IDE,
+    private hatTokenMap: HatTokenMap,
+    private customSpokenFormGenerator: CustomSpokenFormGenerator,
+    private contentProvider: TutorialContentProvider,
+    private hats: Hats,
+  ) {
+    const debouncer = new Debouncer(() => this.checkPreconditions(), 100);
+    const runDebouncer = () => debouncer.run();
+
+    this.rawTutorials = getTutorialsForContext("interactive");
+
+    if (this.state_.type === "loading") {
+      this.setState(this.getPickingTutorialState());
+    }
+
+    this.disposables.push(
+      this.ide.onDidChangeActiveTextEditor(runDebouncer),
+      this.ide.onDidChangeTextDocument(runDebouncer),
+      this.ide.onDidChangeVisibleTextEditors(runDebouncer),
+      this.ide.onDidChangeTextEditorSelection(runDebouncer),
+      this.ide.onDidOpenTextDocument(runDebouncer),
+      this.ide.onDidCloseTextDocument(runDebouncer),
+      this.ide.onDidChangeTextEditorVisibleRanges(runDebouncer),
+      customSpokenFormGenerator.onDidChangeCustomSpokenForms(() =>
+        this.reparseCurrentTutorial(),
+      ),
+      debouncer,
+    );
+  }
+
+  /**
+   * This function is called when a scope type is visualized. If the current step
+   * is waiting for a visualization of the given scope type, the tutorial will
+   * advance to the next step.
+   * @param scopeType The scope type that was visualized
+   */
+  scopeTypeVisualized(scopeType: ScopeType | undefined): void {
+    const state = this.state_;
+
+    if (state.type === "doingTutorial" && !state.hasErrors) {
+      const currentStep = this.currentTutorial!.steps[state.stepNumber];
+      if (
+        currentStep.trigger?.type === "visualize" &&
+        isEqual(currentStep.trigger.scopeType, scopeType)
+      ) {
+        void this.next();
+      }
+    }
+  }
+
+  /**
+   * @returns A {@link TutorialState} object to use when the user is picking a
+   * tutorial to start.
+   */
+  getPickingTutorialState(): TutorialState {
+    const tutorialProgress = this.ide.keyValueStore.get("tutorialProgress");
+
+    return {
+      type: "pickingTutorial",
+      tutorials: this.rawTutorials.map((rawContent) => ({
+        id: rawContent.id,
+        title: rawContent.title,
+        stepCount: rawContent.steps.length,
+        currentStep: tutorialProgress[rawContent.id]?.currentStep ?? 0,
+      })),
+    };
+  }
+
+  dispose() {
+    for (const disposable of this.disposables) {
+      disposable.dispose();
+    }
+  }
+
+  wrapCommandRunner(
+    _readableHatMap: ReadOnlyHatMap,
+    commandRunner: CommandRunner,
+  ): CommandRunner {
+    return tutorialWrapCommandRunner(this, commandRunner, this.currentTutorial);
+  }
+
+  public onState(callback: (state: TutorialState) => void): Disposable {
+    return this.notifier.registerListener(callback);
+  }
+
+  /**
+   * Reparse the current tutorial. This is useful when the user has changed the
+   * spoken forms and we need to reparse the tutorial to use their new spoken
+   * forms.
+   */
+  private async reparseCurrentTutorial() {
+    if (this.currentTutorial == null || this.state_.type !== "doingTutorial") {
+      return;
+    }
+
+    const tutorialId = this.state_.id;
+
+    const { tutorialContent, state } = await loadTutorial(
+      this.contentProvider,
+      tutorialId,
+      this.customSpokenFormGenerator,
+      this.getRawTutorial(tutorialId),
+      this.ide.keyValueStore,
+      this.hats,
+    );
+
+    this.currentTutorial = tutorialContent;
+    this.setState(
+      state.hasErrors
+        ? {
+            ...state,
+            stepNumber: this.state_.stepNumber,
+          }
+        : {
+            ...state,
+            stepNumber: this.state_.stepNumber,
+            stepContent: tutorialContent.steps[this.state_.stepNumber].content,
+          },
+    );
+
+    await this.checkPreconditions();
+  }
+
+  private getRawTutorial(tutorialId: string) {
+    return this.rawTutorials.find(
+      (rawContent) => rawContent.id === tutorialId,
+    )!;
+  }
+
+  async start(tutorialId: TutorialId | number): Promise<void> {
+    const resolvedTutorialId =
+      typeof tutorialId === "number"
+        ? this.rawTutorials[tutorialId].id
+        : tutorialId;
+
+    const { tutorialContent, state } = await loadTutorial(
+      this.contentProvider,
+      resolvedTutorialId,
+      this.customSpokenFormGenerator,
+      this.getRawTutorial(resolvedTutorialId),
+      this.ide.keyValueStore,
+      this.hats,
+    );
+
+    this.currentTutorial = tutorialContent;
+    this.setState(state);
+
+    await this.setupStep();
+  }
+
+  documentationOpened() {
+    const state = this.state_;
+
+    if (state.type === "doingTutorial" && !state.hasErrors) {
+      const currentStep = this.currentTutorial!.steps[state.stepNumber];
+      if (currentStep.trigger?.type === "help") {
+        void this.next();
+      }
+    }
+  }
+
+  /**
+   * When currently doing a tutorial, change to a different step.
+   *
+   * @param getStep Indicates which step to change to
+   */
+  private async changeStep(
+    getStep: (current: number) => number,
+  ): Promise<void> {
+    if (this.state_.type !== "doingTutorial") {
+      throw new Error("Not currently doing a tutorial");
+    }
+
+    if (this.state_.hasErrors) {
+      throw new Error("Please see error message in tutorial sidebar");
+    }
+
+    const newStepNumber = getStep(this.state_.stepNumber);
+
+    if (newStepNumber === this.state_.stepCount || newStepNumber < 0) {
+      await this.list();
+      return;
+    }
+
+    const nextStep = this.currentTutorial!.steps[newStepNumber];
+
+    this.setState({
+      type: "doingTutorial",
+      hasErrors: false,
+      id: this.state_.id,
+      stepNumber: newStepNumber,
+      stepContent: nextStep.content,
+      stepCount: this.state_.stepCount,
+      title: this.state_.title,
+      preConditionsMet: true,
+    });
+
+    await this.setupStep();
+  }
+
+  next() {
+    return this.changeStep((current) => current + 1);
+  }
+
+  previous() {
+    return this.changeStep((current) => current - 1);
+  }
+
+  restart() {
+    return this.changeStep(() => 0);
+  }
+
+  resume() {
+    return this.setupStep();
+  }
+
+  async list() {
+    this.setState(this.getPickingTutorialState());
+    await this.setupStep();
+  }
+
+  private setState(state: TutorialState) {
+    this.state_ = state;
+    void this.updateTutorialProgress(state);
+    this.notifier.notifyListeners(state);
+  }
+
+  private async updateTutorialProgress(state: TutorialState) {
+    if (state.type === "doingTutorial") {
+      await this.ide.keyValueStore.set(
+        "tutorialProgress",
+        produce(this.ide.keyValueStore.get("tutorialProgress"), (draft) => {
+          draft[state.id] = {
+            currentStep: state.stepNumber,
+          };
+        }),
+      );
+    }
+  }
+
+  get state() {
+    return this.state_;
+  }
+
+  private async setupStep() {
+    const { editor, highlightRanges } = await setupStep(
+      this.ide,
+      this.hatTokenMap,
+      this.editor,
+      this.state,
+      this.currentTutorial,
+    );
+
+    if (this.editor !== editor && this.editor != null) {
+      await this.ide.setHighlightRanges(HIGHLIGHT_COLOR, this.editor, []);
+    }
+
+    this.editor = editor;
+    this.highlightRanges = highlightRanges;
+    await this.ensureHighlights();
+  }
+
+  private async ensureHighlights() {
+    if (this.editor != null) {
+      if (
+        this.state_.type === "doingTutorial" &&
+        this.state_.preConditionsMet
+      ) {
+        await this.ide.setHighlightRanges(
+          HIGHLIGHT_COLOR,
+          this.editor,
+          this.highlightRanges,
+        );
+      } else {
+        await this.ide.setHighlightRanges(HIGHLIGHT_COLOR, this.editor, []);
+      }
+    }
+  }
+
+  private async checkPreconditions() {
+    const state = this.state_;
+
+    if (state.type !== "doingTutorial" || state.hasErrors) {
+      return;
+    }
+
+    const currentStep = this.currentTutorial!.steps[state.stepNumber];
+
+    const preConditionsMet = await arePreconditionsMet(
+      this.ide.activeTextEditor,
+      this.editor,
+      this.hatTokenMap,
+      currentStep,
+    );
+
+    if (this.state_ !== state) {
+      return;
+    }
+
+    if (preConditionsMet !== state.preConditionsMet) {
+      this.setState({
+        ...state,
+        preConditionsMet,
+      });
+      await this.ensureHighlights();
+    }
+  }
+}

@@ -2,7 +2,6 @@ import re
 import typing
 from collections import defaultdict
 from typing import Iterator, Mapping
-from uu import Error
 
 from talon import app, registry, scope
 
@@ -14,16 +13,6 @@ grapheme_capture_name = "user.any_alphanumeric_key"
 def get_grapheme_spoken_form_entries(
     grapheme_talon_list: dict[str, str],
 ) -> list[SpokenFormOutputEntry]:
-    if grapheme_capture_name not in registry.captures:
-        # We require this capture, and expect it to be defined. We want to show a user friendly error if it isn't present (usually indicating a problem with their community.git setup) and we think the user is going to use Cursorless.
-        # However, sometimes users use different dictation engines (Vosk, Webspeech) with entirely different/smaller grammars that don't have the capture, and this code will run then, and falsely error. We don't want to show an error in that case because they don't plan to actually use Cursorless.
-        if "en" in scope.get("language", {}):
-            app.notify(f"Capture <{grapheme_capture_name}> isn't defined")
-            print(
-                f"Capture <{grapheme_capture_name}> isn't defined, which is required by Cursorless. Please check your community setup"
-            )
-        return []
-
     return [
         {
             "type": "grapheme",
@@ -37,6 +26,16 @@ def get_grapheme_spoken_form_entries(
 
 
 def get_graphemes_talon_list() -> dict[str, str]:
+    if grapheme_capture_name not in registry.captures:
+        # We require this capture, and expect it to be defined. We want to show a user friendly error if it isn't present (usually indicating a problem with their community.git setup) and we think the user is going to use Cursorless.
+        # However, sometimes users use different dictation engines (Vosk, Webspeech) with entirely different/smaller grammars that don't have the capture, and this code will run then, and falsely error. We don't want to show an error in that case because they don't plan to actually use Cursorless.
+        if "en" in scope.get("language", {}):
+            app.notify(f"Capture <{grapheme_capture_name}> isn't defined")
+            print(
+                f"Capture <{grapheme_capture_name}> isn't defined, which is required by Cursorless. Please check your community setup"
+            )
+        return {}
+
     return {
         spoken_form: id
         for symbol_list in generate_lists_from_capture(grapheme_capture_name)
@@ -55,7 +54,7 @@ def generate_lists_from_capture(capture_name) -> Iterator[str]:
     try:
         # NB: [-1] because the last capture is the active one
         rule = registry.captures[capture_name][-1].rule.rule
-    except Error:
+    except Exception:
         app.notify("Error constructing spoken forms for graphemes")
         print(f"Error getting rule for capture {capture_name}")
         return
@@ -86,7 +85,7 @@ def get_id_to_talon_list(list_name: str) -> dict[str, str]:
     try:
         # NB: [-1] because the last list is the active one
         return typing.cast(dict[str, str], registry.lists[list_name][-1]).copy()
-    except Error:
+    except Exception:
         app.notify(f"Error getting list {list_name}")
         return {}
 

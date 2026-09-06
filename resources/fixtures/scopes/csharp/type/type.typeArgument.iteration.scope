@@ -1,0 +1,13 @@
+Dictionary<string, int> foo;
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:28
+  >----------------------------<
+0| Dictionary<string, int> foo;
+
+
+[#2 Content] =
+[#2 Domain] = 0:11-0:22
+             >-----------<
+0| Dictionary<string, int> foo;

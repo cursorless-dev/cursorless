@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from typing import Callable, Concatenate, ParamSpec, TypeVar
+from typing import Callable, Concatenate, ParamSpec, Sequence, TypeVar
 
 from talon import app, cron, fs, registry
 
@@ -30,9 +30,14 @@ R = TypeVar("R")
 
 def auto_construct_defaults(
     spoken_forms: dict[str, ListToSpokenForms],
-    handle_new_values: Callable[[str, list[SpokenFormEntry]], None],
+    handle_new_values: Callable[[str, Sequence[SpokenFormEntry]], None],
     f: Callable[
-        Concatenate[str, ListToSpokenForms, Callable[[list[SpokenFormEntry]], None], P],
+        Concatenate[
+            str,
+            ListToSpokenForms,
+            Callable[[Sequence[SpokenFormEntry]], None],
+            P,
+        ],
         R,
     ],
 ):
@@ -77,12 +82,50 @@ LIST_TO_TYPE_MAP = {
     "scope_type": "simpleScopeTypeType",
     "glyph_scope_type": "complexScopeTypeType",
     "custom_regex_scope_type": "customRegex",
+    "simple_modifier": "simpleModifier",
+    "interior_modifier": "simpleModifier",
+    "head_tail_modifier": "simpleModifier",
+    "position_modifier": "simpleModifier",
+    "every_scope_modifier": "simpleModifier",
+    "previous_next_modifier": "modifierExtra",
+    "forward_backward_modifier": "modifierExtra",
+    "first_modifier": "modifierExtra",
+    "last_modifier": "modifierExtra",
+    "ancestor_scope_modifier": "modifierExtra",
+    "range_connective": "connective",
+    "list_connective": "connective",
+    "swap_connective": "connective",
+    "range_type": "connective",
+    "insertion_mode_before_after": "insertionMode",
+    "insertion_mode_to": "insertionMode",
+    "simple_mark": "specialMark",
+    "unknown_symbol": "specialMark",
+    "line_direction": "specialMark",
+    "hat_color": "hatColor",
+    "hat_shape": "hatShape",
+    "show_scope_visualizer": "scopeVisualizer",
+    "hide_scope_visualizer": "scopeVisualizer",
+    "visualization_type": "scopeVisualizer",
+    "custom_action": "customAction",
     **{
         action_list_name: "action"
         for action_list_name in ACTION_LIST_NAMES
         if action_list_name != "custom_action"
     },
-    "custom_action": "customAction",
+}
+
+ID_REWRITE_MAP = {
+    ("insertion_mode_to", "sourceDestinationConnective"): "to",
+    ("every_scope_modifier", "every"): "everyScope",
+    ("position_modifier", "start"): "startOf",
+    ("position_modifier", "end"): "endOf",
+    ("wrap_action", "rewrap"): "rewrapWithPairedDelimiter",
+}
+
+LITERALS = {
+    "at": "connective",
+    "on": "connective",
+    "bar": "sidebar",
 }
 
 
@@ -98,7 +141,7 @@ def update():
     initialized = False
 
     # Maps from csv name to list of SpokenFormEntry
-    custom_spoken_forms: dict[str, list[SpokenFormEntry]] = {}
+    custom_spoken_forms: dict[str, Sequence[SpokenFormEntry]] = {}
     spoken_forms_output = SpokenFormsOutput()
     spoken_forms_output.init()
     graphemes_talon_list = get_graphemes_talon_list()
@@ -109,26 +152,37 @@ def update():
                 *[
                     {
                         "type": LIST_TO_TYPE_MAP[entry.list_name],
-                        "id": entry.id,
+                        "id": ID_REWRITE_MAP.get((entry.list_name, entry.id), entry.id),
                         "spokenForms": entry.spoken_forms,
                     }
                     for spoken_form_list in custom_spoken_forms.values()
                     for entry in spoken_form_list
                     if entry.list_name in LIST_TO_TYPE_MAP
                 ],
+                *[
+                    {
+                        "type": LITERALS[literal],
+                        "id": literal,
+                        "spokenForms": [literal],
+                    }
+                    for literal in LITERALS
+                ],
                 *get_grapheme_spoken_form_entries(graphemes_talon_list),
             ]
         )
 
-    def handle_new_values(csv_name: str, values: list[SpokenFormEntry]):
+    def handle_new_values(csv_name: str, values: Sequence[SpokenFormEntry]):
         custom_spoken_forms[csv_name] = values
         if initialized:
             # On first run, we just do one update at the end, so we suppress
             # writing until we get there
+            init_scope_spoken_forms(graphemes_talon_list)
             update_spoken_forms_output()
 
     handle_csv = auto_construct_defaults(
-        spoken_forms, handle_new_values, init_csv_and_watch_changes
+        spoken_forms,
+        handle_new_values,
+        init_csv_and_watch_changes,
     )
 
     disposables = [
@@ -146,7 +200,6 @@ def update():
         handle_csv("special_marks.csv"),
         handle_csv("scope_visualizer.csv"),
         handle_csv("experimental/experimental_actions.csv"),
-        handle_csv("experimental/miscellaneous.csv"),
         handle_csv(
             "modifier_scope_types.csv",
             pluralize_lists=[
@@ -156,36 +209,22 @@ def update():
             ],
             extra_allowed_values=[
                 "private.fieldAccess",
-                "private.switchStatementSubject",
                 "textFragment",
                 "disqualifyDelimiter",
+                "pairDelimiter",
+                "interior",
             ],
             default_list_name="scope_type",
         ),
         handle_csv(
-            "experimental/wrapper_snippets.csv",
-            allow_unknown_values=True,
-            default_list_name="wrapper_snippet",
-        ),
-        handle_csv(
-            "experimental/insertion_snippets.csv",
-            allow_unknown_values=True,
-            default_list_name="insertion_snippet_no_phrase",
-        ),
-        handle_csv(
-            "experimental/insertion_snippets_single_phrase.csv",
-            allow_unknown_values=True,
-            default_list_name="insertion_snippet_single_phrase",
-        ),
-        handle_csv(
             "experimental/actions_custom.csv",
-            headers=[SPOKEN_FORM_HEADER, "VSCode command"],
+            headers=(SPOKEN_FORM_HEADER, "VSCode command"),
             allow_unknown_values=True,
             default_list_name="custom_action",
         ),
         handle_csv(
             "experimental/regex_scope_types.csv",
-            headers=[SPOKEN_FORM_HEADER, "Regex"],
+            headers=(SPOKEN_FORM_HEADER, "Regex"),
             allow_unknown_values=True,
             default_list_name="custom_regex_scope_type",
             pluralize_lists=["custom_regex_scope_type"],
@@ -193,6 +232,7 @@ def update():
         init_hats(
             spoken_forms["hat_styles.csv"]["hat_color"],
             spoken_forms["hat_styles.csv"]["hat_shape"],
+            lambda values: handle_new_values("hat_styles.csv", values),
         ),
     ]
 
@@ -230,7 +270,7 @@ def on_ready():
 
     registry.register("update_captures", update_captures_debounced)
 
-    fs.watch(str(JSON_FILE.parent), on_watch)
+    fs.watch(JSON_FILE.parent, on_watch)
 
 
 app.register("ready", on_ready)
