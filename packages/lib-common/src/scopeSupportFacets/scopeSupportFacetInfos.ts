@@ -14,23 +14,23 @@ export const scopeSupportFacetInfos: Record<
   },
 
   element: {
-    description: "A xml/html element. Also used for LaTeX environments",
+    description: "An XML/HTML element. Also used for LaTeX environments",
     scopeType: "xmlElement",
   },
   startTag: {
-    description: "The start tag of a xml element",
+    description: "The start tag of an XML/HTML element",
     scopeType: "xmlStartTag",
   },
   endTag: {
-    description: "The end tag of a xml element",
+    description: "The end tag of an XML/HTML element",
     scopeType: "xmlEndTag",
   },
   tags: {
-    description: "Both tags in a xml element",
+    description: "Both tags in an XML/HTML element",
     scopeType: "xmlBothTags",
   },
   attribute: {
-    description: "A attribute, eg of a html element or a C++ attribute",
+    description: "An attribute, eg of an HTML element or a C++ attribute",
     scopeType: "attribute",
   },
 
@@ -136,7 +136,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "statement",
   },
   "statement.field.interface": {
-    description: "A field declaration in a interface",
+    description: "A field declaration in an interface",
     scopeType: "statement",
   },
   "statement.function": {
@@ -152,7 +152,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "statement",
   },
   "statement.method.interface": {
-    description: "A method declaration in a interface",
+    description: "A method declaration in an interface",
     scopeType: "statement",
   },
   "statement.functionCall": {
@@ -160,7 +160,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "statement",
   },
   "statement.if": {
-    description: "A if/elif/else statement",
+    description: "An if/elif/else statement",
     scopeType: "statement",
   },
   "statement.try": {
@@ -172,19 +172,19 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "statement",
   },
   "statement.for": {
-    description: "A for loop statement",
+    description: "A for loop",
     scopeType: "statement",
   },
   "statement.foreach": {
-    description: "A for-each loop statement",
+    description: "A for-each loop",
     scopeType: "statement",
   },
   "statement.while": {
-    description: "A while loop statement",
+    description: "A while loop",
     scopeType: "statement",
   },
   "statement.doWhile": {
-    description: "A do-while loop statement",
+    description: "A do-while loop",
     scopeType: "statement",
   },
   "statement.variable.uninitialized": {
@@ -196,7 +196,8 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "statement",
   },
   "statement.variable.destructuring": {
-    description: "A variable declaration pattern destructuring",
+    description:
+      "A variable declaration using a destructuring pattern, eg `const { x, y } = point`",
     scopeType: "statement",
   },
   "statement.constant": {
@@ -208,7 +209,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "statement",
   },
   "statement.assignment.destructuring": {
-    description: "An assignment statement with pattern destructuring",
+    description: "An assignment statement using a destructuring pattern",
     scopeType: "statement",
   },
   "statement.assignment.compound": {
@@ -244,7 +245,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "statement",
   },
   "statement.resource": {
-    description: "A `with` / `use` / `using` statement",
+    description: "A resource management statement, eg `with` / `use` / `using`",
     scopeType: "statement",
   },
   "statement.command": {
@@ -260,7 +261,8 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "statement",
   },
   "statement.static": {
-    description: "A static statement",
+    description:
+      "A static initialization block in a class, eg `static { ... }`",
     scopeType: "statement",
   },
   "statement.import": {
@@ -278,7 +280,7 @@ export const scopeSupportFacetInfos: Record<
   "statement.iteration.block": blockIter("statement", "statements"),
 
   class: {
-    description: "A class/struct in an object-oriented language",
+    description: "A class/struct declaration",
     scopeType: "class",
   },
   "class.iteration.document": documentIter("class", "classes"),
@@ -289,11 +291,11 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "namedFunction",
   },
   "namedFunction.method": {
-    description: "A named method declaration in a class",
+    description: "A method declaration",
     scopeType: "namedFunction",
   },
   "namedFunction.constructor": {
-    description: "A constructor declaration in a class",
+    description: "A constructor declaration",
     scopeType: "namedFunction",
   },
   "namedFunction.iteration.document": documentIter(
@@ -365,12 +367,12 @@ export const scopeSupportFacetInfos: Record<
   },
 
   "argument.actual.singleLine": {
-    description: "A single line argument in a function call",
+    description: "A single-line argument in a function call",
     scopeType: "argumentOrParameter",
   },
   "argument.actual.multiLine": {
     description:
-      "A multiline argument in a function call. Insertion delimiter should include new line.",
+      "A multi-line argument in a function call. Insertion delimiter should include a newline.",
     scopeType: "argumentOrParameter",
   },
   "argument.actual.iteration": iteration(
@@ -379,12 +381,12 @@ export const scopeSupportFacetInfos: Record<
     "the argument list. The domain should be the entire function call",
   ),
   "argument.actual.method.singleLine": {
-    description: "A single line argument in a method call",
+    description: "A single-line argument in a method call",
     scopeType: "argumentOrParameter",
   },
   "argument.actual.method.multiLine": {
     description:
-      "A multi line argument in a method call. Insertion delimiter should include new line.",
+      "A multi-line argument in a method call. Insertion delimiter should include a newline.",
     scopeType: "argumentOrParameter",
   },
   "argument.actual.method.iteration": iteration(
@@ -393,12 +395,12 @@ export const scopeSupportFacetInfos: Record<
     "the argument list. The domain should be the entire method call",
   ),
   "argument.actual.constructor.singleLine": {
-    description: "A single line argument in a constructor call",
+    description: "A single-line argument in a constructor call",
     scopeType: "argumentOrParameter",
   },
   "argument.actual.constructor.multiLine": {
     description:
-      "A multi line argument in a constructor call. Insertion delimiter should include new line.",
+      "A multi-line argument in a constructor call. Insertion delimiter should include a newline.",
     scopeType: "argumentOrParameter",
   },
   "argument.actual.constructor.iteration": iteration(
@@ -407,12 +409,12 @@ export const scopeSupportFacetInfos: Record<
     "the argument list. The domain should be the entire constructor call.",
   ),
   "argument.actual.enum.singleLine": {
-    description: "A single line argument in an enum constructor call",
+    description: "A single-line argument in an enum constructor call",
     scopeType: "argumentOrParameter",
   },
   "argument.actual.enum.multiLine": {
     description:
-      "A multi line argument in an enum constructor call. Insertion delimiter should include new line.",
+      "A multi-line argument in an enum constructor call. Insertion delimiter should include a newline.",
     scopeType: "argumentOrParameter",
   },
   "argument.actual.enum.iteration": iteration(
@@ -422,61 +424,61 @@ export const scopeSupportFacetInfos: Record<
   ),
 
   "argument.formal.singleLine": {
-    description: "A single line parameter in a function declaration",
+    description: "A single-line parameter in a function declaration",
     scopeType: "argumentOrParameter",
   },
   "argument.formal.multiLine": {
     description:
-      "A multi line parameter in a function declaration. Insertion delimiter should include new line.",
+      "A multi-line parameter in a function declaration. Insertion delimiter should include a newline.",
     scopeType: "argumentOrParameter",
   },
   "argument.formal.iteration": iteration(
     "argumentOrParameter",
-    "formal parameters in a function declaration",
-    "the parameters list. The domain should be the entire function",
+    "parameters in a function declaration",
+    "the parameter list. The domain should be the entire function",
   ),
   "argument.formal.method.singleLine": {
-    description: "A single line parameter in a class method declaration",
+    description: "A single-line parameter in a method declaration",
     scopeType: "argumentOrParameter",
   },
   "argument.formal.method.multiLine": {
     description:
-      "A multi line parameter in a class method declaration. Insertion delimiter should include new line.",
+      "A multi-line parameter in a method declaration. Insertion delimiter should include a newline.",
     scopeType: "argumentOrParameter",
   },
   "argument.formal.method.iteration": iteration(
     "argumentOrParameter",
-    "formal parameters in a method declaration",
+    "parameters in a method declaration",
     "the parameter list. The domain should be the entire method",
   ),
 
   "argument.formal.constructor.singleLine": {
-    description: "A single line parameter in a constructor declaration",
+    description: "A single-line parameter in a constructor declaration",
     scopeType: "argumentOrParameter",
   },
   "argument.formal.constructor.multiLine": {
     description:
-      "A multi line parameter in a constructor declaration. Insertion delimiter should include new line.",
+      "A multi-line parameter in a constructor declaration. Insertion delimiter should include a newline.",
     scopeType: "argumentOrParameter",
   },
   "argument.formal.constructor.iteration": iteration(
     "argumentOrParameter",
-    "formal parameters in a constructor declaration",
+    "parameters in a constructor declaration",
     "the parameter list. The domain should be the entire constructor",
   ),
   "argument.formal.lambda.singleLine": {
-    description: "A single line parameter in a lambda declaration",
+    description: "A single-line parameter in an anonymous function",
     scopeType: "argumentOrParameter",
   },
   "argument.formal.lambda.multiLine": {
     description:
-      "A multi line parameter in a lambda declaration. Insertion delimiter should include new line.",
+      "A multi-line parameter in an anonymous function. Insertion delimiter should include a newline.",
     scopeType: "argumentOrParameter",
   },
   "argument.formal.lambda.iteration": iteration(
     "argumentOrParameter",
-    "formal parameters in a lambda declaration",
-    "the parameter list. The domain should be the entire lambda",
+    "parameters in an anonymous function",
+    "the parameter list. The domain should be the entire anonymous function",
   ),
   "argument.formal.catch": {
     description: "A parameter in a catch clause",
@@ -489,12 +491,12 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "argumentList",
   },
   "argumentList.actual.singleLine": {
-    description: "A single line list of arguments in a function call",
+    description: "A single-line list of arguments in a function call",
     scopeType: "argumentList",
   },
   "argumentList.actual.multiLine": {
     description:
-      "A multi line list of arguments in a function call. Insertion delimiter should include new line.",
+      "A multi-line list of arguments in a function call. Insertion delimiter should include a newline.",
     scopeType: "argumentList",
   },
   "argumentList.actual.method.empty": {
@@ -503,12 +505,12 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "argumentList",
   },
   "argumentList.actual.method.singleLine": {
-    description: "A single line list of arguments in a method call",
+    description: "A single-line list of arguments in a method call",
     scopeType: "argumentList",
   },
   "argumentList.actual.method.multiLine": {
     description:
-      "A multi line list of arguments in a method call. Insertion delimiter should include new line.",
+      "A multi-line list of arguments in a method call. Insertion delimiter should include a newline.",
     scopeType: "argumentList",
   },
   "argumentList.actual.constructor.empty": {
@@ -517,12 +519,12 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "argumentList",
   },
   "argumentList.actual.constructor.singleLine": {
-    description: "A single line list of arguments in a constructor call",
+    description: "A single-line list of arguments in a constructor call",
     scopeType: "argumentList",
   },
   "argumentList.actual.constructor.multiLine": {
     description:
-      "A multi line list of arguments in a constructor call. Insertion delimiter should include new line.",
+      "A multi-line list of arguments in a constructor call. Insertion delimiter should include a newline.",
     scopeType: "argumentList",
   },
   "argumentList.actual.enum.empty": {
@@ -531,12 +533,12 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "argumentList",
   },
   "argumentList.actual.enum.singleLine": {
-    description: "A single line list of arguments in an enum constructor call",
+    description: "A single-line list of arguments in an enum constructor call",
     scopeType: "argumentList",
   },
   "argumentList.actual.enum.multiLine": {
     description:
-      "A multi line list of arguments in an enum constructor call. Insertion delimiter should include new line.",
+      "A multi-line list of arguments in an enum constructor call. Insertion delimiter should include a newline.",
     scopeType: "argumentList",
   },
 
@@ -546,41 +548,40 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "argumentList",
   },
   "argumentList.formal.singleLine": {
-    description: "A single line list of parameters in a function declaration",
+    description: "A single-line list of parameters in a function declaration",
     scopeType: "argumentList",
   },
   "argumentList.formal.multiLine": {
     description:
-      "A multi line list of parameters in a function declaration. Insertion delimiter should include new line.",
+      "A multi-line list of parameters in a function declaration. Insertion delimiter should include a newline.",
     scopeType: "argumentList",
   },
   "argumentList.formal.lambda.empty": {
     description:
-      "An empty list of parameters in a lambda declaration. Insertion delimiter should be empty.",
+      "An empty list of parameters in an anonymous function. Insertion delimiter should be empty.",
     scopeType: "argumentList",
   },
   "argumentList.formal.lambda.singleLine": {
-    description: "A single line list of parameters in a lambda declaration",
+    description: "A single-line list of parameters in an anonymous function",
     scopeType: "argumentList",
   },
   "argumentList.formal.lambda.multiLine": {
     description:
-      "A multi line list of parameters in a lambda declaration. Insertion delimiter should include new line.",
+      "A multi-line list of parameters in an anonymous function. Insertion delimiter should include a newline.",
     scopeType: "argumentList",
   },
   "argumentList.formal.method.empty": {
     description:
-      "An empty list of parameters in a class method declaration. Insertion delimiter should be empty.",
+      "An empty list of parameters in a method declaration. Insertion delimiter should be empty.",
     scopeType: "argumentList",
   },
   "argumentList.formal.method.singleLine": {
-    description:
-      "A single line list of parameters in a class method declaration",
+    description: "A single-line list of parameters in a method declaration",
     scopeType: "argumentList",
   },
   "argumentList.formal.method.multiLine": {
     description:
-      "A multi line list of parameters in a class method declaration. Insertion delimiter should include new line.",
+      "A multi-line list of parameters in a method declaration. Insertion delimiter should include a newline.",
     scopeType: "argumentList",
   },
   "argumentList.formal.constructor.empty": {
@@ -590,12 +591,12 @@ export const scopeSupportFacetInfos: Record<
   },
   "argumentList.formal.constructor.singleLine": {
     description:
-      "A single line list of parameters in a constructor declaration",
+      "A single-line list of parameters in a constructor declaration",
     scopeType: "argumentList",
   },
   "argumentList.formal.constructor.multiLine": {
     description:
-      "A multi line list of parameters in a constructor declaration. Insertion delimiter should include new line.",
+      "A multi-line list of parameters in a constructor declaration. Insertion delimiter should include a newline.",
     scopeType: "argumentList",
   },
 
@@ -633,7 +634,7 @@ export const scopeSupportFacetInfos: Record<
   "branch.if.iteration": iteration(
     "branch",
     "if/elif/else branches",
-    "the if-else statement",
+    "the if/elif/else statement",
   ),
   "branch.loop": {
     description:
@@ -652,7 +653,7 @@ export const scopeSupportFacetInfos: Record<
   "branch.try.iteration": iteration(
     "branch",
     "try/catch/finally branches",
-    "the try-catch statement",
+    "the try/catch/finally statement",
   ),
   "branch.switchCase": {
     description: "A case/default branch in a switch statement",
@@ -660,7 +661,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "branch.switchCase.iteration": iteration(
     "branch",
-    "switch branches",
+    "case/default branches in a switch statement",
     "the switch statement body",
   ),
   "branch.ternary": {
@@ -674,12 +675,12 @@ export const scopeSupportFacetInfos: Record<
   ),
   "collectionItem.unenclosed.singleLine": {
     description:
-      "An item in a comma-separated single line list without enclosing delimiters. This could be multi-variable declarations, import statements, etc.",
+      "An item in a comma-separated single-line list without enclosing delimiters. This could be multi-variable declarations, import statements, etc.",
     scopeType: "collectionItem",
   },
   "collectionItem.unenclosed.multiLine": {
     description:
-      "An item in a comma-separated multi line list without enclosing delimiters. This could be multi-variable declarations, import statements, etc. Insertion delimiter should include new line.",
+      "An item in a comma-separated multi-line list without enclosing delimiters. This could be multi-variable declarations, import statements, etc. Insertion delimiter should include a newline.",
     scopeType: "collectionItem",
   },
   "collectionItem.unenclosed.iteration": iteration(
@@ -696,7 +697,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "condition",
   },
   "condition.doWhile": {
-    description: "A condition in a do while loop",
+    description: "A condition in a do-while loop",
     scopeType: "condition",
   },
   "condition.for": {
@@ -718,7 +719,7 @@ export const scopeSupportFacetInfos: Record<
   ),
 
   "name.command": {
-    description: "LHS of a command, eg Talon spoken command or bash",
+    description: "Name (LHS) of a command, eg Talon spoken command or bash",
     scopeType: "name",
   },
   "name.variable.uninitialized": {
@@ -731,7 +732,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "name.variable.destructuring": {
     description:
-      "Name (LHS) of a variable declaration with pattern destructuring",
+      "Name (LHS) of a variable declaration using a destructuring pattern",
     scopeType: "name",
   },
   "name.constant": {
@@ -739,67 +740,68 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "name",
   },
   "name.assignment": {
-    description: "Name (LHS) of an assignment",
+    description: "Name (LHS) of an assignment statement",
     scopeType: "name",
   },
   "name.assignment.destructuring": {
-    description: "LHS of an assignment with pattern destructuring",
+    description:
+      "Name (LHS) of an assignment statement using a destructuring pattern",
     scopeType: "name",
   },
   "name.assignment.compound": {
-    description: "Name (LHS) of a compound assignment, eg +=/-=",
+    description: "Name (LHS) of a compound assignment statement, eg +=/-=",
     scopeType: "name",
   },
   "name.foreach": {
-    description: "Iteration variable name in a for each loop",
+    description: "Iteration variable name in a for-each loop",
     scopeType: "name",
   },
   "name.function": {
-    description: "Name of a function",
+    description: "Name of a function declaration",
     scopeType: "name",
   },
   "name.method": {
-    description: "Name of a class method",
+    description: "Name of a method declaration",
     scopeType: "name",
   },
   "name.method.interface": {
-    description: "Name of a interface method",
+    description: "Name of a method declaration in an interface",
     scopeType: "name",
   },
   "name.constructor": {
-    description: "Name of a constructor",
+    description: "Name of a constructor declaration",
     scopeType: "name",
   },
   "name.class": {
-    description: "Name of a class",
+    description: "Name of a class/struct declaration",
     scopeType: "name",
   },
   "name.interface": {
-    description: "Name of a interface",
+    description: "Name of an interface declaration",
     scopeType: "name",
   },
   "name.enum": {
-    description: "Name of an enum",
+    description: "Name of an enum declaration",
     scopeType: "name",
   },
   "name.typeAlias": {
-    description: "Name of a type alias",
+    description: "Name (LHS) of a type alias declaration",
     scopeType: "name",
   },
   "name.namespace": {
-    description: "Name of a namespace",
+    description: "Name of a namespace declaration",
     scopeType: "name",
   },
   "name.field.class": {
-    description: "Name (LHS) of a field in a class",
+    description: "Name (LHS) of a field declaration in a class/struct",
     scopeType: "name",
   },
   "name.field.interface": {
-    description: "Name (LHS) of a field in an interface",
+    description: "Name (LHS) of a field declaration in an interface",
     scopeType: "name",
   },
   "name.field.enum": {
-    description: "Name (LHS) of a field in an enum",
+    description: "Name (LHS) of a field declaration in an enum",
     scopeType: "name",
   },
   "name.iteration.block": blockIter("name", "names"),
@@ -808,7 +810,8 @@ export const scopeSupportFacetInfos: Record<
   "name.iteration.enum": enumIter("name", "names"),
   "name.iteration.document": documentIter("name", "names"),
   "name.resource": {
-    description: "Name in a `with` / `use` / `using` statement",
+    description:
+      "Name in a resource management statement, eg `with` / `use` / `using`",
     scopeType: "name",
   },
   "name.argument.actual": {
@@ -826,35 +829,35 @@ export const scopeSupportFacetInfos: Record<
   },
   "name.argument.formal.iteration": iteration(
     "name",
-    "names of formal parameters in a function declaration",
-    "the parameters list",
+    "names of parameters in a function declaration",
+    "the parameter list",
   ),
   "name.argument.formal.method": {
-    description: "Name of a parameter in a class method declaration",
+    description: "Name of a parameter in a method declaration",
     scopeType: "name",
   },
   "name.argument.formal.method.iteration": iteration(
     "name",
-    "names of formal parameters in a method declaration",
-    "the parameters list",
+    "names of parameters in a method declaration",
+    "the parameter list",
   ),
   "name.argument.formal.lambda": {
-    description: "Name of a parameter in a lambda declaration",
+    description: "Name of a parameter in an anonymous function",
     scopeType: "name",
   },
   "name.argument.formal.lambda.iteration": iteration(
     "name",
-    "names of formal parameters in a lambda declaration",
-    "the parameters list",
+    "names of parameters in an anonymous function",
+    "the parameter list",
   ),
   "name.argument.formal.constructor": {
-    description: "The name of a parameter in a constructor declaration",
+    description: "Name of a parameter in a constructor declaration",
     scopeType: "name",
   },
   "name.argument.formal.constructor.iteration": iteration(
     "name",
-    "names of formal parameters in a constructor declaration",
-    "the parameters list",
+    "names of parameters in a constructor declaration",
+    "the parameter list",
   ),
   "name.argument.catch": {
     description: "Name of a parameter in a catch clause",
@@ -862,11 +865,11 @@ export const scopeSupportFacetInfos: Record<
   },
 
   "key.attribute": {
-    description: "Key (LHS) of an attribute eg in a xml element",
+    description: "Key (LHS) of an attribute, eg in an XML/HTML element",
     scopeType: "collectionKey",
   },
   "key.mapPair": {
-    description: "Key (LHS) of a key-value pair of a map",
+    description: "Key (LHS) of a key-value pair in a map",
     scopeType: "collectionKey",
   },
   "key.mapPair.iteration": iteration(
@@ -876,7 +879,7 @@ export const scopeSupportFacetInfos: Record<
   ),
 
   "value.command": {
-    description: "Value (RHS) of an command, eg Talon spoken command",
+    description: "Value (RHS) of a command, eg Talon spoken command",
     scopeType: "value",
   },
   "value.variable": {
@@ -885,7 +888,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "value.variable.destructuring": {
     description:
-      "Value (RHS) of a variable declaration with pattern destructuring",
+      "Value (RHS) of a variable declaration using a destructuring pattern",
     scopeType: "value",
   },
   "value.constant": {
@@ -893,15 +896,16 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "value",
   },
   "value.assignment": {
-    description: "Value (RHS) of an assignment",
+    description: "Value (RHS) of an assignment statement",
     scopeType: "value",
   },
   "value.assignment.destructuring": {
-    description: "Value (RHS) of an assignment with pattern destructuring",
+    description:
+      "Value (RHS) of an assignment statement using a destructuring pattern",
     scopeType: "value",
   },
   "value.assignment.compound": {
-    description: "Value (RHS) of a compound assignment, eg +=/-=",
+    description: "Value (RHS) of a compound assignment statement, eg +=/-=",
     scopeType: "value",
   },
   "value.mapPair": {
@@ -914,11 +918,11 @@ export const scopeSupportFacetInfos: Record<
     "should be between the braces",
   ),
   "value.foreach": {
-    description: "Iterable in a for each loop",
+    description: "Iterable in a for-each loop",
     scopeType: "value",
   },
   "value.attribute": {
-    description: "Value (RHS) of an attribute eg in a xml element",
+    description: "Value (RHS) of an attribute, eg in an XML/HTML element",
     scopeType: "value",
   },
   "value.return": {
@@ -926,19 +930,19 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "value",
   },
   "value.return.lambda": {
-    description: "Implicit return value from a lambda",
+    description: "Implicit return value of an anonymous function",
     scopeType: "value",
   },
   "value.field.class": {
-    description: "Value (RHS) of a field in a class",
+    description: "Value (RHS) of a field declaration in a class/struct",
     scopeType: "value",
   },
   "value.field.interface": {
-    description: "Value (RHS) of a field in an interface",
+    description: "Value (RHS) of a field declaration in an interface",
     scopeType: "value",
   },
   "value.field.enum": {
-    description: "Value (RHS) of a field in an enum",
+    description: "Value (RHS) of a field declaration in an enum",
     scopeType: "value",
   },
   "value.yield": {
@@ -950,7 +954,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "value",
   },
   "value.switch": {
-    description: "The value / subject of a switch statement",
+    description: "Value / subject of a switch statement",
     scopeType: "value",
   },
   "value.iteration.block": blockIter("value", "values"),
@@ -958,57 +962,57 @@ export const scopeSupportFacetInfos: Record<
   "value.iteration.enum": enumIter("value", "values"),
   "value.iteration.document": documentIter("value", "values"),
   "value.resource": {
-    description: "Value of a `with` / `use` / `using` statement",
+    description:
+      "Value of a resource management statement, eg `with` / `use` / `using`",
     scopeType: "value",
   },
   "value.argument.actual": {
-    description: "The value of a (keyword) argument in a function call",
+    description: "Value of a (keyword) argument in a function call",
     scopeType: "value",
   },
   "value.argument.actual.iteration": iteration(
     "value",
     "values of (keyword) arguments in a function call",
-    "the arguments list",
+    "the argument list",
   ),
   "value.argument.formal": {
-    description: "The (default) value of a argument in a function declaration",
+    description: "Default value of a parameter in a function declaration",
     scopeType: "value",
   },
   "value.argument.formal.iteration": iteration(
     "value",
-    "values of formal parameters in a function declaration",
-    "the parameters list",
+    "default values of parameters in a function declaration",
+    "the parameter list",
   ),
   "value.argument.formal.method": {
-    description: "The (default) value of a parameter in a method declaration",
+    description: "Default value of a parameter in a method declaration",
     scopeType: "value",
   },
   "value.argument.formal.method.iteration": iteration(
     "value",
-    "values of formal parameters in a method declaration",
-    "the parameters list",
+    "default values of parameters in a method declaration",
+    "the parameter list",
   ),
   "value.argument.formal.constructor": {
-    description:
-      "The (default) value of a parameter in a constructor declaration",
+    description: "Default value of a parameter in a constructor declaration",
     scopeType: "value",
   },
   "value.argument.formal.constructor.iteration": iteration(
     "value",
-    "values of formal parameters in a constructor declaration",
-    "the parameters list",
+    "default values of parameters in a constructor declaration",
+    "the parameter list",
   ),
   "value.argument.formal.lambda": {
-    description: "The (default) value of a parameter in a lambda declaration",
+    description: "Default value of a parameter in an anonymous function",
     scopeType: "value",
   },
   "value.argument.formal.lambda.iteration": iteration(
     "value",
-    "values of formal parameters in a lambda declaration",
-    "the parameters list",
+    "default values of parameters in an anonymous function",
+    "the parameter list",
   ),
   "value.typeAlias": {
-    description: "Value of a type alias declaration",
+    description: "Type expression (RHS) of a type alias declaration",
     scopeType: "value",
   },
 
@@ -1025,40 +1029,40 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "type",
   },
   "type.argument.formal": {
-    description: "Type of a formal parameter in a function declaration",
+    description: "Type of a parameter in a function declaration",
     scopeType: "type",
   },
   "type.argument.formal.iteration": iteration(
     "type",
-    "types of formal parameters in a function declaration",
-    "the parameters list",
+    "types of parameters in a function declaration",
+    "the parameter list",
   ),
   "type.argument.formal.method": {
-    description: "Type of a formal parameter in a class method declaration",
+    description: "Type of a parameter in a method declaration",
     scopeType: "type",
   },
   "type.argument.formal.method.iteration": iteration(
     "type",
-    "types of formal parameters in a method declaration",
-    "the parameters list",
+    "types of parameters in a method declaration",
+    "the parameter list",
   ),
   "type.argument.formal.lambda": {
-    description: "Type of a formal parameter in a lambda declaration",
+    description: "Type of a parameter in an anonymous function",
     scopeType: "type",
   },
   "type.argument.formal.lambda.iteration": iteration(
     "type",
-    "types of formal parameters in a lambda declaration",
-    "the parameters list",
+    "types of parameters in an anonymous function",
+    "the parameter list",
   ),
   "type.argument.formal.constructor": {
-    description: "Type of a formal parameter in a constructor declaration",
+    description: "Type of a parameter in a constructor declaration",
     scopeType: "type",
   },
   "type.argument.formal.constructor.iteration": iteration(
     "type",
-    "types of formal parameters in a constructor declaration",
-    "the parameters list",
+    "types of parameters in a constructor declaration",
+    "the parameter list",
   ),
   "type.argument.catch": {
     description: "Type of a parameter in a catch clause",
@@ -1074,19 +1078,19 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "type",
   },
   "type.return.lambda": {
-    description: "Type of a return value in a lambda declaration",
+    description: "Type of a return value in an anonymous function",
     scopeType: "type",
   },
   "type.field.class": {
-    description: "Type of a field in a class",
+    description: "Type of a field declaration in a class/struct",
     scopeType: "type",
   },
   "type.field.interface": {
-    description: "Type of a field in a interface",
+    description: "Type of a field declaration in an interface",
     scopeType: "type",
   },
   "type.foreach": {
-    description: "Type of a variable in a for each loop",
+    description: "Type of a variable in a for-each loop",
     scopeType: "type",
   },
   "type.enum": {
@@ -1094,7 +1098,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "type",
   },
   "type.class": {
-    description: "A class declaration",
+    description: "A class/struct declaration",
     scopeType: "type",
   },
   "type.interface": {
@@ -1119,7 +1123,8 @@ export const scopeSupportFacetInfos: Record<
     "the type argument list",
   ),
   "type.resource": {
-    description: "Type in a `with` / `use` / `using` statement",
+    description:
+      "Type in a resource management statement, eg `with` / `use` / `using`",
     scopeType: "type",
   },
   "type.iteration.block": blockIter("type", "types"),
@@ -1128,7 +1133,7 @@ export const scopeSupportFacetInfos: Record<
   "type.iteration.document": documentIter("type", "types"),
 
   "interior.element": {
-    description: "The interior/children of a XML element",
+    description: "The interior/children of an XML/HTML element",
     scopeType: { type: "interior" },
   },
   "interior.command": {
@@ -1136,19 +1141,19 @@ export const scopeSupportFacetInfos: Record<
     scopeType: { type: "interior" },
   },
   "interior.cell": {
-    description: "The body of a code cell in markdown",
+    description: "The body of a code cell in Markdown",
     scopeType: { type: "interior" },
   },
   "interior.class": {
-    description: "The body of a class",
+    description: "The body of a class/struct declaration",
     scopeType: { type: "interior" },
   },
   "interior.interface": {
-    description: "The body of a interface",
+    description: "The body of an interface declaration",
     scopeType: { type: "interior" },
   },
   "interior.enum": {
-    description: "The body of an enum",
+    description: "The body of an enum declaration",
     scopeType: { type: "interior" },
   },
   "interior.function": {
@@ -1164,7 +1169,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: { type: "interior" },
   },
   "interior.lambda": {
-    description: "The block body of a lambda/anonymous function",
+    description: "The block body of an anonymous function",
     scopeType: { type: "interior" },
   },
   "interior.if": {
@@ -1180,7 +1185,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: { type: "interior" },
   },
   "interior.switchCase": {
-    description: "The body of a switch case branch",
+    description: "The body of a case/default branch in a switch statement",
     scopeType: { type: "interior" },
   },
   "interior.for": {
@@ -1200,28 +1205,29 @@ export const scopeSupportFacetInfos: Record<
     scopeType: { type: "interior" },
   },
   "interior.resource": {
-    description: "the body of a `with` / `use` / `using` statement",
+    description:
+      "The body of a resource management statement, eg `with` / `use` / `using`",
     scopeType: { type: "interior" },
   },
   "interior.namespace": {
-    description: "the body of a namespace statement",
+    description: "The body of a namespace declaration",
     scopeType: { type: "interior" },
   },
   "interior.static": {
-    description: "the body of a static statement",
+    description: "The body of a static initialization block in a class",
     scopeType: { type: "interior" },
   },
 
   notebookCell: {
-    description: "A cell in a notebook or a markdown code block",
+    description: "A cell in a notebook or a Markdown code block",
     scopeType: "notebookCell",
   },
   selector: {
-    description: "A selector in a css rule set",
+    description: "A selector in a CSS rule set",
     scopeType: "selector",
   },
   unit: {
-    description: "A unit in a css rule set",
+    description: "A unit in a CSS rule set",
     scopeType: "unit",
   },
 
@@ -1247,7 +1253,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "textFragment.element": {
     description:
-      "Internally used text fragment consisting of a xml element interior",
+      "Internally used text fragment consisting of an XML/HTML element interior",
     scopeType: "textFragment",
   },
 
