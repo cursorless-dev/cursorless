@@ -1,0 +1,95 @@
+import vscode from "vscode";
+import { getTestHelpers } from "../getExtensionApi";
+import { closeUiElements } from "./closeUiElements";
+
+export async function openNewEditor(
+  content: string,
+  languageId = "plaintext",
+  openBeside = false,
+): Promise<vscode.TextEditor> {
+  await closeUiElements();
+
+  if (!openBeside) {
+    await vscode.commands.executeCommand("workbench.action.closeAllEditors");
+  }
+
+  const document = await vscode.workspace.openTextDocument({
+    language: languageId,
+    content,
+  });
+
+  const { clearCache, loadLanguage } = await getTestHelpers();
+
+  clearCache();
+  await loadLanguage(languageId);
+
+  const editor = await vscode.window.showTextDocument(
+    document,
+    openBeside ? vscode.ViewColumn.Beside : undefined,
+  );
+
+  const eol = content.includes("\r\n")
+    ? vscode.EndOfLine.CRLF
+    : vscode.EndOfLine.LF;
+  if (eol !== editor.document.eol) {
+    await editor.edit((editBuilder) => editBuilder.setEndOfLine(eol));
+  }
+
+  return editor;
+}
+
+/**
+ * Open a new notebook editor with the given cells
+ * @param cellContents A list of strings each of which will become the contents
+ * of a cell in the notebook
+ * @param languageId The language id to use for all the cells in the notebook
+ * @returns notebook
+ */
+export async function openNewNotebookEditor(
+  cellContents: string[],
+  languageId: string = "plaintext",
+) {
+  await vscode.commands.executeCommand("workbench.action.closeAllEditors");
+
+  const document = await vscode.workspace.openNotebookDocument(
+    "jupyter-notebook",
+    new vscode.NotebookData(
+      cellContents.map(
+        (contents) =>
+          new vscode.NotebookCellData(
+            vscode.NotebookCellKind.Code,
+            contents,
+            languageId,
+          ),
+      ),
+    ),
+  );
+
+  const { clearCache, loadLanguage } = await getTestHelpers();
+  clearCache();
+  await loadLanguage(languageId);
+
+  // FIXME: There seems to be some timing issue when you create a notebook
+  // editor
+  await waitForEditorToOpen();
+
+  return document;
+}
+
+function waitForEditorToOpen(): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
+    let count = 0;
+    const interval = setInterval(() => {
+      if (vscode.window.activeTextEditor != null) {
+        clearInterval(interval);
+        resolve();
+      } else {
+        count++;
+        if (count === 20) {
+          clearInterval(interval);
+          reject(new Error("Timed out waiting for editor to open"));
+        }
+      }
+    }, 100);
+  });
+}

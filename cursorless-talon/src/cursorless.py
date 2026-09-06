@@ -34,7 +34,7 @@ class Actions:
     def private_cursorless_start_tutorial():
         """Start the introductory Cursorless tutorial"""
         actions.user.private_cursorless_run_rpc_command_no_wait(
-            "cursorless.tutorial.start", "tutorial-1-basics"
+            "cursorless.tutorial.start", "introduction"
         )
 
     def private_cursorless_tutorial_next():
@@ -67,7 +67,8 @@ class Actions:
             "cursorless.tutorial.list"
         )
 
-    def private_cursorless_tutorial_start_by_number(number: int):  # pyright: ignore [reportGeneralTypeIssues]
+    @staticmethod
+    def private_cursorless_tutorial_start_by_number(number: int):
         """Start Cursorless tutorial by number"""
         actions.user.private_cursorless_run_rpc_command_no_wait(
             "cursorless.tutorial.start", number - 1

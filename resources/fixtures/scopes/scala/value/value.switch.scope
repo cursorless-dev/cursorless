@@ -1,0 +1,20 @@
+foo match {}
+---
+
+[Content] = 0:0-0:3
+  >---<
+0| foo match {}
+
+[Removal] = 0:0-0:4
+  >----<
+0| foo match {}
+
+[Trailing delimiter] = 0:3-0:4
+     >-<
+0| foo match {}
+
+[Domain] = 0:0-0:12
+  >------------<
+0| foo match {}
+
+[Insertion delimiter] = " "

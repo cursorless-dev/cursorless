@@ -1,0 +1,10 @@
+export default (aaa, bbb) => {};
+---
+
+[Content] = 0:16-0:24
+                  >--------<
+0| export default (aaa, bbb) => {};
+
+[Domain] = 0:0-0:32
+  >--------------------------------<
+0| export default (aaa, bbb) => {};

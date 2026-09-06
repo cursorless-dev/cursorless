@@ -1,0 +1,50 @@
+---
+sidebar_label: Start tag
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/xmlStartTag.json";
+
+# Start tag (XML start tag)
+
+Cursorless ID: `xmlStartTag`
+
+## Spoken form
+
+Default: `start tag`
+
+## Syntax
+
+- start tag - Opening XML, HTML, or JSX tag, or LaTeX `begin` command.
+
+## Examples
+
+- `"take start tag blue air"` - Selects the XML start tag containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Start tag
+
+<i>The start tag of a xml element</i>
+
+##### HTML
+
+<ScopeVisualizer fixtureName="scopes/html/startTag" />
+
+##### JavaScript React
+
+<ScopeVisualizer fixtureName="scopes/javascript.jsx/startTag" />
+
+##### LaTeX
+
+<ScopeVisualizer fixtureName="scopes/latex/startTag" />
+
+##### XML
+
+<ScopeVisualizer fixtureName="scopes/xml/startTag" />
+
+</ScopeVisualizerProvider>

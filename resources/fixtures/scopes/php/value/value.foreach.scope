@@ -1,0 +1,21 @@
+<?php
+foreach ($values as $v) {}
+---
+
+[Content] = 1:9-1:16
+           >-------<
+1| foreach ($values as $v) {}
+
+[Removal] = 1:9-1:17
+           >--------<
+1| foreach ($values as $v) {}
+
+[Trailing delimiter] = 1:16-1:17
+                  >-<
+1| foreach ($values as $v) {}
+
+[Domain] = 1:0-1:26
+  >--------------------------<
+1| foreach ($values as $v) {}
+
+[Insertion delimiter] = " "

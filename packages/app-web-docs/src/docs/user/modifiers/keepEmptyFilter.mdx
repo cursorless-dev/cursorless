@@ -1,0 +1,34 @@
+---
+sidebar_label: Empty
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/keepEmptyFilter.json";
+
+# Empty (Keep empty filter)
+
+Cursorless ID: `keepEmptyFilter`
+
+## Spoken form
+
+Default: `empty`
+
+## Syntax
+
+- empty - Keep empty filter.
+
+## Examples
+
+- `"take empty"` - Selects only the empty selections when there are multiple selections.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"take empty"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/keepEmptyFilter" />
+
+</RecordedTestVisualizerProvider>

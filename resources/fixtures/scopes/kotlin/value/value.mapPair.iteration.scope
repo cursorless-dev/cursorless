@@ -1,0 +1,13 @@
+mapOf(aaa to 0, bbb to 1)
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:25
+  >-------------------------<
+0| mapOf(aaa to 0, bbb to 1)
+
+
+[#2 Content] =
+[#2 Domain] = 0:6-0:24
+        >------------------<
+0| mapOf(aaa to 0, bbb to 1)

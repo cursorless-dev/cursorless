@@ -1,0 +1,23 @@
+void mai9n() {
+    final {"aaa": bar, "bbb": baz} = foo;
+}
+---
+
+[Content] =
+[Domain] = 1:10-1:34
+            >------------------------<
+1|     final {"aaa": bar, "bbb": baz} = foo;
+
+[Removal] = 1:10-1:35
+            >-------------------------<
+1|     final {"aaa": bar, "bbb": baz} = foo;
+
+[Leading delimiter] = 1:9-1:10
+           >-<
+1|     final {"aaa": bar, "bbb": baz} = foo;
+
+[Trailing delimiter] = 1:34-1:35
+                                    >-<
+1|     final {"aaa": bar, "bbb": baz} = foo;
+
+[Insertion delimiter] = " "

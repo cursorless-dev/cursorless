@@ -1,0 +1,38 @@
+---
+sidebar_label: Comment
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/toggleLineComment.json";
+
+# Comment (Toggle line comment)
+
+Cursorless ID: `toggleLineComment`
+
+## Spoken form
+
+Default: `comment`
+
+## Syntax
+
+- comment `<target>` - Toggle line comment at `<target>`.
+
+## Examples
+
+- `"comment blue air"` - Toggles the comment on the line containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"comment air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/toggleLineComment" />
+
+### `"comment air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/toggleLineComment2" />
+
+</RecordedTestVisualizerProvider>

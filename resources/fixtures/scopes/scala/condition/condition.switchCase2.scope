@@ -1,0 +1,26 @@
+foo match {
+    case _ => {}
+}
+---
+
+[Content] = 1:9-1:10
+           >-<
+1|     case _ => {}
+
+[Removal] = 1:9-1:11
+           >--<
+1|     case _ => {}
+
+[Leading delimiter] = 1:8-1:9
+          >-<
+1|     case _ => {}
+
+[Trailing delimiter] = 1:10-1:11
+            >-<
+1|     case _ => {}
+
+[Domain] = 1:4-1:16
+      >------------<
+1|     case _ => {}
+
+[Insertion delimiter] = " "

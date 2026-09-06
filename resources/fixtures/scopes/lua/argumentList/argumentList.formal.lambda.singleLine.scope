@@ -1,0 +1,13 @@
+f = function(aaa, bbb) end
+---
+
+[Content] =
+[Removal] = 0:13-0:21
+               >--------<
+0| f = function(aaa, bbb) end
+
+[Domain] = 0:4-0:26
+      >----------------------<
+0| f = function(aaa, bbb) end
+
+[Insertion delimiter] = ", "

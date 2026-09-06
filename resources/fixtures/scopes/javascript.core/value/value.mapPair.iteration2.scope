@@ -1,0 +1,13 @@
+const {foo = 0, bar: BAR} = baz;
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:32
+  >--------------------------------<
+0| const {foo = 0, bar: BAR} = baz;
+
+
+[#2 Content] =
+[#2 Domain] = 0:7-0:24
+         >-----------------<
+0| const {foo = 0, bar: BAR} = baz;

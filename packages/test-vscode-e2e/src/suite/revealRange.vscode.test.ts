@@ -1,0 +1,69 @@
+import assert from "node:assert/strict";
+import vscode from "vscode";
+import { LATEST_VERSION } from "@cursorless/lib-common";
+import {
+  getReusableEditor,
+  runCursorlessCommand,
+} from "@cursorless/lib-vscode-common";
+import { endToEndTestSetup } from "../endToEndTestSetup";
+
+suite("revealRange", function () {
+  endToEndTestSetup(this);
+
+  test("pre file", preFile);
+  test("post file", postFile);
+});
+
+const content = Array.from({ length: 100 }, () => "line").join("\n");
+
+async function preFile() {
+  const editor = await getReusableEditor(content);
+  const startLine = editor.document.lineCount - 1;
+  editor.selections = [new vscode.Selection(startLine, 0, startLine, 0)];
+  editor.revealRange(new vscode.Range(startLine, 0, startLine, 0));
+
+  await runCursorlessCommand({
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
+    action: {
+      name: "setSelectionBefore",
+      target: {
+        type: "primitive",
+        modifiers: [
+          { type: "containingScope", scopeType: { type: "document" } },
+        ],
+      },
+    },
+  });
+
+  assert.equal(editor.visibleRanges.length, 1);
+  // FIXME: Disabled to work around CI failure; see #2243
+  //   assert.equal(editor.visibleRanges[0].start.line, 0);
+}
+
+async function postFile() {
+  const editor = await getReusableEditor(content);
+  await vscode.commands.executeCommand("revealLine", {
+    lineNumber: 1,
+    at: "top",
+  });
+  editor.selections = [new vscode.Selection(0, 0, 0, 0)];
+
+  await runCursorlessCommand({
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
+    action: {
+      name: "setSelectionAfter",
+      target: {
+        type: "primitive",
+        modifiers: [
+          { type: "containingScope", scopeType: { type: "document" } },
+        ],
+      },
+    },
+  });
+
+  assert.equal(editor.visibleRanges.length, 1);
+  // FIXME: Disabled to work around CI failure; see #2243
+  //   assert.equal(editor.visibleRanges[0].end.line, editor.document.lineCount - 1);
+}

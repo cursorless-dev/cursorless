@@ -3,16 +3,6 @@ from pathlib import Path
 
 from talon import Context, Module, actions, app
 
-from .get_list import get_list, get_lists
-from .sections.actions import get_actions
-from .sections.compound_targets import get_compound_targets
-from .sections.destinations import get_destinations
-from .sections.get_scope_visualizer import get_scope_visualizer
-from .sections.modifiers import get_modifiers
-from .sections.scopes import get_scopes
-from .sections.special_marks import get_special_marks
-from .sections.tutorial import get_tutorial_entries
-
 mod = Module()
 ctx = Context()
 ctx.matches = r"""
@@ -26,12 +16,6 @@ instructions_url = "https://www.cursorless.org/docs/"
 class Actions:
     def private_cursorless_cheat_sheet_show_html():
         """Show new cursorless html cheat sheet"""
-        app.notify(
-            'Please first focus an app that supports cursorless, eg say "focus code"'
-        )
-
-    def private_cursorless_cheat_sheet_update_json():
-        """Update default cursorless cheatsheet json (for developer use only)"""
         app.notify(
             'Please first focus an app that supports cursorless, eg say "focus code"'
         )
@@ -59,19 +43,11 @@ class CursorlessActions:
         actions.user.private_cursorless_run_rpc_command_and_wait(
             "cursorless.showCheatsheet",
             {
-                "version": 0,
-                "spokenFormInfo": cursorless_cheat_sheet_get_json(),
+                "version": 1,
                 "outputPath": str(cheatsheet_out_path),
             },
         )
         webbrowser.open(cheatsheet_out_path.as_uri())
-
-    def private_cursorless_cheat_sheet_update_json():
-        """Update default cursorless cheatsheet json (for developer use only)"""
-        actions.user.private_cursorless_run_rpc_command_and_wait(
-            "cursorless.internal.updateCheatsheetDefaults",
-            cursorless_cheat_sheet_get_json(),
-        )
 
 
 def cheatsheet_dir_linux() -> Path:
@@ -89,74 +65,3 @@ def cheatsheet_dir_linux() -> Path:
 
         # 3. Fall back to user home
         return Path.home()
-
-
-def cursorless_cheat_sheet_get_json():
-    """Get cursorless cheat sheet json"""
-    return {
-        "sections": [
-            {
-                "name": "Actions",
-                "id": "actions",
-                "items": get_actions(),
-            },
-            {
-                "name": "Destinations",
-                "id": "destinations",
-                "items": get_destinations(),
-            },
-            {
-                "name": "Scopes",
-                "id": "scopes",
-                "items": get_scopes(),
-            },
-            {
-                "name": "Scope visualizer",
-                "id": "scopeVisualizer",
-                "items": get_scope_visualizer(),
-            },
-            {
-                "name": "Modifiers",
-                "id": "modifiers",
-                "items": get_modifiers(),
-            },
-            {
-                "name": "Paired delimiters",
-                "id": "pairedDelimiters",
-                "items": get_lists(
-                    [
-                        "wrapper_only_paired_delimiter",
-                        "wrapper_selectable_paired_delimiter",
-                        "selectable_only_paired_delimiter",
-                        "surrounding_pair_scope_type",
-                    ],
-                    "pairedDelimiter",
-                ),
-            },
-            {
-                "name": "Special marks",
-                "id": "specialMarks",
-                "items": get_special_marks(),
-            },
-            {
-                "name": "Compound targets",
-                "id": "compoundTargets",
-                "items": get_compound_targets(),
-            },
-            {
-                "name": "Colors",
-                "id": "colors",
-                "items": get_list("hat_color", "hatColor"),
-            },
-            {
-                "name": "Shapes",
-                "id": "shapes",
-                "items": get_list("hat_shape", "hatShape"),
-            },
-            {
-                "name": "Tutorial",
-                "id": "tutorial",
-                "items": get_tutorial_entries(),
-            },
-        ]
-    }

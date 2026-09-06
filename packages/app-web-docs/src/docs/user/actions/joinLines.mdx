@@ -1,0 +1,36 @@
+---
+sidebar_label: Join
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/joinLines.json";
+
+# Join (Join lines)
+
+When the target spans multiple lines, joins all of those lines; otherwise joins the target's line with the following line.
+
+Cursorless ID: `joinLines`
+
+## Spoken form
+
+Default: `join`
+
+## Syntax
+
+- join `<target>` - Join lines at `<target>`.
+
+## Examples
+
+- `"join blue air"` - Joins the line containing the token containing letter `a` with a blue hat with the following line.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"join air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/joinLines" />
+
+</RecordedTestVisualizerProvider>

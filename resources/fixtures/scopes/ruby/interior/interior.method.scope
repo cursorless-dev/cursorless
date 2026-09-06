@@ -1,0 +1,40 @@
+class Foo
+    def bar()
+        a
+    end
+end
+---
+
+[#1 Content] = 1:4-3:7
+      >---------
+1|     def bar()
+2|         a
+3|     end
+   -------<
+
+[#1 Removal] =
+[#1 Domain] = 0:9-4:0
+           >
+0| class Foo
+1|     def bar()
+2|         a
+3|     end
+4| end
+   <
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 2:8-2:9
+          >-<
+2|         a
+
+[#2 Removal] =
+[#2 Domain] = 1:13-3:4
+               >
+1|     def bar()
+2|         a
+3|     end
+   ----<
+
+[#2 Insertion delimiter] = " "

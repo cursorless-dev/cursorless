@@ -1,0 +1,24 @@
+match foo:
+    case _:
+        pass
+---
+
+[Content] =
+[Domain] = 1:4-2:12
+      >-------
+1|     case _:
+2|         pass
+   ------------<
+
+[Removal] = 0:10-2:12
+            >
+0| match foo:
+1|     case _:
+2|         pass
+   ------------<
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     case _:
+
+[Insertion delimiter] = "\n"

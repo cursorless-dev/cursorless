@@ -1,0 +1,23 @@
+<?php
+class Foo {
+    public $bar = 0;
+}
+---
+
+[Content] = 2:18-2:19
+                    >-<
+2|     public $bar = 0;
+
+[Removal] = 2:15-2:19
+                 >----<
+2|     public $bar = 0;
+
+[Leading delimiter] = 2:15-2:18
+                 >---<
+2|     public $bar = 0;
+
+[Domain] = 2:4-2:20
+      >----------------<
+2|     public $bar = 0;
+
+[Insertion delimiter] = " "

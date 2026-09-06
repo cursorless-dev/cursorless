@@ -1,0 +1,90 @@
+foo,
+    baz := 1, 2
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:3
+  >---<
+0| foo,
+
+[#1 Removal] = 0:0-1:4
+  >----
+0| foo,
+1|     baz := 1, 2
+   ----<
+
+[#1 Trailing delimiter] = 0:3-1:4
+     >-
+0| foo,
+1|     baz := 1, 2
+   ----<
+
+[#1 Insertion delimiter] = ",\n"
+
+
+[#2 Content] =
+[#2 Domain] = 1:4-1:7
+      >---<
+1|     baz := 1, 2
+
+[#2 Removal] = 0:3-1:7
+     >-
+0| foo,
+1|     baz := 1, 2
+   -------<
+
+[#2 Leading delimiter] = 0:3-1:4
+     >-
+0| foo,
+1|     baz := 1, 2
+   ----<
+
+[#2 Insertion delimiter] = ",\n"
+
+
+[#3 Content] =
+[#3 Domain] = 1:4-1:12
+      >--------<
+1|     baz := 1, 2
+
+[#3 Removal] = 1:4-1:14
+      >----------<
+1|     baz := 1, 2
+
+[#3 Trailing delimiter] = 1:12-1:14
+              >--<
+1|     baz := 1, 2
+
+[#3 Insertion delimiter] = ", "
+
+
+[#4 Content] =
+[#4 Domain] = 1:11-1:12
+             >-<
+1|     baz := 1, 2
+
+[#4 Removal] = 1:11-1:14
+             >---<
+1|     baz := 1, 2
+
+[#4 Trailing delimiter] = 1:12-1:14
+              >--<
+1|     baz := 1, 2
+
+[#4 Insertion delimiter] = ", "
+
+
+[#5 Content] =
+[#5 Domain] = 1:14-1:15
+                >-<
+1|     baz := 1, 2
+
+[#5 Removal] = 1:12-1:15
+              >---<
+1|     baz := 1, 2
+
+[#5 Leading delimiter] = 1:12-1:14
+              >--<
+1|     baz := 1, 2
+
+[#5 Insertion delimiter] = ", "

@@ -1,0 +1,13 @@
+def foo(aaa: Int, bbb: Int) {}
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:30
+  >------------------------------<
+0| def foo(aaa: Int, bbb: Int) {}
+
+
+[#2 Content] =
+[#2 Domain] = 0:8-0:26
+          >------------------<
+0| def foo(aaa: Int, bbb: Int) {}

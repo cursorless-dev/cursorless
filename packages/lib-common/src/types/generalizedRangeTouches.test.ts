@@ -1,0 +1,141 @@
+import assert from "node:assert/strict";
+import type { GeneralizedRange } from "./GeneralizedRange";
+import { generalizedRangeTouches } from "./GeneralizedRange";
+import { Position } from "./Position";
+
+suite("generalizedRangeTouches", () => {
+  test("character", () => {
+    testRangePair(
+      {
+        type: "character",
+        start: new Position(0, 0),
+        end: new Position(0, 0),
+      },
+      {
+        type: "character",
+        start: new Position(0, 0),
+        end: new Position(0, 0),
+      },
+      true,
+    );
+    testRangePair(
+      {
+        type: "character",
+        start: new Position(0, 0),
+        end: new Position(0, 1),
+      },
+      {
+        type: "character",
+        start: new Position(0, 0),
+        end: new Position(0, 0),
+      },
+      true,
+    );
+    testRangePair(
+      {
+        type: "character",
+        start: new Position(0, 0),
+        end: new Position(0, 1),
+      },
+      {
+        type: "character",
+        start: new Position(0, 1),
+        end: new Position(0, 2),
+      },
+      true,
+    );
+    testRangePair(
+      {
+        type: "character",
+        start: new Position(0, 0),
+        end: new Position(0, 0),
+      },
+      {
+        type: "character",
+        start: new Position(0, 1),
+        end: new Position(0, 1),
+      },
+      false,
+    );
+  });
+
+  test("line", () => {
+    testRangePair(
+      {
+        type: "line",
+        start: 0,
+        end: 0,
+      },
+      {
+        type: "line",
+        start: 0,
+        end: 0,
+      },
+      true,
+    );
+    testRangePair(
+      {
+        type: "line",
+        start: 0,
+        end: 1,
+      },
+      {
+        type: "line",
+        start: 0,
+        end: 0,
+      },
+      true,
+    );
+    testRangePair(
+      {
+        type: "line",
+        start: 0,
+        end: 0,
+      },
+      {
+        type: "line",
+        start: 1,
+        end: 1,
+      },
+      false,
+    );
+  });
+
+  test("mixed", () => {
+    testRangePair(
+      {
+        type: "line",
+        start: 0,
+        end: 0,
+      },
+      {
+        type: "character",
+        start: new Position(0, 0),
+        end: new Position(1, 1),
+      },
+      true,
+    );
+    testRangePair(
+      {
+        type: "line",
+        start: 0,
+        end: 0,
+      },
+      {
+        type: "character",
+        start: new Position(1, 0),
+        end: new Position(1, 1),
+      },
+      false,
+    );
+  });
+});
+
+function testRangePair(
+  a: GeneralizedRange,
+  b: GeneralizedRange,
+  expected: boolean,
+) {
+  assert.equal(generalizedRangeTouches(a, b), expected);
+  assert.equal(generalizedRangeTouches(b, a), expected);
+}

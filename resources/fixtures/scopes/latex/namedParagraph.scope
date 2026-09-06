@@ -1,0 +1,10 @@
+\paragraph{Introduction}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:24
+  >------------------------<
+0| \paragraph{Introduction}
+
+[Insertion delimiter] = "\n\n"

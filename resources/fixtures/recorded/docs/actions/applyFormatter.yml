@@ -1,0 +1,51 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: format camel at bat
+  action:
+    name: replace
+    replaceWith: [bbbAaa]
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: false
+spokenFormError: Action 'replace'
+initialState:
+  documentContents: // bbb_aaa
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.b:
+      start: {line: 0, character: 3}
+      end: {line: 0, character: 10}
+  hatTokenMap:
+    - hatStyle: default
+      grapheme: b
+      hatRange:
+        start: {line: 0, character: 4}
+        end: {line: 0, character: 5}
+    - hatStyle: default
+      grapheme: /
+      hatRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 1}
+finalState:
+  documentContents: // bbbAaa
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  hatTokenMap:
+    - hatStyle: default
+      grapheme: /
+      hatRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 1}
+    - hatStyle: default
+      grapheme: b
+      hatRange:
+        start: {line: 0, character: 4}
+        end: {line: 0, character: 5}

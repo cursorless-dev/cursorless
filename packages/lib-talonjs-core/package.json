@@ -1,0 +1,22 @@
+{
+  "name": "@cursorless/lib-talonjs-core",
+  "version": "1.0.0",
+  "description": "cursorless in talon js core packagee",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc",
+    "clean": "rm -rf ./out ./dist ./tsconfig.tsbuildinfo"
+  },
+  "dependencies": {
+    "@cursorless/lib-common": "workspace:*",
+    "@cursorless/lib-engine": "workspace:*",
+    "lodash-es": "^4.18.1"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.12"
+  }
+}
