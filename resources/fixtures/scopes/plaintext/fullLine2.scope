@@ -1,0 +1,96 @@
+
+Hello
+ world 
+  
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:0
+  ><
+0|
+
+[#1 Removal] = 0:0-1:0
+  >
+0|
+1| Hello
+   <
+
+[#1 Trailing delimiter] = 0:0-1:0
+  >
+0|
+1| Hello
+   <
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 1:0-1:5
+  >-----<
+1| Hello
+
+[#2 Removal] = 1:0-2:0
+  >-----
+1| Hello
+2|  world 
+   <
+
+[#2 Leading delimiter] = 0:0-1:0
+  >
+0|
+1| Hello
+   <
+
+[#2 Trailing delimiter] = 1:5-2:0
+       >
+1| Hello
+2|  world 
+   <
+
+[#2 Insertion delimiter] = "\n"
+
+
+[#3 Content] =
+[#3 Domain] = 2:0-2:7
+  >-------<
+2|  world 
+
+[#3 Removal] = 2:0-3:0
+  >-------
+2|  world 
+3|   
+   <
+
+[#3 Leading delimiter] = 1:5-2:0
+       >
+1| Hello
+2|  world 
+   <
+
+[#3 Trailing delimiter] = 2:7-3:0
+         >
+2|  world 
+3|   
+   <
+
+[#3 Insertion delimiter] = "\n"
+
+
+[#4 Content] =
+[#4 Domain] = 3:0-3:2
+  >--<
+3|   
+
+[#4 Removal] = 2:7-3:2
+         >
+2|  world 
+3|   
+   --<
+
+[#4 Leading delimiter] = 2:7-3:0
+         >
+2|  world 
+3|   
+   <
+
+[#4 Insertion delimiter] = "\n"

@@ -1,0 +1,13 @@
+type Foo struct { }
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:19
+  >-------------------<
+0| type Foo struct { }
+
+
+[#2 Content] =
+[#2 Domain] = 0:17-0:18
+                   >-<
+0| type Foo struct { }

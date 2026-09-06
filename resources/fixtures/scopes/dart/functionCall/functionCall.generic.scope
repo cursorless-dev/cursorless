@@ -1,0 +1,17 @@
+var foo = bar<int>();
+---
+
+[Content] =
+[Domain] = 0:10-0:20
+            >----------<
+0| var foo = bar<int>();
+
+[Removal] = 0:9-0:20
+           >-----------<
+0| var foo = bar<int>();
+
+[Leading delimiter] = 0:9-0:10
+           >-<
+0| var foo = bar<int>();
+
+[Insertion delimiter] = " "

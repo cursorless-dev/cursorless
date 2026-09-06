@@ -1,0 +1,40 @@
+---
+sidebar_label: Clone
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/insertCopyAfter.json";
+
+# Clone (Insert copy after)
+
+After insertion, each selection moves to its newly created copy.
+
+Cursorless ID: `insertCopyAfter`
+
+## Spoken form
+
+Default: `clone`
+
+## Syntax
+
+- clone `<target>` - Insert copy after `<target>`.
+
+## Examples
+
+- `"clone funk blue air"` - Inserts a copy of the function containing the token containing letter `a` with a blue hat after itself.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"clone air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/insertCopyAfter" />
+
+### `"clone token air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/insertCopyAfter2" />
+
+</RecordedTestVisualizerProvider>

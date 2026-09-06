@@ -1,0 +1,63 @@
+enum class Foo {
+    bar,
+    baz()
+}
+---
+
+[#1 Content] = 0:11-0:14
+             >---<
+0| enum class Foo {
+
+[#1 Removal] = 0:11-0:15
+             >----<
+0| enum class Foo {
+
+[#1 Leading delimiter] = 0:10-0:11
+            >-<
+0| enum class Foo {
+
+[#1 Trailing delimiter] = 0:14-0:15
+                >-<
+0| enum class Foo {
+
+[#1 Domain] = 0:0-3:1
+  >----------------
+0| enum class Foo {
+1|     bar,
+2|     baz()
+3| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Domain] = 1:4-1:7
+      >---<
+1|     bar,
+
+[#2 Removal] = 1:0-1:7
+  >-------<
+1|     bar,
+
+[#2 Leading delimiter] = 1:0-1:4
+  >----<
+1|     bar,
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] =
+[#3 Removal] = 2:4-2:7
+      >---<
+2|     baz()
+
+[#3 Leading delimiter] = 2:0-2:4
+  >----<
+2|     baz()
+
+[#3 Domain] = 2:4-2:9
+      >-----<
+2|     baz()
+
+[#3 Insertion delimiter] = " "

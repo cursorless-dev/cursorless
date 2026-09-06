@@ -1,0 +1,29 @@
+function foo(...aaa) {}
+---
+
+[#1 Content] =
+[#1 Removal] = 0:9-0:12
+           >---<
+0| function foo(...aaa) {}
+
+[#1 Leading delimiter] = 0:8-0:9
+          >-<
+0| function foo(...aaa) {}
+
+[#1 Domain] = 0:0-0:23
+  >-----------------------<
+0| function foo(...aaa) {}
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] = 0:16-0:19
+                  >---<
+0| function foo(...aaa) {}
+
+[#2 Domain] = 0:13-0:19
+               >------<
+0| function foo(...aaa) {}
+
+[#2 Insertion delimiter] = " "

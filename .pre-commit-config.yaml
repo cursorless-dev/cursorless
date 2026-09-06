@@ -1,12 +1,20 @@
-minimum_pre_commit_version: "2.9.0"
+minimum_pre_commit_version: "3.2.0"
 ci:
   autoupdate_schedule: monthly
-exclude: /vendor/
+exclude: |
+  (?x)(
+      ^resources/patches/|
+      ^resources/playground/|
+      /generated/|
+      /vendor/
+  )
+
 repos:
   - repo: meta
     hooks:
       - id: check-hooks-apply
       - id: check-useless-excludes
+
   - repo: local
     hooks:
       - id: forbid-symlinks
@@ -14,15 +22,18 @@ repos:
         entry: Forbid symlinks
         language: fail
         types: [symlink]
+
   - repo: https://github.com/Lucas-C/pre-commit-hooks
-    rev: v1.5.1
+    rev: v1.5.6
     hooks:
       - id: forbid-crlf
+
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v6.0.0
     hooks:
       - id: check-added-large-files
       - id: check-case-conflict
+      - id: check-illegal-windows-names
       - id: check-executables-have-shebangs
       - id: check-merge-conflict
       - id: check-shebang-scripts-are-executable
@@ -30,7 +41,6 @@ repos:
       - id: detect-private-key
       - id: end-of-file-fixer
         exclude_types: [svg]
-        exclude: ^patches/.*\.patch$|\.scope$
       - id: fix-byte-order-marker
       - id: forbid-submodules
       - id: mixed-line-ending
@@ -39,48 +49,72 @@ repos:
         # with a line that has trailing white space. Many of our recorded
         # tests use strings with trailing white space to represent the final
         # document contents. For example
-        # packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/languages/ruby/changeCondition.yml
-        exclude: ^packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/.*/[^/]*\.yml$|\.scope$|/generated/|^patches/
+        # resources/fixtures/recorded/languages/ruby/changeCondition.yml
+        exclude: |
+          (?x)(
+            ^resources/fixtures/recorded/.*/[^/]*\.yml$|
+            ^resources/fixtures/scopes/.*/[^/]*\.scope$
+          )
+
   - repo: local
     hooks:
-      - id: eslint
-        name: eslint
+      - id: oxlint
+        name: oxlint
         files: \.(ts|tsx)$
         language: system
-        entry: pnpm exec eslint
+        entry: pnpm exec oxlint
         args: [--fix]
+
   - repo: local
     hooks:
-      - id: prettier
-        name: prettier
+      - id: oxfmt
+        name: oxfmt
         types: [text]
         language: system
-        entry: pnpm exec prettier
-        args: [--write, --list-different, --ignore-unknown]
+        entry: pnpm exec oxfmt
+        args: [--write, --no-error-on-unmatched-pattern]
+
   - repo: local
     hooks:
       - id: format-recorded-tests
         name: format-recorded-tests
-        files: ^packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/.*/[^/]*\.yml$
+        files: ^resources/fixtures/recorded/.*/[^/]*\.yml$
         language: system
-        entry: pnpm exec ./packages/common/scripts/my-ts-node.js packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts
+        entry: pnpm transform-recorded-tests
+
   - repo: local
     hooks:
       - id: check-recorded-test-marks
         name: check-recorded-test-marks
-        files: ^packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/.*/[^/]*\.yml$
+        files: ^resources/fixtures/recorded/.*/[^/]*\.yml$
         language: system
-        entry: pnpm exec ./packages/common/scripts/my-ts-node.js packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts --check-marks
-  - repo: https://github.com/ikamensh/flynt
-    rev: "1.0.1"
-    hooks:
-      - id: flynt
+        entry: pnpm transform-recorded-tests --check-marks
+
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.1.11
+    rev: v0.15.7
     hooks:
-      - id: ruff
-        args: [--fix, --exit-non-zero-on-fix]
-  - repo: https://github.com/psf/black-pre-commit-mirror
-    rev: 24.1.1
+      - id: ruff-check
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: https://github.com/cursorless-dev/talon-tools
+    rev: v0.11.2
     hooks:
-      - id: black
+      - id: talon-fmt
+      - id: tree-sitter-fmt
+
+  - repo: https://github.com/lunarmodules/luacheck
+    rev: v1.2.0
+    hooks:
+      - id: luacheck
+
+  - repo: https://github.com/JohnnyMorganz/StyLua
+    rev: v2.4.0
+    hooks:
+      - id: stylua
+
+  - repo: https://github.com/koalaman/shellcheck-precommit
+    rev: v0.11.0
+    hooks:
+      - id: shellcheck
+        name: ShellCheck

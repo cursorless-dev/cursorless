@@ -1,0 +1,10 @@
+command: "Hello world"
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:10-0:21
+            >-----------<
+0| command: "Hello world"
+
+[Insertion delimiter] = " "

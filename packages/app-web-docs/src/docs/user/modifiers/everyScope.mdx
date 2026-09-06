@@ -1,0 +1,36 @@
+---
+sidebar_label: Every
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/everyScope.json";
+
+# Every (Every scope)
+
+Selects all matching sibling scopes. It can also prefix an ordinal or relative modifier to return separate targets instead of one contiguous range.
+
+Cursorless ID: `everyScope`
+
+## Spoken form
+
+Default: `every`
+
+## Syntax
+
+- every `<scope>` - Every instance of `<scope>`.
+
+## Examples
+
+- `"take every item blue air"` - Selects every item in the map containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"take every item"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/everyScope" />
+
+</RecordedTestVisualizerProvider>

@@ -1,0 +1,24 @@
+---
+sidebar_label: From
+---
+
+# From (Set instance reference)
+
+Sets the instance reference. This restricts the next instance search to a target. With `"every instance"`, the target defines the region to search; with `"next instance"`, it defines the position where the search begins.
+
+Older Cursorless installations may have `"from"` disabled. Remove the leading `-` from its entry in `experimental/experimental_actions.csv` to enable it; see the [settings CSV documentation](../customization.md).
+
+Cursorless ID: `experimental.setInstanceReference`
+
+## Spoken form
+
+Default: `from`
+
+## Syntax
+
+- from `<target>` - Set instance reference to `<target>`.
+
+## Examples
+
+- `"from funk blue air take every instance green bat"` - Selects every instance of the token containing letter `b` with a green hat within the function containing the token containing letter `a` with a blue hat.
+- `"from blue air take next instance green bat"` - Selects the next instance of the token containing letter `b` with a green hat, searching from the token containing letter `a` with a blue hat.

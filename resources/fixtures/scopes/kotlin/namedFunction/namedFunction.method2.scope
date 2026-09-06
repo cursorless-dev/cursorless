@@ -1,0 +1,25 @@
+class Foo {
+    @An
+    fun bar() {}
+}
+---
+
+[Content] =
+[Domain] = 1:4-2:16
+      >---
+1|     @An
+2|     fun bar() {}
+   ----------------<
+
+[Removal] = 1:0-3:0
+  >-------
+1|     @An
+2|     fun bar() {}
+3| }
+   <
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     @An
+
+[Insertion delimiter] = "\n\n"

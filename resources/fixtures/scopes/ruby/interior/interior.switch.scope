@@ -1,0 +1,18 @@
+case foo
+when 0
+end
+---
+
+[Content] = 1:0-1:6
+  >------<
+1| when 0
+
+[Removal] =
+[Domain] = 0:8-2:0
+          >
+0| case foo
+1| when 0
+2| end
+   <
+
+[Insertion delimiter] = " "

@@ -1,0 +1,76 @@
+import assert from "node:assert/strict";
+import vscode from "vscode";
+import { LATEST_VERSION, splitKey } from "@cursorless/lib-common";
+import {
+  getTestHelpers,
+  runCursorlessCommand,
+} from "@cursorless/lib-vscode-common";
+import { endToEndTestSetup } from "../endToEndTestSetup";
+
+suite("Group by document", function () {
+  endToEndTestSetup(this);
+
+  test("Group by document", runTest);
+});
+
+async function runTest() {
+  const { hatTokenMap, toVscodeEditor } = await getTestHelpers();
+
+  await vscode.commands.executeCommand("workbench.action.closeAllEditors");
+
+  const document = await vscode.workspace.openTextDocument({
+    language: "plaintext",
+    content: "hello world",
+  });
+
+  const editor1 = await vscode.window.showTextDocument(document);
+  const editor2 = await vscode.window.showTextDocument(
+    document,
+    vscode.ViewColumn.Beside,
+  );
+
+  await hatTokenMap.allocateHats();
+  const hatMap = await hatTokenMap.getReadableMap(false);
+
+  const hat1 = hatMap
+    .getEntries()
+    .find(
+      ([, token]) =>
+        toVscodeEditor(token.editor) === editor1 && token.text === "hello",
+    );
+  const hat2 = hatMap
+    .getEntries()
+    .find(
+      ([, token]) =>
+        toVscodeEditor(token.editor) === editor2 && token.text === "world",
+    );
+
+  const { hatStyle: hatStyle1, character: char1 } = splitKey(hat1![0]);
+  const { hatStyle: hatStyle2, character: char2 } = splitKey(hat2![0]);
+
+  await runCursorlessCommand({
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
+    action: {
+      name: "swapTargets",
+      target1: {
+        type: "primitive",
+        mark: {
+          type: "decoratedSymbol",
+          symbolColor: hatStyle1,
+          character: char1,
+        },
+      },
+      target2: {
+        type: "primitive",
+        mark: {
+          type: "decoratedSymbol",
+          symbolColor: hatStyle2,
+          character: char2,
+        },
+      },
+    },
+  });
+
+  assert.equal(document.getText(), "world hello");
+}

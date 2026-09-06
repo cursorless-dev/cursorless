@@ -1,0 +1,40 @@
+---
+sidebar_label: Cell
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/notebookCell.json";
+
+# Cell (Notebook cell)
+
+Cursorless ID: `notebookCell`
+
+## Spoken form
+
+Default: `cell`
+
+## Syntax
+
+- cell - Notebook cell or Markdown fenced code block.
+
+## Examples
+
+- `"take cell blue air"` - Selects the notebook cell containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Notebook cell
+
+<i>A cell in a notebook or a markdown code block</i>
+
+##### Markdown
+
+<ScopeVisualizer fixtureName="scopes/markdown/notebookCell" />
+
+<ScopeVisualizer fixtureName="scopes/markdown/notebookCell2" />
+
+</ScopeVisualizerProvider>

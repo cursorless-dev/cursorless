@@ -1,0 +1,34 @@
+---
+sidebar_label: Copy
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/copyToClipboard.json";
+
+# Copy (Copy to clipboard)
+
+Cursorless ID: `copyToClipboard`
+
+## Spoken form
+
+Default: `copy`
+
+## Syntax
+
+- copy `<target>` - Copy `<target>` to clipboard.
+
+## Examples
+
+- `"copy blue air"` - Copies the token containing letter `a` with a blue hat to the clipboard.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"copy line"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/copyToClipboard" />
+
+</RecordedTestVisualizerProvider>

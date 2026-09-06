@@ -1,0 +1,13 @@
+export function foo() {}
+---
+
+[Content] =
+[Removal] = 0:20-0:20
+                      ><
+0| export function foo() {}
+
+[Domain] = 0:0-0:24
+  >------------------------<
+0| export function foo() {}
+
+[Insertion delimiter] = ""

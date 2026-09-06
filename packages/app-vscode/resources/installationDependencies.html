@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy" content="META_CONTENT" />
+    <style>
+      .hide {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>Cursorless extension is now running!</h2>
+
+    <a href="https://www.cursorless.org/docs/user/installation">
+      Click here to learn how to install Cursorless
+    </a>
+
+    <p>Let's check if all dependencies are installed.</p>
+
+    <div id="msg-talon" class="hide">
+      <h4>Talon not installed</h4>
+      <p>
+        Cursorless requires Talon to function by voice.
+        <br />
+        You can download Talon from
+        <a href="https://talonvoice.com">talonvoice.com</a>
+      </p>
+      <p>
+        <i>
+          If you're using Cursorless by keyboard, you can ignore this message.
+        </i>
+      </p>
+    </div>
+
+    <div id="msg-cursorless-talon" class="hide">
+      <h4>Cursorless Talon scripts missing</h4>
+      <p>
+        Cursorless requires Talon user scripts to function by voice.
+        <br />
+        The installation steps for the scripts are available at
+        <a
+          href="https://www.cursorless.org/docs/user/installation/#installing-the-talon-side"
+        >
+          github.com/cursorless-dev/cursorless-talon
+        </a>
+      </p>
+    </div>
+
+    <div id="msg-command-server" class="hide">
+      <h4>Command server extension not installed</h4>
+      <p>
+        Cursorless requires the command server extension to function by voice.
+        <br />
+        The extension is available at the
+        <a
+          href="https://marketplace.visualstudio.com/items?itemName=pokey.command-server"
+        >
+          Visual Studio Marketplace
+        </a>
+      </p>
+      <p>
+        <i>
+          If you're using Cursorless by keyboard, you can ignore this message.
+        </i>
+      </p>
+    </div>
+
+    <div id="msg-all-installed" class="hide">
+      <h4>All dependencies are installed!</h4>
+    </div>
+
+    <div style="margin-top: 1rem">
+      <label>
+        <input id="input-dont-show" type="checkbox" />
+        Don't show again
+      </label>
+    </div>
+
+    <script src="SCRIPT_SOURCE"></script>
+  </body>
+</html>

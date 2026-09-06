@@ -1,0 +1,10 @@
+export class Foo {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:19
+  >-------------------<
+0| export class Foo {}
+
+[Insertion delimiter] = "\n"

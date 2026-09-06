@@ -1,0 +1,20 @@
+for (const v of values) {}
+---
+
+[Content] = 0:16-0:22
+                  >------<
+0| for (const v of values) {}
+
+[Removal] = 0:15-0:22
+                 >-------<
+0| for (const v of values) {}
+
+[Leading delimiter] = 0:15-0:16
+                 >-<
+0| for (const v of values) {}
+
+[Domain] = 0:0-0:26
+  >--------------------------<
+0| for (const v of values) {}
+
+[Insertion delimiter] = " "

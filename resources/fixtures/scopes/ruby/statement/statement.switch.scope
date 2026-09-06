@@ -1,0 +1,15 @@
+case foo
+when 0
+end
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-2:3
+  >--------
+0| case foo
+1| when 0
+2| end
+   ---<
+
+[Insertion delimiter] = "\n"

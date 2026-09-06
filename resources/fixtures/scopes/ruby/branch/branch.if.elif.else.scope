@@ -1,0 +1,58 @@
+if true
+    a
+elsif false
+    a
+else
+    a
+end
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-1:5
+  >-------
+0| if true
+1|     a
+   -----<
+
+[#1 Removal] = 0:0-2:3
+  >-------
+0| if true
+1|     a
+2| elsif false
+   ---<
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 2:0-3:5
+  >-----------
+2| elsif false
+3|     a
+   -----<
+
+[#2 Removal] = 2:0-4:0
+  >-----------
+2| elsif false
+3|     a
+4| else
+   <
+
+[#2 Insertion delimiter] = "\n"
+
+
+[#3 Content] =
+[#3 Domain] = 4:0-5:5
+  >----
+4| else
+5|     a
+   -----<
+
+[#3 Removal] = 4:0-6:0
+  >----
+4| else
+5|     a
+6| end
+   <
+
+[#3 Insertion delimiter] = "\n"

@@ -1,0 +1,20 @@
+val foo: suspend () -> Int = { -> }
+---
+
+[Content] = 0:29-0:35
+                               >------<
+0| val foo: suspend () -> Int = { -> }
+
+[Removal] = 0:26-0:35
+                            >---------<
+0| val foo: suspend () -> Int = { -> }
+
+[Leading delimiter] = 0:26-0:29
+                            >---<
+0| val foo: suspend () -> Int = { -> }
+
+[Domain] = 0:0-0:35
+  >-----------------------------------<
+0| val foo: suspend () -> Int = { -> }
+
+[Insertion delimiter] = " "

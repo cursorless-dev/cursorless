@@ -1,0 +1,32 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: change bounds value
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: excludeInterior}
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    const aaa = {
+        bbb: "ccc ddd"
+    }
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks: {}
+finalState:
+  documentContents: |-
+    const aaa = {
+        bbb: ccc ddd
+    }
+  selections:
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 9}
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 16}

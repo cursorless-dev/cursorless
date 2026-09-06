@@ -1,0 +1,13 @@
+Map<string, int> foo;
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:21
+  >---------------------<
+0| Map<string, int> foo;
+
+
+[#2 Content] =
+[#2 Domain] = 0:4-0:15
+      >-----------<
+0| Map<string, int> foo;

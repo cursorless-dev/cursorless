@@ -1,0 +1,13 @@
+var foo = Bar(aaa, bbb);
+---
+
+[Content] =
+[Removal] = 0:14-0:22
+                >--------<
+0| var foo = Bar(aaa, bbb);
+
+[Domain] = 0:10-0:23
+            >-------------<
+0| var foo = Bar(aaa, bbb);
+
+[Insertion delimiter] = ", "

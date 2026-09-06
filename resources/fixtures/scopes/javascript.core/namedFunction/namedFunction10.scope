@@ -1,0 +1,10 @@
+export const foo = () => {};
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:28
+  >----------------------------<
+0| export const foo = () => {};
+
+[Insertion delimiter] = "\n\n"

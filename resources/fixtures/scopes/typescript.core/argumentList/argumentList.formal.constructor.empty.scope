@@ -1,0 +1,15 @@
+class Foo {
+    constructor();
+}
+---
+
+[Content] =
+[Removal] = 1:16-1:16
+                  ><
+1|     constructor();
+
+[Domain] = 1:4-1:18
+      >--------------<
+1|     constructor();
+
+[Insertion delimiter] = ""

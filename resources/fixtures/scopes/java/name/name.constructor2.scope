@@ -1,0 +1,49 @@
+public class Foo {
+    @bar
+    public Foo() {}
+}
+---
+
+[#1 Content] = 0:13-0:16
+               >---<
+0| public class Foo {
+
+[#1 Removal] = 0:13-0:17
+               >----<
+0| public class Foo {
+
+[#1 Leading delimiter] = 0:12-0:13
+              >-<
+0| public class Foo {
+
+[#1 Trailing delimiter] = 0:16-0:17
+                  >-<
+0| public class Foo {
+
+[#1 Domain] = 0:0-3:1
+  >------------------
+0| public class Foo {
+1|     @bar
+2|     public Foo() {}
+3| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] = 2:11-2:14
+             >---<
+2|     public Foo() {}
+
+[#2 Leading delimiter] = 2:10-2:11
+            >-<
+2|     public Foo() {}
+
+[#2 Domain] = 1:4-2:19
+      >----
+1|     @bar
+2|     public Foo() {}
+   -------------------<
+
+[#2 Insertion delimiter] = " "

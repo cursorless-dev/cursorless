@@ -1,0 +1,146 @@
+import assert from "node:assert/strict";
+import { isEqual, sortBy, uniq, uniqWith } from "lodash-es";
+import type { KeyValuePair } from "./buildSuffixTrie";
+import { buildSuffixTrie } from "./buildSuffixTrie";
+
+interface TestCase {
+  input: string[];
+  expected: KeyValuePair<string>[];
+  expectedConflicts?: KeyValuePair<string>[][];
+}
+
+const testCases: TestCase[] = [
+  {
+    input: ["a", "b", "c"],
+    expected: [
+      { key: "a", value: "a" },
+      { key: "b", value: "b" },
+      { key: "c", value: "c" },
+    ],
+  },
+  {
+    input: ["ab", "c"],
+    expected: [
+      { key: "ab", value: "ab" },
+      { key: "b", value: "ab" },
+      { key: "c", value: "c" },
+    ],
+  },
+  {
+    input: ["ab", "b"],
+    expected: [
+      { key: "ab", value: "ab" },
+      { key: "b", value: "b" },
+    ],
+  },
+  {
+    input: ["a", "ab"],
+    expected: [{ key: "b", value: "ab" }],
+    expectedConflicts: [
+      [
+        { key: "a", value: "a" },
+        { key: "ab", value: "ab" },
+      ],
+    ],
+  },
+  {
+    input: ["ab", "cbd"],
+    expected: [
+      { key: "ab", value: "ab" },
+      { key: "cbd", value: "cbd" },
+      { key: "d", value: "cbd" },
+    ],
+  },
+  {
+    input: ["a", "bac"],
+    expected: [
+      { key: "a", value: "a" },
+      { key: "bac", value: "bac" },
+      { key: "c", value: "bac" },
+    ],
+  },
+  {
+    input: ["ab", "bc"],
+    expected: [
+      { key: "ab", value: "ab" },
+      { key: "bc", value: "bc" },
+      { key: "c", value: "bc" },
+    ],
+  },
+  {
+    input: ["az", "bz", "c"],
+    expected: [
+      { key: "az", value: "az" },
+      { key: "bz", value: "bz" },
+      { key: "c", value: "c" },
+    ],
+  },
+  {
+    input: ["ab", "cde", "cxe"],
+    expected: [
+      { key: "ab", value: "ab" },
+      { key: "b", value: "ab" },
+      { key: "cde", value: "cde" },
+      { key: "de", value: "cde" },
+      { key: "cxe", value: "cxe" },
+      { key: "xe", value: "cxe" },
+    ],
+  },
+  {
+    input: ["ab", "ac"],
+    expected: [
+      { key: "ab", value: "ab" },
+      { key: "ac", value: "ac" },
+      { key: "b", value: "ab" },
+      { key: "c", value: "ac" },
+    ],
+  },
+  {
+    input: ["aa"],
+    expected: [
+      { key: "aa", value: "aa" },
+      { key: "a", value: "aa" },
+    ],
+  },
+  {
+    input: ["aa", "ab"],
+    expected: [
+      { key: "aa", value: "aa" },
+      { key: "ab", value: "ab" },
+      { key: "b", value: "ab" },
+    ],
+  },
+  {
+    input: ["a", "A"],
+    expected: [
+      { key: "a", value: "a" },
+      { key: "A", value: "A" },
+    ],
+  },
+];
+
+suite("buildSuffixTrie", () => {
+  for (const { input, expected, expectedConflicts } of testCases) {
+    test(`input: ${input}`, () => {
+      const { trie, conflicts } = buildSuffixTrie<string>(
+        input.map((key) => [key, key]),
+      );
+      const chars = uniq(input.flatMap((key) => key.split(""))).toSorted();
+      const actual = uniqWith(
+        sortEntries(chars.flatMap((char) => trie.search(char))),
+        isEqual,
+      ).map(({ key, value }) => ({ key, value }));
+      assert.deepEqual(actual, sortEntries(expected));
+      assert.deepEqual(
+        sortBy(conflicts.map(sortEntries), (conflict) =>
+          JSON.stringify(conflict),
+        ),
+        (expectedConflicts ?? []).map(sortEntries),
+      );
+    });
+  }
+});
+
+function sortEntries(entries: KeyValuePair<string>[]) {
+  return sortBy(entries, ["key", "value"]);
+}

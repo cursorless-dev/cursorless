@@ -1,0 +1,55 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change state
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: statement}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    package test
+
+    import some.package
+
+    @Annotation
+    class Test {
+        fun add(x: Int, y: Int) = x + y
+
+        @Annotation
+        fun do_stuff() {
+            if (true) return "something"
+            else {
+                return "another"
+            }
+        }
+    }
+  selections:
+    - anchor: {line: 10, character: 29}
+      active: {line: 10, character: 29}
+  marks: {}
+finalState:
+  documentContents: |-
+    package test
+
+    import some.package
+
+    @Annotation
+    class Test {
+        fun add(x: Int, y: Int) = x + y
+
+        @Annotation
+        fun do_stuff() {
+            if (true) 
+            else {
+                return "another"
+            }
+        }
+    }
+  selections:
+    - anchor: {line: 10, character: 18}
+      active: {line: 10, character: 18}

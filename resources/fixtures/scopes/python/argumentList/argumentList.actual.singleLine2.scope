@@ -1,0 +1,13 @@
+" ".join(v for v in values)
+---
+
+[Content] =
+[Removal] = 0:9-0:26
+           >-----------------<
+0| " ".join(v for v in values)
+
+[Domain] = 0:0-0:27
+  >---------------------------<
+0| " ".join(v for v in values)
+
+[Insertion delimiter] = " "

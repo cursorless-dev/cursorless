@@ -1,0 +1,40 @@
+import { defaultSpokenFormMapCore } from "@cursorless/lib-common";
+import type { DefaultSpokenFormMapEntry } from "@cursorless/lib-common";
+import type { SpokenFormMap, SpokenFormMappingType } from "./SpokenFormMap";
+import { mapSpokenForms } from "./SpokenFormMap";
+
+export type DefaultSpokenFormInfoMap =
+  SpokenFormMappingType<DefaultSpokenFormMapEntry>;
+
+/**
+ * This map contains information about the default spoken forms for all our
+ * speakable entities, including scope types, paired delimiters, etc. Note that
+ * this map can't be used as a spoken form map. If you want something that can
+ * be used as a spoken form map, see {@link defaultSpokenFormMap}.
+ */
+export const defaultSpokenFormInfoMap: DefaultSpokenFormInfoMap =
+  mapSpokenForms(defaultSpokenFormMapCore, (value) =>
+    typeof value === "string"
+      ? {
+          defaultSpokenForms: [value],
+        }
+      : value,
+  );
+
+/**
+ * A spoken form map constructed from the default spoken forms. It is designed to
+ * be used as a fallback when the Talon spoken form map is not available.
+ */
+export const defaultSpokenFormMap: SpokenFormMap = mapSpokenForms(
+  defaultSpokenFormInfoMap,
+  ({ defaultSpokenForms, visibility }) => {
+    const isPrivate = visibility === "private";
+    return {
+      spokenForms: visibility == null ? defaultSpokenForms : [],
+      isCustom: false,
+      defaultSpokenForms,
+      requiresTalonUpdate: false,
+      isPrivate,
+    };
+  },
+);

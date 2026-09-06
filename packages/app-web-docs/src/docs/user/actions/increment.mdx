@@ -1,0 +1,42 @@
+---
+sidebar_label: Increment
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/increment.json";
+
+# Increment
+
+Cursorless ID: `increment`
+
+## Spoken form
+
+Default: `increment`
+
+## Syntax
+
+- increment `<target>` - Increment number at `<target>`.
+
+## Examples
+
+- `"increment blue five"` - Increments the token containing number `5` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"increment five"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/increment" />
+
+### `"increment air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/increment2" />
+
+### `"increment line"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/increment3" />
+
+</RecordedTestVisualizerProvider>

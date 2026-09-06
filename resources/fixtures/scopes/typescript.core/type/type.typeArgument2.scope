@@ -1,0 +1,10 @@
+useState<string>()
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:9-0:15
+           >------<
+0| useState<string>()
+
+[Insertion delimiter] = ", "

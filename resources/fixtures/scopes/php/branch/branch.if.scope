@@ -1,0 +1,11 @@
+<?php
+if (true) {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 1:0-1:12
+  >------------<
+1| if (true) {}
+
+[Insertion delimiter] = "\n"

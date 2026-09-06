@@ -1,0 +1,84 @@
+class Foo {
+    void bar() throws AException,
+        BException {}
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 1:4-1:32
+      >----------------------------<
+1|     void bar() throws AException,
+
+[#1 Removal] = 1:4-2:8
+      >-----------------------------
+1|     void bar() throws AException,
+2|         BException {}
+   --------<
+
+[#1 Trailing delimiter] = 1:32-2:8
+                                  >-
+1|     void bar() throws AException,
+2|         BException {}
+   --------<
+
+[#1 Insertion delimiter] = ",\n"
+
+
+[#2 Content] =
+[#2 Domain] = 1:22-1:32
+                        >----------<
+1|     void bar() throws AException,
+
+[#2 Removal] = 1:22-2:8
+                        >-----------
+1|     void bar() throws AException,
+2|         BException {}
+   --------<
+
+[#2 Trailing delimiter] = 1:32-2:8
+                                  >-
+1|     void bar() throws AException,
+2|         BException {}
+   --------<
+
+[#2 Insertion delimiter] = ",\n"
+
+
+[#3 Content] =
+[#3 Domain] = 2:8-2:18
+          >----------<
+2|         BException {}
+
+[#3 Removal] = 1:32-2:18
+                                  >-
+1|     void bar() throws AException,
+2|         BException {}
+   ------------------<
+
+[#3 Leading delimiter] = 1:32-2:8
+                                  >-
+1|     void bar() throws AException,
+2|         BException {}
+   --------<
+
+[#3 Insertion delimiter] = ",\n"
+
+
+[#4 Content] =
+[#4 Domain] = 2:8-2:21
+          >-------------<
+2|         BException {}
+
+[#4 Removal] = 1:32-2:21
+                                  >-
+1|     void bar() throws AException,
+2|         BException {}
+   ---------------------<
+
+[#4 Leading delimiter] = 1:32-2:8
+                                  >-
+1|     void bar() throws AException,
+2|         BException {}
+   --------<
+
+[#4 Insertion delimiter] = ",\n"

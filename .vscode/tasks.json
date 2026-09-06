@@ -1,72 +1,38 @@
-// See https://go.microsoft.com/fwlink/?LinkId=733558
-// for the documentation about the tasks.json format
 {
   "version": "2.0.0",
   "tasks": [
+    // Launch tasks
     {
-      "label": "Build",
-      "dependsOn": [
-        "Populate dist",
-        "ESBuild",
-        "TSBuild",
-        "Build test harness"
-      ],
-      "group": {
-        "kind": "build",
-        "isDefault": true
+      "label": "Build extension",
+      "type": "npm",
+      "script": "dev",
+      "path": "packages/app-vscode",
+      "group": "build",
+      "presentation": {
+        "reveal": "silent"
       }
     },
     {
-      "label": "Build extension only",
-      "dependsOn": ["Populate dist", "ESBuild"],
+      "label": "Build extension and tests",
+      "dependsOn": ["Build extension", "Build test runner"],
       "group": "build"
     },
     {
-      "label": "ESBuild",
-      "type": "npm",
-      "script": "esbuild",
-      "path": "packages/cursorless-vscode",
-      "dependsOn": ["Generate grammar"],
-      "presentation": {
-        "reveal": "silent"
-      },
-      "group": "build"
+      "label": "Build extension and tests (subset)",
+      "group": "test",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Ensure test subset file exists",
+        "Build extension and tests"
+      ]
     },
+
+    // Helper tasks
     {
-      "label": "Build test harness",
+      "label": "Build test runner",
       "type": "npm",
       "script": "build",
-      "path": "packages/test-harness",
-      "presentation": {
-        "reveal": "silent"
-      },
-      "group": "build"
-    },
-    {
-      "label": "TSBuild",
-      "type": "npm",
-      "script": "compile",
-      "problemMatcher": "$tsc",
-      "presentation": {
-        "reveal": "silent"
-      },
-      "group": "build"
-    },
-    {
-      "label": "Populate dist",
-      "type": "npm",
-      "script": "populate-dist",
-      "path": "packages/cursorless-vscode",
-      "presentation": {
-        "reveal": "silent"
-      },
-      "group": "build"
-    },
-    {
-      "label": "Generate grammar",
-      "type": "npm",
-      "script": "generate-grammar",
-      "path": "packages/cursorless-vscode",
+      "path": "packages/test-runner",
       "presentation": {
         "reveal": "silent"
       },
@@ -76,78 +42,21 @@
       "label": "Ensure test subset file exists",
       "type": "npm",
       "script": "generate-test-subset-file-strict",
-      "path": "packages/test-harness",
+      "path": "packages/test-runner",
+      "group": "test",
       "presentation": {
         "reveal": "silent"
-      },
-      "group": "test"
+      }
     },
     {
       "label": "Generate test subset file",
       "type": "npm",
       "script": "generate-test-subset-file",
-      "path": "packages/test-harness",
+      "path": "packages/test-runner",
+      "group": "none",
       "presentation": {
         "reveal": "silent"
-      },
-      "group": "none",
-      "problemMatcher": []
-    },
-    {
-      "label": "Prepare test subset",
-      "dependsOn": ["Ensure test subset file exists", "Build"],
-      "dependsOrder": "sequence",
-      "group": "test"
-    },
-    {
-      "label": "watch",
-      "dependsOn": ["Watch esbuild", "Watch typescript"],
-      "group": "build"
-    },
-    {
-      "type": "npm",
-      "script": "watch:esbuild",
-      "label": "Watch esbuild",
-      "isBackground": true,
-      "presentation": {
-        "reveal": "never"
-      },
-      "group": "build"
-    },
-    {
-      "type": "npm",
-      "script": "watch:tsc",
-      "label": "Watch typescript",
-      "problemMatcher": "$tsc-watch",
-      "isBackground": true,
-      "presentation": {
-        "reveal": "never"
-      },
-      "group": "build"
-    },
-    {
-      "label": "Serve cursorless.org",
-      "type": "shell",
-      "command": "nx serve cursorless-org",
-      "options": {
-        "cwd": "cursorless-nx"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "Install local",
-      "type": "shell",
-      "command": "vsce package -o bundle.vsix && code --install-extension bundle.vsix",
-      "presentation": {
-        "focus": true
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "Run pre commit",
-      "type": "shell",
-      "command": "pre-commit run",
-      "presentation": {}
+      }
     }
   ]
 }

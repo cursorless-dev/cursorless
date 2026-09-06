@@ -1,0 +1,20 @@
+foo, bar = baz
+---
+
+[Content] = 0:0-0:8
+  >--------<
+0| foo, bar = baz
+
+[Removal] = 0:0-0:11
+  >-----------<
+0| foo, bar = baz
+
+[Trailing delimiter] = 0:8-0:11
+          >---<
+0| foo, bar = baz
+
+[Domain] = 0:0-0:14
+  >--------------<
+0| foo, bar = baz
+
+[Insertion delimiter] = " "

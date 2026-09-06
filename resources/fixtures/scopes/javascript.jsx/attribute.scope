@@ -1,0 +1,17 @@
+<div id="foo"></div>
+---
+
+[Content] =
+[Domain] = 0:5-0:13
+       >--------<
+0| <div id="foo"></div>
+
+[Removal] = 0:4-0:13
+      >---------<
+0| <div id="foo"></div>
+
+[Leading delimiter] = 0:4-0:5
+      >-<
+0| <div id="foo"></div>
+
+[Insertion delimiter] = " "

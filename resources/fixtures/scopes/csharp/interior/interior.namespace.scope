@@ -1,0 +1,10 @@
+namespace Foo { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:15-0:16
+                 >-<
+0| namespace Foo { }
+
+[Insertion delimiter] = " "

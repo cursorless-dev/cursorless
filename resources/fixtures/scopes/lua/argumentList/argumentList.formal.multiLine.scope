@@ -1,0 +1,33 @@
+function foo(
+    aaa,
+    bbb
+) end
+---
+
+[Content] = 1:4-2:7
+      >----
+1|     aaa,
+2|     bbb
+   -------<
+
+[Removal] = 0:13-3:0
+               >
+0| function foo(
+1|     aaa,
+2|     bbb
+3| ) end
+   <
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     aaa,
+
+[Domain] = 0:0-3:5
+  >-------------
+0| function foo(
+1|     aaa,
+2|     bbb
+3| ) end
+   -----<
+
+[Insertion delimiter] = ",\n"

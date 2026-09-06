@@ -1,0 +1,17 @@
+name: PR labels
+
+on:
+  workflow_run:
+    workflows: [PR labels events]
+    types: [completed]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  labels:
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update PR labels
+        uses: AndreasArvidsson/gh-pr-labeler@v1.4.0

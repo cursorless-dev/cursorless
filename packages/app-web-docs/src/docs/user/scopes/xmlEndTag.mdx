@@ -1,0 +1,50 @@
+---
+sidebar_label: End tag
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/xmlEndTag.json";
+
+# End tag (XML end tag)
+
+Cursorless ID: `xmlEndTag`
+
+## Spoken form
+
+Default: `end tag`
+
+## Syntax
+
+- end tag - Closing XML, HTML, or JSX tag, or LaTeX `end` command.
+
+## Examples
+
+- `"take end tag blue air"` - Selects the XML end tag containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### End tag
+
+<i>The end tag of a xml element</i>
+
+##### HTML
+
+<ScopeVisualizer fixtureName="scopes/html/endTag" />
+
+##### JavaScript React
+
+<ScopeVisualizer fixtureName="scopes/javascript.jsx/endTag" />
+
+##### LaTeX
+
+<ScopeVisualizer fixtureName="scopes/latex/endTag" />
+
+##### XML
+
+<ScopeVisualizer fixtureName="scopes/xml/endTag" />
+
+</ScopeVisualizerProvider>

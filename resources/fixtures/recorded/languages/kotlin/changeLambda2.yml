@@ -1,0 +1,23 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change lambda
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: anonymousFunction}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "val lambda = { x: Int -> x * 2 }"
+  selections:
+    - anchor: {line: 0, character: 26}
+      active: {line: 0, character: 26}
+  marks: {}
+finalState:
+  documentContents: "val lambda = "
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}

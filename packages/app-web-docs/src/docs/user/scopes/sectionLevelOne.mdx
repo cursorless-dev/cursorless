@@ -1,0 +1,39 @@
+---
+sidebar_label: One section
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/sectionLevelOne.json";
+
+# One section (Section level one)
+
+Cursorless ID: `sectionLevelOne`
+
+## Spoken form
+
+Default: `one section`\
+**Disabled by default**
+
+## Syntax
+
+- one section - Level-one heading and its content.
+
+## Examples
+
+- `"take one section blue air"` - Selects the section level one containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Section level one
+
+<i>A level one section</i>
+
+##### Markdown
+
+<ScopeVisualizer fixtureName="scopes/markdown/sectionLevelOne" />
+
+</ScopeVisualizerProvider>

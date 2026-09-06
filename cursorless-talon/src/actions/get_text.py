@@ -9,6 +9,7 @@ mod = Module()
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def cursorless_get_text(
         target: CursorlessTarget,
         hide_decorations: bool = False,
@@ -20,6 +21,7 @@ class Actions:
             ensure_single_target=True,
         )[0]
 
+    @staticmethod
     def cursorless_get_text_list(
         target: CursorlessTarget,
         hide_decorations: bool = False,

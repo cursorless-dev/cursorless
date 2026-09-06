@@ -7,8 +7,11 @@ mod = Module()
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def private_cursorless_run_rpc_command_and_wait(
-        command_id: str, arg1: Any = None, arg2: Any = None
+        command_id: str,
+        arg1: Any = None,
+        arg2: Any = None,
     ):
         """Execute command via rpc and wait for command to finish."""
         try:
@@ -16,8 +19,11 @@ class Actions:
         except KeyError:
             actions.user.vscode_with_plugin_and_wait(command_id, arg1, arg2)
 
+    @staticmethod
     def private_cursorless_run_rpc_command_no_wait(
-        command_id: str, arg1: Any = None, arg2: Any = None
+        command_id: str,
+        arg1: Any = None,
+        arg2: Any = None,
     ):
         """Execute command via rpc and DON'T wait."""
         try:
@@ -25,8 +31,11 @@ class Actions:
         except KeyError:
             actions.user.vscode_with_plugin(command_id, arg1, arg2)
 
+    @staticmethod
     def private_cursorless_run_rpc_command_get(
-        command_id: str, arg1: Any = None, arg2: Any = None
+        command_id: str,
+        arg1: Any = None,
+        arg2: Any = None,
     ) -> Any:
         """Execute command via rpc and return command output."""
         try:

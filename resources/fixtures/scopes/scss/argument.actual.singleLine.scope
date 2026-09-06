@@ -1,0 +1,33 @@
+@mixin foo($aaa, $bbb: 0) {}
+---
+
+[#1 Content] =
+[#1 Domain] = 0:11-0:15
+             >----<
+0| @mixin foo($aaa, $bbb: 0) {}
+
+[#1 Removal] = 0:11-0:17
+             >------<
+0| @mixin foo($aaa, $bbb: 0) {}
+
+[#1 Trailing delimiter] = 0:15-0:17
+                 >--<
+0| @mixin foo($aaa, $bbb: 0) {}
+
+[#1 Insertion delimiter] = ", "
+
+
+[#2 Content] =
+[#2 Domain] = 0:17-0:24
+                   >-------<
+0| @mixin foo($aaa, $bbb: 0) {}
+
+[#2 Removal] = 0:15-0:24
+                 >---------<
+0| @mixin foo($aaa, $bbb: 0) {}
+
+[#2 Leading delimiter] = 0:15-0:17
+                 >--<
+0| @mixin foo($aaa, $bbb: 0) {}
+
+[#2 Insertion delimiter] = ", "

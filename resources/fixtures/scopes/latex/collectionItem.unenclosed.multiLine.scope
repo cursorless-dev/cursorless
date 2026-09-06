@@ -1,0 +1,54 @@
+\begin{itemize}
+  \item one
+  \item two
+\end{itemize}
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:7-0:14
+         >-------<
+0| \begin{itemize}
+
+[#1 Insertion delimiter] = ", "
+
+
+[#2 Content] =
+[#2 Domain] = 1:8-1:11
+          >---<
+1|   \item one
+
+[#2 Removal] = 1:2-1:11
+    >---------<
+1|   \item one
+
+[#2 Leading delimiter] = 1:2-1:8
+    >------<
+1|   \item one
+
+[#2 Insertion delimiter] = "\n"
+
+
+[#3 Content] =
+[#3 Domain] = 2:8-2:11
+          >---<
+2|   \item two
+
+[#3 Removal] = 2:2-2:11
+    >---------<
+2|   \item two
+
+[#3 Leading delimiter] = 2:2-2:8
+    >------<
+2|   \item two
+
+[#3 Insertion delimiter] = "\n"
+
+
+[#4 Content] =
+[#4 Removal] =
+[#4 Domain] = 3:5-3:12
+       >-------<
+3| \end{itemize}
+
+[#4 Insertion delimiter] = ", "

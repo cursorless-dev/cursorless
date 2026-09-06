@@ -1,0 +1,31 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change every item
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    val map = mapOf(1 to "x", 2 to "y", -1 to "zz")
+    val list = listOf(1, 2, 3)
+  selections:
+    - anchor: {line: 1, character: 19}
+      active: {line: 1, character: 19}
+  marks: {}
+finalState:
+  documentContents: |-
+    val map = mapOf(1 to "x", 2 to "y", -1 to "zz")
+    val list = listOf(, , )
+  selections:
+    - anchor: {line: 1, character: 18}
+      active: {line: 1, character: 18}
+    - anchor: {line: 1, character: 20}
+      active: {line: 1, character: 20}
+    - anchor: {line: 1, character: 22}
+      active: {line: 1, character: 22}

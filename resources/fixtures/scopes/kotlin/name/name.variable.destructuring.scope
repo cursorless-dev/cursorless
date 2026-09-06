@@ -1,0 +1,24 @@
+var (foo, bar) = baz
+---
+
+[Content] = 0:4-0:14
+      >----------<
+0| var (foo, bar) = baz
+
+[Removal] = 0:0-0:17
+  >-----------------<
+0| var (foo, bar) = baz
+
+[Leading delimiter] = 0:3-0:4
+     >-<
+0| var (foo, bar) = baz
+
+[Trailing delimiter] = 0:14-0:15
+                >-<
+0| var (foo, bar) = baz
+
+[Domain] = 0:0-0:20
+  >--------------------<
+0| var (foo, bar) = baz
+
+[Insertion delimiter] = " "

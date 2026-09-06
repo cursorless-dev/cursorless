@@ -3,37 +3,73 @@
   "include": [],
   "references": [
     {
-      "path": "./packages/cheatsheet"
+      "path": "./packages/app-neovim"
     },
     {
-      "path": "./packages/cheatsheet-local"
+      "path": "./packages/app-talonjs"
     },
     {
-      "path": "./packages/common"
+      "path": "./packages/app-vscode"
     },
     {
-      "path": "./packages/cursorless-engine"
+      "path": "./packages/app-web"
     },
     {
-      "path": "./packages/cursorless-org"
+      "path": "./packages/app-web-docs"
     },
     {
-      "path": "./packages/cursorless-org-docs"
+      "path": "./packages/lib-cheatsheet"
     },
     {
-      "path": "./packages/cursorless-vscode"
+      "path": "./packages/lib-cheatsheet-local"
     },
     {
-      "path": "./packages/cursorless-vscode-e2e"
+      "path": "./packages/lib-common"
     },
     {
-      "path": "./packages/meta-updater"
+      "path": "./packages/lib-engine"
     },
     {
-      "path": "./packages/test-harness"
+      "path": "./packages/lib-neovim-common"
     },
     {
-      "path": "./packages/vscode-common"
+      "path": "./packages/lib-neovim-registry"
+    },
+    {
+      "path": "./packages/lib-node-common"
+    },
+    {
+      "path": "./packages/lib-sentence-parser"
+    },
+    {
+      "path": "./packages/lib-talonjs-core"
+    },
+    {
+      "path": "./packages/lib-test-case-recorder"
+    },
+    {
+      "path": "./packages/lib-tutorial"
+    },
+    {
+      "path": "./packages/lib-vscode-common"
+    },
+    {
+      "path": "./packages/lib-vscode-tutorial-webview"
+    },
+    {
+      "path": "./packages/test-neovim-e2e"
+    },
+    {
+      "path": "./packages/test-runner"
+    },
+    {
+      "path": "./packages/test-talon-e2e"
+    },
+    {
+      "path": "./packages/test-vscode-e2e"
+    },
+    {
+      "path": "./packages/tool-meta-updater"
     }
   ]
 }

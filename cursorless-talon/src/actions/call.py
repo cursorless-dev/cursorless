@@ -1,3 +1,5 @@
+from typing import Optional
+
 from talon import Module, actions
 
 from ..targets.target_types import CursorlessTarget, ImplicitTarget
@@ -8,15 +10,16 @@ mod.list("cursorless_call_action", desc="Cursorless call action")
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def private_cursorless_call(
         callee: CursorlessTarget,
-        argument: CursorlessTarget = ImplicitTarget(),
+        argument: Optional[CursorlessTarget] = None,
     ):
         """Execute Cursorless call action"""
         actions.user.private_cursorless_command_and_wait(
             {
                 "name": "callAsFunction",
                 "callee": callee,
-                "argument": argument,
+                "argument": argument or ImplicitTarget(),
             }
         )

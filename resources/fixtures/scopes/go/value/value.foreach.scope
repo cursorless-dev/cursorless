@@ -1,0 +1,24 @@
+for i, v := range values {}
+---
+
+[Content] = 0:18-0:24
+                    >------<
+0| for i, v := range values {}
+
+[Removal] = 0:18-0:25
+                    >-------<
+0| for i, v := range values {}
+
+[Leading delimiter] = 0:17-0:18
+                   >-<
+0| for i, v := range values {}
+
+[Trailing delimiter] = 0:24-0:25
+                          >-<
+0| for i, v := range values {}
+
+[Domain] = 0:0-0:27
+  >---------------------------<
+0| for i, v := range values {}
+
+[Insertion delimiter] = " "

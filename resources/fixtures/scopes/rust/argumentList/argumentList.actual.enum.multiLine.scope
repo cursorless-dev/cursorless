@@ -1,0 +1,26 @@
+enum Foo {
+    Bar(
+        aaa,
+        bbb
+    )
+}
+---
+
+[Content] =
+[Removal] = 1:8-4:4
+          >
+1|     Bar(
+2|         aaa,
+3|         bbb
+4|     )
+   ----<
+
+[Domain] = 1:4-4:5
+      >----
+1|     Bar(
+2|         aaa,
+3|         bbb
+4|     )
+   -----<
+
+[Insertion delimiter] = ",\n"

@@ -1,7 +1,3 @@
-// A launch configuration that compiles the extension and then opens it inside a new window
-// Use IntelliSense to learn about possible attributes.
-// Hover to view descriptions of existing attributes.
-// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
 {
   "version": "0.2.0",
   "configurations": [
@@ -10,14 +6,15 @@
       "type": "extensionHost",
       "request": "launch",
       "env": {
+        "CURSORLESS_MODE": "development",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
       "args": [
-        "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
+        "--extensionDevelopmentPath=${workspaceFolder}/packages/app-vscode/dist",
         "--profile=cursorlessDevelopment"
       ],
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
-      "preLaunchTask": "Build extension only",
+      "preLaunchTask": "Build extension",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
         "!**/node_modules/**"
@@ -28,187 +25,86 @@
       "type": "extensionHost",
       "request": "launch",
       "env": {
-        "CURSORLESS_TEST": "true",
+        "CURSORLESS_MODE": "test",
+        "CURSORLESS_LOG_FAILED": "true",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
       "args": [
         "--profile=cursorlessDevelopment",
-        "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
-        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/dist/extensionTests.cjs"
+        "--extensionDevelopmentPath=${workspaceFolder}/packages/app-vscode/dist",
+        "--extensionTestsPath=${workspaceFolder}/packages/test-runner/out/extensionTestsVscode.cjs"
       ],
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}",
+      "preLaunchTask": "Build extension and tests",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
         "!**/node_modules/**"
       ]
     },
     {
-      "name": "Extension tests subset",
+      "name": "Extension tests (subset)",
       "type": "extensionHost",
       "request": "launch",
       "env": {
-        "CURSORLESS_TEST": "true",
+        "CURSORLESS_MODE": "test",
         "CURSORLESS_RUN_TEST_SUBSET": "true",
+        "CURSORLESS_LOG_FAILED": "true",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
       "args": [
         "--profile=cursorlessDevelopment",
-        "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
-        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/dist/extensionTests.cjs"
+        "--extensionDevelopmentPath=${workspaceFolder}/packages/app-vscode/dist",
+        "--extensionTestsPath=${workspaceFolder}/packages/test-runner/out/extensionTestsVscode.cjs"
       ],
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
-      "preLaunchTask": "Prepare test subset",
+      "preLaunchTask": "Build extension and tests (subset)",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
         "!**/node_modules/**"
       ]
     },
     {
-      "name": "Talon tests",
-      "type": "node",
-      "request": "launch",
-      "program": "${workspaceFolder}/packages/test-harness/dist/runTalonTests.cjs",
-      "env": {
-        "CURSORLESS_TEST": "true",
-        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
-      },
-      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}",
-      "resolveSourceMapLocations": [
-        "${workspaceFolder}/**",
-        "!**/node_modules/**"
-      ]
-    },
-    {
-      "name": "Talon tests subset",
-      "type": "node",
-      "request": "launch",
-      "program": "${workspaceFolder}/packages/test-harness/dist/runTalonTests.cjs",
-      "env": {
-        "CURSORLESS_TEST": "true",
-        "CURSORLESS_RUN_TEST_SUBSET": "true",
-        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
-      },
-      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}",
-      "resolveSourceMapLocations": [
-        "${workspaceFolder}/**",
-        "!**/node_modules/**"
-      ]
-    },
-    {
-      "name": "Unit tests only",
-      "type": "node",
-      "request": "launch",
-      "program": "${workspaceFolder}/packages/test-harness/dist/runUnitTestsOnly.cjs",
-      "env": {
-        "CURSORLESS_TEST": "true",
-        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
-      },
-      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}",
-      "resolveSourceMapLocations": [
-        "${workspaceFolder}/**",
-        "!**/node_modules/**"
-      ]
-    },
-    {
-      "name": "Update fixtures",
+      "name": "Update test fixtures",
       "type": "extensionHost",
       "request": "launch",
       "env": {
-        "CURSORLESS_TEST": "true",
+        "CURSORLESS_MODE": "test",
         "CURSORLESS_TEST_UPDATE_FIXTURES": "true",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
       "args": [
         "--profile=cursorlessDevelopment",
-        "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
-        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/dist/extensionTests.cjs"
+        "--extensionDevelopmentPath=${workspaceFolder}/packages/app-vscode/dist",
+        "--extensionTestsPath=${workspaceFolder}/packages/test-runner/out/extensionTestsVscode.cjs"
       ],
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}",
+      "preLaunchTask": "Build extension and tests",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
         "!**/node_modules/**"
       ]
     },
     {
-      "name": "Update fixtures subset",
+      "name": "Update test fixtures (subset)",
       "type": "extensionHost",
       "request": "launch",
       "env": {
-        "CURSORLESS_TEST": "true",
+        "CURSORLESS_MODE": "test",
         "CURSORLESS_TEST_UPDATE_FIXTURES": "true",
         "CURSORLESS_RUN_TEST_SUBSET": "true",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
       "args": [
         "--profile=cursorlessDevelopment",
-        "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
-        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/dist/extensionTests.cjs"
+        "--extensionDevelopmentPath=${workspaceFolder}/packages/app-vscode/dist",
+        "--extensionTestsPath=${workspaceFolder}/packages/test-runner/out/extensionTestsVscode.cjs"
       ],
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}",
+      "preLaunchTask": "Build extension and tests (subset)",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
         "!**/node_modules/**"
       ]
-    },
-    {
-      "name": "Update fixtures, unit tests only",
-      "type": "node",
-      "request": "launch",
-      "program": "${workspaceFolder}/packages/test-harness/dist/runUnitTestsOnly.cjs",
-      "env": {
-        "CURSORLESS_TEST": "true",
-        "CURSORLESS_TEST_UPDATE_FIXTURES": "true",
-        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
-      },
-      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}",
-      "resolveSourceMapLocations": [
-        "${workspaceFolder}/**",
-        "!**/node_modules/**"
-      ]
-    },
-    {
-      "name": "Docusaurus start",
-      "type": "node",
-      "request": "launch",
-      "env": {
-        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
-      },
-      "cwd": "${workspaceFolder}/packages/cursorless-org-docs",
-      "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["start"],
-      "resolveSourceMapLocations": [
-        "${workspaceFolder}/**",
-        "!**/node_modules/**"
-      ]
-    },
-    {
-      "name": "Docusaurus build",
-      "type": "node",
-      "request": "launch",
-      "env": {
-        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
-      },
-      "cwd": "${workspaceFolder}/packages/cursorless-org-docs",
-      "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["build"],
-      "resolveSourceMapLocations": [
-        "${workspaceFolder}/**",
-        "!**/node_modules/**"
-      ]
-    },
-    {
-      "name": "cursorless.org client-side",
-      "type": "chrome",
-      "request": "launch",
-      "url": "http://localhost:3000",
-      "webRoot": "${workspaceFolder}/packages/cursorless-org"
     }
   ]
 }

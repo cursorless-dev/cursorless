@@ -1,0 +1,21 @@
+class Foo {
+    public void Bar() {}
+}
+---
+
+[Content] =
+[Domain] = 1:4-1:24
+      >--------------------<
+1|     public void Bar() {}
+
+[Removal] = 1:0-2:0
+  >------------------------
+1|     public void Bar() {}
+2| }
+   <
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     public void Bar() {}
+
+[Insertion delimiter] = "\n\n"

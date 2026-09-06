@@ -1,0 +1,20 @@
+fun(): Int {}
+---
+
+[Content] = 0:7-0:10
+         >---<
+0| fun(): Int {}
+
+[Removal] = 0:5-0:10
+       >-----<
+0| fun(): Int {}
+
+[Leading delimiter] = 0:5-0:7
+       >--<
+0| fun(): Int {}
+
+[Domain] = 0:0-0:13
+  >-------------<
+0| fun(): Int {}
+
+[Insertion delimiter] = " "

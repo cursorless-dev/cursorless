@@ -1,0 +1,31 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change type
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    fun sum(a: Int, b: Int): Int {
+        val result: Int = a + b
+        return result
+    }
+  selections:
+    - anchor: {line: 1, character: 27}
+      active: {line: 1, character: 27}
+  marks: {}
+finalState:
+  documentContents: |
+    fun sum(a: Int, b: Int): Int {
+        val result:  = a + b
+        return result
+    }
+  selections:
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 16}

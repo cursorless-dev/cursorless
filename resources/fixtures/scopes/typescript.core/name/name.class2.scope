@@ -1,0 +1,24 @@
+export abstract class Foo {}
+---
+
+[Content] = 0:22-0:25
+                        >---<
+0| export abstract class Foo {}
+
+[Removal] = 0:22-0:26
+                        >----<
+0| export abstract class Foo {}
+
+[Leading delimiter] = 0:21-0:22
+                       >-<
+0| export abstract class Foo {}
+
+[Trailing delimiter] = 0:25-0:26
+                           >-<
+0| export abstract class Foo {}
+
+[Domain] = 0:0-0:28
+  >----------------------------<
+0| export abstract class Foo {}
+
+[Insertion delimiter] = " "
