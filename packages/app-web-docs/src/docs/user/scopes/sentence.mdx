@@ -1,0 +1,44 @@
+---
+sidebar_label: Sentence
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/sentence.json";
+
+# Sentence
+
+Cursorless ID: `sentence`
+
+## Spoken form
+
+Default: `sentence`
+
+## Syntax
+
+- sentence - Text ending at sentence punctuation or a paragraph boundary.
+
+## Examples
+
+- `"take sentence blue air"` - Selects the sentence containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Sentence
+
+<i>A single sentence in the document</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/sentence" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/sentence2" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/sentence3" />
+
+<ScopeVisualizer fixtureName="scopes/plaintext/sentence4" />
+
+</ScopeVisualizerProvider>

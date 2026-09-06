@@ -1,0 +1,40 @@
+---
+sidebar_label: Block
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/paragraph.json";
+
+# Block (Paragraph)
+
+Expands above and below the input through contiguous nonempty lines, stopping at empty lines.
+
+Cursorless ID: `paragraph`
+
+## Spoken form
+
+Default: `block`
+
+## Syntax
+
+- block - Paragraph, contiguous non-empty lines around the target.
+
+## Examples
+
+- `"take block blue air"` - Selects the paragraph containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Paragraph
+
+<i>A single paragraph(contiguous block of lines) in the document</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/paragraph" />
+
+</ScopeVisualizerProvider>

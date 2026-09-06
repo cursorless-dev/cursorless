@@ -1,0 +1,36 @@
+---
+sidebar_label: Post
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/setSelectionAfter.json";
+
+# Post (Set selection after)
+
+When used with a list target, this action creates one cursor for each target.
+
+Cursorless ID: `setSelectionAfter`
+
+## Spoken form
+
+Default: `post`
+
+## Syntax
+
+- post `<target>` - Set empty selection after `<target>`.
+
+## Examples
+
+- `"post blue air"` - Places the cursor after the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"post air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/setSelectionAfter" />
+
+</RecordedTestVisualizerProvider>

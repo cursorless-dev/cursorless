@@ -1,18 +1,29 @@
 {
   "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "moduleDetection": "force",
-    "target": "es2022",
-    "lib": ["es2022"],
-    "emitDeclarationOnly": true,
-    "declarationMap": true,
+    "target": "es2023",
+    "lib": ["es2023"],
+    "noEmit": true,
     "resolveJsonModule": true,
-    "composite": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "strict": true,
-    "rootDir": "${configDir}/src",
-    "outDir": "${configDir}/out"
+    "paths": {
+      "@cursorless/lib-cheatsheet": ["./packages/lib-cheatsheet"],
+      "@cursorless/lib-common": ["./packages/lib-common"],
+      "@cursorless/lib-engine": ["./packages/lib-engine"],
+      "@cursorless/lib-neovim-common": ["./packages/lib-neovim-common"],
+      "@cursorless/lib-neovim-registry": ["./packages/lib-neovim-registry"],
+      "@cursorless/lib-node-common": ["./packages/lib-node-common"],
+      "@cursorless/lib-sentence-parser": ["./packages/lib-sentence-parser"],
+      "@cursorless/lib-talonjs-core": ["./packages/lib-talonjs-core"],
+      "@cursorless/lib-test-case-recorder": [
+        "./packages/lib-test-case-recorder"
+      ],
+      "@cursorless/lib-tutorial": ["./packages/lib-tutorial"],
+      "@cursorless/lib-vscode-common": ["./packages/lib-vscode-common"]
+    }
   }
 }

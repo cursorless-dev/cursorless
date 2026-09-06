@@ -1,0 +1,14 @@
+<?php
+new Foo();
+---
+
+[Content] =
+[Removal] = 1:8-1:8
+          ><
+1| new Foo();
+
+[Domain] = 1:0-1:9
+  >---------<
+1| new Foo();
+
+[Insertion delimiter] = ""

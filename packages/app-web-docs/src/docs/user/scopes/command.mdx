@@ -1,0 +1,40 @@
+---
+sidebar_label: Command
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/command.json";
+
+# Command
+
+Cursorless ID: `command`
+
+## Spoken form
+
+Default: `command`
+
+## Syntax
+
+- command - Command, such as a Talon spoken command or shell command.
+
+## Examples
+
+- `"take command blue air"` - Selects the command containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Command
+
+<i>A command, for example Talon spoken command or bash</i>
+
+##### Talon
+
+<ScopeVisualizer fixtureName="scopes/talon/command" />
+
+<ScopeVisualizer fixtureName="scopes/talon/command2" />
+
+</ScopeVisualizerProvider>

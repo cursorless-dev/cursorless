@@ -1,0 +1,34 @@
+---
+sidebar_label: Content
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/keepContentFilter.json";
+
+# Content (Keep content filter)
+
+Cursorless ID: `keepContentFilter`
+
+## Spoken form
+
+Default: `content`
+
+## Syntax
+
+- content - Keep content filter.
+
+## Examples
+
+- `"take content"` - Selects only the nonempty selections when there are multiple selections.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"take content"`
+
+<RecordedTestVisualizer fixtureName="docs/modifiers/keepContentFilter" />
+
+</RecordedTestVisualizerProvider>

@@ -1,0 +1,54 @@
+if true
+    a
+elsif false
+    a
+else
+    a
+end
+---
+
+[#1 Content] = 0:3-0:7
+     >----<
+0| if true
+
+[#1 Removal] = 0:2-0:7
+    >-----<
+0| if true
+
+[#1 Leading delimiter] = 0:2-0:3
+    >-<
+0| if true
+
+[#1 Domain] = 0:0-6:3
+  >-------
+0| if true
+1|     a
+2| elsif false
+3|     a
+4| else
+5|     a
+6| end
+   ---<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 2:6-2:11
+        >-----<
+2| elsif false
+
+[#2 Removal] = 2:5-2:11
+       >------<
+2| elsif false
+
+[#2 Leading delimiter] = 2:5-2:6
+       >-<
+2| elsif false
+
+[#2 Domain] = 2:0-3:5
+  >-----------
+2| elsif false
+3|     a
+   -----<
+
+[#2 Insertion delimiter] = " "

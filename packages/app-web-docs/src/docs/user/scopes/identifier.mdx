@@ -1,0 +1,40 @@
+---
+sidebar_label: Identifier
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/identifier.json";
+
+# Identifier
+
+Like a token, but limited to text that can act as an identifier, such as `foo`, `fooBar`, or `foo_bar`; operators such as `.`, `=`, and `+=` are excluded. This scope is useful with ordinals such as `last identifier`.
+
+Cursorless ID: `identifier`
+
+## Spoken form
+
+Default: `identifier`
+
+## Syntax
+
+- identifier - Identifier-style sequence, such as camelCase, snake_case, or kebab-case.
+
+## Examples
+
+- `"take identifier blue air"` - Selects the identifier containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Identifier
+
+<i>A single alphanumeric identifier in the document</i>
+
+##### Plaintext
+
+<ScopeVisualizer fixtureName="scopes/plaintext/identifier" />
+
+</ScopeVisualizerProvider>

@@ -1,0 +1,299 @@
+import assert from "node:assert/strict";
+import { promises as fsp } from "node:fs";
+import { isUndefined } from "lodash-es";
+import type {
+  Command,
+  CommandResponse,
+  Fallback,
+  PositionPlainObject,
+  ReadOnlyHatMap,
+  SelectionPlainObject,
+  SerializedMarks,
+  SimpleTokenHat,
+  SpyIDE,
+  TestCaseFixtureLegacy,
+  TestHelpers,
+  TextEditor,
+} from "@cursorless/lib-common";
+import {
+  clientSupportsFallback,
+  getSnapshotForComparison,
+  omitByDeep,
+  plainObjectToGeneralizedRange,
+  Position,
+  rangeToPlainObject,
+  Selection,
+  serializedMarksToTokenHats,
+  serializeTestFixture,
+  shouldUpdateFixtures,
+  splitKey,
+  spyIDERecordedValuesToPlainObject,
+  storedTargetKeys,
+  tokenHatToPlainObject,
+} from "@cursorless/lib-common";
+import { loadFixture } from "./loadFixture";
+
+function createPosition(position: PositionPlainObject) {
+  return new Position(position.line, position.character);
+}
+
+function createSelection(selection: SelectionPlainObject): Selection {
+  const active = createPosition(selection.active);
+  const anchor = createPosition(selection.anchor);
+  return new Selection(anchor, active);
+}
+
+function normalizeRecordedReturnValue(returnValue: unknown) {
+  // Recorded fixtures store plain serialized data rather than runtime instances.
+  return returnValue != null && typeof returnValue === "object"
+    ? // oxlint-disable-next-line unicorn/prefer-structured-clone
+      JSON.parse(JSON.stringify(returnValue))
+    : returnValue;
+}
+
+interface RunRecordedTestOpts {
+  /**
+   * The path to the test fixture
+   */
+  path: string;
+
+  /**
+   * The spy IDE
+   */
+  spyIde: SpyIDE;
+
+  /**
+   * Open a new editor to use for running a recorded test
+   *
+   * @param content The content of the new editor
+   * @param languageId The language id of the new editor
+   * @returns A text editor
+   */
+  openNewTestEditor: (
+    content: string,
+    languageId: string,
+  ) => Promise<TextEditor>;
+
+  /**
+   * Sleep for a certain number of milliseconds, exponentially
+   * increasing the sleep time each time we re-run the test
+   *
+   * @param ms The base sleep time
+   * @returns A promise that resolves after sleeping
+   */
+  sleepWithBackoff: (ms: number) => Promise<void>;
+
+  /**
+   * Test helper functions returned by the Cursorless extension
+   */
+  testHelpers: TestHelpers;
+
+  /**
+   * Run a cursorless command using the ide's command mechanism
+   * @param command The Cursorless command to run
+   * @returns The result of the command
+   */
+  runCursorlessCommand: (
+    command: Command,
+    // oxlint-disable-next-line typescript/no-redundant-type-constituents
+  ) => Promise<CommandResponse | unknown>;
+}
+
+export async function runRecordedTest({
+  path,
+  spyIde,
+  openNewTestEditor,
+  sleepWithBackoff,
+  testHelpers,
+  runCursorlessCommand,
+}: RunRecordedTestOpts) {
+  const fixture = await loadFixture(path);
+
+  // FIXME The snapshot gets messed up with timing issues when running the recorded tests
+  // "Couldn't find token default.a"
+  const usePrePhraseSnapshot = false;
+
+  const { hatTokenMap, takeSnapshot, setStoredTarget, commandServerApi } =
+    testHelpers;
+
+  const editor = spyIde.getEditableTextEditor(
+    await openNewTestEditor(
+      fixture.initialState.documentContents,
+      fixture.languageId,
+    ),
+  );
+
+  if (fixture.postEditorOpenSleepTimeMs != null) {
+    await sleepWithBackoff(fixture.postEditorOpenSleepTimeMs);
+  }
+
+  await editor.setSelections(
+    fixture.initialState.selections.map(createSelection),
+  );
+
+  for (const storedTargetKey of storedTargetKeys) {
+    const key = `${storedTargetKey}Mark` as const;
+    setStoredTarget(editor, storedTargetKey, fixture.initialState[key]);
+  }
+
+  if (fixture.initialState.clipboard) {
+    await spyIde.clipboard.writeText(fixture.initialState.clipboard);
+  }
+
+  commandServerApi.setFocusedElementType(fixture.focusedElementType);
+
+  // Ensure that the expected hats are present
+  await hatTokenMap.allocateHats(
+    serializedMarksToTokenHats(fixture.initialState.marks, editor),
+  );
+
+  await Promise.all(
+    (fixture.initialState.highlights ?? []).map((highlight) =>
+      spyIde.setInitialHighlightRanges(
+        highlight.highlightId,
+        editor,
+        highlight.ranges.map(plainObjectToGeneralizedRange),
+      ),
+    ),
+  );
+
+  const initialHatTokenMap =
+    await hatTokenMap.getReadableMap(usePrePhraseSnapshot);
+
+  // Assert that recorded decorations are present
+  checkMarks(fixture.initialState.marks, initialHatTokenMap);
+  checkHats(editor, fixture.initialState.hatTokenMap, initialHatTokenMap);
+
+  let returnValue: unknown;
+  let fallback: Fallback | undefined;
+
+  try {
+    returnValue = await runCursorlessCommand({
+      ...fixture.command,
+      usePrePhraseSnapshot,
+    });
+    if (clientSupportsFallback(fixture.command)) {
+      const commandResponse = returnValue as CommandResponse;
+      returnValue =
+        "returnValue" in commandResponse
+          ? commandResponse.returnValue
+          : undefined;
+      fallback =
+        "fallback" in commandResponse ? commandResponse.fallback : undefined;
+    }
+  } catch (error) {
+    const errorName = error instanceof Error ? error.name : "unknown";
+
+    if (shouldUpdateFixtures()) {
+      const outputFixture = {
+        ...fixture,
+        finalState: undefined,
+        decorations: undefined,
+        returnValue: undefined,
+        thrownError: { name: errorName },
+      };
+
+      await fsp.writeFile(path, serializeTestFixture(outputFixture));
+    } else if (fixture.thrownError != null) {
+      assert.equal(
+        errorName,
+        fixture.thrownError.name,
+        "Unexpected thrown error",
+      );
+    } else {
+      throw error;
+    }
+
+    return;
+  }
+
+  if (fixture.postCommandSleepTimeMs != null) {
+    await sleepWithBackoff(fixture.postCommandSleepTimeMs);
+  }
+
+  const getFinalHatTokenMap = async () => {
+    await hatTokenMap.allocateHats();
+    return hatTokenMap.getReadableMap(false);
+  };
+
+  const resultState = await getSnapshotForComparison(
+    fixture.finalState,
+    initialHatTokenMap,
+    spyIde,
+    getFinalHatTokenMap,
+    takeSnapshot,
+  );
+
+  const rawSpyIdeValues = spyIde.getSpyValues(fixture.ide?.flashes != null);
+  const actualSpyIdeValues =
+    rawSpyIdeValues == null
+      ? undefined
+      : spyIDERecordedValuesToPlainObject(rawSpyIdeValues);
+
+  if (shouldUpdateFixtures()) {
+    const outputFixture: TestCaseFixtureLegacy = {
+      ...fixture,
+      finalState: resultState,
+      returnValue,
+      fallback,
+      ide: actualSpyIdeValues,
+      thrownError: undefined,
+    };
+
+    await fsp.writeFile(path, serializeTestFixture(outputFixture));
+  } else {
+    if (fixture.thrownError != null) {
+      throw new Error(
+        `Expected error ${fixture.thrownError.name}, but none was thrown`,
+      );
+    }
+
+    assert.deepEqual(resultState, fixture.finalState, "Unexpected final state");
+
+    assert.deepEqual(
+      normalizeRecordedReturnValue(returnValue),
+      fixture.returnValue,
+      "Unexpected return value",
+    );
+
+    assert.deepEqual(fallback, fixture.fallback, "Unexpected fallback value");
+
+    assert.deepEqual(
+      omitByDeep(actualSpyIdeValues, isUndefined),
+      fixture.ide,
+      "Unexpected ide captured values",
+    );
+  }
+}
+
+function checkMarks(
+  marks: SerializedMarks | undefined,
+  hatTokenMap: ReadOnlyHatMap,
+) {
+  if (marks == null) {
+    return;
+  }
+
+  for (const [key, token] of Object.entries(marks)) {
+    const { hatStyle, character } = splitKey(key);
+    const currentToken = hatTokenMap.getToken(hatStyle, character);
+    assert.ok(
+      currentToken != null,
+      `Mark "${hatStyle} ${character}" not found`,
+    );
+    assert.deepEqual(rangeToPlainObject(currentToken.range), token);
+  }
+}
+
+function checkHats(
+  editor: TextEditor,
+  hats: SimpleTokenHat[] | undefined,
+  hatTokenMap: ReadOnlyHatMap,
+) {
+  if (hats == null) {
+    return;
+  }
+
+  const expected = hatTokenMap.getTokenHats(editor).map(tokenHatToPlainObject);
+  assert.deepEqual(expected, hats, "Unexpected hats");
+}

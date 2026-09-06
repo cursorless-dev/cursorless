@@ -1,0 +1,14 @@
+void main() {
+    try {}
+    catch (e) {}
+    finally {}
+}
+---
+
+[Content] =
+[Domain] = 1:4-3:14
+      >------
+1|     try {}
+2|     catch (e) {}
+3|     finally {}
+   --------------<

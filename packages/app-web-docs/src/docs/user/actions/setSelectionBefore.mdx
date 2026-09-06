@@ -1,0 +1,36 @@
+---
+sidebar_label: Pre
+---
+
+import { RecordedTestVisualizer, RecordedTestVisualizerOptions, RecordedTestVisualizerProvider } from "@site/src/docs/components/RecordedTestVisualizer";
+import recordedTests from "./fixtures/setSelectionBefore.json";
+
+# Pre (Set selection before)
+
+When used with a list target, this action creates one cursor for each target.
+
+Cursorless ID: `setSelectionBefore`
+
+## Spoken form
+
+Default: `pre`
+
+## Syntax
+
+- pre `<target>` - Set empty selection before `<target>`.
+
+## Examples
+
+- `"pre blue air"` - Places the cursor before the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<RecordedTestVisualizerProvider recordedTests={recordedTests}>
+
+<RecordedTestVisualizerOptions />
+
+### `"pre air"`
+
+<RecordedTestVisualizer fixtureName="docs/actions/setSelectionBefore" />
+
+</RecordedTestVisualizerProvider>

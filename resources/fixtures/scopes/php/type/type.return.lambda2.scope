@@ -1,0 +1,21 @@
+<?php
+fn(): int => 0;
+---
+
+[Content] = 1:6-1:9
+        >---<
+1| fn(): int => 0;
+
+[Removal] = 1:4-1:9
+      >-----<
+1| fn(): int => 0;
+
+[Leading delimiter] = 1:4-1:6
+      >--<
+1| fn(): int => 0;
+
+[Domain] = 1:0-1:14
+  >--------------<
+1| fn(): int => 0;
+
+[Insertion delimiter] = " "

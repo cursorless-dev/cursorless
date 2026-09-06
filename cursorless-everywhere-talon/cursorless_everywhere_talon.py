@@ -24,22 +24,25 @@ ctx.tags = ["user.cursorless"]
 
 @ctx.action_class("user")
 class UserActions:
+    @staticmethod
     def private_cursorless_run_rpc_command_and_wait(
-        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        command_id: str,
         arg1: Any = None,
         arg2: Any = None,
     ):
         actions.user.private_cursorless_talonjs_run_and_wait(command_id, arg1, arg2)
 
+    @staticmethod
     def private_cursorless_run_rpc_command_no_wait(
-        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        command_id: str,
         arg1: Any = None,
         arg2: Any = None,
     ):
         actions.user.private_cursorless_talonjs_run_no_wait(command_id, arg1, arg2)
 
+    @staticmethod
     def private_cursorless_run_rpc_command_get(
-        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        command_id: str,
         arg1: Any = None,
         arg2: Any = None,
     ) -> Any:
@@ -52,33 +55,32 @@ class Actions:
     def cursorless_everywhere_get_editor_state() -> EditorState:  # pyright: ignore [reportReturnType]
         """Get the focused editor element state"""
 
-    def cursorless_everywhere_set_selections(
-        selections: list[SelectionOffsets],  # pyright: ignore [reportGeneralTypeIssues]
-    ):
+    @staticmethod
+    def cursorless_everywhere_set_selections(selections: list[SelectionOffsets]):
         """Set focused element selections"""
 
-    def cursorless_everywhere_edit_text(
-        edit: EditorEdit,  # pyright: ignore [reportGeneralTypeIssues]
-    ):
+    @staticmethod
+    def cursorless_everywhere_edit_text(edit: EditorEdit):
         """Edit focused element text"""
 
-    def cursorless_everywhere_flash_ranges(
-        ranges: list[RangeOffsets],  # pyright: ignore [reportGeneralTypeIssues]
-    ):
+    @staticmethod
+    def cursorless_everywhere_flash_ranges(ranges: list[RangeOffsets]):
         """Flash ranges in focused element"""
         actions.skip()
 
     # Private actions
 
+    @staticmethod
     def private_cursorless_talonjs_run_and_wait(
-        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        command_id: str,
         arg1: Any = None,
         arg2: Any = None,
     ):
         """Executes a Cursorless command, waits for its completion, but does not return the response"""
 
+    @staticmethod
     def private_cursorless_talonjs_run_no_wait(
-        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        command_id: str,
         arg1: Any = None,
         arg2: Any = None,
     ):

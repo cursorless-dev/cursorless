@@ -1,27 +1,27 @@
 # AGENTS.md
 
-## Documentation Structure
+## Documentation structure
 
-- Main documentation is in `/packages/cursorless-org-docs/src/docs/user/README.md`
+- Main documentation is in `/packages/app-web-docs/src/docs/user/README.md`
 - Spoken forms are defined in `/cursorless-talon/src/spoken_forms.json`
-- Contributing documentation is in `/packages/cursorless-org-docs/src/docs/contributing/`
+- Contributing documentation is in `/packages/app-web-docs/src/docs/contributing/`
 
-## Project Organization
+## Project organization
 
-- Main extension code is in `/packages/cursorless-vscode/`
-- Engine code is in `/packages/cursorless-engine/`
-- Tests are in `data/fixtures/recorded/`
-- Language-specific parsing is defined in the `queries/*.scm` files
+- Main extension code is in `/packages/app-vscode/`
+- Engine code is in `/packages/lib-engine/`
+- Tests are in `resources/fixtures/recorded` and `resources/fixtures/scopes`
+- Language-specific parsing is defined in the `resources/queries/*.scm` files
+- Packages starting `lib-` are only used internally in this monorepo and are not published to npm. Changing the api surface is fine as long as every place that consumes the api within this repository is updated.
 
-## Build and Test
+## Build and test
 
-- Always run lint and typecheck when making changes:
+- Always run lint when making changes:
   - `pnpm run lint`
-  - `pnpm run typecheck`
 - Tests can be run with:
   - `pnpm test`
 
-## Documentation Conventions
+## Documentation conventions
 
 When documenting actions or modifiers:
 
@@ -31,17 +31,18 @@ When documenting actions or modifiers:
 - For versatile actions like `drink`, `pour`, `drop`, `float`, and `puff`, explain their behavior with different scope types
 - Always document special behaviors with different scope types
 
-## Implementation Notes
+## Implementation notes
 
 - Many actions (`drop`, `float`, `puff`) work with both line and non-line targets
-- Always check test fixtures in `/data/fixtures/recorded/` to understand behavior
-- Implementation for many actions is in `/packages/cursorless-engine/src/actions/`
+- Always check test fixtures in `/resources/fixtures/recorded` to understand behavior
+- Implementation for many actions is in `/packages/lib-engine/src/actions/`
+- After running Python scripts or tests, delete any `__pycache__` directories and `.pyc` files created under the repository root.
 
 ## Scope test format
 
-When writing or updating `.scope` files please follow the guidelines in [scope-test-format.md](./packages/cursorless-org-docs/src/docs/contributing/scope-test-format.md)
+When writing or updating `.scope` files please follow the guidelines in [scope-test-format.md](./packages/app-web-docs/src/docs/contributing/scope-test-format.md)
 
-## Pull Request Guidelines
+## Pull Request guidelines
 
 - Any feedback should be addressed in code or replied to
 - Tests should be included for new functionality

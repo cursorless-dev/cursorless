@@ -1,0 +1,11 @@
+<?php
+enum Foo: int { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 1:15-1:16
+                 >-<
+1| enum Foo: int { }
+
+[Insertion delimiter] = " "

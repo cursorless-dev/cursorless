@@ -1,0 +1,38 @@
+---
+sidebar_label: Chapter
+---
+
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/chapter.json";
+
+# Chapter
+
+Cursorless ID: `chapter`
+
+## Spoken form
+
+Default: `chapter`
+
+## Syntax
+
+- chapter - Document chapter and its contents.
+
+## Examples
+
+- `"take chapter blue air"` - Selects the chapter containing the token containing letter `a` with a blue hat.
+
+## Visualization
+
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+<ScopeVisualizerOptions />
+
+### Chapter
+
+<i>A document chapter</i>
+
+##### LaTeX
+
+<ScopeVisualizer fixtureName="scopes/latex/chapter" />
+
+</ScopeVisualizerProvider>

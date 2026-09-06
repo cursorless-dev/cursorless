@@ -10,7 +10,8 @@ mod = Module()
 
 @mod.action_class
 class Actions:
-    def private_cursorless_generate_snippet_action(target: CursorlessExplicitTarget):  # pyright: ignore [reportGeneralTypeIssues]
+    @staticmethod
+    def private_cursorless_generate_snippet_action(target: CursorlessExplicitTarget):
         """Generate a snippet from the given target"""
         actions.user.private_cursorless_command_no_wait(
             {
