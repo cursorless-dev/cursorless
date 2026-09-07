@@ -1,10 +1,10 @@
 ;; https://github.com/alex-pinkus/tree-sitter-swift/blob/with-generated-files/src/grammar.json
 
-;; document-wide
-(
-  (source_file) @class.iteration @statement.iteration @name.iteration @value.iteration @type.iteration
-  (#document-range! @class.iteration @statement.iteration @name.iteration @value.iteration @type.iteration)
-)
+;; document-wide -- seems like there might be a problem with tree-sitter-swift that causes this to not work correctly?
+;;(
+;;  (source_file) @class.iteration @statement.iteration @name.iteration @value.iteration @type.iteration
+;;  (#document-range! @class.iteration @statement.iteration @name.iteration @value.iteration @type.iteration)
+;;)
 
 ;; single line comment
 (comment) @comment @textFragment
