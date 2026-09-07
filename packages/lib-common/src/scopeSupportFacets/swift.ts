@@ -11,21 +11,21 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.if": supported,
   "branch.if.else": supported,
   "branch.if.elif.else": supported,
-  "branch.if.iteration": supported,
   "condition.if": supported,
   "interior.if": supported,
+  "branch.if.iteration": supported,
 
   // ternary operator
   "branch.ternary": unsupported,
-  "branch.ternary.iteration": unsupported,
   "condition.ternary": unsupported,
+  "branch.ternary.iteration": unsupported,
 
   // for loop
   "statement.foreach": supported,
   "name.foreach": supported,
   "value.foreach": supported,
   "type.foreach": supported,
-  "interior.foreach": unsupported,
+  "interior.foreach": supported,
 
   // while loop
   "statement.while": unsupported,
@@ -41,18 +41,19 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   // we're probably going to want a new scope facet for swift's try statements (`statement.tryErrorable`?)
   "statement.try": unsupported,
   "branch.try": unsupported,
-  "branch.try.iteration": unsupported,
   "interior.try": unsupported,
+  "branch.try.iteration": unsupported,
 
   // switch
   "statement.switch": unsupported,
   "branch.switchCase": unsupported,
-  "branch.switchCase.iteration": unsupported,
   "condition.switchCase": unsupported,
-  "condition.switchCase.iteration": unsupported,
   "value.switch": unsupported,
   "interior.switch": unsupported,
   "interior.switchCase": unsupported,
+
+  "branch.switchCase.iteration": unsupported,
+  "condition.switchCase.iteration": unsupported,
 
   // misc control transfer (returns, throw/break/continue statements, etc)
   "statement.return": unsupported,
@@ -69,23 +70,35 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   // enum
   "statement.enum": supported,
   "name.enum": supported,
-  "name.iteration.enum": supported,
   "type.enum": supported,
   "interior.enum": supported,
+
+  "name.iteration.enum": supported,
   "value.iteration.enum": supported,
 
   // class
   class: supported,
   "statement.class": supported,
   "name.class": supported,
-  "interior.class": unsupported,
+  "interior.class": supported,
   "type.class": unsupported,
+
+  "statement.iteration.class": supported,
+  "class.iteration.class": supported,
+  "namedFunction.iteration.class": supported,
+  "name.iteration.class": supported,
+  "value.iteration.class": unsupported,
+  "type.iteration.class": supported,
 
   // protocol (equivalent to interfaces in other languages)
   "statement.interface": supported,
   "name.interface": supported,
-  "interior.interface": unsupported,
+  "interior.interface": supported,
   "type.interface": unsupported,
+
+  "statement.iteration.interface": supported,
+  "name.iteration.interface": supported,
+  "type.iteration.interface": supported,
 
   // "standard" functions & methods
   namedFunction: unsupported,
@@ -127,34 +140,36 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "functionCallee.generic": unsupported,
   "functionCallee.enum": unsupported,
 
-  // argument (actual)
+  // argument (actual; as in parameters as passed to a call)
   "argument.actual.singleLine": unsupported,
   "argument.actual.multiLine": unsupported,
-  "argument.actual.iteration": unsupported,
   "argument.actual.method.singleLine": unsupported,
   "argument.actual.method.multiLine": unsupported,
-  "argument.actual.method.iteration": unsupported,
   "argument.actual.constructor.singleLine": unsupported,
   "argument.actual.constructor.multiLine": unsupported,
-  "argument.actual.constructor.iteration": unsupported,
   "argument.actual.enum.singleLine": unsupported,
   "argument.actual.enum.multiLine": unsupported,
+
+  "argument.actual.iteration": unsupported,
+  "argument.actual.method.iteration": unsupported,
+  "argument.actual.constructor.iteration": unsupported,
   "argument.actual.enum.iteration": unsupported,
 
-  // argument (formal)
+  // argument (formal; as in the argument members within a callable block and its declaration)
   "argument.formal.singleLine": unsupported,
   "argument.formal.multiLine": unsupported,
-  "argument.formal.iteration": unsupported,
   "argument.formal.method.singleLine": unsupported,
   "argument.formal.method.multiLine": unsupported,
-  "argument.formal.method.iteration": unsupported,
   "argument.formal.constructor.singleLine": unsupported,
   "argument.formal.constructor.multiLine": unsupported,
-  "argument.formal.constructor.iteration": unsupported,
   "argument.formal.lambda.singleLine": unsupported,
   "argument.formal.lambda.multiLine": unsupported,
-  "argument.formal.lambda.iteration": unsupported,
   "argument.formal.catch": unsupported,
+
+  "argument.formal.iteration": unsupported,
+  "argument.formal.method.iteration": unsupported,
+  "argument.formal.constructor.iteration": unsupported,
+  "argument.formal.lambda.iteration": unsupported,
 
   // argument list (actual)
   "argumentList.actual.empty": unsupported,
@@ -194,9 +209,9 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.variable.destructuring": unsupported,
   "statement.constant": unsupported,
 
-  "name.field.class": notApplicable,
-  "name.field.interface": notApplicable,
-  "name.field.enum": notApplicable,
+  "name.field.class": unsupported,
+  "name.field.interface": unsupported,
+  "name.field.enum": unsupported,
   "name.variable.uninitialized": unsupported,
   "name.variable.initialized": unsupported,
   "name.variable.destructuring": unsupported,
@@ -209,11 +224,11 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "value.variable": unsupported,
   "value.variable.destructuring": unsupported,
 
-  "type.constant": unsupported,
-  "type.variable.uninitialized": unsupported,
-  "type.variable.initialized": unsupported,
-  "type.field.class": unsupported,
-  "type.field.interface": unsupported,
+  "type.constant": supported,
+  "type.variable.uninitialized": supported,
+  "type.variable.initialized": supported,
+  "type.field.class": supported,
+  "type.field.interface": supported,
 
   // assignments
   "statement.assignment": unsupported,
@@ -240,31 +255,18 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "textFragment.string.singleLine": supported,
 
   // document-wide iteration
-  "statement.iteration.document": supported,
-  "class.iteration.document": supported,
-  "namedFunction.iteration.document": supported,
-  "name.iteration.document": supported,
-  "value.iteration.document": supported,
+  "statement.iteration.document": unsupported,
+  "class.iteration.document": unsupported,
+  "namedFunction.iteration.document": unsupported,
+  "name.iteration.document": unsupported,
+  "value.iteration.document": unsupported,
   "type.iteration.document": supported,
 
-  // per-class iteration
-  "statement.iteration.class": supported,
-  "class.iteration.class": supported,
-  "namedFunction.iteration.class": supported,
-  "name.iteration.class": supported,
-  "value.iteration.class": supported,
-  "type.iteration.class": supported,
-
-  // per-protocol iteration
-  "statement.iteration.interface": supported,
-  "name.iteration.interface": supported,
-  "type.iteration.interface": supported,
-
-  // per-block iteration -- todo: do classlikes, functions, protocols, etc. count as blocks? Or are only if states/branches/loops/etc. included here?
+  // general per-block iteration (not branches)
   "statement.iteration.block": unsupported,
   "name.iteration.block": unsupported,
   "value.iteration.block": unsupported,
-  "type.iteration.block": unsupported,
+  "type.iteration.block": supported,
 
   // unenclosed collection item
   "collectionItem.unenclosed.singleLine": unsupported,
@@ -281,58 +283,57 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
 
   // argument names
   "name.argument.actual": unsupported,
-  "name.argument.actual.iteration": unsupported,
   "name.argument.formal": unsupported,
-  "name.argument.formal.iteration": unsupported,
   "name.argument.formal.method": unsupported,
-  "name.argument.formal.method.iteration": unsupported,
   "name.argument.formal.lambda": unsupported,
-  "name.argument.formal.lambda.iteration": unsupported,
   "name.argument.formal.constructor": unsupported,
-  "name.argument.formal.constructor.iteration": unsupported,
   "name.argument.catch": unsupported,
+
+  "name.argument.actual.iteration": unsupported,
+  "name.argument.formal.iteration": unsupported,
+  "name.argument.formal.method.iteration": unsupported,
+  "name.argument.formal.lambda.iteration": unsupported,
+  "name.argument.formal.constructor.iteration": unsupported,
 
   // argument values
   "value.argument.actual": unsupported,
-  "value.argument.actual.iteration": unsupported,
   "value.argument.formal": unsupported,
-  "value.argument.formal.iteration": unsupported,
   "value.argument.formal.method": unsupported,
-  "value.argument.formal.method.iteration": unsupported,
   "value.argument.formal.constructor": unsupported,
-  "value.argument.formal.constructor.iteration": unsupported,
   "value.argument.formal.lambda": unsupported,
+
+  "value.argument.actual.iteration": unsupported,
+  "value.argument.formal.iteration": unsupported,
+  "value.argument.formal.method.iteration": unsupported,
+  "value.argument.formal.constructor.iteration": unsupported,
   "value.argument.formal.lambda.iteration": unsupported,
 
   // argument types
   "type.argument.formal": unsupported,
-  "type.argument.formal.iteration": unsupported,
   "type.argument.formal.method": unsupported,
-  "type.argument.formal.method.iteration": unsupported,
   "type.argument.formal.lambda": unsupported,
-  "type.argument.formal.lambda.iteration": unsupported,
   "type.argument.formal.constructor": unsupported,
-  "type.argument.formal.constructor.iteration": unsupported,
   "type.argument.catch": unsupported,
+
+  "type.argument.formal.iteration": unsupported,
+  "type.argument.formal.method.iteration": unsupported,
+  "type.argument.formal.lambda.iteration": unsupported,
+  "type.argument.formal.constructor.iteration": unsupported,
+
+  // type aliases
+  "name.typeAlias": unsupported,
+  "value.typeAlias": unsupported,
+  "statement.typeAlias": unsupported,
+  "statement.misc": unsupported,
+  "type.typeArgument": unsupported,
+  "type.alias": unsupported,
+  "type.cast": unsupported,
+  "type.typeArgument.iteration": unsupported,
 
   // misc
   regularExpression: unsupported,
   disqualifyDelimiter: unsupported,
   pairDelimiter: unsupported,
-
-  "name.typeAlias": unsupported,
-  "value.typeAlias": unsupported,
-
-  "statement.typeAlias": unsupported,
-  "statement.misc": unsupported,
-
-  "type.typeArgument": unsupported,
-  "type.typeArgument.iteration": unsupported,
-  "type.alias": unsupported,
-  "type.cast": unsupported,
-
-  // todo: do static variables/constants fulfill the scope facet "statement.static", or is that only for static blocks?
-  // "statement.static": unsupported,
 
   /* NOT APPLICABLE */
 
@@ -389,4 +390,5 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.yield": notApplicable,
   "value.yield": notApplicable,
   "interior.static": notApplicable,
+  "statement.static": notApplicable,
 };

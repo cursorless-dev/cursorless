@@ -1,3 +1,5 @@
+let pipis: Bool = true
+
 struct ExamplesStruct {
     static let constant = "hello world"
     public var publicVariable: UInt128 = 0
@@ -37,10 +39,6 @@ a multiline string
 """
 
 let extendedDelimiter = #"The radio said "No, John. You are the zombie." And then John was the zombie."#
-
-let multilineExtendedDelimiter = #"""
-""""""""" waow
-"""#
 
 enum ExampleEnum {
     case exampleCaseOne

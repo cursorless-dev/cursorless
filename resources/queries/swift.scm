@@ -1,8 +1,10 @@
 ;; https://github.com/alex-pinkus/tree-sitter-swift/blob/with-generated-files/src/grammar.json
 
 ;; document-wide
-(source_file) @class.iteration @statement.iteration @name.iteration @value.iteration @type.iteration
-(#document-range! @class.iteration @statement.iteration @name.iteration @value.iteration @type.iteration)
+(
+  (source_file) @class.iteration @statement.iteration @name.iteration @value.iteration @type.iteration
+  (#document-range! @class.iteration @statement.iteration @name.iteration @value.iteration @type.iteration)
+)
 
 ;; single line comment
 (comment) @comment @textFragment
@@ -76,13 +78,17 @@
 
 ;; Generic interior w/ top-level iterations
 (_
+  .
   "{" @interior.start.endOf @statement.iteration.start.endOf @name.iteration.start.endOf
   "}" @interior.end.startOf @statement.iteration.end.startOf @name.iteration.end.startOf
+  .
 )
 
 (_
+  .
   "{" @value.iteration.start.endOf @type.iteration.start.endOf @namedFunction.iteration.start.endOf
   "}" @value.iteration.end.startOf @type.iteration.end.startOf @namedFunction.iteration.end.startOf
+  .
 )
 
 ;; Generic interior -- class iteration
@@ -91,8 +97,10 @@
 (
   (
     (_
+      .
       "{" @class.iteration.start.endOf
       "}" @class.iteration.end.startOf
+      .
     ) @_dummy
   )
   (#type? @_dummy class_declaration function_declaration)
@@ -105,8 +113,10 @@
 (
   (
     (_
+      .
       "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
       "}" @condition.iteration.end.startOf @branch.iteration.end.startOf
+      .
     ) @_dummy
   )
   (#not-parent-type? @_dummy source_file)
@@ -145,4 +155,13 @@
     "in"
     collection: (_) @value
   ) @statement @_.domain
+)
+
+;; const/var type
+(
+  (type_annotation
+    ":" @type.leading
+    .
+    _ @type
+  )
 )
