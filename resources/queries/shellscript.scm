@@ -219,7 +219,7 @@
 ;;!      ^^^^^
 (string
   .
-  (string_content) @textFragment.start
+  (string_content)? @textFragment.start
   (string_content)? @textFragment.end
   .
 ) @string
@@ -266,16 +266,7 @@
 ;;!           ^^^
 (function_definition
   name: (_) @name
-) @name.domain
-
-;; interior:
-;;!! function foo() { }
-;;!                  ^
-(function_definition
-  body: (_
-    (_)? @interior
-  )
-) @namedFunction @interior.domain
+) @namedFunction @name.domain
 
 ;;!! for ((i = 1; i <= 5; i++)); do
 ;;!        ^
