@@ -206,7 +206,12 @@
 
 ;;!! var="foo"
 ;;!      ^^^^^
-(string) @string @textFragment
+(string
+  .
+  (string_content) @textFragment.start
+  (string_content)? @textFragment.end
+  .
+) @string
 
 ;;!! var="foo ${bar}"
 ;;!           ^^^^^^
