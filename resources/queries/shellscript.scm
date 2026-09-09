@@ -13,6 +13,7 @@
   (if_statement)
   (while_statement)
   (for_statement)
+  (c_style_for_statement)
   (function_definition)
   (declaration_command)
   (case_statement)
@@ -22,21 +23,19 @@
 ] @statement
 
 (
-  (_
-    [
-      (variable_assignment)
-      (command)
-    ] @statement
-    (#not-parent-type?
-      @statement
-      declaration_command
-      c_style_for_statement
-      list
-      redirected_statement
-      if_statement
-      elif_clause
-      while_statement
-    )
+  [
+    (variable_assignment)
+    (command)
+  ] @statement
+  (#not-parent-type?
+    @statement
+    declaration_command
+    c_style_for_statement
+    list
+    redirected_statement
+    if_statement
+    elif_clause
+    while_statement
   )
 )
 
@@ -45,12 +44,22 @@
   (#document-range! @statement.iteration)
 )
 
+;;!! [[ $foo =~ ^\w+$ ]]
+;;!             ^^^^^
+(regex) @regularExpression @textFragment
+
 ;;!! for v in values; do :; done
 ;;!      ^
 ;;!           ^^^^^^
 (for_statement
   variable: (_) @name
   value: (_) @value
+) @_.domain
+
+;;!! for ((i = 0; i < 2; i++)); do :; done
+;;!               ^^^^^
+(c_style_for_statement
+  condition: (_) @condition
 ) @_.domain
 
 ;;!! while true; do :; done
@@ -323,5 +332,3 @@
 (declaration_command
   (variable_name) @name
 ) @_.domain
-
-(regex) @regularExpression @textFragment
