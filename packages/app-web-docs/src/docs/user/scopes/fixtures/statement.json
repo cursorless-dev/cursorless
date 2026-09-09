@@ -10833,6 +10833,59 @@
     ]
   },
   {
+    "name": "scopes/shellscript/statement/statement.if2",
+    "languageId": "shellscript",
+    "facet": "statement.if",
+    "code": "if foo; then\n    aaa\n    bbb\nelif baz; then\n    ccc\n    ddd\nfi",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-6:2",
+            "removal": "0:0-6:2"
+          }
+        ],
+        "domain": "0:0-6:2"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:7",
+            "removal": "2:0-3:0"
+          }
+        ],
+        "domain": "2:4-2:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "4:4-4:7",
+            "removal": "4:0-5:0"
+          }
+        ],
+        "domain": "4:4-4:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "5:4-5:7",
+            "removal": "5:0-6:0"
+          }
+        ],
+        "domain": "5:4-5:7"
+      }
+    ]
+  },
+  {
     "name": "scopes/shellscript/statement/statement.import",
     "languageId": "shellscript",
     "facet": "statement.import",
