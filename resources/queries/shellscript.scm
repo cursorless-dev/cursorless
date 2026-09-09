@@ -43,10 +43,24 @@
   (program) @statement.iteration @namedFunction.iteration
   (#document-range! @statement.iteration @namedFunction.iteration)
 )
+(
+  (program) @name.iteration @value.iteration
+  (#document-range! @name.iteration @value.iteration)
+)
 
 ;;!! [[ $foo =~ ^\w+$ ]]
 ;;!             ^^^^^
 (regex) @regularExpression @textFragment
+
+;;!! foo=(aaa bbb)
+;;!      ^^^^^^^^^
+(array) @list
+
+;;!! foo=(["aaa"]=0 ["bbb"]=1)
+;;!      ^^^^^^^^^^^^^^^^^^^^^
+(array
+  (concatenation)
+) @map
 
 ;;!! for v in values; do :; done
 ;;!      ^
