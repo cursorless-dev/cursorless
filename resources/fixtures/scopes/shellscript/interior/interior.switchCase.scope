@@ -1,0 +1,30 @@
+case $foo in
+  0) : ;;
+esac
+---
+
+[#1 Content] = 1:2-1:9
+    >-------<
+1|   0) : ;;
+
+[#1 Removal] =
+[#1 Domain] = 0:12-2:0
+              >
+0| case $foo in
+1|   0) : ;;
+2| esac
+   <
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:5-1:6
+       >-<
+1|   0) : ;;
+
+[#2 Removal] =
+[#2 Domain] = 1:4-1:7
+      >---<
+1|   0) : ;;
+
+[#2 Insertion delimiter] = " "

@@ -152,14 +152,16 @@
 ;;!              ^
 (case_statement
   value: (_) @value
-  "in" @branch.iteration.start.endOf @condition.iteration.start.endOf
-  "esac" @branch.iteration.end.startOf @condition.iteration.end.startOf
+  "in" @interior.start.endOf @branch.iteration.start.endOf @condition.iteration.start.endOf
+  "esac" @interior.end.startOf @branch.iteration.end.startOf @condition.iteration.end.startOf
 ) @value.domain
 
 ;;!! 0) : ;;
 ;;!  ^
 (case_item
   value: (_) @condition
+  ")" @interior.start.endOf
+  ";;" @interior.end.startOf
 ) @branch @condition.domain
 
 ;;!! return 0
@@ -172,6 +174,20 @@
     argument: (_) @value
   ) @value.domain
   (#eq? @_dummy return)
+)
+
+;;!! do :; done
+;;!    ^^^^
+(do_group
+  "do" @interior.start.endOf
+  "done" @interior.end.startOf
+)
+
+;;!! foo() { }
+;;!         ^
+(compound_statement
+  "{" @interior.start.endOf
+  "}" @interior.end.startOf
 )
 
 ;;!! # foo
