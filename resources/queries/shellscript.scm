@@ -20,6 +20,7 @@
   (subshell)
   (list)
   (redirected_statement)
+  (test_command)
 ] @statement
 
 (
@@ -58,9 +59,24 @@
 
 ;;!! foo=(["aaa"]=0 ["bbb"]=1)
 ;;!      ^^^^^^^^^^^^^^^^^^^^^
+;;!       ^^^^^^^^^^^^^^^^^^^
 (array
+  "(" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
   (concatenation)
+  ")" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
 ) @map
+
+;;!! foo=(["aaa"]=0 ["bbb"]=1)
+;;!        ^^^^^     ^^^^^
+;;!               ^         ^
+(array
+  (concatenation
+    (string) @collectionKey
+    (_) @value
+    .
+  ) @_.domain
+  (#character-range! @value 1)
+)
 
 ;;!! for v in values; do :; done
 ;;!      ^
@@ -102,6 +118,26 @@
 ;;!    ^^^^
 (ternary_expression
   condition: (_) @condition
+  consequence: (_) @branch
+) @condition.domain @branch.iteration
+
+(ternary_expression
+  alternative: (_) @branch
+)
+
+;;!! case $foo in esac
+;;!       ^^^^
+;;!              ^
+(case_statement
+  value: (_) @value
+  "in" @branch.iteration.start.endOf @condition.iteration.start.endOf
+  "esac" @branch.iteration.end.startOf @condition.iteration.end.startOf
+) @value.domain
+
+;;!! 0) : ;;
+;;!  ^
+(case_item
+  value: (_) @condition
 ) @condition.domain
 
 ;;!! return 0
