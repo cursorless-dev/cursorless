@@ -1,0 +1,95 @@
+if foo; then
+    aaa
+    bbb
+elif baz; then
+    ccc
+    ddd
+fi
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-6:2
+  >------------
+0| if foo; then
+1|     aaa
+2|     bbb
+3| elif baz; then
+4|     ccc
+5|     ddd
+6| fi
+   --<
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 1:4-1:7
+      >---<
+1|     aaa
+
+[#2 Removal] = 1:0-2:0
+  >-------
+1|     aaa
+2|     bbb
+   <
+
+[#2 Leading delimiter] = 1:0-1:4
+  >----<
+1|     aaa
+
+[#2 Insertion delimiter] = "\n"
+
+
+[#3 Content] =
+[#3 Domain] = 2:4-2:7
+      >---<
+2|     bbb
+
+[#3 Removal] = 2:0-3:0
+  >-------
+2|     bbb
+3| elif baz; then
+   <
+
+[#3 Leading delimiter] = 2:0-2:4
+  >----<
+2|     bbb
+
+[#3 Insertion delimiter] = "\n"
+
+
+[#4 Content] =
+[#4 Domain] = 4:4-4:7
+      >---<
+4|     ccc
+
+[#4 Removal] = 4:0-5:0
+  >-------
+4|     ccc
+5|     ddd
+   <
+
+[#4 Leading delimiter] = 4:0-4:4
+  >----<
+4|     ccc
+
+[#4 Insertion delimiter] = "\n"
+
+
+[#5 Content] =
+[#5 Domain] = 5:4-5:7
+      >---<
+5|     ddd
+
+[#5 Removal] = 5:0-6:0
+  >-------
+5|     ddd
+6| fi
+   <
+
+[#5 Leading delimiter] = 5:0-5:4
+  >----<
+5|     ddd
+
+[#5 Insertion delimiter] = "\n"

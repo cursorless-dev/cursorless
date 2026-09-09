@@ -29,6 +29,24 @@
   )
 )
 
+;; Capture body statements without including commands before "then".
+[
+  (if_statement
+    "then"
+    [
+      (command)
+      (variable_assignment)
+    ] @statement
+  )
+  (elif_clause
+    "then"
+    [
+      (command)
+      (variable_assignment)
+    ] @statement
+  )
+]
+
 (
   (program) @statement.iteration @namedFunction.iteration
   (#document-range! @statement.iteration @namedFunction.iteration)
