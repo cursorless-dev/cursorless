@@ -410,8 +410,8 @@ suite("queryPredicateOperators", () => {
       assert.equal(operator.createPredicate([]).success, false);
     });
 
-    const operands: PredicateStep[] = validArguments[operator.name].map((arg) =>
-      typeof arg === "string" ? { type: "string", value: arg } : arg,
+    const operands: PredicateStep[] = validArguments[operator.name].map(
+      (arg) => (typeof arg === "string" ? { type: "string", value: arg } : arg),
     );
     for (const [index, operand] of operands.entries()) {
       if (operand.type !== "capture") {
