@@ -31,6 +31,14 @@
   )
 )
 
+;;!! for v in values; do foo; done
+;;!      ^
+;;!           ^^^^^^
+(for_statement
+  variable: (_) @name
+  value: (_) @value
+) @_.domain
+
 ;;
 ;; Conditionals
 ;;
@@ -74,12 +82,12 @@
   (if_statement
     "if" @condition.domain.start.startOf @branch.start.startOf
     (_) @condition
-    "then" @branch.interior.start.endOf
-    (_) @dummy
+    "then" @interior.start.endOf
+    (_) @_dummy
     .
-    "fi" @condition.domain.end.startOf @branch.end.startOf @branch.interior.end.startOf
+    "fi" @condition.domain.end.startOf @branch.end.startOf @interior.end.startOf
   )
-  (#not-type? @dummy else_clause elif_clause)
+  (#not-type? @_dummy else_clause elif_clause)
 )
 
 ;;!! if [ $value -le 0 ]; then
@@ -90,9 +98,9 @@
   (if_statement
     "if" @condition.domain.start.startOf @branch.start.startOf
     (_) @condition
-    "then" @branch.interior.start.endOf
+    "then" @interior.start.endOf
     (_)
-    (elif_clause) @condition.domain.end.startOf @branch.end.startOf @branch.interior.end.startOf
+    (elif_clause) @condition.domain.end.startOf @branch.end.startOf @interior.end.startOf
   )
 )
 
@@ -104,12 +112,12 @@
   (if_statement
     "if" @condition.domain.start.startOf @branch.start.startOf
     (_) @condition
-    "then" @branch.interior.start.endOf
-    (_) @dummy
+    "then" @interior.start.endOf
+    (_) @_dummy
     .
-    (else_clause) @condition.domain.end.startOf @branch.end.startOf @branch.interior.end.startOf
+    (else_clause) @condition.domain.end.startOf @branch.end.startOf @interior.end.startOf
   )
-  (#not-type? @dummy elif_clause)
+  (#not-type? @_dummy elif_clause)
 )
 
 ;;!! elif [ $value -le 0 ]; then
@@ -125,9 +133,9 @@
 ;;!!    echo "foo1"
 (elif_clause
   (_) @condition
-  "then" @branch.interior.start.endOf
+  "then" @interior.start.endOf
   (_)
-) @branch @_.domain @branch.interior.end.endOf
+) @branch @_.domain @interior.end.endOf
 
 ;;!! else
 ;;!! fi
@@ -141,9 +149,9 @@
 ;;!!     echo "foo1"
 ;;!! fi
 (else_clause
-  "else" @branch.interior.start.endOf
+  "else" @interior.start.endOf
   (_)
-) @branch @branch.interior.end.endOf
+) @branch @interior.end.endOf
 
 (_
   condition: (_) @condition
@@ -153,8 +161,8 @@
 (case_item
   value: (_) @condition
   .
-  ")" @branch.interior.start.endOf
-  (_) @branch.interior.end.endOf
+  ")" @interior.start.endOf
+  (_) @interior.end.endOf
   .
   ";;"
 ) @branch @_.domain
@@ -166,9 +174,9 @@
 ;;!        ^^^^^^^^^^^^^
 ;;!        -------------
 (array
-  "(" @_.interior.start.endOf
+  "(" @interior.start.endOf
   (_)? @collectionItem
-  ")" @_.interior.end.startOf
+  ")" @interior.end.startOf
 ) @list @collectionItem.iteration
 
 ;;!! FIXME: I will file an issue in tree-sitter-bash as I think the grammar is
@@ -178,10 +186,10 @@
   (
     (concatenation
       ;; This matches the [ which is (word) for some reason
-      (_) @collectionKey.leading.start
+      (_) @collectionKey.leading.startOf
       (_) @collectionKey
       ;; This matches the ] which is also (word) for some reason
-      (_) @collectionKey.trailing.end
+      (_) @collectionKey.trailing.endOf
       (_) @value
     ) @collectionItem
     (#shrink-to-match! @value "\=(?<keep>.*)")
@@ -245,7 +253,7 @@
 ;;!! }
 ;;!  -
 (function_definition
-  name: (_) @functionName
+  name: (_) @name
 ) @_.domain
 
 ;; FIXME: Need to support redirections
@@ -259,7 +267,7 @@
 ;;!  -
 (function_definition
   body: (_
-    (_)? @_.interior
+    (_)? @interior
   )
 ) @namedFunction @_.domain
 
@@ -275,8 +283,8 @@
   (variable_assignment
     name: (_) @name @value.leading.endOf
     value: (_) @value @name.trailing.startOf
-  ) @dummy @_.domain
-  (#not-parent-type? @dummy declaration_command)
+  ) @_dummy @_.domain
+  (#not-parent-type? @_dummy declaration_command)
 )
 
 ;;!! local foo="bar"

@@ -54,7 +54,6 @@ export const shellscriptScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.return": supported,
   "statement.break": supported,
   "statement.continue": supported,
-  "statement.command": supported,
   "statement.import": supported,
   "statement.misc": supported,
   "statement.update": supported,
@@ -73,7 +72,6 @@ export const shellscriptScopeSupport: LanguageScopeSupportFacetMap = {
   "name.constant": supported,
   "name.assignment": supported,
   "name.assignment.compound": supported,
-  "name.command": supported,
   "name.foreach": supported,
   "name.function": supported,
   "name.iteration.document": supported,
@@ -101,8 +99,6 @@ export const shellscriptScopeSupport: LanguageScopeSupportFacetMap = {
 
   "key.mapPair": supported,
   "key.mapPair.iteration": supported,
-
-  command: supported,
 
   regularExpression: supported,
 
@@ -363,7 +359,10 @@ export const shellscriptScopeSupport: LanguageScopeSupportFacetMap = {
   "collectionItem.unenclosed.multiLine": notApplicable,
   "collectionItem.unenclosed.iteration": notApplicable,
 
-  // Command bodies (as in Talon)
+  // Commands (as in Talon); shell invocations use calls and callees.
+  command: notApplicable,
+  "statement.command": notApplicable,
+  "name.command": notApplicable,
   "value.command": notApplicable,
   "interior.command": notApplicable,
 
