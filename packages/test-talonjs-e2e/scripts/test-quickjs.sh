@@ -18,6 +18,7 @@ cd out
 if [[ "$OSTYPE" == "darwin"* ]]; then
     brew install quickjs
     # Brew doesn't actually publish different versions of the quickjs binary
+    # https://formulae.brew.sh/formula/quickjs
     # brew install quickjs@$QUICKJS_VERSION
 
     qjs -m quickjsTest.mjs
