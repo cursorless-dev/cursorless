@@ -1,6 +1,6 @@
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import type { ReferenceEntry, ReferenceGroup } from "@cursorless/lib-common";
-import { capitalize } from "@cursorless/lib-common";
+import { camelCaseToAllDown, capitalize } from "@cursorless/lib-common";
 import type { RecordedTestPath } from "@cursorless/lib-node-common";
 import {
   recordedTestVisualizerImport,
@@ -47,6 +47,7 @@ export function updateReferenceReadmeMd(
         entry.visibility === "disabledByDefault"
           ? ` (${DISABLED_BY_DEFAULT})`
           : "";
+
       for (const syntax of entry.syntaxes) {
         const pattern = injectSpokenForm(
           syntax.pattern,
@@ -57,12 +58,14 @@ export function updateReferenceReadmeMd(
           `- [\`"${pattern}"\`](./${id}.mdx) - ${description}${disabledByDefault}`,
         );
       }
+
       if (entry.syntaxes.length === 0) {
         const name =
           entry.defaultSpokenForm != null
             ? `\`"${entry.defaultSpokenForm}"\``
             : entry.name;
-        expected.push(`- [${name}](./${id}.mdx)`);
+        const description = capitalize(camelCaseToAllDown(id));
+        expected.push(`- [${name}](./${id}.mdx) - ${description}`);
       }
     }
 
@@ -127,24 +130,25 @@ export async function updateReferenceMdx(
 
   expected.push(`Cursorless ID: ${code(entry.csv_id ?? id)}`, "");
 
-  const spokenFormLines: string[] = [];
+  if (
+    entry.defaultSpokenForm != null &&
+    entry.visibility !== "privateSpokenForm"
+  ) {
+    const spokenFormLines = [`Default: ${code(entry.defaultSpokenForm)}`];
 
-  if (entry.defaultSpokenForm != null) {
-    spokenFormLines.push(`Default: ${code(entry.defaultSpokenForm)}`);
-  }
+    if (entry.legacySpokenForms != null) {
+      spokenFormLines.push(
+        `Legacy: ${entry.legacySpokenForms.map((s) => code(s)).join(", ")}`,
+      );
+    }
 
-  if (entry.legacySpokenForms != null) {
-    spokenFormLines.push(
-      `Legacy: ${entry.legacySpokenForms.map((s) => code(s)).join(", ")}`,
-    );
-  }
+    if (entry.visibility === "disabledByDefault") {
+      spokenFormLines.push(DISABLED_BY_DEFAULT);
+    }
 
-  if (entry.visibility === "disabledByDefault") {
-    spokenFormLines.push(DISABLED_BY_DEFAULT);
-  }
-
-  if (spokenFormLines.length > 0) {
-    expected.push("## Spoken form", "", ...formatGroup(spokenFormLines), "");
+    if (spokenFormLines.length > 0) {
+      expected.push("## Spoken form", "", ...formatGroup(spokenFormLines), "");
+    }
   }
 
   if (entry.syntaxes.length > 0) {

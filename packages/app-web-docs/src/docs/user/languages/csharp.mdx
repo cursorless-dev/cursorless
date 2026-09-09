@@ -545,6 +545,112 @@ Below are visualizations of all our scope tests for this language. These were cr
 
 <ScopeVisualizer fixtureName="scopes/csharp/ifStatement" languageId="csharp" />
 
+### Interior
+
+#### 1. Interior: Class
+
+<i>The body of a class/struct declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.class" languageId="csharp" />
+
+#### 2. Interior: Constructor
+
+<i>The body of a constructor declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.constructor" languageId="csharp" />
+
+#### 3. Interior: Do while
+
+<i>The body of a do-while loop</i>
+
+<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.doWhile" languageId="csharp" />
+
+#### 4. Interior: Enum
+
+<i>The body of an enum declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.enum" languageId="csharp" />
+
+#### 5. Interior: For
+
+<i>The body of a for loop</i>
+
+<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.for" languageId="csharp" />
+
+#### 6. Interior: Foreach
+
+<i>The body of a for-each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.foreach" languageId="csharp" />
+
+#### 7. Interior: Function
+
+<i>The body of a function declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.function" languageId="csharp" />
+
+#### 8. Interior: If
+
+<i>The body of an if/elif/else branch</i>
+
+<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.if" languageId="csharp" />
+
+#### 9. Interior: Interface
+
+<i>The body of an interface declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.interface" languageId="csharp" />
+
+#### 10. Interior: Lambda
+
+<i>The block body of an anonymous function</i>
+
+<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.lambda" languageId="csharp" />
+
+#### 11. Interior: Method
+
+<i>The body of a method declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.method" languageId="csharp" />
+
+#### 12. Interior: Namespace
+
+<i>The body of a namespace declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.namespace" languageId="csharp" />
+
+#### 13. Interior: Resource
+
+<i>The body of a resource management statement, eg `with` / `use` / `using`</i>
+
+<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.resource" languageId="csharp" />
+
+#### 14. Interior: Switch
+
+<i>The body of a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.switch" languageId="csharp" />
+
+#### 15. Interior: Switch case
+
+<i>The body of a case/default branch in a switch statement</i>
+
+<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.switchCase" languageId="csharp" />
+
+<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.switchCase2" languageId="csharp" />
+
+#### 16. Interior: Try
+
+<i>The body of a try/catch/finally branch</i>
+
+<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.try" languageId="csharp" />
+
+#### 17. Interior: While
+
+<i>The body of a while loop</i>
+
+<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.while" languageId="csharp" />
+
 ### List
 
 #### 1. List
@@ -1434,112 +1540,6 @@ The following are internal scopes. They are not intended for user interaction or
 <i>Internally used to disqualify a token from being treated as a surrounding pair delimiter. This will usually be operators containing `>` or `<`, eg `<`, `<=`, `->`, etc.</i>
 
 <ScopeVisualizer fixtureName="scopes/csharp/disqualifyDelimiter" languageId="csharp" />
-
-### Interior
-
-#### 1. Interior: Class
-
-<i>The body of a class/struct declaration</i>
-
-<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.class" languageId="csharp" />
-
-#### 2. Interior: Constructor
-
-<i>The body of a constructor declaration</i>
-
-<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.constructor" languageId="csharp" />
-
-#### 3. Interior: Do while
-
-<i>The body of a do-while loop</i>
-
-<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.doWhile" languageId="csharp" />
-
-#### 4. Interior: Enum
-
-<i>The body of an enum declaration</i>
-
-<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.enum" languageId="csharp" />
-
-#### 5. Interior: For
-
-<i>The body of a for loop</i>
-
-<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.for" languageId="csharp" />
-
-#### 6. Interior: Foreach
-
-<i>The body of a for-each loop</i>
-
-<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.foreach" languageId="csharp" />
-
-#### 7. Interior: Function
-
-<i>The body of a function declaration</i>
-
-<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.function" languageId="csharp" />
-
-#### 8. Interior: If
-
-<i>The body of an if/elif/else branch</i>
-
-<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.if" languageId="csharp" />
-
-#### 9. Interior: Interface
-
-<i>The body of an interface declaration</i>
-
-<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.interface" languageId="csharp" />
-
-#### 10. Interior: Lambda
-
-<i>The block body of an anonymous function</i>
-
-<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.lambda" languageId="csharp" />
-
-#### 11. Interior: Method
-
-<i>The body of a method declaration</i>
-
-<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.method" languageId="csharp" />
-
-#### 12. Interior: Namespace
-
-<i>The body of a namespace declaration</i>
-
-<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.namespace" languageId="csharp" />
-
-#### 13. Interior: Resource
-
-<i>The body of a resource management statement, eg `with` / `use` / `using`</i>
-
-<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.resource" languageId="csharp" />
-
-#### 14. Interior: Switch
-
-<i>The body of a switch statement</i>
-
-<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.switch" languageId="csharp" />
-
-#### 15. Interior: Switch case
-
-<i>The body of a case/default branch in a switch statement</i>
-
-<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.switchCase" languageId="csharp" />
-
-<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.switchCase2" languageId="csharp" />
-
-#### 16. Interior: Try
-
-<i>The body of a try/catch/finally branch</i>
-
-<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.try" languageId="csharp" />
-
-#### 17. Interior: While
-
-<i>The body of a while loop</i>
-
-<ScopeVisualizer fixtureName="scopes/csharp/interior/interior.while" languageId="csharp" />
 
 ### String
 

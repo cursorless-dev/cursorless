@@ -209,7 +209,11 @@ function entries(
       throw new Error(`No default spoken form found for '${id}'`);
     }
 
-    if (typeof value !== "string" && value.visibility === "private") {
+    if (
+      typeof value !== "string" &&
+      (value.visibility === "private" ||
+        value.visibility === "privateSpokenForm")
+    ) {
       return [];
     }
 
