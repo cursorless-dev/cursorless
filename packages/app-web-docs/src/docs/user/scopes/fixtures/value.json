@@ -8545,6 +8545,298 @@
     ]
   },
   {
+    "name": "scopes/shellscript/value/value.assignment.compound",
+    "languageId": "shellscript",
+    "facet": "value.assignment.compound",
+    "code": "foo+=0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:6",
+            "removal": "0:3-0:6"
+          }
+        ],
+        "domain": "0:0-0:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/value/value.assignment",
+    "languageId": "shellscript",
+    "facet": "value.assignment",
+    "code": "foo=0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:5",
+            "removal": "0:3-0:5"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/value/value.constant",
+    "languageId": "shellscript",
+    "facet": "value.constant",
+    "code": "readonly foo=0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:13-0:14",
+            "removal": "0:12-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/value/value.foreach",
+    "languageId": "shellscript",
+    "facet": "value.foreach",
+    "code": "for v in values; do :; done",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:15",
+            "removal": "0:8-0:15"
+          }
+        ],
+        "domain": "0:0-0:27"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/value/value.iteration.block",
+    "languageId": "shellscript",
+    "facet": "value.iteration.block",
+    "code": "foo() { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:9"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:7-0:8"
+          }
+        ],
+        "domain": "0:7-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/value/value.iteration.block2",
+    "languageId": "shellscript",
+    "facet": "value.iteration.block",
+    "code": "if true; then\n    :\nelif false; then\n    :\nelse\n    :\nfi",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-6:2"
+          }
+        ],
+        "domain": "0:0-6:2"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/value/value.iteration.block3",
+    "languageId": "shellscript",
+    "facet": "value.iteration.block",
+    "code": "while true; do :; done",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:22"
+          }
+        ],
+        "domain": "0:0-0:22"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:14-0:18"
+          }
+        ],
+        "domain": "0:14-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/value/value.iteration.document",
+    "languageId": "shellscript",
+    "facet": "value.iteration.document",
+    "code": "\ndeclare foo\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/value/value.mapPair.iteration",
+    "languageId": "shellscript",
+    "facet": "value.mapPair.iteration",
+    "code": "foo=([\"aaa\"]=0 [\"bbb\"]=1)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:25"
+          }
+        ],
+        "domain": "0:0-0:25"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:5-0:24"
+          }
+        ],
+        "domain": "0:5-0:24"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/value/value.mapPair",
+    "languageId": "shellscript",
+    "facet": "value.mapPair",
+    "code": "foo=([\"aaa\"]=0 [\"bbb\"]=1)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:25",
+            "removal": "0:3-0:25"
+          }
+        ],
+        "domain": "0:0-0:25"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:13-0:14",
+            "removal": "0:13-0:14"
+          }
+        ],
+        "domain": "0:5-0:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:23-0:24",
+            "removal": "0:23-0:24"
+          }
+        ],
+        "domain": "0:15-0:24"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/value/value.return",
+    "languageId": "shellscript",
+    "facet": "value.return",
+    "code": "foo() {\n    return 0;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:11-1:12",
+            "removal": "1:10-1:12"
+          }
+        ],
+        "domain": "1:4-1:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/value/value.return2",
+    "languageId": "shellscript",
+    "facet": "value.return",
+    "code": "function foo {\n    return 0;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:11-1:12",
+            "removal": "1:10-1:12"
+          }
+        ],
+        "domain": "1:4-1:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/value/value.switch",
+    "languageId": "shellscript",
+    "facet": "value.switch",
+    "code": "case $foo in esac",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:9",
+            "removal": "0:5-0:10"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/value/value.variable",
+    "languageId": "shellscript",
+    "facet": "value.variable",
+    "code": "local foo=0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11",
+            "removal": "0:9-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/value/value.variable2",
+    "languageId": "shellscript",
+    "facet": "value.variable",
+    "code": "declare foo=0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13",
+            "removal": "0:11-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/value/value.assignment",
     "languageId": "talon",
     "facet": "value.assignment",

@@ -1894,6 +1894,73 @@
     ]
   },
   {
+    "name": "scopes/shellscript/namedFunction/namedFunction.iteration.document",
+    "languageId": "shellscript",
+    "facet": "namedFunction.iteration.document",
+    "code": "\nfoo() {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/namedFunction/namedFunction",
+    "languageId": "shellscript",
+    "facet": "namedFunction",
+    "code": "foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:8",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/namedFunction/namedFunction2",
+    "languageId": "shellscript",
+    "facet": "namedFunction",
+    "code": "function foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/namedFunction/namedFunction3",
+    "languageId": "shellscript",
+    "facet": "namedFunction",
+    "code": "function foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:17",
+            "removal": "0:0-0:17"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
     "name": "scopes/typescript.core/namedFunction/namedFunction.constructor",
     "languageId": "typescript.core",
     "facet": "namedFunction.constructor",

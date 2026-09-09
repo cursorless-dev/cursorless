@@ -476,6 +476,23 @@
     ]
   },
   {
+    "name": "scopes/shellscript/list",
+    "languageId": "shellscript",
+    "facet": "list",
+    "code": "foo=(aaa bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:13",
+            "removal": "0:4-0:13"
+          }
+        ],
+        "domain": "0:4-0:13"
+      }
+    ]
+  },
+  {
     "name": "scopes/yaml/list",
     "languageId": "yaml",
     "facet": "list",

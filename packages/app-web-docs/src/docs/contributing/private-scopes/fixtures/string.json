@@ -595,6 +595,40 @@
     ]
   },
   {
+    "name": "scopes/shellscript/string.multiLine",
+    "languageId": "shellscript",
+    "facet": "string.multiLine",
+    "code": "\"Hello\nworld\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:6",
+            "removal": "0:0-1:6"
+          }
+        ],
+        "domain": "0:0-1:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/string.singleLine",
+    "languageId": "shellscript",
+    "facet": "string.singleLine",
+    "code": "\"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/string.singleLine",
     "languageId": "talon",
     "facet": "string.singleLine",

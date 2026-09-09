@@ -672,6 +672,48 @@
     ]
   },
   {
+    "name": "scopes/shellscript/key.mapPair.iteration",
+    "languageId": "shellscript",
+    "facet": "key.mapPair.iteration",
+    "code": "foo=([\"aaa\"]=0 [\"bbb\"]=1)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:24"
+          }
+        ],
+        "domain": "0:5-0:24"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/key.mapPair",
+    "languageId": "shellscript",
+    "facet": "key.mapPair",
+    "code": "foo=([\"aaa\"]=0 [\"bbb\"]=1)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:11",
+            "removal": "0:6-0:11"
+          }
+        ],
+        "domain": "0:5-0:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:16-0:21",
+            "removal": "0:16-0:21"
+          }
+        ],
+        "domain": "0:15-0:24"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/key/key.mapPair.iteration",
     "languageId": "talon",
     "facet": "key.mapPair.iteration",
