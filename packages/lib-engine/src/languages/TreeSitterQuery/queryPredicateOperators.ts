@@ -93,6 +93,23 @@ class NotParentType extends QueryPredicateOperator<NotParentType> {
 }
 
 /**
+ * A predicate operator that returns true if none of the node's direct children
+ * have any of the given types. For example, `(#not-child-type? @foo else_clause
+ * elif_clause)` rejects an if statement with an else or elif clause. Named and
+ * anonymous children are checked; descendants below the direct children are not
+ * checked.
+ */
+class NotChildType extends QueryPredicateOperator<NotChildType> {
+  name = "not-child-type?" as const;
+  schema = z.tuple([q.node, q.string]).rest(q.string);
+  run(capture: MutableQueryCapture, ...types: string[]) {
+    return !getNode(capture).children.some((child) =>
+      types.includes(child.type),
+    );
+  }
+}
+
+/**
  * A predicate operator that returns true if the node is the nth child of its
  * parent.  For example, `(#is-nth-child? @foo 0)` will reject the match if the
  * `@foo` capture is not the first child of its parent.
@@ -211,7 +228,7 @@ class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
     const match = text.match(new RegExp(pattern, "dsu"));
 
     if (match?.index == null) {
-      throw new Error(`No match for pattern '${pattern}'`);
+      throw new Error(`No match for pattern '${pattern}' on text '${text}'`);
     }
 
     const offsets = match.indices?.groups?.keep ?? match.indices?.[0];
@@ -462,6 +479,7 @@ export const queryPredicateOperators = [
   new TrimEnd(),
   new DocumentRange(),
   new NotParentType(),
+  new NotChildType(),
   new IsNthChild(),
   new ChildRange(),
   new CharacterRange(),

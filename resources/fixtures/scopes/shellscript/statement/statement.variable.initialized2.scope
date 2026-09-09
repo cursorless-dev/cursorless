@@ -1,0 +1,10 @@
+declare foo=0
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:13
+  >-------------<
+0| declare foo=0
+
+[Insertion delimiter] = "\n"

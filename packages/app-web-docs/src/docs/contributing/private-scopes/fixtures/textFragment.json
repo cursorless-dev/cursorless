@@ -1361,6 +1361,57 @@
     ]
   },
   {
+    "name": "scopes/shellscript/textFragment.comment.line",
+    "languageId": "shellscript",
+    "facet": "textFragment.comment.line",
+    "code": "# Hello world",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/textFragment.string.multiLine",
+    "languageId": "shellscript",
+    "facet": "textFragment.string.multiLine",
+    "code": "\"Hello\nworld\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-1:5",
+            "removal": "0:1-1:5"
+          }
+        ],
+        "domain": "0:1-1:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/textFragment.string.singleLine",
+    "languageId": "shellscript",
+    "facet": "textFragment.string.singleLine",
+    "code": "\"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:12",
+            "removal": "0:1-0:12"
+          }
+        ],
+        "domain": "0:1-0:12"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/textFragment.comment.line",
     "languageId": "talon",
     "facet": "textFragment.comment.line",

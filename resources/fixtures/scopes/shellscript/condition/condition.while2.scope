@@ -1,0 +1,20 @@
+until true; do :; done
+---
+
+[Content] = 0:6-0:10
+        >----<
+0| until true; do :; done
+
+[Removal] = 0:5-0:10
+       >-----<
+0| until true; do :; done
+
+[Leading delimiter] = 0:5-0:6
+       >-<
+0| until true; do :; done
+
+[Domain] = 0:0-0:22
+  >----------------------<
+0| until true; do :; done
+
+[Insertion delimiter] = " "

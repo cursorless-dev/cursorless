@@ -1,0 +1,10 @@
+foo=(["aaa"]=0 ["bbb"]=1)
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:4-0:25
+      >---------------------<
+0| foo=(["aaa"]=0 ["bbb"]=1)
+
+[Insertion delimiter] = " "

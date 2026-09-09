@@ -697,6 +697,23 @@
     ]
   },
   {
+    "name": "scopes/shellscript/comment.line",
+    "languageId": "shellscript",
+    "facet": "comment.line",
+    "code": "# Hello world",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/comment.line",
     "languageId": "talon",
     "facet": "comment.line",

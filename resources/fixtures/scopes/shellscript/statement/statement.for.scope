@@ -1,0 +1,26 @@
+for ((i = 0; i < 2; i++)); do :; done
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-0:37
+  >-------------------------------------<
+0| for ((i = 0; i < 2; i++)); do :; done
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 0:30-0:31
+                                >-<
+0| for ((i = 0; i < 2; i++)); do :; done
+
+[#2 Removal] = 0:29-0:31
+                               >--<
+0| for ((i = 0; i < 2; i++)); do :; done
+
+[#2 Leading delimiter] = 0:29-0:30
+                               >-<
+0| for ((i = 0; i < 2; i++)); do :; done
+
+[#2 Insertion delimiter] = "\n"

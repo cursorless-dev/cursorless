@@ -32,5 +32,22 @@
         "domain": "0:0-0:8"
       }
     ]
+  },
+  {
+    "name": "scopes/shellscript/regularExpression",
+    "languageId": "shellscript",
+    "facet": "regularExpression",
+    "code": "[[ $foo =~ ^\\w+$ ]]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:11-0:16",
+            "removal": "0:11-0:17"
+          }
+        ],
+        "domain": "0:11-0:16"
+      }
+    ]
   }
 ]

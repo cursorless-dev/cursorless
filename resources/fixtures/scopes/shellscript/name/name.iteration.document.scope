@@ -1,0 +1,12 @@
+
+declare foo
+
+---
+
+[Content] =
+[Domain] = 0:0-2:0
+  >
+0|
+1| declare foo
+2|
+   <

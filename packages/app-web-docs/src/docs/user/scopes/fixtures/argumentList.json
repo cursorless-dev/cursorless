@@ -5416,6 +5416,57 @@
     ]
   },
   {
+    "name": "scopes/shellscript/argumentList.actual.empty",
+    "languageId": "shellscript",
+    "facet": "argumentList.actual.empty",
+    "code": "foo",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:3-0:3",
+            "removal": "0:3-0:3"
+          }
+        ],
+        "domain": "0:0-0:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/argumentList.actual.multiLine",
+    "languageId": "shellscript",
+    "facet": "argumentList.actual.multiLine",
+    "code": "foo aaa \\\n  bbb",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-1:5",
+            "removal": "0:3-1:5"
+          }
+        ],
+        "domain": "0:0-1:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/argumentList.actual.singleLine",
+    "languageId": "shellscript",
+    "facet": "argumentList.actual.singleLine",
+    "code": "foo aaa bbb",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:11",
+            "removal": "0:3-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/argumentList/argumentList.actual.empty",
     "languageId": "talon",
     "facet": "argumentList.actual.empty",

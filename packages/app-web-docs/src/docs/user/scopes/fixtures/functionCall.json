@@ -1350,6 +1350,40 @@
     ]
   },
   {
+    "name": "scopes/shellscript/functionCall",
+    "languageId": "shellscript",
+    "facet": "functionCall",
+    "code": "foo",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/functionCall2",
+    "languageId": "shellscript",
+    "facet": "functionCall",
+    "code": "foo aaa bbb",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/functionCall.method",
     "languageId": "talon",
     "facet": "functionCall.method",

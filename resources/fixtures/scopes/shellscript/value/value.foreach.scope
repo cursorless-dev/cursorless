@@ -1,0 +1,20 @@
+for v in values; do :; done
+---
+
+[Content] = 0:9-0:15
+           >------<
+0| for v in values; do :; done
+
+[Removal] = 0:8-0:15
+          >-------<
+0| for v in values; do :; done
+
+[Leading delimiter] = 0:8-0:9
+          >-<
+0| for v in values; do :; done
+
+[Domain] = 0:0-0:27
+  >---------------------------<
+0| for v in values; do :; done
+
+[Insertion delimiter] = " "

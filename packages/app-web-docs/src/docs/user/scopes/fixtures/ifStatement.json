@@ -272,6 +272,23 @@
     ]
   },
   {
+    "name": "scopes/shellscript/ifStatement",
+    "languageId": "shellscript",
+    "facet": "ifStatement",
+    "code": "if true; then\nelif false; then\nelse\nfi",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:2",
+            "removal": "0:0-3:2"
+          }
+        ],
+        "domain": "0:0-3:2"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/ifStatement",
     "languageId": "talon",
     "facet": "ifStatement",

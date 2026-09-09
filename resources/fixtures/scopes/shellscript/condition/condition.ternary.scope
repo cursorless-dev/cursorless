@@ -1,0 +1,20 @@
+((true ? 0 : 1))
+---
+
+[Content] = 0:2-0:6
+    >----<
+0| ((true ? 0 : 1))
+
+[Removal] = 0:2-0:7
+    >-----<
+0| ((true ? 0 : 1))
+
+[Trailing delimiter] = 0:6-0:7
+        >-<
+0| ((true ? 0 : 1))
+
+[Domain] = 0:2-0:14
+    >------------<
+0| ((true ? 0 : 1))
+
+[Insertion delimiter] = " "

@@ -10593,6 +10593,569 @@
     ]
   },
   {
+    "name": "scopes/shellscript/statement/statement.assignment.compound",
+    "languageId": "shellscript",
+    "facet": "statement.assignment.compound",
+    "code": "foo+=1",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:6",
+            "removal": "0:0-0:6"
+          }
+        ],
+        "domain": "0:0-0:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.assignment",
+    "languageId": "shellscript",
+    "facet": "statement.assignment",
+    "code": "foo=0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:5",
+            "removal": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.break",
+    "languageId": "shellscript",
+    "facet": "statement.break",
+    "code": "while true; do\n    break\ndone",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:4",
+            "removal": "0:0-2:4"
+          }
+        ],
+        "domain": "0:0-2:4"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:9",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.constant",
+    "languageId": "shellscript",
+    "facet": "statement.constant",
+    "code": "readonly foo=0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14",
+            "removal": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.continue",
+    "languageId": "shellscript",
+    "facet": "statement.continue",
+    "code": "while true; do\n    continue\ndone",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:4",
+            "removal": "0:0-2:4"
+          }
+        ],
+        "domain": "0:0-2:4"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:12",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.for",
+    "languageId": "shellscript",
+    "facet": "statement.for",
+    "code": "for ((i = 0; i < 2; i++)); do :; done",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:37",
+            "removal": "0:0-0:37"
+          }
+        ],
+        "domain": "0:0-0:37"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:30-0:31",
+            "removal": "0:29-0:31"
+          }
+        ],
+        "domain": "0:30-0:31"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.foreach",
+    "languageId": "shellscript",
+    "facet": "statement.foreach",
+    "code": "for v in values; do :; done",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:27",
+            "removal": "0:0-0:27"
+          }
+        ],
+        "domain": "0:0-0:27"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:20-0:21",
+            "removal": "0:19-0:21"
+          }
+        ],
+        "domain": "0:20-0:21"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.function",
+    "languageId": "shellscript",
+    "facet": "statement.function",
+    "code": "foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:8",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.function2",
+    "languageId": "shellscript",
+    "facet": "statement.function",
+    "code": "function foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.functionCall",
+    "languageId": "shellscript",
+    "facet": "statement.functionCall",
+    "code": "foo",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.functionCall2",
+    "languageId": "shellscript",
+    "facet": "statement.functionCall",
+    "code": "foo aaa bbb",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.if",
+    "languageId": "shellscript",
+    "facet": "statement.if",
+    "code": "if true; then\nelif false; then\nelse\nfi",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:2",
+            "removal": "0:0-3:2"
+          }
+        ],
+        "domain": "0:0-3:2"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.if2",
+    "languageId": "shellscript",
+    "facet": "statement.if",
+    "code": "if foo; then\n    aaa\n    bbb\nelif baz; then\n    ccc\n    ddd\nfi",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-6:2",
+            "removal": "0:0-6:2"
+          }
+        ],
+        "domain": "0:0-6:2"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:7",
+            "removal": "2:0-3:0"
+          }
+        ],
+        "domain": "2:4-2:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "4:4-4:7",
+            "removal": "4:0-5:0"
+          }
+        ],
+        "domain": "4:4-4:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "5:4-5:7",
+            "removal": "5:0-6:0"
+          }
+        ],
+        "domain": "5:4-5:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.import",
+    "languageId": "shellscript",
+    "facet": "statement.import",
+    "code": "source foo.sh",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.iteration.block",
+    "languageId": "shellscript",
+    "facet": "statement.iteration.block",
+    "code": "foo() { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:9"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:7-0:8"
+          }
+        ],
+        "domain": "0:7-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.iteration.block3",
+    "languageId": "shellscript",
+    "facet": "statement.iteration.block",
+    "code": "while true; do :; done",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:22"
+          }
+        ],
+        "domain": "0:0-0:22"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:14-0:18"
+          }
+        ],
+        "domain": "0:14-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.iteration.document",
+    "languageId": "shellscript",
+    "facet": "statement.iteration.document",
+    "code": "\ndeclare foo\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.return",
+    "languageId": "shellscript",
+    "facet": "statement.return",
+    "code": "foo() {\n    return 0\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1",
+            "removal": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:12",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.return2",
+    "languageId": "shellscript",
+    "facet": "statement.return",
+    "code": "function foo {\n    return 0\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1",
+            "removal": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:12",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.switch",
+    "languageId": "shellscript",
+    "facet": "statement.switch",
+    "code": "case $foo in esac",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:17",
+            "removal": "0:0-0:17"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.update",
+    "languageId": "shellscript",
+    "facet": "statement.update",
+    "code": "((foo++))",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.variable.initialized",
+    "languageId": "shellscript",
+    "facet": "statement.variable.initialized",
+    "code": "local foo=0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.variable.initialized2",
+    "languageId": "shellscript",
+    "facet": "statement.variable.initialized",
+    "code": "declare foo=0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.variable.uninitialized",
+    "languageId": "shellscript",
+    "facet": "statement.variable.uninitialized",
+    "code": "declare foo",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.while",
+    "languageId": "shellscript",
+    "facet": "statement.while",
+    "code": "while true; do :; done",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:22",
+            "removal": "0:0-0:22"
+          }
+        ],
+        "domain": "0:0-0:22"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:15-0:16",
+            "removal": "0:14-0:16"
+          }
+        ],
+        "domain": "0:15-0:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.while2",
+    "languageId": "shellscript",
+    "facet": "statement.while",
+    "code": "until true; do :; done",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:22",
+            "removal": "0:0-0:22"
+          }
+        ],
+        "domain": "0:0-0:22"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:15-0:16",
+            "removal": "0:14-0:16"
+          }
+        ],
+        "domain": "0:15-0:16"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/statement.assignment",
     "languageId": "talon",
     "facet": "statement.assignment",
