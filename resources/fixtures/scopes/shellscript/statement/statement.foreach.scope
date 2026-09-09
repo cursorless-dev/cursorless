@@ -1,10 +1,26 @@
-for v in values; do; done
+for v in values; do :; done
 ---
 
-[Content] =
-[Removal] =
-[Domain] = 0:0-0:25
-  >-------------------------<
-0| for v in values; do; done
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-0:27
+  >---------------------------<
+0| for v in values; do :; done
 
-[Insertion delimiter] = "\n"
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 0:20-0:21
+                      >-<
+0| for v in values; do :; done
+
+[#2 Removal] = 0:19-0:21
+                     >--<
+0| for v in values; do :; done
+
+[#2 Leading delimiter] = 0:19-0:20
+                     >-<
+0| for v in values; do :; done
+
+[#2 Insertion delimiter] = "\n"

@@ -2,12 +2,13 @@
 ;; Statements
 ;;
 
-(
-  (program
-    (_) @statement
-  )
-  (#not-type? @statement comment)
-)
+;; (
+;;   (program
+;;     (_) @statement
+;;   )
+;;   (#not-type? @statement comment)
+;; )
+
 [
   (if_statement)
   (while_statement)
@@ -20,23 +21,62 @@
   (redirected_statement)
 ] @statement
 
-;;FIXME: Make the #not-parent-type? thing a list of nodes
 (
   (_
     [
       (variable_assignment)
       (command)
     ] @statement
-    (#not-parent-type? @statement declaration_command c_style_for_statement list redirected_statement)
+    (#not-parent-type?
+      @statement
+      declaration_command
+      c_style_for_statement
+      list
+      redirected_statement
+      if_statement
+      elif_clause
+      while_statement
+    )
   )
 )
 
-;;!! for v in values; do foo; done
+(
+  (program) @statement.iteration
+  (#document-range! @statement.iteration)
+)
+
+;;!! for v in values; do :; done
 ;;!      ^
 ;;!           ^^^^^^
 (for_statement
   variable: (_) @name
   value: (_) @value
+) @_.domain
+
+;;!! while true; do :; done
+;;!        ^^^^
+(while_statement
+  condition: (_) @condition
+) @_.domain
+
+;;!! if true; then :; fi
+;;!     ^^^^
+(if_statement
+  condition: (_) @condition
+) @_.domain
+
+;;!! elif false; then
+;;!       ^^^^^
+(elif_clause
+  (_) @condition
+  "then"
+) @branch @_.domain
+
+;;!! else :; fi
+(else_clause) @branch
+
+(ternary_expression
+  condition: (_) @condition
 ) @_.domain
 
 ;;
@@ -46,126 +86,89 @@
 (if_statement) @ifStatement @branch.iteration @condition.iteration
 
 ;;!! if [ $value -le 0 ]; then
-;;!! fi
-(if_statement
-  "if" @condition.domain.start.startOf @branch.start.startOf
-  (_) @condition
-  "then" @condition.domain.end.endOf @branch.end.endOf
-  .
-  "fi"
-)
-
-;;!! if [ $value -le 0 ]; then
-;;!! else
-(if_statement
-  "if" @condition.domain.start.startOf @branch.start.startOf
-  (_) @condition
-  "then" @condition.domain.end.endOf @branch.end.endOf
-  .
-  (else_clause)
-)
-
-;;!! if [ $value -le 0 ]; then
-;;!! elif
-(if_statement
-  "if" @condition.domain.start.startOf @branch.start.startOf
-  (_) @condition
-  "then" @condition.domain.end.endOf @branch.end.endOf
-  .
-  (elif_clause)
-)
-
-;;!! if [ $value -le 0 ]; then
 ;;!!     echo foo
 ;;!! fi
-(
-  (if_statement
-    "if" @condition.domain.start.startOf @branch.start.startOf
-    (_) @condition
-    "then" @interior.start.endOf
-    (_) @_dummy
-    .
-    "fi" @condition.domain.end.startOf @branch.end.startOf @interior.end.startOf
-  )
-  (#not-type? @_dummy else_clause elif_clause)
-)
+;; (
+;;   (if_statement
+;;     "if" @condition.domain.start.startOf @branch.start.startOf
+;;     (_) @condition
+;;     "then" @interior.start.endOf
+;;     (_) @_dummy
+;;     .
+;;     "fi" @condition.domain.end.startOf @branch.end.startOf @interior.end.startOf
+;;   )
+;;   (#not-type? @_dummy else_clause elif_clause)
+;; )
 
 ;;!! if [ $value -le 0 ]; then
 ;;!!     echo foo
 ;;!! elif [ $value -le 0 ]; then
 ;;!! fi
-(
-  (if_statement
-    "if" @condition.domain.start.startOf @branch.start.startOf
-    (_) @condition
-    "then" @interior.start.endOf
-    (_)
-    (elif_clause) @condition.domain.end.startOf @branch.end.startOf @interior.end.startOf
-  )
-)
+;; (
+;;   (if_statement
+;;     "if" @condition.domain.start.startOf @branch.start.startOf
+;;     (_) @condition
+;;     "then" @interior.start.endOf
+;;     (_)
+;;     (elif_clause) @condition.domain.end.startOf @branch.end.startOf @interior.end.startOf
+;;   )
+;; )
 
 ;;!! if [ $value -le 0 ]; then
 ;;!!     echo foo
 ;;!! else [ $value -le 0 ]; then
 ;;!! fi
-(
-  (if_statement
-    "if" @condition.domain.start.startOf @branch.start.startOf
-    (_) @condition
-    "then" @interior.start.endOf
-    (_) @_dummy
-    .
-    (else_clause) @condition.domain.end.startOf @branch.end.startOf @interior.end.startOf
-  )
-  (#not-type? @_dummy elif_clause)
-)
+;; (
+;;   (if_statement
+;;     "if" @condition.domain.start.startOf @branch.start.startOf
+;;     (_) @condition
+;;     "then" @interior.start.endOf
+;;     (_) @_dummy
+;;     .
+;;     (else_clause) @condition.domain.end.startOf @branch.end.startOf @interior.end.startOf
+;;   )
+;;   (#not-type? @_dummy elif_clause)
+;; )
 
 ;;!! elif [ $value -le 0 ]; then
 ;;!! else
-(elif_clause
-  (_) @condition
-  "then"
-  .
-) @branch @_.domain
+;; (elif_clause
+;;   (_) @condition
+;;   "then"
+;;   .
+;; ) @branch @_.domain
 
 ;;!! elif [ $value -le 0 ]; then
 ;;!!    echo "foo1"
 ;;!!    echo "foo1"
-(elif_clause
-  (_) @condition
-  "then" @interior.start.endOf
-  (_)
-) @branch @_.domain @interior.end.endOf
-
-;;!! else
-;;!! fi
-(else_clause
-  "else"
-  .
-) @branch
+;; (elif_clause
+;;   (_) @condition
+;;   "then" @interior.start.endOf
+;;   (_)
+;; ) @branch @_.domain @interior.end.endOf
 
 ;;!! else
 ;;!!     echo "foo1"
 ;;!!     echo "foo1"
 ;;!! fi
-(else_clause
-  "else" @interior.start.endOf
-  (_)
-) @branch @interior.end.endOf
+;; (else_clause
+;;   "else" @interior.start.endOf
+;;   (_)
+;; ) @branch @interior.end.endOf
 
-(_
-  condition: (_) @condition
-)
+;; (_
+;;   condition: (_) @condition
+;; )
 
-(case_statement) @branch.iteration @condition.iteration
-(case_item
-  value: (_) @condition
-  .
-  ")" @interior.start.endOf
-  (_) @interior.end.endOf
-  .
-  ";;"
-) @branch @_.domain
+;; (case_statement) @branch.iteration @condition.iteration
+;; (case_item
+;;   value: (_) @condition
+;;   .
+;;   ")" @interior.start.endOf
+;;   (_) @interior.end.endOf
+;;   .
+;;   ";;"
+;; ) @branch @_.domain
 
 ;; Lists and maps
 ;;
@@ -173,28 +176,28 @@
 ;;!! array=("a" "b" "c")
 ;;!        ^^^^^^^^^^^^^
 ;;!        -------------
-(array
-  "(" @interior.start.endOf
-  (_)? @collectionItem
-  ")" @interior.end.startOf
-) @list @collectionItem.iteration
+;; (array
+;;   "(" @interior.start.endOf
+;;   (_)? @collectionItem
+;;   ")" @interior.end.startOf
+;; ) @list @collectionItem.iteration
 
 ;;!! FIXME: I will file an issue in tree-sitter-bash as I think the grammar is
 ;;!! bad. But the below does work for now
 ;;!! arr+=(["key2"]=val2 ["key3"]=val3)
-(array
-  (
-    (concatenation
-      ;; This matches the [ which is (word) for some reason
-      (_) @collectionKey.leading.startOf
-      (_) @collectionKey
-      ;; This matches the ] which is also (word) for some reason
-      (_) @collectionKey.trailing.endOf
-      (_) @value
-    ) @collectionItem
-    (#shrink-to-match! @value "\=(?<keep>.*)")
-  )
-)
+;; (array
+;;   (
+;;     (concatenation
+;;       ;; This matches the [ which is (word) for some reason
+;;       (_) @collectionKey.leading.startOf
+;;       (_) @collectionKey
+;;       ;; This matches the ] which is also (word) for some reason
+;;       (_) @collectionKey.trailing.endOf
+;;       (_) @value
+;;     ) @collectionItem
+;;     (#shrink-to-match! @value "\=(?<keep>.*)")
+;;   )
+;; )
 
 ;;
 ;; Strings
