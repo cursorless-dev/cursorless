@@ -127,24 +127,25 @@ export async function updateReferenceMdx(
 
   expected.push(`Cursorless ID: ${code(entry.csv_id ?? id)}`, "");
 
-  const spokenFormLines: string[] = [];
+  if (
+    entry.defaultSpokenForm != null &&
+    entry.visibility !== "privateSpokenForm"
+  ) {
+    const spokenFormLines = [`Default: ${code(entry.defaultSpokenForm)}`];
 
-  if (entry.defaultSpokenForm != null) {
-    spokenFormLines.push(`Default: ${code(entry.defaultSpokenForm)}`);
-  }
+    if (entry.legacySpokenForms != null) {
+      spokenFormLines.push(
+        `Legacy: ${entry.legacySpokenForms.map((s) => code(s)).join(", ")}`,
+      );
+    }
 
-  if (entry.legacySpokenForms != null) {
-    spokenFormLines.push(
-      `Legacy: ${entry.legacySpokenForms.map((s) => code(s)).join(", ")}`,
-    );
-  }
+    if (entry.visibility === "disabledByDefault") {
+      spokenFormLines.push(DISABLED_BY_DEFAULT);
+    }
 
-  if (entry.visibility === "disabledByDefault") {
-    spokenFormLines.push(DISABLED_BY_DEFAULT);
-  }
-
-  if (spokenFormLines.length > 0) {
-    expected.push("## Spoken form", "", ...formatGroup(spokenFormLines), "");
+    if (spokenFormLines.length > 0) {
+      expected.push("## Spoken form", "", ...formatGroup(spokenFormLines), "");
+    }
   }
 
   if (entry.syntaxes.length > 0) {

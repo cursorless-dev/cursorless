@@ -7,8 +7,14 @@
  * - `"private"` indicates that the spoken form is intended only for internal
  *   experimentation or a targeted working group. Private spoken forms are
  *   also disabled by default.
+ * - `"privateSpokenForm"` indicates that the spoken form is intended only for
+ *   internal purposes and is not enabled by default, but the reference can be
+ *   otherwise documented.
  *
  * An omitted visibility indicates a public spoken form that is enabled by
  * default.
  */
-export type SpokenFormVisibility = "disabledByDefault" | "private";
+export type SpokenFormVisibility =
+  | "disabledByDefault"
+  | "private"
+  | "privateSpokenForm";
