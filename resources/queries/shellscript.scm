@@ -98,7 +98,10 @@
 
 ;;!! if true; then :; fi
 (
-  (if_statement) @branch
+  (if_statement
+    "then" @interior.start.endOf
+    "fi" @interior.end.startOf
+  ) @branch
   (#not-child-type? @branch elif_clause else_clause)
 )
 
@@ -106,13 +109,13 @@
 (
   (if_statement
     "if" @branch.start @branch.removal.start
-    "then"
+    "then" @interior.start.endOf
     (_) @branch.end @branch.removal.end
     .
     [
       (elif_clause)
       (else_clause)
-    ] @branch.removal.end.startOf
+    ] @branch.removal.end.startOf @interior.end.startOf
   )
   (#not-type? @branch.end elif_clause else_clause)
   (#shrink-to-match! @branch.removal.end.startOf "^(?:el(?=if\\b))?(?<keep>.*)")
@@ -123,16 +126,19 @@
 (
   (elif_clause
     (_) @condition
-    "then"
+    "then" @interior.start.endOf
   ) @branch @branch.removal.start @condition.domain
-  _ @branch.removal.end.startOf
+  .
+  _ @branch.removal.end.startOf @interior.end.startOf
   (#trim-end! @branch)
 )
 
 ;;!! else :; fi
 (
-  (else_clause) @branch @branch.removal.start
-  "fi" @branch.removal.end.startOf
+  (else_clause
+    "else" @interior.start.endOf
+  ) @branch @branch.removal.start
+  "fi" @branch.removal.end.startOf @interior.end.startOf
   (#trim-end! @branch)
 )
 
