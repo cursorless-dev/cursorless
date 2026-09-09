@@ -40,8 +40,8 @@
 )
 
 (
-  (program) @statement.iteration
-  (#document-range! @statement.iteration)
+  (program) @statement.iteration @namedFunction.iteration
+  (#document-range! @statement.iteration @namedFunction.iteration)
 )
 
 ;;!! [[ $foo =~ ^\w+$ ]]
@@ -60,33 +60,47 @@
 ;;!               ^^^^^
 (c_style_for_statement
   condition: (_) @condition
-) @_.domain
+) @condition.domain
 
 ;;!! while true; do :; done
 ;;!        ^^^^
 (while_statement
   condition: (_) @condition
-) @_.domain
+) @condition.domain
 
 ;;!! if true; then :; fi
 ;;!     ^^^^
 (if_statement
   condition: (_) @condition
-) @_.domain
+) @condition.domain
 
 ;;!! elif false; then
 ;;!       ^^^^^
 (elif_clause
   (_) @condition
   "then"
-) @branch @_.domain
+) @branch @condition.domain
 
 ;;!! else :; fi
 (else_clause) @branch
 
+;;!! ((true ? 0 : 1))
+;;!    ^^^^
 (ternary_expression
   condition: (_) @condition
-) @_.domain
+) @condition.domain
+
+;;!! return 0
+;;!         ^
+(
+  (command
+    name: (command_name
+      (word) @_dummy
+    )
+    argument: (_) @value
+  ) @value.domain
+  (#eq? @_dummy return)
+)
 
 ;;
 ;; Conditionals
