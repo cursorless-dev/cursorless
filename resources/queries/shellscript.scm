@@ -170,6 +170,11 @@
   ";;" @interior.end.startOf
 ) @branch @condition.domain
 
+(case_item
+  ")" @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+  ";;" @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+)
+
 ;;!! return 0
 ;;!         ^
 (
@@ -189,11 +194,21 @@
   "done" @interior.end.startOf
 )
 
+(do_group
+  "do" @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+  "done" @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+)
+
 ;;!! foo() { }
 ;;!         ^
 (compound_statement
   "{" @interior.start.endOf
   "}" @interior.end.startOf
+)
+
+(compound_statement
+  "{" @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+  "}" @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
 )
 
 ;;!! # foo

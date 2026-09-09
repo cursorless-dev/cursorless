@@ -1,0 +1,13 @@
+while true; do :; done
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:22
+  >----------------------<
+0| while true; do :; done
+
+
+[#2 Content] =
+[#2 Domain] = 0:14-0:18
+                >----<
+0| while true; do :; done
