@@ -1,14 +1,3 @@
-;;
-;; Statements
-;;
-
-;; (
-;;   (program
-;;     (_) @statement
-;;   )
-;;   (#not-type? @statement comment)
-;; )
-
 [
   (if_statement)
   (while_statement)
@@ -99,20 +88,53 @@
 ) @condition.domain
 
 ;;!! if true; then :; fi
+(if_statement) @ifStatement @branch.iteration @condition.iteration
+
+;;!! if true; then :; fi
 ;;!     ^^^^
 (if_statement
   condition: (_) @condition
 ) @condition.domain
 
+;;!! if true; then :; fi
+(
+  (if_statement) @branch
+  (#not-child-type? @branch elif_clause else_clause)
+)
+
+;;!! if true; then :; else :; fi
+(
+  (if_statement
+    "if" @branch.start @branch.removal.start
+    "then"
+    (_) @branch.end @branch.removal.end
+    .
+    [
+      (elif_clause)
+      (else_clause)
+    ] @branch.removal.end.startOf
+  )
+  (#not-type? @branch.end elif_clause else_clause)
+  (#shrink-to-match! @branch.removal.end.startOf "^(?:el(?=if\\b))?(?<keep>.*)")
+)
+
 ;;!! elif false; then
 ;;!       ^^^^^
-(elif_clause
-  (_) @condition
-  "then"
-) @branch @condition.domain
+(
+  (elif_clause
+    (_) @condition
+    "then"
+  ) @branch @branch.removal.start @condition.domain
+  _ @branch.removal.end.startOf
+  (#trim-end! @branch)
+)
 
 ;;!! else :; fi
-(else_clause) @branch
+(
+  (else_clause) @branch @branch.removal.start
+  "fi" @branch.removal.end.startOf
+  (#trim-end! @branch)
+)
 
 ;;!! ((true ? 0 : 1))
 ;;!    ^^^^
@@ -138,7 +160,7 @@
 ;;!  ^
 (case_item
   value: (_) @condition
-) @condition.domain
+) @branch @condition.domain
 
 ;;!! return 0
 ;;!         ^
@@ -152,130 +174,6 @@
   (#eq? @_dummy return)
 )
 
-;;
-;; Conditionals
-;;
-
-(if_statement) @ifStatement @branch.iteration @condition.iteration
-
-;;!! if [ $value -le 0 ]; then
-;;!!     echo foo
-;;!! fi
-;; (
-;;   (if_statement
-;;     "if" @condition.domain.start.startOf @branch.start.startOf
-;;     (_) @condition
-;;     "then" @interior.start.endOf
-;;     (_) @_dummy
-;;     .
-;;     "fi" @condition.domain.end.startOf @branch.end.startOf @interior.end.startOf
-;;   )
-;;   (#not-type? @_dummy else_clause elif_clause)
-;; )
-
-;;!! if [ $value -le 0 ]; then
-;;!!     echo foo
-;;!! elif [ $value -le 0 ]; then
-;;!! fi
-;; (
-;;   (if_statement
-;;     "if" @condition.domain.start.startOf @branch.start.startOf
-;;     (_) @condition
-;;     "then" @interior.start.endOf
-;;     (_)
-;;     (elif_clause) @condition.domain.end.startOf @branch.end.startOf @interior.end.startOf
-;;   )
-;; )
-
-;;!! if [ $value -le 0 ]; then
-;;!!     echo foo
-;;!! else [ $value -le 0 ]; then
-;;!! fi
-;; (
-;;   (if_statement
-;;     "if" @condition.domain.start.startOf @branch.start.startOf
-;;     (_) @condition
-;;     "then" @interior.start.endOf
-;;     (_) @_dummy
-;;     .
-;;     (else_clause) @condition.domain.end.startOf @branch.end.startOf @interior.end.startOf
-;;   )
-;;   (#not-type? @_dummy elif_clause)
-;; )
-
-;;!! elif [ $value -le 0 ]; then
-;;!! else
-;; (elif_clause
-;;   (_) @condition
-;;   "then"
-;;   .
-;; ) @branch @_.domain
-
-;;!! elif [ $value -le 0 ]; then
-;;!!    echo "foo1"
-;;!!    echo "foo1"
-;; (elif_clause
-;;   (_) @condition
-;;   "then" @interior.start.endOf
-;;   (_)
-;; ) @branch @_.domain @interior.end.endOf
-
-;;!! else
-;;!!     echo "foo1"
-;;!!     echo "foo1"
-;;!! fi
-;; (else_clause
-;;   "else" @interior.start.endOf
-;;   (_)
-;; ) @branch @interior.end.endOf
-
-;; (_
-;;   condition: (_) @condition
-;; )
-
-;; (case_statement) @branch.iteration @condition.iteration
-;; (case_item
-;;   value: (_) @condition
-;;   .
-;;   ")" @interior.start.endOf
-;;   (_) @interior.end.endOf
-;;   .
-;;   ";;"
-;; ) @branch @_.domain
-
-;; Lists and maps
-;;
-
-;;!! array=("a" "b" "c")
-;;!        ^^^^^^^^^^^^^
-;;!        -------------
-;; (array
-;;   "(" @interior.start.endOf
-;;   (_)? @collectionItem
-;;   ")" @interior.end.startOf
-;; ) @list @collectionItem.iteration
-
-;;!! FIXME: I will file an issue in tree-sitter-bash as I think the grammar is
-;;!! bad. But the below does work for now
-;;!! arr+=(["key2"]=val2 ["key3"]=val3)
-;; (array
-;;   (
-;;     (concatenation
-;;       ;; This matches the [ which is (word) for some reason
-;;       (_) @collectionKey.leading.startOf
-;;       (_) @collectionKey
-;;       ;; This matches the ] which is also (word) for some reason
-;;       (_) @collectionKey.trailing.endOf
-;;       (_) @value
-;;     ) @collectionItem
-;;     (#shrink-to-match! @value "\=(?<keep>.*)")
-;;   )
-;; )
-
-;;
-;; Strings
-;;
-
 ;;!! # foo
 ;;!  ^^^^^
 (comment) @comment @textFragment
@@ -288,10 +186,6 @@
   (string_content)? @textFragment.end
   .
 ) @string
-
-;;
-;; Functions
-;;
 
 ;;!! foo aaa bbb
 ;;!  ^^^^^^^^^^^

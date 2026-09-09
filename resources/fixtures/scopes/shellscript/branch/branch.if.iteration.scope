@@ -1,0 +1,14 @@
+if true; then
+elif false; then
+else
+fi
+---
+
+[Content] =
+[Domain] = 0:0-3:2
+  >-------------
+0| if true; then
+1| elif false; then
+2| else
+3| fi
+   --<
