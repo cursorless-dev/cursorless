@@ -1,0 +1,42 @@
+foo aaa \
+  bbb
+---
+
+[#1 Content] =
+[#1 Domain] = 0:4-0:7
+      >---<
+0| foo aaa \
+
+[#1 Removal] = 0:4-1:2
+      >-----
+0| foo aaa \
+1|   bbb
+   --<
+
+[#1 Trailing delimiter] = 0:7-1:2
+         >--
+0| foo aaa \
+1|   bbb
+   --<
+
+[#1 Insertion delimiter] = " \\\n"
+
+
+[#2 Content] =
+[#2 Domain] = 1:2-1:5
+    >---<
+1|   bbb
+
+[#2 Removal] = 0:7-1:5
+         >--
+0| foo aaa \
+1|   bbb
+   -----<
+
+[#2 Leading delimiter] = 0:7-1:2
+         >--
+0| foo aaa \
+1|   bbb
+   --<
+
+[#2 Insertion delimiter] = " \\\n"

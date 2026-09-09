@@ -289,22 +289,6 @@
   .
 ) @string
 
-;;!! var="foo ${bar}"
-;;!           ^^^^^^
-;;!           xxxxxx
-(string
-  (
-    (expansion) @argumentOrParameter
-    ;; FIXME: This is due to a tree-sitter-bash bug (imo) where given: "Foo ${BAR} ${BAZ}"
-    ;; ${BAZ} incorrectly includes preceding space
-    (#shrink-to-match! @argumentOrParameter "\\s*(?<keep>.*)")
-  )
-)
-(string
-  (simple_expansion) @argumentOrParameter
-  (#shrink-to-match! @argumentOrParameter "\\s*(?<keep>.*)")
-)
-
 ;;
 ;; Functions
 ;;
@@ -321,10 +305,10 @@
 (command
   name: (_)
   .
-  argument: (_) @argumentList.start
-  argument: (_)? @argumentList.end
+  argument: (_) @argumentList.start @argumentOrParameter.iteration.start
+  argument: (_)? @argumentList.end @argumentOrParameter.iteration.end
   .
-) @argumentList.domain
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! foo
 ;;!    ><
@@ -333,9 +317,19 @@
   !argument
 ) @argumentList.domain
 
-;; (command
-;;   argument: (_) @argumentOrParameter
-;; )
+;;!! foo aaa bbb
+;;!      ^^^ ^^^
+(_
+  (command
+    name: (_)
+    argument: (_)? @_.leading.endOf
+    .
+    argument: (_) @argumentOrParameter
+    .
+    argument: (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy " " " \\\n")
+)
 
 ;;!! function foo() {
 ;;!           ^^^
