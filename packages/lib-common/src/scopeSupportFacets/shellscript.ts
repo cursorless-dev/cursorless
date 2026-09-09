@@ -53,7 +53,6 @@ export const shellscriptScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.break": supported,
   "statement.continue": supported,
   "statement.import": supported,
-  "statement.misc": supported,
   "statement.update": supported,
   "statement.iteration.document": supported,
   "statement.iteration.block": supported,
@@ -359,6 +358,7 @@ export const shellscriptScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.command": notApplicable,
 
   // Markup environments, selectors, units, and custom delimiter pairs
+  "statement.misc": notApplicable,
   pairDelimiter: notApplicable,
   disqualifyDelimiter: notApplicable,
   environment: notApplicable,

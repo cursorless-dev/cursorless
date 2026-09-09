@@ -309,22 +309,33 @@
 ;; Functions
 ;;
 
-;;!! echo "foo"
-;;!       ^^^^^
-(_
-  argument: (_) @argumentOrParameter
-) @_.iteration
-
-;; call:
-;;!! echo "foo"
-;;!  ^^^^^^^^^^
-;; callee:
-;;!! echo "foo"
-;;!  ^^^^
-;;!  ----------
+;;!! foo aaa bbb
+;;!  ^^^^^^^^^^^
+;;!  ^^^
 (command
   name: (_) @functionCallee
-) @_.domain @functionCall @command
+) @functionCallee.domain @functionCall
+
+;;!! foo aaa bbb
+;;!      ^^^^^^^
+(command
+  name: (_)
+  .
+  argument: (_) @argumentList.start
+  argument: (_)? @argumentList.end
+  .
+) @argumentList.domain
+
+;;!! foo
+;;!    ><
+(command
+  name: (_) @argumentList.start.endOf
+  !argument
+) @argumentList.domain
+
+;; (command
+;;   argument: (_) @argumentOrParameter
+;; )
 
 ;;!! function foo() {
 ;;!           ^^^
