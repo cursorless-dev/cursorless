@@ -262,40 +262,23 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy " " " \\\n")
 )
 
-;;!! function foo() {
+;;!! function foo() {}
 ;;!           ^^^
-;;!  ----------------
-;;!!    echo "foo"
-;;!     ----------
-;;!! }
-;;!  -
 (function_definition
   name: (_) @name
-) @_.domain
+) @name.domain
 
-;; FIXME: Need to support redirections
 ;; interior:
-;;!! function foo() {
-;;!  ----------------
-;;!!    echo "foo"
-;;!     ^^^^^^^^^^
-;;!     ----------
-;;!! }
-;;!  -
+;;!! function foo() { }
+;;!                  ^
 (function_definition
   body: (_
     (_)? @interior
   )
-) @namedFunction @_.domain
-
-;;
-;; Names, values, and types
-;;
+) @namedFunction @interior.domain
 
 ;;!! for ((i = 1; i <= 5; i++)); do
 ;;!        ^
-;;!        xxxx
-;;!        -----
 (
   (variable_assignment
     name: (_) @name @value.leading.endOf
@@ -306,29 +289,24 @@
 
 ;;!! local foo="bar"
 ;;!        ^^^
-;;!  xxxxxxxxxx
-;;!  ---------------
 (declaration_command
   (variable_assignment
     name: (_) @name
     value: (_) @_.removal.end.startOf
   )
-) @_.domain @_.removal.start.startOf
+) @name.domain @_.removal.start.startOf
 
 ;;!! local foo="bar"
 ;;!        ^^^
-;;!  xxxxxxxxxx
-;;!  ---------------
 (declaration_command
   (variable_assignment
     name: (_) @_.leading.endOf
     value: (_) @value
   )
-) @_.domain
+) @value.domain
 
 ;;!! local foo
 ;;!        ^^^
-;;!  ---------
 (declaration_command
   (variable_name) @name
-) @_.domain
+) @name.domain
