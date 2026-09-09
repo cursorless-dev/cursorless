@@ -63,7 +63,7 @@
       "path": "./packages/test-runner"
     },
     {
-      "path": "./packages/test-talon-e2e"
+      "path": "./packages/test-talonjs-e2e"
     },
     {
       "path": "./packages/test-vscode-e2e"

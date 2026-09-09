@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euox pipefail
 
-QUICKJS_VERSION=2024-01-13
+QUICKJS_VERSION=2026-06-04
 
 esbuild \
     src/quickjsTest.ts \
@@ -18,9 +18,10 @@ cd out
 if [[ "$OSTYPE" == "darwin"* ]]; then
     brew install quickjs
     # Brew doesn't actually publish different versions of the quickjs binary
+    # https://formulae.brew.sh/formula/quickjs
     # brew install quickjs@$QUICKJS_VERSION
 
-    qjs -I quickjsTest.mjs
+    qjs -m quickjsTest.mjs
 
     exit 0
 fi
@@ -44,6 +45,6 @@ fi
 
 curl -o $QUICKJS_FILE $QUICKJS_URL
 
-unzip $QUICKJS_FILE
+unzip -o $QUICKJS_FILE
 
-./qjs -I quickjsTest.mjs
+./qjs -m quickjsTest.mjs
