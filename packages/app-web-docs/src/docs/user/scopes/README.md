@@ -34,7 +34,7 @@
 - [`"map"`](./map.mdx) - Map, object, or dictionary.
 - [`"item"`](./collectionItem.mdx) - Entry in a list, map, object, or similar collection.
 - [`"key"`](./collectionKey.mdx) - Key in a map, object, or dictionary.
-- [`"interior"`](./interior.mdx)
+- [`"interior"`](./interior.mdx) - Interior
 
 ## Functions and calls
 

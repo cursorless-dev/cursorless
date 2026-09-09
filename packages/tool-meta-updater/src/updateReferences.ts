@@ -1,6 +1,6 @@
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import type { ReferenceEntry, ReferenceGroup } from "@cursorless/lib-common";
-import { capitalize } from "@cursorless/lib-common";
+import { camelCaseToAllDown, capitalize } from "@cursorless/lib-common";
 import type { RecordedTestPath } from "@cursorless/lib-node-common";
 import {
   recordedTestVisualizerImport,
@@ -47,6 +47,7 @@ export function updateReferenceReadmeMd(
         entry.visibility === "disabledByDefault"
           ? ` (${DISABLED_BY_DEFAULT})`
           : "";
+
       for (const syntax of entry.syntaxes) {
         const pattern = injectSpokenForm(
           syntax.pattern,
@@ -57,12 +58,14 @@ export function updateReferenceReadmeMd(
           `- [\`"${pattern}"\`](./${id}.mdx) - ${description}${disabledByDefault}`,
         );
       }
+
       if (entry.syntaxes.length === 0) {
         const name =
           entry.defaultSpokenForm != null
             ? `\`"${entry.defaultSpokenForm}"\``
             : entry.name;
-        expected.push(`- [${name}](./${id}.mdx)`);
+        const description = capitalize(camelCaseToAllDown(id));
+        expected.push(`- [${name}](./${id}.mdx) - ${description}`);
       }
     }
 
