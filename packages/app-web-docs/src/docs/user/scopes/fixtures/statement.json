@@ -10874,22 +10874,6 @@
     ]
   },
   {
-    "name": "scopes/shellscript/statement/statement.iteration.block2",
-    "languageId": "shellscript",
-    "facet": "statement.iteration.block",
-    "code": "if true; then\n    :\nelif false; then\n    :\nelse\n    :\nfi",
-    "scopes": [
-      {
-        "targets": [
-          {
-            "content": "0:0-6:2"
-          }
-        ],
-        "domain": "0:0-6:2"
-      }
-    ]
-  },
-  {
     "name": "scopes/shellscript/statement/statement.iteration.block3",
     "languageId": "shellscript",
     "facet": "statement.iteration.block",
