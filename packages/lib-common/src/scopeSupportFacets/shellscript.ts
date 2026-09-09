@@ -7,6 +7,12 @@ const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const shellscriptScopeSupport: LanguageScopeSupportFacetMap = {
   list: supported,
+  regularExpression: supported,
+  map: supported,
+  ifStatement: supported,
+  functionCall: supported,
+  functionCallee: supported,
+  "comment.line": supported,
 
   "argument.actual.singleLine": supported,
   "argument.actual.multiLine": supported,
@@ -21,8 +27,6 @@ export const shellscriptScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.ternary": supported,
   "branch.ternary.iteration": supported,
 
-  "comment.line": supported,
-
   "condition.if": supported,
   "condition.while": supported,
   "condition.for": supported,
@@ -30,14 +34,8 @@ export const shellscriptScopeSupport: LanguageScopeSupportFacetMap = {
   "condition.switchCase.iteration": supported,
   "condition.ternary": supported,
 
-  functionCall: supported,
-
-  functionCallee: supported,
-
   namedFunction: supported,
   "namedFunction.iteration.document": supported,
-
-  ifStatement: supported,
 
   "statement.function": supported,
   "statement.functionCall": supported,
@@ -100,15 +98,9 @@ export const shellscriptScopeSupport: LanguageScopeSupportFacetMap = {
   "key.mapPair": supported,
   "key.mapPair.iteration": supported,
 
-  regularExpression: supported,
-
-  disqualifyDelimiter: supported,
-
   "argumentList.actual.empty": supported,
   "argumentList.actual.singleLine": supported,
   "argumentList.actual.multiLine": supported,
-
-  map: supported,
 
   /* NOT APPLICABLE */
 
@@ -368,6 +360,7 @@ export const shellscriptScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Markup environments, selectors, units, and custom delimiter pairs
   pairDelimiter: notApplicable,
+  disqualifyDelimiter: notApplicable,
   environment: notApplicable,
   selector: notApplicable,
   unit: notApplicable,
