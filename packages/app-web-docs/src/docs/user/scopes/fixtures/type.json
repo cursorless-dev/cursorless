@@ -7400,6 +7400,23 @@
     ]
   },
   {
+    "name": "scopes/swift/type.foreach",
+    "languageId": "swift",
+    "facet": "type.foreach",
+    "code": "for foo: Type in bar {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:13",
+            "removal": "0:7-0:13"
+          }
+        ],
+        "domain": "0:0-0:23"
+      }
+    ]
+  },
+  {
     "name": "scopes/typescript/type.cast",
     "languageId": "typescript",
     "facet": "type.cast",

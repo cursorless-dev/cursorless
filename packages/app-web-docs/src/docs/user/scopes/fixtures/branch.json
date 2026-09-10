@@ -3359,5 +3359,135 @@
         "domain": "0:13-0:14"
       }
     ]
+  },
+  {
+    "name": "scopes/swift/branch.if.elif.else",
+    "languageId": "swift",
+    "facet": "branch.if.elif.else",
+    "code": "if foo {}\nelse if bar {}\nelse {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-1:0"
+          }
+        ],
+        "domain": "0:0-0:9"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:0-1:14",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:0-1:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:0-2:7",
+            "removal": "0:9-2:7"
+          }
+        ],
+        "domain": "1:0-2:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:5-1:14",
+            "removal": "1:5-2:0"
+          }
+        ],
+        "domain": "1:5-1:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:5-2:7",
+            "removal": "1:5-2:7"
+          }
+        ],
+        "domain": "1:5-2:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:0-2:7",
+            "removal": "1:14-2:7"
+          }
+        ],
+        "domain": "2:0-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/branch.if.else",
+    "languageId": "swift",
+    "facet": "branch.if.else",
+    "code": "if true {}\nelse {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-1:0"
+          }
+        ],
+        "domain": "0:0-0:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-1:7",
+            "removal": "0:0-1:7"
+          }
+        ],
+        "domain": "0:0-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:0-1:7",
+            "removal": "0:10-1:7"
+          }
+        ],
+        "domain": "1:0-1:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/branch.if.iteration",
+    "languageId": "swift",
+    "facet": "branch.if.iteration",
+    "code": "if foo {}\nelse if bar {}\nelse {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:7"
+          }
+        ],
+        "domain": "0:0-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/branch.if",
+    "languageId": "swift",
+    "facet": "branch.if",
+    "code": "if true {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
   }
 ]

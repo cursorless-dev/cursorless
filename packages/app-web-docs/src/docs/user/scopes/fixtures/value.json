@@ -8821,6 +8821,23 @@
     ]
   },
   {
+    "name": "scopes/swift/value.foreach",
+    "languageId": "swift",
+    "facet": "value.foreach",
+    "code": "for foo in bar {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:11-0:14",
+            "removal": "0:11-0:15"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/value/value.assignment",
     "languageId": "talon",
     "facet": "value.assignment",

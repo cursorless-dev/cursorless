@@ -1412,6 +1412,74 @@
     ]
   },
   {
+    "name": "scopes/swift/textFragment.comment.block",
+    "languageId": "swift",
+    "facet": "textFragment.comment.block",
+    "code": "/*\naaa\n*/",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:2",
+            "removal": "0:0-2:2"
+          }
+        ],
+        "domain": "0:0-2:2"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/textFragment.comment.line",
+    "languageId": "swift",
+    "facet": "textFragment.comment.line",
+    "code": "// aaa",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:6",
+            "removal": "0:0-0:6"
+          }
+        ],
+        "domain": "0:0-0:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/textFragment.string.multiLine",
+    "languageId": "swift",
+    "facet": "textFragment.string.multiLine",
+    "code": "\"\"\"\naaa\n\"\"\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:3-2:0",
+            "removal": "0:3-2:0"
+          }
+        ],
+        "domain": "0:3-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/textFragment.string.singleLine",
+    "languageId": "swift",
+    "facet": "textFragment.string.singleLine",
+    "code": "\"aaa\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:4",
+            "removal": "0:1-0:4"
+          }
+        ],
+        "domain": "0:1-0:4"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/textFragment.comment.line",
     "languageId": "talon",
     "facet": "textFragment.comment.line",

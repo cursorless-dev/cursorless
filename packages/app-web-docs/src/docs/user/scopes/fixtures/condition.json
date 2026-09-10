@@ -1845,6 +1845,23 @@
     ]
   },
   {
+    "name": "scopes/swift/condition.if",
+    "languageId": "swift",
+    "facet": "condition.if",
+    "code": "if foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:3-0:6",
+            "removal": "0:3-0:7"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/condition.if",
     "languageId": "talon",
     "facet": "condition.if",

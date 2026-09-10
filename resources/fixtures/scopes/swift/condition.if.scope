@@ -1,0 +1,24 @@
+if foo {}
+---
+
+[Content] = 0:3-0:6
+     >---<
+0| if foo {}
+
+[Removal] = 0:3-0:7
+     >----<
+0| if foo {}
+
+[Leading delimiter] = 0:2-0:3
+    >-<
+0| if foo {}
+
+[Trailing delimiter] = 0:6-0:7
+        >-<
+0| if foo {}
+
+[Domain] = 0:0-0:9
+  >---------<
+0| if foo {}
+
+[Insertion delimiter] = " "

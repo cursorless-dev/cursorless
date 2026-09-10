@@ -16,3 +16,10 @@ node_modules/
 *.vsix
 .DS_Store
 .luacheckcache
+
+# Swift Test Project
+/resources/playground/swift/cursorless-test-project/.build
+
+# Neovim symlinks
+/packages/app-neovim/cursorless.nvim/node/cursorless-neovim
+/packages/app-neovim/cursorless.nvim/node/test-runner
