@@ -1,5 +1,198 @@
-import { Language } from "./components/Language";
+import { ScopeVisualizer, ScopeVisualizerOptions, ScopeVisualizerProvider } from "@site/src/docs/components/ScopeVisualizer";
+import scopeTests from "./fixtures/swift.json";
 
 # Swift
 
-<Language languageId="swift" />
+<ScopeVisualizerProvider scopeTests={scopeTests}>
+
+Below are visualizations of all our scope tests for this language. These were created primarily for testing purposes rather than as documentation. There are quite a few, and they may feel a bit overwhelming from a documentation standpoint.
+
+## Scopes
+
+<ScopeVisualizerOptions />
+
+### Branch
+
+#### 1. Branch: If
+
+<i>An if branch</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/branch.if" languageId="swift" />
+
+#### 2. Branch: If elif else
+
+<i>An if-elif-else branch. The removal range for the if branch should include the trailing `else` keyword.</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/branch.if.elif.else" languageId="swift" />
+
+#### 3. Branch: If else
+
+<i>An if-else branch</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/branch.if.else" languageId="swift" />
+
+#### 4. Branch: If (iteration)
+
+<i>Iteration scope for if/elif/else branches: the if/elif/else statement.</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/branch.if.iteration" languageId="swift" />
+
+### Class
+
+#### 1. Class
+
+<i>A class/struct declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/class" languageId="swift" />
+
+### Comment
+
+#### 1. Comment: Block
+
+<i>A block comment</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/comment.block" languageId="swift" />
+
+#### 2. Comment: Line
+
+<i>A line comment</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/comment.line" languageId="swift" />
+
+### Condition
+
+#### 1. Condition: If
+
+<i>A condition in an if statement</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/condition.if" languageId="swift" />
+
+### If statement
+
+#### 1. If statement
+
+<i>An if statement</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/ifStatement" languageId="swift" />
+
+### Interior
+
+#### 1. Interior: If
+
+<i>The body of an if/elif/else branch</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/interior.if" languageId="swift" />
+
+### Name
+
+#### 1. Name: Class
+
+<i>Name of a class/struct declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/name.class" languageId="swift" />
+
+#### 2. Name: Enum
+
+<i>Name of an enum declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/name.enum" languageId="swift" />
+
+#### 3. Name: Foreach
+
+<i>Iteration variable name in a for-each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/name.foreach" languageId="swift" />
+
+#### 4. Name: Interface
+
+<i>Name of an interface declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/name.interface" languageId="swift" />
+
+### Statement
+
+#### 1. Statement: Class
+
+<i>A class/struct declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/statement.class" languageId="swift" />
+
+#### 2. Statement: Enum
+
+<i>An enum declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/statement.enum" languageId="swift" />
+
+#### 3. Statement: Foreach
+
+<i>A for-each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/statement.foreach" languageId="swift" />
+
+#### 4. Statement: Interface
+
+<i>An interface declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/statement.interface" languageId="swift" />
+
+### Type
+
+#### 1. Type: Foreach
+
+<i>Type of a variable in a for-each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/type.foreach" languageId="swift" />
+
+### Value
+
+#### 1. Value: Foreach
+
+<i>Iterable in a for-each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/value.foreach" languageId="swift" />
+
+## Internal scopes
+
+The following are internal scopes. They are not intended for user interaction or spoken use. These scopes exist solely for internal Cursorless functionality.
+
+### String
+
+#### 1. String: Multi line
+
+<i>A multi-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/string.multiLine" languageId="swift" />
+
+#### 2. String: Single line
+
+<i>A single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/string.singleLine" languageId="swift" />
+
+### Text fragment
+
+#### 1. Text fragment: Comment block
+
+<i>Internally used text fragment consisting of a block comment</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/textFragment.comment.block" languageId="swift" />
+
+#### 2. Text fragment: Comment line
+
+<i>Internally used text fragment consisting of a line comment</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/textFragment.comment.line" languageId="swift" />
+
+#### 3. Text fragment: String multi line
+
+<i>Internally used text fragment consisting of a multi-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/textFragment.string.multiLine" languageId="swift" />
+
+#### 4. Text fragment: String single line
+
+<i>Internally used text fragment consisting of a single-line string</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/textFragment.string.singleLine" languageId="swift" />
+
+</ScopeVisualizerProvider>

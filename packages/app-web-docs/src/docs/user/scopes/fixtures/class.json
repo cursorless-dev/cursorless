@@ -786,6 +786,23 @@
     ]
   },
   {
+    "name": "scopes/swift/class",
+    "languageId": "swift",
+    "facet": "class",
+    "code": "struct Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
     "name": "scopes/typescript.core/class",
     "languageId": "typescript.core",
     "facet": "class",

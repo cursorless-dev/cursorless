@@ -5049,6 +5049,23 @@
     ]
   },
   {
+    "name": "scopes/swift/interior.if",
+    "languageId": "swift",
+    "facet": "interior.if",
+    "code": "if foo {  }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-0:10",
+            "removal": "0:8-0:10"
+          }
+        ],
+        "domain": "0:8-0:10"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/interior.command",
     "languageId": "talon",
     "facet": "interior.command",

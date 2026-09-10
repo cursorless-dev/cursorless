@@ -11156,6 +11156,74 @@
     ]
   },
   {
+    "name": "scopes/swift/statement.class",
+    "languageId": "swift",
+    "facet": "statement.class",
+    "code": "class Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12",
+            "removal": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/statement.enum",
+    "languageId": "swift",
+    "facet": "statement.enum",
+    "code": "enum Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/statement.foreach",
+    "languageId": "swift",
+    "facet": "statement.foreach",
+    "code": "for foo in bar {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:17",
+            "removal": "0:0-0:17"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/statement.interface",
+    "languageId": "swift",
+    "facet": "statement.interface",
+    "code": "protocol Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/statement.assignment",
     "languageId": "talon",
     "facet": "statement.assignment",
