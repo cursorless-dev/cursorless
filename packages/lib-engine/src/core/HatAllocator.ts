@@ -60,11 +60,11 @@ export class HatAllocator {
    *
    * @param forceTokenHats If supplied, force the allocator to use these hats
    * for the given tokens. This is used for the tutorial, and for testing.
-   * @param options Controls whether to preserve previous hat assignments.
+   * @param options Controls whether to start fresh without previous hat assignments.
    */
   async allocateHats(
     forceTokenHats?: TokenHat[],
-    { preserveExistingHats = true }: HatAllocationOptions = {},
+    { startFresh = false }: HatAllocationOptions = {},
   ) {
     const activeMap = await this.context.getActiveMap();
 
@@ -80,9 +80,7 @@ export class HatAllocator {
           tokenGraphemeSplitter: this.tokenGraphemeSplitter,
           enabledHatStyles: this.hats.enabledHatStyles,
           forceTokenHats: normalizedForceTokenHats,
-          oldTokenHats: preserveExistingHats
-            ? activeMap.getStaleTokenHats()
-            : [],
+          oldTokenHats: startFresh ? [] : activeMap.getStaleTokenHats(),
           hatStability: this.ide.configuration.getOwnConfiguration(
             "experimental.hatStability",
           ),

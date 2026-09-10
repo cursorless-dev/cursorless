@@ -76,7 +76,7 @@ suite("HatAllocator", () => {
       assert.ok(map.getToken("blue", "h"), "Normal allocation preserves hats");
 
       await allocator.allocateHats([forcedWorld], {
-        preserveExistingHats: false,
+        startFresh: true,
       });
       assert.deepEqual(snapshot(), expected);
       assert.ok(map.getToken("default", "w"), "Forced hats are still applied");

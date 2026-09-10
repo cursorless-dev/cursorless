@@ -152,7 +152,7 @@ export async function runRecordedTest({
   // depend on whether VS Code delivered those events before this point.
   await hatTokenMap.allocateHats(
     serializedMarksToTokenHats(fixture.initialState.marks, editor),
-    { preserveExistingHats: false },
+    { startFresh: true },
   );
 
   await Promise.all(

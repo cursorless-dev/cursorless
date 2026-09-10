@@ -16,10 +16,10 @@ export interface HatTokenMap {
 
 export interface HatAllocationOptions {
   /**
-   * Whether to preserve previous hat assignments. Defaults to `true`.
-   * Set to `false` to initialize an allocation independently of its history.
+   * Whether to ignore previous hat assignments and allocate from scratch.
+   * Defaults to `false`. Forced hats still apply when starting fresh.
    */
-  preserveExistingHats?: boolean;
+  startFresh?: boolean;
 }
 
 export interface TokenHat {
