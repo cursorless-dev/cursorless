@@ -7,7 +7,6 @@
   (declaration_command)
   (case_statement)
   (list)
-  (pipeline)
   (redirected_statement)
   (test_command)
 ] @statement
@@ -21,6 +20,7 @@
   [
     (variable_assignment)
     (command)
+    (pipeline)
   ] @statement
   (#not-parent-type?
     @statement
@@ -43,6 +43,7 @@
     [
       (command)
       (variable_assignment)
+      (pipeline)
     ] @statement
   )
   (elif_clause
@@ -50,6 +51,7 @@
     [
       (command)
       (variable_assignment)
+      (pipeline)
     ] @statement
   )
 ]
