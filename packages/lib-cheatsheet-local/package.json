@@ -21,9 +21,9 @@
     "preact": "^10.29.8"
   },
   "devDependencies": {
-    "@jest/globals": "^30.4.1",
-    "@types/node": "^24.13.3",
-    "jest": "^30.4.2",
+    "@jest/globals": "^30.5.1",
+    "@types/node": "^24.13.4",
+    "jest": "^30.5.1",
     "typescript": "^6.0.3",
     "vite": "^8.2.2",
     "vite-plugin-purgecss": "^0.2.13",

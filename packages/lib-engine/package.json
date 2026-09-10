@@ -28,7 +28,7 @@
     "moo": "^0.5.3",
     "nearley": "^2.20.1",
     "uuid": "^14.0.2",
-    "zod": "^4.4.3"
+    "zod": "^4.6.1"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.12",
