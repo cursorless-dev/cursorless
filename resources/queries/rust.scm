@@ -33,26 +33,16 @@
 )
 
 (
-  (source_file) @statement.iteration @class.iteration @namedFunction.iteration
-  (#document-range! @statement.iteration @class.iteration @namedFunction.iteration)
-)
-(
-  (source_file) @name.iteration @type.iteration @value.iteration
-  (#document-range! @name.iteration @value.iteration @type.iteration)
+  (source_file) @statementNameValueType.iteration @class.iteration @namedFunction.iteration
+  (#document-range! @statementNameValueType.iteration @class.iteration @namedFunction.iteration)
 )
 
 ;;!! { }
 ;;!   ^
 (_
   .
-  "{" @interior.start.endOf @statement.iteration.start.endOf
-  "}" @interior.end.startOf @statement.iteration.end.startOf
-  .
-)
-(_
-  .
-  "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
-  "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+  "{" @interior.start.endOf @statementNameValueType.iteration.start.endOf
+  "}" @interior.end.startOf @statementNameValueType.iteration.end.startOf
   .
 )
 

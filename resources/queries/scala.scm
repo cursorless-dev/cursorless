@@ -37,13 +37,8 @@
 ] @type
 
 (
-  (compilation_unit) @class.iteration @statement.iteration @namedFunction.iteration
-  (#document-range! @class.iteration @statement.iteration @namedFunction.iteration)
-)
-
-(
-  (compilation_unit) @name.iteration @value.iteration @type.iteration
-  (#document-range! @name.iteration @value.iteration @type.iteration)
+  (compilation_unit) @class.iteration @statementNameValueType.iteration @namedFunction.iteration
+  (#document-range! @class.iteration @statementNameValueType.iteration @namedFunction.iteration)
 )
 
 ;;!! { }
@@ -124,12 +119,8 @@
 ;;!! { }
 ;;!   ^
 (_
-  "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
-  "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
-)
-(_
-  "{" @statement.iteration.start.endOf
-  "}" @statement.iteration.end.startOf
+  "{" @statementNameValueType.iteration.start.endOf
+  "}" @statementNameValueType.iteration.end.startOf
 )
 
 ;;!! foo()

@@ -53,25 +53,15 @@
 ] @statement
 
 (
-  (compilation_unit) @statement.iteration @class.iteration @namedFunction.iteration
-  (#document-range! @statement.iteration @class.iteration @namedFunction.iteration)
-)
-
-(
-  (compilation_unit) @name.iteration @value.iteration @type.iteration
-  (#document-range! @name.iteration @value.iteration @type.iteration)
+  (compilation_unit) @statementNameValueType.iteration @class.iteration @namedFunction.iteration
+  (#document-range! @statementNameValueType.iteration @class.iteration @namedFunction.iteration)
 )
 
 ;;!! { }
 ;;!   ^
 (block
-  "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
-  "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
-)
-
-(block
-  "{" @statement.iteration.start.endOf
-  "}" @statement.iteration.end.startOf
+  "{" @statementNameValueType.iteration.start.endOf
+  "}" @statementNameValueType.iteration.end.startOf
 )
 
 ;;!! { }
@@ -164,15 +154,8 @@
 
 (class_declaration
   body: (_
-    "{" @class.iteration.start.endOf @name.iteration.start.endOf @statement.iteration.start.endOf
-    "}" @class.iteration.end.startOf @name.iteration.end.startOf @statement.iteration.end.startOf
-  )
-)
-
-(class_declaration
-  body: (_
-    "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
-    "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+    "{" @class.iteration.start.endOf @statementNameValueType.iteration.start.endOf @namedFunction.iteration.start.endOf
+    "}" @class.iteration.end.startOf @statementNameValueType.iteration.end.startOf @namedFunction.iteration.end.startOf
   )
 )
 
@@ -249,13 +232,6 @@
     name: (_) @name
   )
 ] @namedFunction @name.domain
-
-(class_declaration
-  body: (_
-    "{" @namedFunction.iteration.start.endOf @name.iteration.start.endOf
-    "}" @namedFunction.iteration.end.startOf @name.iteration.end.startOf
-  )
-)
 
 ;;!! void foo() {}
 [

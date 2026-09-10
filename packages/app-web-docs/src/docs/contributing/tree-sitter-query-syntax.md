@@ -19,6 +19,24 @@ In addition to the above aspects, you can also use the following inline operator
 - `@foo.start` and `@foo.end` to construct the scope using a range between two nodes (inclusive).
 - `@foo.startOf` and `@foo.endOf` to refer to the start and end positions of a node. For example, you could use `@foo.start.endOf` to indicate that the scope should start at the end of the node.
 
+## Iteration capture aliases
+
+Use these aliases when several scopes share an iteration range:
+
+- `@statementNameValue.iteration` expands to `@statement.iteration`,
+  `@name.iteration`, and `@value.iteration`.
+- `@statementNameValueType.iteration` expands to the same captures plus
+  `@type.iteration`, for languages and contexts that need type iteration.
+
+Both aliases support `.domain`, `.start.endOf`, `.end.startOf`, and `.end.endOf`. For example, a Java block can share iteration boundaries without repeating the pattern for each scope:
+
+```scm
+(_
+  "{" @statementNameValueType.iteration.start.endOf
+  "}" @statementNameValueType.iteration.end.startOf
+)
+```
+
 ## Query predicate operators
 
 We also support a number of query predicate operators for modifying the scope. See [`queryPredicateOperators.ts`](../../../../../packages/lib-engine/src/languages/TreeSitterQuery/queryPredicateOperators.ts) for a list of available operators.

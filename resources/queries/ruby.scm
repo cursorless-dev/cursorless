@@ -103,13 +103,8 @@
 )
 
 (
-  (program) @class.iteration @statement.iteration @namedFunction.iteration
-  (#document-range! @class.iteration @statement.iteration @namedFunction.iteration)
-)
-
-(
-  (program) @name.iteration @value.iteration
-  (#document-range! @name.iteration @value.iteration)
+  (program) @class.iteration @statementNameValue.iteration @namedFunction.iteration
+  (#document-range! @class.iteration @statementNameValue.iteration @namedFunction.iteration)
 )
 
 ;;!! { }
@@ -120,34 +115,18 @@
 )
 
 (_
-  _ @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+  _ @statementNameValue.iteration.start.endOf @interior.start.endOf
   .
   body: (_)
   .
-  "end" @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+  "end" @statementNameValue.iteration.end.startOf @interior.end.startOf
 )
 
 (_
-  _ @interior.start.endOf
-  .
-  body: (_)
-  .
-  "end" @interior.end.startOf
-)
-
-(_
-  _ @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+  _ @statementNameValue.iteration.start.endOf @interior.start.endOf
   .
   body: (_
-    "end" @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
-  )
-)
-
-(_
-  _ @interior.start.endOf
-  .
-  body: (_
-    "end" @interior.end.startOf
+    "end" @statementNameValue.iteration.end.startOf @interior.end.startOf
   )
 )
 
@@ -201,16 +180,10 @@
 ;;!! if true end
 ;;!         ^
 (if
-  condition: (_) @interior.start.endOf
+  condition: (_) @interior.start.endOf @statementNameValue.iteration.start.endOf
   consequence: (_)
   .
-  _ @interior.end.startOf
-)
-(if
-  condition: (_) @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-  consequence: (_)
-  .
-  _ @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+  _ @interior.end.startOf @statementNameValue.iteration.end.startOf
 )
 
 ;;!! if true elsif false end
@@ -243,32 +216,21 @@
 ;;!! elsif true else end
 ;;!            ^
 (elsif
-  condition: (_) @interior.start.endOf
-  alternative: (_) @interior.end.startOf
-)
-(elsif
-  condition: (_) @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-  alternative: (_) @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+  condition: (_) @interior.start.endOf @statementNameValue.iteration.start.endOf
+  alternative: (_) @interior.end.startOf @statementNameValue.iteration.end.startOf
 )
 
 ;;!! elsif true end
 ;;!            ^
 (elsif
-  condition: (_) @interior.start.endOf
+  condition: (_) @interior.start.endOf @statementNameValue.iteration.start.endOf
   !alternative
-) @interior.end.endOf
-(elsif
-  condition: (_) @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-  !alternative
-) @statement.iteration.end.endOf @name.iteration.end.endOf @value.iteration.end.endOf
+) @interior.end.endOf @statementNameValue.iteration.end.endOf
 
 ;;!! else end
 (else
-  "else" @interior.start.endOf
-) @branch @interior.end.endOf
-(else
-  "else" @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-) @statement.iteration.end.endOf @name.iteration.end.endOf @value.iteration.end.endOf
+  "else" @interior.start.endOf @statementNameValue.iteration.start.endOf
+) @branch @interior.end.endOf @statementNameValue.iteration.end.endOf
 
 ;;!! begin rescue end
 ;;!! begin end

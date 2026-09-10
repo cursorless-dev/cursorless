@@ -48,12 +48,8 @@
 ]
 
 (
-  (program) @statement.iteration @namedFunction.iteration
-  (#document-range! @statement.iteration @namedFunction.iteration)
-)
-(
-  (program) @name.iteration @value.iteration
-  (#document-range! @name.iteration @value.iteration)
+  (program) @statementNameValue.iteration @namedFunction.iteration
+  (#document-range! @statementNameValue.iteration @namedFunction.iteration)
 )
 
 ;;!! [[ $foo =~ ^\w+$ ]]
@@ -117,8 +113,8 @@
 ;;!! if true; then :; fi
 (
   (if_statement
-    "then" @interior.start.endOf
-    "fi" @interior.end.startOf
+    "then" @interior.start.endOf @statementNameValue.iteration.start.endOf
+    "fi" @interior.end.startOf @statementNameValue.iteration.end.startOf
   ) @branch
   (#not-child-type? @branch elif_clause else_clause)
 )
@@ -127,13 +123,13 @@
 (
   (if_statement
     "if" @branch.start @branch.removal.start
-    "then" @interior.start.endOf
+    "then" @interior.start.endOf @statementNameValue.iteration.start.endOf
     (_) @branch.end @branch.removal.end
     .
     [
       (elif_clause)
       (else_clause)
-    ] @branch.removal.end.startOf @interior.end.startOf
+    ] @branch.removal.end.startOf @interior.end.startOf @statementNameValue.iteration.end.startOf
   )
   (#not-type? @branch.end elif_clause else_clause)
   (#shrink-to-match! @branch.removal.end.startOf "^(?:el(?=if\\b))?(?<keep>.*)")
@@ -144,19 +140,19 @@
 (
   (elif_clause
     (_) @condition
-    "then" @interior.start.endOf
+    "then" @interior.start.endOf @statementNameValue.iteration.start.endOf
   ) @branch @branch.removal.start @condition.domain
   .
-  _ @branch.removal.end.startOf @interior.end.startOf
+  _ @branch.removal.end.startOf @interior.end.startOf @statementNameValue.iteration.end.startOf
   (#trim-end! @branch)
 )
 
 ;;!! else :; fi
 (
   (else_clause
-    "else" @interior.start.endOf
+    "else" @interior.start.endOf @statementNameValue.iteration.start.endOf
   ) @branch @branch.removal.start
-  "fi" @branch.removal.end.startOf @interior.end.startOf
+  "fi" @branch.removal.end.startOf @interior.end.startOf @statementNameValue.iteration.end.startOf
   (#trim-end! @branch)
 )
 
@@ -184,14 +180,9 @@
 ;;!  ^
 (case_item
   value: (_) @condition
-  ")" @interior.start.endOf
-  ";;" @interior.end.startOf
+  ")" @interior.start.endOf @statementNameValue.iteration.start.endOf
+  ";;" @interior.end.startOf @statementNameValue.iteration.end.startOf
 ) @branch @condition.domain
-
-(case_item
-  ")" @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-  ";;" @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
-)
 
 ;;!! return 0
 ;;!         ^
@@ -208,25 +199,15 @@
 ;;!! do :; done
 ;;!    ^^^^
 (do_group
-  "do" @interior.start.endOf
-  "done" @interior.end.startOf
-)
-
-(do_group
-  "do" @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-  "done" @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+  "do" @interior.start.endOf @statementNameValue.iteration.start.endOf
+  "done" @interior.end.startOf @statementNameValue.iteration.end.startOf
 )
 
 ;;!! foo() { }
 ;;!         ^
 (compound_statement
-  "{" @interior.start.endOf
-  "}" @interior.end.startOf
-)
-
-(compound_statement
-  "{" @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-  "}" @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+  "{" @interior.start.endOf @statementNameValue.iteration.start.endOf
+  "}" @interior.end.startOf @statementNameValue.iteration.end.startOf
 )
 
 ;;!! # foo

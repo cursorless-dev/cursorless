@@ -37,13 +37,8 @@
 )
 
 (
-  (translation_unit) @statement.iteration @class.iteration @namedFunction.iteration
-  (#document-range! @statement.iteration @class.iteration @namedFunction.iteration)
-)
-
-(
-  (translation_unit) @name.iteration @value.iteration @type.iteration
-  (#document-range! @name.iteration @value.iteration @type.iteration)
+  (translation_unit) @statementNameValueType.iteration @class.iteration @namedFunction.iteration
+  (#document-range! @statementNameValueType.iteration @class.iteration @namedFunction.iteration)
 )
 
 ;;!! { }
@@ -60,24 +55,14 @@
 ;;!! union Foo { };
 ;;!             ^
 (field_declaration_list
-  "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
-  "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
-)
-
-(field_declaration_list
-  "{" @statement.iteration.start.endOf
-  "}" @statement.iteration.end.startOf
+  "{" @statementNameValueType.iteration.start.endOf
+  "}" @statementNameValueType.iteration.end.startOf
 )
 
 ;; Body of statements
 (compound_statement
-  "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
-  "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
-)
-
-(compound_statement
-  "{" @statement.iteration.start.endOf
-  "}" @statement.iteration.end.startOf
+  "{" @statementNameValueType.iteration.start.endOf
+  "}" @statementNameValueType.iteration.end.startOf
 )
 
 (

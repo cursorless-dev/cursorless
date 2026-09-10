@@ -6,6 +6,7 @@ import type {
   TextDocument,
   TreeSitter,
 } from "@cursorless/lib-common";
+import { expandCaptureName, expandCaptures } from "./captureAliases";
 import type { ScopeCaptureName } from "./captureNames";
 import {
   getNormalizedCaptureIndex,
@@ -36,6 +37,8 @@ import { treeSitterQueryCache } from "./TreeSitterQueryCache";
  */
 export class TreeSitterQuery {
   private shouldCheckCaptures: boolean;
+  private normalizedCaptureNames = new Set<string>();
+  private captureAliases = new Map<string, readonly string[]>();
 
   private constructor(
     private ide: IDE,
@@ -54,6 +57,16 @@ export class TreeSitterQuery {
     private patternPredicates: PatternPredicate[][],
   ) {
     this.shouldCheckCaptures = ide.runMode !== "production";
+
+    for (const name of query.captureNames) {
+      const expandedNames = expandCaptureName(name);
+      if (expandedNames.length > 1) {
+        this.captureAliases.set(name, expandedNames);
+      }
+      for (const expandedName of expandedNames) {
+        this.normalizedCaptureNames.add(getNormalizedCaptureName(expandedName));
+      }
+    }
   }
 
   static create(
@@ -68,9 +81,7 @@ export class TreeSitterQuery {
   }
 
   hasCapture(name: string): boolean {
-    return this.query.captureNames.some(
-      (n) => getNormalizedCaptureName(n) === name,
-    );
+    return this.normalizedCaptureNames.has(name);
   }
 
   matches(
@@ -123,16 +134,13 @@ export class TreeSitterQuery {
     end: Position | undefined,
     captureNameFilter: Set<number> | undefined,
   ): QueryMatch[] {
+    const aliases = this.filterCaptureAliases(captureNameFilter);
+    const matchesFilter = this.createCaptureFilter(captureNameFilter, aliases);
     const matches = this.getTreeMatches(document, start, end);
     const results: QueryMatch[] = [];
 
     for (const match of matches) {
-      if (
-        captureNameFilter != null &&
-        !match.captures.some((capture) =>
-          captureNameFilter.has(getNormalizedCaptureIndex(capture.name)),
-        )
-      ) {
+      if (matchesFilter != null && !match.captures.some(matchesFilter)) {
         continue;
       }
 
@@ -147,8 +155,13 @@ export class TreeSitterQuery {
               match,
               patternPredicates,
               captureNameFilter,
+              aliases,
             )
-          : this.createQueryCapturesWithoutPredicates(match, captureNameFilter);
+          : this.createQueryCapturesWithoutPredicates(
+              match,
+              captureNameFilter,
+              aliases,
+            );
 
       if (captures.length > 0) {
         results.push({ captures });
@@ -156,6 +169,39 @@ export class TreeSitterQuery {
     }
 
     return results;
+  }
+
+  private filterCaptureAliases(captureNameFilter: Set<number> | undefined) {
+    if (captureNameFilter == null || this.captureAliases.size === 0) {
+      return this.captureAliases;
+    }
+
+    const aliases = new Map<string, readonly string[]>();
+    for (const [alias, names] of this.captureAliases) {
+      aliases.set(
+        alias,
+        names.filter((name) =>
+          captureNameFilter.has(getNormalizedCaptureIndex(name)),
+        ),
+      );
+    }
+    return aliases;
+  }
+
+  private createCaptureFilter(
+    captureNameFilter: Set<number> | undefined,
+    aliases: ReadonlyMap<string, readonly string[]>,
+  ) {
+    if (captureNameFilter == null) {
+      return undefined;
+    }
+    if (aliases.size === 0) {
+      return (capture: treeSitter.QueryCapture) =>
+        captureNameFilter.has(getNormalizedCaptureIndex(capture.name));
+    }
+    return (capture: treeSitter.QueryCapture) =>
+      captureNameFilter.has(getNormalizedCaptureIndex(capture.name)) ||
+      (aliases.get(capture.name)?.length ?? 0) > 0;
   }
 
   private getTreeMatches(
@@ -175,6 +221,7 @@ export class TreeSitterQuery {
     match: treeSitter.QueryMatch,
     predicates: PatternPredicate[],
     captureNameFilter: Set<number> | undefined,
+    aliases: ReadonlyMap<string, readonly string[]>,
   ): QueryCapture[] {
     const captures: MutableQueryCapture[] = [];
 
@@ -207,7 +254,10 @@ export class TreeSitterQuery {
     // with names `@foo`, `@foo.start`, and `@foo.end` to have the same
     // name, for which we'd return a capture with name `foo`.
 
-    for (const capture of captures) {
+    const expandedCaptures =
+      aliases.size === 0 ? captures : expandCaptures(captures, aliases);
+
+    for (const capture of expandedCaptures) {
       if (
         captureNameFilter != null &&
         !captureNameFilter.has(getNormalizedCaptureIndex(capture.name))
@@ -248,6 +298,7 @@ export class TreeSitterQuery {
   private createQueryCapturesWithoutPredicates(
     match: treeSitter.QueryMatch,
     captureNameFilter: Set<number> | undefined,
+    aliases: ReadonlyMap<string, readonly string[]>,
   ): QueryCapture[] {
     const result: QueryCapture[] = [];
     const map = new Map<
@@ -258,7 +309,12 @@ export class TreeSitterQuery {
       }
     >();
 
-    for (const capture of match.captures) {
+    const expandedCaptures =
+      aliases.size === 0
+        ? match.captures
+        : expandCaptures(match.captures, aliases);
+
+    for (const capture of expandedCaptures) {
       if (
         captureNameFilter != null &&
         !captureNameFilter.has(getNormalizedCaptureIndex(capture.name))

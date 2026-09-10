@@ -4,6 +4,43 @@ import { validateQueryCaptures } from "./validateQueryCaptures";
 
 const testCases: { name: string; isOk: boolean; content: string }[] = [
   {
+    name: "Statement/name/value iteration alias",
+    isOk: true,
+    content: "(compound_statement) @statementNameValue.iteration",
+  },
+  {
+    name: "Statement/name/value iteration boundaries",
+    isOk: true,
+    content:
+      '(compound_statement "{" @statementNameValue.iteration.start.endOf "}" @statementNameValue.iteration.end.startOf)',
+  },
+  {
+    name: "Statement/name/value iteration domain",
+    isOk: true,
+    content: "(compound_statement) @statementNameValue.iteration.domain",
+  },
+  {
+    name: "Unknown iteration relationship",
+    isOk: false,
+    content: "(compound_statement) @statementNameValue.iteration.unknown",
+  },
+  {
+    name: "Statement/name/value/type iteration boundaries",
+    isOk: true,
+    content:
+      '(compound_statement "{" @statementNameValueType.iteration.start.endOf "}" @statementNameValueType.iteration.end.startOf)',
+  },
+  {
+    name: "Unknown type iteration relationship",
+    isOk: false,
+    content: "(compound_statement) @statementNameValueType.iteration.unknown",
+  },
+  {
+    name: "Alias without iteration",
+    isOk: false,
+    content: "(compound_statement) @statementNameValue",
+  },
+  {
     name: "Scope captures",
     isOk: true,
     content: "(if_statement) @statement @ifStatement @comment @interior",
@@ -17,7 +54,17 @@ const testCases: { name: string; isOk: boolean; content: string }[] = [
     name: "Position captures",
     isOk: true,
     content:
-      "(if_statement) @statement.startOf @statement.leading.startOf @statement.trailing.endOf",
+      "(if_statement) @statement.leading.startOf @statement.trailing.endOf",
+  },
+  {
+    name: "Bare startOf capture",
+    isOk: false,
+    content: "(if_statement) @statement.startOf",
+  },
+  {
+    name: "Bare endOf capture",
+    isOk: false,
+    content: "(if_statement) @statement.endOf",
   },
   {
     name: "Range captures",
@@ -59,6 +106,41 @@ const testCases: { name: string; isOk: boolean; content: string }[] = [
     name: "Unknown capture",
     isOk: false,
     content: "(if_statement) @unknown",
+  },
+  {
+    name: "Unknown capture before valid capture",
+    isOk: false,
+    content: "(if_statement) @unknown @statement",
+  },
+  {
+    name: "Unknown capture between valid captures",
+    isOk: false,
+    content: "(if_statement) @statement @unknown @interior",
+  },
+  {
+    name: "Unknown capture before comment",
+    isOk: false,
+    content: "(if_statement) @unknown ;; @statement",
+  },
+  {
+    name: "Indented and inline comments",
+    isOk: true,
+    content: "  ;; @unknown\n(if_statement) @statement ; @unknown",
+  },
+  {
+    name: "Captures inside strings",
+    isOk: true,
+    content: '(#eq? @statement "text @unknown ; @other")',
+  },
+  {
+    name: "Escaped quotes inside strings",
+    isOk: true,
+    content: String.raw`(#eq? @statement "text \" @unknown")`,
+  },
+  {
+    name: "Unknown capture after string",
+    isOk: false,
+    content: '("@ignored" @unknown @statement)',
   },
   {
     name: "Unknown relationship",
