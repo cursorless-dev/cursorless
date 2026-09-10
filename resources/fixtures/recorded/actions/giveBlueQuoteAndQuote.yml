@@ -1,5 +1,4 @@
 languageId: typescript
-# Allow VS Code's selection notifications to settle before reading the final state.
 postCommandSleepTimeMs: 400
 command:
   version: 7
