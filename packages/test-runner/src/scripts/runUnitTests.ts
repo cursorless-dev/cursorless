@@ -4,8 +4,11 @@
 
 import { exit } from "node:process";
 import { TestType, runAllTests } from "../runAllTests";
+import { setupWebTests } from "../setupWebTests";
 
 try {
+  setupWebTests();
+
   await runAllTests(TestType.unit);
 } catch (error) {
   console.error(error);

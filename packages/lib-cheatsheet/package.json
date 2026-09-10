@@ -12,8 +12,7 @@
   ],
   "scripts": {
     "typecheck": "tsc && tsc -p tsconfig.test.json",
-    "clean": "rm -rf ./out ./dist ./tsconfig.tsbuildinfo",
-    "test": "c-tsx --tsconfig=../../tsconfig.web.json --import=@cursorless/lib-common/mocha-web src/test/runTests.ts"
+    "clean": "rm -rf ./out ./dist ./tsconfig.tsbuildinfo"
   },
   "dependencies": {
     "@cursorless/lib-common": "workspace:*",

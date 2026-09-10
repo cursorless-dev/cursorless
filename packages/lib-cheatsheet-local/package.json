@@ -8,7 +8,6 @@
   "scripts": {
     "typecheck": "tsc && tsc -p tsconfig.test.json",
     "clean": "rm -rf ./out ./dist ./tsconfig.tsbuildinfo",
-    "test": "c-tsx --tsconfig=../../tsconfig.web.json --import=@cursorless/lib-common/mocha-web src/test/runTests.ts",
     "dev": "env NODE_OPTIONS=--import=tsx vite serve",
     "bundle:prod": "env NODE_OPTIONS=--import=tsx vite build",
     "bundle:dev": "env NODE_OPTIONS=--import=tsx vite build --mode development",

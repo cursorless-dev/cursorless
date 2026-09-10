@@ -9,10 +9,10 @@
   "scripts": {
     "typecheck": "tsc",
     "clean": "rm -rf ./out ./dist ./tsconfig.tsbuildinfo",
-    "test": "c-tsx ./src/scripts/runUnitTests.ts",
-    "test:subset": "c-tsx ./src/scripts/runUnitTests.ts --subset",
-    "test:update": "c-tsx ./src/scripts/runUnitTests.ts --update",
-    "test:update:subset": "c-tsx ./src/scripts/runUnitTests.ts --update --subset",
+    "test": "c-tsx --tsconfig=../../tsconfig.web.json ./src/scripts/runUnitTests.ts",
+    "test:subset": "pnpm test --subset",
+    "test:update": "pnpm test --update",
+    "test:update:subset": "pnpm test --update --subset",
     "test:vscode": "c-tsx ./src/scripts/runVscodeTestsCI.ts",
     "test:neovim": "c-tsx ./src/scripts/runNeovimTestsCI.ts",
     "test:talon": "c-tsx ./src/scripts/runTalonTests.ts",
@@ -31,11 +31,14 @@
   "devDependencies": {
     "@cursorless/tree-sitter-wasms": "^0.10.0",
     "@types/cross-spawn": "^6.0.6",
+    "@types/jsdom": "^21.1.7",
     "@types/mocha": "^10.0.10",
     "@types/tail": "^2.2.3",
     "@vscode/test-electron": "^3.1.0",
     "cross-spawn": "^7.0.6",
+    "jsdom": "^26.1.0",
     "mocha": "^12.0.0",
+    "preact": "^10.29.8",
     "tsx": "^4.23.13"
   }
 }
