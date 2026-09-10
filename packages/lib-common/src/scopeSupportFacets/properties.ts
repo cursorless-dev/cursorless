@@ -346,6 +346,10 @@ export const propertiesScopeSupport: LanguageScopeSupportFacetMap = {
   "value.iteration.block": notApplicable,
   "statement.iteration.block": notApplicable,
 
+  // Regular expression literal
+  regularExpression: notApplicable,
+  "textFragment.regularExpression": notApplicable,
+
   // Miscellaneous statements
   "statement.misc": notApplicable,
   "statement.break": notApplicable,
@@ -393,7 +397,6 @@ export const propertiesScopeSupport: LanguageScopeSupportFacetMap = {
   list: notApplicable,
   map: notApplicable,
   pairDelimiter: notApplicable,
-  regularExpression: notApplicable,
   selector: notApplicable,
   unit: notApplicable,
 };

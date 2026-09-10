@@ -357,6 +357,10 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.constant": notApplicable,
   "type.constant": notApplicable,
 
+  // Regular expression literal
+  regularExpression: notApplicable,
+  "textFragment.regularExpression": notApplicable,
+
   // Miscellaneous statements
   "statement.misc": notApplicable,
   "statement.package": notApplicable,
@@ -379,7 +383,6 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   // Miscellaneous
   pairDelimiter: notApplicable,
   environment: notApplicable,
-  regularExpression: notApplicable,
   selector: notApplicable,
   unit: notApplicable,
 };

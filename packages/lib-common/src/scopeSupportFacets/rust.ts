@@ -361,13 +361,16 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   subParagraph: notApplicable,
   part: notApplicable,
 
+  // Regular expression literal
+  regularExpression: notApplicable,
+  "textFragment.regularExpression": notApplicable,
+
   // Miscellaneous
   "statement.misc": notApplicable,
   "value.field.class": notApplicable,
   "type.foreach": notApplicable,
   "class.iteration.class": notApplicable,
   environment: notApplicable,
-  regularExpression: notApplicable,
   selector: notApplicable,
   unit: notApplicable,
   pairDelimiter: notApplicable,

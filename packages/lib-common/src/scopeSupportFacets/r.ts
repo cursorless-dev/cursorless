@@ -363,6 +363,10 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   "collectionItem.unenclosed.multiLine": notApplicable,
   "collectionItem.unenclosed.iteration": notApplicable,
 
+  // Regular expression literal
+  regularExpression: notApplicable,
+  "textFragment.regularExpression": notApplicable,
+
   // Miscellaneous statements
   "statement.misc": notApplicable,
   "statement.package": notApplicable,
@@ -388,7 +392,6 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.switch": notApplicable,
   environment: notApplicable,
   pairDelimiter: notApplicable,
-  regularExpression: notApplicable,
   selector: notApplicable,
   unit: notApplicable,
 };

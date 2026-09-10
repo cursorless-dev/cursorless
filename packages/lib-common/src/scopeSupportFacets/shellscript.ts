@@ -63,6 +63,7 @@ export const shellscriptScopeSupport: LanguageScopeSupportFacetMap = {
   "textFragment.comment.line": supported,
   "textFragment.string.singleLine": supported,
   "textFragment.string.multiLine": supported,
+  "textFragment.regularExpression": supported,
 
   "name.variable.uninitialized": supported,
   "name.variable.initialized": supported,

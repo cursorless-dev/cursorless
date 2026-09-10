@@ -362,6 +362,10 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   subParagraph: notApplicable,
   part: notApplicable,
 
+  // Regular expression literal
+  regularExpression: notApplicable,
+  "textFragment.regularExpression": notApplicable,
+
   // Miscellaneous
   "value.field.interface": notApplicable,
   "statement.misc": notApplicable,
@@ -369,7 +373,6 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "type.foreach": notApplicable,
   "type.cast": notApplicable,
   "class.iteration.class": notApplicable,
-  regularExpression: notApplicable,
   selector: notApplicable,
   unit: notApplicable,
   pairDelimiter: notApplicable,

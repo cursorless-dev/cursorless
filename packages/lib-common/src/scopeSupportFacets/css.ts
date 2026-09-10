@@ -385,11 +385,14 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   subParagraph: notApplicable,
   part: notApplicable,
 
+  // Regular expression literal
+  regularExpression: notApplicable,
+  "textFragment.regularExpression": notApplicable,
+
   // Miscellaneous
   environment: notApplicable,
   fieldAccess: notApplicable,
   pairDelimiter: notApplicable,
-  regularExpression: notApplicable,
   "type.cast": notApplicable,
   "type.typeArgument": notApplicable,
   "type.typeArgument.iteration": notApplicable,
