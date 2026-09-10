@@ -122,9 +122,9 @@
   (#not-parent-type? @_dummy source_file)
 )
 
-;; Non-enum class (struct/class/actor) decl.
+;; non-enum classlike decl.
 (class_declaration
-  name: (_) @name
+  name: (_) @name @type
   body: (class_body
     "{" @interior.start.endOf
     "}" @interior.end.startOf
@@ -140,7 +140,7 @@
     "}" @interior.end.startOf
     .
   )
-) @statement
+) @statement @class
 
 ;; For loop
 (

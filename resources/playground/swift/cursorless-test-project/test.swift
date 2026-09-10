@@ -27,8 +27,22 @@ struct ExamplesStruct {
             print(ExamplesStruct.exampleFunction(exampleLabel: exampleLabel))
         }
         for c: Character in "test" {
-
+            print("wiwi")
         }
+    }
+}
+
+struct Structy {
+    let foo = 11
+    func pipis() -> Bool {
+        if foo == 11 {
+            return true
+        } else {
+            return false
+        }
+    }
+    class Nested {
+        let foo = 11
     }
 }
 
@@ -83,7 +97,7 @@ func nestedClassInFunc() {
                 i -= 1
             } while i > 0
             struct HyperNested {
-                
+                let foo = 222222               
             }
         }
     }
