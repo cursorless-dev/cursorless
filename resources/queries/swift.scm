@@ -1,10 +1,15 @@
 ;; https://github.com/alex-pinkus/tree-sitter-swift/blob/with-generated-files/src/grammar.json
 
 ;; document-wide -- seems like there might be a problem with tree-sitter-swift that causes this to not work correctly?
-;;(
-;;  (source_file) @class.iteration @statement.iteration @name.iteration @value.iteration @type.iteration
-;;  (#document-range! @class.iteration @statement.iteration @name.iteration @value.iteration @type.iteration)
-;;)
+(
+  (source_file) @value.iteration @type.iteration
+  (#document-range! @value.iteration @type.iteration)
+)
+
+(
+  (source_file) @class.iteration @statement.iteration @name.iteration
+  (#document-range! @class.iteration @statement.iteration @name.iteration)
+)
 
 ;; single line comment
 (comment) @comment @textFragment
@@ -104,8 +109,9 @@
     ) @_dummy
   )
   (#type? @_dummy class_declaration function_declaration)
-  (#not-parent-type? @_dummy if_statement switch_statement for_statement while_statement)
+  (#not-parent-type? @_dummy switch_statement for_statement while_statement)
   (#not-parent-type? @_dummy do_statement repeat_while_statement protocol_declaration)
+  (#not-parent-type? @_dummy if_statement)
 )
 
 ;; Generic interior -- branch and condition iteration
