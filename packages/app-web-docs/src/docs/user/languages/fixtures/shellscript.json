@@ -1474,16 +1474,16 @@
     "name": "scopes/shellscript/namedFunction/namedFunction4",
     "languageId": "shellscript",
     "facet": "namedFunction",
-    "code": "foo() ( : )",
+    "code": "foo() ()",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:0-0:11",
-            "removal": "0:0-0:11"
+            "content": "0:0-0:8",
+            "removal": "0:0-0:8"
           }
         ],
-        "domain": "0:0-0:11"
+        "domain": "0:0-0:8"
       }
     ]
   },
@@ -1714,25 +1714,16 @@
     "name": "scopes/shellscript/statement/statement.function4",
     "languageId": "shellscript",
     "facet": "statement.function",
-    "code": "foo() ( : )",
+    "code": "foo() ()",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:0-0:11",
-            "removal": "0:0-0:11"
+            "content": "0:0-0:8",
+            "removal": "0:0-0:8"
           }
         ],
-        "domain": "0:0-0:11"
-      },
-      {
-        "targets": [
-          {
-            "content": "0:8-0:9",
-            "removal": "0:8-0:10"
-          }
-        ],
-        "domain": "0:8-0:9"
+        "domain": "0:0-0:8"
       }
     ]
   },

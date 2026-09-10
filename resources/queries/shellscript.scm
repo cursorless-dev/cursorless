@@ -33,6 +33,7 @@
     elif_clause
     while_statement
   )
+  (#not-eq? @statement "")
 )
 
 ;; Capture body statements without including commands before "then".
