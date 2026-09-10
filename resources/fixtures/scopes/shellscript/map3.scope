@@ -1,0 +1,10 @@
+foo=(["aaa"]="bbb"$bar)
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:4-0:23
+      >-------------------<
+0| foo=(["aaa"]="bbb"$bar)
+
+[Insertion delimiter] = " "

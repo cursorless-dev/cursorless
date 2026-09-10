@@ -1961,6 +1961,23 @@
     ]
   },
   {
+    "name": "scopes/shellscript/namedFunction/namedFunction4",
+    "languageId": "shellscript",
+    "facet": "namedFunction",
+    "code": "foo() ()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:8",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:8"
+      }
+    ]
+  },
+  {
     "name": "scopes/typescript.core/namedFunction/namedFunction.constructor",
     "languageId": "typescript.core",
     "facet": "namedFunction.constructor",

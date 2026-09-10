@@ -1794,6 +1794,58 @@
     ]
   },
   {
+    "name": "scopes/shellscript/condition/condition.switchCase2",
+    "languageId": "shellscript",
+    "facet": "condition.switchCase",
+    "code": "case $foo in\n  0|1|2) : ;;\nesac",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-1:7",
+            "removal": "1:0-1:7"
+          }
+        ],
+        "domain": "1:2-1:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/condition/condition.switchCase3",
+    "languageId": "shellscript",
+    "facet": "condition.switchCase",
+    "code": "case $foo in\n  0) : ;&\n  1) : ;;&\n  *) : ;;\nesac",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-1:3",
+            "removal": "1:0-1:3"
+          }
+        ],
+        "domain": "1:2-1:9"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-2:3",
+            "removal": "2:0-2:3"
+          }
+        ],
+        "domain": "2:2-2:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:2-3:3",
+            "removal": "3:0-3:3"
+          }
+        ],
+        "domain": "3:2-3:9"
+      }
+    ]
+  },
+  {
     "name": "scopes/shellscript/condition/condition.ternary",
     "languageId": "shellscript",
     "facet": "condition.ternary",

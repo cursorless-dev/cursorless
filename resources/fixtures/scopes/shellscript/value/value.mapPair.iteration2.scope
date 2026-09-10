@@ -1,0 +1,20 @@
+foo=("aaa"$bar bbb)
+bar=(["aaa"] bbb)
+baz=("[aaa]=0" bbb)
+bongo=(["aaa"]=0)
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-3:17
+  >-------------------
+0| foo=("aaa"$bar bbb)
+1| bar=(["aaa"] bbb)
+2| baz=("[aaa]=0" bbb)
+3| bongo=(["aaa"]=0)
+   -----------------<
+
+
+[#2 Content] =
+[#2 Domain] = 3:7-3:16
+         >---------<
+3| bongo=(["aaa"]=0)
