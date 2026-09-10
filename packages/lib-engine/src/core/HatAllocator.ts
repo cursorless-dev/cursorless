@@ -115,7 +115,9 @@ export class HatAllocator {
       const hatRange = plainObjectToRange(hat.hatRange);
       const token = tokens.find((token) => token.range.contains(hatRange));
       if (token == null) {
-        throw new Error(`No token contains recorded hat at ${hatRange.concise()}`);
+        throw new Error(
+          `No token contains recorded hat at ${hatRange.concise()}`,
+        );
       }
       return { ...hat, hatRange, token };
     });

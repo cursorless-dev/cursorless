@@ -10,7 +10,10 @@ import {
   serializedMarksToTokenHats,
   tokenHatToPlainObject,
 } from "@cursorless/lib-common";
-import { getCursorlessRepoRoot, loadFixture } from "@cursorless/lib-node-common";
+import {
+  getCursorlessRepoRoot,
+  loadFixture,
+} from "@cursorless/lib-node-common";
 import { TokenGraphemeSplitter } from "../tokenGraphemeSplitter";
 import { HatAllocator } from "./HatAllocator";
 import { IndividualHatMap } from "./IndividualHatMap";
