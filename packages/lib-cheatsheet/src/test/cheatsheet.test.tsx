@@ -1,15 +1,19 @@
-import { afterEach, describe, expect, it } from "@jest/globals";
+import assert from "node:assert/strict";
+import { suite, teardown, test } from "mocha";
 import { render } from "preact";
 import { act } from "preact/test-utils";
 import { Cheatsheet } from "../lib/Cheatsheet";
 import { fakeCheatsheetInfo } from "../lib/utils/fakeCheatsheetInfo";
 
-describe("Cheatsheet", () => {
-  afterEach(() => {
+suite("Cheatsheet", () => {
+  teardown(() => {
+    for (const container of document.body.children) {
+      render(null, container);
+    }
     document.body.innerHTML = "";
   });
 
-  it("should render successfully", async () => {
+  test("should render successfully", async () => {
     const container = document.createElement("div");
     document.body.append(container);
 
@@ -17,6 +21,6 @@ describe("Cheatsheet", () => {
       render(<Cheatsheet cheatsheetInfo={fakeCheatsheetInfo} />, container);
     });
 
-    expect(container).toBeTruthy();
+    assert.ok(container.childElementCount > 0);
   });
 });

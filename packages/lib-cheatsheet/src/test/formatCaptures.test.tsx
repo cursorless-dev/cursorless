@@ -1,14 +1,18 @@
-import { afterEach, describe, expect, it } from "@jest/globals";
+import assert from "node:assert/strict";
+import { suite, teardown, test } from "mocha";
 import { render } from "preact";
 import { act } from "preact/test-utils";
 import { formatCaptures } from "../lib/utils/formatCaptures";
 
-describe("formatCaptures", () => {
-  afterEach(() => {
+suite("formatCaptures", () => {
+  teardown(() => {
+    for (const container of document.body.children) {
+      render(null, container);
+    }
     document.body.innerHTML = "";
   });
 
-  it("formats capture placeholders", async () => {
+  test("formats capture placeholders", async () => {
     const container = document.createElement("div");
     document.body.append(container);
 
@@ -16,11 +20,11 @@ describe("formatCaptures", () => {
       render(<div>{formatCaptures("hello <target> world")}</div>, container);
     });
 
-    expect(container.textContent).toBe("hello [target] world");
-    expect(container.querySelector('a[href="#legend"]')).not.toBeNull();
+    assert.equal(container.textContent, "hello [target] world");
+    assert.notEqual(container.querySelector('a[href="#legend"]'), null);
   });
 
-  it("leaves malformed captures as plain text", async () => {
+  test("leaves malformed captures as plain text", async () => {
     const container = document.createElement("div");
     document.body.append(container);
     const input = "<<=<=<=";
@@ -29,7 +33,7 @@ describe("formatCaptures", () => {
       render(<div>{formatCaptures(input)}</div>, container);
     });
 
-    expect(container.textContent).toBe(input);
-    expect(container.querySelector('a[href="#legend"]')).toBeNull();
+    assert.equal(container.textContent, input);
+    assert.equal(container.querySelector('a[href="#legend"]'), null);
   });
 });

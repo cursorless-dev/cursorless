@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import path from "node:path";
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import { isUndefined } from "lodash-es";
 import type { PackageJson } from "type-fest";
@@ -101,7 +103,9 @@ function getScripts(
     return scripts;
   }
 
-  scripts.typecheck = "tsc";
+  scripts.typecheck = existsSync(path.join(packageDir, "tsconfig.test.json"))
+    ? "tsc && tsc -p tsconfig.test.json"
+    : "tsc";
 
   const cleanDirs = ["./out", "./dist", "./tsconfig.tsbuildinfo"];
   const clean = `rm -rf ${cleanDirs.join(" ")}`;
