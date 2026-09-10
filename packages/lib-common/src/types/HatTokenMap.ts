@@ -7,8 +7,19 @@ import type { Token } from "./Token";
  * Maps from (hatStyle, character) pairs to tokens
  */
 export interface HatTokenMap {
-  allocateHats(forceTokenHats?: TokenHat[]): Promise<void>;
+  allocateHats(
+    forceTokenHats?: TokenHat[],
+    options?: HatAllocationOptions,
+  ): Promise<void>;
   getReadableMap(usePrePhraseSnapshot: boolean): Promise<ReadOnlyHatMap>;
+}
+
+export interface HatAllocationOptions {
+  /**
+   * Whether to preserve previous hat assignments. Defaults to `true`.
+   * Set to `false` to initialize an allocation independently of its history.
+   */
+  preserveExistingHats?: boolean;
 }
 
 export interface TokenHat {

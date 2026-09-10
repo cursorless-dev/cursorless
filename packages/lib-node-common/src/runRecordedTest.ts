@@ -148,8 +148,11 @@ export async function runRecordedTest({
   commandServerApi.setFocusedElementType(fixture.focusedElementType);
 
   // Ensure that the expected hats are present
+  // Ignore any allocation triggered by editor setup so that initial hats do not
+  // depend on whether VS Code delivered those events before this point.
   await hatTokenMap.allocateHats(
     serializedMarksToTokenHats(fixture.initialState.marks, editor),
+    { preserveExistingHats: false },
   );
 
   await Promise.all(

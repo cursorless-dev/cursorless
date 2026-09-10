@@ -1,4 +1,10 @@
-import type { Disposable, Hats, IDE, TokenHat } from "@cursorless/lib-common";
+import type {
+  Disposable,
+  HatAllocationOptions,
+  Hats,
+  IDE,
+  TokenHat,
+} from "@cursorless/lib-common";
 import type { TokenGraphemeSplitter } from "../tokenGraphemeSplitter";
 import { allocateHats } from "../util/allocateHats";
 import { DecorationDebouncer } from "../util/DecorationDebouncer";
@@ -54,8 +60,12 @@ export class HatAllocator {
    *
    * @param forceTokenHats If supplied, force the allocator to use these hats
    * for the given tokens. This is used for the tutorial, and for testing.
+   * @param options Controls whether to preserve previous hat assignments.
    */
-  async allocateHats(forceTokenHats?: TokenHat[]) {
+  async allocateHats(
+    forceTokenHats?: TokenHat[],
+    { preserveExistingHats = true }: HatAllocationOptions = {},
+  ) {
     const activeMap = await this.context.getActiveMap();
 
     // Forced graphemes won't have been normalized
@@ -70,7 +80,7 @@ export class HatAllocator {
           tokenGraphemeSplitter: this.tokenGraphemeSplitter,
           enabledHatStyles: this.hats.enabledHatStyles,
           forceTokenHats: normalizedForceTokenHats,
-          oldTokenHats: activeMap.getStaleTokenHats(),
+          oldTokenHats: preserveExistingHats ? activeMap.getStaleTokenHats() : [],
           hatStability: this.ide.configuration.getOwnConfiguration(
             "experimental.hatStability",
           ),
