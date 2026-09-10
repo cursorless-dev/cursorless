@@ -1,506 +1,506 @@
 [
-	{
-		"name": "scopes/swift/branch.if.elif.else",
-		"languageId": "swift",
-		"facet": "branch.if.elif.else",
-		"code": "if foo {}\nelse if bar {}\nelse {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:9",
-						"removal": "0:0-1:0"
-					}
-				],
-				"domain": "0:0-0:9"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:0-1:14",
-						"removal": "1:0-2:0"
-					}
-				],
-				"domain": "1:0-1:14"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:0-2:7",
-						"removal": "0:9-2:7"
-					}
-				],
-				"domain": "1:0-2:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:5-1:14",
-						"removal": "1:5-2:0"
-					}
-				],
-				"domain": "1:5-1:14"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:5-2:7",
-						"removal": "1:5-2:7"
-					}
-				],
-				"domain": "1:5-2:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "2:0-2:7",
-						"removal": "1:14-2:7"
-					}
-				],
-				"domain": "2:0-2:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/swift/branch.if.else",
-		"languageId": "swift",
-		"facet": "branch.if.else",
-		"code": "if true {}\nelse {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:10",
-						"removal": "0:0-1:0"
-					}
-				],
-				"domain": "0:0-0:10"
-			},
-			{
-				"targets": [
-					{
-						"content": "0:0-1:7",
-						"removal": "0:0-1:7"
-					}
-				],
-				"domain": "0:0-1:7"
-			},
-			{
-				"targets": [
-					{
-						"content": "1:0-1:7",
-						"removal": "0:10-1:7"
-					}
-				],
-				"domain": "1:0-1:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/swift/branch.if.iteration",
-		"languageId": "swift",
-		"facet": "branch.if.iteration",
-		"code": "if foo {}\nelse if bar {}\nelse {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:7"
-					}
-				],
-				"domain": "0:0-2:7"
-			}
-		]
-	},
-	{
-		"name": "scopes/swift/branch.if",
-		"languageId": "swift",
-		"facet": "branch.if",
-		"code": "if true {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:10",
-						"removal": "0:0-0:10"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/swift/class",
-		"languageId": "swift",
-		"facet": "class",
-		"code": "struct Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:13",
-						"removal": "0:0-0:13"
-					}
-				],
-				"domain": "0:0-0:13"
-			}
-		]
-	},
-	{
-		"name": "scopes/swift/comment.block",
-		"languageId": "swift",
-		"facet": "comment.block",
-		"code": "/*\naaa\n*/",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:2",
-						"removal": "0:0-2:2"
-					}
-				],
-				"domain": "0:0-2:2"
-			}
-		]
-	},
-	{
-		"name": "scopes/swift/comment.line",
-		"languageId": "swift",
-		"facet": "comment.line",
-		"code": "// aaa",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:6",
-						"removal": "0:0-0:6"
-					}
-				],
-				"domain": "0:0-0:6"
-			}
-		]
-	},
-	{
-		"name": "scopes/swift/condition.if",
-		"languageId": "swift",
-		"facet": "condition.if",
-		"code": "if foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:3-0:6",
-						"removal": "0:3-0:7"
-					}
-				],
-				"domain": "0:0-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/swift/ifStatement",
-		"languageId": "swift",
-		"facet": "ifStatement",
-		"code": "if true {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:10",
-						"removal": "0:0-0:10"
-					}
-				],
-				"domain": "0:0-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/swift/interior.if",
-		"languageId": "swift",
-		"facet": "interior.if",
-		"code": "if foo {  }",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:8-0:10",
-						"removal": "0:8-0:10"
-					}
-				],
-				"domain": "0:8-0:10"
-			}
-		]
-	},
-	{
-		"name": "scopes/swift/name.class",
-		"languageId": "swift",
-		"facet": "name.class",
-		"code": "class Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:6-0:9",
-						"removal": "0:6-0:10"
-					}
-				],
-				"domain": "0:6-0:9"
-			}
-		]
-	},
-	{
-		"name": "scopes/swift/name.enum",
-		"languageId": "swift",
-		"facet": "name.enum",
-		"code": "enum Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:5-0:8",
-						"removal": "0:5-0:9"
-					}
-				],
-				"domain": "0:5-0:8"
-			}
-		]
-	},
-	{
-		"name": "scopes/swift/name.foreach",
-		"languageId": "swift",
-		"facet": "name.foreach",
-		"code": "for foo in bar {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:4-0:7",
-						"removal": "0:4-0:8"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/swift/name.interface",
-		"languageId": "swift",
-		"facet": "name.interface",
-		"code": "protocol Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:12",
-						"removal": "0:9-0:13"
-					}
-				],
-				"domain": "0:9-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/swift/statement.class",
-		"languageId": "swift",
-		"facet": "statement.class",
-		"code": "class Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:12",
-						"removal": "0:0-0:12"
-					}
-				],
-				"domain": "0:0-0:12"
-			}
-		]
-	},
-	{
-		"name": "scopes/swift/statement.enum",
-		"languageId": "swift",
-		"facet": "statement.enum",
-		"code": "enum Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:11",
-						"removal": "0:0-0:11"
-					}
-				],
-				"domain": "0:0-0:11"
-			}
-		]
-	},
-	{
-		"name": "scopes/swift/statement.foreach",
-		"languageId": "swift",
-		"facet": "statement.foreach",
-		"code": "for foo in bar {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:17",
-						"removal": "0:0-0:17"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	},
-	{
-		"name": "scopes/swift/statement.interface",
-		"languageId": "swift",
-		"facet": "statement.interface",
-		"code": "protocol Foo {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:15",
-						"removal": "0:0-0:15"
-					}
-				],
-				"domain": "0:0-0:15"
-			}
-		]
-	},
-	{
-		"name": "scopes/swift/string.multiLine",
-		"languageId": "swift",
-		"facet": "string.multiLine",
-		"code": "\"\"\"\naaa\n\"\"\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:3",
-						"removal": "0:0-2:3"
-					}
-				],
-				"domain": "0:0-2:3"
-			}
-		]
-	},
-	{
-		"name": "scopes/swift/string.singleLine",
-		"languageId": "swift",
-		"facet": "string.singleLine",
-		"code": "\"aaa\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:5",
-						"removal": "0:0-0:5"
-					}
-				],
-				"domain": "0:0-0:5"
-			}
-		]
-	},
-	{
-		"name": "scopes/swift/textFragment.comment.block",
-		"languageId": "swift",
-		"facet": "textFragment.comment.block",
-		"code": "/*\naaa\n*/",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-2:2",
-						"removal": "0:0-2:2"
-					}
-				],
-				"domain": "0:0-2:2"
-			}
-		]
-	},
-	{
-		"name": "scopes/swift/textFragment.comment.line",
-		"languageId": "swift",
-		"facet": "textFragment.comment.line",
-		"code": "// aaa",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:0-0:6",
-						"removal": "0:0-0:6"
-					}
-				],
-				"domain": "0:0-0:6"
-			}
-		]
-	},
-	{
-		"name": "scopes/swift/textFragment.string.multiLine",
-		"languageId": "swift",
-		"facet": "textFragment.string.multiLine",
-		"code": "\"\"\"\naaa\n\"\"\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:3-2:0",
-						"removal": "0:3-2:0"
-					}
-				],
-				"domain": "0:3-2:0"
-			}
-		]
-	},
-	{
-		"name": "scopes/swift/textFragment.string.singleLine",
-		"languageId": "swift",
-		"facet": "textFragment.string.singleLine",
-		"code": "\"aaa\"",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:1-0:4",
-						"removal": "0:1-0:4"
-					}
-				],
-				"domain": "0:1-0:4"
-			}
-		]
-	},
-	{
-		"name": "scopes/swift/type.foreach",
-		"languageId": "swift",
-		"facet": "type.foreach",
-		"code": "for foo: Type in bar {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:9-0:13",
-						"removal": "0:7-0:13"
-					}
-				],
-				"domain": "0:0-0:23"
-			}
-		]
-	},
-	{
-		"name": "scopes/swift/value.foreach",
-		"languageId": "swift",
-		"facet": "value.foreach",
-		"code": "for foo in bar {}",
-		"scopes": [
-			{
-				"targets": [
-					{
-						"content": "0:11-0:14",
-						"removal": "0:11-0:15"
-					}
-				],
-				"domain": "0:0-0:17"
-			}
-		]
-	}
+  {
+    "name": "scopes/swift/branch.if.elif.else",
+    "languageId": "swift",
+    "facet": "branch.if.elif.else",
+    "code": "if foo {}\nelse if bar {}\nelse {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-1:0"
+          }
+        ],
+        "domain": "0:0-0:9"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:0-1:14",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:0-1:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:0-2:7",
+            "removal": "0:9-2:7"
+          }
+        ],
+        "domain": "1:0-2:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:5-1:14",
+            "removal": "1:5-2:0"
+          }
+        ],
+        "domain": "1:5-1:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:5-2:7",
+            "removal": "1:5-2:7"
+          }
+        ],
+        "domain": "1:5-2:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:0-2:7",
+            "removal": "1:14-2:7"
+          }
+        ],
+        "domain": "2:0-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/branch.if.else",
+    "languageId": "swift",
+    "facet": "branch.if.else",
+    "code": "if true {}\nelse {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-1:0"
+          }
+        ],
+        "domain": "0:0-0:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-1:7",
+            "removal": "0:0-1:7"
+          }
+        ],
+        "domain": "0:0-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:0-1:7",
+            "removal": "0:10-1:7"
+          }
+        ],
+        "domain": "1:0-1:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/branch.if.iteration",
+    "languageId": "swift",
+    "facet": "branch.if.iteration",
+    "code": "if foo {}\nelse if bar {}\nelse {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:7"
+          }
+        ],
+        "domain": "0:0-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/branch.if",
+    "languageId": "swift",
+    "facet": "branch.if",
+    "code": "if true {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/class",
+    "languageId": "swift",
+    "facet": "class",
+    "code": "struct Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/comment.block",
+    "languageId": "swift",
+    "facet": "comment.block",
+    "code": "/*\naaa\n*/",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:2",
+            "removal": "0:0-2:2"
+          }
+        ],
+        "domain": "0:0-2:2"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/comment.line",
+    "languageId": "swift",
+    "facet": "comment.line",
+    "code": "// aaa",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:6",
+            "removal": "0:0-0:6"
+          }
+        ],
+        "domain": "0:0-0:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/condition.if",
+    "languageId": "swift",
+    "facet": "condition.if",
+    "code": "if foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:3-0:6",
+            "removal": "0:3-0:7"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/ifStatement",
+    "languageId": "swift",
+    "facet": "ifStatement",
+    "code": "if true {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/interior.if",
+    "languageId": "swift",
+    "facet": "interior.if",
+    "code": "if foo {  }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-0:10",
+            "removal": "0:8-0:10"
+          }
+        ],
+        "domain": "0:8-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/name.class",
+    "languageId": "swift",
+    "facet": "name.class",
+    "code": "class Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:9",
+            "removal": "0:6-0:10"
+          }
+        ],
+        "domain": "0:6-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/name.enum",
+    "languageId": "swift",
+    "facet": "name.enum",
+    "code": "enum Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:8",
+            "removal": "0:5-0:9"
+          }
+        ],
+        "domain": "0:5-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/name.foreach",
+    "languageId": "swift",
+    "facet": "name.foreach",
+    "code": "for foo in bar {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:7",
+            "removal": "0:4-0:8"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/name.interface",
+    "languageId": "swift",
+    "facet": "name.interface",
+    "code": "protocol Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:12",
+            "removal": "0:9-0:13"
+          }
+        ],
+        "domain": "0:9-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/statement.class",
+    "languageId": "swift",
+    "facet": "statement.class",
+    "code": "class Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12",
+            "removal": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/statement.enum",
+    "languageId": "swift",
+    "facet": "statement.enum",
+    "code": "enum Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/statement.foreach",
+    "languageId": "swift",
+    "facet": "statement.foreach",
+    "code": "for foo in bar {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:17",
+            "removal": "0:0-0:17"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/statement.interface",
+    "languageId": "swift",
+    "facet": "statement.interface",
+    "code": "protocol Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/string.multiLine",
+    "languageId": "swift",
+    "facet": "string.multiLine",
+    "code": "\"\"\"\naaa\n\"\"\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:3",
+            "removal": "0:0-2:3"
+          }
+        ],
+        "domain": "0:0-2:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/string.singleLine",
+    "languageId": "swift",
+    "facet": "string.singleLine",
+    "code": "\"aaa\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:5",
+            "removal": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/textFragment.comment.block",
+    "languageId": "swift",
+    "facet": "textFragment.comment.block",
+    "code": "/*\naaa\n*/",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:2",
+            "removal": "0:0-2:2"
+          }
+        ],
+        "domain": "0:0-2:2"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/textFragment.comment.line",
+    "languageId": "swift",
+    "facet": "textFragment.comment.line",
+    "code": "// aaa",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:6",
+            "removal": "0:0-0:6"
+          }
+        ],
+        "domain": "0:0-0:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/textFragment.string.multiLine",
+    "languageId": "swift",
+    "facet": "textFragment.string.multiLine",
+    "code": "\"\"\"\naaa\n\"\"\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:3-2:0",
+            "removal": "0:3-2:0"
+          }
+        ],
+        "domain": "0:3-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/textFragment.string.singleLine",
+    "languageId": "swift",
+    "facet": "textFragment.string.singleLine",
+    "code": "\"aaa\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:4",
+            "removal": "0:1-0:4"
+          }
+        ],
+        "domain": "0:1-0:4"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/type.foreach",
+    "languageId": "swift",
+    "facet": "type.foreach",
+    "code": "for foo: Type in bar {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:13",
+            "removal": "0:7-0:13"
+          }
+        ],
+        "domain": "0:0-0:23"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value.foreach",
+    "languageId": "swift",
+    "facet": "value.foreach",
+    "code": "for foo in bar {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:11-0:14",
+            "removal": "0:11-0:15"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  }
 ]
