@@ -36,27 +36,16 @@
 
 ;; Entire document, including leading and trailing whitespace
 (
-  (source_file) @class.iteration @statement.iteration @namedFunction.iteration
-  (#document-range! @class.iteration @statement.iteration @namedFunction.iteration)
-)
-(
-  (source_file) @name.iteration @value.iteration @type.iteration
-  (#document-range! @name.iteration @value.iteration @type.iteration)
+  (source_file) @class.iteration @statementNameValueType.iteration @namedFunction.iteration
+  (#document-range! @class.iteration @statementNameValueType.iteration @namedFunction.iteration)
 )
 
 ;;!! { }
 ;;!   ^
 (
   (_
-    "{" @statement.iteration.start.endOf @namedFunction.iteration.start.endOf
-    "}" @statement.iteration.end.startOf @namedFunction.iteration.end.startOf
-  ) @_dummy
-  (#not-type? @_dummy lambda_literal)
-)
-(
-  (_
-    "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
-    "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+    "{" @statementNameValueType.iteration.start.endOf @namedFunction.iteration.start.endOf
+    "}" @statementNameValueType.iteration.end.startOf @namedFunction.iteration.end.startOf
   ) @_dummy
   (#not-type? @_dummy lambda_literal)
 )

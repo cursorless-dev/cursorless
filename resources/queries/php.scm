@@ -40,13 +40,8 @@
 ] @statement
 
 (
-  (program) @class.iteration @statement.iteration @namedFunction.iteration
-  (#document-range! @class.iteration @statement.iteration @namedFunction.iteration)
-)
-
-(
-  (program) @name.iteration @value.iteration @type.iteration
-  (#document-range! @name.iteration @value.iteration @type.iteration)
+  (program) @class.iteration @statementNameValueType.iteration @namedFunction.iteration
+  (#document-range! @class.iteration @statementNameValueType.iteration @namedFunction.iteration)
 )
 
 ;;!! { }
@@ -61,8 +56,8 @@
 ;;!! { }
 ;;!   ^
 (compound_statement
-  "{" @name.iteration.start.endOf @value.iteration.start.endOf @statement.iteration.start.endOf
-  "}" @name.iteration.end.startOf @value.iteration.end.startOf @statement.iteration.end.startOf
+  "{" @statementNameValue.iteration.start.endOf
+  "}" @statementNameValue.iteration.end.startOf
 )
 
 [
@@ -167,12 +162,8 @@
 ;;!! class Foo { }
 ;;!! interface Foo { }
 (declaration_list
-  "{" @statement.iteration.start.endOf
-  "}" @statement.iteration.end.startOf
-)
-(declaration_list
-  "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
-  "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+  "{" @statementNameValueType.iteration.start.endOf
+  "}" @statementNameValueType.iteration.end.startOf
 )
 
 ;;!! interface Foo {}

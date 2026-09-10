@@ -31,18 +31,13 @@
 ;; Document iteration scopes
 
 (
-  (chunk) @statement.iteration @namedFunction.iteration
-  (#document-range! @statement.iteration @namedFunction.iteration)
-)
-(
-  (chunk) @name.iteration @value.iteration
-  (#document-range! @name.iteration @value.iteration)
+  (chunk) @statementNameValue.iteration @namedFunction.iteration
+  (#document-range! @statementNameValue.iteration @namedFunction.iteration)
 )
 
 ;; Block iteration scopes
 
-(block) @statement.iteration @namedFunction.iteration
-(block) @name.iteration @value.iteration
+(block) @statementNameValue.iteration @namedFunction.iteration
 
 ;; Conditionals
 

@@ -10927,6 +10927,46 @@
     ]
   },
   {
+    "name": "scopes/shellscript/statement/statement.iteration.block2",
+    "languageId": "shellscript",
+    "facet": "statement.iteration.block",
+    "code": "if true; then\n    :\nelif false; then\n    :\nelse\n    :\nfi",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-6:2"
+          }
+        ],
+        "domain": "0:0-6:2"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:13-2:0"
+          }
+        ],
+        "domain": "0:13-2:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:16-4:0"
+          }
+        ],
+        "domain": "2:16-4:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "4:4-6:0"
+          }
+        ],
+        "domain": "4:4-6:0"
+      }
+    ]
+  },
+  {
     "name": "scopes/shellscript/statement/statement.iteration.block3",
     "languageId": "shellscript",
     "facet": "statement.iteration.block",
@@ -10947,6 +10987,30 @@
           }
         ],
         "domain": "0:14-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.iteration.block4",
+    "languageId": "shellscript",
+    "facet": "statement.iteration.block",
+    "code": "case $foo in\n    0) bar=0 ;;\nesac",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:4"
+          }
+        ],
+        "domain": "0:0-2:4"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:6-1:13"
+          }
+        ],
+        "domain": "1:6-1:13"
       }
     ]
   },

@@ -48,13 +48,8 @@
 )
 
 (
-  (program) @statement.iteration @class.iteration
-  (#document-range! @statement.iteration @class.iteration)
-)
-
-(
-  (program) @name.iteration @value.iteration @type.iteration
-  (#document-range! @name.iteration @value.iteration @type.iteration)
+  (program) @statementNameValueType.iteration @class.iteration
+  (#document-range! @statementNameValueType.iteration @class.iteration)
 )
 
 ;;!! { }
@@ -519,16 +514,8 @@
 ;;!   ^
 (
   (_
-    "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
-    "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
-  ) @_dummy
-  (#type? @_dummy statement_block class_body interface_body)
-)
-
-(
-  (_
-    "{" @statement.iteration.start.endOf
-    "}" @statement.iteration.end.startOf
+    "{" @statementNameValueType.iteration.start.endOf
+    "}" @statementNameValueType.iteration.end.startOf
   ) @_dummy
   (#type? @_dummy statement_block class_body interface_body)
 )

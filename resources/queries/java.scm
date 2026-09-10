@@ -90,13 +90,8 @@
 ) @type @_.domain
 
 (
-  (program) @class.iteration @statement.iteration
-  (#document-range! @class.iteration @statement.iteration)
-)
-
-(
-  (program) @name.iteration @value.iteration @type.iteration
-  (#document-range! @name.iteration @value.iteration @type.iteration)
+  (program) @class.iteration @statementNameValueType.iteration
+  (#document-range! @class.iteration @statementNameValueType.iteration)
 )
 
 ;;!! class MyClass { }
@@ -110,16 +105,8 @@
 ;;!   ^
 (
   (_
-    "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
-    "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
-  ) @_dummy
-  (#type? @_dummy block class_body interface_body constructor_body)
-)
-
-(
-  (_
-    "{" @statement.iteration.start.endOf
-    "}" @statement.iteration.end.startOf
+    "{" @statementNameValueType.iteration.start.endOf
+    "}" @statementNameValueType.iteration.end.startOf
   ) @_dummy
   (#type? @_dummy block class_body interface_body constructor_body)
 )
