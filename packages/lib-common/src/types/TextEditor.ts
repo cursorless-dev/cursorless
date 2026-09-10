@@ -52,8 +52,11 @@ export interface TextEditor {
 }
 
 export interface SetSelectionsOpts {
+  /** Whether to focus the editor after setting the selections. Defaults to `false`. */
   focusEditor?: boolean;
+  /** Whether to reveal the range after setting the selections. Defaults to `true`. */
   revealRange?: boolean;
+  /** Whether to highlight the word after setting the selections. Defaults to `false`. */
   highlightWord?: boolean;
 }
 
