@@ -72,7 +72,7 @@
 ;;!! foo=(["aaa"]=0 ["bbb"]=1)
 ;;!      ^^^^^^^^^^^^^^^^^^^^^
 ;;!       ^^^^^^^^^^^^^^^^^^^
-;; Bash represents ["key"]=value as concatenated words and a string.
+;; Bash represents bracketed entries as concatenated key/value fragments.
 ;; Require the brackets and assignment before treating an array as a map.
 (
   (array
@@ -81,7 +81,7 @@
       .
       (word) @_open
       .
-      (string)
+      (_)
       .
       (word) @_close
       .
@@ -102,7 +102,7 @@
     .
     (word) @_open
     .
-    (string) @collectionKey
+    (_) @collectionKey
     .
     (word) @_close
     .
@@ -125,6 +125,8 @@
     .
     value: (_) @value
     .
+    (comment)*
+    .
     body: (do_group)
   )
   (for_statement
@@ -133,6 +135,8 @@
     value: (_) @value.start
     value: (_)*
     value: (_) @value.end
+    .
+    (comment)*
     .
     body: (do_group)
   )
