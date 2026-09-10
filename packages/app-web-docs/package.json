@@ -26,7 +26,7 @@
   "dependencies": {
     "@algolia/client-search": "^5.59.0",
     "@cursorless/lib-common": "workspace:*",
-    "@docsearch/react": "^4.7.0",
+    "@docsearch/react": "^5.1.0",
     "@docusaurus/core": "^3.10.2",
     "@docusaurus/faster": "^3.10.2",
     "@docusaurus/preset-classic": "^3.10.2",
