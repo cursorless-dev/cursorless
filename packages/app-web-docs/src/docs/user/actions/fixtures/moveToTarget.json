@@ -79,7 +79,7 @@
             }
           },
           {
-            "hatStyle": "blue",
+            "hatStyle": "default",
             "grapheme": "b",
             "hatRange": {
               "start": {
@@ -138,7 +138,7 @@
             }
           },
           {
-            "hatStyle": "blue",
+            "hatStyle": "default",
             "grapheme": "b",
             "hatRange": {
               "start": {
