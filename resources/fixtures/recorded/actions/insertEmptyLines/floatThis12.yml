@@ -9,16 +9,13 @@ command:
       mark: {type: cursor}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |2
-        
+  documentContents: "    \n"
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
   marks: {}
 finalState:
-  documentContents: |2+
-        
-
+  documentContents: "    \n\n"
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
