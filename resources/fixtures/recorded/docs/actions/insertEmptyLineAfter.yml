@@ -23,7 +23,7 @@ initialState:
       hatRange:
         start: {line: 0, character: 8}
         end: {line: 0, character: 9}
-    - hatStyle: blue
+    - hatStyle: default
       grapheme: /
       hatRange:
         start: {line: 0, character: 0}
@@ -40,7 +40,7 @@ finalState:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   hatTokenMap:
-    - hatStyle: blue
+    - hatStyle: default
       grapheme: /
       hatRange:
         start: {line: 0, character: 0}

@@ -76,7 +76,7 @@
             }
           },
           {
-            "hatStyle": "blue",
+            "hatStyle": "default",
             "grapheme": "b",
             "hatRange": {
               "start": {
@@ -121,7 +121,7 @@
             }
           },
           {
-            "hatStyle": "blue",
+            "hatStyle": "default",
             "grapheme": "b",
             "hatRange": {
               "start": {
@@ -163,7 +163,7 @@
             }
           },
           {
-            "hatStyle": "default",
+            "hatStyle": "blue",
             "grapheme": "b",
             "hatRange": {
               "start": {
@@ -265,7 +265,7 @@
             }
           },
           {
-            "hatStyle": "blue",
+            "hatStyle": "default",
             "grapheme": "/",
             "hatRange": {
               "start": {
@@ -310,7 +310,7 @@
         ],
         "hatTokenMap": [
           {
-            "hatStyle": "blue",
+            "hatStyle": "default",
             "grapheme": "/",
             "hatRange": {
               "start": {
