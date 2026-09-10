@@ -148,11 +148,16 @@ export async function runRecordedTest({
   commandServerApi.setFocusedElementType(fixture.focusedElementType);
 
   // Ensure that the expected hats are present
-  // Ignore any allocation triggered by editor setup so that initial hats do not
-  // depend on whether VS Code delivered those events before this point.
+  // Restore recorded allocation history rather than inheriting hats assigned
+  // by editor setup events. Recorded hats may intentionally use non-default colors.
   await hatTokenMap.allocateHats(
     serializedMarksToTokenHats(fixture.initialState.marks, editor),
-    { preserveExistingHats: false },
+    {
+      initialHats:
+        fixture.initialState.hatTokenMap == null
+          ? undefined
+          : { editor, hats: fixture.initialState.hatTokenMap },
+    },
   );
 
   await Promise.all(
