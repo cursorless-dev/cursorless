@@ -5,10 +5,8 @@ import type {
   IDE,
   TokenHat,
 } from "@cursorless/lib-common";
-import { plainObjectToRange } from "@cursorless/lib-common";
 import type { TokenGraphemeSplitter } from "../tokenGraphemeSplitter";
 import { allocateHats } from "../util/allocateHats";
-import { getTokensInRange } from "../util/allocateHats/getTokensInRange";
 import { DecorationDebouncer } from "../util/DecorationDebouncer";
 import type { IndividualHatMap } from "./IndividualHatMap";
 
@@ -62,17 +60,13 @@ export class HatAllocator {
    *
    * @param forceTokenHats If supplied, force the allocator to use these hats
    * for the given tokens. This is used for the tutorial, and for testing.
-   * @param options Optionally supplies recorded assignments as allocation history.
+   * @param options Controls whether to preserve previous hat assignments.
    */
   async allocateHats(
     forceTokenHats?: TokenHat[],
-    { initialHats }: HatAllocationOptions = {},
+    { preserveExistingHats = true }: HatAllocationOptions = {},
   ) {
     const activeMap = await this.context.getActiveMap();
-    const oldTokenHats =
-      initialHats == null
-        ? activeMap.getStaleTokenHats()
-        : this.restoreTokenHats(initialHats);
 
     // Forced graphemes won't have been normalized
     const normalizedForceTokenHats = forceTokenHats?.map((tokenHat) => ({
@@ -86,7 +80,9 @@ export class HatAllocator {
           tokenGraphemeSplitter: this.tokenGraphemeSplitter,
           enabledHatStyles: this.hats.enabledHatStyles,
           forceTokenHats: normalizedForceTokenHats,
-          oldTokenHats,
+          oldTokenHats: preserveExistingHats
+            ? activeMap.getStaleTokenHats()
+            : [],
           hatStability: this.ide.configuration.getOwnConfiguration(
             "experimental.hatStability",
           ),
@@ -104,23 +100,6 @@ export class HatAllocator {
         styleName: hatStyle,
       })),
     );
-  }
-
-  private restoreTokenHats({
-    editor,
-    hats,
-  }: NonNullable<HatAllocationOptions["initialHats"]>): TokenHat[] {
-    const tokens = getTokensInRange(this.ide, editor, editor.document.range);
-    return hats.map((hat) => {
-      const hatRange = plainObjectToRange(hat.hatRange);
-      const token = tokens.find((token) => token.range.contains(hatRange));
-      if (token == null) {
-        throw new Error(
-          `No token contains recorded hat at ${hatRange.concise()}`,
-        );
-      }
-      return { ...hat, hatRange, token };
-    });
   }
 
   dispose() {

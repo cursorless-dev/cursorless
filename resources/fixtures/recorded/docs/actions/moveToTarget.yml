@@ -29,7 +29,7 @@ initialState:
       hatRange:
         start: {line: 0, character: 0}
         end: {line: 0, character: 1}
-    - hatStyle: blue
+    - hatStyle: default
       grapheme: b
       hatRange:
         start: {line: 0, character: 4}
@@ -50,7 +50,7 @@ finalState:
       hatRange:
         start: {line: 0, character: 1}
         end: {line: 0, character: 2}
-    - hatStyle: blue
+    - hatStyle: default
       grapheme: b
       hatRange:
         start: {line: 0, character: 7}
