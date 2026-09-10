@@ -587,6 +587,17 @@ When an opening and closing delimiter use the same character and no parse-tree i
       },
     ],
   },
+  interior: {
+    name: "Interior",
+    group: { id: "collections", index: 5 },
+    defaultSpokenForm: "interior",
+    // This is a psudo-scope and is intended only for documentation purposes.
+    // The actual spoken form is for the interiorOnly modifier.
+    visibility: "privateSpokenForm",
+    isLanguageSpecific: true,
+    syntaxes: [],
+    examples: [],
+  },
 
   // Group: functions
   argumentOrParameter: {
@@ -1410,26 +1421,6 @@ For a range target, the entire range becomes the search text. Without an explici
       {
         command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
         description: `Selects the pair delimiter containing the ${TARGET_DESC}.`,
-      },
-    ],
-  },
-  interior: {
-    name: "Interior",
-    group: { id: "private", index: 5 },
-    defaultSpokenForm: "interior",
-    visibility: "private",
-    isLanguageSpecific: true,
-    syntaxes: [
-      {
-        pattern: DEFAULT_PATTERN,
-        description: "Interior.",
-        cheatsheet: "Interior",
-      },
-    ],
-    examples: [
-      {
-        command: `${SET_SELECTION} ${VAR_SPOKEN_FORM} ${TARGET}`,
-        description: `Selects the interior containing the ${TARGET_DESC}.`,
       },
     ],
   },

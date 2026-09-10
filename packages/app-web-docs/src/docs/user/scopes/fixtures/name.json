@@ -11958,6 +11958,240 @@
     ]
   },
   {
+    "name": "scopes/shellscript/name/name.assignment.compound",
+    "languageId": "shellscript",
+    "facet": "name.assignment.compound",
+    "code": "foo+=0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/name/name.assignment",
+    "languageId": "shellscript",
+    "facet": "name.assignment",
+    "code": "foo=0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:4"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/name/name.constant",
+    "languageId": "shellscript",
+    "facet": "name.constant",
+    "code": "readonly foo=0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:12",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/name/name.foreach",
+    "languageId": "shellscript",
+    "facet": "name.foreach",
+    "code": "for v in values; do :; done",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:5",
+            "removal": "0:4-0:6"
+          }
+        ],
+        "domain": "0:0-0:27"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/name/name.function",
+    "languageId": "shellscript",
+    "facet": "name.function",
+    "code": "foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/name/name.function2",
+    "languageId": "shellscript",
+    "facet": "name.function",
+    "code": "function foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:12",
+            "removal": "0:9-0:13"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/name/name.iteration.block",
+    "languageId": "shellscript",
+    "facet": "name.iteration.block",
+    "code": "foo() { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:9"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:7-0:8"
+          }
+        ],
+        "domain": "0:7-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/name/name.iteration.block3",
+    "languageId": "shellscript",
+    "facet": "name.iteration.block",
+    "code": "while true; do :; done",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:22"
+          }
+        ],
+        "domain": "0:0-0:22"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:14-0:18"
+          }
+        ],
+        "domain": "0:14-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/name/name.iteration.document",
+    "languageId": "shellscript",
+    "facet": "name.iteration.document",
+    "code": "\ndeclare foo\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/name/name.variable.initialized",
+    "languageId": "shellscript",
+    "facet": "name.variable.initialized",
+    "code": "local foo=0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:9",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/name/name.variable.initialized2",
+    "languageId": "shellscript",
+    "facet": "name.variable.initialized",
+    "code": "declare foo=0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-0:11",
+            "removal": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/name/name.variable.uninitialized",
+    "languageId": "shellscript",
+    "facet": "name.variable.uninitialized",
+    "code": "declare foo",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-0:11",
+            "removal": "0:7-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/name/name.variable.uninitialized2",
+    "languageId": "shellscript",
+    "facet": "name.variable.uninitialized",
+    "code": "local foo",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:9",
+            "removal": "0:5-0:9"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/name/name.assignment",
     "languageId": "talon",
     "facet": "name.assignment",

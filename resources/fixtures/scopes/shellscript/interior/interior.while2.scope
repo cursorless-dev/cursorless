@@ -1,0 +1,13 @@
+until foo; do :; done
+---
+
+[Content] = 0:14-0:16
+                >--<
+0| until foo; do :; done
+
+[Removal] =
+[Domain] = 0:13-0:17
+               >----<
+0| until foo; do :; done
+
+[Insertion delimiter] = " "

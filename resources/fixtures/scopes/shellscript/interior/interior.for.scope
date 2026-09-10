@@ -1,0 +1,13 @@
+for ((foo = 0; foo < 2; foo++)); do :; done
+---
+
+[Content] = 0:36-0:38
+                                      >--<
+0| for ((foo = 0; foo < 2; foo++)); do :; done
+
+[Removal] =
+[Domain] = 0:35-0:39
+                                     >----<
+0| for ((foo = 0; foo < 2; foo++)); do :; done
+
+[Insertion delimiter] = " "

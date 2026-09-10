@@ -15,13 +15,13 @@ Below are visualizations of all our scope tests for this language. These were cr
 
 #### 1. Argument: Actual multi line
 
-<i>A multiline argument in a function call. Insertion delimiter should include new line.</i>
+<i>A multi-line argument in a function call. Insertion delimiter should include a newline.</i>
 
 <ScopeVisualizer fixtureName="scopes/latex/argument.actual.multiLine" languageId="latex" />
 
 #### 2. Argument: Actual single line
 
-<i>A single line argument in a function call</i>
+<i>A single-line argument in a function call</i>
 
 <ScopeVisualizer fixtureName="scopes/latex/argument.actual.singleLine" languageId="latex" />
 
@@ -43,7 +43,7 @@ Below are visualizations of all our scope tests for this language. These were cr
 
 #### 1. Collection item: Unenclosed multi line
 
-<i>An item in a comma-separated multi line list without enclosing delimiters. This could be multi-variable declarations, import statements, etc. Insertion delimiter should include new line.</i>
+<i>An item in a comma-separated multi-line list without enclosing delimiters. This could be multi-variable declarations, import statements, etc. Insertion delimiter should include a newline.</i>
 
 <ScopeVisualizer fixtureName="scopes/latex/collectionItem.unenclosed.multiLine" languageId="latex" />
 
@@ -90,6 +90,14 @@ Below are visualizations of all our scope tests for this language. These were cr
 <i>The function being called in a function call</i>
 
 <ScopeVisualizer fixtureName="scopes/latex/functionCallee" languageId="latex" />
+
+### Interior
+
+#### 1. Interior: Element
+
+<i>The interior/children of an XML/HTML element</i>
+
+<ScopeVisualizer fixtureName="scopes/latex/interior.element" languageId="latex" />
 
 ### List
 
@@ -165,7 +173,7 @@ Below are visualizations of all our scope tests for this language. These were cr
 
 #### 1. Tags
 
-<i>Both tags in a xml element</i>
+<i>Both tags in an XML/HTML element</i>
 
 <ScopeVisualizer fixtureName="scopes/latex/tags" languageId="latex" />
 
@@ -173,7 +181,7 @@ Below are visualizations of all our scope tests for this language. These were cr
 
 #### 1. Element
 
-<i>A xml/html element. Also used for LaTeX environments</i>
+<i>An XML/HTML element. Also used for LaTeX environments</i>
 
 <ScopeVisualizer fixtureName="scopes/latex/element" languageId="latex" />
 
@@ -181,7 +189,7 @@ Below are visualizations of all our scope tests for this language. These were cr
 
 #### 1. End tag
 
-<i>The end tag of a xml element</i>
+<i>The end tag of an XML/HTML element</i>
 
 <ScopeVisualizer fixtureName="scopes/latex/endTag" languageId="latex" />
 
@@ -189,7 +197,7 @@ Below are visualizations of all our scope tests for this language. These were cr
 
 #### 1. Start tag
 
-<i>The start tag of a xml element</i>
+<i>The start tag of an XML/HTML element</i>
 
 <ScopeVisualizer fixtureName="scopes/latex/startTag" languageId="latex" />
 
@@ -204,14 +212,6 @@ The following are internal scopes. They are not intended for user interaction or
 <i>Internally used to disqualify a token from being treated as a surrounding pair delimiter. This will usually be operators containing `>` or `<`, eg `<`, `<=`, `->`, etc.</i>
 
 <ScopeVisualizer fixtureName="scopes/latex/disqualifyDelimiter" languageId="latex" />
-
-### Interior
-
-#### 1. Interior: Element
-
-<i>The interior/children of a XML element</i>
-
-<ScopeVisualizer fixtureName="scopes/latex/interior.element" languageId="latex" />
 
 ### Text fragment
 
@@ -229,7 +229,7 @@ The following are internal scopes. They are not intended for user interaction or
 
 #### 3. Text fragment: Element
 
-<i>Internally used text fragment consisting of a xml element interior</i>
+<i>Internally used text fragment consisting of an XML/HTML element interior</i>
 
 <ScopeVisualizer fixtureName="scopes/latex/textFragment.element" languageId="latex" />
 

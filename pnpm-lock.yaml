@@ -685,7 +685,7 @@ importers:
         specifier: ^4.23.12
         version: 4.23.12
 
-  packages/test-talon-e2e:
+  packages/test-talonjs-e2e:
     dependencies:
       '@cursorless/lib-common':
         specifier: workspace:*

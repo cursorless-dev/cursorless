@@ -1,0 +1,21 @@
+case $foo in
+    0) : ;;
+esac
+---
+
+[Content] =
+[Domain] = 1:4-1:11
+      >-------<
+1|     0) : ;;
+
+[Removal] = 1:0-2:0
+  >-----------
+1|     0) : ;;
+2| esac
+   <
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     0) : ;;
+
+[Insertion delimiter] = "\n"

@@ -15,7 +15,7 @@ Below are visualizations of all our scope tests for this language. These were cr
 
 #### 1. Attribute
 
-<i>A attribute, eg of a html element or a C++ attribute</i>
+<i>An attribute, eg of an HTML element or a C++ attribute</i>
 
 <ScopeVisualizer fixtureName="scopes/xml/attribute" languageId="xml" />
 
@@ -23,7 +23,7 @@ Below are visualizations of all our scope tests for this language. These were cr
 
 #### 1. Key: Attribute
 
-<i>Key (LHS) of an attribute eg in a xml element</i>
+<i>Key (LHS) of an attribute, eg in an XML/HTML element</i>
 
 <ScopeVisualizer fixtureName="scopes/xml/key.attribute" languageId="xml" />
 
@@ -35,11 +35,19 @@ Below are visualizations of all our scope tests for this language. These were cr
 
 <ScopeVisualizer fixtureName="scopes/xml/comment.block" languageId="xml" />
 
+### Interior
+
+#### 1. Interior: Element
+
+<i>The interior/children of an XML/HTML element</i>
+
+<ScopeVisualizer fixtureName="scopes/xml/interior.element" languageId="xml" />
+
 ### Value
 
 #### 1. Value: Attribute
 
-<i>Value (RHS) of an attribute eg in a xml element</i>
+<i>Value (RHS) of an attribute, eg in an XML/HTML element</i>
 
 <ScopeVisualizer fixtureName="scopes/xml/value.attribute" languageId="xml" />
 
@@ -47,7 +55,7 @@ Below are visualizations of all our scope tests for this language. These were cr
 
 #### 1. Tags
 
-<i>Both tags in a xml element</i>
+<i>Both tags in an XML/HTML element</i>
 
 <ScopeVisualizer fixtureName="scopes/xml/tags" languageId="xml" />
 
@@ -55,7 +63,7 @@ Below are visualizations of all our scope tests for this language. These were cr
 
 #### 1. Element
 
-<i>A xml/html element. Also used for LaTeX environments</i>
+<i>An XML/HTML element. Also used for LaTeX environments</i>
 
 <ScopeVisualizer fixtureName="scopes/xml/element" languageId="xml" />
 
@@ -63,7 +71,7 @@ Below are visualizations of all our scope tests for this language. These were cr
 
 #### 1. End tag
 
-<i>The end tag of a xml element</i>
+<i>The end tag of an XML/HTML element</i>
 
 <ScopeVisualizer fixtureName="scopes/xml/endTag" languageId="xml" />
 
@@ -71,21 +79,13 @@ Below are visualizations of all our scope tests for this language. These were cr
 
 #### 1. Start tag
 
-<i>The start tag of a xml element</i>
+<i>The start tag of an XML/HTML element</i>
 
 <ScopeVisualizer fixtureName="scopes/xml/startTag" languageId="xml" />
 
 ## Internal scopes
 
 The following are internal scopes. They are not intended for user interaction or spoken use. These scopes exist solely for internal Cursorless functionality.
-
-### Interior
-
-#### 1. Interior: Element
-
-<i>The interior/children of a XML element</i>
-
-<ScopeVisualizer fixtureName="scopes/xml/interior.element" languageId="xml" />
 
 ### String
 
@@ -105,7 +105,7 @@ The following are internal scopes. They are not intended for user interaction or
 
 #### 2. Text fragment: Element
 
-<i>Internally used text fragment consisting of a xml element interior</i>
+<i>Internally used text fragment consisting of an XML/HTML element interior</i>
 
 <ScopeVisualizer fixtureName="scopes/xml/textFragment.element" languageId="xml" />
 

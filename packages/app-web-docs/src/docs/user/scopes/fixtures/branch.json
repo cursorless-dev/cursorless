@@ -3173,5 +3173,191 @@
         "domain": "0:0-0:11"
       }
     ]
+  },
+  {
+    "name": "scopes/shellscript/branch/branch.if.elif.else",
+    "languageId": "shellscript",
+    "facet": "branch.if.elif.else",
+    "code": "if true; then\n    :\nelif false; then\n    :\nelse\n    :\nfi",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:5",
+            "removal": "0:0-2:2"
+          }
+        ],
+        "domain": "0:0-1:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:0-3:5",
+            "removal": "2:0-4:0"
+          }
+        ],
+        "domain": "2:0-3:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "4:0-5:5",
+            "removal": "4:0-6:0"
+          }
+        ],
+        "domain": "4:0-5:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/branch/branch.if.else",
+    "languageId": "shellscript",
+    "facet": "branch.if.else",
+    "code": "if true; then\n    :\nelse\n    :\nfi",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:5",
+            "removal": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-1:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:0-3:5",
+            "removal": "2:0-4:0"
+          }
+        ],
+        "domain": "2:0-3:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/branch/branch.if.iteration",
+    "languageId": "shellscript",
+    "facet": "branch.if.iteration",
+    "code": "if true; then\nelif false; then\nelse\nfi",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:2"
+          }
+        ],
+        "domain": "0:0-3:2"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/branch/branch.if",
+    "languageId": "shellscript",
+    "facet": "branch.if",
+    "code": "if true; then :; fi",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:19",
+            "removal": "0:0-0:19"
+          }
+        ],
+        "domain": "0:0-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/branch/branch.switchCase.iteration",
+    "languageId": "shellscript",
+    "facet": "branch.switchCase.iteration",
+    "code": "case $foo in esac",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13"
+          }
+        ],
+        "domain": "0:12-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/branch/branch.switchCase",
+    "languageId": "shellscript",
+    "facet": "branch.switchCase",
+    "code": "case $foo in\n    0) : ;;\nesac",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:11",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/branch/branch.switchCase2",
+    "languageId": "shellscript",
+    "facet": "branch.switchCase",
+    "code": "case $foo in\n    *) : ;;\nesac",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:11",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/branch/branch.ternary.iteration",
+    "languageId": "shellscript",
+    "facet": "branch.ternary.iteration",
+    "code": "((true ? 0 : 1))",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:14"
+          }
+        ],
+        "domain": "0:2-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/branch/branch.ternary",
+    "languageId": "shellscript",
+    "facet": "branch.ternary",
+    "code": "((true ? 0 : 1))",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:10",
+            "removal": "0:9-0:11"
+          }
+        ],
+        "domain": "0:9-0:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:13-0:14",
+            "removal": "0:12-0:14"
+          }
+        ],
+        "domain": "0:13-0:14"
+      }
+    ]
   }
 ]

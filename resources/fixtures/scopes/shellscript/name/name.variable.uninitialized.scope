@@ -1,0 +1,20 @@
+declare foo
+---
+
+[Content] = 0:8-0:11
+          >---<
+0| declare foo
+
+[Removal] = 0:7-0:11
+         >----<
+0| declare foo
+
+[Leading delimiter] = 0:7-0:8
+         >-<
+0| declare foo
+
+[Domain] = 0:0-0:11
+  >-----------<
+0| declare foo
+
+[Insertion delimiter] = " "

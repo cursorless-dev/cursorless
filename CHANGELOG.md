@@ -2,6 +2,7 @@
 
 ## 2026
 
+- 2026-09-09: Added support for Shell script language. ([#2058](https://github.com/cursorless-dev/cursorless/pull/2058))
 - 2026-09-02: Added documentation for learning resources. ([#3334](https://github.com/cursorless-dev/cursorless/pull/3334))
 - 2026-09-02: Added reference documentation for community draft editor. ([#3333](https://github.com/cursorless-dev/cursorless/pull/3333))
 - 2026-09-02: Added reference documentation for community alphabet and symbols. ([#3332](https://github.com/cursorless-dev/cursorless/pull/3332))

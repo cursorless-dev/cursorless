@@ -315,6 +315,23 @@
     ]
   },
   {
+    "name": "scopes/shellscript/map",
+    "languageId": "shellscript",
+    "facet": "map",
+    "code": "foo=([\"aaa\"]=0 [\"bbb\"]=1)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:25",
+            "removal": "0:4-0:25"
+          }
+        ],
+        "domain": "0:4-0:25"
+      }
+    ]
+  },
+  {
     "name": "scopes/yaml/map",
     "languageId": "yaml",
     "facet": "map",

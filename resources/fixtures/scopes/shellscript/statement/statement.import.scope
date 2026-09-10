@@ -1,0 +1,10 @@
+source foo.sh
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:13
+  >-------------<
+0| source foo.sh
+
+[Insertion delimiter] = "\n"

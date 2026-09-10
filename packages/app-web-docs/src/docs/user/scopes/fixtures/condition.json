@@ -1718,6 +1718,133 @@
     ]
   },
   {
+    "name": "scopes/shellscript/condition/condition.for",
+    "languageId": "shellscript",
+    "facet": "condition.for",
+    "code": "for ((i = 0; i < 2; i++)); do :; done",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:13-0:18",
+            "removal": "0:12-0:18"
+          }
+        ],
+        "domain": "0:0-0:37"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/condition/condition.if",
+    "languageId": "shellscript",
+    "facet": "condition.if",
+    "code": "if true; then\nelif false; then\nelse\nfi",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:3-0:7",
+            "removal": "0:2-0:7"
+          }
+        ],
+        "domain": "0:0-3:2"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:5-1:10",
+            "removal": "1:4-1:10"
+          }
+        ],
+        "domain": "1:0-1:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/condition/condition.switchCase.iteration",
+    "languageId": "shellscript",
+    "facet": "condition.switchCase.iteration",
+    "code": "case $foo in esac",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13"
+          }
+        ],
+        "domain": "0:12-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/condition/condition.switchCase",
+    "languageId": "shellscript",
+    "facet": "condition.switchCase",
+    "code": "case $foo in\n  0) : ;;\nesac",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-1:3",
+            "removal": "1:0-1:3"
+          }
+        ],
+        "domain": "1:2-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/condition/condition.ternary",
+    "languageId": "shellscript",
+    "facet": "condition.ternary",
+    "code": "((true ? 0 : 1))",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:6",
+            "removal": "0:2-0:7"
+          }
+        ],
+        "domain": "0:2-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/condition/condition.while",
+    "languageId": "shellscript",
+    "facet": "condition.while",
+    "code": "while true; do :; done",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:10",
+            "removal": "0:5-0:10"
+          }
+        ],
+        "domain": "0:0-0:22"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/condition/condition.while2",
+    "languageId": "shellscript",
+    "facet": "condition.while",
+    "code": "until true; do :; done",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:10",
+            "removal": "0:5-0:10"
+          }
+        ],
+        "domain": "0:0-0:22"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/condition.if",
     "languageId": "talon",
     "facet": "condition.if",
