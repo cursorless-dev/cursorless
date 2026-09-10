@@ -145,7 +145,10 @@
 (heredoc_content) @textFragment
 
 ;;!! /foo/
-(regex) @regularExpression
+(
+  (regex) @regularExpression @textFragment
+  (#child-range! @textFragment 0 -1 true true)
+)
 
 ;;!! foo()
 ;;!  ^^^^^

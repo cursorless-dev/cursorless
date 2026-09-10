@@ -1850,6 +1850,23 @@
     ]
   },
   {
+    "name": "scopes/shellscript/textFragment.regularExpression",
+    "languageId": "shellscript",
+    "facet": "textFragment.regularExpression",
+    "code": "[[ $foo =~ ^\\w+$ ]]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:11-0:16",
+            "removal": "0:11-0:17"
+          }
+        ],
+        "domain": "0:11-0:16"
+      }
+    ]
+  },
+  {
     "name": "scopes/shellscript/textFragment.string.multiLine",
     "languageId": "shellscript",
     "facet": "textFragment.string.multiLine",

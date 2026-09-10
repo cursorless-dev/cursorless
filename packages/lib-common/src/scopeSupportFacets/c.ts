@@ -268,6 +268,10 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   subParagraph: notApplicable,
   part: notApplicable,
 
+  // Regular expression literal
+  regularExpression: notApplicable,
+  "textFragment.regularExpression": notApplicable,
+
   // Miscellaneous
   "key.attribute": notApplicable,
   "value.attribute": notApplicable,
@@ -277,7 +281,6 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.misc": notApplicable,
   environment: notApplicable,
   pairDelimiter: notApplicable,
-  regularExpression: notApplicable,
   selector: notApplicable,
   unit: notApplicable,
 };

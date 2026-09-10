@@ -3294,7 +3294,7 @@
     ]
   },
   {
-    "name": "scopes/ruby/textFragment.comment.block",
+    "name": "scopes/ruby/textFragment/textFragment.comment.block",
     "languageId": "ruby",
     "facet": "textFragment.comment.block",
     "code": "=begin\nHello world\n=end",
@@ -3311,7 +3311,7 @@
     ]
   },
   {
-    "name": "scopes/ruby/textFragment.comment.line",
+    "name": "scopes/ruby/textFragment/textFragment.comment.line",
     "languageId": "ruby",
     "facet": "textFragment.comment.line",
     "code": "# Hello world",
@@ -3328,7 +3328,24 @@
     ]
   },
   {
-    "name": "scopes/ruby/textFragment.string.multiLine",
+    "name": "scopes/ruby/textFragment/textFragment.regularExpression",
+    "languageId": "ruby",
+    "facet": "textFragment.regularExpression",
+    "code": "/^\\w+$/g",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:6",
+            "removal": "0:1-0:6"
+          }
+        ],
+        "domain": "0:1-0:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/ruby/textFragment/textFragment.string.multiLine",
     "languageId": "ruby",
     "facet": "textFragment.string.multiLine",
     "code": "\"Hello\nworld\"",
@@ -3345,7 +3362,7 @@
     ]
   },
   {
-    "name": "scopes/ruby/textFragment.string.singleLine",
+    "name": "scopes/ruby/textFragment/textFragment.string.singleLine",
     "languageId": "ruby",
     "facet": "textFragment.string.singleLine",
     "code": "\"Hello world\"",

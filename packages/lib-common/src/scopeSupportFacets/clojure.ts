@@ -12,6 +12,7 @@ export const clojureScopeSupport: LanguageScopeSupportFacetMap = {
   "comment.line": supported,
   "name.function": supported,
   anonymousFunction: supported,
+  regularExpression: supported,
 
   namedFunction: supported,
   "namedFunction.iteration.document": supported,
@@ -33,6 +34,7 @@ export const clojureScopeSupport: LanguageScopeSupportFacetMap = {
   "textFragment.comment.line": supported,
   "textFragment.string.singleLine": supported,
   "textFragment.string.multiLine": supported,
+  "textFragment.regularExpression": supported,
 
   /* NOT APPLICABLE */
 
@@ -371,7 +373,6 @@ export const clojureScopeSupport: LanguageScopeSupportFacetMap = {
   "name.iteration.block": notApplicable,
   "name.iteration.document": notApplicable,
   pairDelimiter: notApplicable,
-  regularExpression: notApplicable,
   "type.argument.formal": notApplicable,
   "type.argument.formal.iteration": notApplicable,
   "type.argument.formal.lambda": notApplicable,

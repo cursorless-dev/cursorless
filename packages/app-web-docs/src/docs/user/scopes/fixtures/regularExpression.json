@@ -1,5 +1,22 @@
 [
   {
+    "name": "scopes/clojure/regularExpression",
+    "languageId": "clojure",
+    "facet": "regularExpression",
+    "code": "#\"^\\w+$\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:8",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:8"
+      }
+    ]
+  },
+  {
     "name": "scopes/javascript.core/regularExpression",
     "languageId": "javascript.core",
     "facet": "regularExpression",

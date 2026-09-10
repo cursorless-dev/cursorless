@@ -1,0 +1,21 @@
+[[ $foo =~ ^\w+$ ]]
+---
+
+[Content] =
+[Domain] = 0:11-0:16
+             >-----<
+0| [[ $foo =~ ^\w+$ ]]
+
+[Removal] = 0:11-0:17
+             >------<
+0| [[ $foo =~ ^\w+$ ]]
+
+[Leading delimiter] = 0:10-0:11
+            >-<
+0| [[ $foo =~ ^\w+$ ]]
+
+[Trailing delimiter] = 0:16-0:17
+                  >-<
+0| [[ $foo =~ ^\w+$ ]]
+
+[Insertion delimiter] = " "
