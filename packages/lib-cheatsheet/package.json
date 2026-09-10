@@ -21,10 +21,10 @@
     "react-bootstrap-icons": "^1.11.6"
   },
   "devDependencies": {
-    "@jest/globals": "^30.4.1",
-    "@types/node": "^24.13.3",
-    "jest": "^30.4.2",
-    "jest-environment-jsdom": "^30.4.1",
+    "@jest/globals": "^30.5.1",
+    "@types/node": "^24.13.4",
+    "jest": "^30.5.1",
+    "jest-environment-jsdom": "^30.5.1",
     "ts-jest": "^29.4.12",
     "typescript": "^6.0.3"
   }

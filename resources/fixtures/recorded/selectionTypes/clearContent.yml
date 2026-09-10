@@ -26,10 +26,7 @@ initialState:
       active: {line: 3, character: 1}
   marks: {}
 finalState:
-  documentContents: |2
-
-
-     
+  documentContents: "\n\n \n"
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

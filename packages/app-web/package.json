@@ -17,10 +17,10 @@
     "bootstrap": "^5.3.8",
     "preact": "^10.29.8",
     "react-player": "^3.4.0",
-    "wouter-preact": "^3.10.0"
+    "wouter-preact": "^3.11.0"
   },
   "devDependencies": {
-    "@types/node": "^24.13.3",
+    "@types/node": "^24.13.4",
     "typescript": "^6.0.3",
     "vite": "^8.2.2",
     "vite-plugin-purgecss": "^0.2.13",
