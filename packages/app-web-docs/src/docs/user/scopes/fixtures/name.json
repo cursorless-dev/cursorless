@@ -12172,6 +12172,46 @@
     ]
   },
   {
+    "name": "scopes/shellscript/name/name.iteration.block5",
+    "languageId": "shellscript",
+    "facet": "name.iteration.block",
+    "code": "case $foo in\n  0) : ;&\n  1) : ;;&\n  *) : ;;\nesac",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-4:4"
+          }
+        ],
+        "domain": "0:0-4:4"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7"
+          }
+        ],
+        "domain": "1:4-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:7"
+          }
+        ],
+        "domain": "2:4-2:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:4-3:7"
+          }
+        ],
+        "domain": "3:4-3:7"
+      }
+    ]
+  },
+  {
     "name": "scopes/shellscript/name/name.iteration.document",
     "languageId": "shellscript",
     "facet": "name.iteration.document",

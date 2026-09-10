@@ -4937,6 +4937,23 @@
     ]
   },
   {
+    "name": "scopes/shellscript/interior/interior.function3",
+    "languageId": "shellscript",
+    "facet": "interior.function",
+    "code": "foo() ( : )",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-0:9",
+            "removal": "0:7-0:10"
+          }
+        ],
+        "domain": "0:7-0:10"
+      }
+    ]
+  },
+  {
     "name": "scopes/shellscript/interior/interior.if",
     "languageId": "shellscript",
     "facet": "interior.if",
@@ -5011,6 +5028,50 @@
           }
         ],
         "domain": "1:4-1:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/interior/interior.switchCase2",
+    "languageId": "shellscript",
+    "facet": "interior.switchCase",
+    "code": "case $foo in\n  0) : ;&\n  1) : ;;&\n  *) : ;;\nesac",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-3:9",
+            "removal": "0:12-4:0"
+          }
+        ],
+        "domain": "0:12-4:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:5-1:6",
+            "removal": "1:4-1:7"
+          }
+        ],
+        "domain": "1:4-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:5-2:6",
+            "removal": "2:4-2:7"
+          }
+        ],
+        "domain": "2:4-2:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:5-3:6",
+            "removal": "3:4-3:7"
+          }
+        ],
+        "domain": "3:4-3:7"
       }
     ]
   },

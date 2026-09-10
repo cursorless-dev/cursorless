@@ -332,6 +332,40 @@
     ]
   },
   {
+    "name": "scopes/shellscript/map2",
+    "languageId": "shellscript",
+    "facet": "map",
+    "code": "foo=(\"aaa\"$bar bbb)\nbar=([\"aaa\"] bbb)\nbaz=(\"[aaa]=0\" bbb)\nbongo=([\"aaa\"]=0)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "3:6-3:17",
+            "removal": "3:6-3:17"
+          }
+        ],
+        "domain": "3:6-3:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/map3",
+    "languageId": "shellscript",
+    "facet": "map",
+    "code": "foo=([\"aaa\"]=\"bbb\"$bar)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:23",
+            "removal": "0:4-0:23"
+          }
+        ],
+        "domain": "0:4-0:23"
+      }
+    ]
+  },
+  {
     "name": "scopes/yaml/map",
     "languageId": "yaml",
     "facet": "map",

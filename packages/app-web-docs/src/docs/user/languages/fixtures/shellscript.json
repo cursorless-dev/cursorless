@@ -263,6 +263,41 @@
     ]
   },
   {
+    "name": "scopes/shellscript/branch/branch.switchCase3",
+    "languageId": "shellscript",
+    "facet": "branch.switchCase",
+    "code": "case $foo in\n  0) : ;&\n  1) : ;;&\n  *) : ;;\nesac",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-1:9",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:2-1:9"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-2:10",
+            "removal": "2:0-3:0"
+          }
+        ],
+        "domain": "2:2-2:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:2-3:9",
+            "removal": "3:0-4:0"
+          }
+        ],
+        "domain": "3:2-3:9"
+      }
+    ]
+  },
+  {
     "name": "scopes/shellscript/branch/branch.ternary.iteration",
     "languageId": "shellscript",
     "facet": "branch.ternary.iteration",
@@ -394,6 +429,58 @@
           }
         ],
         "domain": "1:2-1:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/condition/condition.switchCase2",
+    "languageId": "shellscript",
+    "facet": "condition.switchCase",
+    "code": "case $foo in\n  0|1|2) : ;;\nesac",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-1:7",
+            "removal": "1:0-1:7"
+          }
+        ],
+        "domain": "1:2-1:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/condition/condition.switchCase3",
+    "languageId": "shellscript",
+    "facet": "condition.switchCase",
+    "code": "case $foo in\n  0) : ;&\n  1) : ;;&\n  *) : ;;\nesac",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-1:3",
+            "removal": "1:0-1:3"
+          }
+        ],
+        "domain": "1:2-1:9"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-2:3",
+            "removal": "2:0-2:3"
+          }
+        ],
+        "domain": "2:2-2:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:2-3:3",
+            "removal": "3:0-3:3"
+          }
+        ],
+        "domain": "3:2-3:9"
       }
     ]
   },
@@ -602,6 +689,23 @@
     ]
   },
   {
+    "name": "scopes/shellscript/interior/interior.function3",
+    "languageId": "shellscript",
+    "facet": "interior.function",
+    "code": "foo() ( : )",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-0:9",
+            "removal": "0:7-0:10"
+          }
+        ],
+        "domain": "0:7-0:10"
+      }
+    ]
+  },
+  {
     "name": "scopes/shellscript/interior/interior.if",
     "languageId": "shellscript",
     "facet": "interior.if",
@@ -680,6 +784,50 @@
     ]
   },
   {
+    "name": "scopes/shellscript/interior/interior.switchCase2",
+    "languageId": "shellscript",
+    "facet": "interior.switchCase",
+    "code": "case $foo in\n  0) : ;&\n  1) : ;;&\n  *) : ;;\nesac",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-3:9",
+            "removal": "0:12-4:0"
+          }
+        ],
+        "domain": "0:12-4:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:5-1:6",
+            "removal": "1:4-1:7"
+          }
+        ],
+        "domain": "1:4-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:5-2:6",
+            "removal": "2:4-2:7"
+          }
+        ],
+        "domain": "2:4-2:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:5-3:6",
+            "removal": "3:4-3:7"
+          }
+        ],
+        "domain": "3:4-3:7"
+      }
+    ]
+  },
+  {
     "name": "scopes/shellscript/interior/interior.while",
     "languageId": "shellscript",
     "facet": "interior.while",
@@ -730,6 +878,22 @@
     ]
   },
   {
+    "name": "scopes/shellscript/key.mapPair.iteration2",
+    "languageId": "shellscript",
+    "facet": "key.mapPair.iteration",
+    "code": "foo=(\"aaa\"$bar bbb)\nbar=([\"aaa\"] bbb)\nbaz=(\"[aaa]=0\" bbb)\nbongo=([\"aaa\"]=0)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "3:7-3:16"
+          }
+        ],
+        "domain": "3:7-3:16"
+      }
+    ]
+  },
+  {
     "name": "scopes/shellscript/key.mapPair",
     "languageId": "shellscript",
     "facet": "key.mapPair",
@@ -756,6 +920,40 @@
     ]
   },
   {
+    "name": "scopes/shellscript/key.mapPair2",
+    "languageId": "shellscript",
+    "facet": "key.mapPair",
+    "code": "foo=(\"aaa\"$bar bbb)\nbar=([\"aaa\"] bbb)\nbaz=(\"[aaa]=0\" bbb)\nbongo=([\"aaa\"]=0)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "3:8-3:13",
+            "removal": "3:8-3:13"
+          }
+        ],
+        "domain": "3:7-3:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/key.mapPair3",
+    "languageId": "shellscript",
+    "facet": "key.mapPair",
+    "code": "foo=([\"aaa\"]=\"bbb\"$bar)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:11",
+            "removal": "0:6-0:11"
+          }
+        ],
+        "domain": "0:5-0:22"
+      }
+    ]
+  },
+  {
     "name": "scopes/shellscript/list",
     "languageId": "shellscript",
     "facet": "list",
@@ -773,6 +971,50 @@
     ]
   },
   {
+    "name": "scopes/shellscript/list2",
+    "languageId": "shellscript",
+    "facet": "list",
+    "code": "foo=(\"aaa\"$bar bbb)\nbar=([\"aaa\"] bbb)\nbaz=(\"[aaa]=0\" bbb)\nbongo=([\"aaa\"]=0)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:19",
+            "removal": "0:4-0:19"
+          }
+        ],
+        "domain": "0:4-0:19"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:17",
+            "removal": "1:4-1:17"
+          }
+        ],
+        "domain": "1:4-1:17"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:19",
+            "removal": "2:4-2:19"
+          }
+        ],
+        "domain": "2:4-2:19"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:6-3:17",
+            "removal": "3:6-3:17"
+          }
+        ],
+        "domain": "3:6-3:17"
+      }
+    ]
+  },
+  {
     "name": "scopes/shellscript/map",
     "languageId": "shellscript",
     "facet": "map",
@@ -786,6 +1028,40 @@
           }
         ],
         "domain": "0:4-0:25"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/map2",
+    "languageId": "shellscript",
+    "facet": "map",
+    "code": "foo=(\"aaa\"$bar bbb)\nbar=([\"aaa\"] bbb)\nbaz=(\"[aaa]=0\" bbb)\nbongo=([\"aaa\"]=0)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "3:6-3:17",
+            "removal": "3:6-3:17"
+          }
+        ],
+        "domain": "3:6-3:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/map3",
+    "languageId": "shellscript",
+    "facet": "map",
+    "code": "foo=([\"aaa\"]=\"bbb\"$bar)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:23",
+            "removal": "0:4-0:23"
+          }
+        ],
+        "domain": "0:4-0:23"
       }
     ]
   },
@@ -1004,6 +1280,46 @@
     ]
   },
   {
+    "name": "scopes/shellscript/name/name.iteration.block5",
+    "languageId": "shellscript",
+    "facet": "name.iteration.block",
+    "code": "case $foo in\n  0) : ;&\n  1) : ;;&\n  *) : ;;\nesac",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-4:4"
+          }
+        ],
+        "domain": "0:0-4:4"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7"
+          }
+        ],
+        "domain": "1:4-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:7"
+          }
+        ],
+        "domain": "2:4-2:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:4-3:7"
+          }
+        ],
+        "domain": "3:4-3:7"
+      }
+    ]
+  },
+  {
     "name": "scopes/shellscript/name/name.iteration.document",
     "languageId": "shellscript",
     "facet": "name.iteration.document",
@@ -1151,6 +1467,23 @@
           }
         ],
         "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/namedFunction/namedFunction4",
+    "languageId": "shellscript",
+    "facet": "namedFunction",
+    "code": "foo() ( : )",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
       }
     ]
   },
@@ -1361,6 +1694,49 @@
     ]
   },
   {
+    "name": "scopes/shellscript/statement/statement.function3",
+    "languageId": "shellscript",
+    "facet": "statement.function",
+    "code": "function foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:17",
+            "removal": "0:0-0:17"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.function4",
+    "languageId": "shellscript",
+    "facet": "statement.function",
+    "code": "foo() ( : )",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:8-0:9",
+            "removal": "0:8-0:10"
+          }
+        ],
+        "domain": "0:8-0:9"
+      }
+    ]
+  },
+  {
     "name": "scopes/shellscript/statement/statement.functionCall",
     "languageId": "shellscript",
     "facet": "statement.functionCall",
@@ -1391,6 +1767,75 @@
           }
         ],
         "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.functionCall3",
+    "languageId": "shellscript",
+    "facet": "statement.functionCall",
+    "code": "foo | bar | baz",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.functionCall4",
+    "languageId": "shellscript",
+    "facet": "statement.functionCall",
+    "code": "foo |& bar",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.functionCall5",
+    "languageId": "shellscript",
+    "facet": "statement.functionCall",
+    "code": "(foo; bar)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:1-0:4",
+            "removal": "0:1-0:4"
+          }
+        ],
+        "domain": "0:1-0:4"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:6-0:9",
+            "removal": "0:5-0:9"
+          }
+        ],
+        "domain": "0:6-0:9"
       }
     ]
   },
@@ -1590,6 +2035,46 @@
           }
         ],
         "domain": "1:6-1:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.iteration.block5",
+    "languageId": "shellscript",
+    "facet": "statement.iteration.block",
+    "code": "case $foo in\n  0) : ;&\n  1) : ;;&\n  *) : ;;\nesac",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-4:4"
+          }
+        ],
+        "domain": "0:0-4:4"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7"
+          }
+        ],
+        "domain": "1:4-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:7"
+          }
+        ],
+        "domain": "2:4-2:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:4-3:7"
+          }
+        ],
+        "domain": "3:4-3:7"
       }
     ]
   },
@@ -1969,6 +2454,23 @@
     ]
   },
   {
+    "name": "scopes/shellscript/value/value.foreach2",
+    "languageId": "shellscript",
+    "facet": "value.foreach",
+    "code": "for v in aaa bbb ccc; do :; done",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:20",
+            "removal": "0:8-0:20"
+          }
+        ],
+        "domain": "0:0-0:32"
+      }
+    ]
+  },
+  {
     "name": "scopes/shellscript/value/value.iteration.block",
     "languageId": "shellscript",
     "facet": "value.iteration.block",
@@ -2081,6 +2583,46 @@
     ]
   },
   {
+    "name": "scopes/shellscript/value/value.iteration.block5",
+    "languageId": "shellscript",
+    "facet": "value.iteration.block",
+    "code": "case $foo in\n  0) : ;&\n  1) : ;;&\n  *) : ;;\nesac",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-4:4"
+          }
+        ],
+        "domain": "0:0-4:4"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7"
+          }
+        ],
+        "domain": "1:4-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:7"
+          }
+        ],
+        "domain": "2:4-2:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:4-3:7"
+          }
+        ],
+        "domain": "3:4-3:7"
+      }
+    ]
+  },
+  {
     "name": "scopes/shellscript/value/value.iteration.document",
     "languageId": "shellscript",
     "facet": "value.iteration.document",
@@ -2121,6 +2663,30 @@
     ]
   },
   {
+    "name": "scopes/shellscript/value/value.mapPair.iteration2",
+    "languageId": "shellscript",
+    "facet": "value.mapPair.iteration",
+    "code": "foo=(\"aaa\"$bar bbb)\nbar=([\"aaa\"] bbb)\nbaz=(\"[aaa]=0\" bbb)\nbongo=([\"aaa\"]=0)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:17"
+          }
+        ],
+        "domain": "0:0-3:17"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:7-3:16"
+          }
+        ],
+        "domain": "3:7-3:16"
+      }
+    ]
+  },
+  {
     "name": "scopes/shellscript/value/value.mapPair",
     "languageId": "shellscript",
     "facet": "value.mapPair",
@@ -2152,6 +2718,85 @@
           }
         ],
         "domain": "0:15-0:24"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/value/value.mapPair2",
+    "languageId": "shellscript",
+    "facet": "value.mapPair",
+    "code": "foo=(\"aaa\"$bar bbb)\nbar=([\"aaa\"] bbb)\nbaz=(\"[aaa]=0\" bbb)\nbongo=([\"aaa\"]=0)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:19",
+            "removal": "0:3-0:19"
+          }
+        ],
+        "domain": "0:0-0:19"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:17",
+            "removal": "1:3-1:17"
+          }
+        ],
+        "domain": "1:0-1:17"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:19",
+            "removal": "2:3-2:19"
+          }
+        ],
+        "domain": "2:0-2:19"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:6-3:17",
+            "removal": "3:5-3:17"
+          }
+        ],
+        "domain": "3:0-3:17"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:15-3:16",
+            "removal": "3:15-3:16"
+          }
+        ],
+        "domain": "3:7-3:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/value/value.mapPair3",
+    "languageId": "shellscript",
+    "facet": "value.mapPair",
+    "code": "foo=([\"aaa\"]=\"bbb\"$bar)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:23",
+            "removal": "0:3-0:23"
+          }
+        ],
+        "domain": "0:0-0:23"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:13-0:22",
+            "removal": "0:13-0:22"
+          }
+        ],
+        "domain": "0:5-0:22"
       }
     ]
   },

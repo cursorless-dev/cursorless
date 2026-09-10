@@ -688,6 +688,22 @@
     ]
   },
   {
+    "name": "scopes/shellscript/key.mapPair.iteration2",
+    "languageId": "shellscript",
+    "facet": "key.mapPair.iteration",
+    "code": "foo=(\"aaa\"$bar bbb)\nbar=([\"aaa\"] bbb)\nbaz=(\"[aaa]=0\" bbb)\nbongo=([\"aaa\"]=0)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "3:7-3:16"
+          }
+        ],
+        "domain": "3:7-3:16"
+      }
+    ]
+  },
+  {
     "name": "scopes/shellscript/key.mapPair",
     "languageId": "shellscript",
     "facet": "key.mapPair",
@@ -710,6 +726,40 @@
           }
         ],
         "domain": "0:15-0:24"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/key.mapPair2",
+    "languageId": "shellscript",
+    "facet": "key.mapPair",
+    "code": "foo=(\"aaa\"$bar bbb)\nbar=([\"aaa\"] bbb)\nbaz=(\"[aaa]=0\" bbb)\nbongo=([\"aaa\"]=0)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "3:8-3:13",
+            "removal": "3:8-3:13"
+          }
+        ],
+        "domain": "3:7-3:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/key.mapPair3",
+    "languageId": "shellscript",
+    "facet": "key.mapPair",
+    "code": "foo=([\"aaa\"]=\"bbb\"$bar)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:11",
+            "removal": "0:6-0:11"
+          }
+        ],
+        "domain": "0:5-0:22"
       }
     ]
   },

@@ -6,11 +6,16 @@
   (function_definition)
   (declaration_command)
   (case_statement)
-  (subshell)
   (list)
+  (pipeline)
   (redirected_statement)
   (test_command)
 ] @statement
+
+(
+  (subshell) @statement
+  (#not-parent-type? @statement function_definition)
+)
 
 (
   [
@@ -22,6 +27,7 @@
     declaration_command
     c_style_for_statement
     list
+    pipeline
     redirected_statement
     if_statement
     elif_clause
@@ -63,31 +69,71 @@
 ;;!! foo=(["aaa"]=0 ["bbb"]=1)
 ;;!      ^^^^^^^^^^^^^^^^^^^^^
 ;;!       ^^^^^^^^^^^^^^^^^^^
-(array
-  "(" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
-  (concatenation)
-  ")" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
-) @map
+;; Bash represents ["key"]=value as concatenated words and a string.
+;; Require the brackets and assignment before treating an array as a map.
+(
+  (array
+    "(" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
+    (concatenation
+      .
+      (word) @_open
+      .
+      (string)
+      .
+      (word) @_close
+      .
+      (word) @_assignment
+    )
+    ")" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+  ) @map
+  (#eq? @_open "[")
+  (#eq? @_close "]")
+  (#match? @_assignment "^=")
+)
 
 ;;!! foo=(["aaa"]=0 ["bbb"]=1)
 ;;!        ^^^^^     ^^^^^
 ;;!               ^         ^
 (array
   (concatenation
+    .
+    (word) @_open
+    .
     (string) @collectionKey
-    (_) @value
+    .
+    (word) @_close
+    .
+    (word) @value.start
+    (_)? @value.end
     .
   ) @_.domain
-  (#character-range! @value 1)
+  (#eq? @_open "[")
+  (#eq? @_close "]")
+  (#match? @value.start "^=")
+  (#character-range! @value.start 1)
 )
 
 ;;!! for v in values; do :; done
 ;;!      ^
 ;;!           ^^^^^^
-(for_statement
-  variable: (_) @name
-  value: (_) @value
-) @_.domain
+[
+  (for_statement
+    variable: (_) @name
+    .
+    value: (_) @value
+    .
+    body: (do_group)
+  )
+  (for_statement
+    variable: (_) @name
+    .
+    value: (_) @value.start
+    value: (_)*
+    value: (_) @value.end
+    .
+    body: (do_group)
+  )
+] @_.domain
 
 ;;!! for ((i = 0; i < 2; i++)); do :; done
 ;;!               ^^^^^
@@ -178,11 +224,31 @@
 
 ;;!! 0) : ;;
 ;;!  ^
+[
+  (case_item
+    .
+    value: (_) @condition
+    .
+    ")"
+  )
+  (case_item
+    .
+    value: (_) @condition.start
+    value: (_)*
+    value: (_) @condition.end
+    .
+    ")"
+  )
+] @condition.domain
+
 (case_item
-  value: (_) @condition
   ")" @interior.start.endOf @statementNameValue.iteration.start.endOf
-  ";;" @interior.end.startOf @statementNameValue.iteration.end.startOf
-) @branch @condition.domain
+  [
+    ";;"
+    ";&"
+    ";;&"
+  ] @interior.end.startOf @statementNameValue.iteration.end.startOf
+) @branch
 
 ;;!! return 0
 ;;!         ^
@@ -208,6 +274,13 @@
 (compound_statement
   "{" @interior.start.endOf @statementNameValue.iteration.start.endOf
   "}" @interior.end.startOf @statementNameValue.iteration.end.startOf
+)
+
+;;!! foo() ( : )
+;;!         ^^^
+(subshell
+  "(" @interior.start.endOf @statementNameValue.iteration.start.endOf
+  ")" @interior.end.startOf @statementNameValue.iteration.end.startOf
 )
 
 ;;!! # foo

@@ -1,0 +1,32 @@
+foo=(["aaa"]="bbb"$bar)
+---
+
+[#1 Content] = 0:4-0:23
+      >-------------------<
+0| foo=(["aaa"]="bbb"$bar)
+
+[#1 Removal] = 0:3-0:23
+     >--------------------<
+0| foo=(["aaa"]="bbb"$bar)
+
+[#1 Leading delimiter] = 0:3-0:4
+     >-<
+0| foo=(["aaa"]="bbb"$bar)
+
+[#1 Domain] = 0:0-0:23
+  >-----------------------<
+0| foo=(["aaa"]="bbb"$bar)
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] = 0:13-0:22
+               >---------<
+0| foo=(["aaa"]="bbb"$bar)
+
+[#2 Domain] = 0:5-0:22
+       >-----------------<
+0| foo=(["aaa"]="bbb"$bar)
+
+[#2 Insertion delimiter] = " "
