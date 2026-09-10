@@ -1,5 +1,4 @@
 import assert from "node:assert/strict";
-import { setup, suite, teardown, test } from "mocha";
 import { render } from "preact";
 import { act } from "preact/test-utils";
 import { fakeCheatsheetInfo } from "@cursorless/lib-cheatsheet";

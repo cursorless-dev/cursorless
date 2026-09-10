@@ -1,5 +1,4 @@
 import assert from "node:assert/strict";
-import { suite, teardown, test } from "mocha";
 import { render } from "preact";
 import { act } from "preact/test-utils";
 import { formatCaptures } from "../lib/utils/formatCaptures";
