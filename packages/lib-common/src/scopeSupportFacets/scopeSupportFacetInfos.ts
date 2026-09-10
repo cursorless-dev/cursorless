@@ -1251,6 +1251,11 @@ export const scopeSupportFacetInfos: Record<
       "Internally used text fragment consisting of a multi-line string",
     scopeType: "textFragment",
   },
+  "textFragment.regularExpression": {
+    description:
+      "Internally used text fragment consisting of a regular expression literal pattern",
+    scopeType: "textFragment",
+  },
   "textFragment.element": {
     description:
       "Internally used text fragment consisting of an XML/HTML element interior",

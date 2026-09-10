@@ -107,6 +107,7 @@ export const rubyScopeSupport: LanguageScopeSupportFacetMap = {
   "textFragment.comment.line": supported,
   "textFragment.string.singleLine": supported,
   "textFragment.string.multiLine": supported,
+  "textFragment.regularExpression": supported,
 
   "name.argument.actual": supported,
   "name.argument.actual.iteration": supported,

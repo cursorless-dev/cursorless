@@ -409,6 +409,23 @@
     ]
   },
   {
+    "name": "scopes/clojure/regularExpression",
+    "languageId": "clojure",
+    "facet": "regularExpression",
+    "code": "#\"^\\w+$\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:8",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:8"
+      }
+    ]
+  },
+  {
     "name": "scopes/clojure/string.multiLine",
     "languageId": "clojure",
     "facet": "string.multiLine",
@@ -456,6 +473,23 @@
           }
         ],
         "domain": "0:0-0:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/clojure/textFragment.regularExpression",
+    "languageId": "clojure",
+    "facet": "textFragment.regularExpression",
+    "code": "#\"^\\w+$\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:7",
+            "removal": "0:2-0:7"
+          }
+        ],
+        "domain": "0:2-0:7"
       }
     ]
   },
