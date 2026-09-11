@@ -1,0 +1,24 @@
+const foo: u8 = 0;
+---
+
+[Content] = 0:11-0:13
+             >--<
+0| const foo: u8 = 0;
+
+[Removal] = 0:11-0:14
+             >---<
+0| const foo: u8 = 0;
+
+[Leading delimiter] = 0:10-0:11
+            >-<
+0| const foo: u8 = 0;
+
+[Trailing delimiter] = 0:13-0:14
+               >-<
+0| const foo: u8 = 0;
+
+[Domain] = 0:0-0:18
+  >------------------<
+0| const foo: u8 = 0;
+
+[Insertion delimiter] = " "
