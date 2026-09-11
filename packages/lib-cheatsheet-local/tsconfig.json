@@ -1,13 +1,9 @@
 {
   "extends": "../../tsconfig.web.json",
-  "compilerOptions": {
-    "types": []
-  },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.json",
     "../../resources/typings/**/*.d.ts"
-  ],
-  "exclude": ["src/test"]
+  ]
 }

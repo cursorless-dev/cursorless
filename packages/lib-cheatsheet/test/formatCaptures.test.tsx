@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { render } from "preact";
 import { act } from "preact/test-utils";
-import { formatCaptures } from "../lib/utils/formatCaptures";
+import { formatCaptures } from "../src/lib/utils/formatCaptures";
 
 suite("formatCaptures", () => {
   teardown(() => {

@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { render } from "preact";
 import { act } from "preact/test-utils";
 import { fakeCheatsheetInfo } from "@cursorless/lib-cheatsheet";
-import { App } from "../app";
+import { App } from "../src/app";
 
 suite("App", () => {
   setup(() => {

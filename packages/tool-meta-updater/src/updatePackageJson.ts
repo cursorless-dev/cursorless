@@ -103,8 +103,8 @@ function getScripts(
     return scripts;
   }
 
-  scripts.typecheck = existsSync(path.join(packageDir, "tsconfig.test.json"))
-    ? "tsc && tsc -p tsconfig.test.json"
+  scripts.typecheck = existsSync(path.join(packageDir, "test/tsconfig.json"))
+    ? "tsc && tsc -p ./test/tsconfig.json"
     : "tsc";
 
   const cleanDirs = ["./out", "./dist", "./tsconfig.tsbuildinfo"];

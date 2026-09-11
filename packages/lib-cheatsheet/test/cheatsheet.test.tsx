@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import { render } from "preact";
 import { act } from "preact/test-utils";
-import { Cheatsheet } from "../lib/Cheatsheet";
-import { fakeCheatsheetInfo } from "../lib/utils/fakeCheatsheetInfo";
+import { Cheatsheet } from "../src/lib/Cheatsheet";
+import { fakeCheatsheetInfo } from "../src/lib/utils/fakeCheatsheetInfo";
 
 suite("Cheatsheet", () => {
   teardown(() => {

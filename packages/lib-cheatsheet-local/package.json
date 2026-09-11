@@ -6,7 +6,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "typecheck": "tsc && tsc -p tsconfig.test.json",
+    "typecheck": "tsc && tsc -p ./test/tsconfig.json",
     "clean": "rm -rf ./out ./dist ./tsconfig.tsbuildinfo",
     "dev": "env NODE_OPTIONS=--import=tsx vite serve",
     "bundle:prod": "env NODE_OPTIONS=--import=tsx vite build",

@@ -11,7 +11,7 @@
     "*.css"
   ],
   "scripts": {
-    "typecheck": "tsc && tsc -p tsconfig.test.json",
+    "typecheck": "tsc && tsc -p ./test/tsconfig.json",
     "clean": "rm -rf ./out ./dist ./tsconfig.tsbuildinfo"
   },
   "dependencies": {
