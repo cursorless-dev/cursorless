@@ -1,19 +1,22 @@
-import { afterEach, beforeEach, describe, expect, it } from "@jest/globals";
+import assert from "node:assert/strict";
 import { render } from "preact";
 import { act } from "preact/test-utils";
 import { fakeCheatsheetInfo } from "@cursorless/lib-cheatsheet";
-import { App } from "../app";
+import { App } from "../src/app";
 
-describe("App", () => {
-  beforeEach(() => {
+suite("App", () => {
+  setup(() => {
     document.cheatsheetInfo = fakeCheatsheetInfo;
   });
 
-  afterEach(() => {
+  teardown(() => {
+    for (const container of document.body.children) {
+      render(null, container);
+    }
     document.body.innerHTML = "";
   });
 
-  it("should render successfully", async () => {
+  test("should render successfully", async () => {
     const container = document.createElement("div");
     document.body.append(container);
 
@@ -21,10 +24,10 @@ describe("App", () => {
       render(<App />, container);
     });
 
-    expect(container).toBeTruthy();
+    assert.ok(container.childElementCount > 0);
   });
 
-  it("should have a greeting as the title", async () => {
+  test("should have a greeting as the title", async () => {
     const container = document.createElement("div");
     document.body.append(container);
 
@@ -32,6 +35,6 @@ describe("App", () => {
       render(<App />, container);
     });
 
-    expect(container.textContent).toMatch(/Cursorless Cheatsheet/giu);
+    assert.match(container.textContent, /Cursorless Cheatsheet/giu);
   });
 });
