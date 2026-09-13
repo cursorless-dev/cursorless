@@ -163,7 +163,7 @@
   ) @statement @_.domain
 )
 
-;; const/var type
+;; generic type annotation
 (
   (type_annotation
     ":" @type.leading
@@ -171,3 +171,4 @@
     _ @type
   )
 )
+

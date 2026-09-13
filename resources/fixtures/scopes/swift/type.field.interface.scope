@@ -1,0 +1,4 @@
+protocol Foo {
+    var foo: Int { set get }
+}
+---
