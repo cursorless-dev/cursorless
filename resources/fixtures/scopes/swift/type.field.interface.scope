@@ -1,0 +1,19 @@
+protocol Foo {
+    var foo: Int { set get }
+}
+---
+
+[Content] =
+[Domain] = 1:13-1:16
+               >---<
+1|     var foo: Int { set get }
+
+[Removal] = 1:11-1:16
+             >-----<
+1|     var foo: Int { set get }
+
+[Leading delimiter] = 1:11-1:13
+             >--<
+1|     var foo: Int { set get }
+
+[Insertion delimiter] = " "

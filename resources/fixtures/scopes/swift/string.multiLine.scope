@@ -1,0 +1,15 @@
+"""
+aaa
+"""
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-2:3
+  >---
+0| """
+1| aaa
+2| """
+   ---<
+
+[Insertion delimiter] = " "

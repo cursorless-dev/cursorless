@@ -1,0 +1,36 @@
+for foo: Type in bar {}
+---
+
+[#1 Content] = 0:9-0:13
+           >----<
+0| for foo: Type in bar {}
+
+[#1 Removal] = 0:7-0:13
+         >------<
+0| for foo: Type in bar {}
+
+[#1 Leading delimiter] = 0:7-0:9
+         >--<
+0| for foo: Type in bar {}
+
+[#1 Domain] = 0:0-0:23
+  >-----------------------<
+0| for foo: Type in bar {}
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Domain] = 0:9-0:13
+           >----<
+0| for foo: Type in bar {}
+
+[#2 Removal] = 0:7-0:13
+         >------<
+0| for foo: Type in bar {}
+
+[#2 Leading delimiter] = 0:7-0:9
+         >--<
+0| for foo: Type in bar {}
+
+[#2 Insertion delimiter] = " "

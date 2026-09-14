@@ -1,0 +1,10 @@
+for foo in bat { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:16-0:17
+                  >-<
+0| for foo in bat { }
+
+[Insertion delimiter] = " "

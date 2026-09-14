@@ -289,6 +289,23 @@
     ]
   },
   {
+    "name": "scopes/swift/ifStatement",
+    "languageId": "swift",
+    "facet": "ifStatement",
+    "code": "if true {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/ifStatement",
     "languageId": "talon",
     "facet": "ifStatement",

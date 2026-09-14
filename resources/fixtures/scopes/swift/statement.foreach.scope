@@ -1,0 +1,10 @@
+for foo in bar {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:17
+  >-----------------<
+0| for foo in bar {}
+
+[Insertion delimiter] = "\n"

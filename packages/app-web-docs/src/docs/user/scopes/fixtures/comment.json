@@ -714,6 +714,40 @@
     ]
   },
   {
+    "name": "scopes/swift/comment.block",
+    "languageId": "swift",
+    "facet": "comment.block",
+    "code": "/*\naaa\n*/",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:2",
+            "removal": "0:0-2:2"
+          }
+        ],
+        "domain": "0:0-2:2"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/comment.line",
+    "languageId": "swift",
+    "facet": "comment.line",
+    "code": "// aaa",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:6",
+            "removal": "0:0-0:6"
+          }
+        ],
+        "domain": "0:0-0:6"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/comment.line",
     "languageId": "talon",
     "facet": "comment.line",

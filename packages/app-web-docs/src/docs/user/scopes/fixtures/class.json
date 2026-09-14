@@ -820,6 +820,47 @@
     ]
   },
   {
+    "name": "scopes/swift/class.iteration.class",
+    "languageId": "swift",
+    "facet": "class.iteration.class",
+    "code": "class Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/class",
+    "languageId": "swift",
+    "facet": "class",
+    "code": "struct Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
     "name": "scopes/typescript.core/class",
     "languageId": "typescript.core",
     "facet": "class",
