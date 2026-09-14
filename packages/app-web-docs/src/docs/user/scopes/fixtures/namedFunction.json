@@ -533,6 +533,23 @@
     ]
   },
   {
+    "name": "scopes/java/namedFunction.constructor3",
+    "languageId": "java",
+    "facet": "namedFunction.constructor",
+    "code": "record Foo() {\n    Foo {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:10",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:10"
+      }
+    ]
+  },
+  {
     "name": "scopes/java/namedFunction.iteration.class",
     "languageId": "java",
     "facet": "namedFunction.iteration.class",
@@ -545,6 +562,22 @@
           }
         ],
         "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/namedFunction.iteration.class2",
+    "languageId": "java",
+    "facet": "namedFunction.iteration.class",
+    "code": "record Foo() { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:14-0:15"
+          }
+        ],
+        "domain": "0:14-0:15"
       }
     ]
   },
@@ -579,6 +612,23 @@
           }
         ],
         "domain": "1:4-2:24"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/namedFunction.method3",
+    "languageId": "java",
+    "facet": "namedFunction.method",
+    "code": "record Foo() {\n    void bar() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:17",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:17"
       }
     ]
   },

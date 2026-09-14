@@ -3447,6 +3447,32 @@
     ]
   },
   {
+    "name": "scopes/java/statement/statement.constructor3",
+    "languageId": "java",
+    "facet": "statement.constructor",
+    "code": "record Foo() {\n    Foo {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1",
+            "removal": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:10",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:10"
+      }
+    ]
+  },
+  {
     "name": "scopes/java/statement/statement.continue",
     "languageId": "java",
     "facet": "statement.continue",
@@ -3538,6 +3564,32 @@
           }
         ],
         "domain": "2:4-2:24"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/statement/statement.field.class2",
+    "languageId": "java",
+    "facet": "statement.field.class",
+    "code": "record Foo() {\n    static int bar = 0;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1",
+            "removal": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:23",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:23"
       }
     ]
   },
@@ -3855,6 +3907,30 @@
     ]
   },
   {
+    "name": "scopes/java/statement/statement.iteration.class3",
+    "languageId": "java",
+    "facet": "statement.iteration.class",
+    "code": "record Foo(int aaa) { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:23"
+          }
+        ],
+        "domain": "0:0-0:23"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:21-0:22"
+          }
+        ],
+        "domain": "0:21-0:22"
+      }
+    ]
+  },
+  {
     "name": "scopes/java/statement/statement.iteration.document",
     "languageId": "java",
     "facet": "statement.iteration.document",
@@ -3969,6 +4045,32 @@
           }
         ],
         "domain": "1:4-2:24"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/statement/statement.method3",
+    "languageId": "java",
+    "facet": "statement.method",
+    "code": "record Foo() {\n    void bar() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1",
+            "removal": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:17",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:17"
       }
     ]
   },
