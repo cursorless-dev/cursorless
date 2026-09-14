@@ -1,0 +1,10 @@
+/^\w+$/g
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:1-0:6
+   >-----<
+0| /^\w+$/g
+
+[Insertion delimiter] = " "

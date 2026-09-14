@@ -127,8 +127,13 @@ export async function runRecordedTest({
     await sleepWithBackoff(fixture.postEditorOpenSleepTimeMs);
   }
 
+  // In VS Code, assigning selections only updates the extension host immediately.
+  // Awaiting the focus command also gives the UI a round trip to process the
+  // initial selections, so its notification cannot overwrite the command's
+  // selections later (eg in giveBlueQuoteAndQuote).
   await editor.setSelections(
     fixture.initialState.selections.map(createSelection),
+    { focusEditor: true, revealRange: false },
   );
 
   for (const storedTargetKey of storedTargetKeys) {
@@ -143,8 +148,11 @@ export async function runRecordedTest({
   commandServerApi.setFocusedElementType(fixture.focusedElementType);
 
   // Ensure that the expected hats are present
+  // Ignore any allocation triggered by editor setup so that initial hats do not
+  // depend on whether VS Code delivered those events before this point.
   await hatTokenMap.allocateHats(
     serializedMarksToTokenHats(fixture.initialState.marks, editor),
+    { startFresh: true },
   );
 
   await Promise.all(

@@ -1,15 +1,15 @@
-import { describe, expect, test } from "@jest/globals";
+import assert from "node:assert/strict";
 import type { CheatsheetInfo } from "@cursorless/lib-common/cheatsheet";
 import {
   getCheatsheetInfo,
   getDefaultCheatsheetInfo,
 } from "@cursorless/lib-common/cheatsheet";
 
-describe("getDefaultCheatsheetInfo", () => {
+suite("getDefaultCheatsheetInfo", () => {
   const cheatsheetInfo = getDefaultCheatsheetInfo();
 
   test("constructs action syntax from the reference definition", () => {
-    expect(getItem("actions", "swapTargets").variations).toEqual([
+    assert.deepEqual(getItem("actions", "swapTargets").variations, [
       {
         spokenForm: "swap with <target>",
         description: "Swap selection with <target>",
@@ -22,14 +22,18 @@ describe("getDefaultCheatsheetInfo", () => {
   });
 
   test("omits private and disabled-by-default references", () => {
-    expect(getSection("actions").items).not.toContainEqual(
-      expect.objectContaining({ id: "private.showParseTree" }),
+    assert.ok(
+      !getSection("actions").items.some(
+        ({ id }) => id === "private.showParseTree",
+      ),
     );
-    expect(getSection("scopes").items).not.toContainEqual(
-      expect.objectContaining({ id: "private.fieldAccess" }),
+    assert.ok(
+      !getSection("scopes").items.some(
+        ({ id }) => id === "private.fieldAccess",
+      ),
     );
-    expect(getSection("scopes").items).not.toContainEqual(
-      expect.objectContaining({ id: "sectionLevelOne" }),
+    assert.ok(
+      !getSection("scopes").items.some(({ id }) => id === "sectionLevelOne"),
     );
   });
 
@@ -47,24 +51,26 @@ describe("getDefaultCheatsheetInfo", () => {
       },
     ]);
 
-    expect(
+    assert.match(
       getItem("actions", "private.showParseTree", customCheatsheetInfo)
-        .variations[0]?.description,
-    ).toMatch(/\(PRIVATE\)$/u);
-    expect(
+        .variations[0]?.description ?? "",
+      /\(PRIVATE\)$/u,
+    );
+    assert.match(
       getItem("scopes", "private.fieldAccess", customCheatsheetInfo)
-        .variations[0]?.description,
-    ).toMatch(/\(PRIVATE\)$/u);
+        .variations[0]?.description ?? "",
+      /\(PRIVATE\)$/u,
+    );
   });
 
   test("uses canonical reference ids", () => {
-    expect(getItem("modifiers", "everyScope")).toBeDefined();
-    expect(getItem("scopes", "surroundingPair")).toBeDefined();
-    expect(getItem("actions", "rewrapWithPairedDelimiter")).toBeDefined();
+    assert.notEqual(getItem("modifiers", "everyScope"), undefined);
+    assert.notEqual(getItem("scopes", "surroundingPair"), undefined);
+    assert.notEqual(getItem("actions", "rewrapWithPairedDelimiter"), undefined);
   });
 
   test("constructs default destinations", () => {
-    expect(getSection("destinations").items).toEqual([
+    assert.deepEqual(getSection("destinations").items, [
       {
         id: "destination_after",
         type: "destination",
@@ -99,14 +105,11 @@ describe("getDefaultCheatsheetInfo", () => {
   });
 
   test("includes only colors and shapes that are enabled by default", () => {
-    expect(getSection("colors").items.map(({ id }) => id)).toEqual([
-      "blue",
-      "green",
-      "red",
-      "pink",
-      "yellow",
-    ]);
-    expect(getSection("shapes").items).toEqual([]);
+    assert.deepEqual(
+      getSection("colors").items.map(({ id }) => id),
+      ["blue", "green", "red", "pink", "yellow"],
+    );
+    assert.deepEqual(getSection("shapes").items, []);
   });
 
   test("applies Talon spoken-form entries to the current syntax", () => {
@@ -156,54 +159,63 @@ describe("getDefaultCheatsheetInfo", () => {
       },
     ]);
 
-    expect(
+    assert.deepEqual(
       getItem("actions", "editNewLineBefore", customCheatsheetInfo).variations,
-    ).toEqual([
-      { spokenForm: "gulp <target>", description: "Edit new line before" },
-      {
-        spokenForm: "gulp <scope> <target>",
-        description: "Edit new <scope> before",
-      },
-    ]);
-    expect(
+      [
+        { spokenForm: "gulp <target>", description: "Edit new line before" },
+        {
+          spokenForm: "gulp <scope> <target>",
+          description: "Edit new <scope> before",
+        },
+      ],
+    );
+    assert.equal(
       getItem("modifiers", "interiorOnly", customCheatsheetInfo).variations[0]
         ?.spokenForm,
-    ).toBe("within");
-    expect(
+      "within",
+    );
+    assert.deepEqual(
       getItem("modifiers", "ancestor", customCheatsheetInfo).variations.map(
         ({ spokenForm }) => spokenForm,
       ),
-    ).toEqual(["parental <scope>"]);
-    expect(
+      ["parental <scope>"],
+    );
+    assert.deepEqual(
       getItem("scopes", "token", customCheatsheetInfo).variations.map(
         ({ spokenForm }) => spokenForm,
       ),
-    ).toEqual(["word unit"]);
-    expect(
+      ["word unit"],
+    );
+    assert.equal(
       getItem("scopes", "sectionLevelOne", customCheatsheetInfo).variations[0]
         ?.spokenForm,
-    ).toBe("one section");
-    expect(
+      "one section",
+    );
+    assert.equal(
       getItem("compoundTargets", "rangeExcludingStart", customCheatsheetInfo)
         .variations[0]?.spokenForm,
-    ).toBe("<target 1> from end <target 2>");
-    expect(
+      "<target 1> from end <target 2>",
+    );
+    assert.equal(
       getItem("actions", "swapTargets", customCheatsheetInfo).variations[0]
         ?.spokenForm,
-    ).toBe("swap versus <target>");
-    expect(
+      "swap versus <target>",
+    );
+    assert.deepEqual(
       getItem("actions", "pasteFromClipboard", customCheatsheetInfo).variations,
-    ).toEqual([
-      {
-        spokenForm: "paste <destination>",
-        description: "Paste from clipboard at <destination>",
-      },
-    ]);
-    expect(
+      [
+        {
+          spokenForm: "paste <destination>",
+          description: "Paste from clipboard at <destination>",
+        },
+      ],
+    );
+    assert.deepEqual(
       getItem("actions", "callAsFunction", customCheatsheetInfo).variations.map(
         ({ spokenForm }) => spokenForm,
       ),
-    ).toEqual(["call <target>", "call <target 1> onto <target 2>"]);
+      ["call <target>", "call <target 1> onto <target 2>"],
+    );
   });
 
   test("does not apply replacements to customized spoken forms", () => {
@@ -217,10 +229,11 @@ describe("getDefaultCheatsheetInfo", () => {
       { type: "modifierExtra", id: "next", spokenForms: ["afterward"] },
     ]);
 
-    expect(
+    assert.equal(
       getItem("actions", "swapTargets", customCheatsheetInfo).variations[0]
         ?.spokenForm,
-    ).toBe("swap next <target>");
+      "swap next <target>",
+    );
   });
 
   test("includes only the first spoken form for custom actions", () => {
@@ -237,25 +250,28 @@ describe("getDefaultCheatsheetInfo", () => {
       },
     ]);
 
-    expect(
+    assert.deepEqual(
       getItem(
         "actions",
         "editor.action.moveLinesDownAction",
         customCheatsheetInfo,
       ),
-    ).toEqual({
-      id: "editor.action.moveLinesDownAction",
-      type: "action",
-      variations: [
-        {
-          spokenForm: "push down <target>",
-          description: "Editor action move lines down action",
-        },
-      ],
-    });
-    expect(
-      getSection("actions", customCheatsheetInfo).items,
-    ).not.toContainEqual(expect.objectContaining({ id: "disabled.action" }));
+      {
+        id: "editor.action.moveLinesDownAction",
+        type: "action",
+        variations: [
+          {
+            spokenForm: "push down <target>",
+            description: "Editor action move lines down action",
+          },
+        ],
+      },
+    );
+    assert.ok(
+      !getSection("actions", customCheatsheetInfo).items.some(
+        ({ id }) => id === "disabled.action",
+      ),
+    );
   });
 
   test("includes custom regex scopes", () => {
@@ -272,20 +288,23 @@ describe("getDefaultCheatsheetInfo", () => {
       },
     ]);
 
-    expect(
+    assert.deepEqual(
       getItem("scopes", "customRegex.dotted", customCheatsheetInfo),
-    ).toEqual({
-      id: "customRegex.dotted",
-      type: "scopeType",
-      variations: [
-        {
-          spokenForm: "dotted",
-          description: String.raw`/[\w.]+/`,
-        },
-      ],
-    });
-    expect(getSection("scopes", customCheatsheetInfo).items).not.toContainEqual(
-      expect.objectContaining({ id: "customRegex.disabled" }),
+      {
+        id: "customRegex.dotted",
+        type: "scopeType",
+        variations: [
+          {
+            spokenForm: "dotted",
+            description: String.raw`/[\w.]+/`,
+          },
+        ],
+      },
+    );
+    assert.ok(
+      !getSection("scopes", customCheatsheetInfo).items.some(
+        ({ id }) => id === "customRegex.disabled",
+      ),
     );
   });
 
@@ -300,12 +319,15 @@ describe("getDefaultCheatsheetInfo", () => {
       },
     ]);
 
-    expect(getSection("scopes", customCheatsheetInfo).items).not.toContainEqual(
-      expect.objectContaining({ id: "token" }),
+    assert.ok(
+      !getSection("scopes", customCheatsheetInfo).items.some(
+        ({ id }) => id === "token",
+      ),
     );
-    expect(
+    assert.notEqual(
       getItem("actions", "swapTargets", customCheatsheetInfo),
-    ).toBeDefined();
+      undefined,
+    );
   });
 
   test("omits syntax examples whose spoken form is missing or disabled", () => {
@@ -315,17 +337,20 @@ describe("getDefaultCheatsheetInfo", () => {
       { type: "connective", id: "swapConnective", spokenForms: [] },
     ]);
 
-    expect(
+    assert.deepEqual(
       getItem("actions", "callAsFunction", customCheatsheetInfo).variations,
-    ).toEqual([
-      {
-        spokenForm: "call <target>",
-        description: "Insert call to <target> on selection",
-      },
-    ]);
-    expect(
-      getSection("actions", customCheatsheetInfo).items,
-    ).not.toContainEqual(expect.objectContaining({ id: "swapTargets" }));
+      [
+        {
+          spokenForm: "call <target>",
+          description: "Insert call to <target> on selection",
+        },
+      ],
+    );
+    assert.ok(
+      !getSection("actions", customCheatsheetInfo).items.some(
+        ({ id }) => id === "swapTargets",
+      ),
+    );
   });
 
   test("constructs destinations only from enabled spoken forms", () => {
@@ -338,7 +363,7 @@ describe("getDefaultCheatsheetInfo", () => {
       { type: "insertionMode", id: "to", spokenForms: ["toward"] },
     ]);
 
-    expect(getSection("destinations", customCheatsheetInfo).items).toEqual([
+    assert.deepEqual(getSection("destinations", customCheatsheetInfo).items, [
       {
         id: "destination_before",
         type: "destination",
@@ -381,23 +406,24 @@ describe("getDefaultCheatsheetInfo", () => {
       },
     ]);
 
-    expect(
+    assert.deepEqual(
       getItem("scopeVisualizer", "show_scope_visualizer", customCheatsheetInfo)
         .variations,
-    ).toEqual([
-      {
-        spokenForm: "inspect <scope>",
-        description: "Visualize <scope>",
-      },
-      {
-        spokenForm: "inspect <scope> deletion",
-        description: "Visualize <scope> removal range",
-      },
-    ]);
-    expect(
-      getSection("scopeVisualizer", customCheatsheetInfo).items,
-    ).not.toContainEqual(
-      expect.objectContaining({ id: "hideScopeVisualizer" }),
+      [
+        {
+          spokenForm: "inspect <scope>",
+          description: "Visualize <scope>",
+        },
+        {
+          spokenForm: "inspect <scope> deletion",
+          description: "Visualize <scope> removal range",
+        },
+      ],
+    );
+    assert.ok(
+      !getSection("scopeVisualizer", customCheatsheetInfo).items.some(
+        ({ id }) => id === "hideScopeVisualizer",
+      ),
     );
   });
 

@@ -39,11 +39,6 @@
 ) @string
 
 (
-  (source_file) @statement.iteration
-  (#document-range! @statement.iteration)
-)
-
-(
-  (source_file) @name.iteration @collectionKey.iteration @value.iteration
-  (#document-range! @name.iteration @collectionKey.iteration @value.iteration)
+  (source_file) @statementNameValue.iteration @collectionKey.iteration
+  (#document-range! @statementNameValue.iteration @collectionKey.iteration)
 )

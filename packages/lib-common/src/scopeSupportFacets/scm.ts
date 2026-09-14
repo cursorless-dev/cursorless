@@ -354,6 +354,10 @@ export const scmScopeSupport: LanguageScopeSupportFacetMap = {
   "collectionItem.unenclosed.multiLine": notApplicable,
   "collectionItem.unenclosed.iteration": notApplicable,
 
+  // Regular expression literal
+  regularExpression: notApplicable,
+  "textFragment.regularExpression": notApplicable,
+
   // Miscellaneous statements
   "statement.break": notApplicable,
   "statement.continue": notApplicable,
@@ -382,7 +386,6 @@ export const scmScopeSupport: LanguageScopeSupportFacetMap = {
   "name.iteration.block": notApplicable,
   "name.iteration.document": notApplicable,
   pairDelimiter: notApplicable,
-  regularExpression: notApplicable,
   "type.cast": notApplicable,
   "type.typeArgument": notApplicable,
   "type.typeArgument.iteration": notApplicable,

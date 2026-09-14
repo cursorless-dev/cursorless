@@ -6,27 +6,34 @@
   (function_definition)
   (declaration_command)
   (case_statement)
-  (subshell)
   (list)
   (redirected_statement)
   (test_command)
 ] @statement
 
 (
+  (subshell) @statement
+  (#not-parent-type? @statement function_definition)
+)
+
+(
   [
     (variable_assignment)
     (command)
+    (pipeline)
   ] @statement
   (#not-parent-type?
     @statement
     declaration_command
     c_style_for_statement
     list
+    pipeline
     redirected_statement
     if_statement
     elif_clause
     while_statement
   )
+  (#not-eq? @statement "")
 )
 
 ;; Capture body statements without including commands before "then".
@@ -36,6 +43,7 @@
     [
       (command)
       (variable_assignment)
+      (pipeline)
     ] @statement
   )
   (elif_clause
@@ -43,17 +51,14 @@
     [
       (command)
       (variable_assignment)
+      (pipeline)
     ] @statement
   )
 ]
 
 (
-  (program) @statement.iteration @namedFunction.iteration
-  (#document-range! @statement.iteration @namedFunction.iteration)
-)
-(
-  (program) @name.iteration @value.iteration
-  (#document-range! @name.iteration @value.iteration)
+  (program) @statementNameValue.iteration @namedFunction.iteration
+  (#document-range! @statementNameValue.iteration @namedFunction.iteration)
 )
 
 ;;!! [[ $foo =~ ^\w+$ ]]
@@ -67,31 +72,75 @@
 ;;!! foo=(["aaa"]=0 ["bbb"]=1)
 ;;!      ^^^^^^^^^^^^^^^^^^^^^
 ;;!       ^^^^^^^^^^^^^^^^^^^
-(array
-  "(" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
-  (concatenation)
-  ")" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
-) @map
+;; Bash represents bracketed entries as concatenated key/value fragments.
+;; Require the brackets and assignment before treating an array as a map.
+(
+  (array
+    "(" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
+    (concatenation
+      .
+      (word) @_open
+      .
+      (_)
+      .
+      (word) @_close
+      .
+      (word) @_assignment
+    )
+    ")" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+  ) @map
+  (#eq? @_open "[")
+  (#eq? @_close "]")
+  (#match? @_assignment "^=")
+)
 
 ;;!! foo=(["aaa"]=0 ["bbb"]=1)
 ;;!        ^^^^^     ^^^^^
 ;;!               ^         ^
 (array
   (concatenation
-    (string) @collectionKey
-    (_) @value
+    .
+    (word) @_open
+    .
+    (_) @collectionKey
+    .
+    (word) @_close
+    .
+    (word) @value.start
+    (_)? @value.end
     .
   ) @_.domain
-  (#character-range! @value 1)
+  (#eq? @_open "[")
+  (#eq? @_close "]")
+  (#match? @value.start "^=")
+  (#character-range! @value.start 1)
 )
 
 ;;!! for v in values; do :; done
 ;;!      ^
 ;;!           ^^^^^^
-(for_statement
-  variable: (_) @name
-  value: (_) @value
-) @_.domain
+[
+  (for_statement
+    variable: (_) @name
+    .
+    value: (_) @value
+    .
+    (comment)*
+    .
+    body: (do_group)
+  )
+  (for_statement
+    variable: (_) @name
+    .
+    value: (_) @value.start
+    value: (_)*
+    value: (_) @value.end
+    .
+    (comment)*
+    .
+    body: (do_group)
+  )
+] @_.domain
 
 ;;!! for ((i = 0; i < 2; i++)); do :; done
 ;;!               ^^^^^
@@ -117,8 +166,8 @@
 ;;!! if true; then :; fi
 (
   (if_statement
-    "then" @interior.start.endOf
-    "fi" @interior.end.startOf
+    "then" @interior.start.endOf @statementNameValue.iteration.start.endOf
+    "fi" @interior.end.startOf @statementNameValue.iteration.end.startOf
   ) @branch
   (#not-child-type? @branch elif_clause else_clause)
 )
@@ -127,13 +176,13 @@
 (
   (if_statement
     "if" @branch.start @branch.removal.start
-    "then" @interior.start.endOf
+    "then" @interior.start.endOf @statementNameValue.iteration.start.endOf
     (_) @branch.end @branch.removal.end
     .
     [
       (elif_clause)
       (else_clause)
-    ] @branch.removal.end.startOf @interior.end.startOf
+    ] @branch.removal.end.startOf @interior.end.startOf @statementNameValue.iteration.end.startOf
   )
   (#not-type? @branch.end elif_clause else_clause)
   (#shrink-to-match! @branch.removal.end.startOf "^(?:el(?=if\\b))?(?<keep>.*)")
@@ -144,19 +193,19 @@
 (
   (elif_clause
     (_) @condition
-    "then" @interior.start.endOf
+    "then" @interior.start.endOf @statementNameValue.iteration.start.endOf
   ) @branch @branch.removal.start @condition.domain
   .
-  _ @branch.removal.end.startOf @interior.end.startOf
+  _ @branch.removal.end.startOf @interior.end.startOf @statementNameValue.iteration.end.startOf
   (#trim-end! @branch)
 )
 
 ;;!! else :; fi
 (
   (else_clause
-    "else" @interior.start.endOf
+    "else" @interior.start.endOf @statementNameValue.iteration.start.endOf
   ) @branch @branch.removal.start
-  "fi" @branch.removal.end.startOf @interior.end.startOf
+  "fi" @branch.removal.end.startOf @interior.end.startOf @statementNameValue.iteration.end.startOf
   (#trim-end! @branch)
 )
 
@@ -182,16 +231,31 @@
 
 ;;!! 0) : ;;
 ;;!  ^
-(case_item
-  value: (_) @condition
-  ")" @interior.start.endOf
-  ";;" @interior.end.startOf
-) @branch @condition.domain
+[
+  (case_item
+    .
+    value: (_) @condition
+    .
+    ")"
+  )
+  (case_item
+    .
+    value: (_) @condition.start
+    value: (_)*
+    value: (_) @condition.end
+    .
+    ")"
+  )
+] @condition.domain
 
 (case_item
-  ")" @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-  ";;" @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
-)
+  ")" @interior.start.endOf @statementNameValue.iteration.start.endOf
+  [
+    ";;"
+    ";&"
+    ";;&"
+  ] @interior.end.startOf @statementNameValue.iteration.end.startOf
+) @branch
 
 ;;!! return 0
 ;;!         ^
@@ -208,25 +272,22 @@
 ;;!! do :; done
 ;;!    ^^^^
 (do_group
-  "do" @interior.start.endOf
-  "done" @interior.end.startOf
-)
-
-(do_group
-  "do" @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-  "done" @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+  "do" @interior.start.endOf @statementNameValue.iteration.start.endOf
+  "done" @interior.end.startOf @statementNameValue.iteration.end.startOf
 )
 
 ;;!! foo() { }
 ;;!         ^
 (compound_statement
-  "{" @interior.start.endOf
-  "}" @interior.end.startOf
+  "{" @interior.start.endOf @statementNameValue.iteration.start.endOf
+  "}" @interior.end.startOf @statementNameValue.iteration.end.startOf
 )
 
-(compound_statement
-  "{" @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-  "}" @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+;;!! foo() ( : )
+;;!         ^^^
+(subshell
+  "(" @interior.start.endOf @statementNameValue.iteration.start.endOf
+  ")" @interior.end.startOf @statementNameValue.iteration.end.startOf
 )
 
 ;;!! # foo

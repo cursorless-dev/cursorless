@@ -28,7 +28,7 @@ initialState:
       hatRange:
         start: {line: 0, character: 0}
         end: {line: 0, character: 1}
-    - hatStyle: blue
+    - hatStyle: default
       grapheme: b
       hatRange:
         start: {line: 0, character: 4}
@@ -46,7 +46,7 @@ finalState:
       hatRange:
         start: {line: 1, character: 0}
         end: {line: 1, character: 1}
-    - hatStyle: blue
+    - hatStyle: default
       grapheme: b
       hatRange:
         start: {line: 1, character: 4}
@@ -61,7 +61,7 @@ finalState:
       hatRange:
         start: {line: 0, character: 0}
         end: {line: 0, character: 1}
-    - hatStyle: default
+    - hatStyle: blue
       grapheme: b
       hatRange:
         start: {line: 0, character: 4}

@@ -1,0 +1,13 @@
+foo=("aaa"$bar bbb)
+bar=(["aaa"] bbb)
+baz=("[aaa]=0" bbb)
+bongo=(["aaa"]=0)
+---
+
+[Content] =
+[Removal] =
+[Domain] = 3:6-3:17
+        >-----------<
+3| bongo=(["aaa"]=0)
+
+[Insertion delimiter] = " "

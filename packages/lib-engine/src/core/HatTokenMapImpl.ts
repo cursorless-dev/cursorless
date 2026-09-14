@@ -1,5 +1,6 @@
 import type {
   CommandServerApi,
+  HatAllocationOptions,
   HatTokenMap,
   Hats,
   IDE,
@@ -67,8 +68,8 @@ export class HatTokenMapImpl implements HatTokenMap {
    * @param forceTokenHats If supplied, force the allocator to use these hats
    * for the given tokens. This is used for the tutorial, and for testing.
    */
-  allocateHats(forceTokenHats?: TokenHat[]) {
-    return this.hatAllocator.allocateHats(forceTokenHats);
+  allocateHats(forceTokenHats?: TokenHat[], options?: HatAllocationOptions) {
+    return this.hatAllocator.allocateHats(forceTokenHats, options);
   }
 
   private async getActiveMap() {

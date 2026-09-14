@@ -2,6 +2,7 @@ import {
   pseudoScopeTypeTypes,
   simpleScopeTypeTypes,
 } from "@cursorless/lib-common";
+import { expandCaptureName } from "./captureAliases";
 
 const scopeCaptureNames = simpleScopeTypeTypes.filter(
   (s) => !pseudoScopeTypeTypes.has(s),
@@ -97,7 +98,9 @@ function getScopeName(captureName: string): string {
 }
 
 export function isCaptureAllowed(captureName: string): boolean {
-  return allowedCaptures.has(captureName);
+  return expandCaptureName(captureName).some((name) =>
+    allowedCaptures.has(name),
+  );
 }
 
 // Capture names missing normalized name can be things like '@_dummy'

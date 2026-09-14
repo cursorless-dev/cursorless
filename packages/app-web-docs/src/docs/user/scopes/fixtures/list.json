@@ -493,6 +493,50 @@
     ]
   },
   {
+    "name": "scopes/shellscript/list2",
+    "languageId": "shellscript",
+    "facet": "list",
+    "code": "foo=(\"aaa\"$bar bbb)\nbar=([\"aaa\"] bbb)\nbaz=(\"[aaa]=0\" bbb)\nbongo=([\"aaa\"]=0)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:19",
+            "removal": "0:4-0:19"
+          }
+        ],
+        "domain": "0:4-0:19"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:17",
+            "removal": "1:4-1:17"
+          }
+        ],
+        "domain": "1:4-1:17"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:19",
+            "removal": "2:4-2:19"
+          }
+        ],
+        "domain": "2:4-2:19"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:6-3:17",
+            "removal": "3:6-3:17"
+          }
+        ],
+        "domain": "3:6-3:17"
+      }
+    ]
+  },
+  {
     "name": "scopes/yaml/list",
     "languageId": "yaml",
     "facet": "list",

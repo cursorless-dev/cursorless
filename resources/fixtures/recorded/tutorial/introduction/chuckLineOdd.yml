@@ -39,15 +39,15 @@ initialState:
         start: {line: 2, character: 8}
         end: {line: 2, character: 9}
     - hatStyle: default
-      grapheme: t
+      grapheme: a
       hatRange:
-        start: {line: 2, character: 13}
-        end: {line: 2, character: 14}
+        start: {line: 2, character: 12}
+        end: {line: 2, character: 13}
     - hatStyle: default
-      grapheme: e
+      grapheme: i
       hatRange:
-        start: {line: 2, character: 5}
-        end: {line: 2, character: 6}
+        start: {line: 2, character: 3}
+        end: {line: 2, character: 4}
     - hatStyle: default
       grapheme: b
       hatRange:
@@ -73,7 +73,7 @@ initialState:
       hatRange:
         start: {line: 2, character: 38}
         end: {line: 2, character: 39}
-    - hatStyle: blue
+    - hatStyle: default
       grapheme: e
       hatRange:
         start: {line: 2, character: 41}
@@ -83,7 +83,7 @@ initialState:
       hatRange:
         start: {line: 2, character: 48}
         end: {line: 2, character: 49}
-    - hatStyle: green
+    - hatStyle: blue
       grapheme: e
       hatRange:
         start: {line: 4, character: 6}
@@ -98,21 +98,21 @@ initialState:
       hatRange:
         start: {line: 4, character: 3}
         end: {line: 4, character: 4}
-    - hatStyle: blue
-      grapheme: h
+    - hatStyle: default
+      grapheme: t
       hatRange:
-        start: {line: 4, character: 10}
-        end: {line: 4, character: 11}
+        start: {line: 4, character: 9}
+        end: {line: 4, character: 10}
     - hatStyle: default
       grapheme: m
       hatRange:
         start: {line: 0, character: 5}
         end: {line: 0, character: 6}
     - hatStyle: default
-      grapheme: a
+      grapheme: d
       hatRange:
-        start: {line: 4, character: 18}
-        end: {line: 4, character: 19}
+        start: {line: 4, character: 15}
+        end: {line: 4, character: 16}
     - hatStyle: default
       grapheme: "!"
       hatRange:
@@ -140,15 +140,15 @@ finalState:
         start: {line: 2, character: 8}
         end: {line: 2, character: 9}
     - hatStyle: default
-      grapheme: t
+      grapheme: a
       hatRange:
-        start: {line: 2, character: 13}
-        end: {line: 2, character: 14}
+        start: {line: 2, character: 12}
+        end: {line: 2, character: 13}
     - hatStyle: default
-      grapheme: e
+      grapheme: i
       hatRange:
-        start: {line: 2, character: 5}
-        end: {line: 2, character: 6}
+        start: {line: 2, character: 3}
+        end: {line: 2, character: 4}
     - hatStyle: default
       grapheme: b
       hatRange:
@@ -174,7 +174,7 @@ finalState:
       hatRange:
         start: {line: 2, character: 38}
         end: {line: 2, character: 39}
-    - hatStyle: blue
+    - hatStyle: default
       grapheme: e
       hatRange:
         start: {line: 2, character: 41}

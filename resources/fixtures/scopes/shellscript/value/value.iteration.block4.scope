@@ -1,0 +1,18 @@
+case $foo in
+    0) bar=0 ;;
+esac
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-2:4
+  >------------
+0| case $foo in
+1|     0) bar=0 ;;
+2| esac
+   ----<
+
+
+[#2 Content] =
+[#2 Domain] = 1:6-1:13
+        >-------<
+1|     0) bar=0 ;;

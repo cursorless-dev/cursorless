@@ -29,21 +29,14 @@
   ] @statement
 )
 
-(program) @statement.iteration @namedFunction.iteration
-(program) @name.iteration @value.iteration
+(program) @statementNameValue.iteration @namedFunction.iteration
 
 ;;!! { }
 ;;!   ^
 (_
   .
-  "{" @interior.start.endOf
-  "}" @interior.end.startOf
-  .
-)
-(_
-  .
-  "{" @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-  "}" @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+  "{" @interior.start.endOf @statementNameValue.iteration.start.endOf
+  "}" @interior.end.startOf @statementNameValue.iteration.end.startOf
   .
 )
 

@@ -3319,6 +3319,41 @@
     ]
   },
   {
+    "name": "scopes/shellscript/branch/branch.switchCase3",
+    "languageId": "shellscript",
+    "facet": "branch.switchCase",
+    "code": "case $foo in\n  0) : ;&\n  1) : ;;&\n  *) : ;;\nesac",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-1:9",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:2-1:9"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-2:10",
+            "removal": "2:0-3:0"
+          }
+        ],
+        "domain": "2:2-2:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:2-3:9",
+            "removal": "3:0-4:0"
+          }
+        ],
+        "domain": "3:2-3:9"
+      }
+    ]
+  },
+  {
     "name": "scopes/shellscript/branch/branch.ternary.iteration",
     "languageId": "shellscript",
     "facet": "branch.ternary.iteration",

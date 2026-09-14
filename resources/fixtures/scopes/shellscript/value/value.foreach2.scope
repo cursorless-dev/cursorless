@@ -1,0 +1,20 @@
+for v in aaa bbb ccc; do :; done
+---
+
+[Content] = 0:9-0:20
+           >-----------<
+0| for v in aaa bbb ccc; do :; done
+
+[Removal] = 0:8-0:20
+          >------------<
+0| for v in aaa bbb ccc; do :; done
+
+[Leading delimiter] = 0:8-0:9
+          >-<
+0| for v in aaa bbb ccc; do :; done
+
+[Domain] = 0:0-0:32
+  >--------------------------------<
+0| for v in aaa bbb ccc; do :; done
+
+[Insertion delimiter] = " "

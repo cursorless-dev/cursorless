@@ -63,20 +63,20 @@
           },
           {
             "hatStyle": "default",
-            "grapheme": "m",
+            "grapheme": "l",
             "hatRange": {
               "start": {
                 "line": 0,
-                "character": 5
+                "character": 2
               },
               "end": {
                 "line": 0,
-                "character": 6
+                "character": 3
               }
             }
           },
           {
-            "hatStyle": "blue",
+            "hatStyle": "default",
             "grapheme": "o",
             "hatRange": {
               "start": {
@@ -133,29 +133,29 @@
           },
           {
             "hatStyle": "default",
-            "grapheme": "e",
+            "grapheme": "h",
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 9
+                "character": 8
               },
               "end": {
                 "line": 2,
-                "character": 10
+                "character": 9
               }
             }
           },
           {
             "hatStyle": "default",
-            "grapheme": "t",
+            "grapheme": "a",
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 13
+                "character": 12
               },
               "end": {
                 "line": 2,
-                "character": 14
+                "character": 13
               }
             }
           },
@@ -175,15 +175,15 @@
           },
           {
             "hatStyle": "default",
-            "grapheme": "o",
+            "grapheme": "d",
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 28
+                "character": 30
               },
               "end": {
                 "line": 2,
-                "character": 29
+                "character": 31
               }
             }
           },
@@ -216,16 +216,16 @@
             }
           },
           {
-            "hatStyle": "blue",
-            "grapheme": "c",
+            "hatStyle": "default",
+            "grapheme": "e",
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 46
+                "character": 41
               },
               "end": {
                 "line": 2,
-                "character": 47
+                "character": 42
               }
             }
           },
@@ -273,43 +273,43 @@
           },
           {
             "hatStyle": "blue",
-            "grapheme": "s",
+            "grapheme": "e",
             "hatRange": {
               "start": {
-                "line": 4,
-                "character": 5
-              },
-              "end": {
                 "line": 4,
                 "character": 6
+              },
+              "end": {
+                "line": 4,
+                "character": 7
               }
             }
           },
           {
             "hatStyle": "default",
-            "grapheme": "h",
+            "grapheme": "t",
             "hatRange": {
               "start": {
+                "line": 4,
+                "character": 9
+              },
+              "end": {
                 "line": 4,
                 "character": 10
-              },
-              "end": {
-                "line": 4,
-                "character": 11
               }
             }
           },
           {
             "hatStyle": "default",
-            "grapheme": "d",
+            "grapheme": "r",
             "hatRange": {
               "start": {
                 "line": 4,
-                "character": 15
+                "character": 19
               },
               "end": {
                 "line": 4,
-                "character": 16
+                "character": 20
               }
             }
           },
@@ -346,15 +346,15 @@
         "hatTokenMap": [
           {
             "hatStyle": "default",
-            "grapheme": "o",
+            "grapheme": "d",
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 28
+                "character": 30
               },
               "end": {
                 "line": 2,
-                "character": 29
+                "character": 31
               }
             }
           },
@@ -415,44 +415,44 @@
             }
           },
           {
-            "hatStyle": "blue",
-            "grapheme": "c",
-            "hatRange": {
-              "start": {
-                "line": 2,
-                "character": 46
-              },
-              "end": {
-                "line": 2,
-                "character": 47
-              }
-            }
-          },
-          {
-            "hatStyle": "default",
-            "grapheme": "t",
-            "hatRange": {
-              "start": {
-                "line": 2,
-                "character": 13
-              },
-              "end": {
-                "line": 2,
-                "character": 14
-              }
-            }
-          },
-          {
             "hatStyle": "default",
             "grapheme": "e",
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 9
+                "character": 41
               },
               "end": {
                 "line": 2,
-                "character": 10
+                "character": 42
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "a",
+            "hatRange": {
+              "start": {
+                "line": 2,
+                "character": 12
+              },
+              "end": {
+                "line": 2,
+                "character": 13
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "h",
+            "hatRange": {
+              "start": {
+                "line": 2,
+                "character": 8
+              },
+              "end": {
+                "line": 2,
+                "character": 9
               }
             }
           },
@@ -514,15 +514,15 @@
           },
           {
             "hatStyle": "default",
-            "grapheme": "d",
+            "grapheme": "r",
             "hatRange": {
               "start": {
                 "line": 4,
-                "character": 15
+                "character": 19
               },
               "end": {
                 "line": 4,
-                "character": 16
+                "character": 20
               }
             }
           },
@@ -542,20 +542,20 @@
           },
           {
             "hatStyle": "default",
-            "grapheme": "h",
+            "grapheme": "t",
             "hatRange": {
               "start": {
                 "line": 4,
-                "character": 10
+                "character": 9
               },
               "end": {
                 "line": 4,
-                "character": 11
+                "character": 10
               }
             }
           },
           {
-            "hatStyle": "blue",
+            "hatStyle": "default",
             "grapheme": "o",
             "hatRange": {
               "start": {
@@ -570,15 +570,15 @@
           },
           {
             "hatStyle": "blue",
-            "grapheme": "s",
+            "grapheme": "e",
             "hatRange": {
               "start": {
                 "line": 4,
-                "character": 5
+                "character": 6
               },
               "end": {
                 "line": 4,
-                "character": 6
+                "character": 7
               }
             }
           },
@@ -598,15 +598,15 @@
           },
           {
             "hatStyle": "default",
-            "grapheme": "m",
+            "grapheme": "l",
             "hatRange": {
               "start": {
                 "line": 0,
-                "character": 5
+                "character": 2
               },
               "end": {
                 "line": 0,
-                "character": 6
+                "character": 3
               }
             }
           },
@@ -1357,21 +1357,21 @@
             }
           },
           {
-            "hatStyle": "blue",
-            "grapheme": "h",
+            "hatStyle": "default",
+            "grapheme": "e",
             "hatRange": {
               "start": {
                 "line": 4,
-                "character": 10
+                "character": 11
               },
               "end": {
                 "line": 4,
-                "character": 11
+                "character": 12
               }
             }
           },
           {
-            "hatStyle": "blue",
+            "hatStyle": "default",
             "grapheme": "s",
             "hatRange": {
               "start": {
@@ -1400,34 +1400,34 @@
           },
           {
             "hatStyle": "default",
-            "grapheme": "a",
+            "grapheme": "i",
             "hatRange": {
               "start": {
                 "line": 4,
-                "character": 18
+                "character": 14
               },
               "end": {
                 "line": 4,
-                "character": 19
+                "character": 15
               }
             }
           },
           {
             "hatStyle": "default",
-            "grapheme": "w",
+            "grapheme": "o",
             "hatRange": {
               "start": {
                 "line": 4,
-                "character": 2
+                "character": 1
               },
               "end": {
                 "line": 4,
-                "character": 3
+                "character": 2
               }
             }
           },
           {
-            "hatStyle": "blue",
+            "hatStyle": "default",
             "grapheme": ".",
             "hatRange": {
               "start": {
@@ -1456,43 +1456,43 @@
           },
           {
             "hatStyle": "default",
-            "grapheme": "i",
-            "hatRange": {
-              "start": {
-                "line": 2,
-                "character": 3
-              },
-              "end": {
-                "line": 2,
-                "character": 4
-              }
-            }
-          },
-          {
-            "hatStyle": "default",
-            "grapheme": "b",
-            "hatRange": {
-              "start": {
-                "line": 2,
-                "character": 17
-              },
-              "end": {
-                "line": 2,
-                "character": 18
-              }
-            }
-          },
-          {
-            "hatStyle": "default",
             "grapheme": "c",
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 24
+                "character": 4
               },
               "end": {
                 "line": 2,
-                "character": 25
+                "character": 5
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "v",
+            "hatRange": {
+              "start": {
+                "line": 2,
+                "character": 19
+              },
+              "end": {
+                "line": 2,
+                "character": 20
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "a",
+            "hatRange": {
+              "start": {
+                "line": 2,
+                "character": 23
+              },
+              "end": {
+                "line": 2,
+                "character": 24
               }
             }
           },
@@ -1511,7 +1511,7 @@
             }
           },
           {
-            "hatStyle": "default",
+            "hatStyle": "blue",
             "grapheme": "s",
             "hatRange": {
               "start": {
@@ -1526,20 +1526,20 @@
           },
           {
             "hatStyle": "blue",
-            "grapheme": "c",
+            "grapheme": "e",
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 46
+                "character": 41
               },
               "end": {
                 "line": 2,
-                "character": 47
+                "character": 42
               }
             }
           },
           {
-            "hatStyle": "default",
+            "hatStyle": "blue",
             "grapheme": ".",
             "hatRange": {
               "start": {
@@ -1654,7 +1654,7 @@
             }
           },
           {
-            "hatStyle": "default",
+            "hatStyle": "blue",
             "grapheme": "s",
             "hatRange": {
               "start": {
@@ -1669,48 +1669,48 @@
           },
           {
             "hatStyle": "default",
-            "grapheme": "c",
+            "grapheme": "a",
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 24
+                "character": 23
               },
               "end": {
                 "line": 2,
-                "character": 25
+                "character": 24
               }
             }
           },
           {
             "hatStyle": "blue",
-            "grapheme": "c",
+            "grapheme": "e",
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 46
+                "character": 41
               },
               "end": {
                 "line": 2,
-                "character": 47
+                "character": 42
               }
             }
           },
           {
             "hatStyle": "default",
-            "grapheme": "b",
+            "grapheme": "v",
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 17
+                "character": 19
               },
               "end": {
                 "line": 2,
-                "character": 18
+                "character": 20
               }
             }
           },
           {
-            "hatStyle": "default",
+            "hatStyle": "blue",
             "grapheme": ".",
             "hatRange": {
               "start": {
@@ -1753,15 +1753,15 @@
           },
           {
             "hatStyle": "default",
-            "grapheme": "i",
+            "grapheme": "c",
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 3
+                "character": 4
               },
               "end": {
                 "line": 2,
-                "character": 4
+                "character": 5
               }
             }
           },
@@ -1780,7 +1780,7 @@
             }
           },
           {
-            "hatStyle": "blue",
+            "hatStyle": "default",
             "grapheme": ".",
             "hatRange": {
               "start": {
@@ -1795,15 +1795,15 @@
           },
           {
             "hatStyle": "default",
-            "grapheme": "a",
+            "grapheme": "i",
             "hatRange": {
               "start": {
                 "line": 4,
-                "character": 18
+                "character": 14
               },
               "end": {
                 "line": 4,
-                "character": 19
+                "character": 15
               }
             }
           },
@@ -1822,16 +1822,16 @@
             }
           },
           {
-            "hatStyle": "blue",
-            "grapheme": "h",
+            "hatStyle": "default",
+            "grapheme": "e",
             "hatRange": {
               "start": {
                 "line": 4,
-                "character": 10
+                "character": 11
               },
               "end": {
                 "line": 4,
-                "character": 11
+                "character": 12
               }
             }
           },
@@ -1850,7 +1850,7 @@
             }
           },
           {
-            "hatStyle": "blue",
+            "hatStyle": "default",
             "grapheme": "s",
             "hatRange": {
               "start": {
@@ -1893,15 +1893,15 @@
           },
           {
             "hatStyle": "default",
-            "grapheme": "w",
+            "grapheme": "o",
             "hatRange": {
               "start": {
                 "line": 4,
-                "character": 2
+                "character": 1
               },
               "end": {
                 "line": 4,
-                "character": 3
+                "character": 2
               }
             }
           }
@@ -3302,29 +3302,29 @@
           },
           {
             "hatStyle": "default",
-            "grapheme": "t",
+            "grapheme": "a",
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 13
+                "character": 12
               },
               "end": {
                 "line": 2,
-                "character": 14
+                "character": 13
               }
             }
           },
           {
             "hatStyle": "default",
-            "grapheme": "e",
+            "grapheme": "i",
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 5
+                "character": 3
               },
               "end": {
                 "line": 2,
-                "character": 6
+                "character": 4
               }
             }
           },
@@ -3399,7 +3399,7 @@
             }
           },
           {
-            "hatStyle": "blue",
+            "hatStyle": "default",
             "grapheme": "e",
             "hatRange": {
               "start": {
@@ -3427,7 +3427,7 @@
             }
           },
           {
-            "hatStyle": "green",
+            "hatStyle": "blue",
             "grapheme": "e",
             "hatRange": {
               "start": {
@@ -3469,16 +3469,16 @@
             }
           },
           {
-            "hatStyle": "blue",
-            "grapheme": "h",
+            "hatStyle": "default",
+            "grapheme": "t",
             "hatRange": {
               "start": {
                 "line": 4,
-                "character": 10
+                "character": 9
               },
               "end": {
                 "line": 4,
-                "character": 11
+                "character": 10
               }
             }
           },
@@ -3498,15 +3498,15 @@
           },
           {
             "hatStyle": "default",
-            "grapheme": "a",
+            "grapheme": "d",
             "hatRange": {
               "start": {
                 "line": 4,
-                "character": 18
+                "character": 15
               },
               "end": {
                 "line": 4,
-                "character": 19
+                "character": 16
               }
             }
           },
@@ -3581,29 +3581,29 @@
           },
           {
             "hatStyle": "default",
-            "grapheme": "t",
+            "grapheme": "a",
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 13
+                "character": 12
               },
               "end": {
                 "line": 2,
-                "character": 14
+                "character": 13
               }
             }
           },
           {
             "hatStyle": "default",
-            "grapheme": "e",
+            "grapheme": "i",
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 5
+                "character": 3
               },
               "end": {
                 "line": 2,
-                "character": 6
+                "character": 4
               }
             }
           },
@@ -3678,7 +3678,7 @@
             }
           },
           {
-            "hatStyle": "blue",
+            "hatStyle": "default",
             "grapheme": "e",
             "hatRange": {
               "start": {
@@ -4264,71 +4264,71 @@
           },
           {
             "hatStyle": "default",
-            "grapheme": "e",
-            "hatRange": {
-              "start": {
-                "line": 2,
-                "character": 41
-              },
-              "end": {
-                "line": 2,
-                "character": 42
-              }
-            }
-          },
-          {
-            "hatStyle": "default",
-            "grapheme": "s",
-            "hatRange": {
-              "start": {
-                "line": 2,
-                "character": 38
-              },
-              "end": {
-                "line": 2,
-                "character": 39
-              }
-            }
-          },
-          {
-            "hatStyle": "default",
             "grapheme": "n",
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 33
+                "character": 42
               },
               "end": {
                 "line": 2,
-                "character": 34
+                "character": 43
               }
             }
           },
           {
             "hatStyle": "default",
-            "grapheme": "r",
+            "grapheme": "h",
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 29
+                "character": 36
               },
               "end": {
+                "line": 2,
+                "character": 37
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "i",
+            "hatRange": {
+              "start": {
+                "line": 2,
+                "character": 32
+              },
+              "end": {
+                "line": 2,
+                "character": 33
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "d",
+            "hatRange": {
+              "start": {
                 "line": 2,
                 "character": 30
+              },
+              "end": {
+                "line": 2,
+                "character": 31
               }
             }
           },
           {
             "hatStyle": "default",
-            "grapheme": "c",
+            "grapheme": "a",
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 24
+                "character": 23
               },
               "end": {
                 "line": 2,
-                "character": 25
+                "character": 24
               }
             }
           },
@@ -4348,43 +4348,43 @@
           },
           {
             "hatStyle": "default",
-            "grapheme": "a",
+            "grapheme": "t",
             "hatRange": {
               "start": {
-                "line": 2,
-                "character": 12
-              },
-              "end": {
                 "line": 2,
                 "character": 13
+              },
+              "end": {
+                "line": 2,
+                "character": 14
               }
             }
           },
           {
             "hatStyle": "default",
-            "grapheme": "h",
+            "grapheme": "e",
             "hatRange": {
               "start": {
-                "line": 2,
-                "character": 8
-              },
-              "end": {
                 "line": 2,
                 "character": 9
+              },
+              "end": {
+                "line": 2,
+                "character": 10
               }
             }
           },
           {
             "hatStyle": "default",
-            "grapheme": "i",
+            "grapheme": "c",
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 3
+                "character": 4
               },
               "end": {
                 "line": 2,
-                "character": 4
+                "character": 5
               }
             }
           },
@@ -4477,43 +4477,43 @@
           },
           {
             "hatStyle": "default",
-            "grapheme": "h",
+            "grapheme": "e",
             "hatRange": {
               "start": {
-                "line": 2,
-                "character": 8
-              },
-              "end": {
                 "line": 2,
                 "character": 9
+              },
+              "end": {
+                "line": 2,
+                "character": 10
               }
             }
           },
           {
             "hatStyle": "default",
-            "grapheme": "a",
+            "grapheme": "t",
             "hatRange": {
               "start": {
-                "line": 2,
-                "character": 12
-              },
-              "end": {
                 "line": 2,
                 "character": 13
+              },
+              "end": {
+                "line": 2,
+                "character": 14
               }
             }
           },
           {
             "hatStyle": "default",
-            "grapheme": "i",
+            "grapheme": "c",
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 3
+                "character": 4
               },
               "end": {
                 "line": 2,
-                "character": 4
+                "character": 5
               }
             }
           },
@@ -4533,29 +4533,57 @@
           },
           {
             "hatStyle": "default",
-            "grapheme": "c",
+            "grapheme": "a",
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 24
+                "character": 23
               },
               "end": {
                 "line": 2,
-                "character": 25
+                "character": 24
               }
             }
           },
           {
             "hatStyle": "default",
-            "grapheme": "r",
+            "grapheme": "d",
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 29
+                "character": 30
               },
               "end": {
                 "line": 2,
-                "character": 30
+                "character": 31
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "i",
+            "hatRange": {
+              "start": {
+                "line": 2,
+                "character": 32
+              },
+              "end": {
+                "line": 2,
+                "character": 33
+              }
+            }
+          },
+          {
+            "hatStyle": "default",
+            "grapheme": "h",
+            "hatRange": {
+              "start": {
+                "line": 2,
+                "character": 36
+              },
+              "end": {
+                "line": 2,
+                "character": 37
               }
             }
           },
@@ -4565,39 +4593,11 @@
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 33
-              },
-              "end": {
-                "line": 2,
-                "character": 34
-              }
-            }
-          },
-          {
-            "hatStyle": "default",
-            "grapheme": "s",
-            "hatRange": {
-              "start": {
-                "line": 2,
-                "character": 38
-              },
-              "end": {
-                "line": 2,
-                "character": 39
-              }
-            }
-          },
-          {
-            "hatStyle": "default",
-            "grapheme": "e",
-            "hatRange": {
-              "start": {
-                "line": 2,
-                "character": 41
-              },
-              "end": {
-                "line": 2,
                 "character": 42
+              },
+              "end": {
+                "line": 2,
+                "character": 43
               }
             }
           },
@@ -4781,15 +4781,15 @@
           },
           {
             "hatStyle": "default",
-            "grapheme": "r",
+            "grapheme": "d",
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 29
+                "character": 30
               },
               "end": {
                 "line": 2,
-                "character": 30
+                "character": 31
               }
             }
           },
@@ -4924,15 +4924,15 @@
           },
           {
             "hatStyle": "default",
-            "grapheme": "r",
+            "grapheme": "d",
             "hatRange": {
               "start": {
                 "line": 2,
-                "character": 29
+                "character": 30
               },
               "end": {
                 "line": 2,
-                "character": 30
+                "character": 31
               }
             }
           },

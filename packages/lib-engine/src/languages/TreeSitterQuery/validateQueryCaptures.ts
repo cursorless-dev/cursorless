@@ -2,10 +2,9 @@ import { showError } from "@cursorless/lib-common";
 import type { IDE } from "@cursorless/lib-common";
 import { isCaptureAllowed } from "./captureNames";
 
-// Not a comment. ie line is not starting with `;;`
-// Not a string.
-// Capture starts with `@` and is followed by words and/or dots
-const capturePattern = /^(?!;;).*(?<!"\w*)@([\w.]*)/gmu;
+// Consume strings and comments without capturing their contents.
+// Capture starts with `@` and is followed by words and/or dots.
+const capturePattern = /"(?:\\[\s\S]|[^"\\])*"|;[^\r\n]*|@([\w.]*)/gu;
 
 export function validateQueryCaptures(
   ide: IDE,
@@ -18,6 +17,10 @@ export function validateQueryCaptures(
 
   for (const match of matches) {
     const captureName = match[1];
+
+    if (captureName == null) {
+      continue;
+    }
 
     if (
       captureName.length > 1 &&

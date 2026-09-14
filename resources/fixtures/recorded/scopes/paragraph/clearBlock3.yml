@@ -19,9 +19,7 @@ initialState:
       active: {line: 1, character: 3}
   marks: {}
 finalState:
-  documentContents: |+
-
-
+  documentContents: "\n\n"
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

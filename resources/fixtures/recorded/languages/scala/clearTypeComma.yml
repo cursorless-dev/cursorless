@@ -22,8 +22,7 @@ initialState:
       start: {line: 0, character: 18}
       end: {line: 0, character: 19}
 finalState:
-  documentContents: |+
-
+  documentContents: "\n"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

@@ -62,7 +62,7 @@
             }
           },
           {
-            "hatStyle": "blue",
+            "hatStyle": "default",
             "grapheme": "/",
             "hatRange": {
               "start": {
@@ -107,7 +107,7 @@
         ],
         "hatTokenMap": [
           {
-            "hatStyle": "blue",
+            "hatStyle": "default",
             "grapheme": "/",
             "hatRange": {
               "start": {

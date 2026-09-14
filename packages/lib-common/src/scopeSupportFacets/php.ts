@@ -348,13 +348,16 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   subParagraph: notApplicable,
   part: notApplicable,
 
+  // Regular expression literal
+  regularExpression: notApplicable,
+  "textFragment.regularExpression": notApplicable,
+
   // Miscellaneous
   "statement.misc": notApplicable,
   "type.variable.initialized": notApplicable,
   "type.foreach": notApplicable,
   "type.iteration.block": notApplicable,
   "class.iteration.class": notApplicable,
-  regularExpression: notApplicable,
   environment: notApplicable,
   selector: notApplicable,
   unit: notApplicable,

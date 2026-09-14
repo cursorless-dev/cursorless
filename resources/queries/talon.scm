@@ -29,8 +29,6 @@
   (for_statement)
 ] @statement
 
-(block) @statement.iteration
-
 ;;!! not mode: command
 ;;!      ^^^^
 ;;!            ^^^^^^^
@@ -87,16 +85,11 @@
 ;;!! settings():
 ;;!!     speech.debug = 1
 ;;!      ^^^^^^^^^^^^^^^^
-(block) @name.iteration @collectionKey.iteration @value.iteration
+(block) @statementNameValue.iteration @collectionKey.iteration
 
 (
-  (source_file) @command.iteration @statement.iteration
-  (#document-range! @command.iteration @statement.iteration)
-)
-
-(
-  (source_file) @name.iteration @collectionKey.iteration @value.iteration
-  (#document-range! @name.iteration @collectionKey.iteration @value.iteration)
+  (source_file) @command.iteration @statementNameValue.iteration @collectionKey.iteration
+  (#document-range! @command.iteration @statementNameValue.iteration @collectionKey.iteration)
 )
 
 ;;!!  tag: user.foo

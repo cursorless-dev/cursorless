@@ -8,6 +8,7 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
 
   // if/else/elif
   ifStatement: supported,
+  "statement.if": supported,
   "branch.if": supported,
   "branch.if.else": supported,
   "branch.if.elif.else": supported,
@@ -126,6 +127,7 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
 
   // function calls
   functionCall: unsupported,
+  "statement.functionCall": unsupported,
   "functionCall.constructor": unsupported,
   "functionCall.method": unsupported,
   "functionCall.chain": unsupported,
@@ -334,6 +336,8 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   regularExpression: unsupported,
   disqualifyDelimiter: unsupported,
   pairDelimiter: unsupported,
+  "textFragment.regularExpression": unsupported,
+  "statement.import": unsupported,
 
   /* NOT APPLICABLE */
 
@@ -348,6 +352,18 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
 
   // XML/CSS/LaTeX/Markdown specific
   section: notApplicable,
+  subSection: notApplicable,
+  subSubSection: notApplicable,
+  sectionLevelOne: notApplicable,
+  sectionLevelTwo: notApplicable,
+  sectionLevelThree: notApplicable,
+  sectionLevelFour: notApplicable,
+  sectionLevelFive: notApplicable,
+  sectionLevelSix: notApplicable,
+  subParagraph: notApplicable,
+  namedParagraph: notApplicable,
+  chapter: notApplicable,
+  part: notApplicable,
   "section.iteration.document": notApplicable,
   "section.iteration.parent": notApplicable,
   element: notApplicable,

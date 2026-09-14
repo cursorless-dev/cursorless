@@ -27,8 +27,7 @@ initialState:
       isReversed: false
       hasExplicitRange: false
 finalState:
-  documentContents: |+
-
+  documentContents: "\n"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

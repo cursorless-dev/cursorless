@@ -354,10 +354,13 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   subParagraph: notApplicable,
   part: notApplicable,
 
+  // Regular expression literal
+  regularExpression: notApplicable,
+  "textFragment.regularExpression": notApplicable,
+
   // Miscellaneous
   "type.return.lambda": notApplicable,
   pairDelimiter: notApplicable,
-  regularExpression: notApplicable,
   environment: notApplicable,
   selector: notApplicable,
   unit: notApplicable,

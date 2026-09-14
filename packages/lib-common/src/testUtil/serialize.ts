@@ -2,7 +2,14 @@
 // children) will be serialized inline, and also ensures that "fullTargets" will be inlined as well
 
 import type { Document, MappingNode, Node, SequenceNode } from "js-yaml";
-import { CORE_SCHEMA, dump, visit, YAML11_SCHEMA } from "js-yaml";
+import {
+  COLLECTION_STYLE,
+  CORE_SCHEMA,
+  dump,
+  SCALAR_STYLE,
+  visit,
+  YAML11_SCHEMA,
+} from "js-yaml";
 
 export function serialize(obj: unknown): string {
   return dump(toSerializableObject(obj), {
@@ -37,7 +44,7 @@ function inlineSimpleCollections(documents: Document[]): void {
     // Keep nested simple objects and arrays in flow style, eg `{line: 0}` and
     // `[default.a]`, while leaving top-level mappings in block style.
     if (depth > 0 && isCollectionNode(node) && hasOnlyScalarChildren(node)) {
-      node.style.flow = true;
+      node.style = COLLECTION_STYLE.FLOW;
     }
 
     // Existing fixtures use single quotes for flow scalar values that need
@@ -46,13 +53,14 @@ function inlineSimpleCollections(documents: Document[]): void {
     if (
       !isKey &&
       parent != null &&
-      parent.style.flow &&
+      isCollectionNode(parent) &&
+      parent.style === COLLECTION_STYLE.FLOW &&
       node.kind === "scalar" &&
       node.tag === "tag:yaml.org,2002:str" &&
       !node.value.includes("\n") &&
       scalarNeedsQuotesInFlow(node.value)
     ) {
-      node.style.singleQuoted = true;
+      node.style = SCALAR_STYLE.SINGLE_QUOTED;
     }
   });
 }

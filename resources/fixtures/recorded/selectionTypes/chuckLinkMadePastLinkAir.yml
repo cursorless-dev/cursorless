@@ -36,8 +36,7 @@ initialState:
       start: {line: 0, character: 60}
       end: {line: 0, character: 73}
 finalState:
-  documentContents: |+
-
+  documentContents: "\n"
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

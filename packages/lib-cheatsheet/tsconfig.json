@@ -8,6 +8,5 @@
     "src/**/*.tsx",
     "src/**/*.json",
     "../../resources/typings/**/*.d.ts"
-  ],
-  "exclude": ["src/test"]
+  ]
 }

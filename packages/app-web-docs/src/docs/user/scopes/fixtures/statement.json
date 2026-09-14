@@ -10782,6 +10782,40 @@
     ]
   },
   {
+    "name": "scopes/shellscript/statement/statement.function3",
+    "languageId": "shellscript",
+    "facet": "statement.function",
+    "code": "function foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:17",
+            "removal": "0:0-0:17"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.function4",
+    "languageId": "shellscript",
+    "facet": "statement.function",
+    "code": "foo() ()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:8",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:8"
+      }
+    ]
+  },
+  {
     "name": "scopes/shellscript/statement/statement.functionCall",
     "languageId": "shellscript",
     "facet": "statement.functionCall",
@@ -10812,6 +10846,75 @@
           }
         ],
         "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.functionCall3",
+    "languageId": "shellscript",
+    "facet": "statement.functionCall",
+    "code": "foo | bar | baz",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.functionCall4",
+    "languageId": "shellscript",
+    "facet": "statement.functionCall",
+    "code": "foo |& bar",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.functionCall5",
+    "languageId": "shellscript",
+    "facet": "statement.functionCall",
+    "code": "(foo; bar)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:1-0:4",
+            "removal": "0:1-0:4"
+          }
+        ],
+        "domain": "0:1-0:4"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:6-0:9",
+            "removal": "0:5-0:9"
+          }
+        ],
+        "domain": "0:6-0:9"
       }
     ]
   },
@@ -10927,6 +11030,46 @@
     ]
   },
   {
+    "name": "scopes/shellscript/statement/statement.iteration.block2",
+    "languageId": "shellscript",
+    "facet": "statement.iteration.block",
+    "code": "if true; then\n    :\nelif false; then\n    :\nelse\n    :\nfi",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-6:2"
+          }
+        ],
+        "domain": "0:0-6:2"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:13-2:0"
+          }
+        ],
+        "domain": "0:13-2:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:16-4:0"
+          }
+        ],
+        "domain": "2:16-4:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "4:4-6:0"
+          }
+        ],
+        "domain": "4:4-6:0"
+      }
+    ]
+  },
+  {
     "name": "scopes/shellscript/statement/statement.iteration.block3",
     "languageId": "shellscript",
     "facet": "statement.iteration.block",
@@ -10947,6 +11090,70 @@
           }
         ],
         "domain": "0:14-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.iteration.block4",
+    "languageId": "shellscript",
+    "facet": "statement.iteration.block",
+    "code": "case $foo in\n    0) bar=0 ;;\nesac",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:4"
+          }
+        ],
+        "domain": "0:0-2:4"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:6-1:13"
+          }
+        ],
+        "domain": "1:6-1:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/shellscript/statement/statement.iteration.block5",
+    "languageId": "shellscript",
+    "facet": "statement.iteration.block",
+    "code": "case $foo in\n  0) : ;&\n  1) : ;;&\n  *) : ;;\nesac",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-4:4"
+          }
+        ],
+        "domain": "0:0-4:4"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7"
+          }
+        ],
+        "domain": "1:4-1:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:7"
+          }
+        ],
+        "domain": "2:4-2:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "3:4-3:7"
+          }
+        ],
+        "domain": "3:4-3:7"
       }
     ]
   },

@@ -5955,6 +5955,23 @@
     ]
   },
   {
+    "name": "scopes/javascript.core/textFragment/textFragment.regularExpression",
+    "languageId": "javascript.core",
+    "facet": "textFragment.regularExpression",
+    "code": "/^\\w+$/g",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:6",
+            "removal": "0:1-0:6"
+          }
+        ],
+        "domain": "0:1-0:6"
+      }
+    ]
+  },
+  {
     "name": "scopes/javascript.core/textFragment/textFragment.string.multiLine",
     "languageId": "javascript.core",
     "facet": "textFragment.string.multiLine",

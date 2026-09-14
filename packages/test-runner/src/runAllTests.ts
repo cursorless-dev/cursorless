@@ -1,4 +1,5 @@
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 import fastGlob from "fast-glob";
 import Mocha from "mocha";
 import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
@@ -38,7 +39,7 @@ export function runAllTests(type: TestType): Promise<void> {
 
   switch (type) {
     case TestType.unit:
-      filePattern = "test.ts";
+      filePattern = "test.{ts,tsx}";
       ignore = [
         TestType.vscode,
         TestType.talon,
@@ -91,9 +92,17 @@ async function runTestsInDir(
     );
   }
 
-  // Add files to the test suite
   for (const file of files) {
-    mocha.addFile(file);
+    // Import explicitly: Mocha's require-first loader can bypass the TSX
+    // transform when the browser setup's synchronous hooks are registered.
+    if (file.endsWith(".tsx")) {
+      mocha.suite.emit("pre-require", globalThis, file, mocha);
+      const tests = await import(pathToFileURL(file).href);
+      mocha.suite.emit("require", tests, file, mocha);
+      mocha.suite.emit("post-require", globalThis, file, mocha);
+    } else {
+      mocha.addFile(file);
+    }
   }
 
   // Run the mocha test

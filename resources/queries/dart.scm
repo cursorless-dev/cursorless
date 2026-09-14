@@ -23,13 +23,8 @@
 )
 
 (
-  (program) @class.iteration @statement.iteration @namedFunction.iteration
-  (#document-range! @class.iteration @statement.iteration @namedFunction.iteration)
-)
-
-(
-  (program) @name.iteration @value.iteration @type.iteration
-  (#document-range! @name.iteration @value.iteration @type.iteration)
+  (program) @class.iteration @statementNameValueType.iteration @namedFunction.iteration
+  (#document-range! @class.iteration @statementNameValueType.iteration @namedFunction.iteration)
 )
 
 ;;!! { }
@@ -44,13 +39,8 @@
 ;;!! { }
 ;;!   ^
 (block
-  "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
-  "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
-)
-
-(block
-  "{" @statement.iteration.start.endOf
-  "}" @statement.iteration.end.startOf
+  "{" @statementNameValueType.iteration.start.endOf
+  "}" @statementNameValueType.iteration.end.startOf
 )
 
 ;;!! int foo = 0;
@@ -266,13 +256,8 @@
 ;;!! class Foo { }
 ;;!             ^
 (class_body
-  "{" @namedFunction.iteration.start.endOf @statement.iteration.start.endOf
-  "}" @namedFunction.iteration.end.startOf @statement.iteration.end.startOf
-)
-
-(class_body
-  "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
-  "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+  "{" @namedFunction.iteration.start.endOf @statementNameValueType.iteration.start.endOf
+  "}" @namedFunction.iteration.end.startOf @statementNameValueType.iteration.end.startOf
 )
 
 ;;!! var foo = 0;

@@ -101,12 +101,8 @@
 
 ;; Entire file
 (
-  (stylesheet) @name.iteration @collectionKey.iteration @value.iteration
-  (#document-range! @name.iteration @collectionKey.iteration @value.iteration)
-)
-(
-  (stylesheet) @statement.iteration
-  (#document-range! @statement.iteration)
+  (stylesheet) @statementNameValue.iteration @collectionKey.iteration
+  (#document-range! @statementNameValue.iteration @collectionKey.iteration)
 )
 
 ;; { }

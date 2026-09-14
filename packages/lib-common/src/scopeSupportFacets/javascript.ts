@@ -19,6 +19,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "textFragment.string.multiLine": supported,
   "textFragment.comment.line": supported,
   "textFragment.comment.block": supported,
+  "textFragment.regularExpression": supported,
 
   ifStatement: supported,
 

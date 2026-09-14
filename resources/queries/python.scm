@@ -309,8 +309,7 @@
 ;;!      *****
 ;;!!     c = 2
 ;;!      *****>
-(block) @name.iteration @value.iteration @type.iteration
-(block) @statement.iteration
+(block) @statementNameValueType.iteration
 
 ;;!! {"a": 1, "b": 2, "c": 3}
 ;;!   **********************

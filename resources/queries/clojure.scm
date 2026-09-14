@@ -14,6 +14,13 @@
   (#character-range! @textFragment 1 -1)
 )
 
+;;!! #"^\w+$"
+;;!    ^^^^^
+(
+  (regex_lit) @regularExpression @textFragment
+  (#character-range! @textFragment 2 -1)
+)
+
 ;;!! {:aaa 0 :bbb 1}
 ;;!  ^^^^^^^^^^^^^^^
 (

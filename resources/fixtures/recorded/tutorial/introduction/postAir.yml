@@ -62,10 +62,10 @@ initialState:
         start: {line: 2, character: 24}
         end: {line: 2, character: 25}
     - hatStyle: default
-      grapheme: r
+      grapheme: d
       hatRange:
-        start: {line: 2, character: 29}
-        end: {line: 2, character: 30}
+        start: {line: 2, character: 30}
+        end: {line: 2, character: 31}
     - hatStyle: default
       grapheme: n
       hatRange:
@@ -116,10 +116,10 @@ finalState:
         start: {line: 2, character: 8}
         end: {line: 2, character: 9}
     - hatStyle: default
-      grapheme: r
+      grapheme: d
       hatRange:
-        start: {line: 2, character: 29}
-        end: {line: 2, character: 30}
+        start: {line: 2, character: 30}
+        end: {line: 2, character: 31}
     - hatStyle: default
       grapheme: i
       hatRange:
