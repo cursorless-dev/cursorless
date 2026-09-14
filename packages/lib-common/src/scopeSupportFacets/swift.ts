@@ -85,7 +85,7 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
 
   "statement.iteration.class": supported,
   "class.iteration.class": supported,
-  "namedFunction.iteration.class": supported,
+  "namedFunction.iteration.class": unsupported,
   "name.iteration.class": supported,
   "value.iteration.class": unsupported,
   "type.iteration.class": supported,
