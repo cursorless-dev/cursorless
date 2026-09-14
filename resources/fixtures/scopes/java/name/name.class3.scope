@@ -1,0 +1,17 @@
+record Foo() {}
+---
+
+[Content] =
+[Removal] = 0:7-0:10
+         >---<
+0| record Foo() {}
+
+[Leading delimiter] = 0:6-0:7
+        >-<
+0| record Foo() {}
+
+[Domain] = 0:0-0:15
+  >---------------<
+0| record Foo() {}
+
+[Insertion delimiter] = " "

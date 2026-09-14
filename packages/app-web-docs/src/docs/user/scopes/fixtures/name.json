@@ -4204,6 +4204,40 @@
     ]
   },
   {
+    "name": "scopes/java/name/name.class3",
+    "languageId": "java",
+    "facet": "name.class",
+    "code": "record Foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:10",
+            "removal": "0:7-0:10"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/name/name.class4",
+    "languageId": "java",
+    "facet": "name.class",
+    "code": "@Bar\nrecord Foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:7-1:10",
+            "removal": "1:7-1:10"
+          }
+        ],
+        "domain": "0:0-1:15"
+      }
+    ]
+  },
+  {
     "name": "scopes/java/name/name.constant",
     "languageId": "java",
     "facet": "name.constant",
@@ -4273,6 +4307,32 @@
     ]
   },
   {
+    "name": "scopes/java/name/name.constructor3",
+    "languageId": "java",
+    "facet": "name.constructor",
+    "code": "record Foo() {\n    Foo {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:10",
+            "removal": "0:7-0:10"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-1:8"
+          }
+        ],
+        "domain": "1:4-1:10"
+      }
+    ]
+  },
+  {
     "name": "scopes/java/name/name.enum",
     "languageId": "java",
     "facet": "name.enum",
@@ -4330,6 +4390,32 @@
           }
         ],
         "domain": "3:4-3:22"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/name/name.field.class2",
+    "languageId": "java",
+    "facet": "name.field.class",
+    "code": "record Foo() {\n    static int bar = 0;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:10",
+            "removal": "0:7-0:10"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:15-1:18",
+            "removal": "1:4-1:21"
+          }
+        ],
+        "domain": "1:4-1:23"
       }
     ]
   },

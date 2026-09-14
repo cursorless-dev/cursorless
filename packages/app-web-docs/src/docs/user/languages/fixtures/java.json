@@ -1204,6 +1204,40 @@
     ]
   },
   {
+    "name": "scopes/java/class3",
+    "languageId": "java",
+    "facet": "class",
+    "code": "record Foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/class4",
+    "languageId": "java",
+    "facet": "class",
+    "code": "@bar\nrecord Foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:15",
+            "removal": "0:0-1:15"
+          }
+        ],
+        "domain": "0:0-1:15"
+      }
+    ]
+  },
+  {
     "name": "scopes/java/collectionItem.unenclosed.iteration",
     "languageId": "java",
     "facet": "collectionItem.unenclosed.iteration",
@@ -2851,6 +2885,40 @@
     ]
   },
   {
+    "name": "scopes/java/name/name.class3",
+    "languageId": "java",
+    "facet": "name.class",
+    "code": "record Foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:10",
+            "removal": "0:7-0:10"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/name/name.class4",
+    "languageId": "java",
+    "facet": "name.class",
+    "code": "@Bar\nrecord Foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:7-1:10",
+            "removal": "1:7-1:10"
+          }
+        ],
+        "domain": "0:0-1:15"
+      }
+    ]
+  },
+  {
     "name": "scopes/java/name/name.constant",
     "languageId": "java",
     "facet": "name.constant",
@@ -2920,6 +2988,32 @@
     ]
   },
   {
+    "name": "scopes/java/name/name.constructor3",
+    "languageId": "java",
+    "facet": "name.constructor",
+    "code": "record Foo() {\n    Foo {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:10",
+            "removal": "0:7-0:10"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:7",
+            "removal": "1:4-1:8"
+          }
+        ],
+        "domain": "1:4-1:10"
+      }
+    ]
+  },
+  {
     "name": "scopes/java/name/name.enum",
     "languageId": "java",
     "facet": "name.enum",
@@ -2977,6 +3071,32 @@
           }
         ],
         "domain": "3:4-3:22"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/name/name.field.class2",
+    "languageId": "java",
+    "facet": "name.field.class",
+    "code": "record Foo() {\n    static int bar = 0;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:10",
+            "removal": "0:7-0:10"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:15-1:18",
+            "removal": "1:4-1:21"
+          }
+        ],
+        "domain": "1:4-1:23"
       }
     ]
   },
@@ -3447,6 +3567,23 @@
     ]
   },
   {
+    "name": "scopes/java/namedFunction.constructor3",
+    "languageId": "java",
+    "facet": "namedFunction.constructor",
+    "code": "record Foo() {\n    Foo {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:10",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:10"
+      }
+    ]
+  },
+  {
     "name": "scopes/java/namedFunction.iteration.class",
     "languageId": "java",
     "facet": "namedFunction.iteration.class",
@@ -3459,6 +3596,22 @@
           }
         ],
         "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/namedFunction.iteration.class2",
+    "languageId": "java",
+    "facet": "namedFunction.iteration.class",
+    "code": "record Foo() { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:14-0:15"
+          }
+        ],
+        "domain": "0:14-0:15"
       }
     ]
   },
@@ -3493,6 +3646,23 @@
           }
         ],
         "domain": "1:4-2:24"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/namedFunction.method3",
+    "languageId": "java",
+    "facet": "namedFunction.method",
+    "code": "record Foo() {\n    void bar() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:17",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:17"
       }
     ]
   },
@@ -3660,6 +3830,32 @@
     ]
   },
   {
+    "name": "scopes/java/statement/statement.constructor3",
+    "languageId": "java",
+    "facet": "statement.constructor",
+    "code": "record Foo() {\n    Foo {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1",
+            "removal": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:10",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:10"
+      }
+    ]
+  },
+  {
     "name": "scopes/java/statement/statement.continue",
     "languageId": "java",
     "facet": "statement.continue",
@@ -3751,6 +3947,32 @@
           }
         ],
         "domain": "2:4-2:24"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/statement/statement.field.class2",
+    "languageId": "java",
+    "facet": "statement.field.class",
+    "code": "record Foo() {\n    static int bar = 0;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1",
+            "removal": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:23",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:23"
       }
     ]
   },
@@ -4068,6 +4290,30 @@
     ]
   },
   {
+    "name": "scopes/java/statement/statement.iteration.class3",
+    "languageId": "java",
+    "facet": "statement.iteration.class",
+    "code": "record Foo(int aaa) { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:23"
+          }
+        ],
+        "domain": "0:0-0:23"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:21-0:22"
+          }
+        ],
+        "domain": "0:21-0:22"
+      }
+    ]
+  },
+  {
     "name": "scopes/java/statement/statement.iteration.document",
     "languageId": "java",
     "facet": "statement.iteration.document",
@@ -4182,6 +4428,32 @@
           }
         ],
         "domain": "1:4-2:24"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/statement/statement.method3",
+    "languageId": "java",
+    "facet": "statement.method",
+    "code": "record Foo() {\n    void bar() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1",
+            "removal": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:4-1:17",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:4-1:17"
       }
     ]
   },
@@ -4832,6 +5104,57 @@
     ]
   },
   {
+    "name": "scopes/java/type/type.class2",
+    "languageId": "java",
+    "facet": "type.class",
+    "code": "@bar\npublic class Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:19",
+            "removal": "0:0-1:19"
+          }
+        ],
+        "domain": "0:0-1:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/type/type.class3",
+    "languageId": "java",
+    "facet": "type.class",
+    "code": "record Foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/type/type.class4",
+    "languageId": "java",
+    "facet": "type.class",
+    "code": "@bar\nrecord Foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:15",
+            "removal": "0:0-1:15"
+          }
+        ],
+        "domain": "0:0-1:15"
+      }
+    ]
+  },
+  {
     "name": "scopes/java/type/type.constant",
     "languageId": "java",
     "facet": "type.constant",
@@ -4897,6 +5220,32 @@
           }
         ],
         "domain": "2:4-2:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/type/type.field.class2",
+    "languageId": "java",
+    "facet": "type.field.class",
+    "code": "record Foo() {\n    static int bar = 0;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1",
+            "removal": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:11-1:14",
+            "removal": "1:11-1:15"
+          }
+        ],
+        "domain": "1:4-1:23"
       }
     ]
   },
@@ -5386,6 +5735,23 @@
           }
         ],
         "domain": "1:4-1:24"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/value/value.field.class2",
+    "languageId": "java",
+    "facet": "value.field.class",
+    "code": "record Foo() {\n    static int bar = 0;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:21-1:22",
+            "removal": "1:18-1:22"
+          }
+        ],
+        "domain": "1:4-1:23"
       }
     ]
   },

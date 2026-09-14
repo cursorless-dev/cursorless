@@ -3299,6 +3299,57 @@
     ]
   },
   {
+    "name": "scopes/java/type/type.class2",
+    "languageId": "java",
+    "facet": "type.class",
+    "code": "@bar\npublic class Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:19",
+            "removal": "0:0-1:19"
+          }
+        ],
+        "domain": "0:0-1:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/type/type.class3",
+    "languageId": "java",
+    "facet": "type.class",
+    "code": "record Foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/type/type.class4",
+    "languageId": "java",
+    "facet": "type.class",
+    "code": "@bar\nrecord Foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:15",
+            "removal": "0:0-1:15"
+          }
+        ],
+        "domain": "0:0-1:15"
+      }
+    ]
+  },
+  {
     "name": "scopes/java/type/type.constant",
     "languageId": "java",
     "facet": "type.constant",
@@ -3364,6 +3415,32 @@
           }
         ],
         "domain": "2:4-2:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/type/type.field.class2",
+    "languageId": "java",
+    "facet": "type.field.class",
+    "code": "record Foo() {\n    static int bar = 0;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1",
+            "removal": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:11-1:14",
+            "removal": "1:11-1:15"
+          }
+        ],
+        "domain": "1:4-1:23"
       }
     ]
   },
