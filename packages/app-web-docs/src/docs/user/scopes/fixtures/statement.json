@@ -11431,6 +11431,54 @@
     ]
   },
   {
+    "name": "scopes/swift/statement.iteration.class",
+    "languageId": "swift",
+    "facet": "statement.iteration.class",
+    "code": "class Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/statement.iteration.interface",
+    "languageId": "swift",
+    "facet": "statement.iteration.interface",
+    "code": "protocol Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:16"
+          }
+        ],
+        "domain": "0:0-0:16"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:14-0:15"
+          }
+        ],
+        "domain": "0:14-0:15"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/statement.assignment",
     "languageId": "talon",
     "facet": "statement.assignment",

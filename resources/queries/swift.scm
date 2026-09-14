@@ -99,11 +99,9 @@
 (
   (_
     "{" @class.iteration.start.endOf @branch.iteration.start.endOf @condition.iteration.start.endOf
-    "}" @class.iteration.end.startOf @condition.iteration.end.startOf @branch.iteration.end.startOf 
+    "}" @class.iteration.end.startOf @condition.iteration.end.startOf @branch.iteration.end.startOf
   )
 )
-
-
 
 ;; Generic interior -- class iteration
 ;; Classlikes (class/struct/actor) can be nested within other classlikes, and within both top-level functions and member functions.

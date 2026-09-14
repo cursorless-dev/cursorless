@@ -109,6 +109,14 @@
           }
         ],
         "domain": "0:0-2:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:13-2:6"
+          }
+        ],
+        "domain": "1:13-2:6"
       }
     ]
   },
@@ -126,6 +134,30 @@
           }
         ],
         "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/class.iteration.class",
+    "languageId": "swift",
+    "facet": "class.iteration.class",
+    "code": "class Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
       }
     ]
   },
@@ -215,6 +247,57 @@
     ]
   },
   {
+    "name": "scopes/swift/interior.class",
+    "languageId": "swift",
+    "facet": "interior.class",
+    "code": "class Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12",
+            "removal": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/interior.enum",
+    "languageId": "swift",
+    "facet": "interior.enum",
+    "code": "enum Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11",
+            "removal": "0:10-0:11"
+          }
+        ],
+        "domain": "0:10-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/interior.foreach",
+    "languageId": "swift",
+    "facet": "interior.foreach",
+    "code": "for foo in bat { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:16-0:17",
+            "removal": "0:16-0:17"
+          }
+        ],
+        "domain": "0:16-0:17"
+      }
+    ]
+  },
+  {
     "name": "scopes/swift/interior.if",
     "languageId": "swift",
     "facet": "interior.if",
@@ -228,6 +311,23 @@
           }
         ],
         "domain": "0:8-0:10"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/interior.interface",
+    "languageId": "swift",
+    "facet": "interior.interface",
+    "code": "protocol Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:14-0:15",
+            "removal": "0:14-0:15"
+          }
+        ],
+        "domain": "0:14-0:15"
       }
     ]
   },
@@ -300,6 +400,78 @@
     ]
   },
   {
+    "name": "scopes/swift/name.iteration.class",
+    "languageId": "swift",
+    "facet": "name.iteration.class",
+    "code": "class Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/name.iteration.enum",
+    "languageId": "swift",
+    "facet": "name.iteration.enum",
+    "code": "enum Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11"
+          }
+        ],
+        "domain": "0:10-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/name.iteration.interface",
+    "languageId": "swift",
+    "facet": "name.iteration.interface",
+    "code": "protocol Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:16"
+          }
+        ],
+        "domain": "0:0-0:16"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:14-0:15"
+          }
+        ],
+        "domain": "0:14-0:15"
+      }
+    ]
+  },
+  {
     "name": "scopes/swift/statement.class",
     "languageId": "swift",
     "facet": "statement.class",
@@ -364,6 +536,54 @@
           }
         ],
         "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/statement.iteration.class",
+    "languageId": "swift",
+    "facet": "statement.iteration.class",
+    "code": "class Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/statement.iteration.interface",
+    "languageId": "swift",
+    "facet": "statement.iteration.interface",
+    "code": "protocol Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:16"
+          }
+        ],
+        "domain": "0:0-0:16"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:14-0:15"
+          }
+        ],
+        "domain": "0:14-0:15"
       }
     ]
   },
@@ -470,6 +690,83 @@
     ]
   },
   {
+    "name": "scopes/swift/type.constant",
+    "languageId": "swift",
+    "facet": "type.constant",
+    "code": "let foo: Int = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:12",
+            "removal": "0:7-0:12"
+          }
+        ],
+        "domain": "0:9-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/type.enum",
+    "languageId": "swift",
+    "facet": "type.enum",
+    "code": "enum Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:8",
+            "removal": "0:5-0:9"
+          }
+        ],
+        "domain": "0:5-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/type.field.class",
+    "languageId": "swift",
+    "facet": "type.field.class",
+    "code": "struct Foo {\n    var foo: Int = 0\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:10",
+            "removal": "0:7-0:11"
+          }
+        ],
+        "domain": "0:7-0:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:13-1:16",
+            "removal": "1:11-1:16"
+          }
+        ],
+        "domain": "1:13-1:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/type.field.interface",
+    "languageId": "swift",
+    "facet": "type.field.interface",
+    "code": "protocol Foo {\n    var foo: Int { set get }\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:13-1:16",
+            "removal": "1:11-1:16"
+          }
+        ],
+        "domain": "1:13-1:16"
+      }
+    ]
+  },
+  {
     "name": "scopes/swift/type.foreach",
     "languageId": "swift",
     "facet": "type.foreach",
@@ -483,6 +780,137 @@
           }
         ],
         "domain": "0:0-0:23"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:13",
+            "removal": "0:7-0:13"
+          }
+        ],
+        "domain": "0:9-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/type.iteration.block",
+    "languageId": "swift",
+    "facet": "type.iteration.block",
+    "code": "func foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11"
+          }
+        ],
+        "domain": "0:10-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/type.iteration.class",
+    "languageId": "swift",
+    "facet": "type.iteration.class",
+    "code": "class Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/type.iteration.document",
+    "languageId": "swift",
+    "facet": "type.iteration.document",
+    "code": "let foo: Int = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:16"
+          }
+        ],
+        "domain": "0:0-0:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/type.iteration.interface",
+    "languageId": "swift",
+    "facet": "type.iteration.interface",
+    "code": "protocol Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:16"
+          }
+        ],
+        "domain": "0:0-0:16"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:14-0:15"
+          }
+        ],
+        "domain": "0:14-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/type.variable.initialized",
+    "languageId": "swift",
+    "facet": "type.variable.initialized",
+    "code": "var foo: Int = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:12",
+            "removal": "0:7-0:12"
+          }
+        ],
+        "domain": "0:9-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/type.variable.uninitialized",
+    "languageId": "swift",
+    "facet": "type.variable.uninitialized",
+    "code": "var foo: Int",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:12",
+            "removal": "0:7-0:12"
+          }
+        ],
+        "domain": "0:9-0:12"
       }
     ]
   },
@@ -500,6 +928,30 @@
           }
         ],
         "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value.iteration.enum",
+    "languageId": "swift",
+    "facet": "value.iteration.enum",
+    "code": "enum Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11"
+          }
+        ],
+        "domain": "0:10-0:11"
       }
     ]
   }

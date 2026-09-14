@@ -45,6 +45,12 @@ Below are visualizations of all our scope tests for this language. These were cr
 
 <ScopeVisualizer fixtureName="scopes/swift/class" languageId="swift" />
 
+#### 2. Class (iteration class)
+
+<i>Iteration scope for classes: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/class.iteration.class" languageId="swift" />
+
 ### Comment
 
 #### 1. Comment: Block
@@ -77,11 +83,35 @@ Below are visualizations of all our scope tests for this language. These were cr
 
 ### Interior
 
-#### 1. Interior: If
+#### 1. Interior: Class
+
+<i>The body of a class/struct declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/interior.class" languageId="swift" />
+
+#### 2. Interior: Enum
+
+<i>The body of an enum declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/interior.enum" languageId="swift" />
+
+#### 3. Interior: Foreach
+
+<i>The body of a for-each loop</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/interior.foreach" languageId="swift" />
+
+#### 4. Interior: If
 
 <i>The body of an if/elif/else branch</i>
 
 <ScopeVisualizer fixtureName="scopes/swift/interior.if" languageId="swift" />
+
+#### 5. Interior: Interface
+
+<i>The body of an interface declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/interior.interface" languageId="swift" />
 
 ### Name
 
@@ -109,6 +139,24 @@ Below are visualizations of all our scope tests for this language. These were cr
 
 <ScopeVisualizer fixtureName="scopes/swift/name.interface" languageId="swift" />
 
+#### 5. Name (iteration class)
+
+<i>Iteration scope for names: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/name.iteration.class" languageId="swift" />
+
+#### 6. Name (iteration enum)
+
+<i>Iteration scope for names: enum bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/name.iteration.enum" languageId="swift" />
+
+#### 7. Name (iteration interface)
+
+<i>Iteration scope for names: interface bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/name.iteration.interface" languageId="swift" />
+
 ### Statement
 
 #### 1. Statement: Class
@@ -135,13 +183,85 @@ Below are visualizations of all our scope tests for this language. These were cr
 
 <ScopeVisualizer fixtureName="scopes/swift/statement.interface" languageId="swift" />
 
+#### 5. Statement (iteration class)
+
+<i>Iteration scope for statements: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/statement.iteration.class" languageId="swift" />
+
+#### 6. Statement (iteration interface)
+
+<i>Iteration scope for statements: interface bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/statement.iteration.interface" languageId="swift" />
+
 ### Type
 
-#### 1. Type: Foreach
+#### 1. Type: Constant
+
+<i>Type of a constant declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/type.constant" languageId="swift" />
+
+#### 2. Type: Enum
+
+<i>An enum declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/type.enum" languageId="swift" />
+
+#### 3. Type: Field class
+
+<i>Type of a field declaration in a class/struct</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/type.field.class" languageId="swift" />
+
+#### 4. Type: Field interface
+
+<i>Type of a field declaration in an interface</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/type.field.interface" languageId="swift" />
+
+#### 5. Type: Foreach
 
 <i>Type of a variable in a for-each loop</i>
 
 <ScopeVisualizer fixtureName="scopes/swift/type.foreach" languageId="swift" />
+
+#### 6. Type: Variable initialized
+
+<i>Type of an initialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/type.variable.initialized" languageId="swift" />
+
+#### 7. Type: Variable uninitialized
+
+<i>Type of an uninitialized variable declaration</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/type.variable.uninitialized" languageId="swift" />
+
+#### 8. Type (iteration block)
+
+<i>Iteration scope for types: statement blocks (body of functions/if-statements/for-loops/etc).</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/type.iteration.block" languageId="swift" />
+
+#### 9. Type (iteration class)
+
+<i>Iteration scope for types: class bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/type.iteration.class" languageId="swift" />
+
+#### 10. Type (iteration document)
+
+<i>Iteration scope for types: the entire document including leading and trailing empty lines.</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/type.iteration.document" languageId="swift" />
+
+#### 11. Type (iteration interface)
+
+<i>Iteration scope for types: interface bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/type.iteration.interface" languageId="swift" />
 
 ### Value
 
@@ -150,6 +270,12 @@ Below are visualizations of all our scope tests for this language. These were cr
 <i>Iterable in a for-each loop</i>
 
 <ScopeVisualizer fixtureName="scopes/swift/value.foreach" languageId="swift" />
+
+#### 2. Value (iteration enum)
+
+<i>Iteration scope for values: enum bodies.</i>
+
+<ScopeVisualizer fixtureName="scopes/swift/value.iteration.enum" languageId="swift" />
 
 ## Internal scopes
 

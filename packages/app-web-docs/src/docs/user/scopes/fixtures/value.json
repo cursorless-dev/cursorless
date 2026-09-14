@@ -9062,6 +9062,30 @@
     ]
   },
   {
+    "name": "scopes/swift/value.iteration.enum",
+    "languageId": "swift",
+    "facet": "value.iteration.enum",
+    "code": "enum Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11"
+          }
+        ],
+        "domain": "0:10-0:11"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/value/value.assignment",
     "languageId": "talon",
     "facet": "value.assignment",

@@ -7400,6 +7400,83 @@
     ]
   },
   {
+    "name": "scopes/swift/type.constant",
+    "languageId": "swift",
+    "facet": "type.constant",
+    "code": "let foo: Int = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:12",
+            "removal": "0:7-0:12"
+          }
+        ],
+        "domain": "0:9-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/type.enum",
+    "languageId": "swift",
+    "facet": "type.enum",
+    "code": "enum Foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:5-0:8",
+            "removal": "0:5-0:9"
+          }
+        ],
+        "domain": "0:5-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/type.field.class",
+    "languageId": "swift",
+    "facet": "type.field.class",
+    "code": "struct Foo {\n    var foo: Int = 0\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:10",
+            "removal": "0:7-0:11"
+          }
+        ],
+        "domain": "0:7-0:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:13-1:16",
+            "removal": "1:11-1:16"
+          }
+        ],
+        "domain": "1:13-1:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/type.field.interface",
+    "languageId": "swift",
+    "facet": "type.field.interface",
+    "code": "protocol Foo {\n    var foo: Int { set get }\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:13-1:16",
+            "removal": "1:11-1:16"
+          }
+        ],
+        "domain": "1:13-1:16"
+      }
+    ]
+  },
+  {
     "name": "scopes/swift/type.foreach",
     "languageId": "swift",
     "facet": "type.foreach",
@@ -7413,6 +7490,137 @@
           }
         ],
         "domain": "0:0-0:23"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:13",
+            "removal": "0:7-0:13"
+          }
+        ],
+        "domain": "0:9-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/type.iteration.block",
+    "languageId": "swift",
+    "facet": "type.iteration.block",
+    "code": "func foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:12"
+          }
+        ],
+        "domain": "0:0-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11"
+          }
+        ],
+        "domain": "0:10-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/type.iteration.class",
+    "languageId": "swift",
+    "facet": "type.iteration.class",
+    "code": "class Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/type.iteration.document",
+    "languageId": "swift",
+    "facet": "type.iteration.document",
+    "code": "let foo: Int = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:16"
+          }
+        ],
+        "domain": "0:0-0:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/type.iteration.interface",
+    "languageId": "swift",
+    "facet": "type.iteration.interface",
+    "code": "protocol Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:16"
+          }
+        ],
+        "domain": "0:0-0:16"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:14-0:15"
+          }
+        ],
+        "domain": "0:14-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/type.variable.initialized",
+    "languageId": "swift",
+    "facet": "type.variable.initialized",
+    "code": "var foo: Int = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:12",
+            "removal": "0:7-0:12"
+          }
+        ],
+        "domain": "0:9-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/type.variable.uninitialized",
+    "languageId": "swift",
+    "facet": "type.variable.uninitialized",
+    "code": "var foo: Int",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:12",
+            "removal": "0:7-0:12"
+          }
+        ],
+        "domain": "0:9-0:12"
       }
     ]
   },
