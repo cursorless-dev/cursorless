@@ -1,0 +1,13 @@
+@bar
+record Foo() {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-1:15
+  >----
+0| @bar
+1| record Foo() {}
+   ---------------<
+
+[Insertion delimiter] = "\n\n"
