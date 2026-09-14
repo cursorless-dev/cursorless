@@ -1,0 +1,17 @@
+fn foo() void {}
+---
+
+[Content] =
+[Removal] = 0:3-0:6
+     >---<
+0| fn foo() void {}
+
+[Leading delimiter] = 0:2-0:3
+    >-<
+0| fn foo() void {}
+
+[Domain] = 0:0-0:16
+  >----------------<
+0| fn foo() void {}
+
+[Insertion delimiter] = " "
