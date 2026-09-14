@@ -27,6 +27,7 @@
   (yield_statement)
   (method_declaration)
   (constructor_declaration)
+  (compact_constructor_declaration)
   (field_declaration)
   (constant_declaration)
   (static_initializer)
@@ -82,6 +83,13 @@
   name: (_) @name
 ) @class @type @_.domain
 
+;;!! record Foo(int aaa) {}
+;;!  ^^^^^^^^^^^^^^^^^^^^^^
+;;!         ^^^
+(record_declaration
+  name: (_) @name
+) @class @type @_.domain
+
 ;;!! interface Foo {}
 ;;!  ^^^^^^^^^^^^^^^^
 ;;!            ^^^
@@ -117,7 +125,15 @@
   name: (_) @name
 ) @namedFunction @name.domain
 
+;;!! class Foo { Foo {} }
+;;!              ^^^^^^
 (constructor_declaration
+  name: (_) @name
+) @namedFunction @name.domain
+
+;;!! record Foo() { Foo {} }
+;;!                 ^^^^^^
+(compact_constructor_declaration
   name: (_) @name
 ) @namedFunction @name.domain
 

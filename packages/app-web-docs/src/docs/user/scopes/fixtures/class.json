@@ -332,6 +332,40 @@
     ]
   },
   {
+    "name": "scopes/java/class3",
+    "languageId": "java",
+    "facet": "class",
+    "code": "record Foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/class4",
+    "languageId": "java",
+    "facet": "class",
+    "code": "@bar\nrecord Foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-1:15",
+            "removal": "0:0-1:15"
+          }
+        ],
+        "domain": "0:0-1:15"
+      }
+    ]
+  },
+  {
     "name": "scopes/javascript.core/class.iteration.document",
     "languageId": "javascript.core",
     "facet": "class.iteration.document",

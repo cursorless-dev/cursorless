@@ -2750,6 +2750,23 @@
     ]
   },
   {
+    "name": "scopes/java/value/value.field.class2",
+    "languageId": "java",
+    "facet": "value.field.class",
+    "code": "record Foo() {\n    static int bar = 0;\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:21-1:22",
+            "removal": "1:18-1:22"
+          }
+        ],
+        "domain": "1:4-1:23"
+      }
+    ]
+  },
+  {
     "name": "scopes/java/value/value.field.interface",
     "languageId": "java",
     "facet": "value.field.interface",

@@ -1,0 +1,45 @@
+record Foo() {
+    static int bar = 0;
+}
+---
+
+[#1 Content] =
+[#1 Removal] = 0:7-0:10
+         >---<
+0| record Foo() {
+
+[#1 Leading delimiter] = 0:6-0:7
+        >-<
+0| record Foo() {
+
+[#1 Domain] = 0:0-2:1
+  >--------------
+0| record Foo() {
+1|     static int bar = 0;
+2| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:15-1:18
+                 >---<
+1|     static int bar = 0;
+
+[#2 Removal] = 1:4-1:21
+      >-----------------<
+1|     static int bar = 0;
+
+[#2 Leading delimiter] = 1:14-1:15
+                >-<
+1|     static int bar = 0;
+
+[#2 Trailing delimiter] = 1:18-1:19
+                    >-<
+1|     static int bar = 0;
+
+[#2 Domain] = 1:4-1:23
+      >-------------------<
+1|     static int bar = 0;
+
+[#2 Insertion delimiter] = " "

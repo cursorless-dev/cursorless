@@ -1,0 +1,20 @@
+@Bar
+record Foo() {}
+---
+
+[Content] =
+[Removal] = 1:7-1:10
+         >---<
+1| record Foo() {}
+
+[Leading delimiter] = 1:6-1:7
+        >-<
+1| record Foo() {}
+
+[Domain] = 0:0-1:15
+  >----
+0| @Bar
+1| record Foo() {}
+   ---------------<
+
+[Insertion delimiter] = " "

@@ -1,0 +1,13 @@
+record Foo(int aaa) { }
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:23
+  >-----------------------<
+0| record Foo(int aaa) { }
+
+
+[#2 Content] =
+[#2 Domain] = 0:21-0:22
+                       >-<
+0| record Foo(int aaa) { }
