@@ -1,0 +1,23 @@
+languageId: elixir
+command:
+  version: 6
+  spokenForm: change lambda
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: anonymousFunction}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: add = fn x, y -> x + y end
+  selections:
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
+  marks: {}
+finalState:
+  documentContents: "add = "
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
