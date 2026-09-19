@@ -1,0 +1,10 @@
+sealed class Foo implements Bar, Baz {}
+---
+
+[Content] = 0:28-0:36
+                              >--------<
+0| sealed class Foo implements Bar, Baz {}
+
+[Domain] = 0:17-0:36
+                   >-------------------<
+0| sealed class Foo implements Bar, Baz {}

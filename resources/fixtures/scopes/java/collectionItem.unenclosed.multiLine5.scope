@@ -1,0 +1,59 @@
+sealed interface Foo
+    permits Bar,
+    Baz {}
+---
+
+[#1 Content] =
+[#1 Domain] = 1:4-1:15
+      >-----------<
+1|     permits Bar,
+
+[#1 Removal] = 1:4-1:16
+      >------------<
+1|     permits Bar,
+
+[#1 Trailing delimiter] = 1:15-1:16
+                 >-<
+1|     permits Bar,
+
+[#1 Insertion delimiter] = ", "
+
+
+[#2 Content] =
+[#2 Domain] = 1:12-1:15
+              >---<
+1|     permits Bar,
+
+[#2 Removal] = 1:12-2:4
+              >----
+1|     permits Bar,
+2|     Baz {}
+   ----<
+
+[#2 Trailing delimiter] = 1:15-2:4
+                 >-
+1|     permits Bar,
+2|     Baz {}
+   ----<
+
+[#2 Insertion delimiter] = ",\n"
+
+
+[#3 Content] =
+[#3 Domain] = 2:4-2:7
+      >---<
+2|     Baz {}
+
+[#3 Removal] = 1:15-2:7
+                 >-
+1|     permits Bar,
+2|     Baz {}
+   -------<
+
+[#3 Leading delimiter] = 1:15-2:4
+                 >-
+1|     permits Bar,
+2|     Baz {}
+   ----<
+
+[#3 Insertion delimiter] = ",\n"

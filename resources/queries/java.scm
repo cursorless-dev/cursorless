@@ -521,6 +521,29 @@
   .
 ) @collectionItem.iteration.domain
 
+;;!! class Foo implements Bar, Baz {}
+;;!                       ^^^  ^^^
+;;!! interface Foo permits Bar, Baz {}
+;;!                        ^^^  ^^^
+(_
+  (type_list
+    (_)? @_.leading.endOf
+    .
+    (_) @collectionItem
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @collectionItem @_dummy ", " ",\n")
+)
+
+;;!! class Foo implements Bar, Baz {}
+;;!                       ^^^^^^^^
+;;!! interface Foo permits Bar, Baz {}
+;;!                        ^^^^^^^^
+(_
+  (type_list) @collectionItem.iteration
+) @collectionItem.iteration.domain
+
 ;;!! value = 1;
 ;;!          ^
 ;;!       xxxx

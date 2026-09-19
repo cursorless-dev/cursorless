@@ -1254,14 +1254,6 @@
       {
         "targets": [
           {
-            "content": "1:4-1:17"
-          }
-        ],
-        "domain": "1:0-1:17"
-      },
-      {
-        "targets": [
-          {
             "content": "1:8-1:16"
           }
         ],
@@ -1294,14 +1286,6 @@
       {
         "targets": [
           {
-            "content": "2:8-2:21"
-          }
-        ],
-        "domain": "2:0-2:21"
-      },
-      {
-        "targets": [
-          {
             "content": "2:12-2:20"
           }
         ],
@@ -1326,18 +1310,42 @@
       {
         "targets": [
           {
-            "content": "1:4-1:47"
-          }
-        ],
-        "domain": "1:0-1:47"
-      },
-      {
-        "targets": [
-          {
             "content": "1:22-1:44"
           }
         ],
         "domain": "1:15-1:44"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/collectionItem.unenclosed.iteration4",
+    "languageId": "java",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "sealed class Foo implements Bar, Baz {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:28-0:36"
+          }
+        ],
+        "domain": "0:17-0:36"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/collectionItem.unenclosed.iteration5",
+    "languageId": "java",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "sealed interface Foo permits Bar, Baz {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:29-0:37"
+          }
+        ],
+        "domain": "0:21-0:37"
       }
     ]
   },
@@ -1483,6 +1491,76 @@
     ]
   },
   {
+    "name": "scopes/java/collectionItem.unenclosed.multiLine4",
+    "languageId": "java",
+    "facet": "collectionItem.unenclosed.multiLine",
+    "code": "sealed class Foo\n    implements Bar,\n    Baz {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:18",
+            "removal": "1:4-1:19"
+          }
+        ],
+        "domain": "1:4-1:18"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:15-1:18",
+            "removal": "1:15-2:4"
+          }
+        ],
+        "domain": "1:15-1:18"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:7",
+            "removal": "1:18-2:7"
+          }
+        ],
+        "domain": "2:4-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/collectionItem.unenclosed.multiLine5",
+    "languageId": "java",
+    "facet": "collectionItem.unenclosed.multiLine",
+    "code": "sealed interface Foo\n    permits Bar,\n    Baz {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-1:15",
+            "removal": "1:4-1:16"
+          }
+        ],
+        "domain": "1:4-1:15"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:12-1:15",
+            "removal": "1:12-2:4"
+          }
+        ],
+        "domain": "1:12-1:15"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:4-2:7",
+            "removal": "1:15-2:7"
+          }
+        ],
+        "domain": "2:4-2:7"
+      }
+    ]
+  },
+  {
     "name": "scopes/java/collectionItem.unenclosed.singleLine",
     "languageId": "java",
     "facet": "collectionItem.unenclosed.singleLine",
@@ -1620,6 +1698,94 @@
           }
         ],
         "domain": "1:34-1:47"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/collectionItem.unenclosed.singleLine4",
+    "languageId": "java",
+    "facet": "collectionItem.unenclosed.singleLine",
+    "code": "sealed class Foo implements Bar, Baz {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:31",
+            "removal": "0:0-0:33"
+          }
+        ],
+        "domain": "0:0-0:31"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:28-0:31",
+            "removal": "0:28-0:33"
+          }
+        ],
+        "domain": "0:28-0:31"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:33-0:36",
+            "removal": "0:31-0:36"
+          }
+        ],
+        "domain": "0:33-0:36"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:33-0:39",
+            "removal": "0:31-0:39"
+          }
+        ],
+        "domain": "0:33-0:39"
+      }
+    ]
+  },
+  {
+    "name": "scopes/java/collectionItem.unenclosed.singleLine5",
+    "languageId": "java",
+    "facet": "collectionItem.unenclosed.singleLine",
+    "code": "sealed interface Foo permits Bar, Baz {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:32",
+            "removal": "0:0-0:34"
+          }
+        ],
+        "domain": "0:0-0:32"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:29-0:32",
+            "removal": "0:29-0:34"
+          }
+        ],
+        "domain": "0:29-0:32"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:34-0:37",
+            "removal": "0:32-0:37"
+          }
+        ],
+        "domain": "0:34-0:37"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:34-0:40",
+            "removal": "0:32-0:40"
+          }
+        ],
+        "domain": "0:34-0:40"
       }
     ]
   },
