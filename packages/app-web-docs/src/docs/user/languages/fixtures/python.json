@@ -1380,14 +1380,6 @@
       {
         "targets": [
           {
-            "content": "1:4-1:19"
-          }
-        ],
-        "domain": "1:0-1:19"
-      },
-      {
-        "targets": [
-          {
             "content": "1:11-1:19"
           }
         ],
@@ -1401,14 +1393,6 @@
     "facet": "collectionItem.unenclosed.iteration",
     "code": "for key, value in map.items():\n    pass",
     "scopes": [
-      {
-        "targets": [
-          {
-            "content": "0:0-0:30"
-          }
-        ],
-        "domain": "0:0-0:30"
-      },
       {
         "targets": [
           {
