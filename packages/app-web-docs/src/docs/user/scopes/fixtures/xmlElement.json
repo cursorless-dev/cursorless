@@ -66,5 +66,22 @@
         "domain": "0:0-0:13"
       }
     ]
+  },
+  {
+    "name": "scopes/xml/element2",
+    "languageId": "xml",
+    "facet": "element",
+    "code": "<name />",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:8",
+            "removal": "0:0-0:8"
+          }
+        ],
+        "domain": "0:0-0:8"
+      }
+    ]
   }
 ]
