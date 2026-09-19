@@ -1,8 +1,8 @@
 import { testRegex } from "@cursorless/lib-common";
-import type { ComplexScopeType } from "../scopeHandler.types";
+import type { FallbackScopeType } from "../scopeHandler.types";
 import { separatorRegex } from "./getSeparatorOccurrences";
 
-export const collectionItemTextualIterationScopeHandler: ComplexScopeType = {
+export const collectionItemTextualIterationScopeHandler: FallbackScopeType = {
   type: "fallback",
   scopeTypes: [
     {

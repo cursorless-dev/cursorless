@@ -15,19 +15,10 @@ class Foo {
    <
 
 
-[#2 Content] = 1:4-1:25
-      >---------------------<
-1|     private int bar, baz;
-
-[#2 Domain] = 1:0-1:25
-  >-------------------------<
-1|     private int bar, baz;
-
-
-[#3 Content] = 1:16-1:24
+[#2 Content] = 1:16-1:24
                   >--------<
 1|     private int bar, baz;
 
-[#3 Domain] = 1:4-1:25
+[#2 Domain] = 1:4-1:25
       >---------------------<
 1|     private int bar, baz;

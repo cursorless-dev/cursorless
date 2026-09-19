@@ -1,0 +1,65 @@
+sealed interface Foo permits Bar, Baz {}
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:32
+  >--------------------------------<
+0| sealed interface Foo permits Bar, Baz {}
+
+[#1 Removal] = 0:0-0:34
+  >----------------------------------<
+0| sealed interface Foo permits Bar, Baz {}
+
+[#1 Trailing delimiter] = 0:32-0:34
+                                  >--<
+0| sealed interface Foo permits Bar, Baz {}
+
+[#1 Insertion delimiter] = ", "
+
+
+[#2 Content] =
+[#2 Domain] = 0:29-0:32
+                               >---<
+0| sealed interface Foo permits Bar, Baz {}
+
+[#2 Removal] = 0:29-0:34
+                               >-----<
+0| sealed interface Foo permits Bar, Baz {}
+
+[#2 Trailing delimiter] = 0:32-0:34
+                                  >--<
+0| sealed interface Foo permits Bar, Baz {}
+
+[#2 Insertion delimiter] = ", "
+
+
+[#3 Content] =
+[#3 Domain] = 0:34-0:37
+                                    >---<
+0| sealed interface Foo permits Bar, Baz {}
+
+[#3 Removal] = 0:32-0:37
+                                  >-----<
+0| sealed interface Foo permits Bar, Baz {}
+
+[#3 Leading delimiter] = 0:32-0:34
+                                  >--<
+0| sealed interface Foo permits Bar, Baz {}
+
+[#3 Insertion delimiter] = ", "
+
+
+[#4 Content] =
+[#4 Domain] = 0:34-0:40
+                                    >------<
+0| sealed interface Foo permits Bar, Baz {}
+
+[#4 Removal] = 0:32-0:40
+                                  >--------<
+0| sealed interface Foo permits Bar, Baz {}
+
+[#4 Leading delimiter] = 0:32-0:34
+                                  >--<
+0| sealed interface Foo permits Bar, Baz {}
+
+[#4 Insertion delimiter] = ", "

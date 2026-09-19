@@ -14,7 +14,7 @@ import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 export class SortedScopeHandler extends BaseScopeHandler {
   protected isHierarchical = true;
   public scopeType = undefined;
-  private iterationScopeHandler: SortedScopeHandler | undefined;
+  protected iterationScopeHandler: SortedScopeHandler | undefined;
   private lastYieldedIndex: number | undefined;
 
   static maybeCreate(
@@ -46,9 +46,9 @@ export class SortedScopeHandler extends BaseScopeHandler {
   }
 
   constructor(
-    private scopeHandlerFactory: ScopeHandlerFactory,
-    private languageId: string,
-    private scopeHandlers: ScopeHandler[],
+    protected scopeHandlerFactory: ScopeHandlerFactory,
+    protected languageId: string,
+    protected scopeHandlers: ScopeHandler[],
   ) {
     super();
   }
@@ -98,7 +98,7 @@ export class SortedScopeHandler extends BaseScopeHandler {
 
     while (iteratorInfos.length > 0) {
       iteratorInfos.sort((a, b) =>
-        compareTargetScopes(direction, position, a.value, b.value),
+        this.compareScopes(direction, position, a.value, b.value),
       );
 
       // Pick minimum scope according to canonical scope ordering
@@ -112,8 +112,17 @@ export class SortedScopeHandler extends BaseScopeHandler {
       iteratorInfos = advanceIteratorsUntil(
         iteratorInfos,
         (scope) =>
-          compareTargetScopes(direction, position, currentScope, scope) < 0,
+          this.compareScopes(direction, position, currentScope, scope) < 0,
       );
     }
+  }
+
+  protected compareScopes(
+    direction: Direction,
+    position: Position,
+    a: TargetScope,
+    b: TargetScope,
+  ): number {
+    return compareTargetScopes(direction, position, a, b);
   }
 }

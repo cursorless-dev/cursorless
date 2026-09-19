@@ -1,0 +1,10 @@
+sealed interface Foo permits Bar, Baz {}
+---
+
+[Content] = 0:29-0:37
+                               >--------<
+0| sealed interface Foo permits Bar, Baz {}
+
+[Domain] = 0:21-0:37
+                       >----------------<
+0| sealed interface Foo permits Bar, Baz {}

@@ -1,0 +1,65 @@
+sealed class Foo implements Bar, Baz {}
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:31
+  >-------------------------------<
+0| sealed class Foo implements Bar, Baz {}
+
+[#1 Removal] = 0:0-0:33
+  >---------------------------------<
+0| sealed class Foo implements Bar, Baz {}
+
+[#1 Trailing delimiter] = 0:31-0:33
+                                 >--<
+0| sealed class Foo implements Bar, Baz {}
+
+[#1 Insertion delimiter] = ", "
+
+
+[#2 Content] =
+[#2 Domain] = 0:28-0:31
+                              >---<
+0| sealed class Foo implements Bar, Baz {}
+
+[#2 Removal] = 0:28-0:33
+                              >-----<
+0| sealed class Foo implements Bar, Baz {}
+
+[#2 Trailing delimiter] = 0:31-0:33
+                                 >--<
+0| sealed class Foo implements Bar, Baz {}
+
+[#2 Insertion delimiter] = ", "
+
+
+[#3 Content] =
+[#3 Domain] = 0:33-0:36
+                                   >---<
+0| sealed class Foo implements Bar, Baz {}
+
+[#3 Removal] = 0:31-0:36
+                                 >-----<
+0| sealed class Foo implements Bar, Baz {}
+
+[#3 Leading delimiter] = 0:31-0:33
+                                 >--<
+0| sealed class Foo implements Bar, Baz {}
+
+[#3 Insertion delimiter] = ", "
+
+
+[#4 Content] =
+[#4 Domain] = 0:33-0:39
+                                   >------<
+0| sealed class Foo implements Bar, Baz {}
+
+[#4 Removal] = 0:31-0:39
+                                 >--------<
+0| sealed class Foo implements Bar, Baz {}
+
+[#4 Leading delimiter] = 0:31-0:33
+                                 >--<
+0| sealed class Foo implements Bar, Baz {}
+
+[#4 Insertion delimiter] = ", "
