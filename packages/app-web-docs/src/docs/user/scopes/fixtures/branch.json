@@ -3496,7 +3496,7 @@
     "name": "scopes/swift/branch.if.iteration",
     "languageId": "swift",
     "facet": "branch.if.iteration",
-    "code": "if foo {}\nelse if bar {}\nelse {}",
+    "code": "if true {}\nelse if false {}\nelse {}",
     "scopes": [
       {
         "targets": [
@@ -3509,10 +3509,10 @@
       {
         "targets": [
           {
-            "content": "1:13-2:6"
+            "content": "1:15-2:6"
           }
         ],
-        "domain": "1:13-2:6"
+        "domain": "1:15-2:6"
       }
     ]
   },

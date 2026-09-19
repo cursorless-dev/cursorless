@@ -11516,6 +11516,23 @@
     ]
   },
   {
+    "name": "scopes/swift/statement.if",
+    "languageId": "swift",
+    "facet": "statement.if",
+    "code": "if true {}\nelse if false {}\nelse {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:7",
+            "removal": "0:0-2:7"
+          }
+        ],
+        "domain": "0:0-2:7"
+      }
+    ]
+  },
+  {
     "name": "scopes/swift/statement.interface",
     "languageId": "swift",
     "facet": "statement.interface",

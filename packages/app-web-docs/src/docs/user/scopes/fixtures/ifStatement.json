@@ -292,16 +292,16 @@
     "name": "scopes/swift/ifStatement",
     "languageId": "swift",
     "facet": "ifStatement",
-    "code": "if true {}",
+    "code": "if true {}\nelse if false {}\nelse {}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:0-0:10",
-            "removal": "0:0-0:10"
+            "content": "0:0-2:7",
+            "removal": "0:0-2:7"
           }
         ],
-        "domain": "0:0-0:10"
+        "domain": "0:0-2:7"
       }
     ]
   },

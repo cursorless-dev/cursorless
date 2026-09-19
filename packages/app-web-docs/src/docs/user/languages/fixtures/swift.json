@@ -100,7 +100,7 @@
     "name": "scopes/swift/branch.if.iteration",
     "languageId": "swift",
     "facet": "branch.if.iteration",
-    "code": "if foo {}\nelse if bar {}\nelse {}",
+    "code": "if true {}\nelse if false {}\nelse {}",
     "scopes": [
       {
         "targets": [
@@ -113,10 +113,10 @@
       {
         "targets": [
           {
-            "content": "1:13-2:6"
+            "content": "1:15-2:6"
           }
         ],
-        "domain": "1:13-2:6"
+        "domain": "1:15-2:6"
       }
     ]
   },
@@ -233,16 +233,16 @@
     "name": "scopes/swift/ifStatement",
     "languageId": "swift",
     "facet": "ifStatement",
-    "code": "if true {}",
+    "code": "if true {}\nelse if false {}\nelse {}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:0-0:10",
-            "removal": "0:0-0:10"
+            "content": "0:0-2:7",
+            "removal": "0:0-2:7"
           }
         ],
-        "domain": "0:0-0:10"
+        "domain": "0:0-2:7"
       }
     ]
   },
@@ -301,16 +301,43 @@
     "name": "scopes/swift/interior.if",
     "languageId": "swift",
     "facet": "interior.if",
-    "code": "if foo {  }",
+    "code": "if (true) { }\nelse if (false) { }\nelse { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:8-0:10",
-            "removal": "0:8-0:10"
+            "content": "0:11-0:12",
+            "removal": "0:11-0:12"
           }
         ],
-        "domain": "0:8-0:10"
+        "domain": "0:11-0:12"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:17-1:18",
+            "removal": "1:17-1:18"
+          }
+        ],
+        "domain": "1:17-1:18"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:18-2:6",
+            "removal": "1:17-2:7"
+          }
+        ],
+        "domain": "1:17-2:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:6-2:7",
+            "removal": "2:6-2:7"
+          }
+        ],
+        "domain": "2:6-2:7"
       }
     ]
   },
@@ -519,6 +546,23 @@
           }
         ],
         "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/statement.if",
+    "languageId": "swift",
+    "facet": "statement.if",
+    "code": "if true {}\nelse if false {}\nelse {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:7",
+            "removal": "0:0-2:7"
+          }
+        ],
+        "domain": "0:0-2:7"
       }
     ]
   },
