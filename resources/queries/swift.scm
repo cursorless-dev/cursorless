@@ -107,7 +107,7 @@
     "{" @interior.start.endOf
     "}" @interior.end.startOf
   )
-) @statement
+) @statement @class
 
 ;; Enum "class" decl.
 (class_declaration

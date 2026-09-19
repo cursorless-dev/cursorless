@@ -95,7 +95,7 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.interface": supported,
   "name.interface": supported,
   "interior.interface": supported,
-  "type.interface": unsupported,
+  "type.interface": supported,
 
   "statement.iteration.interface": supported,
   "name.iteration.interface": supported,

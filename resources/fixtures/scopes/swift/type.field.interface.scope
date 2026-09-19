@@ -3,17 +3,37 @@ protocol Foo {
 }
 ---
 
-[Content] =
-[Domain] = 1:13-1:16
+[#1 Content] =
+[#1 Domain] = 0:9-0:12
+           >---<
+0| protocol Foo {
+
+[#1 Removal] = 0:9-0:13
+           >----<
+0| protocol Foo {
+
+[#1 Leading delimiter] = 0:8-0:9
+          >-<
+0| protocol Foo {
+
+[#1 Trailing delimiter] = 0:12-0:13
+              >-<
+0| protocol Foo {
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Domain] = 1:13-1:16
                >---<
 1|     var foo: Int { set get }
 
-[Removal] = 1:11-1:16
+[#2 Removal] = 1:11-1:16
              >-----<
 1|     var foo: Int { set get }
 
-[Leading delimiter] = 1:11-1:13
+[#2 Leading delimiter] = 1:11-1:13
              >--<
 1|     var foo: Int { set get }
 
-[Insertion delimiter] = " "
+[#2 Insertion delimiter] = " "
