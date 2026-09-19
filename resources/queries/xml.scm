@@ -47,20 +47,12 @@
 (CharData) @textFragment
 
 ;;!! <aaa>text</aaa>
-;;!  ^^^^^^^^^^^^^^^
+;;!  ^^^^^    ^^^^^^
 ;;!       ^^^^
 (element
-  (STag) @interior.start.endOf
-  (ETag) @interior.end.startOf
-) @xmlElement
-
-;;!! <aaa>text</aaa>
-;;!  ^^^^^    ^^^^^^
-;;!  ---------------
-(element
-  (STag) @xmlStartTag
-  (ETag) @xmlEndTag
-) @_.domain
+  (STag) @xmlStartTag @interior.start.endOf
+  (ETag) @xmlEndTag @interior.end.startOf
+) @xmlStartTag.domain @xmlEndTag.domain
 
 (element
   [
@@ -69,6 +61,10 @@
   ] @xmlBothTags
   (#allow-multiple! @xmlBothTags)
 ) @_.domain
+
+;;!! <aaa>text</aaa>
+;;!! <aaa/>
+(element) @xmlElement
 
 (element
   (STag) @xmlElement.iteration.start.endOf @xmlBothTags.iteration.start.endOf
