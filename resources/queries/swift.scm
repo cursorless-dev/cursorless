@@ -32,15 +32,6 @@
 ;;  text: (_) @interior @textFragment
 ;;) @string
 
-;; Protocol decl.
-(protocol_declaration
-  name: (_) @name
-  body: (protocol_body
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  )
-) @statement
-
 ;; if statement
 (
   (if_statement) @ifStatement @statement @branch.iteration
@@ -76,9 +67,6 @@
 ;; generic property delc
 (property_declaration
   name: (_) @name
-  ;;(type_annotation:
-  ;;    ":"
-  ;;)
 ) @statement
 
 ;; Generic interior w/ top-level iterations
@@ -103,38 +91,6 @@
   )
 )
 
-;; Generic interior -- class iteration
-;; Classlikes (class/struct/actor) can be nested within other classlikes, and within both top-level functions and member functions.
-;; They, however, cannot be nested within branches or loops of any kind.
-;; (
-;;   (
-;;     (_
-;;       .
-;;       "{" @class.iteration.start.endOf
-;;       "}" @class.iteration.end.startOf
-;;       .
-;;     ) @_dummy
-;;   )
-;;   (#type? @_dummy class_declaration function_declaration)
-;;   (#not-parent-type? @_dummy switch_statement for_statement while_statement)
-;;   (#not-parent-type? @_dummy do_statement repeat_while_statement protocol_declaration)
-;;   (#not-parent-type? @_dummy if_statement)
-;; )
-
-;; Generic interior -- branch and condition iteration
-;; Branches and their conditions cannot be top-level but otherwise have no restrictions
-;; (
-;;   (
-;;     (_
-;;       .
-;;       "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
-;;       "}" @condition.iteration.end.startOf @branch.iteration.end.startOf
-;;       .
-;;     ) @_dummy
-;;   )
-;;   (#not-parent-type? @_dummy source_file)
-;; )
-
 ;; non-enum classlike decl.
 (class_declaration
   name: (_) @name @type
@@ -143,6 +99,15 @@
     "}" @interior.end.startOf
   )
 ) @statement @class
+
+;; Protocol decl.
+(protocol_declaration
+  name: (_) @name @type
+  body: (protocol_body
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  )
+) @statement
 
 ;; Enum "class" decl.
 (class_declaration
