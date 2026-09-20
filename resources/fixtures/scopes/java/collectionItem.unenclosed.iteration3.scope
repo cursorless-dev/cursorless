@@ -15,19 +15,10 @@ class Foo {
    <
 
 
-[#2 Content] = 1:4-1:47
-      >-------------------------------------------<
-1|     void bar() throws AException, BException {}
-
-[#2 Domain] = 1:0-1:47
-  >-----------------------------------------------<
-1|     void bar() throws AException, BException {}
-
-
-[#3 Content] = 1:22-1:44
+[#2 Content] = 1:22-1:44
                         >----------------------<
 1|     void bar() throws AException, BException {}
 
-[#3 Domain] = 1:15-1:44
+[#2 Domain] = 1:15-1:44
                  >-----------------------------<
 1|     void bar() throws AException, BException {}

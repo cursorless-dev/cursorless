@@ -13,7 +13,7 @@ import type {
   ScopeIteratorRequirements,
 } from "../scopeHandler.types";
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
-import { SortedScopeHandler } from "../SortedScopeHandler";
+import { CollectionItemCompoundScopeHandler } from "./CollectionItemCompoundScopeHandler";
 import { CollectionItemTextualScopeHandler } from "./CollectionItemTextualScopeHandler";
 
 export class CollectionItemScopeHandler extends BaseScopeHandler {
@@ -46,10 +46,11 @@ export class CollectionItemScopeHandler extends BaseScopeHandler {
         return textualScopeHandler;
       }
 
-      return new SortedScopeHandler(scopeHandlerFactory, languageId, [
-        languageScopeHandler,
-        textualScopeHandler,
-      ]);
+      return new CollectionItemCompoundScopeHandler(
+        scopeHandlerFactory,
+        languageId,
+        [languageScopeHandler, textualScopeHandler],
+      );
     })();
   }
 
