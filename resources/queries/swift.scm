@@ -61,11 +61,6 @@
 ;;  text: (_) @interior @textFragment
 ;;) @string
 
-;; generic property delc
-;; (property_declaration
-;;   name: (_) @name
-;; ) @name.domain
-
 ;;!! struct Foo {}
 ;;!         ^^^
 (class_declaration
@@ -123,6 +118,16 @@
   (#not-child-type? @branch.start.startOf else)
 )
 
+;;!! if true { }
+;;!           ^
+(
+  (if_statement
+    "{" @statementNameValueType.iteration.start.endOf @class.iteration.start.endOf @namedFunction.iteration.start.endOf
+    "}" @statementNameValueType.iteration.end.startOf @class.iteration.end.startOf @namedFunction.iteration.end.startOf
+  ) @_dummy
+  (#not-child-type? @_dummy else)
+)
+
 ;;!! if true {} else {}
 (
   (if_statement
@@ -132,6 +137,16 @@
     (if_statement)? @branch.removal.end.startOf
   ) @branch.start.startOf @branch.removal.start.startOf
   (#not-parent-type? @branch.start.startOf if_statement)
+)
+
+;;!! if true { } else {}
+;;!           ^
+(
+  (if_statement
+    "{" @statementNameValueType.iteration.start.endOf @class.iteration.start.endOf @namedFunction.iteration.start.endOf
+    "}" @statementNameValueType.iteration.end.startOf @class.iteration.end.startOf @namedFunction.iteration.end.startOf
+    (else)
+  )
 )
 
 ;;!! else if true {} else {}
@@ -164,6 +179,14 @@
   (else) @branch.start
   "{" @interior.start.endOf
   "}" @branch.end @interior.end.startOf
+)
+
+;;!! else { }
+;;!        ^
+(
+  (else)
+  "{" @statementNameValueType.iteration.start.endOf @class.iteration.start.endOf @namedFunction.iteration.start.endOf
+  "}" @statementNameValueType.iteration.end.startOf @class.iteration.end.startOf @namedFunction.iteration.end.startOf
 )
 
 ;;!! let foo: Int = 0
