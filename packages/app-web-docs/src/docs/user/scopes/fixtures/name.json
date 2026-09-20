@@ -12419,16 +12419,16 @@
     "name": "scopes/swift/name.foreach",
     "languageId": "swift",
     "facet": "name.foreach",
-    "code": "for foo in bar {}",
+    "code": "for v in values {}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:4-0:7",
-            "removal": "0:4-0:8"
+            "content": "0:4-0:5",
+            "removal": "0:4-0:6"
           }
         ],
-        "domain": "0:0-0:17"
+        "domain": "0:0-0:18"
       }
     ]
   },

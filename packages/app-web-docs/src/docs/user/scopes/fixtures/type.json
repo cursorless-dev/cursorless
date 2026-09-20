@@ -7657,15 +7657,15 @@
     "name": "scopes/swift/type.iteration.document",
     "languageId": "swift",
     "facet": "type.iteration.document",
-    "code": "let foo: Int = 0",
+    "code": "\nlet foo: Int\n",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:0-0:16"
+            "content": "0:0-2:0"
           }
         ],
-        "domain": "0:0-0:16"
+        "domain": "0:0-2:0"
       }
     ]
   },

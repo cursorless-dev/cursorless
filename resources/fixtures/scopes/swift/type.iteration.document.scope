@@ -1,7 +1,12 @@
+
 let foo: Int
+
 ---
 
 [Content] =
-[Domain] = 0:0-0:16
-  >----------------<
-0| let foo: Int = 0
+[Domain] = 0:0-2:0
+  >
+0|
+1| let foo: Int
+2|
+   <

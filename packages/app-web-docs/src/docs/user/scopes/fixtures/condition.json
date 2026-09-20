@@ -1900,16 +1900,34 @@
     "name": "scopes/swift/condition.if",
     "languageId": "swift",
     "facet": "condition.if",
-    "code": "if foo {}",
+    "code": "if (true) {}\nelse if (false) {}\nelse {}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:3-0:6",
-            "removal": "0:3-0:7"
+            "content": "0:3-0:9",
+            "removal": "0:3-0:10"
           }
         ],
-        "domain": "0:0-0:9"
+        "domain": "0:0-2:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:8-1:15",
+            "removal": "1:8-1:16"
+          }
+        ],
+        "domain": "1:0-1:15"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:8-1:15",
+            "removal": "1:8-1:16"
+          }
+        ],
+        "domain": "1:5-2:7"
       }
     ]
   },

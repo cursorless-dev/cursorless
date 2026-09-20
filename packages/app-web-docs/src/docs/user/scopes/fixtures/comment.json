@@ -717,16 +717,16 @@
     "name": "scopes/swift/comment.block",
     "languageId": "swift",
     "facet": "comment.block",
-    "code": "/*\naaa\n*/",
+    "code": "/* Hello world */",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:0-2:2",
-            "removal": "0:0-2:2"
+            "content": "0:0-0:17",
+            "removal": "0:0-0:17"
           }
         ],
-        "domain": "0:0-2:2"
+        "domain": "0:0-0:17"
       }
     ]
   },
@@ -734,16 +734,16 @@
     "name": "scopes/swift/comment.line",
     "languageId": "swift",
     "facet": "comment.line",
-    "code": "// aaa",
+    "code": "// Hello world",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:0-0:6",
-            "removal": "0:0-0:6"
+            "content": "0:0-0:14",
+            "removal": "0:0-0:14"
           }
         ],
-        "domain": "0:0-0:6"
+        "domain": "0:0-0:14"
       }
     ]
   },

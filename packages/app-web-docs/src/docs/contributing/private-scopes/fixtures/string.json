@@ -632,16 +632,16 @@
     "name": "scopes/swift/string.multiLine",
     "languageId": "swift",
     "facet": "string.multiLine",
-    "code": "\"\"\"\naaa\n\"\"\"",
+    "code": "\"\"\"\nHello\nworld\n\"\"\"",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:0-2:3",
-            "removal": "0:0-2:3"
+            "content": "0:0-3:3",
+            "removal": "0:0-3:3"
           }
         ],
-        "domain": "0:0-2:3"
+        "domain": "0:0-3:3"
       }
     ]
   },
@@ -649,16 +649,16 @@
     "name": "scopes/swift/string.singleLine",
     "languageId": "swift",
     "facet": "string.singleLine",
-    "code": "\"aaa\"",
+    "code": "\"Hello world\"",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:0-0:5",
-            "removal": "0:0-0:5"
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
           }
         ],
-        "domain": "0:0-0:5"
+        "domain": "0:0-0:13"
       }
     ]
   },

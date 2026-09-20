@@ -5147,16 +5147,16 @@
     "name": "scopes/swift/interior.foreach",
     "languageId": "swift",
     "facet": "interior.foreach",
-    "code": "for foo in bat { }",
+    "code": "for v in values { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:16-0:17",
-            "removal": "0:16-0:17"
+            "content": "0:17-0:18",
+            "removal": "0:17-0:18"
           }
         ],
-        "domain": "0:16-0:17"
+        "domain": "0:17-0:18"
       }
     ]
   },

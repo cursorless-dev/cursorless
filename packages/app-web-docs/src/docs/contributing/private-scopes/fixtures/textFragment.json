@@ -1483,16 +1483,16 @@
     "name": "scopes/swift/textFragment.comment.block",
     "languageId": "swift",
     "facet": "textFragment.comment.block",
-    "code": "/*\naaa\n*/",
+    "code": "/* Hello world */",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:0-2:2",
-            "removal": "0:0-2:2"
+            "content": "0:0-0:17",
+            "removal": "0:0-0:17"
           }
         ],
-        "domain": "0:0-2:2"
+        "domain": "0:0-0:17"
       }
     ]
   },
@@ -1500,16 +1500,16 @@
     "name": "scopes/swift/textFragment.comment.line",
     "languageId": "swift",
     "facet": "textFragment.comment.line",
-    "code": "// aaa",
+    "code": "// Hello world",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:0-0:6",
-            "removal": "0:0-0:6"
+            "content": "0:0-0:14",
+            "removal": "0:0-0:14"
           }
         ],
-        "domain": "0:0-0:6"
+        "domain": "0:0-0:14"
       }
     ]
   },
@@ -1517,16 +1517,16 @@
     "name": "scopes/swift/textFragment.string.multiLine",
     "languageId": "swift",
     "facet": "textFragment.string.multiLine",
-    "code": "\"\"\"\naaa\n\"\"\"",
+    "code": "\"\"\"\nHello\nworld\n\"\"\"",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:3-2:0",
-            "removal": "0:3-2:0"
+            "content": "0:3-3:0",
+            "removal": "0:3-3:0"
           }
         ],
-        "domain": "0:3-2:0"
+        "domain": "0:3-3:0"
       }
     ]
   },
@@ -1534,16 +1534,16 @@
     "name": "scopes/swift/textFragment.string.singleLine",
     "languageId": "swift",
     "facet": "textFragment.string.singleLine",
-    "code": "\"aaa\"",
+    "code": "\"Hello world\"",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:1-0:4",
-            "removal": "0:1-0:4"
+            "content": "0:1-0:12",
+            "removal": "0:1-0:12"
           }
         ],
-        "domain": "0:1-0:4"
+        "domain": "0:1-0:12"
       }
     ]
   },

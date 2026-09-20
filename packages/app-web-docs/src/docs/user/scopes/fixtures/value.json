@@ -9065,16 +9065,16 @@
     "name": "scopes/swift/value.foreach",
     "languageId": "swift",
     "facet": "value.foreach",
-    "code": "for foo in bar {}",
+    "code": "for v in values {}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:11-0:14",
-            "removal": "0:11-0:15"
+            "content": "0:9-0:15",
+            "removal": "0:9-0:16"
           }
         ],
-        "domain": "0:0-0:17"
+        "domain": "0:0-0:18"
       }
     ]
   },
