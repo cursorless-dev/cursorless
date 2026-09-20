@@ -140,7 +140,6 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.break": supported,
   "statement.continue": supported,
   "statement.import": supported,
-  "statement.misc": supported,
   "statement.iteration.document": supported,
   "statement.iteration.class": supported,
   "statement.iteration.interface": supported,
@@ -349,9 +348,10 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   part: notApplicable,
 
   // Miscellaneous
-  "value.field.interface": notApplicable,
+  "statement.misc": notApplicable,
   "statement.package": notApplicable,
   "statement.update": notApplicable,
+  "value.field.interface": notApplicable,
   environment: notApplicable,
   selector: notApplicable,
   unit: notApplicable,

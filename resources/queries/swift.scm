@@ -288,10 +288,15 @@
   (catch_block)
 ) @branch.iteration
 
-;;!! do {} catch {}
-;;!        ^^^^^^^^
+;;!! do {} catch let foo as Error {}
+;;!        ^^^^^^^^^^^^^^^^^^^^^^^^^
+;;!                         ^^^^^
 (do_statement
-  (catch_block) @branch
+  (catch_block
+    (pattern
+      name: (_) @type
+    )? @type.domain
+  ) @branch
 )
 
 ;;!! true ? 0 : 1
@@ -318,6 +323,32 @@
 ;;!                  ^^^^
 (repeat_while_statement
   condition: (_) @condition
+) @condition.domain
+
+;;!! switch value { }
+;;!         ^^^^^
+;;!                ^
+(switch_statement
+  expr: (_) @value
+  "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
+  "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
+) @value.domain
+
+;;!! case 0: break
+;;!! default: break
+(switch_entry
+  ":" @interior.start.endOf
+  (statements) @interior.end.endOf
+) @branch
+
+;;!! case 0: break
+;;!       ^
+(switch_entry
+  .
+  (switch_pattern) @condition.start
+  (switch_pattern)? @condition.end
+  .
+  ":"
 ) @condition.domain
 
 ;;!! /\d+$/
@@ -386,4 +417,64 @@
 (array_literal) @list
 
 ;;!! [aaa: 0, bbb: 1]
-(dictionary_literal) @map
+(dictionary_literal
+  "[" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
+  "]" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+) @map
+
+;;!! [aaa: 0, bbb: 1]
+;;!   ^^^     ^^^
+(dictionary_literal
+  key: (_) @collectionKey @collectionKey.domain.start
+  .
+  ":"
+  .
+  value: (_) @collectionKey.trailing.startOf @collectionKey.domain.end
+)
+
+;;!! [aaa: 0, bbb: 1]
+;;!        ^       ^
+(dictionary_literal
+  key: (_) @value.leading.endOf @value.domain.start
+  .
+  ":"
+  .
+  value: (_) @value @value.domain.end
+)
+
+;;!! foo as Int
+;;!         ^^^
+(as_expression
+  expr: (_) @type.leading.endOf
+  (_) @type
+  .
+) @type.domain
+
+;;!! Map<Int, Int>
+;;!      ^^^  ^^^
+(type_annotation
+  (user_type
+    (type_arguments
+      (_)? @type.leading.endOf
+      .
+      (_) @type
+      .
+      (_)? @type.trailing.startOf
+    )
+  )
+)
+
+;;!! Map<Int, Int>
+;;!      ^^^^^^^^
+(type_annotation
+  (user_type
+    (type_arguments
+      "<" @type.iteration.start.endOf
+      ">" @type.iteration.end.startOf
+    )
+  )
+)
+
+(function_type
+  "->" @disqualifyDelimiter
+)

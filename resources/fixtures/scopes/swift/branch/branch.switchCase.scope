@@ -1,0 +1,26 @@
+switch value {
+    case 0:
+        break
+}
+---
+
+[Content] =
+[Domain] = 1:4-3:0
+      >-------
+1|     case 0:
+2|         break
+3| }
+   <
+
+[Removal] = 1:0-3:0
+  >-----------
+1|     case 0:
+2|         break
+3| }
+   <
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     case 0:
+
+[Insertion delimiter] = "\n"
