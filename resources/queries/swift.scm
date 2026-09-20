@@ -3,8 +3,12 @@
 [
   (class_declaration)
   (protocol_declaration)
-  (for_statement)
   (property_declaration)
+  (for_statement)
+  (do_statement)
+  (while_statement)
+  (repeat_while_statement)
+  (switch_statement)
 
   ;; Disabled on purpose. We have a better definition of these below.
   ;; (if_statement)
@@ -216,3 +220,48 @@
     (_) @type
   )
 ) @_.domain
+
+;;!! { (aaa: Int) -> Int in 0 }
+(lambda_literal) @anonymousFunction
+
+;;!! do {} catch {}
+;;!  ^^^^^
+(do_statement
+  "do" @branch.start
+  "}" @branch.end
+  (catch_block)
+) @branch.iteration
+
+;;!! do {} catch {}
+;;!        ^^^^^^^^
+(do_statement
+  (catch_block) @branch
+)
+
+;;!! true ? 0 : 1
+;;!  ^^^^
+;;!         ^
+(ternary_expression
+  condition: (_) @condition
+  if_true: (_) @branch
+) @condition.domain @branch.iteration
+
+;;!! true ? 0 : 1
+;;!             ^
+(ternary_expression
+  if_false: (_) @branch
+)
+
+;;!! while true {}
+;;!        ^^^^
+(while_statement
+  condition: (_) @condition
+) @condition.domain
+
+;;!! repeat {} while true
+;;!                  ^^^^
+(repeat_while_statement
+  condition: (_) @condition
+) @condition.domain
+
+;; (switch_statement)

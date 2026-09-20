@@ -4,174 +4,39 @@ import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
-  // if/else/elif
-  ifStatement: supported,
-  "statement.if": supported,
-  "branch.if": supported,
-  "branch.if.else": supported,
-  "branch.if.elif.else": supported,
-  "condition.if": supported,
-  "interior.if": supported,
-  "branch.if.iteration": supported,
-
-  // ternary operator
-  "branch.ternary": supported,
-  "condition.ternary": supported,
-  "branch.ternary.iteration": supported,
-
-  // for loop
-  "statement.foreach": supported,
-  "name.foreach": supported,
-  "value.foreach": supported,
-  "type.foreach": supported,
-  "interior.foreach": supported,
-
-  // while loop
-  "statement.while": supported,
-  "condition.while": supported,
-  "interior.while": supported,
-
-  // repeat-while loop (equivalent to do-while loops in other languages)
-  "statement.doWhile": supported,
-  "condition.doWhile": supported,
-  "interior.doWhile": supported,
-
-  // do-catch (equivalent to try-catch in other languages)
-  // we're probably going to want a new scope facet for swift's try statements (`statement.tryErrorable`?)
-  "statement.try": supported,
-  "branch.try": supported,
-  "interior.try": supported,
-  "branch.try.iteration": supported,
-
-  // switch
-  "statement.switch": supported,
-  "branch.switchCase": supported,
-  "condition.switchCase": supported,
-  "value.switch": supported,
-  "interior.switch": supported,
-  "interior.switchCase": supported,
-
-  "branch.switchCase.iteration": supported,
-  "condition.switchCase.iteration": supported,
-
-  // misc control transfer (returns, throw/break/continue statements, etc)
-  "statement.return": supported,
-  "value.return": supported,
-  "value.return.lambda": supported,
-  "statement.throw": supported,
-  "value.throw": supported,
-  "statement.break": supported,
-  "statement.continue": supported,
-  "type.return": supported,
-  "type.return.method": supported,
-  "type.return.lambda": supported,
-
-  // enum
-  "statement.enum": supported,
-  "name.enum": supported,
-  "type.enum": supported,
-  "interior.enum": supported,
-
-  "name.iteration.enum": supported,
-  "value.iteration.enum": supported,
-
-  // class
-  class: supported,
-  "statement.class": supported,
-  "name.class": supported,
-  "interior.class": supported,
-  "type.class": supported,
-
-  "statement.iteration.class": supported,
-  "class.iteration.class": supported,
-  "namedFunction.iteration.class": supported,
-  "name.iteration.class": supported,
-  "value.iteration.class": supported,
-  "type.iteration.class": supported,
-
-  // protocol (equivalent to interfaces in other languages)
-  "statement.interface": supported,
-  "name.interface": supported,
-  "interior.interface": supported,
-  "type.interface": supported,
-
-  "statement.iteration.interface": supported,
-  "name.iteration.interface": supported,
-  "type.iteration.interface": supported,
-
-  // "standard" functions & methods
-  namedFunction: supported,
-  "namedFunction.method": supported,
-  "statement.function": supported,
-  "statement.method": supported,
-  "name.function": supported,
-  "name.method": supported,
-  "interior.function": supported,
-  "interior.method": supported,
-
-  // constructors
-  "namedFunction.constructor": supported,
-  "statement.constructor": supported,
-  "name.constructor": supported,
-  "interior.constructor": supported,
-
-  // protocol method declarations
-  "statement.method.interface": supported,
-  "name.method.interface": supported,
-
-  // closures/lambda functions
+  disqualifyDelimiter: supported,
+  pairDelimiter: supported,
   anonymousFunction: supported,
-  "interior.lambda": supported,
+  list: supported,
+  map: supported,
+  regularExpression: supported,
 
-  // function calls
-  functionCall: supported,
-  "statement.functionCall": supported,
-  "functionCall.constructor": supported,
-  "functionCall.method": supported,
-  "functionCall.chain": supported,
-  "functionCall.generic": supported,
-  "functionCall.enum": supported,
-
-  // function callee
-  functionCallee: supported,
-  "functionCallee.constructor": supported,
-  "functionCallee.method": supported,
-  "functionCallee.chain": supported,
-  "functionCallee.generic": supported,
-  "functionCallee.enum": supported,
-
-  // argument (actual; as in parameters as passed to a call)
   "argument.actual.singleLine": supported,
   "argument.actual.multiLine": supported,
+  "argument.actual.iteration": supported,
   "argument.actual.method.singleLine": supported,
   "argument.actual.method.multiLine": supported,
+  "argument.actual.method.iteration": supported,
   "argument.actual.constructor.singleLine": supported,
   "argument.actual.constructor.multiLine": supported,
+  "argument.actual.constructor.iteration": supported,
   "argument.actual.enum.singleLine": supported,
   "argument.actual.enum.multiLine": supported,
-
-  "argument.actual.iteration": supported,
-  "argument.actual.method.iteration": supported,
-  "argument.actual.constructor.iteration": supported,
   "argument.actual.enum.iteration": supported,
-
-  // argument (formal; as in the argument members within a callable block and its declaration)
   "argument.formal.singleLine": supported,
   "argument.formal.multiLine": supported,
+  "argument.formal.iteration": supported,
   "argument.formal.method.singleLine": supported,
   "argument.formal.method.multiLine": supported,
+  "argument.formal.method.iteration": supported,
   "argument.formal.constructor.singleLine": supported,
   "argument.formal.constructor.multiLine": supported,
+  "argument.formal.constructor.iteration": supported,
   "argument.formal.lambda.singleLine": supported,
   "argument.formal.lambda.multiLine": supported,
+  "argument.formal.lambda.iteration": supported,
   "argument.formal.catch": supported,
 
-  "argument.formal.iteration": supported,
-  "argument.formal.method.iteration": supported,
-  "argument.formal.constructor.iteration": supported,
-  "argument.formal.lambda.iteration": supported,
-
-  // argument list (actual)
   "argumentList.actual.empty": supported,
   "argumentList.actual.singleLine": supported,
   "argumentList.actual.multiLine": supported,
@@ -184,155 +49,226 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.actual.enum.empty": supported,
   "argumentList.actual.enum.singleLine": supported,
   "argumentList.actual.enum.multiLine": supported,
-
-  // argument list (formal)
   "argumentList.formal.empty": supported,
   "argumentList.formal.singleLine": supported,
   "argumentList.formal.multiLine": supported,
-  "argumentList.formal.lambda.empty": supported,
-  "argumentList.formal.lambda.singleLine": supported,
-  "argumentList.formal.lambda.multiLine": supported,
   "argumentList.formal.method.empty": supported,
   "argumentList.formal.method.singleLine": supported,
   "argumentList.formal.method.multiLine": supported,
   "argumentList.formal.constructor.empty": supported,
   "argumentList.formal.constructor.singleLine": supported,
   "argumentList.formal.constructor.multiLine": supported,
+  "argumentList.formal.lambda.empty": supported,
+  "argumentList.formal.lambda.singleLine": supported,
+  "argumentList.formal.lambda.multiLine": supported,
 
-  "statement.field.class": supported,
-  "statement.field.interface": supported,
-  "statement.variable.uninitialized": supported,
-  "statement.variable.initialized": supported,
-  "statement.variable.destructuring": supported,
-  "statement.constant": supported,
-
-  "name.field.class": supported,
-  "name.field.interface": supported,
-  "name.field.enum": supported,
-  "name.variable.uninitialized": supported,
-  "name.variable.initialized": supported,
-  "name.variable.destructuring": supported,
-  "name.constant": supported,
-
-  "value.constant": supported,
-  "value.field.class": supported,
-  "value.field.interface": supported,
-  "value.field.enum": supported,
-  "value.variable": supported,
-  "value.variable.destructuring": supported,
-
-  "type.constant": supported,
-  "type.variable.uninitialized": supported,
-  "type.variable.initialized": supported,
-  "type.field.class": supported,
-  "type.field.interface": supported,
-
-  // assignments
-  "statement.assignment": supported,
-  "statement.assignment.destructuring": supported,
-  "statement.assignment.compound": supported,
-  "name.assignment": supported,
-  "name.assignment.destructuring": supported,
-  "name.assignment.compound": supported,
-
-  "value.assignment": supported,
-  "value.assignment.destructuring": supported,
-  "value.assignment.compound": supported,
-
-  // comments
-  "comment.line": supported,
-  "textFragment.comment.line": supported,
-  "textFragment.comment.block": supported,
-  "comment.block": supported,
-
-  // strings
-  "string.singleLine": supported,
-  "string.multiLine": supported,
-  "textFragment.string.multiLine": supported,
-  "textFragment.string.singleLine": supported,
-
-  // document-wide iteration
-  "statement.iteration.document": supported,
-  "class.iteration.document": supported,
-  "namedFunction.iteration.document": supported,
-  "name.iteration.document": supported,
-  "value.iteration.document": supported,
-  "type.iteration.document": supported,
-
-  // general per-block iteration (not branches)
-  "statement.iteration.block": supported,
-  "name.iteration.block": supported,
-  "value.iteration.block": supported,
-  "type.iteration.block": supported,
-
-  // unenclosed collection item
   "collectionItem.unenclosed.singleLine": supported,
   "collectionItem.unenclosed.multiLine": supported,
   "collectionItem.unenclosed.iteration": supported,
 
-  // enclosed collections
-  map: supported,
-  list: supported,
+  "branch.if": supported,
+  "branch.if.elif.else": supported,
+  "branch.if.else": supported,
+  "branch.if.iteration": supported,
+  "branch.try": supported,
+  "branch.try.iteration": supported,
+  "branch.switchCase": supported,
+  "branch.switchCase.iteration": supported,
+  "branch.ternary": supported,
+  "branch.ternary.iteration": supported,
+
+  class: supported,
+  "class.iteration.document": supported,
+  "class.iteration.class": supported,
+
+  "comment.line": supported,
+  "comment.block": supported,
+
+  "condition.if": supported,
+  "condition.while": supported,
+  "condition.doWhile": supported,
+  "condition.ternary": supported,
+  "condition.switchCase": supported,
+  "condition.switchCase.iteration": supported,
+
+  functionCall: supported,
+  "functionCall.constructor": supported,
+  "functionCall.method": supported,
+  "functionCall.chain": supported,
+  "functionCall.generic": supported,
+  "functionCall.enum": supported,
+
+  functionCallee: supported,
+  "functionCallee.constructor": supported,
+  "functionCallee.method": supported,
+  "functionCallee.chain": supported,
+  "functionCallee.generic": supported,
+  "functionCallee.enum": supported,
+
+  namedFunction: supported,
+  "namedFunction.constructor": supported,
+  "namedFunction.method": supported,
+  "namedFunction.iteration.document": supported,
+  "namedFunction.iteration.class": supported,
+
+  ifStatement: supported,
+
+  "statement.class": supported,
+  "statement.interface": supported,
+  "statement.enum": supported,
+  "statement.field.class": supported,
+  "statement.field.interface": supported,
+  "statement.function": supported,
+  "statement.constructor": supported,
+  "statement.method": supported,
+  "statement.method.interface": supported,
+  "statement.functionCall": supported,
+  "statement.if": supported,
+  "statement.try": supported,
+  "statement.switch": supported,
+  "statement.foreach": supported,
+  "statement.while": supported,
+  "statement.doWhile": supported,
+  "statement.variable.uninitialized": supported,
+  "statement.variable.initialized": supported,
+  "statement.variable.destructuring": supported,
+  "statement.constant": supported,
+  "statement.assignment": supported,
+  "statement.assignment.destructuring": supported,
+  "statement.assignment.compound": supported,
+  "statement.typeAlias": supported,
+  "statement.return": supported,
+  "statement.throw": supported,
+  "statement.break": supported,
+  "statement.continue": supported,
+  "statement.import": supported,
+  "statement.misc": supported,
+  "statement.iteration.document": supported,
+  "statement.iteration.class": supported,
+  "statement.iteration.interface": supported,
+  "statement.iteration.block": supported,
+
+  "string.singleLine": supported,
+  "string.multiLine": supported,
+
+  "textFragment.comment.line": supported,
+  "textFragment.comment.block": supported,
+  "textFragment.string.singleLine": supported,
+  "textFragment.string.multiLine": supported,
+  "textFragment.regularExpression": supported,
+
+  "name.variable.uninitialized": supported,
+  "name.variable.initialized": supported,
+  "name.variable.destructuring": supported,
+  "name.constant": supported,
+  "name.assignment": supported,
+  "name.assignment.destructuring": supported,
+  "name.assignment.compound": supported,
+  "name.typeAlias": supported,
+  "name.foreach": supported,
+  "name.function": supported,
+  "name.method": supported,
+  "name.method.interface": supported,
+  "name.constructor": supported,
+  "name.class": supported,
+  "name.interface": supported,
+  "name.enum": supported,
+  "name.field.class": supported,
+  "name.field.interface": supported,
+  "name.field.enum": supported,
+  "name.argument.actual": supported,
+  "name.argument.actual.iteration": supported,
+  "name.argument.formal": supported,
+  "name.argument.formal.iteration": supported,
+  "name.argument.formal.method": supported,
+  "name.argument.formal.method.iteration": supported,
+  "name.argument.formal.lambda": supported,
+  "name.argument.formal.lambda.iteration": supported,
+  "name.argument.formal.constructor": supported,
+  "name.argument.formal.constructor.iteration": supported,
+  "name.argument.catch": supported,
+  "name.iteration.document": supported,
+  "name.iteration.class": supported,
+  "name.iteration.block": supported,
+  "name.iteration.interface": supported,
+  "name.iteration.enum": supported,
+
   "key.mapPair": supported,
   "key.mapPair.iteration": supported,
+
+  "value.variable": supported,
+  "value.variable.destructuring": supported,
+  "value.constant": supported,
+  "value.assignment": supported,
+  "value.assignment.destructuring": supported,
+  "value.assignment.compound": supported,
   "value.mapPair": supported,
   "value.mapPair.iteration": supported,
-
-  // argument names
-  "name.argument.actual": supported,
-  "name.argument.formal": supported,
-  "name.argument.formal.method": supported,
-  "name.argument.formal.lambda": supported,
-  "name.argument.formal.constructor": supported,
-  "name.argument.catch": supported,
-
-  "name.argument.actual.iteration": supported,
-  "name.argument.formal.iteration": supported,
-  "name.argument.formal.method.iteration": supported,
-  "name.argument.formal.lambda.iteration": supported,
-  "name.argument.formal.constructor.iteration": supported,
-
-  // argument values
-  "value.argument.actual": supported,
-  "value.argument.formal": supported,
-  "value.argument.formal.method": supported,
-  "value.argument.formal.constructor": supported,
-  "value.argument.formal.lambda": supported,
-
-  "value.argument.actual.iteration": supported,
-  "value.argument.formal.iteration": supported,
-  "value.argument.formal.method.iteration": supported,
-  "value.argument.formal.constructor.iteration": supported,
-  "value.argument.formal.lambda.iteration": supported,
-
-  // argument types
-  "type.argument.formal": supported,
-  "type.argument.formal.method": supported,
-  "type.argument.formal.lambda": supported,
-  "type.argument.formal.constructor": supported,
-  "type.argument.catch": supported,
-
-  "type.argument.formal.iteration": supported,
-  "type.argument.formal.method.iteration": supported,
-  "type.argument.formal.lambda.iteration": supported,
-  "type.argument.formal.constructor.iteration": supported,
-
-  // type aliases
-  "name.typeAlias": supported,
+  "value.foreach": supported,
+  "value.return": supported,
+  "value.return.lambda": supported,
+  "value.field.class": supported,
+  "value.field.enum": supported,
+  "value.throw": supported,
+  "value.switch": supported,
   "value.typeAlias": supported,
-  "statement.typeAlias": supported,
-  "statement.misc": supported,
-  "type.typeArgument": supported,
+  "value.argument.actual": supported,
+  "value.argument.actual.iteration": supported,
+  "value.argument.formal": supported,
+  "value.argument.formal.iteration": supported,
+  "value.argument.formal.method": supported,
+  "value.argument.formal.method.iteration": supported,
+  "value.argument.formal.constructor": supported,
+  "value.argument.formal.constructor.iteration": supported,
+  "value.iteration.block": supported,
+  "value.iteration.class": supported,
+  "value.iteration.enum": supported,
+  "value.iteration.document": supported,
+
+  "type.variable.uninitialized": supported,
+  "type.variable.initialized": supported,
+  "type.constant": supported,
+  "type.return": supported,
+  "type.return.method": supported,
+  "type.return.lambda": supported,
+  "type.field.class": supported,
+  "type.field.interface": supported,
+  "type.foreach": supported,
   "type.alias": supported,
   "type.cast": supported,
+  "type.class": supported,
+  "type.interface": supported,
+  "type.enum": supported,
+  "type.typeArgument": supported,
   "type.typeArgument.iteration": supported,
+  "type.argument.formal": supported,
+  "type.argument.formal.iteration": supported,
+  "type.argument.formal.method": supported,
+  "type.argument.formal.method.iteration": supported,
+  "type.argument.formal.lambda": supported,
+  "type.argument.formal.lambda.iteration": supported,
+  "type.argument.formal.constructor": supported,
+  "type.argument.formal.constructor.iteration": supported,
+  "type.argument.catch": supported,
+  "type.iteration.block": supported,
+  "type.iteration.class": supported,
+  "type.iteration.interface": supported,
+  "type.iteration.document": supported,
 
-  // misc
-  regularExpression: supported,
-  disqualifyDelimiter: supported,
-  pairDelimiter: supported,
-  "textFragment.regularExpression": supported,
-  "statement.import": supported,
+  "interior.class": supported,
+  "interior.interface": supported,
+  "interior.enum": supported,
+  "interior.function": supported,
+  "interior.constructor": supported,
+  "interior.method": supported,
+  "interior.lambda": supported,
+  "interior.if": supported,
+  "interior.try": supported,
+  "interior.switch": supported,
+  "interior.switchCase": supported,
+  "interior.foreach": supported,
+  "interior.while": supported,
+  "interior.doWhile": supported,
 
   /* UNSUPPORTED */
 
@@ -340,31 +276,7 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
 
   /* NOT APPLICABLE */
 
-  // c-style for loop
-  "statement.for": notApplicable,
-  "condition.for": notApplicable,
-  "interior.for": notApplicable,
-
-  // loop branches
-  "branch.loop": notApplicable,
-  "branch.loop.iteration": notApplicable,
-
-  // XML/CSS/LaTeX/Markdown specific
-  section: notApplicable,
-  subSection: notApplicable,
-  subSubSection: notApplicable,
-  sectionLevelOne: notApplicable,
-  sectionLevelTwo: notApplicable,
-  sectionLevelThree: notApplicable,
-  sectionLevelFour: notApplicable,
-  sectionLevelFive: notApplicable,
-  sectionLevelSix: notApplicable,
-  subParagraph: notApplicable,
-  namedParagraph: notApplicable,
-  chapter: notApplicable,
-  part: notApplicable,
-  "section.iteration.document": notApplicable,
-  "section.iteration.parent": notApplicable,
+  // Element and tags
   element: notApplicable,
   tags: notApplicable,
   startTag: notApplicable,
@@ -374,11 +286,11 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   attribute: notApplicable,
   "key.attribute": notApplicable,
   "value.attribute": notApplicable,
-  environment: notApplicable,
-  notebookCell: notApplicable,
-  selector: notApplicable,
-  unit: notApplicable,
-  "interior.cell": notApplicable,
+
+  // Section
+  section: notApplicable,
+  "section.iteration.document": notApplicable,
+  "section.iteration.parent": notApplicable,
 
   // Command
   command: notApplicable,
@@ -387,23 +299,64 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "value.command": notApplicable,
   "interior.command": notApplicable,
 
-  // Resource
+  // Notebook cell
+  notebookCell: notApplicable,
+  "interior.cell": notApplicable,
+
+  // Resource syntax
   "statement.resource": notApplicable,
   "name.resource": notApplicable,
   "value.resource": notApplicable,
   "type.resource": notApplicable,
   "interior.resource": notApplicable,
 
-  // Explicit namespace declarations
+  // Namespace
   "statement.namespace": notApplicable,
   "name.namespace": notApplicable,
   "interior.namespace": notApplicable,
 
-  // Misc
+  // Loop else branch
+  "branch.loop": notApplicable,
+  "branch.loop.iteration": notApplicable,
+
+  // C-style for loop
+  "statement.for": notApplicable,
+  "condition.for": notApplicable,
+  "interior.for": notApplicable,
+
+  // Update statement
   "statement.update": notApplicable,
-  "statement.package": notApplicable,
-  "statement.yield": notApplicable,
-  "value.yield": notApplicable,
-  "interior.static": notApplicable,
+
+  // Static initialization block
   "statement.static": notApplicable,
+  "interior.static": notApplicable,
+
+  // Package declaration
+  "statement.package": notApplicable,
+
+  // Default argument value in closures
+  "value.argument.formal.lambda": notApplicable,
+  "value.argument.formal.lambda.iteration": notApplicable,
+
+  // Protocol property value
+  "value.field.interface": notApplicable,
+
+  // Document
+  chapter: notApplicable,
+  subSection: notApplicable,
+  subSubSection: notApplicable,
+  sectionLevelOne: notApplicable,
+  sectionLevelTwo: notApplicable,
+  sectionLevelThree: notApplicable,
+  sectionLevelFour: notApplicable,
+  sectionLevelFive: notApplicable,
+  sectionLevelSix: notApplicable,
+  namedParagraph: notApplicable,
+  subParagraph: notApplicable,
+  part: notApplicable,
+
+  // Miscellaneous
+  environment: notApplicable,
+  selector: notApplicable,
+  unit: notApplicable,
 };
