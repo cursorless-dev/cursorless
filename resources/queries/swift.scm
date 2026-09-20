@@ -71,7 +71,7 @@
 (class_declaration
   name: (_) @name
   (class_body)
-) @class @name.domain
+) @class @type @name.domain
 
 ;;!! enum Foo {}
 ;;!       ^^^
@@ -166,11 +166,30 @@
   "}" @branch.end @interior.end.startOf
 )
 
-;; generic type annotation
-(
+;;!! let foo: Int = 0
+;;!! var foo: Int 0
+;;!      ^^^
+;;!           ^^^
+;;!                 ^
+(property_declaration
+  name: (_) @name
   (type_annotation
     ":" @type.leading
-    .
-    _ @type
+    (_) @type
+  )?
+  (
+    "=" @value.leading
+    value: (_) @value
+  )?
+) @_.domain
+
+;;!! let foo: Int { get set}
+;;!      ^^^
+;;!           ^^^
+(protocol_property_declaration
+  name: (_) @name
+  (type_annotation
+    ":" @type.leading
+    (_) @type
   )
-)
+) @_.domain

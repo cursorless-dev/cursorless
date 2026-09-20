@@ -1,8 +1,7 @@
 var foo: Int
 ---
 
-[Content] =
-[Domain] = 0:9-0:12
+[Content] = 0:9-0:12
            >---<
 0| var foo: Int
 
@@ -12,6 +11,10 @@ var foo: Int
 
 [Leading delimiter] = 0:7-0:9
          >--<
+0| var foo: Int
+
+[Domain] = 0:0-0:12
+  >------------<
 0| var foo: Int
 
 [Insertion delimiter] = " "

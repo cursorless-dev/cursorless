@@ -7489,7 +7489,7 @@
             "removal": "0:7-0:12"
           }
         ],
-        "domain": "0:9-0:12"
+        "domain": "0:0-0:16"
       }
     ]
   },
@@ -7514,8 +7514,17 @@
     "name": "scopes/swift/type.field.class",
     "languageId": "swift",
     "facet": "type.field.class",
-    "code": "struct Foo {\n    var foo: Int = 0\n}",
+    "code": "struct Foo {\n    var bar: Int\n    var baz: Int = 0\n}",
     "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:1",
+            "removal": "0:0-3:1"
+          }
+        ],
+        "domain": "0:0-3:1"
+      },
       {
         "targets": [
           {
@@ -7523,7 +7532,16 @@
             "removal": "1:11-1:16"
           }
         ],
-        "domain": "1:13-1:16"
+        "domain": "1:4-1:16"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:13-2:16",
+            "removal": "2:11-2:16"
+          }
+        ],
+        "domain": "2:4-2:20"
       }
     ]
   },
@@ -7531,7 +7549,7 @@
     "name": "scopes/swift/type.field.interface",
     "languageId": "swift",
     "facet": "type.field.interface",
-    "code": "protocol Foo {\n    var foo: Int { set get }\n}",
+    "code": "protocol Foo {\n    var foo: Int { get set }\n}",
     "scopes": [
       {
         "targets": [
@@ -7549,7 +7567,7 @@
             "removal": "1:11-1:16"
           }
         ],
-        "domain": "1:13-1:16"
+        "domain": "1:4-1:28"
       }
     ]
   },
@@ -7567,15 +7585,6 @@
           }
         ],
         "domain": "0:0-0:23"
-      },
-      {
-        "targets": [
-          {
-            "content": "0:7-0:10",
-            "removal": "0:5-0:10"
-          }
-        ],
-        "domain": "0:7-0:10"
       }
     ]
   },
@@ -7697,7 +7706,7 @@
             "removal": "0:7-0:12"
           }
         ],
-        "domain": "0:9-0:12"
+        "domain": "0:0-0:16"
       }
     ]
   },
@@ -7714,7 +7723,7 @@
             "removal": "0:7-0:12"
           }
         ],
-        "domain": "0:9-0:12"
+        "domain": "0:0-0:12"
       }
     ]
   },
