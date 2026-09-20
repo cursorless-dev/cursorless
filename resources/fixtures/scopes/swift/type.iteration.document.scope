@@ -1,4 +1,4 @@
-let foo: Int = 0
+let foo: Int
 ---
 
 [Content] =
