@@ -5,7 +5,6 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   disqualifyDelimiter: supported,
-  pairDelimiter: supported,
   anonymousFunction: supported,
   list: supported,
   map: supported,
@@ -61,10 +60,6 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.formal.lambda.empty": supported,
   "argumentList.formal.lambda.singleLine": supported,
   "argumentList.formal.lambda.multiLine": supported,
-
-  "collectionItem.unenclosed.singleLine": supported,
-  "collectionItem.unenclosed.multiLine": supported,
-  "collectionItem.unenclosed.iteration": supported,
 
   "branch.if": supported,
   "branch.if.elif.else": supported,
@@ -140,6 +135,7 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.break": supported,
   "statement.continue": supported,
   "statement.import": supported,
+  "statement.yield": supported,
   "statement.iteration.document": supported,
   "statement.iteration.class": supported,
   "statement.iteration.interface": supported,
@@ -207,6 +203,7 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "value.field.class": supported,
   "value.field.enum": supported,
   "value.throw": supported,
+  "value.yield": supported,
   "value.switch": supported,
   "value.typeAlias": supported,
   "value.argument.actual": supported,
@@ -347,11 +344,17 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   subParagraph: notApplicable,
   part: notApplicable,
 
+  // Collection items unenclosed
+  "collectionItem.unenclosed.singleLine": notApplicable,
+  "collectionItem.unenclosed.multiLine": notApplicable,
+  "collectionItem.unenclosed.iteration": notApplicable,
+
   // Miscellaneous
   "statement.misc": notApplicable,
   "statement.package": notApplicable,
   "statement.update": notApplicable,
   "value.field.interface": notApplicable,
+  pairDelimiter: notApplicable,
   environment: notApplicable,
   selector: notApplicable,
   unit: notApplicable,

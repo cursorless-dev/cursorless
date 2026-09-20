@@ -62,17 +62,20 @@
   text: (_) @textFragment
 ) @string
 
+;;!! #"Hello world"#
+;;!  ^^^^^^^^^^^^^^^
+;;!    ^^^^^^^^^^^
+(raw_string_literal
+  (_) @textFragment
+  (#character-range! @textFragment 2 -2)
+) @string
+
 ;;!! """Hello world"""
 ;;!  ^^^^^^^^^^^^^^^^^
 ;;!     ^^^^^^^^^^^
 (multi_line_string_literal
   text: (_) @textFragment
 ) @string
-
-;; extended delimiter/"raw" strings (both multiline and single line) -- waiting on better tree-sitter support for these
-;;(raw_string_literal
-;;  text: (_) @interior @textFragment
-;;) @string
 
 ;;!! struct Foo {}
 ;;!         ^^^
