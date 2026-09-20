@@ -8,7 +8,7 @@ export function injectCheatsheetInfo(
   const root = parse(cheatsheetContent);
   const serializedCheatsheetInfo = JSON.stringify(cheatsheetInfo).replaceAll(
     "<",
-    String.raw`\\u003c`,
+    String.raw`\u003c`,
   );
 
   root

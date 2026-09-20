@@ -34,7 +34,7 @@ suite("Cheatsheet", () => {
 
     assert.equal(
       script.rawText,
-      `document.cheatsheetInfo = ${JSON.stringify(cheatsheetInfo).replaceAll("<", String.raw`\\u003c`)};`,
+      `document.cheatsheetInfo = ${JSON.stringify(cheatsheetInfo).replaceAll("<", String.raw`\u003c`)};`,
     );
     assert.doesNotMatch(script.rawText, /&(?:amp|lt|quot);/u);
   });
