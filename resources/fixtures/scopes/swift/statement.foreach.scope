@@ -1,10 +1,10 @@
-for foo in bar {}
+for v in values {}
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-0:17
-  >-----------------<
-0| for foo in bar {}
+[Domain] = 0:0-0:18
+  >------------------<
+0| for v in values {}
 
 [Insertion delimiter] = "\n"
