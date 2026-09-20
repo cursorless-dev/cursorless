@@ -7,7 +7,7 @@ import {
   getErrorMessage,
   showWarning,
 } from "@cursorless/lib-common";
-import type { FileSystemTalonSpokenForms } from "./FileSystemTalonSpokenForms";
+import type { FileSystemTalonSpokenForms } from "../FileSystemTalonSpokenForms";
 import { injectCheatsheetInfo } from "./injectCheatsheetInfo";
 
 interface CheatSheetCommandArgV0 {

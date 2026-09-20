@@ -1,4 +1,4 @@
-import { parse, TextNode } from "node-html-parser";
+import { parse } from "node-html-parser";
 import type { CheatsheetInfo } from "@cursorless/lib-common";
 
 export function injectCheatsheetInfo(
@@ -11,11 +11,15 @@ export function injectCheatsheetInfo(
     String.raw`\u003c`,
   );
 
-  root
-    .getElementById("cheatsheet-data")!
-    .set_content(
-      new TextNode(`document.cheatsheetInfo = ${serializedCheatsheetInfo};`),
-    );
+  const dataElement = root.getElementById("cheatsheet-data");
+
+  if (dataElement == null) {
+    throw new Error("Cheatsheet cheatsheet-data element not found");
+  }
+
+  dataElement.set_content(
+    `document.cheatsheetInfo = ${serializedCheatsheetInfo};`,
+  );
 
   return root.toString();
 }
