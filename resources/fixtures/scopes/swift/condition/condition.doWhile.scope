@@ -1,0 +1,20 @@
+repeat {} while true
+---
+
+[Content] = 0:16-0:20
+                  >----<
+0| repeat {} while true
+
+[Removal] = 0:15-0:20
+                 >-----<
+0| repeat {} while true
+
+[Leading delimiter] = 0:15-0:16
+                 >-<
+0| repeat {} while true
+
+[Domain] = 0:0-0:20
+  >--------------------<
+0| repeat {} while true
+
+[Insertion delimiter] = " "

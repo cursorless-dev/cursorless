@@ -1,16 +1,16 @@
 foo = 0
 ---
 
-[Content] = 0:6-0:7
-        >-<
+[Content] = 0:0-0:3
+  >---<
 0| foo = 0
 
-[Removal] = 0:3-0:7
-     >----<
+[Removal] = 0:0-0:4
+  >----<
 0| foo = 0
 
-[Leading delimiter] = 0:3-0:6
-     >---<
+[Trailing delimiter] = 0:3-0:4
+     >-<
 0| foo = 0
 
 [Domain] = 0:0-0:7

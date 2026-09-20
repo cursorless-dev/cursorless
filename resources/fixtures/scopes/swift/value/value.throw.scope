@@ -1,0 +1,22 @@
+func foo() throws {
+    throw Error
+}
+---
+
+[Content] = 1:10-1:15
+            >-----<
+1|     throw Error
+
+[Removal] = 1:9-1:15
+           >------<
+1|     throw Error
+
+[Leading delimiter] = 1:9-1:10
+           >-<
+1|     throw Error
+
+[Domain] = 1:4-1:15
+      >-----------<
+1|     throw Error
+
+[Insertion delimiter] = " "

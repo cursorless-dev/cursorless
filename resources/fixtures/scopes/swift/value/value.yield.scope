@@ -1,0 +1,24 @@
+var foo: Int {
+    _read {
+        yield 0
+    }
+}
+---
+
+[Content] = 2:14-2:15
+                >-<
+2|         yield 0
+
+[Removal] = 2:13-2:15
+               >--<
+2|         yield 0
+
+[Leading delimiter] = 2:13-2:14
+               >-<
+2|         yield 0
+
+[Domain] = 2:8-2:15
+          >-------<
+2|         yield 0
+
+[Insertion delimiter] = " "

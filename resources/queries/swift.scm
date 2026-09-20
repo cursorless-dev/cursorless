@@ -8,11 +8,14 @@
   (protocol_property_declaration)
   (protocol_function_declaration)
   (init_declaration)
+  (import_declaration)
+  (typealias_declaration)
   (for_statement)
   (do_statement)
   (while_statement)
   (repeat_while_statement)
   (switch_statement)
+  (control_transfer_statement)
   (assignment)
   (call_expression)
 
@@ -249,10 +252,33 @@
 (assignment
   target: (_) @name @value.leading.endOf
   result: (_) @value
+) @_.domain
+
+;;!! { () -> Int in 0 }
+;;!          ^^^
+(lambda_literal
+  (lambda_function_type
+    ")" @type.leading.endOf
+    name: (_)? @type
+  )
+) @anonymousFunction
+
+;;!! { () -> Int in 0 }
+;;!                 ^
+(lambda_literal
+  (statements) @interior
 )
 
-;;!! { (aaa: Int) -> Int in 0 }
-(lambda_literal) @anonymousFunction
+;;!! { () -> Int in 0 }
+;;!                 ^
+(lambda_literal
+  (statements
+    .
+    (_) @value
+    .
+  )
+  (#not-type? @value control_transfer_statement)
+) @value.domain
 
 ;;!! do {} catch {}
 ;;!  ^^^^^
@@ -300,11 +326,18 @@
   (#shrink-to-match! @textFragment "^/(?<keep>.*)/.*$")
 )
 
-;;!! func foo() {}
+;;!! func foo() -> Int {}
 ;;!       ^^^
+;;!                ^^^
 (function_declaration
   name: (_) @name
-) @namedFunction @name.domain
+  (
+    ")" @type.leading.endOf
+    "->"
+    .
+    name: (_) @type
+  )?
+) @namedFunction @_.domain
 
 ;;!! init() {}
 ;;!  ^^^^
@@ -324,3 +357,33 @@
   .
   (_) @functionCallee
 ) @functionCall @functionCallee.domain
+
+;;!! typealias Foo = Int
+;;!            ^^^
+;;!                  ^^^
+(typealias_declaration
+  (_) @name @value.leading.endOf
+  "="
+  (_) @value
+) @type @_.domain
+
+;;!! return 0
+;;!         ^
+;;!! yield 0
+;;!        ^
+(control_transfer_statement
+  result: (_) @value
+) @value.domain
+
+;;!! throw Error
+;;!        ^^^^^
+(control_transfer_statement
+  (throw_keyword)
+  (_) @value
+) @value.domain
+
+;;!! [aaa, bbb]
+(array_literal) @list
+
+;;!! [aaa: 0, bbb: 1]
+(dictionary_literal) @map
