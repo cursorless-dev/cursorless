@@ -16,5 +16,8 @@ declare global {
 }
 
 export function App() {
+  if (document.cheatsheetInfo == null) {
+    throw new Error("Cheatsheet info is not available on the document.");
+  }
   return <Cheatsheet cheatsheetInfo={document.cheatsheetInfo} />;
 }

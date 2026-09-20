@@ -1,6 +1,5 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { parse } from "node-html-parser";
 import type { CheatsheetInfo, IDE } from "@cursorless/lib-common";
 import {
   getCheatsheetInfo,
@@ -9,6 +8,7 @@ import {
   showWarning,
 } from "@cursorless/lib-common";
 import type { FileSystemTalonSpokenForms } from "./FileSystemTalonSpokenForms";
+import { injectCheatsheetInfo } from "./injectCheatsheetInfo";
 
 interface CheatSheetCommandArgV0 {
   version: 0;
@@ -47,12 +47,11 @@ export async function showCheatsheet(
   );
   const cheatsheetPath = path.join(ide.assetsRoot, "cheatsheet.html");
   const cheatsheetContent = await readFile(cheatsheetPath, "utf8");
-  const root = parse(cheatsheetContent);
 
-  root.getElementById("cheatsheet-data")!.textContent =
-    `document.cheatsheetInfo = ${JSON.stringify(cheatsheetInfo)};`;
-
-  await writeFile(arg.outputPath, root.toString());
+  await writeFile(
+    arg.outputPath,
+    injectCheatsheetInfo(cheatsheetContent, cheatsheetInfo),
+  );
 }
 
 async function getCheatsheetInfoForCommand(
