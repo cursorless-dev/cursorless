@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { parse } from "node-html-parser";
 import type { CheatsheetInfo } from "@cursorless/lib-common";
-import { injectCheatsheetInfo } from "../src/injectCheatsheetInfo";
+import { injectCheatsheetInfo } from "./injectCheatsheetInfo";
 
 suite("Cheatsheet", () => {
   test("injects cheatsheet info as executable script text", () => {
