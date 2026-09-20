@@ -1900,13 +1900,13 @@
     "name": "scopes/swift/condition.if",
     "languageId": "swift",
     "facet": "condition.if",
-    "code": "if (true) {}\nelse if (false) {}\nelse {}",
+    "code": "if true {}\nelse if false {}\nelse {}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:3-0:9",
-            "removal": "0:3-0:10"
+            "content": "0:3-0:7",
+            "removal": "0:3-0:8"
           }
         ],
         "domain": "0:0-2:7"
@@ -1914,20 +1914,11 @@
       {
         "targets": [
           {
-            "content": "1:8-1:15",
-            "removal": "1:8-1:16"
+            "content": "1:8-1:13",
+            "removal": "1:8-1:14"
           }
         ],
-        "domain": "1:0-1:15"
-      },
-      {
-        "targets": [
-          {
-            "content": "1:8-1:15",
-            "removal": "1:8-1:16"
-          }
-        ],
-        "domain": "1:5-2:7"
+        "domain": "1:0-1:16"
       }
     ]
   },

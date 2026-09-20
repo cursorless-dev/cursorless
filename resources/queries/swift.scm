@@ -4,6 +4,7 @@
   (class_declaration)
   (protocol_declaration)
   (for_statement)
+  (property_declaration)
 
   ;; Disabled on purpose. We have a better definition of these below.
   ;; (if_statement)
@@ -54,42 +55,10 @@
 ;;  text: (_) @interior @textFragment
 ;;) @string
 
-;; if statement
-(
-  (if_statement) @ifStatement @statement @branch.iteration
-  (#not-parent-type? @ifStatement if_statement)
-)
-
-;; if statement w/ condition & child branches
-(
-  (if_statement
-    "if" @branch.start @branch.removal.start
-    condition: (_) @condition
-    "}" @branch.end @branch.removal.end
-    (else)? @branch.removal.end.startOf
-  ) @condition.domain
-  (#not-parent-type? @condition.domain else)
-)
-
-;; else if
-(
-  (else) @branch.start @condition.domain.start
-  (if_statement
-    condition: (_) @condition @condition.domain.end
-    "}" @branch.end
-  )
-)
-
-;; else
-(
-  (else) @branch.start
-  "}" @branch.end
-)
-
 ;; generic property delc
-(property_declaration
-  name: (_) @name
-) @statement @name.domain
+;; (property_declaration
+;;   name: (_) @name
+;; ) @name.domain
 
 ;;!! struct Foo {}
 ;;!         ^^^
@@ -111,18 +80,80 @@
   name: (_) @name
 ) @type @name.domain
 
-;; For loop
+;;!! for v: Int in values {}
+;;!      ^
+;;!         ^^^
+;;!                ^^^^^^
 (for_statement
-  "for"
   item: (_) @name
   (type_annotation
     ":" @type.leading
     .
-    _ @type @name.trailing
+    _ @type
   )?
-  "in"
   collection: (_) @value
 ) @_.domain
+
+;;!! if true {} else if false {} else {}
+(
+  (if_statement) @ifStatement @statement @branch.iteration
+  (#not-parent-type? @ifStatement if_statement)
+)
+
+(
+  (if_statement
+    condition: (_) @condition
+  ) @condition.domain
+  (#not-parent-type? @condition.domain if_statement)
+)
+
+;;!! if true {}
+(
+  (if_statement
+    "}" @branch.end.endOf
+  ) @branch.start.startOf
+  (#not-parent-type? @branch.start.startOf if_statement)
+  (#not-child-type? @branch.start.startOf else)
+)
+
+;;!! if true {} else {}
+(
+  (if_statement
+    "}" @branch.end.endOf
+    (else) @branch.removal.end.startOf
+    (if_statement)? @branch.removal.end.startOf
+  ) @branch.start.startOf @branch.removal.start.startOf
+  (#not-parent-type? @branch.start.startOf if_statement)
+)
+
+;;!! else if true {} else {}
+(if_statement
+  (else) @branch.start @condition.domain.start
+  (if_statement
+    condition: (_) @condition
+    "}" @branch.end @condition.domain.end
+    .
+    (else)
+  )
+)
+
+;;!! else if true {}
+(
+  (if_statement
+    (else) @branch.start @condition.domain.start
+    (if_statement
+      condition: (_) @condition
+      "}" @branch.end @condition.domain.end
+    ) @_dummy
+  )
+  (#not-child-type? @_dummy else)
+)
+
+;;!! else {}
+(
+  (else) @branch.start
+  "}" @branch.end
+)
 
 ;; generic type annotation
 (
