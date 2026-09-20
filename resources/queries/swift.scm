@@ -18,14 +18,20 @@
 
 ;;!! { }
 ;;!   ^
-(_
-  "{" @statementNameValueType.iteration.start.endOf @class.iteration.start.endOf @namedFunction.iteration.start.endOf
-  "}" @statementNameValueType.iteration.end.startOf @class.iteration.end.startOf @namedFunction.iteration.end.startOf
+(
+  (_
+    "{" @statementNameValueType.iteration.start.endOf @class.iteration.start.endOf @namedFunction.iteration.start.endOf
+    "}" @statementNameValueType.iteration.end.startOf @class.iteration.end.startOf @namedFunction.iteration.end.startOf
+  ) @_dummy
+  (#not-type? @_dummy if_statement)
 )
 
-(_
-  "{" @interior.start.endOf
-  "}" @interior.end.startOf
+(
+  (_
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  ) @_dummy
+  (#not-type? @_dummy if_statement)
 )
 
 ;;!! // Hello world
@@ -110,7 +116,8 @@
 ;;!! if true {}
 (
   (if_statement
-    "}" @branch.end.endOf
+    "{" @interior.start.endOf
+    "}" @branch.end.endOf @interior.end.startOf
   ) @branch.start.startOf
   (#not-parent-type? @branch.start.startOf if_statement)
   (#not-child-type? @branch.start.startOf else)
@@ -119,7 +126,8 @@
 ;;!! if true {} else {}
 (
   (if_statement
-    "}" @branch.end.endOf
+    "{" @interior.start.endOf
+    "}" @branch.end.endOf @interior.end.startOf
     (else) @branch.removal.end.startOf
     (if_statement)? @branch.removal.end.startOf
   ) @branch.start.startOf @branch.removal.start.startOf
@@ -131,7 +139,8 @@
   (else) @branch.start @condition.domain.start
   (if_statement
     condition: (_) @condition
-    "}" @branch.end @condition.domain.end
+    "{" @interior.start.endOf
+    "}" @branch.end @interior.end.startOf @condition.domain.end
     .
     (else)
   )
@@ -143,7 +152,8 @@
     (else) @branch.start @condition.domain.start
     (if_statement
       condition: (_) @condition
-      "}" @branch.end @condition.domain.end
+      "{" @interior.start.endOf
+      "}" @branch.end @interior.end.startOf @condition.domain.end
     ) @_dummy
   )
   (#not-child-type? @_dummy else)
@@ -152,7 +162,8 @@
 ;;!! else {}
 (
   (else) @branch.start
-  "}" @branch.end
+  "{" @interior.start.endOf
+  "}" @branch.end @interior.end.startOf
 )
 
 ;; generic type annotation
