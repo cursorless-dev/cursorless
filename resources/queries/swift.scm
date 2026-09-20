@@ -89,27 +89,27 @@
 ;; generic property delc
 (property_declaration
   name: (_) @name
-) @statement
+) @statement @name.domain
 
 ;;!! struct Foo {}
 ;;!         ^^^
 (class_declaration
   name: (_) @name
   (class_body)
-) @class
+) @class @name.domain
 
 ;;!! enum Foo {}
 ;;!       ^^^
 (class_declaration
   name: (_) @name
   (enum_class_body)
-) @type
+) @type @name.domain
 
 ;;!! protocol Foo {}
 ;;!           ^^^
 (protocol_declaration
   name: (_) @name
-) @type
+) @type @name.domain
 
 ;; For loop
 (for_statement

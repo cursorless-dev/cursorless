@@ -1,8 +1,7 @@
 protocol Foo {}
 ---
 
-[Content] =
-[Domain] = 0:9-0:12
+[Content] = 0:9-0:12
            >---<
 0| protocol Foo {}
 
@@ -16,6 +15,10 @@ protocol Foo {}
 
 [Trailing delimiter] = 0:12-0:13
               >-<
+0| protocol Foo {}
+
+[Domain] = 0:0-0:15
+  >---------------<
 0| protocol Foo {}
 
 [Insertion delimiter] = " "

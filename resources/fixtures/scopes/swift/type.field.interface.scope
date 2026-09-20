@@ -4,21 +4,13 @@ protocol Foo {
 ---
 
 [#1 Content] =
-[#1 Domain] = 0:9-0:12
-           >---<
+[#1 Removal] =
+[#1 Domain] = 0:0-2:1
+  >--------------
 0| protocol Foo {
-
-[#1 Removal] = 0:9-0:13
-           >----<
-0| protocol Foo {
-
-[#1 Leading delimiter] = 0:8-0:9
-          >-<
-0| protocol Foo {
-
-[#1 Trailing delimiter] = 0:12-0:13
-              >-<
-0| protocol Foo {
+1|     var foo: Int { set get }
+2| }
+   -<
 
 [#1 Insertion delimiter] = " "
 
