@@ -109,14 +109,6 @@
           }
         ],
         "domain": "0:0-2:7"
-      },
-      {
-        "targets": [
-          {
-            "content": "1:15-2:6"
-          }
-        ],
-        "domain": "1:15-2:6"
       }
     ]
   },
@@ -777,11 +769,11 @@
       {
         "targets": [
           {
-            "content": "0:5-0:8",
-            "removal": "0:5-0:9"
+            "content": "0:0-0:11",
+            "removal": "0:0-0:11"
           }
         ],
-        "domain": "0:5-0:8"
+        "domain": "0:0-0:11"
       }
     ]
   },
@@ -791,15 +783,6 @@
     "facet": "type.field.class",
     "code": "struct Foo {\n    var foo: Int = 0\n}",
     "scopes": [
-      {
-        "targets": [
-          {
-            "content": "0:7-0:10",
-            "removal": "0:7-0:11"
-          }
-        ],
-        "domain": "0:7-0:10"
-      },
       {
         "targets": [
           {
@@ -820,11 +803,11 @@
       {
         "targets": [
           {
-            "content": "0:9-0:12",
-            "removal": "0:9-0:13"
+            "content": "0:0-2:1",
+            "removal": "0:0-2:1"
           }
         ],
-        "domain": "0:9-0:12"
+        "domain": "0:0-2:1"
       },
       {
         "targets": [
@@ -872,11 +855,11 @@
       {
         "targets": [
           {
-            "content": "0:9-0:12",
-            "removal": "0:9-0:13"
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
           }
         ],
-        "domain": "0:9-0:12"
+        "domain": "0:0-0:15"
       }
     ]
   },

@@ -3,18 +3,10 @@ else if false {}
 else {}
 ---
 
-[#1 Content] =
-[#1 Domain] = 0:0-2:7
+[Content] =
+[Domain] = 0:0-2:7
   >----------
 0| if true {}
 1| else if false {}
 2| else {}
    -------<
-
-
-[#2 Content] =
-[#2 Domain] = 1:15-2:6
-                 >-
-1| else if false {}
-2| else {}
-   ------<

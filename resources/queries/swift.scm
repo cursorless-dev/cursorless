@@ -1,30 +1,52 @@
 ;; https://github.com/alex-pinkus/tree-sitter-swift/blob/with-generated-files/src/grammar.json
 
+[
+  (class_declaration)
+  (protocol_declaration)
+  (for_statement)
+
+  ;; Disabled on purpose. We have a better definition of these below.
+  ;; (if_statement)
+] @statement
+
 ;; document-wide
 (
-  (source_file) @value.iteration @type.iteration @interior.iteration
-  (#document-range! @value.iteration @type.iteration @interior.iteration)
+  (source_file) @statementNameValueType.iteration @class.iteration @namedFunction.iteration
+  (#document-range! @statementNameValueType.iteration @class.iteration @namedFunction.iteration)
 )
 
-(
-  (source_file) @class.iteration @statement.iteration @name.iteration
-  (#document-range! @class.iteration @statement.iteration @name.iteration)
+;;!! { }
+;;!   ^
+(_
+  "{" @statementNameValueType.iteration.start.endOf @class.iteration.start.endOf @namedFunction.iteration.start.endOf
+  "}" @statementNameValueType.iteration.end.startOf @class.iteration.end.startOf @namedFunction.iteration.end.startOf
 )
 
-;; single line comment
+(_
+  "{" @interior.start.endOf
+  "}" @interior.end.startOf
+)
+
+;;!! // Hello world
+;;!  ^^^^^^^^^^^^^^
 (comment) @comment @textFragment
 
-;; multiline comment
+;;!! /* Hello world */
+;;!  ^^^^^^^^^^^^^^^^^
 (multiline_comment) @comment @textFragment
 
-;; single line string
+;;!! "Hello world"
+;;!  ^^^^^^^^^^^^^
+;;!   ^^^^^^^^^^^
 (line_string_literal
-  text: (_) @interior @textFragment
+  text: (_) @textFragment
 ) @string
 
-;; multiline string
+;;!! """Hello world"""
+;;!  ^^^^^^^^^^^^^^^^^
+;;!     ^^^^^^^^^^^
 (multi_line_string_literal
-  text: (_) @interior @textFragment
+  text: (_) @textFragment
 ) @string
 
 ;; extended delimiter/"raw" strings (both multiline and single line) -- waiting on better tree-sitter support for these
@@ -69,69 +91,38 @@
   name: (_) @name
 ) @statement
 
-;; Generic interior w/ top-level iterations
-(
-  (_
-    "{" @interior.start.endOf @statement.iteration.start.endOf @name.iteration.start.endOf
-    "}" @interior.end.startOf @statement.iteration.end.startOf @name.iteration.end.startOf
-  )
-)
-
-(
-  (_
-    "{" @value.iteration.start.endOf @type.iteration.start.endOf @namedFunction.iteration.start.endOf
-    "}" @value.iteration.end.startOf @type.iteration.end.startOf @namedFunction.iteration.end.startOf
-  )
-)
-
-(
-  (_
-    "{" @class.iteration.start.endOf @branch.iteration.start.endOf @condition.iteration.start.endOf
-    "}" @class.iteration.end.startOf @condition.iteration.end.startOf @branch.iteration.end.startOf
-  )
-)
-
-;; non-enum classlike decl.
+;;!! struct Foo {}
+;;!         ^^^
 (class_declaration
-  name: (_) @name @type
-  body: (class_body
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  )
-) @statement @class
+  name: (_) @name
+  (class_body)
+) @class
 
-;; Protocol decl.
+;;!! enum Foo {}
+;;!       ^^^
+(class_declaration
+  name: (_) @name
+  (enum_class_body)
+) @type
+
+;;!! protocol Foo {}
+;;!           ^^^
 (protocol_declaration
-  name: (_) @name @type
-  body: (protocol_body
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  )
-) @statement @class
-
-;; Enum "class" decl.
-(class_declaration
-  name: (_) @name @type
-  body: (enum_class_body
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  )
-) @statement @class
+  name: (_) @name
+) @type
 
 ;; For loop
-(
-  (for_statement
-    "for"
-    item: (_) @name
-    (type_annotation
-      ":" @type.leading
-      .
-      _ @type @name.trailing
-    )?
-    "in"
-    collection: (_) @value
-  ) @statement @_.domain
-)
+(for_statement
+  "for"
+  item: (_) @name
+  (type_annotation
+    ":" @type.leading
+    .
+    _ @type @name.trailing
+  )?
+  "in"
+  collection: (_) @value
+) @_.domain
 
 ;; generic type annotation
 (
