@@ -4,11 +4,17 @@
   (class_declaration)
   (protocol_declaration)
   (property_declaration)
+  (function_declaration)
+  (protocol_property_declaration)
+  (protocol_function_declaration)
+  (init_declaration)
   (for_statement)
   (do_statement)
   (while_statement)
   (repeat_while_statement)
   (switch_statement)
+  (assignment)
+  (call_expression)
 
   ;; Disabled on purpose. We have a better definition of these below.
   ;; (if_statement)
@@ -78,6 +84,14 @@
   name: (_) @name
   (enum_class_body)
 ) @type @name.domain
+
+;;!! case foo = 0
+;;!       ^^^
+;;!             ^
+(enum_entry
+  name: (_) @name @value.leading.endOf
+  raw_value: (_) @value
+) @_.domain
 
 ;;!! protocol Foo {}
 ;;!           ^^^
@@ -193,33 +207,49 @@
   "}" @statementNameValueType.iteration.end.startOf @class.iteration.end.startOf @namedFunction.iteration.end.startOf
 )
 
-;;!! let foo: Int = 0
-;;!! var foo: Int 0
+;;!! var foo: Int = 0
 ;;!      ^^^
 ;;!           ^^^
 ;;!                 ^
 (property_declaration
-  name: (_) @name
+  name: (_) @name @type.leading.endOf
   (type_annotation
-    ":" @type.leading
     (_) @type
-  )?
-  (
-    "=" @value.leading
-    value: (_) @value
-  )?
+  ) @value.leading.endOf
+  value: (_)? @value
 ) @_.domain
+
+;;!! var foo = 0
+;;!      ^^^
+;;!            ^
+(
+  (property_declaration
+    name: (_) @name @value.leading.endOf
+    value: (_)? @value
+  ) @_.domain
+  (#not-child-type? @_.domain type_annotation)
+)
 
 ;;!! let foo: Int { get set}
 ;;!      ^^^
 ;;!           ^^^
 (protocol_property_declaration
-  name: (_) @name
+  name: (pattern
+    bound_identifier: (_) @name
+  )
   (type_annotation
     ":" @type.leading
     (_) @type
   )
 ) @_.domain
+
+;;!! foo = 0
+;;!  ^^^
+;;!        ^
+(assignment
+  target: (_) @name @value.leading.endOf
+  result: (_) @value
+)
 
 ;;!! { (aaa: Int) -> Int in 0 }
 (lambda_literal) @anonymousFunction
@@ -264,4 +294,33 @@
   condition: (_) @condition
 ) @condition.domain
 
-;; (switch_statement)
+;;!! /\d+$/
+(
+  (regex_literal) @regularExpression @textFragment
+  (#shrink-to-match! @textFragment "^/(?<keep>.*)/.*$")
+)
+
+;;!! func foo() {}
+;;!       ^^^
+(function_declaration
+  name: (_) @name
+) @namedFunction @name.domain
+
+;;!! init() {}
+;;!  ^^^^
+(init_declaration
+  name: _ @name
+) @namedFunction @name.domain
+
+;;!! func foo() {}
+;;!       ^^^
+(protocol_function_declaration
+  name: (_) @name
+) @name.domain
+
+;;!! foo()
+;;!  ^^^
+(call_expression
+  .
+  (_) @functionCallee
+) @functionCall @functionCallee.domain

@@ -1,0 +1,17 @@
+foo = 0
+---
+
+[Content] =
+[Domain] = 0:6-0:7
+        >-<
+0| foo = 0
+
+[Removal] = 0:3-0:7
+     >----<
+0| foo = 0
+
+[Leading delimiter] = 0:3-0:6
+     >---<
+0| foo = 0
+
+[Insertion delimiter] = " "

@@ -95,14 +95,12 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "functionCall.constructor": supported,
   "functionCall.method": supported,
   "functionCall.chain": supported,
-  "functionCall.generic": supported,
   "functionCall.enum": supported,
 
   functionCallee: supported,
   "functionCallee.constructor": supported,
   "functionCallee.method": supported,
   "functionCallee.chain": supported,
-  "functionCallee.generic": supported,
   "functionCallee.enum": supported,
 
   namedFunction: supported,
@@ -324,22 +322,17 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "condition.for": notApplicable,
   "interior.for": notApplicable,
 
-  // Update statement
-  "statement.update": notApplicable,
+  // Generic function call
+  "functionCall.generic": notApplicable,
+  "functionCallee.generic": notApplicable,
 
   // Static initialization block
   "statement.static": notApplicable,
   "interior.static": notApplicable,
 
-  // Package declaration
-  "statement.package": notApplicable,
-
   // Default argument value in closures
   "value.argument.formal.lambda": notApplicable,
   "value.argument.formal.lambda.iteration": notApplicable,
-
-  // Protocol property value
-  "value.field.interface": notApplicable,
 
   // Document
   chapter: notApplicable,
@@ -356,6 +349,9 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   part: notApplicable,
 
   // Miscellaneous
+  "value.field.interface": notApplicable,
+  "statement.package": notApplicable,
+  "statement.update": notApplicable,
   environment: notApplicable,
   selector: notApplicable,
   unit: notApplicable,

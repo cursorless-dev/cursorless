@@ -1,0 +1,10 @@
+Foo.bar()
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:9
+  >---------<
+0| Foo.bar()
+
+[Insertion delimiter] = " "
