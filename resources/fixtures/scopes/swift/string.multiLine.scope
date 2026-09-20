@@ -1,15 +1,17 @@
 """
-aaa
+Hello
+world
 """
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-2:3
+[Domain] = 0:0-3:3
   >---
 0| """
-1| aaa
-2| """
+1| Hello
+2| world
+3| """
    ---<
 
 [Insertion delimiter] = " "
