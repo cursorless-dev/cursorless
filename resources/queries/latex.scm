@@ -19,27 +19,22 @@
 (paragraph) @namedParagraph
 (subparagraph) @subParagraph
 
-(_
-  (begin) @xmlStartTag
-  (end) @xmlEndTag
-) @environment @xmlElement @_.domain
-
 ;;!! \begin{quote} Hello \end{quote}
 ;;!               ^^^^^^^
 (_
-  (begin) @interior.start.endOf @textFragment.start.endOf
-  (end) @interior.end.startOf @textFragment.end.startOf
-)
+  (begin) @xmlStartTag @G_interior_textFragment.start.endOf
+  (end) @xmlEndTag @G_interior_textFragment.end.startOf
+) @environment @xmlElement @G_xmlStartTag_xmlEndTag.domain
 
 (_
   (begin) @xmlBothTags
   (#allow-multiple! @xmlBothTags)
-) @_.domain
+) @xmlBothTags.domain
 
 (_
   (end) @xmlBothTags
   (#allow-multiple! @xmlBothTags)
-) @_.domain
+) @xmlBothTags.domain
 
 (operator
   [
@@ -167,7 +162,7 @@
       (brack_group_text)
       (brack_group_argc)
       (brack_group_key_value)
-    ] @argumentOrParameter @_.removal
+    ] @argumentOrParameter @argumentOrParameter.removal
   ) @_dummy
   (#character-range! @argumentOrParameter 1 -1)
   (#type?

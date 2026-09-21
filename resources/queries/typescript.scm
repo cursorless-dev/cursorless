@@ -9,5 +9,5 @@
 (type_assertion
   (type_arguments
     (_) @type
-  ) @_.removal
-) @_.domain
+  ) @type.removal
+) @type.domain

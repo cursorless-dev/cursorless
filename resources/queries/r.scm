@@ -29,14 +29,14 @@
   ] @statement
 )
 
-(program) @statementNameValue.iteration @namedFunction.iteration
+(program) @G_statement_name_value.iteration @namedFunction.iteration
 
 ;;!! { }
 ;;!   ^
 (_
   .
-  "{" @interior.start.endOf @statementNameValue.iteration.start.endOf
-  "}" @interior.end.startOf @statementNameValue.iteration.end.startOf
+  "{" @interior.start.endOf @G_statement_name_value.iteration.start.endOf
+  "}" @interior.end.startOf @G_statement_name_value.iteration.end.startOf
   .
 )
 
@@ -104,7 +104,7 @@
 (
   (arguments
     (
-      (argument) @_.leading.endOf
+      (argument) @argumentOrParameter.leading.endOf
       .
       (comma)
     )?
@@ -114,7 +114,7 @@
     (
       (comma)
       .
-      (argument) @_.trailing.startOf
+      (argument) @argumentOrParameter.trailing.startOf
     )?
   ) @_dummy
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
@@ -125,7 +125,7 @@
 (
   (parameters
     (
-      (parameter) @_.leading.endOf
+      (parameter) @argumentOrParameter.leading.endOf
       .
       (comma)
     )?
@@ -135,7 +135,7 @@
     (
       (comma)
       .
-      (parameter) @_.trailing.startOf
+      (parameter) @argumentOrParameter.trailing.startOf
     )?
   ) @_dummy
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
@@ -144,15 +144,15 @@
 ;;!! foo(aaa = 0)
 ;;!      ^^^^^^^
 (arguments
-  "(" @name.iteration.start.endOf @value.iteration.start.endOf
-  ")" @name.iteration.end.startOf @value.iteration.end.startOf
+  "(" @G_name_value.iteration.start.endOf
+  ")" @G_name_value.iteration.end.startOf
 )
 
 ;;!! function(aaa, bbb){}
 ;;!           ^^^^^^^^
 (parameters
-  "(" @name.iteration.start.endOf @value.iteration.start.endOf
-  ")" @name.iteration.end.startOf @value.iteration.end.startOf
+  "(" @G_name_value.iteration.start.endOf
+  ")" @G_name_value.iteration.end.startOf
 )
 
 ;;!! foo(aaa = 0)
@@ -230,10 +230,10 @@
 (call
   function: (_) @_dummy
   (arguments
-    "(" @branch.iteration.start.endOf @condition.iteration.start.endOf
+    "(" @G_branch_condition.iteration.start.endOf
     .
     (argument)? @value
-    ")" @branch.iteration.end.startOf @condition.iteration.end.startOf
+    ")" @G_branch_condition.iteration.end.startOf
   )
   (#eq? @_dummy switch)
 ) @value.domain

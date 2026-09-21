@@ -33,6 +33,6 @@
 ;;!! {"bbb": 0, "ccc": 0}
 ;;!   ******************
 (object
-  "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
-  "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+  "{" @G_collectionKey_value.iteration.start.endOf
+  "}" @G_collectionKey_value.iteration.end.startOf
 )

@@ -6,22 +6,22 @@ import {
   Position,
 } from "@cursorless/lib-common";
 import { TestTreeSitter } from "../../testUtil/TestTreeSitter";
-import { expandCaptureName } from "./captureAliases";
+import { expandCaptureName } from "./captureGroup";
 import { TreeSitterQuery } from "./TreeSitterQuery";
 import { treeSitterQueryCache } from "./TreeSitterQueryCache";
 
 for (const alias of [
-  "statementNameValue.iteration",
-  "statementNameValueType.iteration",
+  "G_statement_name_value.iteration",
+  "G_statement_name_value_type.iteration",
 ]) {
-  suite(`${alias} capture alias`, () => {
+  suite(`${alias} capture group`, () => {
     const ide = new FakeIDE();
     const treeSitter = new TestTreeSitter();
     const names = [
       "statement.iteration",
       "name.iteration",
       "value.iteration",
-      ...(alias === "statementNameValueType.iteration"
+      ...(alias === "G_statement_name_value_type.iteration"
         ? ["type.iteration"]
         : []),
     ];
@@ -48,7 +48,19 @@ for (const alias of [
         );
       }
       assert.deepEqual(expandCaptureName("interior"), ["interior"]);
-      assert.deepEqual(expandCaptureName(`${alias}Other`), [`${alias}Other`]);
+      assert.deepEqual(expandCaptureName("Group_value_name"), [
+        "Group_value_name",
+      ]);
+      assert.deepEqual(expandCaptureName("G_value_name_namedFunction.start"), [
+        "value.start",
+        "name.start",
+        "namedFunction.start",
+      ]);
+      assert.deepEqual(expandCaptureName("G_value_name_namedFunction"), [
+        "value",
+        "name",
+        "namedFunction",
+      ]);
     });
 
     for (const withPredicates of [false, true]) {
@@ -87,7 +99,7 @@ for (const alias of [
           "statement",
           "name",
           "value",
-          ...(alias === "statementNameValueType.iteration"
+          ...(alias === "G_statement_name_value_type.iteration"
             ? ["type" as const]
             : []),
         ] as const) {
@@ -124,6 +136,27 @@ for (const alias of [
       for (const capture of matches[0].captures) {
         assert.equal(document.getText(capture.range), " bar=0; }");
       }
+    });
+
+    test("expands an arbitrary group", () => {
+      const { query, document } = createQuery(`
+        (compound_statement) @G_value_name_namedFunction
+      `);
+      const matches = query.matches(
+        document,
+        new Position(0, 0),
+        new Position(0, 15),
+      );
+      assert.deepEqual(
+        matches[0].captures.map((capture) => capture.name),
+        ["value", "name", "namedFunction"],
+      );
+      assert.deepEqual(
+        query
+          .matchesForScopeTypes(document, ["name"])[0]
+          .captures.map((capture) => capture.name),
+        ["name"],
+      );
     });
 
     test("shares capture slots with ordinary captures", () => {

@@ -1,4 +1,4 @@
-(file) @statementNameValue.iteration @comment.iteration @collectionKey.iteration
+(file) @G_statement_name_value.iteration @comment.iteration @collectionKey.iteration
 
 (comment) @comment @textFragment
 

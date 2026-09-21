@@ -26,7 +26,7 @@
   modifiers: (_)? @collectionKey.start
   left: _ @collectionKey.end
   right: (_) @collectionKey.trailing.startOf
-) @_.domain
+) @collectionKey.domain
 
 ;;!! # foo
 ;;!  ^^^^^
@@ -39,6 +39,6 @@
 ) @string
 
 (
-  (source_file) @statementNameValue.iteration @collectionKey.iteration
-  (#document-range! @statementNameValue.iteration @collectionKey.iteration)
+  (source_file) @G_statement_name_value_collectionKey.iteration
+  (#document-range! @G_statement_name_value_collectionKey.iteration)
 )

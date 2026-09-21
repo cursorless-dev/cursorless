@@ -5,15 +5,8 @@
 ;;!! <foo>bar</foo>
 ;;!       ^^^
 (jsx_element
-  (jsx_opening_element) @interior.start.endOf @xmlElement.iteration.start.endOf
-  (jsx_closing_element) @interior.end.startOf @xmlElement.iteration.end.startOf
-)
-
-;;!! <foo>bar</foo>
-;;!       ^^^
-(jsx_element
-  (jsx_opening_element) @xmlStartTag.iteration.start.endOf @xmlEndTag.iteration.start.endOf @xmlBothTags.iteration.start.endOf
-  (jsx_closing_element) @xmlStartTag.iteration.end.startOf @xmlEndTag.iteration.end.startOf @xmlBothTags.iteration.end.startOf
+  (jsx_opening_element) @interior.start.endOf @G_xmlElement_xmlStartTag_xmlEndTag_xmlBothTags.iteration.start.endOf
+  (jsx_closing_element) @interior.end.startOf @G_xmlElement_xmlStartTag_xmlEndTag_xmlBothTags.iteration.end.startOf
 )
 
 ;;!! <foo>bar</foo>
@@ -38,7 +31,7 @@
   "<" @name.start.endOf
   .
   ">" @name.end.startOf
-) @_.domain
+) @name.domain
 
 ;; Defines `name` scope for JSX fragment closing element
 ;;!! <></>
@@ -48,7 +41,7 @@
   "</" @name.start.endOf
   .
   ">" @name.end.startOf
-) @_.domain
+) @name.domain
 
 ;;!! <foo/>
 (jsx_self_closing_element) @xmlElement
@@ -61,30 +54,30 @@
 ;;!       ^^^
 (jsx_attribute
   (property_identifier) @collectionKey
-  (_)? @_.trailing.startOf
-) @_.domain
+  (_)? @collectionKey.trailing.startOf
+) @collectionKey.domain
 
 ;;!! <aaa bbb="ccc" />
 ;;!           ^^^^^
 ;;!          xxxxxx
 ;;!       ---------
 (jsx_attribute
-  (_) @_.leading.endOf
+  (_) @value.leading.endOf
   (_) @value
-) @_.domain
+) @value.domain
 
 ;;!! <aaa />
 ;;!   ^^^^
 (jsx_self_closing_element
-  "<" @attribute.iteration.start.endOf @collectionKey.iteration.start.endOf @value.iteration.start.endOf
-  "/>" @attribute.iteration.end.startOf @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+  "<" @G_attribute_collectionKey_value.iteration.start.endOf
+  "/>" @G_attribute_collectionKey_value.iteration.end.startOf
 )
 
 ;;!! <aaa></aaa>
 ;;!   ^^^
 (jsx_opening_element
-  "<" @attribute.iteration.start.endOf @collectionKey.iteration.start.endOf @value.iteration.start.endOf
-  ">" @attribute.iteration.end.startOf @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+  "<" @G_attribute_collectionKey_value.iteration.start.endOf
+  ">" @G_attribute_collectionKey_value.iteration.end.startOf
 )
 
 ;;!! <div>text</div>

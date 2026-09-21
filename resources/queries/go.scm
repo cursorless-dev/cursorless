@@ -52,13 +52,13 @@
 )
 
 (
-  (source_file) @statementNameValueType.iteration @class.iteration @namedFunction.iteration
-  (#document-range! @statementNameValueType.iteration @class.iteration @namedFunction.iteration)
+  (source_file) @G_statement_name_value_type_class_namedFunction.iteration
+  (#document-range! @G_statement_name_value_type_class_namedFunction.iteration)
 )
 
 (block
-  "{" @class.iteration.start.endOf @statementNameValueType.iteration.start.endOf
-  "}" @class.iteration.end.startOf @statementNameValueType.iteration.end.startOf
+  "{" @G_class_statement_name_value_type.iteration.start.endOf
+  "}" @G_class_statement_name_value_type.iteration.end.startOf
 )
 
 ;;!! { }
@@ -89,8 +89,8 @@
     name: (_) @name
     type: (struct_type
       (field_declaration_list
-        "{" @statement.iteration.start.endOf @name.iteration.start.endOf @type.iteration.start.endOf
-        "}" @statement.iteration.end.startOf @name.iteration.end.startOf @type.iteration.end.startOf
+        "{" @G_statement_name_type.iteration.start.endOf
+        "}" @G_statement_name_type.iteration.end.startOf
       )
     )
   )
@@ -108,8 +108,8 @@
   (type_spec
     name: (_) @name
     type: (interface_type
-      "{" @statement.iteration.start.endOf @name.iteration.start.endOf
-      "}" @statement.iteration.end.startOf @name.iteration.end.startOf
+      "{" @G_statement_name.iteration.start.endOf
+      "}" @G_statement_name.iteration.end.startOf
     )
   )
 ) @type @name.domain
@@ -243,8 +243,8 @@
 ;;!! switch foo {}
 (expression_switch_statement
   value: (_) @value
-  "{" @interior.start.endOf @branch.iteration.start.endOf @condition.iteration.start.endOf
-  "}" @interior.end.startOf @branch.iteration.end.startOf @condition.iteration.end.startOf
+  "{" @interior.start.endOf @G_branch_condition.iteration.start.endOf
+  "}" @interior.end.startOf @G_branch_condition.iteration.end.startOf
 ) @value.domain
 
 ;;!! switch v := x.(type) {}
@@ -254,8 +254,8 @@
   _ @value.start
   _ @value.end
   .
-  "{" @interior.start.endOf @branch.iteration.start.endOf @condition.iteration.start.endOf
-  "}" @interior.end.startOf @branch.iteration.end.startOf @condition.iteration.end.startOf
+  "{" @interior.start.endOf @G_branch_condition.iteration.start.endOf
+  "}" @interior.end.startOf @G_branch_condition.iteration.end.startOf
 ) @value.domain
 
 ;;!! if () {} else {}
@@ -304,15 +304,15 @@
 
 (call_expression
   function: (_) @functionCallee
-) @_.domain
+) @functionCallee.domain
 
 (composite_literal
   type: (_) @functionCallee
-) @_.domain
+) @functionCallee.domain
 
 (return_statement
   (expression_list) @value
-) @_.domain
+) @value.domain
 
 ;;!! map[string]int{"aaa": 1, "bbb": 2}
 ;;!                 ^^^^^     ^^^^^
@@ -327,8 +327,8 @@
 ;;!! map[string]int{"aaa": 1, "bbb": 2}
 ;;!                 ^^^^^^^^^^^^^^^^^^
 (literal_value
-  "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
-  "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+  "{" @G_collectionKey_value.iteration.start.endOf
+  "}" @G_collectionKey_value.iteration.end.startOf
 )
 
 [
@@ -363,11 +363,11 @@
 
 (function_declaration
   result: (_) @type
-) @_.domain
+) @type.domain
 
 (method_declaration
   result: (_) @type
-) @_.domain
+) @type.domain
 
 ;;!! for i := 0; i < size; i++ {}
 ;;!              ^^^^^^^^
@@ -405,11 +405,11 @@
 ;;!! func add(x int, y int) int {}
 (
   (parameter_list
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
     (_) @argumentOrParameter
     .
-    (_)? @_.trailing.startOf
+    (_)? @argumentOrParameter.trailing.startOf
   ) @_dummy
   (#not-type? @argumentOrParameter "comment")
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
@@ -418,11 +418,11 @@
 ;;!! add(1, 2)
 (
   (argument_list
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
     (_) @argumentOrParameter
     .
-    (_)? @_.trailing.startOf
+    (_)? @argumentOrParameter.trailing.startOf
   ) @_dummy
   (#not-type? @argumentOrParameter "comment")
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
@@ -441,8 +441,8 @@
 
 (_
   parameters: (parameter_list
-    "(" @name.iteration.start.endOf @type.iteration.start.endOf
-    ")" @name.iteration.end.startOf @type.iteration.end.startOf
+    "(" @G_name_type.iteration.start.endOf
+    ")" @G_name_type.iteration.end.startOf
   )
 )
 

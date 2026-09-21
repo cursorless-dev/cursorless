@@ -42,7 +42,7 @@
 ;;!! namespace NS { }
 (namespace_definition
   name: (_) @name
-) @_.domain
+) @name.domain
 
 ;;!! using Foo = Bar;
 ;;!        ^^^
@@ -55,7 +55,7 @@
 (field_declaration_list
   "{" @namedFunction.iteration.start.endOf
   "}" @namedFunction.iteration.end.startOf
-) @_.domain
+) @namedFunction.domain
 
 ;;!! int aaa = 0;
 ;;!      ^^^
@@ -125,11 +125,11 @@
 ;;!      ^^^^^^  ^^^
 (
   (template_argument_list
-    (_)? @_.leading.endOf
+    (_)? @type.leading.endOf
     .
     (type_descriptor) @type
     .
-    (_)? @_.trailing.startOf
+    (_)? @type.trailing.startOf
   ) @_dummy
   (#single-or-multi-line-delimiter! @type @_dummy ", " ",\n")
 )

@@ -5,14 +5,14 @@
 ;;!  -----
 (start_tag
   (tag_name) @name
-) @_.domain
+) @name.domain
 
 ;;!! </aaa>
 ;;!    ^^^
 ;;!  ------
 (end_tag
   (tag_name) @name
-) @_.domain
+) @name.domain
 
 ;;!! <aaa id="me">
 ;;!       ^^^^^^^
@@ -26,7 +26,7 @@
     (quoted_attribute_value)
     (attribute_value)
   ] ? @collectionKey.trailing.startOf
-) @_.domain
+) @collectionKey.domain
 
 ;;!! <aaa value=2>
 ;;!             ^
@@ -62,23 +62,14 @@
 ;;!          ^^^^^
 (raw_text) @textFragment
 
-;; Use parent wildcard to get all three kinds of elements: element, script_element, style_element
-
 ;;!! <aaa>text</aaa>
 ;;!  ^^^^^^^^^^^^^^^
+;;!  ^^^^^    ^^^^^^
 ;;!       ^^^^
 (_
-  (start_tag) @interior.start.endOf
-  (end_tag) @interior.end.startOf
-) @xmlElement
-
-;;!! <aaa>text</aaa>
-;;!  ^^^^^    ^^^^^^
-;;!  ---------------
-(_
-  (start_tag) @xmlStartTag
-  (end_tag) @xmlEndTag
-) @_.domain
+  (start_tag) @xmlStartTag @interior.start.endOf
+  (end_tag) @xmlEndTag @interior.end.startOf
+) @xmlElement @xmlStartTag.domain @xmlEndTag.domain
 
 (_
   [
@@ -86,16 +77,10 @@
     (end_tag)
   ] @xmlBothTags
   (#allow-multiple! @xmlBothTags)
-) @_.domain
+) @xmlBothTags.domain
 
 (_
-  (start_tag) @xmlElement.iteration.start.endOf @xmlBothTags.iteration.start.endOf
+  (start_tag) @G_xmlElement_xmlBothTags_xmlStartTag_xmlEndTag.iteration.start.endOf
   (element)
-  (end_tag) @xmlElement.iteration.end.startOf @xmlBothTags.iteration.end.startOf
-)
-
-(_
-  (start_tag) @xmlStartTag.iteration.start.endOf @xmlEndTag.iteration.start.endOf
-  (element)
-  (end_tag) @xmlStartTag.iteration.end.startOf @xmlEndTag.iteration.end.startOf
+  (end_tag) @G_xmlElement_xmlBothTags_xmlStartTag_xmlEndTag.iteration.end.startOf
 )

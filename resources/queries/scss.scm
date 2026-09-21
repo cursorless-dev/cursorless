@@ -88,17 +88,17 @@
 
 (declaration
   (variable_name) @name
-) @_.domain
+) @name.domain
 
 ;;!! replace-text($image, $color: red)
 ;;!               ^^^^^^  ^^^^^^^^^^^
 (
   (parameters
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
     (_) @argumentOrParameter
     .
-    (_)? @_.trailing.startOf
+    (_)? @argumentOrParameter.trailing.startOf
   ) @_dummy
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
@@ -111,8 +111,8 @@
 ) @argumentOrParameter.iteration.domain
 
 (parameters
-  "(" @name.iteration.start.endOf @value.iteration.start.endOf
-  ")" @name.iteration.end.startOf @value.iteration.end.startOf
+  "(" @G_name_value.iteration.start.endOf
+  ")" @G_name_value.iteration.end.startOf
 )
 
 ;;!! foo($foo: 123)
@@ -126,13 +126,13 @@
 )
 
 (
-  (stylesheet) @namedFunction.iteration @name.iteration
-  (#document-range! @namedFunction.iteration @name.iteration)
+  (stylesheet) @G_namedFunction_name.iteration
+  (#document-range! @G_namedFunction_name.iteration)
 )
 
 (block
-  "{" @namedFunction.iteration.start.endOf @name.iteration.start.endOf
-  "}" @namedFunction.iteration.end.startOf @name.iteration.end.startOf
+  "{" @G_namedFunction_name.iteration.start.endOf
+  "}" @G_namedFunction_name.iteration.end.startOf
 )
 
 (binary_expression
@@ -149,10 +149,10 @@
 (include_statement
   (identifier) @value.start
   (arguments) @value.end
-) @_.domain
+) @value.domain
 
 ;;!! @return 123
 ;;!          ^^^
 (return_statement
   (_) @value
-) @_.domain
+) @value.domain

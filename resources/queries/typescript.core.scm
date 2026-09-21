@@ -20,29 +20,29 @@
   (identifier) @value.leading.endOf
   value: (_) @value
   !type
-) @_.domain
+) @value.domain
 
 ;;!! function foo(aaa: number = 0) {}
 ;;!               ^^^------------
 (required_parameter
   type: (_) @value.leading.endOf
   value: (_) @value
-) @_.domain
+) @value.domain
 
 ;;!! function foo(aaa?: Ccc = "ddd") {}
 ;;!               ^^^--------------
 (optional_parameter
   type: (_) @value.leading.endOf
   value: (_) @value
-) @_.domain
+) @value.domain
 
 ;;!! enum Foo { }
 ;;!  ^^^^^^^^^^^^
 ;;!            ^
 (enum_declaration
   (enum_body
-    "{" @name.iteration.start.endOf @value.iteration.start.endOf
-    "}" @name.iteration.end.startOf @value.iteration.end.startOf
+    "{" @G_name_value.iteration.start.endOf
+    "}" @G_name_value.iteration.end.startOf
   )
 ) @type
 
@@ -64,13 +64,13 @@
 ;;!               ^^^------------
 (required_parameter
   (identifier) @name
-) @_.domain
+) @name.domain
 
 ;;!! function foo(aaa?: number) {}
 ;;!               ^^^---------
 (optional_parameter
   (identifier) @name
-) @_.domain
+) @name.domain
 
 ;;!! function foo(...aaa: number[]) {}
 ;;!                  ^^^
@@ -78,7 +78,7 @@
   (rest_pattern
     (identifier) @name
   )
-) @_.domain
+) @name.domain
 
 ;; Define these here because these node types don't exist in javascript.
 
@@ -267,8 +267,8 @@
         ) @type.removal
       )
     )
-  ] @_.domain
-  (#not-parent-type? @_.domain export_statement)
+  ] @type.domain
+  (#not-parent-type? @type.domain export_statement)
 
   ;; Handle multiple variable declarators in one statement, eg
   ;;!! (let | const | var) aaa: Bbb = ..., ccc: Ddd = ...;
@@ -289,7 +289,7 @@
         ) @type.removal
       )
     )
-  ) @_.domain
+  ) @type.domain
 
   ;; Handle multiple variable declarators in one statement, eg
   ;;!! export (let | const | var) aaa: Bbb = ..., ccc: Ddd = ...;
@@ -310,7 +310,7 @@
       type: (type_annotation
         (_) @type
       ) @type.removal
-    ) @_.domain
+    ) @type.domain
   ) @_dummy
   (#has-multiple-children-of-type? @_dummy variable_declarator)
 )
@@ -319,24 +319,24 @@
 ;;!                    ^^^^^^
 (formal_parameters
   (required_parameter
-    pattern: (_) @_.leading.endOf
+    pattern: (_) @type.leading.endOf
     type: (_
       ":"
       (_) @type
     )
-  ) @_.domain
+  ) @type.domain
 )
 
 ;;!! function ccc(aaa?: string) {}
 ;;!                     ^^^^^^
 (formal_parameters
   (optional_parameter
-    "?" @_.leading.endOf
+    "?" @type.leading.endOf
     type: (_
       ":"
       (_) @type
     )
-  ) @_.domain
+  ) @type.domain
 )
 
 ;;!! function ccc(): string {}
@@ -344,17 +344,17 @@
 ;;!! ccc(): string {}
 ;;!         ^^^^^^
 (_
-  parameters: (_) @_.leading.endOf
+  parameters: (_) @type.leading.endOf
   return_type: (_
     ":"
     (_) @type
   )
-) @_.domain
+) @type.domain
 
 ;;!! foo() => string;
 ;;!           ^^^^^^
 (_
-  parameters: (_) @_.leading.endOf
+  parameters: (_) @type.leading.endOf
   "=>"
   return_type: (_) @type
 )
@@ -372,11 +372,11 @@
 ;;!           ^^^^^^
 (
   (type_arguments
-    (_)? @_.leading.endOf
+    (_)? @type.leading.endOf
     .
     (_) @type
     .
-    (_)? @_.trailing.startOf
+    (_)? @type.trailing.startOf
   ) @_dummy
   (#not-parent-type? @_dummy type_assertion)
   (#insertion-delimiter! @type ", ")
@@ -445,30 +445,30 @@
 ;;!     xxxxxxx
 ;;!  ----------
 (as_expression
-  (_) @_.leading.endOf
+  (_) @type.leading.endOf
   (_) @type
-) @_.domain
+) @type.domain
 
 ;;!! aaa as const
 ;;!         ^^^
 ;;!     xxxxxxx
 ;;!  ----------
 (as_expression
-  (_) @_.leading.endOf
+  (_) @type.leading.endOf
   "const" @type
-) @_.domain
+) @type.domain
 
 ;;!! aaa satisfies Bbb
 ;;!                ^^^
 ;;!     xxxxxxxxxxxxxx
 ;;!  -----------------
 (satisfies_expression
-  (_) @_.leading.endOf
+  (_) @type.leading.endOf
   [
     (generic_type)
     (predefined_type)
   ] @type
-) @_.domain
+) @type.domain
 
 ;;!! abstract class MyClass {}
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^

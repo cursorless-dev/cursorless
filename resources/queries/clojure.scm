@@ -56,11 +56,11 @@
 ;;!! '(foo bar)
 ;;!    ^^^ ^^^
 (list_lit
-  (_)? @_.leading.endOf
+  (_)? @collectionItem.leading.endOf
   .
   (_) @collectionItem
   .
-  (_)? @_.trailing.startOf
+  (_)? @collectionItem.trailing.startOf
 )
 
 (list_lit
@@ -71,11 +71,11 @@
 ;;!! [foo bar]
 ;;!   ^^^ ^^^
 (vec_lit
-  (_)? @_.leading.endOf
+  (_)? @collectionItem.leading.endOf
   .
   (_) @collectionItem
   .
-  (_)? @_.trailing.startOf
+  (_)? @collectionItem.trailing.startOf
 )
 
 (vec_lit
@@ -85,23 +85,23 @@
 
 ;; Keyword follow by a value
 (map_lit
-  (_)? @_.leading.endOf
+  (_)? @collectionItem.leading.endOf
   .
   (kwd_lit) @collectionItem.start
   .
   value: (_) @collectionItem.end
   .
-  (_)? @_.trailing.startOf
+  (_)? @collectionItem.trailing.startOf
 )
 
 ;; Keyword followed by comment or closing brace
 (map_lit
-  (_)? @_.leading.endOf
+  (_)? @collectionItem.leading.endOf
   .
   (kwd_lit) @collectionItem.start
   .
   [
-    (comment) @_.trailing.startOf
+    (comment) @collectionItem.trailing.startOf
     "}"
   ]
 )
@@ -203,8 +203,8 @@
 ;;!   ^^^^    ^^^^
 ;;!        ^       ^
 (map_lit
-  value: (_) @collectionKey @collectionKey.domain.start @value.domain.start
-  value: (_) @value @collectionKey.domain.end @value.domain.end
+  value: (_) @collectionKey @G_collectionKey_value.domain.start
+  value: (_) @value @G_collectionKey_value.domain.end
   (#even? @collectionKey value)
   (#odd? @value value)
 )
@@ -212,8 +212,8 @@
 ;;!! {:foo 1, :bar 2}
 ;;!   ^^^^^^^^^^^^^^
 (map_lit
-  "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
-  "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+  "{" @G_collectionKey_value.iteration.start.endOf
+  "}" @G_collectionKey_value.iteration.end.startOf
 )
 
 (
