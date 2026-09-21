@@ -1,0 +1,27 @@
+struct Foo {
+    func bar(aaa: Int, bbb: Int = 0) {}
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-2:1
+  >------------
+0| struct Foo {
+1|     func bar(aaa: Int, bbb: Int = 0) {}
+2| }
+   -<
+
+
+[#2 Content] =
+[#2 Domain] = 0:12-2:0
+              >
+0| struct Foo {
+1|     func bar(aaa: Int, bbb: Int = 0) {}
+2| }
+   <
+
+
+[#3 Content] =
+[#3 Domain] = 1:13-1:35
+               >----------------------<
+1|     func bar(aaa: Int, bbb: Int = 0) {}

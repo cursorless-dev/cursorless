@@ -1,0 +1,10 @@
+/\d+$/
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:6
+  >------<
+0| /\d+$/
+
+[Insertion delimiter] = " "

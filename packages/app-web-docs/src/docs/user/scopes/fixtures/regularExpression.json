@@ -66,5 +66,22 @@
         "domain": "0:11-0:16"
       }
     ]
+  },
+  {
+    "name": "scopes/swift/regularExpression",
+    "languageId": "swift",
+    "facet": "regularExpression",
+    "code": "/\\d+$/",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:6",
+            "removal": "0:0-0:6"
+          }
+        ],
+        "domain": "0:0-0:6"
+      }
+    ]
   }
 ]

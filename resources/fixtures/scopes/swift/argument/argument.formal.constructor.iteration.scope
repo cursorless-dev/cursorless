@@ -1,0 +1,12 @@
+struct Foo {
+  init(aaa: Int, bbb: Int) {}
+}
+---
+
+[Content] = 1:7-1:25
+         >------------------<
+1|   init(aaa: Int, bbb: Int) {}
+
+[Domain] = 1:2-1:29
+    >---------------------------<
+1|   init(aaa: Int, bbb: Int) {}

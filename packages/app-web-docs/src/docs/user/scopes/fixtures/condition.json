@@ -1897,6 +1897,133 @@
     ]
   },
   {
+    "name": "scopes/swift/condition/condition.doWhile",
+    "languageId": "swift",
+    "facet": "condition.doWhile",
+    "code": "repeat {} while true",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:16-0:20",
+            "removal": "0:15-0:20"
+          }
+        ],
+        "domain": "0:0-0:20"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/condition/condition.if",
+    "languageId": "swift",
+    "facet": "condition.if",
+    "code": "if true {}\nelse if false {}\nelse {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:3-0:7",
+            "removal": "0:3-0:8"
+          }
+        ],
+        "domain": "0:0-2:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:8-1:13",
+            "removal": "1:8-1:14"
+          }
+        ],
+        "domain": "1:0-1:16"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/condition/condition.switchCase.iteration",
+    "languageId": "swift",
+    "facet": "condition.switchCase.iteration",
+    "code": "switch value { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:14-0:15"
+          }
+        ],
+        "domain": "0:14-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/condition/condition.switchCase",
+    "languageId": "swift",
+    "facet": "condition.switchCase",
+    "code": "switch value {\n    case 0: break\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:9-1:10",
+            "removal": "1:8-1:10"
+          }
+        ],
+        "domain": "1:4-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/condition/condition.switchCase2",
+    "languageId": "swift",
+    "facet": "condition.switchCase",
+    "code": "switch value {\n    case 0, 1: break\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:9-1:13",
+            "removal": "1:8-1:13"
+          }
+        ],
+        "domain": "1:4-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/condition/condition.ternary",
+    "languageId": "swift",
+    "facet": "condition.ternary",
+    "code": "foo ? 0 : 1",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:4"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/condition/condition.while",
+    "languageId": "swift",
+    "facet": "condition.while",
+    "code": "while foo {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:9",
+            "removal": "0:6-0:10"
+          }
+        ],
+        "domain": "0:0-0:12"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/condition.if",
     "languageId": "talon",
     "facet": "condition.if",

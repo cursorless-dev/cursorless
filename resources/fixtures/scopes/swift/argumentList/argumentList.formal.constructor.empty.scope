@@ -1,0 +1,15 @@
+struct Foo {
+  init() {}
+}
+---
+
+[Content] =
+[Removal] = 1:7-1:7
+         ><
+1|   init() {}
+
+[Domain] = 1:2-1:11
+    >---------<
+1|   init() {}
+
+[Insertion delimiter] = ""

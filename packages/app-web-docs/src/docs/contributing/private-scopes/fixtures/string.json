@@ -629,6 +629,57 @@
     ]
   },
   {
+    "name": "scopes/swift/string.multiLine",
+    "languageId": "swift",
+    "facet": "string.multiLine",
+    "code": "\"\"\"\nHello\nworld\n\"\"\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-3:3",
+            "removal": "0:0-3:3"
+          }
+        ],
+        "domain": "0:0-3:3"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/string.singleLine",
+    "languageId": "swift",
+    "facet": "string.singleLine",
+    "code": "\"Hello world\"",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/string.singleLine2",
+    "languageId": "swift",
+    "facet": "string.singleLine",
+    "code": "#\"Hello world\"#",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/string.singleLine",
     "languageId": "talon",
     "facet": "string.singleLine",

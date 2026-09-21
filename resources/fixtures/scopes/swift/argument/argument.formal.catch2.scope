@@ -1,0 +1,22 @@
+do {}
+catch let e {}
+---
+
+[Content] =
+[Domain] = 1:6-1:11
+        >-----<
+1| catch let e {}
+
+[Removal] = 1:6-1:12
+        >------<
+1| catch let e {}
+
+[Leading delimiter] = 1:5-1:6
+       >-<
+1| catch let e {}
+
+[Trailing delimiter] = 1:11-1:12
+             >-<
+1| catch let e {}
+
+[Insertion delimiter] = " "

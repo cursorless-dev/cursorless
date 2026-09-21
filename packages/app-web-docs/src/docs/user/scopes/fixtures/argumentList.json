@@ -5467,6 +5467,363 @@
     ]
   },
   {
+    "name": "scopes/swift/argumentList/argumentList.actual.constructor.empty",
+    "languageId": "swift",
+    "facet": "argumentList.actual.constructor.empty",
+    "code": "Foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:4",
+            "removal": "0:4-0:4"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/argumentList/argumentList.actual.constructor.multiLine",
+    "languageId": "swift",
+    "facet": "argumentList.actual.constructor.multiLine",
+    "code": "Foo(\n  aaa,\n  bbb\n)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-2:5",
+            "removal": "0:4-3:0"
+          }
+        ],
+        "domain": "0:0-3:1"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/argumentList/argumentList.actual.constructor.singleLine",
+    "languageId": "swift",
+    "facet": "argumentList.actual.constructor.singleLine",
+    "code": "Foo(aaa, bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:12",
+            "removal": "0:4-0:12"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/argumentList/argumentList.actual.empty",
+    "languageId": "swift",
+    "facet": "argumentList.actual.empty",
+    "code": "foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:4",
+            "removal": "0:4-0:4"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/argumentList/argumentList.actual.method.empty",
+    "languageId": "swift",
+    "facet": "argumentList.actual.method.empty",
+    "code": "foo.bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-0:8",
+            "removal": "0:8-0:8"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/argumentList/argumentList.actual.method.multiLine",
+    "languageId": "swift",
+    "facet": "argumentList.actual.method.multiLine",
+    "code": "foo.bar(\n  aaa,\n  bbb\n)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-2:5",
+            "removal": "0:8-3:0"
+          }
+        ],
+        "domain": "0:0-3:1"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/argumentList/argumentList.actual.method.singleLine",
+    "languageId": "swift",
+    "facet": "argumentList.actual.method.singleLine",
+    "code": "foo.bar(aaa, bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-0:16",
+            "removal": "0:8-0:16"
+          }
+        ],
+        "domain": "0:0-0:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/argumentList/argumentList.actual.multiLine",
+    "languageId": "swift",
+    "facet": "argumentList.actual.multiLine",
+    "code": "foo(\n  aaa,\n  bbb\n)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-2:5",
+            "removal": "0:4-3:0"
+          }
+        ],
+        "domain": "0:0-3:1"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/argumentList/argumentList.actual.singleLine",
+    "languageId": "swift",
+    "facet": "argumentList.actual.singleLine",
+    "code": "foo(aaa, bbb)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:12",
+            "removal": "0:4-0:12"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/argumentList/argumentList.formal.constructor.empty",
+    "languageId": "swift",
+    "facet": "argumentList.formal.constructor.empty",
+    "code": "struct Foo {\n  init() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:7-1:7",
+            "removal": "1:7-1:7"
+          }
+        ],
+        "domain": "1:2-1:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/argumentList/argumentList.formal.constructor.multiLine",
+    "languageId": "swift",
+    "facet": "argumentList.formal.constructor.multiLine",
+    "code": "struct Foo {\n  init(\n    aaa: Int,\n    bbb: Int\n  ) {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "2:4-3:12",
+            "removal": "1:7-4:2"
+          }
+        ],
+        "domain": "1:2-4:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/argumentList/argumentList.formal.constructor.singleLine",
+    "languageId": "swift",
+    "facet": "argumentList.formal.constructor.singleLine",
+    "code": "struct Foo {\n  init(aaa: Int, bbb: Int) {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:7-1:25",
+            "removal": "1:7-1:25"
+          }
+        ],
+        "domain": "1:2-1:29"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/argumentList/argumentList.formal.empty",
+    "languageId": "swift",
+    "facet": "argumentList.formal.empty",
+    "code": "func foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:9",
+            "removal": "0:9-0:9"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/argumentList/argumentList.formal.lambda.empty",
+    "languageId": "swift",
+    "facet": "argumentList.formal.lambda.empty",
+    "code": "{ () in }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:3-0:3",
+            "removal": "0:3-0:3"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/argumentList/argumentList.formal.lambda.multiLine",
+    "languageId": "swift",
+    "facet": "argumentList.formal.lambda.multiLine",
+    "code": "{ (\n  aaa,\n  bbb: Int\n) in }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-2:10",
+            "removal": "0:3-3:0"
+          }
+        ],
+        "domain": "0:0-3:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/argumentList/argumentList.formal.lambda.singleLine",
+    "languageId": "swift",
+    "facet": "argumentList.formal.lambda.singleLine",
+    "code": "{ (aaa, bbb: Int) in }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:3-0:16",
+            "removal": "0:3-0:16"
+          }
+        ],
+        "domain": "0:0-0:22"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/argumentList/argumentList.formal.method.empty",
+    "languageId": "swift",
+    "facet": "argumentList.formal.method.empty",
+    "code": "struct Foo {\n  func bar() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:11-1:11",
+            "removal": "1:11-1:11"
+          }
+        ],
+        "domain": "1:2-1:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/argumentList/argumentList.formal.method.multiLine",
+    "languageId": "swift",
+    "facet": "argumentList.formal.method.multiLine",
+    "code": "struct Foo {\n  func bar(\n    aaa: Int,\n    bbb: Int\n  ) {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "2:4-3:12",
+            "removal": "1:11-4:2"
+          }
+        ],
+        "domain": "1:2-4:6"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/argumentList/argumentList.formal.method.singleLine",
+    "languageId": "swift",
+    "facet": "argumentList.formal.method.singleLine",
+    "code": "struct Foo {\n  func bar(aaa: Int, bbb: Int) {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:11-1:29",
+            "removal": "1:11-1:29"
+          }
+        ],
+        "domain": "1:2-1:33"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/argumentList/argumentList.formal.multiLine",
+    "languageId": "swift",
+    "facet": "argumentList.formal.multiLine",
+    "code": "func foo(\n  aaa: Int,\n  bbb: Int\n) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-2:10",
+            "removal": "0:9-3:0"
+          }
+        ],
+        "domain": "0:0-3:4"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/argumentList/argumentList.formal.singleLine",
+    "languageId": "swift",
+    "facet": "argumentList.formal.singleLine",
+    "code": "func foo(aaa: Int, bbb: Int) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:27",
+            "removal": "0:9-0:27"
+          }
+        ],
+        "domain": "0:0-0:31"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/argumentList/argumentList.actual.empty",
     "languageId": "talon",
     "facet": "argumentList.actual.empty",

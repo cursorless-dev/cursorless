@@ -1,0 +1,10 @@
+(foo, bar) = (0, 1)
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:19
+  >-------------------<
+0| (foo, bar) = (0, 1)
+
+[Insertion delimiter] = "\n"

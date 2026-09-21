@@ -1,0 +1,10 @@
+switch value {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:15
+  >---------------<
+0| switch value {}
+
+[Insertion delimiter] = "\n"

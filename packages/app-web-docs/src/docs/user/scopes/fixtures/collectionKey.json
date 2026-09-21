@@ -764,6 +764,48 @@
     ]
   },
   {
+    "name": "scopes/swift/key.mapPair.iteration",
+    "languageId": "swift",
+    "facet": "key.mapPair.iteration",
+    "code": "[foo: 0, bar: 1]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:15"
+          }
+        ],
+        "domain": "0:1-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/key.mapPair",
+    "languageId": "swift",
+    "facet": "key.mapPair",
+    "code": "[foo: 0, bar: 1]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:4",
+            "removal": "0:1-0:6"
+          }
+        ],
+        "domain": "0:1-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:12",
+            "removal": "0:9-0:14"
+          }
+        ],
+        "domain": "0:9-0:15"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/key/key.mapPair.iteration",
     "languageId": "talon",
     "facet": "key.mapPair.iteration",

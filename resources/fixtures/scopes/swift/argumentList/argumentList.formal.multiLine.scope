@@ -1,0 +1,33 @@
+func foo(
+  aaa: Int,
+  bbb: Int
+) {}
+---
+
+[Content] = 1:2-2:10
+    >---------
+1|   aaa: Int,
+2|   bbb: Int
+   ----------<
+
+[Removal] = 0:9-3:0
+           >
+0| func foo(
+1|   aaa: Int,
+2|   bbb: Int
+3| ) {}
+   <
+
+[Leading delimiter] = 1:0-1:2
+  >--<
+1|   aaa: Int,
+
+[Domain] = 0:0-3:4
+  >---------
+0| func foo(
+1|   aaa: Int,
+2|   bbb: Int
+3| ) {}
+   ----<
+
+[Insertion delimiter] = ",\n"

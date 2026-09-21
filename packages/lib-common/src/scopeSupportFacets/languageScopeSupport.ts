@@ -28,6 +28,7 @@ import { scmScopeSupport } from "./scm";
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { scssScopeSupport } from "./scss";
 import { shellscriptScopeSupport } from "./shellscript";
+import { swiftScopeSupport } from "./swift";
 import { talonScopeSupport } from "./talon";
 import { talonListScopeSupport } from "./talonList";
 import { typescriptScopeSupport } from "./typescript";
@@ -70,6 +71,7 @@ export const languageScopeSupport: Record<
   scm: scmScopeSupport,
   scss: scssScopeSupport,
   shellscript: shellscriptScopeSupport,
+  swift: swiftScopeSupport,
   "talon-list": talonListScopeSupport,
   talon: talonScopeSupport,
   typescript: typescriptScopeSupport,

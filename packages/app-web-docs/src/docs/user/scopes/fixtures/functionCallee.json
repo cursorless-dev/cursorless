@@ -1384,6 +1384,83 @@
     ]
   },
   {
+    "name": "scopes/swift/functionCallee/functionCallee.chain",
+    "languageId": "swift",
+    "facet": "functionCallee.chain",
+    "code": "foo().bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/functionCallee/functionCallee.constructor",
+    "languageId": "swift",
+    "facet": "functionCallee.constructor",
+    "code": "Foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/functionCallee/functionCallee.method",
+    "languageId": "swift",
+    "facet": "functionCallee.method",
+    "code": "foo.bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:7",
+            "removal": "0:0-0:7"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/functionCallee/functionCallee",
+    "languageId": "swift",
+    "facet": "functionCallee",
+    "code": "foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:3",
+            "removal": "0:0-0:3"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/functionCallee.method",
     "languageId": "talon",
     "facet": "functionCallee.method",
