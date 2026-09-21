@@ -1007,15 +1007,15 @@
     "name": "scopes/csharp/branch/branch.switchCase.iteration",
     "languageId": "csharp",
     "facet": "branch.switchCase.iteration",
-    "code": "switch (foo) { }",
+    "code": "switch (value) { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:14-0:15"
+            "content": "0:16-0:17"
           }
         ],
-        "domain": "0:14-0:15"
+        "domain": "0:16-0:17"
       }
     ]
   },
@@ -1023,7 +1023,7 @@
     "name": "scopes/csharp/branch/branch.switchCase",
     "languageId": "csharp",
     "facet": "branch.switchCase",
-    "code": "switch (foo) {\n    case 0:\n        break;\n}",
+    "code": "switch (value) {\n    case 0:\n        break;\n}",
     "scopes": [
       {
         "targets": [
@@ -1040,7 +1040,7 @@
     "name": "scopes/csharp/branch/branch.switchCase2",
     "languageId": "csharp",
     "facet": "branch.switchCase",
-    "code": "switch (foo) {\n    default: {}\n}",
+    "code": "switch (value) {\n    default: {}\n}",
     "scopes": [
       {
         "targets": [
@@ -1508,15 +1508,15 @@
     "name": "scopes/csharp/condition/condition.switchCase.iteration",
     "languageId": "csharp",
     "facet": "condition.switchCase.iteration",
-    "code": "switch(foo) { }",
+    "code": "switch(value) { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:13-0:14"
+            "content": "0:15-0:16"
           }
         ],
-        "domain": "0:13-0:14"
+        "domain": "0:15-0:16"
       }
     ]
   },
@@ -1524,7 +1524,7 @@
     "name": "scopes/csharp/condition/condition.switchCase",
     "languageId": "csharp",
     "facet": "condition.switchCase",
-    "code": "switch(foo) {\n    case 0: break;\n}",
+    "code": "switch(value) {\n    case 0: break;\n}",
     "scopes": [
       {
         "targets": [
@@ -2115,16 +2115,16 @@
     "name": "scopes/csharp/interior/interior.switch",
     "languageId": "csharp",
     "facet": "interior.switch",
-    "code": "switch (foo) { }",
+    "code": "switch (value) { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:14-0:15",
-            "removal": "0:14-0:15"
+            "content": "0:16-0:17",
+            "removal": "0:16-0:17"
           }
         ],
-        "domain": "0:14-0:15"
+        "domain": "0:16-0:17"
       }
     ]
   },
@@ -2132,16 +2132,16 @@
     "name": "scopes/csharp/interior/interior.switchCase",
     "languageId": "csharp",
     "facet": "interior.switchCase",
-    "code": "switch (foo) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
+    "code": "switch (value) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-6:14",
-            "removal": "0:14-7:0"
+            "removal": "0:16-7:0"
           }
         ],
-        "domain": "0:14-7:0"
+        "domain": "0:16-7:0"
       },
       {
         "targets": [
@@ -2167,16 +2167,16 @@
     "name": "scopes/csharp/interior/interior.switchCase2",
     "languageId": "csharp",
     "facet": "interior.switchCase",
-    "code": "switch (foo) {\n    case 0: { }\n    default: { }\n}",
+    "code": "switch (value) {\n    case 0: { }\n    default: { }\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-2:16",
-            "removal": "0:14-3:0"
+            "removal": "0:16-3:0"
           }
         ],
-        "domain": "0:14-3:0"
+        "domain": "0:16-3:0"
       },
       {
         "targets": [
@@ -2667,7 +2667,7 @@
     "name": "scopes/csharp/name/name.assignment.compound",
     "languageId": "csharp",
     "facet": "name.assignment.compound",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -2701,7 +2701,7 @@
     "name": "scopes/csharp/name/name.assignment2",
     "languageId": "csharp",
     "facet": "name.assignment",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -3395,7 +3395,7 @@
     "name": "scopes/csharp/statement/statement.assignment.compound",
     "languageId": "csharp",
     "facet": "statement.assignment.compound",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -4051,16 +4051,16 @@
     "name": "scopes/csharp/statement/statement.switch",
     "languageId": "csharp",
     "facet": "statement.switch",
-    "code": "switch (foo) {}",
+    "code": "switch (value) {}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:0-0:15",
-            "removal": "0:0-0:15"
+            "content": "0:0-0:17",
+            "removal": "0:0-0:17"
           }
         ],
-        "domain": "0:0-0:15"
+        "domain": "0:0-0:17"
       }
     ]
   },
@@ -5401,7 +5401,7 @@
     "name": "scopes/csharp/value/value.assignment.compound",
     "languageId": "csharp",
     "facet": "value.assignment.compound",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -5435,7 +5435,7 @@
     "name": "scopes/csharp/value/value.assignment2",
     "languageId": "csharp",
     "facet": "value.assignment",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [

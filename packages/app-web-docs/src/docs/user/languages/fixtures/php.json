@@ -1032,15 +1032,15 @@
     "name": "scopes/php/branch/branch.switchCase.iteration",
     "languageId": "php",
     "facet": "branch.switchCase.iteration",
-    "code": "<?php\nswitch ($foo) { }",
+    "code": "<?php\nswitch ($value) { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "1:15-1:16"
+            "content": "1:17-1:18"
           }
         ],
-        "domain": "1:15-1:16"
+        "domain": "1:17-1:18"
       }
     ]
   },
@@ -1048,7 +1048,7 @@
     "name": "scopes/php/branch/branch.switchCase",
     "languageId": "php",
     "facet": "branch.switchCase",
-    "code": "<?php\nswitch ($foo) {\n    case 0:\n        break;\n}",
+    "code": "<?php\nswitch ($value) {\n    case 0:\n        break;\n}",
     "scopes": [
       {
         "targets": [
@@ -1065,7 +1065,7 @@
     "name": "scopes/php/branch/branch.switchCase2",
     "languageId": "php",
     "facet": "branch.switchCase",
-    "code": "<?php\nswitch ($foo) {\n    default:\n        break;\n}",
+    "code": "<?php\nswitch ($value) {\n    default:\n        break;\n}",
     "scopes": [
       {
         "targets": [
@@ -1319,15 +1319,15 @@
     "name": "scopes/php/condition/condition.switchCase.iteration",
     "languageId": "php",
     "facet": "condition.switchCase.iteration",
-    "code": "<?php\nswitch ($foo) { }",
+    "code": "<?php\nswitch ($value) { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "1:15-1:16"
+            "content": "1:17-1:18"
           }
         ],
-        "domain": "1:15-1:16"
+        "domain": "1:17-1:18"
       }
     ]
   },
@@ -1335,7 +1335,7 @@
     "name": "scopes/php/condition/condition.switchCase",
     "languageId": "php",
     "facet": "condition.switchCase",
-    "code": "<?php\nswitch ($foo) {\n    case 0: break;\n}",
+    "code": "<?php\nswitch ($value) {\n    case 0: break;\n}",
     "scopes": [
       {
         "targets": [
@@ -1944,16 +1944,16 @@
     "name": "scopes/php/interior/interior.switch",
     "languageId": "php",
     "facet": "interior.switch",
-    "code": "<?php\nswitch ($foo) { }",
+    "code": "<?php\nswitch ($value) { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "1:15-1:16",
-            "removal": "1:15-1:16"
+            "content": "1:17-1:18",
+            "removal": "1:17-1:18"
           }
         ],
-        "domain": "1:15-1:16"
+        "domain": "1:17-1:18"
       }
     ]
   },
@@ -1961,16 +1961,16 @@
     "name": "scopes/php/interior/interior.switchCase",
     "languageId": "php",
     "facet": "interior.switchCase",
-    "code": "<?php\nswitch ($foo) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
+    "code": "<?php\nswitch ($value) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "2:4-7:14",
-            "removal": "1:15-8:0"
+            "removal": "1:17-8:0"
           }
         ],
-        "domain": "1:15-8:0"
+        "domain": "1:17-8:0"
       },
       {
         "targets": [
@@ -1996,16 +1996,16 @@
     "name": "scopes/php/interior/interior.switchCase2",
     "languageId": "php",
     "facet": "interior.switchCase",
-    "code": "<?php\nswitch ($foo) {\n    case 0: { }\n    default: { }\n}",
+    "code": "<?php\nswitch ($value) {\n    case 0: { }\n    default: { }\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "2:4-3:16",
-            "removal": "1:15-4:0"
+            "removal": "1:17-4:0"
           }
         ],
-        "domain": "1:15-4:0"
+        "domain": "1:17-4:0"
       },
       {
         "targets": [
@@ -2513,7 +2513,7 @@
     "name": "scopes/php/name/name.assignment.compound",
     "languageId": "php",
     "facet": "name.assignment.compound",
-    "code": "<?php\n$foo += 0;",
+    "code": "<?php\n$foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -2547,7 +2547,7 @@
     "name": "scopes/php/name/name.assignment2",
     "languageId": "php",
     "facet": "name.assignment",
-    "code": "<?php\n$foo += 0;",
+    "code": "<?php\n$foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -3181,7 +3181,7 @@
     "name": "scopes/php/statement/statement.assignment.compound",
     "languageId": "php",
     "facet": "statement.assignment.compound",
-    "code": "<?php\n$foo += 0;",
+    "code": "<?php\n$foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -3829,16 +3829,16 @@
     "name": "scopes/php/statement/statement.switch",
     "languageId": "php",
     "facet": "statement.switch",
-    "code": "<?php\nswitch ($foo) {}",
+    "code": "<?php\nswitch ($value) {}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "1:0-1:16",
-            "removal": "0:5-1:16"
+            "content": "1:0-1:18",
+            "removal": "0:5-1:18"
           }
         ],
-        "domain": "1:0-1:16"
+        "domain": "1:0-1:18"
       }
     ]
   },
@@ -4845,7 +4845,7 @@
     "name": "scopes/php/value/value.assignment.compound",
     "languageId": "php",
     "facet": "value.assignment.compound",
-    "code": "<?php\n$foo += 0;",
+    "code": "<?php\n$foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -4879,7 +4879,7 @@
     "name": "scopes/php/value/value.assignment2",
     "languageId": "php",
     "facet": "value.assignment",
-    "code": "<?php\n$foo += 0;",
+    "code": "<?php\n$foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -5232,16 +5232,16 @@
     "name": "scopes/php/value/value.switch",
     "languageId": "php",
     "facet": "value.switch",
-    "code": "<?php\nswitch ($foo) {}",
+    "code": "<?php\nswitch ($value) {}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "1:8-1:12",
-            "removal": "1:8-1:12"
+            "content": "1:8-1:14",
+            "removal": "1:8-1:14"
           }
         ],
-        "domain": "1:0-1:16"
+        "domain": "1:0-1:18"
       }
     ]
   },

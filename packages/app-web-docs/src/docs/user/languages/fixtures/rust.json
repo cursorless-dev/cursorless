@@ -931,15 +931,15 @@
     "name": "scopes/rust/branch/branch.switchCase.iteration",
     "languageId": "rust",
     "facet": "branch.switchCase.iteration",
-    "code": "match foo { }",
+    "code": "match value { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:11-0:12"
+            "content": "0:13-0:14"
           }
         ],
-        "domain": "0:11-0:12"
+        "domain": "0:13-0:14"
       }
     ]
   },
@@ -947,7 +947,7 @@
     "name": "scopes/rust/branch/branch.switchCase",
     "languageId": "rust",
     "facet": "branch.switchCase",
-    "code": "match foo {\n    0 => \"0\",\n}",
+    "code": "match value {\n    0 => \"0\",\n}",
     "scopes": [
       {
         "targets": [
@@ -964,7 +964,7 @@
     "name": "scopes/rust/branch/branch.switchCase2",
     "languageId": "rust",
     "facet": "branch.switchCase",
-    "code": "match foo {\n    _ => \"_\",\n}",
+    "code": "match value {\n    _ => \"_\",\n}",
     "scopes": [
       {
         "targets": [
@@ -1074,15 +1074,15 @@
     "name": "scopes/rust/condition.switchCase.iteration",
     "languageId": "rust",
     "facet": "condition.switchCase.iteration",
-    "code": "match foo { }",
+    "code": "match value { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:11-0:12"
+            "content": "0:13-0:14"
           }
         ],
-        "domain": "0:11-0:12"
+        "domain": "0:13-0:14"
       }
     ]
   },
@@ -1090,7 +1090,7 @@
     "name": "scopes/rust/condition.switchCase",
     "languageId": "rust",
     "facet": "condition.switchCase",
-    "code": "match foo {\n    0 => 0\n}",
+    "code": "match value {\n    0 => 0\n}",
     "scopes": [
       {
         "targets": [
@@ -1107,7 +1107,7 @@
     "name": "scopes/rust/condition.switchCase2",
     "languageId": "rust",
     "facet": "condition.switchCase",
-    "code": "match foo {\n    _ => 0\n}",
+    "code": "match value {\n    _ => 0\n}",
     "scopes": [
       {
         "targets": [
@@ -1628,16 +1628,16 @@
     "name": "scopes/rust/interior/interior.switch",
     "languageId": "rust",
     "facet": "interior.switch",
-    "code": "match foo { }",
+    "code": "match value { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:11-0:12",
-            "removal": "0:11-0:12"
+            "content": "0:13-0:14",
+            "removal": "0:13-0:14"
           }
         ],
-        "domain": "0:11-0:12"
+        "domain": "0:13-0:14"
       }
     ]
   },
@@ -1645,16 +1645,16 @@
     "name": "scopes/rust/interior/interior.switchCase",
     "languageId": "rust",
     "facet": "interior.switchCase",
-    "code": "match foo {\n    0 => bar\n    _ => bar\n}",
+    "code": "match value {\n    0 => bar\n    _ => bar\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-2:12",
-            "removal": "0:11-3:0"
+            "removal": "0:13-3:0"
           }
         ],
-        "domain": "0:11-3:0"
+        "domain": "0:13-3:0"
       },
       {
         "targets": [
@@ -1680,16 +1680,16 @@
     "name": "scopes/rust/interior/interior.switchCase2",
     "languageId": "rust",
     "facet": "interior.switchCase",
-    "code": "match foo {\n    0 => { }\n    _ => { }\n}",
+    "code": "match value {\n    0 => { }\n    _ => { }\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-2:12",
-            "removal": "0:11-3:0"
+            "removal": "0:13-3:0"
           }
         ],
-        "domain": "0:11-3:0"
+        "domain": "0:13-3:0"
       },
       {
         "targets": [
@@ -2010,7 +2010,7 @@
     "name": "scopes/rust/name/name.assignment.compound",
     "languageId": "rust",
     "facet": "name.assignment.compound",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -2617,7 +2617,7 @@
     "name": "scopes/rust/statement/statement.assignment.compound",
     "languageId": "rust",
     "facet": "statement.assignment.compound",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -3144,16 +3144,16 @@
     "name": "scopes/rust/statement/statement.switch",
     "languageId": "rust",
     "facet": "statement.switch",
-    "code": "match foo {}",
+    "code": "match value {}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:0-0:12",
-            "removal": "0:0-0:12"
+            "content": "0:0-0:14",
+            "removal": "0:0-0:14"
           }
         ],
-        "domain": "0:0-0:12"
+        "domain": "0:0-0:14"
       }
     ]
   },
@@ -4101,7 +4101,7 @@
     "name": "scopes/rust/value/value.assignment.compound",
     "languageId": "rust",
     "facet": "value.assignment.compound",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -4439,16 +4439,16 @@
     "name": "scopes/rust/value/value.switch",
     "languageId": "rust",
     "facet": "value.switch",
-    "code": "match foo {}",
+    "code": "match value {}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:6-0:9",
-            "removal": "0:6-0:10"
+            "content": "0:6-0:11",
+            "removal": "0:6-0:12"
           }
         ],
-        "domain": "0:0-0:12"
+        "domain": "0:0-0:14"
       }
     ]
   },

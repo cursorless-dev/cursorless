@@ -97,15 +97,15 @@
     "name": "scopes/c/branch/branch.switchCase.iteration",
     "languageId": "c",
     "facet": "branch.switchCase.iteration",
-    "code": "switch (foo) { }",
+    "code": "switch (value) { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:14-0:15"
+            "content": "0:16-0:17"
           }
         ],
-        "domain": "0:14-0:15"
+        "domain": "0:16-0:17"
       }
     ]
   },
@@ -113,7 +113,7 @@
     "name": "scopes/c/branch/branch.switchCase",
     "languageId": "c",
     "facet": "branch.switchCase",
-    "code": "switch (foo) {\n    case 0:\n        break;\n}",
+    "code": "switch (value) {\n    case 0:\n        break;\n}",
     "scopes": [
       {
         "targets": [
@@ -130,7 +130,7 @@
     "name": "scopes/c/branch/branch.switchCase2",
     "languageId": "c",
     "facet": "branch.switchCase",
-    "code": "switch (foo) {\n    default: {}\n}",
+    "code": "switch (value) {\n    default: {}\n}",
     "scopes": [
       {
         "targets": [
@@ -325,15 +325,15 @@
     "name": "scopes/csharp/branch/branch.switchCase.iteration",
     "languageId": "csharp",
     "facet": "branch.switchCase.iteration",
-    "code": "switch (foo) { }",
+    "code": "switch (value) { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:14-0:15"
+            "content": "0:16-0:17"
           }
         ],
-        "domain": "0:14-0:15"
+        "domain": "0:16-0:17"
       }
     ]
   },
@@ -341,7 +341,7 @@
     "name": "scopes/csharp/branch/branch.switchCase",
     "languageId": "csharp",
     "facet": "branch.switchCase",
-    "code": "switch (foo) {\n    case 0:\n        break;\n}",
+    "code": "switch (value) {\n    case 0:\n        break;\n}",
     "scopes": [
       {
         "targets": [
@@ -358,7 +358,7 @@
     "name": "scopes/csharp/branch/branch.switchCase2",
     "languageId": "csharp",
     "facet": "branch.switchCase",
-    "code": "switch (foo) {\n    default: {}\n}",
+    "code": "switch (value) {\n    default: {}\n}",
     "scopes": [
       {
         "targets": [
@@ -562,15 +562,15 @@
     "name": "scopes/dart/branch/branch.switchCase.iteration",
     "languageId": "dart",
     "facet": "branch.switchCase.iteration",
-    "code": "void main() {\n    switch (foo) { }\n}",
+    "code": "void main() {\n    switch (value) { }\n}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "1:18-1:19"
+            "content": "1:20-1:21"
           }
         ],
-        "domain": "1:18-1:19"
+        "domain": "1:20-1:21"
       }
     ]
   },
@@ -578,7 +578,7 @@
     "name": "scopes/dart/branch/branch.switchCase",
     "languageId": "dart",
     "facet": "branch.switchCase",
-    "code": "void main() {\n    switch (foo) {\n        case 0:\n            break;\n    }\n}",
+    "code": "void main() {\n    switch (value) {\n        case 0:\n            break;\n    }\n}",
     "scopes": [
       {
         "targets": [
@@ -595,7 +595,7 @@
     "name": "scopes/dart/branch/branch.switchCase2",
     "languageId": "dart",
     "facet": "branch.switchCase",
-    "code": "void main() {\n    switch (foo) {\n        default: {}\n    }\n}",
+    "code": "void main() {\n    switch (value) {\n        default: {}\n    }\n}",
     "scopes": [
       {
         "targets": [
@@ -799,15 +799,15 @@
     "name": "scopes/go/branch/branch.switchCase.iteration",
     "languageId": "go",
     "facet": "branch.switchCase.iteration",
-    "code": "switch foo { }",
+    "code": "switch value { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:12-0:13"
+            "content": "0:14-0:15"
           }
         ],
-        "domain": "0:12-0:13"
+        "domain": "0:14-0:15"
       }
     ]
   },
@@ -831,7 +831,7 @@
     "name": "scopes/go/branch/branch.switchCase",
     "languageId": "go",
     "facet": "branch.switchCase",
-    "code": "switch (foo) {\n    case 0:\n        break\n}",
+    "code": "switch (value) {\n    case 0:\n        break\n}",
     "scopes": [
       {
         "targets": [
@@ -848,7 +848,7 @@
     "name": "scopes/go/branch/branch.switchCase2",
     "languageId": "go",
     "facet": "branch.switchCase",
-    "code": "switch (foo) {\n    default: {}\n}",
+    "code": "switch (value) {\n    default: {}\n}",
     "scopes": [
       {
         "targets": [
@@ -959,15 +959,15 @@
     "name": "scopes/java/branch/branch.switchCase.iteration",
     "languageId": "java",
     "facet": "branch.switchCase.iteration",
-    "code": "switch (foo) { }",
+    "code": "switch (value) { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:14-0:15"
+            "content": "0:16-0:17"
           }
         ],
-        "domain": "0:14-0:15"
+        "domain": "0:16-0:17"
       }
     ]
   },
@@ -975,7 +975,7 @@
     "name": "scopes/java/branch/branch.switchCase",
     "languageId": "java",
     "facet": "branch.switchCase",
-    "code": "switch (foo) {\n    case 0:\n        break;\n}",
+    "code": "switch (value) {\n    case 0:\n        break;\n}",
     "scopes": [
       {
         "targets": [
@@ -992,7 +992,7 @@
     "name": "scopes/java/branch/branch.switchCase2",
     "languageId": "java",
     "facet": "branch.switchCase",
-    "code": "switch (foo) {\n    default: {}\n}",
+    "code": "switch (value) {\n    default: {}\n}",
     "scopes": [
       {
         "targets": [
@@ -1196,15 +1196,15 @@
     "name": "scopes/javascript.core/branch/branch.switchCase.iteration",
     "languageId": "javascript.core",
     "facet": "branch.switchCase.iteration",
-    "code": "switch (foo) { }",
+    "code": "switch (value) { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:14-0:15"
+            "content": "0:16-0:17"
           }
         ],
-        "domain": "0:14-0:15"
+        "domain": "0:16-0:17"
       }
     ]
   },
@@ -1212,7 +1212,7 @@
     "name": "scopes/javascript.core/branch/branch.switchCase",
     "languageId": "javascript.core",
     "facet": "branch.switchCase",
-    "code": "switch (foo) {\n    case 0:\n        break;\n}",
+    "code": "switch (value) {\n    case 0:\n        break;\n}",
     "scopes": [
       {
         "targets": [
@@ -1229,7 +1229,7 @@
     "name": "scopes/javascript.core/branch/branch.switchCase2",
     "languageId": "javascript.core",
     "facet": "branch.switchCase",
-    "code": "switch (foo) {\n    default: {}\n}",
+    "code": "switch (value) {\n    default: {}\n}",
     "scopes": [
       {
         "targets": [
@@ -1764,15 +1764,15 @@
     "name": "scopes/php/branch/branch.switchCase.iteration",
     "languageId": "php",
     "facet": "branch.switchCase.iteration",
-    "code": "<?php\nswitch ($foo) { }",
+    "code": "<?php\nswitch ($value) { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "1:15-1:16"
+            "content": "1:17-1:18"
           }
         ],
-        "domain": "1:15-1:16"
+        "domain": "1:17-1:18"
       }
     ]
   },
@@ -1780,7 +1780,7 @@
     "name": "scopes/php/branch/branch.switchCase",
     "languageId": "php",
     "facet": "branch.switchCase",
-    "code": "<?php\nswitch ($foo) {\n    case 0:\n        break;\n}",
+    "code": "<?php\nswitch ($value) {\n    case 0:\n        break;\n}",
     "scopes": [
       {
         "targets": [
@@ -1797,7 +1797,7 @@
     "name": "scopes/php/branch/branch.switchCase2",
     "languageId": "php",
     "facet": "branch.switchCase",
-    "code": "<?php\nswitch ($foo) {\n    default:\n        break;\n}",
+    "code": "<?php\nswitch ($value) {\n    default:\n        break;\n}",
     "scopes": [
       {
         "targets": [
@@ -2085,15 +2085,15 @@
     "name": "scopes/python/branch/branch.switchCase.iteration",
     "languageId": "python",
     "facet": "branch.switchCase.iteration",
-    "code": "match foo:\n    pass",
+    "code": "match value:\n    pass",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:10-1:8"
+            "content": "0:12-1:8"
           }
         ],
-        "domain": "0:10-1:8"
+        "domain": "0:12-1:8"
       }
     ]
   },
@@ -2101,13 +2101,13 @@
     "name": "scopes/python/branch/branch.switchCase",
     "languageId": "python",
     "facet": "branch.switchCase",
-    "code": "match foo:\n    case 0:\n        pass",
+    "code": "match value:\n    case 0:\n        pass",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-2:12",
-            "removal": "0:10-2:12"
+            "removal": "0:12-2:12"
           }
         ],
         "domain": "1:4-2:12"
@@ -2118,13 +2118,13 @@
     "name": "scopes/python/branch/branch.switchCase2",
     "languageId": "python",
     "facet": "branch.switchCase",
-    "code": "match foo:\n    case _:\n        pass",
+    "code": "match value:\n    case _:\n        pass",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-2:12",
-            "removal": "0:10-2:12"
+            "removal": "0:12-2:12"
           }
         ],
         "domain": "1:4-2:12"
@@ -2373,7 +2373,7 @@
     "name": "scopes/r/branch/branch.switchCase",
     "languageId": "r",
     "facet": "branch.switchCase",
-    "code": "switch(foo,\n    a = 0,\n)",
+    "code": "switch(value,\n    a = 0,\n)",
     "scopes": [
       {
         "targets": [
@@ -2390,7 +2390,7 @@
     "name": "scopes/r/branch/branch.switchCase2",
     "languageId": "r",
     "facet": "branch.switchCase",
-    "code": "switch(foo,\n    a = {},\n)",
+    "code": "switch(value,\n    a = {},\n)",
     "scopes": [
       {
         "targets": [
@@ -2407,7 +2407,7 @@
     "name": "scopes/r/branch/branch.switchCase3",
     "languageId": "r",
     "facet": "branch.switchCase",
-    "code": "switch(foo,\n    \"_\"\n)",
+    "code": "switch(value,\n    \"_\"\n)",
     "scopes": [
       {
         "targets": [
@@ -2839,15 +2839,15 @@
     "name": "scopes/rust/branch/branch.switchCase.iteration",
     "languageId": "rust",
     "facet": "branch.switchCase.iteration",
-    "code": "match foo { }",
+    "code": "match value { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:11-0:12"
+            "content": "0:13-0:14"
           }
         ],
-        "domain": "0:11-0:12"
+        "domain": "0:13-0:14"
       }
     ]
   },
@@ -2855,7 +2855,7 @@
     "name": "scopes/rust/branch/branch.switchCase",
     "languageId": "rust",
     "facet": "branch.switchCase",
-    "code": "match foo {\n    0 => \"0\",\n}",
+    "code": "match value {\n    0 => \"0\",\n}",
     "scopes": [
       {
         "targets": [
@@ -2872,7 +2872,7 @@
     "name": "scopes/rust/branch/branch.switchCase2",
     "languageId": "rust",
     "facet": "branch.switchCase",
-    "code": "match foo {\n    _ => \"_\",\n}",
+    "code": "match value {\n    _ => \"_\",\n}",
     "scopes": [
       {
         "targets": [

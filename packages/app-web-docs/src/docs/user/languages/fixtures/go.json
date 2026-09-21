@@ -727,15 +727,15 @@
     "name": "scopes/go/branch/branch.switchCase.iteration",
     "languageId": "go",
     "facet": "branch.switchCase.iteration",
-    "code": "switch foo { }",
+    "code": "switch value { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:12-0:13"
+            "content": "0:14-0:15"
           }
         ],
-        "domain": "0:12-0:13"
+        "domain": "0:14-0:15"
       }
     ]
   },
@@ -759,7 +759,7 @@
     "name": "scopes/go/branch/branch.switchCase",
     "languageId": "go",
     "facet": "branch.switchCase",
-    "code": "switch (foo) {\n    case 0:\n        break\n}",
+    "code": "switch (value) {\n    case 0:\n        break\n}",
     "scopes": [
       {
         "targets": [
@@ -776,7 +776,7 @@
     "name": "scopes/go/branch/branch.switchCase2",
     "languageId": "go",
     "facet": "branch.switchCase",
-    "code": "switch (foo) {\n    default: {}\n}",
+    "code": "switch (value) {\n    default: {}\n}",
     "scopes": [
       {
         "targets": [
@@ -1033,15 +1033,15 @@
     "name": "scopes/go/condition/condition.switchCase.iteration",
     "languageId": "go",
     "facet": "condition.switchCase.iteration",
-    "code": "switch foo { }",
+    "code": "switch value { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:12-0:13"
+            "content": "0:14-0:15"
           }
         ],
-        "domain": "0:12-0:13"
+        "domain": "0:14-0:15"
       }
     ]
   },
@@ -1065,7 +1065,7 @@
     "name": "scopes/go/condition/condition.switchCase",
     "languageId": "go",
     "facet": "condition.switchCase",
-    "code": "switch (foo) {\n    case 0: break\n}",
+    "code": "switch (value) {\n    case 0: break\n}",
     "scopes": [
       {
         "targets": [
@@ -1082,7 +1082,7 @@
     "name": "scopes/go/condition/condition.switchCase2",
     "languageId": "go",
     "facet": "condition.switchCase",
-    "code": "switch (foo) {\n    case 0, 1: break\n}",
+    "code": "switch (value) {\n    case 0, 1: break\n}",
     "scopes": [
       {
         "targets": [
@@ -1502,16 +1502,16 @@
     "name": "scopes/go/interior/interior.switch",
     "languageId": "go",
     "facet": "interior.switch",
-    "code": "switch foo { }",
+    "code": "switch value { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:12-0:13",
-            "removal": "0:12-0:13"
+            "content": "0:14-0:15",
+            "removal": "0:14-0:15"
           }
         ],
-        "domain": "0:12-0:13"
+        "domain": "0:14-0:15"
       }
     ]
   },
@@ -1536,16 +1536,16 @@
     "name": "scopes/go/interior/interior.switchCase",
     "languageId": "go",
     "facet": "interior.switchCase",
-    "code": "switch foo {\n    case 0:\n        bar;\n        break\n    default:\n        bar;\n        break\n}",
+    "code": "switch value {\n    case 0:\n        bar;\n        break\n    default:\n        bar;\n        break\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-6:13",
-            "removal": "0:12-7:0"
+            "removal": "0:14-7:0"
           }
         ],
-        "domain": "0:12-7:0"
+        "domain": "0:14-7:0"
       },
       {
         "targets": [
@@ -1571,16 +1571,16 @@
     "name": "scopes/go/interior/interior.switchCase2",
     "languageId": "go",
     "facet": "interior.switchCase",
-    "code": "switch foo {\n    case 0: { }\n    default: { }\n}",
+    "code": "switch value {\n    case 0: { }\n    default: { }\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-2:16",
-            "removal": "0:12-3:0"
+            "removal": "0:14-3:0"
           }
         ],
-        "domain": "0:12-3:0"
+        "domain": "0:14-3:0"
       },
       {
         "targets": [
@@ -1918,7 +1918,7 @@
     "name": "scopes/go/name/name.assignment.compound",
     "languageId": "go",
     "facet": "name.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [
@@ -2444,7 +2444,7 @@
     "name": "scopes/go/statement/statement.assignment.compound",
     "languageId": "go",
     "facet": "statement.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [
@@ -2931,16 +2931,16 @@
     "name": "scopes/go/statement/statement.switch",
     "languageId": "go",
     "facet": "statement.switch",
-    "code": "switch foo {}",
+    "code": "switch value {}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:0-0:13",
-            "removal": "0:0-0:13"
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
           }
         ],
-        "domain": "0:0-0:13"
+        "domain": "0:0-0:15"
       }
     ]
   },
@@ -3661,7 +3661,7 @@
     "name": "scopes/go/value/value.assignment.compound",
     "languageId": "go",
     "facet": "value.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [
@@ -3884,16 +3884,16 @@
     "name": "scopes/go/value/value.switch",
     "languageId": "go",
     "facet": "value.switch",
-    "code": "switch foo {}",
+    "code": "switch value {}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:7-0:10",
-            "removal": "0:7-0:11"
+            "content": "0:7-0:12",
+            "removal": "0:7-0:13"
           }
         ],
-        "domain": "0:0-0:13"
+        "domain": "0:0-0:15"
       }
     ]
   },

@@ -63,15 +63,15 @@
     "name": "scopes/c/condition/condition.switchCase.iteration",
     "languageId": "c",
     "facet": "condition.switchCase.iteration",
-    "code": "switch (foo) { }",
+    "code": "switch (value) { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:14-0:15"
+            "content": "0:16-0:17"
           }
         ],
-        "domain": "0:14-0:15"
+        "domain": "0:16-0:17"
       }
     ]
   },
@@ -79,7 +79,7 @@
     "name": "scopes/c/condition/condition.switchCase",
     "languageId": "c",
     "facet": "condition.switchCase",
-    "code": "switch (foo) {\n    case 0: break;\n}",
+    "code": "switch (value) {\n    case 0: break;\n}",
     "scopes": [
       {
         "targets": [
@@ -207,15 +207,15 @@
     "name": "scopes/csharp/condition/condition.switchCase.iteration",
     "languageId": "csharp",
     "facet": "condition.switchCase.iteration",
-    "code": "switch(foo) { }",
+    "code": "switch(value) { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:13-0:14"
+            "content": "0:15-0:16"
           }
         ],
-        "domain": "0:13-0:14"
+        "domain": "0:15-0:16"
       }
     ]
   },
@@ -223,7 +223,7 @@
     "name": "scopes/csharp/condition/condition.switchCase",
     "languageId": "csharp",
     "facet": "condition.switchCase",
-    "code": "switch(foo) {\n    case 0: break;\n}",
+    "code": "switch(value) {\n    case 0: break;\n}",
     "scopes": [
       {
         "targets": [
@@ -334,15 +334,15 @@
     "name": "scopes/dart/condition/condition.switchCase.iteration",
     "languageId": "dart",
     "facet": "condition.switchCase.iteration",
-    "code": "void main() {\n    switch (foo) { }\n}",
+    "code": "void main() {\n    switch (value) { }\n}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "1:18-1:19"
+            "content": "1:20-1:21"
           }
         ],
-        "domain": "1:18-1:19"
+        "domain": "1:20-1:21"
       }
     ]
   },
@@ -350,7 +350,7 @@
     "name": "scopes/dart/condition/condition.switchCase",
     "languageId": "dart",
     "facet": "condition.switchCase",
-    "code": "void main() {\n    switch (foo) {\n        case 0: break;\n    }\n}",
+    "code": "void main() {\n    switch (value) {\n        case 0: break;\n    }\n}",
     "scopes": [
       {
         "targets": [
@@ -444,15 +444,15 @@
     "name": "scopes/go/condition/condition.switchCase.iteration",
     "languageId": "go",
     "facet": "condition.switchCase.iteration",
-    "code": "switch foo { }",
+    "code": "switch value { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:12-0:13"
+            "content": "0:14-0:15"
           }
         ],
-        "domain": "0:12-0:13"
+        "domain": "0:14-0:15"
       }
     ]
   },
@@ -476,7 +476,7 @@
     "name": "scopes/go/condition/condition.switchCase",
     "languageId": "go",
     "facet": "condition.switchCase",
-    "code": "switch (foo) {\n    case 0: break\n}",
+    "code": "switch (value) {\n    case 0: break\n}",
     "scopes": [
       {
         "targets": [
@@ -493,7 +493,7 @@
     "name": "scopes/go/condition/condition.switchCase2",
     "languageId": "go",
     "facet": "condition.switchCase",
-    "code": "switch (foo) {\n    case 0, 1: break\n}",
+    "code": "switch (value) {\n    case 0, 1: break\n}",
     "scopes": [
       {
         "targets": [
@@ -570,15 +570,15 @@
     "name": "scopes/java/condition/condition.switchCase.iteration",
     "languageId": "java",
     "facet": "condition.switchCase.iteration",
-    "code": "switch (foo) { }",
+    "code": "switch (value) { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:14-0:15"
+            "content": "0:16-0:17"
           }
         ],
-        "domain": "0:14-0:15"
+        "domain": "0:16-0:17"
       }
     ]
   },
@@ -586,7 +586,7 @@
     "name": "scopes/java/condition/condition.switchCase",
     "languageId": "java",
     "facet": "condition.switchCase",
-    "code": "switch (foo) {\n    case 0: break;\n}",
+    "code": "switch (value) {\n    case 0: break;\n}",
     "scopes": [
       {
         "targets": [
@@ -603,7 +603,7 @@
     "name": "scopes/java/condition/condition.switchCase2",
     "languageId": "java",
     "facet": "condition.switchCase",
-    "code": "switch (foo) {\n    case 0, 1: break;\n}",
+    "code": "switch (value) {\n    case 0, 1: break;\n}",
     "scopes": [
       {
         "targets": [
@@ -620,7 +620,7 @@
     "name": "scopes/java/condition/condition.switchCase3",
     "languageId": "java",
     "facet": "condition.switchCase",
-    "code": "switch (foo) {\n    case 0 -> 0;\n}",
+    "code": "switch (value) {\n    case 0 -> 0;\n}",
     "scopes": [
       {
         "targets": [
@@ -637,7 +637,7 @@
     "name": "scopes/java/condition/condition.switchCase4",
     "languageId": "java",
     "facet": "condition.switchCase",
-    "code": "switch (foo) {\n    case 0, 1 -> 0;\n}",
+    "code": "switch (value) {\n    case 0, 1 -> 0;\n}",
     "scopes": [
       {
         "targets": [
@@ -748,15 +748,15 @@
     "name": "scopes/javascript.core/condition/condition.switchCase.iteration",
     "languageId": "javascript.core",
     "facet": "condition.switchCase.iteration",
-    "code": "switch (foo) { }",
+    "code": "switch (value) { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:14-0:15"
+            "content": "0:16-0:17"
           }
         ],
-        "domain": "0:14-0:15"
+        "domain": "0:16-0:17"
       }
     ]
   },
@@ -764,7 +764,7 @@
     "name": "scopes/javascript.core/condition/condition.switchCase",
     "languageId": "javascript.core",
     "facet": "condition.switchCase",
-    "code": "switch (foo) {\n    case 0: break;\n}",
+    "code": "switch (value) {\n    case 0: break;\n}",
     "scopes": [
       {
         "targets": [
@@ -1079,15 +1079,15 @@
     "name": "scopes/php/condition/condition.switchCase.iteration",
     "languageId": "php",
     "facet": "condition.switchCase.iteration",
-    "code": "<?php\nswitch ($foo) { }",
+    "code": "<?php\nswitch ($value) { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "1:15-1:16"
+            "content": "1:17-1:18"
           }
         ],
-        "domain": "1:15-1:16"
+        "domain": "1:17-1:18"
       }
     ]
   },
@@ -1095,7 +1095,7 @@
     "name": "scopes/php/condition/condition.switchCase",
     "languageId": "php",
     "facet": "condition.switchCase",
-    "code": "<?php\nswitch ($foo) {\n    case 0: break;\n}",
+    "code": "<?php\nswitch ($value) {\n    case 0: break;\n}",
     "scopes": [
       {
         "targets": [
@@ -1172,15 +1172,15 @@
     "name": "scopes/python/condition/condition.switchCase.iteration",
     "languageId": "python",
     "facet": "condition.switchCase.iteration",
-    "code": "match foo:\n    pass",
+    "code": "match value:\n    pass",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:10-1:8"
+            "content": "0:12-1:8"
           }
         ],
-        "domain": "0:10-1:8"
+        "domain": "0:12-1:8"
       }
     ]
   },
@@ -1188,7 +1188,7 @@
     "name": "scopes/python/condition/condition.switchCase",
     "languageId": "python",
     "facet": "condition.switchCase",
-    "code": "match foo:\n    case 0: pass",
+    "code": "match value:\n    case 0: pass",
     "scopes": [
       {
         "targets": [
@@ -1281,7 +1281,7 @@
     "name": "scopes/r/condition.switchCase",
     "languageId": "r",
     "facet": "condition.switchCase",
-    "code": "switch(foo,\n    a = 0\n)",
+    "code": "switch(value,\n    a = 0\n)",
     "scopes": [
       {
         "targets": [
@@ -1298,7 +1298,7 @@
     "name": "scopes/r/condition.switchCase2",
     "languageId": "r",
     "facet": "condition.switchCase",
-    "code": "switch(foo,\n    \"_\"\n)",
+    "code": "switch(value,\n    \"_\"\n)",
     "scopes": [
       {
         "targets": [
@@ -1518,15 +1518,15 @@
     "name": "scopes/rust/condition.switchCase.iteration",
     "languageId": "rust",
     "facet": "condition.switchCase.iteration",
-    "code": "match foo { }",
+    "code": "match value { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:11-0:12"
+            "content": "0:13-0:14"
           }
         ],
-        "domain": "0:11-0:12"
+        "domain": "0:13-0:14"
       }
     ]
   },
@@ -1534,7 +1534,7 @@
     "name": "scopes/rust/condition.switchCase",
     "languageId": "rust",
     "facet": "condition.switchCase",
-    "code": "match foo {\n    0 => 0\n}",
+    "code": "match value {\n    0 => 0\n}",
     "scopes": [
       {
         "targets": [
@@ -1551,7 +1551,7 @@
     "name": "scopes/rust/condition.switchCase2",
     "languageId": "rust",
     "facet": "condition.switchCase",
-    "code": "match foo {\n    _ => 0\n}",
+    "code": "match value {\n    _ => 0\n}",
     "scopes": [
       {
         "targets": [

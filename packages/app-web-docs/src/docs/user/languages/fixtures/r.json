@@ -623,7 +623,7 @@
     "name": "scopes/r/branch/branch.switchCase",
     "languageId": "r",
     "facet": "branch.switchCase",
-    "code": "switch(foo,\n    a = 0,\n)",
+    "code": "switch(value,\n    a = 0,\n)",
     "scopes": [
       {
         "targets": [
@@ -640,7 +640,7 @@
     "name": "scopes/r/branch/branch.switchCase2",
     "languageId": "r",
     "facet": "branch.switchCase",
-    "code": "switch(foo,\n    a = {},\n)",
+    "code": "switch(value,\n    a = {},\n)",
     "scopes": [
       {
         "targets": [
@@ -657,7 +657,7 @@
     "name": "scopes/r/branch/branch.switchCase3",
     "languageId": "r",
     "facet": "branch.switchCase",
-    "code": "switch(foo,\n    \"_\"\n)",
+    "code": "switch(value,\n    \"_\"\n)",
     "scopes": [
       {
         "targets": [
@@ -793,7 +793,7 @@
     "name": "scopes/r/condition.switchCase",
     "languageId": "r",
     "facet": "condition.switchCase",
-    "code": "switch(foo,\n    a = 0\n)",
+    "code": "switch(value,\n    a = 0\n)",
     "scopes": [
       {
         "targets": [
@@ -810,7 +810,7 @@
     "name": "scopes/r/condition.switchCase2",
     "languageId": "r",
     "facet": "condition.switchCase",
-    "code": "switch(foo,\n    \"_\"\n)",
+    "code": "switch(value,\n    \"_\"\n)",
     "scopes": [
       {
         "targets": [
@@ -1086,7 +1086,7 @@
     "name": "scopes/r/interior/interior.switchCase",
     "languageId": "r",
     "facet": "interior.switchCase",
-    "code": "switch(foo,\n    a = bar,\n    \"_\" = bar\n)",
+    "code": "switch(value,\n    a = bar,\n    \"_\" = bar\n)",
     "scopes": [
       {
         "targets": [
@@ -1112,7 +1112,7 @@
     "name": "scopes/r/interior/interior.switchCase2",
     "languageId": "r",
     "facet": "interior.switchCase",
-    "code": "switch(foo,\n    a = { },\n    \"_\" = { }\n)",
+    "code": "switch(value,\n    a = { },\n    \"_\" = { }\n)",
     "scopes": [
       {
         "targets": [
@@ -1863,16 +1863,16 @@
     "name": "scopes/r/statement/statement.switch",
     "languageId": "r",
     "facet": "statement.switch",
-    "code": "switch(foo)",
+    "code": "switch(value)",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:0-0:11",
-            "removal": "0:0-0:11"
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
           }
         ],
-        "domain": "0:0-0:11"
+        "domain": "0:0-0:13"
       }
     ]
   },
@@ -2338,16 +2338,16 @@
     "name": "scopes/r/value/value.switch",
     "languageId": "r",
     "facet": "value.switch",
-    "code": "switch(foo)",
+    "code": "switch(value)",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:7-0:10",
-            "removal": "0:7-0:10"
+            "content": "0:7-0:12",
+            "removal": "0:7-0:12"
           }
         ],
-        "domain": "0:0-0:11"
+        "domain": "0:0-0:13"
       }
     ]
   },

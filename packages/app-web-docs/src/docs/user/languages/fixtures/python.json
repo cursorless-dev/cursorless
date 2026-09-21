@@ -1083,15 +1083,15 @@
     "name": "scopes/python/branch/branch.switchCase.iteration",
     "languageId": "python",
     "facet": "branch.switchCase.iteration",
-    "code": "match foo:\n    pass",
+    "code": "match value:\n    pass",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:10-1:8"
+            "content": "0:12-1:8"
           }
         ],
-        "domain": "0:10-1:8"
+        "domain": "0:12-1:8"
       }
     ]
   },
@@ -1099,13 +1099,13 @@
     "name": "scopes/python/branch/branch.switchCase",
     "languageId": "python",
     "facet": "branch.switchCase",
-    "code": "match foo:\n    case 0:\n        pass",
+    "code": "match value:\n    case 0:\n        pass",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-2:12",
-            "removal": "0:10-2:12"
+            "removal": "0:12-2:12"
           }
         ],
         "domain": "1:4-2:12"
@@ -1116,13 +1116,13 @@
     "name": "scopes/python/branch/branch.switchCase2",
     "languageId": "python",
     "facet": "branch.switchCase",
-    "code": "match foo:\n    case _:\n        pass",
+    "code": "match value:\n    case _:\n        pass",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-2:12",
-            "removal": "0:10-2:12"
+            "removal": "0:12-2:12"
           }
         ],
         "domain": "1:4-2:12"
@@ -1599,15 +1599,15 @@
     "name": "scopes/python/condition/condition.switchCase.iteration",
     "languageId": "python",
     "facet": "condition.switchCase.iteration",
-    "code": "match foo:\n    pass",
+    "code": "match value:\n    pass",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:10-1:8"
+            "content": "0:12-1:8"
           }
         ],
-        "domain": "0:10-1:8"
+        "domain": "0:12-1:8"
       }
     ]
   },
@@ -1615,7 +1615,7 @@
     "name": "scopes/python/condition/condition.switchCase",
     "languageId": "python",
     "facet": "condition.switchCase",
-    "code": "match foo:\n    case 0: pass",
+    "code": "match value:\n    case 0: pass",
     "scopes": [
       {
         "targets": [
@@ -2080,16 +2080,16 @@
     "name": "scopes/python/interior/interior.switchCase",
     "languageId": "python",
     "facet": "interior.switchCase",
-    "code": "match foo:\n    case 0:\n        bar\n        baz\n    case _:\n        bar\n        baz",
+    "code": "match value:\n    case 0:\n        bar\n        baz\n    case _:\n        bar\n        baz",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-6:11",
-            "removal": "0:10-6:11"
+            "removal": "0:12-6:11"
           }
         ],
-        "domain": "0:10-6:11"
+        "domain": "0:12-6:11"
       },
       {
         "targets": [
@@ -2707,7 +2707,7 @@
     "name": "scopes/python/name/name.assignment.compound",
     "languageId": "python",
     "facet": "name.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [
@@ -3319,7 +3319,7 @@
     "name": "scopes/python/statement/statement.assignment.compound",
     "languageId": "python",
     "facet": "statement.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [
@@ -3848,7 +3848,7 @@
     "name": "scopes/python/statement/statement.switch",
     "languageId": "python",
     "facet": "statement.switch",
-    "code": "match foo:\n    pass",
+    "code": "match value:\n    pass",
     "scopes": [
       {
         "targets": [
@@ -4993,7 +4993,7 @@
     "name": "scopes/python/value/value.assignment.compound",
     "languageId": "python",
     "facet": "value.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [
@@ -5044,7 +5044,7 @@
     "name": "scopes/python/value/value.assignment2",
     "languageId": "python",
     "facet": "value.assignment",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [

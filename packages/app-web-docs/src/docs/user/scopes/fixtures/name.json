@@ -121,7 +121,7 @@
     "name": "scopes/c/name/name.assignment.compound",
     "languageId": "c",
     "facet": "name.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [
@@ -155,7 +155,7 @@
     "name": "scopes/c/name/name.assignment2",
     "languageId": "c",
     "facet": "name.assignment",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -1703,7 +1703,7 @@
     "name": "scopes/csharp/name/name.assignment.compound",
     "languageId": "csharp",
     "facet": "name.assignment.compound",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -1737,7 +1737,7 @@
     "name": "scopes/csharp/name/name.assignment2",
     "languageId": "csharp",
     "facet": "name.assignment",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -2805,7 +2805,7 @@
     "name": "scopes/dart/name/name.assignment.compound",
     "languageId": "dart",
     "facet": "name.assignment.compound",
-    "code": "void main() {\n    foo += 0;\n}",
+    "code": "void main() {\n    foo += 1;\n}",
     "scopes": [
       {
         "targets": [
@@ -3510,7 +3510,7 @@
     "name": "scopes/go/name/name.assignment.compound",
     "languageId": "go",
     "facet": "name.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [
@@ -4139,7 +4139,7 @@
     "name": "scopes/java/name/name.assignment.compound",
     "languageId": "java",
     "facet": "name.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [
@@ -5159,7 +5159,7 @@
     "name": "scopes/javascript.core/name/name.assignment.compound",
     "languageId": "javascript.core",
     "facet": "name.assignment.compound",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -6603,7 +6603,7 @@
     "name": "scopes/kotlin/name/name.assignment.compound",
     "languageId": "kotlin",
     "facet": "name.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [
@@ -8013,7 +8013,7 @@
     "name": "scopes/php/name/name.assignment.compound",
     "languageId": "php",
     "facet": "name.assignment.compound",
-    "code": "<?php\n$foo += 0;",
+    "code": "<?php\n$foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -8047,7 +8047,7 @@
     "name": "scopes/php/name/name.assignment2",
     "languageId": "php",
     "facet": "name.assignment",
-    "code": "<?php\n$foo += 0;",
+    "code": "<?php\n$foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -8976,7 +8976,7 @@
     "name": "scopes/python/name/name.assignment.compound",
     "languageId": "python",
     "facet": "name.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [
@@ -10500,7 +10500,7 @@
     "name": "scopes/rust/name/name.assignment.compound",
     "languageId": "rust",
     "facet": "name.assignment.compound",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -11329,7 +11329,7 @@
     "name": "scopes/scala/name/name.assignment.compound",
     "languageId": "scala",
     "facet": "name.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [
@@ -12730,7 +12730,7 @@
     "name": "scopes/swift/name/name.assignment.compound",
     "languageId": "swift",
     "facet": "name.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [

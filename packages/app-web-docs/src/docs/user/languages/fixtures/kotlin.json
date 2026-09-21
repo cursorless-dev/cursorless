@@ -3338,7 +3338,7 @@
     "name": "scopes/kotlin/name/name.assignment.compound",
     "languageId": "kotlin",
     "facet": "name.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [
@@ -4152,7 +4152,7 @@
     "name": "scopes/kotlin/statement/statement.assignment.compound",
     "languageId": "kotlin",
     "facet": "statement.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [
@@ -6599,7 +6599,7 @@
     "name": "scopes/kotlin/value/value.assignment.compound",
     "languageId": "kotlin",
     "facet": "value.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [

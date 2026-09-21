@@ -2430,7 +2430,7 @@
     "name": "scopes/scala/name/name.assignment.compound",
     "languageId": "scala",
     "facet": "name.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [
@@ -3089,7 +3089,7 @@
     "name": "scopes/scala/statement/statement.assignment.compound",
     "languageId": "scala",
     "facet": "statement.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [
@@ -4856,7 +4856,7 @@
     "name": "scopes/scala/value/value.assignment.compound",
     "languageId": "scala",
     "facet": "value.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [

@@ -208,16 +208,16 @@
     "name": "scopes/c/interior/interior.switch",
     "languageId": "c",
     "facet": "interior.switch",
-    "code": "switch (foo) { }",
+    "code": "switch (value) { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:14-0:15",
-            "removal": "0:14-0:15"
+            "content": "0:16-0:17",
+            "removal": "0:16-0:17"
           }
         ],
-        "domain": "0:14-0:15"
+        "domain": "0:16-0:17"
       }
     ]
   },
@@ -225,16 +225,16 @@
     "name": "scopes/c/interior/interior.switchCase",
     "languageId": "c",
     "facet": "interior.switchCase",
-    "code": "switch (foo) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
+    "code": "switch (value) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-6:14",
-            "removal": "0:14-7:0"
+            "removal": "0:16-7:0"
           }
         ],
-        "domain": "0:14-7:0"
+        "domain": "0:16-7:0"
       },
       {
         "targets": [
@@ -260,16 +260,16 @@
     "name": "scopes/c/interior/interior.switchCase2",
     "languageId": "c",
     "facet": "interior.switchCase",
-    "code": "switch (foo) {\n    case 0: { }\n    default: { }\n}",
+    "code": "switch (value) {\n    case 0: { }\n    default: { }\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-2:16",
-            "removal": "0:14-3:0"
+            "removal": "0:16-3:0"
           }
         ],
-        "domain": "0:14-3:0"
+        "domain": "0:16-3:0"
       },
       {
         "targets": [
@@ -732,16 +732,16 @@
     "name": "scopes/csharp/interior/interior.switch",
     "languageId": "csharp",
     "facet": "interior.switch",
-    "code": "switch (foo) { }",
+    "code": "switch (value) { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:14-0:15",
-            "removal": "0:14-0:15"
+            "content": "0:16-0:17",
+            "removal": "0:16-0:17"
           }
         ],
-        "domain": "0:14-0:15"
+        "domain": "0:16-0:17"
       }
     ]
   },
@@ -749,16 +749,16 @@
     "name": "scopes/csharp/interior/interior.switchCase",
     "languageId": "csharp",
     "facet": "interior.switchCase",
-    "code": "switch (foo) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
+    "code": "switch (value) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-6:14",
-            "removal": "0:14-7:0"
+            "removal": "0:16-7:0"
           }
         ],
-        "domain": "0:14-7:0"
+        "domain": "0:16-7:0"
       },
       {
         "targets": [
@@ -784,16 +784,16 @@
     "name": "scopes/csharp/interior/interior.switchCase2",
     "languageId": "csharp",
     "facet": "interior.switchCase",
-    "code": "switch (foo) {\n    case 0: { }\n    default: { }\n}",
+    "code": "switch (value) {\n    case 0: { }\n    default: { }\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-2:16",
-            "removal": "0:14-3:0"
+            "removal": "0:16-3:0"
           }
         ],
-        "domain": "0:14-3:0"
+        "domain": "0:16-3:0"
       },
       {
         "targets": [
@@ -1148,7 +1148,7 @@
     "name": "scopes/dart/interior/interior.switchCase",
     "languageId": "dart",
     "facet": "interior.switchCase",
-    "code": "void main() {\n    switch (foo) {\n        case 0:\n            bar;\n            break;\n        default:\n            bar;\n            break;\n    }\n}",
+    "code": "void main() {\n    switch (value) {\n        case 0:\n            bar;\n            break;\n        default:\n            bar;\n            break;\n    }\n}",
     "scopes": [
       {
         "targets": [
@@ -1163,10 +1163,10 @@
         "targets": [
           {
             "content": "2:8-7:18",
-            "removal": "1:18-8:4"
+            "removal": "1:20-8:4"
           }
         ],
-        "domain": "1:18-8:4"
+        "domain": "1:20-8:4"
       },
       {
         "targets": [
@@ -1192,7 +1192,7 @@
     "name": "scopes/dart/interior/interior.switchCase2",
     "languageId": "dart",
     "facet": "interior.switchCase",
-    "code": "void main() {\n    switch (foo) {\n        case 0: { }\n        default: { }\n    }\n}",
+    "code": "void main() {\n    switch (value) {\n        case 0: { }\n        default: { }\n    }\n}",
     "scopes": [
       {
         "targets": [
@@ -1207,10 +1207,10 @@
         "targets": [
           {
             "content": "2:8-3:20",
-            "removal": "1:18-4:4"
+            "removal": "1:20-4:4"
           }
         ],
-        "domain": "1:18-4:4"
+        "domain": "1:20-4:4"
       },
       {
         "targets": [
@@ -1460,16 +1460,16 @@
     "name": "scopes/go/interior/interior.switch",
     "languageId": "go",
     "facet": "interior.switch",
-    "code": "switch foo { }",
+    "code": "switch value { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:12-0:13",
-            "removal": "0:12-0:13"
+            "content": "0:14-0:15",
+            "removal": "0:14-0:15"
           }
         ],
-        "domain": "0:12-0:13"
+        "domain": "0:14-0:15"
       }
     ]
   },
@@ -1494,16 +1494,16 @@
     "name": "scopes/go/interior/interior.switchCase",
     "languageId": "go",
     "facet": "interior.switchCase",
-    "code": "switch foo {\n    case 0:\n        bar;\n        break\n    default:\n        bar;\n        break\n}",
+    "code": "switch value {\n    case 0:\n        bar;\n        break\n    default:\n        bar;\n        break\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-6:13",
-            "removal": "0:12-7:0"
+            "removal": "0:14-7:0"
           }
         ],
-        "domain": "0:12-7:0"
+        "domain": "0:14-7:0"
       },
       {
         "targets": [
@@ -1529,16 +1529,16 @@
     "name": "scopes/go/interior/interior.switchCase2",
     "languageId": "go",
     "facet": "interior.switchCase",
-    "code": "switch foo {\n    case 0: { }\n    default: { }\n}",
+    "code": "switch value {\n    case 0: { }\n    default: { }\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-2:16",
-            "removal": "0:12-3:0"
+            "removal": "0:14-3:0"
           }
         ],
-        "domain": "0:12-3:0"
+        "domain": "0:14-3:0"
       },
       {
         "targets": [
@@ -1847,16 +1847,16 @@
     "name": "scopes/java/interior/interior.switchCase",
     "languageId": "java",
     "facet": "interior.switchCase",
-    "code": "switch (foo) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
+    "code": "switch (value) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-6:14",
-            "removal": "0:14-7:0"
+            "removal": "0:16-7:0"
           }
         ],
-        "domain": "0:14-7:0"
+        "domain": "0:16-7:0"
       },
       {
         "targets": [
@@ -1882,16 +1882,16 @@
     "name": "scopes/java/interior/interior.switchCase2",
     "languageId": "java",
     "facet": "interior.switchCase",
-    "code": "switch (foo) {\n    case 0: { }\n    default: { }\n}",
+    "code": "switch (value) {\n    case 0: { }\n    default: { }\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-2:16",
-            "removal": "0:14-3:0"
+            "removal": "0:16-3:0"
           }
         ],
-        "domain": "0:14-3:0"
+        "domain": "0:16-3:0"
       },
       {
         "targets": [
@@ -2218,16 +2218,16 @@
     "name": "scopes/javascript.core/interior/interior.switchCase",
     "languageId": "javascript.core",
     "facet": "interior.switchCase",
-    "code": "switch (foo) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
+    "code": "switch (value) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-6:14",
-            "removal": "0:14-7:0"
+            "removal": "0:16-7:0"
           }
         ],
-        "domain": "0:14-7:0"
+        "domain": "0:16-7:0"
       },
       {
         "targets": [
@@ -2253,16 +2253,16 @@
     "name": "scopes/javascript.core/interior/interior.switchCase2",
     "languageId": "javascript.core",
     "facet": "interior.switchCase",
-    "code": "switch (foo) {\n    case 0: { }\n    default: { }\n}",
+    "code": "switch (value) {\n    case 0: { }\n    default: { }\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-2:16",
-            "removal": "0:14-3:0"
+            "removal": "0:16-3:0"
           }
         ],
-        "domain": "0:14-3:0"
+        "domain": "0:16-3:0"
       },
       {
         "targets": [
@@ -3190,16 +3190,16 @@
     "name": "scopes/php/interior/interior.switch",
     "languageId": "php",
     "facet": "interior.switch",
-    "code": "<?php\nswitch ($foo) { }",
+    "code": "<?php\nswitch ($value) { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "1:15-1:16",
-            "removal": "1:15-1:16"
+            "content": "1:17-1:18",
+            "removal": "1:17-1:18"
           }
         ],
-        "domain": "1:15-1:16"
+        "domain": "1:17-1:18"
       }
     ]
   },
@@ -3207,16 +3207,16 @@
     "name": "scopes/php/interior/interior.switchCase",
     "languageId": "php",
     "facet": "interior.switchCase",
-    "code": "<?php\nswitch ($foo) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
+    "code": "<?php\nswitch ($value) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "2:4-7:14",
-            "removal": "1:15-8:0"
+            "removal": "1:17-8:0"
           }
         ],
-        "domain": "1:15-8:0"
+        "domain": "1:17-8:0"
       },
       {
         "targets": [
@@ -3242,16 +3242,16 @@
     "name": "scopes/php/interior/interior.switchCase2",
     "languageId": "php",
     "facet": "interior.switchCase",
-    "code": "<?php\nswitch ($foo) {\n    case 0: { }\n    default: { }\n}",
+    "code": "<?php\nswitch ($value) {\n    case 0: { }\n    default: { }\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "2:4-3:16",
-            "removal": "1:15-4:0"
+            "removal": "1:17-4:0"
           }
         ],
-        "domain": "1:15-4:0"
+        "domain": "1:17-4:0"
       },
       {
         "targets": [
@@ -3501,16 +3501,16 @@
     "name": "scopes/python/interior/interior.switchCase",
     "languageId": "python",
     "facet": "interior.switchCase",
-    "code": "match foo:\n    case 0:\n        bar\n        baz\n    case _:\n        bar\n        baz",
+    "code": "match value:\n    case 0:\n        bar\n        baz\n    case _:\n        bar\n        baz",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-6:11",
-            "removal": "0:10-6:11"
+            "removal": "0:12-6:11"
           }
         ],
-        "domain": "0:10-6:11"
+        "domain": "0:12-6:11"
       },
       {
         "targets": [
@@ -3700,7 +3700,7 @@
     "name": "scopes/r/interior/interior.switchCase",
     "languageId": "r",
     "facet": "interior.switchCase",
-    "code": "switch(foo,\n    a = bar,\n    \"_\" = bar\n)",
+    "code": "switch(value,\n    a = bar,\n    \"_\" = bar\n)",
     "scopes": [
       {
         "targets": [
@@ -3726,7 +3726,7 @@
     "name": "scopes/r/interior/interior.switchCase2",
     "languageId": "r",
     "facet": "interior.switchCase",
-    "code": "switch(foo,\n    a = { },\n    \"_\" = { }\n)",
+    "code": "switch(value,\n    a = { },\n    \"_\" = { }\n)",
     "scopes": [
       {
         "targets": [
@@ -4380,16 +4380,16 @@
     "name": "scopes/rust/interior/interior.switch",
     "languageId": "rust",
     "facet": "interior.switch",
-    "code": "match foo { }",
+    "code": "match value { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:11-0:12",
-            "removal": "0:11-0:12"
+            "content": "0:13-0:14",
+            "removal": "0:13-0:14"
           }
         ],
-        "domain": "0:11-0:12"
+        "domain": "0:13-0:14"
       }
     ]
   },
@@ -4397,16 +4397,16 @@
     "name": "scopes/rust/interior/interior.switchCase",
     "languageId": "rust",
     "facet": "interior.switchCase",
-    "code": "match foo {\n    0 => bar\n    _ => bar\n}",
+    "code": "match value {\n    0 => bar\n    _ => bar\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-2:12",
-            "removal": "0:11-3:0"
+            "removal": "0:13-3:0"
           }
         ],
-        "domain": "0:11-3:0"
+        "domain": "0:13-3:0"
       },
       {
         "targets": [
@@ -4432,16 +4432,16 @@
     "name": "scopes/rust/interior/interior.switchCase2",
     "languageId": "rust",
     "facet": "interior.switchCase",
-    "code": "match foo {\n    0 => { }\n    _ => { }\n}",
+    "code": "match value {\n    0 => { }\n    _ => { }\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-2:12",
-            "removal": "0:11-3:0"
+            "removal": "0:13-3:0"
           }
         ],
-        "domain": "0:11-3:0"
+        "domain": "0:13-3:0"
       },
       {
         "targets": [
