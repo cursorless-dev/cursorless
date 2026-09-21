@@ -3,16 +3,16 @@
     "name": "scopes/swift/anonymousFunction",
     "languageId": "swift",
     "facet": "anonymousFunction",
-    "code": "{ () -> Int in 0 }",
+    "code": "{ () in 0 }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:0-0:18",
-            "removal": "0:0-0:18"
+            "content": "0:0-0:11",
+            "removal": "0:0-0:11"
           }
         ],
-        "domain": "0:0-0:18"
+        "domain": "0:0-0:11"
       }
     ]
   },
@@ -4072,6 +4072,23 @@
           }
         ],
         "domain": "0:2-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/textFragment/textFragment.string.singleLine3",
+    "languageId": "swift",
+    "facet": "textFragment.string.singleLine",
+    "code": "###\"Hello world\"###",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:15",
+            "removal": "0:4-0:15"
+          }
+        ],
+        "domain": "0:4-0:15"
       }
     ]
   },

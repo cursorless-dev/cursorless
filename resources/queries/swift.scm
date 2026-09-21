@@ -67,7 +67,7 @@
 ;;!    ^^^^^^^^^^^
 (raw_string_literal
   (_) @textFragment
-  (#character-range! @textFragment 2 -2)
+  (#shrink-to-match! @textFragment "^#+\"(?<keep>.*)\"#+$")
 ) @string
 
 ;;!! """Hello world"""
