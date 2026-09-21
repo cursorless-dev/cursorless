@@ -57,8 +57,8 @@
     modifiers: (_)? @collectionKey.start
     left: _ @collectionKey.end
     right: (_) @collectionKey.trailing.startOf
-  ) @_.domain
-  (#not-type? @_.domain binary_operator assignment_statement)
+  ) @collectionKey.domain
+  (#not-type? @collectionKey.domain binary_operator assignment_statement)
 )
 
 ;;!! foo = 0
@@ -72,24 +72,24 @@
 ;;!! mode: command
 ;;!  ^^^^^^^^^^^^^
 (matches
-  (_) @name.iteration.end.endOf @collectionKey.iteration.end.endOf @value.iteration.end.endOf
+  (_) @G_name_collectionKey_value.iteration.end.endOf
   .
-) @name.iteration.start.startOf @collectionKey.iteration.start.startOf @value.iteration.start.startOf
+) @G_name_collectionKey_value.iteration.start.startOf
 
 ;;!! hello: "world"
 ;;!  ^^^^^^^^^^^^^^
-(declarations) @name.iteration @collectionKey.iteration @value.iteration
+(declarations) @G_name_collectionKey_value.iteration
 
 ;;!! hello: "world"
 ;;!         ^^^^^^^
 ;;!! settings():
 ;;!!     speech.debug = 1
 ;;!      ^^^^^^^^^^^^^^^^
-(block) @statementNameValue.iteration @collectionKey.iteration
+(block) @G_statement_name_value_collectionKey.iteration
 
 (
-  (source_file) @command.iteration @statementNameValue.iteration @collectionKey.iteration
-  (#document-range! @command.iteration @statementNameValue.iteration @collectionKey.iteration)
+  (source_file) @G_command_statement_name_value_collectionKey.iteration
+  (#document-range! @G_command_statement_name_value_collectionKey.iteration)
 )
 
 ;;!!  tag: user.foo
@@ -111,9 +111,9 @@
   (matches
     (_) @condition.end.endOf
     .
-    "-" @_.trailing
+    "-" @condition.trailing
   ) @condition.start.startOf
-) @_.domain
+) @condition.domain
 
 ;;!! slap: key(enter)
 ;;!  ^^^^^^^^^^^^^^^^
@@ -145,7 +145,7 @@
 ;;!  ^^^^^^^^^--
 (action
   action_name: (_) @functionCallee
-) @_.domain
+) @functionCallee.domain
 
 ;;!! key(enter)
 ;;!  ^^^-------
@@ -153,7 +153,7 @@
   [
     (key_action)
     (sleep_action)
-  ] @functionCallee @_.domain
+  ] @functionCallee @functionCallee.domain
   ;; There is no node just for the function callee, so we have to shrink the function call to just the callee
   (#shrink-to-match! @functionCallee "\\w+")
 )
@@ -174,11 +174,11 @@
 ;;!        ^^^^^^^  ^^^^^^^
 (action
   arguments: (argument_list
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
     (_) @argumentOrParameter
     .
-    (_)? @_.trailing.startOf
+    (_)? @argumentOrParameter.trailing.startOf
   )
   (#insertion-delimiter! @argumentOrParameter ", ")
 )

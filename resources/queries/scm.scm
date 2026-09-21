@@ -7,7 +7,7 @@
 (
   (program
     (_) @statement
-  ) @_.iteration
+  ) @statement.iteration
   (#not-type? @statement comment)
 )
 
@@ -58,7 +58,7 @@
 ;;!  ----------
 (named_node
   name: _ @type
-) @_.domain
+) @type.domain
 
 ;;!! "aaa" @bbb
 ;;!   ^^^
@@ -70,7 +70,7 @@
       (string_content) @type
     )
   ]
-) @_.domain
+) @type.domain
 
 ;;!! aaa: (bbb) @ccc
 ;;!  ^^^
@@ -79,8 +79,8 @@
 (field_definition
   name: (identifier) @collectionKey
   .
-  (_) @_.trailing.startOf
-) @_.domain
+  (_) @collectionKey.trailing.startOf
+) @collectionKey.domain
 
 ;;!! aaa: (bbb) @ccc
 ;;!       ^^^^^
@@ -100,7 +100,7 @@
     ] @value.end
     (quantifier)? @value.end
   ) @value.start.startOf
-) @_.domain
+) @value.domain
 
 ;;!! aaa: "bbb" @ccc
 ;;!       ^^^^^
@@ -115,4 +115,4 @@
     ] @value.end
     (quantifier)? @value.end
   ) @value.start.startOf
-) @_.domain
+) @value.domain

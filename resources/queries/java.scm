@@ -74,7 +74,7 @@
 ;;!             ^^^  ^^^
 (enum_constant
   name: (_) @name
-) @_.domain
+) @name.domain
 
 ;;!! class Foo {}
 ;;!  ^^^^^^^^^^^^
@@ -98,23 +98,23 @@
 ) @type @_.domain
 
 (
-  (program) @class.iteration @statementNameValueType.iteration
-  (#document-range! @class.iteration @statementNameValueType.iteration)
+  (program) @G_class_statement_name_value_type.iteration
+  (#document-range! @G_class_statement_name_value_type.iteration)
 )
 
 ;;!! class MyClass { }
 ;;!                 ^
 (class_body
-  "{" @class.iteration.start.endOf @namedFunction.iteration.start.endOf
-  "}" @class.iteration.end.startOf @namedFunction.iteration.end.startOf
+  "{" @G_class_namedFunction.iteration.start.endOf
+  "}" @G_class_namedFunction.iteration.end.startOf
 )
 
 ;;!! { }
 ;;!   ^
 (
   (_
-    "{" @statementNameValueType.iteration.start.endOf
-    "}" @statementNameValueType.iteration.end.startOf
+    "{" @G_statement_name_value_type.iteration.start.endOf
+    "}" @G_statement_name_value_type.iteration.end.startOf
   ) @_dummy
   (#type? @_dummy block class_body interface_body constructor_body)
 )
@@ -237,8 +237,8 @@
   condition: (_) @value
   (#child-range! @value 0 -1 true true)
   body: (_
-    "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
-    "}" @condition.iteration.end.startOf @branch.iteration.end.startOf
+    "{" @G_branch_condition.iteration.start.endOf
+    "}" @G_condition_branch.iteration.end.startOf
   )
 ) @value.domain
 
@@ -333,13 +333,13 @@
 ;;!  -------------------------
 (formal_parameter
   (identifier) @name
-) @_.domain
+) @name.domain
 
 ;;!! void myFunk(int value) {}
 ;;!              ^^^^^^^^^
 (formal_parameters
-  "(" @type.iteration.start.endOf @name.iteration.start.endOf
-  ")" @type.iteration.end.startOf @name.iteration.end.startOf
+  "(" @G_type_name.iteration.start.endOf
+  ")" @G_type_name.iteration.end.startOf
 )
 
 ;;!! name = new ArrayList<String>();
@@ -347,28 +347,28 @@
 ;;!         -----------------------
 (object_creation_expression
   type: (_) @type
-) @_.domain
+) @type.domain
 
 ;;!! name = new int[5];
 ;;!             ^^^
 ;;!         ----------
 (array_creation_expression
   type: (_) @type
-) @_.domain
+) @type.domain
 
 ;;!! void myFunk(int value) {}
 ;;!              ^^^
 ;;!              ---------
 (formal_parameter
   type: (_) @type
-) @_.domain
+) @type.domain
 
 ;;!! int size() {}
 ;;!  ^^^
 ;;!  -------------
 (method_declaration
   type: (_) @type
-) @_.domain
+) @type.domain
 
 ;;!! (int)5
 ;;!   ^^^
@@ -376,7 +376,7 @@
   "(" @type.removal.start
   type: (_) @type
   ")" @type.removal.end
-) @_.domain
+) @type.domain
 
 ;;!! new test();
 ;;!  ^^^^^^^^
@@ -384,7 +384,7 @@
 (_
   (object_creation_expression
     (argument_list) @functionCallee.end.startOf
-  ) @functionCallee.start.startOf @_.domain
+  ) @functionCallee.start.startOf @functionCallee.domain
 )
 
 ;;!! new test().bar();
@@ -393,7 +393,7 @@
 (_
   (method_invocation
     (argument_list) @functionCallee.end.startOf
-  ) @functionCallee.start.startOf @_.domain
+  ) @functionCallee.start.startOf @functionCallee.domain
 )
 
 ;;!! super();
@@ -401,14 +401,14 @@
 ;;!  --------
 (explicit_constructor_invocation
   (argument_list) @functionCallee.end.startOf
-) @functionCallee.start.startOf @_.domain
+) @functionCallee.start.startOf @functionCallee.domain
 
 ;;!! Foo();
 ;;!  ^^^
 ;;!  -----
 (enum_constant
   (argument_list) @functionCallee.end.startOf
-) @functionCallee.start.startOf @_.domain
+) @functionCallee.start.startOf @functionCallee.domain
 
 ;;!! for (int value : values) {}
 ;;!                   ^^^^^^
@@ -461,11 +461,11 @@
 (
   (local_variable_declaration
     type: (_)
-    (variable_declarator)? @_.leading.endOf
+    (variable_declarator)? @collectionItem.leading.endOf
     .
     (variable_declarator) @collectionItem
     .
-    (variable_declarator)? @_.trailing.startOf
+    (variable_declarator)? @collectionItem.trailing.startOf
   ) @_dummy
   (#single-or-multi-line-delimiter! @collectionItem @_dummy ", " ",\n")
 )
@@ -473,11 +473,11 @@
 (
   (field_declaration
     type: (_)
-    (variable_declarator)? @_.leading.endOf
+    (variable_declarator)? @collectionItem.leading.endOf
     .
     (variable_declarator) @collectionItem
     .
-    (variable_declarator)? @_.trailing.startOf
+    (variable_declarator)? @collectionItem.trailing.startOf
   ) @_dummy
   (#single-or-multi-line-delimiter! @collectionItem @_dummy ", " ",\n")
 )
@@ -503,11 +503,11 @@
 ;;!         ^^^^^^^^^  ^^^^^^^^^^^
 (
   (throws
-    (_)? @_.leading.endOf
+    (_)? @collectionItem.leading.endOf
     .
     (_) @collectionItem
     .
-    (_)? @_.trailing.startOf
+    (_)? @collectionItem.trailing.startOf
   ) @_dummy
   (#single-or-multi-line-delimiter! @collectionItem @_dummy ", " ",\n")
 )
@@ -527,11 +527,11 @@
 ;;!                        ^^^  ^^^
 (_
   (type_list
-    (_)? @_.leading.endOf
+    (_)? @collectionItem.leading.endOf
     .
     (_) @collectionItem
     .
-    (_)? @_.trailing.startOf
+    (_)? @collectionItem.trailing.startOf
   ) @_dummy
   (#single-or-multi-line-delimiter! @collectionItem @_dummy ", " ",\n")
 )
@@ -590,11 +590,11 @@
 ;;!      ^^^  ^^^
 (
   (type_arguments
-    (_)? @_.leading.endOf
+    (_)? @type.leading.endOf
     .
     (_) @type
     .
-    (_)? @_.trailing.startOf
+    (_)? @type.trailing.startOf
   ) @_dummy
   (#single-or-multi-line-delimiter! @type @_dummy ", " ",\n")
 )
@@ -610,11 +610,11 @@
 ;;!           ^^^^^^^  ^^^^^^^
 (_
   parameters: (_
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
     (_) @argumentOrParameter
     .
-    (_)? @_.trailing.startOf
+    (_)? @argumentOrParameter.trailing.startOf
   ) @_dummy
   (#not-type? @argumentOrParameter block_comment)
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
@@ -624,11 +624,11 @@
 ;;!      ^^^  ^^^
 (
   (argument_list
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
     (_) @argumentOrParameter
     .
-    (_)? @_.trailing.startOf
+    (_)? @argumentOrParameter.trailing.startOf
   ) @_dummy
   (#not-type? @argumentOrParameter block_comment)
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")

@@ -8,10 +8,10 @@
     (capture) @name.start
     (capture)? @name.end
     .
-  ) @_.domain
-  (#not-type? @_.domain parameters)
+  ) @name.domain
+  (#not-type? @name.domain parameters)
   (#not-type? @_dummy capture)
-  (#not-parent-type? @_.domain field_definition)
+  (#not-parent-type? @name.domain field_definition)
 )
 
 ;;!! eee: (aaa) @bbb @ccc
@@ -26,7 +26,7 @@
       (capture)? @name.end
       .
     )
-  ) @_.domain
+  ) @name.domain
   (#not-type? @_dummy capture)
 )
 

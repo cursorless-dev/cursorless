@@ -32,7 +32,7 @@
 ;;!  ^^^
 (rule_set
   (selectors) @selector
-) @_.domain
+) @selector.domain
 
 ;;!! width: 100px;
 (declaration
@@ -54,13 +54,13 @@
 ;;!          ^^^^^^^^^^
 (import_statement
   (_) @value
-) @_.domain
+) @value.domain
 
 ;;!! translate(-50%, -50%)
 ;;!            ^^^^  ^^^^
 (
   (arguments
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
     [
       "("
@@ -81,7 +81,7 @@
         )
       ]
       .
-      (_) @_.trailing.startOf
+      (_) @argumentOrParameter.trailing.startOf
     )?
   ) @_dummyList
   (#grow-to-named-siblings! @argumentOrParameter "at")
@@ -101,14 +101,14 @@
 
 ;; Entire file
 (
-  (stylesheet) @statementNameValue.iteration @collectionKey.iteration
-  (#document-range! @statementNameValue.iteration @collectionKey.iteration)
+  (stylesheet) @G_statement_name_value_collectionKey.iteration
+  (#document-range! @G_statement_name_value_collectionKey.iteration)
 )
 
 ;; { }
 (block
-  "{" @name.iteration.start.endOf @collectionKey.iteration.start.endOf @value.iteration.start.endOf
-  "}" @name.iteration.end.startOf @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+  "{" @G_name_collectionKey_value.iteration.start.endOf
+  "}" @G_name_collectionKey_value.iteration.end.startOf
 ) @map
 
 ;;!! width: 100px;
@@ -118,24 +118,24 @@
     (unit) @unit
   )
   (#allow-multiple! @unit)
-) @_.domain
+) @unit.domain
 
 (integer_value
   (unit) @unit
-) @_.domain
+) @unit.domain
 
 ;;!! @namespace prefix "XML-namespace-URL";
 ;;!             ^^^^^^^^^^^^^^^^^^^^^^^^^^
 (namespace_statement
   (namespace_name) @value.start
   (string_value) @value.end
-) @_.domain
+) @value.domain
 
 ;;!! @namespace url(http://www.w3.org/1999/xhtml);
 ;;!             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 (namespace_statement
   (call_expression) @value
-) @_.domain
+) @value.domain
 
 ;;!! div > a
 ;;!      ^

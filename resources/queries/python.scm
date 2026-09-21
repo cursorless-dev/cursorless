@@ -99,7 +99,7 @@
 (typed_parameter
   .
   (_) @name
-) @_.domain
+) @name.domain
 
 ;; Matches any node at field `type` of its parent, with leading delimiter until
 ;; previous named node. For example:
@@ -108,20 +108,20 @@
 ;;!  -----------------
 ;;!     xxxxx
 (_
-  (_) @_.leading.endOf
+  (_) @type.leading.endOf
   .
   type: (_) @type
-) @_.domain
+) @type.domain
 
 ;;!! map[int, str]
 ;;!      ^^^  ^^^
 (generic_type
   (type_parameter
-    (type)? @_.leading.endOf
+    (type)? @type.leading.endOf
     .
     (type) @type
     .
-    (type)? @_.trailing.startOf
+    (type)? @type.trailing.startOf
   )
   (#insertion-delimiter! @type ", ")
 )
@@ -163,7 +163,7 @@
 ;;!  --------
 (return_statement
   (_) @value
-) @_.domain
+) @value.domain
 
 ;;!! yield 1
 ;;!        ^
@@ -171,7 +171,7 @@
 ;;!  -------
 (yield
   (_) @value
-) @_.domain
+) @value.domain
 
 ;;!! raise foo;
 ;;!        ^^^
@@ -247,10 +247,10 @@
 ;;!!      pass
 ;;!   --------]
 (function_definition
-  (_) @_.leading.endOf
+  (_) @type.leading.endOf
   .
   return_type: (_) @type
-) @_.domain
+) @type.domain
 
 ;;!! class Foo:
 (
@@ -285,8 +285,8 @@
 )
 
 (
-  (module) @statement.iteration @class.iteration @namedFunction.iteration
-  (#document-range! @statement.iteration @class.iteration @namedFunction.iteration)
+  (module) @G_statement_class_namedFunction.iteration
+  (#document-range! @G_statement_class_namedFunction.iteration)
 )
 
 ;; This is a hack to handle the case where the entire document is a `with` statement
@@ -309,20 +309,20 @@
 ;;!      *****
 ;;!!     c = 2
 ;;!      *****>
-(block) @statementNameValueType.iteration
+(block) @G_statement_name_value_type.iteration
 
 ;;!! {"a": 1, "b": 2, "c": 3}
 ;;!   **********************
 (dictionary
-  "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
-  "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+  "{" @G_collectionKey_value.iteration.start.endOf
+  "}" @G_collectionKey_value.iteration.end.startOf
 )
 
 ;;!! def func(a=0, b=1):
 ;;!           ********
 (parameters
-  "(" @value.iteration.start.endOf @name.iteration.start.endOf @type.iteration.start.endOf
-  ")" @value.iteration.end.startOf @name.iteration.end.startOf @type.iteration.end.startOf
+  "(" @G_value_name_type.iteration.start.endOf
+  ")" @G_value_name_type.iteration.end.startOf
 )
 
 ;;!! foo()
@@ -333,15 +333,15 @@
 ;;!  ^^^^^
 (call
   function: (_) @functionCallee
-) @_.domain
+) @functionCallee.domain
 
 ;;!! { "value": 0 }
 ;;!    ^^^^^^^
 ;;!    xxxxxxxxx
 (pair
   key: (_) @collectionKey
-  value: (_) @_.trailing.startOf
-) @_.domain
+  value: (_) @collectionKey.trailing.startOf
+) @collectionKey.domain
 
 ;;!! if True:
 ;;!     ^^^^
@@ -351,7 +351,7 @@
 ;;!        ^^^^
 (_
   condition: (_) @condition
-) @_.domain
+) @condition.domain
 
 ;;!! match foo: pass
 ;;!        ^^^
@@ -366,7 +366,7 @@
 (case_clause
   (case_pattern) @condition.start
   guard: (_)? @condition.end
-) @_.domain
+) @condition.domain
 
 ;;!! case 0: pass
 ;;!  ^^^^^^^^^^^^
@@ -402,9 +402,9 @@
   (if_clause
     "if"
     (_) @condition
-  ) @_.removal
-  (#not-parent-type? @_.removal case_clause)
-) @_.domain
+  ) @condition.removal
+  (#not-parent-type? @condition.removal case_clause)
+) @condition.domain
 
 ;;!! if true: pass else: pass
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -495,11 +495,11 @@
 ;;!         ^^^  ^^^
 (
   (import_statement
-    name: (_)? @_.leading.endOf
+    name: (_)? @collectionItem.leading.endOf
     .
     name: (_) @collectionItem
     .
-    name: (_)? @_.trailing.startOf
+    name: (_)? @collectionItem.trailing.startOf
   )
   (#insertion-delimiter! @collectionItem ", ")
 )
@@ -509,13 +509,13 @@
 (
   (import_from_statement
     [
-      name: (_)? @_.leading.endOf
-      "import" @_.leading.endOf
+      name: (_)? @collectionItem.leading.endOf
+      "import" @collectionItem.leading.endOf
     ]
     .
     name: (_) @collectionItem
     .
-    name: (_)? @_.trailing.startOf
+    name: (_)? @collectionItem.trailing.startOf
   )
   (#insertion-delimiter! @collectionItem ", ")
 )
@@ -524,11 +524,11 @@
 ;;!         ^^^  ^^^
 (
   (global_statement
-    (identifier)? @_.leading.endOf
+    (identifier)? @collectionItem.leading.endOf
     .
     (identifier) @collectionItem
     .
-    (identifier)? @_.trailing.startOf
+    (identifier)? @collectionItem.trailing.startOf
   )
   (#insertion-delimiter! @collectionItem ", ")
 )
@@ -537,11 +537,11 @@
 ;;!      ^^^  ^^^^^
 (
   (pattern_list
-    (identifier)? @_.leading.endOf
+    (identifier)? @collectionItem.leading.endOf
     .
     (identifier) @collectionItem
     .
-    (identifier)? @_.trailing.startOf
+    (identifier)? @collectionItem.trailing.startOf
   )
   (#insertion-delimiter! @collectionItem ", ")
 )
@@ -568,13 +568,13 @@
 ;;!          ^^^  ^^^
 (_
   parameters: (_
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
     (_) @argumentOrParameter
     .
-    ","? @_.trailing.start.endOf
+    ","? @argumentOrParameter.trailing.start.endOf
     .
-    (_)? @_.trailing.end.startOf
+    (_)? @argumentOrParameter.trailing.end.startOf
   ) @_dummy
   (#not-type? @argumentOrParameter "comment")
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
@@ -584,13 +584,13 @@
 ;;!      ^^^  ^^^
 (
   (argument_list
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
     (_) @argumentOrParameter
     .
-    ","? @_.trailing.start.endOf
+    ","? @argumentOrParameter.trailing.start.endOf
     .
-    (_)? @_.trailing.end.startOf
+    (_)? @argumentOrParameter.trailing.end.startOf
   ) @_dummy
   (#not-type? @argumentOrParameter "comment")
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
@@ -674,8 +674,8 @@
 ;;!! foo (aaa=1, bbb=2)
 ;;!       ^^^^^^^^^^^^
 (argument_list
-  "(" @name.iteration.start.endOf @value.iteration.start.endOf
-  ")" @name.iteration.end.startOf @value.iteration.end.startOf
+  "(" @G_name_value.iteration.start.endOf
+  ")" @G_name_value.iteration.end.startOf
 )
 
 (_

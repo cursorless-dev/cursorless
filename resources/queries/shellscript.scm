@@ -57,8 +57,8 @@
 ]
 
 (
-  (program) @statementNameValue.iteration @namedFunction.iteration
-  (#document-range! @statementNameValue.iteration @namedFunction.iteration)
+  (program) @G_statement_name_value_namedFunction.iteration
+  (#document-range! @G_statement_name_value_namedFunction.iteration)
 )
 
 ;;!! [[ $foo =~ ^\w+$ ]]
@@ -76,7 +76,7 @@
 ;; Require the brackets and assignment before treating an array as a map.
 (
   (array
-    "(" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
+    "(" @G_collectionKey_value.iteration.start.endOf
     (concatenation
       .
       (word) @_open
@@ -87,7 +87,7 @@
       .
       (word) @_assignment
     )
-    ")" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+    ")" @G_collectionKey_value.iteration.end.startOf
   ) @map
   (#eq? @_open "[")
   (#eq? @_close "]")
@@ -166,8 +166,8 @@
 ;;!! if true; then :; fi
 (
   (if_statement
-    "then" @interior.start.endOf @statementNameValue.iteration.start.endOf
-    "fi" @interior.end.startOf @statementNameValue.iteration.end.startOf
+    "then" @interior.start.endOf @G_statement_name_value.iteration.start.endOf
+    "fi" @interior.end.startOf @G_statement_name_value.iteration.end.startOf
   ) @branch
   (#not-child-type? @branch elif_clause else_clause)
 )
@@ -176,13 +176,13 @@
 (
   (if_statement
     "if" @branch.start @branch.removal.start
-    "then" @interior.start.endOf @statementNameValue.iteration.start.endOf
+    "then" @interior.start.endOf @G_statement_name_value.iteration.start.endOf
     (_) @branch.end @branch.removal.end
     .
     [
       (elif_clause)
       (else_clause)
-    ] @branch.removal.end.startOf @interior.end.startOf @statementNameValue.iteration.end.startOf
+    ] @branch.removal.end.startOf @interior.end.startOf @G_statement_name_value.iteration.end.startOf
   )
   (#not-type? @branch.end elif_clause else_clause)
   (#shrink-to-match! @branch.removal.end.startOf "^(?:el(?=if\\b))?(?<keep>.*)")
@@ -193,19 +193,19 @@
 (
   (elif_clause
     (_) @condition
-    "then" @interior.start.endOf @statementNameValue.iteration.start.endOf
+    "then" @interior.start.endOf @G_statement_name_value.iteration.start.endOf
   ) @branch @branch.removal.start @condition.domain
   .
-  _ @branch.removal.end.startOf @interior.end.startOf @statementNameValue.iteration.end.startOf
+  _ @branch.removal.end.startOf @interior.end.startOf @G_statement_name_value.iteration.end.startOf
   (#trim-end! @branch)
 )
 
 ;;!! else :; fi
 (
   (else_clause
-    "else" @interior.start.endOf @statementNameValue.iteration.start.endOf
+    "else" @interior.start.endOf @G_statement_name_value.iteration.start.endOf
   ) @branch @branch.removal.start
-  "fi" @branch.removal.end.startOf @interior.end.startOf @statementNameValue.iteration.end.startOf
+  "fi" @branch.removal.end.startOf @interior.end.startOf @G_statement_name_value.iteration.end.startOf
   (#trim-end! @branch)
 )
 
@@ -225,8 +225,8 @@
 ;;!              ^
 (case_statement
   value: (_) @value
-  "in" @interior.start.endOf @branch.iteration.start.endOf @condition.iteration.start.endOf
-  "esac" @interior.end.startOf @branch.iteration.end.startOf @condition.iteration.end.startOf
+  "in" @interior.start.endOf @G_branch_condition.iteration.start.endOf
+  "esac" @interior.end.startOf @G_branch_condition.iteration.end.startOf
 ) @value.domain
 
 ;;!! 0) : ;;
@@ -249,12 +249,12 @@
 ] @condition.domain
 
 (case_item
-  ")" @interior.start.endOf @statementNameValue.iteration.start.endOf
+  ")" @interior.start.endOf @G_statement_name_value.iteration.start.endOf
   [
     ";;"
     ";&"
     ";;&"
-  ] @interior.end.startOf @statementNameValue.iteration.end.startOf
+  ] @interior.end.startOf @G_statement_name_value.iteration.end.startOf
 ) @branch
 
 ;;!! return 0
@@ -272,22 +272,22 @@
 ;;!! do :; done
 ;;!    ^^^^
 (do_group
-  "do" @interior.start.endOf @statementNameValue.iteration.start.endOf
-  "done" @interior.end.startOf @statementNameValue.iteration.end.startOf
+  "do" @interior.start.endOf @G_statement_name_value.iteration.start.endOf
+  "done" @interior.end.startOf @G_statement_name_value.iteration.end.startOf
 )
 
 ;;!! foo() { }
 ;;!         ^
 (compound_statement
-  "{" @interior.start.endOf @statementNameValue.iteration.start.endOf
-  "}" @interior.end.startOf @statementNameValue.iteration.end.startOf
+  "{" @interior.start.endOf @G_statement_name_value.iteration.start.endOf
+  "}" @interior.end.startOf @G_statement_name_value.iteration.end.startOf
 )
 
 ;;!! foo() ( : )
 ;;!         ^^^
 (subshell
-  "(" @interior.start.endOf @statementNameValue.iteration.start.endOf
-  ")" @interior.end.startOf @statementNameValue.iteration.end.startOf
+  "(" @interior.start.endOf @G_statement_name_value.iteration.start.endOf
+  ")" @interior.end.startOf @G_statement_name_value.iteration.end.startOf
 )
 
 ;;!! # foo
@@ -332,11 +332,11 @@
 (_
   (command
     name: (_)
-    argument: (_)? @_.leading.endOf
+    argument: (_)? @argumentOrParameter.leading.endOf
     .
     argument: (_) @argumentOrParameter
     .
-    argument: (_)? @_.trailing.startOf
+    argument: (_)? @argumentOrParameter.trailing.startOf
   ) @_dummy
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy " " " \\\n")
 )
@@ -361,19 +361,10 @@
 ;;!        ^^^
 (declaration_command
   (variable_assignment
-    name: (_) @name
-    value: (_) @_.removal.end.startOf
+    name: (_) @name @value.leading.endOf
+    value: (_) @value @name.removal.end.startOf
   )
-) @name.domain @_.removal.start.startOf
-
-;;!! local foo="bar"
-;;!        ^^^
-(declaration_command
-  (variable_assignment
-    name: (_) @_.leading.endOf
-    value: (_) @value
-  )
-) @value.domain
+) @_.domain @name.removal.start.startOf
 
 ;;!! local foo
 ;;!        ^^^

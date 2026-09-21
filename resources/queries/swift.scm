@@ -25,24 +25,16 @@
 
 ;; document-wide
 (
-  (source_file) @statementNameValueType.iteration @class.iteration @namedFunction.iteration
-  (#document-range! @statementNameValueType.iteration @class.iteration @namedFunction.iteration)
+  (source_file) @G_statement_name_value_type_class_namedFunction.iteration
+  (#document-range! @G_statement_name_value_type_class_namedFunction.iteration)
 )
 
 ;;!! { }
 ;;!   ^
 (
   (_
-    "{" @statementNameValueType.iteration.start.endOf @class.iteration.start.endOf @namedFunction.iteration.start.endOf
-    "}" @statementNameValueType.iteration.end.startOf @class.iteration.end.startOf @namedFunction.iteration.end.startOf
-  ) @_dummy
-  (#not-type? @_dummy if_statement lambda_literal)
-)
-
-(
-  (_
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
+    "{" @interior.start.endOf @G_statement_name_value_type_class_namedFunction.iteration.start.endOf
+    "}" @interior.end.startOf @G_statement_name_value_type_class_namedFunction.iteration.end.startOf
   ) @_dummy
   (#not-type? @_dummy if_statement lambda_literal)
 )
@@ -146,8 +138,8 @@
 ;;!           ^
 (
   (if_statement
-    "{" @statementNameValueType.iteration.start.endOf @class.iteration.start.endOf @namedFunction.iteration.start.endOf
-    "}" @statementNameValueType.iteration.end.startOf @class.iteration.end.startOf @namedFunction.iteration.end.startOf
+    "{" @G_statement_name_value_type_class_namedFunction.iteration.start.endOf
+    "}" @G_statement_name_value_type_class_namedFunction.iteration.end.startOf
   ) @_dummy
   (#not-child-type? @_dummy else)
 )
@@ -167,8 +159,8 @@
 ;;!           ^
 (
   (if_statement
-    "{" @statementNameValueType.iteration.start.endOf @class.iteration.start.endOf @namedFunction.iteration.start.endOf
-    "}" @statementNameValueType.iteration.end.startOf @class.iteration.end.startOf @namedFunction.iteration.end.startOf
+    "{" @G_statement_name_value_type_class_namedFunction.iteration.start.endOf
+    "}" @G_statement_name_value_type_class_namedFunction.iteration.end.startOf
     (else)
   )
 )
@@ -198,19 +190,13 @@
   (#not-child-type? @_dummy else)
 )
 
-;;!! else {}
-(
-  (else) @branch.start
-  "{" @interior.start.endOf
-  "}" @branch.end @interior.end.startOf
-)
-
 ;;!! else { }
+;;!  ^^^^^^^^
 ;;!        ^
 (
-  (else)
-  "{" @statementNameValueType.iteration.start.endOf @class.iteration.start.endOf @namedFunction.iteration.start.endOf
-  "}" @statementNameValueType.iteration.end.startOf @class.iteration.end.startOf @namedFunction.iteration.end.startOf
+  (else) @branch.start
+  "{" @interior.start.endOf @G_statement_name_value_type_class_namedFunction.iteration.start.endOf
+  "}" @branch.end @interior.end.startOf @G_statement_name_value_type_class_namedFunction.iteration.end.startOf
 )
 
 ;;!! var foo: Int = 0
@@ -357,8 +343,8 @@
 ;;!                ^
 (switch_statement
   expr: (_) @value
-  "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
-  "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
+  "{" @G_branch_condition.iteration.start.endOf
+  "}" @G_branch_condition.iteration.end.startOf
 ) @value.domain
 
 ;;!! case 0: break
@@ -445,28 +431,19 @@
 
 ;;!! [aaa: 0, bbb: 1]
 (dictionary_literal
-  "[" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
-  "]" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+  "[" @G_collectionKey_value.iteration.start.endOf
+  "]" @G_collectionKey_value.iteration.end.startOf
 ) @map
 
 ;;!! [aaa: 0, bbb: 1]
 ;;!   ^^^     ^^^
-(dictionary_literal
-  key: (_) @collectionKey @collectionKey.domain.start
-  .
-  ":"
-  .
-  value: (_) @collectionKey.trailing.startOf @collectionKey.domain.end
-)
-
-;;!! [aaa: 0, bbb: 1]
 ;;!        ^       ^
 (dictionary_literal
-  key: (_) @value.leading.endOf @value.domain.start
+  key: (_) @collectionKey @value.leading.endOf @G_collectionKey_value.domain.start
   .
   ":"
   .
-  value: (_) @value @value.domain.end
+  value: (_) @collectionKey.trailing.startOf @value @G_collectionKey_value.domain.end
 )
 
 ;;!! foo as Int
@@ -508,11 +485,11 @@
 ;;!       ^^^^^^^^  ^^^^^^^^
 (
   (_
-    (parameter)? @_.leading.endOf
+    (parameter)? @argumentOrParameter.leading.endOf
     .
     (parameter) @argumentOrParameter
     .
-    (parameter)? @_.trailing.startOf
+    (parameter)? @argumentOrParameter.trailing.startOf
   ) @_dummy
   (#not-type? @argumentOrParameter comment multiline_comment)
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
@@ -522,11 +499,11 @@
 ;;!     ^^^  ^^^
 (
   (lambda_function_type_parameters
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
     (_) @argumentOrParameter
     .
-    (_)? @_.trailing.startOf
+    (_)? @argumentOrParameter.trailing.startOf
   ) @_dummy
   (#not-type? @argumentOrParameter comment multiline_comment)
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
@@ -536,11 +513,11 @@
 ;;!      ^^^  ^^^
 (
   (value_arguments
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
     (_) @argumentOrParameter
     .
-    (_)? @_.trailing.startOf
+    (_)? @argumentOrParameter.trailing.startOf
   ) @_dummy
   (#not-type? @argumentOrParameter comment multiline_comment)
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
@@ -639,8 +616,8 @@
 ;;!! foo(aaa: 0, bbb: 1)
 ;;!      ^^^^^^^^^^^^^^
 (value_arguments
-  "(" @name.iteration.start.endOf @value.iteration.start.endOf
-  ")" @name.iteration.end.startOf @value.iteration.end.startOf
+  "(" @G_name_value.iteration.start.endOf
+  ")" @G_name_value.iteration.end.startOf
 )
 
 ;;!! func bar(aaa: Int, bbb: Int = 0) {}
@@ -664,15 +641,15 @@
 ;;!! func bar(aaa: Int, bbb: Int) {}
 ;;!           ^^^^^^^^^^^^^^^^^^
 (function_declaration
-  "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
-  ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+  "(" @G_name_value_type.iteration.start.endOf
+  ")" @G_name_value_type.iteration.end.startOf
 )
 
 ;;!! init(aaa: Int, bbb: Int) {}
 ;;!           ^^^^^^^^^^^^^^^^^^
 (init_declaration
-  "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
-  ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+  "(" @G_name_value_type.iteration.start.endOf
+  ")" @G_name_value_type.iteration.end.startOf
 )
 
 ;;!! { (aaa: Int, bbb: Int) in }

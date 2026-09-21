@@ -19,23 +19,20 @@ In addition to the above aspects, you can also use the following inline operator
 - `@foo.start` and `@foo.end` to construct the scope using a range between two nodes (inclusive).
 - `@foo.startOf` and `@foo.endOf` to refer to the start and end positions of a node. For example, you could use `@foo.start.endOf` to indicate that the scope should start at the end of the node.
 
-## Iteration capture aliases
+## Capture groups
 
-Use these aliases when several scopes share an iteration range:
+Use `@G_` followed by at least two underscore-separated scope names to give the same capture to multiple scopes. For example, `@G_value_name_namedFunction` expands to `@value`, `@name`, and `@namedFunction`. The `G_` prefix is discarded. Every scope name in the group must be valid.
 
-- `@statementNameValue.iteration` expands to `@statement.iteration`,
-  `@name.iteration`, and `@value.iteration`.
-- `@statementNameValueType.iteration` expands to the same captures plus
-  `@type.iteration`, for languages and contexts that need type iteration.
-
-Both aliases support `.domain`, `.start.endOf`, `.end.startOf`, and `.end.endOf`. For example, a Java block can share iteration boundaries without repeating the pattern for each scope:
+A dot suffix applies to every scope in the group. For example, `@G_value_name_namedFunction.start` expands to `@value.start`, `@name.start`, and `@namedFunction.start`. This also works with relationships and inline operators. A Java block can share iteration boundaries without repeating the capture for each scope:
 
 ```scm
 (_
-  "{" @statementNameValueType.iteration.start.endOf
-  "}" @statementNameValueType.iteration.end.startOf
+  "{" @G_statement_name_value_type.iteration.start.endOf
+  "}" @G_statement_name_value_type.iteration.end.startOf
 )
 ```
+
+Predicates refer to the group capture and apply their changes to every expanded capture.
 
 ## Query predicate operators
 

@@ -108,7 +108,7 @@
 ;;!                  ^^^
 (rest_pattern
   (identifier) @name
-) @_.domain
+) @name.domain
 
 ;;!! catch(error) {}
 ;;!        ^^^^^

@@ -2,7 +2,7 @@ import {
   pseudoScopeTypeTypes,
   simpleScopeTypeTypes,
 } from "@cursorless/lib-common";
-import { expandCaptureName } from "./captureAliases";
+import { captureNameIsGroup, expandCaptureName } from "./captureGroup";
 
 const scopeCaptureNames = simpleScopeTypeTypes.filter(
   (s) => !pseudoScopeTypeTypes.has(s),
@@ -98,8 +98,10 @@ function getScopeName(captureName: string): string {
 }
 
 export function isCaptureAllowed(captureName: string): boolean {
-  return expandCaptureName(captureName).some((name) =>
-    allowedCaptures.has(name),
+  const names = expandCaptureName(captureName);
+  return (
+    (!captureNameIsGroup(captureName) || names.length > 1) &&
+    names.every((name) => allowedCaptures.has(name))
   );
 }
 

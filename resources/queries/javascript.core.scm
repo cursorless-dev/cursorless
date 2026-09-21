@@ -48,8 +48,8 @@
 )
 
 (
-  (program) @statementNameValueType.iteration @class.iteration
-  (#document-range! @statementNameValueType.iteration @class.iteration)
+  (program) @G_statement_name_value_type_class.iteration
+  (#document-range! @G_statement_name_value_type_class.iteration)
 )
 
 ;;!! { }
@@ -68,12 +68,12 @@
 (
   (_
     name: (_) @name
-  ) @_.domain
-  (#not-parent-type? @_.domain export_statement)
+  ) @name.domain
+  (#not-parent-type? @name.domain export_statement)
 
   ;; We have special cases for these defined elsewhere
   (#not-type?
-    @_.domain
+    @name.domain
     enum_body
     enum_assignment
     variable_declarator
@@ -97,7 +97,7 @@
   ;; We have a special case for this one.  Note we don't need to list the other
   ;; special cases from above because they can't be exported
   (#not-type? @_dummy variable_declarator type_alias_declaration)
-) @_.domain
+) @name.domain
 
 ;; Special cases for `(let | const | var) foo = ...;` because the full statement
 ;; is actually a grandparent of the `name` node, so we want the domain to include
@@ -153,8 +153,8 @@
         ) @name.removal.end.endOf
       ]
     )
-  ] @_.domain @name.removal.start.startOf
-  (#not-parent-type? @_.domain export_statement)
+  ] @name.domain @name.removal.start.startOf
+  (#not-parent-type? @name.domain export_statement)
 
   ;; Handle multiple variable declarators in one statement, eg
   ;;!! (let | const | var) aaa = ..., ccc = ...;
@@ -205,8 +205,8 @@
         value: (_)? @name.trailing.startOf
       )
     )
-  ] @_.domain
-  (#not-parent-type? @_.domain export_statement)
+  ] @name.domain
+  (#not-parent-type? @name.domain export_statement)
 
   ;; Handle multiple variable declarators in one statement, eg
   ;;!! (let | const | var) aaa = ..., ccc = ...;
@@ -232,7 +232,7 @@
         value: (_)? @name.trailing.startOf
       )
     )
-  ) @_.domain
+  ) @name.domain
 
   ;; Handle multiple variable declarators in one statement, eg
   ;;!! var foo = ..., bar = ...;
@@ -255,7 +255,7 @@
   (variable_declarator
     name: (_) @name @name.removal.end.endOf
     value: (_)? @name.removal.end.startOf
-  ) @_.domain
+  ) @name.domain
   .
   (variable_declarator)
 ) @name.removal.start.startOf
@@ -270,7 +270,7 @@
   (variable_declarator
     name: (_) @name
     value: (_)? @name.trailing.startOf
-  ) @_.domain
+  ) @name.domain
 )
 
 ;; Special cases for `(let | const | var) foo = ...;` because the full statement
@@ -303,8 +303,8 @@
         value: (_)? @value
       )
     )
-  ] @_.domain
-  (#not-parent-type? @_.domain export_statement)
+  ] @value.domain
+  (#not-parent-type? @value.domain export_statement)
 
   ;; Handle multiple variable declarators in one statement, eg
   ;;!! (let | const | var) aaa: Bbb = ..., ccc: Ddd = ...;
@@ -325,7 +325,7 @@
         value: (_)? @value
       )
     )
-  ) @_.domain
+  ) @value.domain
 
   ;; Handle multiple variable declarators in one statement, eg
   ;;!! export (let | const | var) aaa: Bbb = ..., ccc: Ddd = ...;
@@ -346,7 +346,7 @@
       (_) @value.leading.endOf
       .
       value: (_)? @value
-    ) @_.domain
+    ) @value.domain
   ) @_dummy
   (#has-multiple-children-of-type? @_dummy variable_declarator)
 )
@@ -355,11 +355,11 @@
 ;;!      ^^^  ^^^
 (
   (lexical_declaration
-    (variable_declarator)? @_.leading.endOf
+    (variable_declarator)? @collectionItem.leading.endOf
     .
     (variable_declarator) @collectionItem
     .
-    (variable_declarator)? @_.trailing.startOf
+    (variable_declarator)? @collectionItem.trailing.startOf
   ) @_dummy
   (#single-or-multi-line-delimiter! @collectionItem @_dummy ", " ",\n")
 )
@@ -470,7 +470,7 @@
 ;;!  ---------
 (return_statement
   (_) @value
-) @_.domain
+) @value.domain
 
 ;;!! yield 0;
 ;;!        ^
@@ -478,9 +478,9 @@
 (_
   (yield_expression
     (_) @value
-  ) @_.domain.start
+  ) @value.domain.start
   .
-  ";"? @_.domain.end
+  ";"? @value.domain.end
 )
 
 ;;!! throw foo;
@@ -495,7 +495,7 @@
 (arrow_function
   body: (_) @value
   (#not-type? @value statement_block)
-) @_.domain
+) @value.domain
 
 ;; name:
 ;;!! for (const aaa of bbb) {}
@@ -514,8 +514,8 @@
 ;;!   ^
 (
   (_
-    "{" @statementNameValueType.iteration.start.endOf
-    "}" @statementNameValueType.iteration.end.startOf
+    "{" @G_statement_name_value_type.iteration.start.endOf
+    "}" @G_statement_name_value_type.iteration.end.startOf
   ) @_dummy
   (#type? @_dummy statement_block class_body interface_body)
 )
@@ -523,15 +523,15 @@
 ;;!! const aaa = {bbb: 0, ccc: 0};
 ;;!               **************
 (object
-  "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
-  "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+  "{" @G_collectionKey_value.iteration.start.endOf
+  "}" @G_collectionKey_value.iteration.end.startOf
 )
 
 ;;!! const {aaa: bbb} = ccc;
 ;;!         ^^^^^^^^
 (object_pattern
-  "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
-  "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+  "{" @G_collectionKey_value.iteration.start.endOf
+  "}" @G_collectionKey_value.iteration.end.startOf
 ) @_.domain
 
 ;;!! const {aaa: bbb} = ccc;
@@ -613,14 +613,14 @@
   function: (_) @functionCallee.start
   (_)? @functionCallee.end
   arguments: (_)
-) @_.domain
+) @functionCallee.domain
 
 ;;!! new Foo()
 ;;!  ^^^^^^^
 ;;!  ---------
 (new_expression
   (arguments) @functionCallee.end.startOf
-) @functionCallee.start.startOf @_.domain
+) @functionCallee.start.startOf @functionCallee.domain
 
 ;;!! class Foo {}
 ;;!  ^^^^^^^^^^^^
@@ -680,8 +680,8 @@
 (switch_statement
   value: (_) @value
   body: (_
-    "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
-    "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
+    "{" @G_branch_condition.iteration.start.endOf
+    "}" @G_branch_condition.iteration.end.startOf
   )
   (#child-range! @value 0 -1 true true)
 ) @value.domain
@@ -793,11 +793,11 @@
 ;;!               ^^^  ^^^
 (
   (formal_parameters
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
     (_) @argumentOrParameter
     .
-    (_)? @_.trailing.startOf
+    (_)? @argumentOrParameter.trailing.startOf
   ) @_dummy
   (#not-type? @argumentOrParameter comment)
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
@@ -807,19 +807,19 @@
 ;;!      ^^^  ^^^
 (
   (arguments
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
     (_) @argumentOrParameter
     .
-    (_)? @_.trailing.startOf
+    (_)? @argumentOrParameter.trailing.startOf
   ) @_dummy
   (#not-type? @argumentOrParameter comment)
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
 (formal_parameters
-  "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
-  ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+  "(" @G_name_value_type.iteration.start.endOf
+  ")" @G_name_value_type.iteration.end.startOf
 )
 
 ;;!! foo(aaa, bbb)

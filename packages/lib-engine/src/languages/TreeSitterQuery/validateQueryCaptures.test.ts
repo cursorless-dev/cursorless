@@ -4,41 +4,92 @@ import { validateQueryCaptures } from "./validateQueryCaptures";
 
 const testCases: { name: string; isOk: boolean; content: string }[] = [
   {
-    name: "Statement/name/value iteration alias",
+    name: "Statement/name/value iteration group",
     isOk: true,
-    content: "(compound_statement) @statementNameValue.iteration",
+    content: "(compound_statement) @G_statement_name_value.iteration",
   },
   {
     name: "Statement/name/value iteration boundaries",
     isOk: true,
     content:
-      '(compound_statement "{" @statementNameValue.iteration.start.endOf "}" @statementNameValue.iteration.end.startOf)',
+      '(compound_statement "{" @G_statement_name_value.iteration.start.endOf "}" @G_statement_name_value.iteration.end.startOf)',
   },
   {
     name: "Statement/name/value iteration domain",
     isOk: true,
-    content: "(compound_statement) @statementNameValue.iteration.domain",
+    content: "(compound_statement) @G_statement_name_value.iteration.domain",
   },
   {
     name: "Unknown iteration relationship",
     isOk: false,
-    content: "(compound_statement) @statementNameValue.iteration.unknown",
+    content: "(compound_statement) @G_statement_name_value.iteration.unknown",
   },
   {
     name: "Statement/name/value/type iteration boundaries",
     isOk: true,
     content:
-      '(compound_statement "{" @statementNameValueType.iteration.start.endOf "}" @statementNameValueType.iteration.end.startOf)',
+      '(compound_statement "{" @G_statement_name_value_type.iteration.start.endOf "}" @G_statement_name_value_type.iteration.end.startOf)',
   },
   {
     name: "Unknown type iteration relationship",
     isOk: false,
-    content: "(compound_statement) @statementNameValueType.iteration.unknown",
+    content:
+      "(compound_statement) @G_statement_name_value_type.iteration.unknown",
   },
   {
-    name: "Alias without iteration",
+    name: "Old alias",
     isOk: false,
-    content: "(compound_statement) @statementNameValue",
+    content: "(compound_statement) @statementNameValue.iteration",
+  },
+  {
+    name: "Old type alias",
+    isOk: false,
+    content: "(compound_statement) @statementNameValueType.iteration",
+  },
+  {
+    name: "Group without suffix",
+    isOk: true,
+    content: "(compound_statement) @G_value_name_namedFunction",
+  },
+  {
+    name: "Group with start suffix",
+    isOk: true,
+    content: "(compound_statement) @G_value_name_namedFunction.start",
+  },
+  {
+    name: "Single member group",
+    isOk: false,
+    content: "(compound_statement) @G_value",
+  },
+  {
+    name: "Single member group with suffix",
+    isOk: false,
+    content: "(compound_statement) @G_value.start",
+  },
+  {
+    name: "Unknown first group member",
+    isOk: false,
+    content: "(compound_statement) @G_typo_name.iteration",
+  },
+  {
+    name: "Unknown middle group member",
+    isOk: false,
+    content: "(compound_statement) @G_statement_typo_value.iteration",
+  },
+  {
+    name: "Unknown last group member",
+    isOk: false,
+    content: "(compound_statement) @G_statement_name_typo.iteration",
+  },
+  {
+    name: "Empty group",
+    isOk: false,
+    content: "(compound_statement) @G_",
+  },
+  {
+    name: "Empty group member",
+    isOk: false,
+    content: "(compound_statement) @G_statement__value.iteration",
   },
   {
     name: "Scope captures",

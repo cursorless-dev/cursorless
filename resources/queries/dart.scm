@@ -23,8 +23,8 @@
 )
 
 (
-  (program) @class.iteration @statementNameValueType.iteration @namedFunction.iteration
-  (#document-range! @class.iteration @statementNameValueType.iteration @namedFunction.iteration)
+  (program) @G_class_statement_name_value_type_namedFunction.iteration
+  (#document-range! @G_class_statement_name_value_type_namedFunction.iteration)
 )
 
 ;;!! { }
@@ -39,8 +39,8 @@
 ;;!! { }
 ;;!   ^
 (block
-  "{" @statementNameValueType.iteration.start.endOf
-  "}" @statementNameValueType.iteration.end.startOf
+  "{" @G_statement_name_value_type.iteration.start.endOf
+  "}" @G_statement_name_value_type.iteration.end.startOf
 )
 
 ;;!! int foo = 0;
@@ -86,11 +86,11 @@
 ;;!      ^^^  ^^^
 (
   (initialized_identifier_list
-    (_)? @_.leading.endOf
+    (_)? @collectionItem.leading.endOf
     .
     (_) @collectionItem
     .
-    (_)? @_.trailing.startOf
+    (_)? @collectionItem.trailing.startOf
   ) @_dummy
   (#not-type? @collectionItem comment)
   (#single-or-multi-line-delimiter! @collectionItem @_dummy ", " ",\n")
@@ -216,16 +216,16 @@
 ;;!  ^^^^^^^^^^^^^^^^^^^^
 ;;!   ^^^^^^^^^^^^^^^^^^
 (set_or_map_literal
-  "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
-  "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+  "{" @G_collectionKey_value.iteration.start.endOf
+  "}" @G_collectionKey_value.iteration.end.startOf
 ) @map
 
 ;;!! final {"aaa": 0, "bbb": 1} = foo;
 ;;!        ^^^^^^^^^^^^^^^^^^^^
 ;;!         ^^^^^^^^^^^^^^^^^^
 (map_pattern
-  "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
-  "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+  "{" @G_collectionKey_value.iteration.start.endOf
+  "}" @G_collectionKey_value.iteration.end.startOf
 ) @map
 
 ;;!! {"aaa": 0, "bbb": 1}
@@ -256,8 +256,8 @@
 ;;!! class Foo { }
 ;;!             ^
 (class_body
-  "{" @namedFunction.iteration.start.endOf @statementNameValueType.iteration.start.endOf
-  "}" @namedFunction.iteration.end.startOf @statementNameValueType.iteration.end.startOf
+  "{" @G_namedFunction_statement_name_value_type.iteration.start.endOf
+  "}" @G_namedFunction_statement_name_value_type.iteration.end.startOf
 )
 
 ;;!! var foo = 0;
@@ -426,11 +426,11 @@
 ;;!           ^^^  ^^^
 (
   (formal_parameter_list
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
     (_) @argumentOrParameter
     .
-    (_)? @_.trailing.startOf
+    (_)? @argumentOrParameter.trailing.startOf
   ) @_dummy
   (#not-type? @argumentOrParameter comment)
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
@@ -439,8 +439,8 @@
 ;;!! void foo(aaa, bbb) {}
 ;;!           ^^^^^^^^
 (formal_parameter_list
-  "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
-  ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+  "(" @G_name_value_type.iteration.start.endOf
+  ")" @G_name_value_type.iteration.end.startOf
 )
 
 ;;!! int aaa = 0
@@ -499,11 +499,11 @@
 ;;!      ^^^  ^^^
 (
   (arguments
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
     (_) @argumentOrParameter
     .
-    (_)? @_.trailing.startOf
+    (_)? @argumentOrParameter.trailing.startOf
   ) @_dummy
   (#not-type? @argumentOrParameter comment)
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
@@ -512,8 +512,8 @@
 ;;!! foo(aaa, bbb);
 ;;!      ^^^^^^^^
 (arguments
-  "(" @name.iteration.start.endOf @value.iteration.start.endOf
-  ")" @name.iteration.end.startOf @value.iteration.end.startOf
+  "(" @G_name_value.iteration.start.endOf
+  ")" @G_name_value.iteration.end.startOf
 )
 
 ;;!! foo(aaa: 0, bbb: 1);
@@ -652,8 +652,8 @@
 ;;!! switch () { }
 ;;!             ^
 (switch_block
-  "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
-  "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
+  "{" @G_branch_condition.iteration.start.endOf
+  "}" @G_branch_condition.iteration.end.startOf
 )
 
 ;;!! true ? 0 : 1;

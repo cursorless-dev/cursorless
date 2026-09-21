@@ -6,7 +6,7 @@ import type {
   TextDocument,
   TreeSitter,
 } from "@cursorless/lib-common";
-import { expandCaptureName, expandCaptures } from "./captureAliases";
+import { expandCaptureName, expandCaptures } from "./captureGroup";
 import type { ScopeCaptureName } from "./captureNames";
 import {
   getNormalizedCaptureIndex,

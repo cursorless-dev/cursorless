@@ -33,16 +33,16 @@
 )
 
 (
-  (source_file) @statementNameValueType.iteration @class.iteration @namedFunction.iteration
-  (#document-range! @statementNameValueType.iteration @class.iteration @namedFunction.iteration)
+  (source_file) @G_statement_name_value_type_class_namedFunction.iteration
+  (#document-range! @G_statement_name_value_type_class_namedFunction.iteration)
 )
 
 ;;!! { }
 ;;!   ^
 (_
   .
-  "{" @interior.start.endOf @statementNameValueType.iteration.start.endOf
-  "}" @interior.end.startOf @statementNameValueType.iteration.end.startOf
+  "{" @interior.start.endOf @G_statement_name_value_type.iteration.start.endOf
+  "}" @interior.end.startOf @G_statement_name_value_type.iteration.end.startOf
   .
 )
 
@@ -172,7 +172,7 @@
 ;;!! fn foo() -> int {}
 ;;!              ^^^
 (function_item
-  parameters: (_) @_.leading.endOf
+  parameters: (_) @type.leading.endOf
   return_type: (_)? @type
 ) @type.domain
 
@@ -221,7 +221,7 @@
 
 (call_expression
   function: (_) @functionCallee
-) @_.domain
+) @functionCallee.domain
 
 ;;!! || -> i32 {}
 ;;!  ^^^^^^^^^^^^
@@ -241,16 +241,16 @@
 ;;!! let Foo {bar: baz} = bongo;
 ;;!           ^^^^^^^^
 (struct_pattern
-  "{" @map.start @collectionKey.iteration.start.endOf @value.iteration.start.endOf
-  "}" @map.end @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+  "{" @map.start @G_collectionKey_value.iteration.start.endOf
+  "}" @map.end @G_collectionKey_value.iteration.end.startOf
 )
 
 ;;!! match value {}
 (match_expression
   value: (_) @value
   body: (_
-    "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
-    "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
+    "{" @G_branch_condition.iteration.start.endOf
+    "}" @G_branch_condition.iteration.end.startOf
   )
 ) @value.domain
 
@@ -263,8 +263,8 @@
 (_
   (mutable_specifier) @attribute
   .
-  (_) @_.trailing.startOf
-) @_.domain
+  (_) @attribute.trailing.startOf
+) @attribute.domain
 
 ;;!! let Foo {aaa: 0, bbb: 1}
 ;;!           ^^^     ^^^
@@ -333,7 +333,7 @@
   (return_expression
     (_) @value
   )
-) @_.domain
+) @value.domain
 
 ;; Implicit return value at end of function body
 (function_item
@@ -382,14 +382,14 @@
 ;;!        ^^^^^
 (while_expression
   condition: (_) @condition
-) @_.domain
+) @condition.domain
 
 ;;!! while let Some(i) = number {}
 ;;!        ^^^^^^^^^^^^^^^^^^^^
 (while_let_expression
   "let" @condition.start
   value: (_) @condition.end
-) @_.domain
+) @condition.domain
 
 ;;!! match value { 5 => {} }
 ;;!                ^^^^^^^
@@ -399,11 +399,11 @@
 ;;!                    ^^^^^^^^^^^
 (match_arm
   (match_pattern
-    (_) @_.leading.endOf
+    (_) @condition.leading.endOf
     .
     condition: (_) @condition
   )
-) @_.domain
+) @condition.domain
 
 ;;!! match value { 5 => {} }
 ;;!                ^^^^^^^
@@ -423,16 +423,17 @@
 
 (array_type
   element: (_) @type
-) @_.domain
+) @type.domain
+
 ;;!! fn foo(a: u32, b: u32) -> {}
 ;;!         ^^^^^^  ^^^^^^
 (_
   parameters: (_
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
     (_) @argumentOrParameter
     .
-    (_)? @_.trailing.startOf
+    (_)? @argumentOrParameter.trailing.startOf
   ) @_dummy
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
@@ -459,11 +460,11 @@
     [
       "("
       "|"
-    ] @name.iteration.start.endOf @type.iteration.start.endOf
+    ] @G_name_type.iteration.start.endOf
     [
       ")"
       "|"
-    ] @name.iteration.end.startOf @type.iteration.end.startOf
+    ] @G_name_type.iteration.end.startOf
   )
 )
 
@@ -471,11 +472,11 @@
 ;;!      ^^^  ^^^
 (_
   (arguments
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
     (_) @argumentOrParameter
     .
-    (_)? @_.trailing.startOf
+    (_)? @argumentOrParameter.trailing.startOf
   ) @_dummy
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
@@ -495,11 +496,11 @@
 ;;!             ^^^  ^^^
 (_
   (ordered_field_declaration_list
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
     (_) @argumentOrParameter
     .
-    (_)? @_.trailing.startOf
+    (_)? @argumentOrParameter.trailing.startOf
   ) @_dummy
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
@@ -518,11 +519,11 @@
 ;;!           ^^^  ^^^
 (_
   (meta_arguments
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
     (_) @argumentOrParameter
     .
-    (_)? @_.trailing.startOf
+    (_)? @argumentOrParameter.trailing.startOf
   ) @_dummy
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
@@ -541,11 +542,11 @@
 ;;!         ^^^^^^^^^^  ^^^^^^^^
 (_
   (type_parameters
-    (_)? @_.leading.endOf
+    (_)? @type.leading.endOf
     .
     (_) @type
     .
-    (_)? @_.trailing.startOf
+    (_)? @type.trailing.startOf
   ) @_dummy
   (#single-or-multi-line-delimiter! @type @_dummy ", " ",\n")
 )
@@ -563,11 +564,11 @@
 ;;!        ^^^^^^^^^^  ^^^^^^^^
 (
   (where_clause
-    (_)? @_.leading.endOf
+    (_)? @type.leading.endOf
     .
     (_) @type
     .
-    (_)? @_.trailing.startOf
+    (_)? @type.trailing.startOf
   ) @_dummy
   (#single-or-multi-line-delimiter! @type @_dummy ", " ",\n")
 )
@@ -596,11 +597,11 @@
 ;;!               ^^^  ^^^
 (generic_type
   (type_arguments
-    (_)? @_.leading.endOf
+    (_)? @type.leading.endOf
     .
     (_) @type
     .
-    (_)? @_.trailing.startOf
+    (_)? @type.trailing.startOf
   ) @_dummy
   (#single-or-multi-line-delimiter! @type @_dummy ", " ",\n")
 )
@@ -615,7 +616,7 @@
 (type_cast_expression
   value: (_) @type.leading.endOf
   type: (_) @type
-) @_.domain
+) @type.domain
 
 (_
   operator: [

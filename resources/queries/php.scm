@@ -40,8 +40,8 @@
 ] @statement
 
 (
-  (program) @class.iteration @statementNameValueType.iteration @namedFunction.iteration
-  (#document-range! @class.iteration @statementNameValueType.iteration @namedFunction.iteration)
+  (program) @G_class_statement_name_value_type_namedFunction.iteration
+  (#document-range! @G_class_statement_name_value_type_namedFunction.iteration)
 )
 
 ;;!! { }
@@ -56,8 +56,8 @@
 ;;!! { }
 ;;!   ^
 (compound_statement
-  "{" @statementNameValue.iteration.start.endOf
-  "}" @statementNameValue.iteration.end.startOf
+  "{" @G_statement_name_value.iteration.start.endOf
+  "}" @G_statement_name_value.iteration.end.startOf
 )
 
 [
@@ -134,11 +134,11 @@
 
 ;;!! ["aaa" => 0, "bbb" => 1];
 (array_creation_expression
-  "[" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
+  "[" @G_collectionKey_value.iteration.start.endOf
   (array_element_initializer
     "=>"
   )
-  "]" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+  "]" @G_collectionKey_value.iteration.end.startOf
 ) @map
 
 ;;!! ['num' => 1];
@@ -162,8 +162,8 @@
 ;;!! class Foo { }
 ;;!! interface Foo { }
 (declaration_list
-  "{" @statementNameValueType.iteration.start.endOf
-  "}" @statementNameValueType.iteration.end.startOf
+  "{" @G_statement_name_value_type.iteration.start.endOf
+  "}" @G_statement_name_value_type.iteration.end.startOf
 )
 
 ;;!! interface Foo {}
@@ -175,8 +175,8 @@
 (enum_declaration
   name: (_) @name
   body: (_
-    "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
-    "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+    "{" @G_name_value_type.iteration.start.endOf
+    "}" @G_name_value_type.iteration.end.startOf
   )
 ) @type @name.domain
 
@@ -278,8 +278,8 @@
     (_) @value
   )
   body: (_
-    "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
-    "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
+    "{" @G_branch_condition.iteration.start.endOf
+    "}" @G_branch_condition.iteration.end.startOf
   )
 ) @value.domain
 
@@ -385,23 +385,25 @@
 
 (class_declaration
   name: (_) @name
-) @_.domain
+) @name.domain
+
 (function_definition
   name: (_) @name
-) @_.domain
+) @name.domain
+
 (method_declaration
   name: (_) @name
-) @_.domain
+) @name.domain
 
 ;;!! function foo($aaa, $bbb) {}
 ;;!               ^^^^  ^^^^
 (
   (formal_parameters
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
     (_) @argumentOrParameter
     .
-    (_)? @_.trailing.startOf
+    (_)? @argumentOrParameter.trailing.startOf
   ) @_dummy
   (#not-type? @argumentOrParameter "comment")
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
@@ -411,11 +413,11 @@
 ;;!      ^^^^^
 (
   (arguments
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
     (_) @argumentOrParameter
     .
-    (_)? @_.trailing.startOf
+    (_)? @argumentOrParameter.trailing.startOf
   ) @_dummy
   (#not-type? @argumentOrParameter "comment")
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
@@ -460,8 +462,8 @@
 )
 
 (arguments
-  "(" @name.iteration.start.endOf @value.iteration.start.endOf
-  ")" @name.iteration.end.startOf @value.iteration.end.startOf
+  "(" @G_name_value.iteration.start.endOf
+  ")" @G_name_value.iteration.end.startOf
 )
 
 ;;!! foo(aaa: 0, bbb: 1);
@@ -485,19 +487,19 @@
 ;;!! return 0;
 ;;!         ^
 (return_statement
-  "return" @_.leading.endOf
+  "return" @value.leading.endOf
   (_) @value
-) @_.domain
+) @value.domain
 
 ;;!! yield 0;
 ;;!        ^
 (_
   (yield_expression
-    "yield" @_.leading.endOf
+    "yield" @value.leading.endOf
     (_) @value
-  ) @_.domain.start
+  ) @value.domain.start
   .
-  ";"? @_.domain.end
+  ";"? @value.domain.end
 )
 
 ;;!! (array ...$nums)
@@ -518,16 +520,16 @@
 )
 
 (formal_parameters
-  "(" @type.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-  ")" @type.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+  "(" @G_type_name_value.iteration.start.endOf
+  ")" @G_type_name_value.iteration.end.startOf
 ) @_.domain
 
 ;;!! (int) $str;
 ;;!   ^^^
 (cast_expression
   type: (_) @type
-  value: (_) @_.removal.end.startOf
-) @_.removal.start.startOf @_.domain
+  value: (_) @type.removal.end.startOf
+) @type.removal.start.startOf @type.domain
 
 ;;!! public int $foo;
 ;;!         ^^^
