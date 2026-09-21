@@ -291,15 +291,30 @@
   (catch_block)
 ) @branch.iteration
 
-;;!! do {} catch let foo as Error {}
-;;!        ^^^^^^^^^^^^^^^^^^^^^^^^^
-;;!                         ^^^^^
-(do_statement
-  (catch_block
+;;!! do {} catch {}
+;;!        ^^^^^^^^
+(catch_block) @branch
+
+;;!! do {} catch let e as Error {}
+;;!              ^^^^^^^^^^^^^^
+;;!                  ^
+;;!                       ^^^^^
+(catch_block
+  (pattern
     (pattern
-      name: (_) @type
-    )? @type.domain
-  ) @branch
+      bound_identifier: (_) @name
+    )
+    name: (_) @type
+  ) @argumentOrParameter @_.domain
+)
+
+;;!! do {} catch let e {}
+;;!              ^^^^^
+;;!                  ^
+(catch_block
+  (pattern
+    bound_identifier: (_) @name
+  ) @argumentOrParameter @name.domain
 )
 
 ;;!! true ? 0 : 1
@@ -494,8 +509,8 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-;;!! { (aaa: Int, bbb: Int) in }
-;;!      ^^^^^^^^  ^^^^^^^^
+;;!! { (aaa, bbb) in }
+;;!     ^^^  ^^^
 (
   (lambda_function_type_parameters
     (_)? @_.leading.endOf
@@ -508,8 +523,8 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-;;!! foo(aaa: 0, bbb: 1)
-;;!      ^^^^^^  ^^^^^^
+;;!! foo(aaa, bbb)
+;;!      ^^^  ^^^
 (
   (value_arguments
     (_)? @_.leading.endOf
@@ -552,9 +567,9 @@
 )
 
 ;;!! func foo() {}
-;;!           ><
+;;!          ><
 ;;!! init() {}
-;;!       ><
+;;!      ><
 (
   [
     (function_declaration
@@ -576,8 +591,8 @@
   (#insertion-delimiter! @argumentList.start.endOf "")
 )
 
-;;!! { (aaa: Int, bbb: Int) in }
-;;!      ^^^^^^^^^^^^^^^^^^
+;;!! { (aaa, bbb) in }
+;;!     ^^^^^^^^
 (
   (lambda_literal
     (lambda_function_type
@@ -591,7 +606,7 @@
 )
 
 ;;!! { () in }
-;;!      ><
+;;!    ><
 (
   (lambda_literal
     (lambda_function_type
@@ -603,8 +618,8 @@
   (#insertion-delimiter! @argumentList.start.endOf "")
 )
 
-;;!! foo(aaa: 0, bbb: 1)
-;;!      ^^^^^^^^^^^^^^
+;;!! foo(aaa, bbb)
+;;!      ^^^^^^^^
 (
   (call_expression
     (call_suffix

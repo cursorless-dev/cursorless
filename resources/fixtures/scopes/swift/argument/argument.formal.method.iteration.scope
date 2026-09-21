@@ -1,0 +1,12 @@
+struct Foo {
+    func bar(aaa: Int, bbb: Int) {}
+}
+---
+
+[Content] = 1:13-1:31
+               >------------------<
+1|     func bar(aaa: Int, bbb: Int) {}
+
+[Domain] = 1:4-1:35
+      >-------------------------------<
+1|     func bar(aaa: Int, bbb: Int) {}
