@@ -1384,6 +1384,83 @@
     ]
   },
   {
+    "name": "scopes/swift/functionCall/functionCall.chain",
+    "languageId": "swift",
+    "facet": "functionCall.chain",
+    "code": "foo().bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:5",
+            "removal": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:0-0:11",
+            "removal": "0:0-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/functionCall/functionCall.constructor",
+    "languageId": "swift",
+    "facet": "functionCall.constructor",
+    "code": "Foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:5",
+            "removal": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/functionCall/functionCall.method",
+    "languageId": "swift",
+    "facet": "functionCall.method",
+    "code": "foo.bar()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:9",
+            "removal": "0:0-0:9"
+          }
+        ],
+        "domain": "0:0-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/functionCall/functionCall",
+    "languageId": "swift",
+    "facet": "functionCall",
+    "code": "foo()",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:5",
+            "removal": "0:0-0:5"
+          }
+        ],
+        "domain": "0:0-0:5"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/functionCall.method",
     "languageId": "talon",
     "facet": "functionCall.method",

@@ -1,13 +1,13 @@
-{ (aaa, bbb) in }
+{ (aaa, bbb: Int) in }
 ---
 
 [Content] =
-[Removal] = 0:3-0:11
-     >--------<
-0| { (aaa, bbb) in }
+[Removal] = 0:3-0:16
+     >-------------<
+0| { (aaa, bbb: Int) in }
 
-[Domain] = 0:0-0:17
-  >-----------------<
-0| { (aaa, bbb) in }
+[Domain] = 0:0-0:22
+  >----------------------<
+0| { (aaa, bbb: Int) in }
 
 [Insertion delimiter] = ", "

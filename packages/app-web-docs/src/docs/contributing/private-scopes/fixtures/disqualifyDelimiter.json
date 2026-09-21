@@ -1251,6 +1251,133 @@
     ]
   },
   {
+    "name": "scopes/swift/disqualifyDelimiter",
+    "languageId": "swift",
+    "facet": "disqualifyDelimiter",
+    "code": "1 < 2\n1 > 2\n1 <= 2\n1 >= 2\na << 2\na >> 2\na <<= 2\na >>= 2\na &<< 2\na &>> 2\na &<<= 2\na &>>= 2\na <~ 2\na >~ 2\n0..<2\n..<2\nlet foo: () -> Int",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "1:2-1:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-2:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "3:2-3:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "4:2-4:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "5:2-5:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "6:2-6:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "7:2-7:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "8:2-8:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "9:2-9:5"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "10:2-10:6"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "11:2-11:6"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "12:2-12:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "13:2-13:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "14:1-14:4"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "15:0-15:3"
+          }
+        ]
+      },
+      {
+        "targets": [
+          {
+            "content": "16:12-16:14"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "name": "scopes/typescript.core/disqualifyDelimiter",
     "languageId": "typescript.core",
     "facet": "disqualifyDelimiter",

@@ -5110,7 +5110,7 @@
     ]
   },
   {
-    "name": "scopes/swift/interior.class",
+    "name": "scopes/swift/interior/interior.class",
     "languageId": "swift",
     "facet": "interior.class",
     "code": "class Foo { }",
@@ -5127,7 +5127,50 @@
     ]
   },
   {
-    "name": "scopes/swift/interior.enum",
+    "name": "scopes/swift/interior/interior.constructor",
+    "languageId": "swift",
+    "facet": "interior.constructor",
+    "code": "struct Foo {\n  init() { }\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-1:12",
+            "removal": "0:12-2:0"
+          }
+        ],
+        "domain": "0:12-2:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:10-1:11",
+            "removal": "1:10-1:11"
+          }
+        ],
+        "domain": "1:10-1:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/interior/interior.doWhile",
+    "languageId": "swift",
+    "facet": "interior.doWhile",
+    "code": "repeat { } while foo",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-0:9",
+            "removal": "0:8-0:9"
+          }
+        ],
+        "domain": "0:8-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/interior/interior.enum",
     "languageId": "swift",
     "facet": "interior.enum",
     "code": "enum Foo { }",
@@ -5144,7 +5187,7 @@
     ]
   },
   {
-    "name": "scopes/swift/interior.foreach",
+    "name": "scopes/swift/interior/interior.foreach",
     "languageId": "swift",
     "facet": "interior.foreach",
     "code": "for v in values { }",
@@ -5161,7 +5204,24 @@
     ]
   },
   {
-    "name": "scopes/swift/interior.if",
+    "name": "scopes/swift/interior/interior.function",
+    "languageId": "swift",
+    "facet": "interior.function",
+    "code": "func foo() { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13",
+            "removal": "0:12-0:13"
+          }
+        ],
+        "domain": "0:12-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/interior/interior.if",
     "languageId": "swift",
     "facet": "interior.if",
     "code": "if (true) { }\nelse if (false) { }\nelse { }",
@@ -5196,7 +5256,7 @@
     ]
   },
   {
-    "name": "scopes/swift/interior.if2",
+    "name": "scopes/swift/interior/interior.if2",
     "languageId": "swift",
     "facet": "interior.if",
     "code": "if (true) { }",
@@ -5213,7 +5273,7 @@
     ]
   },
   {
-    "name": "scopes/swift/interior.if3",
+    "name": "scopes/swift/interior/interior.if3",
     "languageId": "swift",
     "facet": "interior.if",
     "code": "if (true) { }\nelse { }",
@@ -5239,7 +5299,7 @@
     ]
   },
   {
-    "name": "scopes/swift/interior.if4",
+    "name": "scopes/swift/interior/interior.if4",
     "languageId": "swift",
     "facet": "interior.if",
     "code": "if (true) { }\nelse if (false) { }",
@@ -5265,7 +5325,7 @@
     ]
   },
   {
-    "name": "scopes/swift/interior.interface",
+    "name": "scopes/swift/interior/interior.interface",
     "languageId": "swift",
     "facet": "interior.interface",
     "code": "protocol Foo { }",
@@ -5278,6 +5338,144 @@
           }
         ],
         "domain": "0:14-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/interior/interior.lambda",
+    "languageId": "swift",
+    "facet": "interior.lambda",
+    "code": "{ () in 0 }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:8-0:9",
+            "removal": "0:8-0:9"
+          }
+        ],
+        "domain": "0:8-0:9"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/interior/interior.method",
+    "languageId": "swift",
+    "facet": "interior.method",
+    "code": "struct Foo {\n  func bar() { }\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-1:16",
+            "removal": "0:12-2:0"
+          }
+        ],
+        "domain": "0:12-2:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:14-1:15",
+            "removal": "1:14-1:15"
+          }
+        ],
+        "domain": "1:14-1:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/interior/interior.switch",
+    "languageId": "swift",
+    "facet": "interior.switch",
+    "code": "switch value { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:14-0:15",
+            "removal": "0:14-0:15"
+          }
+        ],
+        "domain": "0:14-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/interior/interior.switchCase",
+    "languageId": "swift",
+    "facet": "interior.switchCase",
+    "code": "switch value {\n    case 0:\n        bar\n        break\n    default:\n        bar\n        break\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:4-6:13",
+            "removal": "0:14-7:0"
+          }
+        ],
+        "domain": "0:14-7:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:8-3:13",
+            "removal": "1:11-3:13"
+          }
+        ],
+        "domain": "1:11-3:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "5:8-6:13",
+            "removal": "4:12-7:0"
+          }
+        ],
+        "domain": "4:12-7:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/interior/interior.try",
+    "languageId": "swift",
+    "facet": "interior.try",
+    "code": "do { }\ncatch { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:4-0:5",
+            "removal": "0:4-0:5"
+          }
+        ],
+        "domain": "0:4-0:5"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:7-1:8",
+            "removal": "1:7-1:8"
+          }
+        ],
+        "domain": "1:7-1:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/interior/interior.while",
+    "languageId": "swift",
+    "facet": "interior.while",
+    "code": "while foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:11-0:12",
+            "removal": "0:11-0:12"
+          }
+        ],
+        "domain": "0:11-0:12"
       }
     ]
   },

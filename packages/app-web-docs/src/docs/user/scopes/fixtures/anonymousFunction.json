@@ -525,5 +525,22 @@
         "domain": "0:0-0:7"
       }
     ]
+  },
+  {
+    "name": "scopes/swift/anonymousFunction",
+    "languageId": "swift",
+    "facet": "anonymousFunction",
+    "code": "{ () -> Int in 0 }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:18",
+            "removal": "0:0-0:18"
+          }
+        ],
+        "domain": "0:0-0:18"
+      }
+    ]
   }
 ]

@@ -663,6 +663,23 @@
     ]
   },
   {
+    "name": "scopes/swift/string.singleLine2",
+    "languageId": "swift",
+    "facet": "string.singleLine",
+    "code": "#\"Hello world\"#",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:15",
+            "removal": "0:0-0:15"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
     "name": "scopes/talon/string.singleLine",
     "languageId": "talon",
     "facet": "string.singleLine",

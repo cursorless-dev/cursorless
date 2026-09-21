@@ -9062,7 +9062,334 @@
     ]
   },
   {
-    "name": "scopes/swift/value.foreach",
+    "name": "scopes/swift/value/value.argument.actual.iteration",
+    "languageId": "swift",
+    "facet": "value.argument.actual.iteration",
+    "code": "foo(aaa: 0, bbb: 1)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:19"
+          }
+        ],
+        "domain": "0:0-0:19"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:4-0:18"
+          }
+        ],
+        "domain": "0:4-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.argument.actual",
+    "languageId": "swift",
+    "facet": "value.argument.actual",
+    "code": "foo(aaa: 0, bbb: 1)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:9-0:10",
+            "removal": "0:7-0:10"
+          }
+        ],
+        "domain": "0:4-0:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:17-0:18",
+            "removal": "0:15-0:18"
+          }
+        ],
+        "domain": "0:12-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.argument.formal.constructor.iteration",
+    "languageId": "swift",
+    "facet": "value.argument.formal.constructor.iteration",
+    "code": "struct Foo {\n    init(aaa: Int = 0, bbb: Int = 1) {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-2:0"
+          }
+        ],
+        "domain": "0:12-2:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:9-1:35"
+          }
+        ],
+        "domain": "1:9-1:35"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.argument.formal.constructor",
+    "languageId": "swift",
+    "facet": "value.argument.formal.constructor",
+    "code": "struct Foo {\n    init(aaa: Int = 0, bbb: Int = 1) {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:20-1:21",
+            "removal": "1:17-1:21"
+          }
+        ],
+        "domain": "1:9-1:21"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:34-1:35",
+            "removal": "1:31-1:35"
+          }
+        ],
+        "domain": "1:23-1:35"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.argument.formal.iteration",
+    "languageId": "swift",
+    "facet": "value.argument.formal.iteration",
+    "code": "func foo(aaa: Int = 0, bbb: Int = 1) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:39"
+          }
+        ],
+        "domain": "0:0-0:39"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:35"
+          }
+        ],
+        "domain": "0:9-0:35"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.argument.formal.method.iteration",
+    "languageId": "swift",
+    "facet": "value.argument.formal.method.iteration",
+    "code": "struct Foo {\n    func bar(aaa: Int = 0, bbb: Int = 1) {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-2:0"
+          }
+        ],
+        "domain": "0:12-2:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:13-1:39"
+          }
+        ],
+        "domain": "1:13-1:39"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.argument.formal.method",
+    "languageId": "swift",
+    "facet": "value.argument.formal.method",
+    "code": "struct Foo {\n    func bar(aaa: Int = 0, bbb: Int = 1) {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:24-1:25",
+            "removal": "1:21-1:25"
+          }
+        ],
+        "domain": "1:13-1:25"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:38-1:39",
+            "removal": "1:35-1:39"
+          }
+        ],
+        "domain": "1:27-1:39"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.argument.formal",
+    "languageId": "swift",
+    "facet": "value.argument.formal",
+    "code": "func foo(aaa: Int = 0, bbb: Int = 1) {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:20-0:21",
+            "removal": "0:17-0:21"
+          }
+        ],
+        "domain": "0:9-0:21"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:34-0:35",
+            "removal": "0:31-0:35"
+          }
+        ],
+        "domain": "0:23-0:35"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.assignment.compound",
+    "languageId": "swift",
+    "facet": "value.assignment.compound",
+    "code": "foo += 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:8",
+            "removal": "0:3-0:8"
+          }
+        ],
+        "domain": "0:0-0:8"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.assignment.destructuring",
+    "languageId": "swift",
+    "facet": "value.assignment.destructuring",
+    "code": "(foo, bar) = (0, 1)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:13-0:19",
+            "removal": "0:10-0:19"
+          }
+        ],
+        "domain": "0:0-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.assignment",
+    "languageId": "swift",
+    "facet": "value.assignment",
+    "code": "foo = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:7",
+            "removal": "0:3-0:7"
+          }
+        ],
+        "domain": "0:0-0:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.constant",
+    "languageId": "swift",
+    "facet": "value.constant",
+    "code": "let foo = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11",
+            "removal": "0:7-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.field.class",
+    "languageId": "swift",
+    "facet": "value.field.class",
+    "code": "struct Foo {\n  var bar = 0\n  var baz: Int = 0\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:12-1:13",
+            "removal": "1:9-1:13"
+          }
+        ],
+        "domain": "1:2-1:13"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:17-2:18",
+            "removal": "2:14-2:18"
+          }
+        ],
+        "domain": "2:2-2:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.field.enum",
+    "languageId": "swift",
+    "facet": "value.field.enum",
+    "code": "enum Foo: Int {\n  case bar = 0\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:13-1:14",
+            "removal": "1:10-1:14"
+          }
+        ],
+        "domain": "1:2-1:14"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.foreach",
     "languageId": "swift",
     "facet": "value.foreach",
     "code": "for v in values {}",
@@ -9079,7 +9406,167 @@
     ]
   },
   {
-    "name": "scopes/swift/value.iteration.enum",
+    "name": "scopes/swift/value/value.iteration.block",
+    "languageId": "swift",
+    "facet": "value.iteration.block",
+    "code": "struct Foo {\n    func bar() { }\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:1"
+          }
+        ],
+        "domain": "0:0-2:1"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-2:0"
+          }
+        ],
+        "domain": "0:12-2:0"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:16-1:17"
+          }
+        ],
+        "domain": "1:16-1:17"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.iteration.block2",
+    "languageId": "swift",
+    "facet": "value.iteration.block",
+    "code": "func foo() { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13"
+          }
+        ],
+        "domain": "0:12-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.iteration.block3",
+    "languageId": "swift",
+    "facet": "value.iteration.block",
+    "code": "if true { }\nelse if false { }\nelse { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:8"
+          }
+        ],
+        "domain": "0:0-2:8"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:9-0:10"
+          }
+        ],
+        "domain": "0:9-0:10"
+      },
+      {
+        "targets": [
+          {
+            "content": "1:15-1:16"
+          }
+        ],
+        "domain": "1:15-1:16"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:6-2:7"
+          }
+        ],
+        "domain": "2:6-2:7"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.iteration.block4",
+    "languageId": "swift",
+    "facet": "value.iteration.block",
+    "code": "while true { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13"
+          }
+        ],
+        "domain": "0:12-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.iteration.class",
+    "languageId": "swift",
+    "facet": "value.iteration.class",
+    "code": "struct Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13"
+          }
+        ],
+        "domain": "0:12-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.iteration.document",
+    "languageId": "swift",
+    "facet": "value.iteration.document",
+    "code": "\nvar foo: Int\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.iteration.enum",
     "languageId": "swift",
     "facet": "value.iteration.enum",
     "code": "enum Foo { }",
@@ -9099,6 +9586,192 @@
           }
         ],
         "domain": "0:10-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.mapPair.iteration",
+    "languageId": "swift",
+    "facet": "value.mapPair.iteration",
+    "code": "[foo: 0, bar: 1]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:16"
+          }
+        ],
+        "domain": "0:0-0:16"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:1-0:15"
+          }
+        ],
+        "domain": "0:1-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.mapPair",
+    "languageId": "swift",
+    "facet": "value.mapPair",
+    "code": "[aaa: 0, bbb: 1]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:6-0:7",
+            "removal": "0:4-0:7"
+          }
+        ],
+        "domain": "0:1-0:7"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:14-0:15",
+            "removal": "0:12-0:15"
+          }
+        ],
+        "domain": "0:9-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.return.lambda",
+    "languageId": "swift",
+    "facet": "value.return.lambda",
+    "code": "{ () -> Int in 0 }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:15-0:16",
+            "removal": "0:15-0:17"
+          }
+        ],
+        "domain": "0:0-0:18"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.return",
+    "languageId": "swift",
+    "facet": "value.return",
+    "code": "func foo() {\n    return 0\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:11-1:12",
+            "removal": "1:10-1:12"
+          }
+        ],
+        "domain": "1:4-1:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.switch",
+    "languageId": "swift",
+    "facet": "value.switch",
+    "code": "switch value {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:7-0:12",
+            "removal": "0:7-0:13"
+          }
+        ],
+        "domain": "0:0-0:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.throw",
+    "languageId": "swift",
+    "facet": "value.throw",
+    "code": "func foo() throws {\n    throw Error\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:10-1:15",
+            "removal": "1:9-1:15"
+          }
+        ],
+        "domain": "1:4-1:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.typeAlias",
+    "languageId": "swift",
+    "facet": "value.typeAlias",
+    "code": "typealias Foo = Int",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:16-0:19",
+            "removal": "0:13-0:19"
+          }
+        ],
+        "domain": "0:0-0:19"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.variable.destructuring",
+    "languageId": "swift",
+    "facet": "value.variable.destructuring",
+    "code": "let (foo, bar) = (0, 1)",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:17-0:23",
+            "removal": "0:14-0:23"
+          }
+        ],
+        "domain": "0:0-0:23"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.variable",
+    "languageId": "swift",
+    "facet": "value.variable",
+    "code": "var foo = 0",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:10-0:11",
+            "removal": "0:7-0:11"
+          }
+        ],
+        "domain": "0:0-0:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/value/value.yield",
+    "languageId": "swift",
+    "facet": "value.yield",
+    "code": "var foo: Int {\n    _read {\n        yield 0\n    }\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "2:14-2:15",
+            "removal": "2:13-2:15"
+          }
+        ],
+        "domain": "2:8-2:15"
       }
     ]
   },

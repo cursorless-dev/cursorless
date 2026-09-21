@@ -1480,7 +1480,7 @@
     ]
   },
   {
-    "name": "scopes/swift/textFragment.comment.block",
+    "name": "scopes/swift/textFragment/textFragment.comment.block",
     "languageId": "swift",
     "facet": "textFragment.comment.block",
     "code": "/* Hello world */",
@@ -1497,7 +1497,7 @@
     ]
   },
   {
-    "name": "scopes/swift/textFragment.comment.line",
+    "name": "scopes/swift/textFragment/textFragment.comment.line",
     "languageId": "swift",
     "facet": "textFragment.comment.line",
     "code": "// Hello world",
@@ -1514,7 +1514,24 @@
     ]
   },
   {
-    "name": "scopes/swift/textFragment.string.multiLine",
+    "name": "scopes/swift/textFragment/textFragment.regularExpression",
+    "languageId": "swift",
+    "facet": "textFragment.regularExpression",
+    "code": "/\\d+$/",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:1-0:5",
+            "removal": "0:1-0:5"
+          }
+        ],
+        "domain": "0:1-0:5"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/textFragment/textFragment.string.multiLine",
     "languageId": "swift",
     "facet": "textFragment.string.multiLine",
     "code": "\"\"\"\nHello\nworld\n\"\"\"",
@@ -1531,7 +1548,7 @@
     ]
   },
   {
-    "name": "scopes/swift/textFragment.string.singleLine",
+    "name": "scopes/swift/textFragment/textFragment.string.singleLine",
     "languageId": "swift",
     "facet": "textFragment.string.singleLine",
     "code": "\"Hello world\"",
@@ -1544,6 +1561,23 @@
           }
         ],
         "domain": "0:1-0:12"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/textFragment/textFragment.string.singleLine2",
+    "languageId": "swift",
+    "facet": "textFragment.string.singleLine",
+    "code": "#\"Hello world\"#",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-0:13",
+            "removal": "0:2-0:13"
+          }
+        ],
+        "domain": "0:2-0:13"
       }
     ]
   },

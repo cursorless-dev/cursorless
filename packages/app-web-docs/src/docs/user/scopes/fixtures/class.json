@@ -844,6 +844,22 @@
     ]
   },
   {
+    "name": "scopes/swift/class.iteration.document",
+    "languageId": "swift",
+    "facet": "class.iteration.document",
+    "code": "\nstruct Foo {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
     "name": "scopes/swift/class",
     "languageId": "swift",
     "facet": "class",
