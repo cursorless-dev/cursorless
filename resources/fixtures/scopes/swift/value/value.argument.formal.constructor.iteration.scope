@@ -1,0 +1,27 @@
+struct Foo {
+    init(aaa: Int = 0, bbb: Int = 1) {}
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-2:1
+  >------------
+0| struct Foo {
+1|     init(aaa: Int = 0, bbb: Int = 1) {}
+2| }
+   -<
+
+
+[#2 Content] =
+[#2 Domain] = 0:12-2:0
+              >
+0| struct Foo {
+1|     init(aaa: Int = 0, bbb: Int = 1) {}
+2| }
+   <
+
+
+[#3 Content] =
+[#3 Domain] = 1:9-1:35
+           >--------------------------<
+1|     init(aaa: Int = 0, bbb: Int = 1) {}

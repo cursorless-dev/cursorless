@@ -1,0 +1,34 @@
+struct Foo {
+    func bar() -> Int {}
+}
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-2:1
+  >------------
+0| struct Foo {
+1|     func bar() -> Int {}
+2| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:18-1:21
+                    >---<
+1|     func bar() -> Int {}
+
+[#2 Removal] = 1:14-1:21
+                >-------<
+1|     func bar() -> Int {}
+
+[#2 Leading delimiter] = 1:14-1:18
+                >----<
+1|     func bar() -> Int {}
+
+[#2 Domain] = 1:4-1:24
+      >--------------------<
+1|     func bar() -> Int {}
+
+[#2 Insertion delimiter] = " "

@@ -366,6 +366,23 @@
     ]
   },
   {
+    "name": "scopes/swift/map",
+    "languageId": "swift",
+    "facet": "map",
+    "code": "[aaa: 0, bbb: 1]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:16",
+            "removal": "0:0-0:16"
+          }
+        ],
+        "domain": "0:0-0:16"
+      }
+    ]
+  },
+  {
     "name": "scopes/yaml/map",
     "languageId": "yaml",
     "facet": "map",

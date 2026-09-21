@@ -1,0 +1,60 @@
+var foo: Int {
+    _read {
+        yield 0
+    }
+}
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-4:1
+  >--------------
+0| var foo: Int {
+1|     _read {
+2|         yield 0
+3|     }
+4| }
+   -<
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 1:4-3:5
+      >-------
+1|     _read {
+2|         yield 0
+3|     }
+   -----<
+
+[#2 Removal] = 1:0-4:0
+  >-----------
+1|     _read {
+2|         yield 0
+3|     }
+4| }
+   <
+
+[#2 Leading delimiter] = 1:0-1:4
+  >----<
+1|     _read {
+
+[#2 Insertion delimiter] = "\n"
+
+
+[#3 Content] =
+[#3 Domain] = 2:8-2:15
+          >-------<
+2|         yield 0
+
+[#3 Removal] = 2:0-3:0
+  >---------------
+2|         yield 0
+3|     }
+   <
+
+[#3 Leading delimiter] = 2:0-2:8
+  >--------<
+2|         yield 0
+
+[#3 Insertion delimiter] = "\n"

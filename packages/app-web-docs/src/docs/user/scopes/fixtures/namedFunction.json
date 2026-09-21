@@ -2028,6 +2028,97 @@
     ]
   },
   {
+    "name": "scopes/swift/namedFunction/namedFunction.constructor",
+    "languageId": "swift",
+    "facet": "namedFunction.constructor",
+    "code": "struct Foo {\n  init() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-1:11",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:2-1:11"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/namedFunction/namedFunction.iteration.class",
+    "languageId": "swift",
+    "facet": "namedFunction.iteration.class",
+    "code": "struct Foo { }",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:14"
+          }
+        ],
+        "domain": "0:0-0:14"
+      },
+      {
+        "targets": [
+          {
+            "content": "0:12-0:13"
+          }
+        ],
+        "domain": "0:12-0:13"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/namedFunction/namedFunction.iteration.document",
+    "languageId": "swift",
+    "facet": "namedFunction.iteration.document",
+    "code": "\nfunc foo() {}\n",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-2:0"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/namedFunction/namedFunction.method",
+    "languageId": "swift",
+    "facet": "namedFunction.method",
+    "code": "struct Foo {\n  func bar() {}\n}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "1:2-1:15",
+            "removal": "1:0-2:0"
+          }
+        ],
+        "domain": "1:2-1:15"
+      }
+    ]
+  },
+  {
+    "name": "scopes/swift/namedFunction/namedFunction",
+    "languageId": "swift",
+    "facet": "namedFunction",
+    "code": "func foo() {}",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:13",
+            "removal": "0:0-0:13"
+          }
+        ],
+        "domain": "0:0-0:13"
+      }
+    ]
+  },
+  {
     "name": "scopes/typescript.core/namedFunction/namedFunction.constructor",
     "languageId": "typescript.core",
     "facet": "namedFunction.constructor",

@@ -1,0 +1,15 @@
+struct Foo {
+  func bar() {}
+}
+---
+
+[Content] =
+[Removal] = 1:11-1:11
+             ><
+1|   func bar() {}
+
+[Domain] = 1:2-1:15
+    >-------------<
+1|   func bar() {}
+
+[Insertion delimiter] = ""

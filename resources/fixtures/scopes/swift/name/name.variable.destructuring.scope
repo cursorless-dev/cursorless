@@ -1,0 +1,24 @@
+let (foo, bar) = (0, 1)
+---
+
+[Content] = 0:4-0:14
+      >----------<
+0| let (foo, bar) = (0, 1)
+
+[Removal] = 0:4-0:15
+      >-----------<
+0| let (foo, bar) = (0, 1)
+
+[Leading delimiter] = 0:3-0:4
+     >-<
+0| let (foo, bar) = (0, 1)
+
+[Trailing delimiter] = 0:14-0:15
+                >-<
+0| let (foo, bar) = (0, 1)
+
+[Domain] = 0:0-0:23
+  >-----------------------<
+0| let (foo, bar) = (0, 1)
+
+[Insertion delimiter] = " "

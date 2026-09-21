@@ -1,0 +1,13 @@
+{ () in }
+---
+
+[Content] =
+[Removal] = 0:3-0:3
+     ><
+0| { () in }
+
+[Domain] = 0:0-0:9
+  >---------<
+0| { () in }
+
+[Insertion delimiter] = ""

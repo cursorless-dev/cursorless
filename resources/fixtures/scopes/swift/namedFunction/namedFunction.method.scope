@@ -1,0 +1,21 @@
+struct Foo {
+  func bar() {}
+}
+---
+
+[Content] =
+[Domain] = 1:2-1:15
+    >-------------<
+1|   func bar() {}
+
+[Removal] = 1:0-2:0
+  >---------------
+1|   func bar() {}
+2| }
+   <
+
+[Leading delimiter] = 1:0-1:2
+  >--<
+1|   func bar() {}
+
+[Insertion delimiter] = "\n\n"

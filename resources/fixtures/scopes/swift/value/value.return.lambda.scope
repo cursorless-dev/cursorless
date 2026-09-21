@@ -1,0 +1,24 @@
+{ () -> Int in 0 }
+---
+
+[Content] = 0:15-0:16
+                 >-<
+0| { () -> Int in 0 }
+
+[Removal] = 0:15-0:17
+                 >--<
+0| { () -> Int in 0 }
+
+[Leading delimiter] = 0:14-0:15
+                >-<
+0| { () -> Int in 0 }
+
+[Trailing delimiter] = 0:16-0:17
+                  >-<
+0| { () -> Int in 0 }
+
+[Domain] = 0:0-0:18
+  >------------------<
+0| { () -> Int in 0 }
+
+[Insertion delimiter] = " "

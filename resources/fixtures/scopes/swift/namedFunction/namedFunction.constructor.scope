@@ -1,0 +1,21 @@
+struct Foo {
+  init() {}
+}
+---
+
+[Content] =
+[Domain] = 1:2-1:11
+    >---------<
+1|   init() {}
+
+[Removal] = 1:0-2:0
+  >-----------
+1|   init() {}
+2| }
+   <
+
+[Leading delimiter] = 1:0-1:2
+  >--<
+1|   init() {}
+
+[Insertion delimiter] = "\n\n"

@@ -1,0 +1,10 @@
+import Foo
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:10
+  >----------<
+0| import Foo
+
+[Insertion delimiter] = "\n"

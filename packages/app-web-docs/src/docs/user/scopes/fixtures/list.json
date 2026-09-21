@@ -537,6 +537,23 @@
     ]
   },
   {
+    "name": "scopes/swift/list",
+    "languageId": "swift",
+    "facet": "list",
+    "code": "[aaa, bbb]",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-0:10",
+            "removal": "0:0-0:10"
+          }
+        ],
+        "domain": "0:0-0:10"
+      }
+    ]
+  },
+  {
     "name": "scopes/yaml/list",
     "languageId": "yaml",
     "facet": "list",

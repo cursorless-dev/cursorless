@@ -1,0 +1,17 @@
+{ () -> Int in 0 }
+---
+
+[Content] =
+[Domain] = 0:8-0:11
+          >---<
+0| { () -> Int in 0 }
+
+[Removal] = 0:4-0:11
+      >-------<
+0| { () -> Int in 0 }
+
+[Leading delimiter] = 0:4-0:8
+      >----<
+0| { () -> Int in 0 }
+
+[Insertion delimiter] = " "

@@ -1,0 +1,20 @@
+for v: Int in values {}
+---
+
+[Content] = 0:7-0:10
+         >---<
+0| for v: Int in values {}
+
+[Removal] = 0:5-0:10
+       >-----<
+0| for v: Int in values {}
+
+[Leading delimiter] = 0:5-0:7
+       >--<
+0| for v: Int in values {}
+
+[Domain] = 0:0-0:23
+  >-----------------------<
+0| for v: Int in values {}
+
+[Insertion delimiter] = " "
