@@ -9,6 +9,7 @@ Example of `.scope` file for the javascript statement scope.
 ```
 const value = 0;
 ---
+
 [Content] =
 [Removal] =
 [Domain] = 0:0-0:16
@@ -25,6 +26,7 @@ General layout of a `.scope` file is:
 ```
 Source code
 ---
+
 Scopes
 ```
 

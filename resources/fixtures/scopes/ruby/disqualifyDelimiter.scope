@@ -11,6 +11,7 @@ case foo
     when a then => 2
 end
 ---
+
 [#1 Content] = 0:2-0:3
     >-<
 0| 1 < 2
