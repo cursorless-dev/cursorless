@@ -8,8 +8,8 @@
 - `argument.actual.constructor.multiLine` A multi-line argument in a constructor call. Insertion delimiter should include a newline.
 - `argument.actual.constructor.singleLine` A single-line argument in a constructor call
 - `argument.actual.enumConstant.iteration` Iteration scope for arguments in a parenthesized enum constant or variant declaration: the parenthesized list. The domain should be the entire enum constant or variant declaration..
-- `argument.actual.enumConstant.multiLine` A multi-line arguments in a parenthesized enum constant or variant declaration. Insertion delimiter should include a newline.
-- `argument.actual.enumConstant.singleLine` A single-line arguments in a parenthesized enum constant or variant declaration
+- `argument.actual.enumConstant.multiLine` A multi-line argument in a parenthesized enum constant or variant declaration. Insertion delimiter should include a newline.
+- `argument.actual.enumConstant.singleLine` A single-line argument in a parenthesized enum constant or variant declaration
 - `argument.actual.iteration` Iteration scope for arguments in a function call: the argument list. The domain should be the entire function call.
 - `argument.actual.method.iteration` Iteration scope for arguments in a method call: the argument list. The domain should be the entire method call.
 - `argument.actual.method.multiLine` A multi-line argument in a method call. Insertion delimiter should include a newline.

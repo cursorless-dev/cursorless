@@ -411,12 +411,12 @@ export const scopeSupportFacetInfos: Record<
   ),
   "argument.actual.enumConstant.singleLine": {
     description:
-      "A single-line arguments in a parenthesized enum constant or variant declaration",
+      "A single-line argument in a parenthesized enum constant or variant declaration",
     scopeType: "argumentOrParameter",
   },
   "argument.actual.enumConstant.multiLine": {
     description:
-      "A multi-line arguments in a parenthesized enum constant or variant declaration. Insertion delimiter should include a newline.",
+      "A multi-line argument in a parenthesized enum constant or variant declaration. Insertion delimiter should include a newline.",
     scopeType: "argumentOrParameter",
   },
   "argument.actual.enumConstant.iteration": iteration(
