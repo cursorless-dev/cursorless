@@ -3,7 +3,7 @@
     "name": "scopes/c/value/value.assignment.compound",
     "languageId": "c",
     "facet": "value.assignment.compound",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -37,7 +37,7 @@
     "name": "scopes/c/value/value.assignment2",
     "languageId": "c",
     "facet": "value.assignment",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -306,16 +306,16 @@
     "name": "scopes/c/value/value.switch",
     "languageId": "c",
     "facet": "value.switch",
-    "code": "switch (foo) {}",
+    "code": "switch (value) {}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:8-0:11",
-            "removal": "0:8-0:11"
+            "content": "0:8-0:13",
+            "removal": "0:8-0:13"
           }
         ],
-        "domain": "0:0-0:15"
+        "domain": "0:0-0:17"
       }
     ]
   },
@@ -573,7 +573,7 @@
     "name": "scopes/cpp/value/value.assignment.compound",
     "languageId": "cpp",
     "facet": "value.assignment.compound",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -998,7 +998,7 @@
     "name": "scopes/csharp/value/value.assignment.compound",
     "languageId": "csharp",
     "facet": "value.assignment.compound",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -1032,7 +1032,7 @@
     "name": "scopes/csharp/value/value.assignment2",
     "languageId": "csharp",
     "facet": "value.assignment",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -1888,7 +1888,7 @@
     "name": "scopes/dart/value/value.assignment.compound",
     "languageId": "dart",
     "facet": "value.assignment.compound",
-    "code": "void main() {\n    foo += 0;\n}",
+    "code": "void main() {\n    foo += 1;\n}",
     "scopes": [
       {
         "targets": [
@@ -2241,16 +2241,16 @@
     "name": "scopes/dart/value/value.switch",
     "languageId": "dart",
     "facet": "value.switch",
-    "code": "void main() {\n    switch (foo) {}\n}",
+    "code": "void main() {\n    switch (value) {}\n}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "1:12-1:15",
-            "removal": "1:12-1:15"
+            "content": "1:12-1:17",
+            "removal": "1:12-1:17"
           }
         ],
-        "domain": "1:4-1:19"
+        "domain": "1:4-1:21"
       }
     ]
   },
@@ -2326,7 +2326,7 @@
     "name": "scopes/go/value/value.assignment.compound",
     "languageId": "go",
     "facet": "value.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [
@@ -2549,16 +2549,16 @@
     "name": "scopes/go/value/value.switch",
     "languageId": "go",
     "facet": "value.switch",
-    "code": "switch foo {}",
+    "code": "switch value {}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:7-0:10",
-            "removal": "0:7-0:11"
+            "content": "0:7-0:12",
+            "removal": "0:7-0:13"
           }
         ],
-        "domain": "0:0-0:13"
+        "domain": "0:0-0:15"
       }
     ]
   },
@@ -2668,7 +2668,7 @@
     "name": "scopes/java/value/value.assignment.compound",
     "languageId": "java",
     "facet": "value.assignment.compound",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -2702,7 +2702,7 @@
     "name": "scopes/java/value/value.assignment2",
     "languageId": "java",
     "facet": "value.assignment",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -3090,13 +3090,13 @@
     "name": "scopes/java/value/value.yield",
     "languageId": "java",
     "facet": "value.yield",
-    "code": "switch (foo) {\n    case 0:\n        yield 0;\n}",
+    "code": "switch (value) {\n    case 0:\n        yield 0;\n}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:8-0:11",
-            "removal": "0:8-0:11"
+            "content": "0:8-0:13",
+            "removal": "0:8-0:13"
           }
         ],
         "domain": "0:0-3:1"
@@ -3332,7 +3332,7 @@
     "name": "scopes/javascript.core/value/value.assignment.compound",
     "languageId": "javascript.core",
     "facet": "value.assignment.compound",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -3383,7 +3383,7 @@
     "name": "scopes/javascript.core/value/value.assignment2",
     "languageId": "javascript.core",
     "facet": "value.assignment",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -4157,7 +4157,7 @@
     "name": "scopes/kotlin/value/value.assignment.compound",
     "languageId": "kotlin",
     "facet": "value.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [
@@ -5256,7 +5256,7 @@
     "name": "scopes/php/value/value.assignment.compound",
     "languageId": "php",
     "facet": "value.assignment.compound",
-    "code": "<?php\n$foo += 0;",
+    "code": "<?php\n$foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -5290,7 +5290,7 @@
     "name": "scopes/php/value/value.assignment2",
     "languageId": "php",
     "facet": "value.assignment",
-    "code": "<?php\n$foo += 0;",
+    "code": "<?php\n$foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -5643,16 +5643,16 @@
     "name": "scopes/php/value/value.switch",
     "languageId": "php",
     "facet": "value.switch",
-    "code": "<?php\nswitch ($foo) {}",
+    "code": "<?php\nswitch ($value) {}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "1:8-1:12",
-            "removal": "1:8-1:12"
+            "content": "1:8-1:14",
+            "removal": "1:8-1:14"
           }
         ],
-        "domain": "1:0-1:16"
+        "domain": "1:0-1:18"
       }
     ]
   },
@@ -6067,7 +6067,7 @@
     "name": "scopes/python/value/value.assignment.compound",
     "languageId": "python",
     "facet": "value.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [
@@ -6118,7 +6118,7 @@
     "name": "scopes/python/value/value.assignment2",
     "languageId": "python",
     "facet": "value.assignment",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [
@@ -6846,16 +6846,16 @@
     "name": "scopes/r/value/value.switch",
     "languageId": "r",
     "facet": "value.switch",
-    "code": "switch(foo)",
+    "code": "switch(value)",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:7-0:10",
-            "removal": "0:7-0:10"
+            "content": "0:7-0:12",
+            "removal": "0:7-0:12"
           }
         ],
-        "domain": "0:0-0:11"
+        "domain": "0:0-0:13"
       }
     ]
   },
@@ -7451,7 +7451,7 @@
     "name": "scopes/rust/value/value.assignment.compound",
     "languageId": "rust",
     "facet": "value.assignment.compound",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -7789,16 +7789,16 @@
     "name": "scopes/rust/value/value.switch",
     "languageId": "rust",
     "facet": "value.switch",
-    "code": "match foo {}",
+    "code": "match value {}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:6-0:9",
-            "removal": "0:6-0:10"
+            "content": "0:6-0:11",
+            "removal": "0:6-0:12"
           }
         ],
-        "domain": "0:0-0:12"
+        "domain": "0:0-0:14"
       }
     ]
   },
@@ -8082,7 +8082,7 @@
     "name": "scopes/scala/value/value.assignment.compound",
     "languageId": "scala",
     "facet": "value.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [
@@ -9281,7 +9281,7 @@
     "name": "scopes/swift/value/value.assignment.compound",
     "languageId": "swift",
     "facet": "value.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [

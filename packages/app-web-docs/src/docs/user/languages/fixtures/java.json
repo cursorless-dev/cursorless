@@ -990,15 +990,15 @@
     "name": "scopes/java/branch/branch.switchCase.iteration",
     "languageId": "java",
     "facet": "branch.switchCase.iteration",
-    "code": "switch (foo) { }",
+    "code": "switch (value) { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:14-0:15"
+            "content": "0:16-0:17"
           }
         ],
-        "domain": "0:14-0:15"
+        "domain": "0:16-0:17"
       }
     ]
   },
@@ -1006,7 +1006,7 @@
     "name": "scopes/java/branch/branch.switchCase",
     "languageId": "java",
     "facet": "branch.switchCase",
-    "code": "switch (foo) {\n    case 0:\n        break;\n}",
+    "code": "switch (value) {\n    case 0:\n        break;\n}",
     "scopes": [
       {
         "targets": [
@@ -1023,7 +1023,7 @@
     "name": "scopes/java/branch/branch.switchCase2",
     "languageId": "java",
     "facet": "branch.switchCase",
-    "code": "switch (foo) {\n    default: {}\n}",
+    "code": "switch (value) {\n    default: {}\n}",
     "scopes": [
       {
         "targets": [
@@ -1904,15 +1904,15 @@
     "name": "scopes/java/condition/condition.switchCase.iteration",
     "languageId": "java",
     "facet": "condition.switchCase.iteration",
-    "code": "switch (foo) { }",
+    "code": "switch (value) { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:14-0:15"
+            "content": "0:16-0:17"
           }
         ],
-        "domain": "0:14-0:15"
+        "domain": "0:16-0:17"
       }
     ]
   },
@@ -1920,7 +1920,7 @@
     "name": "scopes/java/condition/condition.switchCase",
     "languageId": "java",
     "facet": "condition.switchCase",
-    "code": "switch (foo) {\n    case 0: break;\n}",
+    "code": "switch (value) {\n    case 0: break;\n}",
     "scopes": [
       {
         "targets": [
@@ -1937,7 +1937,7 @@
     "name": "scopes/java/condition/condition.switchCase2",
     "languageId": "java",
     "facet": "condition.switchCase",
-    "code": "switch (foo) {\n    case 0, 1: break;\n}",
+    "code": "switch (value) {\n    case 0, 1: break;\n}",
     "scopes": [
       {
         "targets": [
@@ -1954,7 +1954,7 @@
     "name": "scopes/java/condition/condition.switchCase3",
     "languageId": "java",
     "facet": "condition.switchCase",
-    "code": "switch (foo) {\n    case 0 -> 0;\n}",
+    "code": "switch (value) {\n    case 0 -> 0;\n}",
     "scopes": [
       {
         "targets": [
@@ -1971,7 +1971,7 @@
     "name": "scopes/java/condition/condition.switchCase4",
     "languageId": "java",
     "facet": "condition.switchCase",
-    "code": "switch (foo) {\n    case 0, 1 -> 0;\n}",
+    "code": "switch (value) {\n    case 0, 1 -> 0;\n}",
     "scopes": [
       {
         "targets": [
@@ -2022,7 +2022,7 @@
     "name": "scopes/java/disqualifyDelimiter",
     "languageId": "java",
     "facet": "disqualifyDelimiter",
-    "code": "1 < 2;\n1 > 2;\n1 <= 2;\n1 >= 2;\na << 2;\na >> 2;\na <<= 2;\na >>= 2;\na >>> 2;\na >>>= 2;\n() -> 2;\nswitch (foo) {\n    case a -> 2\n}",
+    "code": "1 < 2;\n1 > 2;\n1 <= 2;\n1 >= 2;\na << 2;\na >> 2;\na <<= 2;\na >>= 2;\na >>> 2;\na >>>= 2;\n() -> 2;\nswitch (value) {\n    case a -> 2\n}",
     "scopes": [
       {
         "targets": [
@@ -2619,16 +2619,16 @@
     "name": "scopes/java/interior/interior.switchCase",
     "languageId": "java",
     "facet": "interior.switchCase",
-    "code": "switch (foo) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
+    "code": "switch (value) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-6:14",
-            "removal": "0:14-7:0"
+            "removal": "0:16-7:0"
           }
         ],
-        "domain": "0:14-7:0"
+        "domain": "0:16-7:0"
       },
       {
         "targets": [
@@ -2654,16 +2654,16 @@
     "name": "scopes/java/interior/interior.switchCase2",
     "languageId": "java",
     "facet": "interior.switchCase",
-    "code": "switch (foo) {\n    case 0: { }\n    default: { }\n}",
+    "code": "switch (value) {\n    case 0: { }\n    default: { }\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-2:16",
-            "removal": "0:14-3:0"
+            "removal": "0:16-3:0"
           }
         ],
-        "domain": "0:14-3:0"
+        "domain": "0:16-3:0"
       },
       {
         "targets": [
@@ -2986,7 +2986,7 @@
     "name": "scopes/java/name/name.assignment.compound",
     "languageId": "java",
     "facet": "name.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [
@@ -3836,7 +3836,7 @@
     "name": "scopes/java/statement/statement.assignment.compound",
     "languageId": "java",
     "facet": "statement.assignment.compound",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -4739,16 +4739,16 @@
     "name": "scopes/java/statement/statement.switch",
     "languageId": "java",
     "facet": "statement.switch",
-    "code": "switch (foo) {}",
+    "code": "switch (value) {}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:0-0:15",
-            "removal": "0:0-0:15"
+            "content": "0:0-0:17",
+            "removal": "0:0-0:17"
           }
         ],
-        "domain": "0:0-0:15"
+        "domain": "0:0-0:17"
       }
     ]
   },
@@ -4875,7 +4875,7 @@
     "name": "scopes/java/statement/statement.yield",
     "languageId": "java",
     "facet": "statement.yield",
-    "code": "switch (foo) {\n    case 0:\n        yield 0;\n}",
+    "code": "switch (value) {\n    case 0:\n        yield 0;\n}",
     "scopes": [
       {
         "targets": [
@@ -5823,7 +5823,7 @@
     "name": "scopes/java/value/value.assignment.compound",
     "languageId": "java",
     "facet": "value.assignment.compound",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -5857,7 +5857,7 @@
     "name": "scopes/java/value/value.assignment2",
     "languageId": "java",
     "facet": "value.assignment",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -6245,13 +6245,13 @@
     "name": "scopes/java/value/value.yield",
     "languageId": "java",
     "facet": "value.yield",
-    "code": "switch (foo) {\n    case 0:\n        yield 0;\n}",
+    "code": "switch (value) {\n    case 0:\n        yield 0;\n}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:8-0:11",
-            "removal": "0:8-0:11"
+            "content": "0:8-0:13",
+            "removal": "0:8-0:13"
           }
         ],
         "domain": "0:0-3:1"

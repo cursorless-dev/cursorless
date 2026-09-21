@@ -1,16 +1,16 @@
 <?php
-switch ($foo) {}
+switch ($value) {}
 ---
 
 [Content] =
-[Domain] = 1:0-1:16
-  >----------------<
-1| switch ($foo) {}
+[Domain] = 1:0-1:18
+  >------------------<
+1| switch ($value) {}
 
-[Removal] = 0:5-1:16
+[Removal] = 0:5-1:18
        >
 0| <?php
-1| switch ($foo) {}
-   ----------------<
+1| switch ($value) {}
+   ------------------<
 
 [Insertion delimiter] = "\n"

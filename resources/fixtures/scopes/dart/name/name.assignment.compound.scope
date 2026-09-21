@@ -1,5 +1,5 @@
 void main() {
-    foo += 0;
+    foo += 1;
 }
 ---
 
@@ -15,7 +15,7 @@ void main() {
 [#1 Domain] = 0:0-2:1
   >-------------
 0| void main() {
-1|     foo += 0;
+1|     foo += 1;
 2| }
    -<
 
@@ -24,18 +24,18 @@ void main() {
 
 [#2 Content] = 1:4-1:7
       >---<
-1|     foo += 0;
+1|     foo += 1;
 
 [#2 Removal] = 1:4-1:11
       >-------<
-1|     foo += 0;
+1|     foo += 1;
 
 [#2 Trailing delimiter] = 1:7-1:11
          >----<
-1|     foo += 0;
+1|     foo += 1;
 
 [#2 Domain] = 1:4-1:13
       >---------<
-1|     foo += 0;
+1|     foo += 1;
 
 [#2 Insertion delimiter] = " "

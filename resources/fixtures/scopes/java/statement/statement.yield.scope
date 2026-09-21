@@ -1,4 +1,4 @@
-switch (foo) {
+switch (value) {
     case 0:
         yield 0;
 }
@@ -7,8 +7,8 @@ switch (foo) {
 [#1 Content] =
 [#1 Removal] =
 [#1 Domain] = 0:0-3:1
-  >--------------
-0| switch (foo) {
+  >----------------
+0| switch (value) {
 1|     case 0:
 2|         yield 0;
 3| }

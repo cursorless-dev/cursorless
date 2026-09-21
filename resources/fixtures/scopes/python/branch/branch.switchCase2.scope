@@ -1,4 +1,4 @@
-match foo:
+match value:
     case _:
         pass
 ---
@@ -10,9 +10,9 @@ match foo:
 2|         pass
    ------------<
 
-[Removal] = 0:10-2:12
-            >
-0| match foo:
+[Removal] = 0:12-2:12
+              >
+0| match value:
 1|     case _:
 2|         pass
    ------------<

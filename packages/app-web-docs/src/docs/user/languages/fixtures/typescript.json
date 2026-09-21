@@ -1801,15 +1801,15 @@
     "name": "scopes/javascript.core/branch/branch.switchCase.iteration",
     "languageId": "javascript.core",
     "facet": "branch.switchCase.iteration",
-    "code": "switch (foo) { }",
+    "code": "switch (value) { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:14-0:15"
+            "content": "0:16-0:17"
           }
         ],
-        "domain": "0:14-0:15"
+        "domain": "0:16-0:17"
       }
     ]
   },
@@ -1817,7 +1817,7 @@
     "name": "scopes/javascript.core/branch/branch.switchCase",
     "languageId": "javascript.core",
     "facet": "branch.switchCase",
-    "code": "switch (foo) {\n    case 0:\n        break;\n}",
+    "code": "switch (value) {\n    case 0:\n        break;\n}",
     "scopes": [
       {
         "targets": [
@@ -1834,7 +1834,7 @@
     "name": "scopes/javascript.core/branch/branch.switchCase2",
     "languageId": "javascript.core",
     "facet": "branch.switchCase",
-    "code": "switch (foo) {\n    default: {}\n}",
+    "code": "switch (value) {\n    default: {}\n}",
     "scopes": [
       {
         "targets": [
@@ -2217,15 +2217,15 @@
     "name": "scopes/javascript.core/condition/condition.switchCase.iteration",
     "languageId": "javascript.core",
     "facet": "condition.switchCase.iteration",
-    "code": "switch (foo) { }",
+    "code": "switch (value) { }",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:14-0:15"
+            "content": "0:16-0:17"
           }
         ],
-        "domain": "0:14-0:15"
+        "domain": "0:16-0:17"
       }
     ]
   },
@@ -2233,7 +2233,7 @@
     "name": "scopes/javascript.core/condition/condition.switchCase",
     "languageId": "javascript.core",
     "facet": "condition.switchCase",
-    "code": "switch (foo) {\n    case 0: break;\n}",
+    "code": "switch (value) {\n    case 0: break;\n}",
     "scopes": [
       {
         "targets": [
@@ -2789,16 +2789,16 @@
     "name": "scopes/javascript.core/interior/interior.switchCase",
     "languageId": "javascript.core",
     "facet": "interior.switchCase",
-    "code": "switch (foo) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
+    "code": "switch (value) {\n    case 0:\n        bar;\n        break;\n    default:\n        bar;\n        break;\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-6:14",
-            "removal": "0:14-7:0"
+            "removal": "0:16-7:0"
           }
         ],
-        "domain": "0:14-7:0"
+        "domain": "0:16-7:0"
       },
       {
         "targets": [
@@ -2824,16 +2824,16 @@
     "name": "scopes/javascript.core/interior/interior.switchCase2",
     "languageId": "javascript.core",
     "facet": "interior.switchCase",
-    "code": "switch (foo) {\n    case 0: { }\n    default: { }\n}",
+    "code": "switch (value) {\n    case 0: { }\n    default: { }\n}",
     "scopes": [
       {
         "targets": [
           {
             "content": "1:4-2:16",
-            "removal": "0:14-3:0"
+            "removal": "0:16-3:0"
           }
         ],
-        "domain": "0:14-3:0"
+        "domain": "0:16-3:0"
       },
       {
         "targets": [
@@ -3350,7 +3350,7 @@
     "name": "scopes/javascript.core/name/name.assignment.compound",
     "languageId": "javascript.core",
     "facet": "name.assignment.compound",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -4696,7 +4696,7 @@
     "name": "scopes/javascript.core/statement/statement.assignment.compound",
     "languageId": "javascript.core",
     "facet": "statement.assignment.compound",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -5703,16 +5703,16 @@
     "name": "scopes/javascript.core/statement/statement.switch",
     "languageId": "javascript.core",
     "facet": "statement.switch",
-    "code": "switch (foo) {}",
+    "code": "switch (value) {}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "0:0-0:15",
-            "removal": "0:0-0:15"
+            "content": "0:0-0:17",
+            "removal": "0:0-0:17"
           }
         ],
-        "domain": "0:0-0:15"
+        "domain": "0:0-0:17"
       }
     ]
   },
@@ -6243,7 +6243,7 @@
     "name": "scopes/javascript.core/value/value.assignment.compound",
     "languageId": "javascript.core",
     "facet": "value.assignment.compound",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [
@@ -6294,7 +6294,7 @@
     "name": "scopes/javascript.core/value/value.assignment2",
     "languageId": "javascript.core",
     "facet": "value.assignment",
-    "code": "foo += 0;",
+    "code": "foo += 1;",
     "scopes": [
       {
         "targets": [

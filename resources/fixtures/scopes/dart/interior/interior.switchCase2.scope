@@ -1,5 +1,5 @@
 void main() {
-    switch (foo) {
+    switch (value) {
         case 0: { }
         default: { }
     }
@@ -7,8 +7,8 @@ void main() {
 ---
 
 [#1 Content] = 1:4-4:5
-      >--------------
-1|     switch (foo) {
+      >----------------
+1|     switch (value) {
 2|         case 0: { }
 3|         default: { }
 4|     }
@@ -18,7 +18,7 @@ void main() {
 [#1 Domain] = 0:13-5:0
                >
 0| void main() {
-1|     switch (foo) {
+1|     switch (value) {
 2|         case 0: { }
 3|         default: { }
 4|     }
@@ -35,9 +35,9 @@ void main() {
    --------------------<
 
 [#2 Removal] =
-[#2 Domain] = 1:18-4:4
-                    >
-1|     switch (foo) {
+[#2 Domain] = 1:20-4:4
+                      >
+1|     switch (value) {
 2|         case 0: { }
 3|         default: { }
 4|     }

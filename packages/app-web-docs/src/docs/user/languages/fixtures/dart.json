@@ -1136,15 +1136,15 @@
     "name": "scopes/dart/branch/branch.switchCase.iteration",
     "languageId": "dart",
     "facet": "branch.switchCase.iteration",
-    "code": "void main() {\n    switch (foo) { }\n}",
+    "code": "void main() {\n    switch (value) { }\n}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "1:18-1:19"
+            "content": "1:20-1:21"
           }
         ],
-        "domain": "1:18-1:19"
+        "domain": "1:20-1:21"
       }
     ]
   },
@@ -1152,7 +1152,7 @@
     "name": "scopes/dart/branch/branch.switchCase",
     "languageId": "dart",
     "facet": "branch.switchCase",
-    "code": "void main() {\n    switch (foo) {\n        case 0:\n            break;\n    }\n}",
+    "code": "void main() {\n    switch (value) {\n        case 0:\n            break;\n    }\n}",
     "scopes": [
       {
         "targets": [
@@ -1169,7 +1169,7 @@
     "name": "scopes/dart/branch/branch.switchCase2",
     "languageId": "dart",
     "facet": "branch.switchCase",
-    "code": "void main() {\n    switch (foo) {\n        default: {}\n    }\n}",
+    "code": "void main() {\n    switch (value) {\n        default: {}\n    }\n}",
     "scopes": [
       {
         "targets": [
@@ -1501,15 +1501,15 @@
     "name": "scopes/dart/condition/condition.switchCase.iteration",
     "languageId": "dart",
     "facet": "condition.switchCase.iteration",
-    "code": "void main() {\n    switch (foo) { }\n}",
+    "code": "void main() {\n    switch (value) { }\n}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "1:18-1:19"
+            "content": "1:20-1:21"
           }
         ],
-        "domain": "1:18-1:19"
+        "domain": "1:20-1:21"
       }
     ]
   },
@@ -1517,7 +1517,7 @@
     "name": "scopes/dart/condition/condition.switchCase",
     "languageId": "dart",
     "facet": "condition.switchCase",
-    "code": "void main() {\n    switch (foo) {\n        case 0: break;\n    }\n}",
+    "code": "void main() {\n    switch (value) {\n        case 0: break;\n    }\n}",
     "scopes": [
       {
         "targets": [
@@ -2176,7 +2176,7 @@
     "name": "scopes/dart/interior/interior.switchCase",
     "languageId": "dart",
     "facet": "interior.switchCase",
-    "code": "void main() {\n    switch (foo) {\n        case 0:\n            bar;\n            break;\n        default:\n            bar;\n            break;\n    }\n}",
+    "code": "void main() {\n    switch (value) {\n        case 0:\n            bar;\n            break;\n        default:\n            bar;\n            break;\n    }\n}",
     "scopes": [
       {
         "targets": [
@@ -2191,10 +2191,10 @@
         "targets": [
           {
             "content": "2:8-7:18",
-            "removal": "1:18-8:4"
+            "removal": "1:20-8:4"
           }
         ],
-        "domain": "1:18-8:4"
+        "domain": "1:20-8:4"
       },
       {
         "targets": [
@@ -2220,7 +2220,7 @@
     "name": "scopes/dart/interior/interior.switchCase2",
     "languageId": "dart",
     "facet": "interior.switchCase",
-    "code": "void main() {\n    switch (foo) {\n        case 0: { }\n        default: { }\n    }\n}",
+    "code": "void main() {\n    switch (value) {\n        case 0: { }\n        default: { }\n    }\n}",
     "scopes": [
       {
         "targets": [
@@ -2235,10 +2235,10 @@
         "targets": [
           {
             "content": "2:8-3:20",
-            "removal": "1:18-4:4"
+            "removal": "1:20-4:4"
           }
         ],
-        "domain": "1:18-4:4"
+        "domain": "1:20-4:4"
       },
       {
         "targets": [
@@ -2852,7 +2852,7 @@
     "name": "scopes/dart/name/name.assignment.compound",
     "languageId": "dart",
     "facet": "name.assignment.compound",
-    "code": "void main() {\n    foo += 0;\n}",
+    "code": "void main() {\n    foo += 1;\n}",
     "scopes": [
       {
         "targets": [
@@ -3480,7 +3480,7 @@
     "name": "scopes/dart/statement/statement.assignment.compound",
     "languageId": "dart",
     "facet": "statement.assignment.compound",
-    "code": "void main() {\n    foo += 0;\n}",
+    "code": "void main() {\n    foo += 1;\n}",
     "scopes": [
       {
         "targets": [
@@ -4106,7 +4106,7 @@
     "name": "scopes/dart/statement/statement.switch",
     "languageId": "dart",
     "facet": "statement.switch",
-    "code": "void main() {\n    switch (foo) {}\n}",
+    "code": "void main() {\n    switch (value) {}\n}",
     "scopes": [
       {
         "targets": [
@@ -4120,11 +4120,11 @@
       {
         "targets": [
           {
-            "content": "1:4-1:19",
+            "content": "1:4-1:21",
             "removal": "1:0-2:0"
           }
         ],
-        "domain": "1:4-1:19"
+        "domain": "1:4-1:21"
       }
     ]
   },
@@ -5521,7 +5521,7 @@
     "name": "scopes/dart/value/value.assignment.compound",
     "languageId": "dart",
     "facet": "value.assignment.compound",
-    "code": "void main() {\n    foo += 0;\n}",
+    "code": "void main() {\n    foo += 1;\n}",
     "scopes": [
       {
         "targets": [
@@ -5874,16 +5874,16 @@
     "name": "scopes/dart/value/value.switch",
     "languageId": "dart",
     "facet": "value.switch",
-    "code": "void main() {\n    switch (foo) {}\n}",
+    "code": "void main() {\n    switch (value) {}\n}",
     "scopes": [
       {
         "targets": [
           {
-            "content": "1:12-1:15",
-            "removal": "1:12-1:15"
+            "content": "1:12-1:17",
+            "removal": "1:12-1:17"
           }
         ],
-        "domain": "1:4-1:19"
+        "domain": "1:4-1:21"
       }
     ]
   },

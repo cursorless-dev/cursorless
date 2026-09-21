@@ -359,7 +359,7 @@
     "{" @G_branch_condition.iteration.start.endOf
     "}" @G_branch_condition.iteration.end.startOf
   )
-) @_.domain
+) @value.domain
 
 ;;!! case 0: break;
 ;;!  ^^^^^^^^^^^^^^

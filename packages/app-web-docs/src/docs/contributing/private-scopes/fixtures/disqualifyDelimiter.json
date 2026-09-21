@@ -388,7 +388,7 @@
     "name": "scopes/java/disqualifyDelimiter",
     "languageId": "java",
     "facet": "disqualifyDelimiter",
-    "code": "1 < 2;\n1 > 2;\n1 <= 2;\n1 >= 2;\na << 2;\na >> 2;\na <<= 2;\na >>= 2;\na >>> 2;\na >>>= 2;\n() -> 2;\nswitch (foo) {\n    case a -> 2\n}",
+    "code": "1 < 2;\n1 > 2;\n1 <= 2;\n1 >= 2;\na << 2;\na >> 2;\na <<= 2;\na >>= 2;\na >>> 2;\na >>>= 2;\n() -> 2;\nswitch (value) {\n    case a -> 2\n}",
     "scopes": [
       {
         "targets": [

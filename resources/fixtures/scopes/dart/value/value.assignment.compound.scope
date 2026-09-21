@@ -1,22 +1,22 @@
 void main() {
-    foo += 0;
+    foo += 1;
 }
 ---
 
 [Content] = 1:11-1:12
              >-<
-1|     foo += 0;
+1|     foo += 1;
 
 [Removal] = 1:7-1:12
          >-----<
-1|     foo += 0;
+1|     foo += 1;
 
 [Leading delimiter] = 1:7-1:11
          >----<
-1|     foo += 0;
+1|     foo += 1;
 
 [Domain] = 1:4-1:13
       >---------<
-1|     foo += 0;
+1|     foo += 1;
 
 [Insertion delimiter] = " "

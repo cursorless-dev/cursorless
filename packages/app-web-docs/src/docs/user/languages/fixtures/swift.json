@@ -2422,7 +2422,7 @@
     "name": "scopes/swift/name/name.assignment.compound",
     "languageId": "swift",
     "facet": "name.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [
@@ -3133,7 +3133,7 @@
     "name": "scopes/swift/statement/statement.assignment.compound",
     "languageId": "swift",
     "facet": "statement.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [
@@ -5080,7 +5080,7 @@
     "name": "scopes/swift/value/value.assignment.compound",
     "languageId": "swift",
     "facet": "value.assignment.compound",
-    "code": "foo += 0",
+    "code": "foo += 1",
     "scopes": [
       {
         "targets": [

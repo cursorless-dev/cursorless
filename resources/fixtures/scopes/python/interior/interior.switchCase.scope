@@ -1,4 +1,4 @@
-match foo:
+match value:
     case 0:
         bar
         baz
@@ -18,9 +18,9 @@ match foo:
    -----------<
 
 [#1 Removal] =
-[#1 Domain] = 0:10-6:11
-            >
-0| match foo:
+[#1 Domain] = 0:12-6:11
+              >
+0| match value:
 1|     case 0:
 2|         bar
 3|         baz

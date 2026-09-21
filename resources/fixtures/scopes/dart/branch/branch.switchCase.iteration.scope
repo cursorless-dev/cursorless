@@ -1,9 +1,9 @@
 void main() {
-    switch (foo) { }
+    switch (value) { }
 }
 ---
 
 [Content] =
-[Domain] = 1:18-1:19
-                    >-<
-1|     switch (foo) { }
+[Domain] = 1:20-1:21
+                      >-<
+1|     switch (value) { }

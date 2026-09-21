@@ -1,10 +1,10 @@
-match foo:
+match value:
     pass
 ---
 
 [Content] =
-[Domain] = 0:10-1:8
-            >
-0| match foo:
+[Domain] = 0:12-1:8
+              >
+0| match value:
 1|     pass
    --------<

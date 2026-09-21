@@ -1,4 +1,4 @@
-match foo {
+match value {
     0 => "0",
 }
 ---

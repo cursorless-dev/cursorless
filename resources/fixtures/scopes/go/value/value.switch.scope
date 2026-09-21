@@ -1,24 +1,24 @@
-switch foo {}
+switch value {}
 ---
 
-[Content] = 0:7-0:10
-         >---<
-0| switch foo {}
+[Content] = 0:7-0:12
+         >-----<
+0| switch value {}
 
-[Removal] = 0:7-0:11
-         >----<
-0| switch foo {}
+[Removal] = 0:7-0:13
+         >------<
+0| switch value {}
 
 [Leading delimiter] = 0:6-0:7
         >-<
-0| switch foo {}
+0| switch value {}
 
-[Trailing delimiter] = 0:10-0:11
-            >-<
-0| switch foo {}
+[Trailing delimiter] = 0:12-0:13
+              >-<
+0| switch value {}
 
-[Domain] = 0:0-0:13
-  >-------------<
-0| switch foo {}
+[Domain] = 0:0-0:15
+  >---------------<
+0| switch value {}
 
 [Insertion delimiter] = " "
