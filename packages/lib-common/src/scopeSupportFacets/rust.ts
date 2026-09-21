@@ -15,9 +15,9 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.actual.method.singleLine": supported,
   "argument.actual.method.multiLine": supported,
   "argument.actual.method.iteration": supported,
-  "argument.actual.enum.singleLine": supported,
-  "argument.actual.enum.multiLine": supported,
-  "argument.actual.enum.iteration": supported,
+  "argument.actual.enumConstant.singleLine": supported,
+  "argument.actual.enumConstant.multiLine": supported,
+  "argument.actual.enumConstant.iteration": supported,
 
   "argument.formal.singleLine": supported,
   "argument.formal.multiLine": supported,
@@ -35,9 +35,9 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.actual.method.empty": supported,
   "argumentList.actual.method.singleLine": supported,
   "argumentList.actual.method.multiLine": supported,
-  "argumentList.actual.enum.empty": supported,
-  "argumentList.actual.enum.singleLine": supported,
-  "argumentList.actual.enum.multiLine": supported,
+  "argumentList.actual.enumConstant.empty": supported,
+  "argumentList.actual.enumConstant.singleLine": supported,
+  "argumentList.actual.enumConstant.multiLine": supported,
 
   "argumentList.formal.empty": supported,
   "argumentList.formal.singleLine": supported,
@@ -76,13 +76,13 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "functionCall.method": supported,
   "functionCall.chain": supported,
   "functionCall.generic": supported,
-  "functionCall.enum": supported,
+  "functionCall.enumConstant": supported,
 
   functionCallee: supported,
   "functionCallee.method": supported,
   "functionCallee.chain": supported,
   "functionCallee.generic": supported,
-  "functionCallee.enum": supported,
+  "functionCallee.enumConstant": supported,
 
   ifStatement: supported,
 

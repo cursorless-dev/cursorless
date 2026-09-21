@@ -884,9 +884,9 @@
     ]
   },
   {
-    "name": "scopes/dart/argumentList/argumentList.actual.enum.empty",
+    "name": "scopes/dart/argumentList/argumentList.actual.enumConstant.empty",
     "languageId": "dart",
-    "facet": "argumentList.actual.enum.empty",
+    "facet": "argumentList.actual.enumConstant.empty",
     "code": "enum Foo {\n    bar();\n}",
     "scopes": [
       {
@@ -901,9 +901,9 @@
     ]
   },
   {
-    "name": "scopes/dart/argumentList/argumentList.actual.enum.multiLine",
+    "name": "scopes/dart/argumentList/argumentList.actual.enumConstant.multiLine",
     "languageId": "dart",
-    "facet": "argumentList.actual.enum.multiLine",
+    "facet": "argumentList.actual.enumConstant.multiLine",
     "code": "enum Foo {\n    bar(\n        aaa,\n        bbb\n    );\n}",
     "scopes": [
       {
@@ -918,9 +918,9 @@
     ]
   },
   {
-    "name": "scopes/dart/argumentList/argumentList.actual.enum.singleLine",
+    "name": "scopes/dart/argumentList/argumentList.actual.enumConstant.singleLine",
     "languageId": "dart",
-    "facet": "argumentList.actual.enum.singleLine",
+    "facet": "argumentList.actual.enumConstant.singleLine",
     "code": "enum Foo {\n    bar(aaa, bbb);\n}",
     "scopes": [
       {
@@ -1574,9 +1574,9 @@
     ]
   },
   {
-    "name": "scopes/java/argumentList/argumentList.actual.enum.empty",
+    "name": "scopes/java/argumentList/argumentList.actual.enumConstant.empty",
     "languageId": "java",
-    "facet": "argumentList.actual.enum.empty",
+    "facet": "argumentList.actual.enumConstant.empty",
     "code": "enum Foo {\n    bar();\n}",
     "scopes": [
       {
@@ -1591,9 +1591,9 @@
     ]
   },
   {
-    "name": "scopes/java/argumentList/argumentList.actual.enum.multiLine",
+    "name": "scopes/java/argumentList/argumentList.actual.enumConstant.multiLine",
     "languageId": "java",
-    "facet": "argumentList.actual.enum.multiLine",
+    "facet": "argumentList.actual.enumConstant.multiLine",
     "code": "enum Foo {\n    bar(\n        aaa,\n        bbb\n    );\n}",
     "scopes": [
       {
@@ -1608,9 +1608,9 @@
     ]
   },
   {
-    "name": "scopes/java/argumentList/argumentList.actual.enum.singleLine",
+    "name": "scopes/java/argumentList/argumentList.actual.enumConstant.singleLine",
     "languageId": "java",
-    "facet": "argumentList.actual.enum.singleLine",
+    "facet": "argumentList.actual.enumConstant.singleLine",
     "code": "enum Foo {\n    bar(aaa, bbb);\n}",
     "scopes": [
       {
@@ -2747,9 +2747,9 @@
     ]
   },
   {
-    "name": "scopes/kotlin/argumentList/argumentList.actual.enum.empty",
+    "name": "scopes/kotlin/argumentList/argumentList.actual.enumConstant.empty",
     "languageId": "kotlin",
-    "facet": "argumentList.actual.enum.empty",
+    "facet": "argumentList.actual.enumConstant.empty",
     "code": "enum class Foo {\n    bar()\n}",
     "scopes": [
       {
@@ -2764,9 +2764,9 @@
     ]
   },
   {
-    "name": "scopes/kotlin/argumentList/argumentList.actual.enum.multiLine",
+    "name": "scopes/kotlin/argumentList/argumentList.actual.enumConstant.multiLine",
     "languageId": "kotlin",
-    "facet": "argumentList.actual.enum.multiLine",
+    "facet": "argumentList.actual.enumConstant.multiLine",
     "code": "enum class Foo {\n    bar(\n        aaa,\n        bbb\n    )\n}",
     "scopes": [
       {
@@ -2781,9 +2781,9 @@
     ]
   },
   {
-    "name": "scopes/kotlin/argumentList/argumentList.actual.enum.singleLine",
+    "name": "scopes/kotlin/argumentList/argumentList.actual.enumConstant.singleLine",
     "languageId": "kotlin",
-    "facet": "argumentList.actual.enum.singleLine",
+    "facet": "argumentList.actual.enumConstant.singleLine",
     "code": "enum class Foo {\n    bar(aaa, bbb)\n}",
     "scopes": [
       {
@@ -4668,9 +4668,9 @@
     ]
   },
   {
-    "name": "scopes/rust/argumentList/argumentList.actual.enum.empty",
+    "name": "scopes/rust/argumentList/argumentList.actual.enumConstant.empty",
     "languageId": "rust",
-    "facet": "argumentList.actual.enum.empty",
+    "facet": "argumentList.actual.enumConstant.empty",
     "code": "enum Foo {\n    Bar()\n}",
     "scopes": [
       {
@@ -4685,9 +4685,9 @@
     ]
   },
   {
-    "name": "scopes/rust/argumentList/argumentList.actual.enum.multiLine",
+    "name": "scopes/rust/argumentList/argumentList.actual.enumConstant.multiLine",
     "languageId": "rust",
-    "facet": "argumentList.actual.enum.multiLine",
+    "facet": "argumentList.actual.enumConstant.multiLine",
     "code": "enum Foo {\n    Bar(\n        aaa,\n        bbb\n    )\n}",
     "scopes": [
       {
@@ -4702,9 +4702,9 @@
     ]
   },
   {
-    "name": "scopes/rust/argumentList/argumentList.actual.enum.singleLine",
+    "name": "scopes/rust/argumentList/argumentList.actual.enumConstant.singleLine",
     "languageId": "rust",
-    "facet": "argumentList.actual.enum.singleLine",
+    "facet": "argumentList.actual.enumConstant.singleLine",
     "code": "enum Foo {\n    Bar(aaa, bbb)\n}",
     "scopes": [
       {

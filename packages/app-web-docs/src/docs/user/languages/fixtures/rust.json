@@ -34,9 +34,9 @@
     ]
   },
   {
-    "name": "scopes/rust/argument/argument.actual.enum.iteration",
+    "name": "scopes/rust/argument/argument.actual.enumConstant.iteration",
     "languageId": "rust",
-    "facet": "argument.actual.enum.iteration",
+    "facet": "argument.actual.enumConstant.iteration",
     "code": "enum Foo {\n    Bar(aaa, bbb)\n}",
     "scopes": [
       {
@@ -50,9 +50,9 @@
     ]
   },
   {
-    "name": "scopes/rust/argument/argument.actual.enum.multiLine",
+    "name": "scopes/rust/argument/argument.actual.enumConstant.multiLine",
     "languageId": "rust",
-    "facet": "argument.actual.enum.multiLine",
+    "facet": "argument.actual.enumConstant.multiLine",
     "code": "enum Foo {\n    Bar(\n        aaa,\n        bbb\n    )\n}",
     "scopes": [
       {
@@ -76,9 +76,9 @@
     ]
   },
   {
-    "name": "scopes/rust/argument/argument.actual.enum.singleLine",
+    "name": "scopes/rust/argument/argument.actual.enumConstant.singleLine",
     "languageId": "rust",
-    "facet": "argument.actual.enum.singleLine",
+    "facet": "argument.actual.enumConstant.singleLine",
     "code": "enum Foo {\n    Bar(aaa, bbb)\n}",
     "scopes": [
       {
@@ -545,9 +545,9 @@
     ]
   },
   {
-    "name": "scopes/rust/argumentList/argumentList.actual.enum.empty",
+    "name": "scopes/rust/argumentList/argumentList.actual.enumConstant.empty",
     "languageId": "rust",
-    "facet": "argumentList.actual.enum.empty",
+    "facet": "argumentList.actual.enumConstant.empty",
     "code": "enum Foo {\n    Bar()\n}",
     "scopes": [
       {
@@ -562,9 +562,9 @@
     ]
   },
   {
-    "name": "scopes/rust/argumentList/argumentList.actual.enum.multiLine",
+    "name": "scopes/rust/argumentList/argumentList.actual.enumConstant.multiLine",
     "languageId": "rust",
-    "facet": "argumentList.actual.enum.multiLine",
+    "facet": "argumentList.actual.enumConstant.multiLine",
     "code": "enum Foo {\n    Bar(\n        aaa,\n        bbb\n    )\n}",
     "scopes": [
       {
@@ -579,9 +579,9 @@
     ]
   },
   {
-    "name": "scopes/rust/argumentList/argumentList.actual.enum.singleLine",
+    "name": "scopes/rust/argumentList/argumentList.actual.enumConstant.singleLine",
     "languageId": "rust",
-    "facet": "argumentList.actual.enum.singleLine",
+    "facet": "argumentList.actual.enumConstant.singleLine",
     "code": "enum Foo {\n    Bar(aaa, bbb)\n}",
     "scopes": [
       {
@@ -1249,9 +1249,9 @@
     ]
   },
   {
-    "name": "scopes/rust/functionCall.enum",
+    "name": "scopes/rust/functionCall.enumConstant",
     "languageId": "rust",
-    "facet": "functionCall.enum",
+    "facet": "functionCall.enumConstant",
     "code": "enum Foo {\n    Bar()\n}",
     "scopes": [
       {
@@ -1343,9 +1343,9 @@
     ]
   },
   {
-    "name": "scopes/rust/functionCallee.enum",
+    "name": "scopes/rust/functionCallee.enumConstant",
     "languageId": "rust",
-    "facet": "functionCallee.enum",
+    "facet": "functionCallee.enumConstant",
     "code": "enum Foo {\n    Bar()\n}",
     "scopes": [
       {

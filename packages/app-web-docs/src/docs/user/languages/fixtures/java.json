@@ -102,9 +102,9 @@
     ]
   },
   {
-    "name": "scopes/java/argument/argument.actual.enum.iteration",
+    "name": "scopes/java/argument/argument.actual.enumConstant.iteration",
     "languageId": "java",
-    "facet": "argument.actual.enum.iteration",
+    "facet": "argument.actual.enumConstant.iteration",
     "code": "enum Foo {\n    bar(aaa, bbb);\n}",
     "scopes": [
       {
@@ -118,9 +118,9 @@
     ]
   },
   {
-    "name": "scopes/java/argument/argument.actual.enum.multiLine",
+    "name": "scopes/java/argument/argument.actual.enumConstant.multiLine",
     "languageId": "java",
-    "facet": "argument.actual.enum.multiLine",
+    "facet": "argument.actual.enumConstant.multiLine",
     "code": "enum Foo {\n    bar(\n        aaa,\n        bbb\n    );\n}",
     "scopes": [
       {
@@ -144,9 +144,9 @@
     ]
   },
   {
-    "name": "scopes/java/argument/argument.actual.enum.singleLine",
+    "name": "scopes/java/argument/argument.actual.enumConstant.singleLine",
     "languageId": "java",
-    "facet": "argument.actual.enum.singleLine",
+    "facet": "argument.actual.enumConstant.singleLine",
     "code": "enum Foo {\n    bar(aaa, bbb);\n}",
     "scopes": [
       {
@@ -604,9 +604,9 @@
     ]
   },
   {
-    "name": "scopes/java/argumentList/argumentList.actual.enum.empty",
+    "name": "scopes/java/argumentList/argumentList.actual.enumConstant.empty",
     "languageId": "java",
-    "facet": "argumentList.actual.enum.empty",
+    "facet": "argumentList.actual.enumConstant.empty",
     "code": "enum Foo {\n    bar();\n}",
     "scopes": [
       {
@@ -621,9 +621,9 @@
     ]
   },
   {
-    "name": "scopes/java/argumentList/argumentList.actual.enum.multiLine",
+    "name": "scopes/java/argumentList/argumentList.actual.enumConstant.multiLine",
     "languageId": "java",
-    "facet": "argumentList.actual.enum.multiLine",
+    "facet": "argumentList.actual.enumConstant.multiLine",
     "code": "enum Foo {\n    bar(\n        aaa,\n        bbb\n    );\n}",
     "scopes": [
       {
@@ -638,9 +638,9 @@
     ]
   },
   {
-    "name": "scopes/java/argumentList/argumentList.actual.enum.singleLine",
+    "name": "scopes/java/argumentList/argumentList.actual.enumConstant.singleLine",
     "languageId": "java",
-    "facet": "argumentList.actual.enum.singleLine",
+    "facet": "argumentList.actual.enumConstant.singleLine",
     "code": "enum Foo {\n    bar(aaa, bbb);\n}",
     "scopes": [
       {
@@ -2154,9 +2154,9 @@
     ]
   },
   {
-    "name": "scopes/java/functionCall/functionCall.enum",
+    "name": "scopes/java/functionCall/functionCall.enumConstant",
     "languageId": "java",
-    "facet": "functionCall.enum",
+    "facet": "functionCall.enumConstant",
     "code": "enum Foo {\n    bar();\n}",
     "scopes": [
       {
@@ -2265,9 +2265,9 @@
     ]
   },
   {
-    "name": "scopes/java/functionCallee/functionCallee.enum",
+    "name": "scopes/java/functionCallee/functionCallee.enumConstant",
     "languageId": "java",
-    "facet": "functionCallee.enum",
+    "facet": "functionCallee.enumConstant",
     "code": "enum Foo {\n    bar();\n}",
     "scopes": [
       {

@@ -170,9 +170,9 @@
     ]
   },
   {
-    "name": "scopes/kotlin/argument/argument.actual.enum.iteration",
+    "name": "scopes/kotlin/argument/argument.actual.enumConstant.iteration",
     "languageId": "kotlin",
-    "facet": "argument.actual.enum.iteration",
+    "facet": "argument.actual.enumConstant.iteration",
     "code": "enum class Foo {\n    bar(aaa, bbb)\n}",
     "scopes": [
       {
@@ -186,9 +186,9 @@
     ]
   },
   {
-    "name": "scopes/kotlin/argument/argument.actual.enum.multiLine",
+    "name": "scopes/kotlin/argument/argument.actual.enumConstant.multiLine",
     "languageId": "kotlin",
-    "facet": "argument.actual.enum.multiLine",
+    "facet": "argument.actual.enumConstant.multiLine",
     "code": "enum class Foo {\n    bar(\n        aaa,\n        bbb\n    )\n}",
     "scopes": [
       {
@@ -212,9 +212,9 @@
     ]
   },
   {
-    "name": "scopes/kotlin/argument/argument.actual.enum.singleLine",
+    "name": "scopes/kotlin/argument/argument.actual.enumConstant.singleLine",
     "languageId": "kotlin",
-    "facet": "argument.actual.enum.singleLine",
+    "facet": "argument.actual.enumConstant.singleLine",
     "code": "enum class Foo {\n    bar(aaa, bbb)\n}",
     "scopes": [
       {
@@ -1062,9 +1062,9 @@
     ]
   },
   {
-    "name": "scopes/kotlin/argumentList/argumentList.actual.enum.empty",
+    "name": "scopes/kotlin/argumentList/argumentList.actual.enumConstant.empty",
     "languageId": "kotlin",
-    "facet": "argumentList.actual.enum.empty",
+    "facet": "argumentList.actual.enumConstant.empty",
     "code": "enum class Foo {\n    bar()\n}",
     "scopes": [
       {
@@ -1079,9 +1079,9 @@
     ]
   },
   {
-    "name": "scopes/kotlin/argumentList/argumentList.actual.enum.multiLine",
+    "name": "scopes/kotlin/argumentList/argumentList.actual.enumConstant.multiLine",
     "languageId": "kotlin",
-    "facet": "argumentList.actual.enum.multiLine",
+    "facet": "argumentList.actual.enumConstant.multiLine",
     "code": "enum class Foo {\n    bar(\n        aaa,\n        bbb\n    )\n}",
     "scopes": [
       {
@@ -1096,9 +1096,9 @@
     ]
   },
   {
-    "name": "scopes/kotlin/argumentList/argumentList.actual.enum.singleLine",
+    "name": "scopes/kotlin/argumentList/argumentList.actual.enumConstant.singleLine",
     "languageId": "kotlin",
-    "facet": "argumentList.actual.enum.singleLine",
+    "facet": "argumentList.actual.enumConstant.singleLine",
     "code": "enum class Foo {\n    bar(aaa, bbb)\n}",
     "scopes": [
       {
@@ -2095,9 +2095,9 @@
     ]
   },
   {
-    "name": "scopes/kotlin/functionCall/functionCall.enum",
+    "name": "scopes/kotlin/functionCall/functionCall.enumConstant",
     "languageId": "kotlin",
-    "facet": "functionCall.enum",
+    "facet": "functionCall.enumConstant",
     "code": "enum class Foo {\n    bar()\n}",
     "scopes": [
       {
@@ -2240,9 +2240,9 @@
     ]
   },
   {
-    "name": "scopes/kotlin/functionCallee/functionCallee.enum",
+    "name": "scopes/kotlin/functionCallee/functionCallee.enumConstant",
     "languageId": "kotlin",
-    "facet": "functionCallee.enum",
+    "facet": "functionCallee.enumConstant",
     "code": "enum class Foo {\n    bar()\n}",
     "scopes": [
       {

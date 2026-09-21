@@ -334,14 +334,14 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   "functionCallee.generic": notApplicable,
 
   // Enum constructor calls
-  "functionCall.enum": notApplicable,
-  "functionCallee.enum": notApplicable,
-  "argument.actual.enum.singleLine": notApplicable,
-  "argument.actual.enum.multiLine": notApplicable,
-  "argumentList.actual.enum.empty": notApplicable,
-  "argumentList.actual.enum.singleLine": notApplicable,
-  "argumentList.actual.enum.multiLine": notApplicable,
-  "argument.actual.enum.iteration": notApplicable,
+  "functionCall.enumConstant": notApplicable,
+  "functionCallee.enumConstant": notApplicable,
+  "argument.actual.enumConstant.singleLine": notApplicable,
+  "argument.actual.enumConstant.multiLine": notApplicable,
+  "argumentList.actual.enumConstant.empty": notApplicable,
+  "argumentList.actual.enumConstant.singleLine": notApplicable,
+  "argumentList.actual.enumConstant.multiLine": notApplicable,
+  "argument.actual.enumConstant.iteration": notApplicable,
 
   // Static
   "statement.static": notApplicable,

@@ -29,23 +29,23 @@ Below are visualizations of all our scope tests for this language. These were cr
 
 <ScopeVisualizer fixtureName="scopes/rust/argumentList/argumentList.actual.empty" languageId="rust" />
 
-#### 2. Argument list: Actual enum empty
+#### 2. Argument list: Actual enum constant empty
 
-<i>An empty list of arguments in an enum constructor call. Insertion delimiter should be empty.</i>
+<i>An empty parenthesized list in an enum constant or variant declaration. Insertion delimiter should be empty.</i>
 
-<ScopeVisualizer fixtureName="scopes/rust/argumentList/argumentList.actual.enum.empty" languageId="rust" />
+<ScopeVisualizer fixtureName="scopes/rust/argumentList/argumentList.actual.enumConstant.empty" languageId="rust" />
 
-#### 3. Argument list: Actual enum multi line
+#### 3. Argument list: Actual enum constant multi line
 
-<i>A multi-line list of arguments in an enum constructor call. Insertion delimiter should include a newline.</i>
+<i>A multi-line parenthesized list in an enum constant or variant declaration. Insertion delimiter should include a newline.</i>
 
-<ScopeVisualizer fixtureName="scopes/rust/argumentList/argumentList.actual.enum.multiLine" languageId="rust" />
+<ScopeVisualizer fixtureName="scopes/rust/argumentList/argumentList.actual.enumConstant.multiLine" languageId="rust" />
 
-#### 4. Argument list: Actual enum single line
+#### 4. Argument list: Actual enum constant single line
 
-<i>A single-line list of arguments in an enum constructor call</i>
+<i>A single-line parenthesized list in an enum constant or variant declaration</i>
 
-<ScopeVisualizer fixtureName="scopes/rust/argumentList/argumentList.actual.enum.singleLine" languageId="rust" />
+<ScopeVisualizer fixtureName="scopes/rust/argumentList/argumentList.actual.enumConstant.singleLine" languageId="rust" />
 
 #### 5. Argument list: Actual method empty
 
@@ -133,17 +133,17 @@ Below are visualizations of all our scope tests for this language. These were cr
 
 ### Argument or parameter
 
-#### 1. Argument: Actual enum multi line
+#### 1. Argument: Actual enum constant multi line
 
-<i>A multi-line argument in an enum constructor call. Insertion delimiter should include a newline.</i>
+<i>A multi-line arguments in a parenthesized enum constant or variant declaration. Insertion delimiter should include a newline.</i>
 
-<ScopeVisualizer fixtureName="scopes/rust/argument/argument.actual.enum.multiLine" languageId="rust" />
+<ScopeVisualizer fixtureName="scopes/rust/argument/argument.actual.enumConstant.multiLine" languageId="rust" />
 
-#### 2. Argument: Actual enum single line
+#### 2. Argument: Actual enum constant single line
 
-<i>A single-line argument in an enum constructor call</i>
+<i>A single-line arguments in a parenthesized enum constant or variant declaration</i>
 
-<ScopeVisualizer fixtureName="scopes/rust/argument/argument.actual.enum.singleLine" languageId="rust" />
+<ScopeVisualizer fixtureName="scopes/rust/argument/argument.actual.enumConstant.singleLine" languageId="rust" />
 
 #### 3. Argument: Actual method multi line
 
@@ -215,11 +215,11 @@ Below are visualizations of all our scope tests for this language. These were cr
 
 <ScopeVisualizer fixtureName="scopes/rust/argument/argument.actual.iteration" languageId="rust" />
 
-#### 14. Argument: Actual enum (iteration)
+#### 14. Argument: Actual enum constant (iteration)
 
-<i>Iteration scope for arguments in an enum constructor call: the argument list. The domain should be the entire enum constructor call..</i>
+<i>Iteration scope for arguments in a parenthesized enum constant or variant declaration: the parenthesized list. The domain should be the entire enum constant or variant declaration..</i>
 
-<ScopeVisualizer fixtureName="scopes/rust/argument/argument.actual.enum.iteration" languageId="rust" />
+<ScopeVisualizer fixtureName="scopes/rust/argument/argument.actual.enumConstant.iteration" languageId="rust" />
 
 #### 15. Argument: Actual method (iteration)
 
@@ -371,11 +371,11 @@ Below are visualizations of all our scope tests for this language. These were cr
 
 <ScopeVisualizer fixtureName="scopes/rust/functionCall.chain" languageId="rust" />
 
-#### 3. Function call: Enum
+#### 3. Function call: Enum constant
 
-<i>An enum constructor call</i>
+<i>An enum constant or variant declaration with parentheses</i>
 
-<ScopeVisualizer fixtureName="scopes/rust/functionCall.enum" languageId="rust" />
+<ScopeVisualizer fixtureName="scopes/rust/functionCall.enumConstant" languageId="rust" />
 
 #### 4. Function call: Generic
 
@@ -403,11 +403,11 @@ Below are visualizations of all our scope tests for this language. These were cr
 
 <ScopeVisualizer fixtureName="scopes/rust/functionCallee.chain" languageId="rust" />
 
-#### 3. Function callee: Enum
+#### 3. Function callee: Enum constant
 
-<i>The enum constructor being called</i>
+<i>The name of an enum constant or variant declared with parentheses</i>
 
-<ScopeVisualizer fixtureName="scopes/rust/functionCallee.enum" languageId="rust" />
+<ScopeVisualizer fixtureName="scopes/rust/functionCallee.enumConstant" languageId="rust" />
 
 #### 4. Function callee: Generic
 

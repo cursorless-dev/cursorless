@@ -282,9 +282,9 @@
     ]
   },
   {
-    "name": "scopes/dart/functionCall/functionCall.enum",
+    "name": "scopes/dart/functionCall/functionCall.enumConstant",
     "languageId": "dart",
-    "facet": "functionCall.enum",
+    "facet": "functionCall.enumConstant",
     "code": "enum Foo {\n    bar();\n}",
     "scopes": [
       {
@@ -470,9 +470,9 @@
     ]
   },
   {
-    "name": "scopes/java/functionCall/functionCall.enum",
+    "name": "scopes/java/functionCall/functionCall.enumConstant",
     "languageId": "java",
-    "facet": "functionCall.enum",
+    "facet": "functionCall.enumConstant",
     "code": "enum Foo {\n    bar();\n}",
     "scopes": [
       {
@@ -692,9 +692,9 @@
     ]
   },
   {
-    "name": "scopes/kotlin/functionCall/functionCall.enum",
+    "name": "scopes/kotlin/functionCall/functionCall.enumConstant",
     "languageId": "kotlin",
-    "facet": "functionCall.enum",
+    "facet": "functionCall.enumConstant",
     "code": "enum class Foo {\n    bar()\n}",
     "scopes": [
       {
@@ -1171,9 +1171,9 @@
     ]
   },
   {
-    "name": "scopes/rust/functionCall.enum",
+    "name": "scopes/rust/functionCall.enumConstant",
     "languageId": "rust",
-    "facet": "functionCall.enum",
+    "facet": "functionCall.enumConstant",
     "code": "enum Foo {\n    Bar()\n}",
     "scopes": [
       {

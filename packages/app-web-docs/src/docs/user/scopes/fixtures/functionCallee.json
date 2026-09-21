@@ -282,9 +282,9 @@
     ]
   },
   {
-    "name": "scopes/dart/functionCallee/functionCallee.enum",
+    "name": "scopes/dart/functionCallee/functionCallee.enumConstant",
     "languageId": "dart",
-    "facet": "functionCallee.enum",
+    "facet": "functionCallee.enumConstant",
     "code": "enum Foo {\n    bar();\n}",
     "scopes": [
       {
@@ -470,9 +470,9 @@
     ]
   },
   {
-    "name": "scopes/java/functionCallee/functionCallee.enum",
+    "name": "scopes/java/functionCallee/functionCallee.enumConstant",
     "languageId": "java",
-    "facet": "functionCallee.enum",
+    "facet": "functionCallee.enumConstant",
     "code": "enum Foo {\n    bar();\n}",
     "scopes": [
       {
@@ -692,9 +692,9 @@
     ]
   },
   {
-    "name": "scopes/kotlin/functionCallee/functionCallee.enum",
+    "name": "scopes/kotlin/functionCallee/functionCallee.enumConstant",
     "languageId": "kotlin",
-    "facet": "functionCallee.enum",
+    "facet": "functionCallee.enumConstant",
     "code": "enum class Foo {\n    bar()\n}",
     "scopes": [
       {
@@ -1171,9 +1171,9 @@
     ]
   },
   {
-    "name": "scopes/rust/functionCallee.enum",
+    "name": "scopes/rust/functionCallee.enumConstant",
     "languageId": "rust",
-    "facet": "functionCallee.enum",
+    "facet": "functionCallee.enumConstant",
     "code": "enum Foo {\n    Bar()\n}",
     "scopes": [
       {
