@@ -1,0 +1,15 @@
+struct Foo {
+  func bar(aaa: Int, bbb: Int) {}
+}
+---
+
+[Content] =
+[Removal] = 1:11-1:29
+             >------------------<
+1|   func bar(aaa: Int, bbb: Int) {}
+
+[Domain] = 1:2-1:33
+    >-------------------------------<
+1|   func bar(aaa: Int, bbb: Int) {}
+
+[Insertion delimiter] = ", "

@@ -478,6 +478,146 @@
   )
 )
 
+;;!! func foo(aaa: Int, bbb: Int) {}
+;;!           ^^^^^^^^  ^^^^^^^^
+;;!! init(aaa: Int, bbb: Int) {}
+;;!       ^^^^^^^^  ^^^^^^^^
+(
+  (_
+    (parameter)? @_.leading.endOf
+    .
+    (parameter) @argumentOrParameter
+    .
+    (parameter)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @argumentOrParameter comment multiline_comment)
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+;;!! { (aaa: Int, bbb: Int) in }
+;;!      ^^^^^^^^  ^^^^^^^^
+(
+  (lambda_function_type_parameters
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @argumentOrParameter comment multiline_comment)
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+;;!! foo(aaa: 0, bbb: 1)
+;;!      ^^^^^^  ^^^^^^
+(
+  (value_arguments
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @argumentOrParameter comment multiline_comment)
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+;;!! func foo(aaa: Int, bbb: Int) {}
+;;!           ^^^^^^^^^^^^^^^^^^
+;;!! init(aaa: Int, bbb: Int) {}
+;;!       ^^^^^^^^^^^^^^^^^^
+(
+  (_
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    .
+    (parameter) @argumentList.start
+    (parameter) @argumentList.end
+    .
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @_dummy @argumentList.domain @argumentOrParameter.iteration.domain
+  (#type? @_dummy function_declaration protocol_function_declaration init_declaration)
+  (#single-or-multi-line-delimiter! @argumentList.start @_dummy ", " ",\n")
+)
+
+(
+  (_
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    .
+    (parameter) @argumentList
+    .
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @_dummy @argumentList.domain @argumentOrParameter.iteration.domain
+  (#type? @_dummy function_declaration protocol_function_declaration init_declaration)
+  (#single-or-multi-line-delimiter! @argumentList @_dummy ", " ",\n")
+)
+
+;;!! func foo() {}
+;;!           ><
+;;!! init() {}
+;;!       ><
+(
+  [
+    (function_declaration
+      "(" @argumentList.start.endOf @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+      .
+      ")" @argumentList.end.startOf @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+    )
+    (protocol_function_declaration
+      "(" @argumentList.start.endOf @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+      .
+      ")" @argumentList.end.startOf @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+    )
+    (init_declaration
+      "(" @argumentList.start.endOf @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+      .
+      ")" @argumentList.end.startOf @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+    )
+  ] @argumentList.domain @argumentOrParameter.iteration.domain
+  (#insertion-delimiter! @argumentList.start.endOf "")
+)
+
+;;!! { (aaa: Int, bbb: Int) in }
+;;!      ^^^^^^^^^^^^^^^^^^
+(
+  (lambda_literal
+    (lambda_function_type
+      "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+      (lambda_function_type_parameters) @_dummy @argumentList
+      ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+    )
+  ) @argumentList.domain @argumentOrParameter.iteration.domain
+  (#single-or-multi-line-delimiter! @argumentList @_dummy ", " ",\n")
+  (#child-range! @argumentList 0 -1)
+)
+
+;;!! { () in }
+;;!      ><
+(
+  (lambda_literal
+    (lambda_function_type
+      "(" @argumentList.start.endOf @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+      .
+      ")" @argumentList.end.startOf @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+    )
+  ) @argumentList.domain @argumentOrParameter.iteration.domain
+  (#insertion-delimiter! @argumentList.start.endOf "")
+)
+
+;;!! foo(aaa: 0, bbb: 1)
+;;!      ^^^^^^^^^^^^^^
+(
+  (call_expression
+    (call_suffix
+      (value_arguments
+        "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+        ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+      ) @argumentList
+      (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+      (#child-range! @argumentList 1 -2)
+    )
+  ) @argumentList.domain @argumentOrParameter.iteration.domain
+)
+
 (function_type
   "->" @disqualifyDelimiter
 )

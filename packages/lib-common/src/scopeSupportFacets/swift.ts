@@ -19,9 +19,6 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.actual.constructor.singleLine": supported,
   "argument.actual.constructor.multiLine": supported,
   "argument.actual.constructor.iteration": supported,
-  "argument.actual.enum.singleLine": supported,
-  "argument.actual.enum.multiLine": supported,
-  "argument.actual.enum.iteration": supported,
   "argument.formal.singleLine": supported,
   "argument.formal.multiLine": supported,
   "argument.formal.iteration": supported,
@@ -45,9 +42,6 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.actual.constructor.empty": supported,
   "argumentList.actual.constructor.singleLine": supported,
   "argumentList.actual.constructor.multiLine": supported,
-  "argumentList.actual.enum.empty": supported,
-  "argumentList.actual.enum.singleLine": supported,
-  "argumentList.actual.enum.multiLine": supported,
   "argumentList.formal.empty": supported,
   "argumentList.formal.singleLine": supported,
   "argumentList.formal.multiLine": supported,
@@ -90,13 +84,11 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "functionCall.constructor": supported,
   "functionCall.method": supported,
   "functionCall.chain": supported,
-  "functionCall.enum": supported,
 
   functionCallee: supported,
   "functionCallee.constructor": supported,
   "functionCallee.method": supported,
   "functionCallee.chain": supported,
-  "functionCallee.enum": supported,
 
   namedFunction: supported,
   "namedFunction.constructor": supported,
@@ -343,6 +335,16 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   namedParagraph: notApplicable,
   subParagraph: notApplicable,
   part: notApplicable,
+
+  // Enum function calls
+  "functionCall.enum": notApplicable,
+  "functionCallee.enum": notApplicable,
+  "argument.actual.enum.singleLine": notApplicable,
+  "argument.actual.enum.multiLine": notApplicable,
+  "argument.actual.enum.iteration": notApplicable,
+  "argumentList.actual.enum.empty": notApplicable,
+  "argumentList.actual.enum.singleLine": notApplicable,
+  "argumentList.actual.enum.multiLine": notApplicable,
 
   // Collection items unenclosed
   "collectionItem.unenclosed.singleLine": notApplicable,
