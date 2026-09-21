@@ -1,4 +1,4 @@
-match foo {
+match value {
     0 => bar
     _ => bar
 }
@@ -11,9 +11,9 @@ match foo {
    ------------<
 
 [#1 Removal] =
-[#1 Domain] = 0:11-3:0
-             >
-0| match foo {
+[#1 Domain] = 0:13-3:0
+               >
+0| match value {
 1|     0 => bar
 2|     _ => bar
 3| }

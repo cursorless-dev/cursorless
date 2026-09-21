@@ -532,7 +532,7 @@
 (object_pattern
   "{" @G_collectionKey_value.iteration.start.endOf
   "}" @G_collectionKey_value.iteration.end.startOf
-) @_.domain
+)
 
 ;;!! const {aaa: bbb} = ccc;
 ;;!         ^^^

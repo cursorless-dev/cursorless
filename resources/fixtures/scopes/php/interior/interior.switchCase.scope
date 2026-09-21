@@ -1,5 +1,5 @@
 <?php
-switch ($foo) {
+switch ($value) {
     case 0:
         bar;
         break;
@@ -20,9 +20,9 @@ switch ($foo) {
    --------------<
 
 [#1 Removal] =
-[#1 Domain] = 1:15-8:0
-                 >
-1| switch ($foo) {
+[#1 Domain] = 1:17-8:0
+                   >
+1| switch ($value) {
 2|     case 0:
 3|         bar;
 4|         break;

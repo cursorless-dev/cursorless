@@ -1,5 +1,5 @@
 void main() {
-    switch (foo) {}
+    switch (value) {}
 }
 ---
 
@@ -8,7 +8,7 @@ void main() {
 [#1 Domain] = 0:0-2:1
   >-------------
 0| void main() {
-1|     switch (foo) {}
+1|     switch (value) {}
 2| }
    -<
 
@@ -16,18 +16,18 @@ void main() {
 
 
 [#2 Content] =
-[#2 Domain] = 1:4-1:19
-      >---------------<
-1|     switch (foo) {}
+[#2 Domain] = 1:4-1:21
+      >-----------------<
+1|     switch (value) {}
 
 [#2 Removal] = 1:0-2:0
-  >-------------------
-1|     switch (foo) {}
+  >---------------------
+1|     switch (value) {}
 2| }
    <
 
 [#2 Leading delimiter] = 1:0-1:4
   >----<
-1|     switch (foo) {}
+1|     switch (value) {}
 
 [#2 Insertion delimiter] = "\n"

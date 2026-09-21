@@ -1,4 +1,4 @@
-match foo:
+match value:
     case 0: pass
 ---
 

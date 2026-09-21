@@ -522,7 +522,7 @@
 (formal_parameters
   "(" @G_type_name_value.iteration.start.endOf
   ")" @G_type_name_value.iteration.end.startOf
-) @_.domain
+)
 
 ;;!! (int) $str;
 ;;!   ^^^

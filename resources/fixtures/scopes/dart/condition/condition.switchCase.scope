@@ -1,5 +1,5 @@
 void main() {
-    switch (foo) {
+    switch (value) {
         case 0: break;
     }
 }

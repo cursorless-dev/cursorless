@@ -1,12 +1,12 @@
-match foo:
+match value:
     pass
 ---
 
 [Content] =
 [Removal] =
 [Domain] = 0:0-1:8
-  >----------
-0| match foo:
+  >------------
+0| match value:
 1|     pass
    --------<
 
