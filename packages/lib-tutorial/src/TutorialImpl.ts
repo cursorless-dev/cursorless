@@ -276,8 +276,9 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
     return this.changeStep(() => 0);
   }
 
-  resume() {
-    return this.setupStep();
+  async resume() {
+    await this.setupStep();
+    await this.checkPreconditions();
   }
 
   async list() {
