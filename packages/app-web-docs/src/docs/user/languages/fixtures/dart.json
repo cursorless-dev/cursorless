@@ -102,9 +102,9 @@
     ]
   },
   {
-    "name": "scopes/dart/argument/argument.actual.enum.iteration",
+    "name": "scopes/dart/argument/argument.actual.enumConstant.iteration",
     "languageId": "dart",
-    "facet": "argument.actual.enum.iteration",
+    "facet": "argument.actual.enumConstant.iteration",
     "code": "enum Foo {\n    bar(aaa, bbb);\n}",
     "scopes": [
       {
@@ -118,9 +118,9 @@
     ]
   },
   {
-    "name": "scopes/dart/argument/argument.actual.enum.multiLine",
+    "name": "scopes/dart/argument/argument.actual.enumConstant.multiLine",
     "languageId": "dart",
-    "facet": "argument.actual.enum.multiLine",
+    "facet": "argument.actual.enumConstant.multiLine",
     "code": "enum Foo {\n    bar(\n        aaa,\n        bbb\n    );\n}",
     "scopes": [
       {
@@ -144,9 +144,9 @@
     ]
   },
   {
-    "name": "scopes/dart/argument/argument.actual.enum.singleLine",
+    "name": "scopes/dart/argument/argument.actual.enumConstant.singleLine",
     "languageId": "dart",
-    "facet": "argument.actual.enum.singleLine",
+    "facet": "argument.actual.enumConstant.singleLine",
     "code": "enum Foo {\n    bar(aaa, bbb);\n}",
     "scopes": [
       {
@@ -672,9 +672,9 @@
     ]
   },
   {
-    "name": "scopes/dart/argumentList/argumentList.actual.enum.empty",
+    "name": "scopes/dart/argumentList/argumentList.actual.enumConstant.empty",
     "languageId": "dart",
-    "facet": "argumentList.actual.enum.empty",
+    "facet": "argumentList.actual.enumConstant.empty",
     "code": "enum Foo {\n    bar();\n}",
     "scopes": [
       {
@@ -689,9 +689,9 @@
     ]
   },
   {
-    "name": "scopes/dart/argumentList/argumentList.actual.enum.multiLine",
+    "name": "scopes/dart/argumentList/argumentList.actual.enumConstant.multiLine",
     "languageId": "dart",
-    "facet": "argumentList.actual.enum.multiLine",
+    "facet": "argumentList.actual.enumConstant.multiLine",
     "code": "enum Foo {\n    bar(\n        aaa,\n        bbb\n    );\n}",
     "scopes": [
       {
@@ -706,9 +706,9 @@
     ]
   },
   {
-    "name": "scopes/dart/argumentList/argumentList.actual.enum.singleLine",
+    "name": "scopes/dart/argumentList/argumentList.actual.enumConstant.singleLine",
     "languageId": "dart",
-    "facet": "argumentList.actual.enum.singleLine",
+    "facet": "argumentList.actual.enumConstant.singleLine",
     "code": "enum Foo {\n    bar(aaa, bbb);\n}",
     "scopes": [
       {
@@ -1700,9 +1700,9 @@
     ]
   },
   {
-    "name": "scopes/dart/functionCall/functionCall.enum",
+    "name": "scopes/dart/functionCall/functionCall.enumConstant",
     "languageId": "dart",
-    "facet": "functionCall.enum",
+    "facet": "functionCall.enumConstant",
     "code": "enum Foo {\n    bar();\n}",
     "scopes": [
       {
@@ -1811,9 +1811,9 @@
     ]
   },
   {
-    "name": "scopes/dart/functionCallee/functionCallee.enum",
+    "name": "scopes/dart/functionCallee/functionCallee.enumConstant",
     "languageId": "dart",
-    "facet": "functionCallee.enum",
+    "facet": "functionCallee.enumConstant",
     "code": "enum Foo {\n    bar();\n}",
     "scopes": [
       {

@@ -332,8 +332,8 @@ export const scopeSupportFacetInfos: Record<
     description: "A function call with generic type arguments",
     scopeType: "functionCall",
   },
-  "functionCall.enum": {
-    description: "An enum constructor call",
+  "functionCall.enumConstant": {
+    description: "An enum constant or variant declaration with parentheses",
     scopeType: "functionCall",
   },
 
@@ -361,8 +361,9 @@ export const scopeSupportFacetInfos: Record<
       "The function being called in a function call with generic type arguments",
     scopeType: "functionCallee",
   },
-  "functionCallee.enum": {
-    description: "The enum constructor being called",
+  "functionCallee.enumConstant": {
+    description:
+      "The name of an enum constant or variant declared with parentheses",
     scopeType: "functionCallee",
   },
 
@@ -408,19 +409,20 @@ export const scopeSupportFacetInfos: Record<
     "arguments in a constructor call",
     "the argument list. The domain should be the entire constructor call.",
   ),
-  "argument.actual.enum.singleLine": {
-    description: "A single-line argument in an enum constructor call",
-    scopeType: "argumentOrParameter",
-  },
-  "argument.actual.enum.multiLine": {
+  "argument.actual.enumConstant.singleLine": {
     description:
-      "A multi-line argument in an enum constructor call. Insertion delimiter should include a newline.",
+      "A single-line argument in a parenthesized enum constant or variant declaration",
     scopeType: "argumentOrParameter",
   },
-  "argument.actual.enum.iteration": iteration(
+  "argument.actual.enumConstant.multiLine": {
+    description:
+      "A multi-line argument in a parenthesized enum constant or variant declaration. Insertion delimiter should include a newline.",
+    scopeType: "argumentOrParameter",
+  },
+  "argument.actual.enumConstant.iteration": iteration(
     "argumentOrParameter",
-    "arguments in an enum constructor call",
-    "the argument list. The domain should be the entire enum constructor call.",
+    "arguments in a parenthesized enum constant or variant declaration",
+    "the parenthesized list. The domain should be the entire enum constant or variant declaration.",
   ),
 
   "argument.formal.singleLine": {
@@ -527,18 +529,19 @@ export const scopeSupportFacetInfos: Record<
       "A multi-line list of arguments in a constructor call. Insertion delimiter should include a newline.",
     scopeType: "argumentList",
   },
-  "argumentList.actual.enum.empty": {
+  "argumentList.actual.enumConstant.empty": {
     description:
-      "An empty list of arguments in an enum constructor call. Insertion delimiter should be empty.",
+      "An empty parenthesized list in an enum constant or variant declaration. Insertion delimiter should be empty.",
     scopeType: "argumentList",
   },
-  "argumentList.actual.enum.singleLine": {
-    description: "A single-line list of arguments in an enum constructor call",
+  "argumentList.actual.enumConstant.singleLine": {
+    description:
+      "A single-line parenthesized list in an enum constant or variant declaration",
     scopeType: "argumentList",
   },
-  "argumentList.actual.enum.multiLine": {
+  "argumentList.actual.enumConstant.multiLine": {
     description:
-      "A multi-line list of arguments in an enum constructor call. Insertion delimiter should include a newline.",
+      "A multi-line parenthesized list in an enum constant or variant declaration. Insertion delimiter should include a newline.",
     scopeType: "argumentList",
   },
 

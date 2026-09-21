@@ -7,9 +7,9 @@
 - `argument.actual.constructor.iteration` Iteration scope for arguments in a constructor call: the argument list. The domain should be the entire constructor call..
 - `argument.actual.constructor.multiLine` A multi-line argument in a constructor call. Insertion delimiter should include a newline.
 - `argument.actual.constructor.singleLine` A single-line argument in a constructor call
-- `argument.actual.enum.iteration` Iteration scope for arguments in an enum constructor call: the argument list. The domain should be the entire enum constructor call..
-- `argument.actual.enum.multiLine` A multi-line argument in an enum constructor call. Insertion delimiter should include a newline.
-- `argument.actual.enum.singleLine` A single-line argument in an enum constructor call
+- `argument.actual.enumConstant.iteration` Iteration scope for arguments in a parenthesized enum constant or variant declaration: the parenthesized list. The domain should be the entire enum constant or variant declaration..
+- `argument.actual.enumConstant.multiLine` A multi-line argument in a parenthesized enum constant or variant declaration. Insertion delimiter should include a newline.
+- `argument.actual.enumConstant.singleLine` A single-line argument in a parenthesized enum constant or variant declaration
 - `argument.actual.iteration` Iteration scope for arguments in a function call: the argument list. The domain should be the entire function call.
 - `argument.actual.method.iteration` Iteration scope for arguments in a method call: the argument list. The domain should be the entire method call.
 - `argument.actual.method.multiLine` A multi-line argument in a method call. Insertion delimiter should include a newline.
@@ -36,9 +36,9 @@
 - `argumentList.actual.constructor.multiLine` A multi-line list of arguments in a constructor call. Insertion delimiter should include a newline.
 - `argumentList.actual.constructor.singleLine` A single-line list of arguments in a constructor call
 - `argumentList.actual.empty` An empty list of arguments in a function call. Insertion delimiter should be empty.
-- `argumentList.actual.enum.empty` An empty list of arguments in an enum constructor call. Insertion delimiter should be empty.
-- `argumentList.actual.enum.multiLine` A multi-line list of arguments in an enum constructor call. Insertion delimiter should include a newline.
-- `argumentList.actual.enum.singleLine` A single-line list of arguments in an enum constructor call
+- `argumentList.actual.enumConstant.empty` An empty parenthesized list in an enum constant or variant declaration. Insertion delimiter should be empty.
+- `argumentList.actual.enumConstant.multiLine` A multi-line parenthesized list in an enum constant or variant declaration. Insertion delimiter should include a newline.
+- `argumentList.actual.enumConstant.singleLine` A single-line parenthesized list in an enum constant or variant declaration
 - `argumentList.actual.method.empty` An empty list of arguments in a method call. Insertion delimiter should be empty.
 - `argumentList.actual.method.multiLine` A multi-line list of arguments in a method call. Insertion delimiter should include a newline.
 - `argumentList.actual.method.singleLine` A single-line list of arguments in a method call
@@ -160,7 +160,7 @@
 - `functionCall` A function call
 - `functionCall.chain` A chain of function calls, eg `foo().bar()`
 - `functionCall.constructor` A constructor call
-- `functionCall.enum` An enum constructor call
+- `functionCall.enumConstant` An enum constant or variant declaration with parentheses
 - `functionCall.generic` A function call with generic type arguments
 - `functionCall.method` A method call
 
@@ -169,7 +169,7 @@
 - `functionCallee` The function being called in a function call
 - `functionCallee.chain` The function being called in a chain of function calls, including parent objects.
 - `functionCallee.constructor` The class being constructed in a class instantiation, including the `new` keyword.
-- `functionCallee.enum` The enum constructor being called
+- `functionCallee.enumConstant` The name of an enum constant or variant declared with parentheses
 - `functionCallee.generic` The function being called in a function call with generic type arguments
 - `functionCallee.method` The function being called in a method call, including parent objects.
 
