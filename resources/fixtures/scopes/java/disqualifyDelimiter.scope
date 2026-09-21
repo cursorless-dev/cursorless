@@ -13,6 +13,7 @@ switch (value) {
     case a -> 2
 }
 ---
+
 [#1 Content] = 0:2-0:3
     >-<
 0| 1 < 2;

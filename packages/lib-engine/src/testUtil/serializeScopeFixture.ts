@@ -51,9 +51,9 @@ function serializeScopeFixtureHelper(
   codeLines: string[],
   scopes: string[],
 ): string {
-  const serializedScopes = scopes.join("\n\n");
+  const serializedScopes = scopes.join("\n\n").trimStart();
 
-  return [...codeLines, "---", serializedScopes, ""].join("\n");
+  return [...codeLines, "---", "", serializedScopes, ""].join("\n");
 }
 
 function serializeScope(
