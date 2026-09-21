@@ -36,7 +36,7 @@
     "{" @statementNameValueType.iteration.start.endOf @class.iteration.start.endOf @namedFunction.iteration.start.endOf
     "}" @statementNameValueType.iteration.end.startOf @class.iteration.end.startOf @namedFunction.iteration.end.startOf
   ) @_dummy
-  (#not-type? @_dummy if_statement)
+  (#not-type? @_dummy if_statement lambda_literal)
 )
 
 (
@@ -44,7 +44,7 @@
     "{" @interior.start.endOf
     "}" @interior.end.startOf
   ) @_dummy
-  (#not-type? @_dummy if_statement)
+  (#not-type? @_dummy if_statement lambda_literal)
 )
 
 ;;!! // Hello world
@@ -282,6 +282,15 @@
   )
   (#not-type? @value control_transfer_statement)
 ) @value.domain
+
+;;!! { (aaa: Int, bbb: Int) in }
+;;!     ^^^       ^^^
+;;!          ^^^       ^^^
+(lambda_parameter
+  .
+  (_) @name @type.leading.endOf
+  (_)? @type
+)
 
 ;;!! do {} catch {}
 ;;!  ^^^^^
@@ -546,24 +555,12 @@
     "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
     .
     (parameter) @argumentList.start
-    (parameter) @argumentList.end
+    (parameter)? @argumentList.end
     .
     ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
   ) @_dummy @argumentList.domain @argumentOrParameter.iteration.domain
   (#type? @_dummy function_declaration protocol_function_declaration init_declaration)
   (#single-or-multi-line-delimiter! @argumentList.start @_dummy ", " ",\n")
-)
-
-(
-  (_
-    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
-    .
-    (parameter) @argumentList
-    .
-    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
-  ) @_dummy @argumentList.domain @argumentOrParameter.iteration.domain
-  (#type? @_dummy function_declaration protocol_function_declaration init_declaration)
-  (#single-or-multi-line-delimiter! @argumentList @_dummy ", " ",\n")
 )
 
 ;;!! func foo() {}
@@ -620,17 +617,93 @@
 
 ;;!! foo(aaa, bbb)
 ;;!      ^^^^^^^^
+(call_expression
+  (call_suffix
+    (value_arguments
+      "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+      ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+    ) @argumentList
+    (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+    (#child-range! @argumentList 1 -2)
+  )
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
+;;!! foo(aaa: 0, bbb: 1)
+;;!      ^^^     ^^^
+;;!           ^       ^
+(value_argument
+  name: (_) @name @value.leading.endOf
+  value: (_) @value @name.trailing.startOf
+) @_.domain
+
+;;!! foo(aaa: 0, bbb: 1)
+;;!      ^^^^^^^^^^^^^^
+(value_arguments
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf
+)
+
+;;!! func bar(aaa: Int, bbb: Int = 0) {}
+;;!           ^^^       ^^^
+;;!                ^^^       ^^^
+;;!                                ^
 (
-  (call_expression
-    (call_suffix
-      (value_arguments
-        "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
-        ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
-      ) @argumentList
-      (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
-      (#child-range! @argumentList 1 -2)
-    )
-  ) @argumentList.domain @argumentOrParameter.iteration.domain
+  (parameter
+    (_) @name @type.leading.endOf
+    ":"
+    (_) @type
+  ) @_.domain.start @value.leading.endOf
+  .
+  (
+    "="
+    .
+    default_value: (_) @value @_.domain.end
+  )?
+)
+
+;;!! func bar(aaa: Int, bbb: Int) {}
+;;!           ^^^^^^^^^^^^^^^^^^
+(function_declaration
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+)
+
+;;!! init(aaa: Int, bbb: Int) {}
+;;!           ^^^^^^^^^^^^^^^^^^
+(init_declaration
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+)
+
+;;!! { (aaa: Int, bbb: Int) in }
+;;!     ^^^^^^^^^^^^^^^^^^
+(lambda_function_type_parameters) @name.iteration @type.iteration
+
+(comparison_expression
+  op: [
+    "<"
+    ">"
+  ] @disqualifyDelimiter
+)
+
+(bitwise_operation
+  op: [
+    "<<"
+    ">>"
+  ] @disqualifyDelimiter
+)
+
+;; <=, >= and user custom operators
+(infix_expression
+  (custom_operator) @disqualifyDelimiter
+)
+
+(range_expression
+  op: "..<" @disqualifyDelimiter
+)
+
+(open_start_range_expression
+  "..<" @disqualifyDelimiter
 )
 
 (function_type

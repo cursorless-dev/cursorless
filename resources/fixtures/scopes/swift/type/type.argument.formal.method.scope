@@ -1,0 +1,53 @@
+struct Foo {
+    func bar(aaa: Int, bbb: Int = 0) {}
+}
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-2:1
+  >------------
+0| struct Foo {
+1|     func bar(aaa: Int, bbb: Int = 0) {}
+2| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:18-1:21
+                    >---<
+1|     func bar(aaa: Int, bbb: Int = 0) {}
+
+[#2 Removal] = 1:16-1:21
+                  >-----<
+1|     func bar(aaa: Int, bbb: Int = 0) {}
+
+[#2 Leading delimiter] = 1:16-1:18
+                  >--<
+1|     func bar(aaa: Int, bbb: Int = 0) {}
+
+[#2 Domain] = 1:13-1:21
+               >--------<
+1|     func bar(aaa: Int, bbb: Int = 0) {}
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] = 1:28-1:31
+                              >---<
+1|     func bar(aaa: Int, bbb: Int = 0) {}
+
+[#3 Removal] = 1:26-1:31
+                            >-----<
+1|     func bar(aaa: Int, bbb: Int = 0) {}
+
+[#3 Leading delimiter] = 1:26-1:28
+                            >--<
+1|     func bar(aaa: Int, bbb: Int = 0) {}
+
+[#3 Domain] = 1:23-1:35
+                         >------------<
+1|     func bar(aaa: Int, bbb: Int = 0) {}
+
+[#3 Insertion delimiter] = " "
