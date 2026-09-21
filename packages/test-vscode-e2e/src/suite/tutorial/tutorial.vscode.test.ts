@@ -154,6 +154,9 @@ async function runBasicTutorialTest(spyIde: SpyIDE) {
   // Test resuming tutorial
   await commands.executeCommand("cursorless.tutorial.resume");
   await checkStepSetup(fixtures[0]);
+  const resumedStateEvent = getTutorialWebviewEventLog().at(-2);
+  assert.ok(resumedStateEvent?.type === "messageSent");
+  assert.equal(resumedStateEvent.data.preConditionsMet, true);
 
   // Test automatic advancing
   await runCursorlessCommand({
