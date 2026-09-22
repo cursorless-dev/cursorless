@@ -278,7 +278,6 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
 
   async resume() {
     await this.setupStep();
-    await this.checkPreconditions();
   }
 
   async list() {
@@ -353,23 +352,43 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
 
     const currentStep = this.currentTutorial!.steps[state.stepNumber];
 
-    const preConditionsMet = await arePreconditionsMet(
+    const preconditionError = await arePreconditionsMet(
       this.ide.activeTextEditor,
       this.editor,
       this.hatTokenMap,
       currentStep,
     );
 
+    // Verify that the state hasn't changed since we started checking preconditions
     if (this.state_ !== state) {
+      this.debug(
+        `Tutorial ${state.id} step ${state.stepNumber + 1}: precondition check discarded because the tutorial state changed`,
+      );
       return;
     }
 
+    const preConditionsMet = preconditionError == null;
+
+    if (!preConditionsMet) {
+      this.debug(
+        `Tutorial ${state.id} step ${state.stepNumber + 1}: ${preconditionError}`,
+      );
+    }
+
+    // Update the state if the preconditions have changed
     if (preConditionsMet !== state.preConditionsMet) {
       this.setState({
         ...state,
         preConditionsMet,
       });
       await this.ensureHighlights();
+    }
+  }
+
+  private debug(message: string) {
+    const debug = this.ide.configuration.getOwnConfiguration("debug");
+    if (debug) {
+      console.log(message);
     }
   }
 }

@@ -139,7 +139,7 @@ export class HatTokenMapImpl implements HatTokenMap {
       await this.commandServerApi.signals.prePhrase.getVersion();
 
     if (newSignalVersion !== this.lastSignalVersion) {
-      this.debug.log("taking snapshot");
+      this.debug.log("Taking snapshot");
       this.lastSignalVersion = newSignalVersion;
 
       if (newSignalVersion != null) {
