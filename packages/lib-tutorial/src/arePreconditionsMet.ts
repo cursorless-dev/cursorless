@@ -13,46 +13,56 @@ import type { TutorialStep } from "./types/tutorial.types";
  * @param editor The editor to check.
  * @param hatTokenMap The hat token map to use for checking if hats are correct.
  * @param step The tutorial step whose prerequesites are to be checked.
- * @returns `true` if the preconditions are met, `false` otherwise.
+ * @returns A description of the first failed precondition, or `undefined` if
+ * all preconditions are met.
  */
 export async function arePreconditionsMet(
   activeTextEditor: TextEditor | undefined,
   editor: TextEditor | undefined,
   hatTokenMap: HatTokenMap,
   { initialState: snapshot, languageId }: TutorialStep,
-): Promise<boolean> {
+): Promise<string | undefined> {
   if (snapshot == null) {
-    return true;
+    return undefined;
   }
 
   if (activeTextEditor !== editor) {
-    return false;
+    return `Active editor differs from tutorial editor`;
   }
 
-  if (editor == null || editor.document.languageId !== languageId) {
-    return false;
+  if (editor == null) {
+    return "Tutorial editor is unavailable";
+  }
+
+  if (editor.document.languageId !== languageId) {
+    return `Language differs (expected: ${languageId}, actual: ${editor.document.languageId})`;
   }
 
   if (editor.document.getText() !== snapshot.documentContents) {
-    return false;
+    return "Document contents differ";
   }
 
-  if (
-    !isEqual(editor.selections, snapshot.selections.map(plainObjectToSelection))
-  ) {
-    return false;
+  const expectedSelections = snapshot.selections.map(plainObjectToSelection);
+  if (!isEqual(editor.selections, expectedSelections)) {
+    const expected = expectedSelections
+      .map((selection) => selection.concise())
+      .join(", ");
+    const actual = editor.selections
+      .map((selection) => selection.concise())
+      .join(", ");
+    return `Selections differ (expected: ${expected}, actual: ${actual})`;
   }
 
   const readableHatMap = await hatTokenMap.getReadableMap(false);
   for (const mark of serializedMarksToTokenHats(snapshot.marks, editor)) {
-    if (
-      !readableHatMap
-        .getToken(mark.hatStyle, mark.grapheme)
-        ?.range.isRangeEqual(mark.hatRange)
-    ) {
-      return false;
+    const actualRange = readableHatMap.getToken(
+      mark.hatStyle,
+      mark.grapheme,
+    )?.range;
+    if (!actualRange?.isRangeEqual(mark.hatRange)) {
+      return `Hat ${mark.hatStyle}.${mark.grapheme} differs (expected: ${mark.hatRange.concise()}, actual: ${actualRange?.concise() ?? "none"})`;
     }
   }
 
-  return true;
+  return undefined;
 }

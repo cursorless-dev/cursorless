@@ -26,6 +26,9 @@ export class NormalizedIDE extends PassthroughIDE {
   }
 
   private initializeConfiguration() {
+    if (this.runMode === "development") {
+      this.configuration.mockConfiguration("debug", true);
+    }
     this.configuration.mockConfigurationScope(
       { languageId: "css" },
       { wordSeparators: ["_", "-"] },
