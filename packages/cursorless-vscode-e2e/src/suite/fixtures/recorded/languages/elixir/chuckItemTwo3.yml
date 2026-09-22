@@ -1,0 +1,27 @@
+languageId: elixir
+command:
+  version: 6
+  spokenForm: chuck item two
+  action:
+    name: remove
+    target:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: '2'}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "%{\"a\" => 1, :b => 2, 3 => 3}"
+  selections:
+    - anchor: {line: 0, character: 28}
+      active: {line: 0, character: 28}
+  marks:
+    default.2:
+      start: {line: 0, character: 18}
+      end: {line: 0, character: 19}
+finalState:
+  documentContents: "%{\"a\" => 1, 3 => 3}"
+  selections:
+    - anchor: {line: 0, character: 19}
+      active: {line: 0, character: 19}
