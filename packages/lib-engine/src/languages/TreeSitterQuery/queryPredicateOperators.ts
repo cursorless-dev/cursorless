@@ -317,24 +317,41 @@ class TrimEnd extends QueryPredicateOperator<TrimEnd> {
   schema = z.tuple([q.node]).rest(q.node);
 
   run(...captures: MutableQueryCapture[]) {
-    for (const capture of captures) {
-      const { document, range } = capture;
-      const text = getNode(capture).text;
-      const whitespaceLength = text.length - text.trimEnd().length;
-
-      if (whitespaceLength > 0) {
-        setRange(
-          capture,
-          new Range(
-            range.start,
-            adjustPosition(document, range.end, -whitespaceLength),
-          ),
-        );
-      }
-    }
-
-    return true;
+    return trimEnd(captures);
   }
+}
+
+/**
+ * A predicate that behaves the same as {@link TrimEnd} but allows the node to be missing.
+ */
+class TrimEndOptional extends QueryPredicateOperator<TrimEndOptional> {
+  name = "trim-end-optional!" as const;
+  schema = z.tuple([q.node]).rest(q.node);
+  allowMissingNode = true;
+
+  run(...captures: MutableQueryCapture[]) {
+    return trimEnd(captures);
+  }
+}
+
+function trimEnd(captures: MutableQueryCapture[]): boolean {
+  for (const capture of captures) {
+    const { document, range } = capture;
+    const text = getNode(capture).text;
+    const whitespaceLength = text.length - text.trimEnd().length;
+
+    if (whitespaceLength > 0) {
+      setRange(
+        capture,
+        new Range(
+          range.start,
+          adjustPosition(document, range.end, -whitespaceLength),
+        ),
+      );
+    }
+  }
+
+  return true;
 }
 
 /**
@@ -367,10 +384,7 @@ class DocumentRange extends QueryPredicateOperator<DocumentRange> {
 class AllowMultiple extends QueryPredicateOperator<AllowMultiple> {
   name = "allow-multiple!" as const;
   schema = z.tuple([q.node]).rest(q.node);
-
-  protected allowMissingNode(): boolean {
-    return true;
-  }
+  allowMissingNode = true;
 
   run(...captures: MutableQueryCapture[]) {
     for (const capture of captures) {
@@ -477,6 +491,7 @@ export const queryPredicateOperators = [
   new Type(),
   new NotType(),
   new TrimEnd(),
+  new TrimEndOptional(),
   new DocumentRange(),
   new NotParentType(),
   new NotChildType(),
