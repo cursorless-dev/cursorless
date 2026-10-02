@@ -16,6 +16,10 @@
 2| - Second item
    <
 
+[#1 Prefix] = 0:0-0:2
+  >--<
+0| - First item
+
 [#1 Trailing delimiter] = 1:11-2:0
              >
 1|   Paragraph
@@ -40,6 +44,10 @@
 1|   Paragraph
 2| - Second item
    -------------<
+
+[#2 Prefix] = 2:0-2:2
+  >--<
+2| - Second item
 
 [#2 Leading delimiter] = 1:11-2:0
              >

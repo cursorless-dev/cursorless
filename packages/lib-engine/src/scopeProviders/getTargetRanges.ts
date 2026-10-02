@@ -6,6 +6,7 @@ export function getTargetRanges(target: Target): TargetRanges {
     contentRange: target.contentRange,
     removalRange: target.getRemovalRange(),
     removalHighlightRange: target.getRemovalHighlightRange(),
+    prefixRange: target.prefixRange,
     leadingDelimiter: getOptionalTarget(target.getLeadingDelimiterTarget()),
     trailingDelimiter: getOptionalTarget(target.getTrailingDelimiterTarget()),
     interior: target.getInterior()?.map(getTargetRanges),
