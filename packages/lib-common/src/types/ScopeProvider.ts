@@ -191,6 +191,7 @@ export interface TargetRanges {
   contentRange: Range;
   removalRange: Range;
   removalHighlightRange: GeneralizedRange;
+  prefixRange: Range | undefined;
   leadingDelimiter: TargetRanges | undefined;
   trailingDelimiter: TargetRanges | undefined;
   interior: TargetRanges[] | undefined;

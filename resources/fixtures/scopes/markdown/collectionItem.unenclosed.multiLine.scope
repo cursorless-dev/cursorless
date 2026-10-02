@@ -16,6 +16,10 @@
 2| - This is the first level of a list again.
    <
 
+[#1 Prefix] = 0:0-0:2
+  >--<
+0| - This is the first level of a list.
+
 [#1 Trailing delimiter] = 1:39-2:0
                                          >
 1|   - This is the second level of a list.
@@ -41,6 +45,10 @@
 2| - This is the first level of a list again.
    <
 
+[#2 Prefix] = 1:2-1:4
+    >--<
+1|   - This is the second level of a list.
+
 [#2 Leading delimiter] = 1:0-1:2
   >--<
 1|   - This is the second level of a list.
@@ -61,6 +69,10 @@
 1|   - This is the second level of a list.
 2| - This is the first level of a list again.
    ------------------------------------------<
+
+[#3 Prefix] = 2:0-2:2
+  >--<
+2| - This is the first level of a list again.
 
 [#3 Leading delimiter] = 1:39-2:0
                                          >

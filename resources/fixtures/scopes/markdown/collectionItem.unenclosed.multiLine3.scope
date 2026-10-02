@@ -12,6 +12,10 @@
 1| - [ ] Second item
    <
 
+[#1 Prefix] = 0:0-0:2
+  >--<
+0| - [ ] First item
+
 [#1 Trailing delimiter] = 0:16-1:0
                   >
 0| - [ ] First item
@@ -43,6 +47,10 @@
 0| - [ ] First item
 1| - [ ] Second item
    -----------------<
+
+[#3 Prefix] = 1:0-1:2
+  >--<
+1| - [ ] Second item
 
 [#3 Leading delimiter] = 0:16-1:0
                   >

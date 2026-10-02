@@ -79,6 +79,7 @@ function parseTest(test: ScopeTestPath): ScopeFixtureData {
       case "Removal":
         currentTarget.removal = value;
         break;
+      case "Prefix":
       case "Insertion delimiter":
       case "Leading delimiter":
       case "Leading delimiter: Content":
