@@ -387,7 +387,7 @@ suite("queryPredicateOperators", () => {
     "shrink-to-match!": [captureOperand, "hello"],
     "grow-to-named-siblings!": [captureOperand],
     "trim-end!": [captureOperand, conditionOperand],
-    "trim-end-optional!": [captureOperand, conditionOperand],
+    "trim-end-optional!": [captureOperand],
     "document-range!": [captureOperand, conditionOperand],
     "allow-multiple!": [captureOperand, conditionOperand],
     "insertion-delimiter!": [captureOperand, ", "],

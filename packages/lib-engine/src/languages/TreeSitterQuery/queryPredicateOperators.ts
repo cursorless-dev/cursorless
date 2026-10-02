@@ -317,7 +317,10 @@ class TrimEnd extends QueryPredicateOperator<TrimEnd> {
   schema = z.tuple([q.node]).rest(q.node);
 
   run(...captures: MutableQueryCapture[]) {
-    return trimEnd(captures);
+    for (const capture of captures) {
+      trimEnd(capture);
+    }
+    return true;
   }
 }
 
@@ -326,32 +329,29 @@ class TrimEnd extends QueryPredicateOperator<TrimEnd> {
  */
 class TrimEndOptional extends QueryPredicateOperator<TrimEndOptional> {
   name = "trim-end-optional!" as const;
-  schema = z.tuple([q.node]).rest(q.node);
+  schema = z.tuple([q.node]);
   allowMissingNode = true;
 
-  run(...captures: MutableQueryCapture[]) {
-    return trimEnd(captures);
+  run(capture: MutableQueryCapture) {
+    trimEnd(capture);
+    return true;
   }
 }
 
-function trimEnd(captures: MutableQueryCapture[]): boolean {
-  for (const capture of captures) {
-    const { document, range } = capture;
-    const text = getNode(capture).text;
-    const whitespaceLength = text.length - text.trimEnd().length;
+function trimEnd(capture: MutableQueryCapture): void {
+  const { document, range } = capture;
+  const text = getNode(capture).text;
+  const whitespaceLength = text.length - text.trimEnd().length;
 
-    if (whitespaceLength > 0) {
-      setRange(
-        capture,
-        new Range(
-          range.start,
-          adjustPosition(document, range.end, -whitespaceLength),
-        ),
-      );
-    }
+  if (whitespaceLength > 0) {
+    setRange(
+      capture,
+      new Range(
+        range.start,
+        adjustPosition(document, range.end, -whitespaceLength),
+      ),
+    );
   }
-
-  return true;
 }
 
 /**
