@@ -27,9 +27,10 @@
   (list_item)? @collectionItem.leading.endOf
   .
   (list_item
+    .
     (_) @collectionItem.prefix
     .
-    (paragraph) @collectionItem.start.startOf
+    (_) @collectionItem.start.startOf
   ) @collectionItem.end.endOf @collectionItem.domain
   .
   (list_item)? @collectionItem.trailing.startOf
