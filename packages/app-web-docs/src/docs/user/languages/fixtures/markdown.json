@@ -24,6 +24,22 @@
     ]
   },
   {
+    "name": "scopes/markdown/collectionItem.unenclosed.iteration2",
+    "languageId": "markdown",
+    "facet": "collectionItem.unenclosed.iteration",
+    "code": "- First item\n  Paragraph\n- Second item",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:0-2:13"
+          }
+        ],
+        "domain": "0:0-2:13"
+      }
+    ]
+  },
+  {
     "name": "scopes/markdown/collectionItem.unenclosed.multiLine",
     "languageId": "markdown",
     "facet": "collectionItem.unenclosed.multiLine",
@@ -51,10 +67,36 @@
         "targets": [
           {
             "content": "2:2-2:42",
-            "removal": "2:0-2:42"
+            "removal": "1:39-2:42"
           }
         ],
         "domain": "2:0-2:42"
+      }
+    ]
+  },
+  {
+    "name": "scopes/markdown/collectionItem.unenclosed.multiLine2",
+    "languageId": "markdown",
+    "facet": "collectionItem.unenclosed.multiLine",
+    "code": "- First item\n  Paragraph\n- Second item",
+    "scopes": [
+      {
+        "targets": [
+          {
+            "content": "0:2-1:11",
+            "removal": "0:0-2:0"
+          }
+        ],
+        "domain": "0:0-1:11"
+      },
+      {
+        "targets": [
+          {
+            "content": "2:2-2:13",
+            "removal": "1:11-2:13"
+          }
+        ],
+        "domain": "2:0-2:13"
       }
     ]
   },
