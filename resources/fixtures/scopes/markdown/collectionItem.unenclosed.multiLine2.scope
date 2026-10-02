@@ -1,0 +1,54 @@
+- First item
+  Paragraph
+- Second item
+---
+
+[#1 Content] = 0:2-1:11
+    >----------
+0| - First item
+1|   Paragraph
+   -----------<
+
+[#1 Removal] = 0:0-2:0
+  >------------
+0| - First item
+1|   Paragraph
+2| - Second item
+   <
+
+[#1 Trailing delimiter] = 1:11-2:0
+             >
+1|   Paragraph
+2| - Second item
+   <
+
+[#1 Domain] = 0:0-1:11
+  >------------
+0| - First item
+1|   Paragraph
+   -----------<
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] = 2:2-2:13
+    >-----------<
+2| - Second item
+
+[#2 Removal] = 1:11-2:13
+             >
+1|   Paragraph
+2| - Second item
+   -------------<
+
+[#2 Leading delimiter] = 1:11-2:0
+             >
+1|   Paragraph
+2| - Second item
+   <
+
+[#2 Domain] = 2:0-2:13
+  >-------------<
+2| - Second item
+
+[#2 Insertion delimiter] = "\n"

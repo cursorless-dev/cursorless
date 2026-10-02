@@ -387,6 +387,7 @@ suite("queryPredicateOperators", () => {
     "shrink-to-match!": [captureOperand, "hello"],
     "grow-to-named-siblings!": [captureOperand],
     "trim-end!": [captureOperand, conditionOperand],
+    "trim-end-optional!": [captureOperand],
     "document-range!": [captureOperand, conditionOperand],
     "allow-multiple!": [captureOperand, conditionOperand],
     "insertion-delimiter!": [captureOperand, ", "],
@@ -448,17 +449,15 @@ suite("queryPredicateOperators", () => {
   }
 
   test("allow-multiple! accepts missing captures while range operators require them", () => {
-    for (const name of [
-      "allow-multiple!",
-      "trim-end!",
-      "document-range!",
-    ] as const) {
+    const optionalNames = ["allow-multiple!", "trim-end-optional!"];
+    const requiredNames = ["trim-end!", "document-range!"];
+    for (const name of [...optionalNames, ...requiredNames] as const) {
       const operator = queryPredicateOperators.find((op) => op.name === name)!;
       const result = operator.createPredicate([
         { type: "capture", name: "missing" },
       ]);
       assert.ok(result.success);
-      if (name === "allow-multiple!") {
+      if (optionalNames.includes(name)) {
         assert.equal(result.predicate({ captures: [] }), true);
       } else {
         assert.throws(

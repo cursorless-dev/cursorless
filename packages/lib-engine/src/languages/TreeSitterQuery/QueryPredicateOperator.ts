@@ -36,6 +36,16 @@ export abstract class QueryPredicateOperator<T extends HasSchema> {
   abstract readonly schema: InferSchemaType<T>;
 
   /**
+   * Whether it is ok for a node argument to be missing.  If true, then the
+   * operator will just accept the pattern if the given node is missing.  If
+   * false, then the operator will throw an error if the node is missing.
+   *
+   * This is useful if we want to set some flag on a node, but only if it's
+   * present.
+   */
+  protected allowMissingNode: boolean = false;
+
+  /**
    * Given a list of operands, return whether the operator accepts the given
    * operands.  This is where the actual logic of the operator is implemented.
    *
@@ -46,21 +56,6 @@ export abstract class QueryPredicateOperator<T extends HasSchema> {
   protected abstract run(
     ...args: AcceptFunctionArgs<z.infer<InferSchemaType<T>>>
   ): boolean;
-
-  /**
-   * Whether it is ok for a node argument to be missing.  If true, then the
-   * operator will just accept the pattern if the given node is missing.  If
-   * false, then the operator will throw an error if the node is missing.
-   *
-   * This is useful if we want to set some flag on a node, but only if it's
-   * present.
-   *
-   * @returns A boolean indicating whether it is ok for a node argument to be
-   * missing.
-   */
-  protected allowMissingNode(): boolean {
-    return false;
-  }
 
   /**
    * Given a list of operands, return a predicate function that can be used to
@@ -84,7 +79,7 @@ export abstract class QueryPredicateOperator<T extends HasSchema> {
             } catch (error) {
               if (
                 error instanceof CaptureNotFoundError &&
-                this.allowMissingNode()
+                this.allowMissingNode
               ) {
                 return true;
               }

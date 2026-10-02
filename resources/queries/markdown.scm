@@ -20,18 +20,21 @@
   (#shrink-to-match! @name "^\\s*(?<keep>.*)$")
 ) @name.domain
 
-;;!! - 0
-;;!    ^
-;;!  ---
+;;!! - Hello world
+;;!    ^^^^^^^^^^^
+
 (list
   (list_item)? @collectionItem.leading.endOf
   .
   (list_item
+    .
     (_) @collectionItem.prefix
-    (paragraph) @collectionItem.start.startOf
+    .
+    (_) @collectionItem.start.startOf
   ) @collectionItem.end.endOf @collectionItem.domain
   .
   (list_item)? @collectionItem.trailing.startOf
+  (#trim-end-optional! @collectionItem.leading.endOf)
   (#trim-end! @collectionItem.end.endOf)
   (#trim-end! @collectionItem.domain)
   (#insertion-delimiter! @collectionItem.start.startOf "\n")
