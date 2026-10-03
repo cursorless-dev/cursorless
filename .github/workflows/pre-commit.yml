@@ -44,11 +44,11 @@ jobs:
       - name: Run pre-commit hooks
         uses: pre-commit/action@v3.0.1
 
-      - name: Auto-fix pre-commit issues
-        uses: pre-commit-ci/lite-action@v1.1.0
-        if: always()
-
       - name: Pyright
         uses: jakebailey/pyright-action@v3
         with:
           pylance-version: latest-release
+
+      - name: pre-commit-ci-lite
+        uses: pre-commit-ci/lite-action@v1.1.0
+        if: always()
