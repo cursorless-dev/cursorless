@@ -50,5 +50,5 @@ jobs:
           pylance-version: latest-release
 
       - name: pre-commit-ci-lite
-        uses: pre-commit-ci/lite-action@v1.1.0
+        uses: pre-commit-ci/lite-action@v1.2.0
         if: always()
