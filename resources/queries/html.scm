@@ -25,7 +25,7 @@
   [
     (quoted_attribute_value)
     (attribute_value)
-  ] ? @collectionKey.trailing.startOf
+  ]? @collectionKey.trailing.startOf
 ) @collectionKey.domain
 
 ;;!! <aaa value=2>

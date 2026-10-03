@@ -414,7 +414,7 @@
     [
       (line_comment)
       (multiline_comment)
-    ] *
+    ]*
     .
     (parameter_modifiers)? @argumentOrParameter.start
     .
@@ -423,7 +423,7 @@
     [
       (line_comment)
       (multiline_comment)
-    ] *
+    ]*
     .
     [
       ","
@@ -472,7 +472,7 @@
     [
       (line_comment)
       (multiline_comment)
-    ] *
+    ]*
     .
     (parameter_modifiers)? @argumentOrParameter.start.startOf
     .
@@ -484,7 +484,7 @@
     [
       (line_comment)
       (multiline_comment)
-    ] *
+    ]*
     .
     [
       ","
