@@ -17,7 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CURSORLESS_REPO_ROOT: ${{ github.workspace }}
-      NPM_CONFIG_ALLOW_GIT: all
 
     steps:
       - name: Checkout repository
@@ -30,6 +29,11 @@ jobs:
 
       - name: Set up Node.js
         uses: ./.github/actions/setup-node
+
+      # pre-commit passes --allow-git=root when installing Node hooks. npm 11
+      # rejects the hook repository's git dependency despite that setting.
+      - name: Use npm 10 for pre-commit Node hooks
+        run: npm install --global npm@10.9.4
 
       - name: Install lua
         uses: leafo/gh-actions-lua@v12
