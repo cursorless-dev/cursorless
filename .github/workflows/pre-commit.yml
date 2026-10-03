@@ -17,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CURSORLESS_REPO_ROOT: ${{ github.workspace }}
+      NPM_CONFIG_ALLOW_GIT: all
 
     steps:
       - name: Checkout repository
