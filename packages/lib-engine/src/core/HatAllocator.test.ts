@@ -8,6 +8,7 @@ import {
   Range,
   tokenHatToPlainObject,
 } from "@cursorless/lib-common";
+import { DisabledTalonSpokenForms } from "../disabledComponents/DisabledTalonSpokenForms";
 import { TokenGraphemeSplitter } from "../tokenGraphemeSplitter";
 import { HatAllocator } from "./HatAllocator";
 import { IndividualHatMap } from "./IndividualHatMap";
@@ -16,11 +17,12 @@ import { RangeUpdater } from "./updateSelections/RangeUpdater";
 suite("HatAllocator", () => {
   test("initial allocation is independent of earlier hat assignments", async () => {
     const ide = new HatTestIDE();
+    const talonSpokenForms = new DisabledTalonSpokenForms();
     ide.configuration.mockConfiguration("experimental", {
       ...ide.configuration.getOwnConfiguration("experimental"),
       hatStability: HatStability.stable,
     });
-    const splitter = new TokenGraphemeSplitter(ide);
+    const splitter = new TokenGraphemeSplitter(ide, talonSpokenForms);
     const rangeUpdater = new RangeUpdater(ide);
     const map = new IndividualHatMap(ide, splitter, rangeUpdater);
     const hats: Hats = {
@@ -66,17 +68,18 @@ suite("HatAllocator", () => {
 
     try {
       // Establish the expected allocation with no earlier editor events.
-      await allocator.allocateHats([forcedWorld]);
+      await allocator.allocateHats({ forceTokenHats: [forcedWorld] });
       const expected = snapshot();
 
       // Simulate an allocation that occurred before fixture initialization.
-      await allocator.allocateHats([previousHello]);
-      await allocator.allocateHats([forcedWorld]);
+      await allocator.allocateHats({ forceTokenHats: [previousHello] });
+      await allocator.allocateHats({ forceTokenHats: [forcedWorld] });
       assert.notDeepEqual(snapshot(), expected);
       assert.ok(map.getToken("blue", "h"), "Normal allocation preserves hats");
 
-      await allocator.allocateHats([forcedWorld], {
+      await allocator.allocateHats({
         startFresh: true,
+        forceTokenHats: [forcedWorld],
       });
       assert.deepEqual(snapshot(), expected);
       assert.ok(map.getToken("default", "w"), "Forced hats are still applied");

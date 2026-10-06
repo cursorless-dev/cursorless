@@ -3,7 +3,6 @@ import type {
   HatAllocationOptions,
   Hats,
   IDE,
-  TokenHat,
 } from "@cursorless/lib-common";
 import type { TokenGraphemeSplitter } from "../tokenGraphemeSplitter";
 import { allocateHats } from "../util/allocateHats";
@@ -16,6 +15,7 @@ interface Context {
 
 export class HatAllocator {
   private disposables: Disposable[] = [];
+  private startFresh = false;
 
   constructor(
     private ide: IDE,
@@ -25,9 +25,10 @@ export class HatAllocator {
   ) {
     ide.disposeOnExit(this);
 
-    const debouncer = new DecorationDebouncer(ide.configuration, () =>
-      this.allocateHats(),
-    );
+    const debouncer = new DecorationDebouncer(ide.configuration, () => {
+      this.allocateHats({ startFresh: this.startFresh });
+      this.startFresh = false;
+    });
 
     this.disposables.push(
       this.hats.onDidChangeEnabledHatStyles(debouncer.run),
@@ -47,9 +48,12 @@ export class HatAllocator {
       ide.onDidChangeTextEditorSelection(debouncer.run),
       // An Event which fires when the visible ranges of an editor has changed.
       ide.onDidChangeTextEditorVisibleRanges(debouncer.run),
-      // Re-draw hats on grapheme splitting algorithm change in case they
-      // changed their token hat splitting setting.
-      tokenGraphemeSplitter.registerAlgorithmChangeListener(debouncer.run),
+      // Re-draw hats on grapheme splitting algorithm change.
+      tokenGraphemeSplitter.registerAlgorithmChangeListener(() => {
+        // When the grapheme splitting algorithm changes, we need to start fresh to ensure hats are correctly allocated.
+        this.startFresh = true;
+        debouncer.run();
+      }),
 
       debouncer,
     );
@@ -58,14 +62,12 @@ export class HatAllocator {
   /**
    * Allocate hats to the visible tokens.
    *
-   * @param forceTokenHats If supplied, force the allocator to use these hats
-   * for the given tokens. This is used for the tutorial, and for testing.
    * @param options Controls whether to start fresh without previous hat assignments.
    */
-  async allocateHats(
-    forceTokenHats?: TokenHat[],
-    { startFresh = false }: HatAllocationOptions = {},
-  ) {
+  async allocateHats({
+    startFresh = false,
+    forceTokenHats,
+  }: HatAllocationOptions = {}) {
     const activeMap = await this.context.getActiveMap();
 
     // Forced graphemes won't have been normalized

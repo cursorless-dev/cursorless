@@ -107,19 +107,21 @@ async function runTest(
   const { document: fromDocument } = fromEditor;
   fromEditor.selections = [new Selection(0, 0, 0, 0)];
 
-  await hatTokenMap.allocateHats([
-    {
-      grapheme: "a",
-      hatStyle: "default",
-      hatRange: new Range(0, 0, 0, 1),
-      token: {
-        editor: instanceEditor,
-        offsets: { start: 0, end: 3 },
-        range: new Range(0, 0, 0, 3),
-        text: "aaa",
+  await hatTokenMap.allocateHats({
+    forceTokenHats: [
+      {
+        grapheme: "a",
+        hatStyle: "default",
+        hatRange: new Range(0, 0, 0, 1),
+        token: {
+          editor: instanceEditor,
+          offsets: { start: 0, end: 3 },
+          range: new Range(0, 0, 0, 3),
+          text: "aaa",
+        },
       },
-    },
-  ]);
+    ],
+  });
 
   // "from this" / "from file this", depending on the value of `useWholeFile`
   await runCursorlessCommand({

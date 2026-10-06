@@ -150,10 +150,13 @@ export async function runRecordedTest({
   // Ensure that the expected hats are present
   // Ignore any allocation triggered by editor setup so that initial hats do not
   // depend on whether VS Code delivered those events before this point.
-  await hatTokenMap.allocateHats(
-    serializedMarksToTokenHats(fixture.initialState.marks, editor),
-    { startFresh: true },
-  );
+  await hatTokenMap.allocateHats({
+    startFresh: true,
+    forceTokenHats: serializedMarksToTokenHats(
+      fixture.initialState.marks,
+      editor,
+    ),
+  });
 
   await Promise.all(
     (fixture.initialState.highlights ?? []).map((highlight) =>

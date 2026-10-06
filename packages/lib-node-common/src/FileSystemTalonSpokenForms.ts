@@ -15,11 +15,15 @@ const LATEST_SPOKEN_FORMS_JSON_VERSION = 1;
 export class FileSystemTalonSpokenForms implements TalonSpokenForms {
   private disposable: Disposable;
   private notifier = new Notifier();
+  private payloadPromise?: Promise<TalonSpokenFormsPayload>;
 
   constructor(private fileSystem: FileSystem) {
     this.disposable = this.fileSystem.watchDir(
       path.dirname(this.fileSystem.cursorlessTalonStateJsonPath),
-      () => this.notifier.notifyListeners(),
+      () => {
+        this.payloadPromise = undefined;
+        this.notifier.notifyListeners();
+      },
     );
   }
 
@@ -33,11 +37,33 @@ export class FileSystemTalonSpokenForms implements TalonSpokenForms {
   }
 
   async getSpokenForms(): Promise<TalonSpokenFormsPayload> {
+    if (this.payloadPromise != null) {
+      return this.payloadPromise;
+    }
+    const promise = this.readStateFile();
+    this.payloadPromise = promise;
+    try {
+      return await promise;
+    } catch (error) {
+      if (this.payloadPromise === promise) {
+        this.payloadPromise = undefined;
+      }
+      throw error;
+    }
+  }
+
+  dispose() {
+    this.disposable.dispose();
+  }
+
+  private async readStateFile(): Promise<TalonSpokenFormsPayload> {
     let payload: TalonSpokenFormsPayload;
     try {
-      payload = JSON.parse(
-        await readFile(this.fileSystem.cursorlessTalonStateJsonPath, "utf8"),
+      const stateFileContent = await readFile(
+        this.fileSystem.cursorlessTalonStateJsonPath,
+        "utf8",
       );
+      payload = JSON.parse(stateFileContent);
     } catch (error) {
       if (isEnoentError(error)) {
         throw new NeedsInitialTalonUpdateError(
@@ -55,9 +81,5 @@ export class FileSystemTalonSpokenForms implements TalonSpokenForms {
     }
 
     return payload;
-  }
-
-  dispose() {
-    this.disposable.dispose();
   }
 }

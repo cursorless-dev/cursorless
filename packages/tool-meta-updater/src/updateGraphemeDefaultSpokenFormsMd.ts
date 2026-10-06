@@ -38,6 +38,8 @@ export function updateGraphemeDefaultSpokenFormsMd(
     "",
     "Cursorless uses the [Talon Community](https://github.com/talonhub/community) alphabet, digits, and symbol spoken forms via the [`user.any_alphanumeric_key`](https://github.com/talonhub/community/blob/607c3415f5f29a5f75db6fe5648e37f514f62ac5/core/keys/keys.py#L71-L74) capture.",
     "",
+    "Additional characters provided by the lists in this capture are automatically preserved when allocating hats. See [Unicode support](unicode-support.md) for case handling, accented letters, and custom symbols.",
+    "",
     "## Alphabet",
     "",
     ...formatTable(HEADERS, alphabet),

@@ -1,13 +1,16 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
-import type { CheatsheetInfo, IDE } from "@cursorless/lib-common";
+import type {
+  CheatsheetInfo,
+  IDE,
+  TalonSpokenForms,
+} from "@cursorless/lib-common";
 import {
   getCheatsheetInfo,
   getDefaultCheatsheetInfo,
   getErrorMessage,
   showWarning,
 } from "@cursorless/lib-common";
-import type { FileSystemTalonSpokenForms } from "../FileSystemTalonSpokenForms";
 import { injectCheatsheetInfo } from "./injectCheatsheetInfo";
 
 interface CheatSheetCommandArgV0 {
@@ -37,7 +40,7 @@ export type CheatSheetCommandArg =
 
 export async function showCheatsheet(
   ide: IDE,
-  talonSpokenForms: FileSystemTalonSpokenForms,
+  talonSpokenForms: TalonSpokenForms,
   arg: CheatSheetCommandArg,
 ) {
   const cheatsheetInfo = await getCheatsheetInfoForCommand(
@@ -56,7 +59,7 @@ export async function showCheatsheet(
 
 async function getCheatsheetInfoForCommand(
   ide: IDE,
-  talonSpokenForms: FileSystemTalonSpokenForms,
+  talonSpokenForms: TalonSpokenForms,
   arg: CheatSheetCommandArg,
 ): Promise<CheatsheetInfo> {
   const version = arg.version;

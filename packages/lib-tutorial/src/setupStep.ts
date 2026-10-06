@@ -107,9 +107,9 @@ async function applySnapshot(
     );
 
     // Ensure that the expected hats are present
-    await hatTokenMap.allocateHats(
-      serializedMarksToTokenHats(snapshot.marks, editor),
-    );
+    await hatTokenMap.allocateHats({
+      forceTokenHats: serializedMarksToTokenHats(snapshot.marks, editor),
+    });
 
     await editableEditor.focus();
 

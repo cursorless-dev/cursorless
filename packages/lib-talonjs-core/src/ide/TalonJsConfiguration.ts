@@ -11,11 +11,6 @@ import type {
 import { HatStability } from "@cursorless/lib-common";
 
 const CONFIGURATION_DEFAULTS: CursorlessConfiguration = {
-  tokenHatSplittingMode: {
-    preserveCase: false,
-    lettersToPreserve: [],
-    symbolsToPreserve: [],
-  },
   wordSeparators: ["_"],
   decorationDebounceDelayMs: 50,
   experimental: {
