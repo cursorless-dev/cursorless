@@ -6,6 +6,7 @@ export * from "./Debouncer";
 export * from "./errors";
 export * from "./extensionDependencies";
 export * from "./FakeCommandServerApi";
+export * from "./FakeTalonSpokenForms";
 export * from "./ide/fake/FakeIDE";
 export * from "./ide/inMemoryTextEditor/InMemoryTextDocument";
 export * from "./ide/inMemoryTextEditor/InMemoryTextEditor";

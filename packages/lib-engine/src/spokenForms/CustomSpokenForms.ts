@@ -36,6 +36,7 @@ type Writable<T> = {
 export class CustomSpokenForms {
   private disposable: Disposable;
   private notifier = new Notifier();
+  private updateGeneration = 0;
 
   /**
    * A promise that resolves when the custom spoken forms have been loaded.
@@ -77,6 +78,7 @@ export class CustomSpokenForms {
   onDidChangeCustomSpokenForms = this.notifier.registerListener;
 
   private async updateSpokenFormMaps(): Promise<void> {
+    const generation = ++this.updateGeneration;
     let allCustomEntries: SpokenFormEntry[];
     let spokenFormsVersion: number;
 
@@ -86,24 +88,32 @@ export class CustomSpokenForms {
 
     try {
       const payload = await this.talonSpokenForms.getSpokenForms();
+
+      if (generation !== this.updateGeneration) {
+        // Another update has occurred since this one started, so we should abort.
+        return;
+      }
+
       allCustomEntries = payload.spokenForms;
       spokenFormsVersion = payload.version;
       if (allCustomEntries.length === 0) {
         throw new Error("Custom spoken forms list empty");
       }
     } catch (error) {
+      if (generation !== this.updateGeneration) {
+        return;
+      }
       if (error instanceof NeedsInitialTalonUpdateError) {
         // Handle case where spokenForms.json doesn't exist yet
         this.needsInitialTalonUpdate_ = true;
       } else if (error instanceof DisabledCustomSpokenFormsError) {
         // Do nothing: this ide doesn't currently support custom spoken forms
       } else {
-        console.error("Error loading custom spoken forms", error);
         const msg = getErrorMessage(error).replace(/\.$/u, "");
         void showError(
           this.ide.messages,
           "CustomSpokenForms.updateSpokenFormMaps",
-          `Error loading custom spoken forms: ${msg}. Falling back to default spoken forms.`,
+          `Error loading custom spoken forms: ${msg}. Falling back to default.`,
         );
       }
 

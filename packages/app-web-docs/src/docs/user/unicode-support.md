@@ -5,31 +5,42 @@ sidebar_position: 2
 
 # Unicode support
 
-Cursorless has first-class support for Unicode. By default, when constructing hats, Cursorless will ignore capitalization and any accents or diacritics over letters. For example, each of the following four tokens could each be selected by saying `"take air"` if there were a gray hat over their first letter (note the accents on the first letter for some of them):
+Cursorless has first-class support for Unicode. With the default Talon alphabet, Cursorless ignores capitalization and accents or diacritics when constructing hats. For example, each of the following four tokens could be selected by saying `"take air"` if there were a gray hat over its first letter:
 
 - africa
 - áfrica
 - Africa
 - África
 
-For Unicode symbols that are not letters, and that are not speakable by default, for example emoji, Chinese characters, etc, we have a special "character" called `"special"` that can be used. So for example, if there were a blue hat over a '😄' character, you could say `"take blue special"` to select it. As always, the spoken form `"special"` can be [customized](customization.md).
+Characters that do not have a known spoken form, even after normalization, can be referred to using `"special"`. For example, if there were a blue hat over a `😄` character, you could say `"take blue special"` to select it. This also works for letters that cannot be normalized to a known character, such as Chinese characters. As always, the spoken form `"special"` can be [customized](customization.md).
 
 ## Advanced customization
 
-The above setup will allow you to refer to any Unicode token, and is sufficient for most users. However, if you have overridden your `<user.any_alphanumeric_key>` capture to contain characters other than lowercase letters and the default symbols, you can tell Cursorless to be less aggressive with its normalization, so that it can allocate hats more efficiently. Note that this is not necessary in order to refer to these tokens; it just makes hat allocation slightly more efficient.
+With an up-to-date Cursorless Talon installation, Cursorless automatically preserves additional characters provided by the Talon lists used in your `<user.any_alphanumeric_key>` capture. Add your spoken forms there; no editor setting is needed. This lets Cursorless allocate hats separately for these characters instead of grouping them with normalized letters or `"special"`.
+
+The old `cursorless.tokenHatSplittingMode` settings (`preserveCase`, `lettersToPreserve`, and `symbolsToPreserve`) are deprecated and can be removed from your editor settings.
 
 ### Preserving case
 
-If you have a separate alphabet for uppercase letters as part of `<user.any_alphanumeric_key>`, you can enable the _Cursorless › Token Hat Splitting Mode: **Preserve Case**_ setting, and Cursorless will distinguish between lower and uppercase letters.
+If your `<user.any_alphanumeric_key>` capture provides separate spoken forms for uppercase letters, Cursorless preserves those letters automatically. For example, if `"upper air"` produces `A`, a gray hat on the `A` in `Africa` can be addressed with `"take upper air"`, while a gray hat on lowercase `a` uses `"take air"`.
 
 ### Preserving special letters
 
-If you have terms in `<user.any_alphanumeric_key>` for letters with accents, such as `é`, or other letters, such as `ø` or `ꝏ`, you can use the following setting:
+If your capture provides terms for accented letters, such as `é`, or other letters, such as `ø` or `ꝏ`, Cursorless preserves them automatically.
 
-#### _Cursorless › Token Hat Splitting Mode: **Letters To Preserve**_
+For example, if `"a umlaut"` produces `ä` and you have no separate form for `Ä`, a gray hat over the first letter of either `ällo` or `Ällo` can be addressed with `"take a umlaut"`. If you also provide a spoken form for `Ä`, Cursorless treats it separately. Providing only `Ä` does not preserve lowercase `ä`; lowercase `ä` still normalizes to `a`.
 
-Add any accented letters to this list that you have a spoken form for in `<user.any_alphanumeric_key>`. Cursorless will then preserve their accents during normalization. Note that Cursorless will still do case normalisation for these letters if you have [case preservation](#preserving-case) on. So, for example, if the list contains `ä`, and you'd like to refer to the token `Ällo` with a hat over the first letter (`Ä`), you can use your spoken form for `ä`.
+### Preserving symbols
 
-### _Cursorless › Token Hat Splitting Mode: **Symbols To Preserve**_
+Symbols provided by your capture are also preserved automatically. For example, if `"sigma"` produces `σ` and `"upper sigma"` produces `Σ`, a blue hat on those characters can be addressed with `"take blue sigma"` and `"take blue upper sigma"`, respectively.
 
-Any Unicode symbols in this list will not undergo any normalisation, even case normalisation. Use this list for symbols for which you have spoken forms in `<user.any_alphanumeric_key>` that shouldn't be normalised at all, even by case. For example, if you have spoken forms for `Σ` and `σ`, and would like Cursorless not to treat them the same, you can add them to this list.
+## Normalization order
+
+Cursorless first normalizes each character to Unicode NFC so that equivalent representations, such as an accented letter written as one codepoint or with a combining mark, are treated the same. It then:
+
+1. Preserves the character if it is a default character or is provided by Talon.
+2. Otherwise, converts it to lowercase and uses that form if it is known.
+3. Otherwise, strips accents and diacritics and uses the resulting form if it is known.
+4. Otherwise, assigns it to `"special"`.
+
+If custom characters cannot be loaded from Talon, Cursorless uses the default alphabet, digits, and symbols.

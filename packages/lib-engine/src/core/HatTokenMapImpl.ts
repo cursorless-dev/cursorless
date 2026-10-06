@@ -5,7 +5,6 @@ import type {
   Hats,
   IDE,
   ReadOnlyHatMap,
-  TokenHat,
 } from "@cursorless/lib-common";
 import type { TokenGraphemeSplitter } from "../tokenGraphemeSplitter";
 import type { Debug } from "./Debug";
@@ -64,12 +63,9 @@ export class HatTokenMapImpl implements HatTokenMap {
 
   /**
    * Allocate hats to the visible tokens.
-   *
-   * @param forceTokenHats If supplied, force the allocator to use these hats
-   * for the given tokens. This is used for the tutorial, and for testing.
    */
-  allocateHats(forceTokenHats?: TokenHat[], options?: HatAllocationOptions) {
-    return this.hatAllocator.allocateHats(forceTokenHats, options);
+  allocateHats(options?: HatAllocationOptions) {
+    return this.hatAllocator.allocateHats(options);
   }
 
   private async getActiveMap() {

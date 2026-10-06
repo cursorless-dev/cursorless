@@ -61,7 +61,11 @@ export async function createCursorlessEngine({
 
   const debug = new Debug(injectedIde);
   const rangeUpdater = new RangeUpdater(injectedIde);
-  const tokenGraphemeSplitter = new TokenGraphemeSplitter(injectedIde);
+  const tokenGraphemeSplitter = new TokenGraphemeSplitter(
+    injectedIde,
+    talonSpokenForms,
+  );
+  await tokenGraphemeSplitter.ready;
 
   const storedTargets = new StoredTargetMap();
   const keyboardTargetUpdater = new KeyboardTargetUpdater(

@@ -8,6 +8,7 @@ import type {
 } from "@cursorless/lib-common";
 import {
   FakeIDE,
+  FakeTalonSpokenForms,
   InMemoryTextEditor,
   Notifier,
   Range,
@@ -33,14 +34,10 @@ suite("Unicode support", () => {
   for (const { name, content, grapheme } of unicodeTestCases) {
     test(`targets ${name}`, async () => {
       const ide = new UnicodeTestIDE(content);
-      ide.configuration.mockConfiguration("tokenHatSplittingMode", {
-        preserveCase: false,
-        lettersToPreserve,
-        symbolsToPreserve: [],
-      });
       const engine = await createCursorlessEngine({
         ide,
         hats: createTestHats(),
+        talonSpokenForms: FakeTalonSpokenForms.fromGraphemes(lettersToPreserve),
       });
       const tokenRange = new Range(0, 0, 0, content.length);
       const forcedHat: TokenHat = {
@@ -56,8 +53,9 @@ suite("Unicode support", () => {
       };
 
       try {
-        await engine.hatTokenMap.allocateHats([forcedHat], {
+        await engine.hatTokenMap.allocateHats({
           startFresh: true,
+          forceTokenHats: [forcedHat],
         });
         const hatMap = await engine.hatTokenMap.getReadableMap(false);
 

@@ -4,6 +4,7 @@ import {
   FakeCommandServerApi,
   FakeIDE,
   NormalizedIDE,
+  showWarning,
 } from "@cursorless/lib-common";
 import type { EngineProps } from "@cursorless/lib-engine";
 import { CommandHistory, createCursorlessEngine } from "@cursorless/lib-engine";
@@ -26,6 +27,7 @@ import { createScopeVisualizer } from "./createScopeVisualizer";
 import { createTreeSitter } from "./createTreeSitter";
 import { createTutorial } from "./createTutorial";
 import { createVscodeIde } from "./createVscodeIde";
+import type { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { InstallationDependencies } from "./InstallationDependencies";
 import { KeyboardCommands } from "./keyboard/KeyboardCommands";
 import { registerCommands } from "./registerCommands";
@@ -153,6 +155,8 @@ export async function activate(
     hats,
   );
 
+  deprecatedSettings(vscodeIDE);
+
   registerCommands(
     context,
     vscodeIDE,
@@ -189,4 +193,18 @@ export async function activate(
         )
       : undefined,
   };
+}
+
+function deprecatedSettings(ide: VscodeIDE) {
+  // DEPRECATED @ 2026-10-05
+  const value = vscodeApi.workspace
+    .getConfiguration("cursorless")
+    .get("tokenHatSplittingMode");
+  if (value != null) {
+    void showWarning(
+      ide.messages,
+      "tokenHatSplittingModeDeprecated",
+      "The 'cursorless.tokenHatSplittingMode' setting is deprecated and not needed when using an up to date Cursorless Talon",
+    );
+  }
 }

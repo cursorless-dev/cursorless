@@ -3,14 +3,12 @@ import type {
   CommandHistoryStorage,
   CursorlessCommandId,
   ScopeType,
+  TalonSpokenForms,
 } from "@cursorless/lib-common";
 import { CURSORLESS_COMMAND_ID } from "@cursorless/lib-common";
 import type { CommandApi, StoredTargetMap } from "@cursorless/lib-engine";
 import { analyzeCommandHistory } from "@cursorless/lib-engine";
-import type {
-  CheatSheetCommandArg,
-  FileSystemTalonSpokenForms,
-} from "@cursorless/lib-node-common";
+import type { CheatSheetCommandArg } from "@cursorless/lib-node-common";
 import { showCheatsheet } from "@cursorless/lib-node-common";
 import type {
   ScopeTestRecorder,
@@ -45,7 +43,7 @@ export function registerCommands(
   tutorial: VscodeTutorial,
   installationDependencies: InstallationDependencies,
   storedTargets: StoredTargetMap,
-  talonSpokenForms: FileSystemTalonSpokenForms,
+  talonSpokenForms: TalonSpokenForms,
 ): void {
   const runCommandWrapper = async (run: () => Promise<unknown>) => {
     try {
