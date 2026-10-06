@@ -21,9 +21,10 @@ const consumers = [
           if (failed) {
             assert.deepEqual(consumer.spokenFormMap, defaultSpokenFormMap);
           } else {
-            assert.deepEqual(consumer.spokenFormMap.grapheme["ä"]?.spokenForms, [
-              "ä",
-            ]);
+            assert.deepEqual(
+              consumer.spokenFormMap.grapheme["ä"]?.spokenForms,
+              ["ä"],
+            );
           }
           assert.equal(consumer.needsInitialTalonUpdate, failed);
           assert.equal(notifications, 1);
