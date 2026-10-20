@@ -154,7 +154,7 @@ export class NeovimTextDocument implements TextDocument {
 
   private _validateRange(range: Range): Range {
     if (!(range instanceof Range)) {
-      throw new Error("Invalid argument");
+      throw new TypeError("Invalid argument");
     }
 
     const start = this._validatePosition(range.start);
@@ -168,7 +168,7 @@ export class NeovimTextDocument implements TextDocument {
 
   private _validatePosition(position: Position): Position {
     if (!(position instanceof Position)) {
-      throw new Error("Invalid argument");
+      throw new TypeError("Invalid argument");
     }
 
     if (this._lines.length === 0) {

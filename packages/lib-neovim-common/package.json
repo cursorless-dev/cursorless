@@ -16,8 +16,8 @@
     "@cursorless/lib-neovim-registry": "workspace:*",
     "@cursorless/lib-node-common": "workspace:*",
     "lodash-es": "^4.18.1",
-    "neovim": "^5.4.0",
-    "uuid": "^14.0.2",
+    "neovim": "^5.5.0",
+    "uuid": "^14.0.3",
     "vscode-uri": "^3.2.0"
   },
   "devDependencies": {

@@ -57,7 +57,7 @@ export function getSentences(
   setAbbreviations(options.abbreviations);
 
   if (options.newlineBoundaries) {
-    text = text.replace(addNewLineBoundaries, newline_placeholder);
+    text = text.replaceAll(addNewLineBoundaries, newline_placeholder);
   }
 
   // Split the text into words

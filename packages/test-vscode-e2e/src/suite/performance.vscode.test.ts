@@ -172,21 +172,21 @@ function testWithMultipleCursors(
   thresholdMs: number,
   action: ActionDescriptor,
 ) {
-  const beforeCallback = async (editor: vscode.TextEditor) => {
-    await runCursorlessAction({
-      name: "setSelectionBefore",
-      target: {
-        type: "primitive",
-        modifiers: [getModifier({ type: "collectionItem" }, "every")],
-      },
-    });
-
-    assert.equal(editor.selections.length, 100, "Expected 100 cursors");
-  };
-
   const callback = () => runCursorlessAction(action);
   return testPerformanceCallback(thresholdMs, callback, beforeCallback);
 }
+
+const beforeCallback = async (editor: vscode.TextEditor) => {
+  await runCursorlessAction({
+    name: "setSelectionBefore",
+    target: {
+      type: "primitive",
+      modifiers: [getModifier({ type: "collectionItem" }, "every")],
+    },
+  });
+
+  assert.equal(editor.selections.length, 100, "Expected 100 cursors");
+};
 
 function selectScopeType(
   scopeType: ScopeType,

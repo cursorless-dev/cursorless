@@ -16,14 +16,14 @@
   },
   "dependencies": {
     "@cursorless/lib-common": "workspace:*",
-    "preact": "^10.29.8",
+    "preact": "^11.0.1",
     "react-bootstrap-icons": "^1.11.6"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
-    "@types/node": "^24.13.4",
+    "@types/node": "^24.19.2",
     "@types/react": "^19.3.0",
-    "mocha": "^12.0.0",
+    "mocha": "^12.0.3",
     "typescript": "^7.0.2"
   }
 }

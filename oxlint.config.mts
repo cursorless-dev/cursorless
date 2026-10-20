@@ -132,6 +132,13 @@ export default defineConfig({
 
   rules: {
     ...Object.fromEntries(disabledRules.map((r) => [r, "off"])),
+    "eslint/eqeqeq": [
+      "warn",
+      "always",
+      {
+        null: "never",
+      },
+    ],
     "eslint/no-duplicate-imports": [
       "warn",
       {
@@ -179,13 +186,6 @@ export default defineConfig({
       "warn",
       {
         extensions: [".tsx"],
-      },
-    ],
-    eqeqeq: [
-      "warn",
-      "always",
-      {
-        null: "never",
       },
     ],
   },

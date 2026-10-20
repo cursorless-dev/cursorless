@@ -1278,7 +1278,7 @@
     "nearley": "^2.20.1",
     "semver": "^7.8.5",
     "trie-search": "^2.2.1",
-    "uuid": "^14.0.2",
+    "uuid": "^14.0.3",
     "vscode-uri": "^3.2.0"
   },
   "devDependencies": {
@@ -1286,14 +1286,14 @@
     "@types/lodash-es": "^4.17.12",
     "@types/mocha": "^10.0.10",
     "@types/nearley": "^2.11.5",
-    "@types/node": "^24.13.4",
+    "@types/node": "^24.19.2",
     "@types/semver": "^7.8.0",
     "@types/sinon": "^22.0.0",
     "@types/vscode": "1.98.0",
     "esbuild": "^0.28.2",
-    "fast-xml-parser": "^5.11.1",
-    "fs-extra": "^11.4.0",
+    "fast-xml-parser": "^5.11.2",
+    "fs-extra": "^11.4.1",
     "sinon": "^22.1.0",
-    "tsx": "^4.23.13"
+    "tsx": "^4.23.15"
   }
 }
