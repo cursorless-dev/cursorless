@@ -6,14 +6,18 @@ export function getChildNodesForFieldName(
 ): Node[] {
   const nodes = [];
   const treeCursor = node.walk();
-  let hasNext = treeCursor.gotoFirstChild();
+  try {
+    let hasNext = treeCursor.gotoFirstChild();
 
-  while (hasNext) {
-    if (treeCursor.currentFieldName === fieldName) {
-      nodes.push(treeCursor.currentNode);
+    while (hasNext) {
+      if (treeCursor.currentFieldName === fieldName) {
+        nodes.push(treeCursor.currentNode);
+      }
+      hasNext = treeCursor.gotoNextSibling();
     }
-    hasNext = treeCursor.gotoNextSibling();
-  }
 
-  return nodes;
+    return nodes;
+  } finally {
+    treeCursor.delete();
+  }
 }
