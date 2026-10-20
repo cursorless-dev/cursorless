@@ -11,7 +11,9 @@ import {
 } from "@cursorless/lib-node-common";
 import {
   getReusableEditor,
+  getParseTreeApi,
   getTestHelpers,
+  resetReusableEditor,
   runCursorlessCommand,
 } from "@cursorless/lib-vscode-common";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
@@ -36,18 +38,55 @@ suite("recorded test cases", function () {
           this.ctx.skip();
         }
 
-        await runRecordedTest({
-          path,
-          spyIde: getSpy(),
-          openNewTestEditor,
-          sleepWithBackoff,
-          testHelpers: await getTestHelpers(),
-          runCursorlessCommand,
-        });
+        try {
+          await runRecordedTest({
+            path,
+            spyIde: getSpy(),
+            openNewTestEditor,
+            sleepWithBackoff,
+            testHelpers: await getTestHelpers(),
+            runCursorlessCommand,
+          });
+        } catch (error) {
+          // A retry must not inherit the failed attempt's selections or
+          // incrementally updated parse tree.
+          resetReusableEditor();
+          await logFailureContext(name);
+          throw error;
+        }
       }),
     );
   }
 });
+
+async function logFailureContext(name: string): Promise<void> {
+  const editor = vscode.window.activeTextEditor;
+  if (editor == null) {
+    console.error(`Recorded test failed: ${name}; no active editor`);
+    return;
+  }
+
+  const { document, selections } = editor;
+  console.error(`Recorded test failed: ${name}`, {
+    uri: document.uri.toString(),
+    languageId: document.languageId,
+    version: document.version,
+    content: document.getText(),
+    selections: selections.map(({ anchor, active }) => ({ anchor, active })),
+  });
+
+  try {
+    const parseTree = await getParseTreeApi();
+    console.error(
+      "Parse tree:",
+      parseTree.getTreeForUri(document.uri).rootNode.toString(),
+    );
+  } catch (error) {
+    // Diagnostics should preserve the original test failure, including for
+    // languages without Tree-sitter support.
+    console.error("Could not read parse tree:", error);
+  }
+}
 
 async function openNewTestEditor(
   content: string,
