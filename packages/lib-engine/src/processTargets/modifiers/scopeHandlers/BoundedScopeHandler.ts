@@ -208,7 +208,7 @@ export class BoundedParagraphScopeHandler extends BoundedBaseScopeHandler {
 
   protected createTarget(target: Target, interior: InteriorTarget): Target {
     if (!(target instanceof ParagraphTarget)) {
-      throw new Error("Expected ParagraphTarget");
+      throw new TypeError("Expected ParagraphTarget");
     }
 
     return new BoundedParagraphTarget({

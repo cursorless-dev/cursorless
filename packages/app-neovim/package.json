@@ -24,6 +24,6 @@
     "@cursorless/lib-test-case-recorder": "workspace:*"
   },
   "devDependencies": {
-    "neovim": "^5.4.0"
+    "neovim": "^5.5.0"
   }
 }
