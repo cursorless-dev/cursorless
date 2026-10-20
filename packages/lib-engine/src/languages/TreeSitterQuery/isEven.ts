@@ -13,18 +13,22 @@ export function isEven(node: Node, fieldName: string): boolean {
   }
 
   const treeCursor = node.parent.walk();
-  let hasNext = treeCursor.gotoFirstChild();
-  let even = true;
+  try {
+    let hasNext = treeCursor.gotoFirstChild();
+    let even = true;
 
-  while (hasNext) {
-    if (treeCursor.currentFieldName === fieldName) {
-      if (treeCursor.currentNode.id === node.id) {
-        return even;
+    while (hasNext) {
+      if (treeCursor.currentFieldName === fieldName) {
+        if (treeCursor.currentNode.id === node.id) {
+          return even;
+        }
+        even = !even;
       }
-      even = !even;
+      hasNext = treeCursor.gotoNextSibling();
     }
-    hasNext = treeCursor.gotoNextSibling();
-  }
 
-  throw new Error(`Node not found in parent for field: ${fieldName}`);
+    throw new Error(`Node not found in parent for field: ${fieldName}`);
+  } finally {
+    treeCursor.delete();
+  }
 }

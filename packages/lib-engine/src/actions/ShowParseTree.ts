@@ -43,7 +43,12 @@ function parseTree(
   const resultPlayground: string[] = [];
   const resultQuery: string[] = [];
 
-  parseCursor(resultPlayground, resultQuery, contentRange, tree.walk(), 0);
+  const cursor = tree.walk();
+  try {
+    parseCursor(resultPlayground, resultQuery, contentRange, cursor, 0);
+  } finally {
+    cursor.delete();
+  }
 
   return [
     `## ${document.filename} [${contentRange}]\n`,

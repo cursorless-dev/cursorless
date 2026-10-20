@@ -19,21 +19,25 @@ export function getChildNodesForFieldName(
   fieldName: string,
 ): Node[] {
   const treeCursor = node.walk();
-  treeCursor.gotoFirstChild();
+  try {
+    treeCursor.gotoFirstChild();
 
-  const ret = [];
+    const ret = [];
 
-  let hasNext = true;
+    let hasNext = true;
 
-  while (hasNext) {
-    if (treeCursor.currentFieldName === fieldName) {
-      ret.push(treeCursor.currentNode);
+    while (hasNext) {
+      if (treeCursor.currentFieldName === fieldName) {
+        ret.push(treeCursor.currentNode);
+      }
+
+      hasNext = treeCursor.gotoNextSibling();
     }
 
-    hasNext = treeCursor.gotoNextSibling();
+    return ret;
+  } finally {
+    treeCursor.delete();
   }
-
-  return ret;
 }
 
 /**
