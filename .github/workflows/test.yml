@@ -166,9 +166,16 @@ jobs:
       - name: Install neovim dependencies
         run: bash -x resources/scripts/install-neovim-dependencies.sh
 
+      - name: Locate Neovim temporary directory
+        id: neovim-temp
+        run: echo "path=$HOME" >> "$GITHUB_OUTPUT"
+
       - name: Setup neovim
         uses: rhysd/action-setup-vim@v1
         id: vim
+        env:
+          # Keep extraction and installation on the same filesystem to avoid EXDEV.
+          TMPDIR: ${{ steps.neovim-temp.outputs.path }}
         with:
           neovim: true
 
