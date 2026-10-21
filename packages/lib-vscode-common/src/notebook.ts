@@ -1,4 +1,9 @@
-import type { NotebookDocument, NotebookEditor, TextDocument } from "vscode";
+import type {
+  NotebookDocument,
+  NotebookEditor,
+  TextDocument,
+  TextEditor,
+} from "vscode";
 import { window } from "vscode";
 
 /**
@@ -38,24 +43,49 @@ export function getCellIndex(
 }
 
 /**
- * Given a document corresponding to a single cell, retrieve the notebook
- * editor for the entire notebook
- * @param document The document corresponding to the given cell
+ * Retrieve the notebook editor containing a cell editor. Reject ambiguous
+ * split notebook targets when VS Code doesn't expose their owning editor.
+ * @param cellEditor The text editor corresponding to the given cell
  * @returns The notebook editor corresponding to the notebook containing the
  * given cell
  */
-export function getNotebookFromCellDocument(
-  document: TextDocument,
+export function getNotebookFromCellEditor(
+  cellEditor: TextEditor,
 ): NotebookEditor {
-  const editor = window.visibleNotebookEditors.find((editor) =>
+  const uri = cellEditor.document.uri.toString();
+  const editors = window.visibleNotebookEditors.filter((editor) =>
     editor.notebook
       .getCells()
-      .some((cell) => cell.document.uri.toString() === document.uri.toString()),
+      .some((cell) => cell.document.uri.toString() === uri),
   );
 
-  if (editor == null) {
+  if (editors.length === 0) {
     throw new Error("Couldn't find notebook editor for given document");
   }
 
-  return editor;
+  if (editors.length === 1) {
+    return editors[0];
+  }
+
+  if (cellEditor.viewColumn != null) {
+    const editor = editors.find(
+      (editor) => editor.viewColumn === cellEditor.viewColumn,
+    );
+    if (editor != null) {
+      return editor;
+    }
+  }
+
+  const activeNotebookEditor = window.activeNotebookEditor;
+  if (
+    cellEditor === window.activeTextEditor &&
+    activeNotebookEditor != null &&
+    editors.includes(activeNotebookEditor)
+  ) {
+    return activeNotebookEditor;
+  }
+
+  throw new Error(
+    "Targeting this cell in a split notebook is unsupported because VS Code doesn't expose which notebook editor contains it.",
+  );
 }

@@ -2,7 +2,7 @@ import type { TextEditor } from "vscode";
 import { commands, TabInputTextDiff, ViewColumn, window } from "vscode";
 import {
   getCellIndex,
-  getNotebookFromCellDocument,
+  getNotebookFromCellEditor,
   isDocumentNotebookCell,
 } from "@cursorless/lib-vscode-common";
 import type { VscodeTextEditor } from "./VscodeTextEditor";
@@ -77,9 +77,7 @@ function getViewColumn(editor: TextEditor): ViewColumn {
 }
 
 async function focusNotebookCell(editor: VscodeTextEditor) {
-  const notebookEditor = getNotebookFromCellDocument(
-    editor.vscodeEditor.document,
-  );
+  const notebookEditor = getNotebookFromCellEditor(editor.vscodeEditor);
 
   await commands.executeCommand(
     columnFocusCommands[

@@ -2,7 +2,7 @@ import vscode from "vscode";
 import { RevealLineAt } from "@cursorless/lib-common";
 import {
   getCellIndex,
-  getNotebookFromCellDocument,
+  getNotebookFromCellEditor,
   isDocumentNotebookCell,
 } from "@cursorless/lib-vscode-common";
 import type { VscodeTextEditor } from "./VscodeTextEditor";
@@ -29,9 +29,7 @@ export async function vscodeRevealLine(
 }
 
 function revealNotebookCell(editor: VscodeTextEditor, at: RevealLineAt) {
-  const notebookEditor = getNotebookFromCellDocument(
-    editor.vscodeEditor.document,
-  );
+  const notebookEditor = getNotebookFromCellEditor(editor.vscodeEditor);
 
   const cellIndex = getCellIndex(
     notebookEditor.notebook,
