@@ -1,0 +1,10 @@
+const foo = "hello";
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:20
+  >--------------------<
+0| const foo = "hello";
+
+[Insertion delimiter] = "\n"
