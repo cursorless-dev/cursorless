@@ -1,7 +1,10 @@
-import type { NotebookDocument, TextEditor } from "vscode";
+import type { TextEditor } from "vscode";
 import { commands, TabInputTextDiff, ViewColumn, window } from "vscode";
-import { getCellIndex } from "@cursorless/lib-vscode-common";
-import { getNotebookFromCellDocument } from "./notebook/notebook";
+import {
+  getCellIndex,
+  getNotebookFromCellEditor,
+  isDocumentNotebookCell,
+} from "@cursorless/lib-vscode-common";
 import type { VscodeTextEditor } from "./VscodeTextEditor";
 
 const columnFocusCommands = {
@@ -24,36 +27,36 @@ const columnFocusCommands = {
 export async function vscodeFocusEditor(
   editor: VscodeTextEditor,
 ): Promise<void> {
-  const viewColumn = getViewColumn(editor.vscodeEditor);
-  if (viewColumn != null) {
-    await commands.executeCommand(columnFocusCommands[viewColumn]);
-
-    if (editor.isDiffEditorOriginal && !editor.isActive) {
-      // There is no way of directly focusing the left hand side of a diff
-      // editor. Switch side if needed.
-
-      await commands.executeCommand("diffEditor.switchSide");
-    } else if (editor.isSearchEditor) {
-      // Focusing the search editor brings focus back to the input field. This
-      // command moves selection into the actual editor text.
-
-      await commands.executeCommand("search.action.focusNextSearchResult");
-    }
-  } else {
-    // If the view column is null we see if it's a notebook and try to see if we
-    // can just move around in the notebook to focus the correct editor
-
+  if (isDocumentNotebookCell(editor.vscodeEditor.document)) {
     await focusNotebookCell(editor);
+    return;
+  }
+
+  const viewColumn = getViewColumn(editor.vscodeEditor);
+
+  await commands.executeCommand(columnFocusCommands[viewColumn]);
+
+  if (editor.isDiffEditorOriginal && !editor.isActive) {
+    // There is no way of directly focusing the left hand side of a diff
+    // editor. Switch side if needed.
+
+    await commands.executeCommand("diffEditor.switchSide");
+  } else if (editor.isSearchEditor) {
+    // Focusing the search editor brings focus back to the input field. This
+    // command moves selection into the actual editor text.
+
+    await commands.executeCommand("search.action.focusNextSearchResult");
   }
 }
 
-function getViewColumn(editor: TextEditor): ViewColumn | undefined {
+function getViewColumn(editor: TextEditor): ViewColumn {
   if (editor.viewColumn != null) {
     return editor.viewColumn;
   }
+
   const uri = editor.document.uri.toString();
   const tabGroup = window.tabGroups.all.find((tabGroup) =>
-    tabGroup.tabs.find((tab) => {
+    tabGroup.tabs.some((tab) => {
       if (tab.input instanceof TabInputTextDiff) {
         return (
           tab.input.original.toString() === uri ||
@@ -63,41 +66,34 @@ function getViewColumn(editor: TextEditor): ViewColumn | undefined {
       return (tab as any).input?.uri?.toString() === uri;
     }),
   );
-  return tabGroup?.viewColumn;
+
+  const column = tabGroup?.viewColumn;
+
+  if (column == null) {
+    throw new Error("Couldn't determine view column for editor");
+  }
+
+  return column;
 }
 
 async function focusNotebookCell(editor: VscodeTextEditor) {
-  const desiredNotebookEditor = getNotebookFromCellDocument(
-    editor.vscodeEditor.document,
-  );
-  if (desiredNotebookEditor == null) {
-    throw new Error("Couldn't find notebook editor for given document");
-  }
-
-  const desiredNotebookDocument: NotebookDocument =
-    desiredNotebookEditor.notebook;
+  const notebookEditor = getNotebookFromCellEditor(editor.vscodeEditor);
 
   await commands.executeCommand(
     columnFocusCommands[
-      desiredNotebookEditor.viewColumn as keyof typeof columnFocusCommands
+      notebookEditor.viewColumn as keyof typeof columnFocusCommands
     ],
   );
 
-  const desiredEditorIndex = getCellIndex(
-    desiredNotebookDocument,
+  const cellIndex = getCellIndex(
+    notebookEditor.notebook,
     editor.vscodeEditor.document,
   );
 
-  if (desiredEditorIndex < 0) {
-    throw new Error(
-      "Couldn't find cell corresponding to given document in notebook editor",
-    );
-  }
-
-  desiredNotebookEditor.selections = [
-    desiredNotebookEditor.selection.with({
-      start: desiredEditorIndex,
-      end: desiredEditorIndex + 1,
+  notebookEditor.selections = [
+    notebookEditor.selection.with({
+      start: cellIndex,
+      end: cellIndex + 1,
     }),
   ];
 

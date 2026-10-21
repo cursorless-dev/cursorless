@@ -936,6 +936,7 @@ export const actionReferences = {
   scrollToTop: {
     name: "Scroll to top",
     defaultSpokenForm: "crown",
+    description: `Scrolls the target to the top of the viewport. In a notebook scrolls the cell containing the target to the top of the viewport.`,
     group: { id: "scroll", index: 0 },
     syntaxes: [
       {
@@ -954,6 +955,7 @@ export const actionReferences = {
   scrollToCenter: {
     name: "Scroll to center",
     defaultSpokenForm: "center",
+    description: `Scrolls the target to the center of the viewport. In a notebook scrolls the cell containing the target to the center of the viewport.`,
     group: { id: "scroll", index: 1 },
     syntaxes: [
       {
@@ -972,6 +974,7 @@ export const actionReferences = {
   scrollToBottom: {
     name: "Scroll to bottom",
     defaultSpokenForm: "bottom",
+    description: `Scrolls the target to the bottom of the viewport. In a notebook this is not supported due to a limitation in VS Code's notebook API.`,
     group: { id: "scroll", index: 2 },
     syntaxes: [
       {
