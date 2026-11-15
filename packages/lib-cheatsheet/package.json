@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@cursorless/lib-common": "workspace:*",
-    "preact": "^11.0.1",
+    "preact": "^11.2.0",
     "react-bootstrap-icons": "^1.11.6"
   },
   "devDependencies": {
