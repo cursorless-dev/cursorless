@@ -16221,7 +16221,7 @@ snapshots:
 
   '@types/cross-spawn@6.0.6':
     dependencies:
-      '@types/node': 26.6.5
+      '@types/node': 24.19.2
 
   '@types/debug@4.1.13':
     dependencies:
@@ -16330,6 +16330,7 @@ snapshots:
   '@types/node@26.6.5':
     dependencies:
       undici-types: 8.9.0
+    optional: true
 
   '@types/normalize-package-data@2.4.4': {}
 
