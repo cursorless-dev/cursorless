@@ -24,9 +24,9 @@
     "build": "docusaurus build --out-dir out"
   },
   "dependencies": {
-    "@algolia/client-search": "^5.60.0",
+    "@algolia/client-search": "^5.64.0",
     "@cursorless/lib-common": "workspace:*",
-    "@docsearch/react": "^5.1.2",
+    "@docsearch/react": "^5.2.0",
     "@docusaurus/core": "^3.10.2",
     "@docusaurus/faster": "^3.10.2",
     "@docusaurus/preset-classic": "^3.10.2",
@@ -34,13 +34,13 @@
     "@docusaurus/theme-common": "^3.10.2",
     "@docusaurus/theme-search-algolia": "^3.10.2",
     "@mdx-js/react": "^3.1.1",
-    "bootstrap": "^5.3.8",
+    "bootstrap": "^5.3.9",
     "docusaurus-plugin-sass": "^0.2.7",
     "prism-react-renderer": "^2.4.1",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "shiki": "^4.5.0",
-    "unist-util-visit": "^5.1.0"
+    "shiki": "^4.6.0",
+    "unist-util-visit": "^5.2.0"
   },
   "devDependencies": {
     "@cursorless/lib-common": "workspace:*",
@@ -51,7 +51,7 @@
     "@types/mocha": "^10.0.10",
     "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
-    "sass": "^1.105.2",
+    "sass": "^1.108.2",
     "typescript": "^7.0.2",
     "unified": "^11.0.5"
   }

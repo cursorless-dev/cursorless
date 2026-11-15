@@ -14,15 +14,15 @@
   "dependencies": {
     "@cursorless/lib-cheatsheet": "workspace:*",
     "@cursorless/lib-common": "workspace:*",
-    "bootstrap": "^5.3.8",
-    "preact": "^11.0.1",
+    "bootstrap": "^5.3.9",
+    "preact": "^11.2.0",
     "react-player": "^3.4.0",
     "wouter-preact": "^3.13.0"
   },
   "devDependencies": {
     "@types/node": "^26.6.6",
     "typescript": "^7.0.2",
-    "vite": "^8.3.4",
+    "vite": "^8.3.8",
     "vite-plugin-purgecss": "^0.2.13",
     "vite-plugin-svgr": "^5.2.0"
   }

@@ -15,12 +15,12 @@
   },
   "dependencies": {
     "@cursorless/lib-common": "workspace:*",
-    "bootstrap": "^5.3.8",
-    "preact": "^11.0.1"
+    "bootstrap": "^5.3.9",
+    "preact": "^11.2.0"
   },
   "devDependencies": {
     "@types/vscode-webview": "^1.57.5",
-    "vite": "^8.3.4",
+    "vite": "^8.3.8",
     "vite-plugin-purgecss": "^0.2.13"
   }
 }
