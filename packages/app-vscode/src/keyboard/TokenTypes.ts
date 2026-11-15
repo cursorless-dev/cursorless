@@ -66,7 +66,7 @@ export interface TokenTypeValueMap {
 
   // action config section
   simpleAction: SimpleKeyboardActionDescriptor;
-  wrap: SpecificKeyboardActionDescriptor<"wrap">;
+  wrap: SpecificKeyboardActionDescriptor<"wrap" | "rewrap">;
 
   // misc config section
   targetingMode: "makeRange" | "makeVerticalRange" | "makeList";

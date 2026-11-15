@@ -165,6 +165,22 @@ const testCases: TestCase[] = [
   {
     tokens: [
       {
+        type: "wrap",
+        value: { actionId: "rewrap", exitCursorlessMode: false },
+      },
+      { type: "pairedDelimiter", value: "parentheses" },
+    ],
+    expected: {
+      arg: {
+        actionDescriptor: { actionId: "rewrap", exitCursorlessMode: false },
+        delimiter: "parentheses",
+      },
+      type: "performWrapActionOnTarget",
+    },
+  },
+  {
+    tokens: [
+      {
         type: "vscodeCommand",
         value: "workbench.action.editor.changeLanguageMode",
       },

@@ -49,7 +49,7 @@ export function getTokenTypeKeyMaps(
       transformActionDescriptor(value, simpleKeyboardActionNames),
     ),
     wrap: config.getTokenKeyMap("wrap", "action", (value) =>
-      transformActionDescriptor(value, ["wrap"]),
+      transformActionDescriptor(value, ["wrap", "rewrap"]),
     ),
 
     // misc config section
