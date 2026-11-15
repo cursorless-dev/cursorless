@@ -20,7 +20,7 @@
     "wouter-preact": "^3.13.0"
   },
   "devDependencies": {
-    "@types/node": "^24.19.2",
+    "@types/node": "^26.6.6",
     "typescript": "^7.0.2",
     "vite": "^8.3.4",
     "vite-plugin-purgecss": "^0.2.13",
