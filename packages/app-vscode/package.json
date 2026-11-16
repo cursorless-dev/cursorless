@@ -971,7 +971,6 @@
                   "revealDefinition",
                   "revealTypeDefinition",
                   "reverseTargets",
-                  "rewrapWithPairedDelimiter",
                   "scrollToBottom",
                   "scrollToCenter",
                   "scrollToTop",
@@ -987,7 +986,8 @@
                   "toggleLineBreakpoint",
                   "toggleLineComment",
                   "unfoldRegion",
-                  "wrap"
+                  "wrap",
+                  "rewrap"
                 ]
               },
               {
@@ -1048,7 +1048,8 @@
                       "toggleLineBreakpoint",
                       "toggleLineComment",
                       "unfoldRegion",
-                      "wrap"
+                      "wrap",
+                      "rewrap"
                     ],
                     "description": "The cursorless command to run"
                   },

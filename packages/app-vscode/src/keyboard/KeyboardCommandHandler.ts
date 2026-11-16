@@ -7,6 +7,7 @@ import type {
 } from "@cursorless/lib-common";
 import { pairedDelimiterReferences } from "@cursorless/lib-common";
 import type { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
+import { getPairedDelimiterCommandName } from "./getPairedDelimiterCommandName";
 import type {
   SimpleKeyboardActionDescriptor,
   SpecificKeyboardActionDescriptor,
@@ -93,7 +94,7 @@ export class KeyboardCommandHandler {
     }
     await this.targeted.performActionOnTarget(
       (target) => ({
-        name: "wrapWithPairedDelimiter",
+        name: getPairedDelimiterCommandName(actionDescriptor.actionId),
         target,
         left: delimiters[0],
         right: delimiters[1],
@@ -132,6 +133,6 @@ interface DecoratedMarkArg {
 }
 
 interface WrapActionArg {
-  actionDescriptor: SpecificKeyboardActionDescriptor<"wrap">;
+  actionDescriptor: SpecificKeyboardActionDescriptor<"wrap" | "rewrap">;
   delimiter: SurroundingPairName;
 }

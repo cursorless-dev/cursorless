@@ -188,7 +188,6 @@ export class KeyboardCommandsTargeted {
     return this.performActionOnTarget(
       (target) => {
         switch (name) {
-          case "rewrapWithPairedDelimiter":
           case "insertSnippet":
           case "executeCommand":
           case "replace":

@@ -3,16 +3,18 @@ import { actionNames } from "@cursorless/lib-common";
 
 // This file contains types defining the allowable identifiers for actions in
 // user keyboard config settings. It is a modified version of the default action
-// identifiers from @cursorless/lib-common, with the addition of the "wrap" action
-// that is designed to function like the "wrap" spoken form (ie use the same spoken
-// form for both snippet and delimiter wrapping).
+// identifiers from @cursorless/lib-common, with the addition of the "wrap" and
+// "rewrap" actions that are designed to function like the "wrap" and "rewrap"
+// spoken forms (ie use the same spoken form for both snippet and delimiter
+// wrapping).
 
-const extraKeyboardActionNames = ["wrap"] as const;
+const extraKeyboardActionNames = ["wrap", "rewrap"] as const;
 const excludedKeyboardActionNames = [
   "wrapWithPairedDelimiter",
+  "rewrapWithPairedDelimiter",
   "wrapWithSnippet",
 ] as const;
-const complexKeyboardActionTypes = ["wrap"] as const;
+const complexKeyboardActionTypes = ["wrap", "rewrap"] as const;
 
 type ExtraKeyboardActionType = (typeof extraKeyboardActionNames)[number];
 type ExcludedKeyboardActionType = (typeof excludedKeyboardActionNames)[number];
