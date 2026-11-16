@@ -7,6 +7,7 @@ import type {
 } from "@cursorless/lib-common";
 import { pairedDelimiterReferences } from "@cursorless/lib-common";
 import type { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
+import { getPairedDelimiterCommandName } from "./getPairedDelimiterCommandName";
 import type {
   SimpleKeyboardActionDescriptor,
   SpecificKeyboardActionDescriptor,
@@ -15,7 +16,6 @@ import type {
   TargetingMode,
   KeyboardCommandsTargeted,
 } from "./KeyboardCommandsTargeted";
-import { getPairedDelimiterCommandName } from "./getPairedDelimiterCommandName";
 import type { ModalVscodeCommandDescriptor } from "./TokenTypes";
 
 /**
