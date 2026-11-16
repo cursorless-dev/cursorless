@@ -1,0 +1,10 @@
+fn someFunk() void {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:21
+  >---------------------<
+0| fn someFunk() void {}
+
+[Insertion delimiter] = "\n\n"
