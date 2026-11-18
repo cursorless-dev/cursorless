@@ -1,0 +1,31 @@
+languageId: elixir
+command:
+  version: 6
+  spokenForm: chuck inside funk
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: namedFunction}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    defmacro macro(x) do
+      quote do
+        [unquote(x)]
+      end
+    end
+  selections:
+    - anchor: {line: 2, character: 16}
+      active: {line: 2, character: 16}
+  marks: {}
+finalState:
+  documentContents: |-
+    defmacro macro(x) do
+    end
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

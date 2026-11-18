@@ -1,0 +1,22 @@
+languageId: elixir
+command:
+  version: 6
+  spokenForm: change funk
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: namedFunction}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    a x do
+      x
+    end
+  selections:
+    - anchor: {line: 1, character: 3}
+      active: {line: 1, character: 3}
+  marks: {}
+thrownError: {name: NoContainingScopeError}
