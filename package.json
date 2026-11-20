@@ -58,6 +58,11 @@
       "@swc/helpers": "^0.5.17",
       "@yarnpkg/shell>cross-spawn": "7.0.6"
     },
+    "onlyBuiltDependencies": [
+      "core-js",
+      "core-js-pure",
+      "esbuild"
+    ]
     "peerDependencyRules": {
       "allowedVersions": {
         "@pnpm/lockfile-file>@pnpm/logger": "^1001.0.1",
